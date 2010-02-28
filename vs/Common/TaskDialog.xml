@@ -1,0 +1,1562 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TaskDialog</name>
+    </assembly>
+    <members>
+        <member name="F:TaskDialog.EmulateExpInfoButton.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateExpInfoButton.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:TaskDialog.EmulateExpInfoButton.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogNotificationArgs">
+            <summary>
+            Arguments passed to the TaskDialog callback.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.notification">
+            <summary>
+            What the TaskDialog callback is a notification of.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.buttonId">
+            <summary>
+            The button ID if the notification is about a button. This a DialogResult
+            value or the ButtonID member of a TaskDialogButton set in the
+            TaskDialog.Buttons or TaskDialog.RadioButtons members.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.hyperlink">
+            <summary>
+            The HREF string of the hyperlink the notification is about.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.timerTickCount">
+            <summary>
+            The number of milliseconds since the dialog was opened or the last time the
+            callback for a timer notification reset the value by returning true.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.verificationFlagChecked">
+            <summary>
+            The state of the verification flag when the notification is about the verification flag.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotificationArgs.expanded">
+            <summary>
+            The state of the dialog expando when the notification is about the expando.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.Notification">
+            <summary>
+            What the TaskDialog callback is a notification of.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.ButtonId">
+            <summary>
+            The button ID if the notification is about a button. This a DialogResult
+            value or the ButtonID member of a TaskDialogButton set in the
+            TaskDialog.Buttons member.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.Hyperlink">
+            <summary>
+            The HREF string of the hyperlink the notification is about.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.TimerTickCount">
+            <summary>
+            The number of milliseconds since the dialog was opened or the last time the
+            callback for a timer notification reset the value by returning true.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.VerificationFlagChecked">
+            <summary>
+            The state of the verification flag when the notification is about the verification flag.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogNotificationArgs.Expanded">
+            <summary>
+            The state of the dialog expando when the notification is about the expando.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogCallback">
+            <summary>
+            The signature of the callback that recieves notificaitons from the Task Dialog.
+            </summary>
+            <param name="taskDialog">The active task dialog which has methods that can be performed on an active Task Dialog.</param>
+            <param name="args">The notification arguments including the type of notification and information for the notification.</param>
+            <param name="callbackData">The value set on TaskDialog.CallbackData</param>
+            <returns>Return value meaning varies depending on the Notification member of args.</returns>
+        </member>
+        <member name="T:TaskDialog.TaskDialogCommonButtons">
+            <summary>
+            The TaskDialog common button flags used to specify the builtin bottons to show in the TaskDialog.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.None">
+            <summary>
+            No common buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.Ok">
+            <summary>
+            OK common button. If selected Task Dialog will return DialogResult.OK.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.Yes">
+            <summary>
+            Yes common button. If selected Task Dialog will return DialogResult.Yes.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.No">
+            <summary>
+            No common button. If selected Task Dialog will return DialogResult.No.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.Cancel">
+            <summary>
+            Cancel common button. If selected Task Dialog will return DialogResult.Cancel.
+            If this button is specified, the dialog box will respond to typical cancel actions (Alt-F4 and Escape).
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.Retry">
+            <summary>
+            Retry common button. If selected Task Dialog will return DialogResult.Retry.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonButtons.Close">
+            <summary>
+            Close common button. If selected Task Dialog will return this value.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogIcon">
+            <summary>
+            The System icons the TaskDialog supports.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogIcon.None">
+            <summary>
+            No Icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogIcon.Warning">
+            <summary>
+            System warning icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogIcon.Error">
+            <summary>
+            System Error icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogIcon.Information">
+            <summary>
+            System Information icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogIcon.Shield">
+            <summary>
+            Shield icon.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogNotification">
+            <summary>
+            Task Dialog callback notifications. 
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.Created">
+            <summary>
+            Sent by the Task Dialog once the dialog has been created and before it is displayed.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.ButtonClicked">
+            <summary>
+            Sent by the Task Dialog when the user selects a button or command link in the task dialog.
+            The button ID corresponding to the button selected will be available in the
+            TaskDialogNotificationArgs. To prevent the Task Dialog from closing, the application must
+            return true, otherwise the Task Dialog will be closed and the button ID returned to via
+            the original application call.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.HyperlinkClicked">
+            <summary>
+            Sent by the Task Dialog when the user clicks on a hyperlink in the Task Dialog’s content.
+            The string containing the HREF of the hyperlink will be available in the
+            TaskDialogNotificationArgs. To prevent the TaskDialog from shell executing the hyperlink,
+            the application must return TRUE, otherwise ShellExecute will be called.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.Timer">
+            <summary>
+            Sent by the Task Dialog approximately every 200 milliseconds when TaskDialog.CallbackTimer
+            has been set to true. The number of milliseconds since the dialog was created or the
+            notification returned true is available on the TaskDialogNotificationArgs. To reset
+            the tickcount, the application must return true, otherwise the tickcount will continue to
+            increment.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.Destroyed">
+            <summary>
+            Sent by the Task Dialog when it is destroyed and its window handle no longer valid.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.RadioButtonClicked">
+            <summary>
+            Sent by the Task Dialog when the user selects a radio button in the task dialog.
+            The button ID corresponding to the button selected will be available in the
+            TaskDialogNotificationArgs.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.DialogConstructed">
+            <summary>
+            Sent by the Task Dialog once the dialog has been constructed and before it is displayed.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.VerificationClicked">
+            <summary>
+            Sent by the Task Dialog when the user checks or unchecks the verification checkbox.
+            The verificationFlagChecked value is available on the TaskDialogNotificationArgs.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.Help">
+            <summary>
+            Sent by the Task Dialog when the user presses F1 on the keyboard while the dialog has focus.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogNotification.ExpandoButtonClicked">
+            <summary>
+            Sent by the task dialog when the user clicks on the dialog's expando button.
+            The expanded value is available on the TaskDialogNotificationArgs.
+            The value returned by the callback is ignored.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.ProgressBarState">
+            <summary>
+            Progress bar state.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.ProgressBarState.Normal">
+            <summary>
+            Normal.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.ProgressBarState.Error">
+            <summary>
+            Error state.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.ProgressBarState.Paused">
+            <summary>
+            Paused state.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogButton">
+            <summary>
+            A custom button for the TaskDialog.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogButton.buttonId">
+            <summary>
+            The ID of the button. This value is returned by TaskDialog.Show when the button is clicked.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogButton.buttonText">
+            <summary>
+            The string that appears on the button.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialogButton.#ctor(System.Int32,System.String)">
+            <summary>
+            Initialize the custom button.
+            </summary>
+            <param name="id">The ID of the button. This value is returned by TaskDialog.Show when
+            the button is clicked. Typically this will be a value in the DialogResult enum.</param>
+            <param name="text">The string that appears on the button.</param>
+        </member>
+        <member name="P:TaskDialog.TaskDialogButton.ButtonId">
+            <summary>
+            The ID of the button. This value is returned by TaskDialog.Show when the button is clicked.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogButton.ButtonText">
+            <summary>
+            The string that appears on the button.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialog">
+            <summary>
+            A Task Dialog. This is like a MessageBox but with many more features. TaskDialog requires Windows Longhorn or later.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.windowTitle">
+            <summary>
+            The string to be used for the dialog box title. If this parameter is NULL, the filename of the executable program is used.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.mainInstruction">
+            <summary>
+            The string to be used for the main instruction.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.content">
+            <summary>
+            The string to be used for the dialog’s primary content. If the EnableHyperlinks member is true,
+            then this string may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>. 
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.commonButtons">
+            <summary>
+            Specifies the push buttons displayed in the dialog box.  This parameter may be a combination of flags.
+            If no common buttons are specified and no custom buttons are specified using the Buttons member, the
+            dialog box will contain the OK button by default.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.mainIcon">
+            <summary>
+            Specifies a built in icon for the main icon in the dialog. If this is set to none
+            and the CustomMainIcon is null then no main icon will be displayed.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.customMainIcon">
+            <summary>
+            Specifies a custom in icon for the main icon in the dialog. If this is set to none
+            and the CustomMainIcon member is null then no main icon will be displayed.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.footerIcon">
+            <summary>
+            Specifies a built in icon for the icon to be displayed in the footer area of the
+            dialog box. If this is set to none and the CustomFooterIcon member is null then no
+            footer icon will be displayed.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.customFooterIcon">
+            <summary>
+            Specifies a custom icon for the icon to be displayed in the footer area of the
+            dialog box. If this is set to none and the CustomFooterIcon member is null then no
+            footer icon will be displayed.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.buttons">
+            <summary>
+            Specifies the custom push buttons to display in the dialog. Use CommonButtons member for
+            common buttons; OK, Yes, No, Retry and Cancel, and Buttons when you want different text
+            on the push buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.radioButtons">
+            <summary>
+            Specifies the radio buttons to display in the dialog.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.flags">
+            <summary>
+            The flags passed to TaskDialogIndirect.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.defaultButton">
+            <summary>
+            Indicates the default button for the dialog. This may be any of the values specified
+            in ButtonId members of one of the TaskDialogButton structures in the Buttons array,
+            or one a DialogResult value that corresponds to a buttons specified in the CommonButtons Member.
+            If this member is zero or its value does not correspond to any button ID in the dialog,
+            then the first button in the dialog will be the default. 
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.defaultRadioButton">
+            <summary>
+            Indicates the default radio button for the dialog. This may be any of the values specified
+            in ButtonId members of one of the TaskDialogButton structures in the RadioButtons array.
+            If this member is zero or its value does not correspond to any radio button ID in the dialog,
+            then the first button in RadioButtons will be the default.
+            The property NoDefaultRadioButton can be set to have no default.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.verificationText">
+            <summary>
+            The string to be used to label the verification checkbox. If this member is null, the
+            verification checkbox is not displayed in the dialog box.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.expandedInformation">
+            <summary>
+            The string to be used for displaying additional information. The additional information is
+            displayed either immediately below the content or below the footer text depending on whether
+            the ExpandFooterArea member is true. If the EnableHyperlinks member is true, then this string
+            may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>.
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.expandedControlText">
+            <summary>
+            The string to be used to label the button for collapsing the expanded information. This
+            member is ignored when the ExpandedInformation member is null. If this member is null
+            and the CollapsedControlText is specified, then the CollapsedControlText value will be
+            used for this member as well.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.collapsedControlText">
+            <summary>
+            The string to be used to label the button for expanding the expanded information. This
+            member is ignored when the ExpandedInformation member is null.  If this member is null
+            and the ExpandedControlText is specified, then the ExpandedControlText value will be
+            used for this member as well.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.footer">
+            <summary>
+            The string to be used in the footer area of the dialog box. If the EnableHyperlinks member
+            is true, then this string may contain hyperlinks in the form: <A HREF="executablestring">
+            Hyperlink Text</A>.
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.callback">
+            <summary>
+            The callback that receives messages from the Task Dialog when various events occur.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.callbackData">
+            <summary>
+            Reference that is passed to the callback.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialog.width">
+            <summary>
+            Specifies the width of the Task Dialog’s client area in DLU’s. If 0, Task Dialog will calculate the ideal width.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.#ctor">
+            <summary>
+            Creates a default Task Dialog.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Reset">
+            <summary>
+            Resets the Task Dialog to the state when first constructed, all properties set to their default value.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="owner">Owner window the task Dialog will modal to.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.IntPtr)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="hwndOwner">Owner window the task Dialog will modal to.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.Windows.Forms.IWin32Window,System.Boolean@)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="owner">Owner window the task Dialog will modal to.</param>
+            <param name="verificationFlagChecked">Returns true if the verification checkbox was checked when the dialog
+            was dismissed.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.IntPtr,System.Boolean@)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="hwndOwner">Owner window the task Dialog will modal to.</param>
+            <param name="verificationFlagChecked">Returns true if the verification checkbox was checked when the dialog
+            was dismissed.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.Windows.Forms.IWin32Window,System.Boolean@,System.Int32@)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="owner">Owner window the task Dialog will modal to.</param>
+            <param name="verificationFlagChecked">Returns true if the verification checkbox was checked when the dialog
+            was dismissed.</param>
+            <param name="radioButtonResult">The radio botton selected by the user.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.Show(System.IntPtr,System.Boolean@,System.Int32@)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="hwndOwner">Owner window the task Dialog will modal to.</param>
+            <param name="verificationFlagChecked">Returns true if the verification checkbox was checked when the dialog
+            was dismissed.</param>
+            <param name="radioButtonResult">The radio botton selected by the user.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.PrivateShow(System.IntPtr,System.Boolean@,System.Int32@)">
+            <summary>
+            Creates, displays, and operates a task dialog. The task dialog contains application-defined messages, title,
+            verification check box, command links and push buttons, plus any combination of predefined icons and push buttons
+            as specified on the other members of the class before calling Show.
+            </summary>
+            <param name="hwndOwner">Owner window the task Dialog will modal to.</param>
+            <param name="verificationFlagChecked">Returns true if the verification checkbox was checked when the dialog
+            was dismissed.</param>
+            <param name="radioButtonResult">The radio botton selected by the user.</param>
+            <returns>The result of the dialog, either a DialogResult value for common push buttons set in the CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the Buttons member.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.PrivateCallback(System.IntPtr,System.UInt32,System.UIntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            The callback from the native Task Dialog. This prepares the friendlier arguments and calls the simplier callback.
+            </summary>
+            <param name="hwnd">The window handle of the Task Dialog that is active.</param>
+            <param name="msg">The notification. A TaskDialogNotification value.</param>
+            <param name="wparam">Specifies additional noitification information.  The contents of this parameter depends on the value of the msg parameter.</param>
+            <param name="lparam">Specifies additional noitification information.  The contents of this parameter depends on the value of the msg parameter.</param>
+            <param name="refData">Specifies the application-defined value given in the call to TaskDialogIndirect.</param>
+            <returns>A HRESULT. It's not clear in the spec what a failed result will do.</returns>
+        </member>
+        <member name="M:TaskDialog.TaskDialog.SetFlag(TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS,System.Boolean)">
+            <summary>
+            Helper function to set or clear a bit in the flags field.
+            </summary>
+            <param name="flag">The Flag bit to set or clear.</param>
+            <param name="value">True to set, false to clear the bit in the flags field.</param>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.IsAvailable">
+            <summary>
+            Returns true if the current operating system supports TaskDialog. If false TaskDialog.Show should not
+            be called as the results are undefined but often results in a crash.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.RequiredOSVersion">
+            <summary>
+            The minimum Windows version needed to support TaskDialog.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.WindowTitle">
+            <summary>
+            The string to be used for the dialog box title. If this parameter is NULL, the filename of the executable program is used.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.MainInstruction">
+            <summary>
+            The string to be used for the main instruction.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.Content">
+            <summary>
+            The string to be used for the dialog’s primary content. If the EnableHyperlinks member is true,
+            then this string may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>. 
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CommonButtons">
+            <summary>
+            Specifies the push buttons displayed in the dialog box. This parameter may be a combination of flags.
+            If no common buttons are specified and no custom buttons are specified using the Buttons member, the
+            dialog box will contain the OK button by default.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.MainIcon">
+            <summary>
+            Specifies a built in icon for the main icon in the dialog. If this is set to none
+            and the CustomMainIcon is null then no main icon will be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CustomMainIcon">
+            <summary>
+            Specifies a custom in icon for the main icon in the dialog. If this is set to none
+            and the CustomMainIcon member is null then no main icon will be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.FooterIcon">
+            <summary>
+            Specifies a built in icon for the icon to be displayed in the footer area of the
+            dialog box. If this is set to none and the CustomFooterIcon member is null then no
+            footer icon will be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CustomFooterIcon">
+            <summary>
+            Specifies a custom icon for the icon to be displayed in the footer area of the
+            dialog box. If this is set to none and the CustomFooterIcon member is null then no
+            footer icon will be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.Buttons">
+            <summary>
+            Specifies the custom push buttons to display in the dialog. Use CommonButtons member for
+            common buttons; OK, Yes, No, Retry and Cancel, and Buttons when you want different text
+            on the push buttons.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.RadioButtons">
+            <summary>
+            Specifies the radio buttons to display in the dialog.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.EnableHyperlinks">
+            <summary>
+            Enables hyperlink processing for the strings specified in the Content, ExpandedInformation
+            and FooterText members. When enabled, these members may be strings that contain hyperlinks
+            in the form: <A HREF="executablestring">Hyperlink Text</A>. 
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            Note: Task Dialog will not actually execute any hyperlinks. Hyperlink execution must be handled
+            in the callback function specified by Callback member.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.AllowDialogCancellation">
+            <summary>
+            Indicates that the dialog should be able to be closed using Alt-F4, Escape and the title bar’s
+            close button even if no cancel button is specified in either the CommonButtons or Buttons members.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.UseCommandLinks">
+            <summary>
+            Indicates that the buttons specified in the Buttons member should be displayed as command links
+            (using a standard task dialog glyph) instead of push buttons.  When using command links, all
+            characters up to the first new line character in the ButtonText member (of the TaskDialogButton
+            structure) will be treated as the command link’s main text, and the remainder will be treated
+            as the command link’s note. This flag is ignored if the Buttons member has no entires.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.UseCommandLinksNoIcon">
+            <summary>
+            Indicates that the buttons specified in the Buttons member should be displayed as command links
+            (without a glyph) instead of push buttons. When using command links, all characters up to the
+            first new line character in the ButtonText member (of the TaskDialogButton structure) will be
+            treated as the command link’s main text, and the remainder will be treated as the command link’s
+            note. This flag is ignored if the Buttons member has no entires.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ExpandFooterArea">
+            <summary>
+            Indicates that the string specified by the ExpandedInformation member should be displayed at the
+            bottom of the dialog’s footer area instead of immediately after the dialog’s content. This flag
+            is ignored if the ExpandedInformation member is null.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ExpandedByDefault">
+            <summary>
+            Indicates that the string specified by the ExpandedInformation member should be displayed
+            when the dialog is initially displayed. This flag is ignored if the ExpandedInformation member
+            is null.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.VerificationFlagChecked">
+            <summary>
+            Indicates that the verification checkbox in the dialog should be checked when the dialog is
+            initially displayed. This flag is ignored if the VerificationText parameter is null.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ShowProgressBar">
+            <summary>
+            Indicates that a Progress Bar should be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ShowMarqueeProgressBar">
+            <summary>
+            Indicates that an Marquee Progress Bar should be displayed.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CallbackTimer">
+            <summary>
+            Indicates that the TaskDialog’s callback should be called approximately every 200 milliseconds.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.PositionRelativeToWindow">
+            <summary>
+            Indicates that the TaskDialog should be positioned (centered) relative to the owner window
+            passed when calling Show. If not set (or no owner window is passed), the TaskDialog is
+            positioned (centered) relative to the monitor.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.RightToLeftLayout">
+            <summary>
+            Indicates that the TaskDialog should have right to left layout.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.NoDefaultRadioButton">
+            <summary>
+            Indicates that the TaskDialog should have no default radio button.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CanBeMinimized">
+            <summary>
+            Indicates that the TaskDialog can be minimised. Works only if there if parent window is null. Will enable cancellation also.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.DefaultButton">
+            <summary>
+            Indicates the default button for the dialog. This may be any of the values specified
+            in ButtonId members of one of the TaskDialogButton structures in the Buttons array,
+            or one a DialogResult value that corresponds to a buttons specified in the CommonButtons Member.
+            If this member is zero or its value does not correspond to any button ID in the dialog,
+            then the first button in the dialog will be the default. 
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.DefaultRadioButton">
+            <summary>
+            Indicates the default radio button for the dialog. This may be any of the values specified
+            in ButtonId members of one of the TaskDialogButton structures in the RadioButtons array.
+            If this member is zero or its value does not correspond to any radio button ID in the dialog,
+            then the first button in RadioButtons will be the default.
+            The property NoDefaultRadioButton can be set to have no default.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.VerificationText">
+            <summary>
+            The string to be used to label the verification checkbox. If this member is null, the
+            verification checkbox is not displayed in the dialog box.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ExpandedInformation">
+            <summary>
+            The string to be used for displaying additional information. The additional information is
+            displayed either immediately below the content or below the footer text depending on whether
+            the ExpandFooterArea member is true. If the EnameHyperlinks member is true, then this string
+            may contain hyperlinks in the form: <A HREF="executablestring">Hyperlink Text</A>.
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.ExpandedControlText">
+            <summary>
+            The string to be used to label the button for collapsing the expanded information. This
+            member is ignored when the ExpandedInformation member is null. If this member is null
+            and the CollapsedControlText is specified, then the CollapsedControlText value will be
+            used for this member as well.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CollapsedControlText">
+            <summary>
+            The string to be used to label the button for expanding the expanded information. This
+            member is ignored when the ExpandedInformation member is null.  If this member is null
+            and the ExpandedControlText is specified, then the ExpandedControlText value will be
+            used for this member as well.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.Footer">
+            <summary>
+            The string to be used in the footer area of the dialog box. If the EnableHyperlinks member
+            is true, then this string may contain hyperlinks in the form: <A HREF="executablestring">
+            Hyperlink Text</A>.
+            WARNING: Enabling hyperlinks when using content from an unsafe source may cause security vulnerabilities.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.Width">
+            <summary>
+            width of the Task Dialog's client area in DLU's. If 0, Task Dialog will calculate the ideal width.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.Callback">
+            <summary>
+            The callback that receives messages from the Task Dialog when various events occur.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialog.CallbackData">
+            <summary>
+            Reference that is passed to the callback.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.EmulateTaskDialog">
+            <summary>
+            Tries to emulate the Task Dialog. Form will be called when the call to
+            Task Dialog is not supported.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.BuildControlButton(System.Int32,System.String)">
+            <summary>
+            Creates a standard button with a common event handler to close the
+            the form and return the button's Id.
+            </summary>
+            <param name="tag">The button's Id.</param>
+            <param name="text">The button's name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.BuildControlLinkLabel(System.Windows.Forms.Padding,System.String)">
+            <summary>
+            Creates a standard link label and will convert any anchor links to
+            a proper link.
+            </summary>
+            <param name="margin">The margin of the link label.</param>
+            <param name="text">The text of the link label.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.BuildForm">
+            <summary>
+            Main entry method to build the form.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.CloseForm">
+            <summary>
+            Closes the form and populate the necessary return results.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.ParseLinkLabel(System.Windows.Forms.LinkLabel)">
+            <summary>
+            Parses a LinkLabel text and extract out all the anchor (a) tags.
+            Then it will parse all the anchor tags and create the relevant
+            links in the text.
+            </summary>
+            <param name="linkLabel"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.ToString">
+            <summary>
+            This will return the formatted contents of the form. Useful when
+            the user press "ctrl + c" on the form.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.EmulateTaskDialog_KeyDown(System.Object,System.Windows.Forms.KeyEventArgs)">
+            <summary>
+            Detect user pressing "ctrl + c".
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="F:TaskDialog.EmulateTaskDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:TaskDialog.EmulateTaskDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.TaskDialogCommonDialog">
+            <summary>
+            TaskDialog wrapped in a CommonDialog class. This is required to work well in
+            MMC 3.0. In MMC 3.0 you must use the ShowDialog methods on the MMC classes to
+            correctly show a modal dialog. This class will allow you to do this and keep access
+            to the results of the TaskDialog.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonDialog.taskDialog">
+            <summary>
+            The TaskDialog we will display.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonDialog.taskDialogResult">
+            <summary>
+            The result of the dialog, either a DialogResult value for common push buttons set in the TaskDialog.CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the TaskDialog.Buttons member.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.TaskDialogCommonDialog.verificationFlagCheckedResult">
+            <summary>
+            The verification flag result of the dialog. True if the verification checkbox was checked when the dialog
+            was dismissed.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialogCommonDialog.#ctor(TaskDialog.TaskDialog)">
+            <summary>
+            TaskDialog wrapped in a CommonDialog class. THis is required to work well in
+            MMC 2.1. In MMC 2.1 you must use the ShowDialog methods on the MMC classes to
+            correctly show a modal dialog. This class will allow you to do this and keep access
+            to the results of the TaskDialog.
+            </summary>
+            <param name="taskDialog">The TaskDialog to show.</param>
+        </member>
+        <member name="M:TaskDialog.TaskDialogCommonDialog.Reset">
+            <summary>
+            Reset the common dialog.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.TaskDialogCommonDialog.RunDialog(System.IntPtr)">
+            <summary>
+            The required implementation of CommonDialog that shows the Task Dialog.
+            </summary>
+            <param name="hwndOwner">Owner window. This can be null.</param>
+            <returns>If this method returns true, then ShowDialog will return DialogResult.OK.
+            If this method returns false, then ShowDialog will return DialogResult.Cancel. The
+            user of this class must use the TaskDialogResult member to get more information.
+            </returns>
+        </member>
+        <member name="P:TaskDialog.TaskDialogCommonDialog.TaskDialog">
+            <summary>
+            The TaskDialog to show.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogCommonDialog.TaskDialogResult">
+            <summary>
+            The result of the dialog, either a DialogResult value for common push buttons set in the TaskDialog.CommonButtons
+            member or the ButtonID from a TaskDialogButton structure set on the TaskDialog.Buttons member.
+            </summary>
+        </member>
+        <member name="P:TaskDialog.TaskDialogCommonDialog.VerificationFlagCheckedResult">
+            <summary>
+            The verification flag result of the dialog. True if the verification checkbox was checked when the dialog
+            was dismissed.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.EmulateCommandLink.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.EmulateCommandLink.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:TaskDialog.EmulateCommandLink.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods">
+            <summary>
+            Class to hold native code interop declarations.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.WM_USER">
+            <summary>
+            WM_USER taken from WinUser.h
+            </summary>
+        </member>
+        <member name="M:TaskDialog.UnsafeNativeMethods.TaskDialogIndirect(TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG@,System.Int32@,System.Int32@,System.Boolean@)">
+            <summary>
+            TaskDialogIndirect taken from commctl.h
+            </summary>
+            <param name="pTaskConfig">All the parameters about the Task Dialog to Show.</param>
+            <param name="pnButton">The push button pressed.</param>
+            <param name="pnRadioButton">The radio button that was selected.</param>
+            <param name="pfVerificationFlagChecked">The state of the verification checkbox on dismiss of the Task Dialog.</param>
+        </member>
+        <member name="M:TaskDialog.UnsafeNativeMethods.SendMessage(System.IntPtr,System.UInt32,System.IntPtr,System.IntPtr)">
+            <summary>
+            Win32 SendMessage.
+            </summary>
+            <param name="hWnd">Window handle to send to.</param>
+            <param name="Msg">The windows message to send.</param>
+            <param name="wParam">Specifies additional message-specific information.</param>
+            <param name="lParam">Specifies additional message-specific information.</param>
+            <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
+        </member>
+        <member name="M:TaskDialog.UnsafeNativeMethods.SendMessageWithString(System.IntPtr,System.UInt32,System.IntPtr,System.String)">
+            <summary>
+            Win32 SendMessage.
+            </summary>
+            <param name="hWnd">Window handle to send to.</param>
+            <param name="Msg">The windows message to send.</param>
+            <param name="wParam">Specifies additional message-specific information.</param>
+            <param name="lParam">Specifies additional message-specific information as a string.</param>
+            <returns>The return value specifies the result of the message processing; it depends on the message sent.</returns>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TaskDialogCallback">
+            <summary>
+            The signature of the callback that receives messages from the Task Dialog when various events occur.
+            </summary>
+            <param name="hwnd">The window handle of the </param>
+            <param name="msg">The message being passed.</param>
+            <param name="wParam">wParam which is interpreted differently depending on the message.</param>
+            <param name="lParam">wParam which is interpreted differently depending on the message.</param>
+            <param name="refData">The refrence data that was set to TaskDialog.CallbackData.</param>
+            <returns>A HRESULT value. The return value is specific to the message being processed. </returns>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS">
+            <summary>
+            TASKDIALOG_FLAGS taken from CommCtrl.h.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_ENABLE_HYPERLINKS">
+            <summary>
+            Enable hyperlinks.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_USE_HICON_MAIN">
+            <summary>
+            Use icon handle for main icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_USE_HICON_FOOTER">
+            <summary>
+            Use icon handle for footer icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_ALLOW_DIALOG_CANCELLATION">
+            <summary>
+            Allow dialog to be cancelled, even if there is no cancel button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_USE_COMMAND_LINKS">
+            <summary>
+            Use command links rather than buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_USE_COMMAND_LINKS_NO_ICON">
+            <summary>
+            Use command links with no icons rather than buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_EXPAND_FOOTER_AREA">
+            <summary>
+            Show expanded info in the footer area.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_EXPANDED_BY_DEFAULT">
+            <summary>
+            Expand by default.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_VERIFICATION_FLAG_CHECKED">
+            <summary>
+            Start with verification flag already checked.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_SHOW_PROGRESS_BAR">
+            <summary>
+            Show a progress bar.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_SHOW_MARQUEE_PROGRESS_BAR">
+            <summary>
+            Show a marquee progress bar.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_CALLBACK_TIMER">
+            <summary>
+            Callback every 200 milliseconds.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_POSITION_RELATIVE_TO_WINDOW">
+            <summary>
+            Center the dialog on the owner window rather than the monitor.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_RTL_LAYOUT">
+            <summary>
+            Right to Left Layout.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_NO_DEFAULT_RADIO_BUTTON">
+            <summary>
+            No default radio button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_FLAGS.TDF_CAN_BE_MINIMIZED">
+            <summary>
+            Task Dialog can be minimized.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ELEMENTS">
+            <summary>
+            TASKDIALOG_ELEMENTS taken from CommCtrl.h
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ELEMENTS.TDE_CONTENT">
+            <summary>
+            The content element.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ELEMENTS.TDE_EXPANDED_INFORMATION">
+            <summary>
+            Expanded Information.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ELEMENTS.TDE_FOOTER">
+            <summary>
+            Footer.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ELEMENTS.TDE_MAIN_INSTRUCTION">
+            <summary>
+            Main Instructions
+            </summary>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ICON_ELEMENTS">
+            <summary>
+            TASKDIALOG_ICON_ELEMENTS taken from CommCtrl.h
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ICON_ELEMENTS.TDIE_ICON_MAIN">
+            <summary>
+            Main instruction icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_ICON_ELEMENTS.TDIE_ICON_FOOTER">
+            <summary>
+            Footer icon.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES">
+            <summary>
+            TASKDIALOG_MESSAGES taken from CommCtrl.h.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_CLICK_BUTTON">
+            <summary>
+            Click button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_MARQUEE_PROGRESS_BAR">
+            <summary>
+            Set Progress bar to be marquee mode.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_PROGRESS_BAR_STATE">
+            <summary>
+            Set Progress bar state.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_PROGRESS_BAR_RANGE">
+            <summary>
+            Set progress bar range.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_PROGRESS_BAR_POS">
+            <summary>
+            Set progress bar position.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_PROGRESS_BAR_MARQUEE">
+            <summary>
+            Set progress bar marquee (animation).
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_ELEMENT_TEXT">
+            <summary>
+            Set a text element of the Task Dialog.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_CLICK_RADIO_BUTTON">
+            <summary>
+            Click a radio button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_ENABLE_BUTTON">
+            <summary>
+            Enable or disable a button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_ENABLE_RADIO_BUTTON">
+            <summary>
+            Enable or disable a radio button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_CLICK_VERIFICATION">
+            <summary>
+            Check or uncheck the verfication checkbox.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_UPDATE_ELEMENT_TEXT">
+            <summary>
+            Update the text of an element (no effect if origially set as null).
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_SET_BUTTON_ELEVATION_REQUIRED_STATE">
+            <summary>
+            Designate whether a given Task Dialog button or command link should have a User Account Control (UAC) shield icon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOG_MESSAGES.TDM_UPDATE_ICON">
+            <summary>
+            Refreshes the icon of the task dialog.
+            </summary>
+        </member>
+        <member name="T:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG">
+            <summary>
+            TASKDIALOGCONFIG taken from commctl.h.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.cbSize">
+            <summary>
+            Size of the structure in bytes.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.hwndParent">
+            <summary>
+            Parent window handle.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.hInstance">
+            <summary>
+            Module instance handle for resources.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.dwFlags">
+            <summary>
+            Flags.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.dwCommonButtons">
+            <summary>
+            Bit flags for commonly used buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszWindowTitle">
+            <summary>
+            Window title.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.MainIcon">
+            <summary>
+            The Main icon. Overloaded member. Can be string, a handle, a special value or a resource ID.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszMainInstruction">
+            <summary>
+            Main Instruction.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszContent">
+            <summary>
+            Content.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.cButtons">
+            <summary>
+            Count of custom Buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pButtons">
+            <summary>
+            Array of custom buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.nDefaultButton">
+            <summary>
+            ID of default button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.cRadioButtons">
+            <summary>
+            Count of radio Buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pRadioButtons">
+            <summary>
+            Array of radio buttons.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.nDefaultRadioButton">
+            <summary>
+            ID of default radio button.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszVerificationText">
+            <summary>
+            Text for verification check box. often "Don't ask be again".
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszExpandedInformation">
+            <summary>
+            Expanded Information.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszExpandedControlText">
+            <summary>
+            Text for expanded control.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszCollapsedControlText">
+            <summary>
+            Text for expanded control.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.FooterIcon">
+            <summary>
+            Icon for the footer. An overloaded member link MainIcon.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pszFooter">
+            <summary>
+            Footer Text.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.pfCallback">
+            <summary>
+            Function pointer for callback.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.lpCallbackData">
+            <summary>
+            Data that will be passed to the call back.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.UnsafeNativeMethods.TASKDIALOGCONFIG.cxWidth">
+            <summary>
+            Width of the Task Dialog's area in DLU's.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.AdjustControls.GetBestSize(System.Drawing.Graphics,System.String,System.Drawing.Rectangle,System.Boolean)">
+            <summary>
+            Measure a multiline string
+            </summary>
+            <param name="gr">Graphics</param>
+            <param name="text">string to measure</param>
+            <param name="rect">Original rect. The width will be taken as fixed.</param>
+            <param name="textboxControl">True if you want to measure the string for a textbox control</param>
+            <returns>A Size object with the measure of the string according with the params</returns>
+        </member>
+        <member name="M:TaskDialog.AdjustControls.GetBestSize(System.Windows.Forms.Control,System.String,System.Drawing.Rectangle)">
+            <summary>
+            Measure a multiline string for a Control
+            
+            http://www.mobilepractices.com/2008/01/making-multiline-measurestring-work.html
+            </summary>
+            <param name="control">control</param>
+            <param name="text">string to measure</param>
+            <param name="rect">Original rect. The width will be taken as fixed.</param>
+            <returns>A Size object with the measure of the string according with the params</returns>
+        </member>
+        <member name="T:TaskDialog.ActiveTaskDialog">
+            <summary>
+            The active Task Dialog window. Provides several methods for acting on the active TaskDialog.
+            You should not use this object after the TaskDialog Destroy notification callback. Doing so
+            will result in undefined behavior and likely crash.
+            </summary>
+        </member>
+        <member name="F:TaskDialog.ActiveTaskDialog.handle">
+            <summary>
+            The Task Dialog's window handle.
+            </summary>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.#ctor(System.IntPtr)">
+            <summary>
+            Creates a ActiveTaskDialog.
+            </summary>
+            <param name="handle">The Task Dialog's window handle.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.ClickButton(System.Int32)">
+            <summary>
+            Simulate the action of a button click in the TaskDialog. This can be a DialogResult value 
+            or the ButtonID set on a TasDialogButton set on TaskDialog.Buttons.
+            </summary>
+            <param name="buttonId">Indicates the button ID to be selected.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetMarqueeProgressBar(System.Boolean)">
+            <summary>
+            Used to indicate whether the hosted progress bar should be displayed in marquee mode or not.
+            </summary>
+            <param name="marquee">Specifies whether the progress bar sbould be shown in Marquee mode.
+            A value of true turns on Marquee mode.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetProgressBarState(TaskDialog.ProgressBarState)">
+            <summary>
+            Sets the state of the progress bar.
+            </summary>
+            <param name="newState">The state to set the progress bar.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetProgressBarRange(System.Int16,System.Int16)">
+            <summary>
+            Set the minimum and maximum values for the hosted progress bar.
+            </summary>
+            <param name="minRange">Minimum range value. By default, the minimum value is zero.</param>
+            <param name="maxRange">Maximum range value.  By default, the maximum value is 100.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetProgressBarPosition(System.Int32)">
+            <summary>
+            Set the current position for a progress bar.
+            </summary>
+            <param name="newPosition">The new position.</param>
+            <returns>Returns the previous value if successful, or zero otherwise.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetProgressBarMarquee(System.Boolean,System.UInt32)">
+            <summary>
+            Sets the animation state of the Marquee Progress Bar.
+            </summary>
+            <param name="startMarquee">true starts the marquee animation and false stops it.</param>
+            <param name="speed">The time in milliseconds between refreshes.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetContent(System.String)">
+            <summary>
+            Updates the content text.
+            </summary>
+            <param name="content">The new value.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetExpandedInformation(System.String)">
+            <summary>
+            Updates the Expanded Information text.
+            </summary>
+            <param name="expandedInformation">The new value.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetFooter(System.String)">
+            <summary>
+            Updates the Footer text.
+            </summary>
+            <param name="footer">The new value.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetMainInstruction(System.String)">
+            <summary>
+            Updates the Main Instruction.
+            </summary>
+            <param name="mainInstruction">The new value.</param>
+            <returns>If the function succeeds the return value is true.</returns>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.ClickRadioButton(System.Int32)">
+            <summary>
+            Simulate the action of a radio button click in the TaskDialog. 
+            The passed buttonID is the ButtonID set on a TaskDialogButton set on TaskDialog.RadioButtons.
+            </summary>
+            <param name="buttonId">Indicates the button ID to be selected.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.EnableButton(System.Int32,System.Boolean)">
+            <summary>
+            Enable or disable a button in the TaskDialog. 
+            The passed buttonID is the ButtonID set on a TaskDialogButton set on TaskDialog.Buttons
+            or a common button ID.
+            </summary>
+            <param name="buttonId">Indicates the button ID to be enabled or diabled.</param>
+            <param name="enable">Enambe the button if true. Disable the button if false.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.EnableRadioButton(System.Int32,System.Boolean)">
+            <summary>
+            Enable or disable a radio button in the TaskDialog. 
+            The passed buttonID is the ButtonID set on a TaskDialogButton set on TaskDialog.RadioButtons.
+            </summary>
+            <param name="buttonId">Indicates the button ID to be enabled or diabled.</param>
+            <param name="enable">Enambe the button if true. Disable the button if false.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.ClickVerification(System.Boolean,System.Boolean)">
+            <summary>
+            Check or uncheck the verification checkbox in the TaskDialog. 
+            </summary>
+            <param name="checkedState">The checked state to set the verification checkbox.</param>
+            <param name="setKeyboardFocusToCheckBox">True to set the keyboard focus to the checkbox, and fasle otherwise.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateContent(System.String)">
+            <summary>
+            Updates the content text.
+            </summary>
+            <param name="content">The new value.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateExpandedInformation(System.String)">
+            <summary>
+            Updates the Expanded Information text. No effect if it was previously set to null.
+            </summary>
+            <param name="expandedInformation">The new value.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateFooter(System.String)">
+            <summary>
+            Updates the Footer text. No Effect if it was perviously set to null.
+            </summary>
+            <param name="footer">The new value.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateMainInstruction(System.String)">
+            <summary>
+            Updates the Main Instruction.
+            </summary>
+            <param name="mainInstruction">The new value.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.SetButtonElevationRequiredState(System.Int32,System.Boolean)">
+            <summary>
+            Designate whether a given Task Dialog button or command link should have a User Account Control (UAC) shield icon.
+            </summary>
+            <param name="buttonId">ID of the push button or command link to be updated.</param>
+            <param name="elevationRequired">False to designate that the action invoked by the button does not require elevation;
+            true to designate that the action does require elevation.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateMainIcon(TaskDialog.TaskDialogIcon)">
+            <summary>
+            Updates the main instruction icon. Note the type (standard via enum or
+            custom via Icon type) must be used when upating the icon.
+            </summary>
+            <param name="icon">Task Dialog standard icon.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateMainIcon(System.Drawing.Icon)">
+            <summary>
+            Updates the main instruction icon. Note the type (standard via enum or
+            custom via Icon type) must be used when upating the icon.
+            </summary>
+            <param name="icon">The icon to set.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateFooterIcon(TaskDialog.TaskDialogIcon)">
+            <summary>
+            Updates the footer icon. Note the type (standard via enum or
+            custom via Icon type) must be used when upating the icon.
+            </summary>
+            <param name="icon">Task Dialog standard icon.</param>
+        </member>
+        <member name="M:TaskDialog.ActiveTaskDialog.UpdateFooterIcon(System.Drawing.Icon)">
+            <summary>
+            Updates the footer icon. Note the type (standard via enum or
+            custom via Icon type) must be used when upating the icon.
+            </summary>
+            <param name="icon">The icon to set.</param>
+        </member>
+        <member name="P:TaskDialog.ActiveTaskDialog.Handle">
+            <summary>
+            The Task Dialog's window handle.
+            </summary>
+        </member>
+    </members>
+</doc>

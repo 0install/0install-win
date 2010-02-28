@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Backend.Model.RetrievalStep">
+    <Position X="7" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RetrievalStep.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Archive">
+    <Position X="7" Y="16.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAwAAAAAIAAAAAQAAAAAAAAQAABAAAAAA=</HashCode>
+      <FileName>Model\Archive.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Binding">
+    <Position X="3" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Binding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Dependency" BaseTypeListCollapsed="true">
+    <Position X="3" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAEABAAABAAAAAAAAAIAAAAAgAAEABAACAgAAAAAAAA=</HashCode>
+      <FileName>Model\Dependency.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Constraints" />
+      <Property Name="EnvironmentBindings" />
+      <Property Name="OverlayBindings" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.EnvironmentBinding">
+    <Position X="4" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAIAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Model\EnvironmentBinding.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Mode" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Feed">
+    <Position X="14" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Feed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Group">
+    <Position X="8.25" Y="12" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="Groups" Type="ZeroInstall.Backend.Model.Group">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="0.068" Y="0.31" Height="0.182" Width="0.674" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAIAAEAAAAACAAAAAAAAAYAQAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Group.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Groups" />
+      <Property Name="Implementations" />
+      <Property Name="PackageImplementations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Implementation">
+    <Position X="11.75" Y="11.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Implementation.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ManifestDigest" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Archives" />
+      <Property Name="Recipes" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.ImplementationBase">
+    <Position X="11.75" Y="8" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IAAABAAABIAACACAAAIAIAAQgADAEAEASAAABAAACAA=</HashCode>
+      <FileName>Model\ImplementationBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Stability" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Dependencies" />
+      <Property Name="EnvironmentBindings" />
+      <Property Name="OverlayBindings" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Interface" BaseTypeListCollapsed="true">
+    <Position X="15" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAKIAMAAACAiQCgABABAAYQQAIQAEAKASAgAAAAAACI=</HashCode>
+      <FileName>Model\Interface.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Icons" />
+      <Property Name="Feeds" />
+      <Property Name="Groups" />
+      <Property Name="Implementations" />
+      <Property Name="PackageImplementations" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.ManifestDigest">
+    <Position X="11.5" Y="14.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>Model\ManifestDigest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.OverlayBinding">
+    <Position X="1.5" Y="7" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAkAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\OverlayBinding.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.PackageImplementation">
+    <Position X="16" Y="12.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIAAAAACAAAAQAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\PackageImplementation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.Recipe">
+    <Position X="4.5" Y="15.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAQAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Recipe.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Archives" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.ReleaseBase">
+    <Position X="12.75" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAACAIAAAAAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Model\ReleaseBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Architecture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Backend.Model.RetrievalMethod">
+    <Position X="6" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\RetrievalMethod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ZeroInstall.Backend.Model.Architecture">
+    <Position X="9.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAACAAAE=</HashCode>
+      <FileName>Model\Architecture.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="OS" />
+      <Property Name="Cpu" />
+    </ShowAsAssociation>
+  </Struct>
+  <Struct Name="ZeroInstall.Backend.Model.Constraint">
+    <Position X="2.5" Y="0.75" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAACAAAAAAAAAAAAAABAAgAAAAA=</HashCode>
+      <FileName>Model\Constraint.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ZeroInstall.Backend.Model.Icon">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAIAAAAAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\Icon.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="ZeroInstall.Backend.Model.IBindingContainer" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\IBindingContainer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="EnvironmentBindings" />
+      <Property Name="OverlayBindings" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="ZeroInstall.Backend.Model.IGroupContainer" Collapsed="true">
+    <Position X="11.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAACAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Model\IGroupContainer.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Groups" />
+      <Property Name="Implementations" />
+      <Property Name="PackageImplementations" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Enum Name="ZeroInstall.Backend.Model.OS">
+    <Position X="8.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAJAAABEAAAA=</HashCode>
+      <FileName>Model\Architecture.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ZeroInstall.Backend.Model.Cpu">
+    <Position X="10.25" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAACAAACAAABAAAAAAABAIAAAAEAAFA=</HashCode>
+      <FileName>Model\Architecture.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ZeroInstall.Backend.Model.EnvironmentMode">
+    <Position X="6.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
+      <FileName>Model\EnvironmentBinding.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ZeroInstall.Backend.Model.Stability">
+    <Position X="14.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAIAAAAAAAAAAAAIABAAAAIAAAABAAAgA=</HashCode>
+      <FileName>Model\ImplementationBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Common.Collections
+{
+    /// <summary>
+    /// A read-only access to a keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
+    /// </summary>
+    /// <typeparam name="T">The type of <see cref="INamed"/> objects to hold</typeparam>
+    public interface INamedCollection<T> : IEnumerable<T> where T : INamed
+    {
+        /// <summary>
+        /// Gets the element with the specified key.
+        /// </summary>
+        /// <param name="name">The key of the element to get.</param>
+        /// <returns>The element with the specified key. If an element with the specified key is not found, an exception is thrown.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+        /// <exception cref="KeyNotFoundException">An element with the specified key does not exist in the dictionary.</exception>
+        T this[string name] { get; }
+
+        /// <summary>
+        /// Determines whether the collection contains an element with the specified key.
+        /// </summary>
+        /// <param name="name">The key to locate in the dictionary.</param>
+        /// <returns><see langword="true"/> if the dictionary contains an element with the specified key; otherwise, <see langword="false"/>.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
+        bool Contains(string name);
+    }
+}

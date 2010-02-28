@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Common</RootNamespace>
+    <AssemblyName>Common</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DocumentationFile>..\bin\Debug\Common.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\Code analysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\..\build\windows\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\TaskDialog.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaInterface, Version=2.0.0.39641, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\LuaInterface.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Arguments.cs" />
+    <Compile Include="Collections\Algorithms.cs" />
+    <Compile Include="Collections\Bag.cs" />
+    <Compile Include="Collections\BaseCollection.cs" />
+    <Compile Include="Collections\BaseList.cs" />
+    <Compile Include="Collections\INamedCollection.cs" />
+    <Compile Include="Collections\Pool.cs" />
+    <Compile Include="Collections\Comparers.cs" />
+    <Compile Include="Collections\Hash.cs" />
+    <Compile Include="Collections\MultiDictionary.cs" />
+    <Compile Include="Collections\BaseMultiDictionary.cs" />
+    <Compile Include="Collections\NamedCollection.cs" />
+    <Compile Include="Collections\OrderedBag.cs" />
+    <Compile Include="Collections\OrderedMultiDictionary.cs" />
+    <Compile Include="Collections\OrderedSet.cs" />
+    <Compile Include="Collections\Pair.cs" />
+    <Compile Include="Collections\BaseReadOnlyCollection.cs" />
+    <Compile Include="Collections\BaseReadOnlyDictionary.cs" />
+    <Compile Include="Collections\BaseReadOnlyList.cs" />
+    <Compile Include="Collections\BaseReadOnlyMultiDictionary.cs" />
+    <Compile Include="Collections\ReadOnlyDictionary.cs" />
+    <Compile Include="Collections\RedBlack.cs" />
+    <Compile Include="Collections\Set.cs" />
+    <Compile Include="Collections\Triple.cs" />
+    <Compile Include="Collections\Util.cs" />
+    <Compile Include="Collections\XmlCollection.cs" />
+    <Compile Include="Collections\XmlCollectionEntry.cs" />
+    <Compile Include="Controls\FilteredTreeView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\FilteredTreeView.Designer.cs">
+      <DependentUpon>FilteredTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DebugConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\DebugConsole.Designer.cs">
+      <DependentUpon>DebugConsole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ErrorReportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorReportForm.Designer.cs">
+      <DependentUpon>ErrorReportForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\ExceptionInformation.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Controls\HintTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Helpers\Windows7Structures.cs" />
+    <Compile Include="INamed.cs" />
+    <Compile Include="Controls\InputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\InputBox.Designer.cs">
+      <DependentUpon>InputBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
+    <Compile Include="Undo\FirstExecuteCommand.cs" />
+    <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Storage\BinaryStorage.cs" />
+    <Compile Include="Storage\ContentArchiveEntry.cs" />
+    <Compile Include="Storage\ContentManager.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Helpers\StreamHelper.cs" />
+    <Compile Include="Undo\PreExecutedCommand.cs" />
+    <Compile Include="Undo\PropertyChangedCommand.cs" />
+    <Compile Include="Undo\SimpleCommand.cs" />
+    <Compile Include="UserCancelException.cs" />
+    <Compile Include="Collections\MonitoredCollection.cs" />
+    <Compile Include="Log.cs" />
+    <Compile Include="Msg.cs" />
+    <Compile Include="Helpers\UpdateHelper.cs" />
+    <Compile Include="Storage\XmlStorage.cs" />
+    <Compile Include="Storage\EmbeddedFile.cs" />
+    <Compile Include="Helpers\StringHelper.cs" />
+    <Compile Include="Helpers\WindowsHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
+      <DependentUpon>ErrorReportForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ErrorReportForm.resx">
+      <DependentUpon>ErrorReportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InputBox.de.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\InputBox.resx">
+      <DependentUpon>InputBox.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Collections\ClassDiagram.cd" />
+    <None Include="Collections\License.txt" />
+    <None Include="ICSharpCode.SharpZipLib.dll" />
+    <None Include="TaskDialog.dll" />
+    <None Include="TaskDialog.xml" />
+    <Content Include="lua51.dll" />
+    <Content Include="LuaInterface.dll" />
+    <Content Include="Resources\ClearButton.png" />
+    <Content Include="Resources\Warning.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

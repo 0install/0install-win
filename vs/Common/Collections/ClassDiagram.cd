@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Common.Collections.Algorithms" Collapsed="true">
+    <Position X="2" Y="6.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>gIzjGACQAFXVGQBEYIIQXCQQE4ANWR0FggAbABVwoCA=</HashCode>
+      <FileName>Collections\Algorithms.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Collections.XmlCollection" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABIAgIBAIAAEAAAAAAAQBAAAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>Collections\XmlCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.Bag&lt;T&gt;" Collapsed="true">
+    <Position X="6.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoQAAAAAIBAADFKVAAEBARAQCAAADAQIiAABVFQgZQ=</HashCode>
+      <FileName>Collections\Bag.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.582" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseCollection&lt;T&gt;" Collapsed="true">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAGAIADABAABAEAAAQFAQAAAAAEAAEIAAAAAFQIAI=</HashCode>
+      <FileName>Collections\BaseCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.Comparers" Collapsed="true">
+    <Position X="3.5" Y="6.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAJAADAAAAAEAA=</HashCode>
+      <FileName>Collections\Comparers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Collections.Hash&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="6.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>GBIBCNAIAICAQBBADAAABBAIAQGYIAYEIAAAAAE8QBA=</HashCode>
+      <FileName>Collections\Hash.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.MonitoredCollection&lt;T&gt;" Collapsed="true">
+    <Position X="7.75" Y="4.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAQAABAAABAggAEAAQAAABAAEAAAAAAACAAA=</HashCode>
+      <FileName>Collections\MonitoredCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Collections.MultiDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIAAAAAAJAEABEKABACBAQBACAAAAAEICAAAABQgBA=</HashCode>
+      <FileName>Collections\MultiDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.925" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseMultiDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="1.5" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIMAAAMAAAAFBBEECBACBgQBAIAAAAAAAAAhAABQAKA=</HashCode>
+      <FileName>Collections\BaseMultiDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.311" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.OrderedBag&lt;T&gt;" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEoYEQIAAIhACDFI2AAAFARAQCQQACACIiABAVFQAZQ=</HashCode>
+      <FileName>Collections\OrderedBag.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.622" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.OrderedMultiDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IIIAFQEAARgECAEYgBAGBAQBCKAAAAAEAqABAABQQBA=</HashCode>
+      <FileName>Collections\OrderedMultiDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.992" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.OrderedSet&lt;T&gt;" Collapsed="true">
+    <Position X="4.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEoYEQIAAIhACDFIyAABBARAYAQQACAAIiABAVFQAZA=</HashCode>
+      <FileName>Collections\OrderedSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Orientation="Bottom" Position="0.894" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseReadOnlyCollection&lt;T&gt;" Collapsed="true">
+    <Position X="2.75" Y="4.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAGAIADABAABAEAAAQEAQAIAAAFAAEAAQAAAFQIAI=</HashCode>
+      <FileName>Collections\BaseReadOnlyCollection.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseReadOnlyDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="5" Y="5.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAABgIAABBEAAAEGIAABAAAAAAAgAAGAAAoAIQQAAA=</HashCode>
+      <FileName>Collections\BaseReadOnlyDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.089" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseReadOnlyList&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BkAAAAgAAIAACBABCAAEECQQQAUIAAAAAAEAAAASIAA=</HashCode>
+      <FileName>Collections\BaseReadOnlyList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.978" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseReadOnlyMultiDictionary&lt;TKey, TValue&gt;" Collapsed="true">
+    <Position X="0.5" Y="5.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAMAAAAFBBAECBACAAQBAIAAAAAAAAAhAAAQACA=</HashCode>
+      <FileName>Collections\BaseReadOnlyMultiDictionary.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.211" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.RedBlackTree&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAQAAUoACRCAwBQgRIAgABAgFAkIAoIUAAABAAoUQBA=</HashCode>
+      <FileName>Collections\RedBlack.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Common.Collections.Set&lt;T&gt;" Collapsed="true">
+    <Position X="4.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAoQAAAAAIBAADFKQAABBARAYAAAACAAIiAAAVFQAZA=</HashCode>
+      <FileName>Collections\Set.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.825" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.Util" Collapsed="true">
+    <Position X="0.5" Y="6.75" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAABIAAAAACAAAAAAA=</HashCode>
+      <FileName>Collections\Util.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Collections.Pool&lt;T&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIACAAAAAAAAAAABAAAFAQAAAAQQAAAIAAAAQBQAAA=</HashCode>
+      <FileName>Collections\Pool.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.BaseList&lt;T&gt;" Collapsed="true">
+    <Position X="8.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BkIAEEgAAIQACBABCAAEFCQQQAUIAAAACAEAAABSIAA=</HashCode>
+      <FileName>Collections\BaseList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.756" Collapsed="true" />
+  </Class>
+  <Class Name="Common.Collections.XmlCollectionEntry" Collapsed="true">
+    <Position X="9.5" Y="5.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAACAQAAAAAAAAAAAAAAgAAAAABA=</HashCode>
+      <FileName>Collections\XmlCollectionEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="Common.Collections.Pair&lt;TFirst, TSecond&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAIAAAAAAAAAAQQEgAQAAAKAAggAAIBAAAAAAAAAAig=</HashCode>
+      <FileName>Collections\Pair.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" Collapsed="true" />
+  </Struct>
+  <Struct Name="Common.Collections.Triple&lt;TFirst, TSecond, TThird&gt;" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAAAAAIQQEgAAAAAKAAggAAIBAAAAAAAAAAyA=</HashCode>
+      <FileName>Collections\Triple.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,24 @@
+LuaInterface 2.0.3
+http://luaforge.net/projects/luainterface/
+MIT License
+Source modified, self-compiled to LuaInterface.dll
+
+Lua 5.1
+http://www.lua.org/
+MIT License
+Source unmodified, self-compiled to lua51.dll
+
+SharpZipLib
+http://www.icsharpcode.net/OpenSource/SharpZipLib/
+GNU GPL with GNU Classpath exception
+Unmodified, pre-compiled binary (ICSharpCode.SharpZipLib.dll)
+
+TaskDialog
+http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
+BSD License
+Source unmodified, self-compiled to TaskDialog.dll
+
+PowerCollections
+http://www.codeplex.com/PowerCollections/
+Eclipse Public License
+Source modified, compiled as part of Common.dll
