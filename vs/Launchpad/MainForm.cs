@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-using ZeroInstall.Backend.Model;
 
 namespace ZeroInstall.Launchpad
 {
@@ -19,8 +18,6 @@ namespace ZeroInstall.Launchpad
         #region Feed management
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-            InterfaceInformationDialog.ShowDialog(this, new Interface());
-            
             using (var feedUrlForm = new FeedUrlForm())
                 feedUrlForm.ShowDialog(this);
         }
@@ -32,7 +29,7 @@ namespace ZeroInstall.Launchpad
 
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-
+            // ToDo
         }
         #endregion
 

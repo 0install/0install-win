@@ -17,6 +17,7 @@ rd /s /q vs\Launchpad\obj > NUL 2>&1
 rd /s /q vs\FeedEditor\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
 rd /s /q vs\Backend\obj > NUL 2>&1
+rd /s /q vs\Settings\obj > NUL 2>&1
 
 rem Restore old VS2008 solution user options (temporarily unhide for copying)
 attrib -h "vs\ZeroInstall_VS2008.suo.Backup" > NUL 2>&1

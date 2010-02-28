@@ -10,7 +10,7 @@
   <Class Name="ZeroInstall.Backend.Model.Archive">
     <Position X="7" Y="16.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAwAAAAAIAAAAAQAAAAAAAAQAABAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAwAQAAAIAAAAAQAAAAAAAAAAABAAAAAA=</HashCode>
       <FileName>Model\Archive.cs</FileName>
     </TypeIdentifier>
   </Class>

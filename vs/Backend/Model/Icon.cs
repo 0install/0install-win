@@ -12,13 +12,6 @@ namespace ZeroInstall.Backend.Model
     {
         #region Properties
         /// <summary>
-        /// The MIME type of the icon.
-        /// </summary>
-        [Description("The MIME type of the icon.")]
-        [XmlAttribute("type")]
-        public String MimeType { get; set; }
-
-        /// <summary>
         /// The URL used to locate the icon.
         /// </summary>
         [Description("The URL used to locate the icon.")]
@@ -34,6 +27,13 @@ namespace ZeroInstall.Backend.Model
             get { return (Location == null ? null : Location.ToString()); }
             set { Location = new Uri(value); }
         }
+
+        /// <summary>
+        /// The MIME type of the icon.
+        /// </summary>
+        [Description("The MIME type of the icon.")]
+        [XmlAttribute("type")]
+        public String MimeType { get; set; }
         #endregion
     }
 }

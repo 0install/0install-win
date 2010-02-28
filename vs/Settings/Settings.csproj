@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{50B1586B-040A-4805-AC05-1C77721EF4BD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{F6E7F86F-E69C-4F5B-BBCE-DD81D2A8E824}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.FeedEditor</RootNamespace>
-    <AssemblyName>FeedEditor</AssemblyName>
+    <RootNamespace>ZeroInstall</RootNamespace>
+    <AssemblyName>ZeroInstall.Settings</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -20,8 +20,8 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\Debug\</OutputPath>
-    <DocumentationFile>..\bin\Debug\GUI.xml</DocumentationFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>..\bin\Debug\ZeroInstall.Settings.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>1591</NoWarn>
@@ -33,76 +33,47 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\build\windows\</OutputPath>
+    <OutputPath>..\..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="LuaInterface, Version=2.0.0.39396, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Common\LuaInterface.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\app.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="MainForm.cs">
+    <Compile Include="ConfigForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
+    <Compile Include="ConfigForm.Designer.cs">
+      <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Program.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="General.cs" />
+    <Compile Include="Editor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Icon.ico" />
-    <None Include="Resources\NewButton.png" />
-    <None Include="Resources\OpenButton.png" />
-    <None Include="Resources\SaveButton.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
-      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
-      <Name>Backend</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Settings\Settings.csproj">
-      <Project>{F6E7F86F-E69C-4F5B-BBCE-DD81D2A8E824}</Project>
-      <Name>Settings</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="ConfigForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ConfigForm.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

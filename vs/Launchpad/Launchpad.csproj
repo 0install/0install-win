@@ -67,12 +67,6 @@
     <Compile Include="FeedUrlForm.Designer.cs">
       <DependentUpon>FeedUrlForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InterfaceInformationDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InterfaceInformationDialog.Designer.cs">
-      <DependentUpon>InterfaceInformationDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -83,9 +77,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FeedUrlForm.resx">
       <DependentUpon>FeedUrlForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceInformationDialog.resx">
-      <DependentUpon>InterfaceInformationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -114,6 +105,10 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Settings\Settings.csproj">
+      <Project>{F6E7F86F-E69C-4F5B-BBCE-DD81D2A8E824}</Project>
+      <Name>Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

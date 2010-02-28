@@ -44,7 +44,7 @@ namespace ZeroInstall.Backend.Model
         /// </summary>
         [Description("The type of the archive as a MIME type in the type attribute. If missing, the type is guessed from the extension on the location attribute.")]
         [XmlAttribute("type")]
-        public string Type { get; set; }
+        public string MimeType { get; set; }
 
         /// <summary>
         /// The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes. 
