@@ -1,23 +1,21 @@
-using System;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Storage;
-using LuaInterface;
 
-namespace ZeroInstall
+namespace ZeroInstall.Launchpad
 {
     /// <summary>
     /// Stores settings for the application
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "The contained configuration form will dispose itself automatically when closed")]
     public sealed class Settings
     {
         #region Variables
         private static readonly string
-            AppDirPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "Settings.xml"),
-            ProfilePath = Path.Combine(UserDataDir, "Settings.xml");
+            AppDirPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "LaunchpadSettings.xml"),
+            ProfilePath = Path.Combine(UserDataDir, "settings.xml");
         #endregion
 
         #region Properties
@@ -28,7 +26,7 @@ namespace ZeroInstall
         {
             get
             {
-                string userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), GeneralSettings.AppNameProfile);
+                string userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine("0install.net", "launchpad"));
                 if (!Directory.Exists(userDataDir)) Directory.CreateDirectory(userDataDir);
                 return userDataDir;
             }
@@ -41,7 +39,7 @@ namespace ZeroInstall
         {
             get
             {
-                string userLocalDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), GeneralSettings.AppNameProfile);
+                string userLocalDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.Combine("0install.net", "launchpad"));
                 if (!Directory.Exists(userLocalDataDir)) Directory.CreateDirectory(userLocalDataDir);
                 return userLocalDataDir;
             }
@@ -77,7 +75,6 @@ namespace ZeroInstall
         /// Loads the current settings from an automatically located XML file
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the settings should be ignored")]
-        [LuaGlobal(Name = "LoadSettings", Description = "Loads the current settings from an automatically located XML file")]
         public static void LoadCurrent()
         {
             if (File.Exists(AppDirPath))
@@ -116,7 +113,6 @@ namespace ZeroInstall
         /// <summary>
         /// Saves the current settings to an automatically located XML file
         /// </summary>
-        [LuaGlobal(Name = "SaveSettings", Description = "Saves the current settings to an automatically located XML file")]
         public static void SaveCurrent()
         {
             try
@@ -140,34 +136,7 @@ namespace ZeroInstall
         #endregion
 
         #region Values
-// ReSharper disable FieldCanBeMadeReadOnly.Global
-        /// <summary>Stores settings for the game itself</summary>
-        public GeneralSettings General = new GeneralSettings();
-        /// <summary>Stores settings for the editor</summary>
-        public EditorSettings Editor = new EditorSettings();
-// ReSharper restore FieldCanBeMadeReadOnly.Global
-        #endregion
-
-        #region Config
-        /// <summary>Contains a reference to the <see cref="ConfigForm"/> while it is open</summary>
-        private ConfigForm _configForm;
-
-        /// <summary>
-        /// Displays a configuration interface for the settings, allowing easy manipulation of values
-        /// </summary>
-        public void Config()
-        {
-            // Only create a new form if there isn't already one open
-            if (_configForm == null)
-            {
-                _configForm = new ConfigForm(this);
-
-                // Remove the reference as soon the form is closed
-                _configForm.Closed += delegate { _configForm = null; };
-            }
-
-            _configForm.Show();
-        }
+        // ToDo: Add settings
         #endregion
     }
 }
