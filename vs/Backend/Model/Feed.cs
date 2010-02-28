@@ -8,7 +8,7 @@ namespace ZeroInstall.Backend.Model
     /// <summary>
     /// An additional feed for an <see cref="Interface"/>.
     /// </summary>
-    public sealed class Feed : ReleaseBase
+    public sealed class Feed : TargetBase
     {
         #region Properties
         /// <summary>

@@ -30,21 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.splitContainerApps = new System.Windows.Forms.SplitContainer();
-            this.groupBoxMyApps = new System.Windows.Forms.GroupBox();
-            this.webBrowserMyApps = new System.Windows.Forms.WebBrowser();
-            this.groupBoxNewApps = new System.Windows.Forms.GroupBox();
-            this.webBrowserNewApps = new System.Windows.Forms.WebBrowser();
+            this.tabControlApps = new System.Windows.Forms.TabControl();
+            this.tabPageMyApps = new System.Windows.Forms.TabPage();
+            this.buttonAddFeed = new System.Windows.Forms.Button();
+            this.tabPageNewApps = new System.Windows.Forms.TabPage();
+            this.toolStripNewApps = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonBack = new System.Windows.Forms.ToolStripButton();
+            this.browserNewApps = new System.Windows.Forms.WebBrowser();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.buttonManageCache = new System.Windows.Forms.Button();
-            this.buttonAddFeed = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.splitContainerApps.Panel1.SuspendLayout();
-            this.splitContainerApps.Panel2.SuspendLayout();
-            this.splitContainerApps.SuspendLayout();
-            this.groupBoxMyApps.SuspendLayout();
-            this.groupBoxNewApps.SuspendLayout();
+            this.tabControlApps.SuspendLayout();
+            this.tabPageNewApps.SuspendLayout();
+            this.toolStripNewApps.SuspendLayout();
             this.groupBoxTools.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -59,149 +58,150 @@
             this.pictureBox.TabIndex = 1;
             this.pictureBox.TabStop = false;
             // 
-            // splitContainerApps
+            // tabControlApps
             // 
-            this.splitContainerApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.tabControlApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainerApps.Location = new System.Drawing.Point(22, 89);
-            this.splitContainerApps.Name = "splitContainerApps";
+            this.tabControlApps.Controls.Add(this.tabPageMyApps);
+            this.tabControlApps.Controls.Add(this.tabPageNewApps);
+            this.tabControlApps.Location = new System.Drawing.Point(14, 94);
+            this.tabControlApps.Name = "tabControlApps";
+            this.tabControlApps.SelectedIndex = 0;
+            this.tabControlApps.Size = new System.Drawing.Size(676, 353);
+            this.tabControlApps.TabIndex = 0;
             // 
-            // splitContainerApps.Panel1
+            // tabPageMyApps
             // 
-            this.splitContainerApps.Panel1.Controls.Add(this.groupBoxMyApps);
-            this.splitContainerApps.Panel1MinSize = 120;
+            this.tabPageMyApps.Location = new System.Drawing.Point(4, 29);
+            this.tabPageMyApps.Name = "tabPageMyApps";
+            this.tabPageMyApps.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMyApps.Size = new System.Drawing.Size(668, 320);
+            this.tabPageMyApps.TabIndex = 0;
+            this.tabPageMyApps.Text = "My applications";
+            this.tabPageMyApps.UseVisualStyleBackColor = true;
             // 
-            // splitContainerApps.Panel2
+            // buttonAddFeed
             // 
-            this.splitContainerApps.Panel2.Controls.Add(this.groupBoxNewApps);
-            this.splitContainerApps.Panel2MinSize = 120;
-            this.splitContainerApps.Size = new System.Drawing.Size(660, 288);
-            this.splitContainerApps.SplitterDistance = 326;
-            this.splitContainerApps.SplitterWidth = 10;
-            this.splitContainerApps.TabIndex = 7;
+            this.buttonAddFeed.Location = new System.Drawing.Point(19, 29);
+            this.buttonAddFeed.Name = "buttonAddFeed";
+            this.buttonAddFeed.Size = new System.Drawing.Size(140, 35);
+            this.buttonAddFeed.TabIndex = 0;
+            this.buttonAddFeed.Text = "&Add feed";
+            this.buttonAddFeed.UseVisualStyleBackColor = true;
+            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
             // 
-            // groupBoxMyApps
+            // tabPageNewApps
             // 
-            this.groupBoxMyApps.Controls.Add(this.webBrowserMyApps);
-            this.groupBoxMyApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxMyApps.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxMyApps.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxMyApps.Name = "groupBoxMyApps";
-            this.groupBoxMyApps.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.groupBoxMyApps.Size = new System.Drawing.Size(326, 288);
-            this.groupBoxMyApps.TabIndex = 0;
-            this.groupBoxMyApps.TabStop = false;
-            this.groupBoxMyApps.Text = "&My applications";
+            this.tabPageNewApps.Controls.Add(this.toolStripNewApps);
+            this.tabPageNewApps.Controls.Add(this.browserNewApps);
+            this.tabPageNewApps.Location = new System.Drawing.Point(4, 29);
+            this.tabPageNewApps.Name = "tabPageNewApps";
+            this.tabPageNewApps.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageNewApps.Size = new System.Drawing.Size(668, 320);
+            this.tabPageNewApps.TabIndex = 1;
+            this.tabPageNewApps.Text = "New applications";
+            this.tabPageNewApps.UseVisualStyleBackColor = true;
             // 
-            // webBrowserMyApps
+            // toolStripNewApps
             // 
-            this.webBrowserMyApps.AllowWebBrowserDrop = false;
-            this.webBrowserMyApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowserMyApps.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowserMyApps.Location = new System.Drawing.Point(6, 26);
-            this.webBrowserMyApps.Name = "webBrowserMyApps";
-            this.webBrowserMyApps.ScriptErrorsSuppressed = true;
-            this.webBrowserMyApps.Size = new System.Drawing.Size(314, 255);
-            this.webBrowserMyApps.TabIndex = 0;
-            this.webBrowserMyApps.WebBrowserShortcutsEnabled = false;
+            this.toolStripNewApps.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonBack});
+            this.toolStripNewApps.Location = new System.Drawing.Point(3, 3);
+            this.toolStripNewApps.Name = "toolStripNewApps";
+            this.toolStripNewApps.Size = new System.Drawing.Size(662, 25);
+            this.toolStripNewApps.TabIndex = 0;
+            this.toolStripNewApps.Text = "toolStrip1";
             // 
-            // groupBoxNewApps
+            // toolStripButtonBack
             // 
-            this.groupBoxNewApps.Controls.Add(this.webBrowserNewApps);
-            this.groupBoxNewApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxNewApps.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxNewApps.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.groupBoxNewApps.Name = "groupBoxNewApps";
-            this.groupBoxNewApps.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.groupBoxNewApps.Size = new System.Drawing.Size(324, 288);
-            this.groupBoxNewApps.TabIndex = 0;
-            this.groupBoxNewApps.TabStop = false;
-            this.groupBoxNewApps.Text = "&New applications";
+            this.toolStripButtonBack.Enabled = false;
+            this.toolStripButtonBack.Image = global::ZeroInstall.Launchpad.Properties.Resources.Back;
+            this.toolStripButtonBack.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonBack.Name = "toolStripButtonBack";
+            this.toolStripButtonBack.Size = new System.Drawing.Size(52, 22);
+            this.toolStripButtonBack.Text = "Back";
+            this.toolStripButtonBack.Click += new System.EventHandler(this.toolStripButtonBack_Click);
             // 
-            // webBrowserNewApps
+            // browserNewApps
             // 
-            this.webBrowserNewApps.AllowWebBrowserDrop = false;
-            this.webBrowserNewApps.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowserNewApps.IsWebBrowserContextMenuEnabled = false;
-            this.webBrowserNewApps.Location = new System.Drawing.Point(6, 26);
-            this.webBrowserNewApps.Name = "webBrowserNewApps";
-            this.webBrowserNewApps.ScriptErrorsSuppressed = true;
-            this.webBrowserNewApps.Size = new System.Drawing.Size(312, 255);
-            this.webBrowserNewApps.TabIndex = 0;
-            this.webBrowserNewApps.WebBrowserShortcutsEnabled = false;
+            this.browserNewApps.AllowWebBrowserDrop = false;
+            this.browserNewApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.browserNewApps.IsWebBrowserContextMenuEnabled = false;
+            this.browserNewApps.Location = new System.Drawing.Point(0, 31);
+            this.browserNewApps.Name = "browserNewApps";
+            this.browserNewApps.ScriptErrorsSuppressed = true;
+            this.browserNewApps.Size = new System.Drawing.Size(665, 289);
+            this.browserNewApps.TabIndex = 1;
+            this.browserNewApps.Url = new System.Uri("http://0install.nanobyte.de/new_apps", System.UriKind.Absolute);
+            this.browserNewApps.WebBrowserShortcutsEnabled = false;
+            this.browserNewApps.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.browserNewApps_DocumentCompleted);
+            this.browserNewApps.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
+            this.browserNewApps.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
             // 
             // groupBoxTools
             // 
             this.groupBoxTools.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTools.Controls.Add(this.buttonAddFeed);
             this.groupBoxTools.Controls.Add(this.buttonHelp);
             this.groupBoxTools.Controls.Add(this.buttonManageCache);
-            this.groupBoxTools.Controls.Add(this.buttonAddFeed);
-            this.groupBoxTools.Location = new System.Drawing.Point(22, 395);
+            this.groupBoxTools.Location = new System.Drawing.Point(14, 464);
             this.groupBoxTools.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxTools.Name = "groupBoxTools";
             this.groupBoxTools.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.groupBoxTools.Size = new System.Drawing.Size(660, 83);
-            this.groupBoxTools.TabIndex = 8;
+            this.groupBoxTools.Size = new System.Drawing.Size(676, 83);
+            this.groupBoxTools.TabIndex = 1;
             this.groupBoxTools.TabStop = false;
-            this.groupBoxTools.Text = "&Tools";
+            this.groupBoxTools.Text = "Tools";
             // 
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(501, 29);
+            this.buttonHelp.Location = new System.Drawing.Point(517, 29);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(140, 35);
-            this.buttonHelp.TabIndex = 3;
-            this.buttonHelp.Text = "Help";
+            this.buttonHelp.TabIndex = 2;
+            this.buttonHelp.Text = "&Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
             // buttonManageCache
             // 
-            this.buttonManageCache.Location = new System.Drawing.Point(164, 29);
+            this.buttonManageCache.Location = new System.Drawing.Point(165, 29);
             this.buttonManageCache.Name = "buttonManageCache";
             this.buttonManageCache.Size = new System.Drawing.Size(140, 35);
             this.buttonManageCache.TabIndex = 1;
-            this.buttonManageCache.Text = "Manage cache";
+            this.buttonManageCache.Text = "&Manage cache";
             this.buttonManageCache.UseVisualStyleBackColor = true;
             this.buttonManageCache.Click += new System.EventHandler(this.buttonManageCache_Click);
-            // 
-            // buttonAddFeed
-            // 
-            this.buttonAddFeed.Location = new System.Drawing.Point(18, 29);
-            this.buttonAddFeed.Name = "buttonAddFeed";
-            this.buttonAddFeed.Size = new System.Drawing.Size(140, 35);
-            this.buttonAddFeed.TabIndex = 0;
-            this.buttonAddFeed.Text = "Add feed";
-            this.buttonAddFeed.UseVisualStyleBackColor = true;
-            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(704, 502);
+            this.ClientSize = new System.Drawing.Size(704, 562);
             this.Controls.Add(this.groupBoxTools);
-            this.Controls.Add(this.splitContainerApps);
+            this.Controls.Add(this.tabControlApps);
             this.Controls.Add(this.pictureBox);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(660, 360);
+            this.MinimumSize = new System.Drawing.Size(520, 480);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.splitContainerApps.Panel1.ResumeLayout(false);
-            this.splitContainerApps.Panel2.ResumeLayout(false);
-            this.splitContainerApps.ResumeLayout(false);
-            this.groupBoxMyApps.ResumeLayout(false);
-            this.groupBoxNewApps.ResumeLayout(false);
+            this.tabControlApps.ResumeLayout(false);
+            this.tabPageNewApps.ResumeLayout(false);
+            this.tabPageNewApps.PerformLayout();
+            this.toolStripNewApps.ResumeLayout(false);
+            this.toolStripNewApps.PerformLayout();
             this.groupBoxTools.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -210,15 +210,16 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.SplitContainer splitContainerApps;
-        private System.Windows.Forms.GroupBox groupBoxMyApps;
-        private System.Windows.Forms.WebBrowser webBrowserMyApps;
-        private System.Windows.Forms.GroupBox groupBoxNewApps;
-        private System.Windows.Forms.WebBrowser webBrowserNewApps;
+        private System.Windows.Forms.TabControl tabControlApps;
+        private System.Windows.Forms.TabPage tabPageMyApps;
+        private System.Windows.Forms.TabPage tabPageNewApps;
+        private System.Windows.Forms.WebBrowser browserNewApps;
         private System.Windows.Forms.GroupBox groupBoxTools;
-        private System.Windows.Forms.Button buttonAddFeed;
-        private System.Windows.Forms.Button buttonManageCache;
         private System.Windows.Forms.Button buttonHelp;
+        private System.Windows.Forms.Button buttonManageCache;
+        private System.Windows.Forms.Button buttonAddFeed;
+        private System.Windows.Forms.ToolStrip toolStripNewApps;
+        private System.Windows.Forms.ToolStripButton toolStripButtonBack;
 
     }
 }

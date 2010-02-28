@@ -98,7 +98,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAAABAAABIAACACAAAIAIAAQgADAEAEASAAABAAACAA=</HashCode>
+      <HashCode>IAAABAAABIAACACAAAIAIAAQgADAEAEACAAABAAACAA=</HashCode>
       <FileName>Model\ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -112,17 +112,17 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Backend.Model.Interface" BaseTypeListCollapsed="true">
-    <Position X="15" Y="0.5" Width="2" />
+    <Position X="15" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAKIAMAAACAiQCgABABAAYQQAIQAEAKASAgAAAAAACI=</HashCode>
+      <HashCode>AAKIAMAAACAiQCgABABAAYQQAAQAEAKASAgAAAAAACI=</HashCode>
       <FileName>Model\Interface.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Icons" />
       <Property Name="Feeds" />
+      <Property Name="Icons" />
       <Property Name="Groups" />
       <Property Name="Implementations" />
       <Property Name="PackageImplementations" />
@@ -166,11 +166,11 @@
       <Property Name="Archives" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="ZeroInstall.Backend.Model.ReleaseBase">
+  <Class Name="ZeroInstall.Backend.Model.TargetBase">
     <Position X="12.75" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AIAAAAAACAIAAAAAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
-      <FileName>Model\ReleaseBase.cs</FileName>
+      <FileName>Model\TargetBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Architecture" />
@@ -195,12 +195,12 @@
     </ShowAsAssociation>
   </Struct>
   <Struct Name="ZeroInstall.Backend.Model.Constraint">
-    <Position X="2.5" Y="0.75" Width="2" />
+    <Position X="2.75" Y="0.75" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAABAACAAAAAAAAAAAAAABAAgAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Model\Constraint.cs</FileName>
     </TypeIdentifier>
   </Struct>
@@ -237,14 +237,14 @@
   <Enum Name="ZeroInstall.Backend.Model.OS">
     <Position X="8.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAJAAABEAAAA=</HashCode>
+      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAJAAABAAABA=</HashCode>
       <FileName>Model\Architecture.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="ZeroInstall.Backend.Model.Cpu">
     <Position X="10.25" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAAACAAACAAABAAAAAAABAIAAAAEAAFA=</HashCode>
+      <HashCode>AAAAAAAEAgAAAAACAAACAAABAAAAAAABAIAAAAAAAFA=</HashCode>
       <FileName>Model\Architecture.cs</FileName>
     </TypeIdentifier>
   </Enum>

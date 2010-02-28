@@ -46,29 +46,20 @@ namespace ZeroInstall.Backend.Model
     /// A common base class for <see cref="Implementation"/> and <see cref="Group"/>.
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
-    public abstract class ImplementationBase : ReleaseBase, IBindingContainer
+    public abstract class ImplementationBase : TargetBase, IBindingContainer
     {
         #region Properties
         /// <summary>
-        /// The version number.
+        /// The version number of the implementation.
         /// </summary>
-        [Description("The version number.")]
-        [XmlIgnore]
-        public virtual Version Version { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Version"/>
-        [XmlAttribute("version"), Browsable(false)]
-        public string VersionString
-        {
-            get { return (Version == null ? null : Version.ToString()); }
-            set { Version = new Version((value)); }
-        }
+        [Category("Release"), Description("The version number of the implementation.")]
+        [XmlAttribute("version")]
+        public virtual string Version { get; set; }
 
         /// <summary>
         /// The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
         /// </summary>
-        [Description("The date this implementation was made available. For development versions checked out from version control this attribute should not be present.")]
+        [Category("Release"), Description("The date this implementation was made available. For development versions checked out from version control this attribute should not be present.")]
         [XmlIgnore]
         public DateTime Released { get; set; }
 
@@ -82,48 +73,47 @@ namespace ZeroInstall.Backend.Model
             set { Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture); }
         }
 
+        private Stability _stability = Stability.Unset;
+        /// <summary>
+        /// The default stability rating for this implementation.
+        /// </summary>
+        [Category("Release"), Description("The default stability rating for this implementation.")]
+        [XmlAttribute("stability"), DefaultValue(typeof(Stability), "Unset")]
+        public virtual Stability Stability { get { return _stability; } set { _stability = value; } }
+
+        /// <summary>
+        /// License terms (typically a Trove category, as used on freshmeat.net).
+        /// </summary>
+        [Category("Release"), Description("License terms (typically a Trove category, as used on freshmeat.net).")]
+        [XmlAttribute("license")]
+        public string License { get; set; }
+
         /// <summary>
         /// The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
         /// </summary>
-        [Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
+        [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
         [XmlAttribute("main")]
         public string Main { get; set; }
 
         /// <summary>
         /// The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
         /// </summary>
-        [Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
+        [Category("Execution"), Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
         [XmlAttribute("self-test")]
         public string SelfTest { get; set; }
 
         /// <summary>
         /// The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.
         /// </summary>
-        [Description("The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.")]
+        [Category("Execution"), Description("The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.")]
         [XmlAttribute("doc-dir")]
         public string DocDir { get; set; }
-
-        /// <summary>
-        /// License terms (typically a Trove category, as used on freshmeat.net).
-        /// </summary>
-        [Description("License terms (typically a Trove category, as used on freshmeat.net).")]
-        [XmlAttribute("license")]
-        public string License { get; set; }
-
-        private Stability _stability = Stability.Testing;
-
-        /// <summary>
-        /// The default stability rating for this implementation.
-        /// </summary>
-        [Description("The default stability rating for this implementation.")]
-        [XmlAttribute("stability")]
-        public virtual Stability Stability { get { return _stability; } set { _stability = value; } }
 
         private readonly Collection<Dependency> _dependencies = new Collection<Dependency>();
         /// <summary>
         /// A list of <see cref="Interface"/>s this implementation depends upon.
         /// </summary>
-        [Description("A list of interfaces this implementation depends upon.")]
+        [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
         public Collection<Dependency> Dependencies { get { return _dependencies; } }
         
@@ -131,7 +121,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for this implementation to locate itself.
         /// </summary>
-        [Description("A list of bindings for this implementation to locate itself.")]
+        [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("environment")]
         public Collection<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
@@ -139,7 +129,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for this implementation to locate itself.
         /// </summary>
-        [Description("A list of bindings for this implementation to locate itself.")]
+        [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("overlay")]
         public Collection<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion

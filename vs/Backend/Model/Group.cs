@@ -15,7 +15,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of sub-groups.
         /// </summary>
-        [Description("A list of sub-groups.")]
+        [Category("Implementation"), Description("A list of sub-groups.")]
         [XmlElement("group")]
         public Collection<Group> Groups { get { return _groups; } }
 
@@ -24,7 +24,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this group.
         /// </summary>
-        [Description("A list of implementations contained within this group.")]
+        [Category("Implementation"), Description("A list of implementations contained within this group.")]
         [XmlElement("implementation")]
         public Collection<Implementation> Implementations { get { return _implementation; } }
 
@@ -32,7 +32,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this group.
         /// </summary>
-        [Description("A list of distribution-provided package implementations contained within this group.")]
+        [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this group.")]
         [XmlElement("package-implementation")]
         public Collection<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion

@@ -8,14 +8,14 @@ namespace ZeroInstall.Backend.Model
     /// A common base class for <see cref="ImplementationBase"/> and <see cref="Feed"/>.
     /// Contains language and architecture parameters.
     /// </summary>
-    public abstract class ReleaseBase
+    public abstract class TargetBase
     {
         #region Properties
         /// <summary>
         /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
-        [Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
+        [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
         [XmlAttribute("langs")]
         public string Languages { get; set; }
 
@@ -23,7 +23,7 @@ namespace ZeroInstall.Backend.Model
         /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
         /// </summary>
         /// <remarks>The injector knows that certain platforms are backwards-compatible with others, so binaries with arch="Linux-i486"  will still be available on Linux-i686 machines, for example.</remarks>
-        [Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. ")]
+        [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. ")]
         [XmlIgnore]
         public Architecture Architecture { get; set; }
 

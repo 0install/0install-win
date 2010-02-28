@@ -67,6 +67,12 @@
     <Compile Include="FeedUrlForm.Designer.cs">
       <DependentUpon>FeedUrlForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InterfaceInformationDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfaceInformationDialog.Designer.cs">
+      <DependentUpon>InterfaceInformationDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +83,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FeedUrlForm.resx">
       <DependentUpon>FeedUrlForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InterfaceInformationDialog.resx">
+      <DependentUpon>InterfaceInformationDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -94,6 +103,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <None Include="Resources\Back.png" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>

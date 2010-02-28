@@ -12,7 +12,7 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this element.
         /// </summary>
-        [Description("A list of groups contained within this element.")]
+        [Category("Implementation"), Description("A list of groups contained within this element.")]
         [XmlElement("group")]
         Collection<Group> Groups { get; }
 
@@ -20,14 +20,14 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this element.
         /// </summary>
-        [Description("A list of implementations contained within this element.")]
+        [Category("Implementation"), Description("A list of implementations contained within this element.")]
         [XmlElement("implementation")]
         Collection<Implementation> Implementations { get; }
 
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this element.
         /// </summary>
-        [Description("A list of distribution-provided package implementations contained within this element.")]
+        [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this element.")]
         [XmlElement("implementation")]
         Collection<PackageImplementation> PackageImplementations { get; }
         #endregion

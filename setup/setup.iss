@@ -101,6 +101,7 @@ Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey; Permissions: authusers-modify
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
+Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\FeedEditor.exe
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
@@ -113,6 +114,7 @@ Name: modifypath; Description: {cm:AddToPath}
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.net/
 Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
+Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\FeedEditor.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\ZeroInstall.exe
 Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
 

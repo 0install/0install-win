@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 using ZeroInstall.Backend.Properties;
 
@@ -13,9 +14,9 @@ namespace ZeroInstall.Backend.Model
         [XmlEnum("*")] All,
         [XmlEnum("Linux")] Linux,
         [XmlEnum("Solaris")] Solaris,
-        [XmlEnum("MacOS")] MacOS,
+        [XmlEnum("MacOSX")] MacOsX,
         [XmlEnum("Windows")] Windows,
-        [XmlEnum("none")] None
+        [XmlEnum("unknown")] Unknown
     }
 
     /// <summary>
@@ -31,7 +32,8 @@ namespace ZeroInstall.Backend.Model
         [XmlEnum("x86_64")] X64,
         [XmlEnum("ppc")] Ppc,
         [XmlEnum("ppc64")] Ppc64,
-        [XmlEnum("none")] None
+        [XmlEnum("src")] Source,
+        [XmlEnum("unknown")] Unknown
     }
     #endregion
 
@@ -44,11 +46,13 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// Determines which operating systems are supported.
         /// </summary>
+        [Description("Determines which operating systems are supported.")]
         public OS OS { get; set; }
 
         /// <summary>
         /// Determines which CPU-architectures are supported.
         /// </summary>
+        [Description("Determines which CPU-architectures are supported.")]
         public Cpu Cpu { get; set; }
         #endregion
 
@@ -74,9 +78,9 @@ namespace ZeroInstall.Backend.Model
                 case "*": OS = OS.All; break;
                 case "Linux": OS = OS.Linux; break;
                 case "Solaris": OS = OS.Solaris; break;
-                case "MacOS": OS = OS.MacOS; break;
+                case "MacOSX": OS = OS.MacOsX; break;
                 case "Windows": OS = OS.Windows; break;
-                default: OS = OS.None; break;
+                default: OS = OS.Unknown; break;
             }
             switch (cpu)
             {
@@ -88,7 +92,8 @@ namespace ZeroInstall.Backend.Model
                 case "x86_64": Cpu = Cpu.X64; break;
                 case "ppc": Cpu = Cpu.Ppc; break;
                 case "ppc64": Cpu = Cpu.Ppc64; break;
-                default: Cpu = Cpu.None; break;
+                case "src": Cpu = Cpu.Source; break;
+                default: Cpu = Cpu.Unknown; break;
             }
         }
         #endregion
@@ -107,9 +112,9 @@ namespace ZeroInstall.Backend.Model
                 case OS.All: os = "*"; break;
                 case OS.Linux: os = "Linux"; break;
                 case OS.Solaris: os = "Solaris"; break;
-                case OS.MacOS: os = "MacOS"; break;
+                case OS.MacOsX: os = "MacOSX"; break;
                 case OS.Windows: os = "Windows"; break;
-                default: os = "none"; break;
+                default: os = "unknown"; break;
             }
             switch (Cpu)
             {
@@ -121,7 +126,8 @@ namespace ZeroInstall.Backend.Model
                 case Cpu.X64: cpu = "x86_64"; break;
                 case Cpu.Ppc: cpu = "ppc"; break;
                 case Cpu.Ppc64: cpu = "ppc64"; break;
-                default: cpu = "none"; break;
+                case Cpu.Source: cpu = "src"; break;
+                default: cpu = "unknown"; break;
             }
 
             return os + "-" + cpu;

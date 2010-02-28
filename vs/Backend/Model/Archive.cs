@@ -51,7 +51,7 @@ namespace ZeroInstall.Backend.Model
         /// </summary>
         /// <remarks>This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.</remarks>
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]
-        [XmlAttribute("start-offset"), DefaultValue(0l)]
+        [XmlAttribute("start-offset"), DefaultValue(0L)]
         public long StartOffset { get; set; }
         #endregion
     }

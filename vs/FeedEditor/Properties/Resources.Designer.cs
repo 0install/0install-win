@@ -69,9 +69,23 @@ namespace ZeroInstall.FeedEditor.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap Logo {
+        internal static System.Drawing.Bitmap NewButton {
             get {
-                object obj = ResourceManager.GetObject("Logo", resourceCulture);
+                object obj = ResourceManager.GetObject("NewButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap OpenButton {
+            get {
+                object obj = ResourceManager.GetObject("OpenButton", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap SaveButton {
+            get {
+                object obj = ResourceManager.GetObject("SaveButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

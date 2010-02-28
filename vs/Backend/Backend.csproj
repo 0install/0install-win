@@ -43,6 +43,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -65,7 +66,7 @@
     <Compile Include="Model\OverlayBinding.cs" />
     <Compile Include="Model\PackageImplementation.cs" />
     <Compile Include="Model\Recipe.cs" />
-    <Compile Include="Model\ReleaseBase.cs" />
+    <Compile Include="Model\TargetBase.cs" />
     <Compile Include="Model\RetrievalMethod.cs" />
     <Compile Include="Model\RetrievalStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Backend.Model
@@ -18,9 +17,8 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// The version number as provided by the operating system.
         /// </summary>
-        [Description("The version number as provided by the operating system.")]
-        [XmlIgnore]
-        public override Version Version
+        [XmlIgnore, Browsable(false)]
+        public override string Version
         {
             get
             {
@@ -31,10 +29,9 @@ namespace ZeroInstall.Backend.Model
         }
 
         /// <summary>
-        /// The default stability rating for all <see cref="PackageImplementation"/>s.
+        /// The default stability rating for all <see cref="PackageImplementation"/>s is always "packaged".
         /// </summary>
-        [Browsable(false)]
-        [XmlIgnore]
+        [XmlIgnore, Browsable(false)]
         public override Stability Stability
         {
             get { return Stability.Packaged; }
@@ -46,14 +43,14 @@ namespace ZeroInstall.Backend.Model
         /// <summary>
         /// The name of the package in the distribution-specific package manager.
         /// </summary>
-        [Description("The name of the package in the distribution-specific package manager.")]
+        [Category("Identity"), Description("The name of the package in the distribution-specific package manager.")]
         [XmlAttribute("package")]
         public string Package { get; set; }
 
         /// <summary>
         /// A space-separated list of distribution names where <see cref="Package"/> applies.
         /// </summary>
-        [Description("A space-separated list of distribution names where the package name applies.")]
+        [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
         [XmlAttribute("distributions")]
         public string Distributions { get; set; }
         #endregion
