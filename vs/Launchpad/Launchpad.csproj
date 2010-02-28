@@ -61,6 +61,7 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Storage\AppEntry.cs" />
     <Compile Include="FeedUrlForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,9 +74,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage\MyApps.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings.cs" />
+    <Compile Include="Storage\Settings.cs" />
     <EmbeddedResource Include="FeedUrlForm.resx">
       <DependentUpon>FeedUrlForm.cs</DependentUpon>
     </EmbeddedResource>

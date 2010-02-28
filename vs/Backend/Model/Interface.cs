@@ -32,7 +32,7 @@ namespace ZeroInstall.Backend.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("uri"), Browsable(false)]
         public String UriString
         {

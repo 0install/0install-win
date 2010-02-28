@@ -2,44 +2,47 @@
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using Common;
 using Common.Storage;
 
-namespace ZeroInstall.Launchpad
+namespace ZeroInstall.FeedEditor.Storage
 {
     /// <summary>
     /// Stores settings for the application
     /// </summary>
+    [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/feed-editor/settings")]
+    // ToDo: Supress xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     public sealed class Settings
     {
         #region Variables
         private static readonly string
-            AppDirPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "LaunchpadSettings.xml"),
+            AppDirPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "feed-editor-settings.xml"),
             ProfilePath = Path.Combine(UserDataDir, "settings.xml");
         #endregion
 
         #region Properties
         /// <summary>
-        /// The directory where user data for the game is stored
+        /// The directory where user data for the application is stored
         /// </summary>
         public static string UserDataDir
         {
             get
             {
-                string userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine("0install.net", "launchpad"));
+                string userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine("0install.net", "feed-editor"));
                 if (!Directory.Exists(userDataDir)) Directory.CreateDirectory(userDataDir);
                 return userDataDir;
             }
         }
 
         /// <summary>
-        /// The directory where local (non-roaming) user data for the game is stored
+        /// The directory where local (non-roaming) user data for the application is stored
         /// </summary>
         public static string UserLocalDataDir
         {
             get
             {
-                string userLocalDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.Combine("0install.net", "launchpad"));
+                string userLocalDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.Combine("0install.net", "feed-editor"));
                 if (!Directory.Exists(userLocalDataDir)) Directory.CreateDirectory(userLocalDataDir);
                 return userLocalDataDir;
             }

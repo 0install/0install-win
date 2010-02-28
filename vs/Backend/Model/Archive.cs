@@ -17,7 +17,7 @@ namespace ZeroInstall.Backend.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Location"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings")]
+        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("href"), Browsable(false)]
         public String LocationString
         {

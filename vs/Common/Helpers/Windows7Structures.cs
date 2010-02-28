@@ -226,7 +226,7 @@ namespace Common.Helpers
     [GuidAttribute("56FDF344-FD6D-11d0-958A-006097C9A090")]
     [ClassInterfaceAttribute(ClassInterfaceType.None)]
     [ComImportAttribute]
-    internal class CTaskbarList { }
+    internal class CTaskbarList {}
 // ReSharper restore InconsistentNaming
 // ReSharper restore UnusedMember.Global
 }

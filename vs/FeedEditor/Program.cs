@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.FeedEditor.Properties;
+using ZeroInstall.FeedEditor.Storage;
 
 namespace ZeroInstall.FeedEditor
 {
@@ -32,7 +33,11 @@ namespace ZeroInstall.FeedEditor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Settings.LoadCurrent();
+
             Application.Run(new MainForm());
+
+            Settings.SaveCurrent();
         }
         #endregion
 

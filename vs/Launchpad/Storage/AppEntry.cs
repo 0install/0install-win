@@ -3,12 +3,12 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Launchpad.Storage
 {
     /// <summary>
-    /// An additional feed for an <see cref="Interface"/>.
+    /// An entry for the <see cref="MyApps"/> list.
     /// </summary>
-    public sealed class Feed : TargetBase
+    public struct AppEntry
     {
         #region Properties
         /// <summary>
@@ -16,18 +16,20 @@ namespace ZeroInstall.Backend.Model
         /// </summary>
         [Description("The URL used to locate the feed.")]
         [XmlIgnore]
-        public Uri Source
+        public Uri Location
         { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("src"), Browsable(false)]
-        public String SourceString
+        [XmlAttribute("href"), Browsable(false)]
+        public String LocationString
         {
-            get { return (Source == null ? null : Source.ToString()); }
-            set { Source = new Uri(value); }
+            get { return (Location == null ? null : Location.ToString()); }
+            set { Location = new Uri(value); }
         }
         #endregion
     }
 }
+
+

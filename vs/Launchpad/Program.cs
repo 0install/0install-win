@@ -5,6 +5,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Launchpad.Properties;
+using ZeroInstall.Launchpad.Storage;
 
 namespace ZeroInstall.Launchpad
 {
@@ -33,10 +34,12 @@ namespace ZeroInstall.Launchpad
             Application.SetCompatibleTextRenderingDefault(false);
 
             Settings.LoadCurrent();
+            MyApps.LoadCurrent();
 
             Application.Run(new MainForm());
 
             Settings.SaveCurrent();
+            MyApps.SaveCurrent();
         }
         #endregion
 
