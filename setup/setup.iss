@@ -60,7 +60,7 @@ AppVersion={#Maj}.{#Min}.{#Rev}
 DisableProgramGroupPage=true
 PrivilegesRequired=admin
 ChangesAssociations=true
-UninstallDisplayIcon={app}\Zero Install.exe
+UninstallDisplayIcon={app}\ZeroInstall.exe
 UninstallDisplayName=Zero Install
 VersionInfoVersion={#Maj}.{#Min}.{#Rev}
 VersionInfoCompany=0install.net
@@ -78,6 +78,9 @@ ChangesEnvironment=yes
 Name: en; MessagesFile: compiler:Default.isl
 Name: de; MessagesFile: compiler:Languages\German.isl
 
+[InstallDelete]
+Name: {app}\Zero Install.exe; Type: files
+
 [Files]
 Source: ..\..\build\windows\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
@@ -93,10 +96,11 @@ Source: {src}\NanoGridCache\*; DestDir: {code:NanoGridCachePath}; Flags: externa
 
 [Registry]
 ;These entries are required by the NanoGrid auto-update tool
+Root: HKLM; Subkey: Software\Zero Install; Flags: deletekey
 Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey; Permissions: authusers-modify
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\Zero Install.exe
+Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
@@ -108,13 +112,13 @@ Name: modifypath; Description: {cm:AddToPath}
 [Icons]
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.net/
-Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\Zero Install.exe
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\Zero Install.exe
-Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\Zero Install.exe; Tasks: desktopicon
+Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
+Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\ZeroInstall.exe
+Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 ;Post-installations tasks
 [Run]
-Filename: {app}\Zero Install.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
+Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 
 ;Uninstall cleanup additional files

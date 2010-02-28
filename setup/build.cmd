@@ -17,9 +17,9 @@ echo Building Inno Setup...
 iscc /Q "%ProgISS%"
 if errorlevel 1 pause
 
-if "%1"=="+run" "..\bin\Setup\%SetupName%" /silent
-if "%2"=="+run" "..\bin\Setup\%SetupName%" /silent
-if "%3"=="+run" "..\bin\Setup\%SetupName%" /silent
+if "%1"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
+if "%2"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
+if "%3"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
 
 echo Building Inno Setup Update...
 iscc /Q "%ProgUpdateISS%"
