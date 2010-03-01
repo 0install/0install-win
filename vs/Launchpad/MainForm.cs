@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace ZeroInstall.Launchpad
 {
-    public partial class MainForm : Form
+    partial class MainForm : Form
     {
         #region Constructor
         public MainForm()
@@ -15,23 +15,15 @@ namespace ZeroInstall.Launchpad
         }
         #endregion
 
-        #region Feed management
-        private void buttonAddFeed_Click(object sender, EventArgs e)
+        #region Startup
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            using (var feedUrlForm = new FeedUrlForm())
-                feedUrlForm.ShowDialog(this);
-        }
-
-        private void buttonManageCache_Click(object sender, EventArgs e)
-        {
-            Program.LaunchHelperApp(this, "0storew.exe");
-        }
-
-        private void buttonHelp_Click(object sender, EventArgs e)
-        {
-            // ToDo
+            // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
+            tabControlApps.SelectedTab = tabPageNewApps;
         }
         #endregion
+
+        //--------------------//
 
         #region New apps browser
         private void toolStripButtonBack_Click(object sender, EventArgs e)
@@ -64,9 +56,22 @@ namespace ZeroInstall.Launchpad
         }
         #endregion
 
-        private void browserNewApps_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        #region Tools
+        private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-
+            using (var feedUrlForm = new FeedUrlForm())
+                feedUrlForm.ShowDialog(this);
         }
+
+        private void buttonManageCache_Click(object sender, EventArgs e)
+        {
+            Program.LaunchHelperApp(this, "0storew.exe");
+        }
+
+        private void buttonHelp_Click(object sender, EventArgs e)
+        {
+            // ToDo
+        }
+        #endregion
     }
 }

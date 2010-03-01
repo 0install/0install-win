@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace ZeroInstall.Launchpad
 {
-    public partial class FeedUrlForm : Form
+    partial class FeedUrlForm : Form
     {
         public FeedUrlForm()
         {
