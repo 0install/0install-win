@@ -39,10 +39,13 @@ namespace ZeroInstall.Launchpad
             switch (e.Url.Fragment)
             {
                 case UrlPostfixFeed:
+                    // ToDo: Display details about the feed
                     MessageBox.Show(e.Url.OriginalString.Replace(UrlPostfixFeed, ""));
                     e.Cancel = true;
                     break;
+
                 case UrlPostfixBrowser:
+                    // Use the system's default web browser to open the URL
                     Process.Start(e.Url.OriginalString.Replace(UrlPostfixBrowser, ""));
                     e.Cancel = true;
                     break;
