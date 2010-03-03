@@ -141,6 +141,7 @@
             this.tabPageInterface.TabIndex = 0;
             this.tabPageInterface.Text = "Interface";
             this.tabPageInterface.UseVisualStyleBackColor = true;
+            this.tabPageInterface.Click += new System.EventHandler(this.tabPageInterface_Click);
             // 
             // lblIconUrlError
             // 

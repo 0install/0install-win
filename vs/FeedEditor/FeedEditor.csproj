@@ -101,7 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
-    <None Include="app.config" />
     <None Include="Resources\NewButton.png" />
     <None Include="Resources\OpenButton.png" />
     <None Include="Resources\SaveButton.png" />

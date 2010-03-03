@@ -105,5 +105,10 @@ namespace ZeroInstall.FeedEditor
             Stream stream = fileReponse.GetResponseStream();
             return Image.FromStream(stream);
         }
+
+        private void tabPageInterface_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
