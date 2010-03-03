@@ -32,12 +32,7 @@ namespace ZeroInstall.FeedEditor
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            Settings.LoadCurrent();
-
             Application.Run(new MainForm());
-
-            Settings.SaveCurrent();
         }
         #endregion
 
