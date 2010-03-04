@@ -12,6 +12,8 @@ namespace ZeroInstall.FeedEditor
 {
     public partial class MainForm : Form
     {
+        private Interface xmlInterface;
+
         public MainForm()
         {
             InitializeComponent();
@@ -20,7 +22,7 @@ namespace ZeroInstall.FeedEditor
 
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            //propertyGridInterface.SelectedObject = new Interface();
+            xmlInterface = new Interface();
         }
 
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
@@ -35,7 +37,8 @@ namespace ZeroInstall.FeedEditor
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //propertyGridInterface.SelectedObject = XmlStorage.Load<Interface>(openFileDialog.FileName);
+            xmlInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
+            FillForm();
         }
 
         private void saveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
@@ -43,7 +46,7 @@ namespace ZeroInstall.FeedEditor
             //XmlStorage.Save<Interface>(saveFileDialog.FileName, (Interface)propertyGridInterface.SelectedObject);
         }
 
-        private void btnIconPreview_Click(object sender, EventArgs e)
+        private void BtnIconPreviewClick(object sender, EventArgs e)
         {
             Uri iconUrl;
             Image icon;
@@ -65,7 +68,7 @@ namespace ZeroInstall.FeedEditor
             // try downloading image
             try
             {
-                icon = getImageFromURL(iconUrl);
+                icon = GetImageFromUrl(iconUrl);
             }
             catch (WebException ex)
             {
@@ -85,7 +88,6 @@ namespace ZeroInstall.FeedEditor
                 lblIconUrlError.Text = "URL does not describe an image";
                 return;
             }
-
             // check if icon format is png
             if (!icon.RawFormat.Equals(ImageFormat.Png))
             {
@@ -98,15 +100,114 @@ namespace ZeroInstall.FeedEditor
             lblIconUrlError.Text = "Valid URL";
         }
 
-        private static Image getImageFromURL(Uri url)
+        private void FillForm()
         {
-            HttpWebRequest fileRequest = (HttpWebRequest) HttpWebRequest.Create(url);
-            HttpWebResponse fileReponse = (HttpWebResponse) fileRequest.GetResponse();
-            Stream stream = fileReponse.GetResponseStream();
-            return Image.FromStream(stream);
-        }
+            textName.Text = xmlInterface.Name;
+            textSummary.Text = xmlInterface.Summary;
+            //fill icons list box
+            listIconsUrls.BeginUpdate();
+            listIconsUrls.Items.Clear();
+            foreach (ZeroInstall.Backend.Model.Icon icon in xmlInterface.Icons)
+            {
+                listIconsUrls.Items.Add(icon);
+            }
+            listIconsUrls.EndUpdate();
+
+            textDescription.Text = xmlInterface.Description;
+            textHomepage.Text = xmlInterface.HomepageString;
+         }
 
         private void tabPageInterface_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textName_TextChanged_1(object sender, EventArgs e)
+        {
+        }
+
+        private void btnIconListAdd_Click(object sender, EventArgs e)
+        {
+            var icon = new ZeroInstall.Backend.Model.Icon();
+            icon.LocationString = textIconUrl.Text;
+            // set mime type
+            switch(comboIconType.Text) {
+                case "PNG":
+                    icon.MimeType = "image/png";
+                    break;
+                case "ICO":
+                    icon.MimeType = "image/vnd-microsoft-icon";
+                    break;
+                default: throw new InvalidOperationException("Wrong MIME-Type");
+            }
+
+            // add icon object to list box
+            if(!listIconsUrls.Items.Contains(icon)) {
+                listIconsUrls.Items.Add(icon);
+            }
+        }
+
+        private void btnIconListRemove_Click(object sender, EventArgs e)
+        {
+            if (listIconsUrls.SelectedItem != null)
+            {
+                listIconsUrls.Items.Remove((ZeroInstall.Backend.Model.Icon)listIconsUrls.SelectedItem);
+            }
+        }
+
+        private void listIconsUrls_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listIconsUrls.SelectedItem != null)
+            {
+                var icon = (ZeroInstall.Backend.Model.Icon)listIconsUrls.SelectedItem;
+                textIconUrl.Text = icon.LocationString;
+                if (icon.MimeType.Equals("image/png"))
+                {
+                    comboIconType.Text = "PNG";
+                }
+                else if (icon.MimeType.Equals("image/vnd-microsoft-icon"))
+                {
+                    comboIconType.Text = "ICO";
+                }
+            }
+        }
+
+        private void lblIconMime_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void textHomepage_TextChanged(object sender, EventArgs e)
         {
 
         }

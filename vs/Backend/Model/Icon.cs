@@ -35,5 +35,24 @@ namespace ZeroInstall.Backend.Model
         [XmlAttribute("type")]
         public String MimeType { get; set; }
         #endregion
+
+        
+        public override string ToString()
+        {
+            return this.LocationString + " (" + MimeType + ")";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Icon)
+            {
+                Icon icon = (Icon)obj;
+                return LocationString == icon.LocationString;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
