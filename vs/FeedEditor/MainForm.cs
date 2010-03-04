@@ -1,28 +1,25 @@
 ﻿using System;
 using System.Windows.Forms;
 using Common.Storage;
-using ZeroInstall.Backend.Model;
+using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
-using System.IO;
-using System.Threading;
 using System.Drawing.Imaging;
 
 namespace ZeroInstall.FeedEditor
 {
     public partial class MainForm : Form
     {
-        private Interface xmlInterface;
+        private Interface _xmlInterface;
 
         public MainForm()
         {
             InitializeComponent();
         }
-
-
+        
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            xmlInterface = new Interface();
+            _xmlInterface = new Interface();
         }
 
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
@@ -37,7 +34,7 @@ namespace ZeroInstall.FeedEditor
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            xmlInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
+            _xmlInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
             FillForm();
         }
 
@@ -102,38 +99,24 @@ namespace ZeroInstall.FeedEditor
 
         private void FillForm()
         {
-            textName.Text = xmlInterface.Name;
-            textSummary.Text = xmlInterface.Summary;
+            textName.Text = _xmlInterface.Name;
+            textSummary.Text = _xmlInterface.Summary;
             //fill icons list box
             listIconsUrls.BeginUpdate();
             listIconsUrls.Items.Clear();
-            foreach (ZeroInstall.Backend.Model.Icon icon in xmlInterface.Icons)
+            foreach (Model.Icon icon in _xmlInterface.Icons)
             {
                 listIconsUrls.Items.Add(icon);
             }
             listIconsUrls.EndUpdate();
 
-            textDescription.Text = xmlInterface.Description;
-            textHomepage.Text = xmlInterface.HomepageString;
+            textDescription.Text = _xmlInterface.Description;
+            textHomepage.Text = _xmlInterface.HomepageString;
          }
-
-        private void tabPageInterface_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textName_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textName_TextChanged_1(object sender, EventArgs e)
-        {
-        }
 
         private void btnIconListAdd_Click(object sender, EventArgs e)
         {
-            var icon = new ZeroInstall.Backend.Model.Icon();
+            var icon = new Model.Icon();
             icon.LocationString = textIconUrl.Text;
             // set mime type
             switch(comboIconType.Text) {
@@ -156,7 +139,7 @@ namespace ZeroInstall.FeedEditor
         {
             if (listIconsUrls.SelectedItem != null)
             {
-                listIconsUrls.Items.Remove((ZeroInstall.Backend.Model.Icon)listIconsUrls.SelectedItem);
+                listIconsUrls.Items.Remove((Model.Icon)listIconsUrls.SelectedItem);
             }
         }
 
@@ -164,7 +147,7 @@ namespace ZeroInstall.FeedEditor
         {
             if (listIconsUrls.SelectedItem != null)
             {
-                var icon = (ZeroInstall.Backend.Model.Icon)listIconsUrls.SelectedItem;
+                var icon = (Model.Icon)listIconsUrls.SelectedItem;
                 textIconUrl.Text = icon.LocationString;
                 if (icon.MimeType.Equals("image/png"))
                 {
@@ -175,41 +158,6 @@ namespace ZeroInstall.FeedEditor
                     comboIconType.Text = "ICO";
                 }
             }
-        }
-
-        private void lblIconMime_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblCategory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lblIcon_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void toolStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
-        private void textHomepage_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

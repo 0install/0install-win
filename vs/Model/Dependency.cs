@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// A reference to an <see cref="Interface"/> that is required by an <see cref="Implementation"/>.

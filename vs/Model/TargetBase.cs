@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// A common base class for <see cref="ImplementationBase"/> and <see cref="Feed"/>.

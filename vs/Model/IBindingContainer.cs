@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// An object that contains <see cref="Binding"/>s.

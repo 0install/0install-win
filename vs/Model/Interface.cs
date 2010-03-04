@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// Represents a Zero Install feed containing information about...

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     public sealed class Archive : RetrievalStep
     {

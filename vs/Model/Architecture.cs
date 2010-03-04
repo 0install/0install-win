@@ -1,9 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Backend.Properties;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <summary>

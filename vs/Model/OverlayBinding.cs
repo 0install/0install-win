@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// An overlay binding specifies that the chosen <see cref="Implementation"/> should be made available at the given location in the filesystem.

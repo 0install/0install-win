@@ -101,16 +101,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
-    <None Include="Properties\DataSources\MainForm.datasource" />
-    <None Include="Properties\DataSources\ZeroInstall.Backend.Model.Interface.datasource" />
     <None Include="Resources\NewButton.png" />
     <None Include="Resources\OpenButton.png" />
     <None Include="Resources\SaveButton.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Backend\Backend.csproj">
+    <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
-      <Name>Backend</Name>
+      <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>

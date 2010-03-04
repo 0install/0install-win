@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Backend.Model
+namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <summary>

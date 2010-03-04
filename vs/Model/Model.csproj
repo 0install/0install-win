@@ -8,8 +8,8 @@
     <ProjectGuid>{E9329C91-2656-418C-9D4A-7A4378DCD852}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.Backend</RootNamespace>
-    <AssemblyName>Backend</AssemblyName>
+    <RootNamespace>ZeroInstall.Model</RootNamespace>
+    <AssemblyName>ZeroInstall.Model</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\bin\Debug\</OutputPath>
-    <DocumentationFile>..\bin\Debug\Backend.xml</DocumentationFile>
+    <DocumentationFile>..\bin\Debug\ZeroInstall.Model.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -47,28 +47,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Architecture.cs" />
-    <Compile Include="Model\Archive.cs" />
-    <Compile Include="Model\Binding.cs" />
-    <Compile Include="Model\Constraint.cs" />
-    <Compile Include="Model\Dependency.cs" />
-    <Compile Include="Model\EnvironmentBinding.cs" />
-    <Compile Include="Model\Feed.cs" />
-    <Compile Include="Model\Group.cs" />
-    <Compile Include="Model\IBindingContainer.cs" />
-    <Compile Include="Model\IGroupContainer.cs" />
-    <Compile Include="Model\Implementation.cs" />
+    <Compile Include="Architecture.cs" />
+    <Compile Include="Archive.cs" />
+    <Compile Include="Binding.cs" />
+    <Compile Include="Constraint.cs" />
+    <Compile Include="Dependency.cs" />
+    <Compile Include="EnvironmentBinding.cs" />
+    <Compile Include="Feed.cs" />
+    <Compile Include="Group.cs" />
+    <Compile Include="IBindingContainer.cs" />
+    <Compile Include="IGroupContainer.cs" />
+    <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Model\ImplementationBase.cs" />
-    <Compile Include="Model\Interface.cs" />
-    <Compile Include="Model\Icon.cs" />
-    <Compile Include="Model\ManifestDigest.cs" />
-    <Compile Include="Model\OverlayBinding.cs" />
-    <Compile Include="Model\PackageImplementation.cs" />
-    <Compile Include="Model\Recipe.cs" />
-    <Compile Include="Model\TargetBase.cs" />
-    <Compile Include="Model\RetrievalMethod.cs" />
-    <Compile Include="Model\RetrievalStep.cs" />
+    <Compile Include="ImplementationBase.cs" />
+    <Compile Include="Interface.cs" />
+    <Compile Include="Icon.cs" />
+    <Compile Include="ManifestDigest.cs" />
+    <Compile Include="OverlayBinding.cs" />
+    <Compile Include="PackageImplementation.cs" />
+    <Compile Include="Recipe.cs" />
+    <Compile Include="TargetBase.cs" />
+    <Compile Include="RetrievalMethod.cs" />
+    <Compile Include="RetrievalStep.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
@@ -93,8 +93,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDependencies.dgml" />
-    <None Include="Model\ClassDiagram.cd" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

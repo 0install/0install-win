@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Backend.Model
+﻿namespace ZeroInstall.Model
 {
     /// <summary>
     /// Bindings specify how the chosen implementation is made known to the running program.
