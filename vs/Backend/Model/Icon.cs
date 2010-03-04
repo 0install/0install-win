@@ -36,7 +36,6 @@ namespace ZeroInstall.Backend.Model
         public String MimeType { get; set; }
         #endregion
 
-        
         public override string ToString()
         {
             return this.LocationString + " (" + MimeType + ")";
