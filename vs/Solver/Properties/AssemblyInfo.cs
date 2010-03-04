@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Zero Install Model Library")]
-[assembly: AssemblyDescription("In-memory representation of interfaces and other data structures.")]
+[assembly: AssemblyTitle("Zero Install Solver Library")]
+[assembly: AssemblyDescription("Methods for solving dependencies.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
@@ -21,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(true)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5c443826-616a-4db4-a29d-51e9babc0b39")]
+[assembly: Guid("bc8b406a-f138-46d9-9728-4d087fe66383")]
 
 // Version information
 [assembly: AssemblyVersion("0.1.0.0")]

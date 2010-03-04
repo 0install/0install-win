@@ -140,7 +140,7 @@ namespace ZeroInstall.Launchpad.Storage
         #endregion
 
         #region Values
-        private Collection<AppEntry> _applications;
+        private Collection<AppEntry> _applications = new Collection<AppEntry>();
         /// <summary>
         /// The list of application entries.
         /// </summary>
