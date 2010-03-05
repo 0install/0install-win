@@ -42,12 +42,17 @@ namespace ZeroInstall.FeedEditor
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.textInterfaceURL = new Common.Controls.HintTextBox();
+            this.lblInterfaceURL = new System.Windows.Forms.Label();
             this.checkedListCategory = new System.Windows.Forms.CheckedListBox();
+            this.textHomepage = new Common.Controls.HintTextBox();
             this.lblHomepage = new System.Windows.Forms.Label();
+            this.textDescription = new Common.Controls.HintTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblIcon = new System.Windows.Forms.Label();
             this.comboIconType = new System.Windows.Forms.ComboBox();
+            this.textIconUrl = new Common.Controls.HintTextBox();
             this.lblIconUrlError = new System.Windows.Forms.Label();
             this.lblIconMime = new System.Windows.Forms.Label();
             this.btnIconPreview = new System.Windows.Forms.Button();
@@ -56,22 +61,19 @@ namespace ZeroInstall.FeedEditor
             this.btnIconAdd = new System.Windows.Forms.Button();
             this.listIconsUrls = new System.Windows.Forms.ListBox();
             this.lblCategory = new System.Windows.Forms.Label();
+            this.textSummary = new Common.Controls.HintTextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textName = new Common.Controls.HintTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
-            this.textHomepage = new Common.Controls.HintTextBox();
-            this.textDescription = new Common.Controls.HintTextBox();
-            this.textIconUrl = new Common.Controls.HintTextBox();
-            this.textSummary = new Common.Controls.HintTextBox();
-            this.textName = new Common.Controls.HintTextBox();
-            this.lblInterfaceURL = new System.Windows.Forms.Label();
-            this.textInterfaceURL = new Common.Controls.HintTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
+            this.tabAdvanced.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -165,6 +167,25 @@ namespace ZeroInstall.FeedEditor
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
+            // textInterfaceURL
+            // 
+            this.textInterfaceURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textInterfaceURL.HintText = "URL to a remote interface";
+            this.textInterfaceURL.Location = new System.Drawing.Point(9, 368);
+            this.textInterfaceURL.Name = "textInterfaceURL";
+            this.textInterfaceURL.Size = new System.Drawing.Size(591, 20);
+            this.textInterfaceURL.TabIndex = 27;
+            // 
+            // lblInterfaceURL
+            // 
+            this.lblInterfaceURL.AutoSize = true;
+            this.lblInterfaceURL.Location = new System.Drawing.Point(6, 352);
+            this.lblInterfaceURL.Name = "lblInterfaceURL";
+            this.lblInterfaceURL.Size = new System.Drawing.Size(74, 13);
+            this.lblInterfaceURL.TabIndex = 26;
+            this.lblInterfaceURL.Text = "Interface URL";
+            // 
             // checkedListCategory
             // 
             this.checkedListCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -188,6 +209,16 @@ namespace ZeroInstall.FeedEditor
             this.checkedListCategory.Sorted = true;
             this.checkedListCategory.TabIndex = 25;
             // 
+            // textHomepage
+            // 
+            this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
+            this.textHomepage.Location = new System.Drawing.Point(9, 407);
+            this.textHomepage.Name = "textHomepage";
+            this.textHomepage.Size = new System.Drawing.Size(592, 20);
+            this.textHomepage.TabIndex = 24;
+            // 
             // lblHomepage
             // 
             this.lblHomepage.AutoSize = true;
@@ -196,6 +227,17 @@ namespace ZeroInstall.FeedEditor
             this.lblHomepage.Size = new System.Drawing.Size(59, 13);
             this.lblHomepage.TabIndex = 23;
             this.lblHomepage.Text = "Homepage";
+            // 
+            // textDescription
+            // 
+            this.textDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textDescription.HintText = "a full description, which can be several paragraphs long";
+            this.textDescription.Location = new System.Drawing.Point(9, 275);
+            this.textDescription.Multiline = true;
+            this.textDescription.Name = "textDescription";
+            this.textDescription.Size = new System.Drawing.Size(591, 74);
+            this.textDescription.TabIndex = 22;
             // 
             // lblDescription
             // 
@@ -248,6 +290,16 @@ namespace ZeroInstall.FeedEditor
             this.comboIconType.Name = "comboIconType";
             this.comboIconType.Size = new System.Drawing.Size(76, 21);
             this.comboIconType.TabIndex = 18;
+            // 
+            // textIconUrl
+            // 
+            this.textIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textIconUrl.HintText = "";
+            this.textIconUrl.Location = new System.Drawing.Point(9, 32);
+            this.textIconUrl.Name = "textIconUrl";
+            this.textIconUrl.Size = new System.Drawing.Size(364, 20);
+            this.textIconUrl.TabIndex = 11;
             // 
             // lblIconUrlError
             // 
@@ -334,6 +386,17 @@ namespace ZeroInstall.FeedEditor
             this.lblCategory.TabIndex = 4;
             this.lblCategory.Text = "Category";
             // 
+            // textSummary
+            // 
+            this.textSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textSummary.HintText = "a short one-line description";
+            this.textSummary.Location = new System.Drawing.Point(9, 59);
+            this.textSummary.Name = "textSummary";
+            this.textSummary.Size = new System.Drawing.Size(465, 20);
+            this.textSummary.TabIndex = 12;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -342,6 +405,17 @@ namespace ZeroInstall.FeedEditor
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "Summary";
+            // 
+            // textName
+            // 
+            this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
+            this.textName.Location = new System.Drawing.Point(9, 20);
+            this.textName.Name = "textName";
+            this.textName.Size = new System.Drawing.Size(465, 20);
+            this.textName.TabIndex = 13;
             // 
             // lblName
             // 
@@ -357,91 +431,29 @@ namespace ZeroInstall.FeedEditor
             this.tabPageFeed.Location = new System.Drawing.Point(4, 22);
             this.tabPageFeed.Name = "tabPageFeed";
             this.tabPageFeed.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFeed.Size = new System.Drawing.Size(608, 399);
+            this.tabPageFeed.Size = new System.Drawing.Size(608, 438);
             this.tabPageFeed.TabIndex = 1;
             this.tabPageFeed.Text = "Feeds";
             this.tabPageFeed.UseVisualStyleBackColor = true;
             // 
             // tabAdvanced
             // 
+            this.tabAdvanced.Controls.Add(this.groupBox2);
             this.tabAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabAdvanced.Name = "tabAdvanced";
-            this.tabAdvanced.Size = new System.Drawing.Size(608, 399);
+            this.tabAdvanced.Size = new System.Drawing.Size(608, 438);
             this.tabAdvanced.TabIndex = 2;
             this.tabAdvanced.Text = "Advanced";
             this.tabAdvanced.UseVisualStyleBackColor = true;
             // 
-            // textHomepage
+            // groupBox2
             // 
-            this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
-            this.textHomepage.Location = new System.Drawing.Point(9, 407);
-            this.textHomepage.Name = "textHomepage";
-            this.textHomepage.Size = new System.Drawing.Size(592, 20);
-            this.textHomepage.TabIndex = 24;
-            // 
-            // textDescription
-            // 
-            this.textDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textDescription.HintText = "a full description, which can be several paragraphs long";
-            this.textDescription.Location = new System.Drawing.Point(9, 275);
-            this.textDescription.Multiline = true;
-            this.textDescription.Name = "textDescription";
-            this.textDescription.Size = new System.Drawing.Size(591, 74);
-            this.textDescription.TabIndex = 22;
-            // 
-            // textIconUrl
-            // 
-            this.textIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textIconUrl.HintText = "";
-            this.textIconUrl.Location = new System.Drawing.Point(9, 32);
-            this.textIconUrl.Name = "textIconUrl";
-            this.textIconUrl.Size = new System.Drawing.Size(364, 20);
-            this.textIconUrl.TabIndex = 11;
-            // 
-            // textSummary
-            // 
-            this.textSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSummary.HintText = "a short one-line description";
-            this.textSummary.Location = new System.Drawing.Point(9, 59);
-            this.textSummary.Name = "textSummary";
-            this.textSummary.Size = new System.Drawing.Size(465, 20);
-            this.textSummary.TabIndex = 12;
-            // 
-            // textName
-            // 
-            this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
-            this.textName.Location = new System.Drawing.Point(9, 20);
-            this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(465, 20);
-            this.textName.TabIndex = 13;
-            // 
-            // lblInterfaceURL
-            // 
-            this.lblInterfaceURL.AutoSize = true;
-            this.lblInterfaceURL.Location = new System.Drawing.Point(6, 352);
-            this.lblInterfaceURL.Name = "lblInterfaceURL";
-            this.lblInterfaceURL.Size = new System.Drawing.Size(74, 13);
-            this.lblInterfaceURL.TabIndex = 26;
-            this.lblInterfaceURL.Text = "Interface URL";
-            // 
-            // textInterfaceURL
-            // 
-            this.textInterfaceURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.textInterfaceURL.HintText = "URL to a remote interface";
-            this.textInterfaceURL.Location = new System.Drawing.Point(9, 368);
-            this.textInterfaceURL.Name = "textInterfaceURL";
-            this.textInterfaceURL.Size = new System.Drawing.Size(591, 20);
-            this.textInterfaceURL.TabIndex = 27;
+            this.groupBox2.Location = new System.Drawing.Point(3, 18);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.TabIndex = 0;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "groupBox2";
             // 
             // MainForm
             // 
@@ -465,6 +477,7 @@ namespace ZeroInstall.FeedEditor
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
+            this.tabAdvanced.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -514,6 +527,7 @@ namespace ZeroInstall.FeedEditor
 
         private Common.Controls.HintTextBox textInterfaceURL;
         private System.Windows.Forms.Label lblInterfaceURL;
+        private System.Windows.Forms.GroupBox groupBox2;
     }
 }
 

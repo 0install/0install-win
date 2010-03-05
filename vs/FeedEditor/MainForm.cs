@@ -206,20 +206,15 @@ namespace ZeroInstall.FeedEditor
         {
             if (listIconsUrls.SelectedItem == null) return;
 
-            var icon = (Model.Icon) listIconsUrls.SelectedItem;
+            var icon = (Icon) listIconsUrls.SelectedItem;
             textIconUrl.Text = icon.LocationString;
-
             switch (icon.MimeType)
             {
-                var icon = (Model.Icon)listIconsUrls.SelectedItem;
-                textIconUrl.Text = icon.LocationString;
-                if (icon.MimeType == null)
-                {
+                case null:
                     comboIconType.Text = String.Empty;
-                }
-                else if (icon.MimeType.Equals("image/png"))
-                {
-                    comboIconType.Text = "PNG";
+                    break;
+                case "image/png":
+                comboIconType.Text = "PNG";
                     break;
                 case "image/vnd-microsoft-icon":
                     comboIconType.Text = "ICO";
