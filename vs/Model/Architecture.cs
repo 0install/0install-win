@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes a combination of an operating system and a CPU-architecture.
     /// </summary>
-    public struct Architecture
+    public struct Architecture : IEquatable<Architecture>
     {
         #region Properties
         /// <summary>
@@ -94,6 +94,39 @@ namespace ZeroInstall.Model
                 case "ppc64": Cpu = Cpu.Ppc64; break;
                 case "src": Cpu = Cpu.Source; break;
                 default: Cpu = Cpu.Unknown; break;
+            }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Compare
+        public bool Equals(Architecture other)
+        {
+            return other.OS == OS && other.Cpu == Cpu;
+        }
+
+        public static bool operator ==(Architecture left, Architecture right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Architecture left, Architecture right)
+        {
+            return !left.Equals(right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj.GetType() == typeof(Architecture) && Equals((Architecture)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (OS.GetHashCode() * 397) ^ Cpu.GetHashCode();
             }
         }
         #endregion

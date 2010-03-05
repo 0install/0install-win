@@ -187,7 +187,6 @@ namespace ZeroInstall.FeedEditor
             this.checkedListCategory.Size = new System.Drawing.Size(119, 64);
             this.checkedListCategory.Sorted = true;
             this.checkedListCategory.TabIndex = 25;
-            this.checkedListCategory.SelectedIndexChanged += new System.EventHandler(this.checkedListCategory_SelectedIndexChanged);
             // 
             // lblHomepage
             // 

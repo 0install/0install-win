@@ -142,8 +142,7 @@ namespace ZeroInstall.FeedEditor
 
         private void btnIconListAdd_Click(object sender, EventArgs e)
         {
-            var icon = new Model.Icon();
-            icon.LocationString = textIconUrl.Text;
+            var icon = new Model.Icon {LocationString = textIconUrl.Text};
             // set mime type
             switch(comboIconType.Text) {
                 case "PNG":
@@ -152,13 +151,12 @@ namespace ZeroInstall.FeedEditor
                 case "ICO":
                     icon.MimeType = "image/vnd-microsoft-icon";
                     break;
-                default: throw new InvalidOperationException("Wrong MIME-Type");
+                default:
+                    throw new InvalidOperationException("Invalid MIME-Type");
             }
 
             // add icon object to list box
-            if(!listIconsUrls.Items.Contains(icon)) {
-                listIconsUrls.Items.Add(icon);
-            }
+            if (!listIconsUrls.Items.Contains(icon)) listIconsUrls.Items.Add(icon);
         }
 
         private void btnIconListRemove_Click(object sender, EventArgs e)
@@ -171,24 +169,22 @@ namespace ZeroInstall.FeedEditor
 
         private void listIconsUrls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listIconsUrls.SelectedItem != null)
+            if (listIconsUrls.SelectedItem == null) return;
+
+            var icon = (Model.Icon) listIconsUrls.SelectedItem;
+            textIconUrl.Text = icon.LocationString;
+
+            switch (icon.MimeType)
             {
-                var icon = (Model.Icon)listIconsUrls.SelectedItem;
-                textIconUrl.Text = icon.LocationString;
-                if (icon.MimeType.Equals("image/png"))
-                {
+                case "image/png":
                     comboIconType.Text = "PNG";
-                }
-                else if (icon.MimeType.Equals("image/vnd-microsoft-icon"))
-                {
+                    break;
+                case "image/vnd-microsoft-icon":
                     comboIconType.Text = "ICO";
-                }
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid MIME-Type");
             }
-        }
-
-        private void checkedListCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

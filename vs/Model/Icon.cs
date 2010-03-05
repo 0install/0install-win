@@ -8,7 +8,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An icon for an <see cref="Interface"/>.
     /// </summary>
-    public struct Icon
+    public struct Icon : IEquatable<Icon>
     {
         #region Properties
         /// <summary>
@@ -38,20 +38,40 @@ namespace ZeroInstall.Model
 
         public override string ToString()
         {
-            return this.LocationString + " (" + MimeType + ")";
+            return LocationString + " (" + MimeType + ")";
         }
 
+        //--------------------//
+
+        #region Compare
+        public bool Equals(Icon other)
+        {
+            return other.LocationString == LocationString && other.MimeType == MimeType;
+        }
+
+        public static bool operator ==(Icon left, Icon right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Icon left, Icon right)
+        {
+            return !left.Equals(right);
+        }
+        
         public override bool Equals(object obj)
         {
-            if (obj is Icon)
+            if (obj == null) return false;
+            return obj.GetType() == typeof(Icon) && Equals((Icon)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
             {
-                Icon icon = (Icon)obj;
-                return LocationString == icon.LocationString;
-            }
-            else
-            {
-                return false;
+                return ((LocationString != null ? LocationString.GetHashCode() : 0) * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
             }
         }
+        #endregion
     }
 }
