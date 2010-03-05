@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Xml.Serialization;
 
@@ -45,7 +46,7 @@ namespace ZeroInstall.Model
         public bool ContainsLanguage(CultureInfo language)
         {
             // ToDo: Implement
-            return false;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -55,7 +56,7 @@ namespace ZeroInstall.Model
         public bool ContainsArchitecture(string architecture)
         {
             // ToDo: Implement
-            return false;
+            throw new NotImplementedException();
         }
         #endregion
     }
