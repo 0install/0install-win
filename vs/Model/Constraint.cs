@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -6,7 +7,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Restrict the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
-    public struct Constraint
+    public struct Constraint : IEquatable<Constraint>
     {
         #region Properties
         /// <summary>
@@ -22,6 +23,39 @@ namespace ZeroInstall.Model
         [Description("This version and all later versions are unsuitable.")]
         [XmlAttribute("before")]
         public string BeforeVersion { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Compare
+        public bool Equals(Constraint other)
+        {
+            return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            return obj.GetType() == typeof(Icon) && Equals((Icon)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0) * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
+            }
+        }
+
+        public static bool operator ==(Constraint left, Constraint right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Constraint left, Constraint right)
+        {
+            return !left.Equals(right);
+        }
         #endregion
     }
 }

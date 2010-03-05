@@ -45,13 +45,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Directory.cs" />
+    <Compile Include="ExecutableFile.cs" />
+    <Compile Include="FileBase.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Manifest.cs" />
+    <Compile Include="ManifestNode.cs" />
+    <Compile Include="File.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Symlink.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Model\Model.csproj">
