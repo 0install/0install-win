@@ -65,6 +65,8 @@ namespace ZeroInstall.FeedEditor
             this.textIconUrl = new Common.Controls.HintTextBox();
             this.textSummary = new Common.Controls.HintTextBox();
             this.textName = new Common.Controls.HintTextBox();
+            this.lblInterfaceURL = new System.Windows.Forms.Label();
+            this.textInterfaceURL = new Common.Controls.HintTextBox();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -137,11 +139,13 @@ namespace ZeroInstall.FeedEditor
             this.tabControlMain.Location = new System.Drawing.Point(7, 34);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(616, 425);
+            this.tabControlMain.Size = new System.Drawing.Size(616, 464);
             this.tabControlMain.TabIndex = 1;
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.textInterfaceURL);
+            this.tabPageGeneral.Controls.Add(this.lblInterfaceURL);
             this.tabPageGeneral.Controls.Add(this.checkedListCategory);
             this.tabPageGeneral.Controls.Add(this.textHomepage);
             this.tabPageGeneral.Controls.Add(this.lblHomepage);
@@ -156,7 +160,7 @@ namespace ZeroInstall.FeedEditor
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(608, 399);
+            this.tabPageGeneral.Size = new System.Drawing.Size(608, 438);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -183,12 +187,12 @@ namespace ZeroInstall.FeedEditor
             this.checkedListCategory.Size = new System.Drawing.Size(119, 64);
             this.checkedListCategory.Sorted = true;
             this.checkedListCategory.TabIndex = 25;
+            this.checkedListCategory.SelectedIndexChanged += new System.EventHandler(this.checkedListCategory_SelectedIndexChanged);
             // 
             // lblHomepage
             // 
-            this.lblHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblHomepage.AutoSize = true;
-            this.lblHomepage.Location = new System.Drawing.Point(6, 352);
+            this.lblHomepage.Location = new System.Drawing.Point(6, 391);
             this.lblHomepage.Name = "lblHomepage";
             this.lblHomepage.Size = new System.Drawing.Size(59, 13);
             this.lblHomepage.TabIndex = 23;
@@ -370,18 +374,17 @@ namespace ZeroInstall.FeedEditor
             // 
             // textHomepage
             // 
-            this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
-            this.textHomepage.Location = new System.Drawing.Point(9, 368);
+            this.textHomepage.Location = new System.Drawing.Point(9, 407);
             this.textHomepage.Name = "textHomepage";
             this.textHomepage.Size = new System.Drawing.Size(592, 20);
             this.textHomepage.TabIndex = 24;
             // 
             // textDescription
             // 
-            this.textDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.textDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textDescription.HintText = "a full description, which can be several paragraphs long";
             this.textDescription.Location = new System.Drawing.Point(9, 275);
@@ -422,12 +425,31 @@ namespace ZeroInstall.FeedEditor
             this.textName.Size = new System.Drawing.Size(465, 20);
             this.textName.TabIndex = 13;
             // 
+            // lblInterfaceURL
+            // 
+            this.lblInterfaceURL.AutoSize = true;
+            this.lblInterfaceURL.Location = new System.Drawing.Point(6, 352);
+            this.lblInterfaceURL.Name = "lblInterfaceURL";
+            this.lblInterfaceURL.Size = new System.Drawing.Size(74, 13);
+            this.lblInterfaceURL.TabIndex = 26;
+            this.lblInterfaceURL.Text = "Interface URL";
+            // 
+            // textInterfaceURL
+            // 
+            this.textInterfaceURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textInterfaceURL.HintText = "URL to a remote interface";
+            this.textInterfaceURL.Location = new System.Drawing.Point(9, 368);
+            this.textInterfaceURL.Name = "textInterfaceURL";
+            this.textInterfaceURL.Size = new System.Drawing.Size(591, 20);
+            this.textInterfaceURL.TabIndex = 27;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(633, 468);
+            this.ClientSize = new System.Drawing.Size(633, 507);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -490,6 +512,9 @@ namespace ZeroInstall.FeedEditor
             Stream stream = fileReponse.GetResponseStream();
             return Image.FromStream(stream);
         }
+
+        private Common.Controls.HintTextBox textInterfaceURL;
+        private System.Windows.Forms.Label lblInterfaceURL;
     }
 }
 

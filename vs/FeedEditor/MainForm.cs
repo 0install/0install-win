@@ -10,8 +10,6 @@ namespace ZeroInstall.FeedEditor
 {
     public partial class MainForm : Form
     {
-        private Interface _xmlInterface;
-
         public MainForm()
         {
             InitializeComponent();
@@ -19,7 +17,7 @@ namespace ZeroInstall.FeedEditor
         
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
-            _xmlInterface = new Interface();
+            ResetForm();
         }
 
         private void toolStripButtonOpen_Click(object sender, EventArgs e)
@@ -34,12 +32,14 @@ namespace ZeroInstall.FeedEditor
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _xmlInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
-            FillForm();
+            var zeroInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
+            ResetForm();
+            FillForm(zeroInterface);
         }
 
         private void saveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            //TODO save feed
             //XmlStorage.Save<Interface>(saveFileDialog.FileName, (Interface)propertyGridInterface.SelectedObject);
         }
 
@@ -97,22 +97,48 @@ namespace ZeroInstall.FeedEditor
             lblIconUrlError.Text = "Valid URL";
         }
 
-        private void FillForm()
+        
+        private void FillForm(Interface zeroInterface)
         {
-            textName.Text = _xmlInterface.Name;
-            textSummary.Text = _xmlInterface.Summary;
-            //fill icons list box
+            textName.Text = zeroInterface.Name;
+            textSummary.Text = zeroInterface.Summary;
+            textDescription.Text = zeroInterface.Description;
+            textHomepage.Text = zeroInterface.HomepageString;
+            textInterfaceURL.Text = zeroInterface.UriString;
+
+            // fill icons list box
             listIconsUrls.BeginUpdate();
             listIconsUrls.Items.Clear();
-            foreach (Model.Icon icon in _xmlInterface.Icons)
+            foreach (Model.Icon icon in zeroInterface.Icons)
             {
                 listIconsUrls.Items.Add(icon);
             }
             listIconsUrls.EndUpdate();
-
-            textDescription.Text = _xmlInterface.Description;
-            textHomepage.Text = _xmlInterface.HomepageString;
+            // fill category list
+            foreach (var category in zeroInterface.Categories)
+            {
+                if (checkedListCategory.Items.Contains(category))
+                {
+                    checkedListCategory.SetItemChecked(checkedListCategory.Items.IndexOf(category), true);
+                }
+            }
          }
+
+        // clears all form entries
+        private void ResetForm()
+        {
+            textName.ResetText();
+            textSummary.ResetText();
+            textDescription.ResetText();
+            textHomepage.ResetText();
+            textInterfaceURL.ResetText();
+            textIconUrl.ResetText();
+            listIconsUrls.Items.Clear();
+            foreach(int categoryIndex in checkedListCategory.CheckedIndices)
+            {
+                checkedListCategory.SetItemChecked(categoryIndex, false);
+            }
+        }
 
         private void btnIconListAdd_Click(object sender, EventArgs e)
         {
@@ -158,6 +184,11 @@ namespace ZeroInstall.FeedEditor
                     comboIconType.Text = "ICO";
                 }
             }
+        }
+
+        private void checkedListCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
