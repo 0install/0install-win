@@ -2,7 +2,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Drawing.Design;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -73,8 +72,8 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A full description, which can be several paragraphs long (optional since 0.32, but recommended).
         /// </summary>
-        [Category("Interface"), Description("A full description, which can be several paragraphs long (optional since 0.32, but recommended)."),
-         Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [Category("Interface"), Description("A full description, which can be several paragraphs long (optional since 0.32, but recommended).")]
+        //[Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
         [XmlElement("description")]
         public string Description { get; set; }
 

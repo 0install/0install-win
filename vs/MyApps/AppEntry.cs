@@ -3,30 +3,30 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Launchpad.Storage
+namespace ZeroInstall.MyApps
 {
     /// <summary>
-    /// An entry for the <see cref="MyApps"/> list.
+    /// An entry for the <see cref="AppList"/> list.
     /// </summary>
     public struct AppEntry
     {
         #region Properties
         /// <summary>
-        /// The URL used to locate the feed.
+        /// The URI used to identify the interface and locate the feed.
         /// </summary>
-        [Description("The URL used to locate the feed.")]
+        [Description("The URI used to identify the interface and locate the feed.")]
         [XmlIgnore]
-        public Uri Location
+        public Uri Interface
         { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("href"), Browsable(false)]
-        public String LocationString
+        [XmlAttribute("interface"), Browsable(false)]
+        public String InterfaceString
         {
-            get { return (Location == null ? null : Location.ToString()); }
-            set { Location = new Uri(value); }
+            get { return (Interface == null ? null : Interface.ToString()); }
+            set { Interface = new Uri(value); }
         }
         #endregion
     }

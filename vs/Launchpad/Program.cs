@@ -34,12 +34,10 @@ namespace ZeroInstall.Launchpad
             Application.SetCompatibleTextRenderingDefault(false);
 
             Settings.LoadCurrent();
-            MyApps.LoadCurrent();
 
             Application.Run(new MainForm());
 
             Settings.SaveCurrent();
-            MyApps.SaveCurrent();
         }
         #endregion
 
