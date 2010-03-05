@@ -17,37 +17,11 @@ namespace ZeroInstall.FeedEditor.Storage
     {
         #region Variables
         private static readonly string
-            AppDirPath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "feed-editor-settings.xml"),
-            ProfilePath = Path.Combine(UserDataDir, "settings.xml");
+            PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "feed-editor-settings.xml"),
+            ProfilePath = Path.Combine(Locations.GetUserLocalSettingsDir(Path.Combine("0install.net", "feed-editor")), "settings.xml");
         #endregion
 
         #region Properties
-        /// <summary>
-        /// The directory where user data for the application is stored
-        /// </summary>
-        public static string UserDataDir
-        {
-            get
-            {
-                string userDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Path.Combine("0install.net", "feed-editor"));
-                if (!Directory.Exists(userDataDir)) Directory.CreateDirectory(userDataDir);
-                return userDataDir;
-            }
-        }
-
-        /// <summary>
-        /// The directory where local (non-roaming) user data for the application is stored
-        /// </summary>
-        public static string UserLocalDataDir
-        {
-            get
-            {
-                string userLocalDataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), Path.Combine("0install.net", "feed-editor"));
-                if (!Directory.Exists(userLocalDataDir)) Directory.CreateDirectory(userLocalDataDir);
-                return userLocalDataDir;
-            }
-        }
-
         /// <summary>
         /// The currently active set of settings
         /// </summary>
@@ -64,7 +38,7 @@ namespace ZeroInstall.FeedEditor.Storage
         #region Constructor
         // Dummy constructor to prevent external instancing of this class
         private Settings()
-        {}
+        { }
         #endregion
 
         //--------------------//
@@ -80,18 +54,18 @@ namespace ZeroInstall.FeedEditor.Storage
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the settings should be ignored")]
         public static void LoadCurrent()
         {
-            if (File.Exists(AppDirPath))
+            if (File.Exists(PortablePath))
             { // Try to load settings file from the application's directory
                 _loadedFromAppDir = true;
 
                 try
                 {
-                    Current = XmlStorage.Load<Settings>(AppDirPath);
-                    Log.Write("Loaded settings from working directory");
+                    Current = XmlStorage.Load<Settings>(PortablePath);
+                    Log.Write("Loaded settings from installation directory");
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load settings from working directory: " + ex.Message + "\nReverting to defaults");
+                    Log.Write("Failed to load settings from installation directory: " + ex.Message + "\nReverting to defaults");
                 }
             }
             else
@@ -122,7 +96,7 @@ namespace ZeroInstall.FeedEditor.Storage
             {
                 if (_loadedFromAppDir)
                 {
-                    XmlStorage.Save(AppDirPath, Current);
+                    XmlStorage.Save(PortablePath, Current);
                     Log.Write("Saved settings to working directory");
                 }
                 else
@@ -132,7 +106,7 @@ namespace ZeroInstall.FeedEditor.Storage
                 }
             }
             catch (IOException)
-            {}
+            { }
         }
         #endregion
 

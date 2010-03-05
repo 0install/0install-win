@@ -118,6 +118,7 @@
     <Compile Include="Controls\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage\Locations.cs" />
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
