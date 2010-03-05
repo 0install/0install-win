@@ -60,15 +60,6 @@ namespace ZeroInstall.FeedEditor.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Failed to run {0}..
-        /// </summary>
-        internal static string FailedToRun {
-            get {
-                return ResourceManager.GetString("FailedToRun", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap NewButton {
             get {
                 object obj = ResourceManager.GetObject("NewButton", resourceCulture);
