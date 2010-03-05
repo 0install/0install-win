@@ -126,7 +126,7 @@ namespace ZeroInstall.FeedEditor
             // 
             // saveFileDialog
             // 
-            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog_FileOk);
+            this.saveFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.SaveFileDialog_FileOk);
             // 
             // tabControlMain
             // 

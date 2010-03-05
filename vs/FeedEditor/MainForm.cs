@@ -5,16 +5,19 @@ using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
+using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.FeedEditor
 {
     public partial class MainForm : Form
     {
+        private string _openInterfacePath;
         public MainForm()
         {
+            _openInterfacePath = null;
             InitializeComponent();
         }
-        
+
         private void toolStripButtonNew_Click(object sender, EventArgs e)
         {
             ResetForm();
@@ -27,20 +30,52 @@ namespace ZeroInstall.FeedEditor
 
         private void toolStripButtonSave_Click(object sender, EventArgs e)
         {
+            saveFileDialog.InitialDirectory = _openInterfacePath;
+            saveFileDialog.DefaultExt = ".xml";
+            saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml";
             saveFileDialog.ShowDialog(this);
         }
 
         private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var zeroInterface = XmlStorage.Load<Interface>(openFileDialog.FileName);
+            _openInterfacePath = openFileDialog.FileName;
+            var zeroInterface = XmlStorage.Load<Interface>(_openInterfacePath);
             ResetForm();
             FillForm(zeroInterface);
         }
 
-        private void saveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        //TODO show error messages
+        private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //TODO save feed
-            //XmlStorage.Save<Interface>(saveFileDialog.FileName, (Interface)propertyGridInterface.SelectedObject);
+            var zeroInterface = new Interface {Name = textName.Text, Summary = textSummary.Text};
+            // save categories
+            foreach (var category in checkedListCategory.CheckedItems)
+            {
+                //TODO complete setting attribute type(required: understanding of the category system)
+                zeroInterface.Categories.Add(category.ToString());
+            }
+
+            // save icon urls
+            foreach (Icon icon in listIconsUrls.Items)
+            {
+                zeroInterface.Icons.Add(icon);
+            }
+
+            //ToDo Bastian fragen, wie überprüfung im Interface
+            if (textDescription.Text != String.Empty)
+            {
+                zeroInterface.Description = textDescription.Text;
+            }
+            if(Uri.IsWellFormedUriString(textInterfaceURL.Text, UriKind.Absolute))
+            {
+                zeroInterface.UriString = textInterfaceURL.Text;
+            }
+            if (Uri.IsWellFormedUriString(textHomepage.Text, UriKind.Absolute))
+            {
+                zeroInterface.HomepageString = textHomepage.Text;
+            }
+
+            XmlStorage.Save(saveFileDialog.FileName, zeroInterface);
         }
 
         private void BtnIconPreviewClick(object sender, EventArgs e)
@@ -176,7 +211,14 @@ namespace ZeroInstall.FeedEditor
 
             switch (icon.MimeType)
             {
-                case "image/png":
+                var icon = (Model.Icon)listIconsUrls.SelectedItem;
+                textIconUrl.Text = icon.LocationString;
+                if (icon.MimeType == null)
+                {
+                    comboIconType.Text = String.Empty;
+                }
+                else if (icon.MimeType.Equals("image/png"))
+                {
                     comboIconType.Text = "PNG";
                     break;
                 case "image/vnd-microsoft-icon":
