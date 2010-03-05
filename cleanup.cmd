@@ -14,6 +14,8 @@ copy "vs\ZeroInstall_VS2010.5.0.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.
 rem Clear VS.NET's object cache
 del vs\*.cache > NUL 2>&1
 rd /s /q vs\Launchpad\obj > NUL 2>&1
+rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
+rd /s /q vs\Launcher.Gui\obj > NUL 2>&1
 rd /s /q vs\FeedEditor\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
 rd /s /q vs\Model\obj > NUL 2>&1

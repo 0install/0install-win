@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -112,6 +112,14 @@
     <ProjectReference Include="..\MyApps\MyApps.csproj">
       <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
       <Name>MyApps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solver\Solver.csproj">
+      <Project>{ECA34CEC-F328-4149-96E0-331340599B6A}</Project>
+      <Name>Solver</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
