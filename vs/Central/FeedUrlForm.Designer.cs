@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Launchpad
+﻿namespace ZeroInstall.Central
 {
     partial class FeedUrlForm
     {

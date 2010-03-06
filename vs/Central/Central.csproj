@@ -8,7 +8,7 @@
     <ProjectGuid>{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.Launchpad</RootNamespace>
+    <RootNamespace>ZeroInstall.Central</RootNamespace>
     <AssemblyName>ZeroInstall</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>

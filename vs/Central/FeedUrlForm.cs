@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace ZeroInstall.Launchpad
+namespace ZeroInstall.Central
 {
     partial class FeedUrlForm : Form
     {

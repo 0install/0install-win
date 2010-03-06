@@ -4,10 +4,10 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using ZeroInstall.Launchpad.Properties;
-using ZeroInstall.Launchpad.Storage;
+using ZeroInstall.Central.Properties;
+using ZeroInstall.Central.Storage;
 
-namespace ZeroInstall.Launchpad
+namespace ZeroInstall.Central
 {
     static class Program
     {

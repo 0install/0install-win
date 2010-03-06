@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Launchpad
+﻿namespace ZeroInstall.Central
 {
     partial class MainForm
     {
@@ -52,7 +52,7 @@
             // pictureBoxLogo
             // 
             this.pictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.pictureBoxLogo.Image = global::ZeroInstall.Launchpad.Properties.Resources.Logo;
+            this.pictureBoxLogo.Image = global::ZeroInstall.Central.Properties.Resources.Logo;
             this.pictureBoxLogo.Location = new System.Drawing.Point(190, 25);
             this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
@@ -118,7 +118,7 @@
             // toolStripButtonBack
             // 
             this.toolStripButtonBack.Enabled = false;
-            this.toolStripButtonBack.Image = global::ZeroInstall.Launchpad.Properties.Resources.Back;
+            this.toolStripButtonBack.Image = global::ZeroInstall.Central.Properties.Resources.Back;
             this.toolStripButtonBack.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonBack.Name = "toolStripButtonBack";
             this.toolStripButtonBack.Size = new System.Drawing.Size(52, 22);

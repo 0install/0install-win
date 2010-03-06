@@ -6,19 +6,19 @@ using System.Xml.Serialization;
 using Common;
 using Common.Storage;
 
-namespace ZeroInstall.Launchpad.Storage
+namespace ZeroInstall.Central.Storage
 {
     /// <summary>
     /// Stores settings for the application
     /// </summary>
-    [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/launchpad/settings")]
+    [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/central/settings")]
     // ToDo: Suppress xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     public sealed class Settings
     {
         #region Variables
         private static readonly string
-            PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "launchpad-settings.xml"),
-            ProfilePath = Path.Combine(Locations.GetUserLocalSettingsDir(Path.Combine("0install.net", "launchpad")), "settings.xml");
+            PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "central-settings.xml"),
+            ProfilePath = Path.Combine(Locations.GetUserLocalSettingsDir(Path.Combine("0install.net", "central")), "settings.xml");
         #endregion
 
         #region Properties
