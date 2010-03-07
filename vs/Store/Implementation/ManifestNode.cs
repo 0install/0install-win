@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Store
+﻿namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// An entry in <see cref="Manifest.Nodes"/>.

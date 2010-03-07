@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Store
+﻿namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// An immutable abstract base class for file-entries in a <see cref="Manifest"/>.

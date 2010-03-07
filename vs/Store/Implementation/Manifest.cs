@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// The manifest lists every file, directory and symlink in the tree, and gives the digest of each file's content.

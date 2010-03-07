@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// An immutable executable file-entry in a <see cref="Manifest"/>.

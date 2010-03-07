@@ -114,6 +114,22 @@ namespace Common.Helpers
 
             #region Window messages
             [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            internal static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
+
+            [StructLayout(LayoutKind.Sequential)]
+            internal struct WinMessage
+            {
+                // ReSharper disable InconsistentNaming
+                public IntPtr hWnd;
+                public IntPtr wParam;
+                public IntPtr lParam;
+                public uint time;
+                public Point p;
+                // ReSharper restore InconsistentNaming
+            }
+
+            [DllImport("User32.dll", CharSet = CharSet.Auto)]
             internal static extern short GetAsyncKeyState(uint key);
 
             [DllImport("User32.dll", CharSet = CharSet.Auto)]
@@ -125,24 +141,6 @@ namespace Common.Helpers
             [DllImport("User32.dll", CharSet = CharSet.Auto)]
             [return : MarshalAs(UnmanagedType.Bool)]
             public static extern bool ReleaseCapture();
-            #endregion
-
-            #region App idle
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
-            [return : MarshalAs(UnmanagedType.Bool)]
-            internal static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
-
-            [StructLayout(LayoutKind.Sequential)]
-            internal struct WinMessage
-            {
-// ReSharper disable InconsistentNaming
-                public IntPtr hWnd;
-                public IntPtr wParam;
-                public IntPtr lParam;
-                public uint time;
-                public Point p;
-// ReSharper restore InconsistentNaming
-            }
             #endregion
 
             #region 64bit Windows
@@ -161,70 +159,113 @@ namespace Common.Helpers
         private static long _performanceFrequency;
 
         /// <summary>
-        /// The absolute system time
+        /// A time index in seconds that continuously increases.
         /// </summary>
+        /// <remarks>Depending on the operating system this may be the time of the system clock or the time since the system booted.</remarks>
         public static double AbsoluteTime
         {
             get
             {
-                if (_performanceFrequency == 0)
-                    SafeNativeMethods.QueryPerformanceFrequency(out _performanceFrequency);
+                // Use high-accuracy kernel timing methods on NT
+                if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+                {
+                    if (_performanceFrequency == 0)
+                        SafeNativeMethods.QueryPerformanceFrequency(out _performanceFrequency);
 
-                long time;
-                SafeNativeMethods.QueryPerformanceCounter(out time);
-                return time / (double)_performanceFrequency;
+                    long time;
+                    SafeNativeMethods.QueryPerformanceCounter(out time);
+                    return time / (double)_performanceFrequency;
+                }
+
+                return Environment.TickCount / 1000f;
             }
         }
         #endregion
 
         #region Window messages
         /// <summary>
-        /// Is this key down right now
+        /// Determines whether this application is currently idle.
         /// </summary>
-        public static bool IsKeyDown(Keys key)
-        {
-            return (SafeNativeMethods.GetAsyncKeyState((uint) key) & 0x8000) != 0;
-        }
-
-        /// <summary>
-        /// Text-box caret blink time in seconds
-        /// </summary>
-        public static float CaretBlinkTime { get { return SafeNativeMethods.GetCaretBlinkTime()*0.001f; } }
-
-        public static IntPtr SetCapture(IntPtr handle)
-        {
-            return SafeNativeMethods.SetCapture(handle);
-        }
-
-        public static bool ReleaseCapture()
-        {
-            return SafeNativeMethods.ReleaseCapture();
-        }
-        #endregion
-
-        #region App idle
+        /// <returns><see langword="true"/> if idle, <see langword="false"/> if handling window events.</returns>
+        /// <remarks>Will always return <see langword="true"/> on non-Windows OSes.</remarks>
         public static bool AppIdle
         {
             get
             {
-                SafeNativeMethods.WinMessage msg;
-                return !SafeNativeMethods.PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
+                if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                {
+                    SafeNativeMethods.WinMessage msg;
+                    return !SafeNativeMethods.PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
+                }
+                return true; // Not supported on non-Windows OSes
             }
+        }
+
+        /// <summary>
+        /// Determines whether <paramref name="key"/> is pressed right now.
+        /// </summary>
+        /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
+        public static bool IsKeyDown(Keys key)
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return (SafeNativeMethods.GetAsyncKeyState((uint)key) & 0x8000) != 0;
+            return false; // Not supported on non-Windows OSes
+        }
+
+        /// <summary>
+        /// Text-box caret blink time in seconds.
+        /// </summary>
+        public static float CaretBlinkTime
+        {
+            get {
+                return
+                    (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                    ? SafeNativeMethods.GetCaretBlinkTime() / 1000f
+                    : 0.5f; // Default to 0.5 seconds on non-Windows OSes
+            }
+        }
+
+        /// <summary>
+        /// Prevents the mouse cursor from leaving a specific window.
+        /// </summary>
+        /// <param name="handle">The handle to the window to lock the mouse cursor into.</param>
+        /// <returns>A handle to the window that had previously captured the mouse</returns>
+        /// <remarks>Will do nothing on non-Windows OSes.</remarks>
+        public static IntPtr SetCapture(IntPtr handle)
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return SafeNativeMethods.SetCapture(handle);
+            return IntPtr.Zero; // Not supported on non-Windows OSes
+        }
+
+        /// <summary>
+        /// Releases the mouse cursor after it was locked by <see cref="SetCapture"/>.
+        /// </summary>
+        /// <returns><see langword="true"/> if successful; <see langword="false"/> otherwise.</returns>
+        /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
+        public static bool ReleaseCapture()
+        {
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return SafeNativeMethods.ReleaseCapture();
+            return false; // Not supported on non-Windows OSes
         }
         #endregion
 
         #region 64bit Windows
         private static bool Is32BitProcessOn64BitProcessor()
         {
+            // Can only detect NT WOW
+            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return false;
+
             bool retVal;
             SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
             return retVal;
         }
 
         /// <summary>
-        /// Check if the operating system is a 64-bit version of Windows
+        /// Check if the operating system is a 64-bit capable.
         /// </summary>
-        /// <returns><see langword="true"/> if the operating system is a 64-bit version of Windows</returns>
+        /// <returns><see langword="true"/> if the operating system is a 64-bit capable.</returns>
         public static bool Is64Bit()
         {
             // Check if this is a 64-bit process or a 32-bit process running on WOW
@@ -234,17 +275,17 @@ namespace Common.Helpers
 
         #region Windows 7
         /// <summary>
-        /// Sets the current process' explicit application user model id.
+        /// Sets the current process' explicit application user model ID.
         /// </summary>
-        /// <param name="appId">The application id.</param>
-        /// <remarks>The application id is used to group related windows in the taskbar.</remarks>
+        /// <param name="appId">The application ID.</param>
+        /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
         public static void SetCurrentProcessAppId(string appId)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appId)) throw new ArgumentNullException("appId");
             #endregion
 
-            if (Environment.OSVersion.Version >= new Version(6, 1))
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
             {
                 // Only execute on Windows 7 or newer
                 SafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
@@ -288,7 +329,7 @@ namespace Common.Helpers
         /// <param name="state">Progress state of the progress button</param>
         public static void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle)
         {
-            if (Environment.OSVersion.Version >= new Version(6, 1))
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
             {
                 // Only execute on Windows 7 or newer
                 TaskbarList.SetProgressState(windowHandle, (TBPFLAG) state);
@@ -305,7 +346,7 @@ namespace Common.Helpers
         /// <param name="maximumValue">An application-defined value that specifies the value <paramref name="currentValue"/> will have when the operation is complete.</param>
         public static void SetProgressValue(int currentValue, int maximumValue, IntPtr windowHandle)
         {
-            if (Environment.OSVersion.Version >= new Version(6, 1))
+            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
             {
                 // Only execute on Windows 7 or newer
                 TaskbarList.SetProgressValue(windowHandle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));

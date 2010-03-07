@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// A immutable direcory-entry in a <see cref="Manifest"/>.

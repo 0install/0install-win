@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Directory">
+  <Class Name="ZeroInstall.Store.Implementation.Directory">
     <Position X="0.5" Y="4" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -12,14 +12,14 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.ManifestNode" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Implementation.ManifestNode" Collapsed="true">
     <Position X="3.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ManifestNode.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.Manifest">
+  <Class Name="ZeroInstall.Store.Implementation.Manifest">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -33,7 +33,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.Symlink">
+  <Class Name="ZeroInstall.Store.Implementation.Symlink">
     <Position X="6.25" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -45,7 +45,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.File" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Implementation.File" Collapsed="true">
     <Position X="2.5" Y="7" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -57,7 +57,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.FileBase">
+  <Class Name="ZeroInstall.Store.Implementation.FileBase">
     <Position X="3.5" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -68,7 +68,7 @@
       <FileName>FileBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.ExecutableFile" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Implementation.ExecutableFile" Collapsed="true">
     <Position X="4.5" Y="7" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />

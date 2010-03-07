@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ZeroInstall.Store
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// An immutable symlink-entry in a <see cref="Manifest"/>.
