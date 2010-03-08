@@ -31,6 +31,7 @@ namespace ZeroInstall.FeedEditor
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
@@ -42,6 +43,7 @@ namespace ZeroInstall.FeedEditor
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
             this.textInterfaceURL = new Common.Controls.HintTextBox();
             this.lblInterfaceURL = new System.Windows.Forms.Label();
             this.checkedListCategory = new System.Windows.Forms.CheckedListBox();
@@ -49,7 +51,7 @@ namespace ZeroInstall.FeedEditor
             this.lblHomepage = new System.Windows.Forms.Label();
             this.textDescription = new Common.Controls.HintTextBox();
             this.lblDescription = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBoxIcon = new System.Windows.Forms.GroupBox();
             this.lblIcon = new System.Windows.Forms.Label();
             this.comboIconType = new System.Windows.Forms.ComboBox();
             this.textIconUrl = new Common.Controls.HintTextBox();
@@ -62,18 +64,39 @@ namespace ZeroInstall.FeedEditor
             this.listIconsUrls = new System.Windows.Forms.ListBox();
             this.lblCategory = new System.Windows.Forms.Label();
             this.textSummary = new Common.Controls.HintTextBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblSummary = new System.Windows.Forms.Label();
             this.textName = new Common.Controls.HintTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.tabAdvanced = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboBoxMinInjectorVersion = new System.Windows.Forms.ComboBox();
+            this.lblMinInjectorVersion = new System.Windows.Forms.Label();
+            this.textFeedFor = new Common.Controls.HintTextBox();
+            this.lblFeedFor = new System.Windows.Forms.Label();
+            this.groupBoxExternalFeed = new System.Windows.Forms.GroupBox();
+            this.lblLanguage = new System.Windows.Forms.Label();
+            this.textExtFeedLanguage = new Common.Controls.HintTextBox();
+            this.lblCPU = new System.Windows.Forms.Label();
+            this.lblOS = new System.Windows.Forms.Label();
+            this.comboBoxOS = new System.Windows.Forms.ComboBox();
+            this.comboBoxCPU = new System.Windows.Forms.ComboBox();
+            this.btnExtFeedsRemove = new System.Windows.Forms.Button();
+            this.btnExtFeedsAdd = new System.Windows.Forms.Button();
+            this.listBoxExtFeeds = new System.Windows.Forms.ListBox();
+            this.lblExternalFeedURL = new System.Windows.Forms.Label();
+            this.textExtFeedURL = new Common.Controls.HintTextBox();
+            this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
+            this.btnExtFeedLanguageAdd = new System.Windows.Forms.Button();
+            this.btnExtFeedLanguageRemove = new System.Windows.Forms.Button();
+            this.listBoxExtFeedLanguages = new System.Windows.Forms.ListBox();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.groupBoxIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
             this.tabAdvanced.SuspendLayout();
+            this.groupBoxExternalFeed.SuspendLayout();
+            this.groupBoxSelectedFeed.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -100,7 +123,7 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonNew.Name = "toolStripButtonNew";
             this.toolStripButtonNew.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonNew.Text = "New";
-            this.toolStripButtonNew.Click += new System.EventHandler(this.toolStripButtonNew_Click);
+            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNewClick);
             // 
             // toolStripButtonOpen
             // 
@@ -110,7 +133,7 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonOpen.Name = "toolStripButtonOpen";
             this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.toolStripButtonOpen_Click);
+            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpenClick);
             // 
             // toolStripButtonSave
             // 
@@ -120,11 +143,11 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonSave.Name = "toolStripButtonSave";
             this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.toolStripButtonSave_Click);
+            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSaveClick);
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openFileDialog_FileOk);
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogFileOk);
             // 
             // saveFileDialog
             // 
@@ -141,11 +164,12 @@ namespace ZeroInstall.FeedEditor
             this.tabControlMain.Location = new System.Drawing.Point(7, 34);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(616, 464);
+            this.tabControlMain.Size = new System.Drawing.Size(616, 490);
             this.tabControlMain.TabIndex = 1;
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.checkBoxNeedsTerminal);
             this.tabPageGeneral.Controls.Add(this.textInterfaceURL);
             this.tabPageGeneral.Controls.Add(this.lblInterfaceURL);
             this.tabPageGeneral.Controls.Add(this.checkedListCategory);
@@ -153,19 +177,29 @@ namespace ZeroInstall.FeedEditor
             this.tabPageGeneral.Controls.Add(this.lblHomepage);
             this.tabPageGeneral.Controls.Add(this.textDescription);
             this.tabPageGeneral.Controls.Add(this.lblDescription);
-            this.tabPageGeneral.Controls.Add(this.groupBox1);
+            this.tabPageGeneral.Controls.Add(this.groupBoxIcon);
             this.tabPageGeneral.Controls.Add(this.lblCategory);
             this.tabPageGeneral.Controls.Add(this.textSummary);
-            this.tabPageGeneral.Controls.Add(this.label1);
+            this.tabPageGeneral.Controls.Add(this.lblSummary);
             this.tabPageGeneral.Controls.Add(this.textName);
             this.tabPageGeneral.Controls.Add(this.lblName);
             this.tabPageGeneral.Location = new System.Drawing.Point(4, 22);
             this.tabPageGeneral.Name = "tabPageGeneral";
             this.tabPageGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageGeneral.Size = new System.Drawing.Size(608, 438);
+            this.tabPageGeneral.Size = new System.Drawing.Size(608, 464);
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // checkBoxNeedsTerminal
+            // 
+            this.checkBoxNeedsTerminal.AutoSize = true;
+            this.checkBoxNeedsTerminal.Location = new System.Drawing.Point(9, 434);
+            this.checkBoxNeedsTerminal.Name = "checkBoxNeedsTerminal";
+            this.checkBoxNeedsTerminal.Size = new System.Drawing.Size(98, 17);
+            this.checkBoxNeedsTerminal.TabIndex = 28;
+            this.checkBoxNeedsTerminal.Text = "needs Terminal";
+            this.checkBoxNeedsTerminal.UseVisualStyleBackColor = true;
             // 
             // textInterfaceURL
             // 
@@ -248,26 +282,26 @@ namespace ZeroInstall.FeedEditor
             this.lblDescription.TabIndex = 21;
             this.lblDescription.Text = "Description";
             // 
-            // groupBox1
+            // groupBoxIcon
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.lblIcon);
-            this.groupBox1.Controls.Add(this.comboIconType);
-            this.groupBox1.Controls.Add(this.textIconUrl);
-            this.groupBox1.Controls.Add(this.lblIconUrlError);
-            this.groupBox1.Controls.Add(this.lblIconMime);
-            this.groupBox1.Controls.Add(this.btnIconPreview);
-            this.groupBox1.Controls.Add(this.btnIconRemove);
-            this.groupBox1.Controls.Add(this.iconBox);
-            this.groupBox1.Controls.Add(this.btnIconAdd);
-            this.groupBox1.Controls.Add(this.listIconsUrls);
-            this.groupBox1.Location = new System.Drawing.Point(9, 85);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(591, 171);
-            this.groupBox1.TabIndex = 19;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Icon";
+            this.groupBoxIcon.Controls.Add(this.lblIcon);
+            this.groupBoxIcon.Controls.Add(this.comboIconType);
+            this.groupBoxIcon.Controls.Add(this.textIconUrl);
+            this.groupBoxIcon.Controls.Add(this.lblIconUrlError);
+            this.groupBoxIcon.Controls.Add(this.lblIconMime);
+            this.groupBoxIcon.Controls.Add(this.btnIconPreview);
+            this.groupBoxIcon.Controls.Add(this.btnIconRemove);
+            this.groupBoxIcon.Controls.Add(this.iconBox);
+            this.groupBoxIcon.Controls.Add(this.btnIconAdd);
+            this.groupBoxIcon.Controls.Add(this.listIconsUrls);
+            this.groupBoxIcon.Location = new System.Drawing.Point(9, 85);
+            this.groupBoxIcon.Name = "groupBoxIcon";
+            this.groupBoxIcon.Size = new System.Drawing.Size(591, 171);
+            this.groupBoxIcon.TabIndex = 19;
+            this.groupBoxIcon.TabStop = false;
+            this.groupBoxIcon.Text = "Icon";
             // 
             // lblIcon
             // 
@@ -397,14 +431,14 @@ namespace ZeroInstall.FeedEditor
             this.textSummary.Size = new System.Drawing.Size(465, 20);
             this.textSummary.TabIndex = 12;
             // 
-            // label1
+            // lblSummary
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(50, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Summary";
+            this.lblSummary.AutoSize = true;
+            this.lblSummary.Location = new System.Drawing.Point(6, 43);
+            this.lblSummary.Name = "lblSummary";
+            this.lblSummary.Size = new System.Drawing.Size(50, 13);
+            this.lblSummary.TabIndex = 2;
+            this.lblSummary.Text = "Summary";
             // 
             // textName
             // 
@@ -431,36 +465,244 @@ namespace ZeroInstall.FeedEditor
             this.tabPageFeed.Location = new System.Drawing.Point(4, 22);
             this.tabPageFeed.Name = "tabPageFeed";
             this.tabPageFeed.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageFeed.Size = new System.Drawing.Size(608, 438);
+            this.tabPageFeed.Size = new System.Drawing.Size(608, 464);
             this.tabPageFeed.TabIndex = 1;
             this.tabPageFeed.Text = "Feeds";
             this.tabPageFeed.UseVisualStyleBackColor = true;
             // 
             // tabAdvanced
             // 
-            this.tabAdvanced.Controls.Add(this.groupBox2);
+            this.tabAdvanced.Controls.Add(this.comboBoxMinInjectorVersion);
+            this.tabAdvanced.Controls.Add(this.lblMinInjectorVersion);
+            this.tabAdvanced.Controls.Add(this.textFeedFor);
+            this.tabAdvanced.Controls.Add(this.lblFeedFor);
+            this.tabAdvanced.Controls.Add(this.groupBoxExternalFeed);
             this.tabAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabAdvanced.Name = "tabAdvanced";
-            this.tabAdvanced.Size = new System.Drawing.Size(608, 438);
+            this.tabAdvanced.Size = new System.Drawing.Size(608, 464);
             this.tabAdvanced.TabIndex = 2;
             this.tabAdvanced.Text = "Advanced";
             this.tabAdvanced.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // comboBoxMinInjectorVersion
             // 
-            this.groupBox2.Location = new System.Drawing.Point(3, 18);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
-            this.groupBox2.TabIndex = 0;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.comboBoxMinInjectorVersion.FormattingEnabled = true;
+            this.comboBoxMinInjectorVersion.Items.AddRange(new object[] {
+            "*",
+            "0.31\t          ",
+            "0.32\t          ",
+            "0.33\t          ",
+            "0.34\t          ",
+            "0.35\t          ",
+            "0.36\t          ",
+            "0.37\t          ",
+            "0.38\t          ",
+            "0.39\t          ",
+            "0.40\t          ",
+            "0.41          ",
+            "0.41.1\t          ",
+            "0.42\t          ",
+            "0.42.1\t          ",
+            "0.43\t          ",
+            "0.44"});
+            this.comboBoxMinInjectorVersion.Location = new System.Drawing.Point(9, 364);
+            this.comboBoxMinInjectorVersion.Name = "comboBoxMinInjectorVersion";
+            this.comboBoxMinInjectorVersion.Size = new System.Drawing.Size(93, 21);
+            this.comboBoxMinInjectorVersion.Sorted = true;
+            this.comboBoxMinInjectorVersion.TabIndex = 4;
+            // 
+            // lblMinInjectorVersion
+            // 
+            this.lblMinInjectorVersion.AutoSize = true;
+            this.lblMinInjectorVersion.Location = new System.Drawing.Point(6, 348);
+            this.lblMinInjectorVersion.Name = "lblMinInjectorVersion";
+            this.lblMinInjectorVersion.Size = new System.Drawing.Size(102, 13);
+            this.lblMinInjectorVersion.TabIndex = 3;
+            this.lblMinInjectorVersion.Text = "min. Injector Version";
+            // 
+            // textFeedFor
+            // 
+            this.textFeedFor.HintText = "URL to an Interface";
+            this.textFeedFor.Location = new System.Drawing.Point(9, 325);
+            this.textFeedFor.Name = "textFeedFor";
+            this.textFeedFor.Size = new System.Drawing.Size(591, 20);
+            this.textFeedFor.TabIndex = 2;
+            // 
+            // lblFeedFor
+            // 
+            this.lblFeedFor.AutoSize = true;
+            this.lblFeedFor.Location = new System.Drawing.Point(6, 309);
+            this.lblFeedFor.Name = "lblFeedFor";
+            this.lblFeedFor.Size = new System.Drawing.Size(91, 13);
+            this.lblFeedFor.TabIndex = 1;
+            this.lblFeedFor.Text = "Feed for Interface";
+            // 
+            // groupBoxExternalFeed
+            // 
+            this.groupBoxExternalFeed.Controls.Add(this.groupBoxSelectedFeed);
+            this.groupBoxExternalFeed.Controls.Add(this.listBoxExtFeeds);
+            this.groupBoxExternalFeed.Controls.Add(this.btnExtFeedsAdd);
+            this.groupBoxExternalFeed.Controls.Add(this.btnExtFeedsRemove);
+            this.groupBoxExternalFeed.Location = new System.Drawing.Point(9, 3);
+            this.groupBoxExternalFeed.Name = "groupBoxExternalFeed";
+            this.groupBoxExternalFeed.Size = new System.Drawing.Size(591, 303);
+            this.groupBoxExternalFeed.TabIndex = 0;
+            this.groupBoxExternalFeed.TabStop = false;
+            this.groupBoxExternalFeed.Text = "External Feeds";
+            // 
+            // lblLanguage
+            // 
+            this.lblLanguage.AutoSize = true;
+            this.lblLanguage.Location = new System.Drawing.Point(6, 58);
+            this.lblLanguage.Name = "lblLanguage";
+            this.lblLanguage.Size = new System.Drawing.Size(55, 13);
+            this.lblLanguage.TabIndex = 10;
+            this.lblLanguage.Text = "Language";
+            // 
+            // textExtFeedLanguage
+            // 
+            this.textExtFeedLanguage.HintText = "xx-XX";
+            this.textExtFeedLanguage.Location = new System.Drawing.Point(9, 74);
+            this.textExtFeedLanguage.MaxLength = 5;
+            this.textExtFeedLanguage.Name = "textExtFeedLanguage";
+            this.textExtFeedLanguage.Size = new System.Drawing.Size(54, 20);
+            this.textExtFeedLanguage.TabIndex = 9;
+            // 
+            // lblCPU
+            // 
+            this.lblCPU.AutoSize = true;
+            this.lblCPU.Location = new System.Drawing.Point(176, 98);
+            this.lblCPU.Name = "lblCPU";
+            this.lblCPU.Size = new System.Drawing.Size(29, 13);
+            this.lblCPU.TabIndex = 8;
+            this.lblCPU.Text = "CPU";
+            // 
+            // lblOS
+            // 
+            this.lblOS.AutoSize = true;
+            this.lblOS.Location = new System.Drawing.Point(176, 58);
+            this.lblOS.Name = "lblOS";
+            this.lblOS.Size = new System.Drawing.Size(22, 13);
+            this.lblOS.TabIndex = 7;
+            this.lblOS.Text = "OS";
+            // 
+            // comboBoxOS
+            // 
+            this.comboBoxOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxOS.FormattingEnabled = true;
+            this.comboBoxOS.Location = new System.Drawing.Point(179, 74);
+            this.comboBoxOS.Name = "comboBoxOS";
+            this.comboBoxOS.Size = new System.Drawing.Size(73, 21);
+            this.comboBoxOS.TabIndex = 6;
+            // 
+            // comboBoxCPU
+            // 
+            this.comboBoxCPU.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCPU.FormattingEnabled = true;
+            this.comboBoxCPU.Location = new System.Drawing.Point(179, 114);
+            this.comboBoxCPU.Name = "comboBoxCPU";
+            this.comboBoxCPU.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxCPU.TabIndex = 5;
+            this.comboBoxCPU.SelectedIndexChanged += new System.EventHandler(this.comboBoxCPU_SelectedIndexChanged);
+            // 
+            // btnExtFeedsRemove
+            // 
+            this.btnExtFeedsRemove.Location = new System.Drawing.Point(510, 48);
+            this.btnExtFeedsRemove.Name = "btnExtFeedsRemove";
+            this.btnExtFeedsRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnExtFeedsRemove.TabIndex = 4;
+            this.btnExtFeedsRemove.Text = "Remove";
+            this.btnExtFeedsRemove.UseVisualStyleBackColor = true;
+            this.btnExtFeedsRemove.Click += new System.EventHandler(this.btnExtFeedsRemove_Click);
+            // 
+            // btnExtFeedsAdd
+            // 
+            this.btnExtFeedsAdd.Location = new System.Drawing.Point(510, 19);
+            this.btnExtFeedsAdd.Name = "btnExtFeedsAdd";
+            this.btnExtFeedsAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnExtFeedsAdd.TabIndex = 3;
+            this.btnExtFeedsAdd.Text = "Add";
+            this.btnExtFeedsAdd.UseVisualStyleBackColor = true;
+            this.btnExtFeedsAdd.Click += new System.EventHandler(this.btnExtFeedsAdd_Click);
+            // 
+            // listBoxExtFeeds
+            // 
+            this.listBoxExtFeeds.FormattingEnabled = true;
+            this.listBoxExtFeeds.Location = new System.Drawing.Point(6, 19);
+            this.listBoxExtFeeds.Name = "listBoxExtFeeds";
+            this.listBoxExtFeeds.Size = new System.Drawing.Size(498, 108);
+            this.listBoxExtFeeds.TabIndex = 2;
+            // 
+            // lblExternalFeedURL
+            // 
+            this.lblExternalFeedURL.AutoSize = true;
+            this.lblExternalFeedURL.Location = new System.Drawing.Point(6, 16);
+            this.lblExternalFeedURL.Name = "lblExternalFeedURL";
+            this.lblExternalFeedURL.Size = new System.Drawing.Size(56, 13);
+            this.lblExternalFeedURL.TabIndex = 1;
+            this.lblExternalFeedURL.Text = "Feed URL";
+            // 
+            // textExtFeedURL
+            // 
+            this.textExtFeedURL.HintText = "URL to an external feed";
+            this.textExtFeedURL.Location = new System.Drawing.Point(9, 32);
+            this.textExtFeedURL.Name = "textExtFeedURL";
+            this.textExtFeedURL.Size = new System.Drawing.Size(564, 20);
+            this.textExtFeedURL.TabIndex = 0;
+            // 
+            // groupBoxSelectedFeed
+            // 
+            this.groupBoxSelectedFeed.Controls.Add(this.listBoxExtFeedLanguages);
+            this.groupBoxSelectedFeed.Controls.Add(this.btnExtFeedLanguageRemove);
+            this.groupBoxSelectedFeed.Controls.Add(this.lblLanguage);
+            this.groupBoxSelectedFeed.Controls.Add(this.btnExtFeedLanguageAdd);
+            this.groupBoxSelectedFeed.Controls.Add(this.lblCPU);
+            this.groupBoxSelectedFeed.Controls.Add(this.lblExternalFeedURL);
+            this.groupBoxSelectedFeed.Controls.Add(this.textExtFeedURL);
+            this.groupBoxSelectedFeed.Controls.Add(this.comboBoxCPU);
+            this.groupBoxSelectedFeed.Controls.Add(this.lblOS);
+            this.groupBoxSelectedFeed.Controls.Add(this.comboBoxOS);
+            this.groupBoxSelectedFeed.Controls.Add(this.textExtFeedLanguage);
+            this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 133);
+            this.groupBoxSelectedFeed.Name = "groupBoxSelectedFeed";
+            this.groupBoxSelectedFeed.Size = new System.Drawing.Size(579, 162);
+            this.groupBoxSelectedFeed.TabIndex = 3;
+            this.groupBoxSelectedFeed.TabStop = false;
+            this.groupBoxSelectedFeed.Text = "Selected Feed";
+            // 
+            // btnExtFeedLanguageAdd
+            // 
+            this.btnExtFeedLanguageAdd.Location = new System.Drawing.Point(9, 100);
+            this.btnExtFeedLanguageAdd.Name = "btnExtFeedLanguageAdd";
+            this.btnExtFeedLanguageAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnExtFeedLanguageAdd.TabIndex = 4;
+            this.btnExtFeedLanguageAdd.Text = "Add";
+            this.btnExtFeedLanguageAdd.UseVisualStyleBackColor = true;
+            this.btnExtFeedLanguageAdd.Click += new System.EventHandler(this.btnExtFeedLanguageAdd_Click_1);
+            // 
+            // btnExtFeedLanguageRemove
+            // 
+            this.btnExtFeedLanguageRemove.Location = new System.Drawing.Point(9, 129);
+            this.btnExtFeedLanguageRemove.Name = "btnExtFeedLanguageRemove";
+            this.btnExtFeedLanguageRemove.Size = new System.Drawing.Size(75, 23);
+            this.btnExtFeedLanguageRemove.TabIndex = 5;
+            this.btnExtFeedLanguageRemove.Text = "Remove";
+            this.btnExtFeedLanguageRemove.UseVisualStyleBackColor = true;
+            // 
+            // listBoxExtFeedLanguages
+            // 
+            this.listBoxExtFeedLanguages.FormattingEnabled = true;
+            this.listBoxExtFeedLanguages.Location = new System.Drawing.Point(90, 58);
+            this.listBoxExtFeedLanguages.Name = "listBoxExtFeedLanguages";
+            this.listBoxExtFeedLanguages.Size = new System.Drawing.Size(67, 95);
+            this.listBoxExtFeedLanguages.TabIndex = 11;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(633, 507);
+            this.ClientSize = new System.Drawing.Size(633, 533);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -474,10 +716,14 @@ namespace ZeroInstall.FeedEditor
             this.tabControlMain.ResumeLayout(false);
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.groupBoxIcon.ResumeLayout(false);
+            this.groupBoxIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
             this.tabAdvanced.ResumeLayout(false);
+            this.tabAdvanced.PerformLayout();
+            this.groupBoxExternalFeed.ResumeLayout(false);
+            this.groupBoxSelectedFeed.ResumeLayout(false);
+            this.groupBoxSelectedFeed.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -495,7 +741,7 @@ namespace ZeroInstall.FeedEditor
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.TabPage tabPageFeed;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblSummary;
         private Common.Controls.HintTextBox textName;
         private Common.Controls.HintTextBox textSummary;
         private Common.Controls.HintTextBox textIconUrl;
@@ -509,7 +755,7 @@ namespace ZeroInstall.FeedEditor
         private System.Windows.Forms.ListBox listIconsUrls;
         private System.Windows.Forms.Label lblIconMime;
         private System.Windows.Forms.ComboBox comboIconType;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBoxIcon;
         private System.Windows.Forms.Label lblDescription;
         private Common.Controls.HintTextBox textDescription;
         private Common.Controls.HintTextBox textHomepage;
@@ -527,7 +773,27 @@ namespace ZeroInstall.FeedEditor
 
         private Common.Controls.HintTextBox textInterfaceURL;
         private System.Windows.Forms.Label lblInterfaceURL;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBoxExternalFeed;
+        private System.Windows.Forms.CheckBox checkBoxNeedsTerminal;
+        private System.Windows.Forms.Label lblCPU;
+        private System.Windows.Forms.Label lblOS;
+        private System.Windows.Forms.ComboBox comboBoxOS;
+        private System.Windows.Forms.ComboBox comboBoxCPU;
+        private System.Windows.Forms.Button btnExtFeedsRemove;
+        private System.Windows.Forms.Button btnExtFeedsAdd;
+        private System.Windows.Forms.ListBox listBoxExtFeeds;
+        private System.Windows.Forms.Label lblExternalFeedURL;
+        private Common.Controls.HintTextBox textExtFeedURL;
+        private System.Windows.Forms.ComboBox comboBoxMinInjectorVersion;
+        private System.Windows.Forms.Label lblMinInjectorVersion;
+        private Common.Controls.HintTextBox textFeedFor;
+        private System.Windows.Forms.Label lblFeedFor;
+        private System.Windows.Forms.Label lblLanguage;
+        private Common.Controls.HintTextBox textExtFeedLanguage;
+        private System.Windows.Forms.GroupBox groupBoxSelectedFeed;
+        private System.Windows.Forms.ListBox listBoxExtFeedLanguages;
+        private System.Windows.Forms.Button btnExtFeedLanguageRemove;
+        private System.Windows.Forms.Button btnExtFeedLanguageAdd;
     }
 }
 

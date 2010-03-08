@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -16,27 +17,55 @@ namespace ZeroInstall.FeedEditor
         {
             _openInterfacePath = null;
             InitializeComponent();
+            InitializeSaveFileDialog();
+            InitializeComboBoxCpu();
+            InitializeComboBoxOS();
         }
 
-        private void toolStripButtonNew_Click(object sender, EventArgs e)
+        private void InitializeComboBoxOS()
+        {
+            foreach (var os in Enum.GetValues(typeof(OS)))
+            {
+                comboBoxOS.Items.Add(os);
+            }
+            comboBoxOS.SelectedIndex = (int) OS.All;
+        }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
+        private void InitializeSaveFileDialog()
+        {
+            saveFileDialog.DefaultExt = ".xml";
+            saveFileDialog.Filter = @"ZeroInstall Feed (*.xml)|*.xml";
+        }
+
+        private void InitializeComboBoxCpu()
+        {
+            foreach (var cpu in Enum.GetValues(typeof(Cpu)))
+            {
+                comboBoxCPU.Items.Add(cpu);
+            }
+            comboBoxCPU.SelectedIndex = (int) Cpu.All;
+        }
+
+
+
+        private void ToolStripButtonNewClick(object sender, EventArgs e)
         {
             ResetForm();
         }
 
-        private void toolStripButtonOpen_Click(object sender, EventArgs e)
+        private void ToolStripButtonOpenClick(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog(this);
         }
 
-        private void toolStripButtonSave_Click(object sender, EventArgs e)
+        private void ToolStripButtonSaveClick(object sender, EventArgs e)
         {
             saveFileDialog.InitialDirectory = _openInterfacePath;
-            saveFileDialog.DefaultExt = ".xml";
-            saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml";
             saveFileDialog.ShowDialog(this);
         }
 
-        private void openFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenFileDialogFileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _openInterfacePath = openFileDialog.FileName;
             var zeroInterface = XmlStorage.Load<Interface>(_openInterfacePath);
@@ -48,6 +77,7 @@ namespace ZeroInstall.FeedEditor
         private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var zeroInterface = new Interface {Name = textName.Text, Summary = textSummary.Text};
+            Uri url;
             // save categories
             foreach (var category in checkedListCategory.CheckedItems)
             {
@@ -61,23 +91,24 @@ namespace ZeroInstall.FeedEditor
                 zeroInterface.Icons.Add(icon);
             }
 
-            //ToDo Bastian fragen, wie überprüfung im Interface
-            if (textDescription.Text != String.Empty)
+            if (!String.IsNullOrEmpty(textDescription.Text))
             {
                 zeroInterface.Description = textDescription.Text;
             }
-            if(Uri.IsWellFormedUriString(textInterfaceURL.Text, UriKind.Absolute))
+            if(Uri.TryCreate(textInterfaceURL.Text, UriKind.Absolute, out url))
             {
-                zeroInterface.UriString = textInterfaceURL.Text;
+                zeroInterface.Uri = url;
             }
-            if (Uri.IsWellFormedUriString(textHomepage.Text, UriKind.Absolute))
+            if (Uri.TryCreate(textHomepage.Text, UriKind.Absolute, out url))
             {
-                zeroInterface.HomepageString = textHomepage.Text;
+                zeroInterface.Homepage = url;
             }
+            zeroInterface.NeedsTerminal = checkBoxNeedsTerminal.Checked;
 
             XmlStorage.Save(saveFileDialog.FileName, zeroInterface);
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "png")]
         private void BtnIconPreviewClick(object sender, EventArgs e)
         {
             Uri iconUrl;
@@ -144,7 +175,7 @@ namespace ZeroInstall.FeedEditor
             // fill icons list box
             listIconsUrls.BeginUpdate();
             listIconsUrls.Items.Clear();
-            foreach (Model.Icon icon in zeroInterface.Icons)
+            foreach (var icon in zeroInterface.Icons)
             {
                 listIconsUrls.Items.Add(icon);
             }
@@ -157,6 +188,9 @@ namespace ZeroInstall.FeedEditor
                     checkedListCategory.SetItemChecked(checkedListCategory.Items.IndexOf(category), true);
                 }
             }
+            checkBoxNeedsTerminal.Checked = zeroInterface.NeedsTerminal;
+
+
          }
 
         // clears all form entries
@@ -173,13 +207,19 @@ namespace ZeroInstall.FeedEditor
             {
                 checkedListCategory.SetItemChecked(categoryIndex, false);
             }
+            checkBoxNeedsTerminal.Checked = false;
         }
 
         private void btnIconListAdd_Click(object sender, EventArgs e)
         {
-            var icon = new Model.Icon {LocationString = textIconUrl.Text};
+            var icon = new Model.Icon();
+            Uri uri;
+            if (!IsValidFeedURL(textIconUrl.Text, out uri)) return;
+            
+            icon.Location = uri;
             // set mime type
-            switch(comboIconType.Text) {
+            switch (comboIconType.Text)
+            {
                 case "PNG":
                     icon.MimeType = "image/png";
                     break;
@@ -222,6 +262,71 @@ namespace ZeroInstall.FeedEditor
                 default:
                     throw new InvalidOperationException("Invalid MIME-Type");
             }
+        }
+
+        private void btnExtFeedsAdd_Click(object sender, EventArgs e)
+        {
+            var feed = new Feed();
+            Uri uri;
+            if (!IsValidFeedURL(textExtFeedURL.Text, out uri)) return;
+            feed.Source = uri;
+            var arch = new Architecture { Cpu = (Cpu)comboBoxCPU.SelectedItem, OS = (OS)comboBoxOS.SelectedIndex };
+            feed.Architecture = arch;
+            //TODO Sprache einfügen
+
+            if(!listBoxExtFeeds.Items.Contains(feed))
+            {
+                listBoxExtFeeds.Items.Add(feed);
+            }
+        }
+
+        // check if url is a valid url (begins with http or https and has the right format)
+        // and shows a message if not.
+        private bool IsValidFeedURL(string url, out Uri uri)
+        {
+            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
+            {
+                if(uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps) 
+                {
+                    MessageBox.Show(string.Format("{0}\nhas to begin with \"http\" or \"https\"", url));
+                    return false;
+                }
+                return true;
+            }
+            MessageBox.Show(string.Format("{0}\nis no URL.", url));
+            return false;
+        }
+
+        private void comboBoxCPU_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExtFeedsRemove_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExtFeedLanguageAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnExtFeedLanguageAdd_Click_1(object sender, EventArgs e)
+        {
+            foreach (var lang in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
+            {
+                comboBoxExtFeedLanguage.Items.Add(lang);
+            }/*
+            try
+            {
+                CultureInfo.CreateSpecificCulture(textExtFeedLanguage.Text);
+                listBoxExtFeedLanguages.Items.Add(textExtFeedLanguage.Text);
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("not a valid language");
+            }*/
         }
     }
 }
