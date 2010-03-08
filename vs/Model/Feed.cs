@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Text;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -29,5 +30,16 @@ namespace ZeroInstall.Model
             set { Source = new Uri(value); }
         }
         #endregion
+
+        public override string ToString()
+        {
+            StringBuilder str = new StringBuilder();
+            str.Append(Source.ToString());
+            str.Append(" - ");
+            str.Append(Architecture.ToString());
+            str.Append(" - ");
+            str.Append(LanguagesString);
+            return str.ToString();
+        }
     }
 }

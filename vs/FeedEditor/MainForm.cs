@@ -18,17 +18,27 @@ namespace ZeroInstall.FeedEditor
             _openInterfacePath = null;
             InitializeComponent();
             InitializeSaveFileDialog();
-            InitializeComboBoxCpu();
-            InitializeComboBoxOS();
+            InitializeComboBoxExtFeedCpu();
+            InitializeComboBoxExtFeedOs();
+            InitializeComboBoxExtFeedLanguage();
         }
 
-        private void InitializeComboBoxOS()
+        private void InitializeComboBoxExtFeedLanguage()
+        {
+            foreach (var lang in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
+            {
+                comboBoxExtFeedLanguage.Items.Add(lang);
+            }
+            comboBoxExtFeedLanguage.SelectedIndex = 0;
+        }
+
+        private void InitializeComboBoxExtFeedOs()
         {
             foreach (var os in Enum.GetValues(typeof(OS)))
             {
-                comboBoxOS.Items.Add(os);
+                comboBoxExtFeedOS.Items.Add(os);
             }
-            comboBoxOS.SelectedIndex = (int) OS.All;
+            comboBoxExtFeedOS.SelectedIndex = (int) OS.All;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
@@ -38,13 +48,13 @@ namespace ZeroInstall.FeedEditor
             saveFileDialog.Filter = @"ZeroInstall Feed (*.xml)|*.xml";
         }
 
-        private void InitializeComboBoxCpu()
+        private void InitializeComboBoxExtFeedCpu()
         {
             foreach (var cpu in Enum.GetValues(typeof(Cpu)))
             {
-                comboBoxCPU.Items.Add(cpu);
+                comboBoxExtFeedCPU.Items.Add(cpu);
             }
-            comboBoxCPU.SelectedIndex = (int) Cpu.All;
+            comboBoxExtFeedCPU.SelectedIndex = (int) Cpu.All;
         }
 
 
@@ -270,9 +280,12 @@ namespace ZeroInstall.FeedEditor
             Uri uri;
             if (!IsValidFeedURL(textExtFeedURL.Text, out uri)) return;
             feed.Source = uri;
-            var arch = new Architecture { Cpu = (Cpu)comboBoxCPU.SelectedItem, OS = (OS)comboBoxOS.SelectedIndex };
+            var arch = new Architecture { Cpu = (Cpu)comboBoxExtFeedCPU.SelectedItem, OS = (OS)comboBoxExtFeedOS.SelectedIndex };
             feed.Architecture = arch;
-            //TODO Sprache einfügen
+            foreach (var lang in listBoxExtFeedLanguages.Items)
+            {
+                feed.Languages.Add((CultureInfo) lang);
+            }
 
             if(!listBoxExtFeeds.Items.Contains(feed))
             {
@@ -293,7 +306,7 @@ namespace ZeroInstall.FeedEditor
                 }
                 return true;
             }
-            MessageBox.Show(string.Format("{0}\nis no URL.", url));
+            MessageBox.Show(string.Format("{0}\nis no URL", url));
             return false;
         }
 
@@ -314,19 +327,16 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedLanguageAdd_Click_1(object sender, EventArgs e)
         {
-            foreach (var lang in CultureInfo.GetCultures(CultureTypes.SpecificCultures))
-            {
-                comboBoxExtFeedLanguage.Items.Add(lang);
-            }/*
-            try
-            {
-                CultureInfo.CreateSpecificCulture(textExtFeedLanguage.Text);
-                listBoxExtFeedLanguages.Items.Add(textExtFeedLanguage.Text);
-            }
-            catch (ArgumentException)
-            {
-                MessageBox.Show("not a valid language");
-            }*/
+            var c = (CultureInfo) comboBoxExtFeedLanguage.SelectedItem;
+            if (listBoxExtFeedLanguages.Items.Contains(c)) return;
+            listBoxExtFeedLanguages.Items.Add(c);
+        }
+
+        private void btnExtFeedLanguageRemove_Click(object sender, EventArgs e)
+        {
+            var c = (CultureInfo) listBoxExtFeedLanguages.SelectedItem;
+            if (c == null) return;
+            listBoxExtFeedLanguages.Items.Remove(c);
         }
     }
 }
