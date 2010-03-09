@@ -33,12 +33,17 @@ namespace ZeroInstall.Model
 
         public override string ToString()
         {
-            StringBuilder str = new StringBuilder();
+            var str = new StringBuilder();
             str.Append(Source.ToString());
-            str.Append(" - ");
+            str.Append(" (");
             str.Append(Architecture.ToString());
-            str.Append(" - ");
-            str.Append(LanguagesString);
+            str.Append(")");
+            if (!String.IsNullOrEmpty(LanguagesString))
+            {
+                str.Append(" (");
+                str.Append(LanguagesString);
+                str.Append(")");
+            }
             return str.ToString();
         }
     }

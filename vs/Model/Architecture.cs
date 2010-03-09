@@ -163,7 +163,7 @@ namespace ZeroInstall.Model
                 default: cpu = "unknown"; break;
             }
 
-            return os + "-" + cpu;
+            return os + " - " + cpu;
         }
         #endregion
     }

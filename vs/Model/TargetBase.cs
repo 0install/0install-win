@@ -32,13 +32,12 @@ namespace ZeroInstall.Model
             {
                 // Serialize list as string split by spaces
                 var output = new StringBuilder();
-                foreach (CultureInfo info in _languages)
+                foreach (var info in _languages)
                 {
                     output.Append(info + " ");
                 }
-
                 // Return without trailing space
-                return output.ToString(0, output.Length - 1);
+                return output.ToString().TrimEnd();
             }
             set
             {
