@@ -37,13 +37,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("use")]
         public string Use { get; set; }
 
-        private readonly Set<Constraint> _constraints = new Set<Constraint>();
+        // ToDo: Prevent double entries
+        private readonly Collection<Constraint> _constraints = new Collection<Constraint>();
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fullfilled.
         /// </summary>
         [Description("A list of version constraints that must be fullfilled.")]
         [XmlElement("version")]
-        public Set<Constraint> Constraints { get { return _constraints; } }
+        public Collection<Constraint> Constraints { get { return _constraints; } }
 
         private readonly Collection<EnvironmentBinding> _environmentBindings = new Collection<EnvironmentBinding>();
         /// <summary>

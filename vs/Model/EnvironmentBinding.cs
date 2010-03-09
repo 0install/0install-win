@@ -54,5 +54,9 @@ namespace ZeroInstall.Model
         [XmlAttribute("default")]
         public string Default { get; set; }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement Equals and ToString
     }
 }

@@ -24,5 +24,9 @@ namespace ZeroInstall.Model
         [XmlAttribute("mount-point")]
         public string MountPoint { get; set; }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement Equals and ToString
     }
 }

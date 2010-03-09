@@ -55,6 +55,8 @@ namespace ZeroInstall.Model
         public string Distributions { get; set; }
         #endregion
 
+        //--------------------//
+
         #region Checks
         /// <summary>
         /// Checks whether a specific <paramref name="distribution"/> is covered by the <see cref="Distributions"/> list.
@@ -71,5 +73,7 @@ namespace ZeroInstall.Model
             return false;
         }
         #endregion
+
+        // ToDo: Implement Equals and ToString
     }
 }

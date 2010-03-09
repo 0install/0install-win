@@ -8,7 +8,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An additional feed for an <see cref="Interface"/>.
     /// </summary>
-    public class InterfaceReference : IEquatable<InterfaceReference>
+    public struct InterfaceReference : IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>
@@ -35,7 +35,6 @@ namespace ZeroInstall.Model
         #region Compare
         public bool Equals(InterfaceReference other)
         {
-            if (other == null) return false;
             return other.Target == Target;
         }
 

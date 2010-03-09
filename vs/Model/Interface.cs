@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -48,13 +47,14 @@ namespace ZeroInstall.Model
         [XmlElement("feed")]
         public Collection<FeedReference> Feeds { get { return _feeds; } }
 
-        private readonly Set<InterfaceReference> _feedFor = new Set<InterfaceReference>();
+        // ToDo: Prevent double entries
+        private readonly Collection<InterfaceReference> _feedFor = new Collection<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        public Set<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public Collection<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -118,13 +118,14 @@ namespace ZeroInstall.Model
             set { NeedsTerminal = (value != null); }
         }
 
-        private readonly Set<Icon> _icons = new Set<Icon>();
+        // ToDo: Prevent double entries
+        private readonly Collection<Icon> _icons = new Collection<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
-        public Set<Icon> Icons { get { return _icons; } }
+        public Collection<Icon> Icons { get { return _icons; } }
 
         private readonly Collection<Group> _groups = new Collection<Group>();
         /// <summary>
@@ -153,6 +154,8 @@ namespace ZeroInstall.Model
         #endregion
 
         #endregion
+
+        //--------------------//
 
         #region Inheritance
         /// <summary>

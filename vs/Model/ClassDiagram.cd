@@ -8,7 +8,10 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Model.Archive">
-    <Position X="7" Y="16.75" Width="1.5" />
+    <Position X="7" Y="16.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAwAQEgAIAAAAAQAAAAIAAAAAABAAAAiA=</HashCode>
       <FileName>Archive.cs</FileName>
@@ -48,14 +51,6 @@
       <Property Name="Mode" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Model.InterfaceReference">
-    <Position X="17.75" Y="0.75" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAAEgAAAACAAAAAAAIAAAAAAAAAAAiA=</HashCode>
-      <FileName>InterfaceReference.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
   <Class Name="ZeroInstall.Model.Group">
     <Position X="8.25" Y="12" Width="1.75" />
     <Compartments>
@@ -86,10 +81,8 @@
       <Path>
         <Point X="11.75" Y="12.217" />
         <Point X="11.375" Y="12.217" />
-        <Point X="11.375" Y="17.312" />
-        <Point X="10.958" Y="17.312" Type="JumpStart" />
-        <Point X="10.792" Y="17.312" Type="JumpEnd" />
-        <Point X="8.5" Y="17.312" />
+        <Point X="11.375" Y="17.154" />
+        <Point X="8.75" Y="17.154" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.091" Y="0.1" />
@@ -176,6 +169,9 @@
   </Class>
   <Class Name="ZeroInstall.Model.TargetBase">
     <Position X="12.75" Y="3.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
       <HashCode>AIAAAAAACAKAAAgAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
       <FileName>TargetBase.cs</FileName>
@@ -219,7 +215,7 @@
     <Lollipop Position="0.2" />
   </Struct>
   <Struct Name="ZeroInstall.Model.Icon">
-    <Position X="12.25" Y="0.5" Width="1.5" />
+    <Position X="12.25" Y="0.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -236,8 +232,29 @@
       <FileName>ManifestDigest.cs</FileName>
     </TypeIdentifier>
   </Struct>
+  <Struct Name="ZeroInstall.Model.InterfaceReference">
+    <Position X="18" Y="1" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAEgAAAACAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <FileName>InterfaceReference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Struct>
   <Interface Name="ZeroInstall.Model.IBindingContainer" Collapsed="true">
     <Position X="2.75" Y="9.5" Width="1.5" />
+    <AssociationLine Name="EnvironmentBindings" Type="ZeroInstall.Model.EnvironmentBinding">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.428" Y="0.145" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="OverlayBindings" Type="ZeroInstall.Model.OverlayBinding">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.175" Y="0.094" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IBindingContainer.cs</FileName>
@@ -248,7 +265,7 @@
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="ZeroInstall.Model.IGroupContainer" Collapsed="true">
-    <Position X="11.25" Y="17.75" Width="1.5" />
+    <Position X="9.5" Y="15" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAACAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IGroupContainer.cs</FileName>
