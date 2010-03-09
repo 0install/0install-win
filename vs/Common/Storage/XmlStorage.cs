@@ -173,7 +173,21 @@ namespace Common.Storage
 
             using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Encoding = Encoding.UTF8, Indent = true, IndentChars = "\t" }))
             {
-                if (xmlWriter != null) GetSerializer(typeof(T), ignoreMembers).Serialize(xmlWriter, data);
+                if (xmlWriter == null) throw new IOException(Resources.FailedToCreateXmlWriter);
+                var serializer = GetSerializer(typeof(T), ignoreMembers);
+
+                // Detect namespace defintions in XmlRoot attribute
+                var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
+                string defaultNamesapce = (rootAttributes.Length == 0 ? null : ((XmlRootAttribute)rootAttributes[0]).Namespace);
+                if (string.IsNullOrEmpty(defaultNamesapce))
+                { // Use default serializer namespaces (XMLSchema)
+                    serializer.Serialize(xmlWriter, data);
+                }
+                else
+                { // Set custom namespace as default
+                    var ns = new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", defaultNamesapce) });
+                    serializer.Serialize(xmlWriter, data, ns);
+                }
             }
         }
 

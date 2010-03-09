@@ -194,6 +194,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to create XmlWriter..
+        /// </summary>
+        internal static string FailedToCreateXmlWriter {
+            get {
+                return ResourceManager.GetString("FailedToCreateXmlWriter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Compare method is not supported on an identity comparer..
         /// </summary>
         internal static string IdentityComparerNoCompare {

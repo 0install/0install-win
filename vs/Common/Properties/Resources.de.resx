@@ -168,4 +168,7 @@
   <data name="CannotAddCollectionToSelf" xml:space="preserve">
     <value>Die Collection kann nicht zu sich selbst hinzugefügt werden.</value>
   </data>
+  <data name="FailedToCreateXmlWriter" xml:space="preserve">
+    <value>Das Erstellen des XmlWriters ist fehlgeschlagen.</value>
+  </data>
 </root>

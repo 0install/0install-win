@@ -12,7 +12,6 @@ namespace ZeroInstall.Central.Storage
     /// Stores settings for the application
     /// </summary>
     [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/central/settings")]
-    // ToDo: Suppress xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     public sealed class Settings
     {
         #region Variables
