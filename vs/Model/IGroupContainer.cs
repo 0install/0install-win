@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An object that contains <see cref="Group"/>s and <see cref="Feed"/>s. Supports a composite pattern.
+    /// An object that contains <see cref="Group"/>s and <see cref="FeedReference"/>s. Supports a composite pattern.
     /// </summary>
     interface IGroupContainer
     {

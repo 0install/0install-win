@@ -78,9 +78,9 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Controls whether the clear button is shown when <see cref="TextBox.Text"/> is empty.
+        /// Controls whether the clear button is shown when <see cref="TextBox.Text"/> is not empty.
         /// </summary>
-        [DefaultValue(false), Category("Appearance"), Description("Controls whether the clear button is shown when Text is empty.")]
+        [DefaultValue(false), Category("Appearance"), Description("Controls whether the clear button is shown when Text is not empty.")]
         public bool ClearButton
         {
             get { return _clearButton; }

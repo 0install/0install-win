@@ -51,7 +51,7 @@
     <Compile Include="Constraint.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="EnvironmentBinding.cs" />
-    <Compile Include="Feed.cs" />
+    <Compile Include="FeedReference.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IBindingContainer.cs" />
     <Compile Include="IGroupContainer.cs" />
@@ -60,6 +60,7 @@
     <Compile Include="ImplementationBase.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Icon.cs" />
+    <Compile Include="InterfaceReference.cs" />
     <Compile Include="ManifestDigest.cs" />
     <Compile Include="OverlayBinding.cs" />
     <Compile Include="PackageImplementation.cs" />
@@ -86,6 +87,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -7,7 +7,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
-    public sealed class ManifestDigest
+    public struct ManifestDigest
     {
         /// <summary>
         /// A SHA-1 hash of the old manifest format.

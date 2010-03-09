@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
-    public sealed class Archive : RetrievalStep
+    public sealed class Archive : RetrievalStep, IEquatable<Archive>
     {
         #region Properties
         /// <summary>
@@ -53,6 +53,52 @@ namespace ZeroInstall.Model
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]
         [XmlAttribute("start-offset"), DefaultValue(0L)]
         public long StartOffset { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Compare
+        public bool Equals(Archive other)
+        {
+            if (other == null) return false;
+            return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
+        }
+
+        public static bool operator ==(Archive left, Archive right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(Archive left, Archive right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj.GetType() == typeof(Archive) && Equals((Archive)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Location != null ? Location.GetHashCode() : 0);
+                result = (result * 397) ^ Size.GetHashCode();
+                result = (result * 397) ^ (Extract != null ? Extract.GetHashCode() : 0);
+                result = (result * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
+                result = (result * 397) ^ StartOffset.GetHashCode();
+                return result;
+            }
+        }
+        #endregion
+
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0}({1}, {2}) + {3} => {4}", Location, Size, MimeType, StartOffset, Extract);
+        }
         #endregion
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -39,21 +40,21 @@ namespace ZeroInstall.Model
             set { Uri = new Uri(value); }
         }
 
-        private readonly Collection<Feed> _feeds = new Collection<Feed>();
+        private readonly Collection<FeedReference> _feeds = new Collection<FeedReference>();
         /// <summary>
         /// Zero ore more feeds containing more implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
         [XmlElement("feed")]
-        public Collection<Feed> Feeds { get { return _feeds; } }
+        public Collection<FeedReference> Feeds { get { return _feeds; } }
 
-        private readonly Collection<String> _feedFor = new Collection<String>();
+        private readonly Set<InterfaceReference> _feedFor = new Set<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        public Collection<String> FeedFor { get { return _feedFor; } }
+        public Set<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -117,13 +118,13 @@ namespace ZeroInstall.Model
             set { NeedsTerminal = (value != null); }
         }
 
-        private readonly Collection<Icon> _icons = new Collection<Icon>();
+        private readonly Set<Icon> _icons = new Set<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
-        public Collection<Icon> Icons { get { return _icons; } }
+        public Set<Icon> Icons { get { return _icons; } }
 
         private readonly Collection<Group> _groups = new Collection<Group>();
         /// <summary>

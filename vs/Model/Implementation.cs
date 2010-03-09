@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -40,13 +41,13 @@ namespace ZeroInstall.Model
         public ManifestDigest ManifestDigest { get; set; }
 
         #region Retrieval methods
-        private readonly Collection<Archive> _archives = new Collection<Archive>();
+        private readonly Set<Archive> _archives = new Set<Archive>();
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement("archive")]
-        public Collection<Archive> Archives { get { return _archives; } }
+        public Set<Archive> Archives { get { return _archives; } }
 
         private readonly Collection<Recipe> _recipes = new Collection<Recipe>();
         /// <summary>

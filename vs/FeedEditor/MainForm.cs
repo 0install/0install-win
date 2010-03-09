@@ -115,12 +115,12 @@ namespace ZeroInstall.FeedEditor
             /* Advanced Tab */
             foreach (var feed in listBoxExtFeeds.Items)
             {
-                zeroInterface.Feeds.Add((Feed)feed);
+                zeroInterface.Feeds.Add((FeedReference)feed);
             }
             //TODO hier weitermachen
             foreach (var feedFor in listBoxFeedFor.Items)
             {
-                zeroInterface.FeedFor.Add(feedFor.ToString());
+                //zeroInterface.FeedFor.Add(feedFor.ToString());
             }
 
             XmlStorage.Save(saveFileDialog.FileName, zeroInterface);
@@ -307,10 +307,10 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feed = new Feed();
+            var feed = new FeedReference();
             Uri uri;
             if (!IsValidFeedURL(textExtFeedURL.Text, out uri)) return;
-            feed.Source = uri;
+            feed.Target = uri;
             var arch = new Architecture { Cpu = (Cpu)comboBoxExtFeedCPU.SelectedItem, OS = (OS)comboBoxExtFeedOS.SelectedIndex };
             feed.Architecture = arch;
             foreach (var lang in listBoxExtFeedLanguages.Items)
@@ -364,9 +364,9 @@ namespace ZeroInstall.FeedEditor
 
         private void listBoxExtFeeds_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (Feed)listBoxExtFeeds.SelectedItem;
+            var selectedItem = (FeedReference)listBoxExtFeeds.SelectedItem;
             if (selectedItem == null) return;
-            textExtFeedURL.Text = selectedItem.SourceString;
+            textExtFeedURL.Text = selectedItem.TargetString;
             listBoxExtFeedLanguages.Items.Clear();
             foreach (var lang in selectedItem.Languages)
             {

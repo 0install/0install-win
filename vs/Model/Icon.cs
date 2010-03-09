@@ -36,11 +36,6 @@ namespace ZeroInstall.Model
         public String MimeType { get; set; }
         #endregion
 
-        public override string ToString()
-        {
-            return LocationString + " (" + MimeType + ")";
-        }
-
         //--------------------//
 
         #region Compare
@@ -71,6 +66,13 @@ namespace ZeroInstall.Model
         public static bool operator !=(Icon left, Icon right)
         {
             return !left.Equals(right);
+        }
+        #endregion
+
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Location, MimeType);
         }
         #endregion
     }

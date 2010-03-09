@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
         public override bool Equals(object obj)
         {
             if (obj == null) return false;
-            return obj.GetType() == typeof(Icon) && Equals((Icon)obj);
+            return obj.GetType() == typeof(Constraint) && Equals((Constraint)obj);
         }
 
         public override int GetHashCode()
@@ -55,6 +55,13 @@ namespace ZeroInstall.Model
         public static bool operator !=(Constraint left, Constraint right)
         {
             return !left.Equals(right);
+        }
+        #endregion
+
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);
         }
         #endregion
     }

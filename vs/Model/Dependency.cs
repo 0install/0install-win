@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -36,13 +37,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("use")]
         public string Use { get; set; }
 
-        private readonly Collection<Constraint> _constraints = new Collection<Constraint>();
+        private readonly Set<Constraint> _constraints = new Set<Constraint>();
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fullfilled.
         /// </summary>
         [Description("A list of version constraints that must be fullfilled.")]
         [XmlElement("version")]
-        public Collection<Constraint> Constraints { get { return _constraints; } }
+        public Set<Constraint> Constraints { get { return _constraints; } }
 
         private readonly Collection<EnvironmentBinding> _environmentBindings = new Collection<EnvironmentBinding>();
         /// <summary>

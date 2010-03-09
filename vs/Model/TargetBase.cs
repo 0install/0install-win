@@ -4,24 +4,25 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A common base class for <see cref="ImplementationBase"/> and <see cref="Feed"/>.
+    /// A common base class for <see cref="ImplementationBase"/> and <see cref="FeedReference"/>.
     /// Contains language and architecture parameters.
     /// </summary>
     public abstract class TargetBase
     {
         #region Properties
-        private readonly List<CultureInfo> _languages = new List<CultureInfo>();
+        private readonly Set<CultureInfo> _languages = new Set<CultureInfo>();
         /// <summary>
         /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
         [XmlIgnore]
-        public IList<CultureInfo> Languages { get { return _languages; } }
+        public Set<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
@@ -32,19 +33,25 @@ namespace ZeroInstall.Model
             {
                 // Serialize list as string split by spaces
                 var output = new StringBuilder();
-                foreach (var info in _languages)
+                foreach (var language in _languages)
                 {
-                    output.Append(info + " ");
+                    // .NET uses a hypen while Zero Install uses an underscore as a seperator
+                    output.Append(language.ToString().Replace('-', '_') + " ");
                 }
                 // Return without trailing space
                 return output.ToString().TrimEnd();
             }
             set
             {
-                // Replace language list by parsing input string split by spaces
                 _languages.Clear();
-                foreach (string lang in value.Split(' '))
-                    _languages.Add(new CultureInfo(lang));
+                if (string.IsNullOrEmpty(value)) return;
+
+                // Replace language list by parsing input string split by spaces
+                foreach (string language in value.Split(' '))
+                {
+                    // .NET uses a hypen while Zero Install uses an underscore as a seperator
+                    _languages.Add(new CultureInfo(language.Replace('_', '-')));
+                }
             }
         }
 
