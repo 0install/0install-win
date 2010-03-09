@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -59,6 +58,34 @@ namespace ZeroInstall.Model
         public Collection<Recipe> Recipes { get { return _recipes; } }
         #endregion
 
+        #endregion
+
+        //--------------------//
+
+        #region Simplify
+        /// <summary>
+        /// Replaces <see cref="Stability.Unset"/> with <see cref="Stability.Testing"/>.
+        /// Transfers legacy entries from <see cref="ID"/> to <see cref="LocalPath"/> and <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the interface again since it will lose some of its structure.</remarks>
+        public void Simplify()
+        {
+            // Default stability rating to testing
+            if (Stability == Stability.Unset) Stability = Stability.Testing;
+
+            if (string.IsNullOrEmpty(ID)) return;
+
+            const string sha1Prefix = "sha1=";
+            const string sha1NewPrefix = "sha1new=";
+            const string sha256Prefix = "sha256=";
+
+            // Fill in values (only if missing) using legacy entries (indentified by prefixes)
+            if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
+            else if (string.IsNullOrEmpty(ManifestDigest.Sha1) && ID.StartsWith(sha1Prefix)) ManifestDigest.Sha1 = ID.Substring(sha1Prefix.Length);
+            else if (string.IsNullOrEmpty(ManifestDigest.Sha1New) && ID.StartsWith(sha1NewPrefix)) ManifestDigest.Sha1New = ID.Substring(sha1NewPrefix.Length);
+            else if (string.IsNullOrEmpty(ManifestDigest.Sha256) && ID.StartsWith(sha256Prefix)) ManifestDigest.Sha256 = ID.Substring(sha256Prefix.Length);
+        }
         #endregion
     }
 }

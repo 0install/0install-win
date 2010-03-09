@@ -8,7 +8,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An additional feed for an <see cref="Interface"/>.
     /// </summary>
-    public struct InterfaceReference : IEquatable<InterfaceReference>
+    public class InterfaceReference : IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>
@@ -36,16 +36,6 @@ namespace ZeroInstall.Model
         public bool Equals(InterfaceReference other)
         {
             return other.Target == Target;
-        }
-
-        public static bool operator ==(InterfaceReference left, InterfaceReference right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(InterfaceReference left, InterfaceReference right)
-        {
-            return !Equals(left, right);
         }
 
         public override bool Equals(object obj)

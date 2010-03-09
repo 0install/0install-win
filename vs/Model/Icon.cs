@@ -38,6 +38,13 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Location, MimeType);
+        }
+        #endregion
+
         #region Compare
         public bool Equals(Icon other)
         {
@@ -66,13 +73,6 @@ namespace ZeroInstall.Model
         public static bool operator !=(Icon left, Icon right)
         {
             return !left.Equals(right);
-        }
-        #endregion
-
-        #region Conversion
-        public override string ToString()
-        {
-            return string.Format("{0} ({1})", Location, MimeType);
         }
         #endregion
     }

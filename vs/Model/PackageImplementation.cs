@@ -1,5 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Text;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -7,7 +10,7 @@ namespace ZeroInstall.Model
     /// An implementation of an <see cref="Interface"/> provided by a distribution-specific package manager.
     /// </summary>
     /// <remarks>
-    /// Unlike a normal implementation, a distribution package does not resolve to a directory.
+    /// Unlike a normal <see cref="Implementation"/>, a distribution package does not resolve to a directory.
     /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Interface"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Interface"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
@@ -29,12 +32,33 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// The version number as provided by the operating system.
+        /// </summary>
+        [XmlIgnore, Browsable(false)]
+        public override DateTime Released
+        {
+            get
+            {
+                // ToDo: Get from OS
+                return new DateTime();
+            }
+            set {}
+        }
+
+        /// <summary>Not used.</summary>
+        [XmlIgnore, Browsable(false)]
+        public override string ReleasedString
+        {
+            set {}
+        }
+
+        /// <summary>
         /// The default stability rating for all <see cref="PackageImplementation"/>s is always "packaged".
         /// </summary>
         [XmlIgnore, Browsable(false)]
         public override Stability Stability
         {
-            get { return Stability.Packaged; }
+            get { return Stability.Unset; }
             set {}
         }
         #endregion
@@ -47,33 +71,37 @@ namespace ZeroInstall.Model
         [XmlAttribute("package")]
         public string Package { get; set; }
 
+        private readonly Set<string> _distributions = new Set<string>();
         /// <summary>
         /// A space-separated list of distribution names where <see cref="Package"/> applies.
         /// </summary>
         [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
-        [XmlAttribute("distributions")]
-        public string Distributions { get; set; }
-        #endregion
+        [XmlIgnore]
+        public Set<string> Distributions { get { return _distributions; } }
 
-        //--------------------//
-
-        #region Checks
-        /// <summary>
-        /// Checks whether a specific <paramref name="distribution"/> is covered by the <see cref="Distributions"/> list.
-        /// </summary>
-        /// <remarks>Comparison is case-sensitive!</remarks>
-        public bool ContainsDistribution(string distribution)
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Version"/>
+        [XmlAttribute("distributions"), Browsable(false)]
+        public string DistributionsString
         {
-            var distributionArray = Distributions.Split(new[] { ' ' });
-            for (int i = 0; i < distributionArray.Length; i++)
+            get
             {
-                if (distributionArray[i] == distribution) return true;
-            }
+                // Serialize list as string split by spaces
+                var output = new StringBuilder();
+                foreach (var distribution in _distributions) output.Append(distribution.Replace(' ', '_') + ' ');
 
-            return false;
+                // Return without trailing space
+                return output.ToString().TrimEnd();
+            }
+            set
+            {
+                _distributions.Clear();
+                if (string.IsNullOrEmpty(value)) return;
+
+                // Replace list by parsing input string split by spaces
+                foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
+            }
         }
         #endregion
-
-        // ToDo: Implement Equals and ToString
     }
 }

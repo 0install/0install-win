@@ -120,4 +120,10 @@
   <data name="ArchitectureStringFormat" xml:space="preserve">
     <value>Der String muss die Form "os-cpu" haben.</value>
   </data>
+  <data name="MustBeSpecificCPU" xml:space="preserve">
+    <value>Der Wert muss eine spezifische CPU sein (nicht "All" oder "Unkown").</value>
+  </data>
+  <data name="MustBeSpecificOS" xml:space="preserve">
+    <value>Der Wert muss ein spezifisches Betriebssystem sein (nicht "All" oder "Unkown").</value>
+  </data>
 </root>

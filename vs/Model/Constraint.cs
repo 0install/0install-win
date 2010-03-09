@@ -27,6 +27,13 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);
+        }
+        #endregion
+
         #region Compare
         public bool Equals(Constraint other)
         {
@@ -55,13 +62,6 @@ namespace ZeroInstall.Model
         public static bool operator !=(Constraint left, Constraint right)
         {
             return !left.Equals(right);
-        }
-        #endregion
-
-        #region Conversion
-        public override string ToString()
-        {
-            return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);
         }
         #endregion
     }

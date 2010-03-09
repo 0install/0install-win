@@ -57,6 +57,6 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement Equals and ToString
+        // ToDo: Implement ToString and Equals
     }
 }

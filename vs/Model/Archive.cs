@@ -57,21 +57,18 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0}({1}, {2}) + {3} => {4}", Location, Size, MimeType, StartOffset, Extract);
+        }
+        #endregion
+
         #region Compare
         public bool Equals(Archive other)
         {
             if (other == null) return false;
             return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
-        }
-
-        public static bool operator ==(Archive left, Archive right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Archive left, Archive right)
-        {
-            return !Equals(left, right);
         }
 
         public override bool Equals(object obj)
@@ -91,13 +88,6 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ StartOffset.GetHashCode();
                 return result;
             }
-        }
-        #endregion
-
-        #region Conversion
-        public override string ToString()
-        {
-            return string.Format("{0}({1}, {2}) + {3} => {4}", Location, Size, MimeType, StartOffset, Extract);
         }
         #endregion
     }

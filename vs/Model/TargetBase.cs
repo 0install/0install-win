@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
@@ -25,7 +24,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
-        [XmlAttribute("langs"), Browsable(false)]
+        [XmlAttribute("langs"), DefaultValue(""), Browsable(false)]
         public string LanguagesString
         {
             get
@@ -35,7 +34,7 @@ namespace ZeroInstall.Model
                 foreach (var language in _languages)
                 {
                     // .NET uses a hypen while Zero Install uses an underscore as a seperator
-                    output.Append(language.ToString().Replace('-', '_') + " ");
+                    output.Append(language.ToString().Replace('-', '_') + ' ');
                 }
                 // Return without trailing space
                 return output.ToString().TrimEnd();
@@ -45,7 +44,7 @@ namespace ZeroInstall.Model
                 _languages.Clear();
                 if (string.IsNullOrEmpty(value)) return;
 
-                // Replace language list by parsing input string split by spaces
+                // Replace list by parsing input string split by spaces
                 foreach (string language in value.Split(' '))
                 {
                     // .NET uses a hypen while Zero Install uses an underscore as a seperator
@@ -70,27 +69,6 @@ namespace ZeroInstall.Model
         {
             get { return Architecture.ToString(); }
             set { Architecture = new Architecture(value); }
-        }
-        #endregion
-
-        #region Checks
-        /// <summary>
-        /// Checks whether a specific <paramref name="language"/> is covered by the <see cref="Languages"/> list.
-        /// </summary>
-        public bool ContainsLanguage(CultureInfo language)
-        {
-            // ToDo: Implement
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Checks whether a specific <paramref name="architecture"/> is covered by the <see cref="Architecture"/> (possibly with wildcards).
-        /// </summary>
-        /// <remarks>Comparison is case-sensitive!</remarks>
-        public bool ContainsArchitecture(string architecture)
-        {
-            // ToDo: Implement
-            throw new NotImplementedException();
         }
         #endregion
     }

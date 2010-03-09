@@ -32,21 +32,20 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Conversion
+        public override string ToString()
+        {
+            return (string.IsNullOrEmpty(LanguagesString))
+                       ? string.Format("{0} ({1})", Target, Architecture)
+                       : string.Format("{0} ({1}) ({2})", Target, Architecture, LanguagesString);
+        }
+        #endregion
+
         #region Compare
         public bool Equals(FeedReference other)
         {
             if (other == null) return false;
             return other.Target == Target && other.Architecture == Architecture && Languages.IsEqualTo(other.Languages);
-        }
-
-        public static bool operator ==(FeedReference left, FeedReference right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(FeedReference left, FeedReference right)
-        {
-            return !Equals(left, right);
         }
 
         public override bool Equals(object obj)
@@ -63,15 +62,6 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 return result;
             }
-        }
-        #endregion
-
-        #region Conversion
-        public override string ToString()
-        {
-            return (string.IsNullOrEmpty(LanguagesString))
-                       ? string.Format("{0} ({1})", Target, Architecture)
-                       : string.Format("{0} ({1}) ({2})", Target, Architecture, LanguagesString);
         }
         #endregion
     }

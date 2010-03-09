@@ -1,19 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.RetrievalStep">
-    <Position X="7.25" Y="15.25" Width="1.25" />
+    <Position X="7.25" Y="15.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RetrievalStep.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Model.Archive">
-    <Position X="7" Y="16.75" Width="1.75" />
+    <Position X="7.25" Y="16.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAwAQEgAIAAAAAQAAAAIAAAAAABAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAwAQEgAIAAAAAQAAAAIAAAAAABAAAAAA=</HashCode>
       <FileName>Archive.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -89,7 +89,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAIIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -125,10 +125,11 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAKIAMAAACAiQCgABABAAYQQAAQAEAKASAgAAAAAACI=</HashCode>
+      <HashCode>AAKIgMAAACAiQCgABABAAYQQAAQAEAKASAgAAAAAACI=</HashCode>
       <FileName>Interface.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
+      <Property Name="Feeds" />
       <Property Name="FeedFor" />
       <Property Name="Icons" />
       <Property Name="Groups" />
@@ -150,7 +151,7 @@
   <Class Name="ZeroInstall.Model.PackageImplementation">
     <Position X="16" Y="12.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAIAAAAACAAAAQAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACAAAAQAAAAAACAAAEACAAAAAAAAAA=</HashCode>
       <FileName>PackageImplementation.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -173,7 +174,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AIAAAAAACAKAAAgAAAAAAAAAAAABAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AIAAAAAACAKAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>TargetBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -187,13 +188,45 @@
       <FileName>RetrievalMethod.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="ZeroInstall.Model.ManifestDigest">
+    <Position X="11.75" Y="15.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAEAAEAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <FileName>ManifestDigest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Model.InterfaceReference">
+    <Position X="12.25" Y="0.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAEgAAAACAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>InterfaceReference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Model.FeedReference">
+    <Position X="14" Y="6.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAEgAAAACAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>FeedReference.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="9.25" Y="3.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAACAAiE=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAACQAiE=</HashCode>
       <FileName>Architecture.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -215,31 +248,13 @@
     <Lollipop Position="0.2" />
   </Struct>
   <Struct Name="ZeroInstall.Model.Icon">
-    <Position X="12.25" Y="0.75" Width="1.5" />
+    <Position X="17.5" Y="1" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAQEgAIAAAAAQAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Icon.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Struct>
-  <Struct Name="ZeroInstall.Model.ManifestDigest">
-    <Position X="11.75" Y="14.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAAAAEAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
-      <FileName>ManifestDigest.cs</FileName>
-    </TypeIdentifier>
-  </Struct>
-  <Struct Name="ZeroInstall.Model.InterfaceReference">
-    <Position X="18" Y="1" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAACAAAAAAEgAAAACAAAAAAAIAAAAAAAAAAAiA=</HashCode>
-      <FileName>InterfaceReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Struct>
@@ -266,6 +281,11 @@
   </Interface>
   <Interface Name="ZeroInstall.Model.IGroupContainer" Collapsed="true">
     <Position X="9.5" Y="15" Width="1.5" />
+    <AssociationLine Name="Groups" Type="ZeroInstall.Model.Group">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.661" Y="0.216" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAACAAAAAAAAAQAQAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IGroupContainer.cs</FileName>

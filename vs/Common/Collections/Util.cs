@@ -90,10 +90,10 @@ namespace Common.Collections
         /// <returns>The hash code for the item.</returns>
         public static int GetHashCode<T>(T item, IEqualityComparer<T> equalityComparer)
         {
-            if (item == null)
-                return 0x1786E23C;
-            else
-                return equalityComparer.GetHashCode(item);
+            if (item == null) return 0x1786E23C;
+            
+            // Negative hash values are reserved for internal flags
+            return Math.Abs(equalityComparer.GetHashCode(item));
         }
     }
 }

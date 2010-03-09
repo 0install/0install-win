@@ -13,7 +13,6 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    // ToDo: Suppress xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
     public sealed class Interface : IGroupContainer
     {
         #region Properties
@@ -185,7 +184,7 @@ namespace ZeroInstall.Model
 
         #region Simplify
         /// <summary>
-        /// Calls <see cref="FlattenInheritance"/> and performs a number of other cleanups and simplifications to the interface structure.
+        /// Calls <see cref="FlattenInheritance"/> and performs other cleanups and simplifications to the interface structure.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
         /// It should not be called if you plan on serializing the interface again since it will lose some of its structure.</remarks>
@@ -193,15 +192,7 @@ namespace ZeroInstall.Model
         {
             FlattenInheritance();
 
-            // Default stability rating to testing.
-            foreach (var implementation in Implementations)
-            {
-                if (implementation.Stability == Stability.Unset) implementation.Stability = Stability.Testing;
-            }
-
-            // ToDo: Move digests from ID to ManifestDigest
-            // ToDo: Default stability to testing
-            // ToDo: Guess missing MIME archive types
+            foreach (var implementation in Implementations) implementation.Simplify();
         }
         #endregion
         

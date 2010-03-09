@@ -16,10 +16,6 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         Unset,
 
-        /// <summary>Used only by <see cref="PackageImplementation"/></summary>
-        [XmlIgnore]
-        Packaged,
-
         /// <summary>No serious problems</summary>
         [XmlEnum("stable")]
         Stable,
@@ -48,6 +44,13 @@ namespace ZeroInstall.Model
     /// </summary>
     public abstract class ImplementationBase : TargetBase, IBindingContainer
     {
+        #region Constants
+        /// <summary>
+        /// The <see cref="string.Format(string,object[])"/> format used by <see cref="ReleasedString"/>
+        /// </summary>
+        public const string ReleaseDateFormat = "yyyy-MM-dd";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The version number of the implementation.
@@ -61,13 +64,12 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Release"), Description("The date this implementation was made available. For development versions checked out from version control this attribute should not be present.")]
         [XmlIgnore]
-        public DateTime Released { get; set; }
+        public virtual DateTime Released { get; set; }
 
-        private const string ReleaseDateFormat = "yyyy-MM-dd";
-        /// <summary>Used for XML serialization..</summary>
+        /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("released"), Browsable(false)]
-        public string ReleasedString
+        public virtual string ReleasedString
         {
             get { return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat)); }
             set { Released = DateTime.ParseExact(value, ReleaseDateFormat, CultureInfo.InvariantCulture); }
@@ -133,6 +135,8 @@ namespace ZeroInstall.Model
         [XmlElement("overlay")]
         public Collection<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
+
+        //--------------------//
 
         #region Inheritance
         /// <summary>

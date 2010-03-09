@@ -39,6 +39,8 @@ namespace ZeroInstall.Model
 
         #endregion
 
+        //--------------------//
+
         #region Inheritance
         /// <summary>
         /// Calls <see cref="ImplementationBase.InheritFrom"/> for all <see cref="Groups"/>, <see cref="Implementations"/> and <see cref="PackageImplementations"/>

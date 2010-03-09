@@ -68,5 +68,23 @@ namespace ZeroInstall.Model.Properties {
                 return ResourceManager.GetString("ArchitectureStringFormat", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a specific CPU (not &quot;All&quot; or &quot;Unkown&quot;)..
+        /// </summary>
+        internal static string MustBeSpecificCPU {
+            get {
+                return ResourceManager.GetString("MustBeSpecificCPU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value must be a specific operating system (not &quot;All&quot; or &quot;Unkown&quot;)..
+        /// </summary>
+        internal static string MustBeSpecificOS {
+            get {
+                return ResourceManager.GetString("MustBeSpecificOS", resourceCulture);
+            }
+        }
     }
 }
