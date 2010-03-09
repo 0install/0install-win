@@ -129,7 +129,7 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonNew.Name = "toolStripButtonNew";
             this.toolStripButtonNew.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonNew.Text = "New";
-            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNewClick);
+            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNew_Click);
             // 
             // toolStripButtonOpen
             // 
@@ -139,7 +139,7 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonOpen.Name = "toolStripButtonOpen";
             this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpenClick);
+            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpen_Click);
             // 
             // toolStripButtonSave
             // 
@@ -149,11 +149,11 @@ namespace ZeroInstall.FeedEditor
             this.toolStripButtonSave.Name = "toolStripButtonSave";
             this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
             this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSaveClick);
+            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
             // 
             // openFileDialog
             // 
-            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialogFileOk);
+            this.openFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog_FileOk);
             // 
             // saveFileDialog
             // 

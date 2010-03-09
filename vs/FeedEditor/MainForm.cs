@@ -56,23 +56,23 @@ namespace ZeroInstall.FeedEditor
             comboBoxExtFeedCPU.SelectedIndex = (int)Cpu.All;
         }
 
-        private void ToolStripButtonNewClick(object sender, EventArgs e)
+        private void ToolStripButtonNew_Click(object sender, EventArgs e)
         {
             ResetForm();
         }
 
-        private void ToolStripButtonOpenClick(object sender, EventArgs e)
+        private void ToolStripButtonOpen_Click(object sender, EventArgs e)
         {
             openFileDialog.ShowDialog(this);
         }
 
-        private void ToolStripButtonSaveClick(object sender, EventArgs e)
+        private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
             saveFileDialog.InitialDirectory = _openInterfacePath;
             saveFileDialog.ShowDialog(this);
         }
 
-        private void OpenFileDialogFileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _openInterfacePath = openFileDialog.FileName;
             var zeroInterface = Interface.Load(_openInterfacePath);
