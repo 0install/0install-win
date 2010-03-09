@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.RetrievalStep">
-    <Position X="7" Y="15.25" Width="1.5" />
+    <Position X="7.25" Y="15.25" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RetrievalStep.cs</FileName>

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Forms;
-using Common.Storage;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -76,7 +75,7 @@ namespace ZeroInstall.FeedEditor
         private void OpenFileDialogFileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _openInterfacePath = openFileDialog.FileName;
-            var zeroInterface = XmlStorage.Load<Interface>(_openInterfacePath);
+            var zeroInterface = Interface.Load(_openInterfacePath);
             ResetForm();
             FillForm(zeroInterface);
         }
@@ -123,7 +122,7 @@ namespace ZeroInstall.FeedEditor
                 //zeroInterface.FeedFor.Add(feedFor.ToString());
             }
 
-            XmlStorage.Save(saveFileDialog.FileName, zeroInterface);
+            zeroInterface.Save(saveFileDialog.FileName);
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "png")]

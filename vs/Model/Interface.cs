@@ -2,7 +2,9 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using System.Xml.Serialization;
+using Common.Storage;
 
 namespace ZeroInstall.Model
 {
@@ -200,6 +202,50 @@ namespace ZeroInstall.Model
             // ToDo: Move digests from ID to ManifestDigest
             // ToDo: Default stability to testing
             // ToDo: Guess missing MIME archive types
+        }
+        #endregion
+        
+        //--------------------//
+
+        #region Storage
+        /// <summary>
+        /// Loads an <see cref="Interface"/> from an XML file (feed).
+        /// </summary>
+        /// <param name="path">The file to load from.</param>
+        /// <returns>The loaded <see cref="Interface"/>.</returns>
+        public static Interface Load(string path)
+        {
+            // Load the file
+            return XmlStorage.Load<Interface>(path);
+        }
+
+        /// <summary>
+        /// Loads an <see cref="Interface"/> from a stream containing an XML file (feed).
+        /// </summary>
+        /// <param name="stream">The stream to load from.</param>
+        /// <returns>The loaded <see cref="Interface"/>.</returns>
+        public static Interface Load(Stream stream)
+        {
+            // Load the file
+            return XmlStorage.Load<Interface>(stream);
+        }
+
+        /// <summary>
+        /// Saves this <see cref="Interface"/> in an XML file (feed).
+        /// </summary>
+        /// <param name="path">The file to save in.</param>
+        public void Save(string path)
+        {
+            XmlStorage.Save(path, this);
+        }
+
+        /// <summary>
+        /// Saves this <see cref="Interface"/> in a stream as an XML file (feed).
+        /// </summary>
+        /// <param name="stream">The stream to save in.</param>
+        public void Save(Stream stream)
+        {
+            XmlStorage.Save(stream, this);
         }
         #endregion
     }
