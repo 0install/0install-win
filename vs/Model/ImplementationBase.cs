@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
     /// A common base class for <see cref="Implementation"/> and <see cref="Group"/>.
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
-    public abstract class ImplementationBase : TargetBase, IBindingContainer
+    public abstract class ImplementationBase : TargetBase, IBindingContainer, ISimplifyable
     {
         #region Constants
         /// <summary>
@@ -138,7 +138,14 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Inheritance
+        #region Simplify
+        /// <summary>
+        /// Sets missing default values, removes inheritance structures, etc.
+        /// </summary>
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        public abstract void Simplify();
+
         /// <summary>
         /// Transfers attributes from another <see cref="ImplementationBase"/> object to this one.
         /// Existing values are not replaced. Provides an inheritance-like relation.

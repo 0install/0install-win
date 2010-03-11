@@ -13,7 +13,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Interface : IGroupContainer
+    public sealed class Interface : IGroupContainer, ISimplifyable
     {
         #region Properties
         /// <summary>
@@ -157,20 +157,25 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-
-        #region Inheritance
+        
+        #region Simplify
         /// <summary>
-        /// Calls <see cref="ImplementationBase.InheritFrom"/> for all <see cref="Groups"/>, <see cref="Implementations"/> and <see cref="PackageImplementations"/>
-        /// and moves the entries of <see cref="Groups"/> upwards.
+        /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        public void FlattenInheritance()
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        public void Simplify()
         {
+            // Set missing default values
+            foreach (var implementation in Implementations) implementation.Simplify();
+            foreach (var implementation in PackageImplementations) implementation.Simplify();
+
             foreach (var group in Groups)
             {
-                // Flatten structure in groups
-                group.FlattenInheritance();
+                // Flatten structure in groups and set missing default values in contained implementations
+                group.Simplify();
 
-                // Move entries from groups upwards
+                // Move implementations out of groups
                 foreach (var implementation in group.Implementations) Implementations.Add(implementation);
                 group.Implementations.Clear();
                 foreach (var implementation in group.PackageImplementations) PackageImplementations.Add(implementation);
@@ -179,20 +184,6 @@ namespace ZeroInstall.Model
 
             // All groups are now empty and unnecessary
             Groups.Clear();
-        }
-        #endregion
-
-        #region Simplify
-        /// <summary>
-        /// Calls <see cref="FlattenInheritance"/> and performs other cleanups and simplifications to the interface structure.
-        /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the interface again since it will lose some of its structure.</remarks>
-        public void Simplify()
-        {
-            FlattenInheritance();
-
-            foreach (var implementation in Implementations) implementation.Simplify();
         }
         #endregion
         
@@ -241,5 +232,3 @@ namespace ZeroInstall.Model
         #endregion
     }
 }
-
-

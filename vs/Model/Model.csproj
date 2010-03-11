@@ -61,6 +61,7 @@
     <Compile Include="Interface.cs" />
     <Compile Include="Icon.cs" />
     <Compile Include="InterfaceReference.cs" />
+    <Compile Include="ISimplifyable.cs" />
     <Compile Include="ManifestDigest.cs" />
     <Compile Include="OverlayBinding.cs" />
     <Compile Include="PackageImplementation.cs" />

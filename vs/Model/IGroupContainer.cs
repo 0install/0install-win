@@ -31,11 +31,5 @@ namespace ZeroInstall.Model
         [XmlElement("implementation")]
         Collection<PackageImplementation> PackageImplementations { get; }
         #endregion
-
-        /// <summary>
-        /// Calls <see cref="ImplementationBase.InheritFrom"/> for all <see cref="Groups"/>, <see cref="Implementations"/> and <see cref="PackageImplementations"/>
-        /// and moves the entries of <see cref="Groups"/> upwards.
-        /// </summary>
-        void FlattenInheritance();
     }
 }

@@ -41,26 +41,35 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Inheritance
+        #region Simplify
         /// <summary>
-        /// Calls <see cref="ImplementationBase.InheritFrom"/> for all <see cref="Groups"/>, <see cref="Implementations"/> and <see cref="PackageImplementations"/>
-        /// and moves the entries of <see cref="Groups"/> upwards.
+        /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
-        public void FlattenInheritance()
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        public override void Simplify()
         {
-            // Apply attribute inheritance to implementations
-            foreach (var implementation in Implementations) implementation.InheritFrom(this);
-            foreach (var implementation in PackageImplementations) implementation.InheritFrom(this);
+            // Apply attribute inheritance to implementations and set missing default values
+            foreach (var implementation in Implementations)
+            {
+                implementation.InheritFrom(this);
+                implementation.Simplify();
+            }
+            foreach (var implementation in PackageImplementations)
+            {
+                implementation.InheritFrom(this);
+                implementation.Simplify();
+            }
 
             foreach (var group in Groups)
             {
                 // Apply attribute inheritance to sub-groups
                 group.InheritFrom(this);
 
-                // Flatten structure in sub-groups
-                group.FlattenInheritance();
+                // Flatten structure in sub-groups and set missing default values in contained implementations
+                group.Simplify();
 
-                // Move entries from sub-groups upwards
+                // Move implementations out of groups
                 foreach (var implementation in group.Implementations) Implementations.Add(implementation);
                 group.Implementations.Clear();
                 foreach (var implementation in group.PackageImplementations) PackageImplementations.Add(implementation);

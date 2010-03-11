@@ -7,7 +7,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
-    public sealed class ManifestDigest
+    public struct ManifestDigest
     {
         /// <summary>
         /// A SHA-1 hash of the old manifest format.
@@ -39,5 +39,7 @@ namespace ZeroInstall.Model
             return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1, Sha1New, Sha256);
         }
         #endregion
+
+        // ToDo: Add compare methods
     }
 }

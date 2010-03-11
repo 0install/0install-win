@@ -64,12 +64,11 @@ namespace ZeroInstall.Model
 
         #region Simplify
         /// <summary>
-        /// Replaces <see cref="Stability.Unset"/> with <see cref="Stability.Testing"/>.
-        /// Transfers legacy entries from <see cref="ID"/> to <see cref="LocalPath"/> and <see cref="ManifestDigest"/>.
+        /// Sets missing default values.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the interface again since it will lose some of its structure.</remarks>
-        public void Simplify()
+        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
+        public override void Simplify()
         {
             // Default stability rating to testing
             if (Stability == Stability.Unset) Stability = Stability.Testing;
@@ -81,10 +80,16 @@ namespace ZeroInstall.Model
             const string sha256Prefix = "sha256=";
 
             // Fill in values (only if missing) using legacy entries (indentified by prefixes)
+            var manifestDigest = ManifestDigest;
             if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else if (string.IsNullOrEmpty(ManifestDigest.Sha1) && ID.StartsWith(sha1Prefix)) ManifestDigest.Sha1 = ID.Substring(sha1Prefix.Length);
-            else if (string.IsNullOrEmpty(ManifestDigest.Sha1New) && ID.StartsWith(sha1NewPrefix)) ManifestDigest.Sha1New = ID.Substring(sha1NewPrefix.Length);
-            else if (string.IsNullOrEmpty(ManifestDigest.Sha256) && ID.StartsWith(sha256Prefix)) ManifestDigest.Sha256 = ID.Substring(sha256Prefix.Length);
+            else if (string.IsNullOrEmpty(manifestDigest.Sha1) && ID.StartsWith(sha1Prefix)) manifestDigest.Sha1 = ID.Substring(sha1Prefix.Length);
+            else if (string.IsNullOrEmpty(manifestDigest.Sha1New) && ID.StartsWith(sha1NewPrefix)) manifestDigest.Sha1New = ID.Substring(sha1NewPrefix.Length);
+            else if (string.IsNullOrEmpty(manifestDigest.Sha256) && ID.StartsWith(sha256Prefix)) manifestDigest.Sha256 = ID.Substring(sha256Prefix.Length);
+            ManifestDigest = manifestDigest;
+
+            // Simplify retrieval methods
+            foreach (var archive in Archives) archive.Simplify();
+            foreach (var recipe in Recipes) recipe.Simplify();
         }
         #endregion
     }

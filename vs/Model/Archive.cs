@@ -57,6 +57,32 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Simplify
+        /// <summary>
+        /// Guesses missing default values.
+        /// </summary>
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        public override void Simplify()
+        {
+            // If the MIME type is already set or the location is missing, we have nothing to do here
+            if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(LocationString)) return;
+
+            // Guess the MIME type based on the file ending
+            if (LocationString.EndsWith(".zip")) MimeType = "application/x-zip";
+            else if (LocationString.EndsWith(".cab")) MimeType = "application/vnd.ms-cab-compressed";
+            else if (LocationString.EndsWith(".tar")) MimeType = "application/x-tar";
+            else if (LocationString.EndsWith(".tar.gz") || LocationString.EndsWith(".tgz")) MimeType = "application/x-compressed-tar";
+            else if (LocationString.EndsWith(".tar.bz2")) MimeType = "application/x-bzip-compressed-tar";
+            else if (LocationString.EndsWith(".tar.lzma")) MimeType = "application/x-lzma-compressed-tar";
+            else if (LocationString.EndsWith(".deb")) MimeType = "application/x-deb";
+            else if (LocationString.EndsWith(".rpm")) MimeType = "application/x-rpm";
+            else if (LocationString.EndsWith(".dmg")) MimeType = "application/x-apple-diskimage";
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         public override string ToString()
         {

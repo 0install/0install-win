@@ -103,5 +103,17 @@ namespace ZeroInstall.Model
             }
         }
         #endregion
+
+        //--------------------//
+
+        #region Simplify
+        /// <summary>
+        /// Sets missing default values.
+        /// </summary>
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
+        public override void Simplify()
+        {}
+        #endregion
     }
 }

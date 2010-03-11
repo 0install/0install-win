@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -22,6 +23,20 @@ namespace ZeroInstall.Model
         public Collection<Archive> Archives { get { return _archives; } }
         #endregion
 
+        #endregion
+        
+        //--------------------//
+
+        #region Simplify
+        /// <summary>
+        /// Call <see cref="ISimplifyable.Simplify"/> on all contained <see cref="RetrievalStep"/>s.
+        /// </summary>
+        /// <remarks>This should be called to prepare an interface for launch.
+        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        public override void Simplify()
+        {
+            foreach (var archive in Archives) archive.Simplify();
+        }
         #endregion
     }
 }

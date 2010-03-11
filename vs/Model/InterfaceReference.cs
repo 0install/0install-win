@@ -35,6 +35,7 @@ namespace ZeroInstall.Model
         #region Compare
         public bool Equals(InterfaceReference other)
         {
+            if (other == null) return false;
             return other.Target == Target;
         }
 
