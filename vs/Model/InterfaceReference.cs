@@ -32,22 +32,27 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Compare
+        #region Equality
         public bool Equals(InterfaceReference other)
         {
             if (other == null) return false;
+            if (ReferenceEquals(other, this)) return true;
             return other.Target == Target;
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
+            if (ReferenceEquals(obj, this)) return true;
             return obj.GetType() == typeof(InterfaceReference) && Equals((InterfaceReference)obj);
         }
 
         public override int GetHashCode()
         {
-            return (Target != null ? Target.GetHashCode() : 0);
+            unchecked
+            {
+                return (Target != null ? Target.GetHashCode() : 0);
+            }
         }
         #endregion
 

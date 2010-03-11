@@ -11,6 +11,7 @@ namespace ZeroInstall.Model
     public sealed class Group : ImplementationBase, IGroupContainer
     {
         #region Properties
+        // ToDo: Prevent double entries
         private readonly Collection<Group> _groups = new Collection<Group>();
         /// <summary>
         /// A list of sub-groups.
@@ -80,5 +81,9 @@ namespace ZeroInstall.Model
             Groups.Clear();
         }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement ToString and Equals
     }
 }

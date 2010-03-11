@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Model.RetrievalStep">
-    <Position X="14.5" Y="12" Width="1.5" />
+  <Class Name="ZeroInstall.Model.RetrievalStep" Collapsed="true">
+    <Position X="14.5" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>RetrievalStep.cs</FileName>
@@ -44,12 +44,13 @@
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
     <Position X="14.5" Y="8.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAIAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgAAAAAAA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Mode" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.Group">
     <Position X="4.5" Y="8.25" Width="1.5" />
@@ -120,7 +121,7 @@
       <Property Name="Implementations" />
       <Property Name="PackageImplementations" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.OverlayBinding">
     <Position X="12.25" Y="8.25" Width="1.5" />
@@ -128,19 +129,21 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAkAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAkAAAAAEgAABAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>OverlayBinding.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.PackageImplementation">
     <Position X="9" Y="8.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACAIAAQAAAABACAAAEACAAAAAAAACA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACEoAAQAAAABACAAIEACAAAAAAAACA=</HashCode>
       <FileName>PackageImplementation.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.Recipe">
-    <Position X="12.25" Y="12" Width="1.5" />
+    <Position X="12.25" Y="12.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -166,7 +169,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Model.RetrievalMethod" Collapsed="true">
-    <Position X="13.5" Y="10.75" Width="1.5" />
+    <Position X="13.5" Y="11.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACA=</HashCode>
       <FileName>RetrievalMethod.cs</FileName>
@@ -239,9 +242,10 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAEAAEAAAAAAAAAAAAAEAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAAEgAEAAAAAAAAAAIAAEAAAAAAAAiA=</HashCode>
       <FileName>ManifestDigest.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Struct>
   <Interface Name="ZeroInstall.Model.IBindingContainer" Collapsed="true">
     <Position X="10.5" Y="6.75" Width="1.5" />

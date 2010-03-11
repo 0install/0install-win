@@ -41,16 +41,18 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(FeedReference other)
         {
             if (other == null) return false;
+            if (ReferenceEquals(other, this)) return true;
             return other.Target == Target && other.Architecture == Architecture && Languages.IsEqualTo(other.Languages);
         }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
+            if (ReferenceEquals(obj, this)) return true;
             return obj.GetType() == typeof(FeedReference) && Equals((FeedReference)obj);
         }
 

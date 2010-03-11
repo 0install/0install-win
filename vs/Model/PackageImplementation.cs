@@ -115,5 +115,16 @@ namespace ZeroInstall.Model
         public override void Simplify()
         {}
         #endregion
+
+        //--------------------//
+
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0} ({1})", Package, DistributionsString);
+        }
+        #endregion
+
+        // ToDo: Implement Equals
     }
 }

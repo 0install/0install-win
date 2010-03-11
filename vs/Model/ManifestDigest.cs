@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
@@ -7,8 +8,9 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
-    public struct ManifestDigest
+    public struct ManifestDigest : IEquatable<ManifestDigest>
     {
+        #region Properties
         /// <summary>
         /// A SHA-1 hash of the old manifest format.
         /// </summary>
@@ -30,6 +32,7 @@ namespace ZeroInstall.Model
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
         [XmlAttribute("sha256")]
         public string Sha256 { get; set; }
+        #endregion
 
         //--------------------//
 
@@ -40,6 +43,38 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        // ToDo: Add compare methods
+        #region Equality
+        public bool Equals(ManifestDigest other)
+        {
+            return other.Sha1 == Sha1 && other.Sha1New == Sha1New && other.Sha256 == Sha256;
+        }
+
+        public static bool operator ==(ManifestDigest left, ManifestDigest right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(ManifestDigest left, ManifestDigest right)
+        {
+            return !left.Equals(right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            return obj.GetType() == typeof(ManifestDigest) && Equals((ManifestDigest)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Sha1 != null ? Sha1.GetHashCode() : 0);
+                result = (result * 397) ^ (Sha1New != null ? Sha1New.GetHashCode() : 0);
+                result = (result * 397) ^ (Sha256 != null ? Sha256.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }

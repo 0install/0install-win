@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -6,7 +7,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An overlay binding specifies that the chosen <see cref="Implementation"/> should be made available at the given location in the filesystem.
     /// </summary>
-    public sealed class OverlayBinding : Binding
+    public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
         #region Properties
         private string _source = ".";
@@ -27,6 +28,35 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString and Equals
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("{0} => {1}", Source, MountPoint);
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(OverlayBinding other)
+        {
+            if (other == null) return false;
+            if (ReferenceEquals(other, this)) return true;
+            return other.Source == Source || other.MountPoint == MountPoint;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (ReferenceEquals(obj, this)) return true;
+            return obj.GetType() == typeof(OverlayBinding) && Equals((OverlayBinding)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Source != null ? Source.GetHashCode() : 0)*397) ^ (MountPoint != null ? MountPoint.GetHashCode() : 0);
+            }
+        }
+        #endregion
     }
 }

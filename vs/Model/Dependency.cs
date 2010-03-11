@@ -61,5 +61,9 @@ namespace ZeroInstall.Model
         [XmlElement("overlay")]
         public Collection<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement ToString and Equals
     }
 }

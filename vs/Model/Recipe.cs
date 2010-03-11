@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -38,5 +37,9 @@ namespace ZeroInstall.Model
             foreach (var archive in Archives) archive.Simplify();
         }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement ToString and Equals
     }
 }

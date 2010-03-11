@@ -100,6 +100,36 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Support
+        /// <summary>
+        /// Checks whether an <see cref="Implementation"/> that specifies this <see cref="Architecture"/> will be able to run on a specific system.
+        /// </summary>
+        /// <param name="os">The operating system of the system to test. Must be a specific operating system and not a wildcard.</param>
+        /// <param name="cpu">The CPU of the system to test. Must be a specific CPU and not a wildcard.</param>
+        /// <returns><see langword="true"/> if the system is supported; <see langword="false"/> otherwise.</returns>
+        public bool Supports(OS os, Cpu cpu)
+        {
+            #region Sanity checks
+            if (os == OS.All || os == OS.Unknown) throw new ArgumentException(Resources.MustBeSpecificOS, "os");
+            if (cpu == Cpu.All || cpu == Cpu.Unknown) throw new ArgumentException(Resources.MustBeSpecificCPU, "cpu");
+            #endregion
+
+            // Fail if OS is neither a wildcard nor identical
+            if (OS != OS.All && OS != os) return false;
+
+            // Pass if CPU is either a wildcard or identical
+            if (Cpu == Cpu.All || Cpu == cpu) return true;
+
+            // Handle feature inheritance in x86 hierachy
+            if (cpu >= Cpu.I386 && cpu <= Cpu.X64 && cpu <= Cpu) return true;
+
+            // Fail if nothing fits
+            return false;
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Returns the architecture in the form "os-cpu".
@@ -136,7 +166,7 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Architecture other)
         {
             return other.OS == OS && other.Cpu == Cpu;
@@ -154,7 +184,7 @@ namespace ZeroInstall.Model
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
             return obj.GetType() == typeof(Architecture) && Equals((Architecture)obj);
         }
 
@@ -164,34 +194,6 @@ namespace ZeroInstall.Model
             {
                 return (OS.GetHashCode() * 397) ^ Cpu.GetHashCode();
             }
-        }
-        #endregion
-
-        #region Coverage
-        /// <summary>
-        /// Checks whether an <see cref="Implementation"/> that specifies this <see cref="Architecture"/> will be able to run on a specific system.
-        /// </summary>
-        /// <param name="os">The operating system of the system to test. Must be a specific operating system and not a wildcard.</param>
-        /// <param name="cpu">The CPU of the system to test. Must be a specific CPU and not a wildcard.</param>
-        /// <returns><see langword="true"/> if the system is supported; <see langword="false"/> otherwise.</returns>
-        public bool Supports(OS os, Cpu cpu)
-        {
-            #region Sanity checks
-            if (os == OS.All || os == OS.Unknown) throw new ArgumentException(Resources.MustBeSpecificOS, "os");
-            if (cpu == Cpu.All || cpu == Cpu.Unknown) throw new ArgumentException(Resources.MustBeSpecificCPU, "cpu");
-            #endregion
-
-            // Fail if OS is neither a wildcard nor identical
-            if (OS != OS.All && OS != os) return false;
-
-            // Pass if CPU is either a wildcard or identical
-            if (Cpu == Cpu.All || Cpu == cpu) return true;
-
-            // Handle feature inheritance in x86 hierachy
-            if (cpu >= Cpu.I386 && cpu <= Cpu.X64 && cpu <= Cpu) return true;
-
-            // Fail if nothing fits
-            return false;
         }
         #endregion
     }

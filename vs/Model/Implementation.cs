@@ -49,6 +49,7 @@ namespace ZeroInstall.Model
         [XmlElement("archive")]
         public Collection<Archive> Archives { get { return _archives; } }
 
+        // ToDo: Prevent double entries
         private readonly Collection<Recipe> _recipes = new Collection<Recipe>();
         /// <summary>
         /// A list of <see cref="Recipe"/>s as <see cref="RetrievalMethod"/>s.
@@ -92,5 +93,9 @@ namespace ZeroInstall.Model
             foreach (var recipe in Recipes) recipe.Simplify();
         }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement ToString and Equals
     }
 }

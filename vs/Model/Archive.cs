@@ -90,7 +90,7 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Archive other)
         {
             if (other == null) return false;
@@ -99,7 +99,8 @@ namespace ZeroInstall.Model
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
+            if (obj == null) return false;
+            if (ReferenceEquals(obj, this)) return true;
             return obj.GetType() == typeof(Archive) && Equals((Archive)obj);
         }
 

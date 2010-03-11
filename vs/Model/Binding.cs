@@ -8,6 +8,5 @@
     /// or in <see cref="ImplementationBase"/>, where they tell a component how to find itself.
     /// </remarks>
     public abstract class Binding
-    {
-    }
+    {}
 }

@@ -40,6 +40,7 @@ namespace ZeroInstall.Model
             set { Uri = new Uri(value); }
         }
 
+        // ToDo: Prevent double entries
         private readonly Collection<FeedReference> _feeds = new Collection<FeedReference>();
         /// <summary>
         /// Zero ore more feeds containing more implementations of this interface.
@@ -94,7 +95,8 @@ namespace ZeroInstall.Model
             get { return Homepage != null ? Homepage.ToString() : null; }
             set { Homepage = new Uri(value); }
         }
-
+        
+        // ToDo: Prevent double entries
         private readonly Collection<string> _categories = new Collection<string>();
         /// <summary>
         /// Zero or more categories as classification for the interface.
@@ -127,7 +129,8 @@ namespace ZeroInstall.Model
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
         public Collection<Icon> Icons { get { return _icons; } }
-
+        
+        // ToDo: Prevent double entries
         private readonly Collection<Group> _groups = new Collection<Group>();
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this interface.
@@ -137,6 +140,7 @@ namespace ZeroInstall.Model
         public Collection<Group> Groups { get { return _groups; } }
 
         #region Implementations
+        // ToDo: Prevent double entries
         private readonly Collection<Implementation> _implementation = new Collection<Implementation>();
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this interface.
@@ -145,6 +149,7 @@ namespace ZeroInstall.Model
         [XmlElement("implementation")]
         public Collection<Implementation> Implementations { get { return _implementation; } }
 
+        // ToDo: Prevent double entries
         private readonly Collection<PackageImplementation> _packageImplementation = new Collection<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this interface.
@@ -186,6 +191,10 @@ namespace ZeroInstall.Model
             Groups.Clear();
         }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement ToString and Equals
         
         //--------------------//
 

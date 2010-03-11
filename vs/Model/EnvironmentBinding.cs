@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -23,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// The location of the chosen <see cref="Implementation"/> is passed to the program by setting environment variables.
     /// </summary>
-    public sealed class EnvironmentBinding : Binding
+    public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
         #region Properties
         /// <summary>
@@ -57,6 +58,40 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString and Equals
+        #region Conversion
+        public override string ToString()
+        {
+            if (Mode == EnvironmentMode.Replace) return string.Format("{0} = {1} ({2})", Name, Value, Mode);
+            return string.Format("{0} = {1} ({2}, Default: {3})", Name, Value, Mode, Default);
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(EnvironmentBinding other)
+        {
+            if (other == null) return false;
+            if (ReferenceEquals(other, this)) return true;
+            return other.Name == Name || other.Value == Value || other.Mode == Mode || other.Default == Default;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            if (ReferenceEquals(obj, this)) return true;
+            return obj.GetType() == typeof(EnvironmentBinding) && Equals((EnvironmentBinding)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Name != null ? Name.GetHashCode() : 0);
+                result = (result * 397) ^ (Value != null ? Value.GetHashCode() : 0);
+                result = (result * 397) ^ Mode.GetHashCode();
+                result = (result * 397) ^ (Default != null ? Default.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }

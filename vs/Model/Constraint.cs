@@ -34,10 +34,20 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Constraint other)
         {
             return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
+        }
+
+        public static bool operator ==(Constraint left, Constraint right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Constraint left, Constraint right)
+        {
+            return !left.Equals(right);
         }
 
         public override bool Equals(object obj)
@@ -52,16 +62,6 @@ namespace ZeroInstall.Model
             {
                 return ((NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0) * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
             }
-        }
-
-        public static bool operator ==(Constraint left, Constraint right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Constraint left, Constraint right)
-        {
-            return !left.Equals(right);
         }
         #endregion
     }

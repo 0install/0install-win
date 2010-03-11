@@ -45,10 +45,20 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Icon other)
         {
             return other.LocationString == LocationString && other.MimeType == MimeType;
+        }
+
+        public static bool operator ==(Icon left, Icon right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Icon left, Icon right)
+        {
+            return !left.Equals(right);
         }
         
         public override bool Equals(object obj)
@@ -63,16 +73,6 @@ namespace ZeroInstall.Model
             {
                 return ((LocationString != null ? LocationString.GetHashCode() : 0) * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
             }
-        }
-
-        public static bool operator ==(Icon left, Icon right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Icon left, Icon right)
-        {
-            return !left.Equals(right);
         }
         #endregion
     }
