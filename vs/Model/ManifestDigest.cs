@@ -8,6 +8,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
+    [TypeConverter(typeof(ManifestDigestConverter))]
     public struct ManifestDigest : IEquatable<ManifestDigest>
     {
         #region Properties
@@ -32,6 +33,21 @@ namespace ZeroInstall.Model
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
         [XmlAttribute("sha256")]
         public string Sha256 { get; set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new manifest digest sturcture with pre-set values.
+        /// </summary>
+        /// <param name="sha1">A SHA-1 hash of the old manifest format.</param>
+        /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
+        /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
+        public ManifestDigest(string sha1, string sha1New, string sha256) : this()
+        {
+            Sha1 = sha1;
+            Sha1New = sha1New;
+            Sha256 = sha256;
+        }
         #endregion
 
         //--------------------//

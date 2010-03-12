@@ -8,6 +8,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An icon for an <see cref="Interface"/>.
     /// </summary>
+    [TypeConverter(typeof(IconConverter))]
     public struct Icon : IEquatable<Icon>
     {
         #region Properties
@@ -34,6 +35,20 @@ namespace ZeroInstall.Model
         [Description("The MIME type of the icon.")]
         [XmlAttribute("type")]
         public String MimeType { get; set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new icon sturcture with pre-set values.
+        /// </summary>
+        /// <param name="location">The URL used to locate the icon.</param>
+        /// <param name="mimeType">The MIME type of the icon.</param>
+        public Icon(Uri location, string mimeType) : this()
+        {
+            Location = location;
+            MimeType = mimeType;
+        }
+
         #endregion
 
         //--------------------//

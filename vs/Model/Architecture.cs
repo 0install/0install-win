@@ -40,6 +40,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Describes a combination of an operating system and a CPU-architecture.
     /// </summary>
+    [TypeConverter(typeof(ArchitectureConverter))]
     public struct Architecture : IEquatable<Architecture>
     {
         #region Properties
@@ -58,7 +59,7 @@ namespace ZeroInstall.Model
 
         #region Constructor
         /// <summary>
-        /// Creates an architecture from a string in the form "os-cpu".
+        /// Creates a new architecture structure from a string in the form "os-cpu".
         /// </summary>
         public Architecture(string architecture) : this()
         {
@@ -95,6 +96,17 @@ namespace ZeroInstall.Model
                 case "src": Cpu = Cpu.Source; break;
                 default: Cpu = Cpu.Unknown; break;
             }
+        }
+
+        /// <summary>
+        /// Creates a new architecture structure with pre-set values.
+        /// </summary>
+        /// <param name="os">Determines which operating systems are supported.</param>
+        /// <param name="cpu">Determines which CPU-architectures are supported.</param>
+        public Architecture(OS os, Cpu cpu) : this()
+        {
+            OS = os;
+            Cpu = cpu;
         }
         #endregion
 

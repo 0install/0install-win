@@ -7,6 +7,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Restrict the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
+    [TypeConverter(typeof(ConstraintConverter))]
     public struct Constraint : IEquatable<Constraint>
     {
         #region Properties
@@ -23,6 +24,19 @@ namespace ZeroInstall.Model
         [Description("This version and all later versions are unsuitable.")]
         [XmlAttribute("before")]
         public string BeforeVersion { get; set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new constraint sturcture with pre-set values.
+        /// </summary>
+        /// <param name="notBeforeVersion">This is the lowest-numbered version that can be chosen.</param>
+        /// <param name="beforeVersion">This version and all later versions are unsuitable.</param>
+        public Constraint(string notBeforeVersion, string beforeVersion) : this()
+        {
+            NotBeforeVersion = notBeforeVersion;
+            BeforeVersion = beforeVersion;
+        }
         #endregion
 
         //--------------------//
