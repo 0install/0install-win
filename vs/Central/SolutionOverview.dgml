@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph GraphDirection="TopToBottom" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
     <Node Id="(@10)" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
       <Category Ref="CodeSchema_SourceFile" />
@@ -58,7 +58,7 @@
     <Node Id="@2" Category="SolutionFolder" IsDragSource="True" Label="Executable">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="SolutionFolder" IsDragSource="True" Label="UniTests">
+    <Node Id="@22" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@24" Category="SolutionFolder" IsDragSource="True" Label="Library">
@@ -146,7 +146,7 @@
     <Alias n="18" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
     <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
     <Alias n="20" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Library/UniTests" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Library" />
     <Alias n="24" Id="(@23)" />

@@ -60,6 +60,13 @@ namespace ZeroInstall.Model
         public virtual string Version { get; set; }
 
         /// <summary>
+        /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2").
+        /// </summary>
+        [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\").")]
+        [XmlAttribute("version-modifier")]
+        public string VersionModifier { get; set; }
+
+        /// <summary>
         /// The date this implementation was made available. For development versions checked out from version control this attribute should not be present.
         /// </summary>
         [Category("Release"), Description("The date this implementation was made available. For development versions checked out from version control this attribute should not be present.")]
@@ -155,6 +162,7 @@ namespace ZeroInstall.Model
         {
             // Check if values are unset and need inheritance
             if (Version == null) Version = parent.Version;
+            if (VersionModifier == null) VersionModifier = parent.VersionModifier;
             if (Released == default(DateTime)) Released = parent.Released;
             if (Main == null) Main = parent.Main;
             if (SelfTest == null) SelfTest = parent.SelfTest;

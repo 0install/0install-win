@@ -11,13 +11,6 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2").
-        /// </summary>
-        [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\").")]
-        [XmlAttribute("version-modifier")]
-        public string VersionModifier { get; set; }
-
-        /// <summary>
         /// A unique identifier for this implementation.
         /// </summary>
         /// <remarks>For example, when the user marks a particular version as buggy this identifier is used to keep track of it, and saving and restoring selections uses it.</remarks>
@@ -71,9 +64,17 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
+            // Transfer the version modifier to the normal version attribute
+            if (!string.IsNullOrEmpty(VersionModifier))
+            {
+                Version += VersionModifier;
+                VersionModifier = null;
+            }
+
             // Default stability rating to testing
             if (Stability == Stability.Unset) Stability = Stability.Testing;
 
+            // Check if stuff may be read from the ID
             if (string.IsNullOrEmpty(ID)) return;
 
             const string sha1Prefix = "sha1=";

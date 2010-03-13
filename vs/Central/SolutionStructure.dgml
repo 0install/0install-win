@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<DirectedGraph GraphDirection="TopToBottom" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
     <Node Id="(Namespace=Common)" Category="CodeSchema_Namespace" IsDragSource="True" Label="Common" />
     <Node Id="(Namespace=ZeroInstall.Central)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central" />
@@ -65,7 +65,7 @@
     <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@40" Category="SolutionFolder" IsDragSource="True" Label="UniTests">
+    <Node Id="@40" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@42" Category="SolutionFolder" IsDragSource="True" Label="Library">
@@ -196,14 +196,14 @@
       <Condition Expression="HasCategory('Category9')" />
       <Setter Property="Background" Value="#FF0000A0" />
     </Style>
-    <Style TargetType="Node" GroupLabel="Namespace" ValueLabel="True">
-      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
-      <Setter Property="Background" Value="#FFC0C0C0" />
-      <Setter Property="Icon" Value="pack://application:,,,/Microsoft.VisualStudio.Progression.VSPackage;component/Icons/Namespace.png" />
-    </Style>
     <Style TargetType="Node" GroupLabel="Project" ValueLabel="True">
       <Condition Expression="HasCategory('CodeSchema_Project')" />
       <Setter Property="Icon" Value="pack://application:,,,/Microsoft.VisualStudio.Progression.VSPackage;component/Icons/Project.png" />
+      <Setter Property="Background" Value="#FFC0C0C0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Namespace" ValueLabel="True">
+      <Condition Expression="HasCategory('CodeSchema_Namespace')" />
+      <Setter Property="Icon" Value="pack://application:,,,/Microsoft.VisualStudio.Progression.VSPackage;component/Icons/Namespace.png" />
       <Setter Property="Background" Value="#FFC0C0C0" />
     </Style>
   </Styles>
@@ -246,7 +246,7 @@
     <Alias n="36" Id="(@35)" />
     <Alias n="37" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="38" Id="(@37)" />
-    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Library/UniTests" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
     <Alias n="40" Id="(@39)" />
     <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Library" />
     <Alias n="42" Id="(@41)" />
