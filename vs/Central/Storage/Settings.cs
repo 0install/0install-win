@@ -17,7 +17,7 @@ namespace ZeroInstall.Central.Storage
         #region Variables
         private static readonly string
             PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "central-settings.xml"),
-            ProfilePath = Path.Combine(Locations.GetUserLocalSettingsDir(Path.Combine("0install.net", "central")), "settings.xml");
+            ProfilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "central")), "settings.xml");
         #endregion
 
         #region Properties

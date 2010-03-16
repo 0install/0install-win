@@ -17,7 +17,7 @@ namespace ZeroInstall.FeedEditor.Storage
         #region Variables
         private static readonly string
             PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "feed-editor-settings.xml"),
-            ProfilePath = Path.Combine(Locations.GetUserLocalSettingsDir(Path.Combine("0install.net", "feed-editor")), "settings.xml");
+            ProfilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "feed-editor")), "settings.xml");
         #endregion
 
         #region Properties

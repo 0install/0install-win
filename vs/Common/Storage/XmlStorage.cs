@@ -22,10 +22,10 @@ namespace Common.Storage
         private static readonly Dictionary<string, XmlSerializer> Serializers = new Dictionary<string, XmlSerializer>();
 
         /// <summary>
-        /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>. Results are automatically cached internally
+        /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>. Results are automatically cached internally.
         /// </summary>
-        /// <param name="type">The type to get the serializer for</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <param name="type">The type to get the serializer for.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The cached or newly created <see cref="XmlSerializer"/>.</returns>
         private static XmlSerializer GetSerializer(Type type, IEnumerable<MemberInfo> ignoreMembers)
         {
@@ -53,12 +53,12 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Creates a new <see cref="XmlSerializer"/> for the type <paramref name="type"/> and applies a set of default augmentations for .NET types
+        /// Creates a new <see cref="XmlSerializer"/> for the type <paramref name="type"/> and applies a set of default augmentations for .NET types.
         /// </summary>
-        /// <param name="type">The type to create the serializer for</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <param name="type">The type to create the serializer for.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The newly created <see cref="XmlSerializer"/>.</returns>
-        /// <remarks>This method may be rather slow, so its results should be cached</remarks>
+        /// <remarks>This method may be rather slow, so its results should be cached.</remarks>
         private static XmlSerializer CreateSerializer(Type type, IEnumerable<MemberInfo> ignoreMembers)
         {
             var overrides = new XmlAttributeOverrides();
@@ -95,13 +95,13 @@ namespace Common.Storage
 
         #region Load plain
         /// <summary>
-        /// Loads a object from an XML file
+        /// Loads a object from an XML file.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into</typeparam>
-        /// <param name="stream">The XML file to be loaded</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data</exception>
-        /// <returns>The loaded object</returns>
+        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <param name="stream">The XML file to be loaded.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>The loaded object.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(Stream stream, params MemberInfo[] ignoreMembers)
         {
@@ -113,13 +113,14 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML file
+        /// Loads a object from an XML file.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into</typeparam>
-        /// <param name="path">The XML file to be loaded</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data</exception>
-        /// <returns>The loaded object</returns>
+        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <param name="path">The XML file to be loaded.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>The loaded object.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path, params MemberInfo[] ignoreMembers)
         {
@@ -132,13 +133,13 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML string
+        /// Loads a object from an XML string.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into</typeparam>
-        /// <param name="data">The XML string to be parsed</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data</exception>
-        /// <returns>The loaded object</returns>
+        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <param name="data">The XML string to be parsed.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>The loaded object.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromString<T>(string data, params MemberInfo[] ignoreMembers)
         {
@@ -159,12 +160,12 @@ namespace Common.Storage
 
         #region Save plain
         /// <summary>
-        /// Saves an object in an XML stream
+        /// Saves an object in an XML stream.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream</typeparam>
-        /// <param name="stream">The XML file to be written</param>
-        /// <param name="data">The object to be stored</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <param name="stream">The XML file to be written.</param>
+        /// <param name="data">The object to be stored.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         public static void Save<T>(Stream stream, T data, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
@@ -192,29 +193,34 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Saves an object in an XML file
+        /// Saves an object in an XML file.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream</typeparam>
-        /// <param name="path">The XML file to be written</param>
-        /// <param name="data">The object to be stored</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <param name="path">The XML file to be written.</param>
+        /// <param name="data">The object to be stored.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         public static void Save<T>(string path, T data, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            // Make sure the containing directory exists
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+
             using (var fileStream = File.Create(path))
                 Save(fileStream, data, ignoreMembers);
         }
 
         /// <summary>
-        /// Returns an object as an XML string
+        /// Returns an object as an XML string.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream</typeparam>
-        /// <param name="data">The object to be stored</param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <returns>A string containing the XML code</returns>
+        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <param name="data">The object to be stored.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>A string containing the XML code.</returns>
         public static string ToString<T>(T data, params MemberInfo[] ignoreMembers)
         {
             using (var stream = new MemoryStream())
@@ -232,18 +238,18 @@ namespace Common.Storage
 
         #region Load ZIP
         /// <summary>
-        /// Loads a object from an XML file embedded in a ZIP archive
+        /// Loads a object from an XML file embedded in a ZIP archive.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into</typeparam>
-        /// <param name="stream">The ZIP archive to be loaded</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption</param>
-        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/></param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data</exception>
-        /// <returns>The loaded object</returns>
+        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <param name="stream">The ZIP archive to be loaded.</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>The loaded object.</returns>
+        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(Stream stream, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
+        public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -288,18 +294,19 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML file embedded in a ZIP archive
+        /// Loads a object from an XML file embedded in a ZIP archive.
         /// </summary>
-        /// <typeparam name="T">The type of object the XML stream shall be converted into</typeparam>
-        /// <param name="path">The ZIP archive to be loaded</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption</param>
-        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/></param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data</exception>
-        /// <returns>The loaded object</returns>
+        /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
+        /// <param name="path">The ZIP archive to be loaded.</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryptio.n</param>
+        /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <returns>The loaded object.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
-        public static T FromZip<T>(string path, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
+        public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -312,14 +319,14 @@ namespace Common.Storage
 
         #region Save ZIP
         /// <summary>
-        /// Saves an object in an XML file embedded in a ZIP archive
+        /// Saves an object in an XML file embedded in a ZIP archive.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream</typeparam>
-        /// <param name="stream">The ZIP archive to be written</param>
-        /// <param name="data">The object to be stored</param>
-        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption</param>
-        /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/></param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <param name="stream">The ZIP archive to be written.</param>
+        /// <param name="data">The object to be stored.</param>
+        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         public static void ToZip<T>(Stream stream, T data, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
@@ -355,19 +362,24 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Saves an object in an XML file embedded in a ZIP archive
+        /// Saves an object in an XML file embedded in a ZIP archive.
         /// </summary>
-        /// <typeparam name="T">The type of object to be saved in an XML stream</typeparam>
-        /// <param name="path">The ZIP archive to be written</param>
-        /// <param name="data">The object to be stored</param>
-        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption</param>
-        /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/></param>
-        /// <param name="ignoreMembers">Fields to be ignored when serializing</param>
+        /// <typeparam name="T">The type of object to be saved in an XML stream.</typeparam>
+        /// <param name="path">The ZIP archive to be written.</param>
+        /// <param name="data">The object to be stored.</param>
+        /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
+        /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         public static void ToZip<T>(string path, T data, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
+
+            // Make sure the containing directory exists
+            string directory = Path.GetDirectoryName(path);
+            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             using (var fileStream = File.Create(path))
                 ToZip(fileStream, data, password, additionalFiles, ignoreMembers);
@@ -378,13 +390,14 @@ namespace Common.Storage
 
         #region Embedded files
         /// <summary>
-        /// Returns a stream containing a file embedded into a XML-ZIP archive
+        /// Returns a stream containing a file embedded into a XML-ZIP archive.
         /// </summary>
-        /// <param name="stream">The ZIP archive to be loaded</param>
-        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption</param>
-        /// <param name="name">The name of the embedded file</param>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data</exception>
-        /// <returns>A stream containing the embedded file</returns>
+        /// <param name="stream">The ZIP archive to be loaded.</param>
+        /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
+        /// <param name="name">The name of the embedded file.</param>
+        /// <returns>A stream containing the embedded file.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
         public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
         {
             using (var zipFile = new ZipFile(stream))
