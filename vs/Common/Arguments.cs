@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Common.Collections;
 
 namespace Common
 {
@@ -21,13 +20,23 @@ namespace Common
         /// <summary>
         /// A list of all file names in the arguments.
         /// </summary>
-        public IList<string> Files { get { return _files; } }
+        public IEnumerable<string> Files { get { return _files; } }
 
-        private readonly IDictionary<string, string> _commands;
+        private readonly IDictionary<string, string> _commands = new Dictionary<string, string>();
         /// <summary>
-        /// A list of all commands without leading slash or hyphen (and their options if any) in the arguments.
+        /// A list of all commands without leading slash or hyphen in the arguments.
         /// </summary>
-        public IDictionary<string, string> Commands { get { return _commands; } }
+        public IEnumerable<string> Commands { get { return _commands.Keys; } }
+
+        /// <summary>
+        /// Gets the options for a specific command in the arguments.
+        /// </summary>
+        /// <param name="command">The command to get the options for.</param>
+        /// <returns>The options for <see cref="command"/> if any; null otherwise.</returns>
+        public string this[string command]
+        {
+            get { return _commands[command]; }
+        }
         #endregion
 
         #region Constructor
@@ -54,7 +63,6 @@ namespace Common
 
             // Temp collections for building the lists
             var filesTemp = new List<string>(args.Length);
-            var commandsTemp = new Dictionary<string, string>(args.Length);
 
             // Separate the arguments element-wise into categories
             for (int i = 0; i < args.Length; i++)
@@ -64,11 +72,11 @@ namespace Common
                     // Is the next element of the argument another command or an option?
                     if (i + 1 < args.Length && !IsCommand(args[i + 1]))
                     { // Command with an option (remove leading slash or hypen)
-                        commandsTemp.Add(args[i].Remove(0, 1), args[++i]);
+                        _commands.Add(args[i].Remove(0, 1), args[++i]);
                     }
                     else
                     { // Command without an option (remove leading slash or hypen)
-                        commandsTemp.Add(args[i].Remove(0, 1), null);
+                        _commands.Add(args[i].Remove(0, 1), null);
                     }
                 }
                 else filesTemp.Add(args[i]);
@@ -76,8 +84,17 @@ namespace Common
 
             // Make the collections immutable
             _files = new ReadOnlyCollection<string>(filesTemp);
-            _commands = new Dictionary<string, string>(commandsTemp);
         }
         #endregion
+
+        /// <summary>
+        /// Determines whether a specific command is contained in the arguments.
+        /// </summary>
+        /// <param name="command">The command to check for.</param>
+        /// <returns>True if the command was set; false otherwise.</returns>
+        public bool Contains(string command)
+        {
+            return _commands.ContainsKey(command);
+        }
     }
 }

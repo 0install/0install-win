@@ -25,8 +25,8 @@ namespace Common.Storage
         private static DirectoryInfo _baseDir, _modDir;
         private static List<ZipFile> _baseArchives, _modArchives;
         private static readonly Dictionary<string, ContentArchiveEntry>
-            BaseArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase ),
-            ModArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase );
+            BaseArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase),
+            ModArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase);
         #endregion
 
         #region Properties
