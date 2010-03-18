@@ -29,13 +29,14 @@ namespace ZeroInstall.Model
         #region Properties
 
         #region Steps
-        // ToDo: Prevent double entries
+        // Preserve order, duplicate entries are allowed
         private readonly Collection<Archive> _archives = new Collection<Archive>();
         /// <summary>
         /// An ordered list of archives to extract.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive")]
+        // Don't use ICollection<T> interface to make XML Serialization work
         public Collection<Archive> Archives { get { return _archives; } }
         #endregion
 

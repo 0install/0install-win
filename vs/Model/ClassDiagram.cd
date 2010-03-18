@@ -74,7 +74,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -91,7 +91,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAAABAAABIAACACAAAIAIAAQgADAEAEACAAABAAACCA=</HashCode>
+      <HashCode>IAAABAAAJIAACACAAAIAIAAQgADAEAEACAAABAAACCA=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -137,10 +137,9 @@
   <Class Name="ZeroInstall.Model.PackageImplementation">
     <Position X="9" Y="8.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACEoAAQAAAABACAAIEACAAAAAAAACA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACEIAAQAAAABACAAAEACAAAAAAAACA=</HashCode>
       <FileName>PackageImplementation.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.Recipe">
     <Position X="12.25" Y="12.5" Width="1.5" />
@@ -159,14 +158,16 @@
     <Position X="8" Y="1.75" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AIAAAAAACAKAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AIAAAAAACAKAAAgAgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>TargetBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Architecture" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.RetrievalMethod" Collapsed="true">
     <Position X="13.5" Y="11.25" Width="1.5" />

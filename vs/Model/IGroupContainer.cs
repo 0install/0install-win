@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
@@ -31,7 +30,8 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups contained within this element.")]
         [XmlElement("group")]
-        Collection<Group> Groups { get; }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        C5.HashedArrayList<Group> Groups { get; }
 
         #region Implementations
         /// <summary>
@@ -39,14 +39,16 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this element.")]
         [XmlElement("implementation")]
-        Collection<Implementation> Implementations { get; }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        C5.HashedArrayList<Implementation> Implementations { get; }
 
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this element.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this element.")]
         [XmlElement("implementation")]
-        Collection<PackageImplementation> PackageImplementations { get; }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        C5.HashedArrayList<PackageImplementation> PackageImplementations { get; }
         #endregion
     }
 }

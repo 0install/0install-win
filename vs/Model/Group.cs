@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -25,34 +25,40 @@ namespace ZeroInstall.Model
     /// All attributes of the group are inherited by any child groups and <see cref="Implementation"/>s as defaults, but can be overridden there.
     /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove anything). 
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
     public sealed class Group : ImplementationBase, IGroupContainer
     {
         #region Properties
-        // ToDo: Prevent double entries
-        private readonly Collection<Group> _groups = new Collection<Group>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Group> _groups = new C5.HashedArrayList<Group>();
         /// <summary>
         /// A list of sub-groups.
         /// </summary>
         [Category("Implementation"), Description("A list of sub-groups.")]
         [XmlElement("group")]
-        public Collection<Group> Groups { get { return _groups; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
-        private readonly Collection<Implementation> _implementation = new Collection<Implementation>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Implementation> _implementation = new C5.HashedArrayList<Implementation>();
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this group.")]
         [XmlElement("implementation")]
-        public Collection<Implementation> Implementations { get { return _implementation; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Implementation> Implementations { get { return _implementation; } }
 
-        private readonly Collection<PackageImplementation> _packageImplementation = new Collection<PackageImplementation>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this group.")]
         [XmlElement("package-implementation")]
-        public Collection<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 
         #endregion

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A specific (executable) implementation of an <see cref="Interface"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
     public sealed class Implementation : ImplementationBase
     {
         #region Properties
@@ -50,23 +51,25 @@ namespace ZeroInstall.Model
         public ManifestDigest ManifestDigest { get; set; }
 
         #region Retrieval methods
-        // ToDo: Prevent double entries
-        private readonly Collection<Archive> _archives = new Collection<Archive>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Archive> _archives = new C5.HashedArrayList<Archive>();
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement("archive")]
-        public Collection<Archive> Archives { get { return _archives; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Archive> Archives { get { return _archives; } }
 
-        // ToDo: Prevent double entries
-        private readonly Collection<Recipe> _recipes = new Collection<Recipe>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Recipe> _recipes = new C5.HashedArrayList<Recipe>();
         /// <summary>
         /// A list of <see cref="Recipe"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of recipes as retrieval methods.")]
         [XmlElement("recipe")]
-        public Collection<Recipe> Recipes { get { return _recipes; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Recipe> Recipes { get { return _recipes; } }
         #endregion
 
         #endregion

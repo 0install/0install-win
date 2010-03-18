@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Drawing;
 using System.Windows.Forms;
 using Common.Collections;
 using Common.Helpers;
@@ -8,11 +9,11 @@ using Common.Helpers;
 namespace Common.Controls
 {
     /// <summary>
-    /// Displays a list of <see cref="INamed"/>s in a <see cref="TreeView"/> with incremental search.
+    /// Displays a list of <see cref="IHighlightable"/> <see cref="INamed"/>s in a <see cref="TreeView"/> with incremental search.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="INamed"/> to list - must use dot (.) as namespace separator in <see cref="INamed.Name"/></typeparam>
+    /// <typeparam name="T">The type of <see cref="IHighlightable"/> <see cref="INamed"/> to list.</typeparam>
     [Description("Displays a list of INamed in a TreeView with incremental search.")]
-    public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed
+    public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed, IHighlightable
     {
         #region Events
         /// <summary>
@@ -35,7 +36,7 @@ namespace Common.Controls
         #region Properties
         private INamedCollection<T> _entries;
         /// <summary>
-        /// The <see cref="INamed"/>s to be listed in the <see cref="TreeView"/>.
+        /// The <see cref="IHighlightable"/> <see cref="INamed"/>s to be listed in the <see cref="TreeView"/>.
         /// </summary>
         [Browsable(false)]
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "This control is supposed to represent a live and mutable collection")]
@@ -48,7 +49,7 @@ namespace Common.Controls
 
         private T _selectedEntry;
         /// <summary>
-        /// The <see cref="INamed"/> currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
+        /// The <see cref="IHighlightable"/> <see cref="INamed"/> currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
         /// </summary>
         [Browsable(false)]
         public T SelectedEntry
@@ -61,6 +62,13 @@ namespace Common.Controls
                 OnSelectedEntryChanged();
             }
         }
+
+        private char _seperator = '.';
+        /// <summary>
+        /// The namespace seperator used in <see cref="INamed.Name"/>. This controls how the tree structure is generated.
+        /// </summary>
+        [DefaultValue('.')]
+        public char Seperator { get { return _seperator; } set { _seperator = value; UpdateList(); } }
         #endregion
 
         #region Constructor
@@ -106,14 +114,14 @@ namespace Common.Controls
                     if (_selectedEntry != null && classEntry.Name == _selectedEntry.Name) // Only compare name to handle cloned entries
                     {
                         _selectedEntry = classEntry; // Fix problems that might arrise from using clones
-                        treeView.SelectedNode = AddTreeNode(classEntry.Name);
+                        treeView.SelectedNode = AddTreeNode(classEntry);
                     }
                     // List all nodes if there is no filter
                     else if (string.IsNullOrEmpty(textSearch.Text))
-                        AddTreeNode(classEntry.Name);
+                        AddTreeNode(classEntry);
                     // Only list nodes that match the filter
                     else if (StringHelper.Contains(classEntry.Name, textSearch.Text))
-                        AddTreeNode(classEntry.Name);
+                        AddTreeNode(classEntry);
                 }
 
                 // Automatically expand nodes based on the filtering
@@ -128,14 +136,15 @@ namespace Common.Controls
 
         #region ListView node helper
         /// <summary>
-        /// Adds a new node to <see cref="treeView"/>
+        /// Adds a new node to <see cref="treeView"/>.
         /// </summary>
-        /// <param name="name">The name for the new node, sub-levels seperated by dots (.)</param>
+        /// <param name="entry">The <typeparamref name="T"/> to create the entry for.</param>
         /// <returns>The newly created <see cref="TreeNode"/>.</returns>
-        private TreeNode AddTreeNode(string name)
+        private TreeNode AddTreeNode(T entry)
         {
             // Split into hierarchic namespaces
-            string[] nameSplit = name.Split('.');
+            string name = entry.Name;
+            string[] nameSplit = name.Split(_seperator);
 
             // Start off at the top-level
             TreeNodeCollection subTree = treeView.Nodes;
@@ -149,8 +158,13 @@ namespace Common.Controls
                 subTree = node.Nodes;
             }
 
-            // Full name, last part as text
-            return subTree.Add(name, nameSplit[nameSplit.Length - 1]);
+            // Create node storing full name, using last part as visible text
+            TreeNode finalNode = subTree.Add(name, nameSplit[nameSplit.Length - 1]);
+
+            // Apply the highlighting color if one is set
+            if (entry.HighlightColor != Color.Empty) finalNode.ForeColor = entry.HighlightColor;
+
+            return finalNode;
         }
         #endregion
 

@@ -54,6 +54,7 @@
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
     <Compile Include="ConstraintConverter.cs" />
+    <Compile Include="CultureComparer.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="EnvironmentBinding.cs" />
     <Compile Include="FeedReference.cs" />

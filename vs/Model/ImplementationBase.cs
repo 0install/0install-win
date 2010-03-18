@@ -16,8 +16,8 @@
  */
 
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
 
@@ -59,6 +59,7 @@ namespace ZeroInstall.Model
     /// A common base class for <see cref="Implementation"/> and <see cref="Group"/>.
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
     public abstract class ImplementationBase : TargetBase, IBindingContainer, ISimplifyable
     {
         #region Constants
@@ -135,29 +136,35 @@ namespace ZeroInstall.Model
         [XmlAttribute("doc-dir")]
         public string DocDir { get; set; }
 
-        private readonly Collection<Dependency> _dependencies = new Collection<Dependency>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Dependency> _dependencies = new C5.HashedArrayList<Dependency>();
         /// <summary>
         /// A list of <see cref="Interface"/>s this implementation depends upon.
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        public Collection<Dependency> Dependencies { get { return _dependencies; } }
-        
-        private readonly Collection<EnvironmentBinding> _environmentBindings = new Collection<EnvironmentBinding>();
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Dependency> Dependencies { get { return _dependencies; } }
+
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<EnvironmentBinding> _environmentBindings = new C5.HashedArrayList<EnvironmentBinding>();
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for this implementation to locate itself.
         /// </summary>
         [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("environment")]
-        public Collection<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
-        private readonly Collection<OverlayBinding> _overlayBindings = new Collection<OverlayBinding>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<OverlayBinding> _overlayBindings = new C5.HashedArrayList<OverlayBinding>();
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for this implementation to locate itself.
         /// </summary>
         [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("overlay")]
-        public Collection<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
 
         //--------------------//

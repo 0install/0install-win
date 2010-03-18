@@ -15,9 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using C5;
 
 namespace ZeroInstall.Model
 {
@@ -31,13 +31,15 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementatiosn to locate dependencies.")]
         [XmlElement("environment")]
-        Collection<EnvironmentBinding> EnvironmentBindings { get; }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        HashedArrayList<EnvironmentBinding> EnvironmentBindings { get; }
 
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementatiosn to locate dependencies.")]
         [XmlElement("overlay")]
-        Collection<OverlayBinding> OverlayBindings { get; }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        HashedArrayList<OverlayBinding> OverlayBindings { get; }
     }
 }

@@ -63,7 +63,7 @@ namespace ZeroInstall.Model
         {
             if (other == null) return false;
             if (ReferenceEquals(other, this)) return true;
-            return other.Target == Target && other.Architecture == Architecture && Languages.UnsequencedEquals(other.Languages);
+            return base.Equals(other) && other.Target == Target;
         }
 
         public override bool Equals(object obj)
@@ -77,7 +77,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Target != null ? Target.GetHashCode() : 0);
+                int result = base.GetHashCode();
                 result = (result * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 return result;
             }

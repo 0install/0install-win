@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -29,6 +28,7 @@ namespace ZeroInstall.Model
     /// Represents a Zero Install feed containing information about...
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Interface : IGroupContainer, ISimplifyable
     {
@@ -57,23 +57,25 @@ namespace ZeroInstall.Model
             set { Uri = new Uri(value); }
         }
 
-        // ToDo: Prevent double entries
-        private readonly Collection<FeedReference> _feeds = new Collection<FeedReference>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<FeedReference> _feeds = new C5.HashedArrayList<FeedReference>();
         /// <summary>
         /// Zero ore more feeds containing more implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
         [XmlElement("feed")]
-        public Collection<FeedReference> Feeds { get { return _feeds; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<FeedReference> Feeds { get { return _feeds; } }
 
-        // ToDo: Prevent double entries
-        private readonly Collection<InterfaceReference> _feedFor = new Collection<InterfaceReference>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<InterfaceReference> _feedFor = new C5.HashedArrayList<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        public Collection<InterfaceReference> FeedFor { get { return _feedFor; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -113,14 +115,15 @@ namespace ZeroInstall.Model
             set { Homepage = new Uri(value); }
         }
         
-        // ToDo: Prevent double entries
-        private readonly Collection<string> _categories = new Collection<string>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
         /// <summary>
         /// Zero or more categories as classification for the interface.
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as classification for the interface.")]
         [XmlElement("category")]
-        public Collection<string> Categories { get { return _categories; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -138,42 +141,46 @@ namespace ZeroInstall.Model
             set { NeedsTerminal = (value != null); }
         }
 
-        // ToDo: Prevent double entries
-        private readonly Collection<Icon> _icons = new Collection<Icon>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Icon> _icons = new C5.HashedArrayList<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
-        public Collection<Icon> Icons { get { return _icons; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Icon> Icons { get { return _icons; } }
         
-        // ToDo: Prevent double entries
-        private readonly Collection<Group> _groups = new Collection<Group>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Group> _groups = new C5.HashedArrayList<Group>();
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups contained within this interface.")]
         [XmlElement("group")]
-        public Collection<Group> Groups { get { return _groups; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
-        // ToDo: Prevent double entries
-        private readonly Collection<Implementation> _implementation = new Collection<Implementation>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Implementation> _implementation = new C5.HashedArrayList<Implementation>();
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this interface.")]
         [XmlElement("implementation")]
-        public Collection<Implementation> Implementations { get { return _implementation; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<Implementation> Implementations { get { return _implementation; } }
 
-        // ToDo: Prevent double entries
-        private readonly Collection<PackageImplementation> _packageImplementation = new Collection<PackageImplementation>();
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this interface.")]
         [XmlElement("package-implementation")]
-        public Collection<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        // Don't use ICollection<T> interface to make XML Serialization work
+        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 
         #endregion

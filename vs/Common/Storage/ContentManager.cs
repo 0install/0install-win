@@ -249,11 +249,11 @@ namespace Common.Storage
         /// <param name="extension">The file extension to look for</param>
         /// <param name="directory">The directory to look in</param>
         /// <param name="prefix">A prefix to add before the file name in the list (used to indicate current sub-directory)</param>
-        private static void RecursiveDirHelper(ICollection<string> files, string extension, DirectoryInfo directory, string prefix)
+        private static void RecursiveDirHelper(ICollection<FileEntry> files, string extension, DirectoryInfo directory, string prefix)
         {
             // Add the files in this directory to the list
             foreach (FileInfo file in directory.GetFiles("*" + extension))
-                files.Add(prefix + file.Name);
+                files.Add(new FileEntry(prefix + file.Name, FileEntryType.Normal));
 
             // Recursively call this method for all sub-directories
             foreach (DirectoryInfo subDir in directory.GetDirectories())
@@ -267,12 +267,12 @@ namespace Common.Storage
         /// <param name="extension">The file extension to look for</param>
         /// <param name="type">The type-subdirectory to look in</param>
         /// <param name="archive">The archive to look in</param>
-        private static void ArchiveHelper(ICollection<string> files, string extension, string type, IEnumerable<KeyValuePair<string, ContentArchiveEntry>> archive)
+        private static void ArchiveHelper(ICollection<FileEntry> files, string extension, string type, IEnumerable<KeyValuePair<string, ContentArchiveEntry>> archive)
         {
             foreach (KeyValuePair<string, ContentArchiveEntry> pair in archive)
             {
                 if (pair.Key.StartsWith(type, StringComparison.OrdinalIgnoreCase) && pair.Key.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                    files.Add(pair.Key.Substring(type.Length + 1)); // Cut away the type part of the path
+                    files.Add(new FileEntry(pair.Key.Substring(type.Length + 1), FileEntryType.Normal)); // Cut away the type part of the path
             }
         }
         #endregion
@@ -283,15 +283,14 @@ namespace Common.Storage
         /// </summary>
         /// <param name="type">The type of files you want (e.g. Textures, Sounds, ...)</param>
         /// <param name="extension">The file extension to so search for</param>
-        /// <param name="markModFiles">Mark files overwritten by a mod with a * and files added by a mod with a +</param>
         /// <param name="searchArchives">Whether to search for the file in archives as well</param>
         /// <returns>An collection of strings with file IDs</returns>
-        public static IEnumerable<string> GetFileList(string type, string extension, bool markModFiles, bool searchArchives)
+        public static INamedCollection<FileEntry> GetFileList(string type, string extension, bool searchArchives)
         {
             // Unify directory directory separator character
             type = StringHelper.UnifySlashes(type);
 
-            var files = new OrderedSet<string>();
+            var files = new NamedCollection<FileEntry>();
 
             #region Base files
             if (Directory.Exists(Path.Combine(BaseDir.FullName, type)))
@@ -307,7 +306,7 @@ namespace Common.Storage
             if (ModDir != null)
             {
                 #region Mod files
-                var modFiles = new OrderedSet<string>();
+                var modFiles = new NamedCollection<FileEntry>();
 
                 if (Directory.Exists(Path.Combine(ModDir.FullName, type)))
                 {
@@ -320,15 +319,10 @@ namespace Common.Storage
                 #endregion
 
                 #region Merge
-                foreach (string file in modFiles)
+                foreach (FileEntry file in modFiles)
                 {
-                    if (markModFiles)
-                    {
-                        // Replace existing entries
-                        if (files.Remove(file)) files.Add(file + " *"); // File changed by mod
-                        else files.Add(file + " +"); // File added by mod
-                    }
-                    else if (!file.Contains(file)) files.Add(file);
+                    // Replace existing entries
+                    files.Add(file);
                 }
                 #endregion
             }

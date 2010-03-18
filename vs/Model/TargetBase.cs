@@ -15,7 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
@@ -26,17 +29,19 @@ namespace ZeroInstall.Model
     /// A common base class for <see cref="ImplementationBase"/> and <see cref="FeedReference"/>.
     /// Contains language and architecture parameters.
     /// </summary>
-    public abstract class TargetBase
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
+    public abstract class TargetBase : IEquatable<TargetBase>
     {
         #region Properties
-        private readonly C5.HashSet<CultureInfo> _languages = new C5.HashSet<CultureInfo>();
+        // Order is always alphabetical, duplicate entries are not allowed
+        private readonly C5.TreeSet<CultureInfo> _languages = new C5.TreeSet<CultureInfo>(new CultureComparer());
         /// <summary>
         /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
         [XmlIgnore]
-        public C5.HashSet<CultureInfo> Languages { get { return _languages; } }
+        public ICollection<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>
@@ -85,6 +90,25 @@ namespace ZeroInstall.Model
         {
             get { return Architecture.ToString(); }
             set { Architecture = new Architecture(value); }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Equality
+        public bool Equals(TargetBase other)
+        {
+            if (other == null) return false;
+            if (ReferenceEquals(other, this)) return true;
+            return _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((_languages != null ? _languages.GetHashCode() : 0) * 397) ^ Architecture.GetHashCode();
+            }
         }
         #endregion
     }

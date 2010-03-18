@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -30,6 +32,7 @@ namespace ZeroInstall.Model
     /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Interface"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Interface"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
     public sealed class PackageImplementation : ImplementationBase
     {
         #region Override Properties
@@ -87,13 +90,14 @@ namespace ZeroInstall.Model
         [XmlAttribute("package")]
         public string Package { get; set; }
 
-        private readonly C5.HashSet<string> _distributions = new C5.HashSet<string>();
+        // Order is always alphabetical, duplicate entries are not allowed
+        private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
         /// <summary>
         /// A space-separated list of distribution names where <see cref="Package"/> applies.
         /// </summary>
         [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
         [XmlIgnore]
-        public C5.HashSet<string> Distributions { get { return _distributions; } }
+        public ICollection<string> Distributions { get { return _distributions; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
