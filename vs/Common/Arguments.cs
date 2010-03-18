@@ -23,7 +23,7 @@ namespace Common
         /// </summary>
         public IList<string> Files { get { return _files; } }
 
-        private readonly ReadOnlyDictionary<string, string> _commands;
+        private readonly IDictionary<string, string> _commands;
         /// <summary>
         /// A list of all commands without leading slash or hyphen (and their options if any) in the arguments.
         /// </summary>
@@ -76,7 +76,7 @@ namespace Common
 
             // Make the collections immutable
             _files = new ReadOnlyCollection<string>(filesTemp);
-            _commands = new ReadOnlyDictionary<string, string>(commandsTemp);
+            _commands = new Dictionary<string, string>(commandsTemp);
         }
         #endregion
     }

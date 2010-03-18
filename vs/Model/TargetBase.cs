@@ -1,8 +1,24 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright 2010 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System.ComponentModel;
 using System.Globalization;
 using System.Text;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -13,14 +29,14 @@ namespace ZeroInstall.Model
     public abstract class TargetBase
     {
         #region Properties
-        private readonly Set<CultureInfo> _languages = new Set<CultureInfo>();
+        private readonly C5.HashSet<CultureInfo> _languages = new C5.HashSet<CultureInfo>();
         /// <summary>
         /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
         [XmlIgnore]
-        public Set<CultureInfo> Languages { get { return _languages; } }
+        public C5.HashSet<CultureInfo> Languages { get { return _languages; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Architecture"/>

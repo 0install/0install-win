@@ -1,14 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
 namespace Common.Storage
 {
     /// <summary>
-    /// Information about an additional file to be stored along side an XML-ZIP archive using <see cref="XmlStorage"/>
+    /// Information about an additional file to be stored along side an ZIP archive using <see cref="XmlStorage"/> or <see cref="BinaryStorage"/>.
     /// </summary>
-    /// <seealso cref="XmlStorage.FromZip{T}(Stream,string,EmbeddedFile[],MemberInfo[])"/>
-    /// <seealso cref="XmlStorage.FromZip{T}(string,string,EmbeddedFile[],MemberInfo[])"/>
+    /// <seealso cref="XmlStorage.FromZip{T}(Stream,string,IEnumerable{EmbeddedFile},MemberInfo[])"/>
+    /// <seealso cref="BinaryStorage.FromZip{T}(Stream,string,EmbeddedFile[])"/>
     public struct EmbeddedFile
     {
         #region Variables

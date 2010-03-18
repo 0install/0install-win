@@ -48,7 +48,10 @@
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
-      <Private>True</Private>
+    </Reference>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\C5.dll</HintPath>
     </Reference>
     <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -61,30 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Arguments.cs" />
-    <Compile Include="Collections\Algorithms.cs" />
-    <Compile Include="Collections\Bag.cs" />
-    <Compile Include="Collections\BaseCollection.cs" />
-    <Compile Include="Collections\BaseList.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\Pool.cs" />
-    <Compile Include="Collections\Comparers.cs" />
-    <Compile Include="Collections\Hash.cs" />
-    <Compile Include="Collections\MultiDictionary.cs" />
-    <Compile Include="Collections\BaseMultiDictionary.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
-    <Compile Include="Collections\OrderedBag.cs" />
-    <Compile Include="Collections\OrderedMultiDictionary.cs" />
-    <Compile Include="Collections\OrderedSet.cs" />
-    <Compile Include="Collections\Pair.cs" />
-    <Compile Include="Collections\BaseReadOnlyCollection.cs" />
-    <Compile Include="Collections\BaseReadOnlyDictionary.cs" />
-    <Compile Include="Collections\BaseReadOnlyList.cs" />
-    <Compile Include="Collections\BaseReadOnlyMultiDictionary.cs" />
-    <Compile Include="Collections\ReadOnlyDictionary.cs" />
-    <Compile Include="Collections\RedBlack.cs" />
-    <Compile Include="Collections\Set.cs" />
-    <Compile Include="Collections\Triple.cs" />
-    <Compile Include="Collections\Util.cs" />
     <Compile Include="Collections\XmlCollection.cs" />
     <Compile Include="Collections\XmlCollectionEntry.cs" />
     <Compile Include="Controls\FilteredTreeView.cs">
@@ -111,6 +93,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Helpers\Windows7Structures.cs" />
+    <Compile Include="IHighlightable.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Controls\InputBox.cs">
       <SubType>Form</SubType>
@@ -118,6 +101,7 @@
     <Compile Include="Controls\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage\FileEntry.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
@@ -135,6 +119,7 @@
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
     <Compile Include="UserCancelException.cs" />
+    <Compile Include="Values\ValueTypeConverter.cs" />
     <Compile Include="Collections\MonitoredCollection.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Msg.cs" />
@@ -144,7 +129,6 @@
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\WindowsHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Values\ValueTypeConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
@@ -172,13 +156,15 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Collections\ClassDiagram.cd" />
-    <None Include="Collections\License.txt" />
     <None Include="ICSharpCode.SharpZipLib.dll" />
+    <None Include="C5.dll" />
+    <None Include="C5.xml" />
     <None Include="TaskDialog.dll" />
     <None Include="TaskDialog.xml" />
-    <Content Include="lua51.dll" />
-    <Content Include="LuaInterface.dll" />
+    <None Include="LuaInterface.dll" />
+    <None Include="lua51.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>

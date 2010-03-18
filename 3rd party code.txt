@@ -18,7 +18,7 @@ http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
 BSD License
 Source unmodified, self-compiled to TaskDialog.dll
 
-PowerCollections
-http://www.codeplex.com/PowerCollections/
-Eclipse Public License
-Source modified, compiled as part of Common.dll
+The C5 Generic Collection Library
+http://www.itu.dk/research/c5/
+MIT-style open license
+Unmodified, pre-compiled binary (c5.dll)

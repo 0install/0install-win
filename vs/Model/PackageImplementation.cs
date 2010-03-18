@@ -1,8 +1,24 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.ComponentModel;
 using System.Text;
 using System.Xml.Serialization;
-using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -71,13 +87,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("package")]
         public string Package { get; set; }
 
-        private readonly Set<string> _distributions = new Set<string>();
+        private readonly C5.HashSet<string> _distributions = new C5.HashSet<string>();
         /// <summary>
         /// A space-separated list of distribution names where <see cref="Package"/> applies.
         /// </summary>
         [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
         [XmlIgnore]
-        public Set<string> Distributions { get { return _distributions; } }
+        public C5.HashSet<string> Distributions { get { return _distributions; } }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>

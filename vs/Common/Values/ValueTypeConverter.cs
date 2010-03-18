@@ -2,6 +2,7 @@
 using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Reflection;
 
@@ -88,6 +89,7 @@ namespace Common.Values
         protected abstract int NoArguments { get; }
 
         /// <returns>The constructor used to create new instances of <typeparamref name="T"/> (deserialization).</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected abstract ConstructorInfo GetConstuctor();
 
         /// <returns>The unconverted arguments of <typeparamref name="T"/>.</returns>

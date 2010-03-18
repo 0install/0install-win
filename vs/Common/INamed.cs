@@ -1,13 +1,17 @@
-﻿namespace Common
+﻿using System.ComponentModel;
+
+namespace Common
 {
     /// <summary>
-    /// An object with a read/write <see cref="Name"/> property.
+    /// An object with a unique name, suitable for identification in lists.
     /// </summary>
+    /// <see cref="Collections.INamedCollection{T}"/>
     public interface INamed
     {
         /// <summary>
-        /// The name of the object.
+        /// A unique name for the object.
         /// </summary>
-        string Name { get; set; }
+        [ReadOnly(true)]
+        string Name { get; }
     }
 }

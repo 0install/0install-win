@@ -17,6 +17,8 @@ namespace Common.Collections
         {}
         #endregion
 
+        //--------------------//
+
         #region Access
         protected override string GetKeyForItem(T item)
         {
@@ -40,6 +42,8 @@ namespace Common.Collections
             }
         }
         #endregion
+
+        //--------------------//
 
         #region Clone
         /// <summary>
