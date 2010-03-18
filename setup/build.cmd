@@ -4,7 +4,7 @@ cd /d "%~dp0"
 rem Project settings
 set ProgISS=setup.iss
 set ProgUpdateISS=update.iss
-set SetupTarget=..\..\build\windows_setup
+set SetupTarget=..\bin\Setup
 set SetupName=0install.exe
 
 rem Check Inno Setup 5
@@ -17,9 +17,9 @@ echo Building Inno Setup...
 iscc /Q "%ProgISS%"
 if errorlevel 1 pause
 
-if "%1"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
-if "%2"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
-if "%3"=="+run" "..\..\build\windows_setup\%SetupName%" /silent
+if "%1"=="+run" "%SetupTarget%\%SetupName%" /silent
+if "%2"=="+run" "%SetupTarget%\%SetupName%" /silent
+if "%3"=="+run" "%SetupTarget%\%SetupName%" /silent
 
 echo Building Inno Setup Update...
 iscc /Q "%ProgUpdateISS%"

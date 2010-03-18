@@ -1,9 +1,9 @@
 This folder contains the Inno Setup Script for the Zero Install Windows Setup.
 
-The Script assumes windows/wrappers/build.cmd and windows/vs/build.cmd have already been executed.
-A portable Python 2.6 distribution with installed Zero Install scripts must be located at portable/python.
-A portable GnuPG distribution must be located at portable/gnupg.
-A portable GTK+ 2 distribution must be located at portable/gtk.
+The Script assumes wrappers/build.cmd and vs/build.cmd have already been executed.
+A portable Python 2.6 distribution with installed Zero Install scripts must be located at bin/Portable/python.
+A portable GnuPG distribution must be located at bin/Portable/gnupg.
+A portable GTK+ 2 distribution must be located at bin/Portable/gtk.
 
 Code based on this project is used to add the install directory to the System PATH:
 http://legroom.net/software/modpath

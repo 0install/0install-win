@@ -14,7 +14,7 @@
     <RootNamespace>Core</RootNamespace>
     <Name>Game</Name>
     <!-- SHFB properties -->
-    <OutputPath>..\doc\</OutputPath>
+    <OutputPath>bin\Documentation</OutputPath>
     <HtmlHelpName>ZeroInstall</HtmlHelpName>
     <PresentationStyle>hana</PresentationStyle>
     <IndentHtml>False</IndentHtml>

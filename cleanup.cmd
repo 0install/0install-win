@@ -1,9 +1,10 @@
 @echo off
 
 rem Clear binaries
-rd /s /q vs\bin > NUL 2>&1
-rd /s /q ..\build\windows > NUL 2>&1
-rd /s /q ..\build\windows_setup > NUL 2>&1
+rd /s /q bin\Debug > NUL 2>&1
+rd /s /q bin\Release > NUL 2>&1
+rd /s /q bin\Setup > NUL 2>&1
+rd /s /q bin\Documentation\working > NUL 2>&1
 
 rem Clear ReSharper's cache
 rd /s /q vs\_ReSharper.ZeroInstall_VS2008 > NUL 2>&1
