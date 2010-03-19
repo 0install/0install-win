@@ -1,0 +1,411 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LuaInterface</name>
+    </assembly>
+    <members>
+        <member name="T:LuaInterface.LuaBase">
+            <summary>
+            Base class to provide consistent disposal flow across lua objects. Uses code provided by Yves Duhoux and suggestions by Hans Schmeidenbacher and Qingrui Li 
+            </summary>
+        </member>
+        <member name="T:LuaInterface.ProxyType">
+            <summary>
+            Summary description for ProxyType.
+            </summary>
+        </member>
+        <member name="M:LuaInterface.ProxyType.ToString">
+            <summary>
+            Provide human readable short hand for this proxy object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:LuaInterface.LuaScriptException">
+            <summary>
+            Exceptions thrown by the Lua runtime because of errors in the script
+            </summary>
+        </member>
+        <member name="T:LuaInterface.LuaException">
+            <summary>
+            Exceptions thrown by the Lua runtime
+            </summary>
+        </member>
+        <member name="M:LuaInterface.LuaScriptException.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new Lua-only exception.
+            </summary>
+            <param name="message">The message that describes the error.</param>
+            <param name="source">The position in the script where the exception was triggered.</param>
+        </member>
+        <member name="M:LuaInterface.LuaScriptException.#ctor(System.Exception,System.String)">
+            <summary>
+            Creates a new .NET wrapping exception.
+            </summary>
+            <param name="innerException">The .NET exception triggered by user-code.</param>
+            <param name="source">The position in the script where the exception was triggered.</param>
+        </member>
+        <member name="P:LuaInterface.LuaScriptException.IsNetException">
+            <summary>
+            Returns true if the exception has occured as the result of a .NET exception in user code
+            </summary>
+        </member>
+        <member name="P:LuaInterface.LuaScriptException.Source">
+            <summary>
+            The position in the script where the exception was triggered.
+            </summary>
+        </member>
+        <member name="M:LuaInterface.MetaFunctions.dumpStack(LuaInterface.ObjectTranslator,System.IntPtr)">
+            <summary>
+            Debug tool to dump the lua stack
+            </summary>
+            FIXME, move somewhere else
+        </member>
+        <member name="M:LuaInterface.MetaFunctions.isMemberPresent(System.Reflection.IReflect,System.String)">
+            <summary>
+            Does this method exist as either an instance or static?
+            </summary>
+            <param name="objType"></param>
+            <param name="methodName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LuaInterface.MetaFunctions.trySetMember(System.IntPtr,System.Reflection.IReflect,System.Object,System.Reflection.BindingFlags,System.String@)">
+            <summary>
+            Tries to set a named property or field
+            </summary>
+            <param name="luaState"></param>
+            <param name="targetType"></param>
+            <param name="target"></param>
+            <param name="bindingType"></param>
+            <returns>false if unable to find the named member, true for success</returns>
+        </member>
+        <member name="M:LuaInterface.MetaFunctions.ThrowError(System.IntPtr,System.Exception)">
+            <summary>
+            Convert a C# exception into a Lua error
+            </summary>
+            <param name="e"></param>
+            We try to look into the exception to give the most meaningful description
+        </member>
+        <member name="M:LuaInterface.MetaFunctions._IsTypeCorrect(System.IntPtr,System.Int32,System.Reflection.ParameterInfo,LuaInterface.ExtractValue@)">
+            <summary>
+            CP: Fix for operator overloading failure
+            Returns true if the type is set and assigns the extract value
+            </summary>
+            <param name="luaState"></param>
+            <param name="currentLuaParam"></param>
+            <param name="currentNetParam"></param>
+            <param name="extractValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LuaInterface.LuaMethodWrapper.SetPendingException(System.Exception)">
+            <summary>
+            Convert C# exceptions into Lua errors
+            </summary>
+            <returns>num of things on stack</returns>
+            <param name="e">null for no pending exception</param>
+        </member>
+        <member name="T:LuaInterface.EventHandlerContainer">
+            <summary>
+            We keep track of what delegates we have auto attached to an event - to allow us to cleanly exit a LuaInterface session
+            </summary>
+        </member>
+        <member name="M:LuaInterface.EventHandlerContainer.Dispose">
+            <summary>
+            Remove any still registered handlers
+            </summary>
+        </member>
+        <member name="F:LuaInterface.Lua.luaLock">
+            <summary>
+            Used to ensure multiple .net threads all get serialized by this single lock for access to the lua stack/objects
+            </summary>
+        </member>
+        <member name="M:LuaInterface.Lua.LockCallback(System.IntPtr)">
+            <summary>
+            Called for each lua_lock call 
+            </summary>
+            <param name="luaState"></param>
+            Not yet used
+        </member>
+        <member name="M:LuaInterface.Lua.UnlockCallback(System.IntPtr)">
+            <summary>
+            Called for each lua_unlock call 
+            </summary>
+            <param name="luaState"></param>
+            Not yet used
+        </member>
+        <member name="M:LuaInterface.Lua.ThrowExceptionFromError(System.Int32)">
+            <summary>
+            Assuming we have a Lua error string sitting on the stack, throw a C# exception out to the user's app
+            </summary>
+            <exception cref="T:LuaInterface.LuaScriptException">Thrown if the script caused an exception</exception>
+        </member>
+        <member name="M:LuaInterface.Lua.SetPendingException(System.Exception)">
+            <summary>
+            Convert C# exceptions into Lua errors
+            </summary>
+            <returns>num of things on stack</returns>
+            <param name="e">null for no pending exception</param>
+        </member>
+        <member name="M:LuaInterface.Lua.LoadString(System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="chunk"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LuaInterface.Lua.LoadFile(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="fileName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:LuaInterface.Lua.DoString(System.String,System.String)">
+            <summary>
+            Executes a Lua chnk and returns all the chunk's return values in an array.
+            </summary>
+            <param name="chunk">Chunk to execute</param>
+            <param name="chunkName">Name to associate with the chunk</param>
+            <returns></returns>
+        </member>
+        <member name="M:LuaInterface.Lua.registerGlobal(System.String,System.Type,System.Int32)">
+            <summary>
+            Adds an entry to <see cref="F:LuaInterface.Lua.globals"/> (recursivley handles 2 levels of members)
+            </summary>
+            <param name="path">The index accessor path ot the entry</param>
+            <param name="type">The type of the entry</param>
+            <param name="recursionCounter">How deep have we gone with recursion?</param>
+        </member>
+        <member name="F:LuaInterface.Lua.hookCallback">
+            <summary>
+            lua hook calback delegate
+            </summary>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.SetDebugHook(LuaInterface.EventMasks,System.Int32)">
+            <summary>
+            Activates the debug hook
+            </summary>
+            <param name="mask">Mask</param>
+            <param name="count">Count</param>
+            <returns>see lua docs. -1 if hook is already set</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.RemoveDebugHook">
+            <summary>
+            Removes the debug hook
+            </summary>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetHookMask">
+            <summary>
+            Gets the hook mask.
+            </summary>
+            <returns>hook mask</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetHookCount">
+            <summary>
+            Gets the hook count
+            </summary>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetStack(System.Int32,LuaInterface.LuaDebug@)">
+            <summary>
+            Gets the stack entry on a given level
+            </summary>
+            <param name="level">level</param>
+            <param name="luaDebug">lua debug structure</param>
+            <returns>Returns true if level was allowed, false if level was invalid.</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetInfo(System.String,LuaInterface.LuaDebug@)">
+            <summary>
+            Gets info (see lua docs)
+            </summary>
+            <param name="what">what (see lua docs)</param>
+            <param name="luaDebug">lua debug structure</param>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetLocal(LuaInterface.LuaDebug,System.Int32)">
+            <summary>
+            Gets local (see lua docs)
+            </summary>
+            <param name="luaDebug">lua debug structure</param>
+            <param name="n">see lua docs</param>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.SetLocal(LuaInterface.LuaDebug,System.Int32)">
+            <summary>
+            Sets local (see lua docs)
+            </summary>
+            <param name="luaDebug">lua debug structure</param>
+            <param name="n">see lua docs</param>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.GetUpValue(System.Int32,System.Int32)">
+            <summary>
+            Gets up value (see lua docs)
+            </summary>
+            <param name="funcindex">see lua docs</param>
+            <param name="n">see lua docs</param>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.SetUpValue(System.Int32,System.Int32)">
+            <summary>
+            Sets up value (see lua docs)
+            </summary>
+            <param name="funcindex">see lua docs</param>
+            <param name="n">see lua docs</param>
+            <returns>see lua docs</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.DebugHookCallback(System.IntPtr,System.IntPtr)">
+            <summary>
+            Delegate that is called on lua hook callback
+            </summary>
+            <param name="luaState">lua state</param>
+            <param name="luaDebug">Pointer to LuaDebug (lua_debug) structure</param>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.Pop">
+            <summary>
+            Pops a value from the lua stack.
+            </summary>
+            <returns>Returns the top value from the lua stack.</returns>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.Lua.Push(System.Object)">
+            <summary>
+            Pushes a value onto the lua stack.
+            </summary>
+            <param name="value">Value to push.</param>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="P:LuaInterface.Lua.IsExecuting">
+            <summary>
+            True while a script is being executed
+            </summary>
+        </member>
+        <member name="P:LuaInterface.Lua.Globals">
+            <summary>
+            An alphabetically sorted list of all globals (objects, methods, etc.) externally added to this Lua instance
+            </summary>
+            <remarks>Members of globals are also listed. The formatting is optimized for text input auto-completion.</remarks>
+        </member>
+        <member name="E:LuaInterface.Lua.HookException">
+            <summary>
+            Event that is raised when an exception occures during a hook call.
+            </summary>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="E:LuaInterface.Lua.DebugHook">
+            <summary>
+            Event when lua hook callback is called
+            </summary>
+            <remarks>
+            Is only raised if SetDebugHook is called before.
+            </remarks>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="T:LuaInterface.EventCodes">
+            <summary>
+            Event codes for lua hook function
+            </summary>
+            <remarks>
+            Do not change any of the values because they must match the lua values
+            </remarks>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="T:LuaInterface.EventMasks">
+            <summary>
+            Event masks for lua hook callback
+            </summary>
+            <remarks>
+            Do not change any of the values because they must match the lua values
+            </remarks>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="T:LuaInterface.LuaDebug">
+            <summary>
+            Structure for lua debug information
+            </summary>
+            <remarks>
+            Do not change this struct because it must match the lua structure lua_debug
+            </remarks>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="T:LuaInterface.DebugHookEventArgs">
+            <summary>
+            Event args for hook callback event
+            </summary>
+            <author>Reinhard Ostermeier</author>
+        </member>
+        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Int32)">
+            <summary>
+            Given the Lua int ID for an object remove it from our maps
+            </summary>
+            <param name="udata"></param>
+        </member>
+        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Object,System.Int32)">
+            <summary>
+            Given an object reference, remove it from our maps
+            </summary>
+            <param name="udata"></param>
+        </member>
+        <member name="F:LuaInterface.ObjectTranslator.nextObj">
+            <summary>
+            We want to ensure that objects always have a unique ID
+            </summary>
+        </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)">
+            <summary>
+            Registers all public instance methods in an object tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
+            </summary>
+            <param name="lua">The Lua VM to add the methods to</param>
+            <param name="o">The object to get the methods from</param>
+        </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)">
+            <summary>
+            Registers all public static methods in a class tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
+            </summary>
+            <param name="lua">The Lua VM to add the methods to</param>
+            <param name="type">The class type to get the methods from</param>
+        </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.Enumeration``1(LuaInterface.Lua)">
+            <summary>
+            Registers an enumeration's values for usage as a Lua variable table
+            </summary>
+            <typeparam name="T">The enum type to register</typeparam>
+            <param name="lua">The Lua VM to add the enum to</param>
+        </member>
+        <member name="T:LuaInterface.LuaHideAttribute">
+            <summary>
+            Marks a method, field or property to be hidden from Lua auto-completion
+            </summary>
+        </member>
+        <member name="T:LuaInterface.LuaGlobalAttribute">
+            <summary>
+            Marks a method for global usage in Lua scripts
+            </summary>
+            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)"/>
+            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)"/>
+        </member>
+        <member name="P:LuaInterface.LuaGlobalAttribute.Name">
+            <summary>
+            An alternative name to use for calling the function in Lua - leave empty for CLR name
+            </summary>
+        </member>
+        <member name="P:LuaInterface.LuaGlobalAttribute.Description">
+            <summary>
+            A description of the function
+            </summary>
+        </member>
+    </members>
+</doc>

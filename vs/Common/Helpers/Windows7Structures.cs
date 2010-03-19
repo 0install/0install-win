@@ -1,4 +1,13 @@
-﻿using System;
+﻿/*
+ * Based on Windows API Code Pack for Microsoft .NET Framework 1.0.1
+ * Copyright 2009 Microsoft Corporation
+ * License: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
+ *
+ * Modified for better project integration
+ * Copyright 2010 Bastian Eicher
+ */
+
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
@@ -226,7 +235,7 @@ namespace Common.Helpers
     [GuidAttribute("56FDF344-FD6D-11d0-958A-006097C9A090")]
     [ClassInterfaceAttribute(ClassInterfaceType.None)]
     [ComImportAttribute]
-    internal class CTaskbarList {}
+    internal class CTaskbarList { }
 // ReSharper restore InconsistentNaming
 // ReSharper restore UnusedMember.Global
 }

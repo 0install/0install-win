@@ -1,3 +1,23 @@
+Windows API Code Pack for Microsoft .NET Framework 1.0.1
+http://code.msdn.microsoft.com/WindowsAPICodePack
+Custom license: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
+Extracted part of source, modified, compiled as part of Common.dll
+
+SharpZipLib 0.85.5
+http://www.icsharpcode.net/OpenSource/SharpZipLib/
+GNU GPL with GNU Classpath exception: src/Common/ICSharpCode.SharpZipLib.license.txt
+Unmodified, pre-compiled binary (ICSharpCode.SharpZipLib.dll)
+
+TaskDialog
+http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
+Public Domain: http://creativecommons.org/licenses/publicdomain/
+Source unmodified, self-compiled to TaskDialog.dll
+
+The C5 Generic Collection Library 1.1.0
+http://www.itu.dk/research/c5/
+MIT-style open license: src/Common/C5.license.txt
+Unmodified, pre-compiled binary (C5.dll)
+
 LuaInterface 2.0.3
 http://luaforge.net/projects/luainterface/
 MIT License
@@ -7,18 +27,3 @@ Lua 5.1
 http://www.lua.org/
 MIT License
 Source unmodified, self-compiled to lua51.dll
-
-SharpZipLib
-http://www.icsharpcode.net/OpenSource/SharpZipLib/
-GNU GPL with GNU Classpath exception
-Unmodified, pre-compiled binary (ICSharpCode.SharpZipLib.dll)
-
-TaskDialog
-http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
-BSD License
-Source unmodified, self-compiled to TaskDialog.dll
-
-The C5 Generic Collection Library
-http://www.itu.dk/research/c5/
-MIT-style open license
-Unmodified, pre-compiled binary (c5.dll)

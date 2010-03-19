@@ -1,3 +1,25 @@
+/*
+ * Copyright 2006-2010 Bastian Eicher
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -551,63 +573,6 @@ namespace Common.Helpers
 
             if (text.Contains(characterToBeRemoved.ToString()))
                 text = text.Replace(characterToBeRemoved.ToString(), "");
-        }
-        #endregion
-
-        #region Kb/mb name generator
-        /// <summary>
-        /// Write bytes, KB, MB, GB, TB message.
-        /// 1 KB = 1024 Bytes
-        /// 1 MB = 1024 KB = 1048576 Bytes
-        /// 1 GB = 1024 MB = 1073741824 Bytes
-        /// 1 TB = 1024 GB = 1099511627776 Bytes
-        /// E.g. 100 will return "100 Bytes"
-        /// 2048 will return "2.00 KB"
-        /// 2500 will return "2.44 KB"
-        /// 1534905 will return "1.46 MB"
-        /// 23045904850904 will return "20.96 TB"
-        /// </summary>
-        public static string WriteBigByteNumber(long number, string decimalSeparator)
-        {
-            if (number < 0) return "-" + WriteBigByteNumber(-number);
-            if (number <= 999) return number + " Bytes";
-            if (number <= 999*1024)
-            {
-                double fKB = number/1024.0;
-                return (int)fKB + decimalSeparator + ((int)(fKB * 100.0f) % 100).ToString("00", CultureInfo.InvariantCulture) + " KB";
-            }
-            if (number <= 999*1024*1024)
-            {
-                double fMB = number/(1024.0*1024.0);
-                return (int)fMB + decimalSeparator + ((int)(fMB * 100.0f) % 100).ToString("00", CultureInfo.InvariantCulture) + " MB";
-            }
-            // this is very big, will not fit into int
-            if (number <= 999L*1024L*1024L*1024L)
-            {
-                double fGB = number/(1024.0*1024.0*1024.0);
-                return (int)fGB + decimalSeparator + ((int)(fGB * 100.0f) % 100).ToString("00", CultureInfo.InvariantCulture) + " GB";
-            }
-
-            double fTB = number/(1024.0*1024.0*1024.0*1024.0);
-            return (int)fTB + decimalSeparator + ((int)(fTB * 100.0f) % 100).ToString("00", CultureInfo.InvariantCulture) + " TB";
-        }
-
-        /// <summary>
-        /// Write bytes, KB, MB, GB, TB message.
-        /// 1 KB = 1024 Bytes
-        /// 1 MB = 1024 KB = 1048576 Bytes
-        /// 1 GB = 1024 MB = 1073741824 Bytes
-        /// 1 TB = 1024 GB = 1099511627776 Bytes
-        /// E.g. 100 will return "100 Bytes"
-        /// 2048 will return "2.00 KB"
-        /// 2500 will return "2.44 KB"
-        /// 1534905 will return "1.46 MB"
-        /// 23045904850904 will return "20.96 TB"
-        /// </summary>
-        public static string WriteBigByteNumber(long number)
-        {
-            string decimalSeparator = CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator;
-            return WriteBigByteNumber(number, decimalSeparator);
         }
         #endregion
     }

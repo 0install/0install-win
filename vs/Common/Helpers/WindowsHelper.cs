@@ -1,3 +1,12 @@
+/*
+ * Based on Windows API Code Pack for Microsoft .NET Framework 1.0.1
+ * Copyright 2009 Microsoft Corporation
+ * License: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
+ *
+ * Modified for better project integration
+ * Copyright 2010 Bastian Eicher
+ */
+
 using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;

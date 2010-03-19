@@ -158,15 +158,29 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ICSharpCode.SharpZipLib.dll" />
     <None Include="C5.dll" />
-    <None Include="C5.xml" />
+    <None Include="C5.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TaskDialog.dll" />
     <None Include="TaskDialog.xml" />
+    <Content Include="C5.license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="LuaInterface.dll" />
+    <Content Include="LuaInterface.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="lua51.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="ICSharpCode.SharpZipLib.dll" />
+    <Content Include="ICSharpCode.SharpZipLib.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ICSharpCode.SharpZipLib.license.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>
