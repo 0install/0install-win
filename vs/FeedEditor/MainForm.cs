@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Forms;
 using ZeroInstall.Model;
@@ -6,54 +7,35 @@ using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
 using Icon = ZeroInstall.Model.Icon;
+using System.Collections.Generic;
+using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.FeedEditor
 {
     public partial class MainForm : Form
     {
         private string _openInterfacePath;
+
         public MainForm()
         {
-            _openInterfacePath = null;
             InitializeComponent();
+            _openInterfacePath = null;
             InitializeSaveFileDialog();
-            InitializeComboBoxExtFeedCpu();
-            InitializeComboBoxExtFeedOs();
-            InitializeComboBoxExtFeedLanguage();
-        }
-
-        private void InitializeComboBoxExtFeedLanguage()
-        {
-            foreach (var lang in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
-            {
-                comboBoxExtFeedLanguage.Items.Add(lang);
-            }
-            comboBoxExtFeedLanguage.SelectedIndex = 0;
-        }
-
-        private void InitializeComboBoxExtFeedOs()
-        {
-            foreach (var os in Enum.GetValues(typeof(OS)))
-            {
-                comboBoxExtFeedOS.Items.Add(os);
-            }
-            comboBoxExtFeedOS.SelectedIndex = (int)OS.All;
+            InitializeLoadFileDialog();
+            feedReferenceControl.FeedReference = null;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeSaveFileDialog()
         {
             saveFileDialog.DefaultExt = ".xml";
-            saveFileDialog.Filter = @"ZeroInstall Feed (*.xml)|*.xml";
+            saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
 
-        private void InitializeComboBoxExtFeedCpu()
+        private void InitializeLoadFileDialog()
         {
-            foreach (var cpu in Enum.GetValues(typeof(Cpu)))
-            {
-                comboBoxExtFeedCPU.Items.Add(cpu);
-            }
-            comboBoxExtFeedCPU.SelectedIndex = (int)Cpu.All;
+            openFileDialog.DefaultExt = ".xml";
+            openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml |All Files|*.*";
         }
 
         private void ToolStripButtonNew_Click(object sender, EventArgs e)
@@ -116,12 +98,16 @@ namespace ZeroInstall.FeedEditor
             {
                 zeroInterface.Feeds.Add((FeedReference)feed);
             }
-            //TODO hier weitermachen
-            foreach (var feedFor in listBoxFeedFor.Items)
+            foreach (InterfaceReference feedFor in listBoxFeedFor.Items)
             {
-                //zeroInterface.FeedFor.Add(feedFor.ToString());
+                zeroInterface.FeedFor.Add(feedFor);
+            }
+            if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText))
+            {
+                zeroInterface.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
             }
 
+            /* save file */
             zeroInterface.Save(saveFileDialog.FileName);
         }
 
@@ -132,21 +118,7 @@ namespace ZeroInstall.FeedEditor
             Image icon;
             lblIconUrlError.ForeColor = Color.Red;
             // check url
-            try
-            {
-                iconUrl = new Uri(textIconUrl.Text);
-            }
-            catch (UriFormatException)
-            {
-                lblIconUrlError.Text = "Invalid URL";
-                return;
-            }
-            // check protocol
-            if (!(iconUrl.Scheme == "http" || iconUrl.Scheme == "https"))
-            {
-                lblIconUrlError.Text = "URL must begin with \"http://\" or \"https://\"";
-                return;
-            }
+            if(!IsValidFeedURL(textIconUrl.Text, out iconUrl)) return;
 
             // try downloading image
             try
@@ -241,13 +213,9 @@ namespace ZeroInstall.FeedEditor
 
             /* Advanced Tab */
             listBoxExtFeeds.Items.Clear();
-            textExtFeedURL.Clear();
-            comboBoxExtFeedLanguage.SelectedIndex = 0;
-            listBoxExtFeedLanguages.Items.Clear();
-            comboBoxExtFeedCPU.SelectedIndex = 0;
-            comboBoxExtFeedOS.SelectedIndex = 0;
             textFeedFor.Clear();
             listBoxFeedFor.Items.Clear();
+            feedReferenceControl.FeedReference = null;
             comboBoxMinInjectorVersion.SelectedIndex = 0;
         }
 
@@ -306,20 +274,11 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feed = new FeedReference();
-            Uri uri;
-            if (!IsValidFeedURL(textExtFeedURL.Text, out uri)) return;
-            feed.Target = uri;
-            var arch = new Architecture { Cpu = (Cpu)comboBoxExtFeedCPU.SelectedItem, OS = (OS)comboBoxExtFeedOS.SelectedIndex };
-            feed.Architecture = arch;
-            foreach (var lang in listBoxExtFeedLanguages.Items)
+            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
+            if (String.IsNullOrEmpty(feedReference.TargetString)) return;
+            if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
-                feed.Languages.Add((CultureInfo)lang);
-            }
-
-            if (!listBoxExtFeeds.Items.Contains(feed))
-            {
-                listBoxExtFeeds.Items.Add(feed);
+                listBoxExtFeeds.Items.Add(feedReference);
             }
         }
 
@@ -329,14 +288,8 @@ namespace ZeroInstall.FeedEditor
         {
             if (Uri.TryCreate(url, UriKind.Absolute, out uri))
             {
-                if (uri.Scheme != Uri.UriSchemeHttp && uri.Scheme != Uri.UriSchemeHttps)
-                {
-                    MessageBox.Show(string.Format("{0}\nhas to begin with \"http\" or \"https\"", url));
-                    return false;
-                }
-                return true;
+                return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
             }
-            MessageBox.Show(string.Format("{0}\nis no URL", url));
             return false;
         }
 
@@ -347,46 +300,20 @@ namespace ZeroInstall.FeedEditor
             listBoxExtFeeds.Items.Remove(selectedItem);
         }
 
-        private void btnExtFeedLanguageAdd_Click_1(object sender, EventArgs e)
-        {
-            var c = (CultureInfo)comboBoxExtFeedLanguage.SelectedItem;
-            if (listBoxExtFeedLanguages.Items.Contains(c)) return;
-            listBoxExtFeedLanguages.Items.Add(c);
-        }
-
-        private void btnExtFeedLanguageRemove_Click(object sender, EventArgs e)
-        {
-            var c = (CultureInfo)listBoxExtFeedLanguages.SelectedItem;
-            if (c == null) return;
-            listBoxExtFeedLanguages.Items.Remove(c);
-        }
-
         private void listBoxExtFeeds_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedItem = (FeedReference)listBoxExtFeeds.SelectedItem;
             if (selectedItem == null) return;
-            textExtFeedURL.Text = selectedItem.TargetString;
-            listBoxExtFeedLanguages.Items.Clear();
-            foreach (var lang in selectedItem.Languages)
-            {
-                listBoxExtFeedLanguages.Items.Add(lang);
-            }
-            comboBoxExtFeedCPU.SelectedItem = selectedItem.Architecture.Cpu;
-            comboBoxExtFeedOS.SelectedItem = selectedItem.Architecture.OS;
-        }
-
-        private void btnExtFeedLanguageClear_Click(object sender, EventArgs e)
-        {
-            listBoxExtFeedLanguages.Items.Clear();
+            feedReferenceControl.FeedReference = selectedItem.CloneFeedReference();
         }
 
         private void btnFeedForAdd_Click(object sender, EventArgs e)
         {
             Uri uri;
-            if (IsValidFeedURL(textFeedFor.Text, out uri))
-            {
-                listBoxFeedFor.Items.Add(uri);
-            }
+            if (!IsValidFeedURL(textFeedFor.Text, out uri)) return;
+            var interfaceReference = new InterfaceReference();
+            interfaceReference.Target = uri;
+            listBoxFeedFor.Items.Add(interfaceReference);
         }
 
         private void btnFeedForRemove_Click(object sender, EventArgs e)
@@ -399,6 +326,117 @@ namespace ZeroInstall.FeedEditor
         private void btnFeedForClear_Click(object sender, EventArgs e)
         {
             listBoxFeedFor.Items.Clear();
+        }
+
+        private void btnAddGroup_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Group");
+            var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
+            treeNode.Tag = new Group();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+
+        }
+
+        private void treeViewFeedStructure_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            // disable all buttons
+            btnAddGroup.Enabled = false;
+            btnAddImplementation.Enabled = false;
+            btnAddPackageImplementation.Enabled = false;
+            btnAddDependency.Enabled = false;
+            btnAddEnvironmentBinding.Enabled = false;
+            btnAddOverlayBinding.Enabled = false;
+            // enable possible buttons
+            if (selectedNode == treeViewFeedStructure.TopNode)
+            {
+                btnAddGroup.Enabled = true;
+                btnAddImplementation.Enabled = true;
+            }
+            else if (selectedNode.Tag is Group)
+            {
+                btnAddGroup.Enabled = true;
+                btnAddImplementation.Enabled = true;
+                btnAddPackageImplementation.Enabled = true;
+                btnAddDependency.Enabled = true;
+                btnAddEnvironmentBinding.Enabled = true;
+                btnAddOverlayBinding.Enabled = true;
+            }
+            else if (selectedNode.Tag is Implementation) {
+                btnAddDependency.Enabled = true;
+                btnAddEnvironmentBinding.Enabled = true;
+                btnAddOverlayBinding.Enabled = true;
+            } else if(selectedNode.Tag is Dependency)
+            {
+                btnAddEnvironmentBinding.Enabled = true;
+                btnAddOverlayBinding.Enabled = true;
+            } 
+        }
+
+        private void btnAddImplementation_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Implementation");
+            var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
+            treeNode.Tag = new Implementation();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void btnAddPackageImplementation_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Package Implementation");
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null) return;
+            treeNode.Tag = new PackageImplementation();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void btnAddDependency_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Dependency");
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null) return;
+            treeNode.Tag = new Dependency();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void btnAddEnvironmentBinding_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Environment binding");
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null) return;
+            treeNode.Tag = new EnvironmentBinding();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void btnAddOverlayBinding_Click(object sender, EventArgs e)
+        {
+            var treeNode = new TreeNode("Overlay binding");
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null) return;
+            treeNode.Tag = new OverlayBinding();
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void btnRemoveFeedStructureObject_Click(object sender, EventArgs e)
+        {
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
+            treeViewFeedStructure.Nodes.Remove(selectedNode);
+        }
+
+        private void btnExtFeedUpdate_Click(object sender, EventArgs e)
+        {
+            var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
+            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
+            if (selectedFeedReferenceIndex < 0) return;
+            if (String.IsNullOrEmpty(feedReference.TargetString)) return;
+            listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
     }
 }
