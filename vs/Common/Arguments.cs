@@ -54,7 +54,7 @@ namespace Common
         /// Gets the options for a specific command in the arguments.
         /// </summary>
         /// <param name="command">The command to get the options for.</param>
-        /// <returns>The options for <see param="command"/> if any; null otherwise.</returns>
+        /// <returns>The options for <paramref name="command"/> if any; null otherwise.</returns>
         public string this[string command]
         {
             get { return _commands[command]; }
