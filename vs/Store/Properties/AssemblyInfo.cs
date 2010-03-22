@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Zero Install Store Library")]
-[assembly: AssemblyDescription("Methods for managing the stores of Zero Install interfaces, implementations, etc.")]
+[assembly: AssemblyDescription("Methods for managing the Zero Install caches for interfaces, implementations, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
