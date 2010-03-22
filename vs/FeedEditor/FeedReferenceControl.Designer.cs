@@ -37,10 +37,10 @@
             // lblExtFeedURL
             // 
             this.lblExtFeedURL.AutoSize = true;
-            this.lblExtFeedURL.Location = new System.Drawing.Point(3, 0);
+            this.lblExtFeedURL.Location = new System.Drawing.Point(-3, 0);
             this.lblExtFeedURL.Name = "lblExtFeedURL";
             this.lblExtFeedURL.Size = new System.Drawing.Size(56, 13);
-            this.lblExtFeedURL.TabIndex = 3;
+            this.lblExtFeedURL.TabIndex = 0;
             this.lblExtFeedURL.Text = "Feed URL";
             // 
             // textBoxExtFeedURL
@@ -49,32 +49,34 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxExtFeedURL.ClearButton = true;
             this.textBoxExtFeedURL.HintText = "URL to an external feed";
-            this.textBoxExtFeedURL.Location = new System.Drawing.Point(6, 16);
+            this.textBoxExtFeedURL.Location = new System.Drawing.Point(0, 16);
             this.textBoxExtFeedURL.Name = "textBoxExtFeedURL";
-            this.textBoxExtFeedURL.Size = new System.Drawing.Size(488, 20);
-            this.textBoxExtFeedURL.TabIndex = 2;
+            this.textBoxExtFeedURL.Size = new System.Drawing.Size(497, 20);
+            this.textBoxExtFeedURL.TabIndex = 1;
             this.textBoxExtFeedURL.TextChanged += new System.EventHandler(this.textBoxExtFeedURL_TextChanged);
             this.textBoxExtFeedURL.Enter += new System.EventHandler(this.textBoxExtFeedURL_Enter);
             // 
             // targetBaseControl
             // 
+            this.targetBaseControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.targetBaseControl.Location = new System.Drawing.Point(0, 40);
             this.targetBaseControl.Name = "targetBaseControl";
             this.targetBaseControl.Size = new System.Drawing.Size(502, 128);
-            this.targetBaseControl.TabIndex = 0;
+            this.targetBaseControl.TabIndex = 3;
             this.targetBaseControl.TargetBase = null;
             // 
             // labelURLError
             // 
-            this.labelURLError.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelURLError.AutoSize = true;
+            this.labelURLError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelURLError.ForeColor = System.Drawing.Color.Red;
-            this.labelURLError.Location = new System.Drawing.Point(432, 39);
+            this.labelURLError.Location = new System.Drawing.Point(372, 39);
             this.labelURLError.Name = "labelURLError";
-            this.labelURLError.Size = new System.Drawing.Size(62, 13);
-            this.labelURLError.TabIndex = 4;
+            this.labelURLError.Size = new System.Drawing.Size(122, 13);
+            this.labelURLError.TabIndex = 2;
             this.labelURLError.Text = "invalid URL";
+            this.labelURLError.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // FeedReferenceControl
             // 

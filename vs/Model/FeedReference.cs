@@ -43,7 +43,7 @@ namespace ZeroInstall.Model
         public String TargetString
         {
             get { return (Target == null ? null : Target.ToString()); }
-            set { Target = new Uri(value); }
+            set { Target = (value == null ? null : new Uri(value)); }
         }
         #endregion
 

@@ -54,7 +54,7 @@ namespace ZeroInstall.Model
         public String UriString
         {
             get { return (Uri == null ? null : Uri.ToString()); }
-            set { Uri = new Uri(value); }
+            set { Uri = (value == null ? null : new Uri(value)); }
         }
 
         // Preserve order, duplicate entries are not allowed
@@ -112,7 +112,7 @@ namespace ZeroInstall.Model
         public String HomepageString
         {
             get { return Homepage != null ? Homepage.ToString() : null; }
-            set { Homepage = new Uri(value); }
+            set { Homepage = (value == null ? null : new Uri(value)); }
         }
         
         // Preserve order, duplicate entries are not allowed

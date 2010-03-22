@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 
@@ -13,24 +9,24 @@ namespace ZeroInstall.FeedEditor
     {
         private FeedReference _feedReference = new FeedReference();
 
-        public FeedReference FeedReference
+        public FeedReference GetFeedReference()
         {
-            get { return _feedReference; }
+            return _feedReference;
+        }
 
-            set
+        public void SetFeedReference(FeedReference value)
+        {
+            if (value == null)
             {
-                if (value == null)
-                {
-                    _feedReference = new FeedReference();
-                    textBoxExtFeedURL.Text = String.Empty;
-                }
-                else
-                {
-                    _feedReference = value;
-                    textBoxExtFeedURL.Text = _feedReference.TargetString;
-                }
-                targetBaseControl.TargetBase = _feedReference;
+                _feedReference = new FeedReference();
+                textBoxExtFeedURL.Text = String.Empty;
             }
+            else
+            {
+                _feedReference = value;
+                textBoxExtFeedURL.Text = _feedReference.TargetString;
+            }
+            targetBaseControl.TargetBase = _feedReference;
         }
 
         public FeedReferenceControl()

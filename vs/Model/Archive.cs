@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         public String LocationString
         {
             get { return (Location == null ? null : Location.ToString()); }
-            set { Location = new Uri(value); }
+            set { Location = (value == null ? null : new Uri(value)); }
         }
 
         /// <summary>

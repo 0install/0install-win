@@ -43,7 +43,7 @@ namespace ZeroInstall.Model
         public String UriString
         {
             get { return (Uri == null ? null : Uri.ToString()); }
-            set { Uri = new Uri(value); }
+            set { Uri = (value == null ? null : new Uri(value)); }
         }
 
         /// <summary>

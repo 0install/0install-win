@@ -34,7 +34,7 @@ namespace ZeroInstall.FeedEditor
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -206,7 +206,7 @@ namespace ZeroInstall.FeedEditor
             this.checkBoxNeedsTerminal.Location = new System.Drawing.Point(9, 513);
             this.checkBoxNeedsTerminal.Name = "checkBoxNeedsTerminal";
             this.checkBoxNeedsTerminal.Size = new System.Drawing.Size(98, 17);
-            this.checkBoxNeedsTerminal.TabIndex = 28;
+            this.checkBoxNeedsTerminal.TabIndex = 13;
             this.checkBoxNeedsTerminal.Text = "needs Terminal";
             this.checkBoxNeedsTerminal.UseVisualStyleBackColor = true;
             // 
@@ -218,7 +218,7 @@ namespace ZeroInstall.FeedEditor
             this.textInterfaceURL.Location = new System.Drawing.Point(9, 107);
             this.textInterfaceURL.Name = "textInterfaceURL";
             this.textInterfaceURL.Size = new System.Drawing.Size(588, 20);
-            this.textInterfaceURL.TabIndex = 27;
+            this.textInterfaceURL.TabIndex = 7;
             // 
             // lblInterfaceURL
             // 
@@ -226,7 +226,7 @@ namespace ZeroInstall.FeedEditor
             this.lblInterfaceURL.Location = new System.Drawing.Point(6, 91);
             this.lblInterfaceURL.Name = "lblInterfaceURL";
             this.lblInterfaceURL.Size = new System.Drawing.Size(74, 13);
-            this.lblInterfaceURL.TabIndex = 26;
+            this.lblInterfaceURL.TabIndex = 6;
             this.lblInterfaceURL.Text = "Interface URL";
             // 
             // checkedListCategory
@@ -250,7 +250,7 @@ namespace ZeroInstall.FeedEditor
             this.checkedListCategory.Name = "checkedListCategory";
             this.checkedListCategory.Size = new System.Drawing.Size(116, 64);
             this.checkedListCategory.Sorted = true;
-            this.checkedListCategory.TabIndex = 25;
+            this.checkedListCategory.TabIndex = 5;
             // 
             // textHomepage
             // 
@@ -260,7 +260,7 @@ namespace ZeroInstall.FeedEditor
             this.textHomepage.Location = new System.Drawing.Point(9, 478);
             this.textHomepage.Name = "textHomepage";
             this.textHomepage.Size = new System.Drawing.Size(588, 20);
-            this.textHomepage.TabIndex = 24;
+            this.textHomepage.TabIndex = 12;
             // 
             // textDescription
             // 
@@ -272,7 +272,7 @@ namespace ZeroInstall.FeedEditor
             this.textDescription.Multiline = true;
             this.textDescription.Name = "textDescription";
             this.textDescription.Size = new System.Drawing.Size(588, 109);
-            this.textDescription.TabIndex = 22;
+            this.textDescription.TabIndex = 9;
             // 
             // lblHomepage
             // 
@@ -281,7 +281,7 @@ namespace ZeroInstall.FeedEditor
             this.lblHomepage.Location = new System.Drawing.Point(6, 462);
             this.lblHomepage.Name = "lblHomepage";
             this.lblHomepage.Size = new System.Drawing.Size(59, 13);
-            this.lblHomepage.TabIndex = 23;
+            this.lblHomepage.TabIndex = 11;
             this.lblHomepage.Text = "Homepage";
             // 
             // lblDescription
@@ -290,7 +290,7 @@ namespace ZeroInstall.FeedEditor
             this.lblDescription.Location = new System.Drawing.Point(6, 139);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(60, 13);
-            this.lblDescription.TabIndex = 21;
+            this.lblDescription.TabIndex = 8;
             this.lblDescription.Text = "Description";
             // 
             // groupBoxIcon
@@ -310,7 +310,7 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxIcon.Location = new System.Drawing.Point(9, 279);
             this.groupBoxIcon.Name = "groupBoxIcon";
             this.groupBoxIcon.Size = new System.Drawing.Size(588, 171);
-            this.groupBoxIcon.TabIndex = 19;
+            this.groupBoxIcon.TabIndex = 10;
             this.groupBoxIcon.TabStop = false;
             this.groupBoxIcon.Text = "Icon";
             // 
@@ -320,7 +320,7 @@ namespace ZeroInstall.FeedEditor
             this.lblIcon.Location = new System.Drawing.Point(6, 16);
             this.lblIcon.Name = "lblIcon";
             this.lblIcon.Size = new System.Drawing.Size(42, 13);
-            this.lblIcon.TabIndex = 6;
+            this.lblIcon.TabIndex = 0;
             this.lblIcon.Text = "Icon url";
             // 
             // comboIconType
@@ -334,7 +334,7 @@ namespace ZeroInstall.FeedEditor
             this.comboIconType.Location = new System.Drawing.Point(376, 32);
             this.comboIconType.Name = "comboIconType";
             this.comboIconType.Size = new System.Drawing.Size(76, 21);
-            this.comboIconType.TabIndex = 18;
+            this.comboIconType.TabIndex = 3;
             // 
             // textIconUrl
             // 
@@ -344,7 +344,7 @@ namespace ZeroInstall.FeedEditor
             this.textIconUrl.Location = new System.Drawing.Point(9, 32);
             this.textIconUrl.Name = "textIconUrl";
             this.textIconUrl.Size = new System.Drawing.Size(361, 20);
-            this.textIconUrl.TabIndex = 11;
+            this.textIconUrl.TabIndex = 1;
             // 
             // lblIconUrlError
             // 
@@ -353,7 +353,7 @@ namespace ZeroInstall.FeedEditor
             this.lblIconUrlError.Location = new System.Drawing.Point(6, 144);
             this.lblIconUrlError.Name = "lblIconUrlError";
             this.lblIconUrlError.Size = new System.Drawing.Size(0, 13);
-            this.lblIconUrlError.TabIndex = 10;
+            this.lblIconUrlError.TabIndex = 5;
             // 
             // lblIconMime
             // 
@@ -362,7 +362,7 @@ namespace ZeroInstall.FeedEditor
             this.lblIconMime.Location = new System.Drawing.Point(373, 16);
             this.lblIconMime.Name = "lblIconMime";
             this.lblIconMime.Size = new System.Drawing.Size(55, 13);
-            this.lblIconMime.TabIndex = 17;
+            this.lblIconMime.TabIndex = 2;
             this.lblIconMime.Text = "Icon Type";
             // 
             // btnIconPreview
@@ -371,7 +371,7 @@ namespace ZeroInstall.FeedEditor
             this.btnIconPreview.Location = new System.Drawing.Point(374, 59);
             this.btnIconPreview.Name = "btnIconPreview";
             this.btnIconPreview.Size = new System.Drawing.Size(78, 23);
-            this.btnIconPreview.TabIndex = 8;
+            this.btnIconPreview.TabIndex = 6;
             this.btnIconPreview.Text = "Icon Preview";
             this.btnIconPreview.UseVisualStyleBackColor = true;
             this.btnIconPreview.Click += new System.EventHandler(this.BtnIconPreviewClick);
@@ -382,7 +382,7 @@ namespace ZeroInstall.FeedEditor
             this.btnIconRemove.Location = new System.Drawing.Point(374, 117);
             this.btnIconRemove.Name = "btnIconRemove";
             this.btnIconRemove.Size = new System.Drawing.Size(78, 23);
-            this.btnIconRemove.TabIndex = 16;
+            this.btnIconRemove.TabIndex = 8;
             this.btnIconRemove.Text = "Remove";
             this.btnIconRemove.UseVisualStyleBackColor = true;
             this.btnIconRemove.Click += new System.EventHandler(this.btnIconListRemove_Click);
@@ -404,7 +404,7 @@ namespace ZeroInstall.FeedEditor
             this.btnIconAdd.Location = new System.Drawing.Point(374, 88);
             this.btnIconAdd.Name = "btnIconAdd";
             this.btnIconAdd.Size = new System.Drawing.Size(78, 23);
-            this.btnIconAdd.TabIndex = 15;
+            this.btnIconAdd.TabIndex = 7;
             this.btnIconAdd.Text = "Add";
             this.btnIconAdd.UseVisualStyleBackColor = true;
             this.btnIconAdd.Click += new System.EventHandler(this.btnIconListAdd_Click);
@@ -418,7 +418,7 @@ namespace ZeroInstall.FeedEditor
             this.listIconsUrls.Location = new System.Drawing.Point(9, 59);
             this.listIconsUrls.Name = "listIconsUrls";
             this.listIconsUrls.Size = new System.Drawing.Size(361, 82);
-            this.listIconsUrls.TabIndex = 14;
+            this.listIconsUrls.TabIndex = 4;
             this.listIconsUrls.SelectedIndexChanged += new System.EventHandler(this.listIconsUrls_SelectedIndexChanged);
             // 
             // lblCategory
@@ -440,7 +440,7 @@ namespace ZeroInstall.FeedEditor
             this.textSummary.Location = new System.Drawing.Point(9, 59);
             this.textSummary.Name = "textSummary";
             this.textSummary.Size = new System.Drawing.Size(466, 20);
-            this.textSummary.TabIndex = 12;
+            this.textSummary.TabIndex = 3;
             // 
             // lblSummary
             // 
@@ -460,7 +460,7 @@ namespace ZeroInstall.FeedEditor
             this.textName.Location = new System.Drawing.Point(9, 20);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(466, 20);
-            this.textName.TabIndex = 13;
+            this.textName.TabIndex = 1;
             // 
             // lblName
             // 
@@ -484,6 +484,9 @@ namespace ZeroInstall.FeedEditor
             // 
             // groupBoxFeedStructure
             // 
+            this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFeedStructure.Controls.Add(this.btnAddOverlayBinding);
             this.groupBoxFeedStructure.Controls.Add(this.treeViewFeedStructure);
             this.groupBoxFeedStructure.Controls.Add(this.btnRemoveFeedStructureObject);
@@ -494,60 +497,67 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxFeedStructure.Controls.Add(this.btnAddImplementation);
             this.groupBoxFeedStructure.Location = new System.Drawing.Point(6, 6);
             this.groupBoxFeedStructure.Name = "groupBoxFeedStructure";
-            this.groupBoxFeedStructure.Size = new System.Drawing.Size(595, 229);
-            this.groupBoxFeedStructure.TabIndex = 8;
+            this.groupBoxFeedStructure.Size = new System.Drawing.Size(596, 229);
+            this.groupBoxFeedStructure.TabIndex = 0;
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
             // 
             // btnAddOverlayBinding
             // 
+            this.btnAddOverlayBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddOverlayBinding.Enabled = false;
-            this.btnAddOverlayBinding.Location = new System.Drawing.Point(458, 167);
+            this.btnAddOverlayBinding.Location = new System.Drawing.Point(459, 167);
             this.btnAddOverlayBinding.Name = "btnAddOverlayBinding";
             this.btnAddOverlayBinding.Size = new System.Drawing.Size(131, 23);
-            this.btnAddOverlayBinding.TabIndex = 8;
+            this.btnAddOverlayBinding.TabIndex = 6;
             this.btnAddOverlayBinding.Text = "Overlay binding";
             this.btnAddOverlayBinding.UseVisualStyleBackColor = true;
             this.btnAddOverlayBinding.Click += new System.EventHandler(this.btnAddOverlayBinding_Click);
             // 
             // treeViewFeedStructure
             // 
+            this.treeViewFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode6.Checked = true;
-            treeNode6.Name = "interface";
-            treeNode6.Text = "Interface";
+            treeNode1.Checked = true;
+            treeNode1.Name = "interface";
+            treeNode1.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode6});
-            this.treeViewFeedStructure.Size = new System.Drawing.Size(445, 200);
-            this.treeViewFeedStructure.TabIndex = 4;
+            treeNode1});
+            this.treeViewFeedStructure.Size = new System.Drawing.Size(446, 200);
+            this.treeViewFeedStructure.TabIndex = 0;
             this.treeViewFeedStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFeedStructure_AfterSelect);
             // 
             // btnRemoveFeedStructureObject
             // 
-            this.btnRemoveFeedStructureObject.Location = new System.Drawing.Point(457, 196);
+            this.btnRemoveFeedStructureObject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveFeedStructureObject.Location = new System.Drawing.Point(458, 196);
             this.btnRemoveFeedStructureObject.Name = "btnRemoveFeedStructureObject";
             this.btnRemoveFeedStructureObject.Size = new System.Drawing.Size(132, 23);
-            this.btnRemoveFeedStructureObject.TabIndex = 3;
+            this.btnRemoveFeedStructureObject.TabIndex = 7;
             this.btnRemoveFeedStructureObject.Text = "Remove";
             this.btnRemoveFeedStructureObject.UseVisualStyleBackColor = true;
             this.btnRemoveFeedStructureObject.Click += new System.EventHandler(this.btnRemoveFeedStructureObject_Click);
             // 
             // btnAddEnvironmentBinding
             // 
+            this.btnAddEnvironmentBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddEnvironmentBinding.Enabled = false;
-            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(457, 137);
+            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(458, 137);
             this.btnAddEnvironmentBinding.Name = "btnAddEnvironmentBinding";
             this.btnAddEnvironmentBinding.Size = new System.Drawing.Size(132, 23);
-            this.btnAddEnvironmentBinding.TabIndex = 7;
+            this.btnAddEnvironmentBinding.TabIndex = 5;
             this.btnAddEnvironmentBinding.Text = "Environment binding";
             this.btnAddEnvironmentBinding.UseVisualStyleBackColor = true;
             this.btnAddEnvironmentBinding.Click += new System.EventHandler(this.btnAddEnvironmentBinding_Click);
             // 
             // btnAddGroup
             // 
-            this.btnAddGroup.Location = new System.Drawing.Point(457, 19);
+            this.btnAddGroup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddGroup.Location = new System.Drawing.Point(458, 19);
             this.btnAddGroup.Name = "btnAddGroup";
             this.btnAddGroup.Size = new System.Drawing.Size(132, 23);
             this.btnAddGroup.TabIndex = 1;
@@ -557,29 +567,32 @@ namespace ZeroInstall.FeedEditor
             // 
             // btnAddDependency
             // 
+            this.btnAddDependency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddDependency.Enabled = false;
-            this.btnAddDependency.Location = new System.Drawing.Point(457, 108);
+            this.btnAddDependency.Location = new System.Drawing.Point(458, 108);
             this.btnAddDependency.Name = "btnAddDependency";
             this.btnAddDependency.Size = new System.Drawing.Size(132, 23);
-            this.btnAddDependency.TabIndex = 6;
+            this.btnAddDependency.TabIndex = 4;
             this.btnAddDependency.Text = "Dependency";
             this.btnAddDependency.UseVisualStyleBackColor = true;
             this.btnAddDependency.Click += new System.EventHandler(this.btnAddDependency_Click);
             // 
             // btnAddPackageImplementation
             // 
+            this.btnAddPackageImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddPackageImplementation.Enabled = false;
-            this.btnAddPackageImplementation.Location = new System.Drawing.Point(457, 78);
+            this.btnAddPackageImplementation.Location = new System.Drawing.Point(458, 78);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
-            this.btnAddPackageImplementation.TabIndex = 5;
+            this.btnAddPackageImplementation.TabIndex = 3;
             this.btnAddPackageImplementation.Text = "Package implementation";
             this.btnAddPackageImplementation.UseVisualStyleBackColor = true;
             this.btnAddPackageImplementation.Click += new System.EventHandler(this.btnAddPackageImplementation_Click);
             // 
             // btnAddImplementation
             // 
-            this.btnAddImplementation.Location = new System.Drawing.Point(457, 48);
+            this.btnAddImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddImplementation.Location = new System.Drawing.Point(458, 48);
             this.btnAddImplementation.Name = "btnAddImplementation";
             this.btnAddImplementation.Size = new System.Drawing.Size(132, 23);
             this.btnAddImplementation.TabIndex = 2;
@@ -609,17 +622,17 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxFeedFor.Controls.Add(this.btnFeedForAdd);
             this.groupBoxFeedFor.Controls.Add(this.listBoxFeedFor);
             this.groupBoxFeedFor.Controls.Add(this.textFeedFor);
-            this.groupBoxFeedFor.Location = new System.Drawing.Point(9, 340);
+            this.groupBoxFeedFor.Location = new System.Drawing.Point(6, 350);
             this.groupBoxFeedFor.Name = "groupBoxFeedFor";
-            this.groupBoxFeedFor.Size = new System.Drawing.Size(591, 142);
-            this.groupBoxFeedFor.TabIndex = 5;
+            this.groupBoxFeedFor.Size = new System.Drawing.Size(594, 137);
+            this.groupBoxFeedFor.TabIndex = 1;
             this.groupBoxFeedFor.TabStop = false;
             this.groupBoxFeedFor.Text = "Feed For Interface";
             // 
             // btnFeedForClear
             // 
             this.btnFeedForClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFeedForClear.Location = new System.Drawing.Point(510, 103);
+            this.btnFeedForClear.Location = new System.Drawing.Point(513, 103);
             this.btnFeedForClear.Name = "btnFeedForClear";
             this.btnFeedForClear.Size = new System.Drawing.Size(75, 23);
             this.btnFeedForClear.TabIndex = 6;
@@ -630,7 +643,7 @@ namespace ZeroInstall.FeedEditor
             // btnFeedForRemove
             // 
             this.btnFeedForRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFeedForRemove.Location = new System.Drawing.Point(510, 74);
+            this.btnFeedForRemove.Location = new System.Drawing.Point(513, 74);
             this.btnFeedForRemove.Name = "btnFeedForRemove";
             this.btnFeedForRemove.Size = new System.Drawing.Size(75, 23);
             this.btnFeedForRemove.TabIndex = 5;
@@ -641,7 +654,7 @@ namespace ZeroInstall.FeedEditor
             // btnFeedForAdd
             // 
             this.btnFeedForAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFeedForAdd.Location = new System.Drawing.Point(510, 45);
+            this.btnFeedForAdd.Location = new System.Drawing.Point(513, 45);
             this.btnFeedForAdd.Name = "btnFeedForAdd";
             this.btnFeedForAdd.Size = new System.Drawing.Size(75, 23);
             this.btnFeedForAdd.TabIndex = 4;
@@ -656,7 +669,7 @@ namespace ZeroInstall.FeedEditor
             this.listBoxFeedFor.FormattingEnabled = true;
             this.listBoxFeedFor.Location = new System.Drawing.Point(7, 46);
             this.listBoxFeedFor.Name = "listBoxFeedFor";
-            this.listBoxFeedFor.Size = new System.Drawing.Size(497, 82);
+            this.listBoxFeedFor.Size = new System.Drawing.Size(500, 82);
             this.listBoxFeedFor.TabIndex = 3;
             // 
             // textFeedFor
@@ -667,7 +680,7 @@ namespace ZeroInstall.FeedEditor
             this.textFeedFor.HintText = "URL to an Interface";
             this.textFeedFor.Location = new System.Drawing.Point(6, 19);
             this.textFeedFor.Name = "textFeedFor";
-            this.textFeedFor.Size = new System.Drawing.Size(579, 20);
+            this.textFeedFor.Size = new System.Drawing.Size(582, 20);
             this.textFeedFor.TabIndex = 2;
             // 
             // comboBoxMinInjectorVersion
@@ -692,20 +705,20 @@ namespace ZeroInstall.FeedEditor
             "0.43\t          ",
             "0.44",
             "0.45"});
-            this.comboBoxMinInjectorVersion.Location = new System.Drawing.Point(9, 501);
+            this.comboBoxMinInjectorVersion.Location = new System.Drawing.Point(6, 506);
             this.comboBoxMinInjectorVersion.Name = "comboBoxMinInjectorVersion";
             this.comboBoxMinInjectorVersion.Size = new System.Drawing.Size(93, 21);
             this.comboBoxMinInjectorVersion.Sorted = true;
-            this.comboBoxMinInjectorVersion.TabIndex = 4;
+            this.comboBoxMinInjectorVersion.TabIndex = 3;
             // 
             // lblMinInjectorVersion
             // 
             this.lblMinInjectorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblMinInjectorVersion.AutoSize = true;
-            this.lblMinInjectorVersion.Location = new System.Drawing.Point(6, 485);
+            this.lblMinInjectorVersion.Location = new System.Drawing.Point(3, 490);
             this.lblMinInjectorVersion.Name = "lblMinInjectorVersion";
             this.lblMinInjectorVersion.Size = new System.Drawing.Size(102, 13);
-            this.lblMinInjectorVersion.TabIndex = 3;
+            this.lblMinInjectorVersion.TabIndex = 2;
             this.lblMinInjectorVersion.Text = "min. Injector Version";
             // 
             // groupBoxExternalFeed
@@ -718,19 +731,20 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxExternalFeed.Controls.Add(this.listBoxExtFeeds);
             this.groupBoxExternalFeed.Controls.Add(this.btnExtFeedsAdd);
             this.groupBoxExternalFeed.Controls.Add(this.btnExtFeedsRemove);
-            this.groupBoxExternalFeed.Location = new System.Drawing.Point(9, 3);
+            this.groupBoxExternalFeed.Location = new System.Drawing.Point(6, 6);
             this.groupBoxExternalFeed.Name = "groupBoxExternalFeed";
-            this.groupBoxExternalFeed.Size = new System.Drawing.Size(591, 330);
+            this.groupBoxExternalFeed.Size = new System.Drawing.Size(594, 338);
             this.groupBoxExternalFeed.TabIndex = 0;
             this.groupBoxExternalFeed.TabStop = false;
             this.groupBoxExternalFeed.Text = "External Feeds";
             // 
             // btnExtFeedUpdate
             // 
-            this.btnExtFeedUpdate.Location = new System.Drawing.Point(510, 48);
+            this.btnExtFeedUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnExtFeedUpdate.Location = new System.Drawing.Point(513, 48);
             this.btnExtFeedUpdate.Name = "btnExtFeedUpdate";
             this.btnExtFeedUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnExtFeedUpdate.TabIndex = 5;
+            this.btnExtFeedUpdate.TabIndex = 2;
             this.btnExtFeedUpdate.Text = "Update";
             this.btnExtFeedUpdate.UseVisualStyleBackColor = true;
             this.btnExtFeedUpdate.Click += new System.EventHandler(this.btnExtFeedUpdate_Click);
@@ -740,18 +754,21 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxSelectedFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSelectedFeed.Controls.Add(this.feedReferenceControl);
-            this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 133);
+            this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 141);
             this.groupBoxSelectedFeed.Name = "groupBoxSelectedFeed";
-            this.groupBoxSelectedFeed.Size = new System.Drawing.Size(579, 191);
-            this.groupBoxSelectedFeed.TabIndex = 3;
+            this.groupBoxSelectedFeed.Size = new System.Drawing.Size(582, 191);
+            this.groupBoxSelectedFeed.TabIndex = 4;
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Selected Feed";
             // 
             // feedReferenceControl
             // 
-            this.feedReferenceControl.Location = new System.Drawing.Point(7, 20);
+            this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 20);
             this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(497, 171);
+            this.feedReferenceControl.Size = new System.Drawing.Size(570, 171);
             this.feedReferenceControl.TabIndex = 0;
             // 
             // listBoxExtFeeds
@@ -763,17 +780,17 @@ namespace ZeroInstall.FeedEditor
             this.listBoxExtFeeds.HorizontalScrollbar = true;
             this.listBoxExtFeeds.Location = new System.Drawing.Point(6, 19);
             this.listBoxExtFeeds.Name = "listBoxExtFeeds";
-            this.listBoxExtFeeds.Size = new System.Drawing.Size(498, 108);
-            this.listBoxExtFeeds.TabIndex = 2;
+            this.listBoxExtFeeds.Size = new System.Drawing.Size(501, 108);
+            this.listBoxExtFeeds.TabIndex = 0;
             this.listBoxExtFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxExtFeeds_SelectedIndexChanged);
             // 
             // btnExtFeedsAdd
             // 
             this.btnExtFeedsAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExtFeedsAdd.Location = new System.Drawing.Point(510, 19);
+            this.btnExtFeedsAdd.Location = new System.Drawing.Point(513, 19);
             this.btnExtFeedsAdd.Name = "btnExtFeedsAdd";
             this.btnExtFeedsAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnExtFeedsAdd.TabIndex = 3;
+            this.btnExtFeedsAdd.TabIndex = 1;
             this.btnExtFeedsAdd.Text = "Add";
             this.btnExtFeedsAdd.UseVisualStyleBackColor = true;
             this.btnExtFeedsAdd.Click += new System.EventHandler(this.btnExtFeedsAdd_Click);
@@ -781,10 +798,10 @@ namespace ZeroInstall.FeedEditor
             // btnExtFeedsRemove
             // 
             this.btnExtFeedsRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnExtFeedsRemove.Location = new System.Drawing.Point(510, 77);
+            this.btnExtFeedsRemove.Location = new System.Drawing.Point(513, 77);
             this.btnExtFeedsRemove.Name = "btnExtFeedsRemove";
             this.btnExtFeedsRemove.Size = new System.Drawing.Size(75, 23);
-            this.btnExtFeedsRemove.TabIndex = 4;
+            this.btnExtFeedsRemove.TabIndex = 3;
             this.btnExtFeedsRemove.Text = "Remove";
             this.btnExtFeedsRemove.UseVisualStyleBackColor = true;
             this.btnExtFeedsRemove.Click += new System.EventHandler(this.btnExtFeedsRemove_Click);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Forms;
 using ZeroInstall.Model;
@@ -11,15 +12,11 @@ namespace ZeroInstall.FeedEditor
     public partial class TargetBaseControl : UserControl
     {
         #region Properties
-        /// <summary>
-        /// <para>The <see cref="TargetBase" /> which fills the controls.</para>
-        /// </summary>
-        /// <remarks>On changing any control entry, <see cref="TargetBase" /> will be updated.</remarks>
         private TargetBase _targetBase;
-
         /// <summary>
-        /// The TargetBase which fills the controls. If <see langword="null" /> the control resets.
+        /// The <see cref="TargetBase" /> which fills the controls. If <see langword="null" /> the control resets.
         /// </summary>
+        [Browsable(false)]
         public TargetBase TargetBase
         {
             get { return _targetBase; }
@@ -35,7 +32,7 @@ namespace ZeroInstall.FeedEditor
                 UpdateLanguages();
                 // select right values for OS and CPU in the combo boxes
                 comboBoxOS.SelectedItem = _targetBase.Architecture.OS;
-                comboBoxCPU.SelectedItem = _targetBase.Architecture.Cpu;
+                comboBoxCpu.SelectedItem = _targetBase.Architecture.Cpu;
             }
         }
         #endregion
@@ -65,8 +62,8 @@ namespace ZeroInstall.FeedEditor
 
             // load the possible CPUs in comboBoxCPU
             foreach (var cpu in Enum.GetValues(typeof(Cpu)))
-                comboBoxCPU.Items.Add(cpu);
-            comboBoxCPU.SelectedIndex = (int)Cpu.All;
+                comboBoxCpu.Items.Add(cpu);
+            comboBoxCpu.SelectedIndex = (int)Cpu.All;
         }
 
         /// <summary>
@@ -126,7 +123,7 @@ namespace ZeroInstall.FeedEditor
         private void comboBoxCPU_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
-            _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCPU.SelectedItem);
+            _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCpu.SelectedItem);
         }
 
         /// <summary>
@@ -136,7 +133,7 @@ namespace ZeroInstall.FeedEditor
         {
             UpdateLanguages();
             comboBoxOS.SelectedItem = OS.All;
-            comboBoxCPU.SelectedItem = Cpu.All;
+            comboBoxCpu.SelectedItem = Cpu.All;
         }
 
         /// <summary>
@@ -158,7 +155,7 @@ namespace ZeroInstall.FeedEditor
         private void comboBoxCPU_Enter(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
-            comboBoxCPU.SelectedItem = _targetBase.Architecture.Cpu;
+            comboBoxCpu.SelectedItem = _targetBase.Architecture.Cpu;
         }
 
         /// <summary>

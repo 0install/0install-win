@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
-using Icon = ZeroInstall.Model.Icon;
-using System.Collections.Generic;
-using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.FeedEditor
 {
@@ -22,7 +17,6 @@ namespace ZeroInstall.FeedEditor
             _openInterfacePath = null;
             InitializeSaveFileDialog();
             InitializeLoadFileDialog();
-            feedReferenceControl.FeedReference = null;
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
@@ -75,7 +69,7 @@ namespace ZeroInstall.FeedEditor
                 zeroInterface.Categories.Add(category.ToString());
             }
             // save icon urls
-            foreach (Icon icon in listIconsUrls.Items)
+            foreach (Model.Icon icon in listIconsUrls.Items)
             {
                 zeroInterface.Icons.Add(icon);
             }
@@ -215,7 +209,7 @@ namespace ZeroInstall.FeedEditor
             listBoxExtFeeds.Items.Clear();
             textFeedFor.Clear();
             listBoxFeedFor.Items.Clear();
-            feedReferenceControl.FeedReference = null;
+            feedReferenceControl.SetFeedReference(null);
             comboBoxMinInjectorVersion.SelectedIndex = 0;
         }
 
@@ -254,7 +248,7 @@ namespace ZeroInstall.FeedEditor
         {
             if (listIconsUrls.SelectedItem == null) return;
 
-            var icon = (Icon)listIconsUrls.SelectedItem;
+            var icon = (Model.Icon)listIconsUrls.SelectedItem;
             textIconUrl.Text = icon.LocationString;
             switch (icon.MimeType)
             {
@@ -274,7 +268,7 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
+            var feedReference = feedReferenceControl.GetFeedReference();
             if (String.IsNullOrEmpty(feedReference.TargetString)) return;
             if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
@@ -304,7 +298,7 @@ namespace ZeroInstall.FeedEditor
         {
             var selectedItem = (FeedReference)listBoxExtFeeds.SelectedItem;
             if (selectedItem == null) return;
-            feedReferenceControl.FeedReference = selectedItem.CloneFeedReference();
+            feedReferenceControl.SetFeedReference(selectedItem);
         }
 
         private void btnFeedForAdd_Click(object sender, EventArgs e)
@@ -433,7 +427,7 @@ namespace ZeroInstall.FeedEditor
         private void btnExtFeedUpdate_Click(object sender, EventArgs e)
         {
             var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
-            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
+            var feedReference = feedReferenceControl.GetFeedReference();
             if (selectedFeedReferenceIndex < 0) return;
             if (String.IsNullOrEmpty(feedReference.TargetString)) return;
             listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
