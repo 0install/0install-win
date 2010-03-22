@@ -1,3 +1,5 @@
+The subdirectory "vs" contains the Visual Studio project with the actual source code.
+
 "build.cmd" will call the build scripts in the subdirectories to create a complete Zero Install for Windows distribution in bin/Setup.
 Please read the "readme.txt" files in the subfolders before using this script.
 
