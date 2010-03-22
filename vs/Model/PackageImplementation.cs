@@ -152,6 +152,6 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        // ToDo: Implement Equals
+        // ToDo: Implement Equals and Clone
     }
 }
