@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
         #region Properties
 
         #region Steps
-        // Preserve order, duplicate entries are allowed
+        // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedLinkedList<Archive> _archives = new C5.HashedLinkedList<Archive>();
         /// <summary>
         /// An ordered list of archives to extract.
