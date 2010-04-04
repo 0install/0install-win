@@ -54,34 +54,34 @@ namespace ZeroInstall.Model
         public string Use { get; set; }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Constraint> _constraints = new C5.HashedArrayList<Constraint>();
+        private readonly C5.HashedLinkedList<Constraint> _constraints = new C5.HashedLinkedList<Constraint>();
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Description("A list of version constraints that must be fulfilled.")]
         [XmlElement("version")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Constraint> Constraints { get { return _constraints; } }
+        public C5.HashedLinkedList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<EnvironmentBinding> _environmentBindings = new C5.HashedArrayList<EnvironmentBinding>();
+        private readonly C5.HashedLinkedList<EnvironmentBinding> _environmentBindings = new C5.HashedLinkedList<EnvironmentBinding>();
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
         /// </summary>
-        [Description("A list of bindings for environment implementatiosn to locate this dependency.")]
+        [Description("A list of bindings for environment implementations to locate this dependency.")]
         [XmlElement("environment")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
+        public C5.HashedLinkedList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<OverlayBinding> _overlayBindings = new C5.HashedArrayList<OverlayBinding>();
+        private readonly C5.HashedLinkedList<OverlayBinding> _overlayBindings = new C5.HashedLinkedList<OverlayBinding>();
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
         /// </summary>
         [Description("A list of bindings for overlay implementatiosn to locate this dependency.")]
         [XmlElement("overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
+        public C5.HashedLinkedList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
 
         //--------------------//
