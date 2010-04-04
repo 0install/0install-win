@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of sub-groups.")]
         [XmlElement("group")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this group.")]
         [XmlElement("implementation")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Implementation> Implementations { get { return _implementation; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this group.")]
         [XmlElement("package-implementation")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 

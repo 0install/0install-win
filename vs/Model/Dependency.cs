@@ -56,11 +56,11 @@ namespace ZeroInstall.Model
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<Constraint> _constraints = new C5.HashedArrayList<Constraint>();
         /// <summary>
-        /// A list of version <see cref="Constraint"/>s that must be fullfilled.
+        /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
-        [Description("A list of version constraints that must be fullfilled.")]
+        [Description("A list of version constraints that must be fulfilled.")]
         [XmlElement("version")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -70,7 +70,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for environment implementatiosn to locate this dependency.")]
         [XmlElement("environment")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for overlay implementatiosn to locate this dependency.")]
         [XmlElement("overlay")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
 

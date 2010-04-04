@@ -143,7 +143,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -153,7 +153,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("environment")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -163,7 +163,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Execution"), Description("A list of bindings for this implementation to locate itself.")]
         [XmlElement("overlay")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
 

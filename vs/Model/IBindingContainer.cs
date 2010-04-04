@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementatiosn to locate dependencies.")]
         [XmlElement("environment")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         HashedArrayList<EnvironmentBinding> EnvironmentBindings { get; }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of bindings for implementatiosn to locate dependencies.")]
         [XmlElement("overlay")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         HashedArrayList<OverlayBinding> OverlayBindings { get; }
     }
 }

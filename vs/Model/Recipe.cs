@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A recipe is a list of
+    /// A recipe is a list of <see cref="RetrievalStep"/>s used to create an <see cref="Implementation"/> directory.
     /// </summary>
     public sealed class Recipe : RetrievalMethod
     {
@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public Collection<Archive> Archives { get { return _archives; } }
         #endregion
 

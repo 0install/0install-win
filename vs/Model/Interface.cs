@@ -64,7 +64,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
         [XmlElement("feed")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<FeedReference> Feeds { get { return _feeds; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as classification for the interface.")]
         [XmlElement("category")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
@@ -148,7 +148,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Icon> Icons { get { return _icons; } }
         
         // Preserve order, duplicate entries are not allowed
@@ -158,7 +158,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups contained within this interface.")]
         [XmlElement("group")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
@@ -169,7 +169,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this interface.")]
         [XmlElement("implementation")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Implementation> Implementations { get { return _implementation; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -179,7 +179,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this interface.")]
         [XmlElement("package-implementation")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 

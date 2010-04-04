@@ -58,7 +58,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement("archive")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Archive> Archives { get { return _archives; } }
 
         // Preserve order, duplicate entries are not allowed
@@ -68,7 +68,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Retrieval"), Description("A list of recipes as retrieval methods.")]
         [XmlElement("recipe")]
-        // Don't use ICollection<T> interface to make XML Serialization work
+        // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Recipe> Recipes { get { return _recipes; } }
         #endregion
 
