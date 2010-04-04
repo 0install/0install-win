@@ -20,18 +20,19 @@
  * THE SOFTWARE.
  */
 
-using System.Drawing;
+using System.Windows.Forms;
 
 namespace Common
 {
     /// <summary>
-    /// An object that can be highlighted in list representations.
+    /// An object that can provide its own context menu.
     /// </summary>
-    public interface IHighlightable
+    /// <seealso cref="Controls.FilteredTreeView{T}"/>
+    public interface IContextMenu
     {
         /// <summary>
-        /// The color to highlight this object with in list representations. <see cref="Color.Empty"/> for no highlighting.
+        /// Returns the context menu for this object. May be <see langword="null"/>.
         /// </summary>
-        Color HighlightColor { get; }
+        ContextMenu GetContextMenu();
     }
 }

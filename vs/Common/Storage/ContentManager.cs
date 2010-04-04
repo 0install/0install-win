@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common.Collections;
@@ -32,13 +33,13 @@ using ICSharpCode.SharpZipLib.Zip;
 namespace Common.Storage
 {
     /// <summary>
-    /// Provides a virtual file system for combining data from multiple directories and archives (includes modding support)
+    /// Provides a virtual file system for combining data from multiple directories and archives (useful for modding).
     /// </summary>
     public static class ContentManager
     {
         #region Constants
         /// <summary>
-        /// The file extensions of content archives
+        /// The file extensions of content archives.
         /// </summary>
         public const string FileExt = ".pk5";
         #endregion
@@ -53,9 +54,9 @@ namespace Common.Storage
 
         #region Properties
         /// <summary>
-        /// The base directory where all the content files are stored
+        /// The base directory where all the content files are stored; should not be <see langword="null"/>.
         /// </summary>
-        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found</exception>
+        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found.</exception>
         public static DirectoryInfo BaseDir
         {
             get { return _baseDir; }
@@ -68,9 +69,9 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// A directory overriding the base directory for creating mods; may be <see langword="null"/>
+        /// A directory overriding the base directory for creating mods; may be <see langword="null"/>.
         /// </summary>
-        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found</exception>
+        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found.</exception>
         public static DirectoryInfo ModDir
         {
             get { return _modDir; }
@@ -190,11 +191,11 @@ namespace Common.Storage
 
         #region Create directory path
         /// <summary>
-        /// Creates a path for a content directory (using the current mod directory if available)
+        /// Creates a path for a content directory (using the <see cref="ModDir"/> if available).
         /// </summary>
-        /// <param name="type">The type of file you want (e.g. Textures, Sounds, ...)</param>
-        /// <returns>The absolute path to the requested directory</returns>
-        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found</exception>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <returns>The absolute path to the requested directory.</returns>
+        /// <exception cref="DirectoryNotFoundException">Is thrown when the specified directory could not be found.</exception>
         public static string CreateDirPath(string type)
         {
             #region Sanity checks
@@ -219,11 +220,11 @@ namespace Common.Storage
 
         #region Create file path
         /// <summary>
-        /// Creates a path for a content file (using the current mod directory if available)
+        /// Creates a path for a content file (using <see cref="ModDir"/> if available).
         /// </summary>
-        /// <param name="type">The type of file you want (e.g. Textures, Sounds, ...)</param>
-        /// <param name="id">The file name of the content</param>
-        /// <returns>The absolute path to the requested content file</returns>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <param name="id">The file name of the content.</param>
+        /// <returns>The absolute path to the requested content file.</returns>
         public static string CreateFilePath(string type, string id)
         {
             #region Sanity checks
@@ -241,14 +242,19 @@ namespace Common.Storage
 
         #region File exists
         /// <summary>
-        /// Checks whether a certain content file exists
+        /// Checks whether a certain content file exists.
         /// </summary>
-        /// <param name="type">The type of file you want (e.g. Textures, Sounds, ...)</param>
-        /// <param name="id">The file name of the content</param>
-        /// <param name="searchArchives">Whether to search for the file in archives as well</param>
-        /// <returns><see langword="true"/> if the requested content file exists</returns>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <param name="id">The file name of the content.</param>
+        /// <param name="searchArchives">Whether to search for the file in archives as well.</param>
+        /// <returns><see langword="true"/> if the requested content file exists.</returns>
         public static bool FileExists(string type, string id, bool searchArchives)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(type)) throw new ArgumentNullException("type");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             // Unify directory directory separator character
             type = StringHelper.UnifySlashes(type);
             id = StringHelper.UnifySlashes(id);
@@ -263,91 +269,130 @@ namespace Common.Storage
         }
         #endregion
 
+        #region Get file list
+
         #region Helpers
         /// <summary>
-        /// Recursively finds all files in <paramref name="directory"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> collection
+        /// Adds a specific file to the <paramref name="files"/> list.
         /// </summary>
-        /// <param name="files">The collection to add the found files to</param>
-        /// <param name="extension">The file extension to look for</param>
-        /// <param name="directory">The directory to look in</param>
-        /// <param name="prefix">A prefix to add before the file name in the list (used to indicate current sub-directory)</param>
-        private static void RecursiveDirHelper(ICollection<FileEntry> files, string extension, DirectoryInfo directory, string prefix)
+        /// <param name="files">The collection to add the file to.</param>
+        /// <param name="type">The type-subdirectory the file belongs to.</param>
+        /// <param name="name">The file name to be added to the list.</param>
+        /// <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        private static void AddFileToList(KeyedCollection<string, FileEntry> files, string type, string name, bool flagAsMod)
         {
-            // Add the files in this directory to the list
-            foreach (FileInfo file in directory.GetFiles("*" + extension))
-                files.Add(new FileEntry(prefix + file.Name, FileEntryType.Normal));
+            if (flagAsMod)
+            {
+                // Detect whether this is a new file or a replacement for an existing one
+                if (files.Contains(name))
+                {
+                    var previousEntry = files[name];
 
-            // Recursively call this method for all sub-directories
-            foreach (DirectoryInfo subDir in directory.GetDirectories())
-                RecursiveDirHelper(files, extension, subDir, prefix + subDir.Name + Path.DirectorySeparatorChar);
+                    // Only mark as modified if the pre-existing file isn't already a mod file itself
+                    if (previousEntry.EntryType == FileEntryType.Normal)
+                    {
+                        files.Remove(previousEntry);
+                        files.Add(new FileEntry(type, name, FileEntryType.Modified));
+                    }
+                }
+                else files.Add(new FileEntry(type, name, FileEntryType.Added));
+            }
+            else
+            {
+                // Prevent duplicate entries
+                if (!files.Contains(name)) files.Add(new FileEntry(type, name));
+            }
         }
 
         /// <summary>
-        /// Finds all files in <paramref name="archive"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> collection
+        /// Recursively finds all files in <paramref name="directory"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> list.
         /// </summary>
-        /// <param name="files">The collection to add the found files to</param>
-        /// <param name="extension">The file extension to look for</param>
-        /// <param name="type">The type-subdirectory to look in</param>
-        /// <param name="archive">The archive to look in</param>
-        private static void ArchiveHelper(ICollection<FileEntry> files, string extension, string type, IEnumerable<KeyValuePair<string, ContentArchiveEntry>> archive)
+        /// <param name="files">The collection to add the found files to.</param>
+        /// <param name="type">The type-subdirectory the files belong to.</param>
+        /// <param name="extension">The file extension to look for.</param>
+        /// <param name="directory">The directory to look in.</param>
+        /// <param name="prefix">A prefix to add before the file name in the list (used to indicate current sub-directory).</param>
+        /// <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        private static void AddDirectoryToList(KeyedCollection<string, FileEntry> files, string type, string extension, DirectoryInfo directory, string prefix, bool flagAsMod)
         {
-            foreach (KeyValuePair<string, ContentArchiveEntry> pair in archive)
+            // Add the files in this directory to the list
+            foreach (FileInfo file in directory.GetFiles("*" + extension))
+                AddFileToList(files, type, prefix + file.Name, flagAsMod);
+
+            // Recursively call this method for all sub-directories
+            foreach (DirectoryInfo subDir in directory.GetDirectories())
+                AddDirectoryToList(files, type, extension, subDir, prefix + subDir.Name + Path.DirectorySeparatorChar, flagAsMod);
+        }
+
+        /// <summary>
+        /// Finds all files in <paramref name="archiveData"/> ending with <paramref name="extension"/> and adds them to the <paramref name="files"/> collection
+        /// </summary>
+        /// <param name="files">The collection to add the found files to.</param>
+        /// <param name="extension">The file extension to look for.</param>
+        /// <param name="type">The type-subdirectory to look in.</param>
+        /// <param name="archiveData">The archive data list to look in.</param>
+        /// <param name="flagAsMod">Set to <see langword="true"/> when handling mod files to detect added and changed files.</param>
+        private static void AddArchivesToList(KeyedCollection<string, FileEntry> files, string type, string extension, IEnumerable<KeyValuePair<string, ContentArchiveEntry>> archiveData, bool flagAsMod)
+        {
+            foreach (KeyValuePair<string, ContentArchiveEntry> pair in archiveData)
             {
                 if (pair.Key.StartsWith(type, StringComparison.OrdinalIgnoreCase) && pair.Key.EndsWith(extension, StringComparison.OrdinalIgnoreCase))
-                    files.Add(new FileEntry(pair.Key.Substring(type.Length + 1), FileEntryType.Normal)); // Cut away the type part of the path
+                {
+                    // Cut away the type part of the path
+                    AddFileToList(files, type, pair.Key.Substring(type.Length + 1), flagAsMod);
+                }
             }
         }
         #endregion
 
-        #region Get file list
         /// <summary>
         /// Gets a list of all files of a certain type
         /// </summary>
         /// <param name="type">The type of files you want (e.g. Textures, Sounds, ...)</param>
         /// <param name="extension">The file extension to so search for</param>
-        /// <param name="searchArchives">Whether to search for the file in archives as well</param>
         /// <returns>An collection of strings with file IDs</returns>
-        public static INamedCollection<FileEntry> GetFileList(string type, string extension, bool searchArchives)
+        public static INamedCollection<FileEntry> GetFileList(string type, string extension)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(type)) throw new ArgumentNullException("type");
+            if (string.IsNullOrEmpty(extension)) throw new ArgumentNullException("extension");
+            #endregion
+
             // Unify directory directory separator character
             type = StringHelper.UnifySlashes(type);
 
+            // Create an alphabetical list of files without duplicates
             var files = new NamedCollection<FileEntry>();
-
-            #region Base files
+            
+            #region Find all base files
+            // Find real files
             if (Directory.Exists(Path.Combine(BaseDir.FullName, type)))
             {
-                RecursiveDirHelper(files, extension,
-                    new DirectoryInfo(Path.Combine(BaseDir.FullName, type)), "");
+                AddDirectoryToList(files, type, extension,
+                    new DirectoryInfo(Path.Combine(BaseDir.FullName, type)), "", false);
             }
 
-            if (searchArchives)
-                ArchiveHelper(files, extension, type, BaseArchiveData);
+            // Find files in archives
+            AddArchivesToList(files, type, extension, BaseArchiveData, false);
             #endregion
 
             if (ModDir != null)
             {
-                #region Mod files
-                var modFiles = new NamedCollection<FileEntry>();
-
+                #region Find all mod files
+                // Find real files
                 if (Directory.Exists(Path.Combine(ModDir.FullName, type)))
                 {
-                    RecursiveDirHelper(modFiles, extension,
-                        new DirectoryInfo(Path.Combine(ModDir.FullName, type)), "");
+                    AddDirectoryToList(files, type, extension,
+                        new DirectoryInfo(Path.Combine(ModDir.FullName, type)), "", true);
                 }
 
-                if (searchArchives)
-                    ArchiveHelper(modFiles, extension, type, ModArchiveData);
-                #endregion
-
-                #region Merge
-                foreach (FileEntry file in modFiles)
-                {
-                    // Replace existing entries
-                    files.Add(file);
-                }
+                // Find files in archives
+                AddArchivesToList(files, type, extension, ModArchiveData, true);
                 #endregion
             }
+
+            // Sort list alphabetically
+            files.Sort();
 
             return files;
         }
@@ -357,12 +402,17 @@ namespace Common.Storage
         /// <summary>
         /// Gets the file path for a content file (does not search in archives)
         /// </summary>
-        /// <param name="type">The type of file you want (e.g. Textures, Sounds, ...)</param>
-        /// <param name="id">The file name of the content</param>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <param name="id">The file name of the content.</param>
         /// <returns>The absolute path to the requested content file</returns>
-        /// <exception cref="FileNotFoundException">Is thrown when the specified file could not be found</exception>
+        /// <exception cref="FileNotFoundException">Is thrown if the specified file could not be found.</exception>
         public static string GetFilePath(string type, string id)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(type)) throw new ArgumentNullException("type");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             // Unify directory directory separator character
             type = StringHelper.UnifySlashes(type);
             id = StringHelper.UnifySlashes(id);
@@ -389,12 +439,17 @@ namespace Common.Storage
         /// <summary>
         /// Gets a reading stream for a content file (searches in archives)
         /// </summary>
-        /// <param name="type">The type of file you want (e.g. Textures, Sounds, ...)</param>
-        /// <param name="id">The file name of the content</param>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <param name="id">The file name of the content.</param>
         /// <returns>The absolute path to the requested content file</returns>
-        /// <exception cref="FileNotFoundException">Is thrown when the specified file could not be found</exception>
+        /// <exception cref="FileNotFoundException">Is thrown if the specified file could not be found.</exception>
         public static Stream GetFileStream(string type, string id)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(type)) throw new ArgumentNullException("type");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             // Unify directory directory separator character
             type = StringHelper.UnifySlashes(type);
             id = StringHelper.UnifySlashes(id);
@@ -445,6 +500,31 @@ namespace Common.Storage
             #endregion
 
             throw new FileNotFoundException(Resources.NotFoundGameContentFile + "\n" + Path.Combine(type, id), Path.Combine(type, id));
+        }
+        #endregion
+
+        #region Delete mod file
+        /// <summary>
+        /// Deletes a file in <see cref="ModDir"/>. Will not touch files in archives or in <see cref="BaseDir"/>.
+        /// </summary>
+        /// <param name="type">The type of file (e.g. Textures, Sounds, ...).</param>
+        /// <param name="id">The file name of the content.</param>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="ModDir"/> is not set.</exception>
+        /// <exception cref="FileNotFoundException">Is thrown if the specified file could not be found.</exception>
+        /// <exception cref="IOException">Is thrown if the specified file could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Is thrown if you have insufficient rights to delete the file.</exception>
+        public static void DeleteModFile(string type, string id)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(type)) throw new ArgumentNullException("type");
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
+            // Ensure there is an active mod
+            if (ModDir == null) throw new InvalidOperationException(Resources.NoModActive);
+
+            // Try to delete a file in that mod
+            File.Delete(Path.Combine(ModDir.FullName, Path.Combine(type, id)));
         }
         #endregion
     }

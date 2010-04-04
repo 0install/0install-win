@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="Arguments.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
+    <Compile Include="Collections\MultiDictionary.cs" />
     <Compile Include="Collections\Pool.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\MonitoredCollection.cs" />
@@ -100,7 +101,8 @@
     <Compile Include="Helpers\StringHelper.cs" />
     <Compile Include="Helpers\WindowsHelper.cs" />
     <Compile Include="Helpers\Windows7Structures.cs" />
-    <Compile Include="IHighlightable.cs" />
+    <Compile Include="IContextMenu.cs" />
+    <Compile Include="IHighlightColor.cs" />
     <Compile Include="INamed.cs" />
     <Compile Include="Controls\InputBox.cs">
       <SubType>Form</SubType>

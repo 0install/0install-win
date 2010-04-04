@@ -39,7 +39,9 @@
             this.treeView.Name = "treeView";
             this.treeView.Size = new System.Drawing.Size(156, 161);
             this.treeView.TabIndex = 1;
+            this.treeView.DoubleClick += new System.EventHandler(this.treeView_DoubleClick);
             this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            this.treeView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView_KeyDown);
             // 
             // textSearch
             // 

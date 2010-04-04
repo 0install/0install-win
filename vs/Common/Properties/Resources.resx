@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="ClearButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ClearButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -139,9 +139,6 @@
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>There was no XML data found in the file.</value>
   </data>
-  <data name="UncomparableType" xml:space="preserve">
-    <value>Type \"{0}\" does not implement IComparable&lt;{0}&gt; or IComparable.</value>
-  </data>
   <data name="ArgMustNotBeNegative" xml:space="preserve">
     <value>The argument may not be less than zero.</value>
   </data>
@@ -154,14 +151,8 @@
   <data name="ResetNotSupported" xml:space="preserve">
     <value>Reset is not supported on this enumerator.</value>
   </data>
-  <data name="CannotModifyCollection" xml:space="preserve">
-    <value>The \"{0}\" collection is read-only and cannot be modified.</value>
-  </data>
   <data name="KeyAlreadyPresent" xml:space="preserve">
     <value>The key was already present in the dictionary.</value>
-  </data>
-  <data name="WrongType" xml:space="preserve">
-    <value>The value \"{0}\" isn't of type \"{1}\" and can't be used in this generic collection.</value>
   </data>
   <data name="MustOverrideOrReimplement" xml:space="preserve">
     <value>This method must be overridden or re-implemented in the derived class.</value>
@@ -175,38 +166,14 @@
   <data name="OutOfViewRange" xml:space="preserve">
     <value>The argument is outside the range of this View.</value>
   </data>
-  <data name="TypeNotCloneable" xml:space="preserve">
-    <value>Type \"{0}\" does not implement ICloneable.</value>
-  </data>
-  <data name="ChangeDuringEnumeration" xml:space="preserve">
-    <value>Collection was modified during an enumeration.</value>
-  </data>
-  <data name="InconsistentComparisons" xml:space="preserve">
-    <value>The two collections cannot be combined because they use different comparison operations.</value>
-  </data>
-  <data name="CollectionIsEmpty" xml:space="preserve">
-    <value>The collection is empty.</value>
-  </data>
   <data name="BadComparandType" xml:space="preserve">
     <value>Comparand is not of the correct type.</value>
-  </data>
-  <data name="CollectionTooLarge" xml:space="preserve">
-    <value>The collection has become too large.</value>
   </data>
   <data name="InvalidLoadFactor" xml:space="preserve">
     <value>The load factor must be between 0.25 and 0.95.</value>
   </data>
-  <data name="CapacityLessThanCount" xml:space="preserve">
-    <value>The capacity may not be less than Count.</value>
-  </data>
   <data name="ListIsReadOnly" xml:space="preserve">
     <value>The list may not be read only.</value>
-  </data>
-  <data name="CollectionIsReadOnly" xml:space="preserve">
-    <value>The collection may not be read only.</value>
-  </data>
-  <data name="IdentityComparerNoCompare" xml:space="preserve">
-    <value>The Compare method is not supported on an identity comparer.</value>
   </data>
   <data name="MinLargerMax" xml:space="preserve">
     <value>The Min value may not be larger than the Max value.</value>
@@ -244,10 +211,39 @@
   <data name="TargetsOldValuesLength" xml:space="preserve">
     <value>Length of targets must be equal to Length of oldValues</value>
   </data>
+  <data name="FailedToCreateXmlWriter" xml:space="preserve">
+    <value>Failed to create XmlWriter.</value>
+  </data>
   <data name="CannotAddCollectionToSelf" xml:space="preserve">
     <value>The collection cannot be added to itself.</value>
   </data>
-  <data name="FailedToCreateXmlWriter" xml:space="preserve">
-    <value>Failed to create XmlWriter.</value>
+  <data name="CannotModifyCollection" xml:space="preserve">
+    <value>The \"{0}\" collection is read-only and cannot be modified.</value>
+  </data>
+  <data name="CollectionIsEmpty" xml:space="preserve">
+    <value>The collection is empty.</value>
+  </data>
+  <data name="NoModActive" xml:space="preserve">
+    <value>There is currently no active mod.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="LoseChangesAsk" xml:space="preserve">
+    <value>Warning! All your changes to this file will be lost. Do you wish to continue?</value>
+  </data>
+  <data name="LoseChangesNo" xml:space="preserve">
+    <value>No
+Keep the changes</value>
+  </data>
+  <data name="LoseChangesYes" xml:space="preserve">
+    <value>Yes
+Delete the changes</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Revert</value>
+  </data>
+  <data name="UnableToDelete" xml:space="preserve">
+    <value>The file could not be deleted.</value>
   </data>
 </root>

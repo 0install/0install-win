@@ -31,11 +31,12 @@ using Common.Helpers;
 namespace Common.Controls
 {
     /// <summary>
-    /// Displays a list of <see cref="IHighlightable"/> <see cref="INamed"/>s in a <see cref="TreeView"/> with incremental search.
+    /// Displays a list of <see cref="INamed"/>s objects in a <see cref="TreeView"/> with incremental search.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="IHighlightable"/> <see cref="INamed"/> to list.</typeparam>
+    /// <typeparam name="T">The type of <see cref="INamed"/> object to list.
+    /// Special support for types implementing <see cref="IHighlightColor"/> and/or <see cref="IContextMenu"/>,</typeparam>
     [Description("Displays a list of INamed in a TreeView with incremental search.")]
-    public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed, IHighlightable
+    public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed
     {
         #region Events
         /// <summary>
@@ -48,6 +49,17 @@ namespace Common.Controls
         {
             if (SelectedEntryChanged != null && !_supressEvents) SelectedEntryChanged(this, EventArgs.Empty);
         }
+
+        /// <summary>
+        /// Occurs when the user has confirmed the <see cref="SelectedEntry"/> via double-clicking or pressing Enter.
+        /// </summary>
+        [Description("Occurs when the user has confirmed the current selection via double-clicking or pressing Enter.")]
+        public event EventHandler SelectionConfirmed;
+
+        private void OnSelectionConfirmed()
+        {
+            if (SelectionConfirmed != null) SelectionConfirmed(this, EventArgs.Empty);
+        }
         #endregion
 
         #region Variables
@@ -58,7 +70,7 @@ namespace Common.Controls
         #region Properties
         private INamedCollection<T> _entries;
         /// <summary>
-        /// The <see cref="IHighlightable"/> <see cref="INamed"/>s to be listed in the <see cref="TreeView"/>.
+        /// The <see cref="INamed"/> objects to be listed in the <see cref="TreeView"/>.
         /// </summary>
         [Browsable(false)]
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "This control is supposed to represent a live and mutable collection")]
@@ -71,7 +83,7 @@ namespace Common.Controls
 
         private T _selectedEntry;
         /// <summary>
-        /// The <see cref="IHighlightable"/> <see cref="INamed"/> currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
+        /// The <see cref="INamed"/> object currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
         /// </summary>
         [Browsable(false)]
         public T SelectedEntry
@@ -85,12 +97,12 @@ namespace Common.Controls
             }
         }
 
-        private char _seperator = '.';
+        private char _separator = '.';
         /// <summary>
-        /// The namespace seperator used in <see cref="INamed.Name"/>. This controls how the tree structure is generated.
+        /// The character used to separate namespaces in the <see cref="INamed.Name"/>s. This controls how the tree structure is generated.
         /// </summary>
-        [DefaultValue('.')]
-        public char Seperator { get { return _seperator; } set { _seperator = value; UpdateList(); } }
+        [DefaultValue('.'), Description("The character used to separate namespaces in the Names. This controls how the tree structure is generated.")]
+        public char Separator { get { return _separator; } set { _separator = value; UpdateList(); } }
         #endregion
 
         #region Constructor
@@ -110,6 +122,16 @@ namespace Common.Controls
         #endregion
 
         #region ListView control
+        private void treeView_DoubleClick(object sender, EventArgs e)
+        {
+            OnSelectionConfirmed();
+        }
+
+        private void treeView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter) OnSelectionConfirmed();
+        }
+
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             string className = treeView.SelectedNode.Name;
@@ -166,7 +188,7 @@ namespace Common.Controls
         {
             // Split into hierarchic namespaces
             string name = entry.Name;
-            string[] nameSplit = name.Split(_seperator);
+            string[] nameSplit = name.Split(_separator);
 
             // Start off at the top-level
             TreeNodeCollection subTree = treeView.Nodes;
@@ -183,8 +205,34 @@ namespace Common.Controls
             // Create node storing full name, using last part as visible text
             TreeNode finalNode = subTree.Add(name, nameSplit[nameSplit.Length - 1]);
 
-            // Apply the highlighting color if one is set
-            if (entry.HighlightColor != Color.Empty) finalNode.ForeColor = entry.HighlightColor;
+            #region Highlight color
+            var highlightColorProvider = entry as IHighlightColor;
+            if (highlightColorProvider != null && highlightColorProvider.HighlightColor != Color.Empty)
+            {
+                // Apply the highlighting color if one is set
+                finalNode.ForeColor = highlightColorProvider.HighlightColor;
+                finalNode.NodeFont = new Font(treeView.Font, FontStyle.Bold);
+            }
+            #endregion
+
+            #region Context menu
+            var contextMenuProvider = entry as IContextMenu;
+            if (contextMenuProvider != null)
+            {
+                var contextMenu = contextMenuProvider.GetContextMenu();
+                if (contextMenu != null)
+                {
+                    // Attach the context menu if one is set
+                    finalNode.ContextMenu = contextMenu;
+
+                    // Automatically reflect any changes the context menu may have made
+                    foreach (MenuItem menuItem in finalNode.ContextMenu.MenuItems)
+                    {
+                        menuItem.Click += delegate { UpdateList(); };
+                    }
+                }
+            }
+            #endregion
 
             return finalNode;
         }

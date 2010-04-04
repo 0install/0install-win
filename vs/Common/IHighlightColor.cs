@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,40 +20,19 @@
  * THE SOFTWARE.
  */
 
-using ICSharpCode.SharpZipLib.Zip;
+using System.Drawing;
 
-namespace Common.Storage
+namespace Common
 {
     /// <summary>
-    /// Represents a file in a content archive.
+    /// An object that can be highlighted with a specific color in list representations.
     /// </summary>
-    internal struct ContentArchiveEntry
+    /// <seealso cref="Controls.FilteredTreeView{T}"/>
+    public interface IHighlightColor
     {
-        #region Properties
-        private readonly ZipFile _zipFile;
         /// <summary>
-        /// The archive containing the file.
+        /// The color to highlight this object with in list representations. <see cref="Color.Empty"/> for no highlighting.
         /// </summary>
-        public ZipFile ZipFile { get { return _zipFile; } }
-
-        private readonly ZipEntry _zipEntry;
-        /// <summary>
-        /// The actual content file.
-        /// </summary>
-        public ZipEntry ZipEntry { get { return _zipEntry; } }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new content file representation
-        /// </summary>
-        /// <param name="zipFile">The archive containing the file</param>
-        /// <param name="zipEntry">The actual content file</param>
-        public ContentArchiveEntry(ZipFile zipFile, ZipEntry zipEntry)
-        {
-            _zipFile = zipFile;
-            _zipEntry = zipEntry;
-        }
-        #endregion
+        Color HighlightColor { get; }
     }
 }

@@ -171,4 +171,27 @@
   <data name="FailedToCreateXmlWriter" xml:space="preserve">
     <value>Das Erstellen des XmlWriters ist fehlgeschlagen.</value>
   </data>
+  <data name="NoModActive" xml:space="preserve">
+    <value>Derzeit ist kein Mod aktiv.</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Löschen</value>
+  </data>
+  <data name="LoseChangesAsk" xml:space="preserve">
+    <value>Warnung! Sämtliche Ihrer Änderungen an dieser Datei gehen hierbei verloren. Möchten Sie fortfahren?</value>
+  </data>
+  <data name="LoseChangesNo" xml:space="preserve">
+    <value>Nein
+Die Änderungen behalten</value>
+  </data>
+  <data name="LoseChangesYes" xml:space="preserve">
+    <value>Ja
+Die Änderungen löschen</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Zurücksetzen</value>
+  </data>
+  <data name="UnableToDelete" xml:space="preserve">
+    <value>Die Datei konnte nicht gelöscht werden.</value>
+  </data>
 </root>

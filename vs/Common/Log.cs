@@ -60,6 +60,14 @@ namespace Common
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Returns an ISO Date (Year-Month-Day.
+        /// </summary>
+        private static string IsoDate(DateTime date)
+        {
+            return date.Year + "-" + date.Month.ToString("00", CultureInfo.InvariantCulture) + "-" + date.Day.ToString("00", CultureInfo.InvariantCulture);
+        }
+
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "The static constructor is used to add an identification header to the log file")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
@@ -79,19 +87,16 @@ namespace Common
             }
 
             // When writing to a new file make sure it uses UTF-8
-            _writer = file.Length == 0 ? new StreamWriter(file, Encoding.UTF8) : new StreamWriter(file);
+            _writer = file.Length == 0 ? new StreamWriter(file, Encoding.UTF8) : new StreamWriter(file) { AutoFlush = true };
 
             // Go to end of file
             _writer.BaseStream.Seek(0, SeekOrigin.End);
-
-            // Enable auto flush (always being up to date when reading!)
-            _writer.AutoFlush = true;
             #endregion
 
             // Add a section identification block to the file
             AddLine("");
             AddLine("/// " + Application.ProductName + " v" + Application.ProductVersion);
-            AddLine("/// Session started at: " + StringHelper.WriteIsoDateAndTime(DateTime.Now));
+            AddLine("/// Session started at: " + IsoDate(DateTime.Now));
             AddLine("");
         }
         #endregion

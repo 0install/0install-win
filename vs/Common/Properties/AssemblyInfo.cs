@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Common functions")]
-[assembly: AssemblyDescription("Common functions used by NanoByte applications.")]
+[assembly: AssemblyDescription("Common functions used by desktop applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NanoByte")]
 [assembly: AssemblyProduct("OmegaEngine helper functions")]
