@@ -5,25 +5,25 @@ Extracted part of source, modified, compiled as part of Common.dll
 
 SharpZipLib 0.85.5
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
-GNU GPL with GNU Classpath exception: src/Common/ICSharpCode.SharpZipLib.license.txt
-Unmodified, pre-compiled binary (ICSharpCode.SharpZipLib.dll)
+GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
+Unmodified, pre-compiled binary (lib/ICSharpCode.SharpZipLib.dll)
 
 TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
 Public Domain: http://creativecommons.org/licenses/publicdomain/
-Source unmodified, self-compiled to TaskDialog.dll
+Source unmodified, self-compiled to lib/TaskDialog.dll
 
 The C5 Generic Collection Library 1.1.0
 http://www.itu.dk/research/c5/
-MIT-style open license: src/Common/C5.license.txt
-Unmodified, pre-compiled binary (C5.dll)
+MIT-style open license: lib/C5.license.txt
+Unmodified, pre-compiled binary (lib/C5.dll)
 
 LuaInterface 2.0.3
 http://luaforge.net/projects/luainterface/
 MIT License
-Source modified, self-compiled to LuaInterface.dll
+Source modified, self-compiled to lib/LuaInterface.dll
 
 Lua 5.1
 http://www.lua.org/
 MIT License
-Source unmodified, self-compiled to lua51.dll
+Source unmodified, self-compiled to lib/lua51.dll

@@ -49,19 +49,19 @@
     <Reference Include="System.Xml" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\ICSharpCode.SharpZipLib.dll</HintPath>
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\C5.dll</HintPath>
+      <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
     <Reference Include="TaskDialog, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fefb7635387ec9bb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\TaskDialog.dll</HintPath>
+      <HintPath>..\..\lib\TaskDialog.dll</HintPath>
     </Reference>
     <Reference Include="LuaInterface, Version=2.0.0.39641, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\LuaInterface.dll</HintPath>
+      <HintPath>..\..\lib\LuaInterface.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -163,30 +163,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="C5.dll" />
-    <None Include="C5.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Download\ClassDiagram.cd" />
-    <None Include="TaskDialog.dll" />
-    <None Include="TaskDialog.xml" />
-    <Content Include="C5.license.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="LuaInterface.dll" />
-    <Content Include="LuaInterface.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="lua51.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ICSharpCode.SharpZipLib.dll" />
-    <Content Include="ICSharpCode.SharpZipLib.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ICSharpCode.SharpZipLib.license.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>
