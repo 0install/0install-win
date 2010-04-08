@@ -4,7 +4,7 @@ cd /d "%~dp0"
 rem Project settings
 set ProgISS=setup.iss
 set ProgUpdateISS=update.iss
-set SetupTarget=..\bin\Setup
+set SetupTarget=..\build\Setup
 set SetupName=0install.exe
 
 rem Check Inno Setup 5

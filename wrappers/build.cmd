@@ -5,7 +5,7 @@ rem Use the Visual C# 2005 compiler
 echo Setting environment for using .NET Framework 2.0 tools.
 path %windir%\Microsoft.NET\Framework\v2.0.50727;%PATH%
 
-set TargetDir=..\bin\Release
+set TargetDir=..\build\Release
 if not exist "%TargetDir%" mkdir "%TargetDir%"
 
 echo Compiling 0launch commad-line wrapper...

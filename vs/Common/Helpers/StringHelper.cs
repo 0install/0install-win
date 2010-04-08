@@ -104,7 +104,7 @@ namespace Common.Helpers
         /// Use case-insensitive compare to check for a contained string.
         /// </summary>
         /// <param name="text">The string to search.</param>
-        /// <param name="value">The string to search for in <see cref="value"/>.</param>
+        /// <param name="value">The string to search for in <paramref cref="text"/>.</param>
         [LuaGlobal(Name = "StringContains", Description = "Use case-insensitive compare to check for a contained string.")]
         public static bool Contains(string text, string value)
         {

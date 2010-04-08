@@ -24,7 +24,7 @@ goto err_no_vs
 :compile
 call "%VS_COMNTOOLS%vsvars32.bat"
 echo Compiling Visual Studio solution...
-if exist ..\bin\Release rd /s /q ..\bin\Release
+if exist ..\build\Release rd /s /q ..\build\Release
 msbuild "%ProgSLN%" /t:Rebuild /p:Configuration=Release /v:q /nologo
 if errorlevel 1 pause
 goto end

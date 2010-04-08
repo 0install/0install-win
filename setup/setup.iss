@@ -38,7 +38,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\bin\Setup
+OutputDir=..\build\Setup
 #ifndef Update
 OutputBaseFilename=0install
 #endif
@@ -82,13 +82,13 @@ Name: de; MessagesFile: compiler:Languages\German.isl
 Name: {app}\Zero Install.exe; Type: files
 
 [Files]
-Source: ..\bin\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
-Source: ..\bin\Portable\*; Excludes: python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Portable\*; Excludes: python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #endif
 #ifdef Update
-Source: ..\bin\Portable\python\Scripts\*; DestDir: {app}\python\Scripts; Flags: ignoreversion recursesubdirs
-Source: ..\bin\Portable\python\Lib\site-packages\zeroinstall\*; DestDir: {app}\python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
+Source: ..\build\Portable\python\Scripts\*; DestDir: {app}\python\Scripts; Flags: ignoreversion recursesubdirs
+Source: ..\build\Portable\python\Lib\site-packages\zeroinstall\*; DestDir: {app}\python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
 #endif
 
 ;Copy cache files that might be distributed alongside the setup
