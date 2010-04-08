@@ -120,9 +120,6 @@
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
   </data>
-  <data name="MinLargerMax" xml:space="preserve">
-    <value>Der Min Wert darf nicht größer als der Max Wert sein.</value>
-  </data>
   <data name="NotFoundGameDataDir" xml:space="preserve">
     <value>Der Spieldaten-Ordner konnte nicht gefunden werden:</value>
   </data>
@@ -134,6 +131,18 @@
   </data>
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>Es wurden keine XML Daten in der Datei gefunden.</value>
+  </data>
+  <data name="ArgMustNotBeNegative" xml:space="preserve">
+    <value>Das Argument darf nicht kleiner als null sein.</value>
+  </data>
+  <data name="KeyNotFound" xml:space="preserve">
+    <value>Der Schlüssel wurde in der Collection nicht gefunden.</value>
+  </data>
+  <data name="KeyAlreadyPresent" xml:space="preserve">
+    <value>Der Schlüssel befindet sich bereits im Dictionar.</value>
+  </data>
+  <data name="MinLargerMax" xml:space="preserve">
+    <value>Der Min Wert darf nicht größer als der Max Wert sein.</value>
   </data>
   <data name="XandYpow2" xml:space="preserve">
     <value>X und Y müssen Potenzen von 2 sein</value>
@@ -150,6 +159,9 @@
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
   </data>
+  <data name="ItemAlreadyInPool" xml:space="preserve">
+    <value>Dieses Element befindet sich bereits in einem Pool. Es kann maxmimal einem Pool hinzugefügt werden.</value>
+  </data>
   <data name="MaxElementsExceeded" xml:space="preserve">
     <value>Die maximale Anzahl an Elementen in der Collection wurde überschritten.</value>
   </data>
@@ -160,16 +172,19 @@
     <value>Dieser Rückgängig-Befehl kann nicht ausgeführt werden, bis der eigentliche Befehl ausgeführt wurde.</value>
   </data>
   <data name="AtLeast2Values" xml:space="preserve">
-    <value>Sie müssen mindestens zwei Werte übergeben!</value>
+    <value>Sie müssen mindestens zwei Werte übergeben.</value>
   </data>
   <data name="TargetsOldValuesLength" xml:space="preserve">
     <value>Length von targets muss gleich Length von oldValues sein</value>
   </data>
+  <data name="FailedToCreateXmlWriter" xml:space="preserve">
+    <value>Das Erstellen des XmlWriters ist fehlgeschlagen.</value>
+  </data>
   <data name="CannotAddCollectionToSelf" xml:space="preserve">
     <value>Die Collection kann nicht zu sich selbst hinzugefügt werden.</value>
   </data>
-  <data name="FailedToCreateXmlWriter" xml:space="preserve">
-    <value>Das Erstellen des XmlWriters ist fehlgeschlagen.</value>
+  <data name="CollectionIsEmpty" xml:space="preserve">
+    <value>Die Collection ist leer.</value>
   </data>
   <data name="NoModActive" xml:space="preserve">
     <value>Derzeit ist kein Mod aktiv.</value>
@@ -193,5 +208,11 @@ Die Änderungen löschen</value>
   </data>
   <data name="UnableToDelete" xml:space="preserve">
     <value>Die Datei konnte nicht gelöscht werden.</value>
+  </data>
+  <data name="HttpAndFtpOnly" xml:space="preserve">
+    <value>Nur HTTP und FTP sind unterstützte Download-Protokolle.</value>
+  </data>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>Die Datei hat nicht die erwartete Größe.</value>
   </data>
 </root>

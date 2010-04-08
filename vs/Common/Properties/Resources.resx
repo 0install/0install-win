@@ -142,38 +142,11 @@
   <data name="ArgMustNotBeNegative" xml:space="preserve">
     <value>The argument may not be less than zero.</value>
   </data>
-  <data name="ArrayTooSmall" xml:space="preserve">
-    <value>The array is too small to hold all of the items.</value>
-  </data>
   <data name="KeyNotFound" xml:space="preserve">
     <value>The key was not found in the collection.</value>
   </data>
-  <data name="ResetNotSupported" xml:space="preserve">
-    <value>Reset is not supported on this enumerator.</value>
-  </data>
   <data name="KeyAlreadyPresent" xml:space="preserve">
     <value>The key was already present in the dictionary.</value>
-  </data>
-  <data name="MustOverrideOrReimplement" xml:space="preserve">
-    <value>This method must be overridden or re-implemented in the derived class.</value>
-  </data>
-  <data name="MustOverrideIndexerGet" xml:space="preserve">
-    <value>The get accessor of the indexer must be overridden.</value>
-  </data>
-  <data name="MustOverrideIndexerSet" xml:space="preserve">
-    <value>The set accessor of the indexer must be overridden.</value>
-  </data>
-  <data name="OutOfViewRange" xml:space="preserve">
-    <value>The argument is outside the range of this View.</value>
-  </data>
-  <data name="BadComparandType" xml:space="preserve">
-    <value>Comparand is not of the correct type.</value>
-  </data>
-  <data name="InvalidLoadFactor" xml:space="preserve">
-    <value>The load factor must be between 0.25 and 0.95.</value>
-  </data>
-  <data name="ListIsReadOnly" xml:space="preserve">
-    <value>The list may not be read only.</value>
   </data>
   <data name="MinLargerMax" xml:space="preserve">
     <value>The Min value may not be larger than the Max value.</value>
@@ -194,7 +167,7 @@
     <value>Yes</value>
   </data>
   <data name="ItemAlreadyInPool" xml:space="preserve">
-    <value>The item is already in a pool!</value>
+    <value>The item is already in a pool. It can not be added to more than one pool.</value>
   </data>
   <data name="MaxElementsExceeded" xml:space="preserve">
     <value>The maximum amount of elements in the collection has been exceeded.</value>
@@ -206,7 +179,7 @@
     <value>This undo command cannot be performed until the actual command has been performed.</value>
   </data>
   <data name="AtLeast2Values" xml:space="preserve">
-    <value>You need to pass at least two values!</value>
+    <value>You need to pass at least two values.</value>
   </data>
   <data name="TargetsOldValuesLength" xml:space="preserve">
     <value>Length of targets must be equal to Length of oldValues</value>
@@ -216,9 +189,6 @@
   </data>
   <data name="CannotAddCollectionToSelf" xml:space="preserve">
     <value>The collection cannot be added to itself.</value>
-  </data>
-  <data name="CannotModifyCollection" xml:space="preserve">
-    <value>The \"{0}\" collection is read-only and cannot be modified.</value>
   </data>
   <data name="CollectionIsEmpty" xml:space="preserve">
     <value>The collection is empty.</value>
@@ -245,5 +215,11 @@ Delete the changes</value>
   </data>
   <data name="UnableToDelete" xml:space="preserve">
     <value>The file could not be deleted.</value>
+  </data>
+  <data name="HttpAndFtpOnly" xml:space="preserve">
+    <value>Only HTTP and FTP are supported download protocols.</value>
+  </data>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>The file does not have the expected size.</value>
   </data>
 </root>

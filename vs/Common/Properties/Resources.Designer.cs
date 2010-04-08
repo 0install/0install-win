@@ -70,29 +70,11 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The array is too small to hold all of the items..
-        /// </summary>
-        internal static string ArrayTooSmall {
-            get {
-                return ResourceManager.GetString("ArrayTooSmall", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to pass at least two values!.
+        ///   Looks up a localized string similar to You need to pass at least two values..
         /// </summary>
         internal static string AtLeast2Values {
             get {
                 return ResourceManager.GetString("AtLeast2Values", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Comparand is not of the correct type..
-        /// </summary>
-        internal static string BadComparandType {
-            get {
-                return ResourceManager.GetString("BadComparandType", resourceCulture);
             }
         }
         
@@ -111,15 +93,6 @@ namespace Common.Properties {
         internal static string CannotAddCollectionToSelf {
             get {
                 return ResourceManager.GetString("CannotAddCollectionToSelf", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The \&quot;{0}\&quot; collection is read-only and cannot be modified..
-        /// </summary>
-        internal static string CannotModifyCollection {
-            get {
-                return ResourceManager.GetString("CannotModifyCollection", resourceCulture);
             }
         }
         
@@ -176,16 +149,25 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The load factor must be between 0.25 and 0.95..
+        ///   Looks up a localized string similar to The file does not have the expected size..
         /// </summary>
-        internal static string InvalidLoadFactor {
+        internal static string FileNotExpectedSize {
             get {
-                return ResourceManager.GetString("InvalidLoadFactor", resourceCulture);
+                return ResourceManager.GetString("FileNotExpectedSize", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The item is already in a pool!.
+        ///   Looks up a localized string similar to Only HTTP and FTP are supported download protocols..
+        /// </summary>
+        internal static string HttpAndFtpOnly {
+            get {
+                return ResourceManager.GetString("HttpAndFtpOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The item is already in a pool. It can not be added to more than one pool..
         /// </summary>
         internal static string ItemAlreadyInPool {
             get {
@@ -208,15 +190,6 @@ namespace Common.Properties {
         internal static string KeyNotFound {
             get {
                 return ResourceManager.GetString("KeyNotFound", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The list may not be read only..
-        /// </summary>
-        internal static string ListIsReadOnly {
-            get {
-                return ResourceManager.GetString("ListIsReadOnly", resourceCulture);
             }
         }
         
@@ -264,33 +237,6 @@ namespace Common.Properties {
         internal static string MinLargerMax {
             get {
                 return ResourceManager.GetString("MinLargerMax", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The get accessor of the indexer must be overridden..
-        /// </summary>
-        internal static string MustOverrideIndexerGet {
-            get {
-                return ResourceManager.GetString("MustOverrideIndexerGet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The set accessor of the indexer must be overridden..
-        /// </summary>
-        internal static string MustOverrideIndexerSet {
-            get {
-                return ResourceManager.GetString("MustOverrideIndexerSet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This method must be overridden or re-implemented in the derived class..
-        /// </summary>
-        internal static string MustOverrideOrReimplement {
-            get {
-                return ResourceManager.GetString("MustOverrideOrReimplement", resourceCulture);
             }
         }
         
@@ -349,29 +295,11 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The argument is outside the range of this View..
-        /// </summary>
-        internal static string OutOfViewRange {
-            get {
-                return ResourceManager.GetString("OutOfViewRange", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This command cannot be performed again until the undo command has been performed..
         /// </summary>
         internal static string RedoNotAvailable {
             get {
                 return ResourceManager.GetString("RedoNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Reset is not supported on this enumerator..
-        /// </summary>
-        internal static string ResetNotSupported {
-            get {
-                return ResourceManager.GetString("ResetNotSupported", resourceCulture);
             }
         }
         

@@ -92,6 +92,9 @@
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ExceptionInformation.cs" />
+    <Compile Include="Download\DownloadManager.cs" />
+    <Compile Include="Download\DownloadJob.cs" />
+    <Compile Include="Download\DownloadFile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Controls\HintTextBox.cs">
       <SubType>Component</SubType>
@@ -164,6 +167,7 @@
     <None Include="C5.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Download\ClassDiagram.cd" />
     <None Include="TaskDialog.dll" />
     <None Include="TaskDialog.xml" />
     <Content Include="C5.license.txt">
