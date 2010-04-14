@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
+using System.Text.RegularExpressions;
 
 namespace ZeroInstall.Model
 {
@@ -199,6 +200,34 @@ namespace ZeroInstall.Model
             foreach (var bindings in parent.EnvironmentBindings) EnvironmentBindings.Add(bindings);
             foreach (var bindings in parent.OverlayBindings) OverlayBindings.Add(bindings);
         }
+        #endregion
+
+        #region Helper Methodes
+
+        /// <summary>
+        /// Tests if version is a valid version specificated by http://0install.net/interface-spec.html .
+        /// </summary>
+        /// <param name="version">String to test.</param>
+        /// <returns>Is a valid version.</returns>
+        public static bool IsVersion(String version)
+        {
+            String DottedList = @"(\d{*}(\.\d{*})*)";
+            String Modifier = @"pre|rc|post";
+            String VersionRegEx = DottedList + "(-" + Modifier + "?" + DottedList + "?)*";
+            return Regex.IsMatch(version, VersionRegEx);
+        }
+
+        /// <summary>
+        /// Tests if versionModifier is a valid version modifiere specificated by http://0install.net/interface-spec.html .
+        /// </summary>
+        /// <param name="versionModifier">String to test</param>
+        /// <returns>Is a valid version modifier.</returns>
+        public static bool IsVersionModifier(String versionModifier)
+        {
+            String Modifier = @"pre|rc|post";
+            return Regex.IsMatch(versionModifier, Modifier);
+        }
+
         #endregion
     }
 }
