@@ -209,7 +209,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="version">String to test.</param>
         /// <returns>Is a valid version.</returns>
-        public static bool IsVersion(String version)
+        public static bool IsValidVersion(String version)
         {
             String DottedList = @"(\d{*}(\.\d{*})*)";
             String Modifier = @"pre|rc|post";
@@ -222,7 +222,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="versionModifier">String to test</param>
         /// <returns>Is a valid version modifier.</returns>
-        public static bool IsVersionModifier(String versionModifier)
+        public static bool IsValidVersionModifier(String versionModifier)
         {
             String Modifier = @"pre|rc|post";
             return Regex.IsMatch(versionModifier, Modifier);
