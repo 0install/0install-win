@@ -1,17 +1,17 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Debug" />
-  <Config name="Debug" binpathtype="Auto">
-    <assembly path="bin\Debug\Test.ZeroInstall.Injector.dll" />
-    <assembly path="bin\Debug\Test.ZeroInstall.Model.dll" />
-    <assembly path="bin\Debug\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="bin\Debug\Test.ZeroInstall.Solver.dll" />
-    <assembly path="bin\Debug\Test.ZeroInstall.Store.dll" />
+  <Config name="Debug" buildpathtype="Auto">
+    <assembly path="build\Debug\Test.ZeroInstall.Injector.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.Model.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.MyApps.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.Solver.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.Store.dll" />
   </Config>
-  <Config name="Release" binpathtype="Auto">
-    <assembly path="bin\Release\Test.ZeroInstall.Injector.dll" />
-    <assembly path="bin\Release\Test.ZeroInstall.Model.dll" />
-    <assembly path="bin\Release\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="bin\Release\Test.ZeroInstall.Solver.dll" />
-    <assembly path="bin\Release\Test.ZeroInstall.Store.dll" />
+  <Config name="Release" buildpathtype="Auto">
+    <assembly path="build\Release\Test.ZeroInstall.Injector.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.Model.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.MyApps.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.Solver.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.Store.dll" />
   </Config>
 </NUnitProject>
