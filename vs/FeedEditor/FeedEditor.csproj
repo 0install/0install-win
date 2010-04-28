@@ -133,6 +133,9 @@
     <EmbeddedResource Include="OverlayBindingControl.resx">
       <DependentUpon>OverlayBindingControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="PackageImplementationControl.resx">
+      <DependentUpon>PackageImplementationControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

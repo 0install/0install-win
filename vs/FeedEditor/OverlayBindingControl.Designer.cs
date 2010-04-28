@@ -84,7 +84,6 @@
             this.Controls.Add(this.hintTextBoxSrc);
             this.Name = "OverlayBindingControl";
             this.Size = new System.Drawing.Size(305, 79);
-            this.Enter += new System.EventHandler(this.OverlayBindingControl_Enter);
             this.ResumeLayout(false);
             this.PerformLayout();
 
