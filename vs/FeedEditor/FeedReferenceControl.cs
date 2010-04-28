@@ -9,24 +9,23 @@ namespace ZeroInstall.FeedEditor
     {
         private FeedReference _feedReference = new FeedReference();
 
-        public FeedReference GetFeedReference()
+        public FeedReference FeedReference
         {
-            return _feedReference;
-        }
-
-        public void SetFeedReference(FeedReference value)
-        {
-            if (value == null)
+            get { return _feedReference; }
+            set
             {
-                _feedReference = new FeedReference();
-                textBoxExtFeedURL.Text = String.Empty;
+                if (value == null)
+                {
+                    _feedReference = new FeedReference();
+                    textBoxExtFeedURL.Text = String.Empty;
+                }
+                else
+                {
+                    _feedReference = value;
+                    textBoxExtFeedURL.Text = _feedReference.TargetString;
+                }
+                targetBaseControl.TargetBase = _feedReference;
             }
-            else
-            {
-                _feedReference = value;
-                textBoxExtFeedURL.Text = _feedReference.TargetString;
-            }
-            targetBaseControl.TargetBase = _feedReference;
         }
 
         public FeedReferenceControl()
@@ -47,13 +46,11 @@ namespace ZeroInstall.FeedEditor
             if (IsValidFeedURL(textBoxExtFeedURL.Text, out uri))
             {
                 _feedReference.Target = uri;
-                labelURLError.Text = "valid URL";
-                labelURLError.ForeColor = Color.Green;
+                textBoxExtFeedURL.ForeColor = Color.Green;
             }
             else
             {
-                labelURLError.Text = "invalid URL";
-                labelURLError.ForeColor = Color.Red;
+                textBoxExtFeedURL.ForeColor = Color.Red;
             }
         }
 

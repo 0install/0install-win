@@ -64,17 +64,47 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DependencyControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DependencyControl.Designer.cs">
+      <DependentUpon>DependencyControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EnvironmentBindingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EnvironmentBindingControl.Designer.cs">
+      <DependentUpon>EnvironmentBindingControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedReferenceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FeedReferenceControl.Designer.cs">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ImplementationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ImplementationControl.Designer.cs">
+      <DependentUpon>ImplementationControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OverlayBindingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OverlayBindingControl.Designer.cs">
+      <DependentUpon>OverlayBindingControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PackageImplementationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PackageImplementationControl.Designer.cs">
+      <DependentUpon>PackageImplementationControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,12 +114,24 @@
     <Compile Include="TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="GroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GroupControl.Designer.cs">
+      <DependentUpon>GroupControl.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImplementationControl.resx">
+      <DependentUpon>ImplementationControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OverlayBindingControl.resx">
+      <DependentUpon>OverlayBindingControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
@@ -106,6 +148,9 @@
     </Compile>
     <EmbeddedResource Include="TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GroupControl.resx">
+      <DependentUpon>GroupControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

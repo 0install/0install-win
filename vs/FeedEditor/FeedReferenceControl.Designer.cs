@@ -31,7 +31,6 @@
             this.lblExtFeedURL = new System.Windows.Forms.Label();
             this.textBoxExtFeedURL = new Common.Controls.HintTextBox();
             this.targetBaseControl = new ZeroInstall.FeedEditor.TargetBaseControl();
-            this.labelURLError = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblExtFeedURL
@@ -67,22 +66,10 @@
             this.targetBaseControl.TabIndex = 3;
             this.targetBaseControl.TargetBase = null;
             // 
-            // labelURLError
-            // 
-            this.labelURLError.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelURLError.ForeColor = System.Drawing.Color.Red;
-            this.labelURLError.Location = new System.Drawing.Point(372, 39);
-            this.labelURLError.Name = "labelURLError";
-            this.labelURLError.Size = new System.Drawing.Size(122, 13);
-            this.labelURLError.TabIndex = 2;
-            this.labelURLError.Text = "invalid URL";
-            this.labelURLError.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
             // FeedReferenceControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelURLError);
             this.Controls.Add(this.lblExtFeedURL);
             this.Controls.Add(this.textBoxExtFeedURL);
             this.Controls.Add(this.targetBaseControl);
@@ -98,6 +85,5 @@
         private TargetBaseControl targetBaseControl;
         private System.Windows.Forms.Label lblExtFeedURL;
         private Common.Controls.HintTextBox textBoxExtFeedURL;
-        private System.Windows.Forms.Label labelURLError;
     }
 }

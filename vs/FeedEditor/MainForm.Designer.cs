@@ -34,7 +34,9 @@ namespace ZeroInstall.FeedEditor
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
+            ZeroInstall.Model.Group group1 = new ZeroInstall.Model.Group();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
+            ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -69,6 +71,8 @@ namespace ZeroInstall.FeedEditor
             this.textName = new Common.Controls.HintTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
+            this.groupBoxGroupSettings = new System.Windows.Forms.GroupBox();
+            this.groupControl = new ZeroInstall.FeedEditor.GroupControl();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
             this.btnAddOverlayBinding = new System.Windows.Forms.Button();
             this.treeViewFeedStructure = new System.Windows.Forms.TreeView();
@@ -100,6 +104,7 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
             this.tabPageFeed.SuspendLayout();
+            this.groupBoxGroupSettings.SuspendLayout();
             this.groupBoxFeedStructure.SuspendLayout();
             this.tabAdvanced.SuspendLayout();
             this.groupBoxFeedFor.SuspendLayout();
@@ -219,6 +224,7 @@ namespace ZeroInstall.FeedEditor
             this.textInterfaceURL.Name = "textInterfaceURL";
             this.textInterfaceURL.Size = new System.Drawing.Size(588, 20);
             this.textInterfaceURL.TabIndex = 7;
+            this.textInterfaceURL.TextChanged += new System.EventHandler(this.textInterfaceURL_TextChanged);
             // 
             // lblInterfaceURL
             // 
@@ -261,6 +267,7 @@ namespace ZeroInstall.FeedEditor
             this.textHomepage.Name = "textHomepage";
             this.textHomepage.Size = new System.Drawing.Size(588, 20);
             this.textHomepage.TabIndex = 12;
+            this.textHomepage.TextChanged += new System.EventHandler(this.textHomepage_TextChanged);
             // 
             // textDescription
             // 
@@ -345,6 +352,7 @@ namespace ZeroInstall.FeedEditor
             this.textIconUrl.Name = "textIconUrl";
             this.textIconUrl.Size = new System.Drawing.Size(361, 20);
             this.textIconUrl.TabIndex = 1;
+            this.textIconUrl.TextChanged += new System.EventHandler(this.textIconUrl_TextChanged);
             // 
             // lblIconUrlError
             // 
@@ -473,6 +481,7 @@ namespace ZeroInstall.FeedEditor
             // 
             // tabPageFeed
             // 
+            this.tabPageFeed.Controls.Add(this.groupBoxGroupSettings);
             this.tabPageFeed.Controls.Add(this.groupBoxFeedStructure);
             this.tabPageFeed.Location = new System.Drawing.Point(4, 22);
             this.tabPageFeed.Name = "tabPageFeed";
@@ -481,6 +490,33 @@ namespace ZeroInstall.FeedEditor
             this.tabPageFeed.TabIndex = 1;
             this.tabPageFeed.Text = "Feeds";
             this.tabPageFeed.UseVisualStyleBackColor = true;
+            // 
+            // groupBoxGroupSettings
+            // 
+            this.groupBoxGroupSettings.Controls.Add(this.groupControl);
+            this.groupBoxGroupSettings.Location = new System.Drawing.Point(6, 241);
+            this.groupBoxGroupSettings.Name = "groupBoxGroupSettings";
+            this.groupBoxGroupSettings.Size = new System.Drawing.Size(596, 279);
+            this.groupBoxGroupSettings.TabIndex = 1;
+            this.groupBoxGroupSettings.TabStop = false;
+            this.groupBoxGroupSettings.Text = "Group settings";
+            // 
+            // groupControl
+            // 
+            group1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
+            group1.DocDir = null;
+            group1.License = null;
+            group1.Main = null;
+            group1.Released = new System.DateTime(2010, 4, 19, 0, 0, 0, 0);
+            group1.ReleasedString = "2010-04-19";
+            group1.SelfTest = null;
+            group1.Version = null;
+            group1.VersionModifier = null;
+            this.groupControl.Group = group1;
+            this.groupControl.Location = new System.Drawing.Point(6, 18);
+            this.groupControl.Name = "groupControl";
+            this.groupControl.Size = new System.Drawing.Size(588, 261);
+            this.groupControl.TabIndex = 0;
             // 
             // groupBoxFeedStructure
             // 
@@ -766,6 +802,10 @@ namespace ZeroInstall.FeedEditor
             this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            feedReference1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
+            feedReference1.Target = null;
+            feedReference1.TargetString = null;
+            this.feedReferenceControl.FeedReference = feedReference1;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 20);
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(570, 171);
@@ -829,6 +869,7 @@ namespace ZeroInstall.FeedEditor
             this.groupBoxIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
             this.tabPageFeed.ResumeLayout(false);
+            this.groupBoxGroupSettings.ResumeLayout(false);
             this.groupBoxFeedStructure.ResumeLayout(false);
             this.tabAdvanced.ResumeLayout(false);
             this.tabAdvanced.PerformLayout();
@@ -910,6 +951,8 @@ namespace ZeroInstall.FeedEditor
         private System.Windows.Forms.Button btnAddOverlayBinding;
         private FeedReferenceControl feedReferenceControl;
         private System.Windows.Forms.Button btnExtFeedUpdate;
+        private System.Windows.Forms.GroupBox groupBoxGroupSettings;
+        private GroupControl groupControl;
     }
 }
 

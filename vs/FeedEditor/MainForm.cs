@@ -101,6 +101,9 @@ namespace ZeroInstall.FeedEditor
                 zeroInterface.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
             }
 
+            /* Feeds Tab */
+            // Feed Structure          
+
             /* save file */
             zeroInterface.Save(saveFileDialog.FileName);
         }
@@ -137,16 +140,23 @@ namespace ZeroInstall.FeedEditor
                 lblIconUrlError.Text = "URL does not describe an image";
                 return;
             }
-            // check if icon format is png
-            if (!icon.RawFormat.Equals(ImageFormat.Png))
+
+            // check what format is the icon and set right value into comboIconType
+            if (icon.RawFormat.Equals(ImageFormat.Png))
             {
-                lblIconUrlError.Text = "Image format must be png";
+                comboIconType.SelectedIndex = 0;
+            }
+            else if (icon.RawFormat.Equals(ImageFormat.Icon))
+            {
+                comboIconType.SelectedIndex = 1;
+            }
+            else
+            {
+                lblIconUrlError.Text = "Image format must be png or ico";
                 return;
             }
-            iconBox.Image = icon;
 
-            lblIconUrlError.ForeColor = Color.Green;
-            lblIconUrlError.Text = "Valid URL";
+            iconBox.Image = icon;
         }
 
 
@@ -209,7 +219,7 @@ namespace ZeroInstall.FeedEditor
             listBoxExtFeeds.Items.Clear();
             textFeedFor.Clear();
             listBoxFeedFor.Items.Clear();
-            feedReferenceControl.SetFeedReference(null);
+            feedReferenceControl.FeedReference = null;
             comboBoxMinInjectorVersion.SelectedIndex = 0;
         }
 
@@ -229,8 +239,7 @@ namespace ZeroInstall.FeedEditor
                 case "ICO":
                     icon.MimeType = "image/vnd-microsoft-icon";
                     break;
-                default:
-                    throw new InvalidOperationException("Invalid MIME-Type");
+                default: break;
             }
 
             // add icon object to list box
@@ -268,7 +277,7 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.GetFeedReference();
+            var feedReference = feedReferenceControl.FeedReference;
             if (String.IsNullOrEmpty(feedReference.TargetString)) return;
             if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
@@ -287,6 +296,12 @@ namespace ZeroInstall.FeedEditor
             return false;
         }
 
+        private bool IsValidFeedURL(string url)
+        {
+            Uri uri;
+            return IsValidFeedURL(url, out uri);
+        }
+
         private void btnExtFeedsRemove_Click(object sender, EventArgs e)
         {
             var selectedItem = listBoxExtFeeds.SelectedItem;
@@ -298,7 +313,7 @@ namespace ZeroInstall.FeedEditor
         {
             var selectedItem = (FeedReference)listBoxExtFeeds.SelectedItem;
             if (selectedItem == null) return;
-            feedReferenceControl.SetFeedReference(selectedItem);
+            feedReferenceControl.FeedReference = selectedItem;
         }
 
         private void btnFeedForAdd_Click(object sender, EventArgs e)
@@ -324,9 +339,11 @@ namespace ZeroInstall.FeedEditor
 
         private void btnAddGroup_Click(object sender, EventArgs e)
         {
-            var treeNode = new TreeNode("Group");
             var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
+
+            var treeNode = new TreeNode("Group");
             treeNode.Tag = new Group();
+
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
 
@@ -370,29 +387,34 @@ namespace ZeroInstall.FeedEditor
 
         private void btnAddImplementation_Click(object sender, EventArgs e)
         {
-            var treeNode = new TreeNode("Implementation");
             var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
+            
+            var treeNode = new TreeNode("Implementation");
             treeNode.Tag = new Implementation();
+            
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
         }
 
         private void btnAddPackageImplementation_Click(object sender, EventArgs e)
         {
-            var treeNode = new TreeNode("Package Implementation");
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null) return;
+            
+            var treeNode = new TreeNode("Package Implementation");
             treeNode.Tag = new PackageImplementation();
+
             selectedNode.Nodes.Add(treeNode);
-            selectedNode.Expand();
         }
 
         private void btnAddDependency_Click(object sender, EventArgs e)
         {
-            var treeNode = new TreeNode("Dependency");
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null) return;
+            
+            var treeNode = new TreeNode("Dependency");
             treeNode.Tag = new Dependency();
+
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
         }
@@ -409,12 +431,13 @@ namespace ZeroInstall.FeedEditor
 
         private void btnAddOverlayBinding_Click(object sender, EventArgs e)
         {
-            var treeNode = new TreeNode("Overlay binding");
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null) return;
+
+            var treeNode = new TreeNode("Overlay binding");
             treeNode.Tag = new OverlayBinding();
+
             selectedNode.Nodes.Add(treeNode);
-            selectedNode.Expand();
         }
 
         private void btnRemoveFeedStructureObject_Click(object sender, EventArgs e)
@@ -427,10 +450,34 @@ namespace ZeroInstall.FeedEditor
         private void btnExtFeedUpdate_Click(object sender, EventArgs e)
         {
             var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
-            var feedReference = feedReferenceControl.GetFeedReference();
+            var feedReference = feedReferenceControl.FeedReference;
             if (selectedFeedReferenceIndex < 0) return;
             if (String.IsNullOrEmpty(feedReference.TargetString)) return;
             listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
+        }
+
+        private void textInterfaceURL_TextChanged(object sender, EventArgs e)
+        {
+            textInterfaceURL.ForeColor = IsValidFeedURL(textInterfaceURL.Text) ? Color.Green : Color.Red;
+        }
+
+        private void textIconUrl_TextChanged(object sender, EventArgs e)
+        {
+            if (IsValidFeedURL(textIconUrl.Text))
+            {
+                textIconUrl.ForeColor = Color.Green;
+                btnIconPreview.Enabled = true;
+            }
+            else
+            {
+                textIconUrl.ForeColor = Color.Red;
+                btnIconPreview.Enabled = false;
+            }
+        }
+
+        private void textHomepage_TextChanged(object sender, EventArgs e)
+        {
+            textHomepage.ForeColor = IsValidFeedURL(textHomepage.Text) ? Color.Green : Color.Red;
         }
     }
 }
