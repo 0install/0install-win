@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-using System.Text.RegularExpressions;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -31,6 +30,7 @@ namespace ZeroInstall.Model
         /// Creates a new version from a a string.
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version string.</exception>
         public ImplementationVersion(string value)
         {
             string[] parts = value.Split('-');
@@ -47,6 +47,28 @@ namespace ZeroInstall.Model
                 if (DottedList.IsValid(parts[i])) _additionalParts[i - 1] = new DottedList(parts[i]);
                 else if (VersionModifier.IsValid(parts[i])) _additionalParts[i - 1] = new VersionModifier(parts[i]);
                 else throw new ArgumentException(Resources.MustBeValidVersionPart, "value");
+            }
+        }
+        #endregion
+
+        #region Static access
+        /// <summary>
+        /// Creates a new <see cref="ImplementationVersion"/> using the specified string representation.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="result">Returns the created <see cref="ImplementationVersion"/> if successfully; <see langword="null"/> otherwise.</param>
+        /// <returns><see langword="true"/> if the <see cref="T:System.Uri"/> was successfully created; <see langword="false"/> otherwise.</returns>
+        public static bool TryCreate(string value, out ImplementationVersion result)
+        {
+            try
+            {
+                result = new ImplementationVersion(value);
+                return true;
+            }
+            catch (ArgumentException)
+            {
+                result = null;
+                return false;
             }
         }
         #endregion

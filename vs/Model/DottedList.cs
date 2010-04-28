@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ZeroInstall.Model
 {
@@ -107,7 +108,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public static bool IsValid(string value)
         {
-            throw new NotImplementedException();
+            return Regex.IsMatch(value, @"^(\d+(\.\d+)*)$");
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -100,7 +101,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public static bool IsValid(string value)
         {
-            throw new NotImplementedException();
+            return Regex.IsMatch(value, @"^pre|rc|post$");
         }
         #endregion
     }
