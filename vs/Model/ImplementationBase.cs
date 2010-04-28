@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
-using System.Text.RegularExpressions;
 
 namespace ZeroInstall.Model
 {
@@ -75,13 +74,22 @@ namespace ZeroInstall.Model
         /// The version number of the implementation.
         /// </summary>
         [Category("Release"), Description("The version number of the implementation.")]
-        [XmlAttribute("version")]
-        public virtual string Version { get; set; }
+        [XmlIgnore]
+        public virtual ImplementationVersion Version { get; set; }
+        
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Version"/>
+        [XmlAttribute("version"), Browsable(false)]
+        public virtual string VersionString
+        {
+            get { return (Version == null ? null : Version.ToString()); }
+            set { Version = new ImplementationVersion(value); }
+        }
 
         /// <summary>
-        /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2").
+        /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
         /// </summary>
-        [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\").")]
+        [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\") in older versions of the injector.")]
         [XmlAttribute("version-modifier")]
         public string VersionModifier { get; set; }
 
@@ -93,7 +101,7 @@ namespace ZeroInstall.Model
         public virtual DateTime Released { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Version"/>
+        /// <seealso cref="Released"/>
         [XmlAttribute("released"), Browsable(false)]
         public virtual string ReleasedString
         {
@@ -200,34 +208,6 @@ namespace ZeroInstall.Model
             foreach (var bindings in parent.EnvironmentBindings) EnvironmentBindings.Add(bindings);
             foreach (var bindings in parent.OverlayBindings) OverlayBindings.Add(bindings);
         }
-        #endregion
-
-        #region Helper Methodes
-
-        /// <summary>
-        /// Tests if version is a valid version specificated by http://0install.net/interface-spec.html .
-        /// </summary>
-        /// <param name="version">String to test.</param>
-        /// <returns>Is a valid version.</returns>
-        public static bool IsValidVersion(String version)
-        {
-            String DottedList = @"(\d{*}(\.\d{*})*)";
-            String Modifier = @"pre|rc|post";
-            String VersionRegEx = DottedList + "(-" + Modifier + "?" + DottedList + "?)*";
-            return Regex.IsMatch(version, VersionRegEx);
-        }
-
-        /// <summary>
-        /// Tests if versionModifier is a valid version modifiere specificated by http://0install.net/interface-spec.html .
-        /// </summary>
-        /// <param name="versionModifier">String to test</param>
-        /// <returns>Is a valid version modifier.</returns>
-        public static bool IsValidVersionModifier(String versionModifier)
-        {
-            String Modifier = @"pre|rc|post";
-            return Regex.IsMatch(versionModifier, Modifier);
-        }
-
         #endregion
     }
 }

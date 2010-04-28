@@ -84,10 +84,10 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            // Transfer the version modifier to the normal version attribute
+            // Merge the version modifier to the normal version attribute
             if (!string.IsNullOrEmpty(VersionModifier))
             {
-                Version += VersionModifier;
+                Version = new ImplementationVersion(Version + "-" + VersionModifier);
                 VersionModifier = null;
             }
 

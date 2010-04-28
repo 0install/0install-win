@@ -126,4 +126,13 @@
   <data name="MustBeSpecificOS" xml:space="preserve">
     <value>The value must be a specific operating system (not "All" or "Unkown").</value>
   </data>
+  <data name="MustBeValidVersionPart" xml:space="preserve">
+    <value>The version number may only contain dot-separated decimals and modifier strings.</value>
+  </data>
+  <data name="MustStartWithDottedList" xml:space="preserve">
+    <value>The version number must begin with a list of dot-separated decimals.</value>
+  </data>
+  <data name="UnknownModifier" xml:space="preserve">
+    <value>The modifier is unknown.</value>
+  </data>
 </root>

@@ -58,6 +58,7 @@
     <Compile Include="ConstraintConverter.cs" />
     <Compile Include="CultureComparer.cs" />
     <Compile Include="Dependency.cs" />
+    <Compile Include="DottedList.cs" />
     <Compile Include="EnvironmentBinding.cs" />
     <Compile Include="FeedReference.cs" />
     <Compile Include="Group.cs" />
@@ -67,6 +68,8 @@
     <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ImplementationBase.cs" />
+    <Compile Include="VersionModifier.cs" />
+    <Compile Include="VersionPart.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Icon.cs" />
     <Compile Include="InterfaceReference.cs" />
@@ -85,6 +88,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="ImplementationVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.de.resx">

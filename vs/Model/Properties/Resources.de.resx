@@ -126,4 +126,13 @@
   <data name="MustBeSpecificOS" xml:space="preserve">
     <value>Der Wert muss ein spezifisches Betriebssystem sein (nicht "All" oder "Unkown").</value>
   </data>
+  <data name="MustBeValidVersionPart" xml:space="preserve">
+    <value>Die Versionsnummer darf ausschließlich aus Punkt-getrennten Listen  von Dezimalzahlen und Modifzierer-Strings bestehen.</value>
+  </data>
+  <data name="MustStartWithDottedList" xml:space="preserve">
+    <value>Die Versionsnummer muss mit einer Punkt-getrennten Liste von Dezimalzahlen beginnen.</value>
+  </data>
+  <data name="UnknownModifier" xml:space="preserve">
+    <value>Der Modifizierer ist unbekannt.</value>
+  </data>
 </root>
