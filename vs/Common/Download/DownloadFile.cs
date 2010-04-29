@@ -179,7 +179,7 @@ namespace Common.Download
             BytesTotal = bytesTotal;
 
             // Prepare the background thread for later execution
-            _thread = new Thread(RunDownload) { IsBackground = true };
+            _thread = new Thread(RunDownload) { Name = "Download: " + target, IsBackground = true };
         }
 
         /// <summary>

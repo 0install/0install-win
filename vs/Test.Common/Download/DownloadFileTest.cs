@@ -32,16 +32,23 @@ namespace Common.Download
         [Test]
         public void TestRunSync()
         {
-            string tempFile = Path.GetTempFileName();
-            var download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
-            download.RunSync();
-
+            DownloadFile download;
+            string fileContent;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
+                download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
+                download.RunSync();
+                fileContent = File.ReadAllText(tempFile);
+            }
+            finally
+            {
+                if (tempFile != null) File.Delete(tempFile);
+            }
+            
             Assert.AreEqual(DownloadState.Complete, download.State);
-
-            string fileContent = File.ReadAllText(tempFile);
             Assert.IsTrue(fileContent.StartsWith("<!DOCTYPE"), fileContent);
-
-            File.Delete(tempFile);
         }
 
         /// <summary>
@@ -50,17 +57,24 @@ namespace Common.Download
         [Test]
         public void TestThread()
         {
-            string tempFile = Path.GetTempFileName();
-            var download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
-            download.Start();
-            download.Join();
+            DownloadFile download;
+            string fileContent;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
+                download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
+                download.Start();
+                download.Join();
+                fileContent = File.ReadAllText(tempFile);
+            }
+            finally
+            {
+                if (tempFile != null) File.Delete(tempFile);
+            }
 
             Assert.AreEqual(DownloadState.Complete, download.State);
-
-            string fileContent = File.ReadAllText(tempFile);
             Assert.IsTrue(fileContent.StartsWith("<!DOCTYPE"), fileContent);
-
-            File.Delete(tempFile);
         }
     }
 }

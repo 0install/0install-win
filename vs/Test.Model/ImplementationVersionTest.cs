@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures <see cref="ImplementationVersion"/> objects are correctly sorted
+        /// Ensures <see cref="ImplementationVersion"/> objects are sorted correctly.
         /// </summary>
         [Test]
         public void TestSort()
@@ -55,7 +55,12 @@ namespace ZeroInstall.Model
             var sortedVersions = new[] { "0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3" };
             for (int i = 1; i < sortedVersions.Length; i++)
             {
-                Assert.IsTrue(new ImplementationVersion(sortedVersions[i]) > new ImplementationVersion(sortedVersions[i - 1]));
+                var v1 = new ImplementationVersion(sortedVersions[i - 1]);
+                var v2 = new ImplementationVersion(sortedVersions[i]);
+                Assert.IsTrue(v1 < v2);
+                Assert.IsTrue(v2 > v1);
+                Assert.IsFalse(v1 > v2);
+                Assert.IsFalse(v2 < v1);
             }
         }
     }
