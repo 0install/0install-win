@@ -3,7 +3,7 @@
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// A immutable direcory-entry in a <see cref="Manifest"/>.
+    /// A immutable directory-entry in a <see cref="Manifest"/>.
     /// </summary>
     public sealed class Directory : ManifestNode, IEquatable<Directory>
     {
@@ -18,7 +18,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The time this directory was last modified in the number of seconds since the epoch.
         /// </summary>
-        /// <remarks>Obsolete, retained for compatability with older implementations.</remarks>
+        /// <remarks>Obsolete, retained for compatibility with older implementations.</remarks>
         public long ModifiedTime { get; private set; }
 
         /// <summary>

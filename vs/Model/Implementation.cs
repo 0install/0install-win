@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A specific (executable) implementation of an <see cref="Interface"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Implementation : ImplementationBase
     {
         #region Properties
@@ -87,7 +87,7 @@ namespace ZeroInstall.Model
             // Merge the version modifier to the normal version attribute
             if (!string.IsNullOrEmpty(VersionModifier))
             {
-                Version = new ImplementationVersion(Version + "-" + VersionModifier);
+                Version = new ImplementationVersion(Version + VersionModifier);
                 VersionModifier = null;
             }
 

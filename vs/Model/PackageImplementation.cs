@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
     /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Interface"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Interface"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class PackageImplementation : ImplementationBase
     {
         #region Override Properties
@@ -120,25 +120,6 @@ namespace ZeroInstall.Model
 
                 // Replace list by parsing input string split by spaces
                 foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
-            }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Simplify
-        /// <summary>
-        /// Sets missing default values.
-        /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
-        public override void Simplify()
-        {
-            // Merge the version modifier to the normal version attribute
-            if (!string.IsNullOrEmpty(VersionModifier))
-            {
-                Version = new ImplementationVersion(Version + "-" + VersionModifier);
-                VersionModifier = null;
             }
         }
         #endregion

@@ -42,15 +42,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
-    <Position X="14.5" Y="8.25" Width="1.75" />
-    <InheritanceLine Type="ZeroInstall.Model.Binding" FixedFromPoint="true">
-      <Path>
-        <Point X="14.938" Y="7.618" />
-        <Point X="14.938" Y="7.875" />
-        <Point X="15.375" Y="7.875" />
-        <Point X="15.375" Y="8.25" />
-      </Path>
-    </InheritanceLine>
+    <Position X="14.5" Y="8.25" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgQAAAABA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
@@ -65,14 +57,6 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="ZeroInstall.Model.ImplementationBase" FixedFromPoint="true">
-      <Path>
-        <Point X="7.188" Y="7.732" />
-        <Point X="7.188" Y="7.919" />
-        <Point X="5.25" Y="7.919" />
-        <Point X="5.25" Y="8.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAIAAEAAAAACAAAAAAAAAYAAAAAAAAIAAAAAAAAAACA=</HashCode>
       <FileName>Group.cs</FileName>
@@ -89,12 +73,6 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="ZeroInstall.Model.ImplementationBase" FixedFromPoint="true">
-      <Path>
-        <Point X="7.5" Y="7.732" />
-        <Point X="7.5" Y="8.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
@@ -114,28 +92,29 @@
     </Compartments>
     <AssociationLine Name="EnvironmentBindings" Type="ZeroInstall.Model.EnvironmentBinding" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="8.5" Y="7.5" />
-        <Point X="11.417" Y="7.5" Type="JumpStart" />
-        <Point X="11.583" Y="7.5" Type="JumpEnd" />
-        <Point X="12.292" Y="7.5" Type="JumpStart" />
-        <Point X="12.458" Y="7.5" Type="JumpEnd" />
-        <Point X="12.76" Y="7.5" Type="JumpStart" />
-        <Point X="12.927" Y="7.5" Type="JumpEnd" />
-        <Point X="13.25" Y="7.5" />
-        <Point X="13.25" Y="7.868" />
-        <Point X="13.292" Y="7.868" Type="JumpStart" />
-        <Point X="13.458" Y="7.868" Type="JumpEnd" />
-        <Point X="14.125" Y="7.868" />
-        <Point X="14.125" Y="9.669" />
+        <Point X="8.5" Y="7.33" />
+        <Point X="8.84" Y="7.33" />
+        <Point X="8.84" Y="8.09" />
+        <Point X="9.917" Y="8.09" Type="JumpStart" />
+        <Point X="10.083" Y="8.09" Type="JumpEnd" />
+        <Point X="11.417" Y="8.09" Type="JumpStart" />
+        <Point X="11.583" Y="8.09" Type="JumpEnd" />
+        <Point X="12.729" Y="8.09" Type="JumpStart" />
+        <Point X="12.958" Y="8.09" Type="JumpEnd" />
+        <Point X="13.292" Y="8.09" Type="JumpStart" />
+        <Point X="13.458" Y="8.09" Type="JumpEnd" />
+        <Point X="14.26" Y="8.09" />
+        <Point X="14.26" Y="9.669" />
         <Point X="14.5" Y="9.669" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAABAAAJIAACACAAAIAIAAQgADAEAEACAAABAAACCA=</HashCode>
+      <HashCode>IAAABAAAJIAACACAAAIAIAAQgADAEAEASAAABAAACCA=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Stability" />
+      <Property Name="Version" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Dependencies" />
@@ -164,18 +143,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.OverlayBinding">
-    <Position X="12.25" Y="8.25" Width="1.5" />
+    <Position X="12.25" Y="8.25" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="ZeroInstall.Model.Binding" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="13.938" Y="7.618" />
-        <Point X="13.938" Y="7.875" />
-        <Point X="13.562" Y="7.875" />
-        <Point X="13.562" Y="8.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAkAAAAAEgAABACAAAAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>OverlayBinding.cs</FileName>
@@ -184,16 +155,8 @@
   </Class>
   <Class Name="ZeroInstall.Model.PackageImplementation">
     <Position X="9" Y="8.25" Width="2" />
-    <InheritanceLine Type="ZeroInstall.Model.ImplementationBase" FixedFromPoint="true">
-      <Path>
-        <Point X="8.312" Y="7.732" />
-        <Point X="8.312" Y="7.95" />
-        <Point X="10" Y="7.95" />
-        <Point X="10" Y="8.25" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACEIAAQAAAABACAAAEACAAAAAAAACA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACEIAAQAAAABACAAAEACAAAAAAAAAA=</HashCode>
       <FileName>PackageImplementation.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -254,6 +217,49 @@
       <FileName>FeedReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Model.ImplementationVersion" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="17.5" Y="6.25" Width="2" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAQEgACAAgAAAAAAAYEAAAAAAAAAAiA=</HashCode>
+      <FileName>ImplementationVersion.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_firstPart" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Field Name="_additionalParts" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.VersionPart" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="20.5" Y="7.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAgABAAAAAAAAAQEgAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>VersionPart.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="DottedList" />
+      <Property Name="Modifier" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.DottedList" Collapsed="true">
+    <Position X="20.5" Y="6.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAQEgAgAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>DottedList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="8.25" Y="0.5" Width="1.5" />
@@ -353,6 +359,13 @@
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAIAAAAAAAAAAAAIAAAAAAIAAAABAAAgA=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ZeroInstall.Model.VersionModifier" Collapsed="true">
+    <Position X="23" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAAAAAAAAAAACAAAAAAAAAEAAAEAAAA=</HashCode>
+      <FileName>VersionPart.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

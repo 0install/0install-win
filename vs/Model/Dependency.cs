@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to an <see cref="Interface"/> that is required by an <see cref="Implementation"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Dependency : IBindingContainer
     {
         #region Properties

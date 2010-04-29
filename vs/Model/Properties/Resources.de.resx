@@ -120,6 +120,9 @@
   <data name="ArchitectureStringFormat" xml:space="preserve">
     <value>Der String muss die Form "os-cpu" haben.</value>
   </data>
+  <data name="MustBeDottedList" xml:space="preserve">
+    <value>Die Punkt-getrennten Liste darf nur Dezimalzahlen enthalten.</value>
+  </data>
   <data name="MustBeSpecificCPU" xml:space="preserve">
     <value>Der Wert muss eine spezifische CPU sein (nicht "All" oder "Unkown").</value>
   </data>

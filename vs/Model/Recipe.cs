@@ -16,6 +16,7 @@
  */
 
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
@@ -23,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A recipe is a list of <see cref="RetrievalStep"/>s used to create an <see cref="Implementation"/> directory.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Recipe : RetrievalMethod
     {
         #region Properties

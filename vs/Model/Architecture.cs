@@ -98,6 +98,7 @@ namespace ZeroInstall.Model
                 case "Solaris": OS = OS.Solaris; break;
                 case "MacOSX": OS = OS.MacOsX; break;
                 case "Windows": OS = OS.Windows; break;
+                case "": throw new ArgumentException(Resources.ArchitectureStringFormat, architecture);
                 default: OS = OS.Unknown; break;
             }
             switch (cpu)
@@ -111,6 +112,7 @@ namespace ZeroInstall.Model
                 case "ppc": Cpu = Cpu.Ppc; break;
                 case "ppc64": Cpu = Cpu.Ppc64; break;
                 case "src": Cpu = Cpu.Source; break;
+                case "": throw new ArgumentException(Resources.ArchitectureStringFormat, architecture);
                 default: Cpu = Cpu.Unknown; break;
             }
         }
@@ -149,8 +151,8 @@ namespace ZeroInstall.Model
             // Pass if CPU is either a wildcard or identical
             if (Cpu == Cpu.All || Cpu == cpu) return true;
 
-            // Handle feature inheritance in x86 hierachy
-            if (cpu >= Cpu.I386 && cpu <= Cpu.X64 && cpu <= Cpu) return true;
+            // Handle x86-series backwards-compatibility
+            if ((Cpu >= Cpu.I386 && Cpu <= Cpu.X64) && (cpu >= Cpu.I386 && cpu <= Cpu.X64) && Cpu <= cpu) return true;
 
             // Fail if nothing fits
             return false;

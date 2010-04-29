@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// A common base class for <see cref="ImplementationBase"/> and <see cref="FeedReference"/>.
     /// Contains language and architecture parameters.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be dispoed.")]
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public abstract class TargetBase : IEquatable<TargetBase>
     {
         #region Properties

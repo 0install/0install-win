@@ -68,7 +68,6 @@
     <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ImplementationBase.cs" />
-    <Compile Include="VersionModifier.cs" />
     <Compile Include="VersionPart.cs" />
     <Compile Include="Interface.cs" />
     <Compile Include="Icon.cs" />

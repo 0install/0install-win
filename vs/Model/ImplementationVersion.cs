@@ -8,7 +8,7 @@ namespace ZeroInstall.Model
     /// Immutably stores a version number consisting of dot-separated decimals and optional modifier strings.
     /// </summary>
     /// <remarks>
-    /// This defines the valid syntax for version strings:
+    /// This is the syntax for valid version strings:
     /// <code>
     /// Version := DottedList ("-" Modifier? DottedList?)*
     /// DottedList := (Integer ("." Integer)*)
@@ -33,6 +33,10 @@ namespace ZeroInstall.Model
         /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version string.</exception>
         public ImplementationVersion(string value)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            #endregion
+
             string[] parts = value.Split('-');
 
             // Ensure the first part is a dotted list
@@ -42,12 +46,7 @@ namespace ZeroInstall.Model
             // Iterate through all additional parts
             _additionalParts = new VersionPart[parts.Length - 1];
             for (int i = 1; i < parts.Length; i++)
-            {
-                // Ensure the additional parts are either dotted lists or version modifiers
-                if (DottedList.IsValid(parts[i])) _additionalParts[i - 1] = new DottedList(parts[i]);
-                else if (VersionModifier.IsValid(parts[i])) _additionalParts[i - 1] = new VersionModifier(parts[i]);
-                else throw new ArgumentException(Resources.MustBeValidVersionPart, "value");
-            }
+                _additionalParts[i - 1] = new VersionPart(parts[i]);
         }
         #endregion
 
@@ -79,13 +78,12 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             var output = new StringBuilder();
-            for (int i = 0; i < _additionalParts.Length; i++)
-            {
-                output.Append(_additionalParts[i]);
 
-                // Separate parts with hyphens, no trailing hyphen
-                if (i < _additionalParts.Length - 1) output.Append("-");
-            }
+            output.Append(_firstPart);
+
+            // Separate additional parts with hyphens
+            for (int i = 0; i < _additionalParts.Length; i++)
+                output.Append("-" + _additionalParts[i]);
 
             return output.ToString();
         }
@@ -129,12 +127,62 @@ namespace ZeroInstall.Model
                 return result;
             }
         }
+
+        public static bool operator ==(ImplementationVersion left, ImplementationVersion right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(ImplementationVersion left, ImplementationVersion right)
+        {
+            return !Equals(left, right);
+        }
         #endregion
 
         #region Comparison
         public int CompareTo(ImplementationVersion other)
         {
             throw new NotImplementedException();
+        }
+
+        public static bool operator <(ImplementationVersion left, ImplementationVersion right)
+        {
+            #region Sanity checks
+            if (left == null) throw new ArgumentNullException("left");
+            if (right == null) throw new ArgumentNullException("right");
+            #endregion
+
+            return left.CompareTo(right) < 0;
+        }
+
+        public static bool operator >(ImplementationVersion left, ImplementationVersion right)
+        {
+            #region Sanity checks
+            if (left == null) throw new ArgumentNullException("left");
+            if (right == null) throw new ArgumentNullException("right");
+            #endregion
+
+            return left.CompareTo(right) > 0;
+        }
+
+        public static bool operator <=(ImplementationVersion left, ImplementationVersion right)
+        {
+            #region Sanity checks
+            if (left == null) throw new ArgumentNullException("left");
+            if (right == null) throw new ArgumentNullException("right");
+            #endregion
+
+            return left.CompareTo(right) <= 0;
+        }
+
+        public static bool operator >=(ImplementationVersion left, ImplementationVersion right)
+        {
+            #region Sanity checks
+            if (left == null) throw new ArgumentNullException("left");
+            if (right == null) throw new ArgumentNullException("right");
+            #endregion
+
+            return left.CompareTo(right) >= 0;
         }
         #endregion
     }

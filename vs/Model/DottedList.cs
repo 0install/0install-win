@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Text.RegularExpressions;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -8,12 +9,12 @@ namespace ZeroInstall.Model
     /// Represents a dotted-list part of a <see cref="ImplementationVersion"/>.
     /// </summary>
     /// <remarks>
-    /// This defines the valid syntax for dot-separated decimals:
+    /// This is the syntax for valid dot-separated decimals:
     /// <code>
     /// DottedList := (Integer ("." Integer)*)
     /// </code>
     /// </remarks>
-    internal sealed class DottedList : VersionPart
+    internal sealed class DottedList : IEquatable<DottedList>, IComparable<DottedList>
     {
         #region Variables
         /// <summary>The individual decimals.</summary>
@@ -27,11 +28,18 @@ namespace ZeroInstall.Model
         /// <param name="value">The string containing the dotted-list.</param>
         public DottedList(string value)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            #endregion
+
             string[] parts = value.Split('.');
             _decimals = new int[parts.Length];
 
             for (int i = 0; i < parts.Length; i++)
-                _decimals[i] = int.Parse(parts[i]);
+            {
+                if (!int.TryParse(parts[i], out _decimals[i]))
+                    throw new ArgumentException(Resources.MustBeDottedList);
+            }
         }
         #endregion
 
@@ -54,19 +62,18 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
-        public override bool Equals(VersionPart other)
+        public bool Equals(DottedList other)
         {
-            var otherList = other as DottedList;
-            if (otherList == null) return false;
+            if (other == null) return false;
 
             // Cancel if the the number of decimal blocks don't match
-            if (_decimals.Length != otherList._decimals.Length)
+            if (_decimals.Length != other._decimals.Length)
                 return false;
 
             // Cacnel if one of the decimal blocks does not match
             for (int i = 0; i < _decimals.Length; i++)
             {
-                if (_decimals[i] != otherList._decimals[i])
+                if (_decimals[i] != other._decimals[i])
                     return false;
             }
 
@@ -94,7 +101,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Comparison
-        public override int CompareTo(VersionPart other)
+        public int CompareTo(DottedList other)
         {
             throw new NotImplementedException();
         }
