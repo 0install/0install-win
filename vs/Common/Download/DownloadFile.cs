@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -29,6 +30,13 @@ using Common.Properties;
 
 namespace Common.Download
 {
+    #region Delegates
+    /// <summary>
+    /// Generic delegate for handling an event without passing any parameters.
+    /// </summary>
+    public delegate void DownloadFileEventHandler(DownloadFile sender);
+    #endregion
+
     #region Enumerations
     /// <seealso cref="DownloadFile.State"/>
     public enum DownloadState
@@ -53,40 +61,34 @@ namespace Common.Download
     /// <summary>
     /// Downloads a file from a specific internet address to a local file using a background thread.
     /// </summary>
-    /// <remarks>
-    /// <para>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</para>
-    /// <para>It may also be shared among several <see cref="DownloadJob"/>s. It will not be downloaded multiple times in that case. Instead it will only be handled by the <see cref="DownloadJob"/> with the highest <see cref="DownloadJob.Priority"/>.</para>
-    /// </remarks>
+    /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
     public class DownloadFile
     {
         #region Events
         /// <summary>
-        /// Is raised whenever <see cref="State"/> changes. Blocks the download thread, so handle quickly!
+        /// Occurs whenever <see cref="State"/> changes. Blocks the download thread, so handle quickly!
         /// </summary>
         /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
-        public event SimpleEventHandler StateChanged;
+        public event DownloadFileEventHandler StateChanged;
 
         private void OnStateChanged()
         {
             // Copy to local variable to prevent threading issues
-            SimpleEventHandler stateChanged = StateChanged;
-            if (stateChanged != null) stateChanged();
-
-            // Additionally inform download manager so scheduling can be updated in case this is a managed download
-            DownloadManager.UpdateFile(this);
+            DownloadFileEventHandler stateChanged = StateChanged;
+            if (stateChanged != null) stateChanged(this);
         }
 
         /// <summary>
-        /// Is raised whenever <see cref="BytesReceived"/> changes. Blocks the download thread, so handle quickly!
+        /// Occurs whenever <see cref="BytesReceived"/> changes. Blocks the download thread, so handle quickly!
         /// </summary>
         /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
-        public event SimpleEventHandler BytesReceivedChanged;
+        public event DownloadFileEventHandler BytesReceivedChanged;
 
         private void OnBytesReceivedChanged()
         {
             // Copy to local variable to prevent threading issues
-            SimpleEventHandler bytesReceivedChanged = BytesReceivedChanged;
-            if (bytesReceivedChanged != null) bytesReceivedChanged();
+            DownloadFileEventHandler bytesReceivedChanged = BytesReceivedChanged;
+            if (bytesReceivedChanged != null) bytesReceivedChanged(this);
         }
         #endregion
 
@@ -103,17 +105,20 @@ namespace Common.Download
         /// The URL the file is to be downloaded from.
         /// </summary>
         /// <remarks>This value may change once <see cref="DownloadState.GettingData"/> has been reached, based on HTTP redirections.</remarks>
+        [Description("The URL the file is to be downloaded from.")]
         public Uri Source { get; private set; }
 
         /// <summary>
         /// The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.
         /// </summary>
+        [Description("The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.")]
         public string Target { get; private set; }
 
         private DownloadState _state;
         /// <summary>
         /// The current status of the download.
         /// </summary>
+        [Description("The current status of the download.")]
         public DownloadState State
         {
             get { return _state; }
@@ -123,6 +128,7 @@ namespace Common.Download
         /// <summary>
         /// Contains an error description if <see cref="State"/> is set to <see cref="DownloadState.WebError"/> or <see cref="DownloadState.IOError"/>.
         /// </summary>
+        [Description("Contains an error description if State is set to WebError or IOError.")]
         public string ErrorMessage { get; private set; }
 
         /// <summary>
@@ -135,12 +141,14 @@ namespace Common.Download
         /// Indicates whether this download can be resumed without having to start from the beginning again.
         /// </summary>
         /// <remarks>This value is always <see langword="true"/> until <see cref="DownloadState.GettingData"/> has been reached.</remarks>
+        [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
         public bool SupportsResume { get; private set; }
 
         private long _bytesReceived;
         /// <summary>
         /// The number of bytes that have been downloaded so far.
         /// </summary>
+        [Description("The number of bytes that have been downloaded so far.")]
         public long BytesReceived
         {
             get { return _bytesReceived; }
@@ -148,9 +156,10 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// The number of bytes the file to be downloaded is long.
+        /// The number of bytes the file to be downloaded is long; -1 for unknown.
         /// </summary>
         /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="DownloadState.GettingData"/> has been reached.</remarks>
+        [Description("The number of bytes the file to be downloaded is long; -1 for unknown.")]
         public long BytesTotal { get; private set; }
 
         /// <summary>
@@ -179,8 +188,18 @@ namespace Common.Download
             BytesTotal = bytesTotal;
 
             // Prepare the background thread for later execution
-            _thread = new Thread(RunDownload) { Name = "Download: " + target, IsBackground = true };
+            _thread = new Thread(RunDownload) {Name = "Download: " + target, IsBackground = true};
         }
+        
+        /// <summary>
+        /// Creates a new download thread with a predefined file size.
+        /// </summary>
+        /// <param name="source">The URL the file is to be downloaded from.</param>
+        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
+        /// <param name="bytesTotal">The number of bytes the file to be downloaded is long. The file will be rejected if it does not have this length.</param>
+        /// <exception cref="NotSupportedException">Thrown if <paramref name="source"/> contains an unsupported protocol (usually should be HTTP or FTP).</exception>
+        public DownloadFile(string source, string target, long bytesTotal) : this(new Uri(source), target, bytesTotal)
+        {}
 
         /// <summary>
         /// Creates a new download thread with no fixed file size.
@@ -188,6 +207,14 @@ namespace Common.Download
         /// <param name="source">The URL the file is to be downloaded from.</param>
         /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
         public DownloadFile(Uri source, string target) : this(source, target, -1)
+        {}
+
+        /// <summary>
+        /// Creates a new download thread with no fixed file size.
+        /// </summary>
+        /// <param name="source">The URL the file is to be downloaded from.</param>
+        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
+        public DownloadFile(string source, string target) : this(new Uri(source), target)
         {}
         #endregion
 
@@ -212,7 +239,7 @@ namespace Common.Download
         /// <summary>
         /// Stops executing the download.
         /// </summary>
-        /// <param name="keepPartial">Set to <see langword="true"/> to keep partially downloaded files. Otherwise they will be deleted.</param>
+        /// <param name="keepPartial">Set to <see langword="true"/> to keep partially downloaded files; <see langword="false"/> to delete them.</param>
         /// <remarks>Calling this on a not running thread will have no effect.</remarks>
         /// <exception cref="InvalidOperationException">Thrown if called while a synchronous download is running (launched via <see cref="RunSync"/>).</exception>
         public void Cancel(bool keepPartial)
@@ -220,7 +247,7 @@ namespace Common.Download
             lock (_stateLock)
             {
                 if (RunningSync) throw new InvalidOperationException(Resources.CannotCancelSync);
-                if (State != DownloadState.Started && State != DownloadState.GettingHeaders && State != DownloadState.GettingData) return;
+                if (State == DownloadState.Ready || State >= DownloadState.Complete) return;
 
                 _thread.Abort();
                 _thread.Join();
@@ -254,9 +281,9 @@ namespace Common.Download
             {
                 if (RunningSync) throw new InvalidOperationException(Resources.CannotJoinSync);
                 if (_thread == null || !_thread.IsAlive) return;
-
-                _thread.Join();
             }
+
+            _thread.Join();
         }
 
         /// <summary>

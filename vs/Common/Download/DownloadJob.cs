@@ -22,12 +22,20 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Common.Helpers;
 using Common.Properties;
 
 namespace Common.Download
 {
+    #region Delegates
+    /// <summary>
+    /// Generic delegate for handling an event without passing any parameters.
+    /// </summary>
+    public delegate void DownloadJobEventHandler(DownloadJob sender);
+    #endregion
+
     #region Enumerations
     /// <summary>
     /// Describes the priority of a download.
@@ -60,47 +68,63 @@ namespace Common.Download
     {
         #region Events
         /// <summary>
-        /// Is raised when all contained <see cref="Files"/> have been downloaded. Blocks the download thread, so handle quickly!
+        /// Occurs when all contained <see cref="Files"/> have been downloaded. Blocks the download thread, so handle quickly!
         /// </summary>
         /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
-        public event SimpleEventHandler Completed;
+        public event DownloadJobEventHandler Completed;
 
         private void OnCompleted()
         {
             // Copy to local variable to prevent threading issues
-            SimpleEventHandler completed = Completed;
-            if (completed != null) completed();
+            DownloadJobEventHandler completed = Completed;
+            if (completed != null) completed(this);
         }
 
         /// <summary>
-        /// Is raised if any of the contained <see cref="Files"/> could not be downloaded.
+        /// Occurs if any of the contained <see cref="Files"/> could not be downloaded.
         /// </summary>
         /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
-        public event SimpleEventHandler Failed;
+        public event DownloadJobEventHandler Failed;
 
         private void OnFailed()
         {
             // Copy to local variable to prevent threading issues
-            SimpleEventHandler failed = Failed;
-            if (failed != null) failed();
+            DownloadJobEventHandler failed = Failed;
+            if (failed != null) failed(this);
+        }
+
+        /// <summary>
+        /// Occurs whenever <see cref="Priority"/> has been changed.
+        /// </summary>
+        [Description("Occurs whenever Priority has been changed.")]
+        public event DownloadJobEventHandler PriorityChanged;
+
+        private void OnPriorityChanged()
+        {
+            // Copy to local variable to prevent threading issues
+            DownloadJobEventHandler priorityChanged = PriorityChanged;
+            if (priorityChanged != null) priorityChanged(this);
         }
         #endregion
 
         #region Properties
         /// <summary>
-        /// A name that describes this download for the user.
+        /// A name that describes this download job for the user.
         /// </summary>
+        [Description("A name that describes this download job for the user.")]
         public string Name { get; private set; }
 
         /// <summary>
-        /// A list of all file names in the arguments.
+        /// A read-only ordered list of files to download.
         /// </summary>
+        [ReadOnly(true), Description("A read-only ordered list of files to download.")]
         public ICollection<DownloadFile> Files { get; private set; }
 
         private DownloadPriority _priority;
         /// <summary>
         /// The priority of the job. Controls how its execution is scheduled.
         /// </summary>
+        [Description("The priority of the job. Controls how its execution is scheduled.")]
         public DownloadPriority Priority
         {
             get { return _priority; }
@@ -111,13 +135,7 @@ namespace Common.Download
                     throw new ArgumentException(Resources.InvalidPriority, "value");
                 #endregion
 
-                // Check if the new value is actually different
-                if (value != _priority)
-                {
-                    _priority = value;
-
-                    DownloadManager.UpdateJob(this);
-                }
+                UpdateHelper.Do(ref _priority, value, OnPriorityChanged);
             }
         }
         #endregion
@@ -164,29 +182,30 @@ namespace Common.Download
 
         //--------------------//
 
-        #region User control
-        /// <summary>
-        /// Adds the job's and its <see cref="DownloadFile"/>s to the <see cref="DownloadManager"/>'s queue.
-        /// </summary>
-        /// <remarks>Calling this on an already running job has no effect.</remarks>
-        public void Start()
+        private void UpdateFileState(DownloadFile sender)
         {
-            DownloadManager.AddJob(this);
-        }
+            switch (sender.State)
+            {
+                case DownloadState.Complete:
+                    // Check if all file downloads have been completed
+                    foreach (DownloadFile file in Files)
+                    {
+                        // No event if any of the files aren't completed yet
+                        if (file.State != DownloadState.Complete) return;
+                    }
+                    OnCompleted();
+                    break;
 
-        /// <summary>
-        /// Removes the job's and its <see cref="DownloadFile"/>s from the <see cref="DownloadManager"/>'s queue.
-        /// </summary>
-        /// <remarks>Calling this on a not running job has no effect.</remarks>
-        public void Stop()
-        {
-            DownloadManager.RemoveJob(this);
-        }
-        #endregion
-
-        private void UpdateFileState()
-        {
-            // ToDo: Raise Completed and Failed events
+                case DownloadState.WebError:
+                case DownloadState.IOError:
+                    // Cancel all other file downloads in this job
+                    foreach (DownloadFile file in Files)
+                    {
+                        if (file != sender) file.Cancel(false);
+                    }
+                    OnFailed();
+                    break;
+            }
         }
     }
 }
