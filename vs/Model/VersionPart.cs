@@ -115,6 +115,7 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(VersionPart other)
         {
+            // ToDo: Implement
             throw new NotImplementedException();
         }
         #endregion

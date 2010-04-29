@@ -29,19 +29,13 @@ using Common.Properties;
 namespace Common.Download
 {
     /// <summary>
-    /// Controls the executing of <see cref="DownloadJob"/>s sorting them by priority.
+    /// Controls the executing of multiple <see cref="DownloadJob"/>s (sorting them by priority).
     /// </summary>
     public static class DownloadManager
     {
         #region Variables
         /// <summary>Synchronization handle to prevent race conditions with <see cref="DownloadJob"/> scheduling.</summary>
         private static readonly object _scheduleLock = new object();
-
-        // Sort by priority, duplicate entries are allowed
-        private static readonly C5.ISorted<DownloadJob> _jobs = new C5.TreeSet<DownloadJob>();
-
-        // Preserve order, duplicate entries are not allowed
-        private static readonly C5.IList<DownloadFile> _files = new C5.HashedLinkedList<DownloadFile>();
         #endregion
 
         #region Properties
@@ -68,8 +62,11 @@ namespace Common.Download
             }
         }
 
+        // Preserve order, duplicate entries are not allowed
+        /// <remarks>This variable must only be accessed within <code>lock (_jobsLock) { ... }</code> blocks.</remarks>
+        private static readonly C5.IList<DownloadJob> _jobs = new C5.HashedLinkedList<DownloadJob>();
         /// <summary>
-        /// A priority-sorted read-only list of currently active <see cref="DownloadJob"/>s.
+        /// A priority-sorted read-only list of all currently active <see cref="DownloadJob"/>s.
         /// </summary>
         /// <remarks>The returned list will not be updated.</remarks>
         public static ICollection<DownloadJob> Jobs
@@ -81,6 +78,28 @@ namespace Common.Download
                     // Copy to an array for thread-safety
                     var array = new DownloadJob[_jobs.Count];
                     _jobs.CopyTo(array, 0);
+                    return array;
+                }
+            }
+        }
+
+        
+        // Preserve order, duplicate entries are not allowed
+        /// <remarks>This variable must only be accessed within <code>lock (_jobsLock) { ... }</code> blocks.</remarks>
+        private static readonly C5.IList<DownloadFile> _files = new C5.HashedLinkedList<DownloadFile>();
+        /// <summary>
+        /// A priority-sorted read-only list of all <see cref="DownloadFile"/>s contained in currently active <see cref="DownloadJob"/>s.
+        /// </summary>
+        /// <remarks>The returned list will not be updated.</remarks>
+        public static ICollection<DownloadFile> Files
+        {
+            get
+            {
+                lock (_scheduleLock)
+                {
+                    // Copy to an array for thread-safety
+                    var array = new DownloadFile[_files.Count];
+                    _files.CopyTo(array, 0);
                     return array;
                 }
             }
@@ -99,8 +118,7 @@ namespace Common.Download
         {
             lock (_scheduleLock)
             {
-                _jobs.Add(job);
-                UpdateScheduling();
+                if (_jobs.Add(job)) UpdateScheduling();
             }
         }
 
@@ -113,32 +131,28 @@ namespace Common.Download
         {
             lock (_scheduleLock)
             {
-                _jobs.Remove(job);
-                UpdateScheduling();
+                if (_jobs.Remove(job)) UpdateScheduling();
             }
         }
 
         /// <summary>
-        /// To be called after a <see cref="DownloadJob"/>s <see cref="DownloadJob.Priority"/> has been changed.
+        /// To be called when a <see cref="DownloadJob.Priority"/> has been changed.
         /// </summary>
-        /// <param name="job">The job to update.</param>
-        /// <remarks>Calling this for a <see cref="DownloadJob"/> not in the queue will have no effect.</remarks>
-        internal static void UpdateJobPriority(DownloadJob job)
+        /// <param name="job">The job that was update.</param>
+        internal static void UpdateJob(DownloadJob job)
         {
             lock (_scheduleLock)
             {
-                // Remove and then re-add the job to perform a new sorting comparison
-                if (_jobs.Remove(job)) _jobs.Add(job);
-
                 UpdateScheduling();
             }
         }
 
         /// <summary>
-        /// To be called after a <see cref="DownloadFile"/>s <see cref="DownloadFile.State"/> has changed.
+        /// To be called after a <see cref="DownloadFile"/> property has been changed.
         /// </summary>
-        /// <param name="thread">The updated thread.</param>
-        internal static void UpdateThreadState(DownloadFile thread)
+        /// <param name="thread">The updated file.</param>
+        /// <remarks>Calling this for a <see cref="DownloadFile"/> not part of a queued <see cref="DownloadJob"/> will have no effect.</remarks>
+        internal static void UpdateFile(DownloadFile thread)
         {
             lock (_scheduleLock)
             {

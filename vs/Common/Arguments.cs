@@ -38,11 +38,10 @@ namespace Common
             return _args;
         }
 
-        private readonly ReadOnlyCollection<string> _files;
         /// <summary>
         /// A list of all file names in the arguments.
         /// </summary>
-        public IEnumerable<string> Files { get { return _files; } }
+        public ICollection<string> Files { get; private set; }
 
         private readonly IDictionary<string, string> _commands = new Dictionary<string, string>();
         /// <summary>
@@ -105,7 +104,7 @@ namespace Common
             }
 
             // Make the collections immutable
-            _files = new ReadOnlyCollection<string>(filesTemp);
+            Files = new ReadOnlyCollection<string>(filesTemp);
         }
         #endregion
 

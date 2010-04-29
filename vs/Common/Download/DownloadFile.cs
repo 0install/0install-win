@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -36,8 +35,6 @@ namespace Common.Download
     {
         /// <summary>The download is ready to begin.</summary>
         Ready,
-        /// <summary>The user has chosen not to have the <see cref="DownloadManager"/> dispatch this download thread at this time.</summary>
-        Paused,
         /// <summary>The download thread has just been started.</summary>
         Started,
         /// <summary>Getting the header data.</summary>
@@ -64,9 +61,9 @@ namespace Common.Download
     {
         #region Events
         /// <summary>
-        /// Is raised whenever <see cref="State"/> changes.
+        /// Is raised whenever <see cref="State"/> changes. Blocks the download thread, so handle quickly!
         /// </summary>
-        /// <remarks>This event is executed in a background thread. It can not be used to directly update UI elements.</remarks>
+        /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
         public event SimpleEventHandler StateChanged;
 
         private void OnStateChanged()
@@ -75,13 +72,14 @@ namespace Common.Download
             SimpleEventHandler stateChanged = StateChanged;
             if (stateChanged != null) stateChanged();
 
-            DownloadManager.UpdateThreadState(this);
+            // Additionally inform download manager so scheduling can be updated in case this is a managed download
+            DownloadManager.UpdateFile(this);
         }
 
         /// <summary>
-        /// Is raised whenever <see cref="BytesReceived"/> changes.
+        /// Is raised whenever <see cref="BytesReceived"/> changes. Blocks the download thread, so handle quickly!
         /// </summary>
-        /// <remarks>This event is executed in a background thread. It can not be used to directly update UI elements.</remarks>
+        /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
         public event SimpleEventHandler BytesReceivedChanged;
 
         private void OnBytesReceivedChanged()
@@ -93,47 +91,24 @@ namespace Common.Download
         #endregion
 
         #region Variables
-        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown.</summary>
-        private static readonly object _stateLock = new object();
-
+        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switched.</summary>
+        private readonly object _stateLock = new object();
+        
         /// <summary>The background thread used for downloading.</summary>
         private readonly Thread _thread;
         #endregion
 
         #region Properties
-        // Order unimportant, duplicate entries are not allowed
-        private readonly C5.ICollection<Uri> _sources = new C5.HashSet<Uri>();
         /// <summary>
-        /// A list of URLs the file can be downloaded from.
+        /// The URL the file is to be downloaded from.
         /// </summary>
-        /// <remarks>One or more sources are automatically chosen based on their response times.</remarks>
-        public ICollection<Uri> Sources { get { return new C5.GuardedCollection<Uri>(_sources); } }
-
-        /// <summary>
-        /// The URL the file is actually downloaded from.
-        /// This depends on which source was auto-selected from <see cref="Sources"/> as well as any redirections.
-        /// </summary>
-        /// <remarks>This value is only set once <see cref="DownloadState.GettingData"/> has been reached.</remarks>
-        public Uri EffectiveSource { get; private set; }
+        /// <remarks>This value may change once <see cref="DownloadState.GettingData"/> has been reached, based on HTTP redirections.</remarks>
+        public Uri Source { get; private set; }
 
         /// <summary>
         /// The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.
         /// </summary>
         public string Target { get; private set; }
-
-        private DownloadPriority _priority = DownloadPriority.Foreground;
-        /// <summary>
-        /// The priority of the file download. Controls how its execution is scheduled.
-        /// </summary>
-        /// <remarks>
-        /// <para>If this <see cref="DownloadFile"/> is used, stand-alone the priority will only have an effect if BITS downloading is used.</para>
-        /// <para>If this <see cref="DownloadFile"/> is used as a part of a <see cref="DownloadJob"/>, it will inherit its priority from there.</para>
-        /// </remarks>
-        public DownloadPriority Priority
-        {
-            get { return _priority; }
-            set { UpdateHelper.Do(ref _priority, value, UpdatePriority); }
-        }
 
         private DownloadState _state;
         /// <summary>
@@ -175,63 +150,44 @@ namespace Common.Download
         /// <summary>
         /// The number of bytes the file to be downloaded is long.
         /// </summary>
-        /// <remarks>If this value is se to -1 in the constructor, the size be automatically set after <see cref="DownloadState.GettingData"/> has been reached.</remarks>
+        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="DownloadState.GettingData"/> has been reached.</remarks>
         public long BytesTotal { get; private set; }
+
+        /// <summary>
+        /// <see langword="true"/> if <see cref="RunSync"/> was called.
+        /// </summary>
+        public bool RunningSync { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new download thread with multiple sources and a predefined file size.
+        /// Creates a new download thread with a predefined file size.
         /// </summary>
-        /// <param name="sources">A list of URLs the file can be downloaded from.</param>
+        /// <param name="source">The URL the file is to be downloaded from.</param>
         /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
         /// <param name="bytesTotal">The number of bytes the file to be downloaded is long. The file will be rejected if it does not have this length.</param>
-        public DownloadFile(IEnumerable<Uri> sources, string target, long bytesTotal)
+        /// <exception cref="NotSupportedException">Thrown if <paramref name="source"/> contains an unsupported protocol (usually should be HTTP or FTP).</exception>
+        public DownloadFile(Uri source, string target, long bytesTotal)
         {
             #region Sanity checks
-            if (sources == null) throw new ArgumentNullException("sources");
+            if (source == null) throw new ArgumentNullException("source");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
-            
-            // Check each sources entry is a valid URL
-            foreach (Uri uri in sources)
-            {
-                if (uri == null) continue;
-                if (uri.Scheme != "http" && uri.Scheme != "ftp") throw new ArgumentException(Resources.HttpAndFtpOnly);
-                _sources.Add(uri);
-            }
-            if (_sources.IsEmpty) throw new ArgumentException(Resources.CollectionIsEmpty, "sources");
 
+            Source = source;
             Target = target;
             BytesTotal = bytesTotal;
 
             // Prepare the background thread for later execution
-            _thread = new Thread(RunDownload) {IsBackground = true};
+            _thread = new Thread(RunDownload) { IsBackground = true };
         }
 
         /// <summary>
-        /// Creates a new download thread with multiple sources and no predefined file size.
+        /// Creates a new download thread with no fixed file size.
         /// </summary>
-        /// <param name="sources">A list of URLs the file can be downloaded from.</param>
+        /// <param name="source">The URL the file is to be downloaded from.</param>
         /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
-        public DownloadFile(IEnumerable<Uri> sources, string target) : this(sources, target, -1)
-        {}
-
-        /// <summary>
-        /// Creates a new download thread with a single source and a predefined file size.
-        /// </summary>
-        /// <param name="source">The URL the file can be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
-        /// <param name="bytesTotal">The number of bytes the file to be downloaded is long. The file will be rejected if it does not have this length.</param>
-        public DownloadFile(Uri source, string target, long bytesTotal) : this(new[] { source }, target, bytesTotal)
-        {}
-
-        /// <summary>
-        /// Creates a new download thread with a single source and no predefined file size.
-        /// </summary>
-        /// <param name="source">The URL the file can be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
-        public DownloadFile(Uri source, string target) : this(new[] {source}, target)
+        public DownloadFile(Uri source, string target) : this(source, target, -1)
         {}
         #endregion
 
@@ -246,7 +202,7 @@ namespace Common.Download
         {
             lock (_stateLock)
             {
-                if (State != DownloadState.Ready) return;
+                if (State != DownloadState.Ready || RunningSync) return;
 
                 State = DownloadState.Started; 
                 _thread.Start();
@@ -258,10 +214,12 @@ namespace Common.Download
         /// </summary>
         /// <param name="keepPartial">Set to <see langword="true"/> to keep partially downloaded files. Otherwise they will be deleted.</param>
         /// <remarks>Calling this on a not running thread will have no effect.</remarks>
+        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous download is running (launched via <see cref="RunSync"/>).</exception>
         public void Cancel(bool keepPartial)
         {
             lock (_stateLock)
             {
+                if (RunningSync) throw new InvalidOperationException(Resources.CannotCancelSync);
                 if (State != DownloadState.Started && State != DownloadState.GettingHeaders && State != DownloadState.GettingData) return;
 
                 _thread.Abort();
@@ -286,47 +244,16 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Changes the <see cref="State"/> from <see cref="DownloadState.Ready"/>, <see cref="DownloadState.GettingHeaders"/> or <see cref="DownloadState.GettingData"/> to <see cref="DownloadState.Paused"/>.
-        /// </summary>
-        /// <remarks>Calling this on a completed or failed thread will have no effect. This method is only relevant when using the <see cref="DownloadFile"/> as a part of a <see cref="DownloadJob"/>.</remarks>
-        public void Pause()
-        {
-            lock (_stateLock)
-            {
-                if (State >= DownloadState.Complete) return;
-
-                if (_thread.IsAlive)
-                {
-                    _thread.Abort();
-                    _thread.Join();
-                }
-                State = DownloadState.Paused;
-            }
-        }
-
-        /// <summary>
-        /// Changes the <see cref="State"/> from <see cref="DownloadState.Paused"/> back to ready <see cref="DownloadState.Ready"/>. 
-        /// </summary>
-        /// <remarks>This method is only relevant when using the <see cref="DownloadFile"/> as a part of a <see cref="DownloadJob"/>.</remarks>
-        public void Resume()
-        {
-            lock (_stateLock)
-            {
-                if (State != DownloadState.Paused) return;
-
-                State = DownloadState.Ready;
-            }
-        }
-
-        /// <summary>
         /// Blocks until the download is completed or terminated.
         /// </summary>
         /// <remarks>Calling this on a not running thread will return immediately.</remarks>
+        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous download is running (launched via <see cref="RunSync"/>).</exception>
         public void Join()
         {
             lock (_stateLock)
             {
-                if (!_thread.IsAlive) return;
+                if (RunningSync) throw new InvalidOperationException(Resources.CannotJoinSync);
+                if (_thread == null || !_thread.IsAlive) return;
 
                 _thread.Join();
             }
@@ -335,14 +262,108 @@ namespace Common.Download
         /// <summary>
         /// Runs the download code in the current thread instead of a background thread.
         /// </summary>
+        /// <exception cref="WebException">Thrown if the downloaded ended with <see cref="DownloadState.WebError"/>.</exception>
+        /// <exception cref="IOException">Thrown if the downloaded ended with <see cref="DownloadState.IOError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="DownloadState.Ready"/>.</exception>
         public void RunSync()
         {
             lock (_stateLock)
             {
-                if (State != DownloadState.Ready) throw new InvalidOperationException("Sate must be ready.");
+                if (State != DownloadState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
+                RunningSync = true;
+            }
 
-                RunDownload();
+            RunDownload();
+
+            lock (_stateLock)
+            {
+                RunningSync = false;
+                if (State == DownloadState.WebError) throw new WebException(ErrorMessage);
+                if (State == DownloadState.IOError) throw new IOException(ErrorMessage);
+            }
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Reads the header information in the <paramref name="response"/> and stores it the object properties.
+        /// </summary>
+        private void ReadHeader(WebResponse response)
+        {
+            Headers = response.Headers;
+
+            // Update the source URL to reflect changes made by HTTP redirection
+            Source = response.ResponseUri;
+
+            // Determine file size and make sure predetermined sizes are valid
+            if (BytesTotal == -1) BytesTotal = response.ContentLength;
+            else if (BytesTotal != response.ContentLength)
+            {
+                lock (_stateLock)
+                {
+                    ErrorMessage = Resources.FileNotExpectedSize;
+                    State = DownloadState.WebError;
+                }
+            }
+
+            // HTTP servers with range-support and FTP servers support resuming downloads
+            SupportsResume = (Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
+        }
+
+        /// <summary>
+        /// Configures the <paramref name="request"/> t start downloading at the of a <paramref name="fileStream"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol (usually should be HTTP or FTP).</exception>
+        private static void SetResumePoint(WebRequest request, Stream fileStream)
+        {
+            // Use Range header for HTTP resuming
+            var httpWebRequest = request as HttpWebRequest;
+            if (httpWebRequest != null)
+            {
+                // Handle reuming of verly large files by simply trimming part of the content
+                if (fileStream.Length > int.MaxValue) fileStream.SetLength(int.MaxValue);
+
+                httpWebRequest.AddRange((int)fileStream.Length);
+            }
+            else
+            {
+                var ftpWebRequest = request as FtpWebRequest;
+                if (ftpWebRequest != null) ftpWebRequest.ContentOffset = fileStream.Position;
+                else throw new NotSupportedException(Resources.HttpAndFtpOnly);
+            }
+        }
+
+        /// <summary>
+        /// Ensures a <paramref name="response"/> is actually using a resume point set by <see cref="SetResumePoint"/>.
+        /// </summary>
+        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol (usually should be HTTP or FTP).</exception>
+        private static bool EnsureResumePoint(WebResponse response)
+        {
+            var httpWebResponse = response as HttpWebResponse;
+            if (httpWebResponse != null)
+            {
+                // Check whether an HTTP server ignored a range header
+                return (httpWebResponse.StatusCode == HttpStatusCode.PartialContent);
+            }
+            
+            // Assume FTP resuming always works
+            if (response is FtpWebResponse) return true;
+
+            throw new NotSupportedException(Resources.HttpAndFtpOnly);
+        }
+
+        /// <summary>
+        /// Writes the content of <paramref name="webStream"/> to <paramref name="fileStream"/>.
+        /// </summary>
+        private void WriteStreamToTarget(Stream webStream, Stream fileStream)
+        {
+            int length;
+            var buffer = new byte[1024];
+            // Detect the end of the stream via a 0-write
+            while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                fileStream.Write(buffer, 0, length);
+                lock (_stateLock) BytesReceived += length;
             }
         }
         #endregion
@@ -353,137 +374,80 @@ namespace Common.Download
         /// </summary>
         private void RunDownload()
         {
-            // Select a specific download source
-            Uri source;
-            if (_sources.Count == 1) source = _sources.Choose();
-            else
-            {
-                // ToDo: Select best source by response speed
-                source = _sources.Choose();
-            }
-
-            // ToDo: Check if BITS downloading is available
-
-            // Prepare download request
-            var webRequest = WebRequest.Create(source);
-            
-            // Check whether a preexisting file shall be continued
-            bool resume = File.Exists(Target);
-            
             try
             {
-                // Open the target file for writing
-                using (FileStream fileStream = File.Open(Target, resume ? FileMode.Append : FileMode.Create, FileAccess.Write))
-                {
-                    #region Download Resume handling
-                    if (resume)
-                    {
-                        // Use Range header for HTTP resuming
-                        var httpWebRequest = webRequest as HttpWebRequest;
-                        if (httpWebRequest != null)
-                        {
-                            // Handle reuming of verly large files
-                            if (fileStream.Position > int.MaxValue) fileStream.Position = int.MaxValue;
-                            httpWebRequest.AddRange((int)fileStream.Position);
-                        }
-                        else
-                        {
-                            // Use ContentOffset header for FTP resuming
-                            var ftpWebRequest = webRequest as FtpWebRequest;
-                            if (ftpWebRequest != null) ftpWebRequest.ContentOffset = fileStream.Position;
-                            else throw new InvalidOperationException(Resources.HttpAndFtpOnly);
-                        }
-                    }
-                    #endregion
+                var request = WebRequest.Create(Source);
 
-                    State = DownloadState.GettingHeaders;
+                // Open the target file for writing
+                using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
+                {
+                    // Configure the request to continue the file transfer where the file ends
+                    if (fileStream.Length != 0) SetResumePoint(request, fileStream);
+
+                    lock (_stateLock) State = DownloadState.GettingHeaders;
 
                     // Start the server request
-                    using (WebResponse response = webRequest.GetResponse())
+                    using (WebResponse response = request.GetResponse())
                     {
-                        // Get the header information
-                        Headers = response.Headers;
-                        EffectiveSource = response.ResponseUri;
-
-                        // Determine file size and make sure predetermined sizes are valid
-                        if (BytesTotal == -1) BytesTotal = response.ContentLength;
-                        else if (BytesTotal != response.ContentLength)
+                        lock (_stateLock)
                         {
-                            ErrorMessage = Resources.FileNotExpectedSize;
-                            State = DownloadState.WebError;
-                        }
+                            ReadHeader(response);
 
-                        // HTTP servers with range-support and FTP servers support resuming downloads
-                        SupportsResume = (Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
-
-                        #region Download Resume handling
-                        if (resume)
-                        {
-                            // Check whether an HTTP server ignored a range header
-                            var httpWebResponse = response as HttpWebResponse;
-                            if (httpWebResponse != null)
+                            // If  a partial file exists locally...
+                            if (fileStream.Length != 0)
                             {
-                                if (httpWebResponse.StatusCode != HttpStatusCode.PartialContent)
+                                // ... make sure resuming worked on the server side
+                                if (EnsureResumePoint(response))
                                 {
-                                    // Clear the file and start from the beginning
+                                    // Update the download progress to reflect preexisting data and move the file pointer to the end
+                                    BytesReceived = fileStream.Position = fileStream.Length;
+                                }
+                                else
+                                {
+                                    // Delete the preexisiting content and start over
                                     fileStream.SetLength(0);
                                 }
                             }
 
-                            // Update the download progress to reflect preexisting data
-                            BytesReceived = fileStream.Position;
+                            State = DownloadState.GettingData;
                         }
-                        #endregion
-
-                        State = DownloadState.GettingData;
 
                         // Start writing data to the file
-                        int length;
-                        Stream downloadStream = response.GetResponseStream();
-                        var buffer = new byte[1024];
-                        // Detect the end of the stream via a 0-write
-                        while ((length = downloadStream.Read(buffer, 0, buffer.Length)) > 0)
-                        {
-                            fileStream.Write(buffer, 0, length);
-                            BytesReceived += length;
-                        }
+                        WriteStreamToTarget(response.GetResponseStream(), fileStream);
                     }
                 }
             }
             #region Error handling
             catch (WebException ex)
             {
-                ErrorMessage = ex.Message;
-                State = DownloadState.WebError;
+                lock (_stateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = DownloadState.WebError;
+                }
                 return;
             }
             catch (IOException ex)
             {
-                ErrorMessage = ex.Message;
-                State = DownloadState.IOError;
+                lock (_stateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = DownloadState.IOError;
+                }
                 return;
             }
             catch (UnauthorizedAccessException ex)
             {
-                ErrorMessage = ex.Message;
-                State = DownloadState.IOError;
+                lock (_stateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = DownloadState.IOError;
+                }
                 return;
             }
             #endregion
 
             State = DownloadState.Complete;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region BITS control
-        /// <summary>
-        /// To be called when <see cref="Priority"/> has changed to inform the BITS service.
-        /// </summary>
-        private void UpdatePriority()
-        {
-            // ToDo: Implement
         }
         #endregion
     }

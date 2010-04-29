@@ -106,7 +106,7 @@ namespace ZeroInstall.Model
                     return false;
             }
 
-            // If we get here, everything was equal
+            // If we reach this, everything was equal
             return true;
         }
 
@@ -142,6 +142,7 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(ImplementationVersion other)
         {
+            // ToDo: Implement
             throw new NotImplementedException();
         }
 

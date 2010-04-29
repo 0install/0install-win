@@ -215,4 +215,16 @@ Die Änderungen löschen</value>
   <data name="FileNotExpectedSize" xml:space="preserve">
     <value>Die Datei hat nicht die erwartete Größe.</value>
   </data>
+  <data name="InvalidPriority" xml:space="preserve">
+    <value>Die angegebene Priorität ist ungültig.</value>
+  </data>
+  <data name="CannotCancelSync" xml:space="preserve">
+    <value>Eine synchrone Operation kann nicht abgebrochen werden.</value>
+  </data>
+  <data name="CannotJoinSync" xml:space="preserve">
+    <value>Auf eine synchrone Operation kann nicht gewartet werden.</value>
+  </data>
+  <data name="StateMustBeReady" xml:space="preserve">
+    <value>Der Zustand muss "Ready" sein.</value>
+  </data>
 </root>

@@ -84,23 +84,6 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Is a specific value in a list of strings?
-        /// </summary>
-        public static bool IsInList(string value, IEnumerable<string> list, bool ignoreCase, CultureInfo culture)
-        {
-            #region Sanity checks
-            if (value == null) throw new ArgumentNullException("value");
-            if (list == null) throw new ArgumentNullException("list");
-            if (culture == null) throw new ArgumentNullException("culture");
-            #endregion
-
-            foreach (string listEntry in list)
-                if (string.Compare(value, listEntry, ignoreCase, culture) == 0)
-                    return true;
-            return false;
-        }
-
-        /// <summary>
         /// Use case-insensitive compare to check for a contained string.
         /// </summary>
         /// <param name="text">The string to search.</param>
