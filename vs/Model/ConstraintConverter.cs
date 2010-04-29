@@ -44,7 +44,7 @@ namespace ZeroInstall.Model
         /// <returns>The arguments of <see cref="Constraint"/> converted to strings.</returns>
         protected override string[] GetValues(Constraint value, ITypeDescriptorContext context, CultureInfo culture)
         {
-            return new[] { value.NotBeforeVersion, value.BeforeVersion };
+            return new[] { value.NotBeforeVersion.ToString(), value.BeforeVersion.ToString() };
         }
 
         /// <returns>A new instance of <see cref="Constraint"/>.</returns>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Model
             if (values == null) throw new ArgumentNullException("values");
             #endregion
 
-            return new Constraint(values[0], values[1]);
+            return new Constraint(new ImplementationVersion(values[0]), new ImplementationVersion(values[1]));
         }
 
         /// <returns>A new instance of <see cref="Constraint"/>.</returns>
@@ -64,7 +64,9 @@ namespace ZeroInstall.Model
             if (propertyValues == null) throw new ArgumentNullException("propertyValues");
             #endregion
 
-            return new Constraint(propertyValues["NotBeforeVersion"].ToString(), propertyValues["BeforeVersion"].ToString());
+            return new Constraint(
+                new ImplementationVersion(propertyValues["NotBeforeVersion"].ToString()),
+                new ImplementationVersion(propertyValues["BeforeVersion"].ToString()));
         }
     }
 }

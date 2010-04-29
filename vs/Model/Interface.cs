@@ -25,7 +25,7 @@ using Common.Storage;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Represents a Zero Install feed containing information about...
+    /// Represents a Zero Install feed containing information about an application or library.
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -163,21 +163,21 @@ namespace ZeroInstall.Model
 
         #region Implementations
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Implementation> _implementation = new C5.HashedLinkedList<Implementation>();
+        private readonly C5.HashedLinkedList<Implementation> _implementations = new C5.HashedLinkedList<Implementation>();
         /// <summary>
-        /// A list of <see cref="Implementation"/>s contained within this interface.
+        /// A list of downloadable <see cref="Implementation"/>s for this interface.
         /// </summary>
-        [Category("Implementation"), Description("A list of implementations contained within this interface.")]
+        [Category("Implementation"), Description("A list of downloadable implementations contained for this interface.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Implementation> Implementations { get { return _implementation; } }
+        public C5.HashedLinkedList<Implementation> Implementations { get { return _implementations; } }
 
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedLinkedList<PackageImplementation> _packageImplementation = new C5.HashedLinkedList<PackageImplementation>();
         /// <summary>
-        /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this interface.
+        /// A list of distribution-provided <see cref="PackageImplementation"/>s for this interface.
         /// </summary>
-        [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this interface.")]
+        [Category("Implementation"), Description("A list of distribution-provided package implementations for this interface.")]
         [XmlElement("package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedLinkedList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }

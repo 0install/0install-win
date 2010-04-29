@@ -15,13 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using NUnit.Framework;
+using ZeroInstall.Model;
 
-namespace ZeroInstall.Model
+namespace ZeroInstall.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="Interface"/>.
+    /// Contains test methods for <see cref="Selections"/>.
     /// </summary>
     public class InterfaceTest
     {
@@ -31,23 +33,26 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSaveLoad()
         {
-            Interface app1, app2;
+            Selections sel1, sel2;
             string tempFile = null;
             try
             {
                 tempFile = Path.GetTempFileName();
-                app1 = new Interface { Name = "MyApp", Description = "Some text.", Categories = {"Category"} };
-                app1.Save(tempFile);
-                app2 = Interface.Load(tempFile);
+                sel1 = new Selections { Implementations = { new ImplementationSelection
+                {
+                    Version  = new ImplementationVersion("1.0"),
+                    Architecture = new Architecture(OS.Windows, Cpu.I586),
+                    Interface = new Uri("http://0install.nanobyte.de/feeds/test.xml")
+                }} };
+                sel1.Save(tempFile);
+                sel2 = Selections.Load(tempFile);
             }
             finally
             {
                 if (tempFile != null) File.Delete(tempFile);
             }
 
-            Assert.AreEqual(app1.Name, app2.Name);
-            Assert.AreEqual(app1.Description, app2.Description);
-            Assert.AreEqual(app1.Categories, app2.Categories);
+            Assert.AreEqual(sel1.Implementations, sel2.Implementations);
         }
     }
 }

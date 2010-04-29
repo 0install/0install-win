@@ -32,24 +32,42 @@ namespace ZeroInstall.Model
         /// This is the lowest-numbered version that can be chosen.
         /// </summary>
         [Description("This is the lowest-numbered version that can be chosen.")]
-        [XmlAttribute("not-before")]
-        public string NotBeforeVersion { get; set; }
+        [XmlIgnore]
+        public ImplementationVersion NotBeforeVersion { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="NotBeforeVersion"/>
+        [XmlAttribute("not-before"), Browsable(false)]
+        public string NotBeforeVersionString
+        {
+            get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); }
+            set { NotBeforeVersion = new ImplementationVersion(value); }
+        }
 
         /// <summary>
         /// This version and all later versions are unsuitable.
         /// </summary>
         [Description("This version and all later versions are unsuitable.")]
-        [XmlAttribute("before")]
-        public string BeforeVersion { get; set; }
+        [XmlIgnore]
+        public ImplementationVersion BeforeVersion { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="BeforeVersion"/>
+        [XmlAttribute("before"), Browsable(false)]
+        public string BeforeVersionString
+        {
+            get { return (NotBeforeVersion == null ? null : BeforeVersion.ToString()); }
+            set { BeforeVersion = new ImplementationVersion(value); }
+        }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new constraint sturcture with pre-set values.
+        /// Creates a new constraint structure with pre-set values.
         /// </summary>
         /// <param name="notBeforeVersion">This is the lowest-numbered version that can be chosen.</param>
         /// <param name="beforeVersion">This version and all later versions are unsuitable.</param>
-        public Constraint(string notBeforeVersion, string beforeVersion) : this()
+        public Constraint(ImplementationVersion notBeforeVersion, ImplementationVersion beforeVersion) : this()
         {
             NotBeforeVersion = notBeforeVersion;
             BeforeVersion = beforeVersion;

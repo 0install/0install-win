@@ -99,8 +99,10 @@
         <Point X="10.083" Y="8.09" Type="JumpEnd" />
         <Point X="11.417" Y="8.09" Type="JumpStart" />
         <Point X="11.583" Y="8.09" Type="JumpEnd" />
-        <Point X="12.729" Y="8.09" Type="JumpStart" />
-        <Point X="12.958" Y="8.09" Type="JumpEnd" />
+        <Point X="12.76" Y="8.09" Type="JumpStart" />
+        <Point X="12.927" Y="8.09" Type="JumpEnd" />
+        <Point X="13.042" Y="8.09" Type="JumpStart" />
+        <Point X="13.208" Y="8.09" Type="JumpEnd" />
         <Point X="13.292" Y="8.09" Type="JumpStart" />
         <Point X="13.458" Y="8.09" Type="JumpEnd" />
         <Point X="14.26" Y="8.09" />
@@ -113,8 +115,8 @@
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Stability" />
       <Property Name="Version" />
+      <Property Name="Stability" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Dependencies" />
@@ -129,7 +131,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAKIgMAAACAiQCgABABAAYQAAAQAEAKASAgAAAAAACI=</HashCode>
+      <HashCode>AQKIgMAAACAiQCgABABAAYQAAAQAEACASAgAAAAAACI=</HashCode>
       <FileName>Interface.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -224,7 +226,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAQEgACAAgAAAAAAAYEAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAQEgACAAgAAAAAAAYEAAAAAAAAAByA=</HashCode>
       <FileName>ImplementationVersion.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -245,8 +247,8 @@
       <FileName>VersionPart.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="DottedList" />
       <Property Name="Modifier" />
+      <Property Name="DottedList" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

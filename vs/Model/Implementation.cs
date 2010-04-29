@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// A specific (executable) implementation of an <see cref="Interface"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Implementation : ImplementationBase
+    public class Implementation : ImplementationBase
     {
         #region Properties
         /// <summary>
