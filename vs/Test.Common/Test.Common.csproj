@@ -49,7 +49,9 @@
   <ItemGroup>
     <Compile Include="ArgumentsTest.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
+    <Compile Include="Helpers\StreamHelperTest.cs" />
     <Compile Include="Helpers\StringHelperTest.cs" />
+    <Compile Include="Storage\XmlStorageTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

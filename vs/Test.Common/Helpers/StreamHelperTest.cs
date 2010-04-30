@@ -22,29 +22,22 @@
 
 using NUnit.Framework;
 
-namespace Common
+namespace Common.Helpers
 {
     /// <summary>
-    /// Contains test methods for <see cref="Arguments"/>.
+    /// Contains test methods for <see cref="StreamHelper"/>.
     /// </summary>
-    public class ArgumentsTest
+    public class StreamHelperTest
     {
         /// <summary>
-        /// Ensures the <see cref="Arguments"/> constructor correctly parses argument string arrays.
+        /// Ensures <see cref="StreamHelper.CreateFromString"/> and <see cref="StreamHelper.ReadToString"/> work correctly.
         /// </summary>
         [Test]
-        public void TestParse()
+        public void TestString()
         {
-            var args = new Arguments(new[] {"-command1", "option", "file", "/command2"});
-
-            Assert.IsTrue(args.Contains("command1"), "command1");
-            Assert.IsTrue(args.Contains("command2"), "command2");
-            Assert.IsFalse(args.Contains("option"), "option");
-            Assert.IsFalse(args.Contains("file"), "file");
-
-            Assert.AreEqual("option", args["command1"]);
-            
-            Assert.IsTrue(args.Files.Contains("file"), "file");
+            string test = "Test";
+            using (var stream = StreamHelper.CreateFromString(test))
+                Assert.AreEqual(test, StreamHelper.ReadToString(stream));
         }
     }
 }

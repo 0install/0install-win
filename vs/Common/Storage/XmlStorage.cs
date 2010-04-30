@@ -41,7 +41,7 @@ namespace Common.Storage
     public static class XmlStorage
     {
         #region Serializer generation
-        private static readonly Dictionary<string, XmlSerializer> Serializers = new Dictionary<string, XmlSerializer>();
+        private static readonly Dictionary<string, XmlSerializer> _serializers = new Dictionary<string, XmlSerializer>();
 
         /// <summary>
         /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>. Results are automatically cached internally.
@@ -64,11 +64,11 @@ namespace Common.Storage
 
             XmlSerializer serializer;
             // Try to find a suitable serializer in the cache
-            if (!Serializers.TryGetValue(key, out serializer))
+            if (!_serializers.TryGetValue(key, out serializer))
             {
                 // Create a new serializer and add it to the cache
                 serializer = CreateSerializer(type, ignoreMembers);
-                Serializers.Add(key, serializer);
+                _serializers.Add(key, serializer);
             }
             
             return serializer;
@@ -169,14 +169,9 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
             #endregion
 
-            using (var stream = new MemoryStream())
-            {
-                stream.Position = 0;
-                using (var writer = new StreamWriter(stream))
-                    writer.Write(data);
-
+            // Copy string to a stream and then parse
+            using (var stream = StreamHelper.CreateFromString(data))
                 return Load<T>(stream, ignoreMembers);
-            }
         }
         #endregion
 
@@ -247,11 +242,11 @@ namespace Common.Storage
         {
             using (var stream = new MemoryStream())
             {
+                // Write to a memory stream
                 Save(stream, data, ignoreMembers);
 
-                stream.Position = 0;
-                using (var reader = new StreamReader(stream))
-                    return reader.ReadToEnd();
+                // Copy the stream to a string
+                return StreamHelper.ReadToString(stream);
             }
         }
         #endregion

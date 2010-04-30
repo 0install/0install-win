@@ -16,18 +16,20 @@
  */
 
 using System;
-using ZeroInstall.Model;
+using NUnit.Framework;
 
 namespace ZeroInstall.Solver
 {
-    public interface ISolver
+    public class PythonSolverTest
     {
-        Selections Solve(Uri feed);
+        [Test]
+        public void Test()
+        {
+            var solver = new PythonSolver();
 
-        Selections Solve(Uri feed, ImplementationVersion notBefore);
+            Selections selections = solver.Solve(new Uri("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml"));
 
-        Selections Solve(Uri feed, string withStore);
-
-        Selections Solve(Uri feed, ImplementationVersion notBefore, string withStore);
+            Assert.AreEqual("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml", selections.InterfaceString);
+        }
     }
 }

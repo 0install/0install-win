@@ -82,29 +82,37 @@ namespace ZeroInstall.Solver
 
         #region Storage
         /// <summary>
-        /// Loads an <see cref="Interface"/> from an XML file (feed).
+        /// Parses a string as XML containing <see cref="Selections"/>.
+        /// </summary>
+        /// <param name="data">The string to parse as Selections XML.</param>
+        /// <returns>The parsed <see cref="Selections"/>.</returns>
+        public static Selections Parse(string data)
+        {
+            return XmlStorage.FromString<Selections>(data);
+        }
+
+        /// <summary>
+        /// Loads <see cref="Selections"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Interface"/>.</returns>
+        /// <returns>The loaded <see cref="Selections"/>.</returns>
         public static Selections Load(string path)
         {
-            // Load the file
             return XmlStorage.Load<Selections>(path);
         }
 
         /// <summary>
-        /// Loads an <see cref="Interface"/> from a stream containing an XML file (feed).
+        /// Loads <see cref="Selections"/> from a stream containing an XML file.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Interface"/>.</returns>
+        /// <returns>The loaded <see cref="Selections"/>.</returns>
         public static Selections Load(Stream stream)
         {
-            // Load the file
             return XmlStorage.Load<Selections>(stream);
         }
 
         /// <summary>
-        /// Saves this <see cref="Interface"/> in an XML file (feed).
+        /// Saves these <see cref="Selections"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
         public void Save(string path)
@@ -113,7 +121,7 @@ namespace ZeroInstall.Solver
         }
 
         /// <summary>
-        /// Saves this <see cref="Interface"/> in a stream as an XML file (feed).
+        /// Saves these <see cref="Selections"/> to a stream as an XML file.
         /// </summary>
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)

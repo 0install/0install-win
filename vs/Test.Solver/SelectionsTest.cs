@@ -25,7 +25,7 @@ namespace ZeroInstall.Solver
     /// <summary>
     /// Contains test methods for <see cref="Selections"/>.
     /// </summary>
-    public class InterfaceTest
+    public class SelectionsTest
     {
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
@@ -38,6 +38,8 @@ namespace ZeroInstall.Solver
             try
             {
                 tempFile = Path.GetTempFileName();
+
+                // Write and read file
                 sel1 = new Selections { Implementations = { new ImplementationSelection
                 {
                     Version  = new ImplementationVersion("1.0"),
@@ -48,10 +50,11 @@ namespace ZeroInstall.Solver
                 sel2 = Selections.Load(tempFile);
             }
             finally
-            {
+            { // Clean up
                 if (tempFile != null) File.Delete(tempFile);
             }
 
+            // Ensure data stayed the same
             Assert.AreEqual(sel1.Implementations, sel2.Implementations);
         }
     }

@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 
 namespace Common.Helpers
 {
@@ -66,6 +67,30 @@ namespace Common.Helpers
             if (destination == null) throw new ArgumentNullException("destination");
 
             Copy(source, destination, source.Length == 0 ? source.Position : source.Length);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="MemoryStream"/> and fills it with ASCII-encoded string data.
+        /// </summary>
+        /// <param name="data">The data to fill the stream with.</param>
+        /// <returns>A filled stream with the position set to zero.</returns>
+        public static Stream CreateFromString(string data)
+        {
+            byte[] byteArray = Encoding.ASCII.GetBytes(data);
+            var stream = new MemoryStream( byteArray );
+            return stream;
+        }
+
+        /// <summary>
+        /// Reads the entire content of a stream (will seek from zero to end).
+        /// </summary>
+        /// <param name="stream">The stream to read from.</param>
+        /// <returns>A entire content of the stream.</returns>
+        public static string ReadToString(Stream stream)
+        {
+            stream.Position = 0;
+            var reader = new StreamReader(stream);
+            return reader.ReadToEnd();
         }
     }
 }

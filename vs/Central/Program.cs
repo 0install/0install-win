@@ -55,7 +55,7 @@ namespace ZeroInstall.Central
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
             #endregion
 
-            try { Process.Start(AppDir + "\\" + appName, arguments); }
+            try { Process.Start(AppDir + Path.DirectorySeparatorChar + appName, arguments); }
             catch (Win32Exception)
             {
                 Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);

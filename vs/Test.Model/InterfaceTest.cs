@@ -36,15 +36,18 @@ namespace ZeroInstall.Model
             try
             {
                 tempFile = Path.GetTempFileName();
+
+                // Write and read file
                 app1 = new Interface { Name = "MyApp", Description = "Some text.", Categories = {"Category"} };
                 app1.Save(tempFile);
                 app2 = Interface.Load(tempFile);
             }
             finally
-            {
+            { // Clean up
                 if (tempFile != null) File.Delete(tempFile);
             }
 
+            // Ensure data stayed the same
             Assert.AreEqual(app1.Name, app2.Name);
             Assert.AreEqual(app1.Description, app2.Description);
             Assert.AreEqual(app1.Categories, app2.Categories);
