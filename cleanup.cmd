@@ -16,16 +16,24 @@ copy "vs\ZeroInstall_VS2010.5.0.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.
 rem Clear VS.NET's object cache
 del vs\*.cache > NUL 2>&1
 rd /s /q vs\Central\obj > NUL 2>&1
+rd /s /q vs\FeedEditor\obj > NUL 2>&1
 rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
 rd /s /q vs\Launcher.Gui\obj > NUL 2>&1
-rd /s /q vs\CacheManagement.Cli\obj > NUL 2>&1
-rd /s /q vs\CacheManagement.Gui\obj > NUL 2>&1
-rd /s /q vs\FeedEditor\obj > NUL 2>&1
+rd /s /q vs\StoreManagement.Cli\obj > NUL 2>&1
+rd /s /q vs\StoreManagement.Gui\obj > NUL 2>&1
+rd /s /q vs\StoreService\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
+rd /s /q vs\Injector\obj > NUL 2>&1
 rd /s /q vs\Model\obj > NUL 2>&1
+rd /s /q vs\MyApps\obj > NUL 2>&1
 rd /s /q vs\Solver\obj > NUL 2>&1
 rd /s /q vs\Store\obj > NUL 2>&1
-rd /s /q vs\Injector\obj > NUL 2>&1
+rd /s /q vs\Test.Common\obj > NUL 2>&1
+rd /s /q vs\Test.Injector\obj > NUL 2>&1
+rd /s /q vs\Test.Model\obj > NUL 2>&1
+rd /s /q vs\Test.MyApps\obj > NUL 2>&1
+rd /s /q vs\Test.Solver\obj > NUL 2>&1
+rd /s /q vs\Test.Store\obj > NUL 2>&1
 
 rem Restore old VS2008 solution user options (temporarily unhide for copying)
 attrib -h "vs\ZeroInstall_VS2008.suo.Backup" > NUL 2>&1

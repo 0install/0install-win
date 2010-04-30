@@ -263,8 +263,8 @@
     <Alias n="44" Id="(@43)" />
   </IdentifierAliases>
   <Paths>
-    <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="G:\Documents\Code\Games\P05\bin\Debug\Editor.exe" />
-    <Path Id="VsSolution" Value=".." />
-    <Path Id="VsSolutionUri" Value=".." />
+    <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="..\..\..\build\Debug\Central.exe" />
+    <Path Id="VsSolution" Value="..\.." />
+    <Path Id="VsSolutionUri" Value="../.." />
   </Paths>
 </DirectedGraph>
