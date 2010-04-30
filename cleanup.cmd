@@ -40,3 +40,7 @@ attrib -h "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
 copy "vs\ZeroInstall_VS2010.suo.Backup" "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
 attrib +h "vs\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
 attrib +h "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
+
+rem Remove NUnit logs
+del *.VisualState.xml > NUL 2>&1
+del TestResult.xml > NUL 2>&1
