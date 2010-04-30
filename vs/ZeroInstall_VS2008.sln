@@ -121,7 +121,6 @@ Global
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA9D6092-4365-4385-9700-9570A98EF09D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

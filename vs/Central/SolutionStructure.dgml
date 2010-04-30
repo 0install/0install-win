@@ -38,37 +38,40 @@
     <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
+    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
+    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
+    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
+    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
+    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@40" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
+    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@42" Category="SolutionFolder" IsDragSource="True" Label="Library">
+    <Node Id="@42" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@44" Category="SolutionFolder" IsDragSource="True" Label="Library">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Store">
@@ -87,6 +90,9 @@
     <Node Id="NewGroup16" Category="Category9" Group="Expanded" Label="Test.ZeroInstall.MyApps.dll" />
     <Node Id="NewGroup17" Category="Category9" Group="Expanded" Label="Test.ZeroInstall.Injector.dll" />
     <Node Id="NewGroup18" Category="Category9" Group="Expanded" Label="Test.ZeroInstall.Solver.dll" />
+    <Node Id="NewGroup19" Category="Category9" Group="Expanded" Label="Test.Common.dll">
+      <Category Ref="Test.Common.dkk" />
+    </Node>
     <Node Id="NewGroup2" Category="Category2" Group="Expanded" Label="FeedEditor.exe" />
     <Node Id="NewGroup3" Category="Category2" Group="Expanded" Label="0launch.exe" />
     <Node Id="NewGroup4" Category="Category2" Group="Expanded" Label="0launchw.exe" />
@@ -102,37 +108,39 @@
     <Link Source="@2" Target="@14" Category="Contains" />
     <Link Source="@2" Target="@16" Category="Contains" />
     <Link Source="@2" Target="@18" Category="Contains" />
-    <Link Source="@2" Target="@34" Category="Contains" />
+    <Link Source="@2" Target="@36" Category="Contains" />
     <Link Source="@2" Target="@4" Category="Contains" />
-    <Link Source="@40" Target="@20" Category="Contains" />
-    <Link Source="@40" Target="@26" Category="Contains" />
-    <Link Source="@40" Target="@30" Category="Contains" />
-    <Link Source="@40" Target="@36" Category="Contains" />
-    <Link Source="@40" Target="@6" Category="Contains" />
-    <Link Source="@42" Target="@22" Category="Contains" />
+    <Link Source="@42" Target="@20" Category="Contains" />
     <Link Source="@42" Target="@24" Category="Contains" />
     <Link Source="@42" Target="@28" Category="Contains" />
     <Link Source="@42" Target="@32" Category="Contains" />
     <Link Source="@42" Target="@38" Category="Contains" />
-    <Link Source="@42" Target="@40" Category="Contains" />
-    <Link Source="@42" Target="@8" Category="Contains" />
+    <Link Source="@42" Target="@6" Category="Contains" />
+    <Link Source="@44" Target="@22" Category="Contains" />
+    <Link Source="@44" Target="@26" Category="Contains" />
+    <Link Source="@44" Target="@30" Category="Contains" />
+    <Link Source="@44" Target="@34" Category="Contains" />
+    <Link Source="@44" Target="@40" Category="Contains" />
+    <Link Source="@44" Target="@42" Category="Contains" />
+    <Link Source="@44" Target="@8" Category="Contains" />
     <Link Source="NewGroup1" Target="(Namespace=ZeroInstall.Central)" Category="Contains" />
     <Link Source="NewGroup1" Target="@18" Category="Contains" />
     <Link Source="NewGroup10" Target="(Namespace=ZeroInstall.MyApps)" Category="Contains" />
-    <Link Source="NewGroup10" Target="@38" Category="Contains" />
+    <Link Source="NewGroup10" Target="@40" Category="Contains" />
     <Link Source="NewGroup11" Target="(Namespace=ZeroInstall.Store)" Category="Contains" />
     <Link Source="NewGroup11" Target="@8" Category="Contains" />
     <Link Source="NewGroup12" Target="(Namespace=ZeroInstall.Injector)" Category="Contains" />
-    <Link Source="NewGroup12" Target="@32" Category="Contains" />
+    <Link Source="NewGroup12" Target="@34" Category="Contains" />
     <Link Source="NewGroup13" Target="(Namespace=ZeroInstall.Solver)" Category="Contains" />
-    <Link Source="NewGroup13" Target="@28" Category="Contains" />
+    <Link Source="NewGroup13" Target="@30" Category="Contains" />
     <Link Source="NewGroup14" Target="@20" Category="Contains" />
     <Link Source="NewGroup15" Target="@6" Category="Contains" />
-    <Link Source="NewGroup16" Target="@36" Category="Contains" />
-    <Link Source="NewGroup17" Target="@30" Category="Contains" />
-    <Link Source="NewGroup18" Target="@26" Category="Contains" />
+    <Link Source="NewGroup16" Target="@38" Category="Contains" />
+    <Link Source="NewGroup17" Target="@32" Category="Contains" />
+    <Link Source="NewGroup18" Target="@28" Category="Contains" />
+    <Link Source="NewGroup19" Target="@24" Category="Contains" />
     <Link Source="NewGroup2" Target="(Namespace=ZeroInstall.FeedEditor)" Category="Contains" />
-    <Link Source="NewGroup2" Target="@34" Category="Contains" />
+    <Link Source="NewGroup2" Target="@36" Category="Contains" />
     <Link Source="NewGroup3" Target="(Namespace=ZeroInstall.Launcher.Cli)" Category="Contains" />
     <Link Source="NewGroup3" Target="@10" Category="Contains" />
     <Link Source="NewGroup4" Target="(Namespace=ZeroInstall.Launcher.Gui)" Category="Contains" />
@@ -146,7 +154,7 @@
     <Link Source="NewGroup8" Target="(Namespace=ZeroInstall.Model)" Category="Contains" />
     <Link Source="NewGroup8" Target="@22" Category="Contains" />
     <Link Source="NewGroup9" Target="(Namespace=Common)" Category="Contains" />
-    <Link Source="NewGroup9" Target="@24" Category="Contains" />
+    <Link Source="NewGroup9" Target="@26" Category="Contains" />
   </Links>
   <Categories>
     <Category Id="Category2" Label="Category 2" Background="#FF7DC633" IsTag="True" />
@@ -159,6 +167,7 @@
     <Category Id="Contains" Label="Contains" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
     <Category Id="File" Label="File" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
     <Category Id="SolutionFolder" Label="Solution Folder" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Solution Folders" />
+    <Category Id="Test.Common.dkk" Label="Test.Common.dll" IsTag="True" />
   </Categories>
   <Properties>
     <Property Id="Background" Label="Background" Description="The background color" DataType="System.Windows.Media.Brush" />
@@ -230,30 +239,32 @@
     <Alias n="20" Id="(@19)" />
     <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="22" Id="(@21)" />
-    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
     <Alias n="24" Id="(@23)" />
-    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
+    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
     <Alias n="26" Id="(@25)" />
-    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
+    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
     <Alias n="28" Id="(@27)" />
-    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
+    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
     <Alias n="30" Id="(@29)" />
-    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
     <Alias n="32" Id="(@31)" />
-    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
     <Alias n="34" Id="(@33)" />
-    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
+    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
     <Alias n="36" Id="(@35)" />
-    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
     <Alias n="38" Id="(@37)" />
-    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="40" Id="(@39)" />
-    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Library" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
     <Alias n="42" Id="(@41)" />
+    <Alias n="43" Uri="Assembly=$(VsSolutionUri)/Library" />
+    <Alias n="44" Id="(@43)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="G:\Documents\Code\Games\P05\bin\Debug\Editor.exe" />
-    <Path Id="VsSolution" Value="G:\Documents\Code\zeroinstall\windows\vs" />
-    <Path Id="VsSolutionUri" Value="file:///G:/Documents/Code/zeroinstall/windows/vs" />
+    <Path Id="VsSolution" Value=".." />
+    <Path Id="VsSolutionUri" Value=".." />
   </Paths>
 </DirectedGraph>

@@ -10,28 +10,31 @@
     <Node Id="(@12)" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@13)" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
+    <Node Id="(@13)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@14)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
+    <Node Id="(@14)" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@15)" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
+    <Node Id="(@15)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@16)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
+    <Node Id="(@16)" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@17)" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="(@17)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@18)" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+    <Node Id="(@18)" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@19)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
+    <Node Id="(@19)" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@20)" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="(@20)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(@21)" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="(@3)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
@@ -58,33 +61,34 @@
     <Node Id="@2" Category="SolutionFolder" IsDragSource="True" Label="Executable">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
+    <Node Id="@23" Category="SolutionFolder" IsDragSource="True" Label="UnitTests">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@24" Category="SolutionFolder" IsDragSource="True" Label="Library">
+    <Node Id="@25" Category="SolutionFolder" IsDragSource="True" Label="Library">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
   </Nodes>
   <Links>
     <Link Source="@2" Target="(@10)" Category="Contains" />
-    <Link Source="@2" Target="(@18)" Category="Contains" />
+    <Link Source="@2" Target="(@19)" Category="Contains" />
     <Link Source="@2" Target="(@3)" Category="Contains" />
     <Link Source="@2" Target="(@6)" Category="Contains" />
     <Link Source="@2" Target="(@7)" Category="Contains" />
     <Link Source="@2" Target="(@8)" Category="Contains" />
     <Link Source="@2" Target="(@9)" Category="Contains" />
-    <Link Source="@22" Target="(@11)" Category="Contains" />
-    <Link Source="@22" Target="(@14)" Category="Contains" />
-    <Link Source="@22" Target="(@16)" Category="Contains" />
-    <Link Source="@22" Target="(@19)" Category="Contains" />
-    <Link Source="@22" Target="(@4)" Category="Contains" />
-    <Link Source="@24" Target="(@12)" Category="Contains" />
-    <Link Source="@24" Target="(@13)" Category="Contains" />
-    <Link Source="@24" Target="(@15)" Category="Contains" />
-    <Link Source="@24" Target="(@17)" Category="Contains" />
-    <Link Source="@24" Target="(@20)" Category="Contains" />
-    <Link Source="@24" Target="(@5)" Category="Contains" />
-    <Link Source="@24" Target="@22" Category="Contains" />
+    <Link Source="@23" Target="(@11)" Category="Contains" />
+    <Link Source="@23" Target="(@13)" Category="Contains" />
+    <Link Source="@23" Target="(@15)" Category="Contains" />
+    <Link Source="@23" Target="(@17)" Category="Contains" />
+    <Link Source="@23" Target="(@20)" Category="Contains" />
+    <Link Source="@23" Target="(@4)" Category="Contains" />
+    <Link Source="@25" Target="(@12)" Category="Contains" />
+    <Link Source="@25" Target="(@14)" Category="Contains" />
+    <Link Source="@25" Target="(@16)" Category="Contains" />
+    <Link Source="@25" Target="(@18)" Category="Contains" />
+    <Link Source="@25" Target="(@21)" Category="Contains" />
+    <Link Source="@25" Target="(@5)" Category="Contains" />
+    <Link Source="@25" Target="@23" Category="Contains" />
   </Links>
   <Categories>
     <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
@@ -138,22 +142,23 @@
     <Alias n="10" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
     <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Test.Model/Test.Model.csproj" />
     <Alias n="12" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
-    <Alias n="14" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
-    <Alias n="16" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
-    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
-    <Alias n="18" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
-    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
-    <Alias n="20" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
-    <Alias n="22" Id="(@21)" />
-    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Library" />
-    <Alias n="24" Id="(@23)" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
+    <Alias n="14" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
+    <Alias n="16" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
+    <Alias n="18" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="20" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="22" Uri="Assembly=$(VsSolutionUri)/Library/UnitTests" />
+    <Alias n="23" Id="(@22)" />
+    <Alias n="24" Uri="Assembly=$(VsSolutionUri)/Library" />
+    <Alias n="25" Id="(@24)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="G:\Documents\Code\Games\P05\bin\Debug\Editor.exe" />
-    <Path Id="VsSolution" Value="G:\Documents\Code\zeroinstall\windows\vs" />
-    <Path Id="VsSolutionUri" Value="file:///G:/Documents/Code/zeroinstall/windows/vs" />
+    <Path Id="VsSolution" Value=".." />
+    <Path Id="VsSolutionUri" Value=".." />
   </Paths>
 </DirectedGraph>

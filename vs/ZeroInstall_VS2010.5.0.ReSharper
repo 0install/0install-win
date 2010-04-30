@@ -12,7 +12,8 @@
               <CaseSensitive>false</CaseSensitive>
               <UserWords>internet
 downloadable
-deserialization</UserWords>
+deserialization
+serializer</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>
