@@ -13,8 +13,9 @@
               <UserWords>internet
 downloadable
 deserialization
+offline
 serializer
-Offline</UserWords>
+symlink</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

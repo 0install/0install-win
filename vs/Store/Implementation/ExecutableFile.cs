@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -29,7 +30,19 @@ namespace ZeroInstall.Store.Implementation
         /// <returns><code>"X", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "X {0} {1} {2} {3}\n", Hash, Size, ModifiedTime, FileName);
+            return string.Format(CultureInfo.InvariantCulture, "X {0} {1} {2} {3}", Hash, Size, ModifiedTime, FileName);
+        }
+
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        public static ExecutableFile FromString(string line)
+        {
+            string[] parts = line.Split(new[] { ' ' }, 5);
+            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            return new ExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]);
         }
         #endregion
 

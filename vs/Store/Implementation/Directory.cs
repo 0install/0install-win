@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns><code>"D", space, full path name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "D {0}\n", FullPath);
+            return string.Format(CultureInfo.InvariantCulture, "D {0}", FullPath);
         }
 
         /// <summary>
@@ -62,7 +62,19 @@ namespace ZeroInstall.Store.Implementation
         /// <returns><code>"D", space, mtime, space, full path name, newline</code></returns>
         public override string ToStringOld()
         {
-            return string.Format(CultureInfo.InvariantCulture, "D {0} {1}\n", ModifiedTime, FullPath);
+            return string.Format(CultureInfo.InvariantCulture, "D {0} {1}", ModifiedTime, FullPath);
+        }
+
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        public static Directory FromString(string line)
+        {
+            string[] parts = line.Split(new[] { ' ' }, 2);
+            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            return new Directory(0, parts[1]);
         }
         #endregion
 
@@ -71,7 +83,8 @@ namespace ZeroInstall.Store.Implementation
         {
             if (other == null) return false;
             if (other == this) return true;
-            return other.ModifiedTime == ModifiedTime && Equals(other.FullPath, FullPath);
+            // Directory ModifiedTime is ignored in the new manifest format
+            return /*other.ModifiedTime == ModifiedTime &&*/ Equals(other.FullPath, FullPath);
         }
 
         public override bool Equals(object obj)

@@ -123,4 +123,10 @@
   <data name="NoKnownHashes" xml:space="preserve">
     <value>No known hashes were defined.</value>
   </data>
+	<data name="InvalidNumberOfLineParts">
+		<value xml:space="preserve">Invalid number of parts in line.</value>
+	</data>
+	<data name="InvalidLinesInManifest">
+		<value xml:space="preserve">The manifest file contains invalid lines.</value>
+	</data>
 </root>

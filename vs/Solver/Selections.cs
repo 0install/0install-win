@@ -82,16 +82,6 @@ namespace ZeroInstall.Solver
 
         #region Storage
         /// <summary>
-        /// Parses a string as XML containing <see cref="Selections"/>.
-        /// </summary>
-        /// <param name="data">The string to parse as Selections XML.</param>
-        /// <returns>The parsed <see cref="Selections"/>.</returns>
-        public static Selections Parse(string data)
-        {
-            return XmlStorage.FromString<Selections>(data);
-        }
-
-        /// <summary>
         /// Loads <see cref="Selections"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>

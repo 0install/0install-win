@@ -44,7 +44,7 @@ namespace ZeroInstall.Solver
         /// </summary>
         private static string PythonBinary
         {
-            get { return Path.Combine(Path.Combine(HelperDirectory, "python"), Path.DirectorySeparatorChar + @"python.exe"); }
+            get { return Path.Combine(Path.Combine(HelperDirectory, "python"), @"python.exe"); }
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace ZeroInstall.Solver
         /// </summary>
         private static string SolverScript
         {
-            get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), Path.DirectorySeparatorChar + @"0launch"); }
+            get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0launch"); }
         }
 
         /// <summary>
@@ -117,26 +117,11 @@ namespace ZeroInstall.Solver
             var process = Process.Start(python);
             if (process == null) throw new IOException("Unable to launch Python interpreter.");
 
-            // Parse stderr immediatley
-            while (!process.StandardError.EndOfStream)
-            {
-                // ToDo: Handle questions
-
-                // Get next line from stderr
-                string line = process.StandardError.ReadLine();
-
-                // Ignore empty lines and Python warnings
-                if (string.IsNullOrEmpty(line) || line.StartsWith("WARNING:")) continue;
-
-                Log.Write(@"PythonSolver stderr: " + line);
-                
-                process.StandardInput.WriteLine();
-            }
+            // ToDo: Parse stderr immediatley
 
             // Parse stdout after the process has completed
             process.WaitForExit();
-            string output = process.StandardOutput.ReadToEnd();
-            return Selections.Parse(output);
+            return Selections.Load(process.StandardOutput.BaseStream);
         }
         #endregion
     }

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Security.Cryptography;
 using Common.Helpers;
+using ZeroInstall.Store.Properties;
 using IO=System.IO;
 
 namespace ZeroInstall.Store.Implementation
@@ -43,14 +44,29 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the file to load.</param>
         /// <returns>A <see cref="Manifest"/> object containing the parsed content of the file.</returns>
-        /// <exception cref="IO.IOException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <exception cref="IO.IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="ArgumentException">Thrown if the file specified is not a valid manifest file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
         public static Manifest Load(string path)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            var nodes = new List<ManifestNode>();
+            
+            using (var reader = new StreamReader(path))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (line.StartsWith("F")) nodes.Add(File.FromString(line));
+                    else if (line.StartsWith("X")) nodes.Add(ExecutableFile.FromString(line));
+                    else if (line.StartsWith("S")) nodes.Add(Symlink.FromString(line));
+                    else if (line.StartsWith("D")) nodes.Add(Directory.FromString(line));
+                    else throw new ArgumentException(Resources.InvalidLinesInManifest, "path");
+                }
+            }
+
+            return new Manifest(nodes);
         }
 
         /// <summary>
@@ -110,8 +126,8 @@ namespace ZeroInstall.Store.Implementation
             {
                 var fileName = Path.GetFileName(file);
 
-                // Don't include manifest management files in manifest
-                if (fileName == ".manifest" || fileName == ".xbit") continue;
+                // Don't include top-level manifest management files in manifest
+                if (startPath == path && (fileName == ".manifest" || fileName == ".xbit")) continue;
 
                 // ToDo: Handle .xbit
                 // ToDo: Handle symlinks
@@ -149,7 +165,7 @@ namespace ZeroInstall.Store.Implementation
             var nodes = new List<ManifestNode>();
 
             AddToList(nodes, path, path, algorithm);
-            
+
             return new Manifest(nodes);
         }
         #endregion

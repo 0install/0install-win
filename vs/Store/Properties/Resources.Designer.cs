@@ -61,6 +61,24 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The manifest file contains invalid lines..
+        /// </summary>
+        internal static string InvalidLinesInManifest {
+            get {
+                return ResourceManager.GetString("InvalidLinesInManifest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid number of parts in line..
+        /// </summary>
+        internal static string InvalidNumberOfLineParts {
+            get {
+                return ResourceManager.GetString("InvalidNumberOfLineParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name must not contain a newline character..
         /// </summary>
         internal static string NewlineInName {

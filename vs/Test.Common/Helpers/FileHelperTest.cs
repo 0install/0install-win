@@ -33,10 +33,10 @@ namespace Common.Helpers
     public class FileHelperTest
     {
         /// <summary>
-        /// Ensures <see cref="FileHelper.ComputeHash"/> correctly hashes files.
+        /// Ensures <see cref="FileHelper.ComputeHash"/> can correctly hash files using SHA1.
         /// </summary>
         [Test]
-        public void TestString()
+        public void TestComputeHash()
         {
             const string sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
 
@@ -51,6 +51,19 @@ namespace Common.Helpers
             { // Clean up
                 if (tempFile != null) File.Delete(tempFile);
             }
+        }
+
+        /// <summary>
+        /// Creates a temporary directory using <see cref="FileHelper.GetTempDirectory"/>, ensures it is empty and deletes it again.
+        /// </summary>
+        [Test]
+        public void TestGetTempDirectory()
+        {
+            string path = FileHelper.GetTempDirectory();
+            Assert.IsNotNullOrEmpty(path);
+            Assert.IsTrue(Directory.Exists(path));
+            Assert.IsEmpty(Directory.GetFileSystemEntries(path));
+            Directory.Delete(path);
         }
     }
 }

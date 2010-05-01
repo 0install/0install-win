@@ -16,6 +16,8 @@
  */
 
 using System.Security.Cryptography;
+using Common.Helpers;
+using IO = System.IO;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
@@ -25,5 +27,32 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class ManifestTest
     {
+        /// <summary>
+        /// Ensures that the class is correctly serialized and deserialized.
+        /// </summary>
+        [Test]
+        public void TestSaveLoad()
+        {
+            Manifest manifest1, manifest2;
+            string tempFile = null, tempDir = null;
+            try
+            {
+                tempFile = IO.Path.GetTempFileName();
+                tempDir = FileHelper.GetTempDirectory();
+
+                // Write and read file
+                manifest1 = Manifest.Generate("", SHA1.Create());
+                manifest1.Save(tempFile);
+                manifest2 = Manifest.Load(tempFile);
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) IO.File.Delete(tempFile);
+                if (tempDir != null) IO.Directory.Delete(tempFile);
+            }
+
+            // Ensure data stayed the same
+            Assert.AreEqual(manifest1, manifest2);
+        }
     }
 }

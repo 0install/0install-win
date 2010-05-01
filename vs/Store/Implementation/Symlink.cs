@@ -59,7 +59,19 @@ namespace ZeroInstall.Store.Implementation
         /// <returns><code>"S", space, hash, space, size, space, symlink name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}\n", Hash, Size, SymlinkName);
+            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Hash, Size, SymlinkName);
+        }
+
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        public static Symlink FromString(string line)
+        {
+            string[] parts = line.Split(new[] { ' ' }, 4);
+            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            return new Symlink(parts[1], long.Parse(parts[2]), parts[4]);
         }
         #endregion
 

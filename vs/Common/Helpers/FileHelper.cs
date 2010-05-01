@@ -45,5 +45,18 @@ namespace Common.Helpers
 
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
+
+        /// <summary>
+        /// Creates a uniquely named, empty temporary directory on disk and returns the full path of that directory.
+        /// </summary>
+        /// <returns>The full path of the temporary directory.</returns>
+        /// <exception cref="IOException">Thrown if an IO error occurred, such as no unique temporary directory name is available.</exception>
+        public static string GetTempDirectory()
+        {
+            string tempPath = Path.GetTempFileName();
+            File.Delete(tempPath);
+            Directory.CreateDirectory(tempPath);
+            return tempPath;
+        }
     }
 }
