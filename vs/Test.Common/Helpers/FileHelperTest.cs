@@ -20,25 +20,37 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
 namespace Common.Helpers
 {
     /// <summary>
-    /// Contains test methods for <see cref="StreamHelper"/>.
+    /// Contains test methods for <see cref="FileHelper"/>.
     /// </summary>
     [TestFixture]
-    public class StreamHelperTest
+    public class FileHelperTest
     {
         /// <summary>
-        /// Ensures <see cref="StreamHelper.CreateFromString"/> and <see cref="StreamHelper.ReadToString"/> work correctly.
+        /// Ensures <see cref="FileHelper.ComputeHash"/> correctly hashes files.
         /// </summary>
         [Test]
         public void TestString()
         {
-            string test = "Test";
-            using (var stream = StreamHelper.CreateFromString(test))
-                Assert.AreEqual(test, StreamHelper.ReadToString(stream));
+            const string sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+
+            string tempFile = null;
+            try
+            {
+                // Create and hash an empty file
+                tempFile = Path.GetTempFileName();
+                Assert.AreEqual(sha1ForEmptyString, FileHelper.ComputeHash(tempFile, SHA1.Create()));
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
         }
     }
 }

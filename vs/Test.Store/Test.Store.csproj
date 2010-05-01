@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementation\ImplementationProviderTest.cs" />
+    <Compile Include="Implementation\ManifestTest.cs" />
     <Compile Include="Implementation\StoreTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

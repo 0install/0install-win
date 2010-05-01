@@ -25,6 +25,7 @@ namespace ZeroInstall.Solver
     /// <summary>
     /// Contains test methods for <see cref="Selections"/>.
     /// </summary>
+    [TestFixture]
     public class SelectionsTest
     {
         /// <summary>

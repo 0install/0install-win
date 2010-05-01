@@ -29,6 +29,7 @@ namespace Common.Download
     /// <summary>
     /// Contains test methods for <see cref="DownloadFile"/>.
     /// </summary>
+    [TestFixture]
     public class DownloadFileTest
     {
         /// <summary>

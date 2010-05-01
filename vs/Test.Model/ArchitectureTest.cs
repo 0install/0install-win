@@ -23,6 +23,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Contains test methods for <see cref="Architecture"/>.
     /// </summary>
+    [TestFixture]
     public class ArchitectureTest
     {
         /// <summary>

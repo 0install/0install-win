@@ -23,6 +23,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Contains test methods for <see cref="Interface"/>.
     /// </summary>
+    [TestFixture]
     public class InterfaceTest
     {
         /// <summary>

@@ -28,6 +28,7 @@ namespace Common.Storage
     /// <summary>
     /// Contains test methods for <see cref="XmlStorage"/>.
     /// </summary>
+    [TestFixture]
     public class XmlStorageTest
     {
         /// <summary>

@@ -15,28 +15,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
-namespace ZeroInstall.Solver
-{
-    /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+namespace ZeroInstall.Store.Implementation
+{    /// <summary>
+    /// Contains test methods for <see cref="Manifest"/>.
     /// </summary>
     [TestFixture]
-    public class PythonSolverTest
+    public class ManifestTest
     {
-        /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve(System.Uri)"/> correctly solves the dependencies for a specific feed URI.
-        /// </summary>
-        [Test]
-        public void TestSolve()
-        {
-            var solver = new PythonSolver();
-
-            Selections selections = solver.Solve(new Uri("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml"));
-
-            Assert.AreEqual("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml", selections.InterfaceString);
-        }
     }
 }

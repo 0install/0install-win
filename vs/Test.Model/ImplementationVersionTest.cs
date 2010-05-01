@@ -22,6 +22,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Contains test methods for <see cref="ImplementationVersion"/>.
     /// </summary>
+    [TestFixture]
     public class ImplementationVersionTest
     {
         /// <summary>

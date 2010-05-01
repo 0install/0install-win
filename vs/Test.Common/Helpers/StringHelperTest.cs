@@ -27,6 +27,7 @@ namespace Common.Helpers
     /// <summary>
     /// Contains test methods for <see cref="StringHelper"/>.
     /// </summary>
+    [TestFixture]
     public class StringHelperTest
     {
         /// <summary>

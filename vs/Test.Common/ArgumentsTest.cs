@@ -27,6 +27,7 @@ namespace Common
     /// <summary>
     /// Contains test methods for <see cref="Arguments"/>.
     /// </summary>
+    [TestFixture]
     public class ArgumentsTest
     {
         /// <summary>
