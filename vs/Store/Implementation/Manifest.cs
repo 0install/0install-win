@@ -62,6 +62,18 @@ namespace ZeroInstall.Store.Implementation
             // ToDo: Implement
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Stores a manifest in a file using the old format.
+        /// </summary>
+        /// <param name="path">The path of the file to write.</param>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public void SaveOld(string path)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Generate

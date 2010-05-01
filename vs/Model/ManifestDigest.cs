@@ -22,6 +22,14 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+    #region Enumerations
+    /// <see cref="ManifestDigest.BestMethod"/>
+    public enum HashMethod
+    {
+        None, Sha1, Sha1New, Sha256
+    }
+    #endregion
+
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
@@ -50,8 +58,22 @@ namespace ZeroInstall.Model
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
         [XmlAttribute("sha256")]
         public string Sha256 { get; set; }
-        #endregion
 
+        /// <summary>
+        /// Indicates the best hash-method that provides a value.
+        /// </summary>
+        public HashMethod BestMethod
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Sha256)) return HashMethod.Sha256;
+                if (!string.IsNullOrEmpty(Sha1New)) return HashMethod.Sha1New;
+                if (!string.IsNullOrEmpty(Sha1)) return HashMethod.Sha1;
+                return HashMethod.None;
+            }
+        }
+        #endregion
+        
         #region Constructor
         /// <summary>
         /// Creates a new manifest digest sturcture with pre-set values.
@@ -68,7 +90,7 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-
+        
         #region Conversion
         public override string ToString()
         {

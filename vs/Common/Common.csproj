@@ -99,6 +99,7 @@
     <Compile Include="Controls\HintTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\StreamHelper.cs" />
     <Compile Include="Helpers\UpdateHelper.cs" />
     <Compile Include="Helpers\StringHelper.cs" />

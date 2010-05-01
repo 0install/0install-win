@@ -48,13 +48,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Implementation\DigestMismatchException.cs" />
     <Compile Include="Implementation\Directory.cs" />
     <Compile Include="Implementation\ExecutableFile.cs" />
     <Compile Include="Implementation\FileBase.cs" />
     <Compile Include="Implementation\GlobalSuppressions.cs" />
+    <Compile Include="Implementation\ImplementationProvider.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\File.cs" />
+    <Compile Include="Implementation\Store.cs" />
     <Compile Include="Interface\Icon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

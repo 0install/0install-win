@@ -20,14 +20,47 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Solver
 {
+    /// <summary>
+    /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
+    /// </summary>
     public interface ISolver
     {
+        #region Properties
+        /// <summary>
+        /// Try to avoid network usage.
+        /// </summary>
+        bool Offline { get; set; }
+
+        /// <summary>
+        /// Fetch a fresh copy of all used interfaces.
+        /// </summary>
+        bool Refresh { get; set; }
+
+        /// <summary>
+        /// An additional directory to search for cached <see cref="Interface"/>s.
+        /// </summary>
+        string AdditionalStore { get; set; }
+        #endregion
+        
+        //--------------------//
+
+        #region Solver access
+        /// <summary>
+        /// Solves the dependencies for a specific feed.
+        /// </summary>
+        /// <param name="feed">The feed to solve the dependencies for.</param>
+        /// <returns>The <see cref="Implementation"/>s chosen for the feed.</returns>
+        /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         Selections Solve(Uri feed);
 
+        /// <summary>
+        /// Solves the dependencies for a specific feed.
+        /// </summary>
+        /// <param name="feed">The feed to solve the dependencies for.</param>
+        /// <param name="notBefore">The minimum version of the main <see cref="Implementation"/> to choose.</param>
+        /// <returns>The <see cref="Implementation"/>s chosen for the feed.</returns>
+        /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         Selections Solve(Uri feed, ImplementationVersion notBefore);
-
-        Selections Solve(Uri feed, string withStore);
-
-        Selections Solve(Uri feed, ImplementationVersion notBefore, string withStore);
+        #endregion
     }
 }
