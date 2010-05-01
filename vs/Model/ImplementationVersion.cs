@@ -92,7 +92,7 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(ImplementationVersion other)
         {
-            if (other == null) return false;
+            if (ReferenceEquals(null, other)) return false;
 
             // Cancel if the first part of the version or the number of additional parts don't match
             if (!_firstPart.Equals(other._firstPart) ||
@@ -112,8 +112,8 @@ namespace ZeroInstall.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(ImplementationVersion) && Equals((ImplementationVersion)obj);
         }
 

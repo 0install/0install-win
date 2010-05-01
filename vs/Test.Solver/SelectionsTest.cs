@@ -56,7 +56,8 @@ namespace ZeroInstall.Solver
             }
 
             // Ensure data stayed the same
-            Assert.AreEqual(sel1.Implementations, sel2.Implementations);
+            Assert.AreEqual(sel1.Interface, sel2.Interface);
+            Assert.AreEqual(sel1.Implementations[0].Architecture, sel2.Implementations[0].Architecture);
         }
     }
 }

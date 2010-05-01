@@ -31,14 +31,14 @@ namespace ZeroInstall.Model
 
         #region Steps
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Archive> _archives = new C5.HashedLinkedList<Archive>();
+        private readonly C5.HashedArrayList<Archive> _archives = new C5.HashedArrayList<Archive>();
         /// <summary>
         /// An ordered list of archives to extract.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Archive> Archives { get { return _archives; } }
+        public C5.HashedArrayList<Archive> Archives { get { return _archives; } }
         #endregion
 
         #endregion

@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 using System.Security.Cryptography;
 using NUnit.Framework;
@@ -64,6 +65,16 @@ namespace Common.Helpers
             Assert.IsTrue(Directory.Exists(path));
             Assert.IsEmpty(Directory.GetFileSystemEntries(path));
             Directory.Delete(path);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileHelper.UnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
+        /// </summary>
+        [Test]
+        public void TestUnixTime()
+        {
+            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
+            Assert.AreEqual(1095292800, FileHelper.UnixTime(new DateTime(2004, 09, 16)));
         }
     }
 }

@@ -64,7 +64,7 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(DottedList other)
         {
-            if (other == null) return false;
+            if (ReferenceEquals(null, other)) return false;
 
             // Cancel if the the number of decimal blocks don't match
             if (_decimals.Length != other._decimals.Length)
@@ -83,8 +83,8 @@ namespace ZeroInstall.Model
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(DottedList) && Equals((DottedList)obj);
         }
 

@@ -21,7 +21,8 @@ using IO = System.IO;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
-{    /// <summary>
+{
+    /// <summary>
     /// Contains test methods for <see cref="Manifest"/>.
     /// </summary>
     [TestFixture]
@@ -37,18 +38,24 @@ namespace ZeroInstall.Store.Implementation
             string tempFile = null, tempDir = null;
             try
             {
-                tempFile = IO.Path.GetTempFileName();
+                // Create a test directory to create a manifest for
                 tempDir = FileHelper.GetTempDirectory();
+                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file1"), @"content1");
+                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file2"), @"content2");
+                string subDir = IO.Path.Combine(tempDir, @"subdir");
+                IO.Directory.CreateDirectory(subDir);
+                IO.File.WriteAllText(IO.Path.Combine(subDir, "file"), @"content");
 
-                // Write and read file
-                manifest1 = Manifest.Generate("", SHA1.Create());
+                // Generate manifest, write it to a file and read the file again
+                tempFile = IO.Path.GetTempFileName();
+                manifest1 = Manifest.Generate(tempDir, SHA1.Create());
                 manifest1.Save(tempFile);
                 manifest2 = Manifest.Load(tempFile);
             }
             finally
             { // Clean up
                 if (tempFile != null) IO.File.Delete(tempFile);
-                if (tempDir != null) IO.Directory.Delete(tempFile);
+                if (tempDir != null) IO.Directory.Delete(tempDir, true);
             }
 
             // Ensure data stayed the same

@@ -86,15 +86,15 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(EnvironmentBinding other)
         {
-            if (other == null) return false;
-            if (ReferenceEquals(other, this)) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             return other.Name == Name || other.Value == Value || other.Mode == Mode || other.Default == Default;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(EnvironmentBinding) && Equals((EnvironmentBinding)obj);
         }
 

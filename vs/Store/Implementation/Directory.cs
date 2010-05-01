@@ -33,11 +33,11 @@ namespace ZeroInstall.Store.Implementation
 
         #region Constructor
         /// <summary>
-        /// Creates a new direcory-entry.
+        /// Creates a new directory-entry.
         /// </summary>
         /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
-        public Directory(long modifiedTime, string fullPath)
+        internal Directory(long modifiedTime, string fullPath)
         {
             ModifiedTime = modifiedTime;
             FullPath = fullPath;
@@ -70,27 +70,29 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        public static Directory FromString(string line)
+        /// <exception cref="ArgumentException">Thrown if the number of space-separated parts in the <paramref name="line"/> are incorrect.</exception>
+        internal static Directory FromString(string line)
         {
-            string[] parts = line.Split(new[] { ' ' }, 2);
-            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            const int numberOfParts = 2;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
             return new Directory(0, parts[1]);
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Directory other)
         {
-            if (other == null) return false;
-            if (other == this) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             // Directory ModifiedTime is ignored in the new manifest format
             return /*other.ModifiedTime == ModifiedTime &&*/ Equals(other.FullPath, FullPath);
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Directory) && Equals((Directory)obj);
         }
 
@@ -100,16 +102,6 @@ namespace ZeroInstall.Store.Implementation
             {
                 return (ModifiedTime.GetHashCode() * 397) ^ (FullPath != null ? FullPath.GetHashCode() : 0);
             }
-        }
-
-        public static bool operator ==(Directory left, Directory right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Directory left, Directory right)
-        {
-            return !Equals(left, right);
         }
         #endregion
     }

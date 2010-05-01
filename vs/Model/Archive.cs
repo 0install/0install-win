@@ -110,14 +110,15 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(Archive other)
         {
-            if (other == null) return false;
+            if (ReferenceEquals(null, other)) return false;
+
             return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Archive) && Equals((Archive)obj);
         }
 

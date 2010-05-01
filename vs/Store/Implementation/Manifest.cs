@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 using Common.Helpers;
 using ZeroInstall.Store.Properties;
 using IO=System.IO;
@@ -81,7 +82,7 @@ namespace ZeroInstall.Store.Implementation
             using (var writer = new StreamWriter(path))
             {
                 foreach (ManifestNode node in _nodes)
-                    writer.Write(node.ToString());
+                    writer.WriteLine(node.ToString());
             }
         }
 
@@ -98,21 +99,12 @@ namespace ZeroInstall.Store.Implementation
             {
                 // ToDo: Perform lexicografic sort
                 foreach (ManifestNode node in _nodes)
-                    writer.Write(node.ToStringOld());
+                    writer.WriteLine(node.ToStringOld());
             }
         }
         #endregion
 
         #region Generate
-        /// <summary>
-        /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch.
-        /// </summary>
-        private static long SecondsSinceEpoch(DateTime time)
-        {
-            TimeSpan timepan = (time - new DateTime(1970, 1, 1));
-            return (long)timepan.TotalSeconds;
-        }
-
         /// <summary>
         /// Recursively adds <see cref="ManifestNode"/>s representing objects in a directory in the file system to a list.
         /// </summary>
@@ -135,7 +127,7 @@ namespace ZeroInstall.Store.Implementation
                 var fileInfo = new FileInfo(file);
                 nodes.Add(new File(
                     FileHelper.ComputeHash(file, algorithm),
-                    SecondsSinceEpoch(fileInfo.LastWriteTimeUtc),
+                    FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
                     fileInfo.Length,
                     fileName));
             }
@@ -144,7 +136,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 var fileInfo = new DirectoryInfo(directory);
                 nodes.Add(new Directory(
-                    SecondsSinceEpoch(fileInfo.LastWriteTimeUtc),
+                    FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
                     // Remove leading portion of path and use Unix slashes
                     directory.Substring(startPath.Length).Replace('\\', '/')));
 
@@ -172,21 +164,49 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
-        #region Compare
+        #region Conversion
+        public override string ToString()
+        {
+            // Use the same format as the file
+            var output = new StringBuilder();
+            foreach (ManifestNode node in _nodes)
+                output.AppendLine(node.ToString());
+            return output.ToString();
+        }
+        #endregion
+
+        #region Equality
         public bool Equals(Manifest other)
         {
-            if (other == null) return false;
-            if (other == this) return true;
+            if (ReferenceEquals(null, other)) return false;
 
-            if (other._nodes.Count != _nodes.Count) return false;
+            if (_nodes.Count != other._nodes.Count) return false;
             for (int i = 0; i < _nodes.Count; i++)
             {
                 // If any node pair does not match, the manifests are not equal
-                if (!Equals(other._nodes[i], _nodes[i])) return false;
+                if (!Equals(_nodes[i], other._nodes[i])) return false;
             }
 
             // If the for-loop ran through, all node pairs are identical and the manifests are equal
-            return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Manifest) && Equals((Manifest)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = 397;
+                foreach (ManifestNode node in _nodes)
+                    result = (result * 397) ^ node.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

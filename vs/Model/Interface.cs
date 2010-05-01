@@ -58,24 +58,24 @@ namespace ZeroInstall.Model
         }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<FeedReference> _feeds = new C5.HashedLinkedList<FeedReference>();
+        private readonly C5.HashedArrayList<FeedReference> _feeds = new C5.HashedArrayList<FeedReference>();
         /// <summary>
         /// Zero ore more feeds containing more implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<FeedReference> Feeds { get { return _feeds; } }
+        public C5.HashedArrayList<FeedReference> Feeds { get { return _feeds; } }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<InterfaceReference> _feedFor = new C5.HashedLinkedList<InterfaceReference>();
+        private readonly C5.HashedArrayList<InterfaceReference> _feedFor = new C5.HashedArrayList<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public C5.HashedArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -116,14 +116,14 @@ namespace ZeroInstall.Model
         }
         
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<string> _categories = new C5.HashedLinkedList<string>();
+        private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
         /// <summary>
         /// Zero or more categories as classification for the interface.
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as classification for the interface.")]
         [XmlElement("category")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<string> Categories { get { return _categories; } }
+        public C5.HashedArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
         /// If <see langword="true"/>, this element indicates that the program requires a terminal in order to run. Graphical launchers should therefore run this program in a suitable terminal emulator.
@@ -142,45 +142,45 @@ namespace ZeroInstall.Model
         }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Icon> _icons = new C5.HashedLinkedList<Icon>();
+        private readonly C5.HashedArrayList<Icon> _icons = new C5.HashedArrayList<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Icon> Icons { get { return _icons; } }
+        public C5.HashedArrayList<Icon> Icons { get { return _icons; } }
         
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Group> _groups = new C5.HashedLinkedList<Group>();
+        private readonly C5.HashedArrayList<Group> _groups = new C5.HashedArrayList<Group>();
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups contained within this interface.")]
         [XmlElement("group")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Group> Groups { get { return _groups; } }
+        public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Implementation> _implementations = new C5.HashedLinkedList<Implementation>();
+        private readonly C5.HashedArrayList<Implementation> _implementations = new C5.HashedArrayList<Implementation>();
         /// <summary>
         /// A list of downloadable <see cref="Implementation"/>s for this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of downloadable implementations contained for this interface.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Implementation> Implementations { get { return _implementations; } }
+        public C5.HashedArrayList<Implementation> Implementations { get { return _implementations; } }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<PackageImplementation> _packageImplementation = new C5.HashedLinkedList<PackageImplementation>();
+        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s for this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations for this interface.")]
         [XmlElement("package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 
         #endregion

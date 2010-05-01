@@ -55,15 +55,15 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(OverlayBinding other)
         {
-            if (other == null) return false;
-            if (ReferenceEquals(other, this)) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             return other.Source == Source || other.MountPoint == MountPoint;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(OverlayBinding) && Equals((OverlayBinding)obj);
         }
 

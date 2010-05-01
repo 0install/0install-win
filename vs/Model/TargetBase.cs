@@ -98,8 +98,8 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(TargetBase other)
         {
-            if (other == null) return false;
-            if (ReferenceEquals(other, this)) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             return _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
         }
 

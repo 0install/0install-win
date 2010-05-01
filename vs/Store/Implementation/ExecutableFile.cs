@@ -17,7 +17,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        public ExecutableFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
+        internal ExecutableFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
         {}
         #endregion
 
@@ -38,15 +38,17 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        public static ExecutableFile FromString(string line)
+        /// <exception cref="ArgumentException">Thrown if the number of space-separated parts in the <paramref name="line"/> are incorrect.</exception>
+        internal static ExecutableFile FromString(string line)
         {
-            string[] parts = line.Split(new[] { ' ' }, 5);
-            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            const int numberOfParts = 5;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
             return new ExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]);
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(ExecutableFile other)
         {
             return base.Equals(other);
@@ -54,24 +56,14 @@ namespace ZeroInstall.Store.Implementation
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(ExecutableFile) && Equals((ExecutableFile)obj);
         }
 
         public override int GetHashCode()
         {
             return base.GetHashCode();
-        }
-
-        public static bool operator ==(ExecutableFile left, ExecutableFile right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(ExecutableFile left, ExecutableFile right)
-        {
-            return !Equals(left, right);
         }
         #endregion
     }

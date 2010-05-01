@@ -58,5 +58,14 @@ namespace Common.Helpers
             Directory.CreateDirectory(tempPath);
             return tempPath;
         }
+
+        /// <summary>
+        /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch (1970-1-1).
+        /// </summary>
+        public static long UnixTime(DateTime time)
+        {
+            TimeSpan timepan = (time - new DateTime(1970, 1, 1));
+            return (long)timepan.TotalSeconds;
+        }
     }
 }

@@ -89,15 +89,15 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(VersionPart other)
         {
-            if (other == null) return false;
+            if (ReferenceEquals(null, other)) return false;
 
             return Equals(other.Modifier, Modifier) && Equals(other.DottedList, DottedList);
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(VersionPart) && Equals((VersionPart)obj);
         }
 

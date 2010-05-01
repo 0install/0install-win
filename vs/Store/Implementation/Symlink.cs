@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="hash">The hash of the link target path.</param>
         /// <param name="size">The length of the link target path.</param>
         /// <param name="symlinkName">The name of the symlink without the containing directory.</param>
-        public Symlink(string hash, long size, string symlinkName)
+        internal Symlink(string hash, long size, string symlinkName)
         {
             Hash = hash;
             Size = size;
@@ -67,26 +67,28 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
-        public static Symlink FromString(string line)
+        /// <exception cref="ArgumentException">Thrown if the number of space-separated parts in the <paramref name="line"/> are incorrect.</exception>
+        internal static Symlink FromString(string line)
         {
-            string[] parts = line.Split(new[] { ' ' }, 4);
-            if (parts.Length != 5) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
-            return new Symlink(parts[1], long.Parse(parts[2]), parts[4]);
+            const int numberOfParts = 4;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            return new Symlink(parts[1], long.Parse(parts[2]), parts[3]);
         }
         #endregion
 
-        #region Compare
+        #region Equality
         public bool Equals(Symlink other)
         {
-            if (other == null) return false;
-            if (other == this) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             return Equals(other.Hash, Hash) && other.Size == Size && Equals(other.SymlinkName, SymlinkName);
         }
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Symlink) && Equals((Symlink)obj);
         }
 
@@ -99,16 +101,6 @@ namespace ZeroInstall.Store.Implementation
                 result = (result * 397) ^ (SymlinkName != null ? SymlinkName.GetHashCode() : 0);
                 return result;
             }
-        }
-
-        public static bool operator ==(Symlink left, Symlink right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(Symlink left, Symlink right)
-        {
-            return !Equals(left, right);
         }
         #endregion
     }

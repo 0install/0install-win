@@ -47,5 +47,9 @@ namespace ZeroInstall.Solver
             set { Interface = (value == null ? null : new Uri(value)); }
         }
         #endregion
+
+        //--------------------//
+
+        // ToDo: Implement Equals
     }
 }

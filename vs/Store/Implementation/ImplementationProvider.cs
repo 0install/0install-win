@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.IList<Store> _stores = new C5.HashedLinkedList<Store>();
+        private readonly C5.IList<Store> _stores = new C5.HashedArrayList<Store>();
         /// <summary>
         /// A priority-sorted list of <see cref="Store"/>s used to provide <see cref="Implementation"/>s.
         /// </summary>

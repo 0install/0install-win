@@ -58,11 +58,11 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
-        #region Compare
+        #region Equality
         protected bool Equals(FileBase other)
         {
-            if (other == null) return false;
-            if (other == this) return true;
+            if (ReferenceEquals(null, other)) return false;
+
             return other.Hash == Hash && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
         }
 

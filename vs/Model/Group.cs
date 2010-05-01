@@ -30,35 +30,35 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Group> _groups = new C5.HashedLinkedList<Group>();
+        private readonly C5.HashedArrayList<Group> _groups = new C5.HashedArrayList<Group>();
         /// <summary>
         /// A list of sub-groups.
         /// </summary>
         [Category("Implementation"), Description("A list of sub-groups.")]
         [XmlElement("group")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Group> Groups { get { return _groups; } }
+        public C5.HashedArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Implementation> _implementation = new C5.HashedLinkedList<Implementation>();
+        private readonly C5.HashedArrayList<Implementation> _implementation = new C5.HashedArrayList<Implementation>();
         /// <summary>
         /// A list of <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of implementations contained within this group.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Implementation> Implementations { get { return _implementation; } }
+        public C5.HashedArrayList<Implementation> Implementations { get { return _implementation; } }
 
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<PackageImplementation> _packageImplementation = new C5.HashedLinkedList<PackageImplementation>();
+        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this group.")]
         [XmlElement("package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 
         #endregion

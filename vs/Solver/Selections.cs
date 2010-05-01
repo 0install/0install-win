@@ -56,24 +56,26 @@ namespace ZeroInstall.Solver
 
         #region Implementations
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<ImplementationSelection> _implementations = new C5.HashedLinkedList<ImplementationSelection>();
+        private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
         /// <summary>
         /// A list of <see cref="Implementation"/>s chosen in this selection.
         /// </summary>
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<ImplementationSelection> Implementations { get { return _implementations; } }
+        public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
 
-        //// Preserve order, duplicate entries are not allowed
-        //private readonly C5.HashedLinkedList<PackageImplementation> _packageImplementation = new C5.HashedLinkedList<PackageImplementation>();
-        ///// <summary>
-        ///// A list of distribution-provided <see cref="PackageImplementation"/>s chosen in this selection.
-        ///// </summary>
-        //[Description("A list of distribution-provided package implementations chosen in this selection.")]
-        //[XmlElement("package-selection")]
-        //// Note: Can not use ICollection<T> interface with XML Serialization
-        //public C5.HashedLinkedList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        /*
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
+        /// <summary>
+        /// A list of distribution-provided <see cref="PackageImplementation"/>s chosen in this selection.
+        /// </summary>
+        [Description("A list of distribution-provided package implementations chosen in this selection.")]
+        [XmlElement("package-selection")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        */
         #endregion
 
         #endregion
@@ -117,6 +119,47 @@ namespace ZeroInstall.Solver
         public void Save(Stream stream)
         {
             XmlStorage.Save(stream, this);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Equality
+        public bool Equals(Selections other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            if (Interface != other.Interface) return false;
+
+            if (other._implementations.Count != _implementations.Count) return false;
+            for (int i = 0; i < _implementations.Count; i++)
+            {
+                // If any implementation pair does not match, the selections are not equal
+                if (!Equals(_implementations[i], other._implementations[i])) return false;
+            }
+
+            // If the for-loop ran through, all node pairs are identical and the selections are equal
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Selections) && Equals((Selections)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Interface != null ? Interface.GetHashCode() : 0);
+                foreach (var implementation in _implementations)
+                    result = (result * 397) ^ implementation.GetHashCode();
+                //foreach (var implementation in _packageImplementation)
+                //    result = (result * 397) ^ implementation.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

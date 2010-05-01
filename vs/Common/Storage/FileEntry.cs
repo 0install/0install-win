@@ -170,8 +170,8 @@ namespace Common.Storage
 
         public override bool Equals(object obj)
         {
-            if (obj == null) return false;
-            if (ReferenceEquals(obj, this)) return true;
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(FileEntry) && Equals((FileEntry)obj);
         }
 
