@@ -35,15 +35,15 @@ namespace Common.Helpers
         /// Computes the hash of the content of a file.
         /// </summary>
         /// <param name="path">The path of the file to hash.</param>
-        /// <param name="algorithm">The hashing algorithm to us.e</param>
+        /// <param name="algorithm">The hashing algorithm to use.</param>
         /// <returns>A hexadecimal string representation of the hash value.</returns>
         public static string ComputeHash(string path, HashAlgorithm algorithm)
         {
             byte[] hash;
-            using (var stream = File.Open(path, FileMode.Open))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
                 hash = algorithm.ComputeHash(stream);
 
-            return BitConverter.ToString(hash);
+            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
         }
     }
 }

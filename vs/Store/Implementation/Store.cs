@@ -21,6 +21,7 @@ using System.Security.Cryptography;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
@@ -31,7 +32,12 @@ namespace ZeroInstall.Store.Implementation
     public class Store
     {
         #region Variables
+        /// <summary>
+        /// The directory containing the cached <see cref="Implementation"/>s.
+        /// </summary>
         private readonly string _cacheDir;
+
+        private readonly HashAlgorithm _sha1Algo = SHA1.Create(), _sha256Algo = SHA256.Create();
         #endregion
 
         #region Constructor
@@ -106,7 +112,6 @@ namespace ZeroInstall.Store.Implementation
             // Move source directory to temporary sub-directory and generate in-memory manifest from there
             // This prevents attackers from modifying the source directory between digest validation and moving to final store destination.
             IO.Directory.Move(source, tempDir);
-            var manifest = Manifest.Generate(tempDir);
 
             #region Validate digest
             // Store the manifest to the disk to calculate its digest
@@ -116,8 +121,8 @@ namespace ZeroInstall.Store.Implementation
                 case HashMethod.Sha1:
                 {
                     hashID = "sha1=" + manifestDigest.Sha1;
-                    manifest.SaveOld(manifestFile);
-                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA1.Create());
+                    Manifest.Generate(tempDir, _sha1Algo).SaveOld(manifestFile);
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, _sha1Algo);
                     if (sourceHash != manifestDigest.Sha1)
                         throw new DigestMismatchException("sha1=" + manifestDigest.Sha1, "sha1=" + sourceHash);
                     break;
@@ -126,8 +131,8 @@ namespace ZeroInstall.Store.Implementation
                 case HashMethod.Sha1New:
                 {
                     hashID = "sha1new=" + manifestDigest.Sha1New;
-                    manifest.Save(manifestFile);
-                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA1.Create());
+                    Manifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, _sha1Algo);
                     if (sourceHash != manifestDigest.Sha1New)
                         throw new DigestMismatchException("sha1new=" + manifestDigest.Sha1New, "sha1new=" + sourceHash);
                     break;
@@ -136,15 +141,15 @@ namespace ZeroInstall.Store.Implementation
                 case HashMethod.Sha256:
                 {
                     hashID = "sha256=" + manifestDigest.Sha256;
-                    manifest.Save(manifestFile);
-                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA256.Create());
+                    Manifest.Generate(tempDir, _sha256Algo).Save(manifestFile);
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, _sha256Algo);
                     if (sourceHash != manifestDigest.Sha256)
                         throw new DigestMismatchException("sha256=" + manifestDigest.Sha256, "sha256=" + sourceHash);
                     break;
                 }
 
                 default:
-                    throw new ArgumentException("No known hashes were defined.");
+                    throw new ArgumentException(Resources.NoKnownHashes);
             }
             #endregion
 

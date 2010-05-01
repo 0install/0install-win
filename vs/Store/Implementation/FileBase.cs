@@ -1,4 +1,7 @@
-﻿namespace ZeroInstall.Store.Implementation
+﻿using System;
+using ZeroInstall.Store.Properties;
+
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// An immutable abstract base class for file-entries in a <see cref="Manifest"/>.
@@ -21,10 +24,19 @@
         /// </summary>
         public long Size { get; private set; }
 
+        private string _fileName;
         /// <summary>
         /// The name of the file without the containing directory.
         /// </summary>
-        public string FileName { get; private set; }
+        public string FileName
+        {
+            get { return _fileName; }
+            private set
+            {
+                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
+                _fileName = value;
+            }
+        }
         #endregion
 
         #region Constructor

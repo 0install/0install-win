@@ -1,30 +1,34 @@
 ﻿using System;
+using System.Globalization;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// A immutable directory-entry in a <see cref="Manifest"/>.
+    /// An immutable directory-entry in a <see cref="Manifest"/>.
     /// </summary>
     public sealed class Directory : ManifestNode, IEquatable<Directory>
     {
-        #region Constants
-        /// <summary>
-        /// The character at the beginning of a line that identifies this type of node.
-        /// </summary>
-        public const char NodeChar = 'D';
-        #endregion
-
         #region Properties
         /// <summary>
         /// The time this directory was last modified in the number of seconds since the epoch.
         /// </summary>
-        /// <remarks>Obsolete, retained for compatibility with older implementations.</remarks>
+        /// <remarks>Outdated, retained for compatibility with old manifest format.</remarks>
         public long ModifiedTime { get; private set; }
 
+        private string _fullPath;
         /// <summary>
-        /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
+        /// The name of the symlink without the containing directory.
         /// </summary>
-        public string FullPath { get; private set; }
+        public string FullPath
+        {
+            get { return _fullPath; }
+            private set
+            {
+                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
+                _fullPath = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -41,6 +45,26 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the string representation of this node for the new manifest format.
+        /// </summary>
+        /// <returns><code>"D", space, full path name, newline</code></returns>
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "D {0}\n", FullPath);
+        }
+
+        /// <summary>
+        /// Returns the string representation of this node for the old manifest format.
+        /// </summary>
+        /// <returns><code>"D", space, mtime, space, full path name, newline</code></returns>
+        public override string ToStringOld()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "D {0} {1}\n", ModifiedTime, FullPath);
+        }
+        #endregion
 
         #region Compare
         public bool Equals(Directory other)

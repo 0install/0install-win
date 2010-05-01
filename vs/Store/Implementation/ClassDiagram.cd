@@ -1,13 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Implementation.Directory">
-    <Position X="0.5" Y="3.5" Width="1.5" />
+    <Position X="5.5" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
+    <InheritanceLine Type="ZeroInstall.Store.Implementation.ManifestNode" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="2.062" />
+        <Point X="4.25" Y="3.125" />
+        <Point X="6" Y="3.125" />
+        <Point X="6" Y="3.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>CAAAAAAAQAAAAAAAgAAABAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>CAAAAAAABAAAAABEgAAABAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Implementation\Directory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -15,7 +23,7 @@
   <Class Name="ZeroInstall.Store.Implementation.ManifestNode" Collapsed="true">
     <Position X="3.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\ManifestNode.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -34,13 +42,21 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Symlink">
-    <Position X="6.25" Y="3.5" Width="1.5" />
+    <Position X="1.5" Y="3.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
+    <InheritanceLine Type="ZeroInstall.Store.Implementation.ManifestNode" FixedToPoint="true">
+      <Path>
+        <Point X="4.25" Y="2.062" />
+        <Point X="4.25" Y="3.125" />
+        <Point X="2.5" Y="3.125" />
+        <Point X="2.5" Y="3.5" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAIAgAQAgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAIAgAQEgAAAAAAAAAAAAIAAAAAAEAAAAiA=</HashCode>
       <FileName>Implementation\Symlink.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -52,7 +68,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Implementation\File.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -64,7 +80,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAgAAAgAAABAAAAAAAAIAAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAIAgAQAgAAABAAAAAAAAIAAAAAAAABAAAA=</HashCode>
       <FileName>Implementation\FileBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -75,7 +91,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAAAAAAAgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Implementation\ExecutableFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

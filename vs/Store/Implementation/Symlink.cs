@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -7,13 +9,6 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public sealed class Symlink : ManifestNode, IEquatable<Symlink>
     {
-        #region Constants
-        /// <summary>
-        /// The character at the beginning of a line that identifies this type of node.
-        /// </summary>
-        public const char NodeChar = 'S';
-        #endregion
-
         #region Properties
         /// <summary>
         /// The hash of the link target path.
@@ -25,10 +20,19 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public long Size { get; set; }
 
+        private string _symlinkName;
         /// <summary>
         /// The name of the symlink without the containing directory.
         /// </summary>
-        public string SymlinkName { get; set; }
+        public string SymlinkName
+        {
+            get { return _symlinkName; }
+            private set
+            {
+                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
+                _symlinkName = value;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -47,6 +51,17 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the string representation of this node for the manifest format.
+        /// </summary>
+        /// <returns><code>"S", space, hash, space, size, space, symlink name, newline</code></returns>
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}\n", Hash, Size, SymlinkName);
+        }
+        #endregion
 
         #region Compare
         public bool Equals(Symlink other)

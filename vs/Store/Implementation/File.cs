@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -7,14 +8,7 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public sealed class File : FileBase, IEquatable<File>
     {
-        #region Constants
-        /// <summary>
-        /// The character at the beginning of a line that identifies this type of node.
-        /// </summary>
-        public const char NodeChar = 'F';
-        #endregion
-
-        #region Contsructor
+        #region Constructor
         /// <summary>
         /// Creates a new non-executable file entry.
         /// </summary>
@@ -27,6 +21,17 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         //--------------------//
+
+        #region Conversion
+        /// <summary>
+        /// Returns the string representation of this node for the manifest format.
+        /// </summary>
+        /// <returns><code>"F", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
+        public override string ToString()
+        {
+            return string.Format(CultureInfo.InvariantCulture, "F {0} {1} {2} {3}\n", Hash, ModifiedTime, Size, FileName);
+        }
+        #endregion
 
         #region Compare
         public bool Equals(File other)
