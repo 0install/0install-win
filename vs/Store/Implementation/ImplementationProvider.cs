@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -24,6 +25,18 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public class ImplementationProvider
     {
+        #region Properties
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.IList<Store> _stores = new C5.HashedLinkedList<Store>();
+        /// <summary>
+        /// A priority-sorted list of <see cref="Store"/>s used to provide <see cref="Implementation"/>s.
+        /// </summary>
+        public IEnumerable<Store> Stores { get { return _stores; } }
+        #endregion
+
+        //--------------------//
+
+        #region Get
         /// <summary>
         /// Gets an <see cref="Model.Implementation"/> from the local cache or downloads it.
         /// </summary>
@@ -33,5 +46,6 @@ namespace ZeroInstall.Store.Implementation
         {
             return null;
         }
+        #endregion
     }
 }

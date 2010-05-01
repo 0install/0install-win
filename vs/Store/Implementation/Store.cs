@@ -35,6 +35,9 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates a new store using a directory in the user-profile.
+        /// </summary>
         public Store()
         {
             _cacheDir = Locations.GetUserCacheDir("0install");
@@ -50,9 +53,10 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
         public bool Contains(ManifestDigest manifestDigest)
         {
-            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1))) return true;
-            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
+            // Check for all supported hashing algorithms
             if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256))) return true;
+            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
+            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1))) return true;
 
             return false;
         }
@@ -63,10 +67,22 @@ namespace ZeroInstall.Store.Implementation
         /// Determines the local path of an <see cref="Implementation"/> with a given <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
+        /// <exception cref="DirectoryNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
         /// <returns></returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
-            throw new NotImplementedException();
+            // Check for all supported hashing algorithms
+
+            string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
+            if (IO.Directory.Exists(path)) return path;
+
+            path = Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New);
+            if (IO.Directory.Exists(path)) return path;
+
+            path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
+            if (IO.Directory.Exists(path)) return path;
+
+            throw new DirectoryNotFoundException();
         }
         #endregion
 
@@ -78,6 +94,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
             string tempDir, hashID;
@@ -97,25 +114,34 @@ namespace ZeroInstall.Store.Implementation
             switch (manifestDigest.BestMethod)
             {
                 case HashMethod.Sha1:
+                {
                     hashID = "sha1=" + manifestDigest.Sha1;
                     manifest.SaveOld(manifestFile);
-                    if (FileHelper.ComputeHash(manifestFile, SHA256.Create()) != manifestDigest.Sha1)
-                        throw new DigestMismatchException();
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA1.Create());
+                    if (sourceHash != manifestDigest.Sha1)
+                        throw new DigestMismatchException("sha1=" + manifestDigest.Sha1, "sha1=" + sourceHash);
                     break;
+                }
 
                 case HashMethod.Sha1New:
+                {
                     hashID = "sha1new=" + manifestDigest.Sha1New;
                     manifest.Save(manifestFile);
-                    if (FileHelper.ComputeHash(manifestFile, SHA256.Create()) != manifestDigest.Sha1New)
-                        throw new DigestMismatchException();
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA1.Create());
+                    if (sourceHash != manifestDigest.Sha1New)
+                        throw new DigestMismatchException("sha1new=" + manifestDigest.Sha1New, "sha1new=" + sourceHash);
                     break;
+                }
 
                 case HashMethod.Sha256:
+                {
                     hashID = "sha256=" + manifestDigest.Sha256;
                     manifest.Save(manifestFile);
-                    if (FileHelper.ComputeHash(manifestFile, SHA256.Create()) != manifestDigest.Sha256)
-                        throw new DigestMismatchException();
+                    string sourceHash = FileHelper.ComputeHash(manifestFile, SHA256.Create());
+                    if (sourceHash != manifestDigest.Sha256)
+                        throw new DigestMismatchException("sha256=" + manifestDigest.Sha256, "sha256=" + sourceHash);
                     break;
+                }
 
                 default:
                     throw new ArgumentException("No known hashes were defined.");

@@ -9,41 +9,35 @@ namespace ZeroInstall.Store.Interface
     /// </summary>
     public static class Icon
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="icon"></param>
-        /// <returns></returns>
-        /// <exception cref="WebException">Thrown if the icon image could not be downloaded.</exception>
-        public static Image GetIcon(Model.Icon icon)
-        {
-            throw new NotImplementedException();
+        //public static Image GetIcon(Model.Icon icon)
+        //{
+        //    throw new NotImplementedException();
 
-            //Image image;
+        //    Image image;
 
-            //var fileRequest = WebRequest.Create(icon.Location);
-            //var fileReponse = fileRequest.GetResponse();
+        //    var fileRequest = WebRequest.Create(icon.Location);
+        //    var fileReponse = fileRequest.GetResponse();
 
-            //try
-            //{
-            //    Stream stream = fileReponse.GetResponseStream();
-            //    image = Image.FromStream(stream);
-            //}
-            //catch (ArgumentException)
-            //{
-            //    lblIconUrlError.Text = "URL does not describe an image";
-            //    return;
-            //}
+        //    try
+        //    {
+        //        Stream stream = fileReponse.GetResponseStream();
+        //        image = Image.FromStream(stream);
+        //    }
+        //    catch (ArgumentException)
+        //    {
+        //        lblIconUrlError.Text = "URL does not describe an image";
+        //        return;
+        //    }
 
-            //switch (icon.MimeType)
-            //{
-            //    case "image/png":
-            //        if (!image.RawFormat.Equals(ImageFormat.Png)) throw new Exception();
-            //        break;
-            //    case "image/vnd-microsoft-icon":
-            //        if (!image.RawFormat.Equals(ImageFormat.Icon)) throw new Exception();
-            //        break;
-            //}
-        }
+        //    switch (icon.MimeType)
+        //    {
+        //        case "image/png":
+        //            if (!image.RawFormat.Equals(ImageFormat.Png)) throw new Exception();
+        //            break;
+        //        case "image/vnd-microsoft-icon":
+        //            if (!image.RawFormat.Equals(ImageFormat.Icon)) throw new Exception();
+        //            break;
+        //    }
+        //}
     }
 }
