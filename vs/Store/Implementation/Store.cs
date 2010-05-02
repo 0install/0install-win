@@ -54,8 +54,11 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path"></param>
         public Store(string path)
         {
+            if(! Path.IsPathRooted(path))
+                throw new ArgumentException("Store constructor accepts only qualified paths");
             if (! IO.Directory.Exists(path))
                 throw new CacheFolderException("Store constructed with inexistant path");
+
             _cacheDir = path;
         }
         /// <summary>

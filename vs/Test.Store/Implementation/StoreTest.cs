@@ -22,12 +22,24 @@ using System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
+    static class DirectoryHelper
+    {
+        public static string FindInexistantPath(string preferredPath)
+        {
+            while (System.IO.Directory.Exists(preferredPath))
+            {
+                preferredPath = preferredPath + "_";
+            }
+            return preferredPath;
+        }
+    }
+
     public class StoreCreation
     {
         [Test]
         public void ShouldAcceptAnExistingPath()
         {
-            var path = FindInexistantPath(Path.GetFullPath("test-store"));
+            var path = DirectoryHelper.FindInexistantPath(Path.GetFullPath("test-store"));
             try
             {
                 System.IO.Directory.CreateDirectory(path);
@@ -39,20 +51,17 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        private static string FindInexistantPath(string preferredPath)
-        {
-            while (System.IO.Directory.Exists(preferredPath))
-            {
-                preferredPath = preferredPath + "_";
-            }
-            return preferredPath;
-        }
-
         [Test]
         public void ShouldRejectInexistantPath()
         {
-            var path = FindInexistantPath(Path.GetFullPath("test-store"));
+            var path = DirectoryHelper.FindInexistantPath(Path.GetFullPath("test-store"));
             Assert.Throws<CacheFolderException>(delegate { new Store(path); }, "Store must throw CacheFolderException created with non-existing path");
+        }
+
+        [Test]
+        public void ShouldRejectRelativePath()
+        {
+            Assert.Throws<ArgumentException>(delegate { new Store("relative-path-to-any-folder"); }, "Store mustn't accept relative paths");
         }
 
         [Test]
