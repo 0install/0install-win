@@ -18,39 +18,47 @@
 using System;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
-    /// <summary>
-    /// Contains test methods for <see cref="Store"/>.
-    /// </summary>
-    public class StoreTest
+    public class StoreCreation
     {
-        /// <summary>
-        /// Ensures <see cref="Store.Contains"/> correctly differentiates between available and not available <see cref="Implementation"/>s.
-        /// </summary>
         [Test]
-        public void TestContains()
+        public void ShouldAcceptAnExistingPath()
         {
-            Assert.IsFalse(new Store().Contains(new ManifestDigest { Sha256 = "test" }));
+            var path = FindInexistantPath(Path.GetFullPath("test-store"));
+            try
+            {
+                System.IO.Directory.CreateDirectory(path);
+                Assert.DoesNotThrow(delegate { new Store(path); }, "Store must instantiate given an existing path");
+            }
+            finally
+            {
+                System.IO.Directory.Delete(path, true);
+            }
         }
 
-        /// <summary>
-        /// Ensures <see cref="Store.GetPath"/> correctly determines the local path of a cached <see cref="Implementation"/>.
-        /// </summary>
-        [Test]
-        public void TestGetPath()
+        private static string FindInexistantPath(string preferredPath)
         {
-            throw new NotImplementedException();
+            while (System.IO.Directory.Exists(preferredPath))
+            {
+                preferredPath = preferredPath + "_";
+            }
+            return preferredPath;
         }
 
-        /// <summary>
-        /// Ensures <see cref="Store.Add"/> correctly adds new <see cref="Implementation"/>s to the store.
-        /// </summary>
         [Test]
-        public void TestAdd()
+        public void ShouldRejectInexistantPath()
         {
-            throw new NotImplementedException();
+            var path = FindInexistantPath(Path.GetFullPath("test-store"));
+            Assert.Throws<CacheFolderException>(delegate { new Store(path); }, "Store must throw CacheFolderException created with non-existing path");
+        }
+
+        [Test]
+        public void ShouldProvideDefaultConstructor()
+        {
+            Assert.DoesNotThrow(delegate { new Store(); }, "Store must be default constructible");
         }
     }
 }

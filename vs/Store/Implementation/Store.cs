@@ -26,8 +26,13 @@ using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
+    public class CacheFolderException : Exception
+    {
+        public CacheFolderException(string message) : base(message) { }
+    }
+
     /// <summary>
-    /// Contains local copies of <see cref="Implementation"/>s.
+    /// Models a cache directory residing on the disk.
     /// </summary>
     public class Store
     {
@@ -41,6 +46,18 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates a new store based on the given path to a cache folder.
+        /// The path must be fully qualified.
+        /// </summary>
+        /// <exception cref="CacheFolderException">Thrown when the specified directory doesn't exist</exception>
+        /// <param name="path"></param>
+        public Store(string path)
+        {
+            if (! IO.Directory.Exists(path))
+                throw new CacheFolderException("Store constructed with inexistant path");
+            _cacheDir = path;
+        }
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
