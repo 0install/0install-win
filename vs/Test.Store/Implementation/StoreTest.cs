@@ -17,7 +17,6 @@
 
 using System;
 using NUnit.Framework;
-using ZeroInstall.Model;
 using System.IO;
 
 namespace ZeroInstall.Store.Implementation
@@ -55,7 +54,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldRejectInexistantPath()
         {
             var path = DirectoryHelper.FindInexistantPath(Path.GetFullPath("test-store"));
-            Assert.Throws<CacheFolderException>(delegate { new Store(path); }, "Store must throw CacheFolderException created with non-existing path");
+            Assert.Throws<DirectoryNotFoundException>(delegate { new Store(path); }, "Store must throw DirectoryNotFoundException created with non-existing path");
         }
 
         [Test]

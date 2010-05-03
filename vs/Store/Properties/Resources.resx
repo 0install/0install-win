@@ -132,4 +132,7 @@
   <data name="NumberTooLarge" xml:space="preserve">
     <value>The number value is too large.</value>
   </data>
+	<data name="RootedPathRequired">
+		<value xml:space="preserve">A fully qualified/rooted path is required.</value>
+	</data>
 </root>

@@ -104,5 +104,14 @@ namespace ZeroInstall.Store.Properties {
                 return ResourceManager.GetString("NumberTooLarge", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A fully qualified/rooted path is required..
+        /// </summary>
+        internal static string RootedPathRequired {
+            get {
+                return ResourceManager.GetString("RootedPathRequired", resourceCulture);
+            }
+        }
     }
 }

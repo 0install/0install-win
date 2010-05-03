@@ -23,18 +23,18 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Contains test methods for <see cref="Manifest"/>.
+    /// Contains test methods for <see cref="OldManifest"/> and <see cref="NewManifest"/>.
     /// </summary>
     [TestFixture]
     public class ManifestTest
     {
         /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
+        /// Ensures that <see cref="OldManifest"/> is correctly generated, serialized and deserialized.
         /// </summary>
         [Test]
-        public void TestSaveLoad()
+        public void TestSaveLoadOld()
         {
-            Manifest manifest1, manifest2;
+            OldManifest manifest1, manifest2;
             string tempFile = null, tempDir = null;
             try
             {
@@ -48,9 +48,43 @@ namespace ZeroInstall.Store.Implementation
 
                 // Generate manifest, write it to a file and read the file again
                 tempFile = IO.Path.GetTempFileName();
-                manifest1 = Manifest.Generate(tempDir, SHA1.Create());
+                manifest1 = OldManifest.Generate(tempDir, SHA1.Create());
                 manifest1.Save(tempFile);
-                manifest2 = Manifest.Load(tempFile);
+                manifest2 = OldManifest.Load(tempFile, SHA1.Create());
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) IO.File.Delete(tempFile);
+                if (tempDir != null) IO.Directory.Delete(tempDir, true);
+            }
+
+            // Ensure data stayed the same
+            Assert.AreEqual(manifest1, manifest2);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="NewManifest"/> is correctly generated, serialized and deserialized.
+        /// </summary>
+        [Test]
+        public void TestSaveLoadNew()
+        {
+            NewManifest manifest1, manifest2;
+            string tempFile = null, tempDir = null;
+            try
+            {
+                // Create a test directory to create a manifest for
+                tempDir = FileHelper.GetTempDirectory();
+                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file1"), @"content1");
+                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file2"), @"content2");
+                string subDir = IO.Path.Combine(tempDir, @"subdir");
+                IO.Directory.CreateDirectory(subDir);
+                IO.File.WriteAllText(IO.Path.Combine(subDir, "file"), @"content");
+
+                // Generate manifest, write it to a file and read the file again
+                tempFile = IO.Path.GetTempFileName();
+                manifest1 = NewManifest.Generate(tempDir, SHA1.Create());
+                manifest1.Save(tempFile);
+                manifest2 = NewManifest.Load(tempFile, SHA1.Create());
             }
             finally
             { // Clean up

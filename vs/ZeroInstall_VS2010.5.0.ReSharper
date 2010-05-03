@@ -10,10 +10,12 @@
             <CustomDictionary>
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
-              <UserWords>internet
-downloadable
+              <UserWords>cancelled
 deserialization
+downloadable
+internet
 offline
+serializable
 serializer
 symlink</UserWords>
             </CustomDictionary>

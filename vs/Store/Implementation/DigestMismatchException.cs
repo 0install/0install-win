@@ -8,6 +8,7 @@ namespace ZeroInstall.Store.Implementation
     /// Indicates an <see cref="Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
+    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
     public class DigestMismatchException : Exception
     {
         #region Properties
