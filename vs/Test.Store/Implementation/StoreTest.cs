@@ -158,10 +158,13 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldRejectRelativePath()
+        public void ShouldAcceptRelativePath()
         {
-            // Todo: Change this limitation
-            Assert.Throws<ArgumentException>(delegate { new Store("relative-path-to-any-folder"); }, "Store mustn't accept relative paths");
+            using (var dir = new TemporaryDirectory("relative-path"))
+            {
+                Assert.False(Path.IsPathRooted(dir.Path), "Internal assertion: Test path must be relative");
+                Assert.DoesNotThrow(delegate { new Store(dir.Path); }, "Store must accept relative paths");
+            }
         }
 
         [Test]
@@ -208,12 +211,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            string temporaryDir = DirectoryHelper.FindInexistantPath("temp");
-            try
+            using ( var temporaryDir = new TemporaryDirectory("temp"))
             {
-                System.IO.Directory.CreateDirectory(temporaryDir);
-
-                string packageDir = Path.Combine(temporaryDir, "package");
+                string packageDir = Path.Combine(temporaryDir.Path, "package");
                 System.IO.Directory.CreateDirectory(packageDir);
 
                 string contentFilePath = Path.Combine(packageDir, "content");
@@ -231,10 +231,6 @@ namespace ZeroInstall.Store.Implementation
                 System.IO.Directory.Move(packageDir, Path.Combine(_cache.Path, "sha256=" + hash));
 
                 Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
-            }
-            finally
-            {
-                System.IO.Directory.Delete(temporaryDir, recursive: true);
             }
         }
     }

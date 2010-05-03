@@ -49,7 +49,6 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!Path.IsPathRooted(path)) throw new ArgumentException(Resources.RootedPathRequired, "path");
             if (!IO.Directory.Exists(path)) throw new DirectoryNotFoundException();
             #endregion
 
