@@ -58,10 +58,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
-        public Store()
-        {
-            _cacheDir = Locations.GetUserCacheDir("0install");
-        }
+        public Store() : this(Locations.GetUserCacheDir("0install")) { }
         #endregion
 
         //--------------------//
