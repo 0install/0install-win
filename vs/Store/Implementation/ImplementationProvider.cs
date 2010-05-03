@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -23,6 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Manages a set of <see cref="Store"/>s, allowing the retrieval of <see cref="Implementation"/>s.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class ImplementationProvider
     {
         #region Properties

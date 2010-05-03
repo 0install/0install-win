@@ -13,7 +13,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The time this directory was last modified in the number of seconds since the epoch.
         /// </summary>
-        /// <remarks>Outdated, retained for compatibility with old manifest format.</remarks>
+        /// <remarks>Only used for old manifest format.</remarks>
         public long ModifiedTime { get; private set; }
 
         private string _fullPath;
@@ -42,6 +42,51 @@ namespace ZeroInstall.Store.Implementation
             ModifiedTime = modifiedTime;
             FullPath = fullPath;
         }
+
+        /// <summary>
+        /// Creates a new directory-entry (old format).
+        /// </summary>
+        /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
+        internal Directory(string fullPath) : this(0, fullPath)
+        {}
+        #endregion
+
+        #region Static access
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        internal static Directory FromString(string line)
+        {
+            const int numberOfParts = 2;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+
+            return new Directory(parts[1]);
+        }
+
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToStringOld"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        internal static ManifestNode FromStringOld(string line)
+        {
+            const int numberOfParts = 3;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+
+            try { return new Directory(long.Parse(parts[1]), parts[2]); }
+            #region Error handling
+            catch (OverflowException ex)
+            {
+                throw new FormatException(Resources.NumberTooLarge, ex);
+            }
+            #endregion
+        }
         #endregion
 
         //--------------------//
@@ -63,20 +108,6 @@ namespace ZeroInstall.Store.Implementation
         public override string ToStringOld()
         {
             return string.Format(CultureInfo.InvariantCulture, "D {0} {1}", ModifiedTime, FullPath);
-        }
-
-        /// <summary>
-        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
-        /// </summary>
-        /// <param name="line">The string representation to parse.</param>
-        /// <returns>The newly created node.</returns>
-        /// <exception cref="ArgumentException">Thrown if the number of space-separated parts in the <paramref name="line"/> are incorrect.</exception>
-        internal static Directory FromString(string line)
-        {
-            const int numberOfParts = 2;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
-            return new Directory(0, parts[1]);
         }
         #endregion
 

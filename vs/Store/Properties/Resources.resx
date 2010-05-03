@@ -123,10 +123,13 @@
   <data name="NoKnownHashes" xml:space="preserve">
     <value>No known hashes were defined.</value>
   </data>
-	<data name="InvalidNumberOfLineParts">
-		<value xml:space="preserve">Invalid number of parts in line.</value>
-	</data>
-	<data name="InvalidLinesInManifest">
-		<value xml:space="preserve">The manifest file contains invalid lines.</value>
-	</data>
+  <data name="InvalidNumberOfLineParts" xml:space="preserve">
+    <value>Invalid number of parts in line.</value>
+  </data>
+  <data name="InvalidLinesInManifest" xml:space="preserve">
+    <value>The manifest file contains invalid lines.</value>
+  </data>
+  <data name="NumberTooLarge" xml:space="preserve">
+    <value>The number value is too large.</value>
+  </data>
 </root>

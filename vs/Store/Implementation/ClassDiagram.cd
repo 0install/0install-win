@@ -1,39 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Implementation.Directory">
-    <Position X="5.5" Y="3.5" Width="1.5" />
+    <Position X="10.75" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="ZeroInstall.Store.Implementation.ManifestNode" FixedToPoint="true">
-      <Path>
-        <Point X="4.25" Y="2.062" />
-        <Point X="4.25" Y="3.125" />
-        <Point X="6" Y="3.125" />
-        <Point X="6" Y="3.5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>CAAAAAAABAAAAABEgAAABAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>CAAAAAAABAAAAABEkAAABAAAAAAAAIAAAAAAAAACAAA=</HashCode>
       <FileName>Implementation\Directory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ManifestNode" Collapsed="true">
-    <Position X="3.5" Y="1.5" Width="1.5" />
+    <Position X="8.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\ManifestNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Manifest">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.75" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAggJAAAAAAAAQAgAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAgAJAAAAAAAAAEgAAAEAAAQAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\Manifest.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -42,39 +34,31 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Symlink">
-    <Position X="1.5" Y="3.5" Width="1.5" />
+    <Position X="6.75" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <InheritanceLine Type="ZeroInstall.Store.Implementation.ManifestNode" FixedToPoint="true">
-      <Path>
-        <Point X="4.25" Y="2.062" />
-        <Point X="4.25" Y="3.125" />
-        <Point X="2.5" Y="3.125" />
-        <Point X="2.5" Y="3.5" />
-      </Path>
-    </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAIAgAQEgAAAAAAAAAAAAIAAAAAAEAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAIAgAQEkAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
       <FileName>Implementation\Symlink.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.File" Collapsed="true">
-    <Position X="2.5" Y="6.5" Width="1.5" />
+    <Position X="7.75" Y="5.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\File.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.FileBase">
-    <Position X="3.5" Y="3.5" Width="1.5" />
+    <Position X="8.75" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -85,26 +69,26 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ExecutableFile" Collapsed="true">
-    <Position X="4.5" Y="6.5" Width="1.5" />
+    <Position X="9.75" Y="5.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\ExecutableFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.DigestMismatchException" Collapsed="true">
-    <Position X="10.75" Y="2.5" Width="2" />
+    <Position X="0.5" Y="4.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Implementation\DigestMismatchException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationProvider">
-    <Position X="8.75" Y="0.5" Width="2" />
+    <Position X="0.5" Y="0.5" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -117,13 +101,27 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Store">
-    <Position X="9" Y="2.5" Width="1.5" />
+    <Position X="0.75" Y="2.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAQAAA=</HashCode>
       <FileName>Implementation\Store.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Implementation.NewManifest" Collapsed="true">
+    <Position X="3" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Implementation\NewManifest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Implementation.OldManifest" Collapsed="true">
+    <Position X="4.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Implementation\OldManifest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

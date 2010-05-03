@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
-using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -143,30 +142,27 @@ namespace ZeroInstall.Store.Implementation
                     case HashMethod.Sha1:
                     {
                         hashID = "sha1=" + manifestDigest.Sha1;
-                        Manifest.Generate(tempDir, _sha1Algo).SaveOld(manifestFile);
-                        string sourceHash = FileHelper.ComputeHash(manifestFile, _sha1Algo);
+                        string sourceHash = OldManifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha1)
-                            throw new DigestMismatchException("sha1=" + manifestDigest.Sha1, "sha1=" + sourceHash);
+                            throw new DigestMismatchException(hashID, "sha1=" + sourceHash);
                         break;
                     }
 
                     case HashMethod.Sha1New:
                     {
                         hashID = "sha1new=" + manifestDigest.Sha1New;
-                        Manifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
-                        string sourceHash = FileHelper.ComputeHash(manifestFile, _sha1Algo);
+                        string sourceHash = NewManifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha1New)
-                            throw new DigestMismatchException("sha1new=" + manifestDigest.Sha1New, "sha1new=" + sourceHash);
+                            throw new DigestMismatchException(hashID, "sha1new=" + sourceHash);
                         break;
                     }
 
                     case HashMethod.Sha256:
                     {
                         hashID = "sha256=" + manifestDigest.Sha256;
-                        Manifest.Generate(tempDir, _sha256Algo).Save(manifestFile);
-                        string sourceHash = FileHelper.ComputeHash(manifestFile, _sha256Algo);
+                        string sourceHash = NewManifest.Generate(tempDir, _sha256Algo).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha256)
-                            throw new DigestMismatchException("sha256=" + manifestDigest.Sha256, "sha256=" + sourceHash);
+                            throw new DigestMismatchException(hashID, "sha256=" + sourceHash);
                         break;
                     }
 

@@ -50,6 +50,29 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        #region Static access
+        /// <summary>
+        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
+        /// </summary>
+        /// <param name="line">The string representation to parse.</param>
+        /// <returns>The newly created node.</returns>
+        /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
+        internal static Symlink FromString(string line)
+        {
+            const int numberOfParts = 4;
+            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
+            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+
+            try { return new Symlink(parts[1], long.Parse(parts[2]), parts[3]); }
+            #region Error handling
+            catch (OverflowException ex)
+            {
+                throw new FormatException(Resources.NumberTooLarge, ex);
+            }
+            #endregion
+        }
+        #endregion
+
         //--------------------//
 
         #region Conversion
@@ -60,20 +83,6 @@ namespace ZeroInstall.Store.Implementation
         public override string ToString()
         {
             return string.Format(CultureInfo.InvariantCulture, "S {0} {1} {2}", Hash, Size, SymlinkName);
-        }
-
-        /// <summary>
-        /// Creates a new node from a string representation as created by <see cref="ToString"/>.
-        /// </summary>
-        /// <param name="line">The string representation to parse.</param>
-        /// <returns>The newly created node.</returns>
-        /// <exception cref="ArgumentException">Thrown if the number of space-separated parts in the <paramref name="line"/> are incorrect.</exception>
-        internal static Symlink FromString(string line)
-        {
-            const int numberOfParts = 4;
-            string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
-            return new Symlink(parts[1], long.Parse(parts[2]), parts[3]);
         }
         #endregion
 

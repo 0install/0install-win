@@ -95,5 +95,14 @@ namespace ZeroInstall.Store.Properties {
                 return ResourceManager.GetString("NoKnownHashes", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The number value is too large..
+        /// </summary>
+        internal static string NumberTooLarge {
+            get {
+                return ResourceManager.GetString("NumberTooLarge", resourceCulture);
+            }
+        }
     }
 }
