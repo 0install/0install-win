@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -113,11 +114,8 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
-            string tempDir, hashID;
-
-            // Generate a unique temporary sub-directory inside the (secure) cache directory
-            do tempDir = Path.Combine(_cacheDir, Path.GetRandomFileName());
-            while (IO.Directory.Exists(tempDir));
+            string hashID;
+            string tempDir = FileHelper.GetUniquePath();
 
             // Move source directory to temporary sub-directory and generate in-memory manifest from there
             // This prevents attackers from modifying the source directory between digest validation and moving to final store destination.

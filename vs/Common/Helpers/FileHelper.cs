@@ -60,6 +60,18 @@ namespace Common.Helpers
         }
 
         /// <summary>
+        /// Finds a unique random path.
+        /// </summary>
+        /// <returns>The unique random path</returns>
+        public static string GetUniquePath()
+        {
+            string uniquePath;
+            do uniquePath = Path.GetRandomFileName();
+            while (Directory.Exists(uniquePath));
+            return uniquePath;
+        }
+
+        /// <summary>
         /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch (1970-1-1).
         /// </summary>
         public static long UnixTime(DateTime time)

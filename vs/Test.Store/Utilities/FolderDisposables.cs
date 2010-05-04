@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Common.Helpers;
 
 namespace ZeroInstall.Store.Utilities
 {
@@ -22,7 +23,8 @@ namespace ZeroInstall.Store.Utilities
         }
 
         /// <summary>
-        /// Renames an existing directory by applying <see cref="DirectoryHelper.FindInexistantPath"/>
+        /// Renames an existing directory by moving it to a path found by
+        /// <see cref="FileHelper.GetUniquePath"/>
         /// If the path doesn't point to anything, it does nothing.
         /// </summary>
         /// <param name="path">file system path to move</param>
@@ -30,7 +32,7 @@ namespace ZeroInstall.Store.Utilities
         {
             if (System.IO.Directory.Exists(path))
             {
-                string inexistantPath = Path.GetRandomFileName();
+                string inexistantPath = FileHelper.GetUniquePath();
                 System.IO.Directory.Move(path, inexistantPath);
                 _originalPath = path;
                 _movedPath = inexistantPath;

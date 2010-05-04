@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRejectInexistantPath()
         {
-            string path = Path.GetFullPath(Path.GetRandomFileName());
+            string path = Path.GetFullPath(FileHelper.GetUniquePath());
             Assert.Throws<DirectoryNotFoundException>(delegate { new Store(path); }, "Store must throw DirectoryNotFoundException created with non-existing path");
         }
     }
@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            using (var temporaryDir = new TemporaryDirectory(Path.GetRandomFileName()))
+            using (var temporaryDir = new TemporaryDirectory(FileHelper.GetUniquePath()))
             {
                 string packageDir = Path.Combine(temporaryDir.Path, "test-package");
                 System.IO.Directory.CreateDirectory(packageDir);
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            using (var temporaryDir = new TemporaryDirectory(Path.GetRandomFileName()))
+            using (var temporaryDir = new TemporaryDirectory(FileHelper.GetUniquePath()))
             {
                 string packageDir = Path.Combine(temporaryDir.Path, "test-package");
                 System.IO.Directory.CreateDirectory(packageDir);
@@ -120,7 +120,7 @@ namespace ZeroInstall.Store.Implementation
                 System.IO.File.Delete(manifestPath);
                 var digest = new ManifestDigest(null, null, hash);
 
-                using (var cache = new TemporaryDirectory(Path.GetRandomFileName()))
+                using (var cache = new TemporaryDirectory(FileHelper.GetUniquePath()))
                 {
                     var store = new Store(cache.Path);
                     store.Add(packageDir, digest);
