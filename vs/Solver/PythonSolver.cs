@@ -73,13 +73,14 @@ namespace ZeroInstall.Solver
         
         //--------------------//
 
-        #region Solver access
+        #region Solve
         /// <summary>
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="feed">The feed to solve the dependencies for.</param>
-        /// <returns>The <see cref="Implementation"/>s chosen for the feed.</returns>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        // ToDo: Add exceptions
         public Selections Solve(Uri feed)
         {
             return Solve(feed, null);
@@ -90,9 +91,9 @@ namespace ZeroInstall.Solver
         /// </summary>
         /// <param name="feed">The feed to solve the dependencies for.</param>
         /// <param name="notBefore">The minimum version of the main <see cref="Implementation"/> to choose.</param>
-        /// <returns>The <see cref="Implementation"/>s chosen for the feed.</returns>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // This method uses an external Python script to perform the actual solving
+        // ToDo: Add exceptions
         public Selections Solve(Uri feed, ImplementationVersion notBefore)
         {
             // Build the arguments list for the solver script

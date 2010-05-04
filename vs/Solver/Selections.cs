@@ -26,7 +26,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Solver
 {
     /// <summary>
-    /// Represents a number of <see cref="Implementation"/>s for an <see cref="Model.Interface"/> chosen by an <see cref="ISolver"/>.
+    /// Represents a number of <see cref="Implementation"/>s chosen for an <see cref="Model.Interface"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
@@ -54,7 +54,7 @@ namespace ZeroInstall.Solver
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
         /// <summary>
-        /// A list of <see cref="Implementation"/>s chosen in this selection.
+        /// A list of <see cref="ImplementationSelection"/>s chosen in this selection.
         /// </summary>
         [Description("A list of implementations chosen in this selection.")]
         [XmlElement("selection")]

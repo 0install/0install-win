@@ -43,7 +43,7 @@ namespace ZeroInstall.Solver
                 // Write and read file
                 sel1 = new Selections { Implementations = { new ImplementationSelection
                 {
-                    Version  = new ImplementationVersion("1.0"),
+                    Version = new ImplementationVersion("1.0"),
                     Architecture = new Architecture(OS.Windows, Cpu.I586),
                     Interface = new Uri("http://0install.nanobyte.de/feeds/test.xml")
                 }} };

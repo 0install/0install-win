@@ -17,13 +17,13 @@
 
 using NUnit.Framework;
 
-namespace ZeroInstall.Store.Implementation
+namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// Contains test methods for <see cref="ImplementationProvider"/>.
+    /// Contains test methods for <see cref="InterfaceProvider"/>.
     /// </summary>
     [TestFixture]
-    public class ImplementationProviderTest
+    public class InterfaceProviderTest
     {
     }
 }
