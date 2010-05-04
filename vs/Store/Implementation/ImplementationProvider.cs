@@ -18,7 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -26,7 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// Manages a set of <see cref="Store"/>s, allowing the retrieval of <see cref="Implementation"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class ImplementationProvider : Provider
+    public class ImplementationProvider : IStore
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -55,17 +57,73 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region Contains
+        /// <summary>
+        /// Determines whether one of the <see cref="Stores"/> contains a local copy of an <see cref="Implementation"/> identified by a specific <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
+        public bool Contains(ManifestDigest manifestDigest)
+        {
+            foreach (Store store in Stores)
+            {
+                // Check if any store contains the implementation
+                if (store.Contains(manifestDigest)) return true;
+            }
+
+            // If we reach this, none of the stores contains the implementation
+            return false;
+        }
+        #endregion
+
         #region Get
         /// <summary>
-        /// Gets an <see cref="Model.Implementation"/> from the local cache or downloads it.
+        /// Determines the local path of an <see cref="Implementation"/> with a given <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="implementation">The implementation to get.</param>
-        /// <returns>The local path containing the implementation.</returns>
-        // ToDo: Handle download notifcation callbacks
-        public string GetImplementation(Model.Implementation implementation)
+        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
+        /// <returns></returns>
+        public string GetPath(ManifestDigest manifestDigest)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            foreach (Store store in Stores)
+            {
+                // Use the first store that contains the implementation
+                if (store.Contains(manifestDigest)) return store.GetPath(manifestDigest);
+            }
+
+            // If we reach this, none of the stores contains the implementation
+            throw new ImplementationNotFoundException(manifestDigest);
+        }
+        #endregion
+
+        #region Add
+        /// <summary>
+        /// Moves a directory containing an <see cref="Implementation"/> into the best available <see cref="Store"/> if it matches the provided <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
+        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
+        public void Add(string source, ManifestDigest manifestDigest)
+        {
+            IOException lastIOError = null;
+            foreach (Store store in Stores)
+            {
+                try
+                {
+                    // Add implementation only to one store
+                    store.Add(source, manifestDigest);
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    // Ignore IO errors and try the next store
+                    lastIOError = ex;
+                }
+            }
+
+            // If we reach this, the implementation couldn't be added to any store
+            throw new IOException(Resources.UnableToAddImplementionToStore, lastIOError);
         }
         #endregion
     }

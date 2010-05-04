@@ -132,7 +132,10 @@
   <data name="NumberTooLarge" xml:space="preserve">
     <value>The number value is too large.</value>
   </data>
-	<data name="RootedPathRequired">
-		<value xml:space="preserve">A fully qualified/rooted path is required.</value>
-	</data>
+  <data name="RootedPathRequired" xml:space="preserve">
+    <value>A fully qualified/rooted path is required.</value>
+  </data>
+  <data name="UnableToAddImplementionToStore" xml:space="preserve">
+    <value>Unable to add implementation to a store.</value>
+  </data>
 </root>

@@ -57,7 +57,9 @@
     <Compile Include="Implementation\Directory.cs" />
     <Compile Include="Implementation\ExecutableFile.cs" />
     <Compile Include="Implementation\FileBase.cs" />
+    <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ImplementationProvider.cs" />
+    <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\File.cs" />
@@ -73,7 +75,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Implementation\Symlink.cs" />
-    <Compile Include="Provider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

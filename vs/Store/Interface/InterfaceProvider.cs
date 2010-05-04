@@ -23,13 +23,18 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// Manages the <see cref="Interface"/> cache.
     /// </summary>
-    public class InterfaceProvider : Provider
+    public class InterfaceProvider
     {
         #region Properties
         /// <summary>
+        /// Set to <see langword="true"/> to prevent anything from being downloaded.
+        /// </summary>
+        public bool Offline { get; set; }
+
+        /// <summary>
         /// Set to <see langword="true"/> to force all cached <see cref="Interface"/>s to be updated, no matter how old they are.
         /// </summary>
-        /// <remarks>This will be ignored if <see cref="Provider.Offline"/> is set to <see langword="true"/>.</remarks>
+        /// <remarks>This will be ignored if <see cref="Offline"/> is set to <see langword="true"/>.</remarks>
         public bool Refresh { get; set; }
 
         /// <summary>

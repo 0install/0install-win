@@ -22,34 +22,27 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Indicates an <see cref="Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
+    /// Indicates an <see cref="Implementation"/> could not be found in a <see cref="Store"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
     [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
-    public class DigestMismatchException : Exception
+    public class ImplementationNotFoundException : Exception
     {
         #region Properties
         /// <summary>
-        /// The hash value the <see cref="Implementation"/> was supposed to have.
+        /// The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.
         /// </summary>
-        public string ExpectedHash { get; private set; }
-
-        /// <summary>
-        /// The hash value that was actually calculated.
-        /// </summary>
-        public string ActualHash { get; private set; }
+        public ManifestDigest ManifestDigest { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new digest mismatch exception.
+        /// Creates a new implementation not found exception.
         /// </summary>
-        /// <param name="expectedHash">The hash value the <see cref="Implementation"/> was supposed to have.</param>
-        /// <param name="actualHash">The hash value that was actually calculated.</param>
-        public DigestMismatchException(string expectedHash, string actualHash)
+        /// <param name="manifestDigest">The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.</param>
+        public ImplementationNotFoundException(ManifestDigest manifestDigest)
         {
-            ExpectedHash = expectedHash;
-            ActualHash = actualHash;
+            ManifestDigest = manifestDigest;
         }
         #endregion
     }

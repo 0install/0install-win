@@ -113,5 +113,14 @@ namespace ZeroInstall.Store.Properties {
                 return ResourceManager.GetString("RootedPathRequired", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to add implementation to a store..
+        /// </summary>
+        internal static string UnableToAddImplementionToStore {
+            get {
+                return ResourceManager.GetString("UnableToAddImplementionToStore", resourceCulture);
+            }
+        }
     }
 }

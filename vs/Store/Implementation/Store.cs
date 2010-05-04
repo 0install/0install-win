@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Models a cache directory residing on the disk.
     /// </summary>
-    public class Store
+    public class Store : IStore
     {
         #region Variables
         /// <summary>
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
         /// Determines the local path of an <see cref="Implementation"/> with a given <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
-        /// <exception cref="DirectoryNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
         /// <returns></returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementation
             path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
             if (IO.Directory.Exists(path)) return path;
 
-            throw new DirectoryNotFoundException();
+            throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
 
