@@ -7,6 +7,9 @@
     <assembly path="build\Debug\Test.ZeroInstall.MyApps.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Solver.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Store.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.Central.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.StoreService.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.FeedEditor.dll" />
   </Config>
   <Config name="Release" buildpathtype="Auto">
     <assembly path="build\Release\Test.Common.dll" />
@@ -15,5 +18,8 @@
     <assembly path="build\Release\Test.ZeroInstall.MyApps.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Solver.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Store.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.Central.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.StoreService.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.FeedEditor.dll" />
   </Config>
 </NUnitProject>

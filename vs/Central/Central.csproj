@@ -60,10 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Architecture\ProjectReferences.dgml" />
-    <None Include="Architecture\ProjectReferencesSimple.dgml" />
     <None Include="Properties\app.manifest" />
-    <None Include="Architecture\SolutionStructure.dgml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FeedUrlForm.cs">
