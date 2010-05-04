@@ -103,9 +103,8 @@
     <Link Source="(@9)" Target="@7" Category="References" />
     <Link Source="@14" Target="@18" Category="References" />
     <Link Source="@14" Target="@21" Category="References" />
-    <Link Source="@14" Target="@25" Category="References" />
+    <Link Source="@14" Target="@28" Category="References" />
     <Link Source="@14" Target="@34" Category="References" />
-    <Link Source="@14" Target="@7" Category="References" />
     <Link Source="@16" Target="@18" Category="References" />
     <Link Source="@16" Target="@21" Category="References" />
     <Link Source="@18" Target="@21" Category="References" />
@@ -209,7 +208,7 @@
     <Alias n="34" Id="(@33)" />
   </IdentifierAliases>
   <Paths>
-    <Path Id="VsSolution" Value="G:\Documents\Code\ZeroInstall for Windows\vs" />
-    <Path Id="VsSolutionUri" Value="file:///G:/Documents/Code/ZeroInstall for Windows/vs" />
+    <Path Id="VsSolution" Value=".." />
+    <Path Id="VsSolutionUri" Value=".." />
   </Paths>
 </DirectedGraph>

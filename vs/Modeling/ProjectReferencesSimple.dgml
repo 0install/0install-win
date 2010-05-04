@@ -1,31 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="(@1)" Category="CodeSchema_Project" Label="StoreService" Visibility="Visible">
+    <Node Id="(@1)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@16)" Category="CodeSchema_Project" Label="FeedEditor">
+    <Node Id="(@16)" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@4)" Category="CodeSchema_Project" Label="Launcher.Cli">
+    <Node Id="(@4)" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@5)" Category="CodeSchema_Project" Label="StoreManagement.Cli" Visibility="Visible">
+    <Node Id="(@5)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Cli">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@6)" Category="CodeSchema_Project" Label="Launcher.Gui">
+    <Node Id="(@6)" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Gui">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@7)" Category="CodeSchema_Project" Label="StoreManagement.Gui" Visibility="Visible">
+    <Node Id="(@7)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@11" Category="CodeSchema_Project" Label="Model" Visibility="Visible">
+    <Node Id="@11" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -33,11 +33,11 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@15" Category="CodeSchema_Project" Label="Injector" Visibility="Visible">
+    <Node Id="@15" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@18" Category="CodeSchema_Project" Label="MyApps">
+    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -45,7 +45,7 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@9" Category="CodeSchema_Project" Label="Central" Visibility="Visible">
+    <Node Id="@9" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -65,9 +65,8 @@
     <Link Source="@18" Target="@11" Category="References" />
     <Link Source="@3" Target="@11" Category="References" />
     <Link Source="@9" Target="@11" Category="References" />
-    <Link Source="@9" Target="@13" Category="References" />
+    <Link Source="@9" Target="@15" Category="References" />
     <Link Source="@9" Target="@18" Category="References" />
-    <Link Source="@9" Target="@3" Category="References" />
   </Links>
   <Categories>
     <Category Id="Category2" Background="#FF7DC633" />
@@ -93,7 +92,6 @@
     <Property Id="Layout" DataType="System.String" />
     <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
     <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
-    <Property Id="Visibility" Label="Visibility" Description="Defines whether a node in the graph is visible or not" DataType="System.Windows.Visibility" />
   </Properties>
   <QualifiedNames>
     <Name Id="Assembly" Label="Assembly" ValueType="Uri" />
@@ -129,7 +127,7 @@
     <Alias n="18" Id="(@17)" />
   </IdentifierAliases>
   <Paths>
-    <Path Id="VsSolution" Value="G:\Documents\Code\ZeroInstall for Windows\vs" />
-    <Path Id="VsSolutionUri" Value="file:///G:/Documents/Code/ZeroInstall for Windows/vs" />
+    <Path Id="VsSolution" Value=".." />
+    <Path Id="VsSolutionUri" Value=".." />
   </Paths>
 </DirectedGraph>
