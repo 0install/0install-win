@@ -26,7 +26,7 @@ namespace ZeroInstall.Solver
     /// <summary>
     /// A specific (executable) implementation chosen for an <see cref="Interface"/>.
     /// </summary>
-    public class ImplementationSelection : Implementation
+    public class ImplementationSelection : IDImplementation
     {
         #region Properties
         /// <summary>
@@ -46,6 +46,13 @@ namespace ZeroInstall.Solver
             get { return (Interface == null ? null : Interface.ToString()); }
             set { Interface = (value == null ? null : new Uri(value)); }
         }
+
+        /// <summary>
+        /// The name of the package in the distribution-specific package manager.
+        /// </summary>
+        [Category("Identity"), Description("The name of the package in the distribution-specific package manager.")]
+        [XmlAttribute("package")]
+        public string Package { get; set; }
         #endregion
 
         //--------------------//

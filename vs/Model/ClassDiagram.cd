@@ -69,17 +69,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Model.Implementation">
-    <Position X="6.75" Y="8.25" Width="1.5" />
+    <Position X="6.75" Y="10.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAgAAACAAAIAAAQCAQAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAACAAAIAAAQAAQAAAAAAAAAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="ManifestDigest" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Archives" />
       <Property Name="Recipes" />
@@ -263,6 +260,13 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="ZeroInstall.Model.IDImplementation">
+    <Position X="6.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAgAAAAAAAAAAAACAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>IDImplementation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="8.25" Y="0.5" Width="1.5" />
     <Compartments>
@@ -285,7 +289,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEhAAAAAAAAAAAAIAAAAAAAgAAAiA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEhAACAAAAAAAAAIAAAABAAgAAAiA=</HashCode>
       <FileName>Constraint.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -307,7 +311,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAIAAAAAAAAEgAEAAAAAAAAAAIAAEAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAAIAAAAAAAAUgAEAAAAAAAAAAIAAEAAAAAAAAiA=</HashCode>
       <FileName>ManifestDigest.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -324,7 +328,7 @@
     </ShowAsCollectionAssociation>
   </Interface>
   <Interface Name="ZeroInstall.Model.IGroupContainer" Collapsed="true">
-    <Position X="5.75" Y="12.25" Width="1.5" />
+    <Position X="5.75" Y="12.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAEAAAAACAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IGroupContainer.cs</FileName>

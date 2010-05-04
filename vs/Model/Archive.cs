@@ -22,6 +22,9 @@ using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
+    /// <summary>
+    /// Represents an archive to be downloaded and extracted.
+    /// </summary>
     public sealed class Archive : RetrievalStep, IEquatable<Archive>
     {
         #region Properties

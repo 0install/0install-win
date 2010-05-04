@@ -22,35 +22,12 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A specific (executable) implementation of an <see cref="Interface"/>.
+    /// A specific (downloadable) implementation of an <see cref="Interface"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class Implementation : ImplementationBase
+    public class Implementation : IDImplementation
     {
         #region Properties
-        /// <summary>
-        /// A unique identifier for this implementation.
-        /// </summary>
-        /// <remarks>For example, when the user marks a particular version as buggy this identifier is used to keep track of it, and saving and restoring selections uses it.</remarks>
-        [Category("Identity"), Description("A unique identifier for this implementation.")]
-        [XmlAttribute("id")]
-        public string ID { get; set; }
-
-        /// <summary>
-        /// If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).
-        /// </summary>
-        [Category("Identity"), Description("If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).")]
-        [XmlAttribute("local-path")]
-        public string LocalPath { get; set; }
-
-        /// <summary>
-        /// Digests of the .manifest file using various hashing algorithms.
-        /// </summary>
-        [Category("Identity"), Description("Digests of the .manifest file using various hashing algorithms.")]
-        [XmlElement("manifest-digest")]
-        public ManifestDigest ManifestDigest { get; set; }
-
-        #region Retrieval methods
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<Archive> _archives = new C5.HashedArrayList<Archive>();
         /// <summary>
@@ -72,8 +49,6 @@ namespace ZeroInstall.Model
         public C5.HashedArrayList<Recipe> Recipes { get { return _recipes; } }
         #endregion
 
-        #endregion
-
         //--------------------//
 
         #region Simplify
@@ -84,30 +59,7 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            // Merge the version modifier to the normal version attribute
-            if (!string.IsNullOrEmpty(VersionModifier))
-            {
-                Version = new ImplementationVersion(Version + VersionModifier);
-                VersionModifier = null;
-            }
-
-            // Default stability rating to testing
-            if (Stability == Stability.Unset) Stability = Stability.Testing;
-
-            // Check if stuff may be read from the ID
-            if (string.IsNullOrEmpty(ID)) return;
-
-            const string sha1Prefix = "sha1=";
-            const string sha1NewPrefix = "sha1new=";
-            const string sha256Prefix = "sha256=";
-
-            // Fill in values (only if missing) using legacy entries (indentified by prefixes)
-            var manifestDigest = ManifestDigest;
-            if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else if (string.IsNullOrEmpty(manifestDigest.Sha1) && ID.StartsWith(sha1Prefix)) manifestDigest.Sha1 = ID.Substring(sha1Prefix.Length);
-            else if (string.IsNullOrEmpty(manifestDigest.Sha1New) && ID.StartsWith(sha1NewPrefix)) manifestDigest.Sha1New = ID.Substring(sha1NewPrefix.Length);
-            else if (string.IsNullOrEmpty(manifestDigest.Sha256) && ID.StartsWith(sha256Prefix)) manifestDigest.Sha256 = ID.Substring(sha256Prefix.Length);
-            ManifestDigest = manifestDigest;
+            base.Simplify();
 
             // Simplify retrieval methods
             foreach (var archive in Archives) archive.Simplify();

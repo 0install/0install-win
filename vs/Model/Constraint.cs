@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Restrict the set of versions from which the injector may choose an <see cref="Implementation"/>. 
+    /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
     [TypeConverter(typeof(ConstraintConverter))]
     public struct Constraint : IEquatable<Constraint>

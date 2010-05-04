@@ -64,6 +64,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="IBindingContainer.cs" />
     <Compile Include="IconConverter.cs" />
+    <Compile Include="IDImplementation.cs" />
     <Compile Include="IGroupContainer.cs" />
     <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
