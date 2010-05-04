@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Solver
 {
     /// <summary>
-    /// A specific (executable) implementation chosen for an <see cref="Interface"/>.
+    /// An executable implementation of an <see cref="Interface"/>.
     /// </summary>
     public class ImplementationSelection : IDImplementation
     {

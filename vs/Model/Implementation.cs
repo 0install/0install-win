@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A specific (downloadable) implementation of an <see cref="Interface"/>.
+    /// A downloadable implementation of an <see cref="Interface"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Implementation : IDImplementation
