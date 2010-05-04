@@ -81,14 +81,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.DigestMismatchException" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="2" />
+    <Position X="2.75" Y="5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Implementation\DigestMismatchException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationProvider">
-    <Position X="0.5" Y="0.5" Width="2" />
+    <Position X="0.5" Y="1.5" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -101,27 +101,36 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.Store">
-    <Position X="0.75" Y="2.5" Width="1.5" />
+    <Position X="0.5" Y="3.75" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAQAAA=</HashCode>
+      <HashCode>AAIAAAAAAAABAAAAAAAAAAAAAAACAAAAAAIAABAQAAA=</HashCode>
       <FileName>Implementation\Store.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.NewManifest" Collapsed="true">
     <Position X="3" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAEAAAAA=</HashCode>
       <FileName>Implementation\NewManifest.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.OldManifest" Collapsed="true">
     <Position X="4.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAgIAAAAAAAAAAgAAAAAAAAAAAAIAAAAAAAEAAAAA=</HashCode>
       <FileName>Implementation\OldManifest.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Provider" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Provider.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

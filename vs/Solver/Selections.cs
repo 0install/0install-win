@@ -33,8 +33,6 @@ namespace ZeroInstall.Solver
     public sealed class Selections
     {
         #region Properties
-
-        #region Interface
         /// <summary>
         /// The URL of the interface this selection is based on.
         /// </summary>
@@ -52,9 +50,7 @@ namespace ZeroInstall.Solver
             get { return (Interface == null ? null : Interface.ToString()); }
             set { Interface = (value == null ? null : new Uri(value)); }
         }
-        #endregion
 
-        #region Implementations
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
         /// <summary>
@@ -64,20 +60,6 @@ namespace ZeroInstall.Solver
         [XmlElement("selection")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
-
-        /*
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
-        /// <summary>
-        /// A list of distribution-provided <see cref="PackageImplementation"/>s chosen in this selection.
-        /// </summary>
-        [Description("A list of distribution-provided package implementations chosen in this selection.")]
-        [XmlElement("package-selection")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
-        */
-        #endregion
-
         #endregion
 
         //--------------------//

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.Model;
@@ -25,15 +26,31 @@ namespace ZeroInstall.Store.Implementation
     /// Manages a set of <see cref="Store"/>s, allowing the retrieval of <see cref="Implementation"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class ImplementationProvider
+    public class ImplementationProvider : Provider
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.IList<Store> _stores = new C5.HashedArrayList<Store>();
+        private readonly C5.IList<Store> _stores = new C5.HashedLinkedList<Store>();
         /// <summary>
         /// A priority-sorted list of <see cref="Store"/>s used to provide <see cref="Implementation"/>s.
         /// </summary>
-        public IEnumerable<Store> Stores { get { return _stores; } }
+        public C5.ISequenced<Store> Stores { get { return _stores; } }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new implementation provider with a set of <see cref="Store"/>s.
+        /// </summary>
+        /// <param name="stores"></param>
+        public ImplementationProvider(IEnumerable<Store> stores)
+        {
+            #region Sanity checks
+            if (stores == null) throw new ArgumentNullException("stores");
+            #endregion
+
+            // Defensive copy
+            _stores.AddAll(stores);
+        }
         #endregion
 
         //--------------------//
@@ -44,9 +61,11 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="implementation">The implementation to get.</param>
         /// <returns>The local path containing the implementation.</returns>
+        // ToDo: Handle download notifcation callbacks
         public string GetImplementation(Model.Implementation implementation)
         {
-            return null;
+            // ToDo: Implement
+            throw new NotImplementedException();
         }
         #endregion
     }

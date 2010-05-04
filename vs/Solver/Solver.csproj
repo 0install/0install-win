@@ -43,7 +43,8 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="C5">
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -71,6 +72,10 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
