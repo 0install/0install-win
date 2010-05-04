@@ -26,6 +26,7 @@ namespace ZeroInstall.Solver
     /// <summary>
     /// An executable implementation of an <see cref="Interface"/>.
     /// </summary>
+    /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
     public class ImplementationSelection : IDImplementation
     {
         #region Properties
