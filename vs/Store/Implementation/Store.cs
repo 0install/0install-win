@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 #region Validate digest
                 // Store the manifest to the disk to calculate its digest
-                string manifestFile = Path.Combine(source, ".manifest");
+                string manifestFile = Path.Combine(tempDir, ".manifest");
                 switch (manifestDigest.BestMethod)
                 {
                     case HashMethod.Sha1:
@@ -172,7 +172,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Move directory to final store destination
-            IO.Directory.Move(source, Path.Combine(_cacheDir, hashID));
+            IO.Directory.Move(tempDir, Path.Combine(_cacheDir, hashID));
         }
         #endregion
     }

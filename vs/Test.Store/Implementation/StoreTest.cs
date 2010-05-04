@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var temporaryDir = new TemporaryDirectory(Path.GetRandomFileName()))
             {
-                string packageDir = Path.Combine(temporaryDir.Path, Path.GetRandomFileName());
+                string packageDir = Path.Combine(temporaryDir.Path, "test-package");
                 System.IO.Directory.CreateDirectory(packageDir);
 
                 string contentFilePath = Path.Combine(packageDir, "content");
@@ -99,6 +99,33 @@ namespace ZeroInstall.Store.Implementation
             {
                 for (int i = 0; i < 1000; ++i)
                     contentFile.WriteByte((byte)'A');
+            }
+        }
+
+        [Test]
+        public void ShouldAllowToAddFolder()
+        {
+            using (var temporaryDir = new TemporaryDirectory(Path.GetRandomFileName()))
+            {
+                string packageDir = Path.Combine(temporaryDir.Path, "test-package");
+                System.IO.Directory.CreateDirectory(packageDir);
+
+                string contentFilePath = Path.Combine(packageDir, "content");
+                PopulateFile(contentFilePath);
+
+                string manifestPath = Path.Combine(packageDir, ".manifest");
+                NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
+                manifest.Save(manifestPath);
+                string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
+                System.IO.File.Delete(manifestPath);
+                var digest = new ManifestDigest(null, null, hash);
+
+                using (var cache = new TemporaryDirectory(Path.GetRandomFileName()))
+                {
+                    var store = new Store(cache.Path);
+                    store.Add(packageDir, digest);
+                    Assert.True(store.Contains(digest), "After adding, store must contain the added package");
+                }
             }
         }
     }
