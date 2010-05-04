@@ -22,14 +22,14 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAcceptAnExistingPath()
         {
-            using (var dir = new DirectoryReplacement(Path.GetFullPath("test-store")))
+            using (var dir = new TemporaryReplacement(Path.GetFullPath("test-store")))
                 Assert.DoesNotThrow(delegate { new Store(dir.Path); }, "Store must instantiate given an existing path");
         }
 
         [Test]
         public void ShouldAcceptRelativePath()
         {
-            using (var dir = new DirectoryReplacement("relative-path"))
+            using (var dir = new TemporaryReplacement("relative-path"))
             {
                 Assert.False(Path.IsPathRooted(dir.Path), "Internal assertion: Test path must be relative");
                 Assert.DoesNotThrow(delegate { new Store(dir.Path); }, "Store must accept relative paths");
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldProvideDefaultConstructor()
         {
             string cachePath = Locations.GetUserCacheDir("0install");
-            using (var cache = new DirectoryReplacement(cachePath))
+            using (var cache = new TemporaryReplacement(cachePath))
                 Assert.DoesNotThrow(delegate { new Store(); }, "Store must be default constructible");
         }
 
@@ -55,13 +55,13 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class StoreFunctionality
     {
-        private DirectoryReplacement _cache;
+        private TemporaryReplacement _cache;
         private Store _store;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
-            _cache = new DirectoryReplacement("test-store");
+            _cache = new TemporaryReplacement("test-store");
             _store = new Store(_cache.Path);
         }
 
@@ -74,7 +74,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            using (var temporaryDir = new DirectoryReplacement("temp"))
+            using (var temporaryDir = new TemporaryReplacement("temp"))
             {
                 string packageDir = Path.Combine(temporaryDir.Path, "package");
                 System.IO.Directory.CreateDirectory(packageDir);
