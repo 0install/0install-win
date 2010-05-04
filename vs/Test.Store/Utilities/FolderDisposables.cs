@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ZeroInstall.Store.Utilities
 {
@@ -29,7 +30,7 @@ namespace ZeroInstall.Store.Utilities
         {
             if (System.IO.Directory.Exists(path))
             {
-                string inexistantPath = DirectoryHelper.FindInexistantPath(path);
+                string inexistantPath = Path.GetRandomFileName();
                 System.IO.Directory.Move(path, inexistantPath);
                 _originalPath = path;
                 _movedPath = inexistantPath;

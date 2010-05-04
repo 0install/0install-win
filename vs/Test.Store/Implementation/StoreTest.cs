@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRejectInexistantPath()
         {
-            string path = DirectoryHelper.FindInexistantPath(Path.GetFullPath("test-store"));
+            string path = Path.GetFullPath(Path.GetRandomFileName());
             Assert.Throws<DirectoryNotFoundException>(delegate { new Store(path); }, "Store must throw DirectoryNotFoundException created with non-existing path");
         }
     }
@@ -74,9 +74,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            using (var temporaryDir = new TemporaryReplacement("temp"))
+            using (var temporaryDir = new TemporaryDirectory(Path.GetRandomFileName()))
             {
-                string packageDir = Path.Combine(temporaryDir.Path, "package");
+                string packageDir = Path.Combine(temporaryDir.Path, Path.GetRandomFileName());
                 System.IO.Directory.CreateDirectory(packageDir);
 
                 string contentFilePath = Path.Combine(packageDir, "content");
