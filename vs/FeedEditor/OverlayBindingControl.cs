@@ -23,7 +23,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// The <see cref="PackageImplementation" /> to be displayed and modified by this control. If <see cref="null"/>, the control resets.
+        /// The <see cref="PackageImplementation" /> to be displayed and modified by this control. If <see langword="null"/>, the control resets.
         /// </summary>
         public OverlayBinding OverlayBinding
         {

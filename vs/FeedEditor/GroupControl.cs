@@ -18,7 +18,7 @@ namespace ZeroInstall.FeedEditor
         private Group _group = new Group();
 
         /// <summary>
-        /// The <see cref="Group" /> to be displayed and modified by this control. If <see cref="null"/>, the control resets.
+        /// The <see cref="Group" /> to be displayed and modified by this control. If <see langword="null"/>, the control resets.
         /// </summary>
         public Group Group
         {
