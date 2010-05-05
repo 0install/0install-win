@@ -5,8 +5,8 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Zero Install Launcher GUI")]
-[assembly: AssemblyDescription("Launches Zero Install implementations with a graphical user interface.")]
+[assembly: AssemblyTitle("Zero Install Injector CLI")]
+[assembly: AssemblyDescription("Launches Zero Install implementations from the command-line.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]

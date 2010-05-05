@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{05E49C84-D6AB-418A-9978-8200CB76DD39}</ProjectGuid>
+    <ProjectGuid>{B56D8478-0900-47C2-9113-1DC086A2D129}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.StoreManagement.Cli</RootNamespace>
-    <AssemblyName>0store</AssemblyName>
+    <RootNamespace>ZeroInstall.Injector.Cli</RootNamespace>
+    <AssemblyName>0launch</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Debug\0store.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Debug\0launch.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -84,13 +84,21 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
+      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
+      <Name>DownloadBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Injector\Injector.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
+      <Name>Injector</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Store\Store.csproj">
-      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
-      <Name>Store</Name>
+    <ProjectReference Include="..\Solver\Solver.csproj">
+      <Project>{ECA34CEC-F328-4149-96E0-331340599B6A}</Project>
+      <Name>Solver</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

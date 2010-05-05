@@ -5,79 +5,83 @@
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@10)" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Gui">
+    <Node Id="(@16)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Central">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(@23)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(@34)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(@37)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.FeedEditor">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="(@40)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@11" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Cli">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@11)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
+    <Node Id="@13" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Gui">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@12)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Central">
-      <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="(@19)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
-      <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="(@26)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector">
-      <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="(@29)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.FeedEditor">
-      <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="(@32)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.MyApps">
-      <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="(@8)" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
+    <Node Id="@15" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@9)" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Cli">
+    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
-      <Category Ref="Category2" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Model">
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Model">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@21" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
+    <Node Id="@25" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@23" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
+    <Node Id="@27" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
+      <Category Ref="Category9" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@29" Category="CodeSchema_Project" IsDragSource="True" Label="Test.DownloadBroker">
       <Category Ref="Category8" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="@25" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
-      <Category Ref="Category9" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
-      <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@3" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@31" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+    <Node Id="@31" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Solver">
+      <Category Ref="Category8" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@33" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
+      <Category Ref="Category9" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+      <Category Ref="Category9" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
+    <Node Id="@39" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -89,44 +93,69 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
+    <Node Id="@9" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Cli">
+      <Category Ref="Category2" />
+      <Category Ref="CodeSchema_SourceFile" />
+    </Node>
   </Nodes>
   <Links>
     <Link Source="(@1)" Target="@3" Category="References" />
-    <Link Source="(@10)" Target="@28" Category="References" />
-    <Link Source="(@11)" Target="@7" Category="References" />
-    <Link Source="(@12)" Target="@14" Category="References" />
-    <Link Source="(@19)" Target="@21" Category="References" />
-    <Link Source="(@26)" Target="@28" Category="References" />
-    <Link Source="(@29)" Target="@31" Category="References" />
-    <Link Source="(@32)" Target="@34" Category="References" />
-    <Link Source="(@8)" Target="@28" Category="References" />
-    <Link Source="(@9)" Target="@7" Category="References" />
-    <Link Source="@14" Target="@18" Category="References" />
-    <Link Source="@14" Target="@21" Category="References" />
-    <Link Source="@14" Target="@28" Category="References" />
-    <Link Source="@14" Target="@34" Category="References" />
-    <Link Source="@16" Target="@18" Category="References" />
-    <Link Source="@16" Target="@21" Category="References" />
-    <Link Source="@18" Target="@21" Category="References" />
-    <Link Source="@23" Target="@18" Category="References" />
-    <Link Source="@23" Target="@25" Category="References" />
-    <Link Source="@25" Target="@18" Category="References" />
-    <Link Source="@25" Target="@21" Category="References" />
-    <Link Source="@25" Target="@7" Category="References" />
-    <Link Source="@28" Target="@18" Category="References" />
-    <Link Source="@28" Target="@21" Category="References" />
-    <Link Source="@28" Target="@25" Category="References" />
-    <Link Source="@28" Target="@7" Category="References" />
-    <Link Source="@3" Target="@21" Category="References" />
+    <Link Source="(@16)" Target="@18" Category="References" />
+    <Link Source="(@23)" Target="@25" Category="References" />
+    <Link Source="(@34)" Target="@36" Category="References" />
+    <Link Source="(@37)" Target="@39" Category="References" />
+    <Link Source="(@40)" Target="@42" Category="References" />
+    <Link Source="@11" Target="@22" Category="References" />
+    <Link Source="@11" Target="@25" Category="References" />
+    <Link Source="@11" Target="@7" Category="References" />
+    <Link Source="@13" Target="@22" Category="References" />
+    <Link Source="@13" Target="@25" Category="References" />
+    <Link Source="@13" Target="@27" Category="References" />
+    <Link Source="@13" Target="@33" Category="References" />
+    <Link Source="@13" Target="@36" Category="References" />
+    <Link Source="@15" Target="@22" Category="References" />
+    <Link Source="@15" Target="@25" Category="References" />
+    <Link Source="@15" Target="@7" Category="References" />
+    <Link Source="@18" Target="@22" Category="References" />
+    <Link Source="@18" Target="@25" Category="References" />
+    <Link Source="@18" Target="@27" Category="References" />
+    <Link Source="@18" Target="@33" Category="References" />
+    <Link Source="@18" Target="@36" Category="References" />
+    <Link Source="@18" Target="@42" Category="References" />
+    <Link Source="@20" Target="@22" Category="References" />
+    <Link Source="@20" Target="@25" Category="References" />
+    <Link Source="@22" Target="@25" Category="References" />
+    <Link Source="@27" Target="@22" Category="References" />
+    <Link Source="@27" Target="@25" Category="References" />
+    <Link Source="@27" Target="@7" Category="References" />
+    <Link Source="@29" Target="@22" Category="References" />
+    <Link Source="@29" Target="@27" Category="References" />
+    <Link Source="@3" Target="@22" Category="References" />
+    <Link Source="@3" Target="@25" Category="References" />
     <Link Source="@3" Target="@7" Category="References" />
-    <Link Source="@31" Target="@18" Category="References" />
-    <Link Source="@31" Target="@21" Category="References" />
-    <Link Source="@34" Target="@18" Category="References" />
-    <Link Source="@5" Target="@18" Category="References" />
-    <Link Source="@5" Target="@21" Category="References" />
+    <Link Source="@31" Target="@22" Category="References" />
+    <Link Source="@31" Target="@33" Category="References" />
+    <Link Source="@33" Target="@22" Category="References" />
+    <Link Source="@33" Target="@25" Category="References" />
+    <Link Source="@33" Target="@7" Category="References" />
+    <Link Source="@36" Target="@22" Category="References" />
+    <Link Source="@36" Target="@25" Category="References" />
+    <Link Source="@36" Target="@33" Category="References" />
+    <Link Source="@36" Target="@7" Category="References" />
+    <Link Source="@39" Target="@22" Category="References" />
+    <Link Source="@39" Target="@25" Category="References" />
+    <Link Source="@42" Target="@22" Category="References" />
+    <Link Source="@42" Target="@25" Category="References" />
+    <Link Source="@5" Target="@22" Category="References" />
+    <Link Source="@5" Target="@25" Category="References" />
     <Link Source="@5" Target="@7" Category="References" />
-    <Link Source="@7" Target="@18" Category="References" />
-    <Link Source="@7" Target="@21" Category="References" />
+    <Link Source="@7" Target="@22" Category="References" />
+    <Link Source="@7" Target="@25" Category="References" />
+    <Link Source="@9" Target="@22" Category="References" />
+    <Link Source="@9" Target="@25" Category="References" />
+    <Link Source="@9" Target="@27" Category="References" />
+    <Link Source="@9" Target="@33" Category="References" />
+    <Link Source="@9" Target="@36" Category="References" />
   </Links>
   <Categories>
     <Category Id="Category2" Background="#FF7DC633" />
@@ -179,33 +208,41 @@
     <Alias n="5" Id="(@4)" />
     <Alias n="6" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
     <Alias n="7" Id="(@6)" />
-    <Alias n="8" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
-    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
-    <Alias n="10" Uri="Assembly=$(VsSolutionUri)/Launcher.Gui/Launcher.Gui.csproj" />
-    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Gui/StoreManagement.Gui.csproj" />
-    <Alias n="12" Uri="Assembly=$(VsSolutionUri)/Test.Central/Test.Central.csproj" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
-    <Alias n="14" Id="(@13)" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Test.Model/Test.Model.csproj" />
-    <Alias n="16" Id="(@15)" />
-    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
+    <Alias n="8" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
+    <Alias n="9" Id="(@8)" />
+    <Alias n="10" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
+    <Alias n="11" Id="(@10)" />
+    <Alias n="12" Uri="Assembly=$(VsSolutionUri)/Injector.Gui/Injector.Gui.csproj" />
+    <Alias n="13" Id="(@12)" />
+    <Alias n="14" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Gui/StoreManagement.Gui.csproj" />
+    <Alias n="15" Id="(@14)" />
+    <Alias n="16" Uri="Assembly=$(VsSolutionUri)/Test.Central/Test.Central.csproj" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
     <Alias n="18" Id="(@17)" />
-    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
-    <Alias n="20" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
-    <Alias n="21" Id="(@20)" />
-    <Alias n="22" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
-    <Alias n="23" Id="(@22)" />
-    <Alias n="24" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Test.Model/Test.Model.csproj" />
+    <Alias n="20" Id="(@19)" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
+    <Alias n="22" Id="(@21)" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
+    <Alias n="24" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
     <Alias n="25" Id="(@24)" />
-    <Alias n="26" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
-    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
-    <Alias n="28" Id="(@27)" />
-    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Test.FeedEditor/Test.FeedEditor.csproj" />
-    <Alias n="30" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="26" Uri="Assembly=$(VsSolutionUri)/DownloadBroker/DownloadBroker.csproj" />
+    <Alias n="27" Id="(@26)" />
+    <Alias n="28" Uri="Assembly=$(VsSolutionUri)/Test.DownloadBroker/Test.DownloadBroker.csproj" />
+    <Alias n="29" Id="(@28)" />
+    <Alias n="30" Uri="Assembly=$(VsSolutionUri)/Test.Solver/Test.Solver.csproj" />
     <Alias n="31" Id="(@30)" />
-    <Alias n="32" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
-    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
-    <Alias n="34" Id="(@33)" />
+    <Alias n="32" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
+    <Alias n="33" Id="(@32)" />
+    <Alias n="34" Uri="Assembly=$(VsSolutionUri)/Test.Injector/Test.Injector.csproj" />
+    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="36" Id="(@35)" />
+    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/Test.FeedEditor/Test.FeedEditor.csproj" />
+    <Alias n="38" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="39" Id="(@38)" />
+    <Alias n="40" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="42" Id="(@41)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="VsSolution" Value=".." />

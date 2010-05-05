@@ -87,7 +87,7 @@
       <FileName>Implementation\DigestMismatchException.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.ImplementationProvider">
+  <Class Name="ZeroInstall.Store.Implementation.StoreSet">
     <Position X="0.5" Y="2.5" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -99,7 +99,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAABAAAAAACAAAAAAAAAQAQAAA=</HashCode>
-      <FileName>Implementation\ImplementationProvider.cs</FileName>
+      <FileName>Implementation\StoreSet.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Stores" />
@@ -133,11 +133,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="ZeroInstall.Store.Implementation.IStore">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+  <Interface Name="ZeroInstall.Store.Implementation.IImplementationProvider">
+    <Position X="0.5" Y="0.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAQAAA=</HashCode>
-      <FileName>Implementation\IStore.cs</FileName>
+      <FileName>Implementation\IImplementationProvider.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

@@ -41,7 +41,7 @@ namespace Common
         /// <summary>
         /// A list of all file names in the arguments.
         /// </summary>
-        public ICollection<string> Files { get; private set; }
+        public IList<string> Files { get; private set; }
 
         private readonly IDictionary<string, string> _commands = new Dictionary<string, string>();
         /// <summary>
@@ -83,7 +83,7 @@ namespace Common
             _args = string.Concat(args);
 
             // Temp collections for building the lists
-            var filesTemp = new List<string>(args.Length);
+            var filesTemp = new C5.ArrayList<string>(args.Length);
 
             // Separate the arguments element-wise into categories
             for (int i = 0; i < args.Length; i++)
@@ -104,7 +104,7 @@ namespace Common
             }
 
             // Make the collections immutable
-            Files = new ReadOnlyCollection<string>(filesTemp);
+            Files = new C5.GuardedList<string>(filesTemp);
         }
         #endregion
 

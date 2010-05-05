@@ -114,6 +114,10 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
+      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
+      <Name>DownloadBroker</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Injector\Injector.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
       <Name>Injector</Name>
@@ -125,6 +129,10 @@
     <ProjectReference Include="..\MyApps\MyApps.csproj">
       <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
       <Name>MyApps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Solver\Solver.csproj">
+      <Project>{ECA34CEC-F328-4149-96E0-331340599B6A}</Project>
+      <Name>Solver</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,7 @@
   <Settings activeconfig="Debug" />
   <Config name="Debug" buildpathtype="Auto">
     <assembly path="build\Debug\Test.Common.dll" />
+    <assembly path="build\Debug\Test.ZeroInstall.DownloadBroker.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Injector.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Model.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.MyApps.dll" />
@@ -13,6 +14,7 @@
   </Config>
   <Config name="Release" buildpathtype="Auto">
     <assembly path="build\Release\Test.Common.dll" />
+    <assembly path="build\Release\Test.ZeroInstall.DownloadBroker.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Injector.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Model.dll" />
     <assembly path="build\Release\Test.ZeroInstall.MyApps.dll" />

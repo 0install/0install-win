@@ -7,7 +7,7 @@ namespace ZeroInstall.StoreService
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main()
+        static void Main(string[] args)
         {
             var ServicesToRun = new ServiceBase[] { new Service() };
             ServiceBase.Run(ServicesToRun);
