@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// Manages a set of <see cref="Store"/>s, allowing the retrieval of <see cref="Implementation"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class ImplementationProvider : IStore
+    public class StoreSet : IImplementationProvider
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new implementation provider with a set of <see cref="Store"/>s.
         /// </summary>
         /// <param name="stores"></param>
-        public ImplementationProvider(IEnumerable<Store> stores)
+        public StoreSet(IEnumerable<Store> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");

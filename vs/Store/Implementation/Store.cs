@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Models a cache directory residing on the disk.
     /// </summary>
-    public class Store : IStore
+    public class Store : IImplementationProvider
     {
         #region Variables
         /// <summary>

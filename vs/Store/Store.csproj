@@ -58,8 +58,8 @@
     <Compile Include="Implementation\ExecutableFile.cs" />
     <Compile Include="Implementation\FileBase.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
-    <Compile Include="Implementation\ImplementationProvider.cs" />
-    <Compile Include="Implementation\IStore.cs" />
+    <Compile Include="Implementation\StoreSet.cs" />
+    <Compile Include="Implementation\IImplementationProvider.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\File.cs" />

@@ -20,10 +20,10 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Contains test methods for <see cref="ImplementationProvider"/>.
+    /// Contains test methods for <see cref="StoreSet"/>.
     /// </summary>
     [TestFixture]
-    public class ImplementationProviderTest
+    public class StoreSetTest
     {
     }
 }

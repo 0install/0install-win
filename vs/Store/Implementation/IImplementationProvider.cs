@@ -5,9 +5,9 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Describes objects that allow the storage of <see cref="Interface"/>s.
+    /// Describes an object that allows the storage of <see cref="Interface"/>s.
     /// </summary>
-    public interface IStore
+    public interface IImplementationProvider
     {
         /// <summary>
         /// Determines whether this store contains a local copy of an <see cref="ZeroInstall.Store.Implementation"/> identified by a specific <see cref="Model.ManifestDigest"/>.
