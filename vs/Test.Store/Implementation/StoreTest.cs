@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Security.Cryptography;
 using Common.Helpers;
 using Common.Storage;
@@ -39,9 +40,12 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldProvideDefaultConstructor()
         {
-            string cachePath = Locations.GetUserCacheDir("0install");
+            string cachePath = Locations.GetUserCacheDir("0install.net");
             using (var cache = new TemporaryReplacement(cachePath))
+            {
+                System.IO.Directory.CreateDirectory(Path.Combine(cache.Path, "implementations"));
                 Assert.DoesNotThrow(delegate { new Store(); }, "Store must be default constructible");
+            }
         }
 
         [Test]
@@ -92,6 +96,13 @@ namespace ZeroInstall.Store.Implementation
 
             _store.Add(packageDir, digest);
             Assert.True(_store.Contains(digest), "After adding, store must contain the added package");
+        }
+
+        [Test]
+        public void ShouldThrowOnAddWithEmptyDigest()
+        {
+            string package = CreateArtificialPackage();
+            Assert.Throws(typeof (ArgumentException), delegate { _store.Add(package, new ManifestDigest(null, null, null)); });
         }
 
         private static string CreateArtificialPackage()
