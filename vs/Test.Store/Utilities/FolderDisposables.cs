@@ -24,16 +24,16 @@ namespace ZeroInstall.Store.Utilities
 
         /// <summary>
         /// Renames an existing directory by moving it to a path found by
-        /// <see cref="FileHelper.GetUniquePath"/>
+        /// <see cref="FileHelper.GetUniqueFileName"/>
         /// If the path doesn't point to anything, it does nothing.
         /// </summary>
         /// <param name="path">file system path to move</param>
         public TemporaryMove(string path)
         {
-            if (System.IO.Directory.Exists(path))
+            if (Directory.Exists(path))
             {
-                string inexistantPath = FileHelper.GetUniquePath();
-                System.IO.Directory.Move(path, inexistantPath);
+                string inexistantPath = FileHelper.GetUniqueFileName(Path.Combine(path, ".."));
+                Directory.Move(path, inexistantPath);
                 _originalPath = path;
                 _movedPath = inexistantPath;
             }
@@ -47,8 +47,8 @@ namespace ZeroInstall.Store.Utilities
         {
             if (!String.IsNullOrEmpty(_originalPath))
             {
-                System.IO.Directory.Delete(_originalPath, recursive: true);
-                System.IO.Directory.Move(_movedPath, _originalPath);
+                Directory.Delete(_originalPath, true);
+                Directory.Move(_movedPath, _originalPath);
             }
         }
     }
@@ -66,15 +66,23 @@ namespace ZeroInstall.Store.Utilities
         }
 
         /// <summary>
+        /// Creates a temporary directory in the system's temp directory.
+        /// </summary>
+        public TemporaryDirectory()
+        {
+            _path = FileHelper.GetTempDirectory();
+        }
+
+        /// <summary>
         /// Creates a temporary directory at a given path.
         /// </summary>
         /// <param name="path">file system path where the new folder should be created</param>
         public TemporaryDirectory(string path)
         {
             if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path", "Invalid path given");
-            if (System.IO.Directory.Exists(path)) throw new Exception("Folder already exists");
+            if (Directory.Exists(path)) throw new Exception("Folder already exists");
 
-            System.IO.Directory.CreateDirectory(path);
+            Directory.CreateDirectory(path);
             _path = path;
         }
 
@@ -83,7 +91,7 @@ namespace ZeroInstall.Store.Utilities
         /// </summary>
         public void Dispose()
         {
-            System.IO.Directory.Delete(_path, recursive: true);
+            Directory.Delete(_path, true);
         }
     }
 

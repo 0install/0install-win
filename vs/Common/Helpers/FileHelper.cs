@@ -60,14 +60,15 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Finds a unique random path.
+        /// Finds a unique random file or directory name for a new entry inside an existing folder.
         /// </summary>
-        /// <returns>The unique random path</returns>
-        public static string GetUniquePath()
+        /// <param name="path">The path of the existing folder inside which the new entry is to be created.</param>
+        /// <returns>The complete path for the new file or directory.</returns>
+        public static string GetUniqueFileName(string path)
         {
             string uniquePath;
-            do uniquePath = Path.GetRandomFileName();
-            while (Directory.Exists(uniquePath));
+            do uniquePath = Path.Combine(path, Path.GetRandomFileName());
+            while (File.Exists(uniquePath) || Directory.Exists(uniquePath));
             return uniquePath;
         }
 

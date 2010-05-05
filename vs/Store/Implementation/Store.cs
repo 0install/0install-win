@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Implementation
         public void Add(string source, ManifestDigest manifestDigest)
         {
             string hashID;
-            string tempDir = FileHelper.GetUniquePath();
+            string tempDir = FileHelper.GetUniqueFileName(_cacheDir);
 
             // Move source directory to temporary sub-directory and generate in-memory manifest from there
             // This prevents attackers from modifying the source directory between digest validation and moving to final store destination.
