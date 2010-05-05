@@ -55,13 +55,13 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class StoreFunctionality
     {
-        private TemporaryReplacement _cache;
+        private TemporaryDirectory _cache;
         private Store _store;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
-            _cache = new TemporaryReplacement("test-store");
+            _cache = new TemporaryDirectory();
             _store = new Store(_cache.Path);
         }
 
@@ -74,26 +74,22 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            using (var temporaryDir = new TemporaryDirectory())
-            {
-                string packageDir = Path.Combine(temporaryDir.Path, "test-package");
-                System.IO.Directory.CreateDirectory(packageDir);
+            string packageDir = FileHelper.GetTempDirectory();
 
-                string contentFilePath = Path.Combine(packageDir, "content");
-                PopulateFile(contentFilePath);
+            string contentFile = FileHelper.GetUniqueFileName(packageDir);
+            CreateAndPopulateFile(contentFile);
 
-                string manifestPath = Path.Combine(packageDir, ".manifest");
-                NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
-                manifest.Save(manifestPath);
-                string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
+            string manifestPath = Path.Combine(packageDir, ".manifest");
+            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
+            manifest.Save(manifestPath);
+            string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
 
-                System.IO.Directory.Move(packageDir, Path.Combine(_cache.Path, "sha256=" + hash));
+            System.IO.Directory.Move(packageDir, Path.Combine(_cache.Path, "sha256=" + hash));
 
-                Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
-            }
+            Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
         }
 
-        private static void PopulateFile(string filePath)
+        private static void CreateAndPopulateFile(string filePath)
         {
             using (FileStream contentFile = System.IO.File.Create(filePath))
             {
@@ -105,28 +101,20 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            using (var temporaryDir = new TemporaryDirectory())
-            {
-                string packageDir = Path.Combine(temporaryDir.Path, "test-package");
-                System.IO.Directory.CreateDirectory(packageDir);
+            string packageDir = FileHelper.GetTempDirectory();
 
-                string contentFilePath = Path.Combine(packageDir, "content");
-                PopulateFile(contentFilePath);
+            string contentFile = FileHelper.GetUniqueFileName(packageDir);
+            CreateAndPopulateFile(contentFile);
 
-                string manifestPath = Path.Combine(packageDir, ".manifest");
-                NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
-                manifest.Save(manifestPath);
-                string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
-                System.IO.File.Delete(manifestPath);
-                var digest = new ManifestDigest(null, null, hash);
+            string manifestPath = Path.Combine(packageDir, ".manifest");
+            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
+            manifest.Save(manifestPath);
+            string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
+            System.IO.File.Delete(manifestPath);
+            var digest = new ManifestDigest(null, null, hash);
 
-                using (var cache = new TemporaryDirectory())
-                {
-                    var store = new Store(cache.Path);
-                    store.Add(packageDir, digest);
-                    Assert.True(store.Contains(digest), "After adding, store must contain the added package");
-                }
-            }
+            _store.Add(packageDir, digest);
+            Assert.True(_store.Contains(digest), "After adding, store must contain the added package");
         }
     }
 }
