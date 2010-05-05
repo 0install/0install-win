@@ -74,19 +74,32 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            string packageDir = FileHelper.GetTempDirectory();
-
-            string contentFile = FileHelper.GetUniqueFileName(packageDir);
-            CreateAndPopulateFile(contentFile);
-
+            string packageDir = CreateArtificialPackage();
             string manifestPath = Path.Combine(packageDir, ".manifest");
             NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
-            manifest.Save(manifestPath);
-            string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
+            string hash = manifest.Save(manifestPath);
 
             System.IO.Directory.Move(packageDir, Path.Combine(_cache.Path, "sha256=" + hash));
 
             Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
+        }
+
+        [Test]
+        public void ShouldAllowToAddFolder()
+        {
+            string packageDir = CreateArtificialPackage();
+            ManifestDigest digest = ComputeDigestForPackage(packageDir);
+
+            _store.Add(packageDir, digest);
+            Assert.True(_store.Contains(digest), "After adding, store must contain the added package");
+        }
+
+        private static string CreateArtificialPackage()
+        {
+            string packageDir = FileHelper.GetTempDirectory();
+            string contentFile = FileHelper.GetUniqueFileName(packageDir);
+            CreateAndPopulateFile(contentFile);
+            return packageDir;
         }
 
         private static void CreateAndPopulateFile(string filePath)
@@ -98,23 +111,19 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        [Test]
-        public void ShouldAllowToAddFolder()
+        private static ManifestDigest ComputeDigestForPackage(string packageDir)
         {
-            string packageDir = FileHelper.GetTempDirectory();
-
-            string contentFile = FileHelper.GetUniqueFileName(packageDir);
-            CreateAndPopulateFile(contentFile);
-
-            string manifestPath = Path.Combine(packageDir, ".manifest");
-            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
-            manifest.Save(manifestPath);
-            string hash = FileHelper.ComputeHash(manifestPath, SHA256.Create());
-            System.IO.File.Delete(manifestPath);
-            var digest = new ManifestDigest(null, null, hash);
-
-            _store.Add(packageDir, digest);
-            Assert.True(_store.Contains(digest), "After adding, store must contain the added package");
+            string temporaryManifest = FileHelper.GetUniqueFileName(Path.GetTempPath());
+            try
+            {
+                var manifest = NewManifest.Generate(packageDir, SHA256.Create());
+                var hash = manifest.Save(temporaryManifest);
+                return new ManifestDigest(null, null, hash);
+            }
+            finally
+            {
+                System.IO.File.Delete(temporaryManifest);
+            }
         }
     }
 }
