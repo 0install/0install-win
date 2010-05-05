@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Zero Install Feed Editor")]
-[assembly: AssemblyDescription("An Editor for Zero Install feed files.")]
+[assembly: AssemblyDescription("An editor for Zero Install feed files.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
