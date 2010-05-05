@@ -15,36 +15,35 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.Generic;
+using System;
+using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
+using ZeroInstall.Solver;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.DownloadBroker
+namespace ZeroInstall.Injector.Cli
 {
     /// <summary>
-    /// Handles the download of one or more <see cref="Implementation"/>s into an <see cref="IImplementationProvider"/>.
+    /// Launches an <see cref="Implementation"/>
     /// </summary>
-    public class DownloadRequest
+    public static class Launcher
     {
-        #region Constructor
         /// <summary>
-        /// Creates a new download request.
+        /// Launches an application identified by a feed URI.
         /// </summary>
-        /// <param name="implementations">The <see cref="Implementation"/>s to be downloaded.</param>
-        /// <param name="provider">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
-        public DownloadRequest(IEnumerable<Implementation> implementations, IImplementationProvider provider)
+        public static void Run(Uri feed)
         {
-            // ToDo: Implement
-        }
-        #endregion
+            // Solve the dependencies
+            var solver = SolverFactory.GetDefaultSolver();
+            var selections = solver.Solve(feed);
 
-        //--------------------//
+            // Find out which implementations are missing and download them
+            IImplementationProvider provider = new StoreSet();
+            var launcher = new Injector.Launcher(selections, provider);
+            new DownloadRequest(launcher.ListMissingImplementations(), provider).RunSync();
 
-        #region Run
-        public void RunSync()
-        {
-            // ToDo: Implement
+            // Runt the application
+            launcher.Run();
         }
-        #endregion
     }
 }

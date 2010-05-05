@@ -15,19 +15,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ServiceProcess;
-
-namespace ZeroInstall.StoreService
+namespace ZeroInstall.Solver
 {
-    static class Program
+    /// <summary>
+    /// Provides access to <see cref="ISolver"/> implementations.
+    /// </summary>
+    public static class SolverFactory
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Returns the default implementation of <see cref="ISolver"/>.
         /// </summary>
-        static void Main(string[] args)
+        public static ISolver GetDefaultSolver()
         {
-            var ServicesToRun = new ServiceBase[] { new Service() };
-            ServiceBase.Run(ServicesToRun);
+            // ToDo: Make more flexible
+            return new PythonSolver();
         }
     }
 }

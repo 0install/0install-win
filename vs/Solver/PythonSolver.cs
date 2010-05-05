@@ -34,8 +34,8 @@ namespace ZeroInstall.Solver
         {
             get
             {
-                //return Environment.GetEnvironmentVariable("apps");
-                return Path.GetDirectoryName(Application.ExecutablePath);
+                return Environment.GetEnvironmentVariable("apps");
+                //return Path.GetDirectoryName(Application.ExecutablePath);
             }
         }
 

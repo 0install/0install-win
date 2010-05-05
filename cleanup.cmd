@@ -39,6 +39,10 @@ rd /s /q vs\Test.Store\obj > NUL 2>&1
 rd /s /q vs\Test.Central\obj > NUL 2>&1
 rd /s /q vs\Test.StoreService\obj > NUL 2>&1
 rd /s /q vs\Test.FeedEditor\obj > NUL 2>&1
+rd /s /q vs\Test.Injector.Cli\obj > NUL 2>&1
+rd /s /q vs\Test.Injector.Gui\obj > NUL 2>&1
+rd /s /q vs\Test.StoreManagement.Cli\obj > NUL 2>&1
+rd /s /q vs\Test.StoreManagement.Gui\obj > NUL 2>&1
 rd /s /q vs\Modeling\obj > NUL 2>&1
 
 rem Restore old VS2008 solution user options (temporarily unhide for copying)

@@ -19,8 +19,10 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
+using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -40,6 +42,14 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Constructor
+        public StoreSet()
+        {
+            string userCacheDir = Locations.GetUserCacheDir("0install");
+            if (!IO.Directory.Exists(userCacheDir)) IO.Directory.CreateDirectory(userCacheDir);
+
+            _stores.Add(new Store());
+        }
+
         /// <summary>
         /// Creates a new implementation provider with a set of <see cref="Store"/>s.
         /// </summary>
