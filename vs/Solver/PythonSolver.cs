@@ -35,6 +35,7 @@ namespace ZeroInstall.Solver
         {
             get
             {
+                // ToDo: Remove hack
                 return Environment.GetEnvironmentVariable("apps");
                 //return Path.GetDirectoryName(Application.ExecutablePath);
             }

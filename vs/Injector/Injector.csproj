@@ -49,7 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultPolicy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Policy.cs" />

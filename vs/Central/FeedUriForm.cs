@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace ZeroInstall.Central
 {
-    partial class FeedUrlForm : Form
+    partial class FeedUriForm : Form
     {
-        public FeedUrlForm()
+        public FeedUriForm()
         {
             InitializeComponent();
         }

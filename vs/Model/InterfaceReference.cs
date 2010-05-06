@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An additional feed for an <see cref="Interface"/>.
+    /// A reference to an <see cref="Interface"/> URI.
     /// </summary>
     public class InterfaceReference : IEquatable<InterfaceReference>
     {

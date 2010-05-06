@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Central
 {
-    partial class FeedUrlForm
+    partial class FeedUriForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedUrlForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedUriForm));
             this.labelExplanation = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();

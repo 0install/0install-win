@@ -62,7 +62,7 @@ namespace ZeroInstall.Central
         #region Tools
         private void buttonAddFeed_Click(object sender, EventArgs e)
         {
-            using (var feedUrlForm = new FeedUrlForm())
+            using (var feedUrlForm = new FeedUriForm())
                 feedUrlForm.ShowDialog(this);
         }
 
