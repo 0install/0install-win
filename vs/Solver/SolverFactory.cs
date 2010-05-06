@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using ZeroInstall.Store.Interface;
+
 namespace ZeroInstall.Solver
 {
     /// <summary>
@@ -25,10 +27,10 @@ namespace ZeroInstall.Solver
         /// <summary>
         /// Returns the default implementation of <see cref="ISolver"/>.
         /// </summary>
-        public static ISolver GetDefaultSolver()
+        public static ISolver DefaultSolver()
         {
             // ToDo: Make more flexible
-            return new PythonSolver();
+            return new PythonSolver(new InterfaceProvider());
         }
     }
 }

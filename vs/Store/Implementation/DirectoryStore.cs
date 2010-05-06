@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Models a cache directory residing on the disk.
     /// </summary>
-    public class Store : IImplementationProvider
+    public class DirectoryStore : IStore
     {
         #region Variables
         /// <summary>
@@ -44,24 +44,22 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store based on the given path to a cache folder.
         /// </summary>
-        /// <param name="path">A fully qualified directory path.</param>
-        /// <exception cref="DirectoryNotFoundException">Thrown when the specified directory doesn't exist.</exception>
-        public Store(string path)
+        /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        public DirectoryStore(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!IO.Directory.Exists(path)) IO.Directory.CreateDirectory(path);
             #endregion
-
+            
+            if (!IO.Directory.Exists(path)) IO.Directory.CreateDirectory(path);
             _cacheDir = path;
         }
 
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
-        public Store() : this(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))
-        {
-        }
+        public DirectoryStore() : this(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))
+        {}
         #endregion
 
         //--------------------//
@@ -91,8 +89,6 @@ namespace ZeroInstall.Store.Implementation
         /// <returns></returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
-            if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
-
             string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
             if (IO.Directory.Exists(path)) return path;
 
@@ -101,6 +97,8 @@ namespace ZeroInstall.Store.Implementation
 
             path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
             if (IO.Directory.Exists(path)) return path;
+
+            throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
 

@@ -6,7 +6,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAgIAAAAAAAAAAgABAAQAABAAAAIAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AQAAgIAAAAAAAAAAgABAAQEABAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>Selections.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -21,7 +21,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Solver.PythonSolver">
-    <Position X="0.5" Y="1.75" Width="1.75" />
+    <Position X="0.5" Y="2.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAABAAAAAAAgAAAAIAAQQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PythonSolver.cs</FileName>
@@ -35,8 +35,15 @@
     </Compartments>
     <TypeIdentifier />
   </Class>
+  <Class Name="ZeroInstall.Solver.SolverFactory">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>SolverFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="ZeroInstall.Solver.ISolver" Collapsed="true">
-    <Position X="0.5" Y="0.75" Width="1.5" />
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAAAAAAAABAAAAAAAgAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ISolver.cs</FileName>

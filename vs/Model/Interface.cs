@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -213,6 +214,25 @@ namespace ZeroInstall.Model
 
             // All groups are now empty and unnecessary
             Groups.Clear();
+        }
+        #endregion
+
+        #region Query
+        /// <summary>
+        /// Returns the <see cref="Implementation"/> with a specific ID string.
+        /// </summary>
+        /// <param name="id">The <see cref="IDImplementation.ID"/> to look for.</param>
+        /// <returns>The identified <see cref="Implementation"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Implementations"/>.</exception>
+        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        public Implementation GetImplementation(string id)
+        {
+            foreach (var implementation in Implementations)
+            {
+                if (implementation.ID == id) return implementation;
+            }
+
+            throw new KeyNotFoundException();
         }
         #endregion
 

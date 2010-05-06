@@ -19,6 +19,8 @@ using System;
 using System.IO;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
+using IO = System.IO;
 
 namespace ZeroInstall.Solver
 {
@@ -52,12 +54,20 @@ namespace ZeroInstall.Solver
             }
             finally
             { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                if (tempFile != null) IO.File.Delete(tempFile);
             }
 
             // Ensure data stayed the same
             Assert.AreEqual(sel1.Interface, sel2.Interface);
             Assert.AreEqual(sel1.Implementations[0].Architecture, sel2.Implementations[0].Architecture);
         }
+
+        ///// <summary>
+        ///// Ensures that <see cref="Selections.GetUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
+        ///// </summary>
+        //[Test]
+        //public void TestGetUncachedImplementations()
+        //{
+        //}
     }
 }

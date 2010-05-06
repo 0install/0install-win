@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector
         private readonly C5.IIndexed<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
 
         /// <summary>Used to locate the selected <see cref="_implementations"/>.</summary>
-        private readonly IImplementationProvider _provider;
+        private readonly IStore _provider;
         #endregion
 
         #region Properties
@@ -59,7 +59,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="selections">The <see cref="Implementation"/> to be launched, followed by all its dependencies.</param>
         /// <param name="provider">Used to locate the selected <see cref="Implementation"/>s.</param>
-        public Launcher(Selections selections, IImplementationProvider provider)
+        public Launcher(Selections selections, IStore provider)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");

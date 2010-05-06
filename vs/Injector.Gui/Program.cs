@@ -62,14 +62,17 @@ namespace ZeroInstall.Injector.Gui
             // Command-line arguments
             Args = new Arguments(args);
 
+            // ToDo: Handle options
+            var policy = Policy.Default();
+
 #if DEBUG
-            Launcher.Run(new Uri(Args.Files[0]));
+            policy.GetLauncher(Args.Files[0]).Run();
 #else
-            try { Launcher.Run(new Uri(Args.Files[0])); }
+            try { policy.GetLauncher(Args.Files[0]).Run(); }
             catch (Exception ex)
             {
-                // Print all exceptions to MessageBoxes
-                Msg.Inform(null, ex.ToString(), MsgSeverity.Error);
+                // Print all exceptions to the console
+                Console.Error.WriteLine(ex);
             }
 #endif
         }

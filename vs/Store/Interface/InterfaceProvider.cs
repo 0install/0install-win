@@ -51,6 +51,7 @@ namespace ZeroInstall.Store.Interface
         /// </summary>
         /// <param name="source">The URI used to identify (and download) the <see cref="Interface"/>.</param>
         /// <returns>The parsed <see cref="Interface"/> object.</returns>
+        // ToDo: Add exceptions (file not found, GPG key invalid, ...)
         public Model.Interface GetInterface(Uri source)
         {
             // ToDo: Implement

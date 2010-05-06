@@ -20,7 +20,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 try
                 {
-                    Assert.DoesNotThrow(delegate { new Store(); }, "Store's default constructor must accept non-existing path");
+                    Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store's default constructor must accept non-existing path");
                     Assert.True(System.IO.Directory.Exists(cache));
                 }
                 finally
@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAcceptAnExistingPath()
         {
             using (var dir = new TemporaryReplacement(Path.GetFullPath("test-store")))
-                Assert.DoesNotThrow(delegate { new Store(dir.Path); }, "Store must instantiate given an existing path");
+                Assert.DoesNotThrow(delegate { new DirectoryStore(dir.Path); }, "Store must instantiate given an existing path");
         }
 
         [Test]
@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation
             using (var dir = new TemporaryReplacement("relative-path"))
             {
                 Assert.False(Path.IsPathRooted(dir.Path), "Internal assertion: Test path must be relative");
-                Assert.DoesNotThrow(delegate { new Store(dir.Path); }, "Store must accept relative paths");
+                Assert.DoesNotThrow(delegate { new DirectoryStore(dir.Path); }, "Store must accept relative paths");
             }
         }
 
@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Implementation
             string cachePath = Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"));
             using (var cache = new TemporaryReplacement(cachePath))
             {
-                Assert.DoesNotThrow(delegate { new Store(); }, "Store must be default constructible");
+                Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");
             }
         }
 
@@ -63,7 +63,7 @@ namespace ZeroInstall.Store.Implementation
             string path = Path.GetFullPath(FileHelper.GetUniqueFileName(Path.GetTempPath()));
             try
             {
-                Assert.DoesNotThrow(delegate { new Store(path); }, "Store's constructor must accept non-existing path");
+                Assert.DoesNotThrow(delegate { new DirectoryStore(path); }, "Store's constructor must accept non-existing path");
                 Assert.True(System.IO.Directory.Exists(path));
             }
             finally
@@ -77,13 +77,13 @@ namespace ZeroInstall.Store.Implementation
     public class StoreFunctionality
     {
         private TemporaryDirectory _cache;
-        private Store _store;
+        private DirectoryStore _store;
 
         [TestFixtureSetUp]
         public void SetUp()
         {
             _cache = new TemporaryDirectory();
-            _store = new Store(_cache.Path);
+            _store = new DirectoryStore(_cache.Path);
         }
 
         [TestFixtureTearDown]

@@ -67,27 +67,34 @@ namespace ZeroInstall.Solver
 
         //--------------------//
 
-        #region Caching
+        #region Query
         /// <summary>
-        /// Lists <see cref="Implementation"/>s that are references here but not available in <paramref name="provider"/>.
+        /// Lists <see cref="Implementation"/>s that are references here but not available in <paramref name="implementationStore"/>.
         /// </summary>
+        /// <param name="implementationStore">The store to to check for cached implementations.</param>
+        /// <param name="interfaceProvider">The interface source used when additional information about <see cref="ImplementationSelection"/>s need to be requested.</param>
         /// <returns>The actual <see cref="Implementation"/>s (taken from <see cref="InterfaceProvider"/>) instead of the <see cref="ImplementationSelection"/>s.</returns>
-        public IEnumerable<Implementation> ListNotCachedImplementations(IImplementationProvider provider)
+        public IEnumerable<Implementation> GetUncachedImplementations(IStore implementationStore, InterfaceProvider interfaceProvider)
         {
+            ICollection<Implementation> notCached = new LinkedList<Implementation>();
+
             foreach (var implementation in Implementations)
             {
-                if (!provider.Contains(implementation.ManifestDigest))
-                {
-                    // ToDo: Add to download list
-                }
+                // Local paths are considered to be always available
+                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
+
+                // Check if an implementation with a matching digest is available in the cache
+                if (implementationStore.Contains(implementation.ManifestDigest)) continue;
+
+                // If not, get download information for the implementation by checking the original interface file
+                var interfaceInfo = interfaceProvider.GetInterface(implementation.Interface);
+                interfaceInfo.Simplify();
+                notCached.Add(interfaceInfo.GetImplementation(implementation.ID));
             }
 
-            // ToDo: Implement
-            return new Implementation[0];
+            return notCached;
         }
         #endregion
-
-        //--------------------//
 
         #region Storage
         /// <summary>

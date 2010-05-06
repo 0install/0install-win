@@ -21,6 +21,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Solver
 {
@@ -54,54 +55,56 @@ namespace ZeroInstall.Solver
         {
             get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0launch"); }
         }
-
-        /// <summary>
-        /// Try to avoid network usage.
-        /// </summary>
-        public bool Offline { get; set; }
-
-        /// <summary>
-        /// Fetch a fresh copy of all used interfaces.
-        /// </summary>
-        public bool Refresh { get; set; }
-
-        /// <summary>
-        /// An additional directory to search for cached <see cref="Interface"/>s.
-        /// </summary>
-        public string AdditionalStore { get; set; }
-        #endregion
         
+        /// <summary>
+        /// Download source code instead of executable files.
+        /// </summary>
+        public bool Source { get; set; }
+
+        /// <summary>
+        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
+        /// </summary>
+        public ImplementationVersion NotBefore { get; set; }
+
+        /// <summary>
+        /// The source used to request <see cref="Interface"/>s.
+        /// </summary>
+        public InterfaceProvider InterfaceProvider { get; private set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new Python-based solver.
+        /// </summary>
+        /// <param name="provider">The source used to request <see cref="Interface"/>s. The Python-implementation doesn't use this, but the property <see cref="InterfaceProvider"/> is set.</param>
+        public PythonSolver(InterfaceProvider provider)
+        {
+            #region Sanity checks
+            if (provider == null) throw new ArgumentNullException("provider");
+            #endregion
+
+            InterfaceProvider = provider;
+        }
+        #endregion
+
         //--------------------//
 
         #region Solve
         /// <summary>
         /// Solves the dependencies for a specific feed.
         /// </summary>
-        /// <param name="feed">The feed to solve the dependencies for.</param>
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions
-        public Selections Solve(Uri feed)
-        {
-            return Solve(feed, null);
-        }
-        
-        /// <summary>
-        /// Solves the dependencies for a specific feed.
-        /// </summary>
-        /// <param name="feed">The feed to solve the dependencies for.</param>
-        /// <param name="notBefore">The minimum version of the main <see cref="Implementation"/> to choose.</param>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
-        /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions
-        public Selections Solve(Uri feed, ImplementationVersion notBefore)
+        // ToDo: Add exceptions (feed problem, dependency problem)
+        public Selections Solve(string feed)
         {
             // Build the arguments list for the solver script
             string arguments = "--console --get-selections --select-only ";
-            if (Offline) arguments += "--offline ";
-            if (Refresh) arguments += "--refresh ";
-            if (!string.IsNullOrEmpty(AdditionalStore)) arguments += "--with-store=" + AdditionalStore + " ";
-            if (notBefore != null) arguments += "--not-before=" + notBefore + " ";
+            if (InterfaceProvider.Offline) arguments += "--offline ";
+            if (InterfaceProvider.Refresh) arguments += "--refresh ";
+            if (Source) arguments += "--source ";
+            if (NotBefore != null) arguments += "--not-before=" + NotBefore + " ";
             arguments += feed;
 
             // Prepare to launch the Python interpreter (no window, redirect all output)
@@ -109,8 +112,11 @@ namespace ZeroInstall.Solver
             {
                 FileName = PythonBinary,
                 Arguments = SolverScript + " " + arguments,
-                CreateNoWindow = true, UseShellExecute = false,
-                RedirectStandardInput = true, RedirectStandardOutput = true, RedirectStandardError = true,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
             };
             python.EnvironmentVariables["PATH"] = HelperDirectory + Path.PathSeparator + python.EnvironmentVariables["PATH"];
 

@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Indicates an <see cref="Implementation"/> could not be found in a <see cref="Store"/>.
+    /// Indicates an <see cref="Implementation"/> could not be found in a <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
     [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]

@@ -15,29 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using NUnit.Framework;
-using ZeroInstall.Store.Interface;
+using System.IO;
+using Common.Storage;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+    /// Provides access to <see cref="IStore"/> implementations.
     /// </summary>
-    [TestFixture]
-    public class PythonSolverTest
+    public static class StoreFactory
     {
         /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve(System.Uri)"/> correctly solves the dependencies for a specific feed URI.
+        /// Returns the default implementation of <see cref="IStore"/>.
         /// </summary>
-        [Test]
-        public void TestSolve()
+        public static IStore DefaultStore()
         {
-            var solver = new PythonSolver(new InterfaceProvider());
+            // ToDo: Make more flexible
 
-            Selections selections = solver.Solve("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml");
+            //return new StoreSet(new IStore[]
+            //{
+            //    new ServiceStore(new DirectoryStore(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))),
+            //    new DirectoryStore()
+            //});
 
-            Assert.AreEqual("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml", selections.InterfaceString);
+            return new DirectoryStore();
         }
     }
 }

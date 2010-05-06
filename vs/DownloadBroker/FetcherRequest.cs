@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -22,28 +23,32 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.DownloadBroker
 {
     /// <summary>
-    /// Handles the download of one or more <see cref="Implementation"/>s into an <see cref="IImplementationProvider"/>.
+    /// Handles the download and extraction of one or more <see cref="Implementation"/>s into an <see cref="IStore"/>.
     /// </summary>
-    public class DownloadRequest
+    public class FetcherRequest
     {
+        #region Properties
+        // Preserve order, duplicate entries are not allowed
+        private readonly C5.IList<Implementation> _implementations = new C5.HashedLinkedList<Implementation>();
+        /// <summary>
+        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Implementation"/>s.
+        /// </summary>
+        public C5.ISequenced<Implementation> Implementations { get { return _implementations; } }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new download request.
         /// </summary>
         /// <param name="implementations">The <see cref="Implementation"/>s to be downloaded.</param>
-        /// <param name="provider">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
-        public DownloadRequest(IEnumerable<Implementation> implementations, IImplementationProvider provider)
+        public FetcherRequest(IEnumerable<Implementation> implementations)
         {
-            // ToDo: Implement
-        }
-        #endregion
+            #region Sanity checks
+            if (implementations == null) throw new ArgumentNullException("implementations");
+            #endregion
 
-        //--------------------//
-
-        #region Run
-        public void RunSync()
-        {
-            // ToDo: Implement
+            // Defensive copy
+            _implementations.AddAll(implementations);
         }
         #endregion
     }

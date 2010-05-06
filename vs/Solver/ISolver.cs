@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Solver
 {
@@ -27,19 +27,19 @@ namespace ZeroInstall.Solver
     {
         #region Properties
         /// <summary>
-        /// Try to avoid network usage.
+        /// Download source code instead of executable files.
         /// </summary>
-        bool Offline { get; set; }
+        bool Source { get; set; }
 
         /// <summary>
-        /// Fetch a fresh copy of all used interfaces.
+        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
         /// </summary>
-        bool Refresh { get; set; }
-
+        ImplementationVersion NotBefore { get; set; }
+        
         /// <summary>
-        /// An additional directory to search for cached <see cref="Interface"/>s.
+        /// The source used to request <see cref="Interface"/>s.
         /// </summary>
-        string AdditionalStore { get; set; }
+        InterfaceProvider InterfaceProvider { get; }
         #endregion
 
         //--------------------//
@@ -48,21 +48,11 @@ namespace ZeroInstall.Solver
         /// <summary>
         /// Solves the dependencies for a specific feed.
         /// </summary>
-        /// <param name="feed">The feed to solve the dependencies for.</param>
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions
-        Selections Solve(Uri feed);
-
-        /// <summary>
-        /// Solves the dependencies for a specific feed.
-        /// </summary>
-        /// <param name="feed">The feed to solve the dependencies for.</param>
-        /// <param name="notBefore">The minimum version of the main <see cref="Implementation"/> to choose.</param>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
-        /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions
-        Selections Solve(Uri feed, ImplementationVersion notBefore);
+        // ToDo: Add exceptions (feed problem, dependency problem)
+        Selections Solve(string feed);
         #endregion
     }
 }

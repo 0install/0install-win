@@ -15,29 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
-using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+    /// Contains test methods for <see cref="Policy"/>.
     /// </summary>
     [TestFixture]
-    public class PythonSolverTest
+    public class PolicyTest
     {
         /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve(System.Uri)"/> correctly solves the dependencies for a specific feed URI.
+        /// Ensures <see cref="Policy.GetLauncher"/> correctly provides an application that can be launched.
         /// </summary>
-        [Test]
-        public void TestSolve()
+        //[Test]
+        public void TestGetLauncher()
         {
-            var solver = new PythonSolver(new InterfaceProvider());
-
-            Selections selections = solver.Solve("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml");
-
-            Assert.AreEqual("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml", selections.InterfaceString);
+            Policy.Default().GetLauncher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml").Run();
         }
     }
 }

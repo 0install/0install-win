@@ -19,42 +19,32 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
-using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Manages a set of <see cref="Store"/>s, allowing the retrieval of <see cref="Implementation"/>s.
+    /// Manages a set of <see cref="IStore"/>s, allowing the retrieval of <see cref="Implementation"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class StoreSet : IImplementationProvider
+    public class StoreSet : IStore
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.IList<Store> _stores = new C5.HashedLinkedList<Store>();
+        private readonly C5.IList<IStore> _stores = new C5.HashedLinkedList<IStore>();
         /// <summary>
-        /// A priority-sorted list of <see cref="Store"/>s used to provide <see cref="Implementation"/>s.
+        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Implementation"/>s.
         /// </summary>
-        public C5.ISequenced<Store> Stores { get { return _stores; } }
+        public C5.ISequenced<IStore> Stores { get { return _stores; } }
         #endregion
 
         #region Constructor
-        public StoreSet()
-        {
-            string userCacheDir = Locations.GetUserCacheDir("0install");
-            if (!IO.Directory.Exists(userCacheDir)) IO.Directory.CreateDirectory(userCacheDir);
-
-            _stores.Add(new Store());
-        }
-
         /// <summary>
-        /// Creates a new implementation provider with a set of <see cref="Store"/>s.
+        /// Creates a new implementation provider with a set of <see cref="IStore"/>s.
         /// </summary>
         /// <param name="stores"></param>
-        public StoreSet(IEnumerable<Store> stores)
+        public StoreSet(IEnumerable<IStore> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
@@ -74,7 +64,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
         public bool Contains(ManifestDigest manifestDigest)
         {
-            foreach (Store store in Stores)
+            foreach (IStore store in Stores)
             {
                 // Check if any store contains the implementation
                 if (store.Contains(manifestDigest)) return true;
@@ -94,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns></returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
-            foreach (Store store in Stores)
+            foreach (IStore store in Stores)
             {
                 // Use the first store that contains the implementation
                 if (store.Contains(manifestDigest)) return store.GetPath(manifestDigest);
@@ -107,7 +97,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add
         /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into the best available <see cref="Store"/> if it matches the provided <see cref="ManifestDigest"/>.
+        /// Moves a directory containing an <see cref="Implementation"/> into the best available <see cref="IStore"/> if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
@@ -117,7 +107,7 @@ namespace ZeroInstall.Store.Implementation
         public void Add(string source, ManifestDigest manifestDigest)
         {
             IOException lastIOError = null;
-            foreach (Store store in Stores)
+            foreach (IStore store in Stores)
             {
                 try
                 {
