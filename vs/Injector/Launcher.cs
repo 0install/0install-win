@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -77,23 +76,6 @@ namespace ZeroInstall.Injector
         //--------------------//
 
         #region Run
-        /// <summary>
-        /// Ensures all required <see cref="Implementation"/>s are cached.
-        /// </summary>
-        public IEnumerable<Implementation> ListMissingImplementations()
-        {
-            foreach (var implementation in _implementations)
-            {
-                if (!_provider.Contains(implementation.ManifestDigest))
-                {
-                    // ToDo: Add to download list
-                }
-            }
-
-            // ToDo: Implement
-            return new Implementation[0];
-        }
-
         /// <summary>
         /// Executes the first entry in <see cref="Implementation"/>s and injects the rest as dependencies.
         /// </summary>

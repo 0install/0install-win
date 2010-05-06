@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Cli
 #if DEBUG
             Launcher.Run(new Uri(Args.Files[0]));
 #else
-            try { Launch(new Uri(Args.Files[0])); }
+            try { Launcher.Run(new Uri(Args.Files[0])); }
             catch (Exception ex)
             {
                 // Print all exceptions to the console

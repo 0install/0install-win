@@ -16,12 +16,15 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Solver
 {
@@ -60,6 +63,28 @@ namespace ZeroInstall.Solver
         [XmlElement("selection")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
+        #endregion
+
+        //--------------------//
+
+        #region Caching
+        /// <summary>
+        /// Lists <see cref="Implementation"/>s that are references here but not available in <paramref name="provider"/>.
+        /// </summary>
+        /// <returns>The actual <see cref="Implementation"/>s (taken from <see cref="InterfaceProvider"/>) instead of the <see cref="ImplementationSelection"/>s.</returns>
+        public IEnumerable<Implementation> ListNotCachedImplementations(IImplementationProvider provider)
+        {
+            foreach (var implementation in Implementations)
+            {
+                if (!provider.Contains(implementation.ManifestDigest))
+                {
+                    // ToDo: Add to download list
+                }
+            }
+
+            // ToDo: Implement
+            return new Implementation[0];
+        }
         #endregion
 
         //--------------------//

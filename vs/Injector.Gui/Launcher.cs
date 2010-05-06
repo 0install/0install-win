@@ -21,7 +21,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Solver;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Injector.Cli
+namespace ZeroInstall.Injector.Gui
 {
     /// <summary>
     /// Launches an <see cref="Implementation"/>.

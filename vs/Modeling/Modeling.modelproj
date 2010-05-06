@@ -17,10 +17,19 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
-    <Content Include="ProjectReferences.dgml">
+    <Content Include="ProjectReferences\Central.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferencesSimple.dgml">
+    <Content Include="ProjectReferences\Injector.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjectReferences\Overview.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjectReferences\OverviewSimple.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjectReferences\Store.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="SolutionStructure.dgml">
@@ -30,5 +39,6 @@
     <Content Include="ModelDefinition\Architecture.uml">
       <SubType>Content</SubType>
     </Content>
+    <Folder Include="ProjectReferences" />
   </ItemGroup>
 </Project>

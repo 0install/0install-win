@@ -66,8 +66,8 @@
     <Link Source="@14" Target="@16" Category="References" />
     <Link Source="@14" Target="@18" Category="References" />
     <Link Source="@14" Target="@20" Category="References" />
-    <Link Source="@14" Target="@22" Category="References" />
     <Link Source="@14" Target="@25" Category="References" />
+    <Link Source="@14" Target="@4" Category="References" />
     <Link Source="@18" Target="@16" Category="References" />
     <Link Source="@18" Target="@4" Category="References" />
     <Link Source="@2" Target="@16" Category="References" />
@@ -153,7 +153,7 @@
     <Alias n="25" Id="(@24)" />
   </IdentifierAliases>
   <Paths>
-    <Path Id="VsSolution" Value=".." />
-    <Path Id="VsSolutionUri" Value=".." />
+    <Path Id="VsSolution" Value="..\.." />
+    <Path Id="VsSolutionUri" Value="../.." />
   </Paths>
 </DirectedGraph>
