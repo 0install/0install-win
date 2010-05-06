@@ -30,6 +30,7 @@ namespace ZeroInstall.Store.Utilities
         /// <param name="path">file system path to move</param>
         public TemporaryMove(string path)
         {
+            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path", @"null or empty string passed to TemporaryMove");
             if (Directory.Exists(path))
             {
                 string inexistantPath = FileHelper.GetUniqueFileName(Path.Combine(path, ".."));
@@ -47,8 +48,9 @@ namespace ZeroInstall.Store.Utilities
         {
             if (!String.IsNullOrEmpty(_originalPath))
             {
-                Directory.Delete(_originalPath, true);
-                Directory.Move(_movedPath, _originalPath);
+                if(Directory.Exists(OriginalPath))
+                    Directory.Delete(OriginalPath, true);
+                Directory.Move(BackupPath, OriginalPath);
             }
         }
     }
@@ -79,7 +81,7 @@ namespace ZeroInstall.Store.Utilities
         /// <param name="path">file system path where the new folder should be created</param>
         public TemporaryDirectory(string path)
         {
-            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path", "Invalid path given");
+            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path", @"Invalid path given");
             if (Directory.Exists(path)) throw new Exception("Folder already exists");
 
             Directory.CreateDirectory(path);
@@ -91,7 +93,7 @@ namespace ZeroInstall.Store.Utilities
         /// </summary>
         public void Dispose()
         {
-            Directory.Delete(_path, true);
+            Directory.Delete(Path, true);
         }
     }
 

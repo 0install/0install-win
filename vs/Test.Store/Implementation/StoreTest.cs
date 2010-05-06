@@ -13,11 +13,21 @@ namespace ZeroInstall.Store.Implementation
     public class StoreCreation
     {
         [Test]
-        public void DefaultConstructorShouldFailIfCacheDirInexistant()
+        public void DefaultConstructorShouldCreateCacheDirIfInexistant()
         {
-            string cache = Locations.GetUserCacheDir("0install");
+            string cache = Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"));
             using (new TemporaryMove(cache))
-                Assert.Throws<DirectoryNotFoundException>(delegate { new Store(); }, "Store must throw DirectoryNotFoundException created with non-existing path");
+            {
+                try
+                {
+                    Assert.DoesNotThrow(delegate { new Store(); }, "Store's default constructor must accept non-existing path");
+                    Assert.True(System.IO.Directory.Exists(cache));
+                }
+                finally
+                {
+                    if (System.IO.Directory.Exists(cache)) System.IO.Directory.Delete(cache, recursive: true);
+                }
+            }
         }
 
         [Test]
@@ -40,19 +50,26 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldProvideDefaultConstructor()
         {
-            string cachePath = Locations.GetUserCacheDir("0install.net");
+            string cachePath = Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"));
             using (var cache = new TemporaryReplacement(cachePath))
             {
-                System.IO.Directory.CreateDirectory(Path.Combine(cache.Path, "implementations"));
                 Assert.DoesNotThrow(delegate { new Store(); }, "Store must be default constructible");
             }
         }
 
         [Test]
-        public void ShouldRejectInexistantPath()
+        public void ShouldAcceptInexistantPathAndCreateIt()
         {
             string path = Path.GetFullPath(FileHelper.GetUniqueFileName(Path.GetTempPath()));
-            Assert.Throws<DirectoryNotFoundException>(delegate { new Store(path); }, "Store must throw DirectoryNotFoundException created with non-existing path");
+            try
+            {
+                Assert.DoesNotThrow(delegate { new Store(path); }, "Store's constructor must accept non-existing path");
+                Assert.True(System.IO.Directory.Exists(path));
+            }
+            finally
+            {
+                if(System.IO.Directory.Exists(path)) System.IO.Directory.Delete(path, recursive: true);
+            }
         }
     }
 
@@ -79,11 +96,9 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldTellIfItContainsAnImplementation()
         {
             string packageDir = CreateArtificialPackage();
-            string manifestPath = Path.Combine(packageDir, ".manifest");
-            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
-            string hash = manifest.Save(manifestPath);
-
-            System.IO.Directory.Move(packageDir, Path.Combine(_cache.Path, "sha256=" + hash));
+            CreateManifestForPackage(packageDir);
+            string hash = ComputeHashFromManifestInPackage(packageDir, SHA256.Create());
+            MovePackageToCache(packageDir, hash);
 
             Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
         }
@@ -95,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
             ManifestDigest digest = ComputeDigestForPackage(packageDir);
 
             _store.Add(packageDir, digest);
-            Assert.True(_store.Contains(digest), "After adding, store must contain the added package");
+            Assert.True(_store.Contains(digest), "After adding, Store must contain the added package");
         }
 
         [Test]
@@ -105,6 +120,30 @@ namespace ZeroInstall.Store.Implementation
             Assert.Throws(typeof (ArgumentException), delegate { _store.Add(package, new ManifestDigest(null, null, null)); });
         }
 
+        [Test]
+        public void ShouldReturnCorrectPathOfPackageInCache()
+        {
+            string packageDir = CreateArtificialPackage();
+            CreateManifestForPackage(packageDir);
+            string hash = ComputeHashFromManifestInPackage(packageDir, SHA256.Create());
+            string packageInCache = MovePackageToCache(packageDir, hash);
+
+            Assert.AreEqual(_store.GetPath(new ManifestDigest(null, null, hash)), packageInCache, "Store must return the correct path for Implementations it contains");
+        }
+
+        [Test]
+        public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
+        {
+            Assert.Throws(typeof(ImplementationNotFoundException), () => _store.GetPath(new ManifestDigest(null, null, "invalid")));
+        }
+
+        private string MovePackageToCache(string packageDir, string hash)
+        {
+            string packageInCache = Path.Combine(_cache.Path, "sha256=" + hash);
+            System.IO.Directory.Move(packageDir, packageInCache);
+            return packageInCache;
+        }
+
         private static string CreateArtificialPackage()
         {
             string packageDir = FileHelper.GetTempDirectory();
@@ -112,7 +151,6 @@ namespace ZeroInstall.Store.Implementation
             CreateAndPopulateFile(contentFile);
             return packageDir;
         }
-
         private static void CreateAndPopulateFile(string filePath)
         {
             using (FileStream contentFile = System.IO.File.Create(filePath))
@@ -120,6 +158,20 @@ namespace ZeroInstall.Store.Implementation
                 for (int i = 0; i < 1000; ++i)
                     contentFile.WriteByte((byte)'A');
             }
+        }
+
+        private static string CreateManifestForPackage(string packageDir)
+        {
+            string manifestPath = Path.Combine(packageDir, ".manifest");
+            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
+            manifest.Save(manifestPath);
+            return manifestPath;
+        }
+
+        private static string ComputeHashFromManifestInPackage(string packageDir, HashAlgorithm algorithm)
+        {
+            string manifest = Path.Combine(packageDir, ".manifest");
+            return FileHelper.ComputeHash(manifest, algorithm);
         }
 
         private static ManifestDigest ComputeDigestForPackage(string packageDir)

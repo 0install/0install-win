@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!IO.Directory.Exists(path)) throw new DirectoryNotFoundException();
+            if (!IO.Directory.Exists(path)) IO.Directory.CreateDirectory(path);
             #endregion
 
             _cacheDir = path;
@@ -59,7 +59,9 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
-        public Store() : this(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"))) {}
+        public Store() : this(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))
+        {
+        }
         #endregion
 
         //--------------------//
@@ -89,7 +91,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns></returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
-            // Check for all supported hashing algorithms
+            if (!Contains(manifestDigest)) throw new ImplementationNotFoundException(manifestDigest);
 
             string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
             if (IO.Directory.Exists(path)) return path;
@@ -99,8 +101,6 @@ namespace ZeroInstall.Store.Implementation
 
             path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
             if (IO.Directory.Exists(path)) return path;
-
-            throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
 
