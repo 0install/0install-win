@@ -54,9 +54,9 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
-    <Compile Include="Implementation\Directory.cs" />
-    <Compile Include="Implementation\ExecutableFile.cs" />
-    <Compile Include="Implementation\FileBase.cs" />
+    <Compile Include="Implementation\ManifestDirectory.cs" />
+    <Compile Include="Implementation\ManifestExecutableFile.cs" />
+    <Compile Include="Implementation\ManifestFileBase.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ServiceStore.cs" />
     <Compile Include="Implementation\StoreFactory.cs" />
@@ -64,7 +64,7 @@
     <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />
-    <Compile Include="Implementation\File.cs" />
+    <Compile Include="Implementation\ManifestFile.cs" />
     <Compile Include="Implementation\NewManifest.cs" />
     <Compile Include="Implementation\OldManifest.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />
@@ -76,7 +76,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Implementation\Symlink.cs" />
+    <Compile Include="Implementation\ManifestSymlink.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

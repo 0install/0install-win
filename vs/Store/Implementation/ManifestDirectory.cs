@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// An immutable directory-entry in a <see cref="Manifest"/>.
     /// </summary>
-    public sealed class Directory : ManifestNode, IEquatable<Directory>
+    public sealed class ManifestDirectory : ManifestNode, IEquatable<ManifestDirectory>
     {
         #region Properties
         /// <summary>
@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
-        internal Directory(long modifiedTime, string fullPath)
+        internal ManifestDirectory(long modifiedTime, string fullPath)
         {
             ModifiedTime = modifiedTime;
             FullPath = fullPath;
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new directory-entry (old format).
         /// </summary>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
-        internal Directory(string fullPath) : this(0, fullPath)
+        internal ManifestDirectory(string fullPath) : this(0, fullPath)
         {}
         #endregion
 
@@ -75,13 +75,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
-        internal static Directory FromString(string line)
+        internal static ManifestDirectory FromString(string line)
         {
             const int numberOfParts = 2;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
             if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
 
-            return new Directory(parts[1]);
+            return new ManifestDirectory(parts[1]);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace ZeroInstall.Store.Implementation
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
             if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
 
-            try { return new Directory(long.Parse(parts[1]), parts[2]); }
+            try { return new ManifestDirectory(long.Parse(parts[1]), parts[2]); }
             #region Error handling
             catch (OverflowException ex)
             {
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
-        public bool Equals(Directory other)
+        public bool Equals(ManifestDirectory other)
         {
             if (ReferenceEquals(null, other)) return false;
 
@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Directory) && Equals((Directory)obj);
+            return obj.GetType() == typeof(ManifestDirectory) && Equals((ManifestDirectory)obj);
         }
 
         public override int GetHashCode()

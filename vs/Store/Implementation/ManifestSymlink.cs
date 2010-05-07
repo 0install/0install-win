@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// An immutable symlink-entry in a <see cref="Manifest"/>.
     /// </summary>
-    public sealed class Symlink : ManifestNode, IEquatable<Symlink>
+    public sealed class ManifestSymlink : ManifestNode, IEquatable<ManifestSymlink>
     {
         #region Properties
         /// <summary>
@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="hash">The hash of the link target path.</param>
         /// <param name="size">The length of the link target path.</param>
         /// <param name="symlinkName">The name of the symlink without the containing directory.</param>
-        internal Symlink(string hash, long size, string symlinkName)
+        internal ManifestSymlink(string hash, long size, string symlinkName)
         {
             Hash = hash;
             Size = size;
@@ -74,13 +74,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
-        internal static Symlink FromString(string line)
+        internal static ManifestSymlink FromString(string line)
         {
             const int numberOfParts = 4;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
             if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
 
-            try { return new Symlink(parts[1], long.Parse(parts[2]), parts[3]); }
+            try { return new ManifestSymlink(parts[1], long.Parse(parts[2]), parts[3]); }
             #region Error handling
             catch (OverflowException ex)
             {
@@ -104,7 +104,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
-        public bool Equals(Symlink other)
+        public bool Equals(ManifestSymlink other)
         {
             if (ReferenceEquals(null, other)) return false;
 
@@ -115,7 +115,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Symlink) && Equals((Symlink)obj);
+            return obj.GetType() == typeof(ManifestSymlink) && Equals((ManifestSymlink)obj);
         }
 
         public override int GetHashCode()

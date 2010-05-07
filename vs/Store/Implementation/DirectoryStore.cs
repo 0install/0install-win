@@ -22,7 +22,6 @@ using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
-using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -51,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
             
-            if (!IO.Directory.Exists(path)) IO.Directory.CreateDirectory(path);
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             _cacheDir = path;
         }
 
@@ -72,9 +71,9 @@ namespace ZeroInstall.Store.Implementation
         public bool Contains(ManifestDigest manifestDigest)
         {
             // Check for all supported hashing algorithms
-            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256))) return true;
-            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
-            if (IO.Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1))) return true;
+            if (Directory.Exists(Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256))) return true;
+            if (Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
+            if (Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1))) return true;
 
             return false;
         }
@@ -90,13 +89,13 @@ namespace ZeroInstall.Store.Implementation
         public string GetPath(ManifestDigest manifestDigest)
         {
             string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
-            if (IO.Directory.Exists(path)) return path;
+            if (Directory.Exists(path)) return path;
 
             path = Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New);
-            if (IO.Directory.Exists(path)) return path;
+            if (Directory.Exists(path)) return path;
 
             path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
-            if (IO.Directory.Exists(path)) return path;
+            if (Directory.Exists(path)) return path;
 
             throw new ImplementationNotFoundException(manifestDigest);
         }
@@ -118,7 +117,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Move source directory to temporary sub-directory and generate in-memory manifest from there
             // This prevents attackers from modifying the source directory between digest validation and moving to final store destination.
-            IO.Directory.Move(source, tempDir);
+            Directory.Move(source, tempDir);
 
             try
             {
@@ -163,13 +162,13 @@ namespace ZeroInstall.Store.Implementation
             catch (DigestMismatchException)
             {
                 // Move the directory back to where it came from before passing the exception on
-                IO.Directory.Move(tempDir, source);
+                Directory.Move(tempDir, source);
                 throw;
             }
             #endregion
 
             // Move directory to final store destination
-            IO.Directory.Move(tempDir, Path.Combine(_cacheDir, hashID));
+            Directory.Move(tempDir, Path.Combine(_cacheDir, hashID));
         }
         #endregion
     }

@@ -35,7 +35,8 @@ namespace Common.Download
         /// <summary>
         /// Downloads a small file using <see cref="DownloadFile.RunSync"/>.
         /// </summary>
-        [Test]
+        // Test deactivated because it performs network IO
+        //[Test]
         public void TestRunSync()
         {
             DownloadFile download;
@@ -65,7 +66,8 @@ namespace Common.Download
         /// <summary>
         /// Downloads a small file using <see cref="DownloadFile.Start"/> and <see cref="DownloadFile.Join"/>.
         /// </summary>
-        [Test]
+        // Test deactivated because it performs network IO
+        //[Test]
         public void TestThread()
         {
             DownloadFile download;

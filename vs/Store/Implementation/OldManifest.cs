@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new manifest.
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="FileBase.Hash"/> and <see cref="Save"/>.</param>
+        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.</param>
         private OldManifest(IList<ManifestNode> nodes, HashAlgorithm hashAlgorithm) : base(nodes, hashAlgorithm)
         {}
         #endregion
@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a manifest using the old format for a directory in the file system.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="FileBase.Hash"/> and <see cref="Save"/>.</param>
+        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         public static OldManifest Generate(string path, HashAlgorithm hashAlgorithm)
@@ -78,10 +78,10 @@ namespace ZeroInstall.Store.Implementation
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
-                    if (line.StartsWith("F")) nodes.Add(File.FromString(line));
-                    else if (line.StartsWith("X")) nodes.Add(ExecutableFile.FromString(line));
-                    else if (line.StartsWith("S")) nodes.Add(Symlink.FromString(line));
-                    else if (line.StartsWith("D")) nodes.Add(Directory.FromStringOld(line));
+                    if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
+                    else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
+                    else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
+                    else if (line.StartsWith("D")) nodes.Add(ManifestDirectory.FromStringOld(line));
                     else throw new FormatException(Resources.InvalidLinesInManifest);
                 }
             }

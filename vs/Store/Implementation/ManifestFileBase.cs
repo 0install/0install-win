@@ -23,7 +23,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// An immutable abstract base class for file-entries in a <see cref="Manifest"/>.
     /// </summary>
-    public abstract class FileBase : ManifestNode
+    public abstract class ManifestFileBase : ManifestNode
     {
         #region Properties
         /// <summary>
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        protected FileBase(string hash, long modifiedTime, long size, string fileName)
+        protected ManifestFileBase(string hash, long modifiedTime, long size, string fileName)
         {
             Hash = hash;
             ModifiedTime = modifiedTime;
@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Equality
-        protected bool Equals(FileBase other)
+        protected bool Equals(ManifestFileBase other)
         {
             if (ReferenceEquals(null, other)) return false;
 

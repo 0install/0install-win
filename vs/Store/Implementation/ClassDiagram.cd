@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Implementation.Directory">
+  <Class Name="ZeroInstall.Store.Implementation.ManifestDirectory">
     <Position X="15" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -8,7 +8,7 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>CAAAAAAABAAAAABEkAAABAAAAAAAAIAAAAAAAAACAAA=</HashCode>
-      <FileName>Implementation\Directory.cs</FileName>
+      <FileName>Implementation\ManifestDirectory.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -33,7 +33,7 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.Symlink">
+  <Class Name="ZeroInstall.Store.Implementation.ManifestSymlink">
     <Position X="11" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -41,11 +41,11 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAgAQEkAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
-      <FileName>Implementation\Symlink.cs</FileName>
+      <FileName>Implementation\ManifestSymlink.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.File" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Implementation.ManifestFile" Collapsed="true">
     <Position X="12" Y="5.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -53,11 +53,11 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Implementation\File.cs</FileName>
+      <FileName>Implementation\ManifestFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.FileBase">
+  <Class Name="ZeroInstall.Store.Implementation.ManifestFileBase">
     <Position X="13" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -65,18 +65,18 @@
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAIAgAQAgAAABAAAAAAAAIAAAAAAAABAAAA=</HashCode>
-      <FileName>Implementation\FileBase.cs</FileName>
+      <FileName>Implementation\ManifestFileBase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.ExecutableFile" Collapsed="true">
-    <Position X="14" Y="5.25" Width="1.5" />
+  <Class Name="ZeroInstall.Store.Implementation.ManifestExecutableFile" Collapsed="true">
+    <Position X="14" Y="5.25" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEkAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Implementation\ExecutableFile.cs</FileName>
+      <FileName>Implementation\ManifestExecutableFile.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -147,7 +147,7 @@
   <Class Name="ZeroInstall.Store.Implementation.StoreFactory">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
       <FileName>Implementation\StoreFactory.cs</FileName>
     </TypeIdentifier>
   </Class>

@@ -22,7 +22,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Common.Helpers;
-using IO = System.IO;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -31,17 +30,17 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public abstract class Manifest : IEquatable<Manifest>
     {
-        #region Variables
-        /// <summary>The hash algorithm used for <see cref="FileBase.Hash"/> and <see cref="Save"/>.</summary>
-        protected readonly HashAlgorithm HashAlgorithm;
-        #endregion
-
         #region Properties
         private readonly ReadOnlyCollection<ManifestNode> _nodes;
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
         public IList<ManifestNode> Nodes { get { return _nodes; } }
+
+        /// <summary>
+        /// The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.
+        /// </summary>
+        public HashAlgorithm HashAlgorithm { get; private set; }
         #endregion
 
         #region Constructor
@@ -49,7 +48,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new manifest.
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="FileBase.Hash"/> and <see cref="Save"/>.</param>
+        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.</param>
         protected Manifest(IList<ManifestNode> nodes, HashAlgorithm hashAlgorithm)
         {
             #region Sanity checks
@@ -83,7 +82,7 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            foreach (var file in IO.Directory.GetFiles(path))
+            foreach (var file in Directory.GetFiles(path))
             {
                 var fileName = Path.GetFileName(file);
 
@@ -94,17 +93,17 @@ namespace ZeroInstall.Store.Implementation
                 // ToDo: Handle symlinks
 
                 var fileInfo = new FileInfo(file);
-                nodes.Add(new File(
+                nodes.Add(new ManifestFile(
                     FileHelper.ComputeHash(file, algorithm),
                     FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
                     fileInfo.Length,
                     fileName));
             }
 
-            foreach (var directory in IO.Directory.GetDirectories(path))
+            foreach (var directory in Directory.GetDirectories(path))
             {
                 var fileInfo = new DirectoryInfo(directory);
-                nodes.Add(new Directory(
+                nodes.Add(new ManifestDirectory(
                     FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
                     // Remove leading portion of path and use Unix slashes
                     directory.Substring(startPath.Length).Replace('\\', '/')));

@@ -14,12 +14,15 @@
 deserialization
 downloadable
 Eicher
+Foo
 internet
 offline
 serializable
 serializer
 Silva
-symlink</UserWords>
+symlink
+uncached
+uri</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

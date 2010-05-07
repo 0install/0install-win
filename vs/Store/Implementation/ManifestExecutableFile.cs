@@ -22,19 +22,19 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// An immutable non-executable file-entry in a <see cref="Manifest"/>.
+    /// An immutable executable file-entry in a <see cref="Manifest"/>.
     /// </summary>
-    public sealed class File : FileBase, IEquatable<File>
+    public sealed class ManifestExecutableFile : ManifestFileBase, IEquatable<ManifestExecutableFile>
     {
         #region Constructor
         /// <summary>
-        /// Creates a new non-executable file entry.
+        /// Creates a new executable file entry.
         /// </summary>
         /// <param name="hash">The hash of the content of the file calculated using the selected digest algorithm.</param>
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        internal File(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
+        internal ManifestExecutableFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
         {}
         #endregion
 
@@ -45,13 +45,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
-        internal static File FromString(string line)
+        internal static ManifestExecutableFile FromString(string line)
         {
             const int numberOfParts = 5;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
             if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
 
-            try { return new File(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
+            try { return new ManifestExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
             #region Error handling
             catch (OverflowException ex)
             {
@@ -67,15 +67,15 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Returns the string representation of this node for the manifest format.
         /// </summary>
-        /// <returns><code>"F", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
+        /// <returns><code>"X", space, hash, space, mtime, space, size, space, file name, newline</code></returns>
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture, "F {0} {1} {2} {3}", Hash, ModifiedTime, Size, FileName);
+            return string.Format(CultureInfo.InvariantCulture, "X {0} {1} {2} {3}", Hash, Size, ModifiedTime, FileName);
         }
         #endregion
 
         #region Equality
-        public bool Equals(File other)
+        public bool Equals(ManifestExecutableFile other)
         {
             return base.Equals(other);
         }
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(File) && Equals((File)obj);
+            return obj.GetType() == typeof(ManifestExecutableFile) && Equals((ManifestExecutableFile)obj);
         }
 
         public override int GetHashCode()
