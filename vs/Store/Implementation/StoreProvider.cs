@@ -23,10 +23,10 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Provides access to <see cref="IStore"/> implementations.
     /// </summary>
-    public static class StoreFactory
+    public static class StoreProvider
     {
         /// <summary>
-        /// Returns the default implementation of <see cref="IStore"/>.
+        /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
         public static IStore DefaultStore()
         {
@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
 
             //return new StoreSet(new IStore[]
             //{
-            //    new ServiceStore(new DirectoryStore(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))),
+            //    new ServiceStore(new DirectoryStore(Locations.GetSystemCacheDir(DirectoryStore.UserProfileDirectory))),
             //    new DirectoryStore()
             //});
 

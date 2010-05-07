@@ -176,5 +176,7 @@ namespace ZeroInstall.Solver
             }
         }
         #endregion
+
+        // ToDo: Implement ToString and Clone
     }
 }

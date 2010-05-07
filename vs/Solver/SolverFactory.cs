@@ -25,7 +25,7 @@ namespace ZeroInstall.Solver
     public static class SolverFactory
     {
         /// <summary>
-        /// Returns the default implementation of <see cref="ISolver"/>.
+        /// Instantiates the default implementation of <see cref="ISolver"/>.
         /// </summary>
         public static ISolver DefaultSolver()
         {

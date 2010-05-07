@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector
         //[Test]
         public void TestGetLauncher()
         {
-            Policy.Default().GetLauncher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml").Run();
+            new DefaultPolicy().GetLauncher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml").Run();
         }
     }
 }

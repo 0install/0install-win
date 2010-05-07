@@ -126,8 +126,11 @@
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.DirectoryStore">
     <Position X="2.25" Y="2.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
     <TypeIdentifier>
-      <HashCode>AAIAAAAAAAABAAAAAAAAAAAAAAACAAAAAAIAABAQAAA=</HashCode>
+      <HashCode>AAIAAAAAAAABAAAAAAAAAAAAAAACAAAAAAIACBAQAAA=</HashCode>
       <FileName>Implementation\DirectoryStore.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />

@@ -21,8 +21,9 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// An immutable abstract base class for file-entries in a <see cref="Manifest"/>.
+    /// An abstract base class for file-entries in a <see cref="Manifest"/>.
     /// </summary>
+    /// <remarks>This class and the derived classes are immutable. They should only be used as a part of a <see cref="Manifest"/>.</remarks>
     public abstract class ManifestFileBase : ManifestNode
     {
         #region Properties

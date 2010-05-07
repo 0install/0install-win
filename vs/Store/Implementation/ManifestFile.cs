@@ -22,8 +22,9 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// An immutable non-executable file-entry in a <see cref="Manifest"/>.
+    /// An non-executable file-entry in a <see cref="Manifest"/>.
     /// </summary>
+    /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
     public sealed class ManifestFile : ManifestFileBase, IEquatable<ManifestFile>
     {
         #region Constructor
@@ -38,7 +39,7 @@ namespace ZeroInstall.Store.Implementation
         {}
         #endregion
 
-        #region Static access
+        #region Factory methods
         /// <summary>
         /// Creates a new node from a string representation as created by <see cref="ToString"/>.
         /// </summary>

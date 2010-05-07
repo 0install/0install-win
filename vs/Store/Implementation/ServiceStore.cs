@@ -24,6 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Provides direct pass-through read-access to a <see cref="DirectoryStore"/> and service-mediated write-acess.
     /// </summary>
+    /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class ServiceStore : IStore
     {
         #region Variables
@@ -33,12 +34,18 @@ namespace ZeroInstall.Store.Implementation
 
         #region Constructor
         /// <summary>
-        /// Creates a new service store using an existing <see cref="DirectoryStore"/>.
+        /// Creates a new service store based on the given path to a cache folder.
         /// </summary>
-        /// <param name="backingStore">The store to use for read-access.</param>
-        public ServiceStore(DirectoryStore backingStore)
+        /// <param name="path">A fully qualified directory path. The directory must already exist.</param>
+        /// <exception cref="DirectoryNotFoundException">Thrown if there is no directory at <paramref name="path"/>.</exception>
+        public ServiceStore(string path)
         {
-            _backingStore = backingStore;
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (!Directory.Exists(path)) throw new DirectoryNotFoundException();
+            #endregion
+
+            _backingStore = new DirectoryStore(path);
         }
         #endregion
 
@@ -49,6 +56,7 @@ namespace ZeroInstall.Store.Implementation
         /// Determines whether this store contains a local copy of an <see cref="Implementation"/> identified by a specific <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public bool Contains(ManifestDigest manifestDigest)
         {
             return _backingStore.Contains(manifestDigest);
@@ -61,7 +69,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
-        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <returns>A fully qualified path to the directory containing the <see cref="Implementation"/>.</returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
             return _backingStore.GetPath(manifestDigest);

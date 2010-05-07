@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
 using ZeroInstall.Solver;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector
 {
@@ -37,6 +37,12 @@ namespace ZeroInstall.Injector
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
         public Fetcher Fetcher { get; private set; }
+
+        /// <summary>
+        /// The location to search for cached <see cref="Implementation"/>s.
+        /// </summary>
+        /// <remarks>This is usually the same as <see cref="DownloadBroker.Fetcher.Store"/>.</remarks>
+        public virtual IStore Store { get { return Fetcher.Store; } }
         #endregion
 
         #region Constructor
@@ -49,16 +55,6 @@ namespace ZeroInstall.Injector
         {
             Solver = solver;
             Fetcher = fetcher;
-        }
-        #endregion
-
-        #region Static access
-        /// <summary>
-        /// Creates a new policy with default settings for everything.
-        /// </summary>
-        public static Policy Default()
-        {
-            return new Policy(SolverFactory.DefaultSolver(), Fetcher.DefaultFetcher());
         }
         #endregion
 
@@ -90,11 +86,11 @@ namespace ZeroInstall.Injector
             var selections = GetSelections(feed);
 
             // Find out which implementations are missing and download them
-            var missing = selections.GetUncachedImplementations(Fetcher.Store, Solver.InterfaceProvider);
+            var missing = selections.GetUncachedImplementations(Store, Solver.InterfaceProvider);
             Fetcher.RunSync(new FetcherRequest(missing));
 
             // Read to run the application
-            return new Launcher(selections, Fetcher.Store);
+            return new Launcher(selections, Store);
         }
         #endregion
     }

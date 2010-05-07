@@ -27,9 +27,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// This manifest lists every file, directory and symlink in the tree using the new manifest format and contains a hash of each file's content.
     /// </summary>
-    /// <remarks>
-    /// The exact format is specified here: http://0install.net/manifest-spec.html
-    /// </remarks>
+    /// <remarks>This class is immutable.</remarks>
     public sealed class NewManifest : Manifest, IEquatable<NewManifest>
     {
         #region Constructor
@@ -42,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
         {}
         #endregion
 
-        #region Static access
+        #region Factory methods
         /// <summary>
         /// Generates a manifest using the new format for a directory in the file system.
         /// </summary>
@@ -69,6 +67,9 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
         public static NewManifest Load(string path, HashAlgorithm hashAlgorithm)
         {
             var nodes = new List<ManifestNode>();
@@ -94,6 +95,9 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The hash value of the file.</returns>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
         public override string Save(string path)
         {
             using (var writer = new StreamWriter(path))

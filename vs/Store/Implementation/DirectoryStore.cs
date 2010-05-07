@@ -28,6 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Models a cache directory residing on the disk.
     /// </summary>
+    /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : IStore
     {
         #region Variables
@@ -37,6 +38,16 @@ namespace ZeroInstall.Store.Implementation
         private readonly string _cacheDir;
 
         private readonly HashAlgorithm _sha1Algo = SHA1.Create(), _sha256Algo = SHA256.Create();
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The default directory in the user-profile to use for storing the cache.
+        /// </summary>
+        public static string UserProfileDirectory
+        {
+            get { return Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")); }
+        }
         #endregion
 
         #region Constructor
@@ -57,7 +68,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
-        public DirectoryStore() : this(Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")))
+        public DirectoryStore() : this(UserProfileDirectory)
         {}
         #endregion
 
@@ -68,6 +79,7 @@ namespace ZeroInstall.Store.Implementation
         /// Determines whether this store contains a local copy of an <see cref="Implementation"/> identified by a specific <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public bool Contains(ManifestDigest manifestDigest)
         {
             // Check for all supported hashing algorithms
@@ -85,7 +97,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
-        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <returns>A fully qualified path to the directory containing the <see cref="Implementation"/>.</returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
             string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
@@ -110,6 +123,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the directory is not permitted.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
             string hashID;

@@ -23,6 +23,7 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// Manages the <see cref="Interface"/> cache.
     /// </summary>
+    /// <remarks>The represented interface data is mutable but the class itself is immutable.</remarks>
     public class InterfaceProvider
     {
         #region Properties

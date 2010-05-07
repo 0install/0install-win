@@ -50,7 +50,7 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Static access
+        #region Factory methods
         /// <summary>
         /// Creates a new <see cref="ImplementationVersion"/> using the specified string representation.
         /// </summary>

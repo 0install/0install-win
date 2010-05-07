@@ -83,8 +83,14 @@ namespace ZeroInstall.Injector
         {
             // ToDo: Implement properly
 
-            string implDir = _provider.GetPath(_implementations[0].ManifestDigest);
-            Process.Start(Path.Combine(implDir, _implementations[0].Main));
+            string implDir =
+                (!string.IsNullOrEmpty(_implementations[0].LocalPath)
+                     ? _implementations[0].LocalPath
+                     : _provider.GetPath(_implementations[0].ManifestDigest));
+
+            string main = _implementations[0].Main;
+            // ToDo: Validate main
+            Process.Start(Path.Combine(implDir, main));
         }
         #endregion
     }

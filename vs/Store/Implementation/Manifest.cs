@@ -28,6 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
+    /// <remarks>This class and the derived classes are immutable.</remarks>
     public abstract class Manifest : IEquatable<Manifest>
     {
         #region Properties
@@ -120,6 +121,9 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The hash value of the file.</returns>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
         public abstract string Save(string path);
         #endregion
 

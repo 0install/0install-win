@@ -2,17 +2,23 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
     <Position X="0.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="1.183" Y="-0.055" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAACAAAAAA=</HashCode>
+      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAACQAAAAA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Solver" />
       <Property Name="Fetcher" />
+      <Property Name="Store" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Injector.Launcher" Collapsed="true">
-    <Position X="3.25" Y="2" Width="1.5" />
+    <Position X="1.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQACAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAI=</HashCode>
       <FileName>Launcher.cs</FileName>
@@ -26,15 +32,22 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Interface.InterfaceProvider" Collapsed="true">
-    <Position X="6.25" Y="1.25" Width="1.5" />
+    <Position X="6.25" Y="1.5" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="ZeroInstall.Solver.Selections" Collapsed="true">
-    <Position X="3.25" Y="2.75" Width="1.5" />
+    <Position X="3.25" Y="2.25" Width="1.5" />
     <TypeIdentifier />
   </Class>
+  <Class Name="ZeroInstall.Injector.DefaultPolicy" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DefaultPolicy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="ZeroInstall.Solver.ISolver" Collapsed="true">
-    <Position X="3.25" Y="1.25" Width="1.5" />
+    <Position X="3.25" Y="1.5" Width="1.5" />
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="InterfaceProvider" />

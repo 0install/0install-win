@@ -27,7 +27,7 @@ namespace ZeroInstall.DownloadBroker
     public class Fetcher
     {
         #region Variables
-        private static readonly Fetcher _defaultFetcher = new Fetcher(StoreFactory.DefaultStore());
+        private static readonly Fetcher _defaultFetcher = new Fetcher(StoreProvider.DefaultStore());
         #endregion
 
         #region Properties
@@ -39,7 +39,7 @@ namespace ZeroInstall.DownloadBroker
 
         #region Constructor
         /// <summary>
-        /// Creates a new download request. Use <see cref="DefaultFetcher"/> whenever possible instead.
+        /// Creates a new download request. Use <see cref="GetMain"/> whenever possible instead.
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
         public Fetcher(IStore store)
@@ -52,11 +52,11 @@ namespace ZeroInstall.DownloadBroker
         }
         #endregion
 
-        #region Static access
+        #region Singleton method
         /// <summary>
-        /// Returns a singleton-instance of the fetcher using <see cref="StoreFactory.DefaultStore"/>.
+        /// Returns a singleton-instance of the fetcher using <see cref="StoreProvider.DefaultStore"/>.
         /// </summary>
-        public static Fetcher DefaultFetcher()
+        public static Fetcher GetMain()
         {
             return _defaultFetcher;
         }

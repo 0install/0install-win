@@ -59,7 +59,7 @@
     <Compile Include="Implementation\ManifestFileBase.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ServiceStore.cs" />
-    <Compile Include="Implementation\StoreFactory.cs" />
+    <Compile Include="Implementation\StoreProvider.cs" />
     <Compile Include="Implementation\StoreSet.cs" />
     <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\Manifest.cs" />

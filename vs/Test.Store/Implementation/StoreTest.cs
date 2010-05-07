@@ -15,7 +15,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void DefaultConstructorShouldCreateCacheDirIfInexistant()
         {
-            string cache = Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"));
+            string cache = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
             using (new TemporaryMove(cache))
             {
                 try
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldProvideDefaultConstructor()
         {
-            string cachePath = Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations"));
+            string cachePath = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
             using (var cache = new TemporaryReplacement(cachePath))
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");

@@ -25,7 +25,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Manages a set of <see cref="IStore"/>s, allowing the retrieval of <see cref="Implementation"/>s.
+    /// Combines multiple <see cref="IStore"/>s as a composite.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class StoreSet : IStore
@@ -62,6 +62,7 @@ namespace ZeroInstall.Store.Implementation
         /// Determines whether one of the <see cref="Stores"/> contains a local copy of an <see cref="Implementation"/> identified by a specific <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public bool Contains(ManifestDigest manifestDigest)
         {
             foreach (IStore store in Stores)
@@ -81,7 +82,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
-        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <returns>A fully qualified path to the directory containing the <see cref="Implementation"/>.</returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
             foreach (IStore store in Stores)
@@ -106,7 +108,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
-            IOException lastIOError = null;
+            Exception innerException = null;
             foreach (IStore store in Stores)
             {
                 try
@@ -118,12 +120,17 @@ namespace ZeroInstall.Store.Implementation
                 catch (IOException ex)
                 {
                     // Ignore IO errors and try the next store
-                    lastIOError = ex;
+                    innerException = ex;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Ignore authorization errors and try the next store
+                    innerException = ex;
                 }
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            throw new IOException(Resources.UnableToAddImplementionToStore, lastIOError);
+            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
         }
         #endregion
     }
