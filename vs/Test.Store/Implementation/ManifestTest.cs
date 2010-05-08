@@ -23,18 +23,18 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Contains test methods for <see cref="OldManifest"/> and <see cref="NewManifest"/>.
+    /// Contains test methods for <see cref="Manifest"/>.
     /// </summary>
     [TestFixture]
     public class ManifestTest
     {
         /// <summary>
-        /// Ensures that <see cref="OldManifest"/> is correctly generated, serialized and deserialized.
+        /// Ensures that <see cref="Manifest"/> is correctly generated using the old format and SHA1 algorithm, serialized and deserialized.
         /// </summary>
         [Test]
         public void TestSaveLoadOld()
         {
-            OldManifest manifest1, manifest2;
+            Manifest manifest1, manifest2;
             string tempFile = null, tempDir = null;
             try
             {
@@ -48,9 +48,9 @@ namespace ZeroInstall.Store.Implementation
 
                 // Generate manifest, write it to a file and read the file again
                 tempFile = IO.Path.GetTempFileName();
-                manifest1 = OldManifest.Generate(tempDir, SHA1.Create());
+                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Old);
                 manifest1.Save(tempFile);
-                manifest2 = OldManifest.Load(tempFile, SHA1.Create());
+                manifest2 = Manifest.Load(tempFile, ManifestFormat.Old);
             }
             finally
             { // Clean up
@@ -63,12 +63,12 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Ensures that <see cref="NewManifest"/> is correctly generated, serialized and deserialized.
+        /// Ensures that <see cref="Manifest"/> is correctly generated using the new format and SHA1 algorithm, serialized and deserialized.
         /// </summary>
         [Test]
         public void TestSaveLoadNew()
         {
-            NewManifest manifest1, manifest2;
+            Manifest manifest1, manifest2;
             string tempFile = null, tempDir = null;
             try
             {
@@ -82,9 +82,9 @@ namespace ZeroInstall.Store.Implementation
 
                 // Generate manifest, write it to a file and read the file again
                 tempFile = IO.Path.GetTempFileName();
-                manifest1 = NewManifest.Generate(tempDir, SHA1.Create());
+                manifest1 = Manifest.Generate(tempDir, ManifestFormat.New);
                 manifest1.Save(tempFile);
-                manifest2 = NewManifest.Load(tempFile, SHA1.Create());
+                manifest2 = Manifest.Load(tempFile, ManifestFormat.New);
             }
             finally
             { // Clean up

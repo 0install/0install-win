@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Implementation
         private static string CreateManifestForPackage(string packageDir)
         {
             string manifestPath = Path.Combine(packageDir, ".manifest");
-            NewManifest manifest = NewManifest.Generate(packageDir, SHA256.Create());
+            Manifest manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
             manifest.Save(manifestPath);
             return manifestPath;
         }
@@ -179,7 +179,7 @@ namespace ZeroInstall.Store.Implementation
             string temporaryManifest = FileHelper.GetUniqueFileName(Path.GetTempPath());
             try
             {
-                var manifest = NewManifest.Generate(packageDir, SHA256.Create());
+                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
                 var hash = manifest.Save(temporaryManifest);
                 return new ManifestDigest(null, null, hash);
             }

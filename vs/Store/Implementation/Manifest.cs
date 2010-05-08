@@ -22,14 +22,93 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using Common.Helpers;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
+    /// Abstract class to encapsulate the differences between the different formats that can be used
+    /// to save and load <see cref="Manifest"/>.
+    /// </summary>
+    /// Comprises:
+    /// -The hashing method used
+    /// -The format specification used to serialize and deserialize manifests
+    public abstract class ManifestFormat
+    {
+        internal abstract HashAlgorithm HashingMethod { get; }
+        internal abstract string GenerateEntryForNode(ManifestNode node);
+        internal abstract ManifestNode ReadDirectoryNodeFromString(string data);
+
+        class OldFormat : ManifestFormat
+        {
+            private static readonly HashAlgorithm _algorithm = SHA1.Create();
+            internal override HashAlgorithm HashingMethod
+            {
+                get
+                {
+                    return _algorithm;
+                }
+            }
+            internal override string GenerateEntryForNode(ManifestNode node)
+            {
+                return node.ToStringOld();
+            }
+            internal override ManifestNode ReadDirectoryNodeFromString(string data)
+            {
+                return ManifestDirectory.FromStringOld(data);
+            }
+        }
+
+        class NewFormat : ManifestFormat
+        {
+            private static readonly HashAlgorithm _algorithm = SHA1.Create();
+            internal override HashAlgorithm HashingMethod
+            {
+                get
+                {
+                    return _algorithm;
+                }
+            }
+            internal override string GenerateEntryForNode(ManifestNode node)
+            {
+                return node.ToString();
+            }
+            internal override ManifestNode ReadDirectoryNodeFromString(string data)
+            {
+                return ManifestDirectory.FromString(data);
+            }
+        }
+
+        class Sha256Format : ManifestFormat
+        {
+            private static readonly HashAlgorithm _algorithm = SHA256.Create();
+            internal override HashAlgorithm HashingMethod
+            {
+                get
+                {
+                    return _algorithm;
+                }
+            }
+            internal override string GenerateEntryForNode(ManifestNode node)
+            {
+                return node.ToString();
+            }
+            internal override ManifestNode ReadDirectoryNodeFromString(string data)
+            {
+                return ManifestDirectory.FromString(data);
+            }
+        }
+
+        public static readonly ManifestFormat Old = new OldFormat();
+        public static readonly ManifestFormat New = new NewFormat();
+        public static readonly ManifestFormat Sha256 = new Sha256Format();
+    }
+
+    /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
     /// <remarks>This class and the derived classes are immutable.</remarks>
-    public abstract class Manifest : IEquatable<Manifest>
+    public class Manifest : IEquatable<Manifest>
     {
         #region Properties
         private readonly ReadOnlyCollection<ManifestNode> _nodes;
@@ -41,7 +120,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.
         /// </summary>
-        public HashAlgorithm HashAlgorithm { get; private set; }
+        public ManifestFormat Format { get; private set; }
         #endregion
 
         #region Constructor
@@ -49,22 +128,36 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new manifest.
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        /// <param name="hashAlgorithm">The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.</param>
-        protected Manifest(IList<ManifestNode> nodes, HashAlgorithm hashAlgorithm)
+        /// <param name="format">The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
+        protected Manifest(IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
-            if (hashAlgorithm == null) throw new ArgumentNullException("hashAlgorithm");
+            if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            HashAlgorithm = hashAlgorithm;
+            Format = format;
 
             // Make the collection immutable
             _nodes = new ReadOnlyCollection<ManifestNode>(nodes);
         }
         #endregion
-
-        //--------------------//
+        
+        #region Factory methods
+        /// <summary>
+        /// Generates a manifest using the old format for a directory in the file system.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="format">The format of the manifest.</param>
+        /// <returns>A manifest for the directory.</returns>
+        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        public static Manifest Generate(string path, ManifestFormat format)
+        {
+            var nodes = new List<ManifestNode>();
+            AddToList(nodes, format.HashingMethod, path, path);
+            return new Manifest(nodes, format);
+        }
+        #endregion
 
         #region Generate
         /// <summary>
@@ -117,14 +210,53 @@ namespace ZeroInstall.Store.Implementation
 
         #region Storage
         /// <summary>
-        /// Writes the manifest to a file and calculates its hash.
+        /// Writes the manifest to a file using the new format and calculates its hash.
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The hash value of the file.</returns>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public abstract string Save(string path);
+        public string Save(string path)
+        {
+            using (var writer = new StreamWriter(path))
+            {
+                foreach (ManifestNode node in Nodes)
+                    writer.WriteLine(Format.GenerateEntryForNode(node));
+            }
+            return FileHelper.ComputeHash(path, Format.HashingMethod);
+        }
+
+        /// <summary>
+        /// Parses a manifest file created using the new format.
+        /// </summary>
+        /// <param name="path">The path of the file to load.</param>
+        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format (see below)</param>
+        /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
+        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public static Manifest Load(string path, ManifestFormat format)
+        {
+            var nodes = new List<ManifestNode>();
+
+            using (var reader = new StreamReader(path))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
+                    else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
+                    else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
+                    else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromString(line));
+                    else throw new FormatException(Resources.InvalidLinesInManifest);
+                }
+            }
+
+            return new Manifest(nodes, format);
+        }
         #endregion
 
         //--------------------//
@@ -156,15 +288,11 @@ namespace ZeroInstall.Store.Implementation
             return true;
         }
 
-        public override int GetHashCode()
+        public override bool Equals(object obj)
         {
-            unchecked
-            {
-                int result = 397 ^ HashAlgorithm.GetHashCode();
-                foreach (ManifestNode node in _nodes)
-                    result = (result * 397) ^ node.GetHashCode();
-                return result;
-            }
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Manifest) && Equals(obj as Manifest);
         }
         #endregion
     }

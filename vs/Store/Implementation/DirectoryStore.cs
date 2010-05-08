@@ -36,8 +36,6 @@ namespace ZeroInstall.Store.Implementation
         /// The directory containing the cached <see cref="Implementation"/>s.
         /// </summary>
         private readonly string _cacheDir;
-
-        private readonly HashAlgorithm _sha1Algo = SHA1.Create(), _sha256Algo = SHA256.Create();
         #endregion
 
         #region Properties
@@ -143,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
                     case HashMethod.Sha1:
                     {
                         hashID = "sha1=" + manifestDigest.Sha1;
-                        string sourceHash = OldManifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
+                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Old).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha1)
                             throw new DigestMismatchException(hashID, "sha1=" + sourceHash);
                         break;
@@ -152,7 +150,7 @@ namespace ZeroInstall.Store.Implementation
                     case HashMethod.Sha1New:
                     {
                         hashID = "sha1new=" + manifestDigest.Sha1New;
-                        string sourceHash = NewManifest.Generate(tempDir, _sha1Algo).Save(manifestFile);
+                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.New).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha1New)
                             throw new DigestMismatchException(hashID, "sha1new=" + sourceHash);
                         break;
@@ -161,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
                     case HashMethod.Sha256:
                     {
                         hashID = "sha256=" + manifestDigest.Sha256;
-                        string sourceHash = NewManifest.Generate(tempDir, _sha256Algo).Save(manifestFile);
+                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha256).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha256)
                             throw new DigestMismatchException(hashID, "sha256=" + sourceHash);
                         break;

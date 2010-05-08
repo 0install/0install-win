@@ -65,8 +65,6 @@
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\ManifestFile.cs" />
-    <Compile Include="Implementation\NewManifest.cs" />
-    <Compile Include="Implementation\OldManifest.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Interface\Icon.cs" />
     <Compile Include="Interface\InterfaceProvider.cs" />
