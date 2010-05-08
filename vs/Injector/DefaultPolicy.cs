@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="StoreProvider.DefaultStore"/>.
+        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="StoreProvider.GetDefaultStore"/>.
         /// </summary>
         /// <remarks>This location will not be used by <see cref="Policy.Fetcher"/>.</remarks>
         public IStore AdditionalStore { get; set; }
@@ -48,7 +48,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new policy with default settings for everything.
         /// </summary>
-        public DefaultPolicy() : base(SolverFactory.DefaultSolver(), Fetcher.GetMain())
+        public DefaultPolicy() : base(SolverFactory.CreateDefaultSolver(), Fetcher.Default)
         {}
         #endregion
     }

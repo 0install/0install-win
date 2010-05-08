@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
-        public static IStore DefaultStore()
+        public static IStore GetDefaultStore()
         {
             // ToDo: Make more flexible
 

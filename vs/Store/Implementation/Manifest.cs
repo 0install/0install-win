@@ -27,88 +27,10 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Abstract class to encapsulate the differences between the different formats that can be used
-    /// to save and load <see cref="Manifest"/>.
-    /// </summary>
-    /// Comprises:
-    /// -The hashing method used
-    /// -The format specification used to serialize and deserialize manifests
-    public abstract class ManifestFormat
-    {
-        internal abstract HashAlgorithm HashingMethod { get; }
-        internal abstract string GenerateEntryForNode(ManifestNode node);
-        internal abstract ManifestNode ReadDirectoryNodeFromString(string data);
-
-        class OldFormat : ManifestFormat
-        {
-            private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashingMethod
-            {
-                get
-                {
-                    return _algorithm;
-                }
-            }
-            internal override string GenerateEntryForNode(ManifestNode node)
-            {
-                return node.ToStringOld();
-            }
-            internal override ManifestNode ReadDirectoryNodeFromString(string data)
-            {
-                return ManifestDirectory.FromStringOld(data);
-            }
-        }
-
-        class NewFormat : ManifestFormat
-        {
-            private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashingMethod
-            {
-                get
-                {
-                    return _algorithm;
-                }
-            }
-            internal override string GenerateEntryForNode(ManifestNode node)
-            {
-                return node.ToString();
-            }
-            internal override ManifestNode ReadDirectoryNodeFromString(string data)
-            {
-                return ManifestDirectory.FromString(data);
-            }
-        }
-
-        class Sha256Format : ManifestFormat
-        {
-            private static readonly HashAlgorithm _algorithm = SHA256.Create();
-            internal override HashAlgorithm HashingMethod
-            {
-                get
-                {
-                    return _algorithm;
-                }
-            }
-            internal override string GenerateEntryForNode(ManifestNode node)
-            {
-                return node.ToString();
-            }
-            internal override ManifestNode ReadDirectoryNodeFromString(string data)
-            {
-                return ManifestDirectory.FromString(data);
-            }
-        }
-
-        public static readonly ManifestFormat Old = new OldFormat();
-        public static readonly ManifestFormat New = new NewFormat();
-        public static readonly ManifestFormat Sha256 = new Sha256Format();
-    }
-
-    /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
     /// <remarks>This class and the derived classes are immutable.</remarks>
-    public class Manifest : IEquatable<Manifest>
+    public sealed class Manifest : IEquatable<Manifest>
     {
         #region Properties
         private readonly ReadOnlyCollection<ManifestNode> _nodes;
@@ -129,7 +51,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
-        protected Manifest(IList<ManifestNode> nodes, ManifestFormat format)
+        private Manifest(IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -167,7 +89,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="algorithm">The hashing algorithm to use.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
-        protected static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
+        private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -210,7 +132,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Storage
         /// <summary>
-        /// Writes the manifest to a file using the new format and calculates its hash.
+        /// Writes the manifest to a file using the and calculates its hash.
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The hash value of the file.</returns>
@@ -228,7 +150,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Parses a manifest file created using the new format.
+        /// Parses a manifest file.
         /// </summary>
         /// <param name="path">The path of the file to load.</param>
         /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format (see below)</param>

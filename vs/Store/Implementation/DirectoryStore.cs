@@ -83,7 +83,7 @@ namespace ZeroInstall.Store.Implementation
             // Check for all supported hashing algorithms
             if (Directory.Exists(Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256))) return true;
             if (Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
-            if (Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1))) return true;
+            if (Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1Old))) return true;
 
             return false;
         }
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
             path = Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New);
             if (Directory.Exists(path)) return path;
 
-            path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1);
+            path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1Old);
             if (Directory.Exists(path)) return path;
 
             throw new ImplementationNotFoundException(manifestDigest);
@@ -138,25 +138,25 @@ namespace ZeroInstall.Store.Implementation
                 string manifestFile = Path.Combine(tempDir, ".manifest");
                 switch (manifestDigest.BestMethod)
                 {
-                    case HashMethod.Sha1:
+                    case ManifestMethod.Sha1Old:
                     {
-                        hashID = "sha1=" + manifestDigest.Sha1;
-                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Old).Save(manifestFile);
-                        if (sourceHash != manifestDigest.Sha1)
+                        hashID = "sha1=" + manifestDigest.Sha1Old;
+                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha1Old).Save(manifestFile);
+                        if (sourceHash != manifestDigest.Sha1Old)
                             throw new DigestMismatchException(hashID, "sha1=" + sourceHash);
                         break;
                     }
 
-                    case HashMethod.Sha1New:
+                    case ManifestMethod.Sha1New:
                     {
                         hashID = "sha1new=" + manifestDigest.Sha1New;
-                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.New).Save(manifestFile);
+                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha1New).Save(manifestFile);
                         if (sourceHash != manifestDigest.Sha1New)
                             throw new DigestMismatchException(hashID, "sha1new=" + sourceHash);
                         break;
                     }
 
-                    case HashMethod.Sha256:
+                    case ManifestMethod.Sha256:
                     {
                         hashID = "sha256=" + manifestDigest.Sha256;
                         string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha256).Save(manifestFile);

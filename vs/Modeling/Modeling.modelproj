@@ -7,7 +7,7 @@
     <ProjectGuid>{df2b2769-128d-4754-8d81-ad8653c43b5c}</ProjectGuid>
     <ArchitectureToolsVersion>1.0.0.0</ArchitectureToolsVersion>
     <Name>Modeling</Name>
-    <RootNamespace>Architecture</RootNamespace>
+    <RootNamespace>Modeling</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>..\..\build\Debug\</OutputPath>

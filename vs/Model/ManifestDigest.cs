@@ -24,9 +24,9 @@ namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <see cref="ManifestDigest.BestMethod"/>
-    public enum HashMethod
+    public enum ManifestMethod
     {
-        None, Sha1, Sha1New, Sha256
+        None, Sha1Old, Sha1New, Sha256
     }
     #endregion
 
@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A SHA-1 hash of the old manifest format.")]
         [XmlAttribute("sha1")]
-        public string Sha1 { get; set; }
+        public string Sha1Old { get; set; }
 
         /// <summary>
         /// A SHA-1 hash of the new manifest format.
@@ -62,28 +62,28 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Indicates the best hash-method that provides a value.
         /// </summary>
-        public HashMethod BestMethod
+        public ManifestMethod BestMethod
         {
             get
             {
-                if (!string.IsNullOrEmpty(Sha256)) return HashMethod.Sha256;
-                if (!string.IsNullOrEmpty(Sha1New)) return HashMethod.Sha1New;
-                if (!string.IsNullOrEmpty(Sha1)) return HashMethod.Sha1;
-                return HashMethod.None;
+                if (!string.IsNullOrEmpty(Sha256)) return ManifestMethod.Sha256;
+                if (!string.IsNullOrEmpty(Sha1New)) return ManifestMethod.Sha1New;
+                if (!string.IsNullOrEmpty(Sha1Old)) return ManifestMethod.Sha1Old;
+                return ManifestMethod.None;
             }
         }
         #endregion
         
         #region Constructor
         /// <summary>
-        /// Creates a new manifest digest sturcture with pre-set values.
+        /// Creates a new manifest digest structure with pre-set values.
         /// </summary>
-        /// <param name="sha1">A SHA-1 hash of the old manifest format.</param>
+        /// <param name="sha1Old">A SHA-1 hash of the old manifest format.</param>
         /// <param name="sha1New">A SHA-1 hash of the new manifest format.</param>
         /// <param name="sha256">A SHA-256 hash of the new manifest format. (most secure)</param>
-        public ManifestDigest(string sha1, string sha1New, string sha256) : this()
+        public ManifestDigest(string sha1Old, string sha1New, string sha256) : this()
         {
-            Sha1 = sha1;
+            Sha1Old = sha1Old;
             Sha1New = sha1New;
             Sha256 = sha256;
         }
@@ -94,14 +94,14 @@ namespace ZeroInstall.Model
         #region Conversion
         public override string ToString()
         {
-            return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1, Sha1New, Sha256);
+            return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1Old, Sha1New, Sha256);
         }
         #endregion
 
         #region Equality
         public bool Equals(ManifestDigest other)
         {
-            return other.Sha1 == Sha1 && other.Sha1New == Sha1New && other.Sha256 == Sha256;
+            return other.Sha1Old == Sha1Old && other.Sha1New == Sha1New && other.Sha256 == Sha256;
         }
 
         public static bool operator ==(ManifestDigest left, ManifestDigest right)
@@ -124,7 +124,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (Sha1 != null ? Sha1.GetHashCode() : 0);
+                int result = (Sha1Old != null ? Sha1Old.GetHashCode() : 0);
                 result = (result * 397) ^ (Sha1New != null ? Sha1New.GetHashCode() : 0);
                 result = (result * 397) ^ (Sha256 != null ? Sha256.GetHashCode() : 0);
                 return result;

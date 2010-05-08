@@ -27,7 +27,7 @@ namespace ZeroInstall.Solver
         /// <summary>
         /// Instantiates the default implementation of <see cref="ISolver"/>.
         /// </summary>
-        public static ISolver DefaultSolver()
+        public static ISolver CreateDefaultSolver()
         {
             // ToDo: Make more flexible
             return new PythonSolver(new InterfaceProvider());

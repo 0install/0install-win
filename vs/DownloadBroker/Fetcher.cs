@@ -26,8 +26,12 @@ namespace ZeroInstall.DownloadBroker
     /// </summary>
     public class Fetcher
     {
-        #region Variables
-        private static readonly Fetcher _defaultFetcher = new Fetcher(StoreProvider.DefaultStore());
+        #region Singleton Properties
+        private static readonly Fetcher _defaultFetcher = new Fetcher(StoreProvider.GetDefaultStore());
+        /// <summary>
+        /// A singleton-instance of the <see cref="Fetcher"/> using <see cref="StoreProvider.GetDefaultStore"/>.
+        /// </summary>
+        public static Fetcher Default { get { return _defaultFetcher; } }
         #endregion
 
         #region Properties
@@ -49,16 +53,6 @@ namespace ZeroInstall.DownloadBroker
             #endregion
 
             Store = store;
-        }
-        #endregion
-
-        #region Singleton method
-        /// <summary>
-        /// Returns a singleton-instance of the fetcher using <see cref="StoreProvider.DefaultStore"/>.
-        /// </summary>
-        public static Fetcher GetMain()
-        {
-            return _defaultFetcher;
         }
         #endregion
         

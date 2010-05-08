@@ -48,9 +48,9 @@ namespace ZeroInstall.Store.Implementation
 
                 // Generate manifest, write it to a file and read the file again
                 tempFile = IO.Path.GetTempFileName();
-                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Old);
+                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1Old);
                 manifest1.Save(tempFile);
-                manifest2 = Manifest.Load(tempFile, ManifestFormat.Old);
+                manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1Old);
             }
             finally
             { // Clean up
@@ -82,9 +82,9 @@ namespace ZeroInstall.Store.Implementation
 
                 // Generate manifest, write it to a file and read the file again
                 tempFile = IO.Path.GetTempFileName();
-                manifest1 = Manifest.Generate(tempDir, ManifestFormat.New);
+                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1New);
                 manifest1.Save(tempFile);
-                manifest2 = Manifest.Load(tempFile, ManifestFormat.New);
+                manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1New);
             }
             finally
             { // Clean up
