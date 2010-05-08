@@ -74,17 +74,9 @@ namespace ZeroInstall.Model
             // Check if stuff may be read from the ID
             if (string.IsNullOrEmpty(ID)) return;
 
-            const string sha1Prefix = "sha1=";
-            const string sha1NewPrefix = "sha1new=";
-            const string sha256Prefix = "sha256=";
-
             // Fill in values (only if missing) using legacy entries (indentified by prefixes)
-            var manifestDigest = ManifestDigest;
             if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else if (string.IsNullOrEmpty(manifestDigest.Sha1Old) && ID.StartsWith(sha1Prefix)) manifestDigest.Sha1Old = ID.Substring(sha1Prefix.Length);
-            else if (string.IsNullOrEmpty(manifestDigest.Sha1New) && ID.StartsWith(sha1NewPrefix)) manifestDigest.Sha1New = ID.Substring(sha1NewPrefix.Length);
-            else if (string.IsNullOrEmpty(manifestDigest.Sha256) && ID.StartsWith(sha256Prefix)) manifestDigest.Sha256 = ID.Substring(sha256Prefix.Length);
-            ManifestDigest = manifestDigest;
+            else ManifestDigest.ParseID(ID);
         }
         #endregion
 

@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
-    /// <remarks>This class and the derived classes are immutable.</remarks>
+    /// <remarks>This class is immutable.</remarks>
     public sealed class Manifest : IEquatable<Manifest>
     {
         #region Properties
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
         public IList<ManifestNode> Nodes { get { return _nodes; } }
 
         /// <summary>
-        /// The hash algorithm used for <see cref="ManifestFileBase.Hash"/> and <see cref="Save"/>.
+        /// The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.
         /// </summary>
         public ManifestFormat Format { get; private set; }
         #endregion
@@ -66,27 +66,13 @@ namespace ZeroInstall.Store.Implementation
         #endregion
         
         #region Factory methods
-        /// <summary>
-        /// Generates a manifest using the old format for a directory in the file system.
-        /// </summary>
-        /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest.</param>
-        /// <returns>A manifest for the directory.</returns>
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        public static Manifest Generate(string path, ManifestFormat format)
-        {
-            var nodes = new List<ManifestNode>();
-            AddToList(nodes, format.HashingMethod, path, path);
-            return new Manifest(nodes, format);
-        }
-        #endregion
 
-        #region Generate
+        #region Helper
         /// <summary>
         /// Recursively adds <see cref="ManifestNode"/>s representing objects in a directory in the file system to a list.
         /// </summary>
         /// <param name="nodes">The list to add new <see cref="ManifestNode"/>s to.</param>
-        /// <param name="algorithm">The hashing algorithm to use.</param>
+        /// <param name="algorithm">The hashing algorithm to use for <see cref="ManifestFileBase.Hash"/>.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
         private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
@@ -130,12 +116,29 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        /// <summary>
+        /// Generates a manifest using the old format for a directory in the file system.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="format">The format of the manifest.</param>
+        /// <returns>A manifest for the directory.</returns>
+        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        public static Manifest Generate(string path, ManifestFormat format)
+        {
+            var nodes = new List<ManifestNode>();
+            AddToList(nodes, format.HashingMethod, path, path);
+            return new Manifest(nodes, format);
+        }
+        #endregion
+
+        //--------------------//
+        
         #region Storage
         /// <summary>
         /// Writes the manifest to a file using the and calculates its hash.
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
-        /// <returns>The hash value of the file.</returns>
+        /// <returns>The manifest digest (format=hash).</returns>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -146,14 +149,14 @@ namespace ZeroInstall.Store.Implementation
                 foreach (ManifestNode node in Nodes)
                     writer.WriteLine(Format.GenerateEntryForNode(node));
             }
-            return FileHelper.ComputeHash(path, Format.HashingMethod);
+            return Format.Prefix + FileHelper.ComputeHash(path, Format.HashingMethod);
         }
 
         /// <summary>
         /// Parses a manifest file.
         /// </summary>
         /// <param name="path">The path of the file to load.</param>
-        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format (see below)</param>
+        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
         /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>

@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -80,10 +79,11 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public bool Contains(ManifestDigest manifestDigest)
         {
-            // Check for all supported hashing algorithms
-            if (Directory.Exists(Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256))) return true;
-            if (Directory.Exists(Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New))) return true;
-            if (Directory.Exists(Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1Old))) return true;
+            // Check for all supported digest algorithms
+            foreach (string digest in manifestDigest.GetDigests())
+            {
+                if (Directory.Exists(Path.Combine(_cacheDir, digest))) return true;   
+            }
 
             return false;
         }
@@ -99,14 +99,12 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>A fully qualified path to the directory containing the <see cref="Implementation"/>.</returns>
         public string GetPath(ManifestDigest manifestDigest)
         {
-            string path = Path.Combine(_cacheDir, "sha256=" + manifestDigest.Sha256);
-            if (Directory.Exists(path)) return path;
-
-            path = Path.Combine(_cacheDir, "sha1new=" + manifestDigest.Sha1New);
-            if (Directory.Exists(path)) return path;
-
-            path = Path.Combine(_cacheDir, "sha1=" + manifestDigest.Sha1Old);
-            if (Directory.Exists(path)) return path;
+            // Check for all supported digest algorithms
+            foreach (string digest in manifestDigest.GetDigests())
+            {
+                string path = Path.Combine(_cacheDir, digest);
+                if (Directory.Exists(path)) return path;
+            }
 
             throw new ImplementationNotFoundException(manifestDigest);
         }
@@ -124,7 +122,13 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the directory is not permitted.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
-            string hashID;
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            #endregion
+
+            string expectedDigest = manifestDigest.BestDigest;
+            if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
+
             string tempDir = FileHelper.GetUniqueFileName(_cacheDir);
 
             // Move source directory to temporary sub-directory and generate in-memory manifest from there
@@ -133,45 +137,18 @@ namespace ZeroInstall.Store.Implementation
 
             try
             {
-                #region Validate digest
                 // Store the manifest to the disk to calculate its digest
                 string manifestFile = Path.Combine(tempDir, ".manifest");
-                switch (manifestDigest.BestMethod)
-                {
-                    case ManifestMethod.Sha1Old:
-                    {
-                        hashID = "sha1=" + manifestDigest.Sha1Old;
-                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha1Old).Save(manifestFile);
-                        if (sourceHash != manifestDigest.Sha1Old)
-                            throw new DigestMismatchException(hashID, "sha1=" + sourceHash);
-                        break;
-                    }
 
-                    case ManifestMethod.Sha1New:
-                    {
-                        hashID = "sha1new=" + manifestDigest.Sha1New;
-                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha1New).Save(manifestFile);
-                        if (sourceHash != manifestDigest.Sha1New)
-                            throw new DigestMismatchException(hashID, "sha1new=" + sourceHash);
-                        break;
-                    }
+                // Select the manifest format to use
+                var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
-                    case ManifestMethod.Sha256:
-                    {
-                        hashID = "sha256=" + manifestDigest.Sha256;
-                        string sourceHash = Manifest.Generate(tempDir, ManifestFormat.Sha256).Save(manifestFile);
-                        if (sourceHash != manifestDigest.Sha256)
-                            throw new DigestMismatchException(hashID, "sha256=" + sourceHash);
-                        break;
-                    }
-
-                    default:
-                        throw new ArgumentException(Resources.NoKnownHashes);
-                }
-                #endregion
+                // Calculate the actual digest and compare it with the expected one
+                string actualDigest = Manifest.Generate(tempDir, format).Save(manifestFile);
+                if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
             }
             #region Error handling
-            catch (DigestMismatchException)
+            catch (Exception)
             {
                 // Move the directory back to where it came from before passing the exception on
                 Directory.Move(tempDir, source);
@@ -180,7 +157,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Move directory to final store destination
-            Directory.Move(tempDir, Path.Combine(_cacheDir, hashID));
+            Directory.Move(tempDir, Path.Combine(_cacheDir, expectedDigest));
         }
         #endregion
     }

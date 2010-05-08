@@ -88,11 +88,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No known hashes were defined..
+        ///   Looks up a localized string similar to No known digest method was defined..
         /// </summary>
-        internal static string NoKnownHashes {
+        internal static string NoKnownDigestMethod {
             get {
-                return ResourceManager.GetString("NoKnownHashes", resourceCulture);
+                return ResourceManager.GetString("NoKnownDigestMethod", resourceCulture);
             }
         }
         

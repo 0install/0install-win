@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Security.Cryptography;
 using Common.Helpers;
 using Common.Storage;
 using NUnit.Framework;
@@ -96,8 +95,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldTellIfItContainsAnImplementation()
         {
             string packageDir = CreateArtificialPackage();
-            CreateManifestForPackage(packageDir);
-            string hash = ComputeHashFromManifestInPackage(packageDir, SHA256.Create());
+            string hash = CreateManifestForPackage(packageDir);
             MovePackageToCache(packageDir, hash);
 
             Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
@@ -117,7 +115,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldThrowOnAddWithEmptyDigest()
         {
             string package = CreateArtificialPackage();
-            Assert.Throws(typeof (ArgumentException), delegate { _store.Add(package, new ManifestDigest(null, null, null)); });
+            Assert.Throws(typeof(ArgumentException), delegate { _store.Add(package, new ManifestDigest(null, null, null)); });
         }
 
         [Test]
@@ -125,7 +123,7 @@ namespace ZeroInstall.Store.Implementation
         {
             string packageDir = CreateArtificialPackage();
             CreateManifestForPackage(packageDir);
-            string hash = ComputeHashFromManifestInPackage(packageDir, SHA256.Create());
+            string hash = CreateManifestForPackage(packageDir);
             string packageInCache = MovePackageToCache(packageDir, hash);
 
             Assert.AreEqual(_store.GetPath(new ManifestDigest(null, null, hash)), packageInCache, "Store must return the correct path for Implementations it contains");
@@ -140,7 +138,7 @@ namespace ZeroInstall.Store.Implementation
         private string MovePackageToCache(string packageDir, string hash)
         {
             string packageInCache = Path.Combine(_cache.Path, "sha256=" + hash);
-            System.IO.Directory.Move(packageDir, packageInCache);
+            Directory.Move(packageDir, packageInCache);
             return packageInCache;
         }
 
@@ -153,7 +151,7 @@ namespace ZeroInstall.Store.Implementation
         }
         private static void CreateAndPopulateFile(string filePath)
         {
-            using (FileStream contentFile = System.IO.File.Create(filePath))
+            using (FileStream contentFile = File.Create(filePath))
             {
                 for (int i = 0; i < 1000; ++i)
                     contentFile.WriteByte((byte)'A');
@@ -164,14 +162,7 @@ namespace ZeroInstall.Store.Implementation
         {
             string manifestPath = Path.Combine(packageDir, ".manifest");
             Manifest manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
-            manifest.Save(manifestPath);
-            return manifestPath;
-        }
-
-        private static string ComputeHashFromManifestInPackage(string packageDir, HashAlgorithm algorithm)
-        {
-            string manifest = Path.Combine(packageDir, ".manifest");
-            return FileHelper.ComputeHash(manifest, algorithm);
+            return manifest.Save(manifestPath);
         }
 
         private static ManifestDigest ComputeDigestForPackage(string packageDir)
@@ -181,11 +172,11 @@ namespace ZeroInstall.Store.Implementation
             {
                 var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
                 var hash = manifest.Save(temporaryManifest);
-                return new ManifestDigest(null, null, hash);
+                return new ManifestDigest(hash);
             }
             finally
             {
-                System.IO.File.Delete(temporaryManifest);
+                File.Delete(temporaryManifest);
             }
         }
     }

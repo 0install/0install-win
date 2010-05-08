@@ -120,8 +120,8 @@
   <data name="NewlineInName" xml:space="preserve">
     <value>Name must not contain a newline character.</value>
   </data>
-  <data name="NoKnownHashes" xml:space="preserve">
-    <value>No known hashes were defined.</value>
+  <data name="NoKnownDigestMethod" xml:space="preserve">
+    <value>No known digest method was defined.</value>
   </data>
   <data name="InvalidNumberOfLineParts" xml:space="preserve">
     <value>Invalid number of parts in line.</value>

@@ -61,6 +61,7 @@
     <Compile Include="ArchitectureTest.cs" />
     <Compile Include="ImplementationVersionTest.cs" />
     <Compile Include="InterfaceTest.cs" />
+    <Compile Include="ManifestDigestTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -16,26 +16,31 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using Common.Helpers;
 
 namespace ZeroInstall.Model
 {
-    #region Enumerations
-    /// <see cref="ManifestDigest.BestMethod"/>
-    public enum ManifestMethod
-    {
-        None, Sha1Old, Sha1New, Sha256
-    }
-    #endregion
-
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
     [TypeConverter(typeof(ManifestDigestConverter))]
     public struct ManifestDigest : IEquatable<ManifestDigest>
     {
+        #region Constants
+        /// <summary>The prefix used to identify the <see cref="Sha1Old"/> format.</summary>
+        public const string Sha1OldPrefix = "sha1";
+
+        /// <summary>The prefix used to identify the <see cref="Sha1New"/> format.</summary>
+        public const string Sha1NewPrefix = "sha1new";
+
+        /// <summary>The prefix used to identify the <see cref="Sha256"/> format.</summary>
+        public const string Sha256Prefix = "sha256";
+        #endregion
+
         #region Properties
         /// <summary>
         /// A SHA-1 hash of the old manifest format.
@@ -58,23 +63,19 @@ namespace ZeroInstall.Model
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
         [XmlAttribute("sha256")]
         public string Sha256 { get; set; }
-
-        /// <summary>
-        /// Indicates the best hash-method that provides a value.
-        /// </summary>
-        public ManifestMethod BestMethod
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Sha256)) return ManifestMethod.Sha256;
-                if (!string.IsNullOrEmpty(Sha1New)) return ManifestMethod.Sha1New;
-                if (!string.IsNullOrEmpty(Sha1Old)) return ManifestMethod.Sha1Old;
-                return ManifestMethod.None;
-            }
-        }
         #endregion
-        
+
         #region Constructor
+        /// <summary>
+        /// Creates a new manifest digest structure by parsing an ID string.
+        /// </summary>
+        /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
+        /// <seealso cref="ParseID"/>
+        public ManifestDigest(string id) : this()
+        {
+            ParseID(id);
+        }
+
         /// <summary>
         /// Creates a new manifest digest structure with pre-set values.
         /// </summary>
@@ -90,7 +91,66 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-        
+
+        #region Parsing
+        /// <summary>
+        /// Parses an ID string, checking for digest values. The values will be stored in this instance if the corresponding digest value hasn't been set already.
+        /// </summary>
+        /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
+        public void ParseID(string id)
+        {
+            // Split the ID string
+            string prefix = StringHelper.GetLeftPartAtFirstOccurrence(id, '=');
+            string hash = StringHelper.GetRightPartAtFirstOccurrence(id, '=');
+
+            // Check for known prefixes (and don't overwrite existing values)
+            switch (prefix)
+            {
+                case Sha1OldPrefix:
+                    if (string.IsNullOrEmpty(Sha1Old)) Sha1Old = hash;
+                    break;
+                case Sha1NewPrefix:
+                    if (string.IsNullOrEmpty(Sha1New)) Sha1New = hash;
+                    break;
+                case Sha256Prefix:
+                    if (string.IsNullOrEmpty(Sha256)) Sha256 = hash;
+                    break;
+            }
+        }
+        #endregion
+
+        #region Access
+        /// <summary>
+        /// Lists all contained manifest digests (format=hash) sorted from best (safest) to worst.
+        /// </summary>
+        public IEnumerable<string> GetDigests()
+        {
+            ICollection<string> list = new LinkedList<string>();
+
+            if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
+            if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
+            if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
+
+            return list;
+        }
+
+        /// <summary>
+        /// Returns the best (safest) contained manifest digest (format=hash). <see langword="null"/> if none is set.
+        /// </summary>
+        public string BestDigest
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix + "=" + Sha256;
+                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix + "=" + Sha1New;
+                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix + "=" + Sha1Old;
+                return null;
+            }
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         public override string ToString()
         {

@@ -1,42 +1,67 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Abstract class to encapsulate the differences between the different formats that can be used to save and load <see cref="Manifest"/>.
+    /// Abstract class to encapsulate the differences between the different formats that can be used to save and load <see cref="Manifest"/>s.
     /// </summary>
     /// <remarks>
     /// Comprises: The hashing method used and the format specification used to serialize and deserialize manifests.
     /// </remarks>
     public abstract class ManifestFormat
     {
-        #region Singleton properties
-        private static readonly ManifestFormat _sha1Old = new Sha1OldFormat();
-        /// <summary>
-        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestMethod.Sha1Old"/>.
-        /// </summary>
-        public static ManifestFormat Sha1Old { get { return _sha1Old; } }
-
-        private static readonly ManifestFormat _sha1New = new Sha1NewFormat();
-        /// <summary>
-        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestMethod.Sha1New"/>.
-        /// </summary>
-        public static ManifestFormat Sha1New { get { return _sha1New; } }
-
-        private static readonly ManifestFormat _sha256 = new Sha256Format();
-        /// <summary>
-        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestMethod.Sha256"/>.
-        /// </summary>
-        public static ManifestFormat Sha256 { get { return _sha256; } }
-        #endregion
-
         #region Properties
         /// <summary>
         /// The hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
         /// </summary>
         internal abstract HashAlgorithm HashingMethod { get; }
+        
+        /// <summary>
+        /// The prefix used to identify the format (e.g. "sha256").
+        /// </summary>
+        public abstract string Prefix { get; }
         #endregion
+
+        #region Singleton properties
+        private static readonly ManifestFormat _sha1Old = new Sha1OldFormat();
+        /// <summary>
+        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1Old"/>.
+        /// </summary>
+        public static ManifestFormat Sha1Old { get { return _sha1Old; } }
+
+        private static readonly ManifestFormat _sha1New = new Sha1NewFormat();
+        /// <summary>
+        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha1New"/>.
+        /// </summary>
+        public static ManifestFormat Sha1New { get { return _sha1New; } }
+
+        private static readonly ManifestFormat _sha256 = new Sha256Format();
+        /// <summary>
+        /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256"/>.
+        /// </summary>
+        public static ManifestFormat Sha256 { get { return _sha256; } }
+        #endregion
+
+        #region Factory methods
+        /// <summary>
+        /// Selects the correct <see cref="ManifestFormat"/> based on the digest prefix.
+        /// </summary>
+        public static ManifestFormat FromPrefix(string prefix)
+        {
+            switch (prefix)
+            {
+                case ManifestDigest.Sha1OldPrefix: return Sha1Old;
+                case ManifestDigest.Sha1NewPrefix: return Sha1New;
+                case ManifestDigest.Sha256Prefix: return Sha256;
+                default: throw new ArgumentException(Resources.NoKnownDigestMethod, "prefix");
+            }
+        }
+        #endregion
+
+        //--------------------//
 
         #region Serialization methods
         /// <summary>
@@ -74,6 +99,8 @@ namespace ZeroInstall.Store.Implementation
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
             internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+
+            public override string Prefix { get { return "sha1="; } }
         }
 
         /// <summary>
@@ -99,6 +126,8 @@ namespace ZeroInstall.Store.Implementation
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
             internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+
+            public override string Prefix { get { return "sha1new="; } }
         }
 
         /// <summary>
@@ -108,8 +137,9 @@ namespace ZeroInstall.Store.Implementation
         {
             private static readonly HashAlgorithm _algorithm = SHA256.Create();
             internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+
+            public override string Prefix { get { return "sha256="; } }
         }
         #endregion
     }
-
 }

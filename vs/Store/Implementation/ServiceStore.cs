@@ -88,6 +88,10 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
         public void Add(string source, ManifestDigest manifestDigest)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            #endregion
+
             // ToDo: Communicate with service
             throw new NotImplementedException();
         }
