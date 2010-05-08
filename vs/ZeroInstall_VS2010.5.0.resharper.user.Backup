@@ -1,7 +1,0 @@
-<Configuration>
-  <SettingsComponent>
-    <boolean>
-      <setting name="SolutionAnalysisEnabled">True</setting>
-    </boolean>
-  </SettingsComponent>
-</Configuration>
