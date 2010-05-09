@@ -119,6 +119,7 @@
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\ContentArchiveEntry.cs" />
     <Compile Include="Storage\ContentManager.cs" />
+    <Compile Include="Storage\TemporaryDirectory.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />

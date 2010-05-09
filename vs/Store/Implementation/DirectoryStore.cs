@@ -137,14 +137,11 @@ namespace ZeroInstall.Store.Implementation
 
             try
             {
-                // Store the manifest to the disk to calculate its digest
-                string manifestFile = Path.Combine(tempDir, ".manifest");
-
                 // Select the manifest format to use
                 var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
                 // Calculate the actual digest and compare it with the expected one
-                string actualDigest = Manifest.Generate(tempDir, format).Save(manifestFile);
+                string actualDigest = Manifest.CreateDotFile(tempDir, format);
                 if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
             }
             #region Error handling

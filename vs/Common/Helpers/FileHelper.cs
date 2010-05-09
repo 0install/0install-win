@@ -32,7 +32,7 @@ namespace Common.Helpers
     public static class FileHelper
     {
         /// <summary>
-        /// Computes the hash of the content of a file.
+        /// Computes the hash value of the content of a file.
         /// </summary>
         /// <param name="path">The path of the file to hash.</param>
         /// <param name="algorithm">The hashing algorithm to use.</param>
@@ -44,6 +44,17 @@ namespace Common.Helpers
                 hash = algorithm.ComputeHash(stream);
 
             return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+        }
+
+        /// <summary>
+        /// Computes the hash value of the content of a stream.
+        /// </summary>
+        /// <param name="stream">The stream containing the data to hash.</param>
+        /// <param name="algorithm">The hashing algorithm to use.</param>
+        /// <returns>A hexadecimal string representation of the hash value.</returns>
+        public static string ComputeHash(Stream stream, HashAlgorithm algorithm)
+        {
+            return BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
         }
 
         /// <summary>

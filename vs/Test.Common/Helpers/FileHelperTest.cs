@@ -33,20 +33,40 @@ namespace Common.Helpers
     [TestFixture]
     public class FileHelperTest
     {
+        private const string _sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+
         /// <summary>
-        /// Ensures <see cref="FileHelper.ComputeHash"/> can correctly hash files using SHA1.
+        /// Ensures <see cref="FileHelper.ComputeHash(string,HashAlgorithm)"/> can correctly hash files using SHA1.
         /// </summary>
         [Test]
-        public void TestComputeHash()
+        public void TestComputeHashFile()
         {
-            const string sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+            string tempFile = null;
+            try
+            {
+                // Create and hash an empty file
+                tempFile = Path.GetTempFileName();
+                Assert.AreEqual(_sha1ForEmptyString, FileHelper.ComputeHash(tempFile, SHA1.Create()));
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileHelper.ComputeHash(Stream,HashAlgorithm)"/> can correctly hash files using SHA1.
+        /// </summary>
+        [Test]
+        public void TestComputeHashStream()
+        {
 
             string tempFile = null;
             try
             {
                 // Create and hash an empty file
                 tempFile = Path.GetTempFileName();
-                Assert.AreEqual(sha1ForEmptyString, FileHelper.ComputeHash(tempFile, SHA1.Create()));
+                Assert.AreEqual(_sha1ForEmptyString, FileHelper.ComputeHash(new MemoryStream(), SHA1.Create()));
             }
             finally
             { // Clean up

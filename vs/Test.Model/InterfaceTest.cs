@@ -53,5 +53,13 @@ namespace ZeroInstall.Model
             Assert.AreEqual(app1.Description, app2.Description);
             Assert.AreEqual(app1.Categories, app2.Categories);
         }
+
+        ///// <summary>
+        ///// Ensures that <see cref="Interface.Simplify"/> correctly collapsed <see cref="Group"/> structures.
+        ///// </summary>
+        //[Test]
+        //public void TestSimplify()
+        //{
+        //}
     }
 }

@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
 using Common.Helpers;
-using IO = System.IO;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
@@ -39,22 +39,22 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Create a test directory to create a manifest for
                 tempDir = FileHelper.GetTempDirectory();
-                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file1"), @"content1");
-                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file2"), @"content2");
-                string subDir = IO.Path.Combine(tempDir, @"subdir");
-                IO.Directory.CreateDirectory(subDir);
-                IO.File.WriteAllText(IO.Path.Combine(subDir, "file"), @"content");
+                File.WriteAllText(Path.Combine(tempDir, "file1"), @"content1");
+                File.WriteAllText(Path.Combine(tempDir, "file2"), @"content2");
+                string subDir = Path.Combine(tempDir, @"subdir");
+                Directory.CreateDirectory(subDir);
+                File.WriteAllText(Path.Combine(subDir, "file"), @"content");
 
                 // Generate manifest, write it to a file and read the file again
-                tempFile = IO.Path.GetTempFileName();
+                tempFile = Path.GetTempFileName();
                 manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1Old);
                 manifest1.Save(tempFile);
                 manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1Old);
             }
             finally
             { // Clean up
-                if (tempFile != null) IO.File.Delete(tempFile);
-                if (tempDir != null) IO.Directory.Delete(tempDir, true);
+                if (tempFile != null) File.Delete(tempFile);
+                if (tempDir != null) Directory.Delete(tempDir, true);
             }
 
             // Ensure data stayed the same
@@ -73,26 +73,39 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Create a test directory to create a manifest for
                 tempDir = FileHelper.GetTempDirectory();
-                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file1"), @"content1");
-                IO.File.WriteAllText(IO.Path.Combine(tempDir, "file2"), @"content2");
-                string subDir = IO.Path.Combine(tempDir, @"subdir");
-                IO.Directory.CreateDirectory(subDir);
-                IO.File.WriteAllText(IO.Path.Combine(subDir, "file"), @"content");
+                File.WriteAllText(Path.Combine(tempDir, "file1"), @"content1");
+                File.WriteAllText(Path.Combine(tempDir, "file2"), @"content2");
+                string subDir = Path.Combine(tempDir, @"subdir");
+                Directory.CreateDirectory(subDir);
+                File.WriteAllText(Path.Combine(subDir, "file"), @"content");
 
                 // Generate manifest, write it to a file and read the file again
-                tempFile = IO.Path.GetTempFileName();
+                tempFile = Path.GetTempFileName();
                 manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1New);
                 manifest1.Save(tempFile);
                 manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1New);
             }
             finally
             { // Clean up
-                if (tempFile != null) IO.File.Delete(tempFile);
-                if (tempDir != null) IO.Directory.Delete(tempDir, true);
+                if (tempFile != null) File.Delete(tempFile);
+                if (tempDir != null) Directory.Delete(tempDir, true);
             }
 
             // Ensure data stayed the same
             Assert.AreEqual(manifest1, manifest2);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Manifest.CalculateHash"/> returns the same value as <see cref="Manifest.CreateDotFile"/>.
+        /// </summary>
+        [Test]
+        public void TestCalculateHash()
+        {
+            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash();
+            string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+
+            Assert.AreEqual(diskHash, inMemoryHash);
         }
     }
 }

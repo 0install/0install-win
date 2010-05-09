@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         /// <summary>
-        /// Generates a manifest using the old format for a directory in the file system.
+        /// Generates a manifest for a directory in the file system.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
@@ -144,11 +144,15 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public string Save(string path)
         {
+            // ToDo: Check encoding and linebreak style
             using (var writer = new StreamWriter(path))
             {
+                // Write one line for each node
                 foreach (ManifestNode node in Nodes)
                     writer.WriteLine(Format.GenerateEntryForNode(node));
             }
+
+            // Caclulate the hash of the completed manifest file
             return Format.Prefix + FileHelper.ComputeHash(path, Format.HashingMethod);
         }
 
@@ -167,10 +171,12 @@ namespace ZeroInstall.Store.Implementation
         {
             var nodes = new List<ManifestNode>();
 
+            // ToDo: Check encoding and linebreak style
             using (var reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
                 {
+                    // Parse each line as a node
                     string line = reader.ReadLine();
                     if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
                     else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
@@ -181,6 +187,41 @@ namespace ZeroInstall.Store.Implementation
             }
 
             return new Manifest(nodes, format);
+        }
+        #endregion
+
+        #region Comfort methods
+        /// <summary>
+        /// Generates a manifest for a directory in the file system and writes the manifest to a file named ".manifest" in that directory.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="format">The format of the manifest.</param>
+        /// <returns>The manifest digest (format=hash).</returns>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public static string CreateDotFile(string path, ManifestFormat format)
+        {
+            return Generate(path, format).Save(Path.Combine(path, ".manifest"));
+        }
+
+        /// <summary>
+        /// Calculates the hash value for the manifest in-memory.
+        /// </summary>
+        /// <returns>The manifest digest (format=hash).</returns>
+        public string CalculateHash()
+        {
+            using (var stream = new MemoryStream())
+            {
+                // ToDo: Check encoding and linebreak style
+                var writer = new StreamWriter(stream);
+                foreach (ManifestNode node in Nodes)
+                    writer.WriteLine(Format.GenerateEntryForNode(node));
+                writer.Flush();
+
+                stream.Position = 0;
+                return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashingMethod);
+            }
         }
         #endregion
 

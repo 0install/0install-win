@@ -75,109 +75,78 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class StoreFunctionality
     {
-        private TemporaryDirectory _cache;
-        private DirectoryStore _store;
-
-        [TestFixtureSetUp]
-        public void SetUp()
-        {
-            _cache = new TemporaryDirectory();
-            _store = new DirectoryStore(_cache.Path);
-        }
-
-        [TestFixtureTearDown]
-        public void TearDown()
-        {
-            _cache.Dispose();
-        }
-
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
             string packageDir = CreateArtificialPackage();
-            string hash = CreateManifestForPackage(packageDir);
-            MovePackageToCache(packageDir, hash);
+            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
 
-            Assert.True(_store.Contains(new ManifestDigest(null, null, hash)));
+            using (var cache = new TemporaryDirectory())
+            {
+                Directory.Move(packageDir, Path.Combine(cache.Path, hash));
+                Assert.True(new DirectoryStore(cache.Path).Contains(new ManifestDigest(hash)));
+            }
         }
 
         [Test]
         public void ShouldAllowToAddFolder()
         {
             string packageDir = CreateArtificialPackage();
-            ManifestDigest digest = ComputeDigestForPackage(packageDir);
+            var digest = new ManifestDigest(Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash());
 
-            _store.Add(packageDir, digest);
-            Assert.True(_store.Contains(digest), "After adding, Store must contain the added package");
+            using (var cache = new TemporaryDirectory())
+            {
+                var store = new DirectoryStore(cache.Path);
+                store.Add(packageDir, digest);
+                Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+            }
         }
 
         [Test]
         public void ShouldThrowOnAddWithEmptyDigest()
         {
             string package = CreateArtificialPackage();
-            Assert.Throws(typeof(ArgumentException), delegate { _store.Add(package, new ManifestDigest(null, null, null)); });
+
+            using (var cache = new TemporaryDirectory())
+            {
+                Assert.Throws(typeof(ArgumentException), delegate { new DirectoryStore(cache.Path).Add(package, new ManifestDigest()); });
+            }
         }
 
         [Test]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
             string packageDir = CreateArtificialPackage();
-            CreateManifestForPackage(packageDir);
-            string hash = CreateManifestForPackage(packageDir);
-            string packageInCache = MovePackageToCache(packageDir, hash);
+            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
 
-            Assert.AreEqual(_store.GetPath(new ManifestDigest(null, null, hash)), packageInCache, "Store must return the correct path for Implementations it contains");
+            using (var cache = new TemporaryDirectory())
+            {
+                Directory.Move(packageDir, Path.Combine(cache.Path, hash));
+                Assert.AreEqual(Path.Combine(cache.Path, hash), new DirectoryStore(cache.Path).GetPath(new ManifestDigest(hash)), "Store must return the correct path for Implementations it contains");
+            }
         }
 
         [Test]
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
-            Assert.Throws(typeof(ImplementationNotFoundException), () => _store.GetPath(new ManifestDigest(null, null, "invalid")));
+            using (var cache = new TemporaryDirectory())
+            {
+                Assert.Throws(typeof(ImplementationNotFoundException), () => new DirectoryStore(cache.Path).GetPath(new ManifestDigest("sha256=invalid")));
+            }
         }
 
-        private string MovePackageToCache(string packageDir, string hash)
-        {
-            string packageInCache = Path.Combine(_cache.Path, "sha256=" + hash);
-            Directory.Move(packageDir, packageInCache);
-            return packageInCache;
-        }
-
-        private static string CreateArtificialPackage()
+        #region Helpers
+        /// <summary>
+        /// Creates a temporary directory containing exactly one file named "file.txt" containing 3 ASCII-encoded capital As.
+        /// </summary>
+        /// <returns>The path of the directory</returns>
+        internal static string CreateArtificialPackage()
         {
             string packageDir = FileHelper.GetTempDirectory();
-            string contentFile = FileHelper.GetUniqueFileName(packageDir);
-            CreateAndPopulateFile(contentFile);
+            File.WriteAllText(Path.Combine(packageDir, "file.txt"), @"AAA");
+
             return packageDir;
         }
-        private static void CreateAndPopulateFile(string filePath)
-        {
-            using (FileStream contentFile = File.Create(filePath))
-            {
-                for (int i = 0; i < 1000; ++i)
-                    contentFile.WriteByte((byte)'A');
-            }
-        }
-
-        private static string CreateManifestForPackage(string packageDir)
-        {
-            string manifestPath = Path.Combine(packageDir, ".manifest");
-            Manifest manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
-            return manifest.Save(manifestPath);
-        }
-
-        private static ManifestDigest ComputeDigestForPackage(string packageDir)
-        {
-            string temporaryManifest = FileHelper.GetUniqueFileName(Path.GetTempPath());
-            try
-            {
-                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
-                var hash = manifest.Save(temporaryManifest);
-                return new ManifestDigest(hash);
-            }
-            finally
-            {
-                File.Delete(temporaryManifest);
-            }
-        }
+        #endregion
     }
 }

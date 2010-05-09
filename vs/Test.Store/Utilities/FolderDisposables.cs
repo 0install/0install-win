@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Common.Helpers;
+using Common.Storage;
 
 namespace ZeroInstall.Store.Utilities
 {
@@ -54,49 +55,7 @@ namespace ZeroInstall.Store.Utilities
             }
         }
     }
-
-    /// <summary>
-    /// Disposable class to create a temporary folder and delete it again when disposed.
-    /// </summary>
-    public class TemporaryDirectory : IDisposable
-    {
-        private readonly string _path;
-
-        public string Path
-        {
-            get { return _path; }
-        }
-
-        /// <summary>
-        /// Creates a temporary directory in the system's temp directory.
-        /// </summary>
-        public TemporaryDirectory()
-        {
-            _path = FileHelper.GetTempDirectory();
-        }
-
-        /// <summary>
-        /// Creates a temporary directory at a given path.
-        /// </summary>
-        /// <param name="path">file system path where the new folder should be created</param>
-        public TemporaryDirectory(string path)
-        {
-            if (String.IsNullOrEmpty(path)) throw new ArgumentNullException("path", @"Invalid path given");
-            if (Directory.Exists(path)) throw new Exception("Folder already exists");
-
-            Directory.CreateDirectory(path);
-            _path = path;
-        }
-
-        /// <summary>
-        /// Deletes the temporary folder recursively.
-        /// </summary>
-        public void Dispose()
-        {
-            Directory.Delete(Path, true);
-        }
-    }
-
+    
     /// <summary>
     /// Disposable class that allows operating on a newly created folder at a
     /// specified path, and if necessary temporarily moving the original folder

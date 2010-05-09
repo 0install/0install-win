@@ -48,8 +48,8 @@ namespace Common.Storage
         private static DirectoryInfo _baseDir, _modDir;
         private static List<ZipFile> _baseArchives, _modArchives;
         private static readonly Dictionary<string, ContentArchiveEntry>
-            BaseArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase),
-            ModArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase);
+            _baseArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase),
+            _modArchiveData = new Dictionary<string, ContentArchiveEntry>(StringComparer.OrdinalIgnoreCase);
         #endregion
 
         #region Properties
@@ -110,8 +110,8 @@ namespace Common.Storage
                         string filename = StringHelper.UnifySlashes(zipEntry.Name);
 
                         // Overwrite existing entries
-                        if (BaseArchiveData.ContainsKey(filename)) BaseArchiveData.Remove(filename);
-                        BaseArchiveData.Add(filename, new ContentArchiveEntry(zipFile, zipEntry));
+                        if (_baseArchiveData.ContainsKey(filename)) _baseArchiveData.Remove(filename);
+                        _baseArchiveData.Add(filename, new ContentArchiveEntry(zipFile, zipEntry));
                     }
                 }
                 _baseArchives.Add(zipFile);
@@ -135,8 +135,8 @@ namespace Common.Storage
                             string filename = StringHelper.UnifySlashes(zipEntry.Name);
 
                             // Overwrite existing entries
-                            if (ModArchiveData.ContainsKey(filename)) ModArchiveData.Remove(filename);
-                            ModArchiveData.Add(filename, new ContentArchiveEntry(zipFile, zipEntry));
+                            if (_modArchiveData.ContainsKey(filename)) _modArchiveData.Remove(filename);
+                            _modArchiveData.Add(filename, new ContentArchiveEntry(zipFile, zipEntry));
                         }
                     }
                     _modArchives.Add(zipFile);
@@ -165,7 +165,7 @@ namespace Common.Storage
 // ReSharper restore EmptyGeneralCatchClause
                 }
                 _baseArchives = null;
-                BaseArchiveData.Clear();
+                _baseArchiveData.Clear();
             }
             #endregion
 
@@ -181,7 +181,7 @@ namespace Common.Storage
 // ReSharper restore EmptyGeneralCatchClause
                 }
                 _modArchives = null;
-                ModArchiveData.Clear();
+                _modArchiveData.Clear();
             }
             #endregion
         }
@@ -265,7 +265,7 @@ namespace Common.Storage
                 return true;
             if (BaseDir != null && File.Exists(Path.Combine(BaseDir.FullName, fullID)))
                 return true;
-            return searchArchives && BaseArchiveData.ContainsKey(fullID);
+            return searchArchives && _baseArchiveData.ContainsKey(fullID);
         }
         #endregion
 
@@ -373,7 +373,7 @@ namespace Common.Storage
             }
 
             // Find files in archives
-            AddArchivesToList(files, type, extension, BaseArchiveData, false);
+            AddArchivesToList(files, type, extension, _baseArchiveData, false);
             #endregion
 
             if (ModDir != null)
@@ -387,7 +387,7 @@ namespace Common.Storage
                 }
 
                 // Find files in archives
-                AddArchivesToList(files, type, extension, ModArchiveData, true);
+                AddArchivesToList(files, type, extension, _modArchiveData, true);
                 #endregion
             }
 
@@ -469,11 +469,11 @@ namespace Common.Storage
                 if (File.Exists(path)) return File.OpenRead(path);
 
                 // Archive entry
-                if (ModArchiveData.ContainsKey(fullID))
+                if (_modArchiveData.ContainsKey(fullID))
                 {
                     // Copy from ZIP file to MemoryStream to provide seeking capability
                     Stream memoryStream = new MemoryStream();
-                    using (var inputStream = ModArchiveData[fullID].ZipFile.GetInputStream(ModArchiveData[fullID].ZipEntry))
+                    using (var inputStream = _modArchiveData[fullID].ZipFile.GetInputStream(_modArchiveData[fullID].ZipEntry))
                         StreamHelper.Copy(inputStream, memoryStream);
                     return memoryStream;
                 }
@@ -488,11 +488,11 @@ namespace Common.Storage
                 if (File.Exists(path)) return File.OpenRead(path);
 
                 // Archive entry
-                if (BaseArchiveData.ContainsKey(fullID))
+                if (_baseArchiveData.ContainsKey(fullID))
                 {
                     // Copy from ZIP file to MemoryStream to provide seeking capability
                     Stream memoryStream = new MemoryStream();
-                    using (var inputStream = BaseArchiveData[fullID].ZipFile.GetInputStream(BaseArchiveData[fullID].ZipEntry))
+                    using (var inputStream = _baseArchiveData[fullID].ZipFile.GetInputStream(_baseArchiveData[fullID].ZipEntry))
                         StreamHelper.Copy(inputStream, memoryStream);
                     return memoryStream;
                 }
