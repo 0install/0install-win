@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Helpers;
@@ -111,7 +112,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldListExecutableWithFlag_F()
+        public void ShouldListExecutableWithFlagF()
         {
             using (var package = new TemporaryDirectory())
             {
@@ -121,18 +122,17 @@ namespace ZeroInstall.Store.Implementation
                 { }
                 Assert.True(File.Exists(exePath), "Test implementation: Dummy file wasn't created");
 
-                Manifest.Generate(package.Path, ManifestFormat.Sha256);
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
-                    Assert.True(Regex.IsMatch(firstLine, @"^F \w+ \w+ \d test.exe$"), "Manifest didn't match expected format");
+                    Assert.True(Regex.IsMatch(firstLine, @"^F \w+ \w+ \d+ test.exe$"), "Manifest didn't match expected format");
                 }
             }
         }
 
         [Test]
-        public void ShouldListFilesInXbitWith_X()
+        public void ShouldListFilesInXbitWithFlagX()
         {
             using (var package = new TemporaryDirectory())
             {
@@ -148,12 +148,48 @@ namespace ZeroInstall.Store.Implementation
                     xbit.WriteLine(@"\test.exe");
                 }
 
-                Manifest.Generate(package.Path, ManifestFormat.Sha256);
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
-                    Assert.True(Regex.IsMatch(firstLine, @"^X \w+ \w+ \d test.exe$"), firstLine);
+                    Assert.True(Regex.IsMatch(firstLine, @"^X \w+ \w+ \d+ test.exe$"), "Manifest didn't match expected format");
+                }
+            }
+        }
+
+        [Test]
+        public void ShouldListNothingForEmptyPackage()
+        {
+            using (var package = new TemporaryDirectory())
+            {
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                using (var manifestFile = File.OpenRead(Path.Combine(package.Path, ".manifest")))
+                {
+                    Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
+                }
+            }
+        }
+
+        [Test]
+        public void ShouldHandleSubdirectoriesWithExecutables()
+        {
+            using (var package = new TemporaryDirectory())
+            using (var inner = new TemporaryDirectory(Path.Combine(package.Path, "inner")))
+            {
+                var path = new Dictionary<string, string>();
+                path["inner folder"] = inner.Path;
+                path["inner exe"] = Path.Combine(path["inner folder"], "inner.exe");
+                path["xbit"] = Path.Combine(package.Path, ".xbit");
+                path["manifest"] = Path.Combine(package.Path, ".manifest");
+                File.WriteAllText(path["inner exe"], @"xxxxxxx");
+                File.WriteAllText(path["xbit"], @"\inner/inner.exe");
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                using (var manifestFile = File.OpenText(path["manifest"]))
+                {
+                    string currentLine = manifestFile.ReadLine();
+                    Assert.True(Regex.IsMatch(currentLine, @"^D /inner$"), "Manifest didn't match expected format:\n" + currentLine);
+                    currentLine = manifestFile.ReadLine();
+                    Assert.True(Regex.IsMatch(currentLine, @"^X \w+ \w+ \d+ inner.exe$"), "Manifest didn't match expected format:\n" + currentLine);
                 }
             }
         }
