@@ -16,7 +16,9 @@
  */
 
 using System.IO;
+using System.Text.RegularExpressions;
 using Common.Helpers;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
@@ -106,6 +108,54 @@ namespace ZeroInstall.Store.Implementation
             string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
 
             Assert.AreEqual(diskHash, inMemoryHash);
+        }
+
+        [Test]
+        public void ShouldListExecutableWithFlag_F()
+        {
+            using (var package = new TemporaryDirectory())
+            {
+                string exePath = Path.Combine(package.Path, "test.exe");
+                string manifestPath = Path.Combine(package.Path, ".manifest");
+                using (File.Create(exePath))
+                { }
+                Assert.True(File.Exists(exePath), "Test implementation: Dummy file wasn't created");
+
+                Manifest.Generate(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                using (var manifest = File.OpenText(manifestPath))
+                {
+                    string firstLine = manifest.ReadLine();
+                    Assert.True(Regex.IsMatch(firstLine, @"^F \w+ \w+ \d test.exe$"), "Manifest didn't match expected format");
+                }
+            }
+        }
+
+        [Test]
+        public void ShouldListFilesInXbitWith_X()
+        {
+            using (var package = new TemporaryDirectory())
+            {
+                string exePath = Path.Combine(package.Path, "test.exe");
+                string xbitPath = Path.Combine(package.Path, ".xbit");
+                string manifestPath = Path.Combine(package.Path, ".manifest");
+                using (File.Create(exePath))
+                { }
+                Assert.True(File.Exists(exePath), "Test implementation: Dummy file wasn't created");
+
+                using (var xbit = File.CreateText(xbitPath))
+                {
+                    xbit.WriteLine(@"\test.exe");
+                }
+
+                Manifest.Generate(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                using (var manifest = File.OpenText(manifestPath))
+                {
+                    string firstLine = manifest.ReadLine();
+                    Assert.True(Regex.IsMatch(firstLine, @"^X \w+ \w+ \d test.exe$"), firstLine);
+                }
+            }
         }
     }
 }

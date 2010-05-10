@@ -20,11 +20,11 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store's default constructor must accept non-existing path");
-                    Assert.True(System.IO.Directory.Exists(cache));
+                    Assert.True(Directory.Exists(cache));
                 }
                 finally
                 {
-                    if (System.IO.Directory.Exists(cache)) System.IO.Directory.Delete(cache, recursive: true);
+                    if (Directory.Exists(cache)) Directory.Delete(cache, recursive: true);
                 }
             }
         }
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldProvideDefaultConstructor()
         {
             string cachePath = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
-            using (var cache = new TemporaryReplacement(cachePath))
+            using (new TemporaryReplacement(cachePath))
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");
             }
@@ -63,11 +63,11 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(path); }, "Store's constructor must accept non-existing path");
-                Assert.True(System.IO.Directory.Exists(path));
+                Assert.True(Directory.Exists(path));
             }
             finally
             {
-                if(System.IO.Directory.Exists(path)) System.IO.Directory.Delete(path, recursive: true);
+                if(Directory.Exists(path)) Directory.Delete(path, recursive: true);
             }
         }
     }
@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementation
 
             using (var cache = new TemporaryDirectory())
             {
-                Assert.Throws(typeof(ArgumentException), delegate { new DirectoryStore(cache.Path).Add(package, new ManifestDigest()); });
+                Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).Add(package, new ManifestDigest()) );
             }
         }
 
