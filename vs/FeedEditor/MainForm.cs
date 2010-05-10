@@ -479,5 +479,10 @@ namespace ZeroInstall.FeedEditor
         {
             textHomepage.ForeColor = IsValidFeedURL(textHomepage.Text) ? Color.Green : Color.Red;
         }
+
+        private void comboBoxMinInjectorVersion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

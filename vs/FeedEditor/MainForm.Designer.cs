@@ -254,7 +254,7 @@ namespace ZeroInstall.FeedEditor
             "Video"});
             this.checkedListCategory.Location = new System.Drawing.Point(481, 20);
             this.checkedListCategory.Name = "checkedListCategory";
-            this.checkedListCategory.Size = new System.Drawing.Size(116, 64);
+            this.checkedListCategory.Size = new System.Drawing.Size(116, 79);
             this.checkedListCategory.Sorted = true;
             this.checkedListCategory.TabIndex = 5;
             // 
@@ -512,6 +512,7 @@ namespace ZeroInstall.FeedEditor
             group1.SelfTest = null;
             group1.Version = null;
             group1.VersionModifier = null;
+            group1.VersionString = null;
             this.groupControl.Group = group1;
             this.groupControl.Location = new System.Drawing.Point(6, 18);
             this.groupControl.Name = "groupControl";
@@ -724,21 +725,22 @@ namespace ZeroInstall.FeedEditor
             this.comboBoxMinInjectorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxMinInjectorVersion.FormattingEnabled = true;
             this.comboBoxMinInjectorVersion.Items.AddRange(new object[] {
-            "0.31\t          ",
-            "0.32\t          ",
-            "0.33\t          ",
-            "0.34\t          ",
-            "0.35\t          ",
-            "0.36\t          ",
-            "0.37\t          ",
-            "0.38\t          ",
-            "0.39\t          ",
-            "0.40\t          ",
-            "0.41          ",
-            "0.41.1\t          ",
-            "0.42\t          ",
-            "0.42.1\t          ",
-            "0.43\t          ",
+            "",
+            "0.31",
+            "0.32",
+            "0.33",
+            "0.34",
+            "0.35",
+            "0.36",
+            "0.37",
+            "0.38",
+            "0.39",
+            "0.40",
+            "0.41",
+            "0.41.1",
+            "0.42",
+            "0.42.1",
+            "0.43",
             "0.44",
             "0.45"});
             this.comboBoxMinInjectorVersion.Location = new System.Drawing.Point(6, 506);
@@ -746,6 +748,7 @@ namespace ZeroInstall.FeedEditor
             this.comboBoxMinInjectorVersion.Size = new System.Drawing.Size(93, 21);
             this.comboBoxMinInjectorVersion.Sorted = true;
             this.comboBoxMinInjectorVersion.TabIndex = 3;
+            this.comboBoxMinInjectorVersion.SelectedIndexChanged += new System.EventHandler(this.comboBoxMinInjectorVersion_SelectedIndexChanged);
             // 
             // lblMinInjectorVersion
             // 

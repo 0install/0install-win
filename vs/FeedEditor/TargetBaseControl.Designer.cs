@@ -66,8 +66,7 @@
             // 
             // listBoxLanguages
             // 
-            this.listBoxLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.listBoxLanguages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxLanguages.FormattingEnabled = true;
             this.listBoxLanguages.Location = new System.Drawing.Point(81, 43);
@@ -109,7 +108,7 @@
             // 
             this.lblCPU.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblCPU.AutoSize = true;
-            this.lblCPU.Location = new System.Drawing.Point(421, 66);
+            this.lblCPU.Location = new System.Drawing.Point(414, 87);
             this.lblCPU.Name = "lblCPU";
             this.lblCPU.Size = new System.Drawing.Size(29, 13);
             this.lblCPU.TabIndex = 8;
@@ -120,7 +119,7 @@
             this.comboBoxCpu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxCpu.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCpu.FormattingEnabled = true;
-            this.comboBoxCpu.Location = new System.Drawing.Point(424, 82);
+            this.comboBoxCpu.Location = new System.Drawing.Point(417, 103);
             this.comboBoxCpu.Name = "comboBoxCpu";
             this.comboBoxCpu.Size = new System.Drawing.Size(70, 21);
             this.comboBoxCpu.TabIndex = 9;
@@ -131,7 +130,7 @@
             // 
             this.lblOS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblOS.AutoSize = true;
-            this.lblOS.Location = new System.Drawing.Point(421, 26);
+            this.lblOS.Location = new System.Drawing.Point(414, 47);
             this.lblOS.Name = "lblOS";
             this.lblOS.Size = new System.Drawing.Size(22, 13);
             this.lblOS.TabIndex = 6;
@@ -142,7 +141,7 @@
             this.comboBoxOS.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxOS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxOS.FormattingEnabled = true;
-            this.comboBoxOS.Location = new System.Drawing.Point(424, 42);
+            this.comboBoxOS.Location = new System.Drawing.Point(417, 63);
             this.comboBoxOS.Name = "comboBoxOS";
             this.comboBoxOS.Size = new System.Drawing.Size(70, 21);
             this.comboBoxOS.TabIndex = 7;
@@ -164,7 +163,7 @@
             this.Controls.Add(this.lblOS);
             this.Controls.Add(this.comboBoxOS);
             this.Name = "TargetBaseControl";
-            this.Size = new System.Drawing.Size(502, 128);
+            this.Size = new System.Drawing.Size(489, 128);
             this.Load += new System.EventHandler(this.TargetBaseControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

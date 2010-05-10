@@ -121,6 +121,12 @@
     <Compile Include="GroupControl.Designer.cs">
       <DependentUpon>GroupControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DependencyControl.resx">
+      <DependentUpon>DependencyControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EnvironmentBindingControl.resx">
+      <DependentUpon>EnvironmentBindingControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
