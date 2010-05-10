@@ -47,11 +47,11 @@ namespace ZeroInstall.Model
             { // Clean up
                 if (tempFile != null) File.Delete(tempFile);
             }
-
+            
             // Ensure data stayed the same
-            Assert.AreEqual(app1.Name, app2.Name);
-            Assert.AreEqual(app1.Description, app2.Description);
-            Assert.AreEqual(app1.Categories, app2.Categories);
+            Assert.AreEqual(app1, app2, "Serialized objects should be equal.");
+            Assert.AreEqual(app1.GetHashCode(), app2.GetHashCode(), "Serialized objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(app1, app2), "Serialized should not return the same reference.");
         }
 
         ///// <summary>

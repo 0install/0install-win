@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -59,6 +60,26 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString, Equals and Clone
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Recipe"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Recipe"/>.</returns>
+        public Recipe CloneRecipe()
+        {
+            var recipe = new Recipe();
+            foreach (Archive archive in Archives)
+                recipe.Archives.Add(archive.CloneArchive());
+
+            return recipe;
+        }
+
+        public object Clone()
+        {
+            return CloneRecipe();
+        }
+        #endregion
+
+        // ToDo: Implement ToString and Equals
     }
 }

@@ -41,7 +41,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// The location of the chosen <see cref="Implementation"/> is passed to the program by setting environment variables.
     /// </summary>
-    public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>, ICloneable
+    public sealed class EnvironmentBinding : Binding, ICloneable, IEquatable<EnvironmentBinding>
     {
         #region Properties
         /// <summary>
@@ -83,6 +83,26 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
+        public EnvironmentBinding CloneBinding()
+        {
+            return new EnvironmentBinding { Name = Name, Value = Value, Mode = Mode, Default = Default };
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
+        public object Clone()
+        {
+            return CloneBinding();
+        }
+        #endregion
+
         #region Equality
         public bool Equals(EnvironmentBinding other)
         {
@@ -108,34 +128,6 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Default != null ? Default.GetHashCode() : 0);
                 return result;
             }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Clone
-        /// <summary>
-        /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public EnvironmentBinding CloneEnvironmentBinding()
-        {
-            return new EnvironmentBinding
-            {
-                Name = Name,
-                Value = Value,
-                Mode = Mode,
-                Default = Default
-            };
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public object Clone()
-        {
-            return CloneEnvironmentBinding();
         }
         #endregion
     }

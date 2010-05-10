@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Interface"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class PackageImplementation : ImplementationBase
+    public sealed class PackageImplementation : ImplementationBase, ICloneable, IEquatable<PackageImplementation>
     {
         #region Override Properties
         /// <summary>
@@ -133,6 +133,54 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        // ToDo: Implement Equals and Clone
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="PackageImplementation"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="PackageImplementation"/>.</returns>
+        public PackageImplementation CloneImplementation()
+        {
+            var implementation = new PackageImplementation {Package = Package, DistributionsString = DistributionsString};
+            CloneFromTo(this, implementation);
+            return implementation;
+        }
+        
+        /// <summary>
+        /// Creates a deep copy of this <see cref="PackageImplementation"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="PackageImplementation"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneImplementation();
+        }
+        #endregion
+
+        #region Equals
+        public bool Equals(PackageImplementation other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) && Equals(other.Package, Package) && Equals(other.DistributionsString, DistributionsString);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(PackageImplementation)) return false;
+            return Equals((PackageImplementation)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Package != null ? Package.GetHashCode() : 0);
+                result = (result * 397) ^ (DistributionsString != null ? DistributionsString.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }

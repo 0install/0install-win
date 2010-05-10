@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
     [TypeConverter(typeof(ConstraintConverter))]
-    public struct Constraint : IEquatable<Constraint>
+    public struct Constraint : ICloneable, IEquatable<Constraint>
     {
         #region Properties
         /// <summary>
@@ -80,6 +80,26 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Creates a copy of this <see cref="Constraint"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Constraint"/>.</returns>
+        public Constraint CloneConstraint()
+        {
+            return new Constraint {NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
+        }
+
+        /// <summary>
+        /// Creates a copy of this <see cref="Constraint"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Constraint"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneConstraint();
         }
         #endregion
 

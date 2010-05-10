@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -26,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class Implementation : IDImplementation
+    public class Implementation : IDImplementation, ICloneable
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -69,7 +70,60 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
+        
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Implementation"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Implementation"/>.</returns>
+        public Implementation CloneImplementation()
+        {
+            var implementation = new Implementation();
+            CloneFromTo(this, implementation);
+            foreach (Archive archive in Archives)
+                implementation.Archives.Add(archive.CloneArchive());
+            foreach (Recipe recipe in Recipes)
+                implementation.Recipes.Add(recipe.CloneRecipe());
 
-        // ToDo: Implement ToString, Equals and Clone
+            return implementation;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Implementation"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Implementation"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneImplementation();
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(Implementation other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) && Archives.SequencedEquals(other.Archives) && Recipes.SequencedEquals(other.Recipes);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(Implementation)) return false;
+            return Equals((Implementation)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                foreach (var archive in Archives) result = (result * 397) ^ (archive != null ? archive.GetHashCode() : 0);
+                foreach (var recipe in Recipes) result = (result * 397) ^ (recipe != null ? recipe.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }

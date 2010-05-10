@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -25,7 +26,7 @@ namespace ZeroInstall.Model
     /// Information for identifying an implementation of an <see cref="Interface"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public abstract class IDImplementation : ImplementationBase
+    public abstract class IDImplementation : ImplementationBase, IEquatable<IDImplementation>
     {
         #region Properties
         /// <summary>
@@ -82,6 +83,52 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString, Equals and Clone
+        #region Clone
+        /// <summary>
+        /// Copies all known values from one instance to another. Helper method for instance cloning.
+        /// </summary>
+        protected static void CloneFromTo(IDImplementation from, IDImplementation to)
+        {
+            #region Sanity checks
+            if (from == null) throw new ArgumentNullException("from");
+            if (to == null) throw new ArgumentNullException("to");
+            #endregion
+
+            ImplementationBase.CloneFromTo(from, to);
+            to.ID = from.ID;
+            to.LocalPath = from.LocalPath;
+            to.ManifestDigest = from.ManifestDigest;
+        }
+        #endregion
+
+        #region Conversion
+        public override string ToString()
+        {
+            string value = "Implementation: " + ID + " (" + ManifestDigest + ")";
+            if (!string.IsNullOrEmpty(LocalPath)) value += " (" + LocalPath + ")";
+            return value;
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(IDImplementation other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) && other.ID == ID && other.LocalPath == LocalPath && other.ManifestDigest == ManifestDigest;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (ID != null ? ID.GetHashCode() : 0);
+                result = (result * 397) ^ (LocalPath != null ? LocalPath.GetHashCode() : 0);
+                result = (result * 397) ^ ManifestDigest.GetHashCode();
+                return result;
+            }
+        }
+        #endregion
     }
 }

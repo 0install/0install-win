@@ -87,9 +87,9 @@ namespace Common.Collections
 
         #region Clone
         /// <summary>
-        /// Creates a plain copy of this entry
+        /// Creates a plain copy of this entry.
         /// </summary>
-        /// <returns>The cloned entry</returns>
+        /// <returns>The cloned entry.</returns>
         public XmlCollectionEntry CloneEntry()
         {
             // Perform initial shallow copy
@@ -102,7 +102,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Creates a plain copy of this entry
+        /// Creates a plain copy of this entry.
         /// </summary>
         /// <returns>The cloned entry casted to a generic <see cref="object"/>.</returns>
         public object Clone()

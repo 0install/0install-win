@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents an archive to be downloaded and extracted.
     /// </summary>
-    public sealed class Archive : RetrievalStep, IEquatable<Archive>
+    public sealed class Archive : RetrievalStep, IEquatable<Archive>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -46,25 +46,18 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// The size of the archive in bytes. The archive must have the given size or it will be rejected.
-        /// </summary>
-        [Description("The size of the archive in bytes. The archive must have the given size or it will be rejected.")]
-        [XmlAttribute("size")]
-        public long Size { get; set; }
-
-        /// <summary>
-        /// The name of the subdirectory in the archive to extract; <see langword="null"/> for entire archive.
-        /// </summary>
-        [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
-        [XmlAttribute("extract")]
-        public string Extract { get; set; }
-
-        /// <summary>
         /// The type of the archive as a MIME type in the type attribute. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute.
         /// </summary>
         [Description("The type of the archive as a MIME type in the type attribute. If missing, the type is guessed from the extension on the location attribute.")]
         [XmlAttribute("type")]
         public string MimeType { get; set; }
+
+        /// <summary>
+        /// The size of the archive in bytes. The archive must have the given size or it will be rejected.
+        /// </summary>
+        [Description("The size of the archive in bytes. The archive must have the given size or it will be rejected.")]
+        [XmlAttribute("size")]
+        public long Size { get; set; }
 
         /// <summary>
         /// The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes. 
@@ -73,6 +66,13 @@ namespace ZeroInstall.Model
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]
         [XmlAttribute("start-offset"), DefaultValue(0L)]
         public long StartOffset { get; set; }
+
+        /// <summary>
+        /// The name of the subdirectory in the archive to extract; <see langword="null"/> for entire archive.
+        /// </summary>
+        [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
+        [XmlAttribute("extract")]
+        public string Extract { get; set; }
         #endregion
 
         //--------------------//
@@ -106,7 +106,23 @@ namespace ZeroInstall.Model
         #region Conversion
         public override string ToString()
         {
-            return string.Format("{0}({1}, {2}) + {3} => {4}", Location, Size, MimeType, StartOffset, Extract);
+            return string.Format("{0} ({1}, {2}) + {3} => {4}", Location, MimeType, Size, StartOffset, Extract);
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Creates a copy of this <see cref="Archive"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Archive"/>.</returns>
+        public Archive CloneArchive()
+        {
+            return new Archive {Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
+        }
+
+        public object Clone()
+        {
+            return CloneArchive();
         }
         #endregion
 

@@ -26,13 +26,13 @@ namespace ZeroInstall.Model
     /// A reference to an <see cref="Interface"/> that is required by an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Dependency : IBindingContainer
+    public sealed class Dependency : IBindingContainer, ICloneable
     {
         #region Properties
         /// <summary>
         /// The URI used to locate the <see cref="Interface"/>.
         /// </summary>
-        [Description("The URI used to locate the interfcae.")]
+        [Description("The URI used to locate the interface.")]
         [XmlIgnore]
         public Uri Uri { get; set; }
 
@@ -78,7 +78,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
         /// </summary>
-        [Description("A list of bindings for overlay implementatiosn to locate this dependency.")]
+        [Description("A list of bindings for overlay implementations to locate this dependency.")]
         [XmlElement("overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
@@ -86,6 +86,30 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString, Equals and Clone
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Dependency"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
+        public Dependency CloneDependency()
+        {
+            var dependency = new Dependency {Uri = Uri, Use = Use};
+            foreach (var binding in EnvironmentBindings) dependency.EnvironmentBindings.Add(binding.CloneBinding());
+            foreach (var binding in OverlayBindings) dependency.OverlayBindings.Add(binding.CloneBinding());
+
+            return dependency;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Dependency"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Dependency"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneDependency();
+        }
+        #endregion
+
+        // ToDo: Implement ToString and Equals
     }
 }

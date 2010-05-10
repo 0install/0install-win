@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -26,7 +27,7 @@ namespace ZeroInstall.Model
     /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove anything). 
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Group : ImplementationBase, IGroupContainer
+    public sealed class Group : ImplementationBase, IGroupContainer, ICloneable
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -106,6 +107,35 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Group"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Group"/>.</returns>
+        public Group CloneGroup()
+        {
+            var group = new Group();
+            CloneFromTo(this, group);
+            foreach (Group subGroup in Groups)
+                group.Groups.Add(subGroup.CloneGroup());
+            foreach (Implementation implementation in Implementations)
+                group.Implementations.Add(implementation.CloneImplementation());
+            foreach (PackageImplementation implementation in PackageImplementations)
+                group.PackageImplementations.Add(implementation.CloneImplementation());
+
+            return group;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Group"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Group"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneGroup();
+        }
+        #endregion
 
         // ToDo: Implement ToString and Equals
     }

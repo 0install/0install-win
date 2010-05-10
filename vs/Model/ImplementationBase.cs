@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public abstract class ImplementationBase : TargetBase, IBindingContainer, ISimplifyable
+    public abstract class ImplementationBase : TargetBase, IBindingContainer, ISimplifyable, IEquatable<ImplementationBase>
     {
         #region Constants
         /// <summary>
@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
         [XmlAttribute("version"), Browsable(false)]
-        public virtual string VersionString
+        public string VersionString
         {
             get { return (Version == null ? null : Version.ToString()); }
             set { Version = new ImplementationVersion(value); }
@@ -208,6 +208,63 @@ namespace ZeroInstall.Model
             foreach (var dependency in parent.Dependencies) Dependencies.Add(dependency);
             foreach (var bindings in parent.EnvironmentBindings) EnvironmentBindings.Add(bindings);
             foreach (var bindings in parent.OverlayBindings) OverlayBindings.Add(bindings);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Copies all known values from one instance to another. Helper method for instance cloning.
+        /// </summary>
+        protected static void CloneFromTo(ImplementationBase from, ImplementationBase to)
+        {
+            #region Sanity checks
+            if (from == null) throw new ArgumentNullException("from");
+            if (to == null) throw new ArgumentNullException("to");
+            #endregion
+
+            TargetBase.CloneFromTo(from, to);
+            to.Version = from.Version;
+            to.VersionModifier = from.VersionModifier;
+            to.Released = from.Released;
+            to.License = from.License;
+            to.Main = from.Main;
+            to.SelfTest = from.SelfTest;
+            to.DocDir = from.DocDir;
+            foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.CloneDependency());
+            foreach (var binding in from.EnvironmentBindings) to.EnvironmentBindings.Add(binding.CloneBinding());
+            foreach (var binding in from.OverlayBindings) to.OverlayBindings.Add(binding.CloneBinding());
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(ImplementationBase other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) &&
+                Equals(other.Version, Version) && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
+                Dependencies.SequencedEquals(other.Dependencies) && EnvironmentBindings.SequencedEquals(other.EnvironmentBindings) && OverlayBindings.SequencedEquals(other.OverlayBindings);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Version != null ? Version.GetHashCode() : 0);
+                result = (result * 397) ^ (VersionModifier != null ? VersionModifier.GetHashCode() : 0);
+                result = (result * 397) ^ Released.GetHashCode();
+                result = (result * 397) ^ (License != null ? License.GetHashCode() : 0);
+                result = (result * 397) ^ (Main != null ? Main.GetHashCode() : 0);
+                result = (result * 397) ^ (SelfTest != null ? SelfTest.GetHashCode() : 0);
+                result = (result * 397) ^ (DocDir != null ? DocDir.GetHashCode() : 0);
+                foreach (var dependency in Dependencies) result = (result * 397) ^ (dependency != null ? dependency.GetHashCode() : 0);
+                foreach (var binding in EnvironmentBindings) result = (result * 397) ^ (binding != null ? binding.GetHashCode() : 0);
+                foreach (var binding in OverlayBindings) result = (result * 397) ^ (binding != null ? binding.GetHashCode() : 0);
+                return result;
+            }
         }
         #endregion
     }

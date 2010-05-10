@@ -89,6 +89,8 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        // ToDo: Implement Clone
+
         #region Equality
         public bool Equals(ImplementationVersion other)
         {

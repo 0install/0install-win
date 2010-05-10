@@ -95,6 +95,22 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Clone
+        /// <summary>
+        /// Copies all known values from one instance to another. Helper method for instance cloning.
+        /// </summary>
+        protected static void CloneFromTo(TargetBase from, TargetBase to)
+        {
+            #region Sanity checks
+            if (from == null) throw new ArgumentNullException("from");
+            if (to == null) throw new ArgumentNullException("to");
+            #endregion
+
+            to.LanguagesString = from.LanguagesString;
+            to.ArchitectureString = from.ArchitectureString;
+        }
+        #endregion
+        
         #region Equality
         public bool Equals(TargetBase other)
         {
@@ -107,7 +123,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((_languages != null ? _languages.GetHashCode() : 0) * 397) ^ Architecture.GetHashCode();
+                return ((LanguagesString != null ? LanguagesString.GetHashCode() : 0) * 397) ^ Architecture.GetHashCode();
             }
         }
         #endregion

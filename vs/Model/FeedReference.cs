@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An additional feed for an <see cref="Interface"/>.
     /// </summary>
-    public sealed class FeedReference : TargetBase, IEquatable<FeedReference>, ICloneable
+    public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         #region Properties
         /// <summary>
@@ -58,6 +58,28 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="FeedReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
+        public FeedReference CloneFeedReference()
+        {
+            var feedRereference = new FeedReference { Target = Target };
+            CloneFromTo(this, feedRereference);
+            return feedRereference;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="FeedReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
+        public object Clone()
+        {
+            return CloneFeedReference();
+        }
+        #endregion
+
         #region Equality
         public bool Equals(FeedReference other)
         {
@@ -81,33 +103,6 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Target != null ? Target.GetHashCode() : 0);
                 return result;
             }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Clone
-        /// <summary>
-        /// Creates a deep copy of this <see cref="FeedReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public FeedReference CloneFeedReference()
-        {
-            return new FeedReference
-            {
-                LanguagesString = LanguagesString,
-                Architecture = Architecture,
-                TargetString = TargetString
-            };
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="FeedReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public object Clone()
-        {
-            return CloneFeedReference();
         }
         #endregion
     }

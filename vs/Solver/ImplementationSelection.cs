@@ -27,7 +27,7 @@ namespace ZeroInstall.Solver
     /// An executable implementation of an <see cref="Interface"/>.
     /// </summary>
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
-    public class ImplementationSelection : IDImplementation
+    public sealed class ImplementationSelection : IDImplementation, ICloneable, IEquatable<ImplementationSelection>
     {
         #region Properties
         /// <summary>
@@ -58,6 +58,60 @@ namespace ZeroInstall.Solver
 
         //--------------------//
 
-        // ToDo: Implement Equals
+        #region Conversion
+        public override string ToString()
+        {
+            return base.ToString() + " (" + Interface + ")";
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="ImplementationSelection"/>
+        /// </summary>
+        /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
+        public ImplementationSelection CloneImplementation()
+        {
+            var implementation = new ImplementationSelection {Interface = Interface, Package = Package};
+            CloneFromTo(this, implementation);
+            return implementation;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="ImplementationSelection"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="ImplementationSelection"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneImplementation();
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(ImplementationSelection other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) && Equals(other.Interface, Interface) && Equals(other.Package, Package);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(ImplementationSelection) && Equals((ImplementationSelection)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ (Interface != null ? Interface.GetHashCode() : 0);
+                result = (result * 397) ^ (Package != null ? Package.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }

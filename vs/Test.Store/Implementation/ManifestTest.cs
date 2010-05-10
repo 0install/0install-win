@@ -18,7 +18,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using Common.Helpers;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -30,68 +29,45 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class ManifestTest
     {
+        #region Helpers
         /// <summary>
-        /// Ensures that <see cref="Manifest"/> is correctly generated using the old format and SHA1 algorithm, serialized and deserialized.
+        /// Creates a <see cref="Manifest"/> from a temporary directory.
         /// </summary>
-        [Test]
-        public void TestSaveLoadOld()
+        private static Manifest CreateTestManifest()
         {
-            Manifest manifest1, manifest2;
-            string tempFile = null, tempDir = null;
+            // Create a test directory to create a manifest for
+            string tempDir = StoreFunctionality.CreateArtificialPackage();
+
             try
             {
-                // Create a test directory to create a manifest for
-                tempDir = FileHelper.GetTempDirectory();
-                File.WriteAllText(Path.Combine(tempDir, "file1"), @"content1");
-                File.WriteAllText(Path.Combine(tempDir, "file2"), @"content2");
-                string subDir = Path.Combine(tempDir, @"subdir");
-                Directory.CreateDirectory(subDir);
-                File.WriteAllText(Path.Combine(subDir, "file"), @"content");
-
                 // Generate manifest, write it to a file and read the file again
-                tempFile = Path.GetTempFileName();
-                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1Old);
+                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old);
+            }
+            finally
+            { // Clean up
+                Directory.Delete(tempDir, true);
+            }
+        }
+        #endregion
+
+        /// <summary>
+        /// Ensures that <see cref="Manifest"/> is correctly generated, serialized and deserialized.
+        /// </summary>
+        [Test]
+        public void TestSaveLoad()
+        {
+            Manifest manifest1, manifest2;
+            string tempFile = Path.GetTempFileName();
+            try
+            {
+                // Generate manifest, write it to a file and read the file again
+                manifest1 = CreateTestManifest();
                 manifest1.Save(tempFile);
                 manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1Old);
             }
             finally
             { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-                if (tempDir != null) Directory.Delete(tempDir, true);
-            }
-
-            // Ensure data stayed the same
-            Assert.AreEqual(manifest1, manifest2);
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="Manifest"/> is correctly generated using the new format and SHA1 algorithm, serialized and deserialized.
-        /// </summary>
-        [Test]
-        public void TestSaveLoadNew()
-        {
-            Manifest manifest1, manifest2;
-            string tempFile = null, tempDir = null;
-            try
-            {
-                // Create a test directory to create a manifest for
-                tempDir = FileHelper.GetTempDirectory();
-                File.WriteAllText(Path.Combine(tempDir, "file1"), @"content1");
-                File.WriteAllText(Path.Combine(tempDir, "file2"), @"content2");
-                string subDir = Path.Combine(tempDir, @"subdir");
-                Directory.CreateDirectory(subDir);
-                File.WriteAllText(Path.Combine(subDir, "file"), @"content");
-
-                // Generate manifest, write it to a file and read the file again
-                tempFile = Path.GetTempFileName();
-                manifest1 = Manifest.Generate(tempDir, ManifestFormat.Sha1New);
-                manifest1.Save(tempFile);
-                manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1New);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-                if (tempDir != null) Directory.Delete(tempDir, true);
+                File.Delete(tempFile);
             }
 
             // Ensure data stayed the same

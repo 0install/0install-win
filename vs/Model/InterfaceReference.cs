@@ -68,7 +68,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return (Target != null ? Target.GetHashCode() : 0);
+                return (TargetString != null ? TargetString.GetHashCode() : 0);
             }
         }
         #endregion

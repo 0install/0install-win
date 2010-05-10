@@ -33,7 +33,7 @@ namespace ZeroInstall.Solver
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Selections
+    public sealed class Selections : IEquatable<Selections>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -138,6 +138,31 @@ namespace ZeroInstall.Solver
 
         //--------------------//
 
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Selections"/>
+        /// </summary>
+        /// <returns>The cloned <see cref="Selections"/>.</returns>
+        public Selections CloneSelections()
+        {
+            var newSelections = new Selections {Interface = Interface};
+            foreach (var implementation in Implementations)
+            {
+                newSelections.Implementations.Add(implementation.CloneImplementation());
+            }
+            return newSelections;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Selections"/>
+        /// </summary>
+        /// <returns>The cloned <see cref="Selections"/> casted to a generic <see cref="object"/>.</returns>
+        public object Clone()
+        {
+            return CloneSelections();
+        }
+        #endregion
+
         #region Equality
         public bool Equals(Selections other)
         {
@@ -176,7 +201,5 @@ namespace ZeroInstall.Solver
             }
         }
         #endregion
-
-        // ToDo: Implement ToString and Clone
     }
 }

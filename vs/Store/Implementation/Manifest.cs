@@ -22,7 +22,6 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using C5;
 using Common.Helpers;
 using ZeroInstall.Store.Properties;
 
@@ -35,16 +34,16 @@ namespace ZeroInstall.Store.Implementation
     public sealed class Manifest : IEquatable<Manifest>
     {
         #region Properties
-        private readonly ReadOnlyCollection<ManifestNode> _nodes;
-        /// <summary>
-        /// A list of all elements in the tree this manifest represents.
-        /// </summary>
-        public System.Collections.Generic.IList<ManifestNode> Nodes { get { return _nodes; } }
-
         /// <summary>
         /// The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.
         /// </summary>
         public ManifestFormat Format { get; private set; }
+
+        private readonly ReadOnlyCollection<ManifestNode> _nodes;
+        /// <summary>
+        /// A list of all elements in the tree this manifest represents.
+        /// </summary>
+        public IList<ManifestNode> Nodes { get { return _nodes; } }
         #endregion
 
         #region Constructor
@@ -53,7 +52,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
-        private Manifest(System.Collections.Generic.IList<ManifestNode> nodes, ManifestFormat format)
+        private Manifest(IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -77,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="algorithm">The hashing algorithm to use for <see cref="ManifestFileBase.Hash"/>.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
-        private static void AddToList(System.Collections.Generic.IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
+        private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -86,12 +85,13 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var filesInXbit = new HashSet<string>();
+            var filesInXbit = new C5.HashSet<string>();
             string xbitPath = Path.Combine(startPath, ".xbit");
             if (File.Exists(xbitPath))
+            {
                 using (var xbit = File.OpenText(xbitPath))
                 {
-                    string currentLine = null;
+                    string currentLine;
                     while ((currentLine = xbit.ReadLine()) != null)
                     {
                         var match = Regex.Match(currentLine, @"^\\(.+)$");
@@ -99,6 +99,7 @@ namespace ZeroInstall.Store.Implementation
                         filesInXbit.Add(indicatedFile);
                     }
                 }
+            }
 
             foreach (var file in Directory.GetFiles(path))
             {
@@ -106,8 +107,7 @@ namespace ZeroInstall.Store.Implementation
 
                 // Don't include top-level manifest management files in manifest
                 if (startPath == path && (fileName == ".manifest" || fileName == ".xbit")) continue;
-
-
+                
                 // ToDo: Handle symlinks
 
                 var fileInfo = new FileInfo(file);
@@ -280,6 +280,16 @@ namespace ZeroInstall.Store.Implementation
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Manifest) && Equals(obj as Manifest);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Format != null ? Format.GetHashCode() : 0);
+                foreach (var node in _nodes) result = (result * 397) ^ (node != null ? node.GetHashCode() : 0);
+                return result;
+            }
         }
         #endregion
     }
