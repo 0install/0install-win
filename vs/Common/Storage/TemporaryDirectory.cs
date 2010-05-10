@@ -60,7 +60,7 @@ namespace Common.Storage
             #endregion
 
             Directory.CreateDirectory(path);
-            Path = System.IO.Path.GetFullPath(path);
+            Path = path;
         }
         #endregion
 
