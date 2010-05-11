@@ -15,7 +15,7 @@ namespace ZeroInstall.StoreService.Storage
     {
         #region Variables
         private static readonly string
-            ConfigPath = Path.Combine(Locations.GetSystemSettingsDir(Path.Combine("0install.net", "store-service")), "settings.xml");
+            _configPath = Path.Combine(Locations.GetSystemSettingsDir(Path.Combine("0install.net", "store-service")), @"settings.xml");
         #endregion
 
         #region Properties
@@ -44,14 +44,14 @@ namespace ZeroInstall.StoreService.Storage
 
         #region Load
         /// <summary>
-        /// Loads the current settings from an automatically located XML file
+        /// Loads the current settings from an XML file.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the settings should be ignored")]
         public static void LoadCurrent()
         {
             try
             {
-                Current = XmlStorage.Load<Settings>(ConfigPath);
+                Current = XmlStorage.Load<Settings>(_configPath);
                 Log.Write("Loaded settings from user profile");
             }
             catch (Exception ex)
@@ -66,13 +66,13 @@ namespace ZeroInstall.StoreService.Storage
 
         #region Save
         /// <summary>
-        /// Saves the current settings to an automatically located XML file
+        /// Saves the current settings to an XML file.
         /// </summary>
         public static void SaveCurrent()
         {
             try
             {
-                XmlStorage.Save(ConfigPath, Current);
+                XmlStorage.Save(_configPath, Current);
                 Log.Write("Saved settings to user profile");
             }
             catch (IOException)

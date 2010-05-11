@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.
+        /// The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.
         /// </summary>
         public ManifestFormat Format { get; private set; }
 
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new manifest.
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
-        /// <param name="format">The format used for <see cref="Manifest.Save"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
+        /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
         private Manifest(IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks

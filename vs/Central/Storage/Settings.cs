@@ -16,8 +16,8 @@ namespace ZeroInstall.Central.Storage
     {
         #region Variables
         private static readonly string
-            PortablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "central-settings.xml"),
-            ProfilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "central")), "settings.xml");
+            _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"central-settings.xml"),
+            _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "central")), @"settings.xml");
         #endregion
 
         #region Properties
@@ -48,18 +48,18 @@ namespace ZeroInstall.Central.Storage
 
         #region Load
         /// <summary>
-        /// Loads the current settings from an automatically located XML file
+        /// Loads the current settings from an XML file.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the settings should be ignored")]
         public static void LoadCurrent()
         {
-            if (File.Exists(PortablePath))
+            if (File.Exists(_portablePath))
             { // Try to load settings file from the application's directory
                 _loadedFromAppDir = true;
 
                 try
                 {
-                    Current = XmlStorage.Load<Settings>(PortablePath);
+                    Current = XmlStorage.Load<Settings>(_portablePath);
                     Log.Write("Loaded settings from installation directory");
                 }
                 catch (Exception ex)
@@ -71,7 +71,7 @@ namespace ZeroInstall.Central.Storage
             { // Then fall back to the user profile
                 try
                 {
-                    Current = XmlStorage.Load<Settings>(ProfilePath);
+                    Current = XmlStorage.Load<Settings>(_profilePath);
                     Log.Write("Loaded settings from user profile");
                 }
                 catch (Exception ex)
@@ -87,7 +87,7 @@ namespace ZeroInstall.Central.Storage
 
         #region Save
         /// <summary>
-        /// Saves the current settings to an automatically located XML file
+        /// Saves the current settings to an XML file.
         /// </summary>
         public static void SaveCurrent()
         {
@@ -95,12 +95,12 @@ namespace ZeroInstall.Central.Storage
             {
                 if (_loadedFromAppDir)
                 {
-                    XmlStorage.Save(PortablePath, Current);
+                    XmlStorage.Save(_portablePath, Current);
                     Log.Write("Saved settings to working directory");
                 }
                 else
                 {
-                    XmlStorage.Save(ProfilePath, Current);
+                    XmlStorage.Save(_profilePath, Current);
                     Log.Write("Saved settings to user profile");
                 }
             }
