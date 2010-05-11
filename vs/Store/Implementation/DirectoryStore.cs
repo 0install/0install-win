@@ -158,9 +158,13 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        //--------------------//
+
         #region Equality
         public bool Equals(DirectoryStore other)
         {
+            if (ReferenceEquals(null, other)) return false;
+
             return _cacheDir == other._cacheDir;
         }
 
@@ -168,7 +172,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, other)) return false;
             if (ReferenceEquals(this, other)) return true;
-            return other.GetType() == typeof(DirectoryStore) && Equals(other as DirectoryStore);
+            return other.GetType() == typeof(DirectoryStore) && Equals((DirectoryStore)other);
         }
         #endregion
     }

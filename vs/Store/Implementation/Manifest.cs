@@ -21,7 +21,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using Common.Helpers;
 using ZeroInstall.Store.Properties;
 
