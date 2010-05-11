@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -81,10 +82,17 @@ namespace ZeroInstall.Store.Implementation
         public void TestCalculateHash()
         {
             string packageDir = StoreFunctionality.CreateArtificialPackage();
-            string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash();
-            string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+            try
+            {
+                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash();
+                string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+                Assert.AreEqual(diskHash, inMemoryHash);
+            }
+            finally 
+            {
+                Directory.Delete(packageDir, true);
+            }
 
-            Assert.AreEqual(diskHash, inMemoryHash);
         }
 
         [Test]
@@ -94,11 +102,10 @@ namespace ZeroInstall.Store.Implementation
             {
                 string exePath = Path.Combine(package.Path, "test.exe");
                 string manifestPath = Path.Combine(package.Path, ".manifest");
-                using (File.Create(exePath))
-                { }
-                Assert.True(File.Exists(exePath), "Test implementation: Dummy file wasn't created");
 
+                File.WriteAllText(exePath, "");
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
@@ -115,16 +122,11 @@ namespace ZeroInstall.Store.Implementation
                 string exePath = Path.Combine(package.Path, "test.exe");
                 string xbitPath = Path.Combine(package.Path, ".xbit");
                 string manifestPath = Path.Combine(package.Path, ".manifest");
-                using (File.Create(exePath))
-                { }
-                Assert.True(File.Exists(exePath), "Test implementation: Dummy file wasn't created");
-
-                using (var xbit = File.CreateText(xbitPath))
-                {
-                    xbit.WriteLine(@"\test.exe");
-                }
-
+                
+                File.WriteAllText(exePath, "");
+                File.WriteAllText(xbitPath, @"/test.exe");
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
@@ -158,7 +160,7 @@ namespace ZeroInstall.Store.Implementation
                 path["xbit"] = Path.Combine(package.Path, ".xbit");
                 path["manifest"] = Path.Combine(package.Path, ".manifest");
                 File.WriteAllText(path["inner exe"], @"xxxxxxx");
-                File.WriteAllText(path["xbit"], @"\inner/inner.exe");
+                File.WriteAllText(path["xbit"], @"/inner/inner.exe");
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
                 using (var manifestFile = File.OpenText(path["manifest"]))
                 {

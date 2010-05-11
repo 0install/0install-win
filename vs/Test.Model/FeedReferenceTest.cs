@@ -45,5 +45,41 @@ namespace ZeroInstall.Model
             Assert.AreEqual(reference1.GetHashCode(), reference2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(reference1, reference2), "Cloning should not return the same reference.");
         }
+
+        /// <summary>
+        /// Ensures that equal and unequal instances can be correctly differentiated.
+        /// </summary>
+        [Test]
+        public void TestEquals()
+        {
+            var reference1 = new FeedReference
+            {
+                Target = new Uri("http://0install.de/feeds/test.xml"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                Languages = { new CultureInfo("en-US") }
+            };
+            var reference2 = new FeedReference
+            {
+                Target = new Uri("http://0install.de/feeds/test.xml"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                Languages = { new CultureInfo("en-US") }
+            };
+            Assert.AreEqual(reference1, reference2);
+
+            reference2 = new FeedReference
+            {
+                Target = new Uri("http://0install.de/feeds/test.xml"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                Languages = { new CultureInfo("de-DE") }
+            };
+            Assert.AreNotEqual(reference1, reference2);
+
+            reference2 = new FeedReference
+            {
+                Target = new Uri("http://0install.de/feeds/test.xml"),
+                Languages = { new CultureInfo("en-US") }
+            };
+            Assert.AreNotEqual(reference1, reference2);
+        }
     }
 }

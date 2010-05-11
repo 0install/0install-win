@@ -107,10 +107,18 @@ namespace ZeroInstall.Store.Implementation
         {
             string package = CreateArtificialPackage();
 
-            using (var cache = new TemporaryDirectory())
+            try
             {
-                Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).Add(package, new ManifestDigest()) );
+                using (var cache = new TemporaryDirectory())
+                {
+                    Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).Add(package, new ManifestDigest()));
+                }
             }
+            finally
+            {
+                Directory.Delete(package, true);
+            }
+
         }
 
         [Test]

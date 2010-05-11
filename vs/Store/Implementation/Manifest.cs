@@ -74,33 +74,20 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">The list to add new <see cref="ManifestNode"/>s to.</param>
         /// <param name="algorithm">The hashing algorithm to use for <see cref="ManifestFileBase.Hash"/>.</param>
+        /// <param name="externalXbits">A list of files that are to be treated as if they had the executable flag set.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
-        private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, string startPath, string path)
+        private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, ICollection<string> externalXbits, string startPath, string path)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
             if (algorithm == null) throw new ArgumentNullException("algorithm");
+            if (externalXbits == null) throw new ArgumentNullException("externalXbits");
             if (string.IsNullOrEmpty(startPath)) throw new ArgumentNullException("startPath");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            var filesInXbit = new C5.HashSet<string>();
-            string xbitPath = Path.Combine(startPath, ".xbit");
-            if (File.Exists(xbitPath))
-            {
-                using (var xbit = File.OpenText(xbitPath))
-                {
-                    string currentLine;
-                    while ((currentLine = xbit.ReadLine()) != null)
-                    {
-                        var match = Regex.Match(currentLine, @"^\\(.+)$");
-                        string indicatedFile = Path.Combine(startPath, match.Groups[1].Value.Replace('/', '\\'));
-                        filesInXbit.Add(indicatedFile);
-                    }
-                }
-            }
-
+            // Find all files (including executable and symlinks)
             foreach (var file in Directory.GetFiles(path))
             {
                 var fileName = Path.GetFileName(file);
@@ -110,29 +97,26 @@ namespace ZeroInstall.Store.Implementation
                 
                 // ToDo: Handle symlinks
 
+                // ToDo: Handle executable bits in filesystem itself
                 var fileInfo = new FileInfo(file);
-                if (filesInXbit.Contains(Path.Combine(path, fileName)))
-                {
+                if (externalXbits.Contains(file))
                     nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file, algorithm), FileHelper.UnixTime(fileInfo.LastWriteTimeUtc), fileInfo.Length, fileName));
-                    continue;
-                }
-                nodes.Add(new ManifestFile(
-                    FileHelper.ComputeHash(file, algorithm),
-                    FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
-                    fileInfo.Length,
-                    fileName));
+                else
+                    nodes.Add(new ManifestFile(FileHelper.ComputeHash(file, algorithm), FileHelper.UnixTime(fileInfo.LastWriteTimeUtc), fileInfo.Length, fileName));
             }
 
+            // Find all directories
             foreach (var directory in Directory.GetDirectories(path))
             {
-                var fileInfo = new DirectoryInfo(directory);
+                // Get directory information
+                var dirInfo = new DirectoryInfo(directory);
                 nodes.Add(new ManifestDirectory(
-                    FileHelper.UnixTime(fileInfo.LastWriteTimeUtc),
+                    FileHelper.UnixTime(dirInfo.LastWriteTimeUtc),
                     // Remove leading portion of path and use Unix slashes
-                    directory.Substring(startPath.Length).Replace('\\', '/')));
+                    directory.Substring(startPath.Length).Replace(Path.DirectorySeparatorChar, '/')));
 
                 // Recurse into sub-directories
-                AddToList(nodes, algorithm, startPath, directory);
+                AddToList(nodes, algorithm, externalXbits, startPath, directory);
             }
         }
         #endregion
@@ -146,8 +130,32 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         public static Manifest Generate(string path, ManifestFormat format)
         {
+            #region Parse external X-Bits file
+            // Executable bits must be stored externally on some platforms (e.g. Windows) because the file system attributes can't
+            var externalXbits = new C5.HashSet<string>();
+            string xbitPath = Path.Combine(path, ".xbit");
+            if (File.Exists(xbitPath))
+            {
+                // ToDo: Check encoding and linebreak style
+                using (StreamReader xbitFile = File.OpenText(xbitPath))
+                {
+                    // Each line in the file signals an executable file
+                    while (!xbitFile.EndOfStream)
+                    {
+                        string currentLine = xbitFile.ReadLine();
+                        if (currentLine.StartsWith("/"))
+                        {
+                            // Trim away the first slash and then replace Unix-style slashes
+                            string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
+                            externalXbits.Add(Path.Combine(path, relativePath));
+                        }
+                    }
+                }
+            }
+            #endregion
+
             var nodes = new List<ManifestNode>();
-            AddToList(nodes, format.HashingMethod, path, path);
+            AddToList(nodes, format.HashingMethod, externalXbits, path, path);
             return new Manifest(nodes, format);
         }
         #endregion
