@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// Models a cache directory residing on the disk.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class DirectoryStore : IStore
+    public class DirectoryStore : IStore, IEquatable<DirectoryStore>
     {
         #region Variables
         /// <summary>
@@ -155,6 +155,20 @@ namespace ZeroInstall.Store.Implementation
 
             // Move directory to final store destination
             Directory.Move(tempDir, Path.Combine(_cacheDir, expectedDigest));
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(DirectoryStore other)
+        {
+            return _cacheDir == other._cacheDir;
+        }
+
+        public override bool Equals(object other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return other.GetType() == typeof(DirectoryStore) && Equals(other as DirectoryStore);
         }
         #endregion
     }

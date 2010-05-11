@@ -45,6 +45,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>DownloadBroker</Name>
@@ -53,6 +57,18 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Model\Test.Model.csproj">
+      <Project>{8CFCCBA6-6F95-4C81-9D57-A9E8AA2E8FF5}</Project>
+      <Name>Test.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FetcherExamples.cs" />
+    <Compile Include="FetcherStoreInteraction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

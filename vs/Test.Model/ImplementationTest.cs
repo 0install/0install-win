@@ -30,7 +30,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a fictive test <see cref="Implementation"/>.
         /// </summary>
-        internal static Implementation CreateTestImplementation()
+        public static Implementation CreateTestImplementation()
         {
             return new Implementation
             {
