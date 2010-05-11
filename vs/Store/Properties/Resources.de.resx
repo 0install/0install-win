@@ -124,7 +124,7 @@
     <value>Die Anzahl der Blöcke in dieser Zeile stimmt nicht.</value>
   </data>
   <data name="NewlineInName" xml:space="preserve">
-    <value>Der Name darf kein Zeilenumbruch-Zeichen enthalten.</value>
+    <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
   </data>
   <data name="NoKnownDigestMethod" xml:space="preserve">
     <value>Es wurde keine bekannte Digest-Methode definiert.</value>

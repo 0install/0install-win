@@ -31,26 +31,17 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The hash of the link target path.
         /// </summary>
-        public string Hash { get; set; }
+        public string Hash { get; private set; }
         
         /// <summary>
         /// The length of the link target path.
         /// </summary>
-        public long Size { get; set; }
+        public long Size { get; private set; }
 
-        private string _symlinkName;
         /// <summary>
         /// The name of the symlink without the containing directory.
         /// </summary>
-        public string SymlinkName
-        {
-            get { return _symlinkName; }
-            private set
-            {
-                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
-                _symlinkName = value;
-            }
-        }
+        public string SymlinkName { get; private set; }
         #endregion
 
         #region Constructor
@@ -60,8 +51,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="hash">The hash of the link target path.</param>
         /// <param name="size">The length of the link target path.</param>
         /// <param name="symlinkName">The name of the symlink without the containing directory.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="symlinkName"/> contains a newline character.</exception>
         internal ManifestSymlink(string hash, long size, string symlinkName)
         {
+            #region Sanity checks
+            if (symlinkName.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "symlinkName");
+            #endregion
+
             Hash = hash;
             Size = size;
             SymlinkName = symlinkName;

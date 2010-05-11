@@ -95,6 +95,17 @@ namespace ZeroInstall.Store.Implementation
 
         }
 
+        // Test deactivated because it cannot work on a Windows filesystem
+        //[Test]
+        public void ShouldRejectFileNamesWithNewline()
+        {
+            using (var package = new TemporaryDirectory())
+            {
+                File.WriteAllText(Path.Combine(package.Path, "test\nfile"), @"AAA");
+                Assert.Throws<ArgumentException>(() => Manifest.Generate(package.Path, ManifestFormat.Sha256));
+            }
+        }
+
         [Test]
         public void ShouldListExecutableWithFlagF()
         {

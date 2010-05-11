@@ -34,19 +34,10 @@ namespace ZeroInstall.Store.Implementation
         /// <remarks>Only used for old manifest format.</remarks>
         public long ModifiedTime { get; private set; }
 
-        private string _fullPath;
         /// <summary>
         /// The name of the symlink without the containing directory.
         /// </summary>
-        public string FullPath
-        {
-            get { return _fullPath; }
-            private set
-            {
-                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
-                _fullPath = value;
-            }
-        }
+        public string FullPath { get; private set; }
         #endregion
 
         #region Constructor
@@ -55,8 +46,13 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="fullPath"/> contains a newline character.</exception>
         internal ManifestDirectory(long modifiedTime, string fullPath)
         {
+            #region Sanity checks
+            if (fullPath.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fullPath");
+            #endregion
+
             ModifiedTime = modifiedTime;
             FullPath = fullPath;
         }

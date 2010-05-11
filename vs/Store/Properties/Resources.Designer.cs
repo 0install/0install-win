@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Name must not contain a newline character..
+        ///   Looks up a localized string similar to The file or directory name must not contain a newline character..
         /// </summary>
         internal static string NewlineInName {
             get {

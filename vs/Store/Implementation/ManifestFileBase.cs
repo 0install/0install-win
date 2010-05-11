@@ -42,19 +42,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public long Size { get; private set; }
 
-        private string _fileName;
         /// <summary>
         /// The name of the file without the containing directory.
         /// </summary>
-        public string FileName
-        {
-            get { return _fileName; }
-            private set
-            {
-                if (value.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "value");
-                _fileName = value;
-            }
-        }
+        public string FileName { get; private set; }
         #endregion
 
         #region Constructor
@@ -65,8 +56,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
         protected ManifestFileBase(string hash, long modifiedTime, long size, string fileName)
         {
+            #region Sanity checks
+            if (fileName.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fileName");
+            #endregion
+
             Hash = hash;
             ModifiedTime = modifiedTime;
             Size = size;

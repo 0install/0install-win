@@ -76,6 +76,8 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="externalXbits">A list of files that are to be treated as if they had the executable flag set.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
+        /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception>
+        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, ICollection<string> externalXbits, string startPath, string path)
         {
             #region Sanity checks
@@ -126,7 +128,9 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
         /// <returns>A manifest for the directory.</returns>
+        /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception> 
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public static Manifest Generate(string path, ManifestFormat format)
         {
             #region Parse external X-Bits file
