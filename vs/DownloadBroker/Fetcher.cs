@@ -43,7 +43,7 @@ namespace ZeroInstall.DownloadBroker
 
         #region Constructor
         /// <summary>
-        /// Creates a new download request. Use <see cref="GetMain"/> whenever possible instead.
+        /// Creates a new download request. Use <see cref="Default"/> whenever possible instead.
         /// </summary>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
         public Fetcher(IStore store)

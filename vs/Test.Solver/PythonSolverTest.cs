@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
 using ZeroInstall.Store.Interface;
 
@@ -28,7 +27,7 @@ namespace ZeroInstall.Solver
     public class PythonSolverTest
     {
         /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve(System.Uri)"/> correctly solves the dependencies for a specific feed URI.
+        /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
         /// </summary>
         [Test]
         public void TestSolve()
