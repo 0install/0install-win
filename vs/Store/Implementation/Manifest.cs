@@ -163,25 +163,70 @@ namespace ZeroInstall.Store.Implementation
         
         #region Storage
         /// <summary>
-        /// Writes the manifest to a file using the and calculates its hash.
+        /// Writes the manifest to a file and calculates its hash.
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The manifest digest (format=hash).</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
         public string Save(string path)
         {
-            // ToDo: Check encoding and linebreak style
-            using (var writer = new StreamWriter(path))
-            {
-                // Write one line for each node
-                foreach (ManifestNode node in Nodes)
-                    writer.WriteLine(Format.GenerateEntryForNode(node));
-            }
+            using (var stream = File.Create(path))
+                Save(stream);
 
             // Caclulate the hash of the completed manifest file
             return Format.Prefix + FileHelper.ComputeHash(path, Format.HashingMethod);
+        }
+
+        /// <summary>
+        /// Writes the manifest to a stream.
+        /// </summary>
+        /// <param name="stream">The stream to write to.</param>
+        /// <returns>The manifest digest (format=hash).</returns>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public void Save(Stream stream)
+        {
+            // ToDo: Check encoding and linebreak style
+            var writer = new StreamWriter(stream);
+            // Write one line for each node
+            foreach (ManifestNode node in Nodes)
+                writer.WriteLine(Format.GenerateEntryForNode(node));
+            writer.Flush();
+        }
+
+        /// <summary>
+        /// Parses a manifest file stream.
+        /// </summary>
+        /// <param name="stream">The stream to load from.</param>
+        /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format.</param>
+        /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
+        /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public static Manifest Load(Stream stream, ManifestFormat format)
+        {
+            var nodes = new List<ManifestNode>();
+
+            // ToDo: Check encoding and linebreak style
+            var reader = new StreamReader(stream);
+            while (!reader.EndOfStream)
+            {
+                // Parse each line as a node
+                string line = reader.ReadLine();
+                if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
+                else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
+                else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
+                else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromString(line));
+                else throw new FormatException(Resources.InvalidLinesInManifest);
+            }
+
+            return new Manifest(nodes, format);
         }
 
         /// <summary>
@@ -190,31 +235,16 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the file to load.</param>
         /// <param name="format">The format of the file and the format of the created <see cref="Manifest"/>. Comprises the hash algorithm used and the file's format.</param>
         /// <returns>A set of <see cref="ManifestNode"/>s containing the parsed content of the file.</returns>
-        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
         /// <exception cref="FormatException">Thrown if the file specified is not a valid manifest file.</exception>
+        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
         public static Manifest Load(string path, ManifestFormat format)
         {
-            var nodes = new List<ManifestNode>();
-
-            // ToDo: Check encoding and linebreak style
-            using (var reader = new StreamReader(path))
-            {
-                while (!reader.EndOfStream)
-                {
-                    // Parse each line as a node
-                    string line = reader.ReadLine();
-                    if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
-                    else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
-                    else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
-                    else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromString(line));
-                    else throw new FormatException(Resources.InvalidLinesInManifest);
-                }
-            }
-
-            return new Manifest(nodes, format);
+            using (var stream = File.OpenRead(path))
+                return Load(stream, format);
         }
         #endregion
 
@@ -225,6 +255,8 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
         /// <returns>The manifest digest (format=hash).</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -241,11 +273,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var stream = new MemoryStream())
             {
-                // ToDo: Check encoding and linebreak style
-                var writer = new StreamWriter(stream);
-                foreach (ManifestNode node in Nodes)
-                    writer.WriteLine(Format.GenerateEntryForNode(node));
-                writer.Flush();
+                Save(stream);
 
                 stream.Position = 0;
                 return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashingMethod);

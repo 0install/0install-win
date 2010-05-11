@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using Common.Properties;
 using Common.Storage;
 
@@ -140,6 +141,52 @@ namespace Common.Collections
 
         //--------------------//
 
+        #region Storage
+        /// <summary>
+        /// Loads an <see cref="XmlCollection"/> from an XML file.
+        /// </summary>
+        /// <param name="path">The file to load from.</param>
+        /// <returns>The loaded <see cref="XmlCollection"/>.</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        public static XmlCollection Load(string path)
+        {
+            return XmlStorage.Load<XmlCollection>(path);
+        }
+
+        /// <summary>
+        /// Loads an <see cref="XmlCollection"/> from a stream containing an XML file.
+        /// </summary>
+        /// <param name="stream">The stream to load from.</param>
+        /// <returns>The loaded <see cref="XmlCollection"/>.</returns>
+        public static XmlCollection Load(Stream stream)
+        {
+            return XmlStorage.Load<XmlCollection>(stream);
+        }
+
+        /// <summary>
+        /// Saves this <see cref="XmlCollection"/> to an XML file.
+        /// </summary>
+        /// <param name="path">The file to save in.</param>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        public void Save(string path)
+        {
+            XmlStorage.Save(path, this);
+        }
+
+        /// <summary>
+        /// Saves this <see cref="XmlCollection"/> to a stream as an XML file.
+        /// </summary>
+        /// <param name="stream">The stream to save in.</param>
+        public void Save(Stream stream)
+        {
+            XmlStorage.Save(stream, this);
+        }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
         /// Convert this <see cref="XmlCollection"/> to a <see cref="Dictionary{TKey,TValue}"/> for better lookup-performance
@@ -151,27 +198,6 @@ namespace Common.Collections
             foreach (XmlCollectionEntry entry in this)
                 dictionary.Add(entry.Key, entry.Value);
             return dictionary;
-        }
-        #endregion
-
-        #region Storage
-        /// <summary>
-        /// Loads an XML collection from an XML file
-        /// </summary>
-        /// <param name="path">The file to load from</param>
-        /// <returns>The loaded table</returns>
-        public static XmlCollection Load(string path)
-        {
-            return XmlStorage.Load<XmlCollection>(path);
-        }
-
-        /// <summary>
-        /// Saves this XML collection in an XML file
-        /// </summary>
-        /// <param name="path">The file to save in</param>
-        public void Save(string path)
-        {
-            XmlStorage.Save(path, this);
         }
         #endregion
 

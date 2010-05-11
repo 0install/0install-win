@@ -248,6 +248,8 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Interface"/>.</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public static Interface Load(string path)
         {
             return XmlStorage.Load<Interface>(path);
@@ -267,6 +269,8 @@ namespace ZeroInstall.Model
         /// Saves this <see cref="Interface"/> to an XML file (feed).
         /// </summary>
         /// <param name="path">The file to save in.</param>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
             XmlStorage.Save(path, this);

@@ -102,6 +102,8 @@ namespace ZeroInstall.Solver
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Selections"/>.</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public static Selections Load(string path)
         {
             return XmlStorage.Load<Selections>(path);
@@ -121,6 +123,8 @@ namespace ZeroInstall.Solver
         /// Saves these <see cref="Selections"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
             XmlStorage.Save(path, this);
