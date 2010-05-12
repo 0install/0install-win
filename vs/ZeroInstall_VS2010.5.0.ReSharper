@@ -10,8 +10,7 @@
             <CustomDictionary>
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
-              <UserWords>apps
-cancelled
+              <UserWords>cancelled
 deserialization
 downloadable
 Eicher
@@ -23,7 +22,8 @@ serializer
 Silva
 symlink
 uncached
-uri</UserWords>
+uri
+Apps</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

@@ -25,8 +25,7 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public static class StoreProvider
     {
-
-        private static IStore _defaultStore;
+        private static readonly IStore _defaultStore = new DirectoryStore();
         /// <summary>
         /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
@@ -34,7 +33,13 @@ namespace ZeroInstall.Store.Implementation
         {
             get
             {
-                if (_defaultStore == null) _defaultStore = new DirectoryStore();
+                // ToDo: Make more flexible
+
+                //return new StoreSet(new IStore[]
+                //{
+                //    new ServiceStore(new DirectoryStore(Locations.GetSystemCacheDir(DirectoryStore.UserProfileDirectory))),
+                //    new DirectoryStore()
+                //});
 
                 return _defaultStore;
             }
