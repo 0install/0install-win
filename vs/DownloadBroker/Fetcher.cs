@@ -16,8 +16,13 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
+using Common.Storage;
+using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using Common.Helpers;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -65,6 +70,41 @@ namespace ZeroInstall.DownloadBroker
         {
             foreach (var implementation in fetcherRequest.Implementations)
             {
+                foreach (var archive in implementation.Archives)
+                {
+                    var webClient = new WebClient();
+                    var tempArchive = new FileInfo(Path.GetTempFileName());
+                    webClient.DownloadFile(archive.Location, tempArchive.FullName);
+                    webClient.Dispose();
+                    
+                    using (var archiveStream = tempArchive.OpenRead())
+                    {
+                        archiveStream.Seek(archive.StartOffset, SeekOrigin.Begin);
+                        
+                        HandleZip(archiveStream);
+                    }
+                }
+            }
+        }
+
+        private void HandleZip(Stream archive)
+        {
+            var stream = new ZipInputStream(archive);
+
+            ZipEntry entry;
+            using (var extractFolder = new TemporaryDirectory())
+            {
+                while ((entry = stream.GetNextEntry()) != null)
+                {
+                    string extractedEntry = Path.Combine(extractFolder.Path, entry.Name);
+                    if (entry.IsDirectory) Directory.CreateDirectory(extractedEntry);
+                    else if (entry.IsFile)
+                    {
+                        byte[] data = new byte[entry.Size];
+                        File.WriteAllBytes(extractedEntry, data);
+                    }
+                    else throw new ApplicationException("Not supported archive entry");
+                }
             }
         }
     }
