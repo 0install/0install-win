@@ -17,12 +17,11 @@
 
 using System;
 using System.IO;
-using System.Net;
+using Common.Download;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using Common.Helpers;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -72,10 +71,8 @@ namespace ZeroInstall.DownloadBroker
             {
                 foreach (var archive in implementation.Archives)
                 {
-                    var webClient = new WebClient();
                     var tempArchive = new FileInfo(Path.GetTempFileName());
-                    webClient.DownloadFile(archive.Location, tempArchive.FullName);
-                    webClient.Dispose();
+                    new DownloadFile(archive.Location, tempArchive.FullName).RunSync();
                     
                     using (var archiveStream = tempArchive.OpenRead())
                     {

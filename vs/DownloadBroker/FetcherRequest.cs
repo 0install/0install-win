@@ -29,11 +29,11 @@ namespace ZeroInstall.DownloadBroker
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
-        private readonly C5.IList<Implementation> _implementations = new C5.HashedLinkedList<Implementation>();
+        private readonly C5.ISequenced<Implementation> _implementations;
         /// <summary>
-        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Implementation"/>s.
+        /// The <see cref="Implementation"/>s to be downloaded.
         /// </summary>
-        public C5.ISequenced<Implementation> Implementations { get { return _implementations; } }
+        public IEnumerable<Implementation> Implementations { get { return _implementations; } }
         #endregion
 
         #region Constructor
@@ -48,7 +48,11 @@ namespace ZeroInstall.DownloadBroker
             #endregion
 
             // Defensive copy
+            var tempList = new C5.ArrayList<Implementation>();
             _implementations.AddAll(implementations);
+
+            // Make the collections immutable
+            _implementations = new C5.GuardedList<Implementation>(tempList);
         }
         #endregion
     }
