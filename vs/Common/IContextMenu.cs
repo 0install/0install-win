@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace Common
@@ -33,6 +34,7 @@ namespace Common
         /// <summary>
         /// Returns the context menu for this object. May be <see langword="null"/>.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Creates a new object on each call")]
         ContextMenu GetContextMenu();
     }
 }

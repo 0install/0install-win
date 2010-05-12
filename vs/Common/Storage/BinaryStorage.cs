@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Common.Helpers;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Storage
@@ -89,14 +90,8 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
             #endregion
 
-            using (var stream = new MemoryStream())
-            {
-                stream.Position = 0;
-                using (var writer = new StreamWriter(stream))
-                    writer.Write(data);
-
+            using (var stream = StreamHelper.CreateFromString(data))
                 return Load<T>(stream);
-            }
         }
         #endregion
 
@@ -146,8 +141,8 @@ namespace Common.Storage
                 Save(stream, data);
 
                 stream.Position = 0;
-                using (var reader = new StreamReader(stream))
-                    return reader.ReadToEnd();
+                var reader = new StreamReader(stream);
+                return reader.ReadToEnd();
             }
         }
         #endregion

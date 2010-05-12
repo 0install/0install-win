@@ -140,7 +140,10 @@ namespace Common.Storage
 
                 if (Msg.Choose(null, Resources.LoseChangesAsk, MsgSeverity.Warning, false, Resources.LoseChangesYes, Resources.LoseChangesNo) == DialogResult.No) return;
 
-                try { ContentManager.DeleteModFile(_type, _name); }
+                try
+                {
+                    ContentManager.DeleteModFile(_type, _name);
+                }
                 #region Error handling
                 catch (IOException)
                 {
@@ -158,13 +161,15 @@ namespace Common.Storage
                 if (EntryType == FileEntryType.Added) EntryType = FileEntryType.Deleted;
                 if (EntryType == FileEntryType.Modified) EntryType = FileEntryType.Normal;
             };
-            return new ContextMenu(new[] { menuEntry });
+            return new ContextMenu(new[] {menuEntry});
         }
         #endregion
 
         #region Equality and comparison
         public bool Equals(FileEntry other)
         {
+            if (ReferenceEquals(null, other)) return false;
+
             return StringHelper.Compare(Name, other.Name);
         }
 

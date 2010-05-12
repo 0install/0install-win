@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.Cryptography;
 
@@ -39,6 +40,11 @@ namespace Common.Helpers
         /// <returns>A hexadecimal string representation of the hash value.</returns>
         public static string ComputeHash(string path, HashAlgorithm algorithm)
         {
+            #region Sanity checks
+            if (path == null) throw new ArgumentNullException("path");
+            if (algorithm == null) throw new ArgumentNullException("algorithm");
+            #endregion
+
             byte[] hash;
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
                 hash = algorithm.ComputeHash(stream);
@@ -54,6 +60,11 @@ namespace Common.Helpers
         /// <returns>A hexadecimal string representation of the hash value.</returns>
         public static string ComputeHash(Stream stream, HashAlgorithm algorithm)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (algorithm == null) throw new ArgumentNullException("algorithm");
+            #endregion
+            
             return BitConverter.ToString(algorithm.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
         }
 
@@ -62,6 +73,7 @@ namespace Common.Helpers
         /// </summary>
         /// <returns>The full path of the temporary directory.</returns>
         /// <exception cref="IOException">Thrown if an IO error occurred, such as no unique temporary directory name is available.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Delivers a new value on each call")]
         public static string GetTempDirectory()
         {
             string tempPath = Path.GetTempFileName();
@@ -77,6 +89,10 @@ namespace Common.Helpers
         /// <returns>The complete path for the new file or directory.</returns>
         public static string GetUniqueFileName(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             string uniquePath;
             do uniquePath = Path.Combine(path, Path.GetRandomFileName());
             while (File.Exists(uniquePath) || Directory.Exists(uniquePath));

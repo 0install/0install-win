@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using Common.Helpers;
 using Common.Properties;
 
@@ -31,6 +32,7 @@ namespace Common.Download
     /// <summary>
     /// Controls the executing of multiple <see cref="DownloadJob"/>s (sorting them by priority).
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class DownloadManager
     {
         #region Variables
@@ -117,6 +119,10 @@ namespace Common.Download
         /// <remarks>Calling this for a <see cref="DownloadJob"/> already in the queue will have no effect.</remarks>
         public void AddJob(DownloadJob job)
         {
+            #region Sanity checks
+            if (job == null) throw new ArgumentNullException("job");
+            #endregion
+
             lock (_scheduleLock)
             {
                 if (_jobs.Add(job))
@@ -134,6 +140,10 @@ namespace Common.Download
         /// <remarks>Calling this for a <see cref="DownloadJob"/> not in the queue will have no effect.</remarks>
         public void RemoveJob(DownloadJob job)
         {
+            #region Sanity checks
+            if (job == null) throw new ArgumentNullException("job");
+            #endregion
+
             lock (_scheduleLock)
             {
                 if (_jobs.Remove(job))

@@ -39,8 +39,10 @@ namespace Common.Helpers
         /// <param name="bufferSize">The size of the buffer to use for copying in bytes</param>
         public static void Copy(Stream source, Stream destination, long bufferSize)
         {
+            #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("destination");
+            #endregion
 
             var buffer = new byte[bufferSize];
             int read;
@@ -63,8 +65,10 @@ namespace Common.Helpers
         /// <param name="destination">The destination stream to copy to</param>
         public static void Copy(Stream source, Stream destination)
         {
+            #region Sanity checks
             if (source == null) throw new ArgumentNullException("source");
             if (destination == null) throw new ArgumentNullException("destination");
+            #endregion
 
             Copy(source, destination, source.Length == 0 ? source.Position : source.Length);
         }
@@ -76,8 +80,12 @@ namespace Common.Helpers
         /// <returns>A filled stream with the position set to zero.</returns>
         public static Stream CreateFromString(string data)
         {
-            byte[] byteArray = Encoding.ASCII.GetBytes(data);
-            var stream = new MemoryStream( byteArray );
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
+            byte[] byteArray = Encoding.UTF8.GetBytes(data);
+            var stream = new MemoryStream(byteArray);
             return stream;
         }
 
@@ -88,6 +96,10 @@ namespace Common.Helpers
         /// <returns>A entire content of the stream.</returns>
         public static string ReadToString(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             stream.Position = 0;
             var reader = new StreamReader(stream);
             return reader.ReadToEnd();

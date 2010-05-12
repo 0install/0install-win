@@ -60,6 +60,8 @@ namespace ZeroInstall.Store.Implementation
         protected ManifestFileBase(string hash, long modifiedTime, long size, string fileName)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(hash)) throw new ArgumentNullException("hash");
+            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
             if (fileName.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fileName");
             #endregion
 

@@ -133,6 +133,11 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public static Manifest Generate(string path, ManifestFormat format)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
             #region Parse external X-Bits file
             // Executable bits must be stored externally on some platforms (e.g. Windows) because the file system attributes can't
             var externalXbits = new C5.HashSet<string>();
@@ -178,6 +183,10 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public string Save(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             using (var stream = File.Create(path))
                 Save(stream);
 
@@ -195,6 +204,10 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public void Save(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             // ToDo: Check encoding and linebreak style
             var writer = new StreamWriter(stream);
             // Write one line for each node
@@ -215,6 +228,11 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public static Manifest Load(Stream stream, ManifestFormat format)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
             var nodes = new List<ManifestNode>();
 
             // ToDo: Check encoding and linebreak style
@@ -247,6 +265,11 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public static Manifest Load(string path, ManifestFormat format)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
             using (var stream = File.OpenRead(path))
                 return Load(stream, format);
         }
@@ -266,6 +289,11 @@ namespace ZeroInstall.Store.Implementation
         /// </remarks>
         public static string CreateDotFile(string path, ManifestFormat format)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
             return Generate(path, format).Save(Path.Combine(path, ".manifest"));
         }
 

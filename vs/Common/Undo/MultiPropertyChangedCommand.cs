@@ -52,9 +52,9 @@ namespace Common.Undo
         {
             #region Sanity checks
             if (targets == null) throw new ArgumentNullException("targets");
-            if (targets.Length != oldValues.Length) throw new ArgumentException(Resources.TargetsOldValuesLength, "targets");
-            if (property == null) throw new ArgumentNullException("property");
             if (oldValues == null) throw new ArgumentNullException("oldValues");
+            if (property == null) throw new ArgumentNullException("property");
+            if (targets.Length != oldValues.Length) throw new ArgumentException(Resources.TargetsOldValuesLength, "targets");
             #endregion
 
             _targets = targets;
@@ -69,6 +69,7 @@ namespace Common.Undo
         /// <param name="targets">The objects the <see cref="PropertyGrid.SelectedObject"/> is target at</param>
         /// <param name="e">The event data from the <see cref="PropertyGrid.PropertyValueChanged"/></param>
         /// <param name="oldValues">The property's old values</param>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", Justification = "The arguments are passed on to a different overload of the constructor")]
         [SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "This is simply a comfort wrapper for extracting values from the event arguments")]
         public MultiPropertyChangedCommand(object[] targets, PropertyValueChangedEventArgs e, object[] oldValues)
             : this(targets, e.ChangedItem.PropertyDescriptor, oldValues, e.ChangedItem.Value)

@@ -46,7 +46,7 @@ namespace Common.Collections
     /// </summary>
     /// <remarks>An item can always only be in one <see cref="Pool{T}"/> at any given time.</remarks>
     /// <typeparam name="T">The type of items to store in the <see cref="Pool{T}"/>.</typeparam>
-    public class Pool<T> : IPoolable<T> where T : class, IPoolable<T>
+    public sealed class Pool<T> : IPoolable<T> where T : class, IPoolable<T>
     {
         #region Variables
         private int _count;

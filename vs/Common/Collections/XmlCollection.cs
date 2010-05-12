@@ -49,6 +49,10 @@ namespace Common.Collections
 
         protected override void InsertItem(int index, XmlCollectionEntry item)
         {
+            #region Sanity check
+            if (item == null) throw new ArgumentNullException("item");
+            #endregion
+
             if (!string.IsNullOrEmpty(item.Key) && ContainsKey(item.Key))
                 throw new ArgumentException(Resources.KeyAlreadyPresent, "item");
             item.Parent = this;

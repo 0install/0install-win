@@ -83,33 +83,32 @@ namespace Common.Controls
             {
                 zipStream.SetLevel(9);
 
-                using (var writer = new StreamWriter(zipStream))
+                var writer = new StreamWriter(zipStream);
+
+                // Store the log file
+                zipStream.PutNextEntry(new ZipEntry("Log.txt"));
+                writer.Write(Log.Content);
+                zipStream.CloseEntry();
+
+                // Store the exception information as TXT
+                zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
+                writer.Write(detailsBox.Text);
+                zipStream.CloseEntry();
+
+                // Store the exception information as XML
+                zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
+                XmlStorage.Save(zipStream, _exceptionInformation);
+                zipStream.CloseEntry();
+
+                if (!string.IsNullOrEmpty(commentBox.Text))
                 {
-                    writer.AutoFlush = true;
-
-                    // Store the log file
-                    zipStream.PutNextEntry(new ZipEntry("Log.txt"));
-                    writer.Write(Log.Content);
+                    // Store the user comment
+                    zipStream.PutNextEntry(new ZipEntry("Comment.txt"));
+                    writer.Write(commentBox.Text);
                     zipStream.CloseEntry();
-
-                    // Store the exception information as TXT
-                    zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
-                    writer.Write(detailsBox.Text);
-                    zipStream.CloseEntry();
-
-                    // Store the exception information as XML
-                    zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
-                    XmlStorage.Save(zipStream, _exceptionInformation);
-                    zipStream.CloseEntry();
-
-                    if (!string.IsNullOrEmpty(commentBox.Text))
-                    {
-                        // Store the user comment
-                        zipStream.PutNextEntry(new ZipEntry("Comment.txt"));
-                        writer.Write(commentBox.Text);
-                        zipStream.CloseEntry();
-                    }
                 }
+
+                writer.Flush();
             }
             _callback(reportPath);
 

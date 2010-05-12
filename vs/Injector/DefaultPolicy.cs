@@ -34,11 +34,11 @@ namespace ZeroInstall.Injector
         /// <remarks>If <see cref="AdditionalStore"/> is <see langword="null"/>, this is the same as <see cref="DownloadBroker.Fetcher.Store"/>.</remarks>
         public override IStore Store
         {
-            get  { return ((AdditionalStore == null) ? base.Store : new StoreSet(new[] { AdditionalStore, base.Store })); }
+            get { return ((AdditionalStore == null) ? base.Store : new StoreSet(new[] { AdditionalStore, base.Store })); }
         }
 
         /// <summary>
-        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="StoreProvider.GetDefaultStore"/>.
+        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="StoreProvider.DefaultStore"/>.
         /// </summary>
         /// <remarks>This location will not be used by <see cref="Policy.Fetcher"/>.</remarks>
         public IStore AdditionalStore { get; set; }

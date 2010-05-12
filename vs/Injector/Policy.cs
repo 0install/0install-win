@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
 using ZeroInstall.Solver;
@@ -25,6 +26,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Brings together a <see cref="Solver"/> and a <see cref="Fetcher"/> to create a <see cref="Launcher"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
     {
         #region Properties

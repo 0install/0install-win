@@ -76,6 +76,11 @@ namespace ZeroInstall.Solver
         /// <returns>The actual <see cref="Implementation"/>s (taken from <see cref="InterfaceProvider"/>) instead of the <see cref="ImplementationSelection"/>s.</returns>
         public IEnumerable<Implementation> GetUncachedImplementations(IStore implementationStore, InterfaceProvider interfaceProvider)
         {
+            #region Sanity checks
+            if (implementationStore == null) throw new ArgumentNullException("implementationStore");
+            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
+            #endregion
+
             ICollection<Implementation> notCached = new LinkedList<Implementation>();
 
             foreach (var implementation in Implementations)

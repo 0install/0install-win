@@ -29,7 +29,7 @@ namespace Common.Storage
     /// <summary>
     /// Disposable class to create a temporary folder and delete it again when disposed.
     /// </summary>
-    public class TemporaryDirectory : IDisposable
+    public sealed class TemporaryDirectory : IDisposable
     {
         #region Properties
         /// <summary>

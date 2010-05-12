@@ -180,6 +180,10 @@ namespace Common.Helpers
         /// <param name="separator">The separator characters to place between the <paramref name="lines"/>.</param>
         public static string BuildStringFromLines(string[] lines, string separator)
         {
+            #region Sanity checks
+            if (lines == null) throw new ArgumentNullException("lines");
+            #endregion
+
             var output = new StringBuilder();
             for (int i = 0; i < lines.Length; i++)
             {

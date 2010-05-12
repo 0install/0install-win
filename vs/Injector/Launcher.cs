@@ -83,10 +83,7 @@ namespace ZeroInstall.Injector
         {
             // ToDo: Implement properly
 
-            string implDir =
-                (!string.IsNullOrEmpty(_implementations[0].LocalPath)
-                     ? _implementations[0].LocalPath
-                     : _provider.GetPath(_implementations[0].ManifestDigest));
+            string implDir = (!string.IsNullOrEmpty(_implementations[0].LocalPath) ? _implementations[0].LocalPath : _provider.GetPath(_implementations[0].ManifestDigest));
 
             string main = _implementations[0].Main;
             // ToDo: Validate main

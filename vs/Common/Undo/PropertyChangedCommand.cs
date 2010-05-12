@@ -58,6 +58,7 @@ namespace Common.Undo
         /// </summary>
         /// <param name="target">The object the <see cref="PropertyGrid.SelectedObject"/> is target at</param>
         /// <param name="e">The event data from the <see cref="PropertyGrid.PropertyValueChanged"/></param>
+        [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", Justification = "The arguments are passed on to a different overload of the constructor")]
         [SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "This is simply a comfort wrapper for extracting values from the event arguments")]
         public PropertyChangedCommand(object target, PropertyValueChangedEventArgs e)
             : this(target, e.ChangedItem.PropertyDescriptor, e.OldValue, e.ChangedItem.Value)

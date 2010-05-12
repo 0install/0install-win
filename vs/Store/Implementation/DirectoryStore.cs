@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
         public bool Contains(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
-            foreach (string digest in manifestDigest.GetDigests())
+            foreach (string digest in manifestDigest.AvailableDigests)
             {
                 if (Directory.Exists(Path.Combine(_cacheDir, digest))) return true;   
             }
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementation
         public string GetPath(ManifestDigest manifestDigest)
         {
             // Check for all supported digest algorithms
-            foreach (string digest in manifestDigest.GetDigests())
+            foreach (string digest in manifestDigest.AvailableDigests)
             {
                 string path = Path.Combine(_cacheDir, digest);
                 if (Directory.Exists(path)) return path;
@@ -168,11 +168,16 @@ namespace ZeroInstall.Store.Implementation
             return _cacheDir == other._cacheDir;
         }
 
-        public override bool Equals(object other)
+        public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return other.GetType() == typeof(DirectoryStore) && Equals((DirectoryStore)other);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(DirectoryStore) && Equals((DirectoryStore)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_cacheDir != null ? _cacheDir.GetHashCode() : 0);
         }
         #endregion
     }

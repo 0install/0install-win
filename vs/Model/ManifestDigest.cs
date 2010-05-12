@@ -123,15 +123,18 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Lists all contained manifest digests (format=hash) sorted from best (safest) to worst.
         /// </summary>
-        public IEnumerable<string> GetDigests()
+        public IEnumerable<string> AvailableDigests
         {
-            ICollection<string> list = new LinkedList<string>();
+            get
+            {
+                ICollection<string> list = new LinkedList<string>();
 
-            if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
-            if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
-            if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
+                if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
+                if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
+                if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
 
-            return list;
+                return list;
+            }
         }
 
         /// <summary>
