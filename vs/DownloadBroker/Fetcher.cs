@@ -88,19 +88,19 @@ namespace ZeroInstall.DownloadBroker
         {
             var stream = new ZipInputStream(archive);
 
-            ZipEntry entry;
             using (var extractFolder = new TemporaryDirectory())
             {
-                while ((entry = stream.GetNextEntry()) != null)
+                while (stream.Available == 1)
                 {
+                    ZipEntry entry = stream.GetNextEntry();
                     string extractedEntry = Path.Combine(extractFolder.Path, entry.Name);
                     if (entry.IsDirectory) Directory.CreateDirectory(extractedEntry);
                     else if (entry.IsFile)
                     {
-                        byte[] data = new byte[entry.Size];
+                        var data = new byte[entry.Size];
                         File.WriteAllBytes(extractedEntry, data);
                     }
-                    else throw new ApplicationException("Not supported archive entry");
+                    else throw new NotSupportedException("Not supported archive entry");
                 }
             }
         }
