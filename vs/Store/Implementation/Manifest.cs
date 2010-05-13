@@ -144,7 +144,6 @@ namespace ZeroInstall.Store.Implementation
             string xbitPath = Path.Combine(path, ".xbit");
             if (File.Exists(xbitPath))
             {
-                // ToDo: Check encoding and linebreak style
                 using (StreamReader xbitFile = File.OpenText(xbitPath))
                 {
                     // Each line in the file signals an executable file
@@ -208,11 +207,13 @@ namespace ZeroInstall.Store.Implementation
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            // ToDo: Check encoding and linebreak style
-            var writer = new StreamWriter(stream);
+            // Always use Unix-stlye linebreaks to ensure correct hash values
+            var writer = new StreamWriter(stream) {NewLine = "\n"};
+
             // Write one line for each node
             foreach (ManifestNode node in Nodes)
                 writer.WriteLine(Format.GenerateEntryForNode(node));
+
             writer.Flush();
         }
 
@@ -235,7 +236,6 @@ namespace ZeroInstall.Store.Implementation
 
             var nodes = new List<ManifestNode>();
 
-            // ToDo: Check encoding and linebreak style
             var reader = new StreamReader(stream);
             while (!reader.EndOfStream)
             {
