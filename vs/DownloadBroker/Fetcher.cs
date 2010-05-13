@@ -93,6 +93,10 @@ namespace ZeroInstall.DownloadBroker
                 while (stream.Available == 1)
                 {
                     ZipEntry entry = stream.GetNextEntry();
+                    if (IsXbitSet(entry))
+                    {
+                        // ToDo: Create .xbit entry
+                    }
                     string extractedEntry = Path.Combine(extractFolder.Path, entry.Name);
                     if (entry.IsDirectory) Directory.CreateDirectory(extractedEntry);
                     else if (entry.IsFile)
@@ -103,6 +107,13 @@ namespace ZeroInstall.DownloadBroker
                     else throw new NotSupportedException("Not supported archive entry");
                 }
             }
+        }
+
+        private static bool IsXbitSet(ZipEntry entry)
+        {
+            const int xBitFlag = 0x0040;
+            return (entry.HostSystem == (int)HostSystemID.Unix) &&
+                   ((entry.ExternalFileAttributes & xBitFlag) == xBitFlag);
         }
     }
 }
