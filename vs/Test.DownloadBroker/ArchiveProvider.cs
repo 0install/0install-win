@@ -34,12 +34,11 @@ namespace ZeroInstall.DownloadBroker
             context.Response.ContentLength64 = _archive.Length;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
-            using (var archiveStream = _archive.OpenRead())
+            using (var archiveStream = new BinaryReader(_archive.OpenRead()))
             using (var responseStream = context.Response.OutputStream)
             {
                 int length = (int)_archive.Length;
-                byte[] data = new byte[length];
-                archiveStream.Read(data, 0, length);
+                byte[] data = archiveStream.ReadBytes(length);
                 responseStream.Write(data, 0, length);
             }
         }

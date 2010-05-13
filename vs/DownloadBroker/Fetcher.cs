@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 using Common.Download;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
@@ -72,11 +73,13 @@ namespace ZeroInstall.DownloadBroker
                 foreach (var archive in implementation.Archives)
                 {
                     var tempArchive = new FileInfo(Path.GetTempFileName());
-                    new DownloadFile(archive.Location, tempArchive.FullName).RunSync();
+                    var wc = new WebClient();
+                    wc.DownloadFile(archive.Location, tempArchive.FullName);
+                    wc.Dispose();
                     
                     using (var archiveStream = tempArchive.OpenRead())
                     {
-                        archiveStream.Seek(archive.StartOffset, SeekOrigin.Begin);
+                        archiveStream.Position = archive.StartOffset;
                         
                         HandleZip(archiveStream);
                     }
