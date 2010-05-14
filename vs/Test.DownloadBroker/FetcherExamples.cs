@@ -28,7 +28,7 @@ namespace ZeroInstall.DownloadBroker
         private TemporaryDirectory storeDir;
         private DirectoryStore store;
         private Fetcher fetcher;
-        private FileInfo archive;
+        private FileInfo archiveFile;
         private ArchiveProvider server;
 
         [SetUp]
@@ -37,8 +37,8 @@ namespace ZeroInstall.DownloadBroker
             storeDir = new TemporaryDirectory();
             store = new DirectoryStore(storeDir.Path);
             fetcher = new Fetcher(store);
-            archive = new FileInfo(FileHelper.GetUniqueFileName(storeDir.Path) + ".zip");
-            server = new ArchiveProvider(archive.FullName);
+            archiveFile = new FileInfo(FileHelper.GetUniqueFileName(storeDir.Path) + ".zip");
+            server = new ArchiveProvider(archiveFile.FullName);
             server.Start();
         }
 
@@ -46,41 +46,32 @@ namespace ZeroInstall.DownloadBroker
         public void TearDown()
         {
             server.Dispose();
-            archive.Delete();
+            archiveFile.Delete();
             storeDir.Dispose();
         }
 
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            var dummyImplementation = SynthesizeImplementation(archive);
-            var request = new FetcherRequest(new List<Implementation>() {dummyImplementation});
-            fetcher.RunSync(request);
-            Assert.True(store.Contains(dummyImplementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
-        }
-
-        private static Implementation SynthesizeImplementation(FileInfo archiveFile)
-        {
             var packageDir = FileHelper.GetTempDirectory();
-            SynthesizePackage(packageDir);
+            ManifestDigest digest;
+            SynthesizePackage(packageDir, out digest);
             CompressPackage(packageDir, archiveFile);
-            var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha256);
-            var digest = new ManifestDigest(manifest.CalculateHash());
-            var archive = SynthesizeArchive(archiveFile);
-            var result = new Implementation()
-            {
-                ManifestDigest = digest,
-                Archives = {archive}
-            };
-            return result;
+            Archive archive = SynthesizeArchive(archiveFile);
+            Implementation implementation = SynthesizeImplementation(archive, digest);
+            var request = new FetcherRequest(new List<Implementation>() { implementation });
+            fetcher.RunSync(request);
+            Assert.True(store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
-        private static void SynthesizePackage(string package)
+        private static void SynthesizePackage(string package, out ManifestDigest digest)
         {
             File.WriteAllText(Path.Combine(package, "file1"), @"AAAA");
             string inner = Path.Combine(package, "folder1");
             Directory.CreateDirectory(inner);
             File.WriteAllText(Path.Combine(inner, "file2"), @"dskf\nsdf\n");
+            var manifest = Manifest.Generate(package, ManifestFormat.Sha256);
+            digest = new ManifestDigest(manifest.CalculateHash());
         }
 
         private static void CompressPackage(string package, FileInfo destination)
@@ -89,16 +80,25 @@ namespace ZeroInstall.DownloadBroker
             fastZip.CreateZip(destination.FullName, package, true, ".*");
         }
 
-        private static Archive SynthesizeArchive(FileInfo compressedPackage)
+        private static Archive SynthesizeArchive(FileInfo zippedPackage)
         {
-            var result = new Archive() {
+            var result = new Archive()
+            {
                 MimeType = "application/zip",
-                Size = compressedPackage.Length,
+                Size = zippedPackage.Length,
                 Location = new Uri("http://localhost:50222/archives/test.zip")
             };
             return result;
         }
 
-
+        private static Implementation SynthesizeImplementation(Archive archive, ManifestDigest digest)
+        {
+            var result = new Implementation()
+            {
+                ManifestDigest = digest,
+                Archives = {archive}
+            };
+            return result;
+        }
     }
 }
