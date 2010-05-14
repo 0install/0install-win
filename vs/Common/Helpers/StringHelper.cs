@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -174,22 +175,25 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="lines"/>.
+        /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="parts"/>.
         /// </summary>
-        /// <param name="lines">The strings to be combines.</param>
-        /// <param name="separator">The separator characters to place between the <paramref name="lines"/>.</param>
-        public static string BuildStringFromLines(string[] lines, string separator)
+        /// <param name="parts">The strings to be combines.</param>
+        /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
+        public static string Concatenate(IEnumerable<string> parts, string separator)
         {
             #region Sanity checks
-            if (lines == null) throw new ArgumentNullException("lines");
+            if (parts == null) throw new ArgumentNullException("parts");
             #endregion
 
             var output = new StringBuilder();
-            for (int i = 0; i < lines.Length; i++)
+            foreach (var part in parts)
             {
-                output.Append(lines[i]);
-                if (i != lines.Length - 1) output.Append(separator);
+                output.Append(part);
+                output.Append(separator);
             }
+
+            // No separator after last line
+            if (output.Length != 0) output.Remove(output.Length - 1, 1);
 
             return output.ToString();
         }

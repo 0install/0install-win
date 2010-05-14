@@ -106,7 +106,7 @@ namespace Common
         {
             // Split lines and put them back together in order to create uniform line-breaks and indention
             string[] lines = StringHelper.SplitMultilineText(text.Trim());
-            text = StringHelper.BuildStringFromLines(lines, "\r\n\t");
+            text = StringHelper.Concatenate(lines, "\r\n\t");
 
             // Make thread-safe
             lock (_logContent)

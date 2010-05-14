@@ -32,6 +32,11 @@ namespace ZeroInstall.Solver
         bool Source { get; set; }
 
         /// <summary>
+        /// Only choose <see cref="Implementation"/>s with a version number older than this.
+        /// </summary>
+        ImplementationVersion Before { get; set; }
+
+        /// <summary>
         /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
         /// </summary>
         ImplementationVersion NotBefore { get; set; }

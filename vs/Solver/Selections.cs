@@ -143,6 +143,14 @@ namespace ZeroInstall.Solver
         {
             XmlStorage.Save(stream, this);
         }
+
+        /// <summary>
+        /// Returns the <see cref="Selections"/> serialized to an XML string.
+        /// </summary>
+        public string WriteToString()
+        {
+            return XmlStorage.ToString(this);
+        }
         #endregion
 
         //--------------------//

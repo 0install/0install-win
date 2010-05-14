@@ -89,7 +89,7 @@ namespace ZeroInstall.Injector
 
             // Find out which implementations are missing and download them
             var missing = selections.GetUncachedImplementations(Store, Solver.InterfaceProvider);
-            Fetcher.RunSync(new FetcherRequest(missing));
+            if (!Solver.InterfaceProvider.Offline) Fetcher.RunSync(new FetcherRequest(missing));
 
             // Read to run the application
             return new Launcher(selections, Store);

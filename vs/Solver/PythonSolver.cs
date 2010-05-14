@@ -19,7 +19,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Interface;
 
@@ -61,6 +60,11 @@ namespace ZeroInstall.Solver
         /// Download source code instead of executable files.
         /// </summary>
         public bool Source { get; set; }
+        
+        /// <summary>
+        /// Only choose <see cref="Implementation"/>s with a version number older than this.
+        /// </summary>
+        public ImplementationVersion Before { get; set; }
 
         /// <summary>
         /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.

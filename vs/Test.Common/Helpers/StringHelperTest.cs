@@ -67,13 +67,13 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Ensures <see cref="StringHelper.BuildStringFromLines"/> works correctly.
+        /// Ensures <see cref="StringHelper.Concatenate"/> works correctly.
         /// </summary>
         [Test]
         public void TestBuildStringFromLines()
         {
-            Assert.AreEqual("line1", StringHelper.BuildStringFromLines(new[] { "line1" }, "\n"));
-            Assert.AreEqual("line1\nline2", StringHelper.BuildStringFromLines(new[] { "line1", "line2" }, "\n"));
+            Assert.AreEqual("line1", StringHelper.Concatenate(new[] { "line1" }, "\n"));
+            Assert.AreEqual("line1\nline2", StringHelper.Concatenate(new[] { "line1", "line2" }, "\n"));
         }
 
         /// <summary>

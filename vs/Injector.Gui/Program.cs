@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector.Gui
             var policy = new DefaultPolicy();
 
 #if DEBUG
-            policy.GetLauncher(Args.Files[0]).Run();
+            policy.GetLauncher(Args.Files[0]).Run("");
 #else
             try { policy.GetLauncher(Args.Files[0]).Run(); }
             catch (Exception ex)

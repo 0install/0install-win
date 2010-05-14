@@ -16,9 +16,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common.Helpers;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Solver;
@@ -79,7 +81,8 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Executes the first entry in <see cref="Implementation"/>s and injects the rest as dependencies.
         /// </summary>
-        public void Run()
+        /// <param name="arguments">Arguments to pass to the launched applications.</param>
+        public void Run(string arguments)
         {
             // ToDo: Implement properly
 
@@ -87,7 +90,7 @@ namespace ZeroInstall.Injector
 
             string main = _implementations[0].Main;
             // ToDo: Validate main
-            Process.Start(Path.Combine(implDir, main));
+            Process.Start(Path.Combine(implDir, main), arguments);
         }
         #endregion
     }
