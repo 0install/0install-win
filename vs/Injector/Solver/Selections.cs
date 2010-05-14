@@ -26,7 +26,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Represents a number of <see cref="Implementation"/>s chosen for executing an <see cref="Model.Interface"/>.

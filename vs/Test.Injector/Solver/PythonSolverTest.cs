@@ -18,7 +18,7 @@
 using NUnit.Framework;
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains test methods for <see cref="PythonSolver"/>.

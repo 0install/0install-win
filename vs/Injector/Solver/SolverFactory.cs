@@ -17,7 +17,7 @@
 
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Provides access to <see cref="ISolver"/> implementations.

@@ -8,7 +8,6 @@
     <assembly path="build\Debug\Test.ZeroInstall.Injector.Gui.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Model.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Solver.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.Store.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.StoreManagement.Cli.dll" />
     <assembly path="build\Debug\Test.ZeroInstall.StoreManagement.Gui.dll" />
@@ -24,7 +23,6 @@
     <assembly path="build\Release\Test.ZeroInstall.Injector.Gui.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Model.dll" />
     <assembly path="build\Release\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Solver.dll" />
     <assembly path="build\Release\Test.ZeroInstall.Store.dll" />
     <assembly path="build\Release\Test.ZeroInstall.StoreManagement.Cli.dll" />
     <assembly path="build\Release\Test.ZeroInstall.StoreManagement.Gui.dll" />

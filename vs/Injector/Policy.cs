@@ -18,7 +18,7 @@
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
-using ZeroInstall.Solver;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector

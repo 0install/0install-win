@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// An executable implementation of an <see cref="Interface"/>.

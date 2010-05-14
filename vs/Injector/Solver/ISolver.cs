@@ -18,7 +18,7 @@
 using ZeroInstall.Model;
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 

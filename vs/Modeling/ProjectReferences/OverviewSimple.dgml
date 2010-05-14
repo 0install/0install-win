@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="(@23)" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
-      <Category Ref="Category2" />
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
     <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Gui">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
@@ -29,15 +25,15 @@
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Solver">
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
-      <Category Ref="Category9" />
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+      <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@25" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -55,35 +51,31 @@
     </Node>
   </Nodes>
   <Links>
-    <Link Source="(@23)" Target="@16" Category="References" />
     <Link Source="@10" Target="@16" Category="References" />
     <Link Source="@10" Target="@18" Category="References" />
     <Link Source="@10" Target="@20" Category="References" />
-    <Link Source="@10" Target="@22" Category="References" />
     <Link Source="@10" Target="@4" Category="References" />
     <Link Source="@12" Target="@16" Category="References" />
     <Link Source="@12" Target="@4" Category="References" />
     <Link Source="@14" Target="@16" Category="References" />
     <Link Source="@14" Target="@18" Category="References" />
     <Link Source="@14" Target="@20" Category="References" />
-    <Link Source="@14" Target="@25" Category="References" />
+    <Link Source="@14" Target="@24" Category="References" />
     <Link Source="@14" Target="@4" Category="References" />
     <Link Source="@18" Target="@16" Category="References" />
     <Link Source="@18" Target="@4" Category="References" />
     <Link Source="@2" Target="@16" Category="References" />
     <Link Source="@2" Target="@4" Category="References" />
     <Link Source="@20" Target="@16" Category="References" />
+    <Link Source="@20" Target="@18" Category="References" />
     <Link Source="@20" Target="@4" Category="References" />
     <Link Source="@22" Target="@16" Category="References" />
-    <Link Source="@22" Target="@18" Category="References" />
-    <Link Source="@22" Target="@20" Category="References" />
     <Link Source="@22" Target="@4" Category="References" />
-    <Link Source="@25" Target="@16" Category="References" />
+    <Link Source="@24" Target="@16" Category="References" />
     <Link Source="@4" Target="@16" Category="References" />
     <Link Source="@6" Target="@16" Category="References" />
     <Link Source="@6" Target="@18" Category="References" />
     <Link Source="@6" Target="@20" Category="References" />
-    <Link Source="@6" Target="@22" Category="References" />
     <Link Source="@6" Target="@4" Category="References" />
     <Link Source="@8" Target="@16" Category="References" />
     <Link Source="@8" Target="@4" Category="References" />
@@ -145,13 +137,12 @@
     <Alias n="16" Id="(@15)" />
     <Alias n="17" Uri="Assembly=$(VsSolutionUri)/DownloadBroker/DownloadBroker.csproj" />
     <Alias n="18" Id="(@17)" />
-    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Solver/Solver.csproj" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
     <Alias n="20" Id="(@19)" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
     <Alias n="22" Id="(@21)" />
-    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
-    <Alias n="24" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
-    <Alias n="25" Id="(@24)" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="24" Id="(@23)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="VsSolution" Value="..\.." />

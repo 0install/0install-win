@@ -46,6 +46,7 @@
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +60,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Solver\ImplementationSelection.cs" />
+    <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\PythonSolver.cs" />
+    <Compile Include="Solver\Selections.cs" />
+    <Compile Include="Solver\SolverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -72,10 +78,6 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Solver\Solver.csproj">
-      <Project>{ECA34CEC-F328-4149-96E0-331340599B6A}</Project>
-      <Name>Solver</Name>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>

@@ -27,14 +27,12 @@ rd /s /q vs\DownloadBroker\obj > NUL 2>&1
 rd /s /q vs\Injector\obj > NUL 2>&1
 rd /s /q vs\Model\obj > NUL 2>&1
 rd /s /q vs\MyApps\obj > NUL 2>&1
-rd /s /q vs\Solver\obj > NUL 2>&1
 rd /s /q vs\Store\obj > NUL 2>&1
 rd /s /q vs\Test.Common\obj > NUL 2>&1
 rd /s /q vs\Test.DownloadBroker\obj > NUL 2>&1
 rd /s /q vs\Test.Injector\obj > NUL 2>&1
 rd /s /q vs\Test.Model\obj > NUL 2>&1
 rd /s /q vs\Test.MyApps\obj > NUL 2>&1
-rd /s /q vs\Test.Solver\obj > NUL 2>&1
 rd /s /q vs\Test.Store\obj > NUL 2>&1
 rd /s /q vs\Test.Central\obj > NUL 2>&1
 rd /s /q vs\Test.StoreService\obj > NUL 2>&1

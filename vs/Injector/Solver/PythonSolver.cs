@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Uses the Python implementation of 0launch to solve dependencies.

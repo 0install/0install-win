@@ -22,7 +22,7 @@ using Common.Helpers;
 using NDesk.Options;
 using ZeroInstall.Injector.Cli.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Solver;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Injector.Cli
 {

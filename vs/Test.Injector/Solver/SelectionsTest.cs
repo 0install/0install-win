@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains test methods for <see cref="Selections"/>.

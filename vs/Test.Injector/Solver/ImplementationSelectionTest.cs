@@ -20,7 +20,7 @@ using System.Globalization;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains test methods for <see cref="ImplementationSelection"/>.
