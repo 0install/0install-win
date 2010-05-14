@@ -49,7 +49,7 @@ namespace ZeroInstall.DownloadBroker
 
             // Defensive copy
             var tempList = new C5.ArrayList<Implementation>();
-            _implementations.AddAll(implementations);
+            tempList.AddAll(implementations);
 
             // Make the collections immutable
             _implementations = new C5.GuardedList<Implementation>(tempList);
