@@ -98,7 +98,7 @@ namespace ZeroInstall.Injector.Solver
         {
             var implementation = new ImplementationSelection
             {
-                Interface = new Uri("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml"),
+                Interface = "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml",
                 ManifestDigest = new ManifestDigest("sha1new=3b83356a20a4aae1b5aed7e8e91382895fdddf22")
             };
             var selections = new Selections {Implementations = {implementation}};

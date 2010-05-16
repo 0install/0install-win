@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Globalization;
 using NUnit.Framework;
 using ZeroInstall.Model;
@@ -36,7 +35,7 @@ namespace ZeroInstall.Injector.Solver
         {
             return new ImplementationSelection
             {
-                Interface = new Uri("http://0install.de/feeds/test.xml"),
+                Interface = "http://0install.de/feeds/test.xml",
                 ID = "id", ManifestDigest = new ManifestDigest("sha256=invalid"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer

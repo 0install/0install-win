@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public static string UserProfileDirectory
         {
-            get { return Locations.GetUserCacheDir(Path.Combine("0install.net", "implementations")); }
+            get { return Path.Combine(Locations.GetUserCacheDir("0install.net"), "implementations"); }
         }
         #endregion
 

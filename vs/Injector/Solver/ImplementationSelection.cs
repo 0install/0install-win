@@ -17,7 +17,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
@@ -31,22 +30,12 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Properties
         /// <summary>
-        /// The URL of the interface this selection is for.
+        /// The URI or local path of the interface this selection is for.
         /// </summary>
-        [Description("The URL of the interface this selection is for.")]
-        [XmlIgnore]
-        public Uri Interface
+        [Description("The URI or local path of the interface this selection is for.")]
+        [XmlAttribute("interface")]
+        public string Interface
         { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Interface"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false)]
-        public String InterfaceString
-        {
-            get { return (Interface == null ? null : Interface.ToString()); }
-            set { Interface = (value == null ? null : new Uri(value)); }
-        }
 
         /// <summary>
         /// The name of the package in the distribution-specific package manager.
