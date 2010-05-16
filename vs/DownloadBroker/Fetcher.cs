@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Net;
 using Common.Download;
+using Common.Helpers;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
@@ -72,44 +73,36 @@ namespace ZeroInstall.DownloadBroker
             {
                 foreach (var archive in implementation.Archives)
                 {
-                    var tempArchive = new FileInfo(Path.GetTempFileName());
-                    var wc = new WebClient();
-                    wc.DownloadFile(archive.Location, tempArchive.FullName);
-                    wc.Dispose();
+                    byte[] data;
+                    using (var webClient = new WebClient())
+                        data = webClient.DownloadData(archive.Location);
                     
-                    using (var archiveStream = tempArchive.OpenRead())
+                    using (var archiveBuffer = new MemoryStream(data))
                     {
-                        archiveStream.Position = archive.StartOffset;
+                        archiveBuffer.Position = archive.StartOffset;
                         
-                        HandleZip(archiveStream);
+                        string extracted = ExtractZip(archiveBuffer);
+                        Store.Add(extracted, implementation.ManifestDigest);
                     }
                 }
             }
         }
 
-        private void HandleZip(Stream archive)
+        private static string ExtractZip(Stream archive)
         {
-            var stream = new ZipInputStream(archive);
-
-            using (var extractFolder = new TemporaryDirectory())
+            string archiveFileName = Path.GetTempFileName();
+            using (var archiveFile = File.Create(archiveFileName))
+            using (var archiveFileWriter = new BinaryWriter(archiveFile))
+            using (var archiveStreamReader = new BinaryReader(archive))
             {
-                while (stream.Available == 1)
-                {
-                    ZipEntry entry = stream.GetNextEntry();
-                    if (IsXbitSet(entry))
-                    {
-                        // ToDo: Create .xbit entry
-                    }
-                    string extractedEntry = Path.Combine(extractFolder.Path, entry.Name);
-                    if (entry.IsDirectory) Directory.CreateDirectory(extractedEntry);
-                    else if (entry.IsFile)
-                    {
-                        var data = new byte[entry.Size];
-                        File.WriteAllBytes(extractedEntry, data);
-                    }
-                    else throw new NotSupportedException("Not supported archive entry");
-                }
+                archiveFileWriter.Write(archiveStreamReader.ReadBytes((int)(archive.Length - archive.Position)));
             }
+
+            var fastZip = new FastZip();
+            string extractFolder = FileHelper.GetTempDirectory();
+            fastZip.ExtractZip(archiveFileName, extractFolder, @".*");
+            File.Delete(archiveFileName);
+            return extractFolder;
         }
 
         private static bool IsXbitSet(ZipEntry entry)

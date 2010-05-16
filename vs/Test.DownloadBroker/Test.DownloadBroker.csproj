@@ -73,6 +73,10 @@
       <Project>{8CFCCBA6-6F95-4C81-9D57-A9E8AA2E8FF5}</Project>
       <Name>Test.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.Store\Test.Store.csproj">
+      <Project>{EEC57946-EF07-4D25-8EAF-5341BE746F7A}</Project>
+      <Name>Test.Store</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveProvider.cs" />

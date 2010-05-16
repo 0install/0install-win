@@ -1,9 +1,6 @@
 ﻿using System;
 using System.IO;
-using C5;
-using Common.Helpers;
 using NUnit.Framework;
-using NUnit.Mocks;
 using Common.Storage;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
@@ -25,74 +22,84 @@ namespace ZeroInstall.DownloadBroker
     [TestFixture]
     public class DownloadFunctionality
     {
-        private TemporaryDirectory storeDir;
-        private DirectoryStore store;
-        private Fetcher fetcher;
-        private FileInfo archiveFile;
-        private ArchiveProvider server;
+        private TemporaryDirectory _storeDir;
+        private DirectoryStore _store;
+        private Fetcher _fetcher;
+        private string _archiveFile;
+        private ArchiveProvider _server;
 
         [SetUp]
         public void SetUp()
         {
-            storeDir = new TemporaryDirectory();
-            store = new DirectoryStore(storeDir.Path);
-            fetcher = new Fetcher(store);
-            archiveFile = new FileInfo(FileHelper.GetUniqueFileName(storeDir.Path) + ".zip");
-            server = new ArchiveProvider(archiveFile.FullName);
-            server.Start();
+            _storeDir = new TemporaryDirectory();
+            _store = new DirectoryStore(_storeDir.Path);
+            _fetcher = new Fetcher(_store);
+            _archiveFile = Path.GetTempFileName();
+            _server = new ArchiveProvider(_archiveFile);
+            _server.Start();
         }
 
         [TearDown]
         public void TearDown()
         {
-            server.Dispose();
-            archiveFile.Delete();
-            storeDir.Dispose();
+            _server.Dispose();
+            File.Delete(_archiveFile);
+            _storeDir.Dispose();
         }
 
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            var packageDir = FileHelper.GetTempDirectory();
-            ManifestDigest digest;
-            SynthesizePackage(packageDir, out digest);
-            CompressPackage(packageDir, archiveFile);
-            Archive archive = SynthesizeArchive(archiveFile);
-            Implementation implementation = SynthesizeImplementation(archive, digest);
-            var request = new FetcherRequest(new List<Implementation>() { implementation });
-            fetcher.RunSync(request);
-            Assert.True(store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+            using (var packageDir = new TemporaryDirectory())
+            {
+                PreparePackageFolder(packageDir.Path);
+                CompressPackage(packageDir.Path, _archiveFile);
+                Implementation implementation = SynthesizeImplementation(_archiveFile);
+                var request = new FetcherRequest(new List<Implementation>() {implementation});
+                _fetcher.RunSync(request);
+                Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+            }
         }
 
-        private static void SynthesizePackage(string package, out ManifestDigest digest)
+        private static void PreparePackageFolder(string package)
         {
             File.WriteAllText(Path.Combine(package, "file1"), @"AAAA");
             string inner = Path.Combine(package, "folder1");
             Directory.CreateDirectory(inner);
             File.WriteAllText(Path.Combine(inner, "file2"), @"dskf\nsdf\n");
-            var manifest = Manifest.Generate(package, ManifestFormat.Sha256);
-            digest = new ManifestDigest(manifest.CalculateHash());
         }
 
-        private static void CompressPackage(string package, FileInfo destination)
+        private static void CompressPackage(string package, string destination)
         {
             var fastZip = new FastZip();
-            fastZip.CreateZip(destination.FullName, package, true, ".*");
+            fastZip.CreateZip(destination, package, true, ".*");
         }
 
-        private static Archive SynthesizeArchive(FileInfo zippedPackage)
+        private static ManifestDigest CreateDigestForArchiveFile(string file)
+        {
+            using (var extractFolder = new TemporaryDirectory())
+            {
+                var fastZip = new FastZip();
+                fastZip.ExtractZip(file, extractFolder.Path, ".*");
+                return new ManifestDigest(Manifest.Generate(extractFolder.Path, ManifestFormat.Sha256).CalculateHash());
+            }
+        }
+
+        private static Archive SynthesizeArchive(string zippedPackage)
         {
             var result = new Archive()
             {
                 MimeType = "application/zip",
-                Size = zippedPackage.Length,
+                Size = new FileInfo(zippedPackage).Length,
                 Location = new Uri("http://localhost:50222/archives/test.zip")
             };
             return result;
         }
 
-        private static Implementation SynthesizeImplementation(Archive archive, ManifestDigest digest)
+        private static Implementation SynthesizeImplementation(string archiveFile)
         {
+            var archive = SynthesizeArchive(archiveFile);
+            var digest = CreateDigestForArchiveFile(archiveFile);
             var result = new Implementation()
             {
                 ManifestDigest = digest,

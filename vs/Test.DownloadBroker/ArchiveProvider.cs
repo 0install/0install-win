@@ -7,7 +7,7 @@ using System.Threading;
 
 namespace ZeroInstall.DownloadBroker
 {
-    public class ArchiveProvider : IDisposable
+    public sealed class ArchiveProvider : IDisposable
     {
         private readonly FileInfo _archive;
         private HttpListener _listener;
@@ -30,7 +30,16 @@ namespace ZeroInstall.DownloadBroker
 
         private void Listen()
         {
-            var context = _listener.GetContext();
+            HttpListenerContext context;
+            try
+            {
+                context = _listener.GetContext();
+            }
+            catch (ThreadAbortException)
+            {
+                Thread.ResetAbort();
+                return;
+            }
             context.Response.ContentLength64 = _archive.Length;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
@@ -47,6 +56,7 @@ namespace ZeroInstall.DownloadBroker
         {
             _listenerThread.Abort();
             _listener.Stop();
+            _listener.Close();
         }
     }
 }
