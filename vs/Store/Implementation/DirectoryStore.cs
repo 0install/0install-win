@@ -112,7 +112,8 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add
         /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>
+        /// else it deletes the directory.
         /// </summary>
         /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
@@ -129,32 +130,23 @@ namespace ZeroInstall.Store.Implementation
             string expectedDigest = manifestDigest.BestDigest;
             if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
 
-            string tempDir = FileHelper.GetUniqueFileName(_cacheDir);
-
-            // Move source directory to temporary sub-directory and generate in-memory manifest from there
-            // This prevents attackers from modifying the source directory between digest validation and moving to final store destination.
-            Directory.Move(source, tempDir);
-
             try
             {
                 // Select the manifest format to use
                 var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
                 // Calculate the actual digest and compare it with the expected one
-                string actualDigest = Manifest.CreateDotFile(tempDir, format);
+                string actualDigest = Manifest.CreateDotFile(source, format);
                 if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
             }
-            #region Error handling
             catch (Exception)
             {
-                // Move the directory back to where it came from before passing the exception on
-                Directory.Move(tempDir, source);
+                Directory.Delete(source, true);
                 throw;
             }
-            #endregion
 
             // Move directory to final store destination
-            Directory.Move(tempDir, Path.Combine(_cacheDir, expectedDigest));
+            Directory.Move(source, Path.Combine(_cacheDir, expectedDigest));
         }
         #endregion
 
