@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
@@ -29,7 +30,7 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     public sealed class PythonSolver : ISolver
     {
-        #region Properties
+        #region Static properties
         private static string HelperDirectory
         {
             get
@@ -55,11 +56,23 @@ namespace ZeroInstall.Injector.Solver
         {
             get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0launch"); }
         }
-        
+        #endregion
+
+        #region Properties
         /// <summary>
-        /// Download source code instead of executable files.
+        /// The source used to request <see cref="Interface"/>s.
         /// </summary>
-        public bool Source { get; set; }
+        public InterfaceProvider InterfaceProvider { get; private set; }
+
+        /// <summary>
+        /// The location to search for cached <see cref="Implementation"/>s.
+        /// </summary>
+        public IStore Store { get; private set; }
+
+        /// <summary>
+        /// The architecture to to find <see cref="Implementation"/>s for.
+        /// </summary>
+        public Architecture Architecture { get; set; }
         
         /// <summary>
         /// Only choose <see cref="Implementation"/>s with a version number older than this.
@@ -70,25 +83,23 @@ namespace ZeroInstall.Injector.Solver
         /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
         /// </summary>
         public ImplementationVersion NotBefore { get; set; }
-
-        /// <summary>
-        /// The source used to request <see cref="Interface"/>s.
-        /// </summary>
-        public InterfaceProvider InterfaceProvider { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new Python-based solver.
         /// </summary>
-        /// <param name="provider">The source used to request <see cref="Interface"/>s. The Python-implementation doesn't use this, but the property <see cref="InterfaceProvider"/> is set.</param>
-        public PythonSolver(InterfaceProvider provider)
+        /// <param name="interfaceProvider">The source used to request <see cref="Interface"/>s.</param>
+        /// <param name="store">The location to search for cached <see cref="Implementation"/>s.</param>
+        public PythonSolver(InterfaceProvider interfaceProvider, IStore store)
         {
             #region Sanity checks
-            if (provider == null) throw new ArgumentNullException("provider");
+            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
+            if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            InterfaceProvider = provider;
+            InterfaceProvider = interfaceProvider;
+            Store = store;
         }
         #endregion
 
@@ -106,9 +117,10 @@ namespace ZeroInstall.Injector.Solver
         {
             // Build the arguments list for the solver script
             string arguments = "--console --get-selections --select-only ";
-            if (InterfaceProvider.Offline) arguments += "--offline ";
+            if (InterfaceProvider.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (InterfaceProvider.Refresh) arguments += "--refresh ";
-            if (Source) arguments += "--source ";
+            if (Architecture.Cpu == Cpu.Source) arguments += "--source ";
+            if (Before != null) arguments += "--before=" + NotBefore + " ";
             if (NotBefore != null) arguments += "--not-before=" + NotBefore + " ";
             arguments += feed;
 

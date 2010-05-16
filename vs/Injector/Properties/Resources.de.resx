@@ -120,4 +120,7 @@
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>
   </data>
+  <data name="NotSolved" xml:space="preserve">
+    <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>
+  </data>
 </root>

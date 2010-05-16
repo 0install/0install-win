@@ -22,92 +22,93 @@ using System.Windows.Forms;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
+using ZeroInstall.Model;
 
-namespace ZeroInstall.Central.Storage
+namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// Stores settings for the application.
+    /// A database of trusted GPG signatures for <see cref="Interface"/>s.
     /// </summary>
-    [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/central/settings")]
-    public sealed class Settings
+    [XmlRoot("trusted-keys", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
+    public sealed class Trust
     {
         #region Variables
         private static readonly string
-            _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"central-settings.xml"),
-            _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "central")), @"settings.xml");
+            _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"trustdb.xml"),
+            _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "injector")), @"trustdb.xml");
         #endregion
 
         #region Properties
         /// <summary>
-        /// The currently active set of settings
+        /// The currently active set of trust data
         /// </summary>
-        public static Settings Current { get; private set; }
+        public static Trust Current { get; private set; }
 
         /// <summary>
-        /// Automatically save any changed settings?
+        /// Automatically save any changed trust data?
         /// </summary>
         public static bool AutoSave { get; set; }
         #endregion
 
         #region Constructor
         // Dummy constructor to prevent external instancing of this class
-        private Settings()
-        {}
+        private Trust()
+        { }
         #endregion
 
         //--------------------//
 
         #region Storage
-        // Were the settings loaded from the application's directory?
+        // Were the trust data loaded from the application's directory?
         private static bool _loadedFromAppDir;
 
-        static Settings()
+        static Trust()
         {
             AutoSave = true;
         }
 
         #region Load
         /// <summary>
-        /// Loads the current settings from an XML file.
+        /// Loads the current trust data from an XML file.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the settings should be ignored")]
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the trust data should be ignored")]
         public static void LoadCurrent()
         {
             if (File.Exists(_portablePath))
-            { // Try to load settings file from the application's directory
+            { // Try to load trust data file from the application's directory
                 _loadedFromAppDir = true;
 
                 try
                 {
-                    Current = XmlStorage.Load<Settings>(_portablePath);
-                    Log.Write("Loaded settings from installation directory");
+                    Current = XmlStorage.Load<Trust>(_portablePath);
+                    Log.Write("Loaded trust data from installation directory");
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load settings from installation directory: " + ex.Message + "\nReverting to defaults");
+                    Log.Write("Failed to load trust data from installation directory: " + ex.Message + "\nReverting to defaults");
                 }
             }
             else
             { // Then fall back to the user profile
                 try
                 {
-                    Current = XmlStorage.Load<Settings>(_profilePath);
-                    Log.Write("Loaded settings from user profile");
+                    Current = XmlStorage.Load<Trust>(_profilePath);
+                    Log.Write("Loaded trust data from user profile");
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load settings from user profile: " + ex.Message + "\nReverting to defaults");
+                    Log.Write("Failed to load trust data from user profile: " + ex.Message + "\nReverting to defaults");
                 }
             }
 
             // Fall back to default values if both fail
-            if (Current == null) Current = new Settings();
+            if (Current == null) Current = new Trust();
         }
         #endregion
 
         #region Save
         /// <summary>
-        /// Saves the current settings to an XML file.
+        /// Saves the current trust data to an XML file.
         /// </summary>
         public static void SaveCurrent()
         {
@@ -116,23 +117,23 @@ namespace ZeroInstall.Central.Storage
                 if (_loadedFromAppDir)
                 {
                     XmlStorage.Save(_portablePath, Current);
-                    Log.Write("Saved settings to working directory");
+                    Log.Write("Saved trust data to working directory");
                 }
                 else
                 {
                     XmlStorage.Save(_profilePath, Current);
-                    Log.Write("Saved settings to user profile");
+                    Log.Write("Saved trust data to user profile");
                 }
             }
             catch (IOException)
-            {}
+            { }
         }
         #endregion
 
         #endregion
 
         #region Values
-        // ToDo: Add settings
+        // ToDo: Add trust data
         #endregion
     }
 }

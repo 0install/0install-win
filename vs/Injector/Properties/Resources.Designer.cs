@@ -68,5 +68,14 @@ namespace ZeroInstall.Injector.Properties {
                 return ResourceManager.GetString("NoImplementationsPassed", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Solve or SetSelections must be called first..
+        /// </summary>
+        internal static string NotSolved {
+            get {
+                return ResourceManager.GetString("NotSolved", resourceCulture);
+            }
+        }
     }
 }

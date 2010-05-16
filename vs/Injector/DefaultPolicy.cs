@@ -16,39 +16,22 @@
  */
 
 using ZeroInstall.DownloadBroker;
-using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// A policy that uses default settings for everything unless user settings override something.
+    /// A policy that uses the default <see cref="SolverProvider"/>, <see cref="InterfaceProvider"/> and <see cref="Fetcher"/>.
     /// </summary>
     public class DefaultPolicy : Policy
     {
-        #region Properties
-        /// <summary>
-        /// The location to search for cached <see cref="Implementation"/>s.
-        /// </summary>
-        /// <remarks>If <see cref="AdditionalStore"/> is <see langword="null"/>, this is the same as <see cref="DownloadBroker.Fetcher.Store"/>.</remarks>
-        public override IStore Store
-        {
-            get { return ((AdditionalStore == null) ? base.Store : new StoreSet(new[] { AdditionalStore, base.Store })); }
-        }
-
-        /// <summary>
-        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="StoreProvider.DefaultStore"/>.
-        /// </summary>
-        /// <remarks>This location will not be used by <see cref="Policy.Fetcher"/>.</remarks>
-        public IStore AdditionalStore { get; set; }
-        #endregion
-
         #region Constructor
         /// <summary>
-        /// Creates a new policy with default settings for everything.
+        /// Creates a new policy for a specific feed.
         /// </summary>
-        public DefaultPolicy() : base(SolverFactory.CreateDefaultSolver(), Fetcher.Default)
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        public DefaultPolicy(string feed) : base(feed, SolverProvider.Default, new InterfaceProvider(), Fetcher.Default)
         {}
         #endregion
     }

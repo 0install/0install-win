@@ -2,23 +2,18 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
     <Position X="0.5" Y="0.5" Width="1.5" />
-    <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="1.183" Y="-0.055" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAgAAAAAAAAAAAAAAAAAAAAIAAQAAAAAAAAACQAAAAA=</HashCode>
+      <HashCode>CAgAQAgAQgAAAIACBAAAAAAIAAAAAAAAAgAACIQAAAA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Solver" />
-      <Property Name="Fetcher" />
-      <Property Name="Store" />
+      <Field Name="_fetcher" />
+      <Field Name="_solverProvider" />
+      <Property Name="InterfaceProvider" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Injector.Launcher" Collapsed="true">
-    <Position X="1.5" Y="2.25" Width="1.5" />
+    <Position X="2.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQACAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAI=</HashCode>
       <FileName>Launcher.cs</FileName>
@@ -32,11 +27,11 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Interface.InterfaceProvider" Collapsed="true">
-    <Position X="6.25" Y="1.5" Width="1.5" />
+    <Position X="5.25" Y="2.75" Width="1.5" />
     <TypeIdentifier />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections" Collapsed="true">
-    <Position X="5.25" Y="2.5" Width="1.5" />
+    <Position X="4.5" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -50,21 +45,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.DefaultPolicy" Collapsed="true">
-    <Position X="0.5" Y="3.25" Width="1.5" />
+    <Position X="0.5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DefaultPolicy.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Injector.Solver.SolverFactory" Collapsed="true">
-    <Position X="3.5" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Solver\SolverFactory.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ZeroInstall.Injector.Solver.ImplementationSelection" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.25" Y="2.5" Width="2" />
+    <Position X="7.5" Y="4" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEgABQAAAABQAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Solver\ImplementationSelection.cs</FileName>
@@ -72,17 +60,24 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="3.5" Y="2.5" Width="1.5" />
+    <Position X="7" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQgBAAIAAAAAAAAAIAAQQAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAAAAAAQAJAAIAAAAAAAAAIAAQQAAAAAAAAAQQAAAA=</HashCode>
       <FileName>Solver\PythonSolver.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
+  <Class Name="ZeroInstall.Injector.Solver.SolverProvider" Collapsed="true">
     <Position X="3.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQgAAAIAAAAAAAAAIAAAAAAAAAAAAAAQAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Solver\SolverProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
+    <Position X="5.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAIAAIAAAAAAAAAIAAAAAAAAAAAAAQQAAAA=</HashCode>
       <FileName>Solver\ISolver.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

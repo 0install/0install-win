@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
         [XmlEnum("Solaris")] Solaris,
         [XmlEnum("MacOSX")] MacOsX,
         [XmlEnum("Windows")] Windows,
-        [XmlEnum("unknown")] Unknown
+        [XmlEnum("unknown")] Unknown,
     }
 
     /// <summary>

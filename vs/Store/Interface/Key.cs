@@ -15,22 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Store.Interface;
+using System.Collections.Generic;
+using System.Xml.Serialization;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// Provides access to <see cref="ISolver"/> implementations.
+    /// An entry in the <see cref="Trust"/> database.
     /// </summary>
-    public static class SolverFactory
+    public sealed class Key
     {
+        #region Properties
         /// <summary>
-        /// Instantiates the default implementation of <see cref="ISolver"/>.
+        /// ToDo
         /// </summary>
-        public static ISolver CreateDefaultSolver()
-        {
-            // ToDo: Make more flexible
-            return new PythonSolver(new InterfaceProvider());
-        }
+        [XmlAttribute("fingerprint")]
+        public string Fingerprint { get; set; }
+
+        // Order is always alphabetical, duplicate entries are not allowed
+        private readonly C5.TreeSet<Domain> _domains = new C5.TreeSet<Domain>();
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        [XmlElement("domain")]
+        public ICollection<Domain> Domains { get { return _domains; } }
+        #endregion
     }
 }

@@ -62,9 +62,9 @@
     </Compile>
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\SolverProvider.cs" />
     <Compile Include="Solver\PythonSolver.cs" />
     <Compile Include="Solver\Selections.cs" />
-    <Compile Include="Solver\SolverFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

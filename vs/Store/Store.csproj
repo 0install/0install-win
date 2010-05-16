@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -67,8 +68,11 @@
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\ManifestFile.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />
+    <Compile Include="Interface\Domain.cs" />
     <Compile Include="Interface\Icon.cs" />
     <Compile Include="Interface\InterfaceProvider.cs" />
+    <Compile Include="Interface\Key.cs" />
+    <Compile Include="Interface\Trust.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>

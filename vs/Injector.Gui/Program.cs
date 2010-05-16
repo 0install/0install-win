@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Windows.Forms;
 using Common;
+using ZeroInstall.DownloadBroker;
 
 namespace ZeroInstall.Injector.Gui
 {
@@ -63,18 +64,8 @@ namespace ZeroInstall.Injector.Gui
             Args = new Arguments(args);
 
             // ToDo: Handle options
-            var policy = new DefaultPolicy();
-
-#if DEBUG
-            policy.GetLauncher(Args.Files[0]).Run("");
-#else
-            try { policy.GetLauncher(Args.Files[0]).Run(); }
-            catch (Exception ex)
-            {
-                // Print all exceptions to the console
-                Console.Error.WriteLine(ex);
-            }
-#endif
+            var policy = new DefaultPolicy(Args.Files[0]);
+            policy.GetLauncher().Run("");
         }
         #endregion
     }

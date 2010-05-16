@@ -15,84 +15,196 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.DownloadBroker;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Brings together a <see cref="Solver"/> and a <see cref="Fetcher"/> to create a <see cref="Launcher"/>.
+    /// Takes an interface URI and provides operations like solving and launching.
     /// </summary>
+    /// <remarks>Brings together a <see cref="Solver"/> and a <see cref="Fetcher"/> to create a <see cref="Launcher"/>.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
     {
+        #region Variables
+        /// <summary>The URI or local path to the feed to solve the dependencies for.</summary>
+        private readonly string _feed;
+
+        /// <summary>Used to create <see cref="ISolver"/> instances.</summary>
+        private readonly SolverProvider _solverProvider;
+
+        /// <summary>The source used to request <see cref="Interface"/>s.</summary>
+        private readonly InterfaceProvider _interfaceProvider;
+
+        /// <summary>Used to download missing <see cref="Implementation"/>s.</summary>
+        private readonly Fetcher _fetcher;
+
+        /// <summary>Cached <see cref="ISolver"/> results.</summary>
+        private Selections _selections;
+        #endregion
+
         #region Properties
         /// <summary>
-        /// Used to solve <see cref="Dependency"/>s.
+        /// Allows configuration of the source used to request <see cref="Interface"/>s.
         /// </summary>
-        public ISolver Solver { get; private set; }
+        public InterfaceProvider InterfaceProvider { get { return _interfaceProvider; } }
 
         /// <summary>
-        /// Used to download missing <see cref="Implementation"/>s.
+        /// Only choose <see cref="Implementation"/>s with a version number older than this.
         /// </summary>
-        public Fetcher Fetcher { get; private set; }
+        public ImplementationVersion Before { get; set; }
 
         /// <summary>
-        /// The location to search for cached <see cref="Implementation"/>s.
+        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
         /// </summary>
-        /// <remarks>This is usually the same as <see cref="DownloadBroker.Fetcher.Store"/>.</remarks>
-        public virtual IStore Store { get { return Fetcher.Store; } }
+        public ImplementationVersion NotBefore { get; set; }
+
+        /// <summary>
+        /// Download source code instead of compiled binaries.
+        /// </summary>
+        public bool Source { get; set; }
+
+        /// <summary>
+        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="Fetcher.Store"/>; may be <see langword="null"/>.
+        /// </summary>
+        public IStore AdditionalStore { get; set; }
+
+        /// <summary>
+        /// The locations to search for cached <see cref="Implementation"/>s.
+        /// </summary>
+        protected IStore SearchStore
+        {
+            get
+            {
+                return (AdditionalStore == null
+                    // No additional Store => search in same Stores the Fetcher writes to
+                    ? _fetcher.Store
+                    // Additional Stores => search in more Stores than the Fetcher writes to
+                    : new StoreSet(new[] { AdditionalStore, _fetcher.Store }));
+            }
+        }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new policy.
+        /// Creates a new policy for a specific feed.
         /// </summary>
-        /// <param name="solver">Used to solve <see cref="Dependency"/>s.</param>
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="solverProvider">Used to create <see cref="ISolver"/> instances.</param>
+        /// <param name="interfaceProvider">The source used to request <see cref="Interface"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
-        public Policy(ISolver solver, Fetcher fetcher)
+        public Policy(string feed, SolverProvider solverProvider, InterfaceProvider interfaceProvider, Fetcher fetcher)
         {
-            Solver = solver;
-            Fetcher = fetcher;
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            if (solverProvider == null) throw new ArgumentNullException("solverProvider");
+            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
+            if (fetcher == null) throw new ArgumentNullException("fetcher");
+            #endregion
+
+            _feed = feed;
+            _solverProvider = solverProvider;
+            _interfaceProvider = interfaceProvider;
+            _fetcher = fetcher;
         }
         #endregion
 
         //--------------------//
 
-        #region Actions
+        #region Selections
         /// <summary>
-        /// Solves the dependencies for a specific feed based on the current settings.
+        /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified feed.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
-        public Selections GetSelections(string feed)
+        public void Solve()
         {
-            return Solver.Solve(feed);
+            // Initialize a new solver with the current settings
+            var solver = _solverProvider.CreateSolver(_interfaceProvider, SearchStore);
+
+            // Transfer user-selected limitations
+            solver.Before = Before;
+            solver.NotBefore = NotBefore;
+
+            // ToDo: Detect and set current architecture
+            if (Source) solver.Architecture = new Architecture(solver.Architecture.OS, Cpu.Source);
+
+            // Run the solver algorithm
+            _selections = solver.Solve(_feed);
         }
 
         /// <summary>
-        /// Prepares to launch an application identified by a feed URI.
+        /// Uses an external set of <see cref="Selections"/> instead of using a <see cref="ISolver"/>.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to be launched.</param>
-        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
-        // ToDo: Add callbacks and make asynchronous
-        // ToDo: Add exceptions (feed problem, dependency problem)
-        public Launcher GetLauncher(string feed)
+        /// <param name="selections">The external set of <see cref="Selections"/> to use.</param>
+        public void SetSelections(Selections selections)
         {
-            // Solve the dependencies
-            var selections = GetSelections(feed);
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            #endregion
+
+            _selections = selections.CloneSelections();
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Selections"/> made earlier.
+        /// </summary>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
+        public Selections GetSelections()
+        {
+            #region Sanity checks
+            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
+            #endregion
+
+            return _selections.CloneSelections();
+        }
+        #endregion
+
+        #region Implementation
+        /// <summary>
+        /// Prepares to launch an application.
+        /// </summary>
+        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
+        /// <remarks>Implementation archives may be downloaded, hash validation is performed.</remarks>
+        // ToDo: Add callbacks and make asynchronous
+        public void DownloadMissingImplementations()
+        {
+            #region Sanity checks
+            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
+            #endregion
 
             // Find out which implementations are missing and download them
-            var missing = selections.GetUncachedImplementations(Store, Solver.InterfaceProvider);
-            if (!Solver.InterfaceProvider.Offline) Fetcher.RunSync(new FetcherRequest(missing));
+            var missing = _selections.GetUncachedImplementations(SearchStore, InterfaceProvider);
+            if (InterfaceProvider.NetworkLevel != NetworkLevel.Offline) _fetcher.RunSync(new FetcherRequest(missing));
+        }
+        #endregion
+
+        #region Launcher
+        /// <summary>
+        /// Prepares to launch an application.
+        /// </summary>
+        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadMissingImplementations"/> was not called first.</exception>
+        /// <remarks>Implementation archives may be downloaded, hash validation is performed.</remarks>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method performs extensive disk and network IO")]
+        public Launcher GetLauncher()
+        {
+            #region Sanity checks
+            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
+            #endregion
 
             // Read to run the application
-            return new Launcher(selections, Store);
+            return new Launcher(_selections, SearchStore);
         }
         #endregion
     }

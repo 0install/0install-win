@@ -23,6 +23,7 @@ using NDesk.Options;
 using ZeroInstall.Injector.Cli.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Cli
 {
@@ -70,44 +71,55 @@ namespace ZeroInstall.Injector.Cli
         /// </summary>
         static void Main(string[] args)
         {
-            var policy = new DefaultPolicy();
-
             Mode mode = Mode.Interface;
             string selectionsFile = null, main = null, wrapper = null;
             bool dryRun = false, downloadOnly = false, registerFeed = false, getSelections = false, selectOnly = false;
+            ImplementationVersion before = null, notBefore = null;
+            bool source = false, offline = false, refresh = false;
 
+            #region Command-line options
             var options = new OptionSet
             {
+                // Mode selection
                 {"i", unused => mode = Mode.Import},
                 {"import", Resources.OptionImport, unused => mode = Mode.Import},
                 {"l", unused => mode = Mode.List},
                 {"list", Resources.OptionList, unused => mode = Mode.List},
+                {"h", unused => mode = Mode.Help},
+                {"help", Resources.OptionHelp, unused => mode = Mode.Help},
+                {"V", unused => mode = Mode.Version},
+                {"version", Resources.OptionHelp, unused => mode = Mode.Version},
+
+                // Special operations
                 {"d", unused => downloadOnly = true},
                 {"download-only", Resources.OptionDownloadOnly, unused => downloadOnly = true},
+                {"D", unused => dryRun = true},
+                {"dry-run", Resources.OptionDryRun, unused => dryRun = true},
                 {"f", unused => registerFeed = true},
                 {"feed", Resources.OptionFeed, unused => registerFeed = true},
                 {"get-selections", Resources.OptionGetSelections, unused => getSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => selectOnly = true},
                 {"set-selections", Resources.OptionSetSelections, file => selectionsFile = file},
-                {"before", Resources.OptionBefore, version => policy.Solver.Before = new ImplementationVersion(version)},
-                {"not-before", Resources.OptionNotBefore, version => policy.Solver.NotBefore = new ImplementationVersion(version)},
-                {"s", unused => policy.Solver.Source = true},
-                {"source", Resources.OptionSource, unused => policy.Solver.Source = true},
+
+                // Policy options
+                {"before", Resources.OptionBefore, version => before = new ImplementationVersion(version)},
+                {"not-before", Resources.OptionNotBefore, version => notBefore = new ImplementationVersion(version)},
+                {"s", unused => source = true},
+                {"source", Resources.OptionSource, unused => source = true},
+
+                // Interface provider options
+                {"o", unused => offline = true},
+                {"offline", Resources.OptionOffline, unused => offline = true},
+                {"r", unused => refresh = true},
+                {"refresh", Resources.OptionRefresh, unused => refresh = true},
+
+                // Launcher options
                 {"m", newMain => main = newMain},
                 {"main", Resources.OptionMain, newMain => main = newMain},
                 {"w", newWrapper => wrapper = newWrapper},
-                {"wrapper", Resources.OptionWrapper, newWrapper => wrapper = newWrapper},
-                {"o", unused => policy.Solver.InterfaceProvider.Offline = true},
-                {"offline", Resources.OptionOffline, unused => policy.Solver.InterfaceProvider.Offline = true},
-                {"r", unused => policy.Solver.InterfaceProvider.Refresh = true},
-                {"refresh", Resources.OptionRefresh, unused => policy.Solver.InterfaceProvider.Refresh = true},
-                {"D", unused => dryRun = true},
-                {"dry-run", Resources.OptionDryRun, unused => dryRun = true},
-                {"h", unused => mode = Mode.Help},
-                {"help", Resources.OptionHelp, unused => mode = Mode.Help},
-                {"V", unused => mode = Mode.Version},
-                {"version", Resources.OptionHelp, unused => mode = Mode.Version}
+                {"wrapper", Resources.OptionWrapper, newWrapper => wrapper = newWrapper}
             };
+            #endregion
 
             var additional = options.Parse(args);
 
@@ -115,35 +127,46 @@ namespace ZeroInstall.Injector.Cli
             {
                 case Mode.Interface:
                 {
-                    Launcher launcher = null;
+                    // ToDo: Alternative policy for DryRun
+                    Policy policy = new DefaultPolicy(additional[0]);
+                    policy.InterfaceProvider.Refresh = refresh;
+                    if (offline) policy.InterfaceProvider.NetworkLevel = NetworkLevel.Offline;
+                    //policy.AdditionalStore =
+                    policy.Source = source;
+                    policy.Before = before;
+                    policy.NotBefore = notBefore;
+
+                    if (selectionsFile == null) policy.Solve();
+                    else policy.SetSelections(Selections.Load(selectionsFile));
+
                     if (!selectOnly)
                     {
-                        if (string.IsNullOrEmpty(selectionsFile))
-                        {
-                            launcher = policy.GetLauncher(additional[0]);
-                        }
-                        else
-                        {
-                            launcher = new Launcher(Selections.Load(selectionsFile), policy.Store);
-                        }
+                        // ToDo: Add progress callbacks
+                        policy.DownloadMissingImplementations();
                     }
 
                     if (getSelections)
                     {
-                        Console.Write(policy.GetSelections(additional[0]).WriteToString());
+                        Console.Write(policy.GetSelections().WriteToString());
                     }
-                    else if (!downloadOnly && launcher != null)
+                    else if (!downloadOnly && !selectOnly)
                     {
-                        string arguments = StringHelper.Concatenate(additional.GetRange(1, additional.Count - 1), " ");
+                        var launcher = policy.GetLauncher();
                         launcher.Main = main;
                         launcher.Wrapper = wrapper;
+
+                        string arguments = StringHelper.Concatenate(additional.GetRange(1, additional.Count - 1), " ");
                         launcher.Run(arguments);
-                    } 
+                    }
                     break;
                 }
 
                 case Mode.Help:
                     options.WriteOptionDescriptions(Console.Out);
+                    break;
+
+                case Mode.Version:
+                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", Application.ProductVersion);
                     break;
             }
         }

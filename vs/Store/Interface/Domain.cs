@@ -15,28 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Windows.Forms;
+using System.Xml.Serialization;
 
-namespace ZeroInstall.Central
+namespace ZeroInstall.Store.Interface
 {
-    partial class FeedUriForm : Form
+    public struct Domain
     {
-        public FeedUriForm()
-        {
-            InitializeComponent();
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            Program.LaunchHelperApp(this, "0launch.exe", textBoxURL.Text);
-
-            Close();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
+        [XmlAttribute("value")]
+        public string Value { get; set; }
     }
 }

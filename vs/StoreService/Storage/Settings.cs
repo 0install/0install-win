@@ -8,7 +8,7 @@ using Common.Storage;
 namespace ZeroInstall.StoreService.Storage
 {
     /// <summary>
-    /// Stores settings for the application
+    /// Stores settings for the application.
     /// </summary>
     [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/store-service/settings")]
     public sealed class Settings
@@ -24,18 +24,21 @@ namespace ZeroInstall.StoreService.Storage
         /// </summary>
         public static Settings Current { get; private set; }
 
-        private static bool _autoSave = true;
         /// <summary>
         /// Automatically save any changed settings?
         /// </summary>
-        public static bool AutoSave { get { return _autoSave; } set { _autoSave = value; } }
-
+        public static bool AutoSave { get; set; }
         #endregion
 
         #region Constructor
         // Dummy constructor to prevent external instancing of this class
         private Settings()
         { }
+
+        static Settings()
+        {
+            AutoSave = true;
+        }
         #endregion
 
         //--------------------//

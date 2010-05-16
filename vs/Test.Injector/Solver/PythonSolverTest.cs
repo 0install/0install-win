@@ -16,6 +16,7 @@
  */
 
 using NUnit.Framework;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
@@ -29,14 +30,15 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
         /// </summary>
-        [Test]
+        // Test deactivated because it may perform network IO
+        //[Test]
         public void TestSolve()
         {
-            var solver = new PythonSolver(new InterfaceProvider());
+            var solver = new PythonSolver(new InterfaceProvider(), StoreProvider.DefaultStore);
 
-            Selections selections = solver.Solve("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml");
+            Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
 
-            Assert.AreEqual("http://www.nongnu.org/clanbomber/zeroinstall/ClanBomber.xml", selections.InterfaceString);
+            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.InterfaceString);
         }
     }
 }
