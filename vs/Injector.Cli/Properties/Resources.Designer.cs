@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must be earlier than this verion. i.e., force the use of an old version the program..
+        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must be earlier than {VERSION}. i.e., force the use of an old version the program..
         /// </summary>
         internal static string OptionBefore {
             get {
@@ -135,7 +135,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run the specified executable instead of the default. If it starts with &apos;/&apos; or &apos;\&apos; then the path is relative to the implementation&apos;s top-level directory, whereas otherwise it is relative to the directory containing the default main program..
+        ///   Looks up a localized string similar to Run the specified executable {MAIN} instead of the default. If it starts with &apos;/&apos; or &apos;\&apos; then the path is relative to the implementation&apos;s top-level directory, whereas otherwise it is relative to the directory containing the default main program..
         /// </summary>
         internal static string OptionMain {
             get {
@@ -144,7 +144,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must not be earlier than this version. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
+        ///   Looks up a localized string similar to Chosen implementation&apos;s version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0..
         /// </summary>
         internal static string OptionNotBefore {
             get {
@@ -180,7 +180,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of choosing suitable implementations using the policy, run exactly the versions given in a file. A suitable file can be created using the --get-selections option..
+        ///   Looks up a localized string similar to Instead of choosing suitable implementations using the policy, run exactly the versions given in {FILE}. A suitable file can be created using the --get-selections option..
         /// </summary>
         internal static string OptionSetSelections {
             get {
@@ -207,7 +207,17 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of executing the chosen program directly, run COMMAND PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on 0launch!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing..
+        ///   Looks up a localized string similar to Add {DIR} to the list of implementation caches to search.
+        ///However, new downloads will not be written to this directory..
+        /// </summary>
+        internal static string OptionWithStore {
+            get {
+                return ResourceManager.GetString("OptionWithStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on 0launch!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing..
         /// </summary>
         internal static string OptionWrapper {
             get {

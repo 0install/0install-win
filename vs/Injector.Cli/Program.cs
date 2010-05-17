@@ -74,58 +74,50 @@ namespace ZeroInstall.Injector.Cli
         /// </summary>
         static void Main(string[] args)
         {
+            #region Option variables
             Mode mode = Mode.Normal;
-            string selectionsFile = null, main = null, wrapper = null;
-            bool dryRun = false, downloadOnly = false, getSelections = false, selectOnly = false;
-            ImplementationVersion before = null, notBefore = null;
+            bool downloadOnly = false, dryRun = false, getSelections = false, selectOnly = false;
+            string selectionsFile = null;
+            var constraint = new Constraint();
             bool source = false, offline = false, refresh = false;
             IStore additionalStore = null;
+            string main = null, wrapper = null;
+            #endregion
 
             #region Command-line options
             var options = new OptionSet
             {
                 // Mode selection
-                {"i", unused => mode = Mode.Import},
-                {"import", Resources.OptionImport, unused => mode = Mode.Import},
-                {"l", unused => mode = Mode.List},
-                {"list", Resources.OptionList, unused => mode = Mode.List},
-                {"f", unused => mode = Mode.Manage},
-                {"feed", Resources.OptionFeed, unused => mode = Mode.Manage},
-                {"h", unused => mode = Mode.Help},
-                {"help", Resources.OptionHelp, unused => mode = Mode.Help},
-                {"V", unused => mode = Mode.Version},
-                {"version", Resources.OptionHelp, unused => mode = Mode.Version},
+                {"i|import", Resources.OptionImport, unused => mode = Mode.Import},
+                {"l|list", Resources.OptionList, unused => mode = Mode.List},
+                {"f|feed", Resources.OptionFeed, unused => mode = Mode.Manage},
+                {"h|help|?", Resources.OptionHelp, unused => mode = Mode.Help},
+                {"V|version", Resources.OptionHelp, unused => mode = Mode.Version},
 
                 // Special operations
-                {"d", unused => downloadOnly = true},
-                {"download-only", Resources.OptionDownloadOnly, unused => downloadOnly = true},
-                {"D", unused => dryRun = true},
-                {"dry-run", Resources.OptionDryRun, unused => dryRun = true},
+                {"d|download-only", Resources.OptionDownloadOnly, unused => downloadOnly = true},
+                {"D|dry-run", Resources.OptionDryRun, unused => dryRun = true},
                 {"get-selections", Resources.OptionGetSelections, unused => getSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => selectOnly = true},
-                {"set-selections", Resources.OptionSetSelections, file => selectionsFile = file},
+                {"set-selections=", Resources.OptionSetSelections, file => selectionsFile = file},
 
                 // Policy options
-                {"before", Resources.OptionBefore, version => before = new ImplementationVersion(version)},
-                {"not-before", Resources.OptionNotBefore, version => notBefore = new ImplementationVersion(version)},
-                {"s", unused => source = true},
-                {"source", Resources.OptionSource, unused => source = true},
+                {"before=", Resources.OptionBefore, version => constraint.BeforeVersion = new ImplementationVersion(version)},
+                {"not-before=", Resources.OptionNotBefore, version => constraint.NotBeforeVersion = new ImplementationVersion(version)},
+                {"s|source", Resources.OptionSource, unused => source = true},
 
                 // Interface provider options
-                {"o", unused => offline = true},
-                {"offline", Resources.OptionOffline, unused => offline = true},
-                {"r", unused => refresh = true},
-                {"refresh", Resources.OptionRefresh, unused => refresh = true},
-                {"--with-store", "", path => additionalStore = new DirectoryStore(path)},
+                {"o|offline", Resources.OptionOffline, unused => offline = true},
+                {"r|refresh", Resources.OptionRefresh, unused => refresh = true},
+                {"with-store=", Resources.OptionWithStore, path => additionalStore = new DirectoryStore(path)},
 
                 // Launcher options
-                {"m", newMain => main = newMain},
-                {"main", Resources.OptionMain, newMain => main = newMain},
-                {"w", newWrapper => wrapper = newWrapper},
-                {"wrapper", Resources.OptionWrapper, newWrapper => wrapper = newWrapper}
+                {"m|main=", Resources.OptionMain, newMain => main = newMain},
+                {"w|wrapper=", Resources.OptionWrapper, newWrapper => wrapper = newWrapper}
             };
             #endregion
 
+            // ToDo: Prevent parsing of interspersed arguments
             var additional = options.Parse(args);
 
             switch (mode)
@@ -138,7 +130,7 @@ namespace ZeroInstall.Injector.Cli
                     if (offline) policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline;
                     policy.AdditionalStore = additionalStore;
                     policy.Source = source;
-                    policy.Constraint = new Constraint(notBefore, before);
+                    policy.Constraint = constraint;
 
                     if (selectionsFile == null) policy.Solve();
                     else policy.SetSelections(Selections.Load(selectionsFile));
@@ -166,6 +158,10 @@ namespace ZeroInstall.Injector.Cli
                 }
 
                 case Mode.Help:
+                    Console.WriteLine(@"Usage: 0launch [options] -- interface [args]
+       0launch --list [search-term]
+       0launch --import [signed-interface-files]
+       0launch --feed [interface]");
                     options.WriteOptionDescriptions(Console.Out);
                     break;
 

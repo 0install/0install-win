@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="OptionBefore" xml:space="preserve">
-    <value>Chosen implementation's version number must be earlier than this verion. i.e., force the use of an old version the program.</value>
+    <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>
   <data name="OptionDownloadOnly" xml:space="preserve">
     <value>Download any needed files, but stop before actually running the program.</value>
@@ -144,10 +144,10 @@ Note that if you just want to run the program, you can invoke 0launch on the fee
     <value>List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive).</value>
   </data>
   <data name="OptionMain" xml:space="preserve">
-    <value>Run the specified executable instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>
+    <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>
   </data>
   <data name="OptionNotBefore" xml:space="preserve">
-    <value>Chosen implementation's version number must not be earlier than this version. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
+    <value>Chosen implementation's version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
     <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
@@ -159,7 +159,7 @@ Note that if you just want to run the program, you can invoke 0launch on the fee
     <value>Download any required feeds and choose a set of implementations, but don't actually download them. If there are stale feeds, check for updates first (if we're not off-line).</value>
   </data>
   <data name="OptionSetSelections" xml:space="preserve">
-    <value>Instead of choosing suitable implementations using the policy, run exactly the versions given in a file. A suitable file can be created using the --get-selections option.</value>
+    <value>Instead of choosing suitable implementations using the policy, run exactly the versions given in {FILE}. A suitable file can be created using the --get-selections option.</value>
   </data>
   <data name="OptionSource" xml:space="preserve">
     <value>The implementation of the main (root) interface must have an architecture of the form '*-src' (normally a literal "*", but could be a compatible OS). Dependencies are normal implementations, not source ones. See 0compile for details.</value>
@@ -167,7 +167,11 @@ Note that if you just want to run the program, you can invoke 0launch on the fee
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
+  <data name="OptionWithStore" xml:space="preserve">
+    <value>Add {DIR} to the list of implementation caches to search.
+However, new downloads will not be written to this directory.</value>
+  </data>
   <data name="OptionWrapper" xml:space="preserve">
-    <value>Instead of executing the chosen program directly, run COMMAND PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on 0launch!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
+    <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on 0launch!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
   </data>
 </root>
