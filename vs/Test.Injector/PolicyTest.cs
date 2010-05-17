@@ -38,14 +38,27 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
+        /// Ensures <see cref="Policy.GetSelections"/> correctly provides results from a <see cref="ZeroInstall.Injector.Solver"/>.
+        /// </summary>
+        // Test deactivated because it performs network IO
+        //[Test]
+        public void TestGetSelections()
+        {
+            Policy policy = new DefaultPolicy("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            policy.Solve();
+            Assert.AreEqual(policy.GetSelections().InterfaceString, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+        }
+
+        /// <summary>
         /// Ensures <see cref="Policy.GetLauncher"/> correctly provides an application that can be launched.
         /// </summary>
         // Test deactivated because it performs network IO and launches an external application
         //[Test]
         public void TestGetLauncher()
         {
-            var policy = new DefaultPolicy("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Policy policy = new DefaultPolicy("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
             policy.Solve();
+            policy.DownloadMissingImplementations();
             policy.GetLauncher().Run("");
         }
     }

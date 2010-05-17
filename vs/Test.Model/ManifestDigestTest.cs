@@ -33,11 +33,11 @@ namespace ZeroInstall.Model
         {
             // An empty digest object should extract a sha1 digest
             var digest = new ManifestDigest();
-            digest.ParseID("sha1=test");
+            ManifestDigest.ParseID("sha1=test", ref digest);
             Assert.AreEqual("test", digest.Sha1Old);
 
             // Once a digest value has been set, ID values shall not be able to overwrite it
-            digest.ParseID("sha1=test2");
+            ManifestDigest.ParseID("sha1=test2", ref digest);
             Assert.AreEqual("test", digest.Sha1Old);
         }
 

@@ -70,7 +70,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Download any needed files, but stop before actually running  the program..
+        ///   Looks up a localized string similar to Download any needed files, but stop before actually running the program..
         /// </summary>
         internal static string OptionDownloadOnly {
             get {
@@ -88,9 +88,9 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register  (or  unregister)  an  additional source of implementations. When you check out a developer version of a  project, it may contain an XML feed file. To add this version to the list of available versions, use --feed on this XML file. The file is not copied,  so  you  don&apos;t  need to re-add the file each time it is updated.
+        ///   Looks up a localized string similar to Register (or unregister) an additional source of implementations. When you check out a developer version of a project, it may contain an XML feed file. To add this version to the list of available versions, use --feed on this XML file. The file is not copied, so you don&apos;t need to re-add the file each time it is updated.
         ///
-        ///Note that if you just want to run the program,  you  can  invoke 0launch  on  the feed file directly (without using --feed). This will force the injector to use that version,  bu [rest of string was truncated]&quot;;.
+        ///Note that if you just want to run the program, you can invoke 0launch on the feed file directly (without using --feed). This will force the injector to use that version, but won&apos;t affect  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string OptionFeed {
             get {

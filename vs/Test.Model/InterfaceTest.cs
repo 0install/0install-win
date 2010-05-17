@@ -54,12 +54,42 @@ namespace ZeroInstall.Model
             Assert.IsFalse(ReferenceEquals(app1, app2), "Serialized should not return the same reference.");
         }
 
-        ///// <summary>
-        ///// Ensures that <see cref="Interface.Simplify"/> correctly collapsed <see cref="Group"/> structures.
-        ///// </summary>
-        //[Test]
-        //public void TestSimplify()
-        //{
-        //}
+        /// <summary>
+        /// Ensures that <see cref="Interface.Simplify"/> correctly collapsed <see cref="Group"/> structures.
+        /// </summary>
+        [Test]
+        public void TestSimplify()
+        {
+            var app = new Interface { Groups =
+            {
+                new Group
+                {
+                    LanguagesString = "de",
+                    Architecture = new Architecture(OS.Solaris, Cpu.I586),
+                    License = "GPL",
+                    Stability = Stability.Developer,
+                    Implementations =
+                    {
+                        new Implementation { Main = "main1" },
+                        new Implementation { Main = "main2" },
+                    }
+                }
+            } };
+            app.Simplify();
+
+            var implementation = app.Implementations[0];
+            Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
+            Assert.AreEqual("de", implementation.LanguagesString);
+            Assert.AreEqual("GPL", implementation.License);
+            Assert.AreEqual(Stability.Developer, implementation.Stability);
+            Assert.AreEqual("main1", implementation.Main);
+
+            implementation = app.Implementations[1];
+            Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
+            Assert.AreEqual("de", implementation.LanguagesString);
+            Assert.AreEqual("GPL", implementation.License);
+            Assert.AreEqual(Stability.Developer, implementation.Stability);
+            Assert.AreEqual("main2", implementation.Main);
+        }
     }
 }

@@ -121,15 +121,15 @@
     <value>Chosen implementation's version number must be earlier than this verion. i.e., force the use of an old version the program.</value>
   </data>
   <data name="OptionDownloadOnly" xml:space="preserve">
-    <value>Download any needed files, but stop before actually running  the program.</value>
+    <value>Download any needed files, but stop before actually running the program.</value>
   </data>
   <data name="OptionDryRun" xml:space="preserve">
     <value>Just print what actions would be taken.</value>
   </data>
   <data name="OptionFeed" xml:space="preserve">
-    <value>Register  (or  unregister)  an  additional source of implementations. When you check out a developer version of a  project, it may contain an XML feed file. To add this version to the list of available versions, use --feed on this XML file. The file is not copied,  so  you  don't  need to re-add the file each time it is updated.
+    <value>Register (or unregister) an additional source of implementations. When you check out a developer version of a project, it may contain an XML feed file. To add this version to the list of available versions, use --feed on this XML file. The file is not copied, so you don't need to re-add the file each time it is updated.
 
-Note that if you just want to run the program,  you  can  invoke 0launch  on  the feed file directly (without using --feed). This will force the injector to use that version,  but  won't  affect what happens when you run it using the URI as normal. Use --feed when you want to use the developer version even when  using  the URI,  or if the program is a library (and thus referenced by URI by other programs).</value>
+Note that if you just want to run the program, you can invoke 0launch on the feed file directly (without using --feed). This will force the injector to use that version, but won't affect what happens when you run it using the URI as normal. Use --feed when you want to use the developer version even when using the URI, or if the program is a library (and thus referenced by URI by other programs).</value>
   </data>
   <data name="OptionGetSelections" xml:space="preserve">
     <value>Instead of running the program, just print the set of chosen implementations as an XML document to stdout. This can be used later with --set-selections. Use --select-only if you don't even want to download the packages.</value>

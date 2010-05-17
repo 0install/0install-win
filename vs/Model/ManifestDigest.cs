@@ -73,7 +73,7 @@ namespace ZeroInstall.Model
         /// <seealso cref="ParseID"/>
         public ManifestDigest(string id) : this()
         {
-            ParseID(id);
+            ParseID(id, ref this);
         }
 
         /// <summary>
@@ -94,10 +94,11 @@ namespace ZeroInstall.Model
 
         #region Parsing
         /// <summary>
-        /// Parses an ID string, checking for digest values. The values will be stored in this instance if the corresponding digest value hasn't been set already.
+        /// Parses an ID string, checking for digest values. The values will be stored in a <see cref="ManifestDigest"/> if the corresponding digest value hasn't been set already.
         /// </summary>
         /// <param name="id">The ID string to parse. Digest values start with their format name followed by an equals sign and the actual hash.</param>
-        public void ParseID(string id)
+        /// <param name="target">The <see cref="ManifestDigest"/> to store the values in.</param>
+        public static void ParseID(string id, ref ManifestDigest target)
         {
             // Split the ID string
             string prefix = StringHelper.GetLeftPartAtFirstOccurrence(id, '=');
@@ -107,13 +108,13 @@ namespace ZeroInstall.Model
             switch (prefix)
             {
                 case Sha1OldPrefix:
-                    if (string.IsNullOrEmpty(Sha1Old)) Sha1Old = hash;
+                    if (string.IsNullOrEmpty(target.Sha1Old)) target.Sha1Old = hash;
                     break;
                 case Sha1NewPrefix:
-                    if (string.IsNullOrEmpty(Sha1New)) Sha1New = hash;
+                    if (string.IsNullOrEmpty(target.Sha1New)) target.Sha1New = hash;
                     break;
                 case Sha256Prefix:
-                    if (string.IsNullOrEmpty(Sha256)) Sha256 = hash;
+                    if (string.IsNullOrEmpty(target.Sha256)) target.Sha256 = hash;
                     break;
             }
         }

@@ -54,7 +54,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         private static string SolverScript
         {
-            get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0launch"); }
+            get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0solve"); }
         }
         #endregion
 
@@ -116,7 +116,7 @@ namespace ZeroInstall.Injector.Solver
         public Selections Solve(string feed)
         {
             // Build the arguments list for the solver script
-            string arguments = "--console --get-selections --select-only ";
+            string arguments = ""; //string.Format("--os {0} --cpu {1} ", Architecture.OS, Architecture.Cpu);
             if (InterfaceProvider.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (InterfaceProvider.Refresh) arguments += "--refresh ";
             if (Architecture.Cpu == Cpu.Source) arguments += "--source ";

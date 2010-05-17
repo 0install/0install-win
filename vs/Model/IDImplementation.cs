@@ -44,12 +44,13 @@ namespace ZeroInstall.Model
         [XmlAttribute("local-path")]
         public string LocalPath { get; set; }
 
+        private ManifestDigest _manifestDigest;
         /// <summary>
         /// Digests of the .manifest file using various hashing algorithms.
         /// </summary>
         [Category("Identity"), Description("Digests of the .manifest file using various hashing algorithms.")]
         [XmlElement("manifest-digest")]
-        public ManifestDigest ManifestDigest { get; set; }
+        public ManifestDigest ManifestDigest { get { return _manifestDigest; } set { _manifestDigest = value; } }
         #endregion
 
         //--------------------//
@@ -77,7 +78,7 @@ namespace ZeroInstall.Model
 
             // Fill in values (only if missing) using legacy entries (indentified by prefixes)
             if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else ManifestDigest.ParseID(ID);
+            else ManifestDigest.ParseID(ID, ref _manifestDigest);
         }
         #endregion
 

@@ -23,6 +23,7 @@ using NDesk.Options;
 using ZeroInstall.Injector.Cli.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Cli
@@ -33,11 +34,13 @@ namespace ZeroInstall.Injector.Cli
         private enum Mode
         {
             /// <summary>Launch or download an <see cref="Model.Interface"/>.</summary>
-            Interface,
+            Normal,
             /// <summary>List known <see cref="Model.Interface"/>s.</summary>
             List,
             /// <summary>Import feed files from local source.</summary>
             Import,
+            /// <summary>Add feed aliases.</summary>
+            Manage,
             /// <summary>Show the built-in help text.</summary>
             Help,
             /// <summary>Display version information.</summary>
@@ -71,11 +74,12 @@ namespace ZeroInstall.Injector.Cli
         /// </summary>
         static void Main(string[] args)
         {
-            Mode mode = Mode.Interface;
+            Mode mode = Mode.Normal;
             string selectionsFile = null, main = null, wrapper = null;
             bool dryRun = false, downloadOnly = false, registerFeed = false, getSelections = false, selectOnly = false;
             ImplementationVersion before = null, notBefore = null;
             bool source = false, offline = false, refresh = false;
+            IStore additionalStore = null;
 
             #region Command-line options
             var options = new OptionSet
@@ -112,6 +116,7 @@ namespace ZeroInstall.Injector.Cli
                 {"offline", Resources.OptionOffline, unused => offline = true},
                 {"r", unused => refresh = true},
                 {"refresh", Resources.OptionRefresh, unused => refresh = true},
+                {"--with-store", "", path => additionalStore = new DirectoryStore(path)},
 
                 // Launcher options
                 {"m", newMain => main = newMain},
@@ -125,13 +130,13 @@ namespace ZeroInstall.Injector.Cli
 
             switch (mode)
             {
-                case Mode.Interface:
+                case Mode.Normal:
                 {
                     // ToDo: Alternative policy for DryRun
                     Policy policy = new DefaultPolicy(additional[0]);
                     policy.InterfaceProvider.Refresh = refresh;
                     if (offline) policy.InterfaceProvider.NetworkLevel = NetworkLevel.Offline;
-                    //policy.AdditionalStore =
+                    policy.AdditionalStore = additionalStore;
                     policy.Source = source;
                     policy.Before = before;
                     policy.NotBefore = notBefore;

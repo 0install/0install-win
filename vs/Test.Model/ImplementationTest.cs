@@ -57,5 +57,16 @@ namespace ZeroInstall.Model
             Assert.AreEqual(implementation1.GetHashCode(), implementation2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(implementation1, implementation2), "Cloning should not return the same reference.");
         }
+
+        /// <summary>
+        /// Ensures that <see cref="Implementation.Simplify"/> correctly identifies manifest digests in the ID tag.
+        /// </summary>
+        [Test]
+        public void TestSimplify()
+        {
+            var implementation = new Implementation { ID = "sha256=invalid" };
+            implementation.Simplify();
+            Assert.AreEqual("invalid", implementation.ManifestDigest.Sha256);
+        }
     }
 }

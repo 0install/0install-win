@@ -25,5 +25,17 @@ namespace ZeroInstall.Store.Interface
     [TestFixture]
     public class InterfaceProviderTest
     {
+        /// <summary>
+        /// Ensures <see cref="InterfaceProvider.GetInterface"/> correctly gets an interface from the cache or the network.
+        /// </summary>
+        // Test deactivated because it performs network IO and launches an external application
+        //[Test]
+        public void TestGetInterface()
+        {
+            var provider = new InterfaceProvider();
+
+            var interfaceInfo = provider.GetInterface("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Assert.AreEqual(interfaceInfo.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+        }
     }
 }

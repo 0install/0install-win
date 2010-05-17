@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Interface
             get { return Path.Combine(Locations.GetUserCacheDir("0install.net"), "interfaces"); }
         }
 
-        private NetworkLevel _networkLevel;
+        private NetworkLevel _networkLevel = NetworkLevel.Full;
         /// <summary>
         /// Controls how liberally network access is attempted.
         /// </summary>
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Interface
                 string path = Path.Combine(UserProfileDirectory, urlEncoded);
 
                 // ToDo: Implement downloading
-                if (!Directory.Exists(path)) throw new FileNotFoundException("Interface not in cache", "path");
+                if (!File.Exists(path)) throw new FileNotFoundException("Interface not in cache", "path");
 
                 return Model.Interface.Load(path);
             }
