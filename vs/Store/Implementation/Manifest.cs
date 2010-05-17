@@ -65,67 +65,6 @@ namespace ZeroInstall.Store.Implementation
         #endregion
         
         #region Factory methods
-
-        #region Helper
-        /// <summary>
-        /// Recursively adds <see cref="ManifestNode"/>s representing objects in a directory in the file system to a list.
-        /// </summary>
-        /// <param name="nodes">The list to add new <see cref="ManifestNode"/>s to.</param>
-        /// <param name="format">The format of the manifest to be created.</param>
-        /// <param name="externalXBits">A list of files that are to be treated as if they had the executable flag set.</param>
-        /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
-        /// <param name="path">The path of the directory to analyze.</param>
-        /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception>
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
-        private static void AddToList(IList<ManifestNode> nodes, ManifestFormat format, ICollection<string> externalXBits, string startPath, string path)
-        {
-            #region Sanity checks
-            if (nodes == null) throw new ArgumentNullException("nodes");
-            if (format == null) throw new ArgumentNullException("format");
-            if (externalXBits == null) throw new ArgumentNullException("externalXBits");
-            if (string.IsNullOrEmpty(startPath)) throw new ArgumentNullException("startPath");
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
-            {
-                var file = entry as FileInfo;
-                if (file != null)
-                {
-                    #region File entry
-                    // Don't include top-level manifest management files in manifest
-                    if (startPath == path && (file.Name == ".manifest" || file.Name == ".xbit")) continue;
-
-                    // ToDo: Handle symlinks
-
-                    // ToDo: Handle executable bits in filesystem itself
-                    if (externalXBits.Contains(file.FullName))
-                        nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
-                    else
-                        nodes.Add(new ManifestFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
-                    #endregion
-                }
-                else
-                {
-                    #region Directory entry
-                    var directory = entry as DirectoryInfo;
-                    if (directory != null)
-                    {
-                        nodes.Add(new ManifestDirectory(
-                            FileHelper.UnixTime(directory.LastWriteTimeUtc),
-                            // Remove leading portion of path and use Unix slashes
-                            directory.FullName.Substring(startPath.Length).Replace(Path.DirectorySeparatorChar, '/')));
-
-                        // Recurse into sub-directories
-                        AddToList(nodes, format, externalXBits, startPath, directory.FullName);
-                    }
-                    #endregion
-                }
-            }
-        }
-        #endregion
-
         /// <summary>
         /// Generates a manifest for a directory in the file system.
         /// </summary>
@@ -165,8 +104,38 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
 
+            #region Create nodes
             var nodes = new List<ManifestNode>();
-            AddToList(nodes, format, externalXBits, path, path);
+            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
+            {
+                var file = entry as FileInfo;
+                if (file != null)
+                {
+                    // Don't include manifest management files in manifest
+                    if (file.Name == ".manifest" || file.Name == ".xbit") continue;
+
+                    // ToDo: Handle symlinks
+
+                    // ToDo: Handle executable bits in filesystem itself
+                    if (externalXBits.Contains(file.FullName))
+                        nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
+                    else
+                        nodes.Add(new ManifestFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
+                }
+                else
+                {
+                    var directory = entry as DirectoryInfo;
+                    if (directory != null)
+                    {
+                        nodes.Add(new ManifestDirectory(
+                            FileHelper.UnixTime(directory.LastWriteTime),
+                            // Remove leading portion of path and use Unix slashes
+                            directory.FullName.Substring(path.Length).Replace(Path.DirectorySeparatorChar, '/')));
+                    }
+                }
+            }
+            #endregion
+
             return new Manifest(nodes, format);
         }
         #endregion

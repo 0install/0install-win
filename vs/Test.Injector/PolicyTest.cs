@@ -49,7 +49,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         // Test deactivated because it performs network IO
         //[Test]
-        public void TestGetUncachedImplementations()
+        public void TestListUncachedImplementations()
         {
             // Look inside a temporary (empty) store
             IEnumerable<Implementation> implementations;

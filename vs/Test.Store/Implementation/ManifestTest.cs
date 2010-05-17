@@ -92,7 +92,6 @@ namespace ZeroInstall.Store.Implementation
             {
                 Directory.Delete(packageDir, true);
             }
-
         }
 
         // Test deactivated because it cannot work on a Windows filesystem
