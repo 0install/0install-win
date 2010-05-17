@@ -138,4 +138,7 @@
   <data name="UnableToAddImplementionToStore" xml:space="preserve">
     <value>Unable to add implementation to a store.</value>
   </data>
+	<data name="NotValidDomain">
+		<value xml:space="preserve">The value is not a valid domain name.</value>
+	</data>
 </root>

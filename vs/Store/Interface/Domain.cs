@@ -15,13 +15,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Xml.Serialization;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Interface
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public struct Domain
     {
+        #region Properties
+        private string _value;
+        /// <summary>
+        /// A valid domain name (not a full <see cref="Uri"/>!).
+        /// </summary>
         [XmlAttribute("value")]
-        public string Value { get; set; }
+        public string Value
+        {
+            get { return _value; }
+            set
+            {
+                #region Sanity checks
+                if (Uri.CheckHostName(value) != UriHostNameType.Dns) throw new ArgumentException(Resources.NotValidDomain, "value");
+                #endregion
+
+                _value = value;
+            }
+        }
+        #endregion
+
+        // ToDo: Implement Equals
     }
 }

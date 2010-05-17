@@ -36,52 +36,43 @@ namespace ZeroInstall.Store.Interface
         private static readonly string
             _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"trustdb.xml"),
             _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "injector")), @"trustdb.xml");
+
+        /// <summary>Was the trust data loaded from the application's directory?</summary>
+        private bool _loadedFromAppDir;
         #endregion
 
         #region Properties
+        // Order is preserved, duplicate entries are not allowed
+        private readonly C5.HashedArrayList<Key> _keys = new C5.HashedArrayList<Key>();
         /// <summary>
-        /// The currently active set of trust data
+        /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
-        public static Trust Current { get; private set; }
-
-        /// <summary>
-        /// Automatically save any changed trust data?
-        /// </summary>
-        public static bool AutoSave { get; set; }
-        #endregion
-
-        #region Constructor
-        // Dummy constructor to prevent external instancing of this class
-        private Trust()
-        { }
+        [XmlElement("key")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.HashedArrayList<Key> Keys { get { return _keys; } }
         #endregion
 
         //--------------------//
 
         #region Storage
-        // Were the trust data loaded from the application's directory?
-        private static bool _loadedFromAppDir;
-
-        static Trust()
-        {
-            AutoSave = true;
-        }
-
+        
         #region Load
         /// <summary>
         /// Loads the current trust data from an XML file.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any problems when loading the trust data should be ignored")]
-        public static void LoadCurrent()
+        public static Trust Load()
         {
+            // ToDo: Combine data from multiple sources
+
             if (File.Exists(_portablePath))
             { // Try to load trust data file from the application's directory
-                _loadedFromAppDir = true;
-
                 try
                 {
-                    Current = XmlStorage.Load<Trust>(_portablePath);
+                    var current = XmlStorage.Load<Trust>(_portablePath);
+                    current._loadedFromAppDir = true;
                     Log.Write("Loaded trust data from installation directory");
+                    return current;
                 }
                 catch (Exception ex)
                 {
@@ -92,8 +83,9 @@ namespace ZeroInstall.Store.Interface
             { // Then fall back to the user profile
                 try
                 {
-                    Current = XmlStorage.Load<Trust>(_profilePath);
+                    var current = XmlStorage.Load<Trust>(_profilePath);
                     Log.Write("Loaded trust data from user profile");
+                    return current;
                 }
                 catch (Exception ex)
                 {
@@ -102,7 +94,7 @@ namespace ZeroInstall.Store.Interface
             }
 
             // Fall back to default values if both fail
-            if (Current == null) Current = new Trust();
+            return new Trust();
         }
         #endregion
 
@@ -110,18 +102,18 @@ namespace ZeroInstall.Store.Interface
         /// <summary>
         /// Saves the current trust data to an XML file.
         /// </summary>
-        public static void SaveCurrent()
+        public void Save()
         {
             try
             {
                 if (_loadedFromAppDir)
                 {
-                    XmlStorage.Save(_portablePath, Current);
+                    XmlStorage.Save(_portablePath, this);
                     Log.Write("Saved trust data to working directory");
                 }
                 else
                 {
-                    XmlStorage.Save(_profilePath, Current);
+                    XmlStorage.Save(_profilePath, this);
                     Log.Write("Saved trust data to user profile");
                 }
             }

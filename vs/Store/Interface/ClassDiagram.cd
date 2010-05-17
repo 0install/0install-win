@@ -7,11 +7,11 @@
       <FileName>Interface\Icon.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Store.Interface.InterfaceProvider" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Interface.InterfaceCache" Collapsed="true">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAECAAAAAAAAAAAQAgAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Interface\InterfaceProvider.cs</FileName>
+      <HashCode>AAAAAAAAAABAAECAAAAAAAAAAAQAgAAAAAAACAAAAAA=</HashCode>
+      <FileName>Interface\InterfaceCache.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="NetworkLevel" />
@@ -20,12 +20,15 @@
   <Class Name="ZeroInstall.Store.Interface.Trust" Collapsed="true">
     <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAEAAAAAAAEAAAAACAAAgAAAAAAAQABAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQgIAAAAAAAAAACAAAAAgAAAAAAAQABAAAAAAAAAA=</HashCode>
       <FileName>Interface\Trust.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Keys" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Interface.Key" Collapsed="true">
-    <Position X="3.25" Y="1.5" Width="1.5" />
+    <Position X="3.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAQAAAAAA=</HashCode>
       <FileName>Interface\Key.cs</FileName>
@@ -34,8 +37,8 @@
       <Property Name="Domains" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Struct Name="ZeroInstall.Store.Interface.Domain" Collapsed="true">
-    <Position X="3.25" Y="2.75" Width="1.5" />
+  <Struct Name="ZeroInstall.Store.Interface.Domain">
+    <Position X="3.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Interface\Domain.cs</FileName>
@@ -45,7 +48,7 @@
     <Position X="0.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>Interface\InterfaceProvider.cs</FileName>
+      <FileName>Interface\InterfaceCache.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

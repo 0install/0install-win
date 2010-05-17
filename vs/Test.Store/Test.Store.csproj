@@ -63,6 +63,7 @@
     <Compile Include="Implementation\ManifestTest.cs" />
     <Compile Include="Implementation\StoreTest.cs" />
     <Compile Include="Interface\InterfaceCacheTest.cs" />
+    <Compile Include="Interface\TrustTest.cs" />
     <Compile Include="Utilities\FolderDisposables.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

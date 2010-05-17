@@ -15,32 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Xml.Serialization;
+using NUnit.Framework;
 
 namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// An entry in the <see cref="Trust"/> database.
+    /// Contains test methods for <see cref="Trust"/>.
     /// </summary>
-    public sealed class Key
+    [TestFixture]
+    public class TrustTest
     {
-        #region Properties
         /// <summary>
-        /// The GPG cryptographic fingerprint of this key.
+        /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
-        [XmlAttribute("fingerprint")]
-        public string Fingerprint { get; set; }
-
-        // Order is preserved, duplicate entries are not allowed
-        private readonly C5.HashedLinkedList<Domain> _domains = new C5.HashedLinkedList<Domain>();
-        /// <summary>
-        /// A list of <see cref="Domain"/>s this key is valid for.
-        /// </summary>
-        [XmlElement("domain")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
-        #endregion
-
-        // ToDo: Implement Equals
+        [Test]
+        public void TestSaveLoad()
+        {
+            var trust = Trust.Load();
+        }
     }
 }
