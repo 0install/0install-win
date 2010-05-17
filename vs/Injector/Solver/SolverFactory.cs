@@ -24,31 +24,31 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Creates a new <see cref="ISolver"/> instance on demand.
     /// </summary>
-    public abstract class SolverProvider
+    public abstract class SolverFactory
     {
         #region Singleton properties
-        private static readonly SolverProvider _default = new DefaultSolverProvider();
+        private static readonly SolverFactory _default = new DefaultSolverFactory();
         /// <summary>
-        /// A <see cref="SolverProvider"/> that creates instances of the default <see cref="ISolver"/>.
+        /// A <see cref="SolverFactory"/> that creates instances of the default <see cref="ISolver"/>.
         /// </summary>
-        public static SolverProvider Default { get { return _default; } }
+        public static SolverFactory Default { get { return _default; } }
         #endregion
 
         #region Abstract methods
         /// <summary>
         /// Creates a new <see cref="ISolver"/> instance.
         /// </summary>
-        /// <param name="interfaceProvider">The source used to request <see cref="Interface"/>s.</param>
+        /// <param name="interfaceCache">The source used to request <see cref="Interface"/>s.</param>
         /// <param name="store">The location to search for cached <see cref="Implementation"/>s.</param>
-        public abstract ISolver CreateSolver(InterfaceProvider interfaceProvider, IStore store);
+        public abstract ISolver CreateSolver(InterfaceCache interfaceCache, IStore store);
         #endregion
 
         #region Inner classes
-        private sealed class DefaultSolverProvider : SolverProvider
+        private sealed class DefaultSolverFactory : SolverFactory
         {
-            public override ISolver CreateSolver(InterfaceProvider interfaceProvider, IStore store)
+            public override ISolver CreateSolver(InterfaceCache interfaceCache, IStore store)
             {
-                return new PythonSolver(interfaceProvider, store);
+                return new PythonSolver(interfaceCache, store);
             }
         }
         #endregion

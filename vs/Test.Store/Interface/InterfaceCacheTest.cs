@@ -15,24 +15,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.DownloadBroker;
-using ZeroInstall.Injector.Solver;
-using ZeroInstall.Store.Interface;
+using NUnit.Framework;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// A policy that uses the default <see cref="SolverProvider"/>, <see cref="InterfaceProvider"/> and <see cref="Fetcher"/>.
+    /// Contains test methods for <see cref="InterfaceCache"/>.
     /// </summary>
-    public class DefaultPolicy : Policy
+    [TestFixture]
+    public class InterfaceCacheTest
     {
-        #region Constructor
         /// <summary>
-        /// Creates a new policy for a specific feed.
+        /// Ensures <see cref="InterfaceCache.GetInterface"/> correctly gets an interface from the cache or the network.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
-        public DefaultPolicy(string feed) : base(feed, SolverProvider.Default, new InterfaceProvider(), Fetcher.Default)
-        {}
-        #endregion
+        // Test deactivated because it performs network IO and launches an external application
+        //[Test]
+        public void TestGetInterface()
+        {
+            var cache = new InterfaceCache();
+
+            var interfaceInfo = cache.GetInterface("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Assert.AreEqual(interfaceInfo.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+        }
     }
 }

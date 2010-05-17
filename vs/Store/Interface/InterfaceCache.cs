@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// Controls how liberally network access is attempted.
     /// </summary>
-    /// <see cref="InterfaceProvider.NetworkLevel"/>
+    /// <see cref="InterfaceCache.NetworkLevel"/>
     public enum NetworkLevel
     {
         /// <summary>Do not access network at all.</summary>
@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// Manages the <see cref="Interface"/> cache.
     /// </summary>
-    public class InterfaceProvider
+    public class InterfaceCache
     {
         #region Properties
         /// <summary>

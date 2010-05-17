@@ -64,8 +64,8 @@ namespace ZeroInstall.Injector.Gui
             Args = new Arguments(args);
 
             // ToDo: Handle options
-            var policy = new DefaultPolicy(Args.Files[0]);
-            policy.GetLauncher().Run("");
+            var policy = Policy.CreateDefault(Args.Files[0]);
+            policy.GetLauncher().Execute("");
         }
         #endregion
     }

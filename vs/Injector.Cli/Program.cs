@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector.Cli
         {
             Mode mode = Mode.Normal;
             string selectionsFile = null, main = null, wrapper = null;
-            bool dryRun = false, downloadOnly = false, registerFeed = false, getSelections = false, selectOnly = false;
+            bool dryRun = false, downloadOnly = false, getSelections = false, selectOnly = false;
             ImplementationVersion before = null, notBefore = null;
             bool source = false, offline = false, refresh = false;
             IStore additionalStore = null;
@@ -89,6 +89,8 @@ namespace ZeroInstall.Injector.Cli
                 {"import", Resources.OptionImport, unused => mode = Mode.Import},
                 {"l", unused => mode = Mode.List},
                 {"list", Resources.OptionList, unused => mode = Mode.List},
+                {"f", unused => mode = Mode.Manage},
+                {"feed", Resources.OptionFeed, unused => mode = Mode.Manage},
                 {"h", unused => mode = Mode.Help},
                 {"help", Resources.OptionHelp, unused => mode = Mode.Help},
                 {"V", unused => mode = Mode.Version},
@@ -99,8 +101,6 @@ namespace ZeroInstall.Injector.Cli
                 {"download-only", Resources.OptionDownloadOnly, unused => downloadOnly = true},
                 {"D", unused => dryRun = true},
                 {"dry-run", Resources.OptionDryRun, unused => dryRun = true},
-                {"f", unused => registerFeed = true},
-                {"feed", Resources.OptionFeed, unused => registerFeed = true},
                 {"get-selections", Resources.OptionGetSelections, unused => getSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => selectOnly = true},
                 {"set-selections", Resources.OptionSetSelections, file => selectionsFile = file},
@@ -133,13 +133,12 @@ namespace ZeroInstall.Injector.Cli
                 case Mode.Normal:
                 {
                     // ToDo: Alternative policy for DryRun
-                    Policy policy = new DefaultPolicy(additional[0]);
-                    policy.InterfaceProvider.Refresh = refresh;
-                    if (offline) policy.InterfaceProvider.NetworkLevel = NetworkLevel.Offline;
+                    Policy policy = Policy.CreateDefault(additional[0]);
+                    policy.InterfaceCache.Refresh = refresh;
+                    if (offline) policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline;
                     policy.AdditionalStore = additionalStore;
                     policy.Source = source;
-                    policy.Before = before;
-                    policy.NotBefore = notBefore;
+                    policy.Constraint = new Constraint(notBefore, before);
 
                     if (selectionsFile == null) policy.Solve();
                     else policy.SetSelections(Selections.Load(selectionsFile));
@@ -147,7 +146,7 @@ namespace ZeroInstall.Injector.Cli
                     if (!selectOnly)
                     {
                         // ToDo: Add progress callbacks
-                        policy.DownloadMissingImplementations();
+                        policy.DownloadUncachedImplementations();
                     }
 
                     if (getSelections)
@@ -161,7 +160,7 @@ namespace ZeroInstall.Injector.Cli
                         launcher.Wrapper = wrapper;
 
                         string arguments = StringHelper.Concatenate(additional.GetRange(1, additional.Count - 1), " ");
-                        launcher.Run(arguments);
+                        launcher.Execute(arguments);
                     }
                     break;
                 }

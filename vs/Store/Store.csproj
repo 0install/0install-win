@@ -71,7 +71,7 @@
     <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Interface\Domain.cs" />
     <Compile Include="Interface\Icon.cs" />
-    <Compile Include="Interface\InterfaceProvider.cs" />
+    <Compile Include="Interface\InterfaceCache.cs" />
     <Compile Include="Interface\Key.cs" />
     <Compile Include="Interface\Trust.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

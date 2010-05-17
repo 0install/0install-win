@@ -58,48 +58,45 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        #region Properties
+        #region Variables
         /// <summary>
         /// The source used to request <see cref="Interface"/>s.
         /// </summary>
-        public InterfaceProvider InterfaceProvider { get; private set; }
+        private readonly InterfaceCache _interfaceCache;
 
         /// <summary>
         /// The location to search for cached <see cref="Implementation"/>s.
         /// </summary>
-        public IStore Store { get; private set; }
+        private readonly IStore _store;
+        #endregion
 
+        #region Properties
         /// <summary>
         /// The architecture to to find <see cref="Implementation"/>s for.
         /// </summary>
         public Architecture Architecture { get; set; }
         
         /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number older than this.
+        /// Only choose <see cref="Implementation"/>s with certain version numbers.
         /// </summary>
-        public ImplementationVersion Before { get; set; }
-
-        /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
-        /// </summary>
-        public ImplementationVersion NotBefore { get; set; }
+        public Constraint Constraint { get; set; }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new Python-based solver.
         /// </summary>
-        /// <param name="interfaceProvider">The source used to request <see cref="Interface"/>s.</param>
+        /// <param name="interfaceCache">The source used to request <see cref="Interface"/>s.</param>
         /// <param name="store">The location to search for cached <see cref="Implementation"/>s.</param>
-        public PythonSolver(InterfaceProvider interfaceProvider, IStore store)
+        public PythonSolver(InterfaceCache interfaceCache, IStore store)
         {
             #region Sanity checks
-            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
+            if (interfaceCache == null) throw new ArgumentNullException("interfaceCache");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            InterfaceProvider = interfaceProvider;
-            Store = store;
+            _interfaceCache = interfaceCache;
+            _store = store;
         }
         #endregion
 
@@ -117,11 +114,12 @@ namespace ZeroInstall.Injector.Solver
         {
             // Build the arguments list for the solver script
             string arguments = ""; //string.Format("--os {0} --cpu {1} ", Architecture.OS, Architecture.Cpu);
-            if (InterfaceProvider.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
-            if (InterfaceProvider.Refresh) arguments += "--refresh ";
+            if (_interfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
+            if (_interfaceCache.Refresh) arguments += "--refresh ";
             if (Architecture.Cpu == Cpu.Source) arguments += "--source ";
-            if (Before != null) arguments += "--before=" + NotBefore + " ";
-            if (NotBefore != null) arguments += "--not-before=" + NotBefore + " ";
+            if (Constraint.BeforeVersion != null) arguments += "--before=" + Constraint.BeforeVersion + " ";
+            if (Constraint.NotBeforeVersion != null) arguments += "--not-before=" + Constraint.NotBeforeVersion + " ";
+            // ToDo: Read _store and create --store argument
             arguments += feed;
 
             // Prepare to launch the Python interpreter (no window, redirect all output)

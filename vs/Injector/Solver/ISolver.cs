@@ -16,8 +16,6 @@
  */
 
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -28,29 +26,14 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Properties
         /// <summary>
-        /// The source used to request <see cref="Interface"/>s.
-        /// </summary>
-        InterfaceProvider InterfaceProvider { get; }
-
-        /// <summary>
-        /// The location to search for cached <see cref="Implementation"/>s.
-        /// </summary>
-        IStore Store { get; }
-
-        /// <summary>
         /// The architecture to to find <see cref="Implementation"/>s for.
         /// </summary>
         Architecture Architecture { get; set; }
 
         /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number older than this.
+        /// Only choose <see cref="Implementation"/>s with certain version numbers.
         /// </summary>
-        ImplementationVersion Before { get; set; }
-
-        /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
-        /// </summary>
-        ImplementationVersion NotBefore { get; set; }
+        Constraint Constraint { get; set; }
         #endregion
 
         //--------------------//

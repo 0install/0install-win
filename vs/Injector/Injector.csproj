@@ -50,7 +50,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DefaultPolicy.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Launcher.cs" />
     <Compile Include="Policy.cs" />
@@ -62,7 +61,7 @@
     </Compile>
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
-    <Compile Include="Solver\SolverProvider.cs" />
+    <Compile Include="Solver\SolverFactory.cs" />
     <Compile Include="Solver\PythonSolver.cs" />
     <Compile Include="Solver\Selections.cs" />
   </ItemGroup>

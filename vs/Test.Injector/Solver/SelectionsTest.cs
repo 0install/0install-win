@@ -16,13 +16,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -88,30 +83,6 @@ namespace ZeroInstall.Injector.Solver
             Assert.AreEqual(selections1, selections2, "Cloned objects should be equal.");
             Assert.AreEqual(selections1.GetHashCode(), selections2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(selections1, selections2), "Cloning should not return the same reference.");
-        }
-
-        /// <summary>
-        /// Ensures that <see cref="Selections.GetUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
-        /// </summary>
-        [Test]
-        public void TestGetUncachedImplementations()
-        {
-            var implementation = new ImplementationSelection
-            {
-                Interface = "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml",
-                ManifestDigest = new ManifestDigest("sha1new=3b83356a20a4aae1b5aed7e8e91382895fdddf22")
-            };
-            var selections = new Selections {Implementations = {implementation}};
-
-            // Look inside a temporary (empty) store
-            IEnumerable<Implementation> implementations;
-            using (var temp = new TemporaryDirectory())
-                implementations = selections.GetUncachedImplementations(new DirectoryStore(temp.Path), new InterfaceProvider());
-
-            // Check the first (and only) entry of the "missing list" is the correct implementation
-            var enumerator = implementations.GetEnumerator();
-            Assert.IsTrue(enumerator.MoveNext(), "An least one Implementation should be missing.");
-            Assert.AreEqual(implementation.ManifestDigest, enumerator.Current.ManifestDigest, "The actual Implementation should have the same digest as the selection information.");
         }
     }
 }

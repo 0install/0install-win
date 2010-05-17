@@ -16,15 +16,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -66,40 +63,6 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         //--------------------//
-
-        #region Query
-        /// <summary>
-        /// Lists <see cref="Implementation"/>s that are references here but not available in <paramref name="implementationStore"/>.
-        /// </summary>
-        /// <param name="implementationStore">The store to to check for cached implementations.</param>
-        /// <param name="interfaceProvider">The interface source used when additional information about <see cref="ImplementationSelection"/>s need to be requested.</param>
-        /// <returns>The actual <see cref="Implementation"/>s (taken from <see cref="InterfaceProvider"/>) instead of the <see cref="ImplementationSelection"/>s.</returns>
-        public IEnumerable<Implementation> GetUncachedImplementations(IStore implementationStore, InterfaceProvider interfaceProvider)
-        {
-            #region Sanity checks
-            if (implementationStore == null) throw new ArgumentNullException("implementationStore");
-            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
-            #endregion
-
-            ICollection<Implementation> notCached = new LinkedList<Implementation>();
-
-            foreach (var implementation in Implementations)
-            {
-                // Local paths are considered to be always available
-                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
-
-                // Check if an implementation with a matching digest is available in the cache
-                if (implementationStore.Contains(implementation.ManifestDigest)) continue;
-
-                // If not, get download information for the implementation by checking the original interface file
-                var interfaceInfo = interfaceProvider.GetInterface(implementation.Interface);
-                interfaceInfo.Simplify();
-                notCached.Add(interfaceInfo.GetImplementation(implementation.ID));
-            }
-
-            return notCached;
-        }
-        #endregion
 
         #region Storage
         /// <summary>

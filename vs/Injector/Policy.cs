@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Injector.Properties;
@@ -29,7 +30,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Takes an interface URI and provides operations like solving and launching.
     /// </summary>
-    /// <remarks>Brings together a <see cref="Solver"/> and a <see cref="Fetcher"/> to create a <see cref="Launcher"/>.</remarks>
+    /// <remarks>Brings together a <see cref="Solver"/>, <see cref="InterfaceCache"/> and a <see cref="Fetcher"/> to create a <see cref="Launcher"/>.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
     {
@@ -38,10 +39,7 @@ namespace ZeroInstall.Injector
         private readonly string _feed;
 
         /// <summary>Used to create <see cref="ISolver"/> instances.</summary>
-        private readonly SolverProvider _solverProvider;
-
-        /// <summary>The source used to request <see cref="Interface"/>s.</summary>
-        private readonly InterfaceProvider _interfaceProvider;
+        private readonly SolverFactory _solverFactory;
 
         /// <summary>Used to download missing <see cref="Implementation"/>s.</summary>
         private readonly Fetcher _fetcher;
@@ -51,25 +49,26 @@ namespace ZeroInstall.Injector
         #endregion
 
         #region Properties
+        private readonly InterfaceCache _interfaceCache;
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Interface"/>s.
         /// </summary>
-        public InterfaceProvider InterfaceProvider { get { return _interfaceProvider; } }
+        public InterfaceCache InterfaceCache { get { return _interfaceCache; } }
 
         /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number older than this.
+        /// Only choose <see cref="Implementation"/>s with certain version numbers.
         /// </summary>
-        public ImplementationVersion Before { get; set; }
-
-        /// <summary>
-        /// Only choose <see cref="Implementation"/>s with a version number at least this new or newer.
-        /// </summary>
-        public ImplementationVersion NotBefore { get; set; }
+        public Constraint Constraint { get; set; }
 
         /// <summary>
         /// Download source code instead of compiled binaries.
         /// </summary>
         public bool Source { get; set; }
+
+        /// <summary>
+        /// The architecture to to find <see cref="Implementation"/>s for. Leave unchanged to use the current system's architecture.
+        /// </summary>
+        public Architecture Architecture { get; set; }
 
         /// <summary>
         /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="Fetcher.Store"/>; may be <see langword="null"/>.
@@ -79,7 +78,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The locations to search for cached <see cref="Implementation"/>s.
         /// </summary>
-        protected IStore SearchStore
+        private IStore SearchStore
         {
             get
             {
@@ -98,21 +97,36 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
         /// <param name="solverProvider">Used to create <see cref="ISolver"/> instances.</param>
-        /// <param name="interfaceProvider">The source used to request <see cref="Interface"/>s.</param>
+        /// <param name="interfaceCache">The source used to request <see cref="Interface"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
-        public Policy(string feed, SolverProvider solverProvider, InterfaceProvider interfaceProvider, Fetcher fetcher)
+        public Policy(string feed, SolverFactory solverProvider, InterfaceCache interfaceCache, Fetcher fetcher)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
             if (solverProvider == null) throw new ArgumentNullException("solverProvider");
-            if (interfaceProvider == null) throw new ArgumentNullException("interfaceProvider");
+            if (interfaceCache == null) throw new ArgumentNullException("interfaceProvider");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             #endregion
 
             _feed = feed;
-            _solverProvider = solverProvider;
-            _interfaceProvider = interfaceProvider;
+            _solverFactory = solverProvider;
+            _interfaceCache = interfaceCache;
             _fetcher = fetcher;
+        }
+        #endregion
+
+        #region Factory methods
+        /// <summary>
+        /// Creates a new policy for a specific feed using the default <see cref="SolverFactory"/>, <see cref="InterfaceCache"/> and <see cref="Fetcher"/>.
+        /// </summary>
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        public static Policy CreateDefault(string feed)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            #endregion
+
+            return new Policy(feed, SolverFactory.Default, new InterfaceCache(), Fetcher.Default);
         }
         #endregion
 
@@ -127,11 +141,10 @@ namespace ZeroInstall.Injector
         public void Solve()
         {
             // Initialize a new solver with the current settings
-            var solver = _solverProvider.CreateSolver(_interfaceProvider, SearchStore);
+            var solver = _solverFactory.CreateSolver(_interfaceCache, SearchStore);
 
             // Transfer user-selected limitations
-            solver.Before = Before;
-            solver.NotBefore = NotBefore;
+            solver.Constraint = Constraint;
 
             // ToDo: Detect and set current architecture
             if (Source) solver.Architecture = new Architecture(solver.Architecture.OS, Cpu.Source);
@@ -170,21 +183,48 @@ namespace ZeroInstall.Injector
 
         #region Implementation
         /// <summary>
-        /// Prepares to launch an application.
+        /// Lists 
         /// </summary>
         /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <remarks>Implementation archives may be downloaded, hash validation is performed.</remarks>
+        /// <remarks>Implementation archives may be downloaded, hash validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
+        public IEnumerable<Implementation> ListUncachedImplementations()
+        {
+            ICollection<Implementation> notCached = new LinkedList<Implementation>();
+
+            foreach (var implementation in _selections.Implementations)
+            {
+                // Local paths are considered to be always available
+                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
+
+                // Check if an implementation with a matching digest is available in the cache
+                if (SearchStore.Contains(implementation.ManifestDigest)) continue;
+
+                // If not, get download information for the implementation by checking the original interface file
+                var interfaceInfo = _interfaceCache.GetInterface(implementation.Interface);
+                interfaceInfo.Simplify();
+                notCached.Add(interfaceInfo.GetImplementation(implementation.ID));
+            }
+
+            return notCached;
+        }
+
+        /// <summary>
+        /// Downloads any selected <see cref="Implementation"/>s that are missing from the <see cref="SearchStore"/>.
+        /// </summary>
+        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
+        /// <remarks>Implementation archives may be downloaded, hash validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
         // ToDo: Add callbacks and make asynchronous
-        public void DownloadMissingImplementations()
+        public void DownloadUncachedImplementations()
         {
             #region Sanity checks
             if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
             #endregion
 
-            // Find out which implementations are missing and download them
-            var missing = _selections.GetUncachedImplementations(SearchStore, InterfaceProvider);
-            if (InterfaceProvider.NetworkLevel != NetworkLevel.Offline) _fetcher.RunSync(new FetcherRequest(missing));
+            if (InterfaceCache.NetworkLevel == NetworkLevel.Offline) return;
+
+            _fetcher.RunSync(new FetcherRequest(ListUncachedImplementations()));
         }
         #endregion
 
@@ -194,7 +234,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadMissingImplementations"/> was not called first.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadUncachedImplementations"/> was not called first.</exception>
         /// <remarks>Implementation archives may be downloaded, hash validation is performed.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method performs extensive disk and network IO")]
         public Launcher GetLauncher()

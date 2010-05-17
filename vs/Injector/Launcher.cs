@@ -27,7 +27,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Controls the execution of an <see cref="Implementation"/> with its injected <see cref="Dependency"/>s.
+    /// Executes a set of <see cref="Implementation"/>s as a program.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Launcher
@@ -80,15 +80,14 @@ namespace ZeroInstall.Injector
         /// Executes the first entry in <see cref="Implementation"/>s and injects the rest as dependencies.
         /// </summary>
         /// <param name="arguments">Arguments to pass to the launched applications.</param>
-        public void Run(string arguments)
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
+        public void Execute(string arguments)
         {
             // ToDo: Implement properly
 
             string implDir = (!string.IsNullOrEmpty(_implementations[0].LocalPath) ? _implementations[0].LocalPath : _provider.GetPath(_implementations[0].ManifestDigest));
-
-            string main = _implementations[0].Main;
-            // ToDo: Validate main
-            Process.Start(Path.Combine(implDir, main), arguments);
+            
+            Process.Start(Path.Combine(implDir, _implementations[0].Main), arguments);
         }
         #endregion
     }

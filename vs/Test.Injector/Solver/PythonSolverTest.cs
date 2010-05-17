@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
         //[Test]
         public void TestSolve()
         {
-            var solver = new PythonSolver(new InterfaceProvider(), StoreProvider.DefaultStore);
+            var solver = new PythonSolver(new InterfaceCache(), StoreProvider.DefaultStore);
 
             Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
 
