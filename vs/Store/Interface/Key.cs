@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
 namespace ZeroInstall.Store.Interface
@@ -22,6 +23,7 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// An entry in the <see cref="Trust"/> database.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Key
     {
         #region Properties

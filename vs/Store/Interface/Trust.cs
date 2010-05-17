@@ -29,6 +29,7 @@ namespace ZeroInstall.Store.Interface
     /// <summary>
     /// A database of trusted GPG signatures for <see cref="Interface"/>s.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("trusted-keys", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
     public sealed class Trust
     {

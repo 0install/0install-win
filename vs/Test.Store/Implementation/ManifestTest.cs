@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Ensures that <see cref="Manifest.CalculateHash"/> returns the same value as <see cref="Manifest.CreateDotFile"/>.
+        /// Ensures that <see cref="Manifest.CalculateDigest"/> returns the same value as <see cref="Manifest.CreateDotFile"/>.
         /// </summary>
         [Test]
         public void TestCalculateHash()
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = StoreFunctionality.CreateArtificialPackage();
             try
             {
-                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash();
+                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateDigest();
                 string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
                 Assert.AreEqual(diskHash, inMemoryHash);
             }

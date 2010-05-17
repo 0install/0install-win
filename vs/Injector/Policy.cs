@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector
             #region Sanity checks
             if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
             if (solverProvider == null) throw new ArgumentNullException("solverProvider");
-            if (interfaceCache == null) throw new ArgumentNullException("interfaceProvider");
+            if (interfaceCache == null) throw new ArgumentNullException("interfaceCache");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             #endregion
 
@@ -171,6 +171,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method returns a new clone on each call")]
         public Selections GetSelections()
         {
             #region Sanity checks

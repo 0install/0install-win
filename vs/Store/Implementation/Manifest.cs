@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
 using Common.Helpers;
 using ZeroInstall.Store.Properties;
@@ -72,52 +71,57 @@ namespace ZeroInstall.Store.Implementation
         /// Recursively adds <see cref="ManifestNode"/>s representing objects in a directory in the file system to a list.
         /// </summary>
         /// <param name="nodes">The list to add new <see cref="ManifestNode"/>s to.</param>
-        /// <param name="algorithm">The hashing algorithm to use for <see cref="ManifestFileBase.Hash"/>.</param>
-        /// <param name="externalXbits">A list of files that are to be treated as if they had the executable flag set.</param>
+        /// <param name="format">The format of the manifest to be created.</param>
+        /// <param name="externalXBits">A list of files that are to be treated as if they had the executable flag set.</param>
         /// <param name="startPath">The top-level directory of the <see cref="Model.Implementation"/>.</param>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        private static void AddToList(IList<ManifestNode> nodes, HashAlgorithm algorithm, ICollection<string> externalXbits, string startPath, string path)
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        private static void AddToList(IList<ManifestNode> nodes, ManifestFormat format, ICollection<string> externalXBits, string startPath, string path)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
-            if (algorithm == null) throw new ArgumentNullException("algorithm");
-            if (externalXbits == null) throw new ArgumentNullException("externalXbits");
+            if (format == null) throw new ArgumentNullException("format");
+            if (externalXBits == null) throw new ArgumentNullException("externalXBits");
             if (string.IsNullOrEmpty(startPath)) throw new ArgumentNullException("startPath");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // Find all files (including executable and symlinks)
-            foreach (var file in Directory.GetFiles(path))
+            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
             {
-                var fileName = Path.GetFileName(file);
+                var file = entry as FileInfo;
+                if (file != null)
+                {
+                    #region File entry
+                    // Don't include top-level manifest management files in manifest
+                    if (startPath == path && (file.Name == ".manifest" || file.Name == ".xbit")) continue;
 
-                // Don't include top-level manifest management files in manifest
-                if (startPath == path && (fileName == ".manifest" || fileName == ".xbit")) continue;
-                
-                // ToDo: Handle symlinks
+                    // ToDo: Handle symlinks
 
-                // ToDo: Handle executable bits in filesystem itself
-                var fileInfo = new FileInfo(file);
-                if (externalXbits.Contains(file))
-                    nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file, algorithm), FileHelper.UnixTime(fileInfo.LastWriteTimeUtc), fileInfo.Length, fileName));
+                    // ToDo: Handle executable bits in filesystem itself
+                    if (externalXBits.Contains(file.FullName))
+                        nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
+                    else
+                        nodes.Add(new ManifestFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
+                    #endregion
+                }
                 else
-                    nodes.Add(new ManifestFile(FileHelper.ComputeHash(file, algorithm), FileHelper.UnixTime(fileInfo.LastWriteTimeUtc), fileInfo.Length, fileName));
-            }
+                {
+                    #region Directory entry
+                    var directory = entry as DirectoryInfo;
+                    if (directory != null)
+                    {
+                        nodes.Add(new ManifestDirectory(
+                            FileHelper.UnixTime(directory.LastWriteTimeUtc),
+                            // Remove leading portion of path and use Unix slashes
+                            directory.FullName.Substring(startPath.Length).Replace(Path.DirectorySeparatorChar, '/')));
 
-            // Find all directories
-            foreach (var directory in Directory.GetDirectories(path))
-            {
-                // Get directory information
-                var dirInfo = new DirectoryInfo(directory);
-                nodes.Add(new ManifestDirectory(
-                    FileHelper.UnixTime(dirInfo.LastWriteTimeUtc),
-                    // Remove leading portion of path and use Unix slashes
-                    directory.Substring(startPath.Length).Replace(Path.DirectorySeparatorChar, '/')));
-
-                // Recurse into sub-directories
-                AddToList(nodes, algorithm, externalXbits, startPath, directory);
+                        // Recurse into sub-directories
+                        AddToList(nodes, format, externalXBits, startPath, directory.FullName);
+                    }
+                    #endregion
+                }
             }
         }
         #endregion
@@ -140,11 +144,11 @@ namespace ZeroInstall.Store.Implementation
 
             #region Parse external X-Bits file
             // Executable bits must be stored externally on some platforms (e.g. Windows) because the file system attributes can't
-            var externalXbits = new C5.HashSet<string>();
-            string xbitPath = Path.Combine(path, ".xbit");
-            if (File.Exists(xbitPath))
+            var externalXBits = new C5.HashSet<string>();
+            string xBitPath = Path.Combine(path, ".xbit");
+            if (File.Exists(xBitPath))
             {
-                using (StreamReader xbitFile = File.OpenText(xbitPath))
+                using (StreamReader xbitFile = File.OpenText(xBitPath))
                 {
                     // Each line in the file signals an executable file
                     while (!xbitFile.EndOfStream)
@@ -154,7 +158,7 @@ namespace ZeroInstall.Store.Implementation
                         {
                             // Trim away the first slash and then replace Unix-style slashes
                             string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
-                            externalXbits.Add(Path.Combine(path, relativePath));
+                            externalXBits.Add(Path.Combine(path, relativePath));
                         }
                     }
                 }
@@ -162,7 +166,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             var nodes = new List<ManifestNode>();
-            AddToList(nodes, format.HashingMethod, externalXbits, path, path);
+            AddToList(nodes, format, externalXBits, path, path);
             return new Manifest(nodes, format);
         }
         #endregion
@@ -190,7 +194,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
             // Caclulate the hash of the completed manifest file
-            return Format.Prefix + FileHelper.ComputeHash(path, Format.HashingMethod);
+            return Format.Prefix + FileHelper.ComputeHash(path, Format.HashAlgorithm);
         }
 
         /// <summary>
@@ -244,7 +248,7 @@ namespace ZeroInstall.Store.Implementation
                 if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
                 else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
                 else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
-                else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromString(line));
+                else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromEntry(line));
                 else throw new FormatException(Resources.InvalidLinesInManifest);
             }
 
@@ -298,17 +302,17 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Calculates the hash value for the manifest in-memory.
+        /// Calculates the digest for the manifest in-memory.
         /// </summary>
         /// <returns>The manifest digest (format=hash).</returns>
-        public string CalculateHash()
+        public string CalculateDigest()
         {
             using (var stream = new MemoryStream())
             {
                 Save(stream);
 
                 stream.Position = 0;
-                return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashingMethod);
+                return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashAlgorithm);
             }
         }
         #endregion

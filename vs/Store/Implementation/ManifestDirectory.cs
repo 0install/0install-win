@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
-        internal static ManifestNode FromStringOld(string line)
+        internal static ManifestDirectory FromStringOld(string line)
         {
             const int numberOfParts = 3;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);

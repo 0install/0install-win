@@ -59,6 +59,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementation\ManifestFormatTest.cs" />
     <Compile Include="Implementation\StoreSetTest.cs" />
     <Compile Include="Implementation\ManifestTest.cs" />
     <Compile Include="Implementation\StoreTest.cs" />

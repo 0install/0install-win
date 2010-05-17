@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -13,18 +15,6 @@ namespace ZeroInstall.Store.Implementation
     /// </remarks>
     public abstract class ManifestFormat
     {
-        #region Properties
-        /// <summary>
-        /// The hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
-        /// </summary>
-        internal abstract HashAlgorithm HashingMethod { get; }
-        
-        /// <summary>
-        /// The prefix used to identify the format (e.g. "sha256").
-        /// </summary>
-        public abstract string Prefix { get; }
-        #endregion
-
         #region Singleton properties
         private static readonly ManifestFormat _sha1Old = new Sha1OldFormat();
         /// <summary>
@@ -63,19 +53,42 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
-        #region Serialization methods
+        #region Abstract properties
         /// <summary>
-        /// Used to generate a file entry (line) for a specific <see cref="ManifestNode"/>.
+        /// The hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
+        /// </summary>
+        internal abstract HashAlgorithm HashAlgorithm { get; }
+
+        /// <summary>
+        /// The prefix used to identify the format (e.g. "sha256").
+        /// </summary>
+        public abstract string Prefix { get; }
+        #endregion
+
+        #region Abstract methods
+        /// <summary>
+        /// Generates a file entry (line) for a specific <see cref="ManifestNode"/>.
         /// </summary>
         internal abstract string GenerateEntryForNode(ManifestNode node);
 
         /// <summary>
-        /// Used to parse a file entry (line) back into a <see cref="ManifestNode"/>.
+        /// Parses a file entry (line) back into a <see cref="ManifestNode"/>.
         /// </summary>
-        internal abstract ManifestNode ReadDirectoryNodeFromString(string data);
+        internal abstract ManifestDirectory ReadDirectoryNodeFromEntry(string entry);
+
+        /// <summary>
+        /// Creates a recursive list of all file system entries in a certain directory sorted according to the format specifications.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <returns>A list of file system entries.</returns>
+        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        public abstract IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path);
         #endregion
 
-        #region Inner classes
+        //--------------------//
+
+        #region Inner classes: Old Format
         /// <summary>
         /// An abstract base class for <see cref="ManifestFormat"/>s using the old manifest format.
         /// </summary>
@@ -86,9 +99,37 @@ namespace ZeroInstall.Store.Implementation
                 return node.ToStringOld();
             }
 
-            internal override ManifestNode ReadDirectoryNodeFromString(string data)
+            internal override ManifestDirectory ReadDirectoryNodeFromEntry(string entry)
             {
-                return ManifestDirectory.FromStringOld(data);
+                return ManifestDirectory.FromStringOld(entry);
+            }
+
+            public override IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path)
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                #endregion
+
+                // Get a combined list of files and directories
+                var entries = Directory.GetFileSystemEntries(path);
+
+                // Sort the list lexicographically
+                Array.Sort(entries, StringComparer.Ordinal);
+
+                // Create the combined result list (files and sub-diretories mixed)
+                var result = new C5.LinkedList<FileSystemInfo>();
+                foreach (string entry in entries)
+                {
+                    if (Directory.Exists(entry))
+                    {
+                        // Recurse into sub-direcories
+                        result.Add(new DirectoryInfo(entry));
+                        result.AddAll(GetSortedDirectoryEntries(entry));
+                    }
+                    // Simply list files
+                    else result.Add(new FileInfo(entry));
+                }
+                return result;
             }
         }
 
@@ -98,11 +139,13 @@ namespace ZeroInstall.Store.Implementation
         private class Sha1OldFormat : OldFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha1="; } }
         }
+        #endregion
 
+        #region Inner classes: New Format
         /// <summary>
         /// An abstract base class for <see cref="ManifestFormat"/>s using the new manifest format.
         /// </summary>
@@ -113,9 +156,39 @@ namespace ZeroInstall.Store.Implementation
                 return node.ToString();
             }
 
-            internal override ManifestNode ReadDirectoryNodeFromString(string data)
+            internal override ManifestDirectory ReadDirectoryNodeFromEntry(string entry)
             {
-                return ManifestDirectory.FromString(data);
+                return ManifestDirectory.FromString(entry);
+            }
+
+            public override IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path)
+            {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+                #endregion
+
+                // Get separated lists for files and directories
+                var files = Directory.GetFiles(path);
+                var directories = Directory.GetDirectories(path);
+
+                // Sort the lists lexicographically
+                Array.Sort(files, StringComparer.Ordinal);
+                Array.Sort(directories, StringComparer.Ordinal);
+
+                // Create the combined result list (files first, then sub-diretories)
+                var result = new C5.LinkedList<FileSystemInfo>();
+                foreach (string file in files)
+                {
+                    // Simply list files
+                    result.Add(new FileInfo(file));
+                }
+                foreach (string directory in directories)
+                {
+                    // Recurse into sub-direcories
+                    result.Add(new DirectoryInfo(directory));
+                    result.AddAll(GetSortedDirectoryEntries(directory));
+                }
+                return result;
             }
         }
 
@@ -125,7 +198,7 @@ namespace ZeroInstall.Store.Implementation
         private class Sha1NewFormat : NewFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha1new="; } }
         }
@@ -136,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
         private class Sha256Format : NewFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA256.Create();
-            internal override HashAlgorithm HashingMethod { get { return _algorithm; } }
+            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha256="; } }
         }

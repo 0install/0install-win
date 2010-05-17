@@ -81,7 +81,7 @@ namespace ZeroInstall.DownloadBroker
             {
                 var fastZip = new FastZip();
                 fastZip.ExtractZip(file, extractFolder.Path, ".*");
-                return new ManifestDigest(Manifest.Generate(extractFolder.Path, ManifestFormat.Sha256).CalculateHash());
+                return new ManifestDigest(Manifest.Generate(extractFolder.Path, ManifestFormat.Sha256).CalculateDigest());
             }
         }
 

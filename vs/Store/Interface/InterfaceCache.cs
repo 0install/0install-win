@@ -96,6 +96,10 @@ namespace ZeroInstall.Store.Interface
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
         public Model.Interface GetInterface(string feed)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            #endregion
+
             if (Uri.IsWellFormedUriString(feed, UriKind.Absolute))
             {
                 // Get from cache or download from internet

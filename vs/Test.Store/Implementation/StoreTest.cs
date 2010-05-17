@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddFolder()
         {
             string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateHash());
+            var digest = new ManifestDigest(Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateDigest());
 
             using (var cache = new TemporaryDirectory())
             {

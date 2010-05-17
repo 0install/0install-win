@@ -59,14 +59,10 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         #region Variables
-        /// <summary>
-        /// The source used to request <see cref="Interface"/>s.
-        /// </summary>
+        /// <summary>The source used to request <see cref="Interface"/>s.</summary>
         private readonly InterfaceCache _interfaceCache;
 
-        /// <summary>
-        /// The location to search for cached <see cref="Implementation"/>s.
-        /// </summary>
+        /// <summary>The location to search for cached <see cref="Implementation"/>s.</summary>
         private readonly IStore _store;
         #endregion
 
