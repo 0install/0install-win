@@ -16,8 +16,6 @@
  */
 
 using System;
-using System.IO;
-using System.Windows.Forms;
 using Common.Helpers;
 using NDesk.Options;
 using ZeroInstall.Injector.Cli.Properties;
@@ -45,24 +43,6 @@ namespace ZeroInstall.Injector.Cli
             Help,
             /// <summary>Display version information.</summary>
             Version
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// The directory where the executable file is located.
-        /// </summary>
-        public static string AppDir
-        {
-            get { return Path.GetDirectoryName(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// The name of the executable file.
-        /// </summary>
-        public static string AppName
-        {
-            get { return Path.GetFileNameWithoutExtension(Application.ExecutablePath); }
         }
         #endregion
 
@@ -166,7 +146,8 @@ namespace ZeroInstall.Injector.Cli
                     break;
 
                 case Mode.Version:
-                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", Application.ProductVersion);
+                    // ToDo: Read version number from assembly data
+                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "1.0");
                     break;
             }
         }

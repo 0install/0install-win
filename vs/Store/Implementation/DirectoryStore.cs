@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Security.AccessControl;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -146,7 +147,10 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Move directory to final store destination
-            Directory.Move(source, Path.Combine(_cacheDir, expectedDigest));
+            string target = Path.Combine(_cacheDir, expectedDigest);
+            Directory.Move(source, target);
+
+            Directory.SetAccessControl(target, new DirectorySecurity());
         }
         #endregion
 

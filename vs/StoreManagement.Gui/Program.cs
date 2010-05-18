@@ -16,40 +16,12 @@
  */
 
 using System;
-using System.IO;
 using System.Windows.Forms;
-using Common;
 
 namespace ZeroInstall.StoreManagement.Gui
 {
     internal static class Program
     {
-        #region Properties
-        /// <summary>
-        /// The directory where the executable file is located.
-        /// </summary>
-        public static string AppDir
-        {
-            get { return Path.GetDirectoryName(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// The name of the executable file.
-        /// </summary>
-        public static string AppName
-        {
-            get { return Path.GetFileNameWithoutExtension(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// The arguments this application was launched with.
-        /// </summary>
-        public static Arguments Args { get; private set; }
-        #endregion
-
-        //--------------------//
-
-        #region Startup
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -59,11 +31,7 @@ namespace ZeroInstall.StoreManagement.Gui
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Command-line arguments
-            Args = new Arguments(args);
-
             // ToDo: Implement
         }
-        #endregion
     }
 }

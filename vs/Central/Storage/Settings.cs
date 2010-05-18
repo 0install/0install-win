@@ -33,7 +33,7 @@ namespace ZeroInstall.Central.Storage
     {
         #region Variables
         private static readonly string
-            _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"central-settings.xml"),
+            _portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"central-settings.xml"),
             _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "central")), @"settings.xml");
         #endregion
 

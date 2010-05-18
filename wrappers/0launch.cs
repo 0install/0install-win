@@ -2,7 +2,6 @@
 using System.IO;
 using System.Diagnostics;
 using System.Text;
-using System.Windows.Forms;
 
 namespace ZeroInstall
 {
@@ -11,7 +10,7 @@ namespace ZeroInstall
         static void Main(string[] args)
         {
             // Determine where this EXE file is located
-            string basePath = Path.GetDirectoryName(Application.ExecutablePath);
+            string basePath = AppDomain.CurrentDomain.BaseDirectory;
 
             // Find the Python interpreter
             string pythonExe = basePath + "\\python\\python.exe";

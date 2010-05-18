@@ -18,7 +18,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
@@ -37,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
             {
                 // ToDo: Remove hack
                 return Environment.GetEnvironmentVariable("apps");
-                //return Path.GetDirectoryName(Application.ExecutablePath);
+                //return AppDomain.CurrentDomain.BaseDirectory;
             }
         }
 

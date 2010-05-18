@@ -18,7 +18,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
@@ -35,7 +34,7 @@ namespace ZeroInstall.Store.Interface
     {
         #region Variables
         private static readonly string
-            _portablePath = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), @"trustdb.xml"),
+            _portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"trustdb.xml"),
             _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "injector")), @"trustdb.xml");
 
         /// <summary>Was the trust data loaded from the application's directory?</summary>
@@ -119,7 +118,7 @@ namespace ZeroInstall.Store.Interface
                 }
             }
             catch (IOException)
-            { }
+            {}
         }
         #endregion
 

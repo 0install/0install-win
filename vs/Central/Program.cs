@@ -28,32 +28,6 @@ namespace ZeroInstall.Central
 {
     internal static class Program
     {
-        #region Properties
-        /// <summary>
-        /// The directory where the executable file is located.
-        /// </summary>
-        public static string AppDir
-        {
-            get { return Path.GetDirectoryName(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// The name of the executable file.
-        /// </summary>
-        public static string AppName
-        {
-            get { return Path.GetFileNameWithoutExtension(Application.ExecutablePath); }
-        }
-
-        /// <summary>
-        /// The arguments this application was launched with.
-        /// </summary>
-        public static Arguments Args { get; private set; }
-        #endregion
-
-        //--------------------//
-
-        #region Startup
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -63,16 +37,12 @@ namespace ZeroInstall.Central
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Command-line arguments
-            Args = new Arguments(args);
-
             Settings.LoadCurrent();
 
             Application.Run(new MainForm());
 
             Settings.SaveCurrent();
         }
-        #endregion
 
         #region Helper applications
         /// <summary>
@@ -88,7 +58,7 @@ namespace ZeroInstall.Central
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
             #endregion
 
-            try { Process.Start(AppDir + Path.DirectorySeparatorChar + appName, arguments); }
+            try { Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appName), arguments); }
             catch (Win32Exception)
             {
                 Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);
