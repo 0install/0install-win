@@ -8,13 +8,13 @@ namespace ZeroInstall.Model
     internal enum VersionModifier
     {
         /// <summary>No modifier; empty string</summary>
-        None,
+        None = 0,
         /// <summary>Pre-release</summary>
-        Pre,
+        Pre = -2,
         /// <summary>Release candidate</summary>
-        RC,
+        RC  = -1,
         /// <summary>Post-release</summary>
-        Post
+        Post=  1
     }
     #endregion
 
@@ -57,6 +57,10 @@ namespace ZeroInstall.Model
             {
                 value = value.Substring("post".Length);
                 Modifier = VersionModifier.Post;
+            }
+            else
+            {
+                Modifier = VersionModifier.None;
             }
 
             // Parse any rest as dotted list
@@ -115,8 +119,25 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(VersionPart other)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            if (other == null) throw new ArgumentNullException("other");
+
+            var modifierComparison = Modifier.CompareTo(other.Modifier);
+            if (modifierComparison != 0) return modifierComparison;
+
+            var leftDottedList = DottedList ?? DottedList.Default;
+            var rightDottedList = other.DottedList ?? DottedList.Default;
+            return leftDottedList.CompareTo(rightDottedList);
+        }
+        #endregion
+
+        #region Singletons
+        private static VersionPart _default;
+        public static VersionPart Default
+        {
+            get
+            {
+                return _default ?? (_default = new VersionPart("-1"));
+            }
         }
         #endregion
     }

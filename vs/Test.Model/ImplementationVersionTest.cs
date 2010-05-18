@@ -58,10 +58,11 @@ namespace ZeroInstall.Model
             {
                 var v1 = new ImplementationVersion(sortedVersions[i - 1]);
                 var v2 = new ImplementationVersion(sortedVersions[i]);
-                Assert.IsTrue(v1 < v2);
-                Assert.IsTrue(v2 > v1);
-                Assert.IsFalse(v1 > v2);
-                Assert.IsFalse(v2 < v1);
+                string operands = sortedVersions[i - 1] + " and " + sortedVersions[i];
+                Assert.IsTrue(v1 < v2, "operator < should return true for " + operands);
+                Assert.IsTrue(v2 > v1, "operator > should be consistent with <");
+                Assert.IsFalse(v1 > v2, "operator > should return false for " + operands);
+                Assert.IsFalse(v2 < v1, "operator < should be consistent with <");
             }
         }
     }

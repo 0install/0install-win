@@ -103,8 +103,18 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(DottedList other)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            if (other == null) throw new ArgumentNullException("other");
+
+            int upperBound = Math.Max(_decimals.Length, other._decimals.Length);
+            for (var i = 0; i < upperBound; ++i)
+            {
+                int left = i >= _decimals.Length ? -1 : _decimals[i];
+                int right = i >= other._decimals.Length ? -1 : other._decimals[i];
+                int comparisonResult = left.CompareTo(right);
+                if (comparisonResult != 0)
+                    return left.CompareTo(right);
+            }
+            return 0;
         }
         #endregion
 
@@ -117,6 +127,14 @@ namespace ZeroInstall.Model
         public static bool IsValid(string value)
         {
             return Regex.IsMatch(value, @"^(\d+(\.\d+)*)$");
+        }
+        #endregion
+
+        #region Singletons
+        private static DottedList _default;
+        public static DottedList Default
+        {
+            get { return _default ?? (_default = new DottedList("0")); }
         }
         #endregion
     }

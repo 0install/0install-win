@@ -144,8 +144,21 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(ImplementationVersion other)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            if (other == null) throw new ArgumentNullException("other");
+
+            int firstPartCompared = _firstPart.CompareTo(other._firstPart);
+            if (firstPartCompared != 0)
+                return firstPartCompared;
+            int leastNumberOfAdditionalParts = Math.Max(_additionalParts.Length, other._additionalParts.Length);
+            for (int i = 0; i < leastNumberOfAdditionalParts; ++i)
+            {
+                var left = i >= _additionalParts.Length ? VersionPart.Default : _additionalParts[i];
+                var right = i >= other._additionalParts.Length ? VersionPart.Default : other._additionalParts[i];
+                int comparisonResult = left.CompareTo(right);
+                if (comparisonResult != 0)
+                    return comparisonResult;
+            }
+            return 0;
         }
 
         public static bool operator <(ImplementationVersion left, ImplementationVersion right)
