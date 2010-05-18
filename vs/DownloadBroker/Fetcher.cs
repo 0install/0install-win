@@ -18,9 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
-using Common.Download;
 using Common.Helpers;
-using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -98,7 +96,10 @@ namespace ZeroInstall.DownloadBroker
                 archiveFileWriter.Write(archiveStreamReader.ReadBytes((int)(archive.Length - archive.Position)));
             }
 
-            var fastZip = new FastZip();
+            var fastZip = new FastZip
+                          {
+                              RestoreDateTimeOnExtract = true
+                          };
             string extractFolder = FileHelper.GetTempDirectory();
             fastZip.ExtractZip(archiveFileName, extractFolder, @".*");
             File.Delete(archiveFileName);

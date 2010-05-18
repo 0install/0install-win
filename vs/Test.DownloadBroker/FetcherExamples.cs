@@ -55,7 +55,7 @@ namespace ZeroInstall.DownloadBroker
                 PreparePackageFolder(packageDir.Path);
                 CompressPackage(packageDir.Path, _archiveFile);
                 Implementation implementation = SynthesizeImplementation(_archiveFile);
-                var request = new FetcherRequest(new List<Implementation>() {implementation});
+                var request = new FetcherRequest(new List<Implementation> {implementation});
                 _fetcher.RunSync(request);
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
@@ -79,7 +79,10 @@ namespace ZeroInstall.DownloadBroker
         {
             using (var extractFolder = new TemporaryDirectory())
             {
-                var fastZip = new FastZip();
+                var fastZip = new FastZip
+                              {
+                                  RestoreDateTimeOnExtract = true
+                              };
                 fastZip.ExtractZip(file, extractFolder.Path, ".*");
                 return new ManifestDigest(Manifest.Generate(extractFolder.Path, ManifestFormat.Sha256).CalculateDigest());
             }
@@ -87,12 +90,12 @@ namespace ZeroInstall.DownloadBroker
 
         private static Archive SynthesizeArchive(string zippedPackage)
         {
-            var result = new Archive()
-            {
-                MimeType = "application/zip",
-                Size = new FileInfo(zippedPackage).Length,
-                Location = new Uri("http://localhost:50222/archives/test.zip")
-            };
+            var result = new Archive
+                         {
+                             MimeType = "application/zip",
+                             Size = new FileInfo(zippedPackage).Length,
+                             Location = new Uri("http://localhost:50222/archives/test.zip")
+                         };
             return result;
         }
 
@@ -100,11 +103,11 @@ namespace ZeroInstall.DownloadBroker
         {
             var archive = SynthesizeArchive(archiveFile);
             var digest = CreateDigestForArchiveFile(archiveFile);
-            var result = new Implementation()
-            {
-                ManifestDigest = digest,
-                Archives = {archive}
-            };
+            var result = new Implementation
+                         {
+                             ManifestDigest = digest,
+                             Archives = { archive }
+                         };
             return result;
         }
     }
