@@ -14,8 +14,16 @@ namespace ZeroInstall.Model
     /// DottedList := (Integer ("." Integer)*)
     /// </code>
     /// </remarks>
+    /// <remarks>This class is immutable.</remarks>
     internal sealed class DottedList : IEquatable<DottedList>, IComparable<DottedList>
     {
+        #region Singleton fields
+        /// <summary>
+        /// A version number with the value 0.
+        /// </summary>
+        public static readonly DottedList Default = new DottedList("0");
+        #endregion
+
         #region Variables
         /// <summary>The individual decimals.</summary>
         private readonly int[] _decimals;
@@ -103,7 +111,9 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(DottedList other)
         {
-            if (other == null) throw new ArgumentNullException("other");
+            #region Sanity checks
+            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            #endregion
 
             int upperBound = Math.Max(_decimals.Length, other._decimals.Length);
             for (var i = 0; i < upperBound; ++i)
@@ -127,14 +137,6 @@ namespace ZeroInstall.Model
         public static bool IsValid(string value)
         {
             return Regex.IsMatch(value, @"^(\d+(\.\d+)*)$");
-        }
-        #endregion
-
-        #region Singletons
-        private static DottedList _default;
-        public static DottedList Default
-        {
-            get { return _default ?? (_default = new DottedList("0")); }
         }
         #endregion
     }

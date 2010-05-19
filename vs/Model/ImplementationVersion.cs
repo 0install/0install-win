@@ -5,15 +5,18 @@ using ZeroInstall.Model.Properties;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Immutably stores a version number consisting of dot-separated decimals and optional modifier strings.
+    /// Represents a version number consisting of dot-separated decimals and optional modifier strings.
     /// </summary>
     /// <remarks>
-    /// This is the syntax for valid version strings:
-    /// <code>
-    /// Version := DottedList ("-" Modifier? DottedList?)*
-    /// DottedList := (Integer ("." Integer)*)
-    /// Modifier := "pre" | "rc" | "post"
-    /// </code>
+    /// <para>This class is immutable.</para>
+    /// <para>
+    ///   This is the syntax for valid version strings:
+    ///   <code> 
+    ///   Version := DottedList ("-" Modifier? DottedList?)*
+    ///   DottedList := (Integer ("." Integer)*)
+    ///   Modifier := "pre" | "rc" | "post"
+    ///   </code>
+    /// </para>
     /// </remarks>
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
@@ -89,8 +92,6 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        // ToDo: Implement Clone
-
         #region Equality
         public bool Equals(ImplementationVersion other)
         {
@@ -144,11 +145,13 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(ImplementationVersion other)
         {
-            if (other == null) throw new ArgumentNullException("other");
+            #region Sanity checks
+            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            #endregion
 
             int firstPartCompared = _firstPart.CompareTo(other._firstPart);
-            if (firstPartCompared != 0)
-                return firstPartCompared;
+            if (firstPartCompared != 0) return firstPartCompared;
+
             int leastNumberOfAdditionalParts = Math.Max(_additionalParts.Length, other._additionalParts.Length);
             for (int i = 0; i < leastNumberOfAdditionalParts; ++i)
             {

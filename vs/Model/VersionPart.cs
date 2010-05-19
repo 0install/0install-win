@@ -21,8 +21,17 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents a part of a <see cref="ImplementationVersion"/> containing nothing, a <see cref="VersionModifier"/>, a <see cref="DottedList"/> or both.
     /// </summary>
+    /// <remarks>This class is immutable.</remarks>
     internal class VersionPart : IEquatable<VersionPart>, IComparable<VersionPart>
     {
+        #region Singleton fields
+        /// <summary>
+        /// A version number with the value -1.
+        /// </summary>
+        /// <remarks>-1 or "not set" has an even lower value than a set "0".</remarks>
+        public static readonly VersionPart Default = new VersionPart("-1");
+        #endregion
+
         #region Properties
         /// <summary>
         /// The modifier part of the version part; may be <see langword="null"/>.
@@ -119,7 +128,9 @@ namespace ZeroInstall.Model
         #region Comparison
         public int CompareTo(VersionPart other)
         {
-            if (other == null) throw new ArgumentNullException("other");
+            #region Sanity checks
+            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            #endregion
 
             var modifierComparison = Modifier.CompareTo(other.Modifier);
             if (modifierComparison != 0) return modifierComparison;
@@ -127,17 +138,6 @@ namespace ZeroInstall.Model
             var leftDottedList = DottedList ?? DottedList.Default;
             var rightDottedList = other.DottedList ?? DottedList.Default;
             return leftDottedList.CompareTo(rightDottedList);
-        }
-        #endregion
-
-        #region Singletons
-        private static VersionPart _default;
-        public static VersionPart Default
-        {
-            get
-            {
-                return _default ?? (_default = new VersionPart("-1"));
-            }
         }
         #endregion
     }
