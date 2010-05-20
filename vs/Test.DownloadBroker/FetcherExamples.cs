@@ -61,6 +61,20 @@ namespace ZeroInstall.DownloadBroker
             }
         }
 
+        [Test]
+        public void ShouldCorrectlyExtractSelfExtractingArchives()
+        {
+            using (var packageDir = new TemporaryDirectory())
+            {
+                PreparePackageFolder(packageDir.Path);
+                CompressPackageWithOffset(packageDir.Path, _archiveFile, 0x1000);
+                Implementation implementation = SynthesizeImplementation(_archiveFile);
+                var request = new FetcherRequest(new List<Implementation> { implementation });
+                _fetcher.RunSync(request);
+                Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+            }
+        }
+
         private static void PreparePackageFolder(string package)
         {
             File.WriteAllText(Path.Combine(package, "file1"), @"AAAA");
@@ -71,8 +85,34 @@ namespace ZeroInstall.DownloadBroker
 
         private static void CompressPackage(string package, string destination)
         {
-            var fastZip = new FastZip();
-            fastZip.CreateZip(destination, package, true, ".*");
+            CompressPackageWithOffset(package, destination, 0);
+        }
+
+        private static void CompressPackageWithOffset(string package, string destination, long offset)
+        {
+            using (var file = File.Create(destination))
+            {
+                file.Position = offset;
+                using (var zip = new ZipOutputStream(file))
+                {
+                    zip.SetLevel(9);
+                    string[] files = Directory.GetFiles(package, "*", SearchOption.AllDirectories);
+                    foreach (string currentFile in files)
+                    {
+                        if (!currentFile.StartsWith(package + @"\")) throw new Exception("file in folder didn't contain folder in path");
+                        string relativeFileName = currentFile.Remove(0, (package + @"\").Length);
+                        var entry = new ZipEntry(relativeFileName);
+                        entry.DateTime = File.GetLastWriteTime(currentFile);
+                        zip.PutNextEntry(entry);
+
+                        using (var currentFileStream = File.OpenRead(currentFile))
+                        using (var currentFileBinary = new BinaryReader(currentFileStream))
+                        {
+                            zip.Write(currentFileBinary.ReadBytes((int)currentFileStream.Length), 0, (int)currentFileStream.Length);
+                        }
+                    }
+                }
+            }
         }
 
         private static ManifestDigest CreateDigestForArchiveFile(string file)

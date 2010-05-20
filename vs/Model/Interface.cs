@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Interface : IGroupContainer, ISimplifyable
+    public sealed class Interface : IGroupContainer, ISimplifyable, IEquatable<Interface>
     {
         #region Properties
         /// <summary>
@@ -285,5 +285,34 @@ namespace ZeroInstall.Model
             XmlStorage.Save(stream, this);
         }
         #endregion
+
+        #region Equality
+        public override bool Equals(object other)
+        {
+            if (ReferenceEquals(other, this)) return true;
+            if (ReferenceEquals(other, null)) return false;
+            if (other.GetType() != this.GetType()) return false;
+            return this.Equals(other as Interface);
+        }
+        public bool Equals(Interface other)
+        {
+            return true;
+        }
+        #endregion
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (_feeds != null ? _feeds.GetHashCode() : 0);
+                result = (result * 397) ^ (_feedFor != null ? _feedFor.GetHashCode() : 0);
+                result = (result * 397) ^ (_categories != null ? _categories.GetHashCode() : 0);
+                result = (result * 397) ^ (_icons != null ? _icons.GetHashCode() : 0);
+                result = (result * 397) ^ (_groups != null ? _groups.GetHashCode() : 0);
+                result = (result * 397) ^ (_implementations != null ? _implementations.GetHashCode() : 0);
+                result = (result * 397) ^ (_packageImplementation != null ? _packageImplementation.GetHashCode() : 0);
+                return result;
+            }
+        }
     }
 }
