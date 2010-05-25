@@ -115,7 +115,7 @@ namespace ZeroInstall.FeedEditor
             Image icon;
             lblIconUrlError.ForeColor = Color.Red;
             // check url
-            if(!IsValidFeedURL(textIconUrl.Text, out iconUrl)) return;
+            if(!ControlCommon.IsValidFeedUrl(textIconUrl.Text, out iconUrl)) return;
 
             // try downloading image
             try
@@ -227,7 +227,7 @@ namespace ZeroInstall.FeedEditor
         {
             var icon = new Model.Icon();
             Uri uri;
-            if (!IsValidFeedURL(textIconUrl.Text, out uri)) return;
+            if (!ControlCommon.IsValidFeedUrl(textIconUrl.Text, out uri)) return;
 
             icon.Location = uri;
             // set mime type
@@ -277,29 +277,12 @@ namespace ZeroInstall.FeedEditor
 
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.FeedReference;
+            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
             if (String.IsNullOrEmpty(feedReference.TargetString)) return;
             if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
                 listBoxExtFeeds.Items.Add(feedReference);
             }
-        }
-
-        // check if url is a valid url (begins with http or https and has the right format)
-        // and shows a message if not.
-        private bool IsValidFeedURL(string url, out Uri uri)
-        {
-            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
-            {
-                return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
-            }
-            return false;
-        }
-
-        private bool IsValidFeedURL(string url)
-        {
-            Uri uri;
-            return IsValidFeedURL(url, out uri);
         }
 
         private void btnExtFeedsRemove_Click(object sender, EventArgs e)
@@ -319,7 +302,7 @@ namespace ZeroInstall.FeedEditor
         private void btnFeedForAdd_Click(object sender, EventArgs e)
         {
             Uri uri;
-            if (!IsValidFeedURL(textFeedFor.Text, out uri)) return;
+            if (!ControlCommon.IsValidFeedUrl(textFeedFor.Text, out uri)) return;
             var interfaceReference = new InterfaceReference();
             interfaceReference.Target = uri;
             listBoxFeedFor.Items.Add(interfaceReference);
@@ -458,12 +441,12 @@ namespace ZeroInstall.FeedEditor
 
         private void textInterfaceURL_TextChanged(object sender, EventArgs e)
         {
-            textInterfaceURL.ForeColor = IsValidFeedURL(textInterfaceURL.Text) ? Color.Green : Color.Red;
+            textInterfaceURL.ForeColor = ControlCommon.IsValidFeedUrl(textInterfaceURL.Text) ? Color.Green : Color.Red;
         }
 
         private void textIconUrl_TextChanged(object sender, EventArgs e)
         {
-            if (IsValidFeedURL(textIconUrl.Text))
+            if (ControlCommon.IsValidFeedUrl(textIconUrl.Text))
             {
                 textIconUrl.ForeColor = Color.Green;
                 btnIconPreview.Enabled = true;
@@ -477,7 +460,7 @@ namespace ZeroInstall.FeedEditor
 
         private void textHomepage_TextChanged(object sender, EventArgs e)
         {
-            textHomepage.ForeColor = IsValidFeedURL(textHomepage.Text) ? Color.Green : Color.Red;
+            textHomepage.ForeColor = ControlCommon.IsValidFeedUrl(textHomepage.Text) ? Color.Green : Color.Red;
         }
 
         private void comboBoxMinInjectorVersion_SelectedIndexChanged(object sender, EventArgs e)

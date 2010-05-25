@@ -79,8 +79,8 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_group.Main"/> if <see cref="hintTextBoxMain.Text"/> is an relative path.
-        /// Also sets the <see cref="hintTextBoxMain.ForeColor"/> to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
+        /// Sets "_group.Main if hintTextBoxMain.Text is an relative path.
+        /// Also sets the hintTextBoxMain.ForeColor to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -99,8 +99,8 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_group.Version"/> if <see cref="hintTextBoxVersion.Text"/> is a valid <see cref="ImplementationVersion"/>.
-        /// Also sets <see cref="hintTextBoxVersion.ForeColor"/> to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
+        /// Sets _group.Version if hintTextBoxVersion.Text is a valid <see cref="ImplementationVersion"/>.
+        /// Also sets hintTextBoxVersion.ForeColor to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -112,7 +112,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_group.Released"/> if value of <see cref="dateTimePickerRelease.Value"/> changed.
+        /// Sets _group.Released if value of dateTimePickerRelease.Value changed.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -122,7 +122,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_group.License"/> if <see cref="comboBoxLicense.SelectedText"/> is not empty.
+        /// Sets _group.License if comboBoxLicense.SelectedText is not empty.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -132,7 +132,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets the <see cref="_group.Stability"/> if the index of <see cref="comboBoxLicense"/> changes.
+        /// Sets the _group.Stability if the index of <see cref="comboBoxLicense"/> changes.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -142,8 +142,8 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_group.DocDir"/> if <see cref="hintTextBoxDocDir.Text"/> is a relative path.
-        /// Also sets the <see cref="hintTextBoxDocDir.ForeColor"/> to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
+        /// Sets _group.DocDir if hintTextBoxDocDir.Text is a relative path.
+        /// Also sets the hintTextBoxDocDir.ForeColor to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>

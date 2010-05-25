@@ -512,7 +512,6 @@ namespace ZeroInstall.FeedEditor
             group1.SelfTest = null;
             group1.Version = null;
             group1.VersionModifier = null;
-            group1.VersionString = null;
             this.groupControl.Group = group1;
             this.groupControl.Location = new System.Drawing.Point(6, 18);
             this.groupControl.Name = "groupControl";

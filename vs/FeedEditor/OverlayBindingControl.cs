@@ -51,7 +51,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_overlayBinding.Source"/> if <see cref="hintTextBoxMountPoint.Text"/> is a valid source.
+        /// Sets _overlayBinding.Source if hintTextBoxMountPoint.Text" is a valid source.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -62,7 +62,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_overlayBinding.MountPoint"/> if <see cref="hintTextBoxMountPoint.Text"/> is a valid mount point.
+        /// Sets _overlayBinding.MountPoint if hintTextBoxMountPoint.Text is a valid mount point.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>

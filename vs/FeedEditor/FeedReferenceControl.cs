@@ -43,7 +43,7 @@ namespace ZeroInstall.FeedEditor
         {
             if (_feedReference == null) return;
             Uri uri;
-            if (IsValidFeedURL(textBoxExtFeedURL.Text, out uri))
+            if (ControlCommon.IsValidFeedUrl(textBoxExtFeedURL.Text, out uri))
             {
                 _feedReference.Target = uri;
                 textBoxExtFeedURL.ForeColor = Color.Green;
@@ -52,15 +52,6 @@ namespace ZeroInstall.FeedEditor
             {
                 textBoxExtFeedURL.ForeColor = Color.Red;
             }
-        }
-
-        // check if url is a valid url (begins with http or https and has the right format)
-        // and shows a message if not.
-        private bool IsValidFeedURL(string url, out Uri uri)
-        {
-            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
-                return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
-            return false;
         }
     }
 }

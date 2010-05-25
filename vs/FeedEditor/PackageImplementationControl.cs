@@ -62,8 +62,8 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_packageImplementation.Main"/> if <see cref="hintTextBoxMain.Text"/> is an absolute path.
-        /// Also sets the <see cref="hintTextBoxMain.ForeColor"/> to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
+        /// Sets _packageImplementation.Main if hintTextBoxMain.Text is an absolute path.
+        /// Also sets the hintTextBoxMain.ForeColor to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -82,8 +82,8 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_packageImplementation.DocDir"/> if <see cref="hintTextBoxDocDir.Text"/> is a relative path.
-        /// Also sets the <see cref="hintTextBoxDocDir.ForeColor"/> to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
+        /// Sets _packageImplementation.DocDir if hintTextBoxDocDir.Text is a relative path.
+        /// Also sets the hintTextBoxDocDir.ForeColor to <see cref="Color.Green"/> or <see cref="Color.Red"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -102,7 +102,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_packageImplementation.Distributions"/> if <see cref="checkedListBoxDistribution.SelectedItems"/> changes.
+        /// Sets _packageImplementation.Distributions if checkedListBoxDistribution.SelectedItems changes.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -116,7 +116,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_packageImplementation.Package"/> if <see cref="hintTextBoxPackage.Text"/> is not empty.
+        /// Sets _packageImplementation.Package if hintTextBoxPackage.Text is not empty.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -126,7 +126,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets <see cref="_packageImplementation.License"/> if <see cref="comboBoxLicense.SelectedText"/> is not empty.
+        /// Sets _packageImplementation.License if comboBoxLicense.SelectedText is not empty.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -136,7 +136,7 @@ namespace ZeroInstall.FeedEditor
         }
 
         /// <summary>
-        /// Sets the <see cref="_packageImplementation.Stability"/> if the index of <see cref="comboBoxLicense"/> changes.
+        /// Sets the <see cref="Stability"/> if the index of <see cref="comboBoxLicense"/> changes.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>

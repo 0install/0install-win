@@ -68,6 +68,7 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ControlCommon.cs" />
     <Compile Include="DependencyControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

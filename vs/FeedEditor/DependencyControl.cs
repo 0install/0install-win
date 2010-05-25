@@ -54,7 +54,7 @@ namespace ZeroInstall.FeedEditor
         /// <summary>
         /// Adds a <see cref="Constraint"/> from hintTextBoxNotBefore.Text and/or hintTextBoxBefore.Text to listBoxConstraints.Items.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown if hintTextBoxNotBefore.Text and/or hintTextBoxNotBefore.Text is <see cref="null"/> or empty.</exception>
+        /// <exception cref="ArgumentException">Thrown if hintTextBoxNotBefore.Text and/or hintTextBoxNotBefore.Text is <see langword = "null"/> or empty.</exception>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void buttonConstraintAdd_Click(object sender, EventArgs e)
@@ -132,7 +132,7 @@ namespace ZeroInstall.FeedEditor
         private void hintTextBoxInterface_TextChanged(object sender, EventArgs e)
         {
             Uri uri;
-            if(IsValidFeedURL(hintTextBoxInterface.Text, out uri))
+            if (ControlCommon.IsValidFeedUrl(hintTextBoxInterface.Text, out uri))
             {
                 hintTextBoxInterface.ForeColor = Color.Green;
                 _dependency.Uri = uri;
@@ -141,19 +141,6 @@ namespace ZeroInstall.FeedEditor
                 hintTextBoxInterface.ForeColor = Color.Red;
                 _dependency.Uri = null;
             }
-        }
-
-        /// <summary>
-        /// Check if <para>url</para> is a valid <see cref="Uri"/> (begins with <see cref="UriSchemeHttp"/> or <see cref="UriSchemeHttps"/> and has the right format).
-        /// </summary>
-        /// <param name="url">Not used.</param>
-        /// <param name="uri">Not used.</param>
-        /// <returns></returns>
-        private bool IsValidFeedURL(string url, out Uri uri)
-        {
-            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
-                return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeHttps;
-            return false;
         }
 
         /// <summary>
