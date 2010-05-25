@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Gui">
+    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
+    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
+    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -29,7 +29,7 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -127,11 +127,11 @@
     <Alias n="6" Id="(@5)" />
     <Alias n="7" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
     <Alias n="8" Id="(@7)" />
-    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Injector.Gui/Injector.Gui.csproj" />
+    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
     <Alias n="10" Id="(@9)" />
-    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Gui/StoreManagement.Gui.csproj" />
+    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/StoreManagement.WinForms/StoreManagement.WinForms.csproj" />
     <Alias n="12" Id="(@11)" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="14" Id="(@13)" />
     <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="16" Id="(@15)" />
@@ -139,7 +139,7 @@
     <Alias n="18" Id="(@17)" />
     <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
     <Alias n="20" Id="(@19)" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="24" Id="(@23)" />

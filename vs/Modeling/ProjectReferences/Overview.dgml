@@ -9,15 +9,15 @@
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@14)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector.Gui">
+    <Node Id="(@14)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Injector.WinForms">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@17)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.StoreManagement.Gui">
+    <Node Id="(@17)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.StoreManagement.WinForms">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@20)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Central">
+    <Node Id="(@20)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Central.WinForms">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -25,7 +25,7 @@
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="(@38)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.FeedEditor">
+    <Node Id="(@38)" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Publish.WinForms">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -45,15 +45,15 @@
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Gui">
+    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@19" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
+    <Node Id="@19" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -89,7 +89,7 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="FeedEditor">
+    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -228,14 +228,14 @@
     <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Test.StoreManagement.Cli/Test.StoreManagement.Cli.csproj" />
     <Alias n="12" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
     <Alias n="13" Id="(@12)" />
-    <Alias n="14" Uri="Assembly=$(VsSolutionUri)/Test.Injector.Gui/Test.Injector.Gui.csproj" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Injector.Gui/Injector.Gui.csproj" />
+    <Alias n="14" Uri="Assembly=$(VsSolutionUri)/Test.Injector.WinForms/Test.Injector.WinForms.csproj" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
     <Alias n="16" Id="(@15)" />
-    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Test.StoreManagement.Gui/Test.StoreManagement.Gui.csproj" />
-    <Alias n="18" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Gui/StoreManagement.Gui.csproj" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Test.StoreManagement.WinForms/Test.StoreManagement.WinForms.csproj" />
+    <Alias n="18" Uri="Assembly=$(VsSolutionUri)/StoreManagement.WinForms/StoreManagement.WinForms.csproj" />
     <Alias n="19" Id="(@18)" />
-    <Alias n="20" Uri="Assembly=$(VsSolutionUri)/Test.Central/Test.Central.csproj" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
+    <Alias n="20" Uri="Assembly=$(VsSolutionUri)/Test.Central.WinForms/Test.Central.WinForms.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Test.Model/Test.Model.csproj" />
     <Alias n="24" Id="(@23)" />
@@ -252,8 +252,8 @@
     <Alias n="35" Id="(@34)" />
     <Alias n="36" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
     <Alias n="37" Id="(@36)" />
-    <Alias n="38" Uri="Assembly=$(VsSolutionUri)/Test.FeedEditor/Test.FeedEditor.csproj" />
-    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/FeedEditor/FeedEditor.csproj" />
+    <Alias n="38" Uri="Assembly=$(VsSolutionUri)/Test.Publish.WinForms/Test.Publish.WinForms.csproj" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
     <Alias n="40" Id="(@39)" />
     <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Test.MyApps/Test.MyApps.csproj" />
     <Alias n="42" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />

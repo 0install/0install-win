@@ -13,7 +13,7 @@
       <Category Ref="Category9" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
+    <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -81,7 +81,7 @@
   <IdentifierAliases>
     <Alias n="1" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
     <Alias n="2" Id="(@1)" />
-    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
+    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="4" Id="(@3)" />
     <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="6" Id="(@5)" />

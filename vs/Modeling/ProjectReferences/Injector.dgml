@@ -17,7 +17,7 @@
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Gui">
+    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -85,7 +85,7 @@
     <Alias n="2" Id="(@1)" />
     <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
     <Alias n="4" Id="(@3)" />
-    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Injector.Gui/Injector.Gui.csproj" />
+    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
     <Alias n="6" Id="(@5)" />
     <Alias n="7" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="8" Id="(@7)" />

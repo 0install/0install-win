@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central", "Central\Central.csproj", "{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.WinForms", "Central.WinForms\Central.WinForms.csproj", "{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FeedEditor", "FeedEditor\FeedEditor.csproj", "{50B1586B-040A-4805-AC05-1C77721EF4BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publish.WinForms", "Publish.WinForms\Publish.WinForms.csproj", "{50B1586B-040A-4805-AC05-1C77721EF4BD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{E9329C91-2656-418C-9D4A-7A4378DCD852}"
 EndProject
@@ -25,9 +25,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApps", "MyApps\MyApps.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector.Cli", "Injector.Cli\Injector.Cli.csproj", "{B56D8478-0900-47C2-9113-1DC086A2D129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector.Gui", "Injector.Gui\Injector.Gui.csproj", "{D9719D11-B12D-4D51-919C-73C606BA9E47}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Injector.WinForms", "Injector.WinForms\Injector.WinForms.csproj", "{D9719D11-B12D-4D51-919C-73C606BA9E47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Gui", "StoreManagement.Gui\StoreManagement.Gui.csproj", "{77A13B71-EF52-41C1-BB96-5337E37C4C65}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.WinForms", "StoreManagement.WinForms\StoreManagement.WinForms.csproj", "{77A13B71-EF52-41C1-BB96-5337E37C4C65}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Cli", "StoreManagement.Cli\StoreManagement.Cli.csproj", "{05E49C84-D6AB-418A-9978-8200CB76DD39}"
 EndProject
@@ -47,19 +47,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.DownloadBroker", "Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{18AF9B13-2F58-4EAC-B2BC-74EF2C253288}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.FeedEditor", "Test.FeedEditor\Test.FeedEditor.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Publish.WinForms", "Test.Publish.WinForms\Test.Publish.WinForms.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Central", "Test.Central\Test.Central.csproj", "{420808F0-7B29-423E-B035-C7099E3D3B81}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Central.WinForms", "Test.Central.WinForms\Test.Central.WinForms.csproj", "{420808F0-7B29-423E-B035-C7099E3D3B81}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.StoreService", "Test.StoreService\Test.StoreService.csproj", "{D85C15B4-8DCE-4CE5-B236-3C6092DAE463}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Injector.Cli", "Test.Injector.Cli\Test.Injector.Cli.csproj", "{01B65ACA-D350-4C93-BCDB-FB183425137C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Injector.Gui", "Test.Injector.Gui\Test.Injector.Gui.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Injector.WinForms", "Test.Injector.WinForms\Test.Injector.WinForms.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.StoreManagement.Cli", "Test.StoreManagement.Cli\Test.StoreManagement.Cli.csproj", "{9CBAF96C-8485-47F7-B8C4-63DA31933561}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.StoreManagement.Gui", "Test.StoreManagement.Gui\Test.StoreManagement.Gui.csproj", "{2121B682-D0CD-4F85-A65B-02A386670568}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.StoreManagement.WinForms", "Test.StoreManagement.WinForms\Test.StoreManagement.WinForms.csproj", "{2121B682-D0CD-4F85-A65B-02A386670568}"
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Modeling", "Modeling\Modeling.modelproj", "{DF2B2769-128D-4754-8D81-AD8653C43B5C}"
 EndProject

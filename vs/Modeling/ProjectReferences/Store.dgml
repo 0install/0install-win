@@ -17,7 +17,7 @@
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Gui">
+    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.WinForms">
       <Category Ref="Category2" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
@@ -76,7 +76,7 @@
     <Alias n="4" Id="(@3)" />
     <Alias n="5" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
     <Alias n="6" Id="(@5)" />
-    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Gui/StoreManagement.Gui.csproj" />
+    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/StoreManagement.WinForms/StoreManagement.WinForms.csproj" />
     <Alias n="8" Id="(@7)" />
     <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="10" Id="(@9)" />
