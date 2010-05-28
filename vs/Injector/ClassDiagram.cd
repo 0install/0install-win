@@ -1,42 +1,65 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <AssociationLine Name="InterfaceCache" Type="ZeroInstall.Store.Interface.InterfaceCache">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-1.211" Y="0.079" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="Constraint" Type="ZeroInstall.Model.Constraint">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.143" Y="0.068" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="SearchStore" Type="ZeroInstall.Store.Implementation.IStore">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.122" Y="-0.234" />
+      </MemberNameLabel>
+    </AssociationLine>
+    <AssociationLine Name="AdditionalStore" Type="ZeroInstall.Store.Implementation.IStore">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.112" Y="0.048" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAgAQAgAQgAAAIACBAAAAAAIAAAAAAAAAgAACIQAAAA=</HashCode>
+      <HashCode>CAAAAAAAAAAAAAAAAAAAAAAIAAQAAAAAgiAAAAAAAAA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_fetcher" />
-      <Field Name="_solverProvider" />
-      <Property Name="InterfaceProvider" />
+      <Property Name="InterfaceCache" />
+      <Property Name="Constraint" />
+      <Property Name="Fetcher" />
+      <Property Name="SearchStore" />
+      <Property Name="AdditionalStore" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Injector.Launcher" Collapsed="true">
-    <Position X="2.25" Y="3.75" Width="1.5" />
+  <Class Name="ZeroInstall.Injector.Launcher">
+    <Position X="0.5" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQACAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAABAAAAAI=</HashCode>
+      <HashCode>AAAAAgAAAgAAAAACCAIAAAAIgAAAAAAAAAAACoAAAAA=</HashCode>
       <FileName>Launcher.cs</FileName>
     </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_selections" />
+      <Property Name="Policy" />
+      <Property Name="Solver" />
+    </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.DownloadBroker.Fetcher" Collapsed="true">
-    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="4.25" Width="1.5" />
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="Store" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Store.Interface.InterfaceProvider" Collapsed="true">
-    <Position X="5.25" Y="2.75" Width="1.5" />
-    <TypeIdentifier />
-  </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections" Collapsed="true">
-    <Position X="4.5" Y="4" Width="1.5" />
+    <Position X="3.25" Y="6.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAgIgAAAAAAAAAkABAAQAABAAAAIIAAAAAAAAAABA=</HashCode>
+      <HashCode>AQAAgIgAAAAAAAAAkABAAQAABAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Solver\Selections.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -44,49 +67,55 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ZeroInstall.Injector.DefaultPolicy" Collapsed="true">
-    <Position X="0.5" Y="5.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DefaultPolicy.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ZeroInstall.Injector.Solver.ImplementationSelection" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7.5" Y="4" Width="2" />
+    <Position X="6.25" Y="6.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgABQAAAABQAAAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEgABQAAAAAQAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>Solver\ImplementationSelection.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="7" Y="1.5" Width="1.5" />
+    <Position X="6.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAJAAIAAAAAAAAAIAAQQAAAAAAAAAQQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAABAAAAAAAAAAAAIAAQQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\PythonSolver.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.SolverProvider" Collapsed="true">
-    <Position X="3.5" Y="1.5" Width="1.5" />
+    <Position X="5" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAIAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\SolverProvider.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
-    <Position X="5.25" Y="1.5" Width="1.5" />
+  <Class Name="ZeroInstall.Store.Interface.InterfaceCache">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="NetworkLevel" />
+    </ShowAsAssociation>
+  </Class>
+  <Struct Name="ZeroInstall.Model.Constraint" Collapsed="true">
+    <Position X="1" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Struct>
+  <Interface Name="ZeroInstall.Injector.Solver.ISolver">
+    <Position X="3.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQAIAAIAAAAAAAAAIAAAAAAAAAAAAAQQAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\ISolver.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="InterfaceProvider" />
-    </ShowAsAssociation>
   </Interface>
   <Interface Name="ZeroInstall.Store.Implementation.IStore" Collapsed="true">
-    <Position X="6.25" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="3.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
+  <Enum Name="ZeroInstall.Store.Interface.NetworkLevel" Collapsed="true">
+    <Position X="6.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

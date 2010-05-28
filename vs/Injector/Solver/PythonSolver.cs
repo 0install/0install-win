@@ -19,7 +19,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
@@ -27,6 +26,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Uses the Python implementation of 0launch to solve dependencies.
     /// </summary>
+    /// <remarks>This class is immutable.</remarks>
     public sealed class PythonSolver : ISolver
     {
         #region Static properties
@@ -57,44 +57,6 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        #region Variables
-        /// <summary>The source used to request <see cref="Interface"/>s.</summary>
-        private readonly InterfaceCache _interfaceCache;
-
-        /// <summary>The location to search for cached <see cref="Implementation"/>s.</summary>
-        private readonly IStore _store;
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// The architecture to to find <see cref="Implementation"/>s for.
-        /// </summary>
-        public Architecture Architecture { get; set; }
-        
-        /// <summary>
-        /// Only choose <see cref="Implementation"/>s with certain version numbers.
-        /// </summary>
-        public Constraint Constraint { get; set; }
-        #endregion
-
-        #region Constructor
-        /// <summary>
-        /// Creates a new Python-based solver.
-        /// </summary>
-        /// <param name="interfaceCache">The source used to request <see cref="Interface"/>s.</param>
-        /// <param name="store">The location to search for cached <see cref="Implementation"/>s.</param>
-        public PythonSolver(InterfaceCache interfaceCache, IStore store)
-        {
-            #region Sanity checks
-            if (interfaceCache == null) throw new ArgumentNullException("interfaceCache");
-            if (store == null) throw new ArgumentNullException("store");
-            #endregion
-
-            _interfaceCache = interfaceCache;
-            _store = store;
-        }
-        #endregion
-
         //--------------------//
 
         #region Solve
@@ -102,18 +64,20 @@ namespace ZeroInstall.Injector.Solver
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="policy">The user settings controlling the solving process.</param> 
+        /// <param name="architecture">The target architecture to solve for.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
-        public Selections Solve(string feed)
+        public Selections Solve(string feed, Policy policy, Architecture architecture)
         {
             // Build the arguments list for the solver script
             string arguments = ""; //string.Format("--os {0} --cpu {1} ", Architecture.OS, Architecture.Cpu);
-            if (_interfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
-            if (_interfaceCache.Refresh) arguments += "--refresh ";
-            if (Architecture.Cpu == Cpu.Source) arguments += "--source ";
-            if (Constraint.BeforeVersion != null) arguments += "--before=" + Constraint.BeforeVersion + " ";
-            if (Constraint.NotBeforeVersion != null) arguments += "--not-before=" + Constraint.NotBeforeVersion + " ";
+            if (policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.InterfaceCache.Refresh) arguments += "--refresh ";
+            if (policy.Constraint.BeforeVersion != null) arguments += "--before=" + policy.Constraint.BeforeVersion + " ";
+            if (policy.Constraint.NotBeforeVersion != null) arguments += "--not-before=" + policy.Constraint.NotBeforeVersion + " ";
+            if (architecture.Cpu == Cpu.Source) arguments += "--source ";
             // ToDo: Read _store and create --store argument
             arguments += feed;
 

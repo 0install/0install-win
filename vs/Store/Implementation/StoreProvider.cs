@@ -25,11 +25,11 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public static class StoreProvider
     {
-        private static readonly IStore _defaultStore = new DirectoryStore();
+        private static readonly IStore _default = new DirectoryStore();
         /// <summary>
         /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
-        public static IStore DefaultStore
+        public static IStore Default
         {
             get
             {
@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Implementation
                 //    new DirectoryStore()
                 //});
 
-                return _defaultStore;
+                return _default;
             }
         }
     }

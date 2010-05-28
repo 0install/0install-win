@@ -71,7 +71,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PolicyTest.cs" />
+    <Compile Include="LauncherTest.cs" />
     <Compile Include="Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Solver\PythonSolverTest.cs" />
     <Compile Include="Solver\SelectionsTest.cs" />

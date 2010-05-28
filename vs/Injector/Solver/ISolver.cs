@@ -22,31 +22,20 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
     /// </summary>
+    /// <remarks>Implementations of this interface should be immutable.</remarks>
     public interface ISolver
     {
-        #region Properties
-        /// <summary>
-        /// The architecture to to find <see cref="Implementation"/>s for.
-        /// </summary>
-        Architecture Architecture { get; set; }
-
-        /// <summary>
-        /// Only choose <see cref="Implementation"/>s with certain version numbers.
-        /// </summary>
-        Constraint Constraint { get; set; }
-        #endregion
-
-        //--------------------//
-
         #region Solve
         /// <summary>
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <param name="architecture">The target architecture to solve for.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
-        Selections Solve(string feed);
+        Selections Solve(string feed, Policy policy, Architecture architecture);
         #endregion
     }
 }

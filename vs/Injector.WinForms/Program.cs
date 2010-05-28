@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Injector.WinForms
 {
@@ -35,8 +36,8 @@ namespace ZeroInstall.Injector.WinForms
 
             // ToDo: Handle command-line arguments
 
-            var policy = Policy.CreateDefault(args[0]);
-            policy.GetLauncher().Execute("");
+            var launcher = new Launcher(args[0], SolverProvider.Default, Policy.CreateDefault());
+            launcher.GetRun().Execute("");
         }
     }
 }

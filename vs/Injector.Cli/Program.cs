@@ -105,34 +105,35 @@ namespace ZeroInstall.Injector.Cli
                 case Mode.Normal:
                 {
                     // ToDo: Alternative policy for DryRun
-                    Policy policy = Policy.CreateDefault(additional[0]);
+                    var policy = Policy.CreateDefault();
                     policy.InterfaceCache.Refresh = refresh;
                     if (offline) policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline;
                     policy.AdditionalStore = additionalStore;
-                    policy.Source = source;
                     policy.Constraint = constraint;
 
-                    if (selectionsFile == null) policy.Solve();
-                    else policy.SetSelections(Selections.Load(selectionsFile));
+                    var launcher = new Launcher(additional[0], SolverProvider.Default, policy) {Source = source};
+
+                    if (selectionsFile == null) launcher.Solve();
+                    else launcher.SetSelections(Selections.Load(selectionsFile));
 
                     if (!selectOnly)
                     {
                         // ToDo: Add progress callbacks
-                        policy.DownloadUncachedImplementations();
+                        launcher.DownloadUncachedImplementations();
                     }
 
                     if (getSelections)
                     {
-                        Console.Write(policy.GetSelections().WriteToString());
+                        Console.Write(launcher.GetSelections().WriteToString());
                     }
                     else if (!downloadOnly && !selectOnly)
                     {
-                        var launcher = policy.GetLauncher();
-                        launcher.Main = main;
-                        launcher.Wrapper = wrapper;
+                        var run = launcher.GetRun();
+                        run.Main = main;
+                        run.Wrapper = wrapper;
 
                         string arguments = StringHelper.Concatenate(additional.GetRange(1, additional.Count - 1), " ");
-                        launcher.Execute(arguments);
+                        run.Execute(arguments);
                     }
                     break;
                 }

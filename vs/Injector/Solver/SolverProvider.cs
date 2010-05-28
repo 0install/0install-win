@@ -15,29 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using NUnit.Framework;
-using ZeroInstall.Model;
-
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+    /// Provides access to <see cref="ISolver"/> implementations.
     /// </summary>
-    [TestFixture]
-    public class PythonSolverTest
+    public static class SolverProvider
     {
+        #region Singleton properties
+        private static readonly ISolver _default = new PythonSolver();
         /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
+        /// Returns the default implementation of <see cref="ISolver"/>.
         /// </summary>
-        // Test deactivated because it may perform network IO
-        //[Test]
-        public void TestSolve()
-        {
-            var solver = new PythonSolver();
-
-            Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(), new Architecture());
-
-            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.InterfaceString);
-        }
+        public static ISolver Default { get { return _default; } }
+        #endregion
     }
 }

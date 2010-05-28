@@ -28,24 +28,24 @@ using ZeroInstall.Store.Interface;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Contains test methods for <see cref="Policy"/>.
+    /// Contains test methods for <see cref="Launcher"/>.
     /// </summary>
     [TestFixture]
-    public class PolicyTest
+    public class LauncherTest
     {
         /// <summary>
-        /// Ensures <see cref="Policy.GetSelections"/> and <see cref="Policy.GetLauncher"/> throw exceptions if <see cref="Policy.Solve"/> wasn't called first.
+        /// Ensures <see cref="Launcher.GetSelections"/> and <see cref="Launcher.GetRun"/> throw exceptions if <see cref="Launcher.Solve"/> wasn't called first.
         /// </summary>
         [Test]
         public void TestExceptions()
         {
-            var policy = Policy.CreateDefault("invalid");
-            Assert.Throws<InvalidOperationException>(() => policy.GetSelections(), "GetSelections should depend on Solve being called first");
-            Assert.Throws<InvalidOperationException>(() => policy.GetLauncher(), "GetLauncher should depend on Solve being called first");
+            var launcher = new Launcher("invalid", SolverProvider.Default, Policy.CreateDefault());
+            Assert.Throws<InvalidOperationException>(() => launcher.GetSelections(), "GetSelections should depend on Solve being called first");
+            Assert.Throws<InvalidOperationException>(() => launcher.GetRun(), "GetRun should depend on Solve being called first");
         }
 
         /// <summary>
-        /// Ensures that <see cref="Policy.ListUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
+        /// Ensures that <see cref="Launcher.ListUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
         /// </summary>
         // Test deactivated because it performs network IO
         //[Test]
@@ -55,9 +55,10 @@ namespace ZeroInstall.Injector
             IEnumerable<Implementation> implementations;
             using (var temp = new TemporaryDirectory())
             {
-                var policy = new Policy("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverFactory.Default, new InterfaceCache(), new Fetcher(new DirectoryStore(temp.Path)));
-                policy.Solve();
-                implementations = policy.ListUncachedImplementations();
+                var policy = new Policy(new InterfaceCache(), new Fetcher(new DirectoryStore(temp.Path)));
+                var launcher = new Launcher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy);
+                launcher.Solve();
+                implementations = launcher.ListUncachedImplementations();
             }
 
             // Check the first (and only) entry of the "missing list" is the correct implementation
@@ -67,28 +68,28 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// Ensures <see cref="Policy.GetSelections"/> correctly provides results from a <see cref="ZeroInstall.Injector.Solver"/>.
+        /// Ensures <see cref="Launcher.GetSelections"/> correctly provides results from a <see cref="ZeroInstall.Injector.Solver"/>.
         /// </summary>
         // Test deactivated because it performs network IO
         //[Test]
         public void TestGetSelections()
         {
-            Policy policy = Policy.CreateDefault("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
-            policy.Solve();
-            Assert.AreEqual(policy.GetSelections().InterfaceString, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            var launcher = new Launcher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault());
+            launcher.Solve();
+            Assert.AreEqual(launcher.GetSelections().InterfaceString, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
 
         /// <summary>
-        /// Ensures <see cref="Policy.GetLauncher"/> correctly provides an application that can be launched.
+        /// Ensures <see cref="Launcher.GetRun"/> correctly provides an application that can be launched.
         /// </summary>
         // Test deactivated because it performs network IO and launches an external application
         //[Test]
-        public void TestGetLauncher()
+        public void TestGetRun()
         {
-            Policy policy = Policy.CreateDefault("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
-            policy.Solve();
-            policy.DownloadUncachedImplementations();
-            policy.GetLauncher().Execute("");
+            var launcher = new Launcher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault());
+            launcher.Solve();
+            launcher.DownloadUncachedImplementations();
+            launcher.GetRun().Execute("");
         }
     }
 }
