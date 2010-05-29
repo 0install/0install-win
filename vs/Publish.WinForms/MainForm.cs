@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Simon E. Silva Lauinger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.Drawing;
@@ -338,6 +355,7 @@ namespace ZeroInstall.Publish.WinForms
             // disable all buttons
             btnAddGroup.Enabled = false;
             btnAddImplementation.Enabled = false;
+            buttonRetrievalMethode.Enabled = false;
             btnAddPackageImplementation.Enabled = false;
             btnAddDependency.Enabled = false;
             btnAddEnvironmentBinding.Enabled = false;
@@ -358,23 +376,24 @@ namespace ZeroInstall.Publish.WinForms
                 btnAddOverlayBinding.Enabled = true;
             }
             else if (selectedNode.Tag is Implementation) {
+                buttonRetrievalMethode.Enabled = true;
                 btnAddDependency.Enabled = true;
                 btnAddEnvironmentBinding.Enabled = true;
                 btnAddOverlayBinding.Enabled = true;
-            } else if(selectedNode.Tag is Dependency)
+            }
+            else if (selectedNode.Tag is Dependency)
             {
                 btnAddEnvironmentBinding.Enabled = true;
                 btnAddOverlayBinding.Enabled = true;
-            } 
+            }
         }
 
         private void btnAddImplementation_Click(object sender, EventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
             
-            var treeNode = new TreeNode("Implementation");
-            treeNode.Tag = new Implementation();
-            
+            var treeNode = new TreeNode("Implementation") {Tag = new Implementation()};
+
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
         }
@@ -384,10 +403,10 @@ namespace ZeroInstall.Publish.WinForms
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null) return;
             
-            var treeNode = new TreeNode("Package Implementation");
-            treeNode.Tag = new PackageImplementation();
+            var treeNode = new TreeNode("Package Implementation") {Tag = new PackageImplementation()};
 
             selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
         }
 
         private void btnAddDependency_Click(object sender, EventArgs e)
@@ -395,8 +414,7 @@ namespace ZeroInstall.Publish.WinForms
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null) return;
             
-            var treeNode = new TreeNode("Dependency");
-            treeNode.Tag = new Dependency();
+            var treeNode = new TreeNode("Dependency") {Tag = new Dependency()};
 
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
@@ -421,6 +439,7 @@ namespace ZeroInstall.Publish.WinForms
             treeNode.Tag = new OverlayBinding();
 
             selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
         }
 
         private void btnRemoveFeedStructureObject_Click(object sender, EventArgs e)
@@ -466,6 +485,65 @@ namespace ZeroInstall.Publish.WinForms
         private void comboBoxMinInjectorVersion_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void buttonClearList_Click(object sender, EventArgs e)
+        {
+            treeViewFeedStructure.TopNode.Nodes.Clear();
+        }
+
+        private void buttonRetrievalMethode_Click(object sender, EventArgs e)
+        {
+            RetrievalMethod retrievalMethod = null;
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null) return;
+
+            var treeNode = new TreeNode("Retrieval methode");
+            treeNode.Tag = retrievalMethod;
+
+            selectedNode.Nodes.Add(treeNode);
+            selectedNode.Expand();
+        }
+
+        private void treeViewFeedStructure_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            Form window;
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
+            
+            // open a new window to change the selected object
+            if(selectedNode.Tag is Group)
+            {
+                window = new GroupForm {Group = (Group)selectedNode.Tag};
+                window.Show(this);
+            } else if(selectedNode.Tag is Implementation)
+            {
+                window = new ImplementationForm {Implementation = (Implementation)selectedNode.Tag};
+                window.Show();
+            } else if (selectedNode.Tag is RetrievalMethod)
+            {
+                
+            } else if(selectedNode.Tag is PackageImplementation)
+            {
+                window = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
+                window.Show();
+            } else if(selectedNode.Tag is Dependency)
+            {
+                window = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
+                window.Show();
+            } else if(selectedNode.Tag is EnvironmentBinding)
+            {
+                window = new EnvironmentBindingForm {EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag};
+                window.Show();
+            } else if(selectedNode.Tag is OverlayBinding)
+            {
+                window = new OverlayBindingForm {OverlayBinding = (OverlayBinding)selectedNode.Tag};
+                window.Show();
+            } else
+            {
+                throw new InvalidOperationException("Not an object to change.");
+            }
+            
         }
     }
 }

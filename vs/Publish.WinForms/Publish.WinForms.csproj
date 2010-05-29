@@ -14,6 +14,21 @@
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +75,7 @@
       <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -69,17 +85,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ControlHelpers.cs" />
-    <Compile Include="DependencyControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="DependencyForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DependencyControl.Designer.cs">
-      <DependentUpon>DependencyControl.cs</DependentUpon>
+    <Compile Include="DependencyForm.Designer.cs">
+      <DependentUpon>DependencyForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnvironmentBindingControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="EnvironmentBindingForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="EnvironmentBindingControl.Designer.cs">
-      <DependentUpon>EnvironmentBindingControl.cs</DependentUpon>
+    <Compile Include="EnvironmentBindingForm.Designer.cs">
+      <DependentUpon>EnvironmentBindingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FeedReferenceControl.cs">
       <SubType>UserControl</SubType>
@@ -87,11 +103,11 @@
     <Compile Include="FeedReferenceControl.Designer.cs">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImplementationControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="ImplementationForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImplementationControl.Designer.cs">
-      <DependentUpon>ImplementationControl.cs</DependentUpon>
+    <Compile Include="ImplementationForm.Designer.cs">
+      <DependentUpon>ImplementationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -99,17 +115,17 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="OverlayBindingControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="OverlayBindingForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OverlayBindingControl.Designer.cs">
-      <DependentUpon>OverlayBindingControl.cs</DependentUpon>
+    <Compile Include="OverlayBindingForm.Designer.cs">
+      <DependentUpon>OverlayBindingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="PackageImplementationControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="PackageImplementationForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PackageImplementationControl.Designer.cs">
-      <DependentUpon>PackageImplementationControl.cs</DependentUpon>
+    <Compile Include="PackageImplementationForm.Designer.cs">
+      <DependentUpon>PackageImplementationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,33 +135,33 @@
     <Compile Include="TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="GroupControl.cs">
-      <SubType>UserControl</SubType>
+    <Compile Include="GroupForm.cs">
+      <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GroupControl.Designer.cs">
-      <DependentUpon>GroupControl.cs</DependentUpon>
+    <Compile Include="GroupForm.Designer.cs">
+      <DependentUpon>GroupForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DependencyControl.resx">
-      <DependentUpon>DependencyControl.cs</DependentUpon>
+    <EmbeddedResource Include="DependencyForm.resx">
+      <DependentUpon>DependencyForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnvironmentBindingControl.resx">
-      <DependentUpon>EnvironmentBindingControl.cs</DependentUpon>
+    <EmbeddedResource Include="EnvironmentBindingForm.resx">
+      <DependentUpon>EnvironmentBindingForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImplementationControl.resx">
-      <DependentUpon>ImplementationControl.cs</DependentUpon>
+    <EmbeddedResource Include="ImplementationForm.resx">
+      <DependentUpon>ImplementationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="OverlayBindingControl.resx">
-      <DependentUpon>OverlayBindingControl.cs</DependentUpon>
+    <EmbeddedResource Include="OverlayBindingForm.resx">
+      <DependentUpon>OverlayBindingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PackageImplementationControl.resx">
-      <DependentUpon>PackageImplementationControl.cs</DependentUpon>
+    <EmbeddedResource Include="PackageImplementationForm.resx">
+      <DependentUpon>PackageImplementationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
@@ -163,8 +179,8 @@
     <EmbeddedResource Include="TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GroupControl.resx">
-      <DependentUpon>GroupControl.cs</DependentUpon>
+    <EmbeddedResource Include="GroupForm.resx">
+      <DependentUpon>GroupForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +202,23 @@
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

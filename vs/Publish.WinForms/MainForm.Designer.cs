@@ -34,7 +34,6 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            ZeroInstall.Model.Group group1 = new ZeroInstall.Model.Group();
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
             ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
@@ -71,9 +70,9 @@ namespace ZeroInstall.Publish.WinForms
             this.textName = new Common.Controls.HintTextBox();
             this.lblName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
-            this.groupBoxGroupSettings = new System.Windows.Forms.GroupBox();
-            this.groupControl = new ZeroInstall.Publish.WinForms.GroupControl();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
+            this.buttonClearList = new System.Windows.Forms.Button();
+            this.buttonRetrievalMethode = new System.Windows.Forms.Button();
             this.btnAddOverlayBinding = new System.Windows.Forms.Button();
             this.treeViewFeedStructure = new System.Windows.Forms.TreeView();
             this.btnRemoveFeedStructureObject = new System.Windows.Forms.Button();
@@ -104,7 +103,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxIcon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).BeginInit();
             this.tabPageFeed.SuspendLayout();
-            this.groupBoxGroupSettings.SuspendLayout();
             this.groupBoxFeedStructure.SuspendLayout();
             this.tabAdvanced.SuspendLayout();
             this.groupBoxFeedFor.SuspendLayout();
@@ -481,7 +479,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // tabPageFeed
             // 
-            this.tabPageFeed.Controls.Add(this.groupBoxGroupSettings);
             this.tabPageFeed.Controls.Add(this.groupBoxFeedStructure);
             this.tabPageFeed.Location = new System.Drawing.Point(4, 22);
             this.tabPageFeed.Name = "tabPageFeed";
@@ -491,38 +488,13 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageFeed.Text = "Feeds";
             this.tabPageFeed.UseVisualStyleBackColor = true;
             // 
-            // groupBoxGroupSettings
-            // 
-            this.groupBoxGroupSettings.Controls.Add(this.groupControl);
-            this.groupBoxGroupSettings.Location = new System.Drawing.Point(6, 241);
-            this.groupBoxGroupSettings.Name = "groupBoxGroupSettings";
-            this.groupBoxGroupSettings.Size = new System.Drawing.Size(596, 279);
-            this.groupBoxGroupSettings.TabIndex = 1;
-            this.groupBoxGroupSettings.TabStop = false;
-            this.groupBoxGroupSettings.Text = "Group settings";
-            // 
-            // groupControl
-            // 
-            group1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
-            group1.DocDir = null;
-            group1.License = null;
-            group1.Main = null;
-            group1.Released = new System.DateTime(2010, 4, 19, 0, 0, 0, 0);
-            group1.ReleasedString = "2010-04-19";
-            group1.SelfTest = null;
-            group1.Version = null;
-            group1.VersionModifier = null;
-            this.groupControl.Group = group1;
-            this.groupControl.Location = new System.Drawing.Point(6, 18);
-            this.groupControl.Name = "groupControl";
-            this.groupControl.Size = new System.Drawing.Size(588, 261);
-            this.groupControl.TabIndex = 0;
-            // 
             // groupBoxFeedStructure
             // 
             this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxFeedStructure.Controls.Add(this.buttonClearList);
+            this.groupBoxFeedStructure.Controls.Add(this.buttonRetrievalMethode);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddOverlayBinding);
             this.groupBoxFeedStructure.Controls.Add(this.treeViewFeedStructure);
             this.groupBoxFeedStructure.Controls.Add(this.btnRemoveFeedStructureObject);
@@ -533,16 +505,36 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Controls.Add(this.btnAddImplementation);
             this.groupBoxFeedStructure.Location = new System.Drawing.Point(6, 6);
             this.groupBoxFeedStructure.Name = "groupBoxFeedStructure";
-            this.groupBoxFeedStructure.Size = new System.Drawing.Size(596, 229);
+            this.groupBoxFeedStructure.Size = new System.Drawing.Size(596, 524);
             this.groupBoxFeedStructure.TabIndex = 0;
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
+            // 
+            // buttonClearList
+            // 
+            this.buttonClearList.Location = new System.Drawing.Point(458, 462);
+            this.buttonClearList.Name = "buttonClearList";
+            this.buttonClearList.Size = new System.Drawing.Size(131, 23);
+            this.buttonClearList.TabIndex = 9;
+            this.buttonClearList.Text = "Clear list";
+            this.buttonClearList.UseVisualStyleBackColor = true;
+            this.buttonClearList.Click += new System.EventHandler(this.buttonClearList_Click);
+            // 
+            // buttonRetrievalMethode
+            // 
+            this.buttonRetrievalMethode.Location = new System.Drawing.Point(458, 77);
+            this.buttonRetrievalMethode.Name = "buttonRetrievalMethode";
+            this.buttonRetrievalMethode.Size = new System.Drawing.Size(131, 23);
+            this.buttonRetrievalMethode.TabIndex = 8;
+            this.buttonRetrievalMethode.Text = "Retrieval methode";
+            this.buttonRetrievalMethode.UseVisualStyleBackColor = true;
+            this.buttonRetrievalMethode.Click += new System.EventHandler(this.buttonRetrievalMethode_Click);
             // 
             // btnAddOverlayBinding
             // 
             this.btnAddOverlayBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddOverlayBinding.Enabled = false;
-            this.btnAddOverlayBinding.Location = new System.Drawing.Point(459, 167);
+            this.btnAddOverlayBinding.Location = new System.Drawing.Point(458, 193);
             this.btnAddOverlayBinding.Name = "btnAddOverlayBinding";
             this.btnAddOverlayBinding.Size = new System.Drawing.Size(131, 23);
             this.btnAddOverlayBinding.TabIndex = 6;
@@ -563,18 +555,19 @@ namespace ZeroInstall.Publish.WinForms
             treeNode1.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1});
-            this.treeViewFeedStructure.Size = new System.Drawing.Size(446, 200);
+            this.treeViewFeedStructure.Size = new System.Drawing.Size(446, 495);
             this.treeViewFeedStructure.TabIndex = 0;
             this.treeViewFeedStructure.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewFeedStructure_AfterSelect);
+            this.treeViewFeedStructure.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewFeedStructure_NodeMouseDoubleClick);
             // 
             // btnRemoveFeedStructureObject
             // 
             this.btnRemoveFeedStructureObject.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRemoveFeedStructureObject.Location = new System.Drawing.Point(458, 196);
+            this.btnRemoveFeedStructureObject.Location = new System.Drawing.Point(458, 491);
             this.btnRemoveFeedStructureObject.Name = "btnRemoveFeedStructureObject";
             this.btnRemoveFeedStructureObject.Size = new System.Drawing.Size(132, 23);
             this.btnRemoveFeedStructureObject.TabIndex = 7;
-            this.btnRemoveFeedStructureObject.Text = "Remove";
+            this.btnRemoveFeedStructureObject.Text = "Remove item";
             this.btnRemoveFeedStructureObject.UseVisualStyleBackColor = true;
             this.btnRemoveFeedStructureObject.Click += new System.EventHandler(this.btnRemoveFeedStructureObject_Click);
             // 
@@ -582,7 +575,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddEnvironmentBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddEnvironmentBinding.Enabled = false;
-            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(458, 137);
+            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(458, 164);
             this.btnAddEnvironmentBinding.Name = "btnAddEnvironmentBinding";
             this.btnAddEnvironmentBinding.Size = new System.Drawing.Size(132, 23);
             this.btnAddEnvironmentBinding.TabIndex = 5;
@@ -605,7 +598,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddDependency.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddDependency.Enabled = false;
-            this.btnAddDependency.Location = new System.Drawing.Point(458, 108);
+            this.btnAddDependency.Location = new System.Drawing.Point(458, 135);
             this.btnAddDependency.Name = "btnAddDependency";
             this.btnAddDependency.Size = new System.Drawing.Size(132, 23);
             this.btnAddDependency.TabIndex = 4;
@@ -617,7 +610,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddPackageImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddPackageImplementation.Enabled = false;
-            this.btnAddPackageImplementation.Location = new System.Drawing.Point(458, 78);
+            this.btnAddPackageImplementation.Location = new System.Drawing.Point(458, 106);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
             this.btnAddPackageImplementation.TabIndex = 3;
@@ -871,7 +864,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxIcon.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.iconBox)).EndInit();
             this.tabPageFeed.ResumeLayout(false);
-            this.groupBoxGroupSettings.ResumeLayout(false);
             this.groupBoxFeedStructure.ResumeLayout(false);
             this.tabAdvanced.ResumeLayout(false);
             this.tabAdvanced.PerformLayout();
@@ -953,8 +945,8 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button btnAddOverlayBinding;
         private FeedReferenceControl feedReferenceControl;
         private System.Windows.Forms.Button btnExtFeedUpdate;
-        private System.Windows.Forms.GroupBox groupBoxGroupSettings;
-        private GroupControl groupControl;
+        private System.Windows.Forms.Button buttonClearList;
+        private System.Windows.Forms.Button buttonRetrievalMethode;
     }
 }
 

@@ -123,8 +123,8 @@
             this.comboBoxCpu.Name = "comboBoxCpu";
             this.comboBoxCpu.Size = new System.Drawing.Size(70, 21);
             this.comboBoxCpu.TabIndex = 9;
-            this.comboBoxCpu.SelectedIndexChanged += new System.EventHandler(this.comboBoxCPU_SelectedIndexChanged);
-            this.comboBoxCpu.Enter += new System.EventHandler(this.comboBoxCPU_Enter);
+            this.comboBoxCpu.SelectedIndexChanged += new System.EventHandler(this.comboBoxCpu_SelectedIndexChanged);
+            this.comboBoxCpu.Enter += new System.EventHandler(this.comboBoxCpu_Enter);
             // 
             // lblOS
             // 
@@ -164,7 +164,6 @@
             this.Controls.Add(this.comboBoxOS);
             this.Name = "TargetBaseControl";
             this.Size = new System.Drawing.Size(489, 128);
-            this.Load += new System.EventHandler(this.TargetBaseControl_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
