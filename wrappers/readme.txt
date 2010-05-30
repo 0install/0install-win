@@ -1,4 +1,5 @@
-This folder contains the C# source code for the Windows wrappers / launchers for Zero Install Python commands.
+This folder contains the C# source code for Windows wrappers / launchers for Zero Install Python commands.
+These wrappers will be deprecated by the full Windows implementation of Zero Install.
 
 The launchers start off by checking the bundled Python, GnuPG and GTK+ distributions are available. They then modify the process PATH to use these non-shared distributions.
 If everything checks out the Python interpreter is launched. Any given command-line arguments are passed through to the script. Some (GUI related) modifications to the arguments may be made to ensure correct behavior.
