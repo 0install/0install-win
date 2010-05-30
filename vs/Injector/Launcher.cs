@@ -52,11 +52,6 @@ namespace ZeroInstall.Injector
         /// The user settings controlling the solving process.
         /// </summary>
         public Policy Policy { get; private set; }
-
-        /// <summary>
-        /// Download source code instead of compiled binaries.
-        /// </summary>
-        public bool Source { get; set; }
         #endregion
 
         #region Constructor
@@ -90,12 +85,8 @@ namespace ZeroInstall.Injector
         // ToDo: Add exceptions (feed problem, dependency problem)
         public void Solve()
         {
-            // ToDo: Detect and set current architecture
-            var architecture = new Architecture();
-            if (Source) architecture.Cpu = Cpu.Source;
-
             // Run the solver algorithm
-            _selections = Solver.Solve(Feed, Policy, architecture);
+            _selections = Solver.Solve(Feed, Policy);
         }
 
         /// <summary>

@@ -120,6 +120,10 @@
   <data name="OptionBefore" xml:space="preserve">
     <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>
+  <data name="OptionCpu" xml:space="preserve">
+    <value>Forces the solver to target the CPU {CPU}.
+Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
+  </data>
   <data name="OptionDownloadOnly" xml:space="preserve">
     <value>Download any needed files, but stop before actually running the program.</value>
   </data>
@@ -132,7 +136,8 @@
 Note that if you just want to run the program, you can invoke 0launch on the feed file directly (without using --feed). This will force the injector to use that version, but won't affect what happens when you run it using the URI as normal. Use --feed when you want to use the developer version even when using the URI, or if the program is a library (and thus referenced by URI by other programs).</value>
   </data>
   <data name="OptionGetSelections" xml:space="preserve">
-    <value>Instead of running the program, just print the set of chosen implementations as an XML document to stdout. This can be used later with --set-selections. Use --select-only if you don't even want to download the packages.</value>
+    <value>Instead of running the program, just print the set of chosen implementations as an XML document to stdout. This can be later used with --set-selections.
+Use --select-only if you don't even want to download the packages.</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
@@ -151,6 +156,10 @@ Note that if you just want to run the program, you can invoke 0launch on the fee
   </data>
   <data name="OptionOffline" xml:space="preserve">
     <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
+  </data>
+  <data name="OptionOS" xml:space="preserve">
+    <value>Forces the solver to target the operating system {OS}.
+Supported values: Linu, Solaris, MacOSX, Windows</value>
   </data>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch a fresh copy of all used interfaces.</value>

@@ -104,7 +104,7 @@ namespace ZeroInstall.Store.Interface
             {
                 // Get from cache or download from internet
                 string urlEncoded = HttpUtility.UrlEncode(feed.ToString());
-                if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException("Invalid URL", "source");
+                if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException("Invalid URL", "feed");
 
                 string path = Path.Combine(UserProfileDirectory, urlEncoded);
 

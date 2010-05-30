@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector.Solver
@@ -64,21 +65,32 @@ namespace ZeroInstall.Injector.Solver
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
-        /// <param name="policy">The user settings controlling the solving process.</param> 
-        /// <param name="architecture">The target architecture to solve for.</param>
+        /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
-        public Selections Solve(string feed, Policy policy, Architecture architecture)
+        public Selections Solve(string feed, Policy policy)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
             // Build the arguments list for the solver script
-            string arguments = ""; //string.Format("--os {0} --cpu {1} ", Architecture.OS, Architecture.Cpu);
+            string arguments = "";
             if (policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.InterfaceCache.Refresh) arguments += "--refresh ";
             if (policy.Constraint.BeforeVersion != null) arguments += "--before=" + policy.Constraint.BeforeVersion + " ";
             if (policy.Constraint.NotBeforeVersion != null) arguments += "--not-before=" + policy.Constraint.NotBeforeVersion + " ";
-            if (architecture.Cpu == Cpu.Source) arguments += "--source ";
-            // ToDo: Read _store and create --store argument
+            if (policy.Architecture.Cpu == Cpu.Source) arguments += "--source ";
+            else
+            {
+                if (policy.Architecture.OS != OS.All) arguments += "--os=" + policy.Architecture.OS;
+                if (policy.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + policy.Architecture.Cpu;
+            }
+            var additionalStore = policy.AdditionalStore as DirectoryStore;
+            if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath;
+
             arguments += feed;
 
             // Prepare to launch the Python interpreter (no window, redirect all output)

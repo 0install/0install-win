@@ -10,21 +10,23 @@
             <CustomDictionary>
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
-              <UserWords>cancelled
+              <UserWords>apps
+args
+cancelled
 deserialization
 downloadable
 Eicher
 Foo
 internet
 offline
+namespaces
+sensisitive
 serializable
 serializer
 Silva
 symlink
 uncached
-uri
-Apps
-Namespaces</UserWords>
+uri</UserWords>
             </CustomDictionary>
           </Dictionaries>
         </CustomDictionaries>

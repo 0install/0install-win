@@ -70,6 +70,16 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forces the solver to target the CPU {CPU}.
+        ///Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64.
+        /// </summary>
+        internal static string OptionCpu {
+            get {
+                return ResourceManager.GetString("OptionCpu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download any needed files, but stop before actually running the program..
         /// </summary>
         internal static string OptionDownloadOnly {
@@ -99,7 +109,8 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Instead of running the program, just print the set of chosen implementations as an XML document to stdout. This can be used later with --set-selections. Use --select-only if you don&apos;t even want to download the packages..
+        ///   Looks up a localized string similar to Instead of running the program, just print the set of chosen implementations as an XML document to stdout. This can be later used with --set-selections.
+        ///Use --select-only if you don&apos;t even want to download the packages..
         /// </summary>
         internal static string OptionGetSelections {
             get {
@@ -158,6 +169,16 @@ namespace ZeroInstall.Injector.Cli.Properties {
         internal static string OptionOffline {
             get {
                 return ResourceManager.GetString("OptionOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Forces the solver to target the operating system {OS}.
+        ///Supported values: Linu, Solaris, MacOSX, Windows.
+        /// </summary>
+        internal static string OptionOS {
+            get {
+                return ResourceManager.GetString("OptionOS", resourceCulture);
             }
         }
         

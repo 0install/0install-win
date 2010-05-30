@@ -31,13 +31,6 @@ namespace ZeroInstall.Store.Implementation
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : IStore, IEquatable<DirectoryStore>
     {
-        #region Variables
-        /// <summary>
-        /// The directory containing the cached <see cref="Implementation"/>s.
-        /// </summary>
-        private readonly string _cacheDir;
-        #endregion
-
         #region Properties
         /// <summary>
         /// The default directory in the user-profile to use for storing the cache.
@@ -46,6 +39,11 @@ namespace ZeroInstall.Store.Implementation
         {
             get { return Path.Combine(Locations.GetUserCacheDir("0install.net"), "implementations"); }
         }
+
+        /// <summary>
+        /// The directory containing the cached <see cref="Implementation"/>s.
+        /// </summary>
+        public string DirectoryPath { get; private set; }
         #endregion
 
         #region Constructor
@@ -60,7 +58,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
             
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-            _cacheDir = path;
+            DirectoryPath = path;
         }
 
         /// <summary>
@@ -83,7 +81,7 @@ namespace ZeroInstall.Store.Implementation
             // Check for all supported digest algorithms
             foreach (string digest in manifestDigest.AvailableDigests)
             {
-                if (Directory.Exists(Path.Combine(_cacheDir, digest))) return true;   
+                if (Directory.Exists(Path.Combine(DirectoryPath, digest))) return true;   
             }
 
             return false;
@@ -103,7 +101,7 @@ namespace ZeroInstall.Store.Implementation
             // Check for all supported digest algorithms
             foreach (string digest in manifestDigest.AvailableDigests)
             {
-                string path = Path.Combine(_cacheDir, digest);
+                string path = Path.Combine(DirectoryPath, digest);
                 if (Directory.Exists(path)) return path;
             }
 
@@ -147,7 +145,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Move directory to final store destination
-            string target = Path.Combine(_cacheDir, expectedDigest);
+            string target = Path.Combine(DirectoryPath, expectedDigest);
             Directory.Move(source, target);
 
             Directory.SetAccessControl(target, new DirectorySecurity());
@@ -161,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return _cacheDir == other._cacheDir;
+            return DirectoryPath == other.DirectoryPath;
         }
 
         public override bool Equals(object obj)
@@ -173,7 +171,7 @@ namespace ZeroInstall.Store.Implementation
 
         public override int GetHashCode()
         {
-            return (_cacheDir != null ? _cacheDir.GetHashCode() : 0);
+            return (DirectoryPath != null ? DirectoryPath.GetHashCode() : 0);
         }
         #endregion
     }

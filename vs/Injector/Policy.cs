@@ -25,7 +25,7 @@ using ZeroInstall.Store.Interface;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Describes user settings controlling the solving process.
+    /// Describes user settings controlling the dependency solving process.
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
@@ -40,6 +40,11 @@ namespace ZeroInstall.Injector
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
         public Fetcher Fetcher { get; private set; }
+
+        /// <summary>
+        /// The architecture to find executables for. Find for the current system if left at default value.
+        /// </summary>
+        public Architecture Architecture { get; set; }
 
         /// <summary>
         /// Only choose <see cref="Implementation"/>s with certain version numbers.
