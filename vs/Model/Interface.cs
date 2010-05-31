@@ -289,15 +289,26 @@ namespace ZeroInstall.Model
         #region "Equality"
         public override bool Equals(object other)
         {
+            if (object.ReferenceEquals(other, null)) return false;
             if (object.ReferenceEquals(this, other)) return true;
-            if (object.ReferenceEquals(null, other)) return false;
             if (this.GetType() != other.GetType()) return false;
-            return this.Equals(other as Implementation);
+            return this.Equals(other as Interface);
         }
 
         public bool Equals(Interface other)
         {
-            throw new NotSupportedException();
+            if (MinInjectorVersion != other.MinInjectorVersion) return false;
+            if (Uri != other.Uri) return false;
+            if (Name != other.Name) return false;
+            if (Summary != other.Summary) return false;
+            if (Description != other.Description) return false;
+            if (Homepage != other.Homepage) return false;
+            if (NeedsTerminal != other.NeedsTerminal) return false;
+            if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
+            if (!Categories.UnsequencedEquals(other.Categories)) return false;
+            if (!Groups.UnsequencedEquals(other.Groups)) return false;
+            if (!Icons.UnsequencedEquals(other.Icons)) return false;
+            return true;
         }
 
         public override int GetHashCode()
@@ -311,6 +322,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Description != null ? Description.GetHashCode() : 0);
                 result = (result * 397) ^ (Homepage != null ? Homepage.GetHashCode() : 0);
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
+                result = (result * 397) ^ (Feeds != null ? Feeds.GetUnsequencedHashCode() : 0);
                 return result;
             }
         }
