@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Interface : IGroupContainer, ISimplifyable
+    public sealed class Interface : IGroupContainer, ISimplifyable, IEquatable<Interface>
     {
         #region Properties
         /// <summary>
@@ -283,6 +283,36 @@ namespace ZeroInstall.Model
         public void Save(Stream stream)
         {
             XmlStorage.Save(stream, this);
+        }
+        #endregion
+
+        #region "Equality"
+        public override bool Equals(object other)
+        {
+            if (object.ReferenceEquals(this, other)) return true;
+            if (object.ReferenceEquals(null, other)) return false;
+            if (this.GetType() != other.GetType()) return false;
+            return this.Equals(other as Implementation);
+        }
+
+        public bool Equals(Interface other)
+        {
+            throw new NotSupportedException();
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (MinInjectorVersion != null ? MinInjectorVersion.GetHashCode() : 0);
+                result = (result * 397) ^ (Uri != null ? Uri.GetHashCode() : 0);
+                result = (result * 397) ^ (Name != null ? Name.GetHashCode() : 0);
+                result = (result * 397) ^ (Summary != null ? Summary.GetHashCode() : 0);
+                result = (result * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                result = (result * 397) ^ (Homepage != null ? Homepage.GetHashCode() : 0);
+                result = (result * 397) ^ NeedsTerminal.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }
