@@ -68,9 +68,9 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _openInterfacePath = openFileDialog.FileName;
-            var zeroInterface = Interface.Load(_openInterfacePath);
+            var feed = Interface.Load(_openInterfacePath);
             ResetForm();
-            FillForm(zeroInterface);
+            FillForm(feed);
         }
 
         //TODO show error messages
@@ -295,7 +295,7 @@ namespace ZeroInstall.Publish.WinForms
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
             var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
-            if (String.IsNullOrEmpty(feedReference.TargetString)) return;
+            if (String.IsNullOrEmpty(feedReference.SourceString)) return;
             if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
                 listBoxExtFeeds.Items.Add(feedReference);
@@ -454,7 +454,7 @@ namespace ZeroInstall.Publish.WinForms
             var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
             var feedReference = feedReferenceControl.FeedReference;
             if (selectedFeedReferenceIndex < 0) return;
-            if (String.IsNullOrEmpty(feedReference.TargetString)) return;
+            if (String.IsNullOrEmpty(feedReference.SourceString)) return;
             listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
 

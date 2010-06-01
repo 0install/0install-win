@@ -30,20 +30,20 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The URI used to locate the <see cref="Interface"/>.
+        /// The URI used to identify the <see cref="Interface"/>.
         /// </summary>
-        [Description("The URI used to locate the interface.")]
+        [Description("The URI used to identify the interface.")]
         [XmlIgnore]
-        public Uri Uri { get; set; }
+        public Uri Interface { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Uri"/>
+        /// <seealso cref="Interface"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("interface"), Browsable(false)]
-        public String UriString
+        public String InterfaceString
         {
-            get { return (Uri == null ? null : Uri.ToString()); }
-            set { Uri = (value == null ? null : new Uri(value)); }
+            get { return (Interface == null ? null : Interface.ToString()); }
+            set { Interface = (value == null ? null : new Uri(value)); }
         }
 
         /// <summary>
@@ -93,7 +93,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
         public Dependency CloneDependency()
         {
-            var dependency = new Dependency {Uri = Uri, Use = Use};
+            var dependency = new Dependency {Interface = Interface, Use = Use};
             foreach (var binding in EnvironmentBindings) dependency.EnvironmentBindings.Add(binding.CloneBinding());
             foreach (var binding in OverlayBindings) dependency.OverlayBindings.Add(binding.CloneBinding());
 

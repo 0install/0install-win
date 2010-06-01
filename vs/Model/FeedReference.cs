@@ -33,17 +33,17 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("The URL used to locate the feed.")]
         [XmlIgnore]
-        public Uri Target
+        public Uri Source
         { get; set; }
 
         /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Target"/>
+        /// <seealso cref="Source"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
         [XmlAttribute("src"), Browsable(false)]
-        public String TargetString
+        public String SourceString
         {
-            get { return (Target == null ? null : Target.ToString()); }
-            set { Target = (value == null ? null : new Uri(value)); }
+            get { return (Source == null ? null : Source.ToString()); }
+            set { Source = (value == null ? null : new Uri(value)); }
         }
         #endregion
 
@@ -53,8 +53,8 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             return (string.IsNullOrEmpty(LanguagesString))
-                       ? string.Format("{0} ({1})", Target, Architecture)
-                       : string.Format("{0} ({1}) ({2})", Target, Architecture, LanguagesString);
+                       ? string.Format("{0} ({1})", Source, Architecture)
+                       : string.Format("{0} ({1}) ({2})", Source, Architecture, LanguagesString);
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
         public FeedReference CloneFeedReference()
         {
-            var feedRereference = new FeedReference { Target = Target };
+            var feedRereference = new FeedReference { Source = Source };
             CloneFromTo(this, feedRereference);
             return feedRereference;
         }
@@ -85,7 +85,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && other.Target == Target;
+            return base.Equals(other) && other.Source == Source;
         }
 
         public override bool Equals(object obj)
@@ -100,7 +100,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Target != null ? Target.GetHashCode() : 0);
+                result = (result * 397) ^ (Source != null ? Source.GetHashCode() : 0);
                 return result;
             }
         }

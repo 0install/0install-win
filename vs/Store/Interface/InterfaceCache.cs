@@ -91,10 +91,10 @@ namespace ZeroInstall.Store.Interface
         /// <summary>
         /// Gets an <see cref="Interface"/> from the local cache or downloads it.
         /// </summary>
-        /// <param name="feed">The URI used to identify (and download) the <see cref="Interface"/> or a local path to directly load the file from.</param>
+        /// <param name="feed">The URI used to identify (and potentially download) the <see cref="Interface"/> or a local path to directly load the file from.</param>
         /// <returns>The parsed <see cref="Interface"/> object.</returns>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        public Model.Interface GetInterface(string feed)
+        public Model.Interface GetFeed(string feed)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
@@ -103,13 +103,13 @@ namespace ZeroInstall.Store.Interface
             if (Uri.IsWellFormedUriString(feed, UriKind.Absolute))
             {
                 // Get from cache or download from internet
-                string urlEncoded = HttpUtility.UrlEncode(feed.ToString());
+                string urlEncoded = HttpUtility.UrlEncode(feed);
                 if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException("Invalid URL", "feed");
 
                 string path = Path.Combine(UserProfileDirectory, urlEncoded);
 
                 // ToDo: Implement downloading
-                if (!File.Exists(path)) throw new FileNotFoundException("Interface not in cache", "path");
+                if (!File.Exists(path)) throw new FileNotFoundException("Feed not in cache", "path");
 
                 return Model.Interface.Load(path);
             }

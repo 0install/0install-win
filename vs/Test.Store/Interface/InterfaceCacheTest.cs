@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Interface
     public class InterfaceCacheTest
     {
         /// <summary>
-        /// Ensures <see cref="InterfaceCache.GetInterface"/> correctly gets an interface from the cache or the network.
+        /// Ensures <see cref="InterfaceCache.GetFeed"/> correctly gets an interface from the cache or the network.
         /// </summary>
         // Test deactivated because it performs network IO and launches an external application
         //[Test]
@@ -34,8 +34,8 @@ namespace ZeroInstall.Store.Interface
         {
             var cache = new InterfaceCache();
 
-            var interfaceInfo = cache.GetInterface("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
-            Assert.AreEqual(interfaceInfo.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            var feed = cache.GetFeed("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Assert.AreEqual(feed.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
     }
 }

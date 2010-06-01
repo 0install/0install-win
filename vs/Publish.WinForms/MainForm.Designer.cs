@@ -798,8 +798,8 @@ namespace ZeroInstall.Publish.WinForms
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             feedReference1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
-            feedReference1.Target = null;
-            feedReference1.TargetString = null;
+            feedReference1.Source = null;
+            feedReference1.SourceString = null;
             this.feedReferenceControl.FeedReference = feedReference1;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 20);
             this.feedReferenceControl.Name = "feedReferenceControl";

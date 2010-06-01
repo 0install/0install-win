@@ -81,7 +81,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified feed.
         /// </summary>
-        /// <remarks>Interface files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
         public void Solve()
         {
@@ -124,7 +124,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <remarks>Interfaces may be downloaded, no implementations are downloaded.</remarks>
+        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         public IEnumerable<Implementation> ListUncachedImplementations()
         {
             ICollection<Implementation> notCached = new LinkedList<Implementation>();
@@ -137,10 +137,10 @@ namespace ZeroInstall.Injector
                 // Check if an implementation with a matching digest is available in the cache
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
-                // If not, get download information for the implementation by checking the original interface file
-                var interfaceInfo = Policy.InterfaceCache.GetInterface(implementation.Interface);
-                interfaceInfo.Simplify();
-                notCached.Add(interfaceInfo.GetImplementation(implementation.ID));
+                // If not, get download information for the implementation by checking the original feed file
+                var feed = Policy.InterfaceCache.GetFeed(implementation.Interface);
+                feed.Simplify();
+                notCached.Add(feed.GetImplementation(implementation.ID));
             }
 
             return notCached;
@@ -151,7 +151,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <remarks>Implementation archives may be downloaded, hash validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
+        /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
         // ToDo: Add callbacks and make asynchronous
         public void DownloadUncachedImplementations()
         {
