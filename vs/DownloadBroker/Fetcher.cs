@@ -105,7 +105,7 @@ namespace ZeroInstall.DownloadBroker
                         Directory.CreateDirectory(Path.GetDirectoryName(currentFile));
                         var binaryEntry = new BinaryReader(zip);
                         File.WriteAllBytes(currentFile, binaryEntry.ReadBytes((int)entry.Size));
-                        File.SetCreationTimeUtc(currentFile, entry.DateTime);
+                        File.SetLastWriteTimeUtc(currentFile, entry.DateTime);
 
                         if (IsXbitSet(entry))
                         {

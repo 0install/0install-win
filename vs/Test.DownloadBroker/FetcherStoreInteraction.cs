@@ -9,7 +9,7 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldUseDefaultStore()
         {
-            Assert.AreEqual(Fetcher.Default.Store, StoreProvider.Default, "Default store must use default store");
+            Assert.AreEqual(Fetcher.Default.Store, StoreProvider.Default, "Default fetcher must use default store");
         }
     }
 }
