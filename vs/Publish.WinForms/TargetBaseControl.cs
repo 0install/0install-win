@@ -95,7 +95,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void ClearControls()
         {
-            UpdateLanguages();
+            listBoxLanguages.Items.Clear();
             comboBoxOS.SelectedItem = OS.All;
             comboBoxCpu.SelectedItem = Cpu.All;
         }
