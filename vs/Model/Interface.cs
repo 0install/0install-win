@@ -286,13 +286,12 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region "Equality"
-        public override bool Equals(object other)
+        #region Equality
+        public override bool Equals(object obj)
         {
-            if (object.ReferenceEquals(other, null)) return false;
-            if (object.ReferenceEquals(this, other)) return true;
-            if (this.GetType() != other.GetType()) return false;
-            return this.Equals(other as Interface);
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Interface) && Equals((Interface)obj);
         }
 
         public bool Equals(Interface other)
