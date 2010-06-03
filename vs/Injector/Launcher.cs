@@ -138,7 +138,7 @@ namespace ZeroInstall.Injector
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed file
-                var feed = Policy.InterfaceCache.GetFeed(implementation.Interface);
+                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.Interface);
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }

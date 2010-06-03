@@ -30,11 +30,19 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Properties
         /// <summary>
-        /// The URI or local path of the interface this selection is for.
+        /// The URI or local path of the interface this implementation is for.
         /// </summary>
-        [Description("The URI or local path of the interface this selection is for.")]
+        [Description("The URI or local path of the interface this implementation is for.")]
         [XmlAttribute("interface")]
         public string Interface
+        { get; set; }
+
+        /// <summary>
+        /// The URL of the feed that contains this implementation.
+        /// </summary>
+        [Description("The URL of the feed that contains this implementation.")]
+        [XmlAttribute("from-feed")]
+        public string FromFeed
         { get; set; }
 
         /// <summary>
@@ -61,7 +69,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
         public ImplementationSelection CloneImplementation()
         {
-            var implementation = new ImplementationSelection {Interface = Interface, Package = Package};
+            var implementation = new ImplementationSelection {Interface = Interface, FromFeed = FromFeed, Package = Package};
             CloneFromTo(this, implementation);
             return implementation;
         }
@@ -81,7 +89,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && Equals(other.Interface, Interface) && Equals(other.Package, Package);
+            return base.Equals(other) && Equals(other.Interface, Interface) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
         }
 
         public override bool Equals(object obj)
@@ -96,8 +104,9 @@ namespace ZeroInstall.Injector.Solver
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Interface != null ? Interface.GetHashCode() : 0);
-                result = (result * 397) ^ (Package != null ? Package.GetHashCode() : 0);
+                result = (result * 397) ^ (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ (FromFeed ?? "").GetHashCode();
+                result = (result * 397) ^ (Package ?? "").GetHashCode();
                 return result;
             }
         }
