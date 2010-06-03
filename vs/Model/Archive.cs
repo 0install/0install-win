@@ -147,8 +147,8 @@ namespace ZeroInstall.Model
             {
                 int result = (Location != null ? Location.GetHashCode() : 0);
                 result = (result * 397) ^ Size.GetHashCode();
-                result = (result * 397) ^ (Extract != null ? Extract.GetHashCode() : 0);
-                result = (result * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
+                result = (result * 397) ^ (Extract ?? "").GetHashCode();
+                result = (result * 397) ^ (MimeType ?? "").GetHashCode();
                 result = (result * 397) ^ StartOffset.GetHashCode();
                 return result;
             }

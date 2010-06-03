@@ -119,8 +119,8 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                foreach (var archive in Archives) result = (result * 397) ^ (archive != null ? archive.GetHashCode() : 0);
-                foreach (var recipe in Recipes) result = (result * 397) ^ (recipe != null ? recipe.GetHashCode() : 0);
+                result = (result * 397) ^ Archives.GetSequencedHashCode();
+                result = (result * 397) ^ Recipes.GetSequencedHashCode();
                 return result;
             }
         }

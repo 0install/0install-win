@@ -123,7 +123,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((LanguagesString != null ? LanguagesString.GetHashCode() : 0) * 397) ^ Architecture.GetHashCode();
+                return ((LanguagesString ?? "").GetHashCode() * 397) ^ Architecture.GetHashCode();
             }
         }
         #endregion

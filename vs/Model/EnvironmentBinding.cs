@@ -123,9 +123,9 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (Name != null ? Name.GetHashCode() : 0);
-                result = (result * 397) ^ (Value != null ? Value.GetHashCode() : 0);
+                result = (result * 397) ^ (Value ?? "").GetHashCode(); ;
                 result = (result * 397) ^ Mode.GetHashCode();
-                result = (result * 397) ^ (Default != null ? Default.GetHashCode() : 0);
+                result = (result * 397) ^ (Default ?? "").GetHashCode(); ;
                 return result;
             }
         }

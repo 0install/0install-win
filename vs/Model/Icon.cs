@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((LocationString != null ? LocationString.GetHashCode() : 0) * 397) ^ (MimeType != null ? MimeType.GetHashCode() : 0);
+                return ((LocationString ?? "").GetHashCode() * 397) ^ (MimeType ?? "").GetHashCode();
             }
         }
         #endregion

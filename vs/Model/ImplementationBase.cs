@@ -258,13 +258,13 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Version != null ? Version.GetHashCode() : 0);
                 result = (result * 397) ^ (VersionModifier != null ? VersionModifier.GetHashCode() : 0);
                 result = (result * 397) ^ Released.GetHashCode();
-                result = (result * 397) ^ (License != null ? License.GetHashCode() : 0);
-                result = (result * 397) ^ (Main != null ? Main.GetHashCode() : 0);
-                result = (result * 397) ^ (SelfTest != null ? SelfTest.GetHashCode() : 0);
-                result = (result * 397) ^ (DocDir != null ? DocDir.GetHashCode() : 0);
-                foreach (var dependency in Dependencies) result = (result * 397) ^ (dependency != null ? dependency.GetHashCode() : 0);
-                foreach (var binding in EnvironmentBindings) result = (result * 397) ^ (binding != null ? binding.GetHashCode() : 0);
-                foreach (var binding in OverlayBindings) result = (result * 397) ^ (binding != null ? binding.GetHashCode() : 0);
+                result = (result * 397) ^ (License ?? "").GetHashCode();
+                result = (result * 397) ^ (Main ?? "").GetHashCode();
+                result = (result * 397) ^ (SelfTest ?? "").GetHashCode();
+                result = (result * 397) ^ (DocDir ?? "").GetHashCode();
+                result = (result * 397) ^ Dependencies.GetSequencedHashCode();
+                result = (result * 397) ^ EnvironmentBindings.GetSequencedHashCode();
+                result = (result * 397) ^ OverlayBindings.GetSequencedHashCode();
                 return result;
             }
         }

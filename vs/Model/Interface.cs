@@ -315,12 +315,12 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (MinInjectorVersion != null ? MinInjectorVersion.GetHashCode() : 0);
-                result = (result * 397) ^ (Uri != null ? Uri.GetHashCode() : 0);
-                result = (result * 397) ^ (Name != null ? Name.GetHashCode() : 0);
-                result = (result * 397) ^ (Summary != null ? Summary.GetHashCode() : 0);
-                result = (result * 397) ^ (Description != null ? Description.GetHashCode() : 0);
-                result = (result * 397) ^ (Homepage != null ? Homepage.GetHashCode() : 0);
+                int result = (MinInjectorVersion ?? "").GetHashCode();
+                result = (result * 397) ^ (UriString ?? "").GetHashCode();
+                result = (result * 397) ^ (Name ?? "").GetHashCode();
+                result = (result * 397) ^ (Summary ?? "").GetHashCode();
+                result = (result * 397) ^ (Description ?? "").GetHashCode();
+                result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ (Feeds != null ? Feeds.GetUnsequencedHashCode() : 0);
                 return result;

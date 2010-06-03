@@ -91,7 +91,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((Source != null ? Source.GetHashCode() : 0)*397) ^ (MountPoint != null ? MountPoint.GetHashCode() : 0);
+                return ((Source != null ? Source.GetHashCode() : 0) * 397) ^ (MountPoint != null ? MountPoint.GetHashCode() : 0);
             }
         }
         #endregion

@@ -124,8 +124,8 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (ID != null ? ID.GetHashCode() : 0);
-                result = (result * 397) ^ (LocalPath != null ? LocalPath.GetHashCode() : 0);
+                result = (result * 397) ^ (ID ?? "").GetHashCode();
+                result = (result * 397) ^ (LocalPath ?? "").GetHashCode();
                 result = (result * 397) ^ ManifestDigest.GetHashCode();
                 return result;
             }
