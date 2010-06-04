@@ -35,28 +35,37 @@ namespace ZeroInstall.DownloadBroker
             {
                 context = _listener.GetContext();
             }
-            catch (ThreadAbortException)
-            {
-                Thread.ResetAbort();
-                return;
-            }
+            catch (HttpListenerException)
+            { return; }
+            catch (InvalidOperationException)
+            { return; }
             context.Response.ContentLength64 = _archive.Length;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
-            using (var archiveStream = new BinaryReader(_archive.OpenRead()))
             using (var responseStream = context.Response.OutputStream)
+            using (var archiveStream = new BinaryReader(_archive.OpenRead()))
             {
                 int length = (int)_archive.Length;
                 byte[] data = archiveStream.ReadBytes(length);
-                responseStream.Write(data, 0, length);
+                var responseWriter = new BinaryWriter(responseStream);
+                responseWriter.Write(data);
             }
         }
 
         public void Dispose()
         {
-            _listenerThread.Abort();
-            _listener.Stop();
-            _listener.Close();
+            if (_listener != null)
+            {
+                _listener.Stop();
+            }
+            if (_listenerThread != null && _listenerThread.ThreadState == ThreadState.Running)
+            {
+                _listenerThread.Join();
+            }
+            if (_listener != null)
+            {
+                _listener.Close();
+            }
         }
     }
 }
