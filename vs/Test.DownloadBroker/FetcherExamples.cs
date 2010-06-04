@@ -103,7 +103,7 @@ namespace ZeroInstall.DownloadBroker
             {
                 string contentExecutable = Path.Combine(package.Path, "executable");
                 File.WriteAllBytes(contentExecutable, new byte[] { 0 });
-                File.SetCreationTimeUtc(contentExecutable, creationDate);
+                File.SetLastWriteTimeUtc(contentExecutable, creationDate);
                 File.WriteAllText(Path.Combine(package.Path, ".xbit"), "/executable");
                 digest = CreateDigestForFolder(package.Path);
             }
@@ -182,7 +182,7 @@ namespace ZeroInstall.DownloadBroker
                             Directory.CreateDirectory(Path.GetDirectoryName(currentFile));
                             var binaryEntry = new BinaryReader(zip);
                             File.WriteAllBytes(currentFile, binaryEntry.ReadBytes((int)entry.Size));
-                            File.SetCreationTimeUtc(currentFile, entry.DateTime);
+                            File.SetLastWriteTimeUtc(currentFile, entry.DateTime);
                         }
                     }
                 }
