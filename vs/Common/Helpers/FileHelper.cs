@@ -45,11 +45,8 @@ namespace Common.Helpers
             if (algorithm == null) throw new ArgumentNullException("algorithm");
             #endregion
 
-            byte[] hash;
             using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
-                hash = algorithm.ComputeHash(stream);
-
-            return BitConverter.ToString(hash).Replace("-", "").ToLowerInvariant();
+                return ComputeHash(stream, algorithm);
         }
 
         /// <summary>
