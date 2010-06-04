@@ -7,6 +7,7 @@ using ZeroInstall.Model;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Utilities;
+using System.Text;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -35,7 +36,7 @@ namespace ZeroInstall.DownloadBroker
             _storeDir = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "store"));
             _store = new DirectoryStore(_storeDir.Path);
             _fetcher = new Fetcher(_store);
-            _archiveFile = Path.GetTempFileName();
+            _archiveFile = Path.Combine(Path.GetTempPath(), "archive.zip");
             _server = new ArchiveProvider(_archiveFile);
             _server.Start();
         }
@@ -44,22 +45,26 @@ namespace ZeroInstall.DownloadBroker
         public void TearDown()
         {
             _server.Dispose();
-            File.Delete(_archiveFile);
+            //File.Delete(_archiveFile);
             _storeDir.Dispose();
         }
 
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            using (var packageDir = new TemporaryDirectory())
-            {
-                PreparePackageFolder(packageDir.Path);
-                CompressPackage(packageDir.Path, _archiveFile);
+                PackageBuilder builder = new PackageBuilder();
+                
+                builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA"));
+                builder.AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
+
+                using (var f = File.Create(_archiveFile))
+                {
+                    builder.GeneratePackageArchive(f);
+                }
                 Implementation implementation = SynthesizeImplementation(_archiveFile, 0);
                 var request = new FetcherRequest(new List<Implementation> {implementation});
                 _fetcher.RunSync(request);
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
-            }
         }
 
         [Test]
@@ -67,8 +72,15 @@ namespace ZeroInstall.DownloadBroker
         {
             using (var packageDir = new TemporaryDirectory())
             {
-                PreparePackageFolder(packageDir.Path);
-                CompressPackageWithOffset(packageDir.Path, _archiveFile, 0x1000);
+                PackageBuilder builder = new PackageBuilder();
+                builder.AddFile("file1",  Encoding.UTF8.GetBytes(@"AAAA"));
+                builder.AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
+
+                using (var archiveStream = File.Create(_archiveFile))
+                {
+                    archiveStream.Seek(0x1000, SeekOrigin.Begin);
+                    builder.GeneratePackageArchive(archiveStream);
+                }
                 Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000);
                 var request = new FetcherRequest(new List<Implementation> { implementation });
                 _fetcher.RunSync(request);
@@ -118,46 +130,6 @@ namespace ZeroInstall.DownloadBroker
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             
-        }
-
-        private static void PreparePackageFolder(string package)
-        {
-            File.WriteAllText(Path.Combine(package, "file1"), @"AAAA");
-            string inner = Path.Combine(package, "folder1");
-            Directory.CreateDirectory(inner);
-            File.WriteAllText(Path.Combine(inner, "file2"), @"dskf\nsdf\n");
-        }
-
-        private static void CompressPackage(string package, string destination)
-        {
-            CompressPackageWithOffset(package, destination, 0);
-        }
-
-        private static void CompressPackageWithOffset(string package, string destination, long offset)
-        {
-            using (var file = File.Create(destination))
-            {
-                file.Position = offset;
-                using (var zip = new ZipOutputStream(file))
-                {
-                    zip.SetLevel(9);
-                    string[] files = Directory.GetFiles(package, "*", SearchOption.AllDirectories);
-                    foreach (string currentFile in files)
-                    {
-                        if (!currentFile.StartsWith(package + @"\")) throw new Exception("file in folder not prefixed by the folder's path.");
-                        string relativeFileName = currentFile.Remove(0, (package + @"\").Length);
-                        var entry = new ZipEntry(relativeFileName);
-                        entry.DateTime = File.GetLastWriteTimeUtc(currentFile);
-                        zip.PutNextEntry(entry);
-
-                        using (var currentFileStream = File.OpenRead(currentFile))
-                        using (var currentFileBinary = new BinaryReader(currentFileStream))
-                        {
-                            zip.Write(currentFileBinary.ReadBytes((int)currentFileStream.Length), 0, (int)currentFileStream.Length);
-                        }
-                    }
-                }
-            }
         }
 
         private static ManifestDigest CreateDigestForArchiveFile(string file, int offset)

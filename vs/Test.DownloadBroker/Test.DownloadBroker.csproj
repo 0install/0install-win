@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArchiveProvider.cs" />
+    <Compile Include="DownloadItemBuilders.cs" />
     <Compile Include="FetcherExamples.cs" />
     <Compile Include="FetcherStoreInteraction.cs" />
   </ItemGroup>
