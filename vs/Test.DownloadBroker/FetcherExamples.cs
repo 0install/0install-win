@@ -24,7 +24,8 @@ namespace ZeroInstall.DownloadBroker
     [TestFixture]
     public class DownloadFunctionality
     {
-        private TemporaryReplacement _storeDir;
+        private TemporaryReplacement _testFolder;
+        private TemporaryDirectory _storeDir;
         private DirectoryStore _store;
         private Fetcher _fetcher;
         private string _archiveFile;
@@ -33,10 +34,11 @@ namespace ZeroInstall.DownloadBroker
         [SetUp]
         public void SetUp()
         {
-            _storeDir = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "store"));
+            _testFolder = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
+            _storeDir = new TemporaryDirectory(Path.Combine(_testFolder.Path, "store"));
             _store = new DirectoryStore(_storeDir.Path);
             _fetcher = new Fetcher(_store);
-            _archiveFile = Path.Combine(Path.GetTempPath(), "archive.zip");
+            _archiveFile = Path.Combine(_testFolder.Path, "archive.zip");
             _server = new ArchiveProvider(_archiveFile);
             _server.Start();
         }
@@ -45,8 +47,8 @@ namespace ZeroInstall.DownloadBroker
         public void TearDown()
         {
             _server.Dispose();
-            //File.Delete(_archiveFile);
             _storeDir.Dispose();
+            _testFolder.Dispose();
         }
 
         [Test]
