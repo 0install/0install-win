@@ -57,7 +57,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The hashing algorithm used for <see cref="ManifestFileBase.Hash"/> and the <see cref="Manifest"/> hash itself.
         /// </summary>
-        internal abstract HashAlgorithm HashAlgorithm { get; }
+        public abstract HashAlgorithm HashAlgorithm { get; }
 
         /// <summary>
         /// The prefix used to identify the format (e.g. "sha256").
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Generates a file entry (line) for a specific <see cref="ManifestNode"/>.
         /// </summary>
-        internal abstract string GenerateEntryForNode(ManifestNode node);
+        public abstract string GenerateEntryForNode(ManifestNode node);
 
         /// <summary>
         /// Parses a file entry (line) back into a <see cref="ManifestNode"/>.
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private abstract class OldFormat : ManifestFormat
         {
-            internal override string GenerateEntryForNode(ManifestNode node)
+            public override string GenerateEntryForNode(ManifestNode node)
             {
                 return node.ToStringOld();
             }
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
         private class Sha1OldFormat : OldFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha1="; } }
         }
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         private abstract class NewFormat : ManifestFormat
         {
-            internal override string GenerateEntryForNode(ManifestNode node)
+            public override string GenerateEntryForNode(ManifestNode node)
             {
                 return node.ToString();
             }
@@ -198,7 +198,7 @@ namespace ZeroInstall.Store.Implementation
         private class Sha1NewFormat : NewFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA1.Create();
-            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha1new="; } }
         }
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
         private class Sha256Format : NewFormat
         {
             private static readonly HashAlgorithm _algorithm = SHA256.Create();
-            internal override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
+            public override HashAlgorithm HashAlgorithm { get { return _algorithm; } }
 
             public override string Prefix { get { return "sha256="; } }
         }

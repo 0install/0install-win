@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="modifiedTime">The time this directory was last modified in the number of seconds since the epoch.</param>
         /// <param name="fullPath">The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="fullPath"/> contains a newline character.</exception>
-        internal ManifestDirectory(long modifiedTime, string fullPath)
+        public ManifestDirectory(long modifiedTime, string fullPath)
         {
             #region Sanity checks
             if (fullPath.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fullPath");
