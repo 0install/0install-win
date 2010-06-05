@@ -17,10 +17,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 using Common.Helpers;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         public ManifestFormat Format { get; private set; }
 
-        private readonly ReadOnlyCollection<ManifestNode> _nodes;
+        private readonly C5.IList<ManifestNode> _nodes;
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
-        private Manifest(IList<ManifestNode> nodes, ManifestFormat format)
+        private Manifest(C5.IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Implementation
             Format = format;
 
             // Make the collection immutable
-            _nodes = new ReadOnlyCollection<ManifestNode>(nodes);
+            _nodes = new C5.GuardedList<ManifestNode>(nodes);
         }
         #endregion
         
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             #region Create nodes
-            var nodes = new List<ManifestNode>();
+            var nodes = new C5.ArrayList<ManifestNode>();
             foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
             {
                 var file = entry as FileInfo;
@@ -207,7 +207,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            var nodes = new List<ManifestNode>();
+            var nodes = new C5.ArrayList<ManifestNode>();
 
             var reader = new StreamReader(stream);
             while (!reader.EndOfStream)
@@ -284,6 +284,25 @@ namespace ZeroInstall.Store.Implementation
                 return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashAlgorithm);
             }
         }
+
+        /// <summary>
+        /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all available <see cref="ManifestFormat"/>s.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <returns>The combined manifest digest structure.</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        public static ManifestDigest CreateDigest(string path)
+        {
+            var digest = new ManifestDigest();
+
+            // Generate manifest for each available format...
+            foreach (var format in ManifestFormat.All)
+                // ... and add the resulting digest to the return value
+                ManifestDigest.ParseID(Generate(path, format).CalculateDigest(), ref digest);
+
+            return digest;
+        }
         #endregion
 
         //--------------------//
@@ -327,7 +346,7 @@ namespace ZeroInstall.Store.Implementation
             unchecked
             {
                 int result = (Format != null ? Format.GetHashCode() : 0);
-                foreach (var node in _nodes) result = (result * 397) ^ (node != null ? node.GetHashCode() : 0);
+                result = (result * 397) ^ _nodes.GetSequencedHashCode();
                 return result;
             }
         }

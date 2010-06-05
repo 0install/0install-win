@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
@@ -33,6 +34,11 @@ namespace ZeroInstall.Store.Implementation
         /// The <see cref="ManifestFormat"/> to use for <see cref="ManifestDigest.Sha256"/>.
         /// </summary>
         public static ManifestFormat Sha256 { get { return _sha256; } }
+
+        /// <summary>
+        /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
+        /// </summary>
+        public static readonly IEnumerable<ManifestFormat> All = new[] { _sha256, _sha1New, _sha1Old };
         #endregion
 
         #region Factory methods

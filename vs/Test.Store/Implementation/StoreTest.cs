@@ -151,7 +151,9 @@ namespace ZeroInstall.Store.Implementation
         internal static string CreateArtificialPackage()
         {
             string packageDir = FileHelper.GetTempDirectory();
-            File.WriteAllText(Path.Combine(packageDir, "file.txt"), @"AAA");
+            string subDir = Path.Combine(packageDir, "subdir");
+            Directory.CreateDirectory(subDir);
+            File.WriteAllText(Path.Combine(subDir, "file.txt"), @"AAA");
 
             return packageDir;
         }

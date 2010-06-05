@@ -21,6 +21,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -89,6 +90,26 @@ namespace ZeroInstall.Store.Implementation
                 Assert.AreEqual(diskHash, inMemoryHash);
             }
             finally 
+            {
+                Directory.Delete(packageDir, true);
+            }
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Manifest.CreateDigest"/> correctly generates a <see cref="ManifestDigest"/> with multiple <see cref="ManifestFormat"/>s.
+        /// </summary>
+        [Test]
+        public void TestCreateDigest()
+        {
+            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            try
+            {
+                ManifestDigest digest = Manifest.CreateDigest(packageDir);
+                Assert.IsNotNullOrEmpty(digest.Sha1Old);
+                Assert.IsNotNullOrEmpty(digest.Sha1New);
+                Assert.IsNotNullOrEmpty(digest.Sha256);
+            }
+            finally
             {
                 Directory.Delete(packageDir, true);
             }
