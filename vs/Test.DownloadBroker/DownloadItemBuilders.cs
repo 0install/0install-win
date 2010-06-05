@@ -138,9 +138,10 @@ namespace ZeroInstall.DownloadBroker
             return new PackageBuilder(item);
         }
 
-        public void AddFile(string name, byte[] content)
+        public PackageBuilder AddFile(string name, byte[] content)
         {
             packageHierarchy.Add(new FileEntry(name, content, packageHierarchy));
+            return this;
         }
 
         public void WritePackageInto(string packageDirectory)
@@ -154,7 +155,7 @@ namespace ZeroInstall.DownloadBroker
             {
                 zip.SetLevel(9);
 
-                HierarchyEntry.EntryHandler entryToZip = delegate(HierarchyEntry entry)
+                HierarchyEntry.EntryHandler entryToZip = delegate (HierarchyEntry entry)
                 {
                     if (entry.GetType() == typeof (FolderEntry))
                         return;
@@ -174,7 +175,40 @@ namespace ZeroInstall.DownloadBroker
 
         public ManifestDigest ComputePackageDigest()
         {
-            throw new Exception();
+            WritePackageInto(Path.Combine(Path.GetTempPath(), "test-sandbox/pack"));
+            Manifest.CreateDotFile(Path.Combine(Path.GetTempPath(), "test-sandbox/pack"), ManifestFormat.Sha256);
+            using (var dotFile = File.Create(Path.Combine(Path.GetTempPath(), "test-sandbox/manifest")))
+            {
+                var writer = new StreamWriter(dotFile) { NewLine = "\n" };
+                HierarchyEntry.EntryHandler entryToDotFile = delegate(HierarchyEntry entry)
+                {
+                    ManifestNode node = null;
+                    if (entry.Name == "")
+                        return;
+                    if (entry.GetType() == typeof (FolderEntry))
+                    {
+                        node = new ManifestDirectory(FileHelper.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath);
+                    }
+                    else if (entry.GetType() == typeof(FileEntry))
+                    {
+                        var fileEntry = (FileEntry)entry;
+                        string hash;
+                        long size;
+                        using (var entryData = new MemoryStream(fileEntry.Content))
+                        {
+                            size = entryData.Length;
+                            hash = FileHelper.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
+                        }
+                        node = new ManifestFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
+                    }
+                    writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
+                };
+                packageHierarchy.RecurseInto(entryToDotFile);
+                writer.Flush();
+
+                dotFile.Position = 0;
+                return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileHelper.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
+            }
         }
     }
 }

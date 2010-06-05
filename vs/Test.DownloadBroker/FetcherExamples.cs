@@ -56,14 +56,15 @@ namespace ZeroInstall.DownloadBroker
         {
                 PackageBuilder builder = new PackageBuilder();
                 
-                builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA"));
-                builder.AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
+                builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
+                    AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
+                    AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
 
                 using (var f = File.Create(_archiveFile))
                 {
                     builder.GeneratePackageArchive(f);
                 }
-                Implementation implementation = SynthesizeImplementation(_archiveFile, 0);
+                Implementation implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
                 var request = new FetcherRequest(new List<Implementation> {implementation});
                 _fetcher.RunSync(request);
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -83,7 +84,7 @@ namespace ZeroInstall.DownloadBroker
                     archiveStream.Seek(0x1000, SeekOrigin.Begin);
                     builder.GeneratePackageArchive(archiveStream);
                 }
-                Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000);
+                Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, builder.ComputePackageDigest());
                 var request = new FetcherRequest(new List<Implementation> { implementation });
                 _fetcher.RunSync(request);
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -181,10 +182,9 @@ namespace ZeroInstall.DownloadBroker
             return result;
         }
 
-        private static Implementation SynthesizeImplementation(string archiveFile, int offset)
+        private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest)
         {
             var archive = SynthesizeArchive(archiveFile, offset);
-            var digest = CreateDigestForArchiveFile(archiveFile, offset);
             var result = new Implementation
                          {
                              ManifestDigest = digest,
