@@ -15,22 +15,25 @@ namespace ZeroInstall.DownloadBroker
     {
         public delegate void EntryHandler(HierarchyEntry entry);
 
-        private HierarchyEntry _parent;
+        private EntryContainer _parent;
 
         public string Name { get; private set; }
         public DateTime LastWriteTime { get; private set; }
-        public string RelativePath
+        public virtual string RelativePath
         {
             get
             {
-                if (_parent == null) return Name;
-                if (_parent.RelativePath == "") return Name;
+                if (_parent.IsRoot()) return Name;
                 else return _parent.RelativePath + "/" + Name;
             }
         }
 
-        protected HierarchyEntry(string name, HierarchyEntry parent)
+        protected HierarchyEntry(string name, EntryContainer parent)
         {
+            #region Preconditions
+            if (name != null && name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) throw new ArgumentException("Invalid file name.");
+            #endregion
+
             _parent = parent;
             Name = name;
             LastWriteTime = DateTime.Today.ToUniversalTime();
@@ -40,6 +43,11 @@ namespace ZeroInstall.DownloadBroker
         public virtual void RecurseInto(EntryHandler action)
         {
             action.Invoke(this);
+        }
+
+        public bool IsRoot()
+        {
+            return _parent == null;
         }
     }
 
@@ -52,35 +60,51 @@ namespace ZeroInstall.DownloadBroker
             get { return _content.ToArray(); }
         }
 
-        public FileEntry(string name, byte[] content) : this(name, content, null)
-        { }
-
-        public FileEntry(string name, byte[] content, FolderEntry parent) : base(name, parent)
+        public FileEntry(string name, byte[] content, EntryContainer parent) : base(name, parent)
         {
-            using (_content = new MemoryStream(content.Length))
-            {
-                _content.Write(content, 0, content.Length);
-            }
+            #region Preconditions
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (content == null) throw new ArgumentNullException("content");
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+
+            _content = new MemoryStream(content.Length);
+            _content.Write(content, 0, content.Length);
+            _content.Seek(0, SeekOrigin.Begin);
         }
 
         public override void WriteIntoFolder(string folderPath)
         {
-            if (ReferenceEquals(null, folderPath)) throw new ArgumentNullException("folderPath");
+            #region Preconditions
+            if (folderPath == null) throw new ArgumentNullException("folderPath");
+            if (folderPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) throw new ArgumentException("Invalid path supplied.");
+            if (!Directory.Exists(folderPath)) throw new InvalidOperationException("Folder " + Path.GetFullPath(folderPath) + " does not exist.");
+            #endregion
+
             string combinedPath = Path.Combine(folderPath, Name);
-            if (File.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing file or folder!");
+            CheckWritePath(combinedPath);
+
+            WriteFileTo(combinedPath);
+        }
+
+        private static void CheckWritePath(string combinedPath)
+        {
+            if (File.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing file.");
+            if (Directory.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing folder.");
+        }
+
+        private void WriteFileTo(string combinedPath)
+        {
             File.WriteAllBytes(combinedPath, _content.ToArray());
             File.SetLastWriteTimeUtc(combinedPath, LastWriteTime);
         }
     }
 
-    public class FolderEntry : HierarchyEntry
+    public abstract class EntryContainer : HierarchyEntry
     {
-        private List<HierarchyEntry> entries = new List<HierarchyEntry>();
+        protected List<HierarchyEntry> entries = new List<HierarchyEntry>();
 
-        public FolderEntry(string name) : this(name, null)
-        { }
-
-        public FolderEntry(string name, FolderEntry parent) : base(name, parent)
+        protected EntryContainer(string name, EntryContainer parent) : base(name, parent)
         { }
 
         public void Add(HierarchyEntry newEntry)
@@ -91,23 +115,49 @@ namespace ZeroInstall.DownloadBroker
 
         public override void WriteIntoFolder(string folderPath)
         {
-            if (ReferenceEquals(null, folderPath)) throw new ArgumentNullException("folderPath");
-            string combinedPath;
-            if (Name != "")
-            {
-                combinedPath = Path.Combine(folderPath, Name);
-                if (Directory.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing folder with hierarchy!");
-                Directory.CreateDirectory(combinedPath);
-            }
-            else
-            {
-                combinedPath = folderPath;
-                if (!Directory.Exists(combinedPath)) Directory.CreateDirectory(combinedPath);
-            }
+            #region Preconditions
+            if (folderPath == null) throw new ArgumentNullException("folderPath");
+            if (folderPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) throw new ArgumentException("Invalid path supplied.");
+            if (!Directory.Exists(folderPath)) throw new InvalidOperationException("Folder " + Path.GetFullPath(folderPath) + " does not exist.");
+            #endregion
+
+            string combinedPath = CombineNameWithPath(folderPath);
+            CheckAndPrepareWritePath(combinedPath);
+            WriteContentsIntoFolder(combinedPath);
+        }
+
+        protected abstract string CombineNameWithPath(string path);
+        protected abstract void CheckAndPrepareWritePath(string thisFoldersPath);
+
+        protected void WriteContentsIntoFolder(string combinedPath)
+        {
             foreach (var currentEntry in entries)
             {
                 currentEntry.WriteIntoFolder(combinedPath);
             }
+        }
+    }
+
+    public class FolderEntry : EntryContainer
+    {
+        public FolderEntry(string name, EntryContainer parent) : base(name, parent)
+        {
+            #region Preconditions
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+        }
+
+        protected override string CombineNameWithPath(string path)
+        {
+            return Path.Combine(path, Name);
+        }
+
+        protected override void CheckAndPrepareWritePath(string thisFoldersPath)
+        {
+            if (Directory.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing folder.");
+            if (File.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing file.");
+            Directory.CreateDirectory(thisFoldersPath);
         }
 
         public override void RecurseInto(EntryHandler action)
@@ -120,11 +170,46 @@ namespace ZeroInstall.DownloadBroker
         }
     }
 
+    public class RootEntry : EntryContainer
+    {
+        public override string RelativePath
+        {
+            get
+            {
+                return "";
+            }
+        }
+
+        public RootEntry() : base(null, null)
+        { }
+
+        protected override string CombineNameWithPath(string path)
+        {
+            return path;
+        }
+
+        protected override void CheckAndPrepareWritePath(string path)
+        {
+            if (Directory.GetFileSystemEntries(path).Length > 0) throw new InvalidOperationException("Can't write into non-empty folder.");
+        }
+
+        public override void RecurseInto(EntryHandler action)
+        {
+            foreach (var entry in entries)
+            {
+                entry.RecurseInto(action);
+            }
+        }
+    }
+
     public class PackageBuilder
     {
-        FolderEntry packageHierarchy;
+        EntryContainer packageHierarchy;
 
-        public PackageBuilder() : this(new FolderEntry("")) { }
+        public PackageBuilder()
+        {
+            packageHierarchy = new RootEntry();
+        }
 
         public PackageBuilder(FolderEntry folder)
         {
@@ -175,40 +260,40 @@ namespace ZeroInstall.DownloadBroker
 
         public ManifestDigest ComputePackageDigest()
         {
-            WritePackageInto(Path.Combine(Path.GetTempPath(), "test-sandbox/pack"));
-            Manifest.CreateDotFile(Path.Combine(Path.GetTempPath(), "test-sandbox/pack"), ManifestFormat.Sha256);
-            using (var dotFile = File.Create(Path.Combine(Path.GetTempPath(), "test-sandbox/manifest")))
-            {
-                var writer = new StreamWriter(dotFile) { NewLine = "\n" };
-                HierarchyEntry.EntryHandler entryToDotFile = delegate(HierarchyEntry entry)
-                {
-                    ManifestNode node = null;
-                    if (entry.Name == "")
-                        return;
-                    if (entry.GetType() == typeof (FolderEntry))
-                    {
-                        node = new ManifestDirectory(FileHelper.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath);
-                    }
-                    else if (entry.GetType() == typeof(FileEntry))
-                    {
-                        var fileEntry = (FileEntry)entry;
-                        string hash;
-                        long size;
-                        using (var entryData = new MemoryStream(fileEntry.Content))
-                        {
-                            size = entryData.Length;
-                            hash = FileHelper.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
-                        }
-                        node = new ManifestFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
-                    }
-                    writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
-                };
-                packageHierarchy.RecurseInto(entryToDotFile);
-                writer.Flush();
+            MemoryStream dotFile = new MemoryStream();
+            WriteHierarchyManifestToStream(dotFile);
+            dotFile.Seek(0, SeekOrigin.Begin);
+            return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileHelper.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
+        }
 
-                dotFile.Position = 0;
-                return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileHelper.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
-            }
+        private void WriteHierarchyManifestToStream(MemoryStream dotFile)
+        {
+            var writer = new StreamWriter(dotFile) { NewLine = "\n" };
+            HierarchyEntry.EntryHandler entryToDotFile = delegate(HierarchyEntry entry)
+            {
+                ManifestNode node = null;
+                if (entry.Name == "")
+                    return;
+                if (entry.GetType() == typeof(FolderEntry))
+                {
+                    node = new ManifestDirectory(FileHelper.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath);
+                }
+                else if (entry.GetType() == typeof(FileEntry))
+                {
+                    var fileEntry = (FileEntry)entry;
+                    string hash;
+                    long size;
+                    using (var entryData = new MemoryStream(fileEntry.Content))
+                    {
+                        size = entryData.Length;
+                        hash = FileHelper.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
+                    }
+                    node = new ManifestFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
+                }
+                writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
+            };
+            packageHierarchy.RecurseInto(entryToDotFile);
+            writer.Flush();
         }
     }
 }
