@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Constructor
         /// <summary>
-        /// Creates a new store based on the given path to a cache folder.
+        /// Creates a new store based on the given path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         public DirectoryStore(string path)

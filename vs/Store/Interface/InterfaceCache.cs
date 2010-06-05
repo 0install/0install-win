@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using Common.Storage;
@@ -54,6 +55,11 @@ namespace ZeroInstall.Store.Interface
         {
             get { return Path.Combine(Locations.GetUserCacheDir("0install.net"), "interfaces"); }
         }
+        
+        /// <summary>
+        /// The directory containing the cached <see cref="Interface"/>s.
+        /// </summary>
+        public string DirectoryPath { get; private set; }
 
         private NetworkLevel _networkLevel = NetworkLevel.Full;
         /// <summary>
@@ -85,9 +91,33 @@ namespace ZeroInstall.Store.Interface
         public int MaximumAge { get; set; }
         #endregion
 
+        #region Constructor
+        /// <summary>
+        /// Creates a new cache based on the given path to a cache directory.
+        /// </summary>
+        /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        public InterfaceCache(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+            
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            DirectoryPath = path;
+        }
+
+        /// <summary>
+        /// Creates a new cache using a directory in the user-profile.
+        /// </summary>
+        public InterfaceCache()
+        {
+            DirectoryPath = UserProfileDirectory;
+        }
+        #endregion
+
         //--------------------//
 
-        #region Get
+        #region Get feed
         /// <summary>
         /// Gets an <see cref="Interface"/> from the local cache or downloads it.
         /// </summary>
@@ -106,7 +136,7 @@ namespace ZeroInstall.Store.Interface
                 string urlEncoded = HttpUtility.UrlEncode(feed);
                 if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException("Invalid URL", "feed");
 
-                string path = Path.Combine(UserProfileDirectory, urlEncoded);
+                string path = Path.Combine(DirectoryPath, urlEncoded);
 
                 // ToDo: Implement downloading
                 if (!File.Exists(path)) throw new FileNotFoundException("Feed not in cache", "path");
@@ -116,6 +146,23 @@ namespace ZeroInstall.Store.Interface
 
             // Load local file
             return Model.Interface.Load(feed);
+        }
+        #endregion
+
+        #region Cached
+        /// <summary>
+        /// Returns a list of all valid <see cref="Interface"/>s stored in this cache.
+        /// </summary>
+        public IEnumerable<string> GetCached()
+        {
+            // Find all files whose names begin with an URL protocol
+            // ToDo: Find more reliable discriminator
+            string[] files = Directory.GetFiles(DirectoryPath, "http*");
+
+            for (int i = 0; i < files.Length; i++)
+                // Take the file name itself and use URL encoding to get the original URI
+                files[i] = HttpUtility.UrlDecode(Path.GetFileName(files[i]));
+            return files;
         }
         #endregion
     }
