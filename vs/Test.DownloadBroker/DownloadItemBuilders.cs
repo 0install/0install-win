@@ -19,12 +19,12 @@ namespace ZeroInstall.DownloadBroker
 
         public string Name { get; private set; }
         public DateTime LastWriteTime { get; private set; }
-        public virtual string RelativePath
+        public string RelativePath
         {
             get
             {
-                if (_parent.IsRoot()) return Name;
-                else return _parent.RelativePath + "/" + Name;
+                if (IsRoot()) return Name;
+                else return Path.Combine(_parent.RelativePath, Name);
             }
         }
 
@@ -36,7 +36,7 @@ namespace ZeroInstall.DownloadBroker
 
             _parent = parent;
             Name = name;
-            LastWriteTime = DateTime.Today.ToUniversalTime();
+            LastWriteTime = DateTime.Today;
         }
 
         public abstract void WriteIntoFolder(string folderPath);
@@ -60,7 +60,7 @@ namespace ZeroInstall.DownloadBroker
             get { return _content.ToArray(); }
         }
 
-        public FileEntry(string name, byte[] content, EntryContainer parent) : base(name, parent)
+        internal FileEntry(string name, byte[] content, EntryContainer parent) : base(name, parent)
         {
             #region Preconditions
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
@@ -131,16 +131,26 @@ namespace ZeroInstall.DownloadBroker
 
         protected void WriteContentsIntoFolder(string combinedPath)
         {
+            Directory.SetLastWriteTimeUtc(combinedPath, LastWriteTime);
             foreach (var currentEntry in entries)
             {
                 currentEntry.WriteIntoFolder(combinedPath);
+            }
+        }
+
+        public override void RecurseInto(EntryHandler action)
+        {
+            base.RecurseInto(action);
+            foreach (var entry in entries)
+            {
+                entry.RecurseInto(action);
             }
         }
     }
 
     public class FolderEntry : EntryContainer
     {
-        public FolderEntry(string name, EntryContainer parent) : base(name, parent)
+        internal FolderEntry(string name, EntryContainer parent) : base(name, parent)
         {
             #region Preconditions
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
@@ -159,28 +169,11 @@ namespace ZeroInstall.DownloadBroker
             if (File.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing file.");
             Directory.CreateDirectory(thisFoldersPath);
         }
-
-        public override void RecurseInto(EntryHandler action)
-        {
-            base.RecurseInto(action);
-            foreach (var entry in entries)
-            {
-                entry.RecurseInto(action);
-            }
-        }
     }
 
     public class RootEntry : EntryContainer
     {
-        public override string RelativePath
-        {
-            get
-            {
-                return "";
-            }
-        }
-
-        public RootEntry() : base(null, null)
+        internal RootEntry() : base("", null)
         { }
 
         protected override string CombineNameWithPath(string path)
@@ -192,93 +185,99 @@ namespace ZeroInstall.DownloadBroker
         {
             if (Directory.GetFileSystemEntries(path).Length > 0) throw new InvalidOperationException("Can't write into non-empty folder.");
         }
-
-        public override void RecurseInto(EntryHandler action)
-        {
-            foreach (var entry in entries)
-            {
-                entry.RecurseInto(action);
-            }
-        }
     }
 
     public class PackageBuilder
     {
-        EntryContainer packageHierarchy;
+        private readonly EntryContainer _packageHierarchy;
+
+        public EntryContainer Hierarchy
+        {
+            get { return _packageHierarchy; }
+        }
 
         public PackageBuilder()
         {
-            packageHierarchy = new RootEntry();
+            _packageHierarchy = new RootEntry();
         }
 
         public PackageBuilder(FolderEntry folder)
         {
-            packageHierarchy = folder;
+            _packageHierarchy = folder;
         }
 
         public PackageBuilder AddFolder(string name)
         {
-            var item = new FolderEntry(name, packageHierarchy);
-            packageHierarchy.Add(item);
+            var item = new FolderEntry(name, _packageHierarchy);
+            _packageHierarchy.Add(item);
             return new PackageBuilder(item);
         }
 
         public PackageBuilder AddFile(string name, byte[] content)
         {
-            packageHierarchy.Add(new FileEntry(name, content, packageHierarchy));
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy));
             return this;
         }
 
         public void WritePackageInto(string packageDirectory)
         {
-            packageHierarchy.WriteIntoFolder(packageDirectory);
+            _packageHierarchy.WriteIntoFolder(packageDirectory);
         }
 
         public void GeneratePackageArchive(Stream output)
         {
             using (var zip = new ZipOutputStream(output))
             {
+                zip.IsStreamOwner = false;
                 zip.SetLevel(9);
 
                 HierarchyEntry.EntryHandler entryToZip = delegate (HierarchyEntry entry)
                 {
-                    if (entry.GetType() == typeof (FolderEntry))
-                        return;
-                    var zipEntry = new ZipEntry(entry.RelativePath);
-                    zipEntry.DateTime = entry.LastWriteTime;
-                    zip.PutNextEntry(zipEntry);
-                    if (entry.GetType() == typeof (FileEntry))
-                    {
-                        var fileEntry = (FileEntry)entry;
-                        var writer = new BinaryWriter(zip);
-                        writer.Write(fileEntry.Content);
-                    }
+                    if (entry is FileEntry)
+                        WriteFileEntryToZip(zip, (FileEntry)entry);
                 };
-                packageHierarchy.RecurseInto(entryToZip);
+                _packageHierarchy.RecurseInto(entryToZip);
             }
+        }
+
+        private static void WriteFileEntryToZip(ZipOutputStream zip, FileEntry entry)
+        {
+            zip.PutNextEntry(CreateZipEntry(entry));
+            var writer = new BinaryWriter(zip);
+            writer.Write(entry.Content);
+        }
+
+        private static ZipEntry CreateZipEntry(HierarchyEntry entry)
+        {
+            var zipEntry = new ZipEntry(entry.RelativePath);
+            zipEntry.DateTime = entry.LastWriteTime;
+            return zipEntry;
         }
 
         public ManifestDigest ComputePackageDigest()
         {
-            MemoryStream dotFile = new MemoryStream();
-            WriteHierarchyManifestToStream(dotFile);
-            dotFile.Seek(0, SeekOrigin.Begin);
-            return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileHelper.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
+            using (var dotFile = new MemoryStream())
+            {
+                WriteHierarchyManifestToStream(dotFile);
+                dotFile.Seek(0, SeekOrigin.Begin);
+                return new ManifestDigest(ManifestFormat.Sha256.Prefix + FileHelper.ComputeHash(dotFile, ManifestFormat.Sha256.HashAlgorithm));
+            }
         }
 
-        private void WriteHierarchyManifestToStream(MemoryStream dotFile)
+        private void WriteHierarchyManifestToStream(Stream dotFile)
         {
             var writer = new StreamWriter(dotFile) { NewLine = "\n" };
             HierarchyEntry.EntryHandler entryToDotFile = delegate(HierarchyEntry entry)
             {
-                ManifestNode node = null;
-                if (entry.Name == "")
+                if (entry.IsRoot())
                     return;
-                if (entry.GetType() == typeof(FolderEntry))
+
+                ManifestNode node = null;
+                if (entry is FolderEntry)
                 {
-                    node = new ManifestDirectory(FileHelper.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath);
+                    node = new ManifestDirectory(FileHelper.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
                 }
-                else if (entry.GetType() == typeof(FileEntry))
+                else if (entry is FileEntry)
                 {
                     var fileEntry = (FileEntry)entry;
                     string hash;
@@ -292,7 +291,7 @@ namespace ZeroInstall.DownloadBroker
                 }
                 writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
             };
-            packageHierarchy.RecurseInto(entryToDotFile);
+            _packageHierarchy.RecurseInto(entryToDotFile);
             writer.Flush();
         }
     }
