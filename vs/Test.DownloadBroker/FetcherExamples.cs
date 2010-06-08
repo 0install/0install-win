@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Utilities;
 using System.Text;
+using System.Reflection;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -54,81 +55,71 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldDownloadIntoStore()
         {
-                PackageBuilder builder = new PackageBuilder();
-                
-                builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
-                    AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
-                    AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
+            PackageBuilder builder = new PackageBuilder();
 
-                using (var f = File.Create(_archiveFile))
-                {
-                    builder.GeneratePackageArchive(f);
-                }
-                Implementation implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
-                var request = new FetcherRequest(new List<Implementation> {implementation});
-                _fetcher.RunSync(request);
-                Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
+                AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
+                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
+
+            using (var f = File.Create(_archiveFile))
+            {
+                builder.GeneratePackageArchive(f);
+            }
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
+            var request = new FetcherRequest(new List<Implementation> { implementation });
+            _fetcher.RunSync(request);
+            Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
         [Test]
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
-            using (var packageDir = new TemporaryDirectory())
-            {
-                PackageBuilder builder = new PackageBuilder();
-                builder.AddFile("file1",  Encoding.UTF8.GetBytes(@"AAAA"));
-                builder.AddFolder("folder1").AddFile("file2",  Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
+            PackageBuilder builder = new PackageBuilder();
+            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA"));
+            builder.AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
 
-                using (var archiveStream = File.Create(_archiveFile))
-                {
-                    archiveStream.Seek(0x1000, SeekOrigin.Begin);
-                    builder.GeneratePackageArchive(archiveStream);
-                }
-                Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, builder.ComputePackageDigest());
-                var request = new FetcherRequest(new List<Implementation> { implementation });
-                _fetcher.RunSync(request);
-                Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+            using (var archiveStream = File.Create(_archiveFile))
+            {
+                archiveStream.Seek(0x1000, SeekOrigin.Begin);
+                builder.GeneratePackageArchive(archiveStream);
             }
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, builder.ComputePackageDigest());
+            var request = new FetcherRequest(new List<Implementation> { implementation });
+            _fetcher.RunSync(request);
+            Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
         [Test]
         public void ShouldGenerateCorrectXbitFile()
         {
-            var creationDate = new DateTime(2010, 5, 31, 0, 0, 0, 0, DateTimeKind.Utc);
-            using (var file = File.Create(_archiveFile))
-            using (var zip = new ZipOutputStream(file))
-            {
-                zip.SetLevel(9);
-                var entry = new ZipEntry("executable")
-                            {
-                                DateTime = creationDate,
-                                HostSystem = (int)HostSystemID.Unix
-                            };
-                const int userExecuteFlag = 0x0040 << 16;
-                entry.ExternalFileAttributes |= userExecuteFlag;
-                zip.PutNextEntry(entry);
+            var thisAssembly = Assembly.GetAssembly(typeof (DownloadFunctionality));
+            DateTime readmeLastWrite, sdlDllLastWrite;
 
-                zip.WriteByte(50);
-                zip.WriteByte(50);
+            using (var sdlArchive = thisAssembly.GetManifestResourceStream(typeof(DownloadFunctionality), "sdlArchive.zip"))
+            {
+                var reader = new BinaryReader(sdlArchive);
+                File.WriteAllBytes(_archiveFile, reader.ReadBytes((int)sdlArchive.Length));
+
+                sdlArchive.Seek(0, SeekOrigin.Begin);
+                var zip = new ZipFile(sdlArchive);
+                readmeLastWrite = zip.GetEntry("README-SDL.txt").DateTime;
+                sdlDllLastWrite = zip.GetEntry("SDL.dll").DateTime;
             }
 
 
-            ManifestDigest digest;
-            using (var package = new TemporaryDirectory())
+            var builder = new PackageBuilder();
+            using (var readme = thisAssembly.GetManifestResourceStream(typeof(DownloadFunctionality), "README-SDL.txt"))
             {
-                string contentExecutable = Path.Combine(package.Path, "executable");
-                File.WriteAllBytes(contentExecutable, new byte[] { 0 });
-                File.SetLastWriteTimeUtc(contentExecutable, creationDate);
-                File.WriteAllText(Path.Combine(package.Path, ".xbit"), "/executable");
-                digest = Manifest.CreateDigest(package.Path);
+                var reader = new BinaryReader(readme);
+                builder.AddFile("README-SDL.txt", reader.ReadBytes((int)readme.Length), readmeLastWrite);
             }
-            var archive = SynthesizeArchive(_archiveFile, 0);
-            var implementation = new Implementation
+            using (var SDLdll = thisAssembly.GetManifestResourceStream(typeof(DownloadFunctionality), "SDL.dll"))
             {
-                ManifestDigest = digest,
-                Archives = { archive }
-            };
+                var reader = new BinaryReader(SDLdll);
+                builder.AddExecutable("SDL.dll", reader.ReadBytes((int)SDLdll.Length), sdlDllLastWrite);
+            }
 
+            var implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");

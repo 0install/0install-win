@@ -84,6 +84,13 @@
     <Compile Include="FetcherExamples.cs" />
     <Compile Include="FetcherStoreInteraction.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="sdlArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="README-SDL.txt" />
+    <EmbeddedResource Include="SDL.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
