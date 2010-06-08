@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -138,7 +139,12 @@ namespace ZeroInstall.Store.Implementation
             string target = Path.Combine(DirectoryPath, expectedDigest);
             Directory.Move(source, target);
 
-            // ToDo: Setup ACLs
+            // Prevent any further changes to the directory
+            try { FileHelper.WriteProtection(target); }
+            catch (UnauthorizedAccessException)
+            {
+                Log.Write("Unable to enable write protection for " + target);
+            }
         }
         #endregion
 

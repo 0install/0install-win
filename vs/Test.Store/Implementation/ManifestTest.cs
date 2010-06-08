@@ -115,10 +115,11 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        // Test deactivated because it cannot work on a Windows filesystem
-        //[Test]
+        [Test]
         public void ShouldRejectFileNamesWithNewline()
         {
+            if (Environment.OSVersion.Platform != PlatformID.Unix) throw new InconclusiveException("Can only run on Unix systems");
+
             using (var package = new TemporaryDirectory())
             {
                 File.WriteAllText(Path.Combine(package.Path, "test\nfile"), @"AAA");

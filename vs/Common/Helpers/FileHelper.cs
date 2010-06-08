@@ -23,6 +23,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Security.AccessControl;
 using System.Security.Cryptography;
 
 namespace Common.Helpers
@@ -103,6 +104,34 @@ namespace Common.Helpers
         {
             TimeSpan timepan = (time - new DateTime(1970, 1, 1));
             return (long)timepan.TotalSeconds;
+        }
+
+        /// <summary>
+        /// Uses whatever means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
+        /// </summary>
+        /// <remarks>May do nothing if the platform doesn't provide any known protection mechanisms.</remarks>
+        /// <param name="path">The directory to protect.</param>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to apply the write protection.</exception>
+        public static void WriteProtection(string path)
+        {
+            var dirInfo = new DirectoryInfo(path);
+
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Win32Windows:
+                    // ToDo: Rund for each contained file: "fileInfo.Attributes |= FileAttributes.ReadOnly;"
+                    break;
+
+                case PlatformID.Win32NT:
+                    DirectorySecurity security = dirInfo.GetAccessControl();
+                    security.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
+                    dirInfo.SetAccessControl(security);
+                    break;
+
+                case PlatformID.Unix:
+                    // ToDo: Set Unix octals
+                    break;
+            }
         }
     }
 }
