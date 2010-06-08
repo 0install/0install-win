@@ -121,11 +121,14 @@ namespace ZeroInstall.DownloadBroker
             return extractFolder;
         }
 
-        private static bool IsXbitSet(ZipEntry entry)
+        /// <summary>
+        /// Determines whether an <see cref="ZipEntry"/> was packed on a Unix-system with the executable flag set to true.
+        /// </summary>
+        public static bool IsXbitSet(ZipEntry entry)
         {
-            const int xBitFlag = 0x0040;
-            return (entry.HostSystem == (int)HostSystemID.Unix) &&
-                   ((entry.ExternalFileAttributes & xBitFlag) == xBitFlag);
+            if (entry.HostSystem != (int)HostSystemID.Unix) return false;
+            const int userExecuteFlag = 0x0040 << 16;
+            return ((entry.ExternalFileAttributes & userExecuteFlag) == userExecuteFlag);
         }
     }
 }
