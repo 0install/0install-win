@@ -9,13 +9,13 @@ namespace ZeroInstall.DownloadBroker
 {
     public sealed class ArchiveProvider : IDisposable
     {
-        private readonly FileInfo _archive;
+        private readonly string _archivePath;
         private HttpListener _listener;
         private Thread _listenerThread;
 
         public ArchiveProvider(string archive)
         {
-            this._archive = new FileInfo(archive);
+            this._archivePath = archive;
         }
 
         public void Start()
@@ -39,14 +39,12 @@ namespace ZeroInstall.DownloadBroker
             { return; }
             catch (InvalidOperationException)
             { return; }
-            context.Response.ContentLength64 = _archive.Length;
+            byte[] data = File.ReadAllBytes(_archivePath);
+            context.Response.ContentLength64 = data.LongLength;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
             using (var responseStream = context.Response.OutputStream)
-            using (var archiveStream = new BinaryReader(_archive.OpenRead()))
             {
-                int length = (int)_archive.Length;
-                byte[] data = archiveStream.ReadBytes(length);
                 var responseWriter = new BinaryWriter(responseStream);
                 responseWriter.Write(data);
             }
