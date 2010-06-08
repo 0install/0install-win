@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -104,12 +103,13 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            // Find the first store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (IStore store in Stores)
             {
                 try
                 {
-                    // Add implementation only to one store
+                    // Try to add implementation to this store
                     store.Add(path, manifestDigest);
                     return;
                 }
@@ -132,12 +132,13 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            // Find the first store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (IStore store in Stores)
             {
                 try
                 {
-                    // Add implementation only to one store
+                    // Try to add implementation to this store
                     store.AddArchive(path, mimeTyp, manifestDigest);
                     return;
                 }

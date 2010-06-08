@@ -50,6 +50,7 @@ namespace ZeroInstall.Store.Implementation
         public ManifestDirectory(long modifiedTime, string fullPath)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(fullPath)) throw new ArgumentNullException("fullPath");
             if (fullPath.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fullPath");
             #endregion
 

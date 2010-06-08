@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web;
 using Common.Storage;
@@ -153,6 +154,7 @@ namespace ZeroInstall.Store.Interface
         /// <summary>
         /// Returns a list of all valid <see cref="Interface"/>s stored in this cache.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates new list on each call and performs disk IO")]
         public IEnumerable<string> GetCached()
         {
             // Find all files whose names begin with an URL protocol

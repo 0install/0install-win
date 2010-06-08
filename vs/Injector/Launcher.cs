@@ -107,7 +107,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method returns a new clone on each call")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new clone on each call")]
         public Selections GetSelections()
         {
             #region Sanity checks
@@ -172,7 +172,7 @@ namespace ZeroInstall.Injector
         /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadUncachedImplementations"/> was not called first.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "This method performs extensive disk and network IO")]
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs extensive disk and network IO")]
         public Run GetRun()
         {
             #region Sanity checks

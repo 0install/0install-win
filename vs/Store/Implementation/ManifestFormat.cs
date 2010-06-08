@@ -102,11 +102,19 @@ namespace ZeroInstall.Store.Implementation
         {
             public override string GenerateEntryForNode(ManifestNode node)
             {
+                #region Sanity checks
+                if (node == null) throw new ArgumentNullException("node");
+                #endregion
+
                 return node.ToStringOld();
             }
 
             internal override ManifestDirectory ReadDirectoryNodeFromEntry(string entry)
             {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(entry)) throw new ArgumentNullException("entry");
+                #endregion
+
                 return ManifestDirectory.FromStringOld(entry);
             }
 
@@ -159,11 +167,19 @@ namespace ZeroInstall.Store.Implementation
         {
             public override string GenerateEntryForNode(ManifestNode node)
             {
+                #region Sanity checks
+                if (node == null) throw new ArgumentNullException("node");
+                #endregion
+
                 return node.ToString();
             }
 
             internal override ManifestDirectory ReadDirectoryNodeFromEntry(string entry)
             {
+                #region Sanity checks
+                if (string.IsNullOrEmpty(entry)) throw new ArgumentNullException("entry");
+                #endregion
+
                 return ManifestDirectory.FromString(entry);
             }
 

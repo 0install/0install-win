@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Common.Helpers;
@@ -29,6 +30,7 @@ namespace ZeroInstall.Store.Implementation
     /// A manifest lists every file, directory and symlink in the tree and contains a hash of each file's content.
     /// </summary>
     /// <remarks>This class is immutable.</remarks>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Manifest : IEquatable<Manifest>
     {
         #region Properties
