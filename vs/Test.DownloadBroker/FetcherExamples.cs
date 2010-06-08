@@ -132,37 +132,6 @@ namespace ZeroInstall.DownloadBroker
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
-            
-        }
-
-        private static ManifestDigest CreateDigestForArchiveFile(string file, int offset)
-        {
-            using (var fileStream = File.OpenRead(file))
-            using (var extractFolder = new TemporaryDirectory())
-            {
-                fileStream.Seek(offset, SeekOrigin.Begin);
-                using (var zip = new ZipInputStream(fileStream))
-                {
-                    ZipEntry entry;
-
-                    while ((entry = zip.GetNextEntry()) != null)
-                    {
-                        if (entry.IsDirectory)
-                        {
-                            Directory.CreateDirectory(Path.Combine(extractFolder.Path, entry.Name));
-                        }
-                        else if (entry.IsFile)
-                        {
-                            string currentFile = Path.Combine(extractFolder.Path, entry.Name);
-                            Directory.CreateDirectory(Path.GetDirectoryName(currentFile));
-                            var binaryEntry = new BinaryReader(zip);
-                            File.WriteAllBytes(currentFile, binaryEntry.ReadBytes((int)entry.Size));
-                            File.SetLastWriteTimeUtc(currentFile, entry.DateTime);
-                        }
-                    }
-                }
-                return Manifest.CreateDigest(extractFolder.Path);
-            }
         }
 
         private static Archive SynthesizeArchive(string zippedPackage, int offset)
