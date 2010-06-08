@@ -49,14 +49,24 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Test.DownloadBroker\Test.DownloadBroker.csproj">
+      <Project>{927ACF8A-2A47-46F5-8EDD-36D3F9B90C17}</Project>
+      <Name>Test.DownloadBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Store\Test.Store.csproj">
+      <Project>{EEC57946-EF07-4D25-8EAF-5341BE746F7A}</Project>
+      <Name>Test.Store</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Archive\ZipExtraction.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Helpers\FileHelperTest.cs" />
     <Compile Include="Helpers\StreamHelperTest.cs" />
     <Compile Include="Helpers\StringHelperTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
