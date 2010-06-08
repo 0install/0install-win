@@ -89,11 +89,9 @@ namespace ZeroInstall.DownloadBroker
             string extractFolder = FileHelper.GetTempDirectory();
             string xbitFile = Path.Combine(extractFolder, ".xbit");
 
-            using (var zip = new ZipInputStream(archive))
+            using (var zip = new ZipFile(archive))
             {
-                ZipEntry entry;
-
-                while ((entry = zip.GetNextEntry()) != null)
+                foreach (ZipEntry entry in zip)
                 {
                     if (entry.IsDirectory)
                     {
@@ -103,7 +101,7 @@ namespace ZeroInstall.DownloadBroker
                     {
                         string currentFile = Path.Combine(extractFolder, entry.Name);
                         Directory.CreateDirectory(Path.GetDirectoryName(currentFile));
-                        var binaryEntry = new BinaryReader(zip);
+                        var binaryEntry = new BinaryReader(zip.GetInputStream(entry));
                         File.WriteAllBytes(currentFile, binaryEntry.ReadBytes((int)entry.Size));
                         File.SetLastWriteTimeUtc(currentFile, entry.DateTime);
 

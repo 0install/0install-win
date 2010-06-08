@@ -18,12 +18,11 @@ namespace Common.Archive
 
         public void ExtractTo(string path)
         {
-            using (var zip = new ZipInputStream(_archive))
+            using (var zip = new ZipFile(_archive))
             {
                 zip.IsStreamOwner = false;
 
-                ZipEntry entry;
-                while ((entry = zip.GetNextEntry()) != null)
+                foreach (ZipEntry entry in zip)
                 {
                     if (entry.IsDirectory)
                     {
@@ -36,11 +35,12 @@ namespace Common.Archive
 
                         long size = entry.Size;
                         long bytesRead = 0;
+                        var entryInputStream = zip.GetInputStream(entry);
                         using (var output = File.Create(targetPath))
                         {
                             while (bytesRead < size)
                             {
-                                output.WriteByte(Convert.ToByte(zip.ReadByte()));
+                                output.WriteByte((byte)entryInputStream.ReadByte());
                                 ++bytesRead;
                             }
                         }
