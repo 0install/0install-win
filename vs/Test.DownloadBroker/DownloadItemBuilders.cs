@@ -29,6 +29,10 @@ namespace ZeroInstall.DownloadBroker
         }
 
         protected HierarchyEntry(string name, EntryContainer parent)
+            : this(name, parent, DateTime.Today)
+        { }
+
+        protected HierarchyEntry(string name, EntryContainer parent, DateTime lastWriteTime)
         {
             #region Preconditions
             if (name != null && name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) throw new ArgumentException("Invalid file name.");
@@ -36,7 +40,7 @@ namespace ZeroInstall.DownloadBroker
 
             _parent = parent;
             Name = name;
-            LastWriteTime = DateTime.Today;
+            LastWriteTime = lastWriteTime;
         }
 
         public abstract void WriteIntoFolder(string folderPath);
@@ -54,13 +58,14 @@ namespace ZeroInstall.DownloadBroker
     public class FileEntry : HierarchyEntry
     {
         private MemoryStream _content;
+        private readonly bool _executable;
 
         public byte[] Content
         {
             get { return _content.ToArray(); }
         }
 
-        internal FileEntry(string name, byte[] content, EntryContainer parent) : base(name, parent)
+        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable = false) : base(name, parent)
         {
             #region Preconditions
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
@@ -71,6 +76,22 @@ namespace ZeroInstall.DownloadBroker
             _content = new MemoryStream(content.Length);
             _content.Write(content, 0, content.Length);
             _content.Seek(0, SeekOrigin.Begin);
+            _executable = executable;
+        }
+
+        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWriteTime)
+            : base(name, parent, lastWriteTime)
+        {
+            #region Preconditions
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (content == null) throw new ArgumentNullException("content");
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+
+            _content = new MemoryStream(content.Length);
+            _content.Write(content, 0, content.Length);
+            _content.Seek(0, SeekOrigin.Begin);
+            _executable = executable;
         }
 
         public override void WriteIntoFolder(string folderPath)
@@ -98,6 +119,9 @@ namespace ZeroInstall.DownloadBroker
             File.WriteAllBytes(combinedPath, _content.ToArray());
             File.SetLastWriteTimeUtc(combinedPath, LastWriteTime);
         }
+
+        public bool IsExecutable()
+        { return _executable; }
     }
 
     public abstract class EntryContainer : HierarchyEntry
@@ -215,7 +239,25 @@ namespace ZeroInstall.DownloadBroker
 
         public PackageBuilder AddFile(string name, byte[] content)
         {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy));
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, executable: false));
+            return this;
+        }
+
+        public PackageBuilder AddFile(string name, byte[] content, DateTime lastWriteTime)
+        {
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, false, lastWriteTime));
+            return this;
+        }
+
+        public PackageBuilder AddExecutable(string name, byte[] content)
+        {
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, executable: true));
+            return this;
+        }
+
+        public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWriteTime)
+        {
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, true, lastWriteTime));
             return this;
         }
 
@@ -287,7 +329,8 @@ namespace ZeroInstall.DownloadBroker
                         size = entryData.Length;
                         hash = FileHelper.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
                     }
-                    node = new ManifestFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
+                    if (fileEntry.IsExecutable()) node = new ManifestExecutableFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
+                    else node = new ManifestFile(hash, FileHelper.UnixTime(entry.LastWriteTime), size, entry.Name);
                 }
                 writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
             };
