@@ -104,8 +104,8 @@ namespace ZeroInstall.DownloadBroker
                                 DateTime = creationDate,
                                 HostSystem = (int)HostSystemID.Unix
                             };
-                const int xBitFlag = 0x0040;
-                entry.ExternalFileAttributes |= xBitFlag;
+                const int userExecuteFlag = 0x0040 << 16;
+                entry.ExternalFileAttributes |= userExecuteFlag;
                 zip.PutNextEntry(entry);
 
                 zip.WriteByte(50);
@@ -120,7 +120,7 @@ namespace ZeroInstall.DownloadBroker
                 File.WriteAllBytes(contentExecutable, new byte[] { 0 });
                 File.SetLastWriteTimeUtc(contentExecutable, creationDate);
                 File.WriteAllText(Path.Combine(package.Path, ".xbit"), "/executable");
-                digest = CreateDigestForFolder(package.Path);
+                digest = Manifest.CreateDigest(package.Path);
             }
             var archive = SynthesizeArchive(_archiveFile, 0);
             var implementation = new Implementation
@@ -161,13 +161,8 @@ namespace ZeroInstall.DownloadBroker
                         }
                     }
                 }
-                return CreateDigestForFolder(extractFolder.Path);
+                return Manifest.CreateDigest(extractFolder.Path);
             }
-        }
-
-        private static ManifestDigest CreateDigestForFolder(string folder)
-        {
-            return new ManifestDigest(Manifest.Generate(folder, ManifestFormat.Sha256).CalculateDigest());
         }
 
         private static Archive SynthesizeArchive(string zippedPackage, int offset)
