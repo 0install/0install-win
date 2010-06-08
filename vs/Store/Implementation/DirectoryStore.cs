@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using System.Security.AccessControl;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -109,46 +108,87 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Add
+        #region Verify and add
         /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>
-        /// else it deletes the directory.
+        /// Verifies the manifest digest of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
-        /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
+        /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the directory is not permitted.</exception>
-        public void Add(string source, ManifestDigest manifestDigest)
+        /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
             #endregion
 
+            // Determine the digest method to use
             string expectedDigest = manifestDigest.BestDigest;
             if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
+            var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
-            try
-            {
-                // Select the manifest format to use
-                var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
+            // Locate the source directory
+            string source = Path.Combine(DirectoryPath, tempID);
 
-                // Calculate the actual digest and compare it with the expected one
-                string actualDigest = Manifest.CreateDotFile(source, format);
-                if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
-            }
-            catch (Exception)
-            {
-                Directory.Delete(source, true);
-                throw;
-            }
+            // Calculate the actual digest and compare it with the expected one
+            string actualDigest = Manifest.CreateDotFile(source, format);
+            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
 
             // Move directory to final store destination
             string target = Path.Combine(DirectoryPath, expectedDigest);
             Directory.Move(source, target);
 
-            Directory.SetAccessControl(target, new DirectorySecurity());
+            // ToDo: Setup ACLs
+        }
+        #endregion
+
+        #region Add directory
+        public void Add(string path, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            // Move the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+            var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+            Directory.Move(path, tempDir);
+
+            try
+            {
+                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
+            }
+            catch (Exception)
+            {
+                // Restore the original directory if validation failed
+                Directory.Move(tempDir, path);
+                throw;
+            }
+        }
+        #endregion
+
+        #region Add archive
+        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+            var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+
+            // ToDo: Extract to tempDir
+            //throw new NotImplementedException();
+
+            try
+            {
+                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
+            }
+            catch (DigestMismatchException)
+            {
+                // Remove extracted directory if validation failed
+                Directory.Delete(tempDir, true);
+                throw;
+            }
         }
         #endregion
 

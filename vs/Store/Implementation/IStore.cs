@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation
         /// Determines whether this store contains a local copy of an <see cref="ZeroInstall.Store.Implementation"/> identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the <see cref="ZeroInstall.Store.Implementation"/> to check for.</param>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         bool Contains(ManifestDigest manifestDigest);
 
         /// <summary>
@@ -39,19 +39,32 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest the <see cref="ZeroInstall.Store.Implementation"/> to look for.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="ZeroInstall.Store.Implementation"/> could not be found in this store.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         /// <returns>A fully qualified path to the directory containing the <see cref="ZeroInstall.Store.Implementation"/>.</returns>
         string GetPath(ManifestDigest manifestDigest);
 
         /// <summary>
-        /// Moves a directory containing an <see cref="ZeroInstall.Store.Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="source">The directory containing the <see cref="ZeroInstall.Store.Implementation"/>.</param>
-        /// <param name="manifestDigest">The digest the <see cref="ZeroInstall.Store.Implementation"/> is supposed to match.</param>
+        /// <param name="path">The directory containing the <see cref="Implementation"/>.</param>
+        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <remarks>The directory is moved away from <paramref name="path"/> before validation starts. It will be automatically restored if validation fails.</remarks>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the directory is not permitted.</exception>
-        void Add(string source, ManifestDigest manifestDigest);
+        /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
+        void Add(string path, ManifestDigest manifestDigest);
+
+        /// <summary>
+        /// Extracts an archive containing an <see cref="ZeroInstall.Store.Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="path">The archive containing the <see cref="Implementation"/>.</param>
+        /// <param name="mimeTyp">The type of the archive as a MIME type.</param>
+        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
+        void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest);
     }
 }

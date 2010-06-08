@@ -46,9 +46,9 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// The type of the archive as a MIME type in the type attribute. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute.
+        /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute.
         /// </summary>
-        [Description("The type of the archive as a MIME type in the type attribute. If missing, the type is guessed from the extension on the location attribute.")]
+        [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute.")]
         [XmlAttribute("type")]
         public string MimeType { get; set; }
 

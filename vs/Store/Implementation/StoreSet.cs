@@ -97,19 +97,11 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Add
-        /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into the best available <see cref="IStore"/> if it matches the provided <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
-        public void Add(string source, ManifestDigest manifestDigest)
+        #region Add directory
+        public void Add(string path, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             Exception innerException = null;
@@ -118,23 +110,46 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Add implementation only to one store
-                    store.Add(source, manifestDigest);
+                    store.Add(path, manifestDigest);
                     return;
-                }
-                catch (IOException ex)
-                {
-                    // Ignore IO errors and try the next store
-                    innerException = ex;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Ignore authorization errors and try the next store
-                    innerException = ex;
+                    // Remember the first authorization error and try the next store
+                    if (innerException == null) innerException = ex;
                 }
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
+            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+        }
+        #endregion
+
+        #region Add archive
+        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            Exception innerException = null;
+            foreach (IStore store in Stores)
+            {
+                try
+                {
+                    // Add implementation only to one store
+                    store.AddArchive(path, mimeTyp, manifestDigest);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Remember the first authorization error and try the next store
+                    if (innerException == null) innerException = ex;
+                }
+            }
+
+            // If we reach this, the implementation couldn't be added to any store
+            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
         }
         #endregion
     }

@@ -77,22 +77,24 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Add
-        /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="source">The directory containing the <see cref="Implementation"/>.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="source"/> directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if the <paramref name="source"/> directory cannot be moved or the digest cannot be calculated.</exception>
-        public void Add(string source, ManifestDigest manifestDigest)
+        #region Add directory
+        public void Add(string path, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // ToDo: Communicate with service
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Add archive
+        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             throw new NotImplementedException();
         }
         #endregion
