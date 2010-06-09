@@ -112,13 +112,16 @@ namespace Common.Helpers
         /// </summary>
         /// <param name="source">The path of source directory. Must exist!</param>
         /// <param name="destination">The path of the target directory. Must not exist!</param>
-        /// <exception cref="IOException">Thrown if <paramref name="source"/> does not exist or if <see cref="destination"/> already exists.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="source"/> and <see cref="destination"/> are equal.</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="source"/> does not exist.</exception>
+        /// <exception cref="IOException">Thrown if <see cref="destination"/> already exists.</exception>
         public static void CopyDirectory(string source, string destination)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
             if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
-            if (!Directory.Exists(source)) throw new IOException(Resources.SourceDirNotExist);
+            if (source == destination) throw new ArgumentException(Resources.SourceDestinationEqual);
+            if (!Directory.Exists(source)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
             if (Directory.Exists(destination)) throw new IOException(Resources.DestinationDirExist);
             #endregion
 

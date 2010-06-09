@@ -240,4 +240,7 @@ Delete the changes</value>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>The destination directory already exists.</value>
   </data>
+  <data name="SourceDestinationEqual" xml:space="preserve">
+    <value>Source and destination are equal.</value>
+  </data>
 </root>

@@ -107,5 +107,36 @@ namespace Common.Helpers
             // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
             Assert.AreEqual(1095292800, FileHelper.UnixTime(new DateTime(2004, 09, 16)));
         }
+
+        /// <summary>
+        /// Ensures <see cref="FileHelper.CopyDirectory"/> correctly copies a directories from one location to another and detects usage errors.
+        /// </summary>
+        [Test]
+        public void TestCopyDirectory()
+        {
+            string temp1 = FileHelper.GetTempDirectory();
+            string subdir = Path.Combine(temp1, "subdir");
+            Directory.CreateDirectory(subdir);
+            File.WriteAllText(Path.Combine(subdir, "file"), "A");
+
+            string temp2 = FileHelper.GetTempDirectory();
+            Directory.Delete(temp2);
+            
+            try
+            {
+                Assert.Throws<ArgumentException>(() => FileHelper.CopyDirectory(temp1, temp1));
+                Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CopyDirectory(temp2, temp1));
+
+                FileHelper.CopyDirectory(temp1, temp2);
+                FileAssert.AreEqual(Path.Combine(subdir, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+
+                Assert.Throws<IOException>(() => FileHelper.CopyDirectory(temp1, temp2));
+            }
+            finally
+            {
+                Directory.Delete(temp1, true);
+                Directory.Delete(temp2, true);
+            }
+        }
     }
 }

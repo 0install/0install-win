@@ -349,6 +349,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Source and destination are equal..
+        /// </summary>
+        internal static string SourceDestinationEqual {
+            get {
+                return ResourceManager.GetString("SourceDestinationEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The source directory does not exist..
         /// </summary>
         internal static string SourceDirNotExist {

@@ -233,4 +233,7 @@ Die Änderungen löschen</value>
   <data name="DestinationDirExist" xml:space="preserve">
     <value>Das Zielverzeichnis existiert bereits.</value>
   </data>
+  <data name="SourceDestinationEqual" xml:space="preserve">
+    <value>Quelle und Ziel sind gleich.</value>
+  </data>
 </root>
