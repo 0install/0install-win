@@ -158,6 +158,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The destination directory already exists..
+        /// </summary>
+        internal static string DestinationDirExist {
+            get {
+                return ResourceManager.GetString("DestinationDirExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Failed to create XmlWriter..
         /// </summary>
         internal static string FailedToCreateXmlWriter {
@@ -336,6 +345,15 @@ namespace Common.Properties {
         internal static string Revert {
             get {
                 return ResourceManager.GetString("Revert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The source directory does not exist..
+        /// </summary>
+        internal static string SourceDirNotExist {
+            get {
+                return ResourceManager.GetString("SourceDirNotExist", resourceCulture);
             }
         }
         

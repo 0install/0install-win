@@ -25,6 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
+using Common.Properties;
 
 namespace Common.Helpers
 {
@@ -104,6 +105,37 @@ namespace Common.Helpers
         {
             TimeSpan timepan = (time - new DateTime(1970, 1, 1));
             return (long)timepan.TotalSeconds;
+        }
+
+        /// <summary>
+        /// Copies the content of a directory to a new location.
+        /// </summary>
+        /// <param name="source">The path of source directory. Must exist!</param>
+        /// <param name="destination">The path of the target directory. Must not exist!</param>
+        /// <exception cref="IOException">Thrown if <paramref name="source"/> does not exist or if <see cref="destination"/> already exists.</exception>
+        public static void CopyDirectory(string source, string destination)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            if (!Directory.Exists(source)) throw new IOException(Resources.SourceDirNotExist);
+            if (Directory.Exists(destination)) throw new IOException(Resources.DestinationDirExist);
+            #endregion
+
+            Directory.CreateDirectory(destination);
+            foreach (string entry in Directory.GetFileSystemEntries(source))
+            {
+                if (Directory.Exists(entry))
+                {
+                    // Recurse into sub-direcories
+                    CopyDirectory(entry, Path.Combine(destination, Path.GetFileName(entry)));
+                }
+                else
+                {
+                    // Copy individual files
+                    File.Copy(entry, Path.Combine(destination, Path.GetFileName(entry)));
+                }
+            }
         }
 
         /// <summary>

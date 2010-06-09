@@ -155,20 +155,11 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // Move the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+            // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
-            Directory.Move(path, tempDir);
+            FileHelper.CopyDirectory(path, tempDir);
 
-            try
-            {
-                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
-            }
-            catch (Exception)
-            {
-                // Restore the original directory if validation failed
-                Directory.Move(tempDir, path);
-                throw;
-            }
+            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
         }
         #endregion
 
@@ -189,9 +180,9 @@ namespace ZeroInstall.Store.Implementation
             {
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
             }
-            catch (DigestMismatchException)
+            catch (Exception)
             {
-                // Remove extracted directory if validation failed
+                // Remove extracted directory if validation or something else failed
                 Directory.Delete(tempDir, true);
                 throw;
             }

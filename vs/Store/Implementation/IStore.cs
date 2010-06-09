@@ -44,11 +44,10 @@ namespace ZeroInstall.Store.Implementation
         string GetPath(ManifestDigest manifestDigest);
 
         /// <summary>
-        /// Moves a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Copies a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="path">The directory containing the <see cref="Implementation"/>.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <remarks>The directory is moved away from <paramref name="path"/> before validation starts. It will be automatically restored if validation fails.</remarks>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>

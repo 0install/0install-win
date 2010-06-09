@@ -227,4 +227,10 @@ Die Änderungen löschen</value>
   <data name="StateMustBeReady" xml:space="preserve">
     <value>Der Zustand muss "Ready" sein.</value>
   </data>
+  <data name="SourceDirNotExist" xml:space="preserve">
+    <value>Das Quellverzeichnis existiert nicht.</value>
+  </data>
+  <data name="DestinationDirExist" xml:space="preserve">
+    <value>Das Zielverzeichnis existiert bereits.</value>
+  </data>
 </root>

@@ -234,4 +234,10 @@ Delete the changes</value>
   <data name="StateMustBeReady" xml:space="preserve">
     <value>The state must be "Ready".</value>
   </data>
+  <data name="SourceDirNotExist" xml:space="preserve">
+    <value>The source directory does not exist.</value>
+  </data>
+  <data name="DestinationDirExist" xml:space="preserve">
+    <value>The destination directory already exists.</value>
+  </data>
 </root>
