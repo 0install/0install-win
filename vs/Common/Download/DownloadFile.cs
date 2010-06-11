@@ -163,6 +163,22 @@ namespace Common.Download
         public long BytesTotal { get; private set; }
 
         /// <summary>
+        /// The progress of the download as a value between 0 and 1; -1 when unknown.
+        /// </summary>
+        public double Progress
+        {
+            get
+            {
+                switch (BytesTotal)
+                {
+                    case -1: return -1;
+                    case 0: return 0;
+                    default: return BytesReceived / (float)BytesTotal;
+                }
+            }
+        }
+
+        /// <summary>
         /// <see langword="true"/> if <see cref="RunSync"/> was called.
         /// </summary>
         public bool RunningSync { get; private set; }
