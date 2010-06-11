@@ -172,7 +172,7 @@ namespace Common.Download
                 switch (BytesTotal)
                 {
                     case -1: return -1;
-                    case 0: return 0;
+                    case 0: return 1;
                     default: return BytesReceived / (double)BytesTotal;
                 }
             }
