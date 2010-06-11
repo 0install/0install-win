@@ -173,7 +173,7 @@ namespace Common.Download
                 {
                     case -1: return -1;
                     case 0: return 0;
-                    default: return BytesReceived / (float)BytesTotal;
+                    default: return BytesReceived / (double)BytesTotal;
                 }
             }
         }
