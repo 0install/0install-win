@@ -71,62 +71,13 @@ namespace ZeroInstall.DownloadBroker
             {
                 foreach (var archive in implementation.Archives)
                 {
-                    byte[] data;
+                    string tempArchive = Path.GetTempFileName();
                     using (var webClient = new WebClient())
-                        data = webClient.DownloadData(archive.Location);
+                        webClient.DownloadFile(archive.Location, tempArchive);
 
-                    using (var archiveBuffer = new MemoryStream(data, (int)archive.StartOffset, data.Length - (int)archive.StartOffset))
-                    {
-                        string extracted = ExtractZip(archiveBuffer);
-                        Store.Add(extracted, implementation.ManifestDigest);
-                    }
+                    Store.AddArchive(tempArchive, "application/zip", implementation.ManifestDigest);
                 }
             }
-        }
-
-        private static string ExtractZip(Stream archive)
-        {
-            string extractFolder = FileHelper.GetTempDirectory();
-            string xbitFile = Path.Combine(extractFolder, ".xbit");
-
-            using (var zip = new ZipFile(archive))
-            {
-                foreach (ZipEntry entry in zip)
-                {
-                    if (entry.IsDirectory)
-                    {
-                        Directory.CreateDirectory(Path.Combine(extractFolder, entry.Name));
-                    }
-                    else if (entry.IsFile)
-                    {
-                        string currentFile = Path.Combine(extractFolder, entry.Name);
-                        Directory.CreateDirectory(Path.GetDirectoryName(currentFile));
-                        var binaryEntry = new BinaryReader(zip.GetInputStream(entry));
-                        File.WriteAllBytes(currentFile, binaryEntry.ReadBytes((int)entry.Size));
-                        File.SetLastWriteTimeUtc(currentFile, entry.DateTime);
-
-                        if (IsXbitSet(entry))
-                        {
-                            using (var xbitWriter = File.AppendText(xbitFile))
-                            {
-                                xbitWriter.Write("/");
-                                xbitWriter.Write(entry.Name);
-                            }
-                        }
-                    }
-                }
-            }
-            return extractFolder;
-        }
-
-        /// <summary>
-        /// Determines whether an <see cref="ZipEntry"/> was packed on a Unix-system with the executable flag set to true.
-        /// </summary>
-        public static bool IsXbitSet(ZipEntry entry)
-        {
-            if (entry.HostSystem != (int)HostSystemID.Unix) return false;
-            const int userExecuteFlag = 0x0040 << 16;
-            return ((entry.ExternalFileAttributes & userExecuteFlag) == userExecuteFlag);
         }
     }
 }

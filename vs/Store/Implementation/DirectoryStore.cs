@@ -20,6 +20,7 @@ using System.IO;
 using Common;
 using Common.Helpers;
 using Common.Storage;
+using System.Diagnostics;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -168,13 +169,17 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            Debug.Assert(mimeTyp == "application/zip", "Only zip archives supported");
             #endregion
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
 
-            // ToDo: Extract to tempDir
-            //throw new NotImplementedException();
+            using (var archiveStream = File.OpenRead(path))
+            {
+                var archive = new Common.Archive.ZipExtractor(archiveStream);
+                archive.ExtractTo(tempDir);
+            }
 
             try
             {
