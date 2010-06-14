@@ -25,6 +25,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
+using System.Security.Principal;
 using Common.Properties;
 
 namespace Common.Helpers
@@ -112,9 +113,9 @@ namespace Common.Helpers
         /// </summary>
         /// <param name="source">The path of source directory. Must exist!</param>
         /// <param name="destination">The path of the target directory. Must not exist!</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="source"/> and <see cref="destination"/> are equal.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="source"/> and <paramref name="destination"/> are equal.</exception>
         /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="source"/> does not exist.</exception>
-        /// <exception cref="IOException">Thrown if <see cref="destination"/> already exists.</exception>
+        /// <exception cref="IOException">Thrown if <paramref name="destination"/> already exists.</exception>
         public static void CopyDirectory(string source, string destination)
         {
             #region Sanity checks
@@ -159,7 +160,7 @@ namespace Common.Helpers
 
                 case PlatformID.Win32NT:
                     DirectorySecurity security = dirInfo.GetAccessControl();
-                    security.AddAccessRule(new FileSystemAccessRule("Everyone", FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
+                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
                     dirInfo.SetAccessControl(security);
                     break;
 
