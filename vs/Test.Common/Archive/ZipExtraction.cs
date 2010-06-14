@@ -10,7 +10,7 @@ using ZeroInstall.Store.Utilities;
 namespace Common.Archive
 {
     [TestFixture]
-    class ZipExtraction
+    class BasicFunctionality
     {
         byte[] _archiveData;
         TemporaryReplacement _sandbox;
@@ -22,19 +22,20 @@ namespace Common.Archive
         {
             var packageBuilder = new PackageBuilder()
                 .AddFile("file1", Encoding.ASCII.GetBytes("First file"))
-                .AddFile("file2", new byte[] { })
-                .AddFolder("emptyFolder");
+                .AddFile("file2", new byte[] { });
+            packageBuilder.AddFolder("emptyFolder");
             packageBuilder.AddFolder("folder1")
                 .AddFile("nestedFile", Encoding.ASCII.GetBytes("File 3\n"))
                 .AddFolder("nestedFolder").AddFile("doublyNestedFile", Encoding.ASCII.GetBytes("File 4"));
             _package = packageBuilder.Hierarchy;
 
-            MemoryStream archiveStream;
-            using (archiveStream = new MemoryStream())
+            using (var archiveStream = new MemoryStream())
+            {
                 packageBuilder.GeneratePackageArchive(archiveStream);
-            _archiveData = archiveStream.ToArray();
+                _archiveData = archiveStream.ToArray();
+            }
 
-            _sandbox = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-sandbox"));
+            _sandbox = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-Basic"));
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _sandbox.Path;
         }
@@ -49,6 +50,7 @@ namespace Common.Archive
         [Test]
         public void ExtractionIntoFolder()
         {
+            File.WriteAllBytes("a.zip", _archiveData);
             using (var archiveStream = new MemoryStream(_archiveData))
             {
                 var extractor = new ZipExtractor(archiveStream);
@@ -72,6 +74,38 @@ namespace Common.Archive
                 };
                 _package.RecurseInto(compareDirectory);
             }
+        }
+    }
+
+    [TestFixture]
+    class CornerCases
+    {
+        private TemporaryReplacement _sandbox;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _sandbox = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-Corner"));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            //_sandbox.Dispose();
+        }
+
+        [Test]
+        public void TestRejectParentDirectoryEntry()
+        {
+            var builder = new PackageBuilder();
+            builder.AddFolder("..");
+
+            var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
+            builder.GeneratePackageArchive(archiveStream);
+            archiveStream.Seek(0, SeekOrigin.Begin);
+            var extractor = new ZipExtractor(archiveStream);
+            Assert.Throws<InvalidArchive>(() => extractor.ExtractTo("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
+            archiveStream.Dispose();
         }
     }
 }
