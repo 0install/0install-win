@@ -8,6 +8,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using Common.Helpers;
+using System.Diagnostics;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -35,8 +36,10 @@ namespace ZeroInstall.DownloadBroker
         protected HierarchyEntry(string name, EntryContainer parent, DateTime lastWriteTime)
         {
             #region Preconditions
-            if (name != null && name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) throw new ArgumentException("Invalid file name.");
+            Debug.Assert(name != null);
             #endregion
+
+            if (name != null && name.IndexOfAny(Path.GetInvalidFileNameChars()) != -1) throw new ArgumentException("Invalid file name.");
 
             _parent = parent;
             Name = name;
@@ -68,9 +71,9 @@ namespace ZeroInstall.DownloadBroker
         internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable = false) : base(name, parent)
         {
             #region Preconditions
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (content == null) throw new ArgumentNullException("content");
-            if (parent == null) throw new ArgumentNullException("parent");
+            Debug.Assert(!string.IsNullOrEmpty(name));
+            Debug.Assert(content != null);
+            Debug.Assert(parent != null);
             #endregion
 
             _content = new MemoryStream(content.Length);
@@ -83,9 +86,9 @@ namespace ZeroInstall.DownloadBroker
             : base(name, parent, lastWriteTime)
         {
             #region Preconditions
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (content == null) throw new ArgumentNullException("content");
-            if (parent == null) throw new ArgumentNullException("parent");
+            Debug.Assert(!string.IsNullOrEmpty(name));
+            Debug.Assert(content != null);
+            Debug.Assert(parent != null);
             #endregion
 
             _content = new MemoryStream(content.Length);
@@ -97,10 +100,11 @@ namespace ZeroInstall.DownloadBroker
         public override void WriteIntoFolder(string folderPath)
         {
             #region Preconditions
-            if (folderPath == null) throw new ArgumentNullException("folderPath");
+            Debug.Assert(folderPath != null);
+            #endregion
+            
             if (folderPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) throw new ArgumentException("Invalid path supplied.");
             if (!Directory.Exists(folderPath)) throw new InvalidOperationException("Folder " + Path.GetFullPath(folderPath) + " does not exist.");
-            #endregion
 
             string combinedPath = Path.Combine(folderPath, Name);
             CheckWritePath(combinedPath);
@@ -140,10 +144,11 @@ namespace ZeroInstall.DownloadBroker
         public override void WriteIntoFolder(string folderPath)
         {
             #region Preconditions
-            if (folderPath == null) throw new ArgumentNullException("folderPath");
+            Debug.Assert(folderPath != null);
+            #endregion
+
             if (folderPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) throw new ArgumentException("Invalid path supplied.");
             if (!Directory.Exists(folderPath)) throw new InvalidOperationException("Folder " + Path.GetFullPath(folderPath) + " does not exist.");
-            #endregion
 
             string combinedPath = CombineNameWithPath(folderPath);
             CheckAndPrepareWritePath(combinedPath);
@@ -177,8 +182,8 @@ namespace ZeroInstall.DownloadBroker
         internal FolderEntry(string name, EntryContainer parent) : base(name, parent)
         {
             #region Preconditions
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (parent == null) throw new ArgumentNullException("parent");
+            Debug.Assert(!string.IsNullOrEmpty(name));
+            Debug.Assert(parent != null);
             #endregion
         }
 
@@ -276,7 +281,11 @@ namespace ZeroInstall.DownloadBroker
                 HierarchyEntry.EntryHandler entryToZip = delegate (HierarchyEntry entry)
                 {
                     if (entry is FileEntry)
-                        WriteFileEntryToZip(zip, (FileEntry)entry);
+                        WriteFileEntryToZip(zip, entry as FileEntry);
+                    else if (entry is FolderEntry)
+                    {
+                        WriteFolderEntryToZip(zip, entry as FolderEntry);
+                    }
                 };
                 _packageHierarchy.RecurseInto(entryToZip);
             }
@@ -287,6 +296,13 @@ namespace ZeroInstall.DownloadBroker
             zip.PutNextEntry(CreateZipEntry(entry));
             var writer = new BinaryWriter(zip);
             writer.Write(entry.Content);
+        }
+
+        private static void WriteFolderEntryToZip(ZipOutputStream zip, FolderEntry entry)
+        {
+            var zipEntry = new ZipEntry(entry.RelativePath + "/");
+            zipEntry.DateTime = entry.LastWriteTime;
+            zip.PutNextEntry(zipEntry);
         }
 
         private static ZipEntry CreateZipEntry(HierarchyEntry entry)
