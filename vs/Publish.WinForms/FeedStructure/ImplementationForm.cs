@@ -19,7 +19,7 @@ using System;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class ImplementationForm : Form
     {

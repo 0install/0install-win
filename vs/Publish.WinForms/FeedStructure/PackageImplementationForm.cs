@@ -21,7 +21,7 @@ using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.IO;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class PackageImplementationForm : Form
     {

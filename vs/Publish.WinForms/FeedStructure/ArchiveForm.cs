@@ -29,7 +29,7 @@ using Common.Storage;
 using Common.Download;
 using Common.Helpers;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class ArchiveForm : Form
     {

@@ -21,7 +21,7 @@ using System.IO;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class OverlayBindingForm : Form
     {

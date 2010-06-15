@@ -21,7 +21,7 @@ using System.Windows.Forms;
 using ZeroInstall.Model;
 using Constraint = ZeroInstall.Model.Constraint;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class DependencyForm : Form
     {
