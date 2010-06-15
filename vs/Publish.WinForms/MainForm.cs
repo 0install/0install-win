@@ -496,6 +496,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
             var treeNode = new TreeNode(text);
+            treeNode.Tag = tag;
             selectedNode.Nodes.Add(treeNode);
             selectedNode.Expand();
         }
@@ -537,7 +538,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void btnAddDependency_Click(object sender, EventArgs e)
         {
-            addTreeNode("Dependecy", new Dependency());
+            addTreeNode("Dependency", new Dependency());
         }
 
         /// <summary>
@@ -567,7 +568,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void buttonAddArchive_Click(object sender, EventArgs e)
         {
-            addTreeNode("Retrieval methode", new Archive());
+            addTreeNode("Archive", new Archive());
         }
 
         /// <summary>
@@ -593,9 +594,9 @@ namespace ZeroInstall.Publish.WinForms
             Button[] addButtons = { btnAddGroup, btnAddImplementation, buttonAddArchive, buttonAddRecipe,
                                       btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             // disable all addButtons
-            foreach (Button buttons in addButtons)
+            foreach (Button button in addButtons)
             {
-                buttons.Enabled = false;
+                button.Enabled = false;
             }
             
             // enable possible buttons
@@ -674,7 +675,8 @@ namespace ZeroInstall.Publish.WinForms
             }
             else if (selectedNode.Tag is Archive)
             {
-                throw new NotImplementedException();
+                window = new ArchiveForm { };
+                window.Show();
             }
             else if (selectedNode.Tag is Recipe)
             {

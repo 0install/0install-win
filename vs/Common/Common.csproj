@@ -73,6 +73,12 @@
     <Compile Include="Collections\MonitoredCollection.cs" />
     <Compile Include="Collections\XmlCollection.cs" />
     <Compile Include="Collections\XmlCollectionEntry.cs" />
+    <Compile Include="Controls\DownloadProgressBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\DownloadProgressBar.Designer.cs">
+      <DependentUpon>DownloadProgressBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\FilteredTreeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\DownloadProgressBar.resx">
+      <DependentUpon>DownloadProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </EmbeddedResource>

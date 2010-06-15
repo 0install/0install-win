@@ -45,11 +45,6 @@ namespace ZeroInstall.Publish.WinForms
         public DownloadFile Download
         {
             set {
-                if (value == null)
-                {
-                    throw new ArgumentException("DownloadFile must not be null.");
-                }
-
                 // remove all delegates from old _downloadFile
                 if (_downloadFile != null)
                 {
@@ -58,8 +53,12 @@ namespace ZeroInstall.Publish.WinForms
                 }
 
                 _downloadFile = value;
-                // set delegates to the new _downloadFile
-                _downloadFile.StateChanged += DownloadStateChanged;
+
+                if (value != null)
+                {
+                    // set delegates to the new _downloadFile
+                    _downloadFile.StateChanged += DownloadStateChanged;
+                }
             }
             get { return _downloadFile; }
         }
