@@ -21,6 +21,7 @@ using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
+using ZeroInstall.Publish.WinForms.FeedStructure;
 
 namespace ZeroInstall.Publish.WinForms
 {
