@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Publish.WinForms
+﻿namespace Common.Controls
 {
     partial class DownloadProgressBar
     {

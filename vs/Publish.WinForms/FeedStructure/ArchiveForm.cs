@@ -131,10 +131,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _downloadDirectory = FileHelper.GetTempDirectory();
 
             Uri url = new Uri(hintTextBoxArchiveUrl.Text);
-            string fileName = Uri.EscapeUriString(url.ToString());
-            downloadProgressBarArchive.Download = new DownloadFile(url, Path.Combine(_downloadDirectory, url.Segments[url.Segments.Length-1]));
+            string fileName = url.Segments[url.Segments.Length - 1];
+            string fullFilePath = Path.Combine(_downloadDirectory, fileName);
+            setArchiveFormat(fullFilePath);
+            
+            
+
+            /*
+            downloadProgressBarArchive.Download = new DownloadFile(url, filepath);
             downloadProgressBarArchive.UseTaskbar = true;
-            downloadProgressBarArchive.Download.Start();
+            downloadProgressBarArchive.Download.Start();*/
             
             /*_extractedArchive = new TemporaryDirectory();
 
@@ -157,6 +163,33 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             treeViewExtract.ExpandAll();*/
 
             //throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Auto detects the archive format of a file on the basis of its extension and set it into <see cref="comboBoxArchiveFormat"/>
+        /// </summary>
+        /// <param name="filePath">Path to the file to get the extension from.</param>
+        private void setArchiveFormat(string filePath)
+        {
+            string fileExtension = new DirectoryInfo(filePath).Extension;
+            string format;
+
+            switch (fileExtension)
+            {
+                case ".rpm": format = "application/x-rpm"; break;
+                case ".deb": format = "application/x-deb"; break;
+                case ".tar": format = "application/x-tar"; break;
+                case ".tar.bz2": format = "application/x-bzip-compressed-tar"; break;
+                case ".tar.lzma": format = "application/x-lzma-compressed-tar"; break;
+                case ".tar.gz":
+                case ".tgz": format = "application/x-compressed-tar"; break;
+                case ".zip": format = "application/zip"; break;
+                case ".cab": format = "application/vnd.ms-cab-compressed"; break;
+                default: format = "(auto detect)"; break;
+            }
+
+            comboBoxArchiveFormat.Text = format;
+            //MessageBox.Show(format);
         }
 
         /// <summary>
