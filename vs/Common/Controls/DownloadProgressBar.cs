@@ -24,7 +24,7 @@ using System.Windows.Forms;
 using Common.Download;
 using Common.Helpers;
 
-namespace ZeroInstall.Publish.WinForms
+namespace Common.Controls
 {
     public partial class DownloadProgressBar : UserControl
     {
