@@ -16,36 +16,31 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Common.Download;
 using Common.Helpers;
 
 namespace Common.Controls
 {
+    /// <summary>
+    /// A progress bar that tracks the progress of a <see cref="DownloadFile"/>.
+    /// </summary>
     public partial class DownloadProgressBar : UserControl
     {
-        #region Attributes
-
-        /// <summary>
-        /// The download file to show the download progress by <see cref="progressBar"/>.
-        /// </summary>
+        #region Variables
+        /// <summary>The download file to show the download progress by <see cref="progressBar"/>.</summary>
         private DownloadFile _downloadFile;
-
         #endregion
 
-        #region Proporties
-
+        #region Properties
         /// <summary>
         /// The download file to show the download progress by <see cref="progressBar"/>.
         /// </summary>
         public DownloadFile Download
         {
-            set {
-                // remove all delegates from old _downloadFile
+            set
+            {
+                // Remove all delegates from old _downloadFile
                 if (_downloadFile != null)
                 {
                     _downloadFile.StateChanged -= DownloadStateChanged;
@@ -56,7 +51,7 @@ namespace Common.Controls
 
                 if (value != null)
                 {
-                    // set delegates to the new _downloadFile
+                    // Set delegates to the new _downloadFile
                     _downloadFile.StateChanged += DownloadStateChanged;
                 }
             }
@@ -66,77 +61,86 @@ namespace Common.Controls
         /// <summary>
         /// Show the download progress in the Windows taskbar.
         /// </summary>
-        /// <remarks>Use only once per window. <br/>
-        /// Only used in Windows 7 or newer.
-        /// </remarks>
+        /// <remarks>Use only once per window. Only used in Windows 7 or newer.</remarks>
         public bool UseTaskbar { set; get; }
-
         #endregion
 
+        #region Constructor
         public DownloadProgressBar()
         {
             InitializeComponent();
         }
+        #endregion
 
+        //--------------------//
+
+        #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the Taskbar depending on the <see cref="DownloadState"/> of <see cref="_downloadFile"/>
+        /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the taskbar depending on the <see cref="DownloadState"/> of <see cref="_downloadFile"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void DownloadStateChanged(DownloadFile sender) {
+        private void DownloadStateChanged(DownloadFile sender)
+        {
+            // Find the form containing this control
+            Form parent = FindForm();
+            if (parent == null) return;
+            IntPtr formHandle = parent.Handle;
+
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 switch (_downloadFile.State)
                 {
                     case DownloadState.Ready:
-                        if (UseTaskbar)
-                            WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, FindForm().Handle);
-                        break;
-                    case DownloadState.GettingData:
-                        {
-                            // is download size available?
-                            if (sender.BytesTotal == -1)
-                            {
-                                progressBar.Style = ProgressBarStyle.Marquee;
-                                if (UseTaskbar)
-                                    WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, FindForm().Handle);
-                            }
-                            else
-                            {
-                                _downloadFile.BytesReceivedChanged += DownloadBytesRecivedChanged;
-                                progressBar.Style = ProgressBarStyle.Continuous;
-                                if (UseTaskbar)
-                                    WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, FindForm().Handle);
-                            }
-                        }
-                        break;
-                    case DownloadState.IOError:
-                    case DownloadState.WebError:
-                        if(UseTaskbar)
-                            WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, FindForm().Handle);
-                        break;
-                    case DownloadState.Complete:
-                        if (UseTaskbar)
-                            WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, FindForm().Handle);
+                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
                         break;
 
-                    default: return;
+                    case DownloadState.GettingHeaders:
+                        progressBar.Style = ProgressBarStyle.Marquee;
+                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        break;
+
+                    case DownloadState.GettingData:
+                        // Is the final download size known?
+                        if (sender.BytesTotal > 0)
+                        {
+                            _downloadFile.BytesReceivedChanged += DownloadBytesRecivedChanged;
+                            progressBar.Style = ProgressBarStyle.Continuous;
+                            if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
+                        }
+                        break;
+
+                    case DownloadState.IOError:
+                    case DownloadState.WebError:
+                        if(UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, formHandle);
+                        break;
+
+                    case DownloadState.Complete:
+                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+                        break;
                 }
             });
         }
 
         /// <summary>
-        /// Changes the value of the <see cref="progressBar"/> and the Taskbar depending on the allready downloaded bytes.
+        /// Changes the value of the <see cref="progressBar"/> and the taskbar depending on the already downloaded bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadBytesRecivedChanged(DownloadFile sender)
         {
+            // Find the form containing this control
+            Form parent = FindForm();
+            if (parent == null) return;
+            IntPtr formHandle = parent.Handle;
+
             int currentValue = (int)(_downloadFile.Progress * 100f);
-            progressBar.Invoke((SimpleEventHandler) delegate {
+            progressBar.Invoke((SimpleEventHandler) delegate
+            {
                 progressBar.Value = currentValue;
-                WindowsHelper.SetProgressValue(currentValue, 100, FindForm().Handle);
+                WindowsHelper.SetProgressValue(currentValue, 100, formHandle);
             });
         }
+        #endregion
     }
 }
