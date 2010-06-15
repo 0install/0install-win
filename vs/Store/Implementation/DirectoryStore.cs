@@ -150,7 +150,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add directory
-        public void Add(string path, ManifestDigest manifestDigest)
+        public void AddDirectory(string path, ManifestDigest manifestDigest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");

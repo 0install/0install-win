@@ -97,7 +97,7 @@ namespace ZeroInstall.Store.Implementation
             using (var cache = new TemporaryDirectory())
             {
                 var store = new DirectoryStore(cache.Path);
-                store.Add(packageDir, digest);
+                store.AddDirectory(packageDir, digest);
                 Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
             }
         }
@@ -111,7 +111,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 using (var cache = new TemporaryDirectory())
                 {
-                    Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).Add(package, new ManifestDigest()));
+                    Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).AddDirectory(package, new ManifestDigest()));
                 }
             }
             finally

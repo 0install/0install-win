@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
-        void Add(string path, ManifestDigest manifestDigest);
+        void AddDirectory(string path, ManifestDigest manifestDigest);
 
         /// <summary>
         /// Extracts an archive containing an <see cref="ZeroInstall.Store.Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
