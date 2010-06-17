@@ -103,7 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Implementation\ClassDiagram.cd" />
-    <None Include="Interface\ClassDiagram.cd" />
+    <None Include="Implementation\Manifest.cd" />
+    <None Include="Interface\InterfaceCache.cd" />
+    <None Include="Interface\Trust.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
