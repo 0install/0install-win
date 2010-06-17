@@ -6,7 +6,11 @@ using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Archive
 {
-
+    /// <summary>
+    /// Exception class indicating an invalid archive given to ZipExtractor.
+    /// </summary>
+    /// Currently this is only thrown when an archive contains folder entries
+    /// named '..'.
     public class InvalidArchive : Exception
     {
         public InvalidArchive(string message)
@@ -14,15 +18,28 @@ namespace Common.Archive
         { }
     }
 
+    /// <summary>
+    /// Helper class to perform extraction of Zip archives.
+    /// </summary>
     public class ZipExtractor
     {
         private readonly Stream _archive;
 
+        /// <summary>
+        /// Constructs a <see cref="ZipExtractor"/> to extract the zip archive
+        /// in the supplied stream.
+        /// Does not take ownership of the stream.
+        /// </summary>
+        /// <param name="archive">stream containing the archive's data.</param>
         public ZipExtractor(Stream archive)
         {
             _archive = archive;
         }
 
+        /// <summary>
+        /// Perform this extraction, writing the contents into the supplied path.
+        /// </summary>
+        /// <param name="path">file system path to write to.</param>
         public void ExtractTo(string path)
         {
             using (var zip = new ZipFile(_archive))
@@ -76,7 +93,7 @@ namespace Common.Archive
         {
             if (entry.HostSystem != (int)HostSystemID.Unix) return false;
             const int userExecuteFlag = 0x0040 << 16;
-            return ((entry.ExternalFileAttributes & userExecuteFlag) == userExecuteFlag);
+            return ((entry.ExternalFileAttributes & userExecuteFlag) != 0);
         }
     }
 }
