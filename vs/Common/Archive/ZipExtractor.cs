@@ -40,50 +40,81 @@ namespace Common.Archive
         /// Perform this extraction, writing the contents into the supplied path.
         /// </summary>
         /// <param name="path">file system path to write to.</param>
+        /// <exception cref="InvalidArchive">Thrown if archive is not usable, e.g. it contains any folder named '..'.</exception>
         public void ExtractTo(string path)
         {
             using (var zip = new ZipFile(_archive))
             {
                 zip.IsStreamOwner = false;
-                string xbitFile = Path.Combine(path, ".xbit");
+                string xbitFilePath = Path.Combine(path, ".xbit");
 
                 foreach (ZipEntry entry in zip)
                 {
-                    if (entry.Name.Contains("..")) throw new InvalidArchive("Invalid entry \n" + entry.Name);
+                    RejectArchiveIfNameContains(entry, "..");
 
                     if (entry.IsDirectory)
                     {
-                        Directory.CreateDirectory(Path.Combine(path, entry.Name));
+                        ExtractFolderEntry(path, entry);
                     }
                     else if (entry.IsFile)
                     {
-                        string targetPath = Path.Combine(path, entry.Name);
-                        new FileInfo(targetPath).Directory.Create();
-
-                        long size = entry.Size;
-                        long bytesRead = 0;
-                        var entryInputStream = zip.GetInputStream(entry);
-                        using (var output = File.Create(targetPath))
-                        {
-                            while (bytesRead < size)
-                            {
-                                output.WriteByte((byte)entryInputStream.ReadByte());
-                                ++bytesRead;
-                            }
-                        }
-                        File.SetLastWriteTimeUtc(targetPath, entry.DateTime);
-
-                        if (IsXbitSet(entry))
-                        {
-                            using (var xbitWriter = File.AppendText(xbitFile))
-                            {
-                                xbitWriter.Write("/");
-                                xbitWriter.Write(entry.Name);
-                            }
-                        }
+                        ExtractFileEntry(path, zip, entry);
+                        AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
                     }
                 }
             }
+        }
+
+        private static void ExtractFileEntry(string path, ZipFile zip, ZipEntry entry)
+        {
+            string targetPath = Path.Combine(path, entry.Name);
+            ProvideParentFolder(targetPath);
+
+            DecompressAndWriteFile(zip, entry, targetPath);
+            File.SetLastWriteTimeUtc(targetPath, entry.DateTime);
+        }
+
+        private static void ProvideParentFolder(string targetPath)
+        {
+            new FileInfo(targetPath).Directory.Create();
+        }
+
+        private static void DecompressAndWriteFile(ZipFile zip, ZipEntry entry, string targetPath)
+        {
+            long bytesRead = 0;
+            var entryInputStream = zip.GetInputStream(entry);
+            using (var output = File.Create(targetPath))
+            {
+                while (bytesRead < entry.Size)
+                {
+                    output.WriteByte((byte)entryInputStream.ReadByte());
+                    ++bytesRead;
+                }
+            }
+        }
+
+        private static void AddEntryToXbitFileIfNecessary(ZipEntry entry, string xbitFile)
+        {
+
+            if (IsXbitSet(entry))
+            {
+                using (var xbitWriter = File.AppendText(xbitFile))
+                {
+                    xbitWriter.Write("/");
+                    xbitWriter.Write(entry.Name);
+                }
+            }
+        }
+
+        private static void RejectArchiveIfNameContains(ZipEntry entry, string name)
+        {
+            if (entry.Name.Contains(name)) throw new InvalidArchive("Invalid entry \n" + entry.Name);
+        }
+
+        private static void ExtractFolderEntry(string path, ZipEntry entry)
+        {
+            Directory.CreateDirectory(Path.Combine(path, entry.Name));
+            Directory.SetLastWriteTimeUtc(Path.Combine(path, entry.Name), entry.DateTime);
         }
 
         /// <summary>
