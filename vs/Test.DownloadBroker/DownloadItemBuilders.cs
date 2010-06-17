@@ -29,10 +29,6 @@ namespace ZeroInstall.DownloadBroker
             }
         }
 
-        protected HierarchyEntry(string name, EntryContainer parent)
-            : this(name, parent, DateTime.Today)
-        { }
-
         protected HierarchyEntry(string name, EntryContainer parent, DateTime lastWriteTime)
         {
             #region Preconditions
@@ -56,6 +52,8 @@ namespace ZeroInstall.DownloadBroker
         {
             return _parent == null;
         }
+
+        public abstract void AcceptVisitor(HierarchyVisitor visitor);
     }
 
     public class FileEntry : HierarchyEntry
@@ -66,20 +64,6 @@ namespace ZeroInstall.DownloadBroker
         public byte[] Content
         {
             get { return _content.ToArray(); }
-        }
-
-        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable = false) : base(name, parent)
-        {
-            #region Preconditions
-            Debug.Assert(!string.IsNullOrEmpty(name));
-            Debug.Assert(content != null);
-            Debug.Assert(parent != null);
-            #endregion
-
-            _content = new MemoryStream(content.Length);
-            _content.Write(content, 0, content.Length);
-            _content.Seek(0, SeekOrigin.Begin);
-            _executable = executable;
         }
 
         internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWriteTime)
@@ -126,19 +110,28 @@ namespace ZeroInstall.DownloadBroker
 
         public bool IsExecutable()
         { return _executable; }
+
+        public override void AcceptVisitor(HierarchyVisitor visitor)
+        { visitor.VisitFile(this); }
     }
 
     public abstract class EntryContainer : HierarchyEntry
     {
         protected List<HierarchyEntry> entries = new List<HierarchyEntry>();
 
-        protected EntryContainer(string name, EntryContainer parent) : base(name, parent)
+        protected EntryContainer(string name, EntryContainer parent, DateTime lastWrite)
+            : base(name, parent, lastWrite)
         { }
 
         public void Add(HierarchyEntry newEntry)
         {
             entries.Add(newEntry);
             entries.Sort((HierarchyEntry left, HierarchyEntry right) => StringComparer.InvariantCulture.Compare(left.Name, right.Name));
+        }
+
+        public IEnumerable<HierarchyEntry> Children
+        {
+            get { return entries; }
         }
 
         public override void WriteIntoFolder(string folderPath)
@@ -179,7 +172,7 @@ namespace ZeroInstall.DownloadBroker
 
     public class FolderEntry : EntryContainer
     {
-        internal FolderEntry(string name, EntryContainer parent) : base(name, parent)
+        internal FolderEntry(string name, EntryContainer parent, DateTime lastWrite) : base(name, parent, lastWrite)
         {
             #region Preconditions
             Debug.Assert(!string.IsNullOrEmpty(name));
@@ -198,11 +191,14 @@ namespace ZeroInstall.DownloadBroker
             if (File.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing file.");
             Directory.CreateDirectory(thisFoldersPath);
         }
+
+        public override void AcceptVisitor(HierarchyVisitor visitor)
+        { visitor.VisitFolder(this); }
     }
 
     public class RootEntry : EntryContainer
     {
-        internal RootEntry() : base("", null)
+        internal RootEntry(DateTime lastWrite) : base("", null, lastWrite)
         { }
 
         protected override string CombineNameWithPath(string path)
@@ -214,11 +210,79 @@ namespace ZeroInstall.DownloadBroker
         {
             if (Directory.GetFileSystemEntries(path).Length > 0) throw new InvalidOperationException("Can't write into non-empty folder.");
         }
+
+        public override void AcceptVisitor(HierarchyVisitor visitor)
+        { visitor.VisitRoot(this); }
+    }
+
+    public abstract class HierarchyVisitor
+    {
+        public abstract void VisitFile(FileEntry entry);
+        public abstract void VisitFolder(FolderEntry entry);
+        public abstract void VisitRoot(RootEntry entry);
+    }
+
+    class HierarchyToZip : HierarchyVisitor
+    {
+        ZipOutputStream zip;
+
+        internal HierarchyToZip(ZipOutputStream zipOut)
+        {
+            Debug.Assert(zipOut != null);
+
+            zip = zipOut;
+        }
+
+        public override void VisitFile(FileEntry entry)
+        {
+            WriteFileEntryToZip(entry);
+        }
+
+        private void WriteFileEntryToZip(FileEntry entry)
+        {
+            zip.PutNextEntry(CreateZipEntry(entry));
+            var writer = new BinaryWriter(zip);
+            writer.Write(entry.Content);
+        }
+
+        private static ZipEntry CreateZipEntry(HierarchyEntry entry)
+        {
+            var zipEntry = new ZipEntry(entry.RelativePath);
+            zipEntry.DateTime = entry.LastWriteTime;
+            return zipEntry;
+        }
+
+        public override void VisitFolder(FolderEntry entry)
+        { 
+            WriteFolderEntryToZip(zip, entry);
+            VisitChildren(entry);
+        }
+
+        private static void WriteFolderEntryToZip(ZipOutputStream zip, FolderEntry entry)
+        {
+            var zipEntry = new ZipEntry(entry.RelativePath + "/");
+            zipEntry.DateTime = entry.LastWriteTime;
+            zip.PutNextEntry(zipEntry);
+        }
+
+        public override void VisitRoot(RootEntry entry)
+        {
+            VisitChildren(entry);
+        }
+
+        private void VisitChildren(EntryContainer entry)
+        {
+            foreach (var child in entry.Children)
+            {
+                child.AcceptVisitor(this);
+            }
+        }
     }
 
     public class PackageBuilder
     {
         private readonly EntryContainer _packageHierarchy;
+        private readonly DateTime defaultDate = DateTime.Today;
 
         public EntryContainer Hierarchy
         {
@@ -227,42 +291,39 @@ namespace ZeroInstall.DownloadBroker
 
         public PackageBuilder()
         {
-            _packageHierarchy = new RootEntry();
+            _packageHierarchy = new RootEntry(defaultDate);
         }
 
-        public PackageBuilder(FolderEntry folder)
+        internal PackageBuilder(FolderEntry folder)
         {
             _packageHierarchy = folder;
         }
 
         public PackageBuilder AddFolder(string name)
+        { return AddFolder(name, defaultDate); }
+
+        public PackageBuilder AddFolder(string name, DateTime lastWrite)
         {
-            var item = new FolderEntry(name, _packageHierarchy);
+            var item = new FolderEntry(name, _packageHierarchy, lastWrite);
             _packageHierarchy.Add(item);
             return new PackageBuilder(item);
         }
 
         public PackageBuilder AddFile(string name, byte[] content)
-        {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, executable: false));
-            return this;
-        }
+        { return AddFile(name, content, defaultDate); }
 
-        public PackageBuilder AddFile(string name, byte[] content, DateTime lastWriteTime)
+        public PackageBuilder AddFile(string name, byte[] content, DateTime lastWrite)
         {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, false, lastWriteTime));
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, false, lastWrite));
             return this;
         }
 
         public PackageBuilder AddExecutable(string name, byte[] content)
-        {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, executable: true));
-            return this;
-        }
+        { return AddExecutable(name, content, defaultDate); }
 
-        public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWriteTime)
+        public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWrite)
         {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, true, lastWriteTime));
+            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, true, lastWrite));
             return this;
         }
 
@@ -277,39 +338,9 @@ namespace ZeroInstall.DownloadBroker
             {
                 zip.IsStreamOwner = false;
                 zip.SetLevel(9);
-
-                HierarchyEntry.EntryHandler entryToZip = delegate (HierarchyEntry entry)
-                {
-                    if (entry is FileEntry)
-                        WriteFileEntryToZip(zip, entry as FileEntry);
-                    else if (entry is FolderEntry)
-                    {
-                        WriteFolderEntryToZip(zip, entry as FolderEntry);
-                    }
-                };
-                _packageHierarchy.RecurseInto(entryToZip);
+                var hierarchyToZip = new HierarchyToZip(zip);
+                Hierarchy.AcceptVisitor(hierarchyToZip);
             }
-        }
-
-        private static void WriteFileEntryToZip(ZipOutputStream zip, FileEntry entry)
-        {
-            zip.PutNextEntry(CreateZipEntry(entry));
-            var writer = new BinaryWriter(zip);
-            writer.Write(entry.Content);
-        }
-
-        private static void WriteFolderEntryToZip(ZipOutputStream zip, FolderEntry entry)
-        {
-            var zipEntry = new ZipEntry(entry.RelativePath + "/");
-            zipEntry.DateTime = entry.LastWriteTime;
-            zip.PutNextEntry(zipEntry);
-        }
-
-        private static ZipEntry CreateZipEntry(HierarchyEntry entry)
-        {
-            var zipEntry = new ZipEntry(entry.RelativePath);
-            zipEntry.DateTime = entry.LastWriteTime;
-            return zipEntry;
         }
 
         public ManifestDigest ComputePackageDigest()
