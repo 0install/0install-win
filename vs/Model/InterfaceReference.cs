@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to an <see cref="Interface"/> URI.
     /// </summary>
-    public class InterfaceReference : IEquatable<InterfaceReference>
+    public sealed class InterfaceReference : IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>

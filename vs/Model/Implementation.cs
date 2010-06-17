@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class Implementation : IDImplementation, ICloneable
+    public sealed class Implementation : IDImplementation, ICloneable
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed

@@ -102,7 +102,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <None Include="Dependency.cd" />
+    <None Include="Implementation.cd" />
+    <None Include="ImplementationVersion.cd" />
+    <None Include="Interface.cd" />
+    <None Include="RetrievalMethods.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
