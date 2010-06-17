@@ -74,6 +74,16 @@ namespace Common.Controls
 
         //--------------------//
 
+        /// <summary>
+        /// Determines the handle of the <see cref="Form"/> containing this control.
+        /// </summary>
+        /// <returns>The handle of the parent <see cref="Form"/> or <see cref="IntPtr.Zero"/> if there is no parent.</returns>
+        private IntPtr GetFormHandle()
+        {
+            Form parent = FindForm();
+            return (parent == null ? IntPtr.Zero : parent.Handle);
+        }
+
         #region Event callbacks
         /// <summary>
         /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the taskbar depending on the <see cref="DownloadState"/> of <see cref="_downloadFile"/>.
@@ -82,22 +92,18 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadStateChanged(DownloadFile sender)
         {
-            // Find the form containing this control
-            Form parent = FindForm();
-            if (parent == null) return;
-            IntPtr formHandle = parent.Handle;
-
             progressBar.Invoke((SimpleEventHandler) delegate
             {
+                IntPtr formHandle = GetFormHandle();
                 switch (_downloadFile.State)
                 {
                     case DownloadState.Ready:
-                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
                         break;
 
                     case DownloadState.GettingHeaders:
                         progressBar.Style = ProgressBarStyle.Marquee;
-                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
                         break;
 
                     case DownloadState.GettingData:
@@ -106,17 +112,17 @@ namespace Common.Controls
                         {
                             _downloadFile.BytesReceivedChanged += DownloadBytesRecivedChanged;
                             progressBar.Style = ProgressBarStyle.Continuous;
-                            if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
+                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
                         break;
 
                     case DownloadState.IOError:
                     case DownloadState.WebError:
-                        if(UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, formHandle);
                         break;
 
                     case DownloadState.Complete:
-                        if (UseTaskbar) WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
                         break;
                 }
             });
@@ -129,16 +135,12 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadBytesRecivedChanged(DownloadFile sender)
         {
-            // Find the form containing this control
-            Form parent = FindForm();
-            if (parent == null) return;
-            IntPtr formHandle = parent.Handle;
-
             int currentValue = (int)(_downloadFile.Progress * 100f);
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 progressBar.Value = currentValue;
-                WindowsHelper.SetProgressValue(currentValue, 100, formHandle);
+                IntPtr formHandle = GetFormHandle();
+                if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressValue(currentValue, 100, formHandle);
             });
         }
         #endregion
