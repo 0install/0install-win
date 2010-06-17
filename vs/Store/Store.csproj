@@ -102,8 +102,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Implementation\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
+    <None Include="Implementation\Store.cd" />
     <None Include="Interface\InterfaceCache.cd" />
     <None Include="Interface\Trust.cd" />
   </ItemGroup>
