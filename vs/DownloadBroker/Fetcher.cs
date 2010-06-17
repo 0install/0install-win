@@ -19,7 +19,6 @@ using System;
 using System.IO;
 using System.Net;
 using Common.Helpers;
-using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -72,11 +71,16 @@ namespace ZeroInstall.DownloadBroker
                 foreach (var archive in implementation.Archives)
                 {
                     string tempArchive = Path.GetTempFileName();
-                    using (var webClient = new WebClient())
-                        webClient.DownloadFile(archive.Location, tempArchive);
-
-                    Store.AddArchive(tempArchive, "application/zip", implementation.ManifestDigest);
+                    try {
+                        using (var webClient = new WebClient())
+                            webClient.DownloadFile(archive.Location, tempArchive);
+                        Store.AddArchive(tempArchive, "application/zip", implementation.ManifestDigest);
+                    }
+                    catch (WebException)
+                    { }
+                    return;
                 }
+                throw new WebException();
             }
         }
     }
