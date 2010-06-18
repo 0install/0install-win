@@ -41,6 +41,7 @@
             this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // buttonOK
             // 
@@ -50,6 +51,7 @@
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
             // RecipeForm
             // 
@@ -63,6 +65,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "RecipeForm";
             this.Text = "RecipeForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.RecipeForm_FormClosed);
             this.ResumeLayout(false);
 
         }

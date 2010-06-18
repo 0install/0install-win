@@ -198,6 +198,7 @@
             this.Controls.Add(this.hintTextBoxInterface);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "DependencyForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DependencyForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

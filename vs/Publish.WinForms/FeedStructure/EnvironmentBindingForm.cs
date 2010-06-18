@@ -116,10 +116,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            Owner.Enabled = true;
             Close();
             Dispose();
         }
 
         #endregion
+
+        private void EnvironmentBindingForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Owner.Enabled = true;
+        }
     }
 }

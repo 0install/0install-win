@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.Drawing;
@@ -496,9 +497,9 @@ namespace ZeroInstall.Publish.WinForms
         private void addTreeNode(string text, object tag)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
-            var treeNode = new TreeNode(text);
-            treeNode.Tag = tag;
+            var treeNode = new TreeNode(text) {Tag = tag};
             selectedNode.Nodes.Add(treeNode);
+            treeViewFeedStructure.SelectedNode = treeNode;
             selectedNode.Expand();
         }
 
@@ -594,40 +595,35 @@ namespace ZeroInstall.Publish.WinForms
 
             Button[] addButtons = { btnAddGroup, btnAddImplementation, buttonAddArchive, buttonAddRecipe,
                                       btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
+            Button[] enableAddButtons = null;
             // disable all addButtons
-            foreach (Button button in addButtons)
+            foreach (var button in addButtons)
             {
                 button.Enabled = false;
             }
             
-            // enable possible buttons
+            // mark the addButtons that can be selected
             if (selectedNode == treeViewFeedStructure.TopNode)
             {
-                btnAddGroup.Enabled = true;
-                btnAddImplementation.Enabled = true;
+                enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation };
             }
             else if (selectedNode.Tag is Group)
             {
-                btnAddGroup.Enabled = true;
-                btnAddImplementation.Enabled = true;
-                btnAddPackageImplementation.Enabled = true;
-                btnAddDependency.Enabled = true;
-                btnAddEnvironmentBinding.Enabled = true;
-                btnAddOverlayBinding.Enabled = true;
+                enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
             else if (selectedNode.Tag is Implementation)
             {
-                buttonAddArchive.Enabled = true;
-                buttonAddRecipe.Enabled = true;
-                btnAddDependency.Enabled = true;
-                btnAddEnvironmentBinding.Enabled = true;
-                btnAddOverlayBinding.Enabled = true;
+                enableAddButtons = new Button[] { buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
             else if (selectedNode.Tag is Dependency)
             {
-                btnAddEnvironmentBinding.Enabled = true;
-                btnAddOverlayBinding.Enabled = true;
+                enableAddButtons = new Button[] { btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
+
+            // enable marked buttons
+            if (enableAddButtons == null) return;
+            for (int i = 0; i < enableAddButtons.Length; i++)
+                enableAddButtons[i].Enabled = true;
         }
 
         /// <summary>
@@ -663,21 +659,20 @@ namespace ZeroInstall.Publish.WinForms
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
 
+            selectedNode.Toggle();
+
             // open a new window to change the selected object
             if (selectedNode.Tag is Group)
             {
                 window = new GroupForm { Group = (Group)selectedNode.Tag };
-                window.Show(this);
             }
             else if (selectedNode.Tag is Implementation)
             {
                 window = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
-                window.Show();
             }
             else if (selectedNode.Tag is Archive)
             {
-                window = new ArchiveForm { };
-                window.Show();
+                window = new ArchiveForm { Archive = (Archive)selectedNode.Tag};
             }
             else if (selectedNode.Tag is Recipe)
             {
@@ -686,28 +681,27 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNode.Tag is PackageImplementation)
             {
                 window = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
-                window.Show();
             }
             else if (selectedNode.Tag is Dependency)
             {
                 window = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
-                window.Show();
             }
             else if (selectedNode.Tag is EnvironmentBinding)
             {
                 window = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
-                window.Show();
             }
             else if (selectedNode.Tag is OverlayBinding)
             {
                 window = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
-                window.Show();
             }
             else
             {
                 throw new InvalidOperationException("Not an object to change.");
             }
 
+            window.Owner = this;
+            Enabled = false;
+            window.Show();
         }
 
         #endregion

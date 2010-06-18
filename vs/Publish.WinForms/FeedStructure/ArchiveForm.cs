@@ -28,6 +28,8 @@ using ZeroInstall.Store.Implementation;
 using Common.Storage;
 using Common.Download;
 using Common.Helpers;
+using System.Runtime.InteropServices;
+using Common.Archive;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
@@ -46,11 +48,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private ManifestDigest _manifestDigest;
 
         /// <summary>
-        /// Folder to store the downloaded, extracted archive.
+        /// List with supported archive types by 0install. If more types become supported, add them to this list.
         /// </summary>
-        private TemporaryDirectory _extractedArchive;
+        private List<string> _supportedMimeTypes = new List<string> { "application/zip" };
 
-        private string _downloadDirectory;
+        /// <summary>
+        /// Path to the downloaded and extracted archive.
+        /// </summary>
+        private string _extractedArchivePath;
 
         #endregion
 
@@ -119,77 +124,45 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         /// <summary>
-        /// Downloads a archive from <see cref="hintTextBoxArchiveUrl"/>.Text .
-        /// If the archive is self-extracted the method searchs for its <see cref="_archive"/>.StartOffset and sets it in <see cref="hintTextBoxStartOffset"/>.Text .
-        /// Sets <see cref="hintTextBoxLocalArchive"/> when downloaded.
-        /// Shows the folder structure of the archive in <see cref="treeViewExtract"/>.
+        /// Opens a dialog to ask the user where to download the archive from <see cref="hintTextBoxArchiveUrl"/>.Text, downloads the archive and sets <see cref="hintTextBoxLocalArchive"/>.<br \>
+        /// When the user clicks "cancel" the archive will not be downloaded.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void buttonArchiveDownload_Click(object sender, EventArgs e)
         {
-            _downloadDirectory = FileHelper.GetTempDirectory();
+            var url = new Uri(hintTextBoxArchiveUrl.Text);
 
-            Uri url = new Uri(hintTextBoxArchiveUrl.Text);
+            // detect original file name
             string fileName = url.Segments[url.Segments.Length - 1];
-            string fullFilePath = Path.Combine(_downloadDirectory, fileName);
-            setArchiveFormat(fullFilePath);
-            
-            
+            if (folderBrowserDialogDownloadPath.ShowDialog() == DialogResult.Cancel) return;
+            string fullFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
 
-            /*
-            downloadProgressBarArchive.Download = new DownloadFile(url, filepath);
-            downloadProgressBarArchive.UseTaskbar = true;
-            downloadProgressBarArchive.Download.Start();*/
-            
-            /*_extractedArchive = new TemporaryDirectory();
-
-            using(var tmpDownloadFolder = new TemporaryDirectory()) {
-                DownloadFile archive = new DownloadFile(hintTextBoxArchiveUrl.Text, tmpDownloadFolder.Path);
-                archive.Start();
-                MessageBox.Show(tmpDownloadFolder.Path);
-                }
-            
-
-            //TODO Download archive
-            //TODO Add EventHandler to DownloadFile to know when the file is downloaded completely.
-            //TODO Check if archive is self-extracted and set start-offset
-
-            //TODO check for IOException
-            //TODO check for UnauthorizedAccessException
-            treeViewExtract.Nodes.Clear();
-            var root = new DirectoryInfo(_extractedArchive.Path);
-            treeViewExtract.Nodes.Add(root.Name);
-            treeViewExtract.ExpandAll();*/
-
-            //throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Auto detects the archive format of a file on the basis of its extension and set it into <see cref="comboBoxArchiveFormat"/>
-        /// </summary>
-        /// <param name="filePath">Path to the file to get the extension from.</param>
-        private void setArchiveFormat(string filePath)
-        {
-            string fileExtension = new DirectoryInfo(filePath).Extension;
-            string format;
-
-            switch (fileExtension)
+            // check archive mime types
+            if (comboBoxArchiveFormat.Text == "(auto detect)")
             {
-                case ".rpm": format = "application/x-rpm"; break;
-                case ".deb": format = "application/x-deb"; break;
-                case ".tar": format = "application/x-tar"; break;
-                case ".tar.bz2": format = "application/x-bzip-compressed-tar"; break;
-                case ".tar.lzma": format = "application/x-lzma-compressed-tar"; break;
-                case ".tar.gz":
-                case ".tgz": format = "application/x-compressed-tar"; break;
-                case ".zip": format = "application/zip"; break;
-                case ".cab": format = "application/vnd.ms-cab-compressed"; break;
-                default: format = "(auto detect)"; break;
+                var archiveMimeType = Extractor.GuessMimeType(fileName);
+                if (archiveMimeType == null)
+                {
+                    MessageBox.Show("The archive type of this file is not supported by 0install. Downloading archive abort.");
+                    return;
+                }
+                else if (!_supportedMimeTypes.Contains(archiveMimeType))
+                {
+                    MessageBox.Show(String.Format("The extraction of the {0} format is not yet supported. Please extract the file yourself (e.g with 7zip) and set the path " +
+                        "to the extracted archive in the \"Locale archive\" text box.", archiveMimeType));
+                    return;
+                } else
+                {
+                    comboBoxArchiveFormat.Text = archiveMimeType;
+                }
             }
 
-            comboBoxArchiveFormat.Text = format;
-            //MessageBox.Show(format);
+            buttonArchiveDownload.Enabled = false;
+            downloadProgressBarArchive.Download = new DownloadFile(url, fullFilePath);
+            downloadProgressBarArchive.UseTaskbar = true;
+            downloadProgressBarArchive.Download.StateChanged += ArchiveDownloadStateChanged;
+            downloadProgressBarArchive.Download.Start();
         }
 
         /// <summary>
@@ -210,6 +183,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                     fillTreeViewExtract(directory, treeNode);
                 }
             }
+            
         }
 
         /// <summary>
@@ -227,11 +201,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!String.IsNullOrEmpty(hintTextBoxArchiveUrl.Text)) _archive.LocationString = hintTextBoxArchiveUrl.Text;
 
             // set _manifestDigest
-            _manifestDigest = new ManifestDigest(
-                Manifest.Generate(_extractedArchive.Path, ManifestFormat.Sha1Old).CalculateDigest(),
-                Manifest.Generate(_extractedArchive.Path, ManifestFormat.Sha1New).CalculateDigest(),
-                Manifest.Generate(_extractedArchive.Path, ManifestFormat.Sha256).CalculateDigest());
-            
+            /*_manifestDigest = new ManifestDigest(
+                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha1Old).CalculateDigest(),
+                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha1New).CalculateDigest(),
+                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha256).CalculateDigest());
+            */
             if (long.TryParse(hintTextBoxStartOffset.Text, out startOffset)) _archive.StartOffset = startOffset;
 
             // follow the selected node from treeViewExtract up to the parent node and remember the passed directories to fill _archive.Extract .
@@ -257,6 +231,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
+            Owner.Enabled = true;
             Close();
             Dispose();
         }
@@ -288,5 +263,88 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 buttonArchiveDownload.Enabled = false;
             }
         }
+
+        /// <summary>
+        /// Sets <see cref="labelArchiveDownloadMessages"/> with the current downloading/extracing state.
+        /// After the download completed, the archive will be extracted.
+        /// Shows the folder structure of the archive in <see cref="treeViewExtract"/>.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        private void ArchiveDownloadStateChanged(DownloadFile sender)
+        {
+            //TODO: If the archive is self-extracted the method searchs for its <see cref="_archive"/>.StartOffset and sets it in <see cref="hintTextBoxStartOffset"/>.Text .
+            Invoke((SimpleEventHandler) delegate
+            {
+                switch (sender.State)
+                {
+                    case DownloadState.Started: labelArchiveDownloadMessages.Text = "Started"; break;
+                    case DownloadState.Ready: labelArchiveDownloadMessages.Text = "Ready"; break;
+                    case DownloadState.GettingHeaders: labelArchiveDownloadMessages.Text = "Getting headers"; break;
+                    case DownloadState.GettingData: labelArchiveDownloadMessages.Text = "Getting data"; break;
+                    case DownloadState.IOError:
+                    case DownloadState.WebError: labelArchiveDownloadMessages.Text = sender.ErrorMessage; break;
+                    case DownloadState.Complete:
+                        hintTextBoxLocalArchive.Text = sender.Target;
+
+                        labelArchiveDownloadMessages.Text = "Extracting archive...";
+                        try {
+                            var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, sender.Target, 0, null);
+                            var archiveContentList = (List<string>) archiveExtractor.ListContent();
+                            treeViewExtract.Nodes.Clear();
+                            
+                            // TODO fill treeView
+
+                            /*foreach (var entry in archiveContentList)
+                            {
+                                treeViewExtract.Nodes.Add(new TreeNode(entry));
+                            }*/
+                            treeViewExtract.ExpandAll();
+                            _extractedArchivePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, Path.GetFileName(sender.Target) + "_extracted");
+                            archiveExtractor.Extract(_extractedArchivePath);
+
+                        } catch(IOException e) {
+                            MessageBox.Show(e.Message);
+                            return;
+                        } catch(AccessViolationException e) {
+                            MessageBox.Show(e.Message);
+                            return;
+                        }
+
+                        break;
+                }
+            });
+        }
+
+        private void ArchiveForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Owner.Enabled = true;
+        }
+
+        /*private void button1_Click(object sender, EventArgs e)
+        {
+            using (var archiveExtractor = Extractor.CreateExtractor("application/zip", @"C:\Users\Simon\Downloads\bla.zip", 0, null))
+            {
+                var archiveContentList = (List<string>)archiveExtractor.ListContent();
+                treeViewExtract.Nodes.Clear();
+                treeViewExtract.Nodes.Add(new TreeNode("Archive"));
+                var currentNode = treeViewExtract.TopNode;
+                foreach (var entry in archiveContentList)
+                {
+                    var splitEntry = entry.Split(Path.DirectorySeparatorChar);
+                    for (int i = 0; i < splitEntry.Length; i++)
+                    {
+                        //var newNode = new TreeNode(splitEntry[i]);
+                        if (currentNode.Nodes.ContainsKey(splitEntry[i]))
+                            currentNode = currentNode.Nodes[splitEntry[i]];
+                        else 
+                            currentNode = currentNode.Nodes.Add(entry, splitEntry[i]);
+                        //currentNode = newNode;
+                    }
+                    currentNode = treeViewExtract.TopNode;
+                }
+                treeViewExtract.ExpandAll();
+                treeViewExtract.Enabled = true;
+            }
+        }*/
     }
 }

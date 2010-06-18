@@ -157,6 +157,7 @@
             this.Controls.Add(this.labelName);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "EnvironmentBindingForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EnvironmentBindingForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

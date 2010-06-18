@@ -108,6 +108,7 @@
             this.Controls.Add(this.hintTextBoxSrc);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "OverlayBindingForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OverlayBindingForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

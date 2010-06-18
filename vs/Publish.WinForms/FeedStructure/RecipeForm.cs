@@ -14,5 +14,22 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             InitializeComponent();
         }
+
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Owner.Enabled = true;
+            Close();
+            Dispose();
+        }
+
+        private void RecipeForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Owner.Enabled = true;
+        }
     }
 }

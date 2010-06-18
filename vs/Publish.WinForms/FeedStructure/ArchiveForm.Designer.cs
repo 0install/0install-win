@@ -43,8 +43,9 @@
             this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
             this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
             this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
-            this.labelArchiveDownloadError = new System.Windows.Forms.Label();
+            this.labelArchiveDownloadMessages = new System.Windows.Forms.Label();
             this.downloadProgressBarArchive = new Common.Controls.DownloadProgressBar();
+            this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -83,14 +84,14 @@
             this.comboBoxArchiveFormat.FormattingEnabled = true;
             this.comboBoxArchiveFormat.Items.AddRange(new object[] {
             "(auto detect)",
-            "application/x-rpm (.rpm)",
-            "application/x-deb (.deb)",
-            "application/x-tar (.tar)",
-            "application/x-bzip-compressed-tar (.tar.bz2)",
-            "application/x-lzma-compressed-tar (.tar.lzma)",
-            "application/x-compressed-tar (.tar.gz or .tgz)",
-            "application/zip (.zip)",
-            "application/vnd.ms-cab-compressed (.cab)"});
+            "application/x-rpm",
+            "application/x-deb",
+            "application/x-tar",
+            "application/x-bzip-compressed-tar",
+            "application/x-lzma-compressed-tar",
+            "application/x-compressed-tar",
+            "application/zip",
+            "application/vnd.ms-cab-compressed"});
             this.comboBoxArchiveFormat.Location = new System.Drawing.Point(15, 25);
             this.comboBoxArchiveFormat.Name = "comboBoxArchiveFormat";
             this.comboBoxArchiveFormat.Size = new System.Drawing.Size(257, 21);
@@ -188,13 +189,13 @@
             this.hintTextBoxArchiveUrl.TabIndex = 4;
             this.hintTextBoxArchiveUrl.TextChanged += new System.EventHandler(this.hintTextBoxArchiveUrl_TextChanged);
             // 
-            // labelArchiveDownloadError
+            // labelArchiveDownloadMessages
             // 
-            this.labelArchiveDownloadError.AutoSize = true;
-            this.labelArchiveDownloadError.Location = new System.Drawing.Point(12, 105);
-            this.labelArchiveDownloadError.Name = "labelArchiveDownloadError";
-            this.labelArchiveDownloadError.Size = new System.Drawing.Size(0, 13);
-            this.labelArchiveDownloadError.TabIndex = 15;
+            this.labelArchiveDownloadMessages.AutoSize = true;
+            this.labelArchiveDownloadMessages.Location = new System.Drawing.Point(12, 105);
+            this.labelArchiveDownloadMessages.Name = "labelArchiveDownloadMessages";
+            this.labelArchiveDownloadMessages.Size = new System.Drawing.Size(0, 13);
+            this.labelArchiveDownloadMessages.TabIndex = 15;
             // 
             // downloadProgressBarArchive
             // 
@@ -205,6 +206,11 @@
             this.downloadProgressBarArchive.TabIndex = 16;
             this.downloadProgressBarArchive.UseTaskbar = false;
             // 
+            // folderBrowserDialogDownloadPath
+            // 
+            this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
+            this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
             // ArchiveForm
             // 
             this.AcceptButton = this.buttonOK;
@@ -213,7 +219,7 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(284, 460);
             this.Controls.Add(this.downloadProgressBarArchive);
-            this.Controls.Add(this.labelArchiveDownloadError);
+            this.Controls.Add(this.labelArchiveDownloadMessages);
             this.Controls.Add(this.labelExtract);
             this.Controls.Add(this.treeViewExtract);
             this.Controls.Add(this.labelStartOffsetBytes);
@@ -230,7 +236,9 @@
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ArchiveForm";
+            this.ShowInTaskbar = false;
             this.Text = "ArchiveForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ArchiveForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -253,7 +261,8 @@
         private System.Windows.Forms.Label labelStartOffsetBytes;
         private System.Windows.Forms.TreeView treeViewExtract;
         private System.Windows.Forms.Label labelExtract;
-        private System.Windows.Forms.Label labelArchiveDownloadError;
+        private System.Windows.Forms.Label labelArchiveDownloadMessages;
         private Common.Controls.DownloadProgressBar downloadProgressBarArchive;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
     }
 }

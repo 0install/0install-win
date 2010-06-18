@@ -307,6 +307,7 @@
             this.Controls.Add(this.labelVersion);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ImplementationForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ImplementationForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

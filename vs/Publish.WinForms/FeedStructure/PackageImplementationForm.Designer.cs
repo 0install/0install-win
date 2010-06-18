@@ -243,6 +243,7 @@
             this.Controls.Add(this.labelPackage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "PackageImplementationForm";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PackageImplementationForm_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 
