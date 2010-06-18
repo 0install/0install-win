@@ -21,9 +21,17 @@ using Common.Archive;
 using Common.Download;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using System.Diagnostics;
 
 namespace ZeroInstall.DownloadBroker
 {
+    public class FetcherException : Exception
+    {
+        internal FetcherException(string message)
+            : base(message)
+        { }
+    }
+
     /// <summary>
     /// Manages one or more <see cref="FetcherRequest"/>s and keeps clients informed of the progress.
     /// </summary>
@@ -76,13 +84,57 @@ namespace ZeroInstall.DownloadBroker
                 {
                     string tempArchive = Path.GetTempFileName();
                     var downloadFile = new DownloadFile(archive.Location, tempArchive);
-                    downloadFile.RunSync();
+
+                    RejectRemoteFileOfDifferentSize(archive, downloadFile);
+                    try {
+                        downloadFile.RunSync();
+                        RejectRemoteFileOfDifferentSize(archive, downloadFile);
+                    }
+                    catch (FetcherException)
+                    {
+                        File.Delete(tempArchive);
+                        throw;
+                    }
                     using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempArchive, archive.StartOffset, archive.Extract))
                         Store.AddArchive(extractor, implementation.ManifestDigest);
+                    File.Delete(tempArchive);
                     return;
                 }
                 throw new InvalidOperationException("No archives found");
             }
+        }
+
+        /// <summary>
+        /// Checks if the size of <paramref name="downloadFile"/> matches the
+        /// <paramref name="archive"/>'s size and offset, otherwise throws a
+        /// <see cref="FetcherException"/>.
+        /// </summary>
+        /// <remarks>Does not perform any check if size isn't yet known.</remarks>
+        /// <exception cref="FetcherException">Thrown if the remote file is known
+        /// to have different size than stated in <paramref name="archive"/>.
+        /// </exception>
+        private static void RejectRemoteFileOfDifferentSize(Archive archive, DownloadFile downloadFile)
+        {
+            Debug.Assert(archive != null);
+            Debug.Assert(downloadFile != null);
+
+            long actualSize;
+            if (downloadFile.State == DownloadState.Complete) actualSize = downloadFile.BytesReceived;
+            else if (IsSizeKnown(downloadFile)) actualSize = downloadFile.BytesTotal;
+            else return;
+
+            if (actualSize != archive.Size + archive.StartOffset)
+                throw new FetcherException("Invalid size of file downloaded from " + archive.Location.AbsolutePath);
+        }
+        
+        /// <summary>
+        /// Determines of the size of a <see cref="DownloadFile"/> is know prior to
+        /// performing the transmission.
+        /// </summary>
+        private static bool IsSizeKnown(DownloadFile downloadFile)
+        {
+            Debug.Assert(downloadFile != null);
+            return downloadFile.BytesTotal != -1;
         }
     }
 }

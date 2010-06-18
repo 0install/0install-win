@@ -55,38 +55,69 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            PackageBuilder builder = new PackageBuilder();
+            PackageBuilder package = PreparePackageBuilder();
 
-            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
-                AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
-                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
-
-            using (var f = File.Create(_archiveFile))
+            using (var archiveStream = File.Create(_archiveFile))
             {
-                builder.GeneratePackageArchive(f);
+                package.GeneratePackageArchive(archiveStream);
             }
-            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
         [Test]
-        public void ShouldCorrectlyExtractSelfExtractingArchives()
+        public void ShouldRejectRemoteArchiveOfDifferentSize()
         {
-            PackageBuilder builder = new PackageBuilder();
-            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA"));
-            builder.AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n"));
+            PackageBuilder package = PreparePackageBuilder();
 
             using (var archiveStream = File.Create(_archiveFile))
             {
-                archiveStream.Seek(0x1000, SeekOrigin.Begin);
-                builder.GeneratePackageArchive(archiveStream);
+                package.GeneratePackageArchive(archiveStream);
             }
-            Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, builder.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
+            using (var archiveStream = File.Create(_archiveFile))
+            {
+                package.AddFile("excess", new byte[] { });
+                package.GeneratePackageArchive(archiveStream);
+            }
+            var request = new FetcherRequest(new List<Implementation> { implementation });
+            Assert.Throws<FetcherException>(() => _fetcher.RunSync(request));
+        }
+
+        [Test]
+        public void ShouldCorrectlyExtractSelfExtractingArchives()
+        {
+            PackageBuilder package = PreparePackageBuilder();
+
+            using (var archiveStream = File.Create(_archiveFile))
+            {
+                WriteInterferingData(archiveStream);
+                archiveStream.Seek(0x1000, SeekOrigin.Begin);
+                package.GeneratePackageArchive(archiveStream);
+            }
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, package.ComputePackageDigest());
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+        }
+
+        private static PackageBuilder PreparePackageBuilder()
+        {
+            PackageBuilder builder = new PackageBuilder();
+
+            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
+                AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
+                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
+            return builder;
+        }
+
+        private static void WriteInterferingData(FileStream archiveStream)
+        {
+            PackageBuilder interferingZipData = new PackageBuilder()
+                .AddFile("SKIPPED", new byte[] { });
+            interferingZipData.GeneratePackageArchive(archiveStream);
         }
 
         [Test]
@@ -131,7 +162,7 @@ namespace ZeroInstall.DownloadBroker
                          {
                              StartOffset = offset,
                              MimeType = "application/zip",
-                             Size = new FileInfo(zippedPackage).Length,
+                             Size = new FileInfo(zippedPackage).Length - offset,
                              Location = new Uri("http://localhost:50222/archives/test.zip")
                          };
             return result;

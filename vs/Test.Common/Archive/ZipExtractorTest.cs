@@ -120,7 +120,7 @@ namespace Common.Archive
         [TearDown]
         public void TearDown()
         {
-            //_sandbox.Dispose();
+            _sandbox.Dispose();
         }
 
         [Test]
