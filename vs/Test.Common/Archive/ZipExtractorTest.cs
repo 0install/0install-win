@@ -49,7 +49,7 @@ namespace Common.Archive
         public void ExtractionIntoFolder()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("a.zip"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null))
                 extractor.Extract("extractedArchive");
 
             Assert.IsTrue(Directory.Exists("extractedArchive"));
@@ -69,6 +69,18 @@ namespace Common.Archive
                 }
             };
             _package.RecurseInto(compareDirectory);
+        }
+
+        [Test]
+        public void ExtractionOfSubDir()
+        {
+            File.WriteAllBytes("a.zip", _archiveData);
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, "folder1"))
+                extractor.Extract("extractedArchive");
+
+            Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "folder1")));
+            Assert.IsFalse(File.Exists("file1"));
+            Assert.IsFalse(File.Exists("file2"));
         }
     }
 
@@ -98,7 +110,7 @@ namespace Common.Archive
             var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
             builder.GeneratePackageArchive(archiveStream);
             archiveStream.Seek(0, SeekOrigin.Begin);
-            var extractor = new ZipExtractor(archiveStream, "");
+            var extractor = new ZipExtractor(archiveStream);
             Assert.Throws<IOException>(() => extractor.Extract("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
             archiveStream.Dispose();
         }

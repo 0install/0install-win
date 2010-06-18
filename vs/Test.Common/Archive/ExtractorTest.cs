@@ -51,14 +51,14 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Ensures <see cref="Extractor.CreateExtractor(string)"/> correctly creates a <see cref="ZipExtractor"/>.
+        /// Ensures <see cref="Extractor.CreateExtractor(string,string,string)"/> correctly creates a <see cref="ZipExtractor"/>.
         /// </summary>
         //[Test]
         public void TestCreateExtractor()
         {
             // ToDo: Create test ZIP
 
-            Assert.IsInstanceOf(typeof(ZipExtractor), Extractor.CreateExtractor("temp.zip"));
+            Assert.IsInstanceOf(typeof(ZipExtractor), Extractor.CreateExtractor(null, "temp.zip", 0, null));
         }
     }
 }

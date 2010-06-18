@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
         public long Size { get; set; }
 
         /// <summary>
-        /// The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes. 
+        /// The number of bytes at the beginning of the file which should be ignored. The value in <see cref="Size"/> does not include the skipped bytes. 
         /// </summary>
         /// <remarks>This is useful for some self-extracting archives which are made up of a shell script followed by a normal archive in a single file.</remarks>
         [Description("The number of bytes at the beginning of the file which should be ignored. The value in the size attribute does not include the skipped bytes.")]

@@ -17,10 +17,8 @@
 
 using System;
 using System.IO;
-using System.Net;
 using Common.Archive;
 using Common.Download;
-using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -79,7 +77,7 @@ namespace ZeroInstall.DownloadBroker
                     string tempArchive = Path.GetTempFileName();
                     var downloadFile = new DownloadFile(archive.Location, tempArchive);
                     downloadFile.RunSync();
-                    using (var extractor = Extractor.CreateExtractor(tempArchive, archive.MimeType, archive.Extract))
+                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempArchive, archive.StartOffset, archive.Extract))
                         Store.AddArchive(extractor, implementation.ManifestDigest);
                     return;
                 }

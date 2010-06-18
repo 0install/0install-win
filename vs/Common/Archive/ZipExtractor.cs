@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Archive
 {
     /// <summary>
-    /// Extracts ZIP files.
+    /// Provides methods for extracting a ZIP archive.
     /// </summary>
     public class ZipExtractor : Extractor
     {
@@ -14,8 +15,7 @@ namespace Common.Archive
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
         /// <param name="archive">The stream containing the archive's data.</param>
-        /// <param name="subDir">The sub-directory within the archive to extract; may be <see langword="null"/>.</param>
-        public ZipExtractor(Stream archive, string subDir) : base(archive, subDir)
+        public ZipExtractor(Stream archive) : base(archive)
         {}
         #endregion
 
@@ -28,25 +28,35 @@ namespace Common.Archive
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            using (var zip = new ZipFile(Stream))
+            try
             {
-                zip.IsStreamOwner = false;
-                string xbitFilePath = Path.Combine(target, ".xbit");
-
-                foreach (ZipEntry entry in zip)
+                using (var zip = new ZipFile(Stream))
                 {
-                    RejectArchiveIfNameContains(entry, "..");
+                    zip.IsStreamOwner = false;
+                    string xbitFilePath = Path.Combine(target, ".xbit");
 
-                    if (entry.IsDirectory)
+                    foreach (ZipEntry entry in zip)
                     {
-                        ExtractFolderEntry(target, entry);
-                    }
-                    else if (entry.IsFile)
-                    {
-                        ExtractFileEntry(target, zip, entry);
-                        AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
+                        RejectArchiveIfNameContains(entry, "..");
+
+                        // Only extract objects within the selected sub-directory
+                        if (!string.IsNullOrEmpty(SubDir) && !entry.Name.StartsWith(SubDir)) continue;
+
+                        if (entry.IsDirectory)
+                        {
+                            ExtractFolderEntry(target, entry);
+                        }
+                        else if (entry.IsFile)
+                        {
+                            ExtractFileEntry(target, zip, entry);
+                            AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
+                        }
                     }
                 }
+            }
+            catch (ZipException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalid, ex);
             }
         }
         #endregion
@@ -55,17 +65,12 @@ namespace Common.Archive
         private static void ExtractFileEntry(string path, ZipFile zip, ZipEntry entry)
         {
             string targetPath = Path.Combine(path, entry.Name);
-            ProvideParentFolder(targetPath);
+            Directory.CreateDirectory(Path.GetDirectoryName(targetPath));
 
             DecompressAndWriteFile(zip, entry, targetPath);
             File.SetLastWriteTimeUtc(targetPath, entry.DateTime);
         }
-
-        private static void ProvideParentFolder(string targetPath)
-        {
-            new FileInfo(targetPath).Directory.Create();
-        }
-
+        
         private static void DecompressAndWriteFile(ZipFile zip, ZipEntry entry, string targetPath)
         {
             long bytesRead = 0;
@@ -95,7 +100,7 @@ namespace Common.Archive
 
         private static void RejectArchiveIfNameContains(ZipEntry entry, string name)
         {
-            if (entry.Name.Contains(name)) throw new IOException("Invalid entry: " + entry.Name);
+            if (entry.Name.Contains(name)) throw new IOException(Resources.InvalidEntry + entry.Name);
         }
 
         private static void ExtractFolderEntry(string path, ZipEntry entry)

@@ -61,6 +61,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The archive file is invalid or damaged..
+        /// </summary>
+        internal static string ArchiveInvalid {
+            get {
+                return ResourceManager.GetString("ArchiveInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The argument may not be less than zero..
         /// </summary>
         internal static string ArgMustNotBeNegative {
@@ -190,6 +199,15 @@ namespace Common.Properties {
         internal static string HttpAndFtpOnly {
             get {
                 return ResourceManager.GetString("HttpAndFtpOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid entry: .
+        /// </summary>
+        internal static string InvalidEntry {
+            get {
+                return ResourceManager.GetString("InvalidEntry", resourceCulture);
             }
         }
         
@@ -399,6 +417,15 @@ namespace Common.Properties {
         internal static string UndoNotAvailable {
             get {
                 return ResourceManager.GetString("UndoNotAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified MIME type is unknown..
+        /// </summary>
+        internal static string UnknownMimeType {
+            get {
+                return ResourceManager.GetString("UnknownMimeType", resourceCulture);
             }
         }
         

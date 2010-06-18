@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
             using (var cache = new TemporaryDirectory())
             {
                 var store = new DirectoryStore(cache.Path);
-                using (var extractor = Extractor.CreateExtractor(packageFile))
+                using (var extractor = Extractor.CreateExtractor("application/zip", packageFile, 0, null))
                     store.AddArchive(extractor, digest);
                 Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
             }
