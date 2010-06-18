@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Properties;
 
@@ -119,6 +120,14 @@ namespace Common.Archive
             if (fileName.EndsWith(".dmg")) return "application/x-apple-diskimage";
             return null;
         }
+        #endregion
+
+        #region Content
+        /// <summary>
+        /// Returns a list of all contained files that would be extracted by <see cref="Extract"/>.
+        /// </summary>
+        /// <returns>A list of files using native path separators.</returns>
+        public abstract IEnumerable<string> ListContent();
         #endregion
 
         #region Extraction

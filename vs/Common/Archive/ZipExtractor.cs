@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
@@ -21,7 +22,15 @@ namespace Common.Archive
 
         //--------------------//
 
-        #region Extraction methods
+        #region Content
+        public override IEnumerable<string> ListContent()
+        {
+            // ToDo: Implement
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Extraction
         public override void Extract(string target)
         {
             #region Sanity checks
