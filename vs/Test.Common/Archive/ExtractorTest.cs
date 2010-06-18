@@ -51,7 +51,7 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Ensures <see cref="Extractor.CreateExtractor(string,string,string)"/> correctly creates a <see cref="ZipExtractor"/>.
+        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long,string)"/> correctly creates a <see cref="ZipExtractor"/>.
         /// </summary>
         //[Test]
         public void TestCreateExtractor()
