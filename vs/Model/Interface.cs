@@ -287,15 +287,10 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Interface) && Equals((Interface)obj);
-        }
-
         public bool Equals(Interface other)
         {
+            if (ReferenceEquals(null, other)) return false;
+
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;
             if (Name != other.Name) return false;
@@ -308,6 +303,13 @@ namespace ZeroInstall.Model
             if (!Groups.UnsequencedEquals(other.Groups)) return false;
             if (!Icons.UnsequencedEquals(other.Icons)) return false;
             return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Interface) && Equals((Interface)obj);
         }
 
         public override int GetHashCode()

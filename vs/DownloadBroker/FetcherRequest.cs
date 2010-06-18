@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -25,6 +26,7 @@ namespace ZeroInstall.DownloadBroker
     /// <summary>
     /// Handles the download and extraction of one or more <see cref="Implementation"/>s into an <see cref="IStore"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class FetcherRequest
     {
         #region Properties

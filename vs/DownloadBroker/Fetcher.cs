@@ -66,6 +66,10 @@ namespace ZeroInstall.DownloadBroker
         /// </summary>
         public void RunSync(FetcherRequest fetcherRequest)
         {
+            #region Sanity checks
+            if (fetcherRequest == null) throw new ArgumentNullException("fetcherRequest");
+            #endregion
+
             foreach (var implementation in fetcherRequest.Implementations)
             {
                 foreach (var archive in implementation.Archives)
