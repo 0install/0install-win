@@ -68,6 +68,16 @@ namespace Common.Controls
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Toggle the visibility of the search box.
+        /// </summary>
+        [DefaultValue(true), Category("Appearance"), Description("Toggle the visibility of the search box.")]
+        public bool ShowSearchBox
+        {
+            get { return textSearch.Visible; }
+            set { textSearch.Visible = value; }
+        }
+
         private INamedCollection<T> _entries;
         /// <summary>
         /// The <see cref="INamed"/> objects to be listed in the <see cref="TreeView"/>.
@@ -79,8 +89,7 @@ namespace Common.Controls
             get { return _entries; }
             set { _entries = value; UpdateList(); }
         }
-
-
+        
         private T _selectedEntry;
         /// <summary>
         /// The <see cref="INamed"/> object currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.

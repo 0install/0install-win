@@ -275,10 +275,8 @@ namespace Common.Storage
             bool xmlFound = false;
             T output = default(T);
 
-            using (var zipFile = new ZipFile(stream))
+            using (var zipFile = new ZipFile(stream) {Password = password})
             {
-                zipFile.Password = password;
-
                 foreach (ZipEntry zipEntry in zipFile)
                 {
                     if (zipEntry.Name == "Data.xml")
@@ -350,13 +348,11 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var zipStream = new ZipOutputStream(stream))
+            using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false, Password = password})
             {
-                zipStream.Password = password;
-
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("Data.xml") { DateTime = DateTime.Now };
+                    var entry = new ZipEntry("Data.xml") {DateTime = DateTime.Now};
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
@@ -368,7 +364,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) { DateTime = DateTime.Now };
+                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);
