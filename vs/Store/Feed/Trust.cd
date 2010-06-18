@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Interface.Trust">
+  <Class Name="ZeroInstall.Store.Feed.Trust">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,7 +13,7 @@
       <Property Name="Keys" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="ZeroInstall.Store.Interface.Key">
+  <Class Name="ZeroInstall.Store.Feed.Key">
     <Position X="0.5" Y="2.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -26,7 +26,7 @@
       <Property Name="Domains" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Struct Name="ZeroInstall.Store.Interface.Domain">
+  <Struct Name="ZeroInstall.Store.Feed.Domain">
     <Position X="0.5" Y="4.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />

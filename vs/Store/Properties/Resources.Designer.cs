@@ -79,6 +79,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The requested URL is invalid..
+        /// </summary>
+        internal static string InvalidUrl {
+            get {
+                return ResourceManager.GetString("InvalidUrl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file or directory name must not contain a newline character..
         /// </summary>
         internal static string NewlineInName {

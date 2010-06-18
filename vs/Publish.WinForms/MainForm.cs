@@ -28,7 +28,7 @@ namespace ZeroInstall.Publish.WinForms
     public partial class MainForm : Form
     {
         /// <summary>
-        /// The path of the file the <see cref="Interface"/> was loaded from.
+        /// The path of the file the <see cref="Feed"/> was loaded from.
         /// </summary>
         private string _openInterfacePath;
 
@@ -111,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _openInterfacePath = openFileDialog.FileName;
-            var feed = Interface.Load(_openInterfacePath);
+            var feed = Feed.Load(_openInterfacePath);
             FillForm(feed);
         }
 
@@ -122,7 +122,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var zeroInterface = new Interface { Name = textName.Text, Summary = textSummary.Text };
+            var zeroInterface = new Feed { Name = textName.Text, Summary = textSummary.Text };
 
             SaveGeneralTab(zeroInterface);
             SaveFeedTab(zeroInterface);
@@ -135,8 +135,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Saves the values from <see cref="tabPageGeneral"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Interface"/> where to save values.</param>
-        private void SaveGeneralTab(Interface zeroInterface)
+        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
+        private void SaveGeneralTab(Feed zeroInterface)
         {
             Uri url;
 
@@ -169,8 +169,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Saves the values from <see cref="tabPageFeed"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Interface"/> where to save values.</param>
-        private void SaveFeedTab(Interface zeroInterface)
+        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
+        private void SaveFeedTab(Feed zeroInterface)
         {
             throw new NotImplementedException();
         }
@@ -178,8 +178,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Saves the values from <see cref="tabPageAdvanced"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Interface"/> where to save values.</param>
-        private void SaveAdvancedTab(Interface zeroInterface)
+        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
+        private void SaveAdvancedTab(Feed zeroInterface)
         {
             foreach (var feed in listBoxExtFeeds.Items)
             {
@@ -245,10 +245,10 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Fills the <see cref="MainForm"/> with the values from a <see cref="ZeroInstall.Model.Interface"/>.
+        /// Fills the <see cref="MainForm"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Interface"/> to use for fill the <see cref="MainForm"/>.</param>
-        private void FillForm(Interface zeroInterface)
+        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="MainForm"/>.</param>
+        private void FillForm(Feed zeroInterface)
         {
             ResetForm();
             FillGeneralTab(zeroInterface);
@@ -257,10 +257,10 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Interface"/>.
+        /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Interface"/> to use for fill the <see cref="tabPageGeneral"/>.</param>
-        private void FillGeneralTab(Interface zeroInterface)
+        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageGeneral"/>.</param>
+        private void FillGeneralTab(Feed zeroInterface)
         {
             textName.Text = zeroInterface.Name;
             textSummary.Text = zeroInterface.Summary;
@@ -287,19 +287,19 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Fills the <see cref="tabPageFeed"/> with the values from a <see cref="ZeroInstall.Model.Interface"/>.
+        /// Fills the <see cref="tabPageFeed"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Interface"/> to use for fill the <see cref="tabPageFeed"/>.</param>
-        private void FillFeedTab(Interface zeroInterface)
+        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageFeed"/>.</param>
+        private void FillFeedTab(Feed zeroInterface)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Fills the <see cref="tabPageAdvanced"/> with the values from a <see cref="ZeroInstall.Model.Interface"/>.
+        /// Fills the <see cref="tabPageAdvanced"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Interface"/> to use for fill the <see cref="tabPageAdvanced"/>.</param>
-        private void FillAdvancedTab(Interface zeroInterface)
+        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageAdvanced"/>.</param>
+        private void FillAdvancedTab(Feed zeroInterface)
         {
             foreach (var feed in zeroInterface.Feeds)
             {

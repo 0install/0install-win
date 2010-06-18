@@ -23,7 +23,7 @@ using ZeroInstall.DownloadBroker;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector
 {

@@ -23,14 +23,14 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to an <see cref="Interface"/> that is required by an <see cref="Implementation"/>.
+    /// A reference to an <see cref="Feed"/> that is required by an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class Dependency : IBindingContainer, ICloneable
     {
         #region Properties
         /// <summary>
-        /// The URI used to identify the <see cref="Interface"/>.
+        /// The URI used to identify the <see cref="Feed"/>.
         /// </summary>
         [Description("The URI used to identify the interface.")]
         [XmlIgnore]

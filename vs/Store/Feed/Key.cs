@@ -18,7 +18,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
     /// An entry in the <see cref="Trust"/> database.

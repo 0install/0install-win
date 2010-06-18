@@ -21,9 +21,9 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web;
 using Common.Storage;
-using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     #region Enumerations
     /// <summary>
@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Interface
     #endregion
 
     /// <summary>
-    /// Manages the <see cref="Interface"/> cache.
+    /// Manages the <see cref="Feed"/> cache.
     /// </summary>
     public class InterfaceCache
     {
@@ -58,7 +58,7 @@ namespace ZeroInstall.Store.Interface
         }
         
         /// <summary>
-        /// The directory containing the cached <see cref="Interface"/>s.
+        /// The directory containing the cached <see cref="Feed"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
 
@@ -80,15 +80,15 @@ namespace ZeroInstall.Store.Interface
         }
 
         /// <summary>
-        /// Set to <see langword="true"/> to force all cached <see cref="Interface"/>s to be updated, event if <see cref="MaximumAge"/> hasn't been reached yet.
+        /// Set to <see langword="true"/> to force all cached <see cref="Feed"/>s to be updated, event if <see cref="MaximumAge"/> hasn't been reached yet.
         /// </summary>
-        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Store.Interface.NetworkLevel.Offline"/>.</remarks>
+        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Store.Feed.NetworkLevel.Offline"/>.</remarks>
         public bool Refresh { get; set; }
 
         /// <summary>
-        /// The maximum age a cached <see cref="Interface"/> may have until it is considered stale (needs to be updated).
+        /// The maximum age a cached <see cref="Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
-        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Store.Interface.NetworkLevel.Offline"/>.</remarks>
+        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Store.Feed.NetworkLevel.Offline"/>.</remarks>
         public int MaximumAge { get; set; }
         #endregion
 
@@ -120,12 +120,12 @@ namespace ZeroInstall.Store.Interface
 
         #region Get feed
         /// <summary>
-        /// Gets an <see cref="Interface"/> from the local cache or downloads it.
+        /// Gets an <see cref="Feed"/> from the local cache or downloads it.
         /// </summary>
-        /// <param name="feed">The URI used to identify (and potentially download) the <see cref="Interface"/> or a local path to directly load the file from.</param>
-        /// <returns>The parsed <see cref="Interface"/> object.</returns>
+        /// <param name="feed">The URI used to identify (and potentially download) the <see cref="Feed"/> or a local path to directly load the file from.</param>
+        /// <returns>The parsed <see cref="Feed"/> object.</returns>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        public Model.Interface GetFeed(string feed)
+        public Model.Feed GetFeed(string feed)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
@@ -135,24 +135,24 @@ namespace ZeroInstall.Store.Interface
             {
                 // Get from cache or download from internet
                 string urlEncoded = HttpUtility.UrlEncode(feed);
-                if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException("Invalid URL", "feed");
+                if (string.IsNullOrEmpty(urlEncoded)) throw new ArgumentException(Resources.InvalidUrl, "feed");
 
                 string path = Path.Combine(DirectoryPath, urlEncoded);
 
                 // ToDo: Implement downloading
                 if (!File.Exists(path)) throw new FileNotFoundException("Feed not in cache", "path");
 
-                return Model.Interface.Load(path);
+                return Model.Feed.Load(path);
             }
 
             // Load local file
-            return Model.Interface.Load(feed);
+            return Model.Feed.Load(feed);
         }
         #endregion
 
         #region Cached
         /// <summary>
-        /// Returns a list of all valid <see cref="Interface"/>s stored in this cache.
+        /// Returns a list of all valid <see cref="Feed"/>s stored in this cache.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates new list on each call and performs disk IO")]
         public IEnumerable<string> GetCached()

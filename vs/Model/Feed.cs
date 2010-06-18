@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Interface : IGroupContainer, ISimplifyable, IEquatable<Interface>
+    public sealed class Feed : IGroupContainer, ISimplifyable, IEquatable<Feed>
     {
         #region Properties
         /// <summary>
@@ -193,7 +193,7 @@ namespace ZeroInstall.Model
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public void Simplify()
         {
             // Set missing default values
@@ -244,29 +244,29 @@ namespace ZeroInstall.Model
 
         #region Storage
         /// <summary>
-        /// Loads an <see cref="Interface"/> from an XML file (feed).
+        /// Loads an <see cref="Feed"/> from an XML file (feed).
         /// </summary>
         /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Interface"/>.</returns>
+        /// <returns>The loaded <see cref="Feed"/>.</returns>
         /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        public static Interface Load(string path)
+        public static Feed Load(string path)
         {
-            return XmlStorage.Load<Interface>(path);
+            return XmlStorage.Load<Feed>(path);
         }
 
         /// <summary>
-        /// Loads an <see cref="Interface"/> from a stream containing an XML file (feed).
+        /// Loads an <see cref="Feed"/> from a stream containing an XML file (feed).
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="Interface"/>.</returns>
-        public static Interface Load(Stream stream)
+        /// <returns>The loaded <see cref="Feed"/>.</returns>
+        public static Feed Load(Stream stream)
         {
-            return XmlStorage.Load<Interface>(stream);
+            return XmlStorage.Load<Feed>(stream);
         }
 
         /// <summary>
-        /// Saves this <see cref="Interface"/> to an XML file (feed).
+        /// Saves this <see cref="Feed"/> to an XML file (feed).
         /// </summary>
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
@@ -277,7 +277,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Saves this <see cref="Interface"/> to a stream as an XML file (feed).
+        /// Saves this <see cref="Feed"/> to a stream as an XML file (feed).
         /// </summary>
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)
@@ -287,7 +287,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
-        public bool Equals(Interface other)
+        public bool Equals(Feed other)
         {
             if (ReferenceEquals(null, other)) return false;
 
@@ -309,7 +309,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Interface) && Equals((Interface)obj);
+            return obj.GetType() == typeof(Feed) && Equals((Feed)obj);
         }
 
         public override int GetHashCode()

@@ -2,7 +2,7 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
     <Position X="4.5" Y="3" Width="1.5" />
-    <AssociationLine Name="InterfaceCache" Type="ZeroInstall.Store.Interface.InterfaceCache" FixedToPoint="true">
+    <AssociationLine Name="InterfaceCache" Type="ZeroInstall.Store.Feed.InterfaceCache" FixedToPoint="true">
       <Path>
         <Point X="5.25" Y="3" />
         <Point X="5.25" Y="1.062" />
@@ -138,7 +138,7 @@
       <Property Name="Default" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Store.Interface.InterfaceCache" Collapsed="true">
+  <Class Name="ZeroInstall.Store.Feed.InterfaceCache" Collapsed="true">
     <Position X="4.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
     <ShowAsAssociation>
@@ -176,7 +176,7 @@
     <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Enum Name="ZeroInstall.Store.Interface.NetworkLevel" Collapsed="true">
+  <Enum Name="ZeroInstall.Store.Feed.NetworkLevel" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
   </Enum>

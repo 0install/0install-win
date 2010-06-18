@@ -148,7 +148,7 @@ namespace ZeroInstall.Model
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<Dependency> _dependencies = new C5.HashedArrayList<Dependency>();
         /// <summary>
-        /// A list of <see cref="Interface"/>s this implementation depends upon.
+        /// A list of <see cref="Feed"/>s this implementation depends upon.
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
@@ -183,7 +183,7 @@ namespace ZeroInstall.Model
         /// Hook to set missing default values, removes inheritance structures, etc.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public virtual void Simplify()
         {}
 

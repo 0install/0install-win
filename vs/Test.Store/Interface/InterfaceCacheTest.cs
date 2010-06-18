@@ -19,7 +19,7 @@ using System.IO;
 using Common.Storage;
 using NUnit.Framework;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
     /// Contains test methods for <see cref="InterfaceCache"/>.

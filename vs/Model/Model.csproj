@@ -71,7 +71,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="ImplementationBase.cs" />
     <Compile Include="VersionPart.cs" />
-    <Compile Include="Interface.cs" />
+    <Compile Include="Feed.cs" />
     <Compile Include="Icon.cs" />
     <Compile Include="InterfaceReference.cs" />
     <Compile Include="ISimplifyable.cs" />
@@ -105,7 +105,7 @@
     <None Include="Dependency.cd" />
     <None Include="Implementation.cd" />
     <None Include="ImplementationVersion.cd" />
-    <None Include="Interface.cd" />
+    <None Include="Feed.cd" />
     <None Include="RetrievalMethods.cd" />
   </ItemGroup>
   <ItemGroup>

@@ -20,7 +20,7 @@ using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector
 {
@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector
     {
         #region Properties
         /// <summary>
-        /// Allows configuration of the source used to request <see cref="Interface"/>s.
+        /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
         public InterfaceCache InterfaceCache { get; private set; }
 
@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new policy.
         /// </summary>
-        /// <param name="interfaceCache">The source used to request <see cref="Interface"/>s.</param>
+        /// <param name="interfaceCache">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
         public Policy(InterfaceCache interfaceCache, Fetcher fetcher)
         {

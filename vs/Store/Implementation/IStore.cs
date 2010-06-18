@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Describes an object that allows the storage of <see cref="Interface"/>s.
+    /// Describes an object that allows the storage of <see cref="Feed"/>s.
     /// </summary>
     /// <remarks>These objects do not download new files by themselves.</remarks>
     public interface IStore

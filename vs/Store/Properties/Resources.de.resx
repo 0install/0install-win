@@ -123,6 +123,9 @@
   <data name="InvalidNumberOfLineParts" xml:space="preserve">
     <value>Die Anzahl der Blöcke in dieser Zeile stimmt nicht.</value>
   </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>Die angeforderte URL ist ungültig.</value>
+  </data>
   <data name="NewlineInName" xml:space="preserve">
     <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
   </data>

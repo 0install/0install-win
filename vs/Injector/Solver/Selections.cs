@@ -26,7 +26,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Represents a number of <see cref="Implementation"/>s chosen for executing an <see cref="Model.Interface"/>.
+    /// Represents a number of <see cref="Implementation"/>s chosen for executing an <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]

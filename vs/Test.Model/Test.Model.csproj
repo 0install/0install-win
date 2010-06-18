@@ -67,7 +67,7 @@
     <Compile Include="ImplementationTest.cs" />
     <Compile Include="FeedReferenceTest.cs" />
     <Compile Include="ImplementationVersionTest.cs" />
-    <Compile Include="InterfaceTest.cs" />
+    <Compile Include="FeedTest.cs" />
     <Compile Include="ManifestDigestTest.cs" />
     <Compile Include="PackageImplementationTest.cs" />
   </ItemGroup>

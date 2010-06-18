@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Information for identifying an implementation of an <see cref="Interface"/>.
+    /// Information for identifying an implementation of an <see cref="Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public abstract class IDImplementation : ImplementationBase, IEquatable<IDImplementation>

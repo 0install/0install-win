@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An additional feed for an <see cref="Interface"/>.
+    /// An additional feed for an <see cref="Feed"/>.
     /// </summary>
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {

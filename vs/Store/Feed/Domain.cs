@@ -19,10 +19,10 @@ using System;
 using System.Xml.Serialization;
 using ZeroInstall.Store.Properties;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// 
+    /// ...
     /// </summary>
     public struct Domain
     {

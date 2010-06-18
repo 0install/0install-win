@@ -23,7 +23,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// An executable implementation of an <see cref="Interface"/>.
+    /// An executable implementation of an <see cref="Feed"/>.
     /// </summary>
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
     public sealed class ImplementationSelection : IDImplementation, ICloneable, IEquatable<ImplementationSelection>

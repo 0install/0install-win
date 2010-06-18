@@ -23,10 +23,10 @@ using Common;
 using Common.Storage;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// A database of trusted GPG signatures for <see cref="Interface"/>s.
+    /// A database of trusted GPG signatures for <see cref="Feed"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("trusted-keys", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]

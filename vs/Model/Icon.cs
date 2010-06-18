@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An icon for an <see cref="Interface"/>.
+    /// An icon for an <see cref="Feed"/>.
     /// </summary>
     [TypeConverter(typeof(IconConverter))]
     public struct Icon : IEquatable<Icon>

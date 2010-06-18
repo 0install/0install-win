@@ -20,7 +20,7 @@ using System.Diagnostics;
 using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Interface;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector.Solver
 {

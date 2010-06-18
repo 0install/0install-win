@@ -71,7 +71,7 @@ namespace ZeroInstall.Model
         /// Flattens the <see cref="Group"/> inheritance structure and sets missing default values in <see cref="Implementation"/>s.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Interface"/> again since it will may some of its structure.</remarks>
+        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
             // Apply attribute inheritance to implementations and set missing default values

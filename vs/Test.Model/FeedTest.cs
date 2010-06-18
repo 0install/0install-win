@@ -21,10 +21,10 @@ using NUnit.Framework;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Contains test methods for <see cref="Interface"/>.
+    /// Contains test methods for <see cref="Feed"/>.
     /// </summary>
     [TestFixture]
-    public class InterfaceTest
+    public class FeedTest
     {
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
@@ -32,16 +32,16 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSaveLoad()
         {
-            Interface feedp1, feed2;
+            Feed feedp1, feed2;
             string tempFile = null;
             try
             {
                 tempFile = Path.GetTempFileName();
 
                 // Write and read file
-                feedp1 = new Interface { Name = "MyApp", Description = "Some text.", Categories = {"Category"} };
+                feedp1 = new Feed { Name = "MyApp", Description = "Some text.", Categories = {"Category"} };
                 feedp1.Save(tempFile);
-                feed2 = Interface.Load(tempFile);
+                feed2 = Feed.Load(tempFile);
             }
             finally
             { // Clean up
@@ -55,12 +55,12 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Interface.Simplify"/> correctly collapsed <see cref="Group"/> structures.
+        /// Ensures that <see cref="Feed.Simplify"/> correctly collapsed <see cref="Group"/> structures.
         /// </summary>
         [Test]
         public void TestSimplify()
         {
-            var feed = new Interface { Groups =
+            var feed = new Feed { Groups =
             {
                 new Group
                 {

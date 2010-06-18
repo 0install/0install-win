@@ -141,4 +141,7 @@
 	<data name="NotValidDomain">
 		<value xml:space="preserve">The value is not a valid domain name.</value>
 	</data>
+	<data name="InvalidUrl">
+		<value xml:space="preserve">The requested URL is invalid.</value>
+	</data>
 </root>

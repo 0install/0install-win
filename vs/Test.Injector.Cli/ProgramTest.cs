@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Interface;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector.Cli
 {

@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A downloadable implementation of an <see cref="Interface"/>.
+    /// A downloadable implementation of an <see cref="Feed"/>.
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]

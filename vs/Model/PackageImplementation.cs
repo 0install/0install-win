@@ -25,12 +25,12 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An implementation of an <see cref="Interface"/> provided by a distribution-specific package manager.
+    /// An implementation of an <see cref="Feed"/> provided by a distribution-specific package manager.
     /// </summary>
     /// <remarks>
     /// Unlike a normal <see cref="Implementation"/>, a distribution package does not resolve to a directory.
-    /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Interface"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
-    /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Interface"/> considerably weakens the guarantees you are making about what the requestor may get. 
+    /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
+    /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Feed"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public sealed class PackageImplementation : ImplementationBase, ICloneable, IEquatable<PackageImplementation>

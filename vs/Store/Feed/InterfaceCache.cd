@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Interface.InterfaceCache">
+  <Class Name="ZeroInstall.Store.Feed.InterfaceCache">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAABAAACAAAAAAAAAACYCgAAAAAAACAAAAAA=</HashCode>
@@ -10,7 +10,7 @@
       <Field Name="_networkLevel" />
     </ShowAsAssociation>
   </Class>
-  <Enum Name="ZeroInstall.Store.Interface.NetworkLevel">
+  <Enum Name="ZeroInstall.Store.Feed.NetworkLevel">
     <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
