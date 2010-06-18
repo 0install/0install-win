@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
 using ZeroInstall.DownloadBroker;
 using System.IO;
-using Common.Helpers;
 using ZeroInstall.Store.Utilities;
 
 namespace Common.Archive
@@ -104,7 +102,7 @@ namespace Common.Archive
             builder.GeneratePackageArchive(archiveStream);
             archiveStream.Seek(0, SeekOrigin.Begin);
             var extractor = new ZipExtractor(archiveStream);
-            Assert.Throws<InvalidArchive>(() => extractor.ExtractTo("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
+            Assert.Throws<InvalidArchiveException>(() => extractor.ExtractTo("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
             archiveStream.Dispose();
         }
     }

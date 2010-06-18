@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -9,19 +7,17 @@ namespace Common.Archive
     /// <summary>
     /// Exception class indicating an invalid archive given to ZipExtractor.
     /// </summary>
-    /// Currently this is only thrown when an archive contains folder entries
-    /// named '..'.
-    public class InvalidArchive : Exception
+    /// <remarks>Currently this is only thrown when an archive contains folder entries named '..'.</remarks>
+    public class InvalidArchiveException : Exception
     {
-        public InvalidArchive(string message)
-            : base(message)
-        { }
+        public InvalidArchiveException(string message) : base(message)
+        {}
     }
 
     /// <summary>
     /// Helper class to perform extraction of Zip archives.
     /// </summary>
-    public class ZipExtractor
+    public class ZipExtractor : Extractor
     {
         private readonly Stream _archive;
 
@@ -40,7 +36,7 @@ namespace Common.Archive
         /// Perform this extraction, writing the contents into the supplied path.
         /// </summary>
         /// <param name="path">file system path to write to.</param>
-        /// <exception cref="InvalidArchive">Thrown if archive is not usable, e.g. it contains any folder named '..'.</exception>
+        /// <exception cref="InvalidArchiveException">Thrown if archive is not usable, e.g. it contains any folder named '..'.</exception>
         public void ExtractTo(string path)
         {
             using (var zip = new ZipFile(_archive))
@@ -108,7 +104,7 @@ namespace Common.Archive
 
         private static void RejectArchiveIfNameContains(ZipEntry entry, string name)
         {
-            if (entry.Name.Contains(name)) throw new InvalidArchive("Invalid entry \n" + entry.Name);
+            if (entry.Name.Contains(name)) throw new InvalidArchiveException("Invalid entry \n" + entry.Name);
         }
 
         private static void ExtractFolderEntry(string path, ZipEntry entry)

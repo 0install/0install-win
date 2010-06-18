@@ -59,7 +59,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Archive\ZipExtraction.cs" />
+    <Compile Include="Archive\ExtractorTest.cs" />
+    <Compile Include="Archive\ZipExtractorTest.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Helpers\FileHelperTest.cs" />
     <Compile Include="Helpers\StreamHelperTest.cs" />
