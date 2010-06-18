@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Archive;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -89,10 +90,10 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (extractor == null) throw new ArgumentNullException("extractor");
             #endregion
 
             throw new NotImplementedException();

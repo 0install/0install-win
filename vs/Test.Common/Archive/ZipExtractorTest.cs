@@ -49,29 +49,26 @@ namespace Common.Archive
         public void ExtractionIntoFolder()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using (var archiveStream = new MemoryStream(_archiveData))
-            {
-                var extractor = new ZipExtractor(archiveStream);
-                extractor.ExtractTo("extractedArchive");
+            using (var extractor = Extractor.CreateExtractor("a.zip"))
+                extractor.Extract("extractedArchive");
 
-                Assert.IsTrue(Directory.Exists("extractedArchive"));
-                HierarchyEntry.EntryHandler compareDirectory = delegate(HierarchyEntry entry)
+            Assert.IsTrue(Directory.Exists("extractedArchive"));
+            HierarchyEntry.EntryHandler compareDirectory = delegate(HierarchyEntry entry)
+            {
+                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
+                if (entry is FileEntry)
                 {
-                    string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
-                    if (entry is FileEntry)
-                    {
-                        var fileEntry = (FileEntry)entry;
-                        Assert.IsTrue(File.Exists(extractedPosition));
-                        byte[] fileData = File.ReadAllBytes(extractedPosition);
-                        Assert.AreEqual(fileEntry.Content, fileData);
-                    }
-                    else if (entry is EntryContainer)
-                    {
-                        Assert.IsTrue(Directory.Exists(extractedPosition));
-                    }
-                };
-                _package.RecurseInto(compareDirectory);
-            }
+                    var fileEntry = (FileEntry)entry;
+                    Assert.IsTrue(File.Exists(extractedPosition));
+                    byte[] fileData = File.ReadAllBytes(extractedPosition);
+                    Assert.AreEqual(fileEntry.Content, fileData);
+                }
+                else if (entry is EntryContainer)
+                {
+                    Assert.IsTrue(Directory.Exists(extractedPosition));
+                }
+            };
+            _package.RecurseInto(compareDirectory);
         }
     }
 
@@ -101,8 +98,8 @@ namespace Common.Archive
             var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
             builder.GeneratePackageArchive(archiveStream);
             archiveStream.Seek(0, SeekOrigin.Begin);
-            var extractor = new ZipExtractor(archiveStream);
-            Assert.Throws<InvalidArchiveException>(() => extractor.ExtractTo("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
+            var extractor = new ZipExtractor(archiveStream, "");
+            Assert.Throws<IOException>(() => extractor.Extract("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
             archiveStream.Dispose();
         }
     }

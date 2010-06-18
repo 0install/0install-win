@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Common.Archive;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -126,10 +127,10 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (extractor == null) throw new ArgumentNullException("extractor");
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
@@ -139,7 +140,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(path, mimeTyp, manifestDigest);
+                    store.AddArchive(extractor, manifestDigest);
                     return;
                 }
                 catch (UnauthorizedAccessException ex)

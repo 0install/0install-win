@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Common.Archive;
 using Common.Helpers;
 using Common.Storage;
 using NUnit.Framework;
@@ -98,6 +99,22 @@ namespace ZeroInstall.Store.Implementation
             {
                 var store = new DirectoryStore(cache.Path);
                 store.AddDirectory(packageDir, digest);
+                Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+            }
+        }
+
+        //[Test]
+        public void ShouldAllowToAddArchive()
+        {
+            // ToDo: Create test ZIP
+            string packageFile = CreateArtificialPackage();
+            var digest = new ManifestDigest(Manifest.Generate(packageFile, ManifestFormat.Sha256).CalculateDigest());
+
+            using (var cache = new TemporaryDirectory())
+            {
+                var store = new DirectoryStore(cache.Path);
+                using (var extractor = Extractor.CreateExtractor(packageFile))
+                    store.AddArchive(extractor, digest);
                 Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
             }
         }

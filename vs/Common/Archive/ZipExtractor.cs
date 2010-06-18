@@ -5,44 +5,33 @@ using ICSharpCode.SharpZipLib.Zip;
 namespace Common.Archive
 {
     /// <summary>
-    /// Exception class indicating an invalid archive given to ZipExtractor.
-    /// </summary>
-    /// <remarks>Currently this is only thrown when an archive contains folder entries named '..'.</remarks>
-    public class InvalidArchiveException : Exception
-    {
-        public InvalidArchiveException(string message) : base(message)
-        {}
-    }
-
-    /// <summary>
-    /// Helper class to perform extraction of Zip archives.
+    /// Extracts ZIP files.
     /// </summary>
     public class ZipExtractor : Extractor
     {
-        private readonly Stream _archive;
-
+        #region Constructor
         /// <summary>
-        /// Constructs a <see cref="ZipExtractor"/> to extract the zip archive
-        /// in the supplied stream.
-        /// Does not take ownership of the stream.
+        /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
-        /// <param name="archive">stream containing the archive's data.</param>
-        public ZipExtractor(Stream archive)
-        {
-            _archive = archive;
-        }
+        /// <param name="archive">The stream containing the archive's data.</param>
+        /// <param name="subDir">The sub-directory within the archive to extract; may be <see langword="null"/>.</param>
+        public ZipExtractor(Stream archive, string subDir) : base(archive, subDir)
+        {}
+        #endregion
 
-        /// <summary>
-        /// Perform this extraction, writing the contents into the supplied path.
-        /// </summary>
-        /// <param name="path">file system path to write to.</param>
-        /// <exception cref="InvalidArchiveException">Thrown if archive is not usable, e.g. it contains any folder named '..'.</exception>
-        public void ExtractTo(string path)
+        //--------------------//
+
+        #region Extraction methods
+        public override void Extract(string target)
         {
-            using (var zip = new ZipFile(_archive))
+            #region Sanity checks
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
+            using (var zip = new ZipFile(Stream))
             {
                 zip.IsStreamOwner = false;
-                string xbitFilePath = Path.Combine(path, ".xbit");
+                string xbitFilePath = Path.Combine(target, ".xbit");
 
                 foreach (ZipEntry entry in zip)
                 {
@@ -50,17 +39,19 @@ namespace Common.Archive
 
                     if (entry.IsDirectory)
                     {
-                        ExtractFolderEntry(path, entry);
+                        ExtractFolderEntry(target, entry);
                     }
                     else if (entry.IsFile)
                     {
-                        ExtractFileEntry(path, zip, entry);
+                        ExtractFileEntry(target, zip, entry);
                         AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
                     }
                 }
             }
         }
+        #endregion
 
+        #region Helpers
         private static void ExtractFileEntry(string path, ZipFile zip, ZipEntry entry)
         {
             string targetPath = Path.Combine(path, entry.Name);
@@ -104,7 +95,7 @@ namespace Common.Archive
 
         private static void RejectArchiveIfNameContains(ZipEntry entry, string name)
         {
-            if (entry.Name.Contains(name)) throw new InvalidArchiveException("Invalid entry \n" + entry.Name);
+            if (entry.Name.Contains(name)) throw new IOException("Invalid entry: " + entry.Name);
         }
 
         private static void ExtractFolderEntry(string path, ZipEntry entry)
@@ -122,5 +113,6 @@ namespace Common.Archive
             const int userExecuteFlag = 0x0040 << 16;
             return ((entry.ExternalFileAttributes & userExecuteFlag) != 0);
         }
+        #endregion
     }
 }

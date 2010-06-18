@@ -18,6 +18,8 @@
 using System;
 using System.IO;
 using System.Net;
+using Common.Archive;
+using Common.Download;
 using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -75,16 +77,13 @@ namespace ZeroInstall.DownloadBroker
                 foreach (var archive in implementation.Archives)
                 {
                     string tempArchive = Path.GetTempFileName();
-                    try {
-                        using (var webClient = new WebClient())
-                            webClient.DownloadFile(archive.Location, tempArchive);
-                        Store.AddArchive(tempArchive, "application/zip", implementation.ManifestDigest);
-                    }
-                    catch (WebException)
-                    { }
+                    var downloadFile = new DownloadFile(archive.Location, tempArchive);
+                    downloadFile.RunSync();
+                    using (var extractor = Extractor.CreateExtractor(tempArchive, archive.MimeType, archive.Extract))
+                        Store.AddArchive(extractor, implementation.ManifestDigest);
                     return;
                 }
-                throw new WebException();
+                throw new InvalidOperationException("No archives found");
             }
         }
     }

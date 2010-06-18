@@ -36,7 +36,7 @@ namespace Common.Archive
         [Test]
         public void TestGuessMimeType()
         {
-            Assert.AreEqual("application/x-zip", Extractor.GuessMimeType("test.zip"));
+            Assert.AreEqual("application/zip", Extractor.GuessMimeType("test.zip"));
             Assert.AreEqual("application/vnd.ms-cab-compressed", Extractor.GuessMimeType("test.cab"));
             Assert.AreEqual("application/x-tar", Extractor.GuessMimeType("test.tar"));
             Assert.AreEqual("application/x-compressed-tar", Extractor.GuessMimeType("test.tar.gz"));
@@ -48,6 +48,17 @@ namespace Common.Archive
             Assert.AreEqual("application/x-deb", Extractor.GuessMimeType("test.deb"));
             Assert.AreEqual("application/x-rpm", Extractor.GuessMimeType("test.rpm"));
             Assert.AreEqual("application/x-apple-diskimage", Extractor.GuessMimeType("test.dmg"));
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Extractor.CreateExtractor(string)"/> correctly creates a <see cref="ZipExtractor"/>.
+        /// </summary>
+        //[Test]
+        public void TestCreateExtractor()
+        {
+            // ToDo: Create test ZIP
+
+            Assert.IsInstanceOf(typeof(ZipExtractor), Extractor.CreateExtractor("temp.zip"));
         }
     }
 }

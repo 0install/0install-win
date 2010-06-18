@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common;
+using Common.Archive;
 using Common.Helpers;
 using Common.Storage;
 using System.Diagnostics;
@@ -165,21 +166,15 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest)
+        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            Debug.Assert(mimeTyp == "application/zip", "Only zip archives supported");
+            if (extractor == null) throw new ArgumentNullException("extractor");
             #endregion
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
-
-            using (var archiveStream = File.OpenRead(path))
-            {
-                var archive = new Common.Archive.ZipExtractor(archiveStream);
-                archive.ExtractTo(tempDir);
-            }
+            extractor.Extract(tempDir);
 
             try
             {

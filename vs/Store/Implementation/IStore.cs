@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Archive;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -57,13 +58,12 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Extracts an archive containing an <see cref="ZeroInstall.Store.Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="path">The archive containing the <see cref="Implementation"/>.</param>
-        /// <param name="mimeTyp">The type of the archive as a MIME type.</param>
+        /// <param name="extractor">The archive containing the <see cref="Implementation"/>.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
-        void AddArchive(string path, string mimeTyp, ManifestDigest manifestDigest);
+        void AddArchive(Extractor extractor, ManifestDigest manifestDigest);
     }
 }
