@@ -82,6 +82,28 @@ namespace Common.Archive
             Assert.IsFalse(File.Exists("file1"));
             Assert.IsFalse(File.Exists("file2"));
         }
+
+        [Test]
+        public void TestListContent()
+        {
+            File.WriteAllBytes("a.zip", _archiveData);
+            using(var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null)) {
+                var entryList = new System.Collections.Generic.List<string> { "file1", "file2", "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
+                    "folder1" + Path.DirectorySeparatorChar + "nestedFile", "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar,
+                    "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar + "doublyNestedFile" };
+
+                var archiveContentList = (System.Collections.Generic.List<string>) extractor.ListContent();
+
+                // have entry list and archive content the same amount of entries?
+                Assert.IsTrue(entryList.Count == archiveContentList.Count);
+
+                // is every file/directory in entryList in the archive?
+                foreach (string entry in entryList)
+                {
+                    Assert.IsTrue(archiveContentList.Contains(entry));
+                }                
+            }
+        }
     }
 
     [TestFixture]

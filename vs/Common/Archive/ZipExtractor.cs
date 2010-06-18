@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
+using Common.Helpers;
 
 namespace Common.Archive
 {
@@ -24,10 +25,20 @@ namespace Common.Archive
 
         #region Content
         public override IEnumerable<string> ListContent()
-        {
-            // ToDo: Implement
-            throw new NotImplementedException();
+        {        
+            using (var zip = new ZipFile(Stream))
+            {
+                var contentList = new List<string>((int)zip.Count);
+                zip.IsStreamOwner = false;
+
+                foreach (ZipEntry entry in zip)
+                {
+                    contentList.Add(StringHelper.UnifySlashes(entry.Name));
+                }
+                return contentList;
+            }
         }
+
         #endregion
 
         #region Extraction
