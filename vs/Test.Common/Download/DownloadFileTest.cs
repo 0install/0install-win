@@ -23,6 +23,8 @@
 using System;
 using System.IO;
 using NUnit.Framework;
+using ZeroInstall.DownloadBroker;
+using ZeroInstall.Store.Utilities;
 
 namespace Common.Download
 {
@@ -32,13 +34,34 @@ namespace Common.Download
     [TestFixture]
     public class DownloadFileTest
     {
+        private TemporaryReplacement _testFolder;
+        private string _archiveFile;
+        private ArchiveProvider _server;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _testFolder = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
+            _archiveFile = Path.Combine(_testFolder.Path, "archive.zip");
+            _server = new ArchiveProvider(_archiveFile);
+            _server.Start();
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _server.Dispose();
+            _testFolder.Dispose();
+        }
+
         /// <summary>
         /// Downloads a small file using <see cref="DownloadFile.RunSync"/>.
         /// </summary>
-        // Test deactivated because it performs network IO
-        //[Test]
+        [Test]
         public void TestRunSync()
         {
+            File.WriteAllText(_archiveFile, @"abc");
+
             DownloadFile download;
             string fileContent;
             string tempFile = null;
@@ -47,7 +70,7 @@ namespace Common.Download
                 tempFile = Path.GetTempFileName();
 
                 // Download the file
-                download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
+                download = new DownloadFile(new Uri("http://localhost:50222/archives/test.zip"), tempFile);
                 download.RunSync();
 
                 // Read the file
@@ -60,16 +83,17 @@ namespace Common.Download
             
             // Ensure the download was successfull and the HTML file starts with a Doctype as expected
             Assert.AreEqual(DownloadState.Complete, download.State);
-            Assert.IsTrue(fileContent.StartsWith("<!DOCTYPE"), fileContent);
+            Assert.AreEqual(@"abc", fileContent);
         }
 
         /// <summary>
         /// Downloads a small file using <see cref="DownloadFile.Start"/> and <see cref="DownloadFile.Join"/>.
         /// </summary>
-        // Test deactivated because it performs network IO
-        //[Test]
+        [Test]
         public void TestThread()
         {
+            File.WriteAllText(_archiveFile, @"abc");
+
             DownloadFile download;
             string fileContent;
             string tempFile = null;
@@ -78,7 +102,7 @@ namespace Common.Download
                 tempFile = Path.GetTempFileName();
 
                 // Start a background download of the file and then wait
-                download = new DownloadFile(new Uri("http://www.nano-byte.de/"), tempFile);
+                download = new DownloadFile(new Uri("http://localhost:50222/archives/test.zip"), tempFile);
                 download.Start();
                 download.Join();
 
@@ -92,7 +116,7 @@ namespace Common.Download
 
             // Ensure the download was successfull and the HTML file starts with a Doctype as expected
             Assert.AreEqual(DownloadState.Complete, download.State);
-            Assert.IsTrue(fileContent.StartsWith("<!DOCTYPE"), fileContent);
+            Assert.AreEqual(@"abc", fileContent);
         }
     }
 }

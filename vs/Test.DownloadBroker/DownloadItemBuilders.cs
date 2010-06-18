@@ -334,9 +334,8 @@ namespace ZeroInstall.DownloadBroker
 
         public void GeneratePackageArchive(Stream output)
         {
-            using (var zip = new ZipOutputStream(output))
+            using (var zip = new ZipOutputStream(output) {IsStreamOwner = false})
             {
-                zip.IsStreamOwner = false;
                 zip.SetLevel(9);
                 var hierarchyToZip = new HierarchyToZip(zip);
                 Hierarchy.AcceptVisitor(hierarchyToZip);

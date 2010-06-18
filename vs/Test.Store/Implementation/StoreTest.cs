@@ -3,6 +3,7 @@ using System.IO;
 using Common.Archive;
 using Common.Helpers;
 using Common.Storage;
+using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Utilities;
@@ -93,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddFolder()
         {
             string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateDigest());
+            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256));
 
             using (var cache = new TemporaryDirectory())
             {
@@ -103,19 +104,29 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
+        // Test deactivated because FastZip writes incorrect file changed times
         //[Test]
         public void ShouldAllowToAddArchive()
         {
-            // ToDo: Create test ZIP
-            string packageFile = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.Generate(packageFile, ManifestFormat.Sha256).CalculateDigest());
+            string packageDir = CreateArtificialPackage();
+            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256));
 
-            using (var cache = new TemporaryDirectory())
+            string zipFile = Path.GetTempFileName();
+            new FastZip().CreateZip(zipFile, packageDir, true, "");
+
+            try
             {
-                var store = new DirectoryStore(cache.Path);
-                using (var extractor = Extractor.CreateExtractor("application/zip", packageFile, 0, null))
-                    store.AddArchive(extractor, digest);
-                Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+                using (var cache = new TemporaryDirectory())
+                {
+                    var store = new DirectoryStore(cache.Path);
+                    using (var extractor = Extractor.CreateExtractor("application/zip", zipFile, 0, null))
+                        store.AddArchive(extractor, digest);
+                    Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+                }
+            }
+            finally
+            {
+                File.Delete(zipFile);
             }
         }
 

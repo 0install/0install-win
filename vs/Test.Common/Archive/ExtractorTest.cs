@@ -20,6 +20,10 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
+using Common.Helpers;
+using Common.Storage;
+using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 
 namespace Common.Archive
@@ -53,12 +57,26 @@ namespace Common.Archive
         /// <summary>
         /// Ensures <see cref="Extractor.CreateExtractor(string,string,long,string)"/> correctly creates a <see cref="ZipExtractor"/>.
         /// </summary>
-        //[Test]
+        [Test]
         public void TestCreateExtractor()
         {
-            // ToDo: Create test ZIP
+            using (var tempDir = new TemporaryDirectory())
+            {
+                string path = Path.Combine(tempDir.Path, "a.zip");
 
-            Assert.IsInstanceOf(typeof(ZipExtractor), Extractor.CreateExtractor(null, "temp.zip", 0, null));
+                using (var file = File.Create(path))
+                {
+                    using (var zipStream = new ZipOutputStream(file) {IsStreamOwner = false})
+                    {
+                        var entry = new ZipEntry("file");
+                        zipStream.PutNextEntry(entry);
+                        zipStream.CloseEntry();
+                    }
+                }
+
+                using (var extractor = Extractor.CreateExtractor(null, path, 0, null))
+                    Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
+            }
         }
     }
 }
