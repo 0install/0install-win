@@ -17,18 +17,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.IO;
-using ZeroInstall.Store.Implementation;
-using Common.Storage;
 using Common.Download;
 using Common.Helpers;
-using System.Runtime.InteropServices;
 using Common.Archive;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
@@ -124,7 +119,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         /// <summary>
-        /// Opens a dialog to ask the user where to download the archive from <see cref="hintTextBoxArchiveUrl"/>.Text, downloads the archive and sets <see cref="hintTextBoxLocalArchive"/>.<br \>
+        /// Opens a dialog to ask the user where to download the archive from <see cref="hintTextBoxArchiveUrl"/>.Text, downloads the archive and sets <see cref="hintTextBoxLocalArchive"/>.<br/>
         /// When the user clicks "cancel" the archive will not be downloaded.
         /// </summary>
         /// <param name="sender">Not used.</param>

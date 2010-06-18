@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 using System.Drawing;
@@ -29,7 +28,7 @@ namespace ZeroInstall.Publish.WinForms
     public partial class MainForm : Form
     {
         /// <summary>
-        /// <see cref="ZeroInstall.Model"/> to change.
+        /// The path of the file the <see cref="Interface"/> was loaded from.
         /// </summary>
         private string _openInterfacePath;
 
