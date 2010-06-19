@@ -39,6 +39,22 @@ namespace Common.Archive
             }
         }
 
+        public override IEnumerable<string> ListDirectories()
+        {
+            using (var zip = new ZipFile(Stream))
+            {
+                var contentList = new List<string>((int)zip.Count);
+                zip.IsStreamOwner = false;
+
+                foreach (ZipEntry entry in zip)
+                {
+                    if (!entry.IsDirectory) continue;
+                    contentList.Add(StringHelper.UnifySlashes(entry.Name));
+                }
+                return contentList;
+            }
+        }
+
         #endregion
 
         #region Extraction

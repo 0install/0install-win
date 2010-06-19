@@ -147,6 +147,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\DownloadProgressBar.resx">
+      <DependentUpon>DownloadProgressBar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -116,6 +116,28 @@ namespace Common.Archive
                 }                
             }
         }
+
+        [Test]
+        public void TestListDirectories()
+        {
+            File.WriteAllBytes("a.zip", _archiveData);
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null))
+            {
+                var entryList = new System.Collections.Generic.List<string> { "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
+                    "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar };
+                
+                var archiveContentList = (System.Collections.Generic.List<string>)extractor.ListDirectories();
+
+                // have entry list and archive content the same amount of entries?
+                Assert.IsTrue(entryList.Count == archiveContentList.Count);
+
+                // is every file/directory in entryList in the archive?
+                foreach (string entry in entryList)
+                {
+                    Assert.IsTrue(archiveContentList.Contains(entry));
+                }   
+            }
+        }
     }
 
     [TestFixture]

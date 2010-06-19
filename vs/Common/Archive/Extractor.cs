@@ -124,10 +124,16 @@ namespace Common.Archive
 
         #region Content
         /// <summary>
-        /// Returns a list of all contained files that would be extracted by <see cref="Extract"/>.
+        /// Returns a list of all contained files and directories that would be extracted by <see cref="Extract"/>.
         /// </summary>
-        /// <returns>A list of files using native path separators.</returns>
+        /// <returns>A list of files and directories using native path separators.</returns>
         public abstract IEnumerable<string> ListContent();
+
+        /// <summary>
+        /// Returns a list of all contained directories that would be extracted by <see cref="Extract"/>.
+        /// </summary>
+        /// <returns>A list of directories using native path seperators.</returns>
+        public abstract IEnumerable<string> ListDirectories();
         #endregion
 
         #region Extraction
