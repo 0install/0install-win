@@ -119,6 +119,8 @@ namespace Common.Controls
                     case DownloadState.IOError:
                     case DownloadState.WebError:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, formHandle);
+                        progressBar.Style = ProgressBarStyle.Continuous;
+                        progressBar.Value = 0;
                         break;
 
                     case DownloadState.Complete:
