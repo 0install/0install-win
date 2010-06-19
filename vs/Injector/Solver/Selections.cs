@@ -56,16 +56,16 @@ namespace ZeroInstall.Injector.Solver
 
         #region Query
         /// <summary>
-        /// Returns the <see cref="ImplementationSelection"/> for a specific interface URI.
+        /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
-        /// <param name="uri">The <see cref="ImplementationSelection.Interface"/> to look for.</param>
+        /// <param name="interfaceID">The <see cref="ImplementationSelection.Interface"/> to look for.</param>
         /// <returns>The identified <see cref="IDImplementation"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="uri"/> was found in <see cref="Implementations"/>.</exception>
-        public ImplementationSelection GetSelection(string uri)
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
+        public ImplementationSelection GetSelection(string interfaceID)
         {
             foreach (var implementation in _implementations)
             {
-                if (implementation.Interface == uri) return implementation;
+                if (implementation.Interface == interfaceID) return implementation;
             }
             throw new KeyNotFoundException();
         }
