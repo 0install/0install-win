@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.IO;
 using NUnit.Framework;
 
@@ -35,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
         {
             return new Selections
             {
-                Interface = new Uri("http://0install.de/feeds/test.xml"),
+                Interface = "http://0install.de/feeds/test.xml",
                 Implementations = { ImplementationSelectionTest.CreateTestImplementation() }
             };
         }

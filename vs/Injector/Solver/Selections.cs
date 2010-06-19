@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -26,7 +27,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Represents a number of <see cref="Implementation"/>s chosen for executing an <see cref="Model.Feed"/>.
+    /// Represents a number of <see cref="IDImplementation"/>s chosen for executing an <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
@@ -34,23 +35,12 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Properties
         /// <summary>
-        /// The URL of the interface this selection is based on.
+        /// The URI or local path of the interface this selection is based on.
         /// </summary>
-        [Description("The URL of the interface this selection is based on.")]
-        [XmlIgnore]
-        public Uri Interface
-        { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Interface"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false)]
-        public String InterfaceString
-        {
-            get { return (Interface == null ? null : Interface.ToString()); }
-            set { Interface = (value == null ? null : new Uri(value)); }
-        }
-
+        [Description("The URI or local path of the interface this selection is based on.")]
+        [XmlAttribute("interface")]
+        public string Interface { get; set; }
+        
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
         /// <summary>
@@ -63,6 +53,23 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         //--------------------//
+
+        #region Query
+        /// <summary>
+        /// Returns the <see cref="ImplementationSelection"/> for a specific interface URI.
+        /// </summary>
+        /// <param name="uri">The <see cref="ImplementationSelection.Interface"/> to look for.</param>
+        /// <returns>The identified <see cref="IDImplementation"/>.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="uri"/> was found in <see cref="Implementations"/>.</exception>
+        public ImplementationSelection GetSelection(string uri)
+        {
+            foreach (var implementation in _implementations)
+            {
+                if (implementation.Interface == uri) return implementation;
+            }
+            throw new KeyNotFoundException();
+        }
+        #endregion
 
         #region Storage
         /// <summary>

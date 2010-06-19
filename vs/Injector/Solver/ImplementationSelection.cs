@@ -34,16 +34,14 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         [Description("The URI or local path of the interface this implementation is for.")]
         [XmlAttribute("interface")]
-        public string Interface
-        { get; set; }
+        public string Interface { get; set; }
 
         /// <summary>
         /// The URL of the feed that contains this implementation.
         /// </summary>
         [Description("The URL of the feed that contains this implementation.")]
         [XmlAttribute("from-feed")]
-        public string FromFeed
-        { get; set; }
+        public string FromFeed { get; set; }
 
         /// <summary>
         /// The name of the package in the distribution-specific package manager.

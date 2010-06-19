@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector
         {
             var launcher = new Launcher("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault());
             launcher.Solve();
-            Assert.AreEqual(launcher.GetSelections().InterfaceString, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Assert.AreEqual(launcher.GetSelections().Interface, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
 
         /// <summary>

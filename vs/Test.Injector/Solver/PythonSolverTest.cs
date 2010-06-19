@@ -16,7 +16,6 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -37,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
 
             Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault());
 
-            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.InterfaceString);
+            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.Interface);
         }
     }
 }
