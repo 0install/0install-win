@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
         /// The URL or local path used to locate the feed.
         /// </summary>
         [Description("The URL or local path used to locate the feed.")]
-        [XmlIgnore]
+        [XmlAttribute("src")]
         public string Source { get; set; }
         #endregion
 

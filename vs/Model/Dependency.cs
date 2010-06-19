@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
         /// The URI or local path used to identify the <see cref="Feed"/>.
         /// </summary>
         [Description("The URI or local path used to identify the interface.")]
-        [XmlIgnore]
+        [XmlAttribute("interface")] 
         public string Interface { get; set; }
 
         /// <summary>
