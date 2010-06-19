@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An object that contains <see cref="Binding"/>s.
     /// </summary>
-    interface IBindingContainer
+    public interface IBindingContainer
     {
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
