@@ -127,10 +127,10 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (extractor == null) throw new ArgumentNullException("extractor");
+            if (archiveInfo == null) throw new ArgumentNullException("archiveInfo");
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
@@ -140,7 +140,34 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(extractor, manifestDigest);
+                    store.AddArchive(archiveInfo, manifestDigest);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Remember the first authorization error and try the next store
+                    if (innerException == null) innerException = ex;
+                }
+            }
+
+            // If we reach this, the implementation couldn't be added to any store
+            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+        }
+
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            #endregion
+
+            // Find the first store the implementation can be added to (some might be write-protected)
+            Exception innerException = null;
+            foreach (IStore store in Stores)
+            {
+                try
+                {
+                    // Try to add implementation to this store
+                    store.AddMultipleArchives(archiveInfos, manifestDigest);
                     return;
                 }
                 catch (UnauthorizedAccessException ex)

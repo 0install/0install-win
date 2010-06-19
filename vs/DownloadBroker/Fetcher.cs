@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Archive;
 using Common.Download;
@@ -83,24 +84,40 @@ namespace ZeroInstall.DownloadBroker
                 foreach (var archive in implementation.Archives)
                 {
                     string tempArchive = Path.GetTempFileName();
-                    var downloadFile = new DownloadFile(archive.Location, tempArchive);
-
-                    RejectRemoteFileOfDifferentSize(archive, downloadFile);
-                    try {
-                        downloadFile.RunSync();
-                        RejectRemoteFileOfDifferentSize(archive, downloadFile);
-                    }
-                    catch (FetcherException)
-                    {
-                        File.Delete(tempArchive);
-                        throw;
-                    }
-                    using (var extractor = Extractor.CreateExtractor(archive.MimeType, tempArchive, archive.StartOffset, archive.Extract))
-                        Store.AddArchive(extractor, implementation.ManifestDigest);
+                    FetchArchive(archive, tempArchive);
+                    Store.AddArchive(new ArchiveFileInfo(tempArchive, archive.MimeType, archive.Extract, archive.StartOffset), implementation.ManifestDigest);
                     File.Delete(tempArchive);
                     return;
                 }
-                throw new InvalidOperationException("No archives found");
+                foreach (var recipe in implementation.Recipes)
+                {
+                    var archives = new List<ArchiveFileInfo>();
+                    foreach (var currentArchive in recipe.Archives)
+                    {
+                        string tempArchive = Path.GetTempFileName();
+                        FetchArchive(currentArchive, tempArchive);
+                    }
+                    Store.AddMultipleArchives(archives, implementation.ManifestDigest);
+                    return;
+                }
+                throw new InvalidOperationException("No working retrieval method.");
+            }
+        }
+
+        private static void FetchArchive(Archive archive, string destination)
+        {
+            var downloadFile = new DownloadFile(archive.Location, destination);
+
+            RejectRemoteFileOfDifferentSize(archive, downloadFile);
+            try
+            {
+                downloadFile.RunSync();
+                RejectRemoteFileOfDifferentSize(archive, downloadFile);
+            }
+            catch (FetcherException)
+            {
+                File.Delete(destination);
+                throw;
             }
         }
 

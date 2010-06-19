@@ -89,18 +89,23 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
+            const int ArchiveOffset = 0x1000;
             PackageBuilder package = PreparePackageBuilder();
-
-            using (var archiveStream = File.Create(_archiveFile))
-            {
-                WriteInterferingData(archiveStream);
-                archiveStream.Seek(0x1000, SeekOrigin.Begin);
-                package.GeneratePackageArchive(archiveStream);
-            }
-            Implementation implementation = SynthesizeImplementation(_archiveFile, 0x1000, package.ComputePackageDigest());
+            WritePackageToArchiveWithOffset(package, _archiveFile, ArchiveOffset);
+            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, package.ComputePackageDigest());
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+        }
+
+        private static void WritePackageToArchiveWithOffset(PackageBuilder package, string path, int offset)
+        {
+            using (var archiveStream = File.Create(path))
+            {
+                WriteInterferingData(archiveStream);
+                archiveStream.Seek(offset, SeekOrigin.Begin);
+                package.GeneratePackageArchive(archiveStream);
+            }
         }
 
         private static PackageBuilder PreparePackageBuilder()

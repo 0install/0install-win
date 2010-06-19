@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common.Archive;
 using ZeroInstall.Model;
@@ -90,10 +91,19 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (extractor == null) throw new ArgumentNullException("extractor");
+            if (archiveInfo == null) throw new ArgumentNullException("archiveInfo");
+            #endregion
+
+            throw new NotImplementedException();
+        }
+
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             #endregion
 
             throw new NotImplementedException();

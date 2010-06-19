@@ -45,6 +45,32 @@ namespace Common.Archive
             _sandbox.Dispose();
         }
 
+        class CompareHierarchyToExtractedFolder : HierarchyVisitor
+        {
+            string folder;
+
+            public CompareHierarchyToExtractedFolder(string folderToCompare)
+            {
+                folder = folderToCompare;
+            }
+
+            public override void VisitFile(FileEntry entry)
+            {
+                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
+                var fileEntry = (FileEntry)entry;
+                Assert.IsTrue(File.Exists(extractedPosition));
+                byte[] fileData = File.ReadAllBytes(extractedPosition);
+                Assert.AreEqual(fileEntry.Content, fileData);
+            }
+
+            public override void VisitFolder(FolderEntry entry)
+            {
+                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
+                Assert.IsTrue(Directory.Exists(extractedPosition));
+                visitChildren(entry);
+            }
+        }
+
         [Test]
         public void ExtractionIntoFolder()
         {
@@ -53,22 +79,8 @@ namespace Common.Archive
                 extractor.Extract("extractedArchive");
 
             Assert.IsTrue(Directory.Exists("extractedArchive"));
-            HierarchyEntry.EntryHandler compareDirectory = delegate(HierarchyEntry entry)
-            {
-                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
-                if (entry is FileEntry)
-                {
-                    var fileEntry = (FileEntry)entry;
-                    Assert.IsTrue(File.Exists(extractedPosition));
-                    byte[] fileData = File.ReadAllBytes(extractedPosition);
-                    Assert.AreEqual(fileEntry.Content, fileData);
-                }
-                else if (entry is EntryContainer)
-                {
-                    Assert.IsTrue(Directory.Exists(extractedPosition));
-                }
-            };
-            _package.RecurseInto(compareDirectory);
+            var comparer = new CompareHierarchyToExtractedFolder("extractedArchive");
+            _package.AcceptVisitor(comparer);
         }
 
         [Test]

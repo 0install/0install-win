@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Archive;
@@ -166,15 +167,46 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(Extractor extractor, ManifestDigest manifestDigest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (extractor == null) throw new ArgumentNullException("extractor");
+            if (archiveInfo == null) throw new ArgumentNullException("archiveInfo");
+            #endregion
+
+            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubdirToExtract))
+            {
+
+                // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+                var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+                extractor.Extract(tempDir);
+
+                try
+                {
+                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
+                }
+                catch (Exception)
+                {
+                    // Remove extracted directory if validation or something else failed
+                    Directory.Delete(tempDir, true);
+                    throw;
+                }
+            }
+        }
+
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest)
+        {
+            #region Sanity checks
+            if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             #endregion
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
-            extractor.Extract(tempDir);
+
+            foreach (var archiveInfo in archiveInfos)
+            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubdirToExtract))
+            {
+                extractor.Extract(tempDir);
+            }
 
             try
             {
