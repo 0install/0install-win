@@ -39,7 +39,7 @@ namespace ZeroInstall.Publish.WinForms
                 else
                 {
                     _feedReference = value;
-                    textBoxExtFeedURL.Text = _feedReference.SourceString;
+                    textBoxExtFeedURL.Text = _feedReference.Source;
                 }
                 targetBaseControl.TargetBase = _feedReference;
             }
@@ -53,22 +53,13 @@ namespace ZeroInstall.Publish.WinForms
 
         private void textBoxExtFeedURL_Enter(object sender, EventArgs e)
         {
-            textBoxExtFeedURL.Text = _feedReference == null ? String.Empty : _feedReference.SourceString;
+            textBoxExtFeedURL.Text = _feedReference == null ? String.Empty : _feedReference.Source;
         }
 
         private void textBoxExtFeedURL_TextChanged(object sender, EventArgs e)
         {
             if (_feedReference == null) return;
-            Uri uri;
-            if (ControlHelpers.IsValidFeedUrl(textBoxExtFeedURL.Text, out uri))
-            {
-                _feedReference.Source = uri;
-                textBoxExtFeedURL.ForeColor = Color.Green;
-            }
-            else
-            {
-                textBoxExtFeedURL.ForeColor = Color.Red;
-            }
+            _feedReference.Source = textBoxExtFeedURL.Text;
         }
     }
 }

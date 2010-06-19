@@ -70,7 +70,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if (_dependency.Interface != null) hintTextBoxInterface.Text = _dependency.InterfaceString;
+            if (_dependency.Interface != null) hintTextBoxInterface.Text = _dependency.Interface;
             if (!String.IsNullOrEmpty(_dependency.Use)) hintTextBoxUse.Text = _dependency.Use;
             foreach (var constraint in _dependency.Constraints)
             {
@@ -194,8 +194,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void buttonOk_Click(object sender, EventArgs e)
         {
-            Uri interfaceUrl;
-            _dependency.Interface = (ControlHelpers.IsValidFeedUrl(hintTextBoxInterface.Text, out interfaceUrl)) ? interfaceUrl : null;
+            _dependency.Interface = hintTextBoxInterface.Text;
             _dependency.Use = (!String.IsNullOrEmpty(hintTextBoxUse.Text)) ? hintTextBoxUse.Text : String.Empty;
             foreach (Constraint constraint in listBoxConstraints.Items)
             {

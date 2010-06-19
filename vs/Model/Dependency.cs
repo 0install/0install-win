@@ -30,21 +30,11 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// The URI used to identify the <see cref="Feed"/>.
+        /// The URI or local path used to identify the <see cref="Feed"/>.
         /// </summary>
-        [Description("The URI used to identify the interface.")]
+        [Description("The URI or local path used to identify the interface.")]
         [XmlIgnore]
-        public Uri Interface { get; set; }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Interface"/>
-        [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false)]
-        public String InterfaceString
-        {
-            get { return (Interface == null ? null : Interface.ToString()); }
-            set { Interface = (value == null ? null : new Uri(value)); }
-        }
+        public string Interface { get; set; }
 
         /// <summary>
         /// This can be used to indicate that this dependency is only needed in some cases.

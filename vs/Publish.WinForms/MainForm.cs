@@ -717,7 +717,7 @@ namespace ZeroInstall.Publish.WinForms
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
             var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
-            if (String.IsNullOrEmpty(feedReference.SourceString)) return;
+            if (string.IsNullOrEmpty(feedReference.Source)) return;
             if (!listBoxExtFeeds.Items.Contains(feedReference))
             {
                 listBoxExtFeeds.Items.Add(feedReference);
@@ -758,7 +758,7 @@ namespace ZeroInstall.Publish.WinForms
             var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
             var feedReference = feedReferenceControl.FeedReference;
             if (selectedFeedReferenceIndex < 0) return;
-            if (String.IsNullOrEmpty(feedReference.SourceString)) return;
+            if (String.IsNullOrEmpty(feedReference.Source)) return;
             listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
 
