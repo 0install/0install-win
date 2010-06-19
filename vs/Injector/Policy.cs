@@ -52,12 +52,12 @@ namespace ZeroInstall.Injector
         public Constraint Constraint { get; set; }
         
         /// <summary>
-        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="DownloadBroker.Fetcher.Store"/>; may be <see langword="null"/>.
+        /// A location to search for cached <see cref="IDImplementation"/>s in addition to <see cref="DownloadBroker.Fetcher.Store"/>; may be <see langword="null"/>.
         /// </summary>
         public IStore AdditionalStore { get; set; }
 
         /// <summary>
-        /// The locations to search for cached <see cref="Implementation"/>s.
+        /// The locations to search for cached <see cref="IDImplementation"/>s.
         /// </summary>
         public IStore SearchStore
         {

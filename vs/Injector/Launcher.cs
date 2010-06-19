@@ -122,7 +122,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Lists 
         /// </summary>
-        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         public IEnumerable<Implementation> ListUncachedImplementations()
@@ -147,9 +147,9 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// Downloads any selected <see cref="Implementation"/>s that are missing from the <see cref="Injector.Policy.SearchStore"/>.
+        /// Downloads any selected <see cref="IDImplementation"/>s that are missing from the <see cref="Injector.Policy.SearchStore"/>.
         /// </summary>
-        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
         // ToDo: Add callbacks and make asynchronous
@@ -169,7 +169,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Prepares to run an application.
         /// </summary>
-        /// <returns>An object that allows the main <see cref="Implementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadUncachedImplementations"/> was not called first.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs extensive disk and network IO")]
