@@ -9,13 +9,24 @@ namespace ZeroInstall.DownloadBroker
 {
     public sealed class ArchiveProvider : IDisposable
     {
-        private readonly string _archivePath;
+        private readonly Dictionary<string, string> _hostedFiles;
         private HttpListener _listener;
         private Thread _listenerThread;
 
         public ArchiveProvider(string archive)
         {
-            this._archivePath = archive;
+            _hostedFiles = new Dictionary<string, string>();
+            _hostedFiles.Add("test.zip", archive);
+        }
+
+        public void Add(string name, string archive)
+        {
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (string.IsNullOrEmpty(archive)) throw new ArgumentNullException("archive");
+
+            if (!File.Exists(archive)) throw new IOException(archive + ": File not found");
+
+            _hostedFiles.Add(name, archive);
         }
 
         public void Start()
@@ -39,7 +50,23 @@ namespace ZeroInstall.DownloadBroker
             { return; }
             catch (InvalidOperationException)
             { return; }
-            byte[] data = File.ReadAllBytes(_archivePath);
+
+            string name = context.Request.Url.LocalPath.Substring("/archives/".Length);
+            string archivePath;
+            _hostedFiles.TryGetValue(name, out archivePath);
+            if (archivePath != null)
+            {
+                AnswerWithFileData(context, archivePath);
+            }
+            else
+            {
+                AnswerWithNotFound(context);
+            }
+        }
+
+        private static void AnswerWithFileData(HttpListenerContext context, string archivePath)
+        {
+            byte[] data = File.ReadAllBytes(archivePath);
             context.Response.ContentLength64 = data.LongLength;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
 
@@ -48,6 +75,12 @@ namespace ZeroInstall.DownloadBroker
                 var responseWriter = new BinaryWriter(responseStream);
                 responseWriter.Write(data);
             }
+        }
+
+        private static void AnswerWithNotFound(HttpListenerContext context)
+        {
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            context.Response.OutputStream.Close();
         }
 
         public void Dispose()
