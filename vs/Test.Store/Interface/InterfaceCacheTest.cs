@@ -34,10 +34,14 @@ namespace ZeroInstall.Store.Feed
         //[Test]
         public void TestGetFeed()
         {
-            var cache = new InterfaceCache();
+            using (var temp = new TemporaryDirectory())
+            {
+                File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
+                File.WriteAllText(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"), "");
 
-            var feed = cache.GetFeed("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
-            Assert.AreEqual(feed.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+                var feed = new InterfaceCache(temp.Path).GetFeed("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+                Assert.AreEqual(feed.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            }
         }
 
         /// <summary>
