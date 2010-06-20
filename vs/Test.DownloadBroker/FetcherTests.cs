@@ -31,6 +31,8 @@ namespace ZeroInstall.DownloadBroker
         private Fetcher _fetcher;
         private string _archiveFile;
         private ArchiveProvider _server;
+        private static readonly string ServerPrefix = "http://localhost:50222/archives/";
+        string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
@@ -42,25 +44,47 @@ namespace ZeroInstall.DownloadBroker
             _archiveFile = Path.Combine(_testFolder.Path, "archive.zip");
             _server = new ArchiveProvider(_archiveFile);
             _server.Start();
+            _oldWorkingDirectory = Environment.CurrentDirectory;
+            Environment.CurrentDirectory = _testFolder.Path;
         }
 
         [TearDown]
         public void TearDown()
         {
+            Environment.CurrentDirectory = _oldWorkingDirectory;
             _server.Dispose();
             _storeDir.Dispose();
             _testFolder.Dispose();
+        }
+
+        private static Archive SynthesizeArchive(string zippedPackage, int offset)
+        {
+            var result = new Archive
+            {
+                StartOffset = offset,
+                MimeType = "application/zip",
+                Size = new FileInfo(zippedPackage).Length - offset,
+                Location = new Uri(ServerPrefix + "test.zip")
+            };
+            return result;
+        }
+
+        private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest)
+        {
+            var archive = SynthesizeArchive(archiveFile, offset);
+            var result = new Implementation
+            {
+                ManifestDigest = digest,
+                Archives = { archive }
+            };
+            return result;
         }
 
         [Test]
         public void ShouldDownloadIntoStore()
         {
             PackageBuilder package = PreparePackageBuilder();
-
-            using (var archiveStream = File.Create(_archiveFile))
-            {
-                package.GeneratePackageArchive(archiveStream);
-            }
+            package.GeneratePackageArchive(_archiveFile);
             Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
@@ -71,11 +95,7 @@ namespace ZeroInstall.DownloadBroker
         public void ShouldRejectRemoteArchiveOfDifferentSize()
         {
             PackageBuilder package = PreparePackageBuilder();
-
-            using (var archiveStream = File.Create(_archiveFile))
-            {
-                package.GeneratePackageArchive(archiveStream);
-            }
+            package.GeneratePackageArchive(_archiveFile);
             Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
             using (var archiveStream = File.Create(_archiveFile))
             {
@@ -98,16 +118,6 @@ namespace ZeroInstall.DownloadBroker
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
-        private static void WritePackageToArchiveWithOffset(PackageBuilder package, string path, int offset)
-        {
-            using (var archiveStream = File.Create(path))
-            {
-                WriteInterferingData(archiveStream);
-                archiveStream.Seek(offset, SeekOrigin.Begin);
-                package.GeneratePackageArchive(archiveStream);
-            }
-        }
-
         private static PackageBuilder PreparePackageBuilder()
         {
             PackageBuilder builder = new PackageBuilder();
@@ -116,6 +126,16 @@ namespace ZeroInstall.DownloadBroker
                 AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
                 AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
             return builder;
+        }
+
+        private static void WritePackageToArchiveWithOffset(PackageBuilder package, string path, int offset)
+        {
+            using (var archiveStream = File.Create(path))
+            {
+                WriteInterferingData(archiveStream);
+                archiveStream.Seek(offset, SeekOrigin.Begin);
+                package.GeneratePackageArchive(archiveStream);
+            }
         }
 
         private static void WriteInterferingData(FileStream archiveStream)
@@ -161,27 +181,52 @@ namespace ZeroInstall.DownloadBroker
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
-        private static Archive SynthesizeArchive(string zippedPackage, int offset)
+        [Test]
+        public void ShouldAddRecipe()
         {
-            var result = new Archive
-                         {
-                             StartOffset = offset,
-                             MimeType = "application/zip",
-                             Size = new FileInfo(zippedPackage).Length - offset,
-                             Location = new Uri("http://localhost:50222/archives/test.zip")
-                         };
-            return result;
-        }
+            var part1 = new PackageBuilder()
+                .AddFile("FILE1", Encoding.UTF8.GetBytes("This file was in part1"));
+            var part2 = new PackageBuilder()
+                .AddFile("FILE2", Encoding.UTF8.GetBytes("This file was in part2"));
+            var merged = new PackageBuilder()
+                .AddFile("FILE1", Encoding.UTF8.GetBytes("This file was in part1"))
+                .AddFile("FILE2", Encoding.UTF8.GetBytes("This file was in part2"));
 
-        private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest)
-        {
-            var archive = SynthesizeArchive(archiveFile, offset);
-            var result = new Implementation
-                         {
-                             ManifestDigest = digest,
-                             Archives = { archive }
-                         };
-            return result;
+            string archiveFile1 = Path.GetFullPath("part1.zip");
+            part1.GeneratePackageArchive(archiveFile1);
+            string archiveFile2 = Path.GetFullPath("part2.zip");
+            part2.GeneratePackageArchive(archiveFile2);
+
+            _server.Add("part1.zip", archiveFile1);
+            _server.Add("part2.zip", archiveFile2);
+
+            var archive1 = new Archive()
+            {
+                MimeType = "application/zip",
+                Size = new FileInfo(archiveFile1).Length,
+                Location = new Uri(ServerPrefix + "part1.zip")
+            };
+
+            var archive2 = new Archive()
+            {
+                MimeType = "application/zip",
+                Size = new FileInfo(archiveFile1).Length,
+                Location = new Uri(ServerPrefix + "part2.zip")
+            };
+
+            var recipe = new Recipe()
+            {
+                Archives = { archive1, archive2 }
+            };
+
+            var implementation = new Implementation()
+            {
+                ManifestDigest = merged.ComputePackageDigest(),
+                Recipes = { recipe }
+            };
+            var request = new FetcherRequest(new List<Implementation> { implementation });
+            _fetcher.RunSync(request);
+            Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
     }
 }

@@ -343,6 +343,17 @@ namespace ZeroInstall.DownloadBroker
             _packageHierarchy.AcceptVisitor(hierarchyExpander);
         }
 
+        public void GeneratePackageArchive(string destination)
+        {
+            using (var output = File.Create(destination))
+            using (var zip = new ZipOutputStream(output) { IsStreamOwner = false })
+            {
+                zip.SetLevel(9);
+                var hierarchyToZip = new HierarchyToZip(zip);
+                _packageHierarchy.AcceptVisitor(hierarchyToZip);
+            }
+        }
+
         public void GeneratePackageArchive(Stream output)
         {
             using (var zip = new ZipOutputStream(output) {IsStreamOwner = false})
