@@ -42,25 +42,28 @@ namespace ZeroInstall.DownloadBroker
         private void Listen()
         {
             HttpListenerContext context;
-            try
+            while (true)
             {
-                context = _listener.GetContext();
-            }
-            catch (HttpListenerException)
-            { return; }
-            catch (InvalidOperationException)
-            { return; }
+                try
+                {
+                    context = _listener.GetContext();
+                }
+                catch (HttpListenerException)
+                { return; }
+                catch (InvalidOperationException)
+                { return; }
 
-            string name = context.Request.Url.LocalPath.Substring("/archives/".Length);
-            string archivePath;
-            _hostedFiles.TryGetValue(name, out archivePath);
-            if (archivePath != null)
-            {
-                AnswerWithFileData(context, archivePath);
-            }
-            else
-            {
-                AnswerWithNotFound(context);
+                string name = context.Request.Url.LocalPath.Substring("/archives/".Length);
+                string archivePath;
+                _hostedFiles.TryGetValue(name, out archivePath);
+                if (archivePath != null)
+                {
+                    AnswerWithFileData(context, archivePath);
+                }
+                else
+                {
+                    AnswerWithNotFound(context);
+                }
             }
         }
 
