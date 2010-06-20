@@ -25,6 +25,7 @@ using System.IO;
 using Common.Download;
 using Common.Helpers;
 using Common.Archive;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
@@ -47,11 +48,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         private List<string> _supportedMimeTypes = new List<string> { "application/zip" };
 
-        /// <summary>
-        /// Path to the downloaded and extracted archive.
-        /// </summary>
-        private string _extractedArchivePath;
-
         #endregion
 
         #region Properties
@@ -64,6 +60,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             get { return _archive; }
             set
             {
+                //TODO if archive isn't a completely new Archive, the controls musst be readonly.
                 _archive = value ?? new Archive();
                 UpdateFormControls();
             }
@@ -99,10 +96,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             comboBoxArchiveFormat.SelectedIndex = 0;
             hintTextBoxArchiveUrl.Text = String.Empty;
             hintTextBoxLocalArchive.Text = String.Empty;
-            hintTextBoxLocalArchive.Enabled = false;
             hintTextBoxStartOffset.Text = String.Empty;
             treeViewExtract.Nodes.Clear();
-            treeViewExtract.Enabled = false;
         }
 
         /// <summary>
@@ -111,7 +106,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
-            if(!String.IsNullOrEmpty(_archive.MimeType)) comboBoxArchiveFormat.SelectedText = _archive.MimeType;
+            if(!String.IsNullOrEmpty(_archive.MimeType)) comboBoxArchiveFormat.Text = _archive.MimeType;
             if (!String.IsNullOrEmpty(_archive.LocationString)) hintTextBoxArchiveUrl.Text = _archive.LocationString;
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
         }
@@ -133,26 +128,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (folderBrowserDialogDownloadPath.ShowDialog() == DialogResult.Cancel) return;
             string fullFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
 
-            // check archive mime types
-            if (comboBoxArchiveFormat.Text == "(auto detect)")
-            {
-                var archiveMimeType = Extractor.GuessMimeType(fileName);
-                if (archiveMimeType == null)
-                {
-                    MessageBox.Show("The archive type of this file is not supported by 0install. Downloading archive abort.");
-                    return;
-                }
-                else if (!_supportedMimeTypes.Contains(archiveMimeType))
-                {
-                    MessageBox.Show(String.Format("The extraction of the {0} format is not yet supported. Please extract the file yourself (e.g with 7zip) and set the path " +
-                        "to the extracted archive in the \"Locale archive\" text box.", archiveMimeType));
-                    return;
-                } else
-                {
-                    comboBoxArchiveFormat.Text = archiveMimeType;
-                }
-            }
-
+            if (!setArchiveMimeType(fileName)) return;
             buttonArchiveDownload.Enabled = false;
             downloadProgressBarArchive.Download = new DownloadFile(url, fullFilePath);
             downloadProgressBarArchive.UseTaskbar = true;
@@ -161,24 +137,66 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
 
         /// <summary>
-        /// Does a depth search for every subdirectory of <paramref name="rootDirectory"/> and adds new <see cref="TreeNode"/>s as subnodes for <paramref name="rootNode"/> for it. 
+        /// Guesses the mime type of <paramref name="fileName"/> if in <see cref="comboBoxArchiveFormat"/> is chose "(auto detect)".
+        /// Sets the guessed mime type in <see cref="comboBoxArchiveType"/>.
+        /// Shows a <see cref="MessageBox"/> if mime type is not supported.
         /// </summary>
-        /// <param name="rootDirectory">Directory to start depth search..</param>
-        /// <param name="rootNode">Node to add the new <see cref="TreeNode"/>s.</param>
-        private void fillTreeViewExtract(DirectoryInfo rootDirectory, TreeNode rootNode)
+        /// <param name="fileName">file to guess the mime type for.</param>
+        /// <returns>true, if mime type is supported by 0install.</returns>
+        private bool setArchiveMimeType(string fileName)
         {
-            if (rootDirectory.GetDirectories().Length == 0)
-                return;
-            else
+            if (comboBoxArchiveFormat.Text == "(auto detect)")
             {
-                foreach (var directory in rootDirectory.GetDirectories())
+                var archiveMimeType = Extractor.GuessMimeType(fileName);
+                if (archiveMimeType == null)
                 {
-                    var treeNode = new TreeNode(directory.Name);
-                    rootNode.Nodes.Add(treeNode);
-                    fillTreeViewExtract(directory, treeNode);
+                    MessageBox.Show("The archive type of this file is not supported by 0install. Downloading archive abort.");
+                    return false;
+                }
+                else if (!_supportedMimeTypes.Contains(archiveMimeType))
+                {
+                    MessageBox.Show(String.Format("The extraction of the {0} format is not yet supported. Please extract the file yourself (e.g with 7zip) and set the path " +
+                        "to the extracted archive in the \"Locale archive\" text box.", archiveMimeType));
+                    return false;
+                }
+                else
+                {
+                    comboBoxArchiveFormat.Text = archiveMimeType;
+                    return true;
                 }
             }
-            
+            return true;
+        }
+
+        /// <summary>
+        /// Gets the directory structur of the archive in <param name="archivePath" /> and shows it in <see cref="treeViewExtract"/>.
+        /// </summary>
+        private void fillTreeViewExtract(string archivePath)
+        {
+            treeViewExtract.Nodes.Clear();
+            long startOffset;
+            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+            if (startOffset < 0) startOffset = 0;
+            using (var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archivePath, startOffset, null))
+            {
+                var archiveContentList = (List<string>)archiveExtractor.ListDirectories();
+                treeViewExtract.Nodes.Add(new TreeNode("Archive"));
+                var currentNode = treeViewExtract.TopNode;
+                foreach (var entry in archiveContentList)
+                {
+                    var splitEntry = entry.Split(Path.DirectorySeparatorChar);
+                    for (int i = 0; i < splitEntry.Length; i++)
+                    {
+                        if (splitEntry[i] == String.Empty) continue;
+                        if (currentNode.Nodes.ContainsKey(splitEntry[i]))
+                            currentNode = currentNode.Nodes[splitEntry[i]];
+                        else
+                            currentNode = currentNode.Nodes.Add(splitEntry[i], splitEntry[i]);
+                    }
+                    currentNode = treeViewExtract.TopNode;
+                }
+            }
+            treeViewExtract.ExpandAll();
         }
 
         /// <summary>
@@ -190,32 +208,15 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void buttonOK_Click(object sender, EventArgs e)
         {
             long startOffset;
+            Uri uri;
+            
+            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+            if(startOffset > 0) _archive.StartOffset = startOffset;
 
-            if (!String.IsNullOrEmpty(comboBoxArchiveFormat.Text)) _archive.MimeType = comboBoxArchiveFormat.Text;
-            //TODO isUrl check
-            if (!String.IsNullOrEmpty(hintTextBoxArchiveUrl.Text)) _archive.LocationString = hintTextBoxArchiveUrl.Text;
+            if (comboBoxArchiveFormat.Text != "(auto detect)") _archive.MimeType = comboBoxArchiveFormat.Text;
+            if (isValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
 
-            // set _manifestDigest
-            /*_manifestDigest = new ManifestDigest(
-                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha1Old).CalculateDigest(),
-                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha1New).CalculateDigest(),
-                Manifest.Generate(_extractedArchivePath.Path, ManifestFormat.Sha256).CalculateDigest());
-            */
-            if (long.TryParse(hintTextBoxStartOffset.Text, out startOffset)) _archive.StartOffset = startOffset;
-
-            // follow the selected node from treeViewExtract up to the parent node and remember the passed directories to fill _archive.Extract .
-            if (treeViewExtract.SelectedNode != null)
-            {
-                var selectedNode = treeViewExtract.SelectedNode;
-                var extractPath = new StringBuilder();
-
-                do
-                {
-                    extractPath.Insert(0, selectedNode.Text + "/");
-                    selectedNode = selectedNode.Parent;
-                } while (selectedNode != null);
-                _archive.Extract = extractPath.ToString();
-            }
+            _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
             buttonCancel_Click(null, null);
         }
 
@@ -237,26 +238,29 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void hintTextBoxArchiveUrl_TextChanged(object sender, EventArgs e)
-        {
+        {          
             Uri uri;
-            if (Uri.TryCreate(hintTextBoxArchiveUrl.Text, UriKind.Absolute, out uri))
+            if(isValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri))
             {
-                if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeFtp || uri.Scheme == Uri.UriSchemeHttps)
-                {
-                    hintTextBoxArchiveUrl.ForeColor = Color.Green;
-                    buttonArchiveDownload.Enabled = true;
-                }
-                else
-                {
-                    hintTextBoxArchiveUrl.ForeColor = Color.Red;
-                    buttonArchiveDownload.Enabled = false;
-                }
-            }
-            else
-            {
+                hintTextBoxArchiveUrl.ForeColor = Color.Green;
+                buttonArchiveDownload.Enabled = true;
+            } else {
                 hintTextBoxArchiveUrl.ForeColor = Color.Red;
                 buttonArchiveDownload.Enabled = false;
             }
+        }
+
+        private bool isValidArchiveUrl(string prooveUrl, out Uri uri)
+        {
+            if (Uri.TryCreate(prooveUrl, UriKind.Absolute, out uri))
+            {
+                if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeFtp || uri.Scheme == Uri.UriSchemeHttps)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return false;
         }
 
         /// <summary>
@@ -277,34 +281,15 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                     case DownloadState.GettingHeaders: labelArchiveDownloadMessages.Text = "Getting headers"; break;
                     case DownloadState.GettingData: labelArchiveDownloadMessages.Text = "Getting data"; break;
                     case DownloadState.IOError:
-                    case DownloadState.WebError: labelArchiveDownloadMessages.Text = sender.ErrorMessage; break;
+                    case DownloadState.WebError:
+                        labelArchiveDownloadMessages.Text = "Error!";
+                        MessageBox.Show(sender.ErrorMessage);
+                        buttonArchiveDownload.Enabled = true;
+                        break;
                     case DownloadState.Complete:
                         hintTextBoxLocalArchive.Text = sender.Target;
-
-                        labelArchiveDownloadMessages.Text = "Extracting archive...";
-                        try {
-                            var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, sender.Target, 0, null);
-                            var archiveContentList = (List<string>) archiveExtractor.ListContent();
-                            treeViewExtract.Nodes.Clear();
-                            
-                            // TODO fill treeView
-
-                            /*foreach (var entry in archiveContentList)
-                            {
-                                treeViewExtract.Nodes.Add(new TreeNode(entry));
-                            }*/
-                            treeViewExtract.ExpandAll();
-                            _extractedArchivePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, Path.GetFileName(sender.Target) + "_extracted");
-                            archiveExtractor.Extract(_extractedArchivePath);
-
-                        } catch(IOException e) {
-                            MessageBox.Show(e.Message);
-                            return;
-                        } catch(AccessViolationException e) {
-                            MessageBox.Show(e.Message);
-                            return;
-                        }
-
+                        fillTreeViewExtract(sender.Target);
+                        buttonArchiveDownload.Enabled = true;
                         break;
                 }
             });
@@ -315,31 +300,60 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             Owner.Enabled = true;
         }
 
-        /*private void button1_Click(object sender, EventArgs e)
+        private void hintTextBoxStartOffset_TextChanged(object sender, EventArgs e)
         {
-            using (var archiveExtractor = Extractor.CreateExtractor("application/zip", @"C:\Users\Simon\Downloads\bla.zip", 0, null))
+            if(String.IsNullOrEmpty(hintTextBoxStartOffset.Text)) return;
+            long dummy;
+            hintTextBoxStartOffset.ForeColor = long.TryParse(hintTextBoxStartOffset.Text, out dummy) ? Color.Green : Color.Red;
+        }
+
+        private void buttonChooseArchive_Click(object sender, EventArgs e)
+        {
+            if (openFileDialogLocalArchive.ShowDialog() == DialogResult.Cancel) return;
+            if (!setArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
+            hintTextBoxLocalArchive.Text = openFileDialogLocalArchive.FileName;
+            fillTreeViewExtract(hintTextBoxLocalArchive.Text);
+        }
+
+        private void buttonExtractArchive_Click(object sender, EventArgs e)
+        {
+            buttonOK.Enabled = false;
+
+            string archive = hintTextBoxLocalArchive.Text;
+            long startOffset;
+            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+            if (startOffset < 0) startOffset = 0;
+
+            treeViewExtract.PathSeparator = Path.DirectorySeparatorChar.ToString();
+            string extract = treeViewExtract.SelectedNode.FullPath.Substring(8);
+            treeViewExtract.PathSeparator = "/";
+
+            string extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive), Path.GetFileName(archive) + "_extracted");
+
+            labelExtractArchive.Text = "Extracting...";
+            try
             {
-                var archiveContentList = (List<string>)archiveExtractor.ListContent();
-                treeViewExtract.Nodes.Clear();
-                treeViewExtract.Nodes.Add(new TreeNode("Archive"));
-                var currentNode = treeViewExtract.TopNode;
-                foreach (var entry in archiveContentList)
-                {
-                    var splitEntry = entry.Split(Path.DirectorySeparatorChar);
-                    for (int i = 0; i < splitEntry.Length; i++)
-                    {
-                        //var newNode = new TreeNode(splitEntry[i]);
-                        if (currentNode.Nodes.ContainsKey(splitEntry[i]))
-                            currentNode = currentNode.Nodes[splitEntry[i]];
-                        else 
-                            currentNode = currentNode.Nodes.Add(entry, splitEntry[i]);
-                        //currentNode = newNode;
-                    }
-                    currentNode = treeViewExtract.TopNode;
-                }
-                treeViewExtract.ExpandAll();
-                treeViewExtract.Enabled = true;
+                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extract);
+                archiveExtractor.Extract(extractedArchivePath);
             }
-        }*/
+            catch (IOException err)
+            {
+                MessageBox.Show(err.Message);
+                labelExtractArchive.Text = "Error!";
+                return;
+            }
+            catch (AccessViolationException err)
+            {
+                MessageBox.Show(err.Message);
+                labelExtractArchive.Text = "Error!";
+                return;
+            }
+
+            _manifestDigest = Manifest.CreateDigest(extractedArchivePath);
+            _archive.Extract = treeViewExtract.SelectedNode.FullPath.Substring(7);
+
+            labelExtractArchive.Text = "Archive extracted.";
+            buttonOK.Enabled = true;
+        }
     }
 }

@@ -46,11 +46,16 @@
             this.labelArchiveDownloadMessages = new System.Windows.Forms.Label();
             this.downloadProgressBarArchive = new Common.Controls.DownloadProgressBar();
             this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.buttonChooseArchive = new System.Windows.Forms.Button();
+            this.buttonExtractArchive = new System.Windows.Forms.Button();
+            this.labelExtractArchive = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(197, 392);
+            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonOK.Enabled = false;
+            this.buttonOK.Location = new System.Drawing.Point(197, 418);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -60,8 +65,9 @@
             // 
             // buttonCancel
             // 
+            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(116, 392);
+            this.buttonCancel.Location = new System.Drawing.Point(116, 418);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 1;
@@ -100,7 +106,7 @@
             // buttonArchiveDownload
             // 
             this.buttonArchiveDownload.Enabled = false;
-            this.buttonArchiveDownload.Location = new System.Drawing.Point(197, 95);
+            this.buttonArchiveDownload.Location = new System.Drawing.Point(197, 130);
             this.buttonArchiveDownload.Name = "buttonArchiveDownload";
             this.buttonArchiveDownload.Size = new System.Drawing.Size(75, 23);
             this.buttonArchiveDownload.TabIndex = 5;
@@ -110,12 +116,12 @@
             // 
             // openFileDialogLocalArchive
             // 
-            this.openFileDialogLocalArchive.FileName = "openFileDialog1";
+            this.openFileDialogLocalArchive.Title = "Choose local archive";
             // 
             // labelLocalArchive
             // 
             this.labelLocalArchive.AutoSize = true;
-            this.labelLocalArchive.Location = new System.Drawing.Point(12, 162);
+            this.labelLocalArchive.Location = new System.Drawing.Point(12, 153);
             this.labelLocalArchive.Name = "labelLocalArchive";
             this.labelLocalArchive.Size = new System.Drawing.Size(71, 13);
             this.labelLocalArchive.TabIndex = 6;
@@ -124,7 +130,7 @@
             // labelArchiveUrl
             // 
             this.labelArchiveUrl.AutoSize = true;
-            this.labelArchiveUrl.Location = new System.Drawing.Point(12, 53);
+            this.labelArchiveUrl.Location = new System.Drawing.Point(12, 88);
             this.labelArchiveUrl.Name = "labelArchiveUrl";
             this.labelArchiveUrl.Size = new System.Drawing.Size(57, 13);
             this.labelArchiveUrl.TabIndex = 8;
@@ -133,7 +139,7 @@
             // labelStartOffset
             // 
             this.labelStartOffset.AutoSize = true;
-            this.labelStartOffset.Location = new System.Drawing.Point(12, 201);
+            this.labelStartOffset.Location = new System.Drawing.Point(12, 49);
             this.labelStartOffset.Name = "labelStartOffset";
             this.labelStartOffset.Size = new System.Drawing.Size(58, 13);
             this.labelStartOffset.TabIndex = 10;
@@ -142,7 +148,7 @@
             // labelStartOffsetBytes
             // 
             this.labelStartOffsetBytes.AutoSize = true;
-            this.labelStartOffsetBytes.Location = new System.Drawing.Point(239, 220);
+            this.labelStartOffsetBytes.Location = new System.Drawing.Point(239, 68);
             this.labelStartOffsetBytes.Name = "labelStartOffsetBytes";
             this.labelStartOffsetBytes.Size = new System.Drawing.Size(33, 13);
             this.labelStartOffsetBytes.TabIndex = 11;
@@ -150,15 +156,17 @@
             // 
             // treeViewExtract
             // 
-            this.treeViewExtract.Location = new System.Drawing.Point(15, 256);
+            this.treeViewExtract.Location = new System.Drawing.Point(12, 237);
             this.treeViewExtract.Name = "treeViewExtract";
-            this.treeViewExtract.Size = new System.Drawing.Size(257, 98);
+            this.treeViewExtract.PathSeparator = "/";
+            this.treeViewExtract.ShowRootLines = false;
+            this.treeViewExtract.Size = new System.Drawing.Size(260, 98);
             this.treeViewExtract.TabIndex = 12;
             // 
             // labelExtract
             // 
             this.labelExtract.AutoSize = true;
-            this.labelExtract.Location = new System.Drawing.Point(12, 240);
+            this.labelExtract.Location = new System.Drawing.Point(12, 221);
             this.labelExtract.Name = "labelExtract";
             this.labelExtract.Size = new System.Drawing.Size(66, 13);
             this.labelExtract.TabIndex = 13;
@@ -167,23 +175,25 @@
             // hintTextBoxStartOffset
             // 
             this.hintTextBoxStartOffset.HintText = "";
-            this.hintTextBoxStartOffset.Location = new System.Drawing.Point(15, 217);
+            this.hintTextBoxStartOffset.Location = new System.Drawing.Point(15, 65);
             this.hintTextBoxStartOffset.Name = "hintTextBoxStartOffset";
             this.hintTextBoxStartOffset.Size = new System.Drawing.Size(218, 20);
             this.hintTextBoxStartOffset.TabIndex = 9;
+            this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.hintTextBoxStartOffset_TextChanged);
             // 
             // hintTextBoxLocalArchive
             // 
             this.hintTextBoxLocalArchive.HintText = "";
-            this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(15, 178);
+            this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(15, 169);
             this.hintTextBoxLocalArchive.Name = "hintTextBoxLocalArchive";
+            this.hintTextBoxLocalArchive.ReadOnly = true;
             this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(257, 20);
             this.hintTextBoxLocalArchive.TabIndex = 7;
             // 
             // hintTextBoxArchiveUrl
             // 
             this.hintTextBoxArchiveUrl.HintText = "";
-            this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(15, 69);
+            this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(15, 104);
             this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
             this.hintTextBoxArchiveUrl.Size = new System.Drawing.Size(257, 20);
             this.hintTextBoxArchiveUrl.TabIndex = 4;
@@ -192,7 +202,7 @@
             // labelArchiveDownloadMessages
             // 
             this.labelArchiveDownloadMessages.AutoSize = true;
-            this.labelArchiveDownloadMessages.Location = new System.Drawing.Point(12, 105);
+            this.labelArchiveDownloadMessages.Location = new System.Drawing.Point(12, 140);
             this.labelArchiveDownloadMessages.Name = "labelArchiveDownloadMessages";
             this.labelArchiveDownloadMessages.Size = new System.Drawing.Size(0, 13);
             this.labelArchiveDownloadMessages.TabIndex = 15;
@@ -200,7 +210,7 @@
             // downloadProgressBarArchive
             // 
             this.downloadProgressBarArchive.Download = null;
-            this.downloadProgressBarArchive.Location = new System.Drawing.Point(15, 95);
+            this.downloadProgressBarArchive.Location = new System.Drawing.Point(15, 130);
             this.downloadProgressBarArchive.Name = "downloadProgressBarArchive";
             this.downloadProgressBarArchive.Size = new System.Drawing.Size(176, 10);
             this.downloadProgressBarArchive.TabIndex = 16;
@@ -211,13 +221,44 @@
             this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
             this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
             // 
+            // buttonChooseArchive
+            // 
+            this.buttonChooseArchive.Location = new System.Drawing.Point(181, 195);
+            this.buttonChooseArchive.Name = "buttonChooseArchive";
+            this.buttonChooseArchive.Size = new System.Drawing.Size(91, 23);
+            this.buttonChooseArchive.TabIndex = 17;
+            this.buttonChooseArchive.Text = "Choose Archive";
+            this.buttonChooseArchive.UseVisualStyleBackColor = true;
+            this.buttonChooseArchive.Click += new System.EventHandler(this.buttonChooseArchive_Click);
+            // 
+            // buttonExtractArchive
+            // 
+            this.buttonExtractArchive.Location = new System.Drawing.Point(181, 341);
+            this.buttonExtractArchive.Name = "buttonExtractArchive";
+            this.buttonExtractArchive.Size = new System.Drawing.Size(91, 23);
+            this.buttonExtractArchive.TabIndex = 19;
+            this.buttonExtractArchive.Text = "Extract archive";
+            this.buttonExtractArchive.UseVisualStyleBackColor = true;
+            this.buttonExtractArchive.Click += new System.EventHandler(this.buttonExtractArchive_Click);
+            // 
+            // labelExtractArchive
+            // 
+            this.labelExtractArchive.AutoSize = true;
+            this.labelExtractArchive.Location = new System.Drawing.Point(12, 346);
+            this.labelExtractArchive.Name = "labelExtractArchive";
+            this.labelExtractArchive.Size = new System.Drawing.Size(0, 13);
+            this.labelExtractArchive.TabIndex = 20;
+            // 
             // ArchiveForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(284, 460);
+            this.ClientSize = new System.Drawing.Size(284, 453);
+            this.Controls.Add(this.labelExtractArchive);
+            this.Controls.Add(this.buttonExtractArchive);
+            this.Controls.Add(this.buttonChooseArchive);
             this.Controls.Add(this.downloadProgressBarArchive);
             this.Controls.Add(this.labelArchiveDownloadMessages);
             this.Controls.Add(this.labelExtract);
@@ -264,5 +305,8 @@
         private System.Windows.Forms.Label labelArchiveDownloadMessages;
         private Common.Controls.DownloadProgressBar downloadProgressBarArchive;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
+        private System.Windows.Forms.Button buttonChooseArchive;
+        private System.Windows.Forms.Button buttonExtractArchive;
+        private System.Windows.Forms.Label labelExtractArchive;
     }
 }
