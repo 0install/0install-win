@@ -322,10 +322,22 @@ namespace ZeroInstall.DownloadBroker
         public PackageBuilder AddFile(string name, byte[] content)
         { return AddFile(name, content, defaultDate); }
 
+        public PackageBuilder AddFile(string name, string content)
+        {
+            byte[] contentData = Encoding.UTF8.GetBytes(content);
+            return AddFile(name, contentData);
+        }
+
         public PackageBuilder AddFile(string name, byte[] content, DateTime lastWrite)
         {
             _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, false, lastWrite));
             return this;
+        }
+
+        public PackageBuilder AddFile(string name, string content, DateTime lastWrite)
+        {
+            byte[] contentData = Encoding.UTF8.GetBytes(content);
+            return AddFile(name, contentData, lastWrite);
         }
 
         public PackageBuilder AddExecutable(string name, byte[] content)

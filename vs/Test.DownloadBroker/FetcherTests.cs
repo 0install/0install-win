@@ -123,8 +123,8 @@ namespace ZeroInstall.DownloadBroker
         {
             PackageBuilder builder = new PackageBuilder();
 
-            builder.AddFile("file1", Encoding.UTF8.GetBytes(@"AAAA")).
-                AddFolder("folder1").AddFile("file2", Encoding.UTF8.GetBytes(@"dskf\nsdf\n")).
+            builder.AddFile("file1", @"AAAA").
+                AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
                 AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
             return builder;
         }
@@ -186,12 +186,12 @@ namespace ZeroInstall.DownloadBroker
         public void ShouldAddRecipe()
         {
             var part1 = new PackageBuilder()
-                .AddFile("FILE1", Encoding.UTF8.GetBytes("This file was in part1"));
+                .AddFile("FILE1", "This file was in part1");
             var part2 = new PackageBuilder()
-                .AddFile("FILE2", Encoding.UTF8.GetBytes("This file was in part2"));
+                .AddFile("FILE2", "This file was in part2");
             var merged = new PackageBuilder()
-                .AddFile("FILE1", Encoding.UTF8.GetBytes("This file was in part1"))
-                .AddFile("FILE2", Encoding.UTF8.GetBytes("This file was in part2"));
+                .AddFile("FILE1", "This file was in part1")
+                .AddFile("FILE2", "This file was in part2");
 
             string archiveFile1 = Path.GetFullPath("part1.zip");
             part1.GeneratePackageArchive(archiveFile1);

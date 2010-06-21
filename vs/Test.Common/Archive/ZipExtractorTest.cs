@@ -4,6 +4,7 @@ using NUnit.Framework;
 using ZeroInstall.DownloadBroker;
 using System.IO;
 using ZeroInstall.Store.Utilities;
+using System.Collections.Generic;
 
 namespace Common.Archive
 {
@@ -18,21 +19,35 @@ namespace Common.Archive
         [SetUp]
         public void SetUp()
         {
+            var packageBuilder = BuildSamplePackageHierarchy();
+            GenerateArchiveDataFromPackage(packageBuilder);
+            SetUpSandboxFolder();
+        }
+
+        private PackageBuilder BuildSamplePackageHierarchy()
+        {
             var packageBuilder = new PackageBuilder()
-                .AddFile("file1", Encoding.ASCII.GetBytes("First file"))
+                .AddFile("file1", "First file")
                 .AddFile("file2", new byte[] { });
             packageBuilder.AddFolder("emptyFolder");
             packageBuilder.AddFolder("folder1")
-                .AddFile("nestedFile", Encoding.ASCII.GetBytes("File 3\n"))
-                .AddFolder("nestedFolder").AddFile("doublyNestedFile", Encoding.ASCII.GetBytes("File 4"));
+                .AddFile("nestedFile", "File 3\n")
+                .AddFolder("nestedFolder").AddFile("doublyNestedFile", "File 4");
             _package = packageBuilder.Hierarchy;
+            return packageBuilder;
+        }
 
+        private void GenerateArchiveDataFromPackage(PackageBuilder packageBuilder)
+        {
             using (var archiveStream = new MemoryStream())
             {
                 packageBuilder.GeneratePackageArchive(archiveStream);
                 _archiveData = archiveStream.ToArray();
             }
+        }
 
+        private void SetUpSandboxFolder()
+        {
             _sandbox = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-Basic"));
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _sandbox.Path;
@@ -41,8 +56,24 @@ namespace Common.Archive
         [TearDown]
         public void TearDown()
         {
+            TearDownSandboxFolder();
+        }
+
+        private void TearDownSandboxFolder()
+        {
             Environment.CurrentDirectory = _oldWorkingDirectory;
             _sandbox.Dispose();
+        }
+
+        [Test]
+        public void ExtractionIntoFolder()
+        {
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0))
+                extractor.Extract("extractedArchive", null);
+
+            Assert.IsTrue(Directory.Exists("extractedArchive"));
+            var comparer = new CompareHierarchyToExtractedFolder("extractedArchive");
+            _package.AcceptVisitor(comparer);
         }
 
         class CompareHierarchyToExtractedFolder : HierarchyVisitor
@@ -56,38 +87,24 @@ namespace Common.Archive
 
             public override void VisitFile(FileEntry entry)
             {
-                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
-                var fileEntry = (FileEntry)entry;
-                Assert.IsTrue(File.Exists(extractedPosition));
+                string extractedPosition = Path.Combine(folder, entry.RelativePath);
+                Assert.IsTrue(File.Exists(extractedPosition), "File " + extractedPosition + " does not exist.");
                 byte[] fileData = File.ReadAllBytes(extractedPosition);
-                Assert.AreEqual(fileEntry.Content, fileData);
+                Assert.AreEqual(entry.Content, fileData, "Different content in file " + extractedPosition);
             }
 
             public override void VisitFolder(FolderEntry entry)
             {
-                string extractedPosition = Path.Combine("extractedArchive", entry.RelativePath);
-                Assert.IsTrue(Directory.Exists(extractedPosition));
+                string extractedPosition = Path.Combine(folder, entry.RelativePath);
+                Assert.IsTrue(Directory.Exists(extractedPosition), "Directory " + extractedPosition + " does not exist.");
                 visitChildren(entry);
             }
         }
 
         [Test]
-        public void ExtractionIntoFolder()
-        {
-            File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
-                extractor.Extract("extractedArchive", null);
-
-            Assert.IsTrue(Directory.Exists("extractedArchive"));
-            var comparer = new CompareHierarchyToExtractedFolder("extractedArchive");
-            _package.AcceptVisitor(comparer);
-        }
-
-        [Test]
         public void ExtractionOfSubDir()
         {
-            File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0))
                 extractor.Extract("extractedArchive", "folder1");
 
             Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "folder1")));
@@ -96,23 +113,36 @@ namespace Common.Archive
         }
 
         [Test]
+        public void TestExtractOverwritingExistingItems()
+        {
+            Directory.CreateDirectory("destination");
+            File.WriteAllText("destination/file1", "Wrong content");
+            File.WriteAllText("destination/file0", "This file should not be touched");
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0))
+                extractor.Extract("destination", null);
+
+            Assert.IsTrue(File.Exists("destination/file0"), "Extractor cleaned directory.");
+            string file0Content = File.ReadAllText("destination/file0");
+            Assert.AreEqual("This file should not be touched", file0Content);
+            var comparer = new CompareHierarchyToExtractedFolder("destination");
+            _package.AcceptVisitor(comparer);
+        }
+
+        [Test]
         public void TestListContent()
         {
-            File.WriteAllBytes("a.zip", _archiveData);
-            using(var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0)) {
-                var entryList = new System.Collections.Generic.List<string> { "file1", "file2", "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
+            using(var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0)) {
+                var entryList = new List<string> { "file1", "file2", "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFile", "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar + "doublyNestedFile" };
 
-                var archiveContentList = (System.Collections.Generic.List<string>) extractor.ListContent();
+                var archiveContentList = (List<string>)extractor.ListContent();
 
-                // have entry list and archive content the same amount of entries?
-                Assert.IsTrue(entryList.Count == archiveContentList.Count);
+                Assert.IsTrue(entryList.Count == archiveContentList.Count, "Extractor listed wrong number of entries.");
 
-                // is every file/directory in entryList in the archive?
                 foreach (string entry in entryList)
                 {
-                    Assert.IsTrue(archiveContentList.Contains(entry));
+                    Assert.IsTrue(archiveContentList.Contains(entry), "Extractor did not list archive entry: " + entry);
                 }                
             }
         }
@@ -120,21 +150,18 @@ namespace Common.Archive
         [Test]
         public void TestListDirectories()
         {
-            File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0))
             {
-                var entryList = new System.Collections.Generic.List<string> { "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
+                var entryList = new List<string> { "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar };
                 
-                var archiveContentList = (System.Collections.Generic.List<string>)extractor.ListDirectories();
+                var archiveContentList = (List<string>)extractor.ListDirectories();
 
-                // have entry list and archive content the same amount of entries?
-                Assert.IsTrue(entryList.Count == archiveContentList.Count);
+                 Assert.IsTrue(entryList.Count == archiveContentList.Count, "Extractor listed wrong number of directories.");
 
-                // is every file/directory in entryList in the archive?
                 foreach (string entry in entryList)
                 {
-                    Assert.IsTrue(archiveContentList.Contains(entry));
+                    Assert.IsTrue(archiveContentList.Contains(entry), "Extractor did not list archive subdirectory: " + entry);
                 }   
             }
         }
