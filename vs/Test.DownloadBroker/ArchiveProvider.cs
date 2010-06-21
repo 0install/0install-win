@@ -7,11 +7,22 @@ using System.Threading;
 
 namespace ZeroInstall.DownloadBroker
 {
+    public sealed class AcceptEventArgs : EventArgs
+    {
+        public HttpListenerContext Context
+        {
+            get;
+            internal set;
+        }
+    }
+
     public sealed class ArchiveProvider : IDisposable
     {
         private readonly Dictionary<string, string> _hostedFiles;
         private HttpListener _listener;
         private Thread _listenerThread;
+
+        public event EventHandler<AcceptEventArgs> Accept;
 
         public ArchiveProvider(string archive)
         {
@@ -53,6 +64,13 @@ namespace ZeroInstall.DownloadBroker
                 catch (InvalidOperationException)
                 { return; }
 
+                try
+                {
+                    Accept(this, new AcceptEventArgs() { Context = context });
+                }
+                catch (Exception)
+                { }
+
                 string name = context.Request.Url.LocalPath.Substring("/archives/".Length);
                 string archivePath;
                 _hostedFiles.TryGetValue(name, out archivePath);
@@ -72,7 +90,7 @@ namespace ZeroInstall.DownloadBroker
             byte[] data = File.ReadAllBytes(archivePath);
             context.Response.ContentLength64 = data.LongLength;
             context.Response.StatusCode = (int)HttpStatusCode.OK;
-
+            
             using (var responseStream = context.Response.OutputStream)
             {
                 var responseWriter = new BinaryWriter(responseStream);

@@ -95,6 +95,7 @@ namespace ZeroInstall.DownloadBroker
                     foreach (var currentArchive in recipe.Archives)
                     {
                         string tempArchive = Path.GetTempFileName();
+
                         FetchArchive(currentArchive, tempArchive);
                         archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
@@ -107,6 +108,9 @@ namespace ZeroInstall.DownloadBroker
 
         private static void FetchArchive(Archive archive, string destination)
         {
+            if (archive.StartOffset != 0)
+                WriteNullsIntoIgnoredPartOfFile(archive, destination);
+
             var downloadFile = new DownloadFile(archive.Location, destination);
 
             RejectRemoteFileOfDifferentSize(archive, downloadFile);
@@ -119,6 +123,15 @@ namespace ZeroInstall.DownloadBroker
             {
                 File.Delete(destination);
                 throw;
+            }
+        }
+
+        private static void WriteNullsIntoIgnoredPartOfFile(Archive archive, string destination)
+        {
+            using (var tempArchiveStream = File.Create(destination))
+            {
+                tempArchiveStream.Seek(archive.StartOffset - 1, SeekOrigin.Begin);
+                tempArchiveStream.WriteByte(0);
             }
         }
 

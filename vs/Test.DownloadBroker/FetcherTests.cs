@@ -9,6 +9,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Utilities;
 using System.Text;
 using System.Reflection;
+using System.Net;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -227,6 +228,30 @@ namespace ZeroInstall.DownloadBroker
             var request = new FetcherRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
+        }
+
+        [Test]
+        public void ShouldSkipStartOffsetIfPossible()
+        {
+            const int ArchiveOffset = 0x1000;
+            PackageBuilder package = PreparePackageBuilder();
+            WritePackageToArchiveWithOffset(package, _archiveFile, ArchiveOffset);
+            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, package.ComputePackageDigest());
+
+            bool suppliedRangeToDownload = false;
+
+            _server.Accept += delegate(object sender, AcceptEventArgs eventArgs)
+            {
+                if (eventArgs.Context.Request != null)
+                {
+                    string httpRange = eventArgs.Context.Request.Headers["Range"];
+                    suppliedRangeToDownload = httpRange == "bytes=" + ArchiveOffset.ToString() + "-";
+                }
+            };
+
+            var request = new FetcherRequest(new List<Implementation> { implementation });
+            _fetcher.RunSync(request);
+            Assert.IsTrue(suppliedRangeToDownload, "The Fetcher must use a range to download only part of the file");
         }
     }
 }
