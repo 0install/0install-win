@@ -20,11 +20,6 @@ namespace Common.Archive
         /// The number of bytes at the beginning of the stream which should be ignored.
         /// </summary>
         public long StartOffset { get; private set; }
-
-        /// <summary>
-        /// The sub-directory within the archive to extract; may be <see langword="null"/>.
-        /// </summary>
-        public string SubDir { get; private set; }
         #endregion
 
         #region Constructor
@@ -32,9 +27,11 @@ namespace Common.Archive
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
         /// <param name="archive">The stream containing the archive data.</param>
-        protected Extractor(Stream archive)
+        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        protected Extractor(Stream archive, long startOffset)
         {
             Stream = archive;
+            StartOffset = startOffset;
         }
         #endregion
 
@@ -45,10 +42,9 @@ namespace Common.Archive
         /// <param name="mimeType">The MIME type of archive format of the stream; must not be <see langword="null"/>.</param>
         /// <param name="stream">TThe stream containing the archive data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
-        /// <param name="subDir">The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string mimeType, Stream stream, long startOffset, string subDir)
+        public static Extractor CreateExtractor(string mimeType, Stream stream, long startOffset)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -59,13 +55,9 @@ namespace Common.Archive
             Extractor extractor;
             switch (mimeType)
             {
-                case "application/zip": extractor = new ZipExtractor(stream); break;
+                case "application/zip": extractor = new ZipExtractor(stream, startOffset); break;
                 default: throw new NotSupportedException(Resources.UnknownMimeType);
             }
-
-            // Set additional options
-            extractor.StartOffset = startOffset;
-            extractor.SubDir = (subDir == "." ? "" : subDir);
 
             return extractor;
         }
@@ -76,12 +68,11 @@ namespace Common.Archive
         /// <param name="mimeType">The MIME type of archive format of the file; <see langword="null"/> to guess.</param>
         /// <param name="path">The file to be extracted.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the file which should be ignored.</param>
-        /// <param name="subDir">The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string mimeType, string path, long startOffset, string subDir)
+        public static Extractor CreateExtractor(string mimeType, string path, long startOffset)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -90,7 +81,7 @@ namespace Common.Archive
             // Try to guess missing MIME type
             if (string.IsNullOrEmpty(mimeType)) mimeType = GuessMimeType(path);
 
-            return CreateExtractor(mimeType, File.OpenRead(path), startOffset, subDir);
+            return CreateExtractor(mimeType, File.OpenRead(path), startOffset);
         }
         #endregion
 
@@ -138,11 +129,12 @@ namespace Common.Archive
 
         #region Extraction
         /// <summary>
-        /// Extracts the content of an archive to a directory on the disk.
+        /// Extracts the content of a sub-directory inside an archive to a directory on the disk.
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
+        /// <param name="subDir">The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.</param>
         /// <exception cref="IOException">Thrown if the archive is not usable, e.g. if it contains references to '..'.</exception>
-        public abstract void Extract(string target);
+        public abstract void Extract(string target, string subDir);
         #endregion
 
         //--------------------//

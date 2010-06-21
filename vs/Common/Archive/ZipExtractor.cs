@@ -17,7 +17,8 @@ namespace Common.Archive
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
         /// <param name="archive">The stream containing the archive's data.</param>
-        public ZipExtractor(Stream archive) : base(archive)
+        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        public ZipExtractor(Stream archive, long startOffset) : base(archive, startOffset)
         {}
         #endregion
 
@@ -58,7 +59,7 @@ namespace Common.Archive
         #endregion
 
         #region Extraction
-        public override void Extract(string target)
+        public override void Extract(string target, string subDir)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
@@ -76,7 +77,7 @@ namespace Common.Archive
                         RejectArchiveIfNameContains(entry, "..");
 
                         // Only extract objects within the selected sub-directory
-                        if (!string.IsNullOrEmpty(SubDir) && !entry.Name.StartsWith(SubDir)) continue;
+                        if (!string.IsNullOrEmpty(subDir) && !entry.Name.StartsWith(subDir)) continue;
 
                         if (entry.IsDirectory)
                         {

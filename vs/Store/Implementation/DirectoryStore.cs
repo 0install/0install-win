@@ -172,12 +172,12 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
 
-            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubDir))
+            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset))
             {
 
                 // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
                 var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
-                extractor.Extract(tempDir);
+                extractor.Extract(tempDir, archiveInfo.SubDir);
 
                 try
                 {
@@ -202,8 +202,8 @@ namespace ZeroInstall.Store.Implementation
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
             foreach (var archiveInfo in archiveInfos)
             {
-                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubDir))
-                    extractor.Extract(tempDir);
+                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset))
+                    extractor.Extract(tempDir, archiveInfo.SubDir);
             }
 
             try

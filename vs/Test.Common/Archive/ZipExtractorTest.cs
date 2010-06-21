@@ -75,8 +75,8 @@ namespace Common.Archive
         public void ExtractionIntoFolder()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null))
-                extractor.Extract("extractedArchive");
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
+                extractor.Extract("extractedArchive", null);
 
             Assert.IsTrue(Directory.Exists("extractedArchive"));
             var comparer = new CompareHierarchyToExtractedFolder("extractedArchive");
@@ -87,8 +87,8 @@ namespace Common.Archive
         public void ExtractionOfSubDir()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, "folder1"))
-                extractor.Extract("extractedArchive");
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
+                extractor.Extract("extractedArchive", "folder1");
 
             Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "folder1")));
             Assert.IsFalse(File.Exists("file1"));
@@ -99,7 +99,7 @@ namespace Common.Archive
         public void TestListContent()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using(var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null)) {
+            using(var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0)) {
                 var entryList = new System.Collections.Generic.List<string> { "file1", "file2", "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFile", "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar + "doublyNestedFile" };
@@ -121,7 +121,7 @@ namespace Common.Archive
         public void TestListDirectories()
         {
             File.WriteAllBytes("a.zip", _archiveData);
-            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0, null))
+            using (var extractor = Extractor.CreateExtractor("application/zip", "a.zip", 0))
             {
                 var entryList = new System.Collections.Generic.List<string> { "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
                     "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar };
@@ -166,8 +166,8 @@ namespace Common.Archive
             var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
             builder.GeneratePackageArchive(archiveStream);
             archiveStream.Seek(0, SeekOrigin.Begin);
-            var extractor = new ZipExtractor(archiveStream);
-            Assert.Throws<IOException>(() => extractor.Extract("extractedArchive"), "ZipExtractor must not accept archives with '..' as entry");
+            var extractor = new ZipExtractor(archiveStream, 0);
+            Assert.Throws<IOException>(() => extractor.Extract("extractedArchive", null), "ZipExtractor must not accept archives with '..' as entry");
             archiveStream.Dispose();
         }
     }

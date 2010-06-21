@@ -177,7 +177,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             long startOffset;
             long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
             if (startOffset < 0) startOffset = 0;
-            using (var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archivePath, startOffset, null))
+            using (var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archivePath, startOffset))
             {
                 var archiveContentList = (List<string>)archiveExtractor.ListDirectories();
                 treeViewExtract.Nodes.Add(new TreeNode("Archive"));
@@ -333,8 +333,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             labelExtractArchive.Text = "Extracting...";
             try
             {
-                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extract);
-                archiveExtractor.Extract(extractedArchivePath);
+                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset);
+                archiveExtractor.Extract(extractedArchivePath, extract);
             }
             catch (IOException err)
             {

@@ -54,7 +54,8 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         private static string SolverScript
         {
-            get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0solve"); }
+            //get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0solve"); }
+            get { return Path.Combine(@"G:\Documents\Code\ZeroInstall\Python", @"0solve"); }
         }
         #endregion
 
