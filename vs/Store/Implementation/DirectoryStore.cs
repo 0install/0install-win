@@ -22,7 +22,6 @@ using Common;
 using Common.Archive;
 using Common.Helpers;
 using Common.Storage;
-using System.Diagnostics;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -170,10 +169,10 @@ namespace ZeroInstall.Store.Implementation
         public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (archiveInfo == null) throw new ArgumentNullException("archiveInfo");
+            if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
 
-            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubdirToExtract))
+            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubDir))
             {
 
                 // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
@@ -201,11 +200,10 @@ namespace ZeroInstall.Store.Implementation
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
-
             foreach (var archiveInfo in archiveInfos)
-            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubdirToExtract))
             {
-                extractor.Extract(tempDir);
+                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, archiveInfo.SubDir))
+                    extractor.Extract(tempDir);
             }
 
             try

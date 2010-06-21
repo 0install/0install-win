@@ -88,6 +88,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No path specified..
+        /// </summary>
+        internal static string MissingPath {
+            get {
+                return ResourceManager.GetString("MissingPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file or directory name must not contain a newline character..
         /// </summary>
         internal static string NewlineInName {

@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
                 using (var cache = new TemporaryDirectory())
                 {
                     var store = new DirectoryStore(cache.Path);
-                    store.AddArchive(new ArchiveFileInfo(zipFile, "application/zip", null, 0), digest);
+                    store.AddArchive(new ArchiveFileInfo {Path = zipFile, MimeType = "application/zip"}, digest);
                     Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
                 }
             }

@@ -126,6 +126,9 @@
   <data name="InvalidUrl" xml:space="preserve">
     <value>Die angeforderte URL ist ungültig.</value>
   </data>
+  <data name="MissingPath" xml:space="preserve">
+    <value>Kein Pfad angegeben.</value>
+  </data>
   <data name="NewlineInName" xml:space="preserve">
     <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
   </data>

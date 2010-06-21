@@ -18,27 +18,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Archive;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
 {
-    public class ArchiveFileInfo
-    {
-        public readonly string MimeType;
-        public readonly string Path;
-        public readonly long StartOffset;
-        public readonly string SubdirToExtract;
-
-        public ArchiveFileInfo(string path, string mimeType, string subdirToExtract, long offset)
-        {
-            Path = path;
-            MimeType = mimeType;
-            StartOffset = offset;
-            SubdirToExtract = subdirToExtract;
-        }
-    }
-
     /// <summary>
     /// Describes an object that allows the storage of <see cref="Feed"/>s.
     /// </summary>
@@ -46,26 +29,26 @@ namespace ZeroInstall.Store.Implementation
     public interface IStore
     {
         /// <summary>
-        /// Determines whether this store contains a local copy of an <see cref="ZeroInstall.Store.Implementation"/> identified by a specific <see cref="Model.ManifestDigest"/>.
+        /// Determines whether this store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
-        /// <param name="manifestDigest">The digest of the <see cref="ZeroInstall.Store.Implementation"/> to check for.</param>
+        /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         bool Contains(ManifestDigest manifestDigest);
 
         /// <summary>
-        /// Determines the local path of an <see cref="ZeroInstall.Store.Implementation"/> with a given <see cref="ManifestDigest"/>.
+        /// Determines the local path of an implementation with a given <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="manifestDigest">The digest the <see cref="ZeroInstall.Store.Implementation"/> to look for.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="ZeroInstall.Store.Implementation"/> could not be found in this store.</exception>
+        /// <param name="manifestDigest">The digest the implementation to look for.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the requested implementation could not be found in this store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <returns>A fully qualified path to the directory containing the <see cref="ZeroInstall.Store.Implementation"/>.</returns>
+        /// <returns>A fully qualified path to the directory containing the implementation.</returns>
         string GetPath(ManifestDigest manifestDigest);
 
         /// <summary>
-        /// Copies a directory containing an <see cref="Implementation"/> into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Copies a directory containing an implementation into this store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="path">The directory containing the <see cref="Implementation"/>.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="path">The directory containing the implementation.</param>
+        /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
@@ -75,8 +58,8 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Extracts an archive containing the files of an implementation into this store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
-        /// <param name="archiveInfo">Parameter Object providing the information to extract the archive.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="archiveInfo">Parameter object providing the information to extract the archive.</param>
+        /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
@@ -84,12 +67,10 @@ namespace ZeroInstall.Store.Implementation
         void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest);
         
         /// <summary>
-        /// Extracts multiple archives, that together contain the files of an
-        /// implementation, into the same folder, compares that folder's manifest
-        /// to <paramref name="manifestDigest"/> and adds it to the store.
+        /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
         /// </summary>
-        /// <param name="archiveInfos">Multiple Parameter Objects providing the information to extract each archive.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
+        /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>

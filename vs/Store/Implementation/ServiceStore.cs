@@ -18,8 +18,8 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Archive;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementation
         public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
         {
             #region Sanity checks
-            if (archiveInfo == null) throw new ArgumentNullException("archiveInfo");
+            if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
 
             throw new NotImplementedException();

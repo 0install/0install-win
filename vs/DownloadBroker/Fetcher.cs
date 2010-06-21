@@ -85,7 +85,7 @@ namespace ZeroInstall.DownloadBroker
                 {
                     string tempArchive = Path.GetTempFileName();
                     FetchArchive(archive, tempArchive);
-                    Store.AddArchive(new ArchiveFileInfo(tempArchive, archive.MimeType, archive.Extract, archive.StartOffset), implementation.ManifestDigest);
+                    Store.AddArchive(new ArchiveFileInfo {Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset}, implementation.ManifestDigest);
                     File.Delete(tempArchive);
                     return;
                 }
@@ -96,7 +96,7 @@ namespace ZeroInstall.DownloadBroker
                     {
                         string tempArchive = Path.GetTempFileName();
                         FetchArchive(currentArchive, tempArchive);
-                        archives.Add(new ArchiveFileInfo(tempArchive, currentArchive.MimeType, currentArchive.Extract, currentArchive.StartOffset));
+                        archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
                     Store.AddMultipleArchives(archives, implementation.ManifestDigest);
                     return;
