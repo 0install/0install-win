@@ -43,6 +43,7 @@ namespace Common.Archive
         /// <param name="stream">TThe stream containing the archive data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static Extractor CreateExtractor(string mimeType, Stream stream, long startOffset)
         {
@@ -69,7 +70,7 @@ namespace Common.Archive
         /// <param name="path">The file to be extracted.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the file which should be ignored.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="IOException">Thrown if the archive is damaged or if the file couldn't be read.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
         public static Extractor CreateExtractor(string mimeType, string path, long startOffset)
@@ -115,15 +116,17 @@ namespace Common.Archive
 
         #region Content
         /// <summary>
-        /// Returns a list of all contained files and directories that would be extracted by <see cref="Extract"/>.
+        /// Returns a list of all files and directories contained in the archive.
         /// </summary>
         /// <returns>A list of files and directories using native path separators.</returns>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public abstract IEnumerable<string> ListContent();
 
         /// <summary>
-        /// Returns a list of all contained directories that would be extracted by <see cref="Extract"/>.
+        /// Returns a list of all directories contained in the archive.
         /// </summary>
-        /// <returns>A list of directories using native path seperators.</returns>
+        /// <returns>A list of directories using native path separators.</returns>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public abstract IEnumerable<string> ListDirectories();
         #endregion
 
@@ -133,7 +136,7 @@ namespace Common.Archive
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="subDir">The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.</param>
-        /// <exception cref="IOException">Thrown if the archive is not usable, e.g. if it contains references to '..'.</exception>
+        /// <exception cref="IOException">Thrown if the archive is damaged or not usable (e.g. if it contains references to '..').</exception>
         public abstract void Extract(string target, string subDir);
         #endregion
 

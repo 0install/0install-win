@@ -12,50 +12,64 @@ namespace Common.Archive
     /// </summary>
     public class ZipExtractor : Extractor
     {
+        #region Variables
+        private ZipFile _zip;
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
         /// <param name="archive">The stream containing the archive's data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public ZipExtractor(Stream archive, long startOffset) : base(archive, startOffset)
-        {}
+        {
+            try
+            {
+                _zip = new ZipFile(Stream) { IsStreamOwner = false };
+            }
+            catch (ZipException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalid, ex);
+            }
+        }
         #endregion
 
         //--------------------//
 
         #region Content
         public override IEnumerable<string> ListContent()
-        {        
-            using (var zip = new ZipFile(Stream))
+        {
+            var contentList = new List<string>((int)_zip.Count);
+            try
             {
-                var contentList = new List<string>((int)zip.Count);
-                zip.IsStreamOwner = false;
-
-                foreach (ZipEntry entry in zip)
-                {
+                foreach (ZipEntry entry in _zip)
                     contentList.Add(StringHelper.UnifySlashes(entry.Name));
-                }
-                return contentList;
             }
+            catch (ZipException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalid, ex);
+            }
+
+            return contentList;
         }
 
         public override IEnumerable<string> ListDirectories()
         {
-            using (var zip = new ZipFile(Stream))
+            var directoryList = new List<string>((int)_zip.Count);
+            try
             {
-                var contentList = new List<string>((int)zip.Count);
-                zip.IsStreamOwner = false;
-
-                foreach (ZipEntry entry in zip)
-                {
-                    if (!entry.IsDirectory) continue;
-                    contentList.Add(StringHelper.UnifySlashes(entry.Name));
-                }
-                return contentList;
+                foreach (ZipEntry entry in _zip)
+                    if (entry.IsDirectory) directoryList.Add(StringHelper.UnifySlashes(entry.Name));
             }
-        }
+            catch (ZipException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalid, ex);
+            }
 
+            return directoryList;
+        }
         #endregion
 
         #region Extraction
@@ -67,27 +81,23 @@ namespace Common.Archive
 
             try
             {
-                using (var zip = new ZipFile(Stream))
+                string xbitFilePath = Path.Combine(target, ".xbit");
+
+                foreach (ZipEntry entry in _zip)
                 {
-                    zip.IsStreamOwner = false;
-                    string xbitFilePath = Path.Combine(target, ".xbit");
+                    RejectArchiveIfNameContains(entry, "..");
 
-                    foreach (ZipEntry entry in zip)
+                    // Only extract objects within the selected sub-directory
+                    if (!string.IsNullOrEmpty(subDir) && !entry.Name.StartsWith(subDir)) continue;
+
+                    if (entry.IsDirectory)
                     {
-                        RejectArchiveIfNameContains(entry, "..");
-
-                        // Only extract objects within the selected sub-directory
-                        if (!string.IsNullOrEmpty(subDir) && !entry.Name.StartsWith(subDir)) continue;
-
-                        if (entry.IsDirectory)
-                        {
-                            ExtractFolderEntry(target, entry);
-                        }
-                        else if (entry.IsFile)
-                        {
-                            ExtractFileEntry(target, zip, entry);
-                            AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
-                        }
+                        ExtractFolderEntry(target, entry);
+                    }
+                    else if (entry.IsFile)
+                    {
+                        ExtractFileEntry(target, _zip, entry);
+                        AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
                     }
                 }
             }
