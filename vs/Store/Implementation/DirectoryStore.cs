@@ -53,6 +53,7 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new store based on the given path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem for <paramref name="path"/> can not store file-changed times accurate to the second.</exception>
         public DirectoryStore(string path)
         {
             #region Sanity checks
@@ -61,11 +62,23 @@ namespace ZeroInstall.Store.Implementation
             
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             DirectoryPath = path;
+
+            // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
+            try
+            {
+                if (FileHelper.DetermineTimeAccuracy(path) > 0)
+                    throw new InvalidOperationException(Resources.InsufficientFSTimeAccuracy);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                // Ignore if we cannot verify the time accuracy of read-only stores
+            }
         }
 
         /// <summary>
         /// Creates a new store using a directory in the user-profile.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         public DirectoryStore() : this(UserProfileDirectory)
         {}
         #endregion

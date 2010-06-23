@@ -147,4 +147,7 @@
 	<data name="MissingPath">
 		<value xml:space="preserve">No path specified.</value>
 	</data>
+	<data name="InsufficientFSTimeAccuracy">
+		<value xml:space="preserve">The underlying filesystem does not store file change times with sufficient accuracy.</value>
+	</data>
 </root>

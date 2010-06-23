@@ -155,7 +155,7 @@ namespace Common.Helpers
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Win32Windows:
-                    // ToDo: Rund for each contained file: "fileInfo.Attributes |= FileAttributes.ReadOnly;"
+                    // ToDo: Run for each contained file: "fileInfo.Attributes |= FileAttributes.ReadOnly;"
                     break;
 
                 case PlatformID.Win32NT:
@@ -168,6 +168,27 @@ namespace Common.Helpers
                     // ToDo: Set Unix octals
                     break;
             }
+        }
+
+        /// <summary>
+        /// Determines the accuracy with which the filesystem underlying a specific directory can store file-changed times.
+        /// </summary>
+        /// <param name="path">The path of the directory to check.</param>
+        /// <returns>The accuracy in number of seconds. (i.e. 0 = perfect, 1 = may be off by up to one second)</returns>
+        /// <exception cref="DirectoryNotFoundException">Thrown if the specified directory doesn't exist.</exception>
+        /// <exception cref="IOException">Thrown if writing to the directory fails.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write to the directory.</exception>
+        public static int DetermineTimeAccuracy(string path)
+        {
+            // Prepare a file name and fake change time
+            var referenceTime = new DateTime(2000, 1, 1, 0, 0, 1); // 1 second past mid-night on 1st of January 2000
+            string tempFile = Path.Combine(path, GetUniqueFileName(path));
+
+            File.WriteAllText(tempFile, @"a");
+            File.SetLastWriteTimeUtc(tempFile, referenceTime);
+            var resultTime = File.GetLastWriteTimeUtc(tempFile);
+
+            return Math.Abs((resultTime - referenceTime).Seconds);
         }
     }
 }

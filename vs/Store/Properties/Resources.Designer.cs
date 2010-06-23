@@ -61,6 +61,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The underlying filesystem does not store file change times with sufficient accuracy..
+        /// </summary>
+        internal static string InsufficientFSTimeAccuracy {
+            get {
+                return ResourceManager.GetString("InsufficientFSTimeAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The manifest file contains invalid lines..
         /// </summary>
         internal static string InvalidLinesInManifest {
