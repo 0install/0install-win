@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Implementation
         
         #region Factory methods
         /// <summary>
-        /// Generates a manifest for a directory in the file system.
+        /// Generates a manifest for a directory in the filesystem.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             #region Parse external X-Bits file
-            // Executable bits must be stored externally on some platforms (e.g. Windows) because the file system attributes can't
+            // Executable bits must be stored externally on some platforms (e.g. Windows) because the filesystem attributes can't
             var externalXBits = new C5.HashSet<string>();
             string xBitPath = Path.Combine(path, ".xbit");
             if (File.Exists(xBitPath))
@@ -252,7 +252,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Comfort methods
         /// <summary>
-        /// Generates a manifest for a directory in the file system and writes the manifest to a file named ".manifest" in that directory.
+        /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>

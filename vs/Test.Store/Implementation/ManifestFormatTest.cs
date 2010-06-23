@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         /// <summary>
-        /// Ensures that <see cref="ManifestFormat.GetSortedDirectoryEntries"/> correctly sorts and lists file system entries.
+        /// Ensures that <see cref="ManifestFormat.GetSortedDirectoryEntries"/> correctly sorts and lists filesystem entries.
         /// </summary>
         [Test]
         public void TestGetSortedDirectoryEntries()

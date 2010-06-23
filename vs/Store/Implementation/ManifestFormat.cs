@@ -83,10 +83,10 @@ namespace ZeroInstall.Store.Implementation
         internal abstract ManifestDirectory ReadDirectoryNodeFromEntry(string entry);
 
         /// <summary>
-        /// Creates a recursive list of all file system entries in a certain directory sorted according to the format specifications.
+        /// Creates a recursive list of all filesystem entries in a certain directory sorted according to the format specifications.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <returns>A list of file system entries.</returns>
+        /// <returns>A list of filesystem entries.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
         public abstract IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path);
