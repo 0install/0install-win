@@ -18,7 +18,6 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Windows.Forms;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
