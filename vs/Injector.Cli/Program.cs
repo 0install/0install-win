@@ -225,7 +225,7 @@ namespace ZeroInstall.Injector.Cli
                             var launcher = controller.GetLauncher();
                             launcher.Main = results.Main;
                             launcher.Wrapper = results.Wrapper;
-                            launcher.Execute(StringHelper.Concatenate(results.AdditionalArgs, " "));
+                            launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
                         }
                         break;
                     }

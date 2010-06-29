@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Ensures <see cref="Controller.GetLauncher"/> correctly provides an application that can be launched.
         /// </summary>
-        // Test deactivated because it performs network IO and launches an external application
+        // Test deactivated because it performs network IO
         //[Test]
         public void TestGetLauncher()
         {
@@ -90,7 +90,8 @@ namespace ZeroInstall.Injector
             controller.Solve();
             controller.DownloadUncachedImplementations();
             var launcher = controller.GetLauncher();
-            launcher.Execute("");
+            var startInfo = launcher.Prepare("--help");
+            Assert.AreEqual("--help", startInfo.Arguments);
         }
     }
 }

@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector.WinForms
             // ToDo: Handle command-line arguments
 
             var controller = new Controller(args[0], SolverProvider.Default, Policy.CreateDefault());
-            controller.GetLauncher().Execute("");
+            controller.GetLauncher().RunSync("");
         }
     }
 }

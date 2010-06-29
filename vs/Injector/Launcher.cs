@@ -91,17 +91,17 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Applies <see cref="Binding"/>s allowing the launched application to locate selected <see cref="IDImplementation"/>s.
         /// </summary>
-        /// <param name="environment">The applications environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The applications environment to apply the  <see cref="Binding"/>s to.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
         /// <param name="implementation">The <see cref="IDImplementation"/> to be made locatable via the <see cref="Binding"/>s.</param>
-        private void ApplyBindings(ProcessStartInfo environment, IBindingContainer bindingContainer, IDImplementation implementation)
+        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, IDImplementation implementation)
         {
             string implementationDirectory = GetImplementationPath(implementation);
 
             #region EnvironmentBinding
             foreach (var binding in bindingContainer.EnvironmentBindings)
             {
-                var environmentVariables = environment.EnvironmentVariables;
+                var environmentVariables = startInfo.EnvironmentVariables;
                 string environmentValue = Path.Combine(implementationDirectory, StringHelper.UnifySlashes(binding.Value));
 
                 if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
@@ -125,13 +125,14 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        #region Execute
+        #region Prepare Process
         /// <summary>
-        /// Launches the application as specified by the <see cref="Selections"/>.
+        /// Prepares a <see cref="ProcessStartInfo"/> for executing the application as specified by the <see cref="Selections"/>.
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
+        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to create a new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
-        public void Execute(string arguments)
+        public ProcessStartInfo Prepare(string arguments)
         {
             // Get the implementation to be launched
             IDImplementation startupImplementation = _selections.Implementations.First;
@@ -140,36 +141,41 @@ namespace ZeroInstall.Injector
             string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
 
             // Prepare the new process to launch the implementation
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain)),
-                    Arguments = arguments,
-                    ErrorDialog = true,
-                    UseShellExecute = false
-                }
-            };
+            var startInfo = new ProcessStartInfo(Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain)), arguments)
+            { ErrorDialog = true, UseShellExecute = false };
 
             // Apply user-given wrapper application if set
             if (!string.IsNullOrEmpty(Wrapper))
             {
-                process.StartInfo.Arguments = process.StartInfo.FileName + " " + process.StartInfo.Arguments;
-                process.StartInfo.FileName = Wrapper;
+                startInfo.Arguments = startInfo.FileName + " " + startInfo.Arguments;
+                startInfo.FileName = Wrapper;
             }
 
             #region Bindings
             foreach (var implementation in _selections.Implementations)
             {
                 // Apply bindings implementations use to find themselves
-                ApplyBindings(process.StartInfo, implementation, implementation);
+                ApplyBindings(startInfo, implementation, implementation);
 
                 // Apply bindings implementations use to find their dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    ApplyBindings(process.StartInfo, dependency, _selections.GetSelection(dependency.Interface));
+                    ApplyBindings(startInfo, dependency, _selections.GetSelection(dependency.Interface));
             }
             #endregion
 
+            return startInfo;
+        }
+        #endregion
+
+        #region Run
+        /// <summary>
+        /// Launches the application as specified by the <see cref="Selections"/> and returns when it has finished executing.
+        /// </summary>
+        /// <param name="arguments">Arguments to be passed to the launched applications.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
+        public void RunSync(string arguments)
+        {
+            var process = new Process {StartInfo = Prepare(arguments)};
             process.Start();
             process.WaitForExit();
         }
