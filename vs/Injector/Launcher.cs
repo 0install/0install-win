@@ -16,171 +16,162 @@
  */
 
 using System;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using ZeroInstall.DownloadBroker;
+using System.IO;
+using Common.Helpers;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Takes an interface URI and provides operations like solving and launching.
+    /// Executes a set of <see cref="IDImplementation"/>s as a program.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Launcher
     {
         #region Variables
-        /// <summary>Cached <see cref="ISolver"/> results.</summary>
-        private Selections _selections;
+        /// <summary>The <see cref="IDImplementation"/> to be launched, followed by all its dependencies.</summary>
+        private readonly Selections _selections;
+
+        /// <summary>Used to locate the selected <see cref="IDImplementation"/>s.</summary>
+        private readonly IStore _store;
         #endregion
 
         #region Properties
         /// <summary>
-        /// The URI or local path to the feed to solve the dependencies for.
+        /// An alternative executable to to run from the main <see cref="IDImplementation"/> instead of <see cref="ImplementationBase.Main"/>.
         /// </summary>
-        public string Feed { get; private set; }
+        public string Main { get; set; }
 
         /// <summary>
-        /// The solver to use for solving dependencies.
+        /// Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.
         /// </summary>
-        public ISolver Solver { get; private set; }
-
-        /// <summary>
-        /// The user settings controlling the solving process.
-        /// </summary>
-        public Policy Policy { get; private set; }
+        public string Wrapper { get; set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new Launcher for a specific feed.
+        /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
-        /// <param name="solver">The solver to use for solving dependencies.</param>
-        /// <param name="policy">The user settings controlling the solving process.</param>
-        public Launcher(string feed, ISolver solver, Policy policy)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
-            if (solver == null) throw new ArgumentNullException("solver");
-            if (policy == null) throw new ArgumentNullException("policy");
-            #endregion
-
-            Feed = feed;
-            Solver = solver;
-            Policy = policy;
-        }
-        #endregion
-        
-        //--------------------//
-
-        #region Selections
-        /// <summary>
-        /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified feed.
-        /// </summary>
-        /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions (feed problem, dependency problem)
-        public void Solve()
-        {
-            // Run the solver algorithm
-            _selections = Solver.Solve(Feed, Policy);
-        }
-
-        /// <summary>
-        /// Uses an external set of <see cref="Selections"/> instead of using a <see cref="ISolver"/>.
-        /// </summary>
-        /// <param name="selections">The external set of <see cref="Selections"/> to use.</param>
-        public void SetSelections(Selections selections)
+        /// <param name="selections">The <see cref="IDImplementation"/> to be launched, followed by all its dependencies.</param>
+        /// <param name="store">Used to locate the selected <see cref="IDImplementation"/>s.</param>
+        public Launcher(Selections selections, IStore store)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
+            if (store == null) throw new ArgumentNullException("store");
+            if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
             _selections = selections.CloneSelections();
-        }
-
-        /// <summary>
-        /// Returns the <see cref="Selections"/> made earlier.
-        /// </summary>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new clone on each call")]
-        public Selections GetSelections()
-        {
-            #region Sanity checks
-            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
-            #endregion
-
-            return _selections.CloneSelections();
+            _store = store;
         }
         #endregion
 
-        #region Implementation
+        //--------------------//
+
+        #region Helpers
         /// <summary>
-        /// Lists 
+        /// Locates an <see cref="IDImplementation"/> on the disk (usually in a <see cref="Store"/>).
         /// </summary>
-        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        public IEnumerable<Implementation> ListUncachedImplementations()
+        /// <param name="implementation">The <see cref="IDImplementation"/> to be located.</param>
+        /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
+        private string GetImplementationPath(IDImplementation implementation)
         {
-            ICollection<Implementation> notCached = new LinkedList<Implementation>();
+            return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
+        }
+        #endregion
 
-            foreach (var implementation in _selections.Implementations)
+        #region Bindings
+        /// <summary>
+        /// Applies <see cref="Binding"/>s allowing the launched application to locate selected <see cref="IDImplementation"/>s.
+        /// </summary>
+        /// <param name="environment">The applications environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
+        /// <param name="implementation">The <see cref="IDImplementation"/> to be made locatable via the <see cref="Binding"/>s.</param>
+        private void ApplyBindings(ProcessStartInfo environment, IBindingContainer bindingContainer, IDImplementation implementation)
+        {
+            string implementationDirectory = GetImplementationPath(implementation);
+
+            #region EnvironmentBinding
+            foreach (var binding in bindingContainer.EnvironmentBindings)
             {
-                // Local paths are considered to be always available
-                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
+                var environmentVariables = environment.EnvironmentVariables;
+                string environmentValue = Path.Combine(implementationDirectory, StringHelper.UnifySlashes(binding.Value));
 
-                // Check if an implementation with a matching digest is available in the cache
-                if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
+                if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
-                // If not, get download information for the implementation by checking the original feed file
-                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.Interface);
-                feed.Simplify();
-                notCached.Add(feed.GetImplementation(implementation.ID));
+                switch (binding.Mode)
+                {
+                    case EnvironmentMode.Prepend:
+                        environmentVariables[binding.Name] = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
+                        break;
+                    case EnvironmentMode.Append:
+                        environmentVariables[binding.Name] += Path.PathSeparator + environmentValue;
+                        break;
+                    case EnvironmentMode.Replace:
+                        environmentVariables[binding.Name] = environmentValue;
+                        break;
+                }
+            }
+            #endregion
+
+            // ToDo: Implement OverlayBindings
+        }
+        #endregion
+
+        #region Execute
+        /// <summary>
+        /// Launches the application as specified by the <see cref="Selections"/>.
+        /// </summary>
+        /// <param name="arguments">Arguments to be passed to the launched applications.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
+        public void Execute(string arguments)
+        {
+            // Get the implementation to be launched
+            IDImplementation startupImplementation = _selections.Implementations.First;
+
+            // Apply the user-override for the Main exectuable if set
+            string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
+
+            // Prepare the new process to launch the implementation
+            var process = new Process
+            {
+                StartInfo =
+                {
+                    FileName = Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain)),
+                    Arguments = arguments,
+                    ErrorDialog = true,
+                    UseShellExecute = false
+                }
+            };
+
+            // Apply user-given wrapper application if set
+            if (!string.IsNullOrEmpty(Wrapper))
+            {
+                process.StartInfo.Arguments = process.StartInfo.FileName + " " + process.StartInfo.Arguments;
+                process.StartInfo.FileName = Wrapper;
             }
 
-            return notCached;
-        }
+            #region Bindings
+            foreach (var implementation in _selections.Implementations)
+            {
+                // Apply bindings implementations use to find themselves
+                ApplyBindings(process.StartInfo, implementation, implementation);
 
-        /// <summary>
-        /// Downloads any selected <see cref="IDImplementation"/>s that are missing from the <see cref="Injector.Policy.SearchStore"/>.
-        /// </summary>
-        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
-        // ToDo: Add callbacks and make asynchronous
-        public void DownloadUncachedImplementations()
-        {
-            #region Sanity checks
-            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
+                // Apply bindings implementations use to find their dependencies
+                foreach (var dependency in implementation.Dependencies)
+                    ApplyBindings(process.StartInfo, dependency, _selections.GetSelection(dependency.Interface));
+            }
             #endregion
 
-            if (Policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) return;
-
-            Policy.Fetcher.RunSync(new FetcherRequest(ListUncachedImplementations()));
-        }
-        #endregion
-
-        #region Run
-        /// <summary>
-        /// Prepares to run an application.
-        /// </summary>
-        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadUncachedImplementations"/> was not called first.</exception>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs extensive disk and network IO")]
-        public Run GetRun()
-        {
-            #region Sanity checks
-            if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
-            #endregion
-
-            // Read to run the application
-            return new Run(_selections, Policy.SearchStore);
+            process.Start();
+            process.WaitForExit();
         }
         #endregion
     }

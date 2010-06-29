@@ -205,27 +205,27 @@ namespace ZeroInstall.Injector.Cli
                     {
                         // ToDo: Alternative policy for DryRun
 
-                        var launcher = new Launcher(results.Feed, SolverProvider.Default, results.Policy);
+                        var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
-                        if (results.SelectionsFile == null) launcher.Solve();
-                        else launcher.SetSelections(Selections.Load(results.SelectionsFile));
+                        if (results.SelectionsFile == null) controller.Solve();
+                        else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
                         if (!results.SelectOnly)
                         {
                             // ToDo: Add progress callbacks
-                            launcher.DownloadUncachedImplementations();
+                            controller.DownloadUncachedImplementations();
                         }
 
                         if (results.GetSelections)
                         {
-                            Console.Write(launcher.GetSelections().WriteToString());
+                            Console.Write(controller.GetSelections().WriteToString());
                         }
                         else if (!results.DownloadOnly && !results.SelectOnly)
                         {
-                            var run = launcher.GetRun();
-                            run.Main = results.Main;
-                            run.Wrapper = results.Wrapper;
-                            run.Execute(StringHelper.Concatenate(results.AdditionalArgs, " "));
+                            var launcher = controller.GetLauncher();
+                            launcher.Main = results.Main;
+                            launcher.Wrapper = results.Wrapper;
+                            launcher.Execute(StringHelper.Concatenate(results.AdditionalArgs, " "));
                         }
                         break;
                     }

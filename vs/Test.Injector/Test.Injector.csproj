@@ -73,7 +73,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LauncherTest.cs" />
+    <Compile Include="ControllerTest.cs" />
     <Compile Include="Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Solver\PythonSolverTest.cs" />
     <Compile Include="Solver\SelectionsTest.cs" />

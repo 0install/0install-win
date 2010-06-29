@@ -23,7 +23,6 @@ namespace ZeroInstall.Injector.WinForms
 {
     internal static class Program
     {
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -32,12 +31,11 @@ namespace ZeroInstall.Injector.WinForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-
+            
             // ToDo: Handle command-line arguments
 
-            var launcher = new Launcher(args[0], SolverProvider.Default, Policy.CreateDefault());
-            launcher.GetRun().Execute("");
+            var controller = new Controller(args[0], SolverProvider.Default, Policy.CreateDefault());
+            controller.GetLauncher().Execute("");
         }
     }
 }
