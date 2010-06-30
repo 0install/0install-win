@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Implementation
                 // Get a combined list of files and directories
                 var entries = Directory.GetFileSystemEntries(path);
 
-                // Sort the list lexicographically
+                // C-sort the list
                 Array.Sort(entries, StringComparer.Ordinal);
 
                 // Create the combined result list (files and sub-diretories mixed)
@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Implementation
                 var files = Directory.GetFiles(path);
                 var directories = Directory.GetDirectories(path);
 
-                // Sort the lists lexicographically
+                // C-sort the lists
                 Array.Sort(files, StringComparer.Ordinal);
                 Array.Sort(directories, StringComparer.Ordinal);
 

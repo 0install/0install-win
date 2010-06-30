@@ -55,7 +55,7 @@ namespace ZeroInstall.Store.Feed
                 File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
                 File.WriteAllText(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"), "");
 
-                var cached = new InterfaceCache(temp.Path).GetCached();
+                var cached = new InterfaceCache(temp.Path).ListAllInterfaces();
                 CollectionAssert.AreEqual(new[] {"http://0install.de/test/interface.xml"}, cached);
             }
         }

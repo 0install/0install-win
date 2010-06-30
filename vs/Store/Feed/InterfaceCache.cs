@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Feed
     #endregion
 
     /// <summary>
-    /// Manages the <see cref="Feed"/> cache.
+    /// Manages the interface cache.
     /// </summary>
     public class InterfaceCache
     {
@@ -150,12 +150,12 @@ namespace ZeroInstall.Store.Feed
         }
         #endregion
 
-        #region Cached
+        #region List interfaces
         /// <summary>
-        /// Returns a list of all valid <see cref="Feed"/>s stored in this cache.
+        /// Returns a list of all valid interfaces stored in this cache.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates new list on each call and performs disk IO")]
-        public IEnumerable<string> GetCached()
+        public IEnumerable<string> ListAllInterfaces()
         {
             // Find all files whose names begin with an URL protocol
             // ToDo: Find more reliable discriminator
@@ -164,6 +164,9 @@ namespace ZeroInstall.Store.Feed
             for (int i = 0; i < files.Length; i++)
                 // Take the file name itself and use URL encoding to get the original URI
                 files[i] = HttpUtility.UrlDecode(Path.GetFileName(files[i]));
+
+            // Return as a C-sorted array
+            Array.Sort(files, StringComparer.Ordinal);
             return files;
         }
         #endregion

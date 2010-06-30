@@ -185,8 +185,10 @@ namespace ZeroInstall.Injector.Cli
             });
             #endregion
 
+            // Parse the arguments and call the hooked handlers
             options.Parse(args);
 
+            // Return the now filled results structure
             return results;
         }
         #endregion
@@ -231,7 +233,19 @@ namespace ZeroInstall.Injector.Cli
                     }
                 #endregion
 
+                #region List
                 case ProgramMode.List:
+                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
+
+                    var interfaces = new InterfaceCache().ListAllInterfaces();
+                    foreach (var entry in interfaces)
+                    {
+                        if (results.Feed == null || entry.Contains(results.Feed))
+                            Console.WriteLine(entry);
+                    }
+                    break;
+                #endregion
+
                 case ProgramMode.Import:
                 case ProgramMode.Manage:
                     // ToDo: Implement
