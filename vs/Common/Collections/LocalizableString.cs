@@ -31,7 +31,7 @@ namespace Common.Collections
     /// <summary>
     /// A string with an optionally associated language that can be XML serialized to an element with an xml:lang tag.
     /// </summary>
-    public struct XmlLocalizableString : IEquatable<XmlLocalizableString>, ICloneable, IXmlSerializable
+    public struct LocalizableString : IEquatable<LocalizableString>, ICloneable, IXmlSerializable
     {
         #region Properties
         /// <summary>
@@ -50,7 +50,7 @@ namespace Common.Collections
         /// Creates a new string with no associated language.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
-        public XmlLocalizableString(string value) : this()
+        public LocalizableString(string value) : this()
         {
             Value = value;
         }
@@ -60,7 +60,7 @@ namespace Common.Collections
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
         /// <param name="language">The language of the <paramref name="value"/>.</param>
-        public XmlLocalizableString(string value, CultureInfo language) : this(value)
+        public LocalizableString(string value, CultureInfo language) : this(value)
         {
             Language = language;
         }
@@ -76,17 +76,17 @@ namespace Common.Collections
         #endregion
 
         #region Equality
-        public bool Equals(XmlLocalizableString other)
+        public bool Equals(LocalizableString other)
         {
             return other.Value == Value && Equals(other.Language, Language);
         }
 
-        public static bool operator ==(XmlLocalizableString left, XmlLocalizableString right)
+        public static bool operator ==(LocalizableString left, LocalizableString right)
         {
             return left.Equals(right);
         }
 
-        public static bool operator !=(XmlLocalizableString left, XmlLocalizableString right)
+        public static bool operator !=(LocalizableString left, LocalizableString right)
         {
             return !left.Equals(right);
         }
@@ -94,8 +94,8 @@ namespace Common.Collections
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof(XmlLocalizableString)) return false;
-            return Equals((XmlLocalizableString)obj);
+            if (obj.GetType() != typeof(LocalizableString)) return false;
+            return Equals((LocalizableString)obj);
         }
 
         public override int GetHashCode()
@@ -112,9 +112,9 @@ namespace Common.Collections
         /// Creates a plain copy of this string.
         /// </summary>
         /// <returns>The cloned string.</returns>
-        public XmlLocalizableString CloneString()
+        public LocalizableString CloneString()
         {
-            return new XmlLocalizableString(Value, Language);
+            return new LocalizableString(Value, Language);
         }
 
         /// <summary>

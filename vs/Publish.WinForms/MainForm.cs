@@ -156,7 +156,7 @@ namespace ZeroInstall.Publish.WinForms
             if (!String.IsNullOrEmpty(textDescription.Text))
             {
                 zeroInterface.Descriptions.Clear();
-                zeroInterface.Descriptions.Add(new XmlLocalizableString(textDescription.Text));
+                zeroInterface.Descriptions.Add(textDescription.Text);
             }
             if (Uri.TryCreate(textInterfaceURL.Text, UriKind.Absolute, out url))
             {

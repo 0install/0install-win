@@ -21,17 +21,16 @@
  */
 
 using System.Globalization;
-using System.IO;
 using Common.Storage;
 using NUnit.Framework;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// Contains test methods for <see cref="XmlLocalizableStringCollection"/>.
+    /// Contains test methods for <see cref="LocalizableStringCollection"/>.
     /// </summary>
     [TestFixture]
-    public class XmlLocalizableStringCollectionTest
+    public class LocalizableStringCollectionTest
     {
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
@@ -39,25 +38,16 @@ namespace Common.Collections
         [Test]
         public void TestSaveLoad()
         {
-            XmlLocalizableStringCollection collection1, collection2;
-            string tempFile = null;
-            try
+            var collection1 = new LocalizableStringCollection
             {
-                tempFile = Path.GetTempFileName();
+                "neturalValue",
+                {"germanValue", new CultureInfo("de")},
+                {"germanyValue", new CultureInfo("de-DE")}
+            };
 
-                // Write and read file
-                collection1 = new XmlLocalizableStringCollection
-                {
-                    "value1",
-                    {"value2", new CultureInfo("de-DE")}
-                };
-                XmlStorage.Save(tempFile, collection1);
-                collection2 = XmlStorage.Load<XmlLocalizableStringCollection>(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Serialize and deserialize data
+            string data = XmlStorage.ToString(collection1);
+            var collection2 = XmlStorage.FromString<LocalizableStringCollection>(data);
 
             // Ensure data stayed the same
             Assert.AreEqual(collection1, collection2, "Serialized objects should be equal.");
@@ -68,26 +58,15 @@ namespace Common.Collections
         [Test]
         public void TestContainsLanguage()
         {
-            var dictionary = new XmlLocalizableStringCollection
+            var dictionary = new LocalizableStringCollection
             {
-                "value1",
-                {"value2", new CultureInfo("de-DE")}
+                "neturalValue",
+                {"germanValue", new CultureInfo("de")},
+                {"germanyValue", new CultureInfo("de-DE")}
             };
             Assert.IsTrue(dictionary.ContainsLanguage(null));
             Assert.IsTrue(dictionary.ContainsLanguage(new CultureInfo("de-DE")));
             Assert.IsFalse(dictionary.ContainsLanguage(new CultureInfo("en-US")));
-        }
-
-        [Test]
-        public void TestGetLanguage()
-        {
-            var dictionary = new XmlLocalizableStringCollection
-            {
-                "value1",
-                {"value2", new CultureInfo("de-DE")}
-            };
-            Assert.AreEqual("value1", dictionary.GetLanguage(null));
-            Assert.AreEqual("value2", dictionary.GetLanguage(new CultureInfo("de-DE")));
         }
     }
 }

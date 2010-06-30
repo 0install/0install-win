@@ -40,9 +40,9 @@ namespace ZeroInstall.Model
         #region Conversion
         public override string ToString()
         {
-            return (string.IsNullOrEmpty(LanguagesString))
-                       ? string.Format("{0} ({1})", Source, Architecture)
-                       : string.Format("{0} ({1}) ({2})", Source, Architecture, LanguagesString);
+            return (Languages.IsEmpty)
+                ? string.Format("{0} ({1})", Source, Architecture)
+                : string.Format("{0} ({1}) ({2})", Source, Architecture, Languages.ToString());
         }
         #endregion
 

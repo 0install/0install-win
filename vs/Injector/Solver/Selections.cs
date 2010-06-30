@@ -95,6 +95,16 @@ namespace ZeroInstall.Injector.Solver
         }
 
         /// <summary>
+        /// Loads <see cref="Selections"/> from an XML string.
+        /// </summary>
+        /// <param name="data">The XML string to be parsed.</param>
+        /// <returns>The loaded <see cref="Selections"/>.</returns>
+        public static Selections LoadFromString(string data)
+        {
+            return XmlStorage.FromString<Selections>(data);
+        }
+
+        /// <summary>
         /// Saves these <see cref="Selections"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>

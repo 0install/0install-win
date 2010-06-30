@@ -67,15 +67,17 @@
   <ItemGroup>
     <Compile Include="Archive\Extractor.cs" />
     <Compile Include="Archive\ZipExtractor.cs" />
+    <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
+    <Compile Include="Collections\LanguageCollection.cs" />
     <Compile Include="Collections\MultiDictionary.cs" />
     <Compile Include="Collections\Pool.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\MonitoredCollection.cs" />
     <Compile Include="Collections\XmlDictionary.cs" />
     <Compile Include="Collections\XmlDictionaryEntry.cs" />
-    <Compile Include="Collections\XmlLocalizableStringCollection.cs" />
-    <Compile Include="Collections\XmlLocalizableString.cs" />
+    <Compile Include="Collections\LocalizableStringCollection.cs" />
+    <Compile Include="Collections\LocalizableString.cs" />
     <Compile Include="Controls\DownloadProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>

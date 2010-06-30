@@ -47,21 +47,10 @@ namespace ZeroInstall.Injector.Solver
         public void TestSaveLoad()
         {
             var selections1 = CreateTestSelections();
-            Selections selections2;
-            string tempFile = null;
 
-            try
-            {
-                tempFile = Path.GetTempFileName();
-
-                // Write and read file
-                selections1.Save(tempFile);
-                selections2 = Selections.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Serialize and deserialize data
+            string data = selections1.WriteToString();
+            var selections2 = Selections.LoadFromString(data);
 
             // Ensure data stayed the same
             Assert.AreEqual(selections1, selections2, "Serialized objects should be equal.");

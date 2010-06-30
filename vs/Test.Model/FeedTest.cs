@@ -71,7 +71,7 @@ namespace ZeroInstall.Model
             {
                 new Group
                 {
-                    LanguagesString = "de",
+                    Languages = {"de"},
                     Architecture = new Architecture(OS.Solaris, Cpu.I586),
                     License = "GPL",
                     Stability = Stability.Developer,
@@ -86,14 +86,14 @@ namespace ZeroInstall.Model
 
             var implementation = feed.Implementations[0];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
-            Assert.AreEqual("de", implementation.LanguagesString);
+            Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
             Assert.AreEqual("main1", implementation.Main);
 
             implementation = feed.Implementations[1];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
-            Assert.AreEqual("de", implementation.LanguagesString);
+            Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
             Assert.AreEqual("main2", implementation.Main);

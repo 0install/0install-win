@@ -59,25 +59,25 @@ namespace ZeroInstall.Model
             set { Uri = (value == null ? null : new Uri(value)); }
         }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<FeedReference> _feeds = new C5.HashedArrayList<FeedReference>();
+        // Preserve order
+        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
         /// <summary>
         /// Zero ore more feeds containing more implementations of this interface.
         /// </summary>
         [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<FeedReference> Feeds { get { return _feeds; } }
+        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<InterfaceReference> _feedFor = new C5.HashedArrayList<InterfaceReference>();
+        // Preserve order
+        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
         /// <summary>
         /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
+        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
@@ -86,23 +86,23 @@ namespace ZeroInstall.Model
         [XmlElement("name")]
         public string Name { get; set; }
 
-        private readonly XmlLocalizableStringCollection _summaries = new XmlLocalizableStringCollection();
+        private readonly LocalizableStringCollection _summaries = new LocalizableStringCollection();
         /// <summary>
         /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
         [Category("Interface"), Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
         [XmlElement("summary")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public XmlLocalizableStringCollection Summaries { get { return _summaries; } }
+        public LocalizableStringCollection Summaries { get { return _summaries; } }
 
-        private readonly XmlLocalizableStringCollection _descriptions = new XmlLocalizableStringCollection();
+        private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
         /// <summary>
         /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
         [Category("Interface"), Description("Full descriptions for different languages, which can be several paragraphs long.")]
         [XmlElement("description")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public XmlLocalizableStringCollection Descriptions { get { return _descriptions; } }
+        public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         /// <summary>
         /// The URL of a web-page describing this interface in more detail.
@@ -120,7 +120,7 @@ namespace ZeroInstall.Model
             set { Homepage = (value == null ? null : new Uri(value)); }
         }
         
-        // Preserve order, duplicate entries are not allowed
+        // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
         /// <summary>
         /// Zero or more categories as classification for the interface.
@@ -146,15 +146,15 @@ namespace ZeroInstall.Model
             set { NeedsTerminal = (value != null); }
         }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Icon> _icons = new C5.HashedArrayList<Icon>();
+        // Preserve order
+        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
         /// <summary>
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Icon> Icons { get { return _icons; } }
+        public C5.ArrayList<Icon> Icons { get { return _icons; } }
         
         // Preserve order
         private readonly C5.ArrayList<Group> _groups = new C5.ArrayList<Group>();

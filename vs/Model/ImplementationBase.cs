@@ -203,7 +203,7 @@ namespace ZeroInstall.Model
             if (DocDir == null) DocDir = parent.DocDir;
             if (License == null) License = parent.License;
             if (Stability == Stability.Unset) Stability = parent.Stability;
-            if (string.IsNullOrEmpty(LanguagesString)) LanguagesString = parent.LanguagesString;
+            if (Languages.IsEmpty) Languages.AddAll(parent.Languages);
             if (Architecture == default(Architecture)) Architecture = parent.Architecture;
 
             // Accumulate list entries

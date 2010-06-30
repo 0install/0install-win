@@ -16,12 +16,10 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Text;
 using System.Xml.Serialization;
+using Common.Collections;
 
 namespace ZeroInstall.Model
 {
@@ -34,46 +32,15 @@ namespace ZeroInstall.Model
     {
         #region Properties
         // Order is always alphabetical, duplicate entries are not allowed
-        private readonly C5.TreeSet<CultureInfo> _languages = new C5.TreeSet<CultureInfo>(new CultureComparer());
+        private readonly LanguageCollection _languages = new LanguageCollection();
         /// <summary>
         /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
-        [XmlIgnore]
-        public ICollection<CultureInfo> Languages { get { return _languages; } }
-
-        /// <summary>Used for XML serialization.</summary>
-        /// <seealso cref="Architecture"/>
-        [XmlAttribute("langs"), DefaultValue(""), Browsable(false)]
-        public string LanguagesString
-        {
-            get
-            {
-                // Serialize list as string split by spaces
-                var output = new StringBuilder();
-                foreach (var language in _languages)
-                {
-                    // .NET uses a hypen while Zero Install uses an underscore as a seperator
-                    output.Append(language.ToString().Replace('-', '_') + ' ');
-                }
-                // Return without trailing space
-                return output.ToString().TrimEnd();
-            }
-            set
-            {
-                _languages.Clear();
-                if (string.IsNullOrEmpty(value)) return;
-
-                // Replace list by parsing input string split by spaces
-                foreach (string language in value.Split(' '))
-                {
-                    // .NET uses a hypen while Zero Install uses an underscore as a seperator
-                    _languages.Add(new CultureInfo(language.Replace('_', '-')));
-                }
-            }
-        }
-
+        [XmlAttribute("langs"), DefaultValue("")]
+        public LanguageCollection Languages { get { return _languages; } }
+        
         /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
         /// </summary>
@@ -106,7 +73,8 @@ namespace ZeroInstall.Model
             if (to == null) throw new ArgumentNullException("to");
             #endregion
 
-            to.LanguagesString = from.LanguagesString;
+            to.Languages.Clear();
+            to.Languages.AddAll(from.Languages);
             to.ArchitectureString = from.ArchitectureString;
         }
         #endregion
@@ -123,7 +91,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                return ((LanguagesString ?? "").GetHashCode() * 397) ^ Architecture.GetHashCode();
+                return (Languages.GetUnsequencedHashCode() * 397) ^ Architecture.GetHashCode();
             }
         }
         #endregion

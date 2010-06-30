@@ -69,8 +69,9 @@
   <ItemGroup>
     <Compile Include="Archive\ExtractorTest.cs" />
     <Compile Include="Archive\ZipExtractorTest.cs" />
+    <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
-    <Compile Include="Collections\XmlLocalizableStringCollectionTest.cs" />
+    <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Helpers\FileHelperTest.cs" />
     <Compile Include="Helpers\StreamHelperTest.cs" />

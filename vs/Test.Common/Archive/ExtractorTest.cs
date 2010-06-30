@@ -21,7 +21,6 @@
  */
 
 using System.IO;
-using Common.Helpers;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
@@ -55,7 +54,7 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long,string)"/> correctly creates a <see cref="ZipExtractor"/>.
+        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long)"/> correctly creates a <see cref="ZipExtractor"/>.
         /// </summary>
         [Test]
         public void TestCreateExtractor()

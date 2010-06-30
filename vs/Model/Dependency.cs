@@ -43,15 +43,15 @@ namespace ZeroInstall.Model
         [XmlAttribute("use")]
         public string Use { get; set; }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Constraint> _constraints = new C5.HashedArrayList<Constraint>();
+        // Preserve order
+        private readonly C5.ArrayList<Constraint> _constraints = new C5.ArrayList<Constraint>();
         /// <summary>
         /// A list of version <see cref="Constraint"/>s that must be fulfilled.
         /// </summary>
         [Description("A list of version constraints that must be fulfilled.")]
         [XmlElement("version")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Constraint> Constraints { get { return _constraints; } }
+        public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order
         private readonly C5.ArrayList<EnvironmentBinding> _environmentBindings = new C5.ArrayList<EnvironmentBinding>();

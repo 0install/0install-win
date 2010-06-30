@@ -20,15 +20,16 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// An unsorted collection of <see cref="XmlLocalizableString"/>s with language-search methods.
+    /// An unsorted collection of <see cref="LocalizableString"/>s with language-search methods.
     /// </summary>
-    public class XmlLocalizableStringCollection : C5.ArrayList<XmlLocalizableString>
+    public class LocalizableStringCollection : C5.ArrayList<LocalizableString>
     {
         #region Add
         /// <summary>
@@ -37,7 +38,7 @@ namespace Common.Collections
         /// <param name="value">The actual string value to store.</param>
         public void Add(string value)
         {
-            Add(new XmlLocalizableString(value));
+            Add(new LocalizableString(value));
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace Common.Collections
         /// <param name="language">The language of the <paramref name="value"/>.</param>
         public void Add(string value, CultureInfo language)
         {
-            Add(new XmlLocalizableString(value, language));
+            Add(new LocalizableString(value, language));
         }
         #endregion
 
@@ -59,7 +60,7 @@ namespace Common.Collections
         /// <returns><see langword="true"/> if an element with the specified language exists in the collection; <see langword="false"/> otherwise.</returns>
         public bool ContainsLanguage(CultureInfo language)
         {
-            foreach (XmlLocalizableString entry in this)
+            foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return true;
             return false;
         }
@@ -67,16 +68,14 @@ namespace Common.Collections
 
         #region Indexer
         /// <summary>
-        /// Returns the first string in the collection associated to a specific language.
+        /// Returns the best string in the collection associated for a specific language.
         /// </summary>
-        /// <param name="language">The exact language to look for.</param>
-        /// <returns>The first string value found in the collection that is associated to the language specified.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no strings in the collection have the specified <paramref name="language"/>.</exception>
+        /// <param name="language">The language to look for.</param>
+        /// <returns>The best string value found in the collection. May have the exact language, a similar language or no specified language.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
         public string GetLanguage(CultureInfo language)
         {
-            foreach (XmlLocalizableString entry in this)
-                if (Equals(language, entry.Language)) return entry.Value;
-            throw new KeyNotFoundException();
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -85,8 +84,8 @@ namespace Common.Collections
         #region Clone
         public override object Clone()
         {
-            var newDict = new XmlLocalizableStringCollection();
-            foreach (XmlLocalizableString entry in this)
+            var newDict = new LocalizableStringCollection();
+            foreach (LocalizableString entry in this)
                 newDict.Add(entry.CloneString());
 
             return newDict;

@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.IO;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -39,25 +38,15 @@ namespace Common.Collections
         [Test]
         public void TestSaveLoad()
         {
-            XmlDictionary dictionary1, dictionary2;
-            string tempFile = null;
-            try
+            var dictionary1 = new XmlDictionary
             {
-                tempFile = Path.GetTempFileName();
+                {"key1", "value1"},
+                {"key2", "value2"}
+            };
 
-                // Write and read file
-                dictionary1 = new XmlDictionary
-                {
-                    {"key1", "value1"},
-                    {"key2", "value2"}
-                };
-                XmlStorage.Save(tempFile, dictionary1);
-                dictionary2 = XmlStorage.Load<XmlDictionary>(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Serialize and deserialize data
+            string data = XmlStorage.ToString(dictionary1);
+            var dictionary2 = XmlStorage.FromString<XmlDictionary>(data);
 
             // Ensure data stayed the same
             Assert.AreEqual(dictionary1, dictionary2, "Serialized objects should be equal.");
