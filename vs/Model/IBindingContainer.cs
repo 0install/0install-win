@@ -29,17 +29,17 @@ namespace ZeroInstall.Model
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementatiosn to locate dependencies.")]
+        [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement("environment")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        HashedArrayList<EnvironmentBinding> EnvironmentBindings { get; }
+        ArrayList<EnvironmentBinding> EnvironmentBindings { get; }
 
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for implementatiosn to locate dependencies.")]
+        [Description("A list of bindings for implementations to locate dependencies.")]
         [XmlElement("overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        HashedArrayList<OverlayBinding> OverlayBindings { get; }
+        ArrayList<OverlayBinding> OverlayBindings { get; }
     }
 }

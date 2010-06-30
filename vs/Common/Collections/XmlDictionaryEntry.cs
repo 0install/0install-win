@@ -21,22 +21,23 @@
  */
 
 using System;
+using System.Xml;
+using System.Xml.Schema;
 using System.Xml.Serialization;
 using Common.Properties;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// A key-value string pair for <see ref="XmlCollection" />
+    /// A key-value string pair for <see ref="XmlCollection" />.
     /// </summary>
-    [XmlType("Entry")]
-    public sealed class XmlCollectionEntry : ICloneable
+    public sealed class XmlDictionaryEntry : IEquatable<XmlDictionaryEntry>, ICloneable, IXmlSerializable
     {
         #region Variables
         /// <summary>
         /// The collection that owns this entry - set to enable automatic duplicate detection!
         /// </summary>
-        internal XmlCollection Parent;
+        internal XmlDictionary Parent;
         
         private string _key;
         #endregion
@@ -45,7 +46,8 @@ namespace Common.Collections
         /// <summary>
         /// The unique text key
         /// </summary>
-        [XmlAttribute]
+        /// <exception cref="InvalidOperationException">Thrown if the new key value already exists in the <see cref="Parent"/> dictionary.</exception>
+        //[XmlAttribute("key")]
         public string Key
         {
             get { return _key; }
@@ -60,7 +62,6 @@ namespace Common.Collections
         /// <summary>
         /// The text value
         /// </summary>
-        [XmlAttribute]
         public string Value { get; set; }
         #endregion
 
@@ -68,7 +69,7 @@ namespace Common.Collections
         /// <summary>
         /// Base-constructor for XML serialization. Do not call manually!
         /// </summary>
-        public XmlCollectionEntry()
+        public XmlDictionaryEntry()
         {}
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Common.Collections
         /// </summary>
         /// <param name="key">The unique text key</param>
         /// <param name="value">The text value</param>
-        public XmlCollectionEntry(string key, string value)
+        public XmlDictionaryEntry(string key, string value)
         {
             _key = key;
             Value = value;
@@ -85,20 +86,56 @@ namespace Common.Collections
 
         //--------------------//
 
+        #region Conversion
+        public override string ToString()
+        {
+            return Key + ": " + Value;
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(XmlDictionaryEntry other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return other.Value == Value && other.Key == Key;
+        }
+
+        public static bool operator ==(XmlDictionaryEntry left, XmlDictionaryEntry right)
+        {
+            return Equals(left, right);
+        }
+
+        public static bool operator !=(XmlDictionaryEntry left, XmlDictionaryEntry right)
+        {
+            return !Equals(left, right);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != typeof(XmlDictionaryEntry)) return false;
+            return Equals((XmlDictionaryEntry)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Value != null ? Value.GetHashCode() : 0) * 397) ^ (_key != null ? _key.GetHashCode() : 0);
+            }
+        }
+        #endregion
+
         #region Clone
         /// <summary>
         /// Creates a plain copy of this entry.
         /// </summary>
         /// <returns>The cloned entry.</returns>
-        public XmlCollectionEntry CloneEntry()
+        public XmlDictionaryEntry CloneEntry()
         {
-            // Perform initial shallow copy
-            var entry = (XmlCollectionEntry)MemberwiseClone();
-
-            // Remove parent reference (no longer realted due to cloning)
-            entry.Parent = null;
-            
-            return entry;
+            return new XmlDictionaryEntry(Key, Value);
         }
 
         /// <summary>
@@ -108,6 +145,35 @@ namespace Common.Collections
         public object Clone()
         {
             return CloneEntry();
+        }
+        #endregion
+
+        //--------------------//
+
+        #region XML Serialization
+        void IXmlSerializable.ReadXml(XmlReader reader)
+        {
+            #region Sanity checks
+            if (reader == null) throw new ArgumentNullException("reader");
+            #endregion
+
+            Key = reader.GetAttribute("key");
+            Value = reader.ReadElementContentAsString();
+        }
+
+        void IXmlSerializable.WriteXml(XmlWriter writer)
+        {
+            #region Sanity checks
+            if (writer == null) throw new ArgumentNullException("writer");
+            #endregion
+
+            writer.WriteAttributeString("key", Key);
+            writer.WriteString(Value);
+        }
+
+        XmlSchema IXmlSerializable.GetSchema()
+        {
+            return null;
         }
         #endregion
     }

@@ -36,6 +36,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL" />
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
@@ -49,6 +50,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -67,6 +69,8 @@
   <ItemGroup>
     <Compile Include="Archive\ExtractorTest.cs" />
     <Compile Include="Archive\ZipExtractorTest.cs" />
+    <Compile Include="Collections\XmlDictionaryTest.cs" />
+    <Compile Include="Collections\XmlLocalizableStringCollectionTest.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Helpers\FileHelperTest.cs" />
     <Compile Include="Helpers\StreamHelperTest.cs" />

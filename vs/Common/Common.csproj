@@ -72,8 +72,10 @@
     <Compile Include="Collections\Pool.cs" />
     <Compile Include="Collections\NamedCollection.cs" />
     <Compile Include="Collections\MonitoredCollection.cs" />
-    <Compile Include="Collections\XmlCollection.cs" />
-    <Compile Include="Collections\XmlCollectionEntry.cs" />
+    <Compile Include="Collections\XmlDictionary.cs" />
+    <Compile Include="Collections\XmlDictionaryEntry.cs" />
+    <Compile Include="Collections\XmlLocalizableStringCollection.cs" />
+    <Compile Include="Collections\XmlLocalizableString.cs" />
     <Compile Include="Controls\DownloadProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -179,7 +181,6 @@
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -53,25 +53,25 @@ namespace ZeroInstall.Model
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Constraint> Constraints { get { return _constraints; } }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<EnvironmentBinding> _environmentBindings = new C5.HashedArrayList<EnvironmentBinding>();
+        // Preserve order
+        private readonly C5.ArrayList<EnvironmentBinding> _environmentBindings = new C5.ArrayList<EnvironmentBinding>();
         /// <summary>
         /// A list of <see cref="EnvironmentBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
         /// </summary>
         [Description("A list of bindings for environment implementations to locate this dependency.")]
         [XmlElement("environment")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
+        public C5.ArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<OverlayBinding> _overlayBindings = new C5.HashedArrayList<OverlayBinding>();
+        // Preserve order
+        private readonly C5.ArrayList<OverlayBinding> _overlayBindings = new C5.ArrayList<OverlayBinding>();
         /// <summary>
         /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
         /// </summary>
         [Description("A list of bindings for overlay implementations to locate this dependency.")]
         [XmlElement("overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
+        public C5.ArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
         #endregion
 
         //--------------------//

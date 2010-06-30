@@ -17,6 +17,8 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Collections;
+using Common.Storage;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -122,7 +124,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var zeroInterface = new Feed { Name = textName.Text, Summary = textSummary.Text };
+            var zeroInterface = new Feed {Name = textName.Text, Summaries = {textSummary.Text}};
 
             SaveGeneralTab(zeroInterface);
             SaveFeedTab(zeroInterface);
@@ -153,7 +155,8 @@ namespace ZeroInstall.Publish.WinForms
             }
             if (!String.IsNullOrEmpty(textDescription.Text))
             {
-                zeroInterface.Description = textDescription.Text;
+                zeroInterface.Descriptions.Clear();
+                zeroInterface.Descriptions.Add(new XmlLocalizableString(textDescription.Text));
             }
             if (Uri.TryCreate(textInterfaceURL.Text, UriKind.Absolute, out url))
             {
@@ -263,8 +266,8 @@ namespace ZeroInstall.Publish.WinForms
         private void FillGeneralTab(Feed zeroInterface)
         {
             textName.Text = zeroInterface.Name;
-            textSummary.Text = zeroInterface.Summary;
-            textDescription.Text = zeroInterface.Description;
+            if (!zeroInterface.Summaries.IsEmpty) textSummary.Text = zeroInterface.Summaries.First.Value;
+            if (!zeroInterface.Descriptions.IsEmpty) textDescription.Text = zeroInterface.Descriptions.First.Value;
             textHomepage.Text = zeroInterface.HomepageString;
             textInterfaceURL.Text = zeroInterface.UriString;
             // fill icons list box

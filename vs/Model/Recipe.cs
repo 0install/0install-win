@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -31,15 +30,15 @@ namespace ZeroInstall.Model
         #region Properties
 
         #region Steps
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Archive> _archives = new C5.HashedArrayList<Archive>();
+        // Preserve order
+        private readonly C5.ArrayList<Archive> _archives = new C5.ArrayList<Archive>();
         /// <summary>
         /// An ordered list of archives to extract.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Archive> Archives { get { return _archives; } }
+        public C5.ArrayList<Archive> Archives { get { return _archives; } }
         #endregion
 
         #endregion

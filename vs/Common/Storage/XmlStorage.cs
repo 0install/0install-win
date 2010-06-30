@@ -194,16 +194,16 @@ namespace Common.Storage
                 if (xmlWriter == null) throw new IOException(Resources.FailedToCreateXmlWriter);
                 var serializer = GetSerializer(typeof(T), ignoreMembers);
 
-                // Detect namespace defintions in XmlRoot attribute
+                // Detect XmlRoot attribute
                 var rootAttributes = typeof(T).GetCustomAttributes(typeof(XmlRootAttribute), true);
-                string defaultNamesapce = (rootAttributes.Length == 0 ? null : ((XmlRootAttribute)rootAttributes[0]).Namespace);
-                if (string.IsNullOrEmpty(defaultNamesapce))
+
+                if (rootAttributes.Length == 0)
                 { // Use default serializer namespaces (XMLSchema)
                     serializer.Serialize(xmlWriter, data);
                 }
                 else
-                { // Set custom namespace as default
-                    var ns = new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", defaultNamesapce) });
+                { // Set custom namespace
+                    var ns = new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace) });
                     serializer.Serialize(xmlWriter, data, ns);
                 }
             }
@@ -275,8 +275,10 @@ namespace Common.Storage
             bool xmlFound = false;
             T output = default(T);
 
-            using (var zipFile = new ZipFile(stream) {Password = password})
+            using (var zipFile = new ZipFile(stream))
             {
+                zipFile.Password = password;
+
                 foreach (ZipEntry zipEntry in zipFile)
                 {
                     if (zipEntry.Name == "Data.xml")
@@ -342,17 +344,19 @@ namespace Common.Storage
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
-        public static void ToZip<T>(Stream stream, T data, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
+        public static void ToZip<T>(Stream stream, T data, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false, Password = password})
+            using (var zipStream = new ZipOutputStream(stream))
             {
+                zipStream.Password = password;
+
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("Data.xml") {DateTime = DateTime.Now};
+                    var entry = new ZipEntry("Data.xml") { DateTime = DateTime.Now };
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
@@ -364,7 +368,7 @@ namespace Common.Storage
                 {
                     foreach (EmbeddedFile file in additionalFiles)
                     {
-                        var entry = new ZipEntry(file.Filename) {DateTime = DateTime.Now};
+                        var entry = new ZipEntry(file.Filename) { DateTime = DateTime.Now };
                         zipStream.SetLevel(file.CompressionLevel);
                         zipStream.PutNextEntry(entry);
                         file.StreamDelegate(zipStream);

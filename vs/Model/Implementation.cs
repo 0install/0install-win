@@ -30,25 +30,25 @@ namespace ZeroInstall.Model
     public sealed class Implementation : IDImplementation, ICloneable
     {
         #region Properties
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Archive> _archives = new C5.HashedArrayList<Archive>();
+        // Preserve order
+        private readonly C5.ArrayList<Archive> _archives = new C5.ArrayList<Archive>();
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement("archive")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Archive> Archives { get { return _archives; } }
+        public C5.ArrayList<Archive> Archives { get { return _archives; } }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Recipe> _recipes = new C5.HashedArrayList<Recipe>();
+        // Preserve order
+        private readonly C5.ArrayList<Recipe> _recipes = new C5.ArrayList<Recipe>();
         /// <summary>
         /// A list of <see cref="Recipe"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of recipes as retrieval methods.")]
         [XmlElement("recipe")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Recipe> Recipes { get { return _recipes; } }
+        public C5.ArrayList<Recipe> Recipes { get { return _recipes; } }
         #endregion
 
         //--------------------//

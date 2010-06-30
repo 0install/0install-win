@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector.Solver
             // Ensure data stayed the same
             Assert.AreEqual(selections1, selections2, "Serialized objects should be equal.");
             Assert.AreEqual(selections1.GetHashCode(), selections2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(selections1, selections2), "Serialized should not return the same reference.");
+            Assert.IsFalse(ReferenceEquals(selections1, selections2), "Serialized objects should not return the same reference.");
         }
 
         /// <summary>

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common.Collections;
 using Common.Storage;
 
 namespace ZeroInstall.Model
@@ -85,20 +86,23 @@ namespace ZeroInstall.Model
         [XmlElement("name")]
         public string Name { get; set; }
 
+        private readonly XmlLocalizableStringCollection _summaries = new XmlLocalizableStringCollection();
         /// <summary>
-        /// A short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
+        /// Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. "cures all ills").
         /// </summary>
-        [Category("Interface"), Description("A short one-line description; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
+        [Category("Interface"), Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
         [XmlElement("summary")]
-        public string Summary { get; set; }
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public XmlLocalizableStringCollection Summaries { get { return _summaries; } }
 
+        private readonly XmlLocalizableStringCollection _descriptions = new XmlLocalizableStringCollection();
         /// <summary>
-        /// A full description, which can be several paragraphs long (optional since 0.32, but recommended).
+        /// Full descriptions for different languages, which can be several paragraphs long.
         /// </summary>
-        [Category("Interface"), Description("A full description, which can be several paragraphs long (optional since 0.32, but recommended).")]
-        //[Editor("System.ComponentModel.Design.MultilineStringEditor, System.Design, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a", typeof(UITypeEditor))]
+        [Category("Interface"), Description("Full descriptions for different languages, which can be several paragraphs long.")]
         [XmlElement("description")]
-        public string Description { get; set; }
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public XmlLocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         /// <summary>
         /// The URL of a web-page describing this interface in more detail.
@@ -152,36 +156,36 @@ namespace ZeroInstall.Model
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<Icon> Icons { get { return _icons; } }
         
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Group> _groups = new C5.HashedArrayList<Group>();
+        // Preserve order
+        private readonly C5.ArrayList<Group> _groups = new C5.ArrayList<Group>();
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups contained within this interface.")]
         [XmlElement("group")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Group> Groups { get { return _groups; } }
+        public C5.ArrayList<Group> Groups { get { return _groups; } }
 
         #region Implementations
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<Implementation> _implementations = new C5.HashedArrayList<Implementation>();
+        // Preserve order
+        private readonly C5.ArrayList<Implementation> _implementations = new C5.ArrayList<Implementation>();
         /// <summary>
         /// A list of downloadable <see cref="Implementation"/>s for this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of downloadable implementations contained for this interface.")]
         [XmlElement("implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<Implementation> Implementations { get { return _implementations; } }
+        public C5.ArrayList<Implementation> Implementations { get { return _implementations; } }
 
-        // Preserve order, duplicate entries are not allowed
-        private readonly C5.HashedArrayList<PackageImplementation> _packageImplementation = new C5.HashedArrayList<PackageImplementation>();
+        // Preserve order
+        private readonly C5.ArrayList<PackageImplementation> _packageImplementation = new C5.ArrayList<PackageImplementation>();
         /// <summary>
         /// A list of distribution-provided <see cref="PackageImplementation"/>s for this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of distribution-provided package implementations for this interface.")]
         [XmlElement("package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.HashedArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
+        public C5.ArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
         #endregion
 
         #endregion
@@ -294,8 +298,8 @@ namespace ZeroInstall.Model
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;
             if (Name != other.Name) return false;
-            if (Summary != other.Summary) return false;
-            if (Description != other.Description) return false;
+            if (!Summaries.UnsequencedEquals(other.Summaries)) return false;
+            if (!Descriptions.UnsequencedEquals(other.Descriptions)) return false;
             if (Homepage != other.Homepage) return false;
             if (NeedsTerminal != other.NeedsTerminal) return false;
             if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
@@ -319,11 +323,11 @@ namespace ZeroInstall.Model
                 int result = (MinInjectorVersion ?? "").GetHashCode();
                 result = (result * 397) ^ (UriString ?? "").GetHashCode();
                 result = (result * 397) ^ (Name ?? "").GetHashCode();
-                result = (result * 397) ^ (Summary ?? "").GetHashCode();
-                result = (result * 397) ^ (Description ?? "").GetHashCode();
+                result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
                 result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
-                result = (result * 397) ^ (Feeds != null ? Feeds.GetUnsequencedHashCode() : 0);
+                result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
                 return result;
             }
         }

@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.Globalization;
 using System.IO;
 using NUnit.Framework;
 
@@ -32,15 +34,20 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSaveLoad()
         {
-            Feed feedp1, feed2;
+            Feed feed1, feed2;
             string tempFile = null;
             try
             {
                 tempFile = Path.GetTempFileName();
 
                 // Write and read file
-                feedp1 = new Feed { Name = "MyApp", Description = "Some text.", Categories = {"Category"} };
-                feedp1.Save(tempFile);
+                feed1 = new Feed
+                {
+                    Name = "MyApp", Categories = {"Category"}, Homepage = new Uri("http://0install.net/"),
+                    Summaries = { "Default summary", {"German summary", new CultureInfo("de-DE")} },
+                    Descriptions = { "Default descriptions", {"German descriptions", new CultureInfo("de-DE")} }
+                };
+                feed1.Save(tempFile);
                 feed2 = Feed.Load(tempFile);
             }
             finally
@@ -49,9 +56,9 @@ namespace ZeroInstall.Model
             }
             
             // Ensure data stayed the same
-            Assert.AreEqual(feedp1, feed2, "Serialized objects should be equal.");
-            Assert.AreEqual(feedp1.GetHashCode(), feed2.GetHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(feedp1, feed2), "Serialized should not return the same reference.");
+            Assert.AreEqual(feed1, feed2, "Serialized objects should be equal.");
+            Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Serialized objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(feed1, feed2), "Serialized objects should not return the same reference.");
         }
 
         /// <summary>
