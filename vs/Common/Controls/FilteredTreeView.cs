@@ -47,7 +47,7 @@ namespace Common.Controls
 
         private void OnSelectedEntryChanged()
         {
-            if (SelectedEntryChanged != null && !_supressEvents) SelectedEntryChanged(this, EventArgs.Empty);
+            if (Visible && SelectedEntryChanged != null && !_supressEvents) SelectedEntryChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Common.Controls
             get { return _entries; }
             set { _entries = value; UpdateList(); }
         }
-        
+
         private T _selectedEntry;
         /// <summary>
         /// The <see cref="INamed"/> object currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
