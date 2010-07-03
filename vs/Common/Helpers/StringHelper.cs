@@ -186,14 +186,15 @@ namespace Common.Helpers
             #endregion
 
             var output = new StringBuilder();
+            bool first = true;
             foreach (var part in parts)
             {
-                output.Append(part);
-                output.Append(separator);
-            }
+                // No separator before first or after last line
+                if (first) first = false;
+                else output.Append(separator);
 
-            // No separator after last line
-            if (output.Length != 0) output.Remove(output.Length - 1, 1);
+                output.Append(part);
+            }
 
             return output.ToString();
         }

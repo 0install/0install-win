@@ -99,6 +99,10 @@ namespace ZeroInstall.StoreService.Storage
             {
                 Log.Warn("Failed to save settings: " + ex.Message);
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Insufficient rights to save settings: " + ex.Message);
+            }
         }
         #endregion
 

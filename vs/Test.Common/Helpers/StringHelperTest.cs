@@ -72,8 +72,8 @@ namespace Common.Helpers
         [Test]
         public void TestBuildStringFromLines()
         {
-            Assert.AreEqual("line1", StringHelper.Concatenate(new[] { "line1" }, "\n"));
-            Assert.AreEqual("line1\nline2", StringHelper.Concatenate(new[] { "line1", "line2" }, "\n"));
+            Assert.AreEqual("line1", StringHelper.Concatenate(new[] { "line1" }, "\r\n"));
+            Assert.AreEqual("line1\r\nline2", StringHelper.Concatenate(new[] { "line1", "line2" }, "\r\n"));
         }
 
         /// <summary>

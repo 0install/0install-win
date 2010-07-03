@@ -90,8 +90,10 @@ namespace Common
             _fileWriter.BaseStream.Seek(0, SeekOrigin.End);
 
             // Add session identification block to the file
-            _fileWriter.WriteLine("");
-            Echo("/// " + Application.ProductName + " v" + Application.ProductVersion + " - Session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            Echo("");
+            Echo("/// " + Application.ProductName + " v" + Application.ProductVersion);
+            Echo("///  Session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            Echo("");
         }
         #endregion
 
@@ -107,10 +109,12 @@ namespace Common
         /// <param name="message">The actual message text of the entry.</param>
         private static void AddEntry(LogSeverity severity, string message)
         {
+            #region Sanity check
             if (message == null) throw new ArgumentNullException("message");
+            #endregion
 
             #region Prepare message string
-            // Split lines and put them back together in order to create uniform line-breaks and indention
+            // Create uniform line-breaks and indention
             string[] lines = StringHelper.SplitMultilineText(message.Trim());
             message = StringHelper.Concatenate(lines, "\r\n\t");
 
@@ -122,9 +126,13 @@ namespace Common
                     break;
 
                 case LogSeverity.Warn:
+                    // Prepend current time and severity to message
+                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] WARN: {1}", DateTime.Now, message);
+                    break;
+
                 case LogSeverity.Error:
                     // Prepend current time and severity to message
-                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] {1}: {2}", DateTime.Now, severity, message);
+                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] ERROR: {1}", DateTime.Now, message);
                     break;
 
             }

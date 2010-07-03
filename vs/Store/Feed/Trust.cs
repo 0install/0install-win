@@ -121,6 +121,10 @@ namespace ZeroInstall.Store.Feed
             {
                 Log.Warn("Failed to save trust data: " + ex.Message);
             }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Warn("Insufficient rights to save trust data: " + ex.Message);
+            }
         }
         #endregion
 
