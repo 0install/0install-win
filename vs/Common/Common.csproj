@@ -141,6 +141,7 @@
     <Compile Include="Undo\IUndoCommand.cs" />
     <Compile Include="Values\ValueTypeConverter.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
@@ -33,7 +32,7 @@ using LuaInterface;
 namespace Common
 {
     /// <summary>
-    /// Static functions for writing and maintaining a log file.
+    /// Maintains log messages in memory and in a plain text file.
     /// </summary>
     public static class Log
     {
@@ -46,33 +45,30 @@ namespace Common
         #endregion
 
         #region Variables
-        private static readonly StreamWriter _writer;
+        private static readonly StringBuilder _sessionContent = new StringBuilder();
         private static readonly string _filePath = Path.Combine(Path.GetTempPath(),
             Path.GetFileNameWithoutExtension(Application.ExecutablePath) + " Log.txt");
-        private static readonly StringBuilder _logContent = new StringBuilder();
+        private static readonly StreamWriter _fileWriter;
         #endregion
 
         #region Properties
         /// <summary>
-        /// All data logged in this session so far.
+        /// All data logged in this session so far as plain text.
         /// </summary>
-        public static string Content { get { return _logContent.ToString(); } }
+        public static string Content
+        {
+            get
+            {
+                lock (_sessionContent) { return _sessionContent.ToString(); }
+            }
+        }
         #endregion
 
         #region Constructor
-        /// <summary>
-        /// Returns an ISO Date (Year-Month-Day.
-        /// </summary>
-        private static string IsoDate(DateTime date)
-        {
-            return date.Year + "-" + date.Month.ToString("00", CultureInfo.InvariantCulture) + "-" + date.Day.ToString("00", CultureInfo.InvariantCulture);
-        }
-
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "The static constructor is used to add an identification header to the log file")]
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
-            #region Setup file writer
             // Try to open the file for writing but give up right away if there are any problems
             FileStream file;
             try { file = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite); }
@@ -86,105 +82,108 @@ namespace Common
                 file = new FileStream(_filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             }
 
-            // When writing to a new file make sure it uses UTF-8
-            _writer = file.Length == 0 ? new StreamWriter(file, Encoding.UTF8) : new StreamWriter(file) { AutoFlush = true };
+            // When writing to a new file use UTF-8, otherwise keep existing encoding
+            _fileWriter = (file.Length == 0 ? new StreamWriter(file, Encoding.UTF8) : new StreamWriter(file));
+            _fileWriter.AutoFlush = true;
 
             // Go to end of file
-            _writer.BaseStream.Seek(0, SeekOrigin.End);
-            #endregion
+            _fileWriter.BaseStream.Seek(0, SeekOrigin.End);
 
-            // Add a section identification block to the file
-            AddLine("");
-            AddLine("/// " + Application.ProductName + " v" + Application.ProductVersion);
-            AddLine("/// Session started at: " + IsoDate(DateTime.Now));
-            AddLine("");
+            // Add session identification block to the file
+            _fileWriter.WriteLine("");
+            Echo("/// " + Application.ProductName + " v" + Application.ProductVersion + " - Session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
         }
         #endregion
 
-        #region Write log entry
-        private static void AddLine(string text)
-        {
-            // Split lines and put them back together in order to create uniform line-breaks and indention
-            string[] lines = StringHelper.SplitMultilineText(text.Trim());
-            text = StringHelper.Concatenate(lines, "\r\n\t");
+        //--------------------//
 
-            // Make thread-safe
-            lock (_logContent)
+        #region Add entry
+        private enum LogSeverity { Echo, Info, Warn, Error }
+
+        /// <summary>
+        /// Adds a new entry to the log.
+        /// </summary>
+        /// <param name="severity">The type/severity of the entry.</param>
+        /// <param name="message">The actual message text of the entry.</param>
+        private static void AddEntry(LogSeverity severity, string message)
+        {
+            if (message == null) throw new ArgumentNullException("message");
+
+            #region Prepare message string
+            // Split lines and put them back together in order to create uniform line-breaks and indention
+            string[] lines = StringHelper.SplitMultilineText(message.Trim());
+            message = StringHelper.Concatenate(lines, "\r\n\t");
+
+            switch(severity)
+            {
+                case LogSeverity.Info:
+                    // Prepend current time to message
+                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] {1}", DateTime.Now, message);
+                    break;
+
+                case LogSeverity.Warn:
+                case LogSeverity.Error:
+                    // Prepend current time and severity to message
+                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] {1}: {2}", DateTime.Now, severity, message);
+                    break;
+
+            }
+            #endregion
+
+            // Thread-safety: Only one log message is handled at a time
+            lock (_sessionContent)
             {
 #if DEBUG
                 // In debug mode write the message to the console
-                Console.WriteLine(text);
+                Console.WriteLine(message);
 #endif
 
                 // Store the message in RAM
-                _logContent.AppendLine(text);
+                _sessionContent.AppendLine(message);
 
                 // If possible write to the log file
-                if (_writer != null) _writer.WriteLine(text);
+                if (_fileWriter != null) _fileWriter.WriteLine(message);
             }
-        }
-
-        /// <summary>
-        /// Writes a entry and the current time to the log file.
-        /// </summary>
-        public static void Write(string entry)
-        {
-            if (string.IsNullOrEmpty(entry)) return;
-
-            DateTime ct = DateTime.Now;
-            entry = "[" + ct.Hour.ToString("00", CultureInfo.InvariantCulture) + ":" +
-                    ct.Minute.ToString("00", CultureInfo.InvariantCulture) + ":" +
-                    ct.Second.ToString("00", CultureInfo.InvariantCulture) + "] " +
-                    entry;
-
-            AddLine(entry);
 
             // Raise event
             if (NewEntry != null) NewEntry();
         }
-
-        /// <summary>
-        /// Writes a entry and the current time to the log file.
-        /// </summary>
-        [LuaGlobal(Name = "Log", Description = "Writes a entry and the current time to the log file.")]
-        public static void Write(object entry)
-        {
-            if (entry != null) Write(entry.ToString());
-        }
-        #endregion
-    }
-
-    /// <summary>
-    /// Struct that allows you to log timed execution blocks.
-    /// </summary>
-    /// <example>
-    ///   <code>using(new LogEvent("Message")) {}</code>
-    /// </example>
-    public struct LogEvent : IDisposable
-    {
-        #region Variables
-        private readonly Stopwatch _timer;
-        private readonly string _entry;
         #endregion
 
-        #region Event control
+        #region Access
         /// <summary>
-        /// Starts a new log event.
+        /// Writes non-critical information to the log.
         /// </summary>
-        /// <param name="entry">The entry for the log file. Elapsed time will automatically be appended.</param>
-        public LogEvent(string entry)
+        [LuaGlobal(Name = "Info", Description = "Writes non-critical information to the log.")]
+        public static void Info(string message)
         {
-            _entry = entry;
-            _timer = Stopwatch.StartNew();
+            AddEntry(LogSeverity.Info, message);
         }
 
         /// <summary>
-        /// Ends the log event.
+        /// Writes non-critical warnings to the log.
         /// </summary>
-        public void Dispose()
+        [LuaGlobal(Name = "Warn", Description = "Writes non-critical warnings to the log.")]
+        public static void Warn(string message)
         {
-            _timer.Stop();
-            Log.Write(_entry + " => " + (float)_timer.Elapsed.TotalSeconds + "s");
+            AddEntry(LogSeverity.Warn, message);
+        }
+
+        /// <summary>
+        /// Writes critical errors to the log.
+        /// </summary>
+        [LuaGlobal(Name = "Error", Description = "Writes critical errors to the log.")]
+        public static void Error(string message)
+        {
+            AddEntry(LogSeverity.Error, message);
+        }
+
+        /// <summary>
+        /// Echos to the log without a timestamp or severity.
+        /// </summary>
+        public static void Echo(string message)
+        {
+            AddEntry(LogSeverity.Echo, message);
         }
         #endregion
     }

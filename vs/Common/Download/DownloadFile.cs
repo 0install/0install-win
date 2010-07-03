@@ -275,11 +275,11 @@ namespace Common.Download
                     #region Error handling
                     catch (IOException ex)
                     {
-                        Log.Write("Unable to delete: " + Target + " (" + ex.Message + ")");
+                        Log.Warn("Unable to delete: " + Target + " (" + ex.Message + ")");
                     }
                     catch (UnauthorizedAccessException ex)
                     {
-                        Log.Write("Unable to delete: " + Target + " (" + ex.Message + ")");
+                        Log.Warn("Unable to delete: " + Target + " (" + ex.Message + ")");
                     }
                     #endregion
                 }

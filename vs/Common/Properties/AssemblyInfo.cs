@@ -9,7 +9,7 @@ using System.Security.Permissions;
 [assembly: AssemblyDescription("Common functions used by desktop applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NanoByte")]
-[assembly: AssemblyProduct("OmegaEngine helper functions")]
+[assembly: AssemblyProduct("Helper functions")]
 [assembly: AssemblyCopyright("Copyright 2006-2010 Bastian Eicher")]
 [assembly: NeutralResourcesLanguage("en")]
 

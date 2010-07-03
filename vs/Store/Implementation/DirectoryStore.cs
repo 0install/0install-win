@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementation
             try { FileHelper.WriteProtection(target); }
             catch (UnauthorizedAccessException)
             {
-                Log.Write("Unable to enable write protection for " + target);
+                Log.Warn("Unable to enable write protection for " + target);
             }
         }
         #endregion

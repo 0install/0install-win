@@ -72,11 +72,11 @@ namespace ZeroInstall.StoreService.Storage
             try
             {
                 Current = XmlStorage.Load<Settings>(_configPath);
-                Log.Write("Loaded settings from user profile");
+                Log.Info("Loaded settings");
             }
             catch (Exception ex)
             {
-                Log.Write("Failed to load settings from user profile: " + ex.Message + "\nReverting to defaults");
+                Log.Warn("Failed to load settings: " + ex.Message + "\nReverting to defaults");
             }
 
             // Fall back to default values if both fail
@@ -93,10 +93,12 @@ namespace ZeroInstall.StoreService.Storage
             try
             {
                 XmlStorage.Save(_configPath, Current);
-                Log.Write("Saved settings to user profile");
+                Log.Info("Saved settings");
             }
-            catch (IOException)
-            {}
+            catch (IOException ex)
+            {
+                Log.Warn("Failed to save settings: " + ex.Message);
+            }
         }
         #endregion
 

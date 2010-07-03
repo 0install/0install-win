@@ -79,11 +79,11 @@ namespace ZeroInstall.Central.WinForms.Storage
                 try
                 {
                     Current = XmlStorage.Load<Settings>(_portablePath);
-                    Log.Write("Loaded settings from installation directory");
+                    Log.Info("Loaded settings from installation directory");
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load settings from installation directory: " + ex.Message + "\nReverting to defaults");
+                    Log.Warn("Failed to load settings from installation directory: " + ex.Message + "\nReverting to defaults");
                 }
             }
             else
@@ -91,11 +91,11 @@ namespace ZeroInstall.Central.WinForms.Storage
                 try
                 {
                     Current = XmlStorage.Load<Settings>(_profilePath);
-                    Log.Write("Loaded settings from user profile");
+                    Log.Info("Loaded settings from user profile");
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load settings from user profile: " + ex.Message + "\nReverting to defaults");
+                    Log.Warn("Failed to load settings from user profile: " + ex.Message + "\nReverting to defaults");
                 }
             }
 
@@ -115,16 +115,18 @@ namespace ZeroInstall.Central.WinForms.Storage
                 if (_loadedFromAppDir)
                 {
                     XmlStorage.Save(_portablePath, Current);
-                    Log.Write("Saved settings to working directory");
+                    Log.Info("Saved settings to working directory");
                 }
                 else
                 {
                     XmlStorage.Save(_profilePath, Current);
-                    Log.Write("Saved settings to user profile");
+                    Log.Info("Saved settings to user profile");
                 }
             }
-            catch (IOException)
-            {}
+            catch (IOException ex)
+            {
+                Log.Warn("Failed to save settings: " + ex.Message);
+            }
         }
         #endregion
 

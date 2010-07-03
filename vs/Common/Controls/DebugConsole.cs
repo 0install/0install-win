@@ -105,7 +105,7 @@ namespace Common.Controls
             if (!inputBox.AutoCompleteCustomSource.Contains(command))
                 inputBox.AutoCompleteCustomSource.Add(command);
             _lastCommand = command;
-            Log.Write("> " + command);
+            Log.Echo("> " + command);
 
             try
             {
@@ -117,7 +117,7 @@ namespace Common.Controls
                     // Output the result as a string if possible
                     string result = Lua["DebugResult"].ToString();
                     if (!string.IsNullOrEmpty(result))
-                        Log.Write("==> " + result);
+                        Log.Echo("==> " + result);
                     Lua["DebugResult"] = null;
                 }
             }
@@ -127,7 +127,7 @@ namespace Common.Controls
                 string message = ex.IsNetException ? ex.InnerException.Message : ex.Message;
 
                 // Output exception message
-                Log.Write("==> " + message);
+                Log.Echo("==> " + message);
             }
 
             inputBox.Text = "";

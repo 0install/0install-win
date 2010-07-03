@@ -58,8 +58,8 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Write("Warning: " + text); break;
-                case MsgSeverity.Error: Log.Write("Error: " + text); break;
+                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
 
@@ -94,8 +94,8 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Write("Warning: " + text); break;
-                case MsgSeverity.Error: Log.Write("Error: " + text); break;
+                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
 
@@ -164,8 +164,8 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Write("Warning: " + text); break;
-                case MsgSeverity.Error: Log.Write("Error: " + text); break;
+                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
 

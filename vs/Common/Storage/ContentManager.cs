@@ -100,7 +100,7 @@ namespace Common.Storage
             _baseArchives = new List<ZipFile>(baseFiles.Length); // Use exact size for list capacity
             foreach (FileInfo file in baseFiles)
             {
-                Log.Write("Load base data archive: " + file.Name);
+                Log.Info("Load base data archive: " + file.Name);
                 var zipFile = new ZipFile(file.FullName);
                 foreach (ZipEntry zipEntry in zipFile)
                 {
@@ -125,7 +125,7 @@ namespace Common.Storage
                 _modArchives = new List<ZipFile>(modFiles.Length); // Use exact size for list capacity
                 foreach (FileInfo file in modFiles)
                 {
-                    Log.Write("Load mod data archive: " + file.Name);
+                    Log.Info("Load mod data archive: " + file.Name);
                     var zipFile = new ZipFile(file.FullName);
                     foreach (ZipEntry zipEntry in zipFile)
                     {
@@ -158,7 +158,7 @@ namespace Common.Storage
             {
                 foreach (ZipFile zipFile in _baseArchives)
                 {
-                    Log.Write("Close base data archive: " + zipFile.Name);
+                    Log.Info("Close base data archive: " + zipFile.Name);
                     try { zipFile.Close(); }
 // ReSharper disable EmptyGeneralCatchClause
                     catch {}
@@ -174,7 +174,7 @@ namespace Common.Storage
             {
                 foreach (ZipFile zipFile in _modArchives)
                 {
-                    Log.Write("Close mod data archive: " + zipFile.Name);
+                    Log.Info("Close mod data archive: " + zipFile.Name);
                     try { zipFile.Close(); }
 // ReSharper disable EmptyGeneralCatchClause
                     catch {}

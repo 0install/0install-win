@@ -71,12 +71,12 @@ namespace ZeroInstall.Store.Feed
                 {
                     var current = XmlStorage.Load<Trust>(_portablePath);
                     current._loadedFromAppDir = true;
-                    Log.Write("Loaded trust data from installation directory");
+                    Log.Info("Loaded trust data from installation directory");
                     return current;
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load trust data from installation directory: " + ex.Message + "\nReverting to defaults");
+                    Log.Warn("Failed to load trust data from installation directory: " + ex.Message + "\nReverting to defaults");
                 }
             }
             else
@@ -84,12 +84,12 @@ namespace ZeroInstall.Store.Feed
                 try
                 {
                     var current = XmlStorage.Load<Trust>(_profilePath);
-                    Log.Write("Loaded trust data from user profile");
+                    Log.Info("Loaded trust data from user profile");
                     return current;
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("Failed to load trust data from user profile: " + ex.Message + "\nReverting to defaults");
+                    Log.Warn("Failed to load trust data from user profile: " + ex.Message + "\nReverting to defaults");
                 }
             }
 
@@ -109,16 +109,18 @@ namespace ZeroInstall.Store.Feed
                 if (_loadedFromAppDir)
                 {
                     XmlStorage.Save(_portablePath, this);
-                    Log.Write("Saved trust data to working directory");
+                    Log.Info("Saved trust data to working directory");
                 }
                 else
                 {
                     XmlStorage.Save(_profilePath, this);
-                    Log.Write("Saved trust data to user profile");
+                    Log.Info("Saved trust data to user profile");
                 }
             }
-            catch (IOException)
-            {}
+            catch (IOException ex)
+            {
+                Log.Warn("Failed to save trust data: " + ex.Message);
+            }
         }
         #endregion
 
