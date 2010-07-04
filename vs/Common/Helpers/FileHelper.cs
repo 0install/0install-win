@@ -187,6 +187,7 @@ namespace Common.Helpers
             File.WriteAllText(tempFile, @"a");
             File.SetLastWriteTimeUtc(tempFile, referenceTime);
             var resultTime = File.GetLastWriteTimeUtc(tempFile);
+            File.Delete(tempFile);
 
             return Math.Abs((resultTime - referenceTime).Seconds);
         }
