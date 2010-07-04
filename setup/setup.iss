@@ -84,15 +84,14 @@ Name: {app}\Zero Install.exe; Type: files
 [Files]
 Source: ..\build\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
-Source: ..\build\Portable\*; Excludes: python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
+;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
+Source: ..\build\Portable\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #endif
 #ifdef Update
-Source: ..\build\Portable\python\Scripts\*; DestDir: {app}\python\Scripts; Flags: ignoreversion recursesubdirs
-Source: ..\build\Portable\python\Lib\site-packages\zeroinstall\*; DestDir: {app}\python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
+;Only update the Zero Install scripts and not the rest of Python
+Source: ..\build\Portable\Python\Scripts\*; DestDir: {app}\Python\Scripts; Flags: ignoreversion recursesubdirs
+Source: ..\build\Portable\Python\Lib\site-packages\zeroinstall\*; DestDir: {app}\Python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
 #endif
-
-;Copy cache files that might be distributed alongside the setup
-Source: {src}\NanoGridCache\*; DestDir: {code:NanoGridCachePath}; Flags: external skipifsourcedoesntexist onlyifdoesntexist uninsneveruninstall
 
 [Registry]
 ;These entries are required by the NanoGrid auto-update tool
@@ -101,7 +100,7 @@ Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey; Permissions: authusers-modify
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\FeedEditor.exe
+Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\0publish-gui.exe
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
@@ -114,7 +113,7 @@ Name: modifypath; Description: {cm:AddToPath}
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.net/
 Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
-Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\FeedEditor.exe
+Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-gui.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\ZeroInstall.exe
 Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
@@ -128,20 +127,6 @@ Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; F
 ;ToDo
 
 [Code]
-// Determines the path of the NanoGrid cache directory
-function NanoGridCachePath(Param: String): String;
-var
-	dir: String;
-begin
-	// Try to locate new registry entry
-	if not RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\NanoByte\NanoGrid\Info', 'CachePath', dir) then begin
-		// Support legacy versions
-		RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\NanoByte\NanoGrid\Info', 'Path', dir);
-		dir := dir + '\\Downloads';
-	end;
-	Result := dir;
-end;
-
 #ifndef Update
 function InitializeSetup(): Boolean;
 begin

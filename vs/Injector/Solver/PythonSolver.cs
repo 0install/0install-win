@@ -35,27 +35,37 @@ namespace ZeroInstall.Injector.Solver
         {
             get
             {
-                // ToDo: Remove hack
-                return Environment.GetEnvironmentVariable("apps");
-                //return AppDomain.CurrentDomain.BaseDirectory;
+#if DEBUG
+                // Use the current directory since the launching application might be a test runner in another directory
+                string searchBase = Environment.CurrentDirectory;
+#else
+                // Use the base directory of the launching application since the current directory may be arbitrary
+                string searchBase = AppDomain.CurrentDomain.BaseDirectory;
+#endif
+
+                if (Directory.Exists(Path.Combine(searchBase, "Python"))) return searchBase;
+                return Path.Combine(Path.Combine(searchBase, ".."), "Portable");
             }
         }
 
-        /// <summary>
-        /// The complete path to the Python interpreter binary.
-        /// </summary>
-        private static string PythonBinary
+        private static string PythonDirectory
         {
-            get { return Path.Combine(Path.Combine(HelperDirectory, "python"), @"python.exe"); }
+            get { return Path.Combine(HelperDirectory, "Python"); }
         }
 
-        /// <summary>
-        /// The complete path to the Python solver script.
-        /// </summary>
+        private static string PythonBinary
+        {
+            get { return Path.Combine(PythonDirectory, "python.exe"); }
+        }
+
         private static string SolverScript
         {
-            //get { return Path.Combine(Path.Combine(Path.Combine(HelperDirectory, "python"), @"Scripts"), @"0solve"); }
-            get { return Path.Combine(@"G:\Documents\Code\ZeroInstall\Python", @"0solve"); }
+            get { return Path.Combine(Path.Combine(PythonDirectory, "Scripts"), "0solve"); }
+        }
+
+        private static string GnuPGDirectory
+        {
+            get { return Path.Combine(HelperDirectory, "GnuPG"); }
         }
         #endregion
 
@@ -98,14 +108,16 @@ namespace ZeroInstall.Injector.Solver
             var python = new ProcessStartInfo
             {
                 FileName = PythonBinary,
-                Arguments = SolverScript + " " + arguments,
+                Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + arguments,
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
-            python.EnvironmentVariables["PATH"] = HelperDirectory + Path.PathSeparator + python.EnvironmentVariables["PATH"];
+
+            // Add helper applications to search path
+            python.EnvironmentVariables["PATH"] = PythonDirectory + Path.PathSeparator + GnuPGDirectory + Path.PathSeparator + python.EnvironmentVariables["PATH"];
 
             // Start the Python process
             var process = Process.Start(python);

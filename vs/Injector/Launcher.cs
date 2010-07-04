@@ -140,8 +140,11 @@ namespace ZeroInstall.Injector
             // Apply the user-override for the Main exectuable if set
             string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
 
+            // Find the actual executable file
+            startupMain = Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
+
             // Prepare the new process to launch the implementation
-            var startInfo = new ProcessStartInfo(Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain)), arguments)
+            var startInfo = new ProcessStartInfo(startupMain, arguments)
             { ErrorDialog = true, UseShellExecute = false };
 
             // Apply user-given wrapper application if set

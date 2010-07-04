@@ -1,8 +1,11 @@
 This folder contains the Inno Setup Script for the Zero Install Windows Setup.
 
 The Script assumes vs/build.cmd has already been executed.
-A portable Python 2.6 distribution with installed Zero Install scripts must be located at build/Portable/python.
-A portable GnuPG distribution must be located at bin/Portable/gnupg.
+A portable Python 2.6 distribution with installed Zero Install scripts must be located at ..\build\Portable\Python.
+A portable GnuPG distribution must be located at ..\build\Portable\GnuPG.
+
+Place a normal Python installation with pygobject and pywin32 in ..\build\Portable\Python. Place a GTK+ installation at "%apps%\GTK+" (some libraries need to be extracted from there).
+Now execute cleanup_python.cmd to minimize it and make it portable. Then call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install" in the directory of the Python code GIT checkout to install the Zero Install scripts.
 
 Code based on this project is used to add the install directory to the System PATH:
 http://legroom.net/software/modpath
