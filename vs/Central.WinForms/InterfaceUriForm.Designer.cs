@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Central.WinForms
 {
-    partial class FeedUriForm
+    partial class InterfaceUriForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FeedUriForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(InterfaceUriForm));
             this.labelExplanation = new System.Windows.Forms.Label();
             this.textBoxURL = new System.Windows.Forms.TextBox();
             this.buttonOK = new System.Windows.Forms.Button();
@@ -42,7 +42,7 @@
             this.labelExplanation.Name = "labelExplanation";
             this.labelExplanation.Size = new System.Drawing.Size(311, 23);
             this.labelExplanation.TabIndex = 0;
-            this.labelExplanation.Text = "Please enter the URL of a Zero Install feed here:";
+            this.labelExplanation.Text = "Please enter the URL of a Zero Install interface here:";
             this.labelExplanation.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // textBoxURL
@@ -77,7 +77,7 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // FeedUrlForm
+            // InterfaceUriForm
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -91,7 +91,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(289, 167);
-            this.Name = "FeedUrlForm";
+            this.Name = "InterfaceUriForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             this.TopMost = true;

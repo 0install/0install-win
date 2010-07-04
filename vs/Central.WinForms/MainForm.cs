@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Common;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -56,15 +57,21 @@ namespace ZeroInstall.Central.WinForms
             switch (e.Url.Fragment)
             {
                 case UrlPostfixFeed:
-                    // ToDo: Display details about the feed
-                    MessageBox.Show(e.Url.OriginalString.Replace(UrlPostfixFeed, ""));
                     e.Cancel = true;
+
+                    // ToDo: Display details about the feed
+                    if (Msg.Ask(this, "Do you want to launch this application?", MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
+                    {
+                        Program.LaunchHelperApp(this, "0launchw.exe", e.Url.OriginalString.Replace(UrlPostfixFeed, ""));
+                        Close();
+                    }
                     break;
 
                 case UrlPostfixBrowser:
+                    e.Cancel = true;
+
                     // Use the system's default web browser to open the URL
                     Process.Start(e.Url.OriginalString.Replace(UrlPostfixBrowser, ""));
-                    e.Cancel = true;
                     break;
             }
         }
@@ -77,15 +84,10 @@ namespace ZeroInstall.Central.WinForms
         #endregion
 
         #region Tools
-        private void buttonAddFeed_Click(object sender, EventArgs e)
+        private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            using (var feedUrlForm = new FeedUriForm())
-                feedUrlForm.ShowDialog(this);
-        }
-
-        private void buttonManageCache_Click(object sender, EventArgs e)
-        {
-            Program.LaunchHelperApp(this, "0storew.exe");
+            using (var interfaceUriForm = new InterfaceUriForm())
+                interfaceUriForm.ShowDialog(this);
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

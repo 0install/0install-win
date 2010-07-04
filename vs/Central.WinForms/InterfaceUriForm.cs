@@ -20,16 +20,16 @@ using System.Windows.Forms;
 
 namespace ZeroInstall.Central.WinForms
 {
-    partial class FeedUriForm : Form
+    partial class InterfaceUriForm : Form
     {
-        public FeedUriForm()
+        public InterfaceUriForm()
         {
             InitializeComponent();
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperApp(this, "0launch.exe", textBoxURL.Text);
+            Program.LaunchHelperApp(this, "0launchw.exe", textBoxURL.Text);
 
             Close();
         }

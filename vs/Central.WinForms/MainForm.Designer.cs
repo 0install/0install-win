@@ -37,10 +37,9 @@
             this.toolStripNewApps = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonBack = new System.Windows.Forms.ToolStripButton();
             this.browserNewApps = new System.Windows.Forms.WebBrowser();
-            this.buttonAddFeed = new System.Windows.Forms.Button();
+            this.buttonLaunchInterface = new System.Windows.Forms.Button();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
             this.buttonHelp = new System.Windows.Forms.Button();
-            this.buttonManageCache = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.tabControlApps.SuspendLayout();
             this.tabPageMyApps.SuspendLayout();
@@ -137,28 +136,27 @@
             this.browserNewApps.ScriptErrorsSuppressed = true;
             this.browserNewApps.Size = new System.Drawing.Size(665, 289);
             this.browserNewApps.TabIndex = 1;
-            this.browserNewApps.Url = new System.Uri("http://0install.nanobyte.de/new_apps", System.UriKind.Absolute);
+            this.browserNewApps.Url = new System.Uri("http://0install.de/appstore/client/", System.UriKind.Absolute);
             this.browserNewApps.WebBrowserShortcutsEnabled = false;
             this.browserNewApps.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
             this.browserNewApps.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
             // 
-            // buttonAddFeed
+            // buttonLaunchInterface
             // 
-            this.buttonAddFeed.Location = new System.Drawing.Point(19, 29);
-            this.buttonAddFeed.Name = "buttonAddFeed";
-            this.buttonAddFeed.Size = new System.Drawing.Size(140, 35);
-            this.buttonAddFeed.TabIndex = 0;
-            this.buttonAddFeed.Text = "&Add feed";
-            this.buttonAddFeed.UseVisualStyleBackColor = true;
-            this.buttonAddFeed.Click += new System.EventHandler(this.buttonAddFeed_Click);
+            this.buttonLaunchInterface.Location = new System.Drawing.Point(19, 29);
+            this.buttonLaunchInterface.Name = "buttonLaunchInterface";
+            this.buttonLaunchInterface.Size = new System.Drawing.Size(140, 35);
+            this.buttonLaunchInterface.TabIndex = 0;
+            this.buttonLaunchInterface.Text = "&Launch interface";
+            this.buttonLaunchInterface.UseVisualStyleBackColor = true;
+            this.buttonLaunchInterface.Click += new System.EventHandler(this.buttonLaunchInterface_Click);
             // 
             // groupBoxTools
             // 
             this.groupBoxTools.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxTools.Controls.Add(this.buttonAddFeed);
+            this.groupBoxTools.Controls.Add(this.buttonLaunchInterface);
             this.groupBoxTools.Controls.Add(this.buttonHelp);
-            this.groupBoxTools.Controls.Add(this.buttonManageCache);
             this.groupBoxTools.Location = new System.Drawing.Point(14, 464);
             this.groupBoxTools.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxTools.Name = "groupBoxTools";
@@ -178,16 +176,6 @@
             this.buttonHelp.Text = "&Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
-            // 
-            // buttonManageCache
-            // 
-            this.buttonManageCache.Location = new System.Drawing.Point(165, 29);
-            this.buttonManageCache.Name = "buttonManageCache";
-            this.buttonManageCache.Size = new System.Drawing.Size(140, 35);
-            this.buttonManageCache.TabIndex = 1;
-            this.buttonManageCache.Text = "&Manage cache";
-            this.buttonManageCache.UseVisualStyleBackColor = true;
-            this.buttonManageCache.Click += new System.EventHandler(this.buttonManageCache_Click);
             // 
             // MainForm
             // 
@@ -230,8 +218,7 @@
         private System.Windows.Forms.WebBrowser browserNewApps;
         private System.Windows.Forms.GroupBox groupBoxTools;
         private System.Windows.Forms.Button buttonHelp;
-        private System.Windows.Forms.Button buttonManageCache;
-        private System.Windows.Forms.Button buttonAddFeed;
+        private System.Windows.Forms.Button buttonLaunchInterface;
         private System.Windows.Forms.ToolStrip toolStripNewApps;
         private System.Windows.Forms.ToolStripButton toolStripButtonBack;
         private System.Windows.Forms.Label labelNotAvailableYet;
