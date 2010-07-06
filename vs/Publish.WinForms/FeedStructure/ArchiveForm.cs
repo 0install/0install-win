@@ -62,6 +62,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             {
                 //TODO if archive isn't a completely new Archive, the controls musst be readonly.
                 _archive = value ?? new Archive();
+                buttonOK.Enabled = false;
                 UpdateFormControls();
             }
         }
@@ -113,6 +114,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #endregion
 
+        public event EventHandler ButtonOKClick;
+
         /// <summary>
         /// Opens a dialog to ask the user where to download the archive from <see cref="hintTextBoxArchiveUrl"/>.Text, downloads the archive and sets <see cref="hintTextBoxLocalArchive"/>.<br/>
         /// When the user clicks "cancel" the archive will not be downloaded.
@@ -134,6 +137,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             downloadProgressBarArchive.UseTaskbar = true;
             downloadProgressBarArchive.Download.StateChanged += ArchiveDownloadStateChanged;
             downloadProgressBarArchive.Download.Start();
+
+            buttonArchiveDownload.Enabled = false;
+            buttonChooseArchive.Enabled = false;
+            buttonExtractArchive.Enabled = false;
+            buttonOK.Enabled = false;
         }
 
         /// <summary>
@@ -207,16 +215,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            long startOffset;
             Uri uri;
-            
-            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+
+            long startOffset = getValidStartOffset();
             if(startOffset > 0) _archive.StartOffset = startOffset;
 
             if (comboBoxArchiveFormat.Text != "(auto detect)") _archive.MimeType = comboBoxArchiveFormat.Text;
             if (isValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
 
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
+            // trigger event
+            ButtonOKClick(sender, e);
+            
             buttonCancel_Click(null, null);
         }
 
@@ -227,7 +237,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void buttonCancel_Click(object sender, EventArgs e)
         {
-            Owner.Enabled = true;
+            if(downloadProgressBarArchive.Download != null) downloadProgressBarArchive.Download.Cancel(false);
+            if(Owner != null) Owner.Enabled = true;
             Close();
             Dispose();
         }
@@ -285,11 +296,15 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                         labelArchiveDownloadMessages.Text = "Error!";
                         MessageBox.Show(sender.ErrorMessage);
                         buttonArchiveDownload.Enabled = true;
+                        buttonChooseArchive.Enabled = true;
                         break;
                     case DownloadState.Complete:
                         hintTextBoxLocalArchive.Text = sender.Target;
                         fillTreeViewExtract(sender.Target);
+                        
                         buttonArchiveDownload.Enabled = true;
+                        buttonChooseArchive.Enabled = true;
+                        buttonExtractArchive.Enabled = true;
                         break;
                 }
             });
@@ -297,14 +312,28 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         private void ArchiveForm_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if(downloadProgressBarArchive.Download != null) downloadProgressBarArchive.Download.Cancel(false);
             Owner.Enabled = true;
         }
 
         private void hintTextBoxStartOffset_TextChanged(object sender, EventArgs e)
         {
             if(String.IsNullOrEmpty(hintTextBoxStartOffset.Text)) return;
-            long dummy;
-            hintTextBoxStartOffset.ForeColor = long.TryParse(hintTextBoxStartOffset.Text, out dummy) ? Color.Green : Color.Red;
+            if (getValidStartOffset() >= 0)
+            {
+                buttonArchiveDownload.Enabled = true;
+                buttonExtractArchive.Enabled = true;
+
+                hintTextBoxStartOffset.ForeColor = Color.Green;
+            }
+            else
+            {
+                buttonArchiveDownload.Enabled = false;
+                buttonExtractArchive.Enabled = false;
+
+                hintTextBoxStartOffset.ForeColor = Color.Red;
+            }
+            buttonOK.Enabled = false;
         }
 
         private void buttonChooseArchive_Click(object sender, EventArgs e)
@@ -313,15 +342,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!setArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
             hintTextBoxLocalArchive.Text = openFileDialogLocalArchive.FileName;
             fillTreeViewExtract(hintTextBoxLocalArchive.Text);
+            
+            if (getValidStartOffset() < 0) return;
+            buttonExtractArchive.Enabled = true;
+            buttonOK.Enabled = false;
         }
 
         private void buttonExtractArchive_Click(object sender, EventArgs e)
         {
-            buttonOK.Enabled = false;
-
             string archive = hintTextBoxLocalArchive.Text;
-            long startOffset;
-            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+            long startOffset = getValidStartOffset();
             if (startOffset < 0) startOffset = 0;
 
             treeViewExtract.PathSeparator = Path.DirectorySeparatorChar.ToString();
@@ -353,7 +383,20 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _archive.Extract = treeViewExtract.SelectedNode.FullPath.Substring(7);
 
             labelExtractArchive.Text = "Archive extracted.";
+            
             buttonOK.Enabled = true;
+        }
+
+        /// <summary>
+        /// Checks if <see cref="hintTextBoxStartOffset"/> contains a valid start offset
+        /// (is a number >= 0).
+        /// </summary>
+        /// <returns>The start offset if valid. negative number, if not.</returns>
+        private long getValidStartOffset()
+        {
+            long startOffset = -1;
+            long.TryParse(hintTextBoxStartOffset.Text, out startOffset);
+            return startOffset;
         }
     }
 }
