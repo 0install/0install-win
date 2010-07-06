@@ -22,7 +22,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// ...
+    /// A domain-name associated to a <see cref="Key"/>.
     /// </summary>
     public struct Domain
     {
