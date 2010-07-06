@@ -54,7 +54,7 @@ namespace Common.Collections
 
         protected override void InsertItem(int index, XmlDictionaryEntry item)
         {
-            #region Sanity check
+            #region Sanity checks
             if (item == null) throw new ArgumentNullException("item");
             #endregion
 

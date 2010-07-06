@@ -109,7 +109,7 @@ namespace Common
         /// <param name="message">The actual message text of the entry.</param>
         private static void AddEntry(LogSeverity severity, string message)
         {
-            #region Sanity check
+            #region Sanity checks
             if (message == null) throw new ArgumentNullException("message");
             #endregion
 
