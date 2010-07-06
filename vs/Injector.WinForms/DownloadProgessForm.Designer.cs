@@ -40,7 +40,7 @@
             this.labelMessage.Name = "labelMessage";
             this.labelMessage.Size = new System.Drawing.Size(264, 64);
             this.labelMessage.TabIndex = 0;
-            this.labelMessage.Text = "Download in progess...";
+            this.labelMessage.Text = "Download in progress...";
             this.labelMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DownloadProgessForm
