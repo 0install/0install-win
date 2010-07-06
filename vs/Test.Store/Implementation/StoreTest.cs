@@ -61,7 +61,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAcceptInexistantPathAndCreateIt()
         {
-            string path = Path.GetFullPath(FileHelper.GetUniqueFileName(Path.GetTempPath()));
+            string path = FileHelper.GetTempDirectory();
+            Directory.Delete(path);
             try
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(path); }, "Store's constructor must accept non-existing path");

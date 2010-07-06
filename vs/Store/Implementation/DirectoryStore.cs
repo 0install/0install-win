@@ -171,7 +171,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-            var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             FileHelper.CopyDirectory(path, tempDir);
 
             VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
@@ -189,7 +189,7 @@ namespace ZeroInstall.Store.Implementation
             {
 
                 // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-                var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+                var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
                 extractor.Extract(tempDir, archiveInfo.SubDir);
 
                 try
@@ -212,7 +212,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-            var tempDir = FileHelper.GetUniqueFileName(DirectoryPath);
+            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             foreach (var archiveInfo in archiveInfos)
             {
                 using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset))

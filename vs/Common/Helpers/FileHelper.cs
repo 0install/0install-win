@@ -83,23 +83,6 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Finds a unique random file or directory name for a new entry inside an existing folder.
-        /// </summary>
-        /// <param name="path">The path of the existing folder inside which the new entry is to be created.</param>
-        /// <returns>The complete path for the new file or directory.</returns>
-        public static string GetUniqueFileName(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            #endregion
-
-            string uniquePath;
-            do uniquePath = Path.Combine(path, Path.GetRandomFileName());
-            while (File.Exists(uniquePath) || Directory.Exists(uniquePath));
-            return uniquePath;
-        }
-
-        /// <summary>
         /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch (1970-1-1).
         /// </summary>
         public static long UnixTime(DateTime time)
@@ -182,7 +165,7 @@ namespace Common.Helpers
         {
             // Prepare a file name and fake change time
             var referenceTime = new DateTime(2000, 1, 1, 0, 0, 1); // 1 second past mid-night on 1st of January 2000
-            string tempFile = Path.Combine(path, GetUniqueFileName(path));
+            string tempFile = Path.Combine(path, Path.GetRandomFileName());
 
             File.WriteAllText(tempFile, @"a");
             File.SetLastWriteTimeUtc(tempFile, referenceTime);

@@ -88,17 +88,6 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Generates a unique file name using <see cref="FileHelper.GetUniqueFileName"/> and ensures it doesn't exist yet.
-        /// </summary>
-        [Test]
-        public void TestGetUniqueFileName()
-        {
-            string path = FileHelper.GetUniqueFileName(Path.GetTempPath());
-            Assert.IsFalse(File.Exists(path));
-            Assert.IsFalse(Directory.Exists(path));
-        }
-
-        /// <summary>
         /// Ensures <see cref="FileHelper.UnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
         /// </summary>
         [Test]
