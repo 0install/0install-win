@@ -7,11 +7,27 @@ namespace Common.Controls
     /// </summary>
     public partial class OKCancelDialog : Form
     {
+        #region Properties
+        /// <summary>
+        /// Controls whether the user can press the OK button.
+        /// </summary>
+        protected bool OKEnabled
+        {
+            get { return buttonOK.Enabled; }
+            set { buttonOK.Enabled = value; }
+        }
+        #endregion
+
+        #region Constructor
         public OKCancelDialog()
         {
             InitializeComponent();
         }
+        #endregion
 
+        //--------------------//
+
+        #region Event handling
         private void buttonOK_Click(object sender, System.EventArgs e)
         {
             OnOKClicked();
@@ -21,7 +37,9 @@ namespace Common.Controls
         {
             OnCancelClicked();
         }
+        #endregion
 
+        #region Hooks
         /// <summary>
         /// This hook is called when the user clicks the OK button.
         /// </summary>
@@ -32,6 +50,7 @@ namespace Common.Controls
         /// This hook is called when the user clicks the Cancel button.
         /// </summary>
         protected virtual void OnCancelClicked()
-        {}
+        { }
+        #endregion
     }
 }
