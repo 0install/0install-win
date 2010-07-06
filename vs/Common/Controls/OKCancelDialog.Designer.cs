@@ -69,7 +69,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
+        protected System.Windows.Forms.Button buttonOK;
+        protected System.Windows.Forms.Button buttonCancel;
+
     }
 }

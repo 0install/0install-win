@@ -7,17 +7,6 @@ namespace Common.Controls
     /// </summary>
     public partial class OKCancelDialog : Form
     {
-        #region Properties
-        /// <summary>
-        /// Controls whether the user can press the OK button.
-        /// </summary>
-        protected bool OKEnabled
-        {
-            get { return buttonOK.Enabled; }
-            set { buttonOK.Enabled = value; }
-        }
-        #endregion
-
         #region Constructor
         public OKCancelDialog()
         {
