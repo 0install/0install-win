@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Injector.Arguments
 {
     /// <summary>
     /// List of operational modes that can usually be selected via command-line arguments.

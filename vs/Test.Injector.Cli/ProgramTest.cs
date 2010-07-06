@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feed;
 

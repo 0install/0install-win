@@ -17,9 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using Common;
 using Common.Helpers;
 using NDesk.Options;
+using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
@@ -39,10 +41,20 @@ namespace ZeroInstall.Injector.WinForms
         [STAThread]
         static void Main(string[] args)
         {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
             ParseResults results;
             switch (ParseArgs(args, out results))
             {
                 case OperationMode.Normal:
+                    // Ask for URI via GUI if none was specified on command-line
+                    if (string.IsNullOrEmpty(results.Feed))
+                    {
+                        results.Feed = InterfaceUriDialog.GetUri();
+                        if (string.IsNullOrEmpty(results.Feed)) return;
+                    }
+
                     Execute(results);
                     break;
 
@@ -76,11 +88,17 @@ namespace ZeroInstall.Injector.WinForms
 
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new SilentHandler())};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new GuiHandler())};
 
             #region Define options
             var options = new OptionSet
             {
+                // Mode selection
+                {"i|import", unused => mode = OperationMode.Import},
+                {"l|list", unused => mode = OperationMode.List},
+                {"f|feed", unused => mode = OperationMode.Manage},
+                {"V|version", unused => mode = OperationMode.Version},
+
                 // Policy options
                 {"before=", version => parseResults.Policy.Constraint = new Constraint(parseResults.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
                 {"not-before=", version => parseResults.Policy.Constraint = new Constraint(new ImplementationVersion(version), parseResults.Policy.Constraint.BeforeVersion)},

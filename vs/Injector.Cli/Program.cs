@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using Common.Helpers;
 using NDesk.Options;
+using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Injector.Cli.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
@@ -101,10 +102,10 @@ namespace ZeroInstall.Injector.Cli
 
                 // Special operations
                 {"d|download-only", Resources.OptionDownloadOnly, unused => parseResults.DownloadOnly = true},
-                {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
+                {"set-selections=", Resources.OptionSetSelections, file => parseResults.SelectionsFile = file},
                 {"get-selections", Resources.OptionGetSelections, unused => parseResults.GetSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => parseResults.SelectOnly = true},
-                {"set-selections=", Resources.OptionSetSelections, file => parseResults.SelectionsFile = file},
+                {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
 
                 // Launcher options
                 {"m|main=", Resources.OptionMain, newMain => parseResults.Main = newMain},

@@ -71,11 +71,20 @@
     <Compile Include="DownloadProgessForm.Designer.cs">
       <DependentUpon>DownloadProgessForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ParseResults.cs" />
+    <Compile Include="GuiHandler.cs" />
+    <Compile Include="InterfaceUriDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfaceUriDialog.Designer.cs">
+      <DependentUpon>InterfaceUriDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="DownloadProgessForm.resx">
       <DependentUpon>DownloadProgessForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="InterfaceUriDialog.resx">
+      <DependentUpon>InterfaceUriDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>

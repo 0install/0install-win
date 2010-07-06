@@ -15,28 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Windows.Forms;
+using Common;
+using ZeroInstall.Store.Feed;
 
-namespace ZeroInstall.Central.WinForms
+namespace ZeroInstall.Injector.WinForms
 {
-    partial class InterfaceUriForm : Form
+    /// <summary>
+    /// Uses GUI message boxes to ask the user questions.
+    /// </summary>
+    public class GuiHandler : Handler
     {
-        public InterfaceUriForm()
+        public override bool AcceptNewKey(string information)
         {
-            InitializeComponent();
-        }
-
-        private void buttonOK_Click(object sender, EventArgs e)
-        {
-            Program.LaunchHelperApp(this, "0launchw.exe", textBoxURL.Text);
-
-            Close();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
+            return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
         }
     }
 }

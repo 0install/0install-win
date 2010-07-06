@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector.Cli
+namespace ZeroInstall.Injector.Arguments
 {
     /// <summary>
     /// Structure for storing user-selected argument for an operation.
@@ -28,21 +28,6 @@ namespace ZeroInstall.Injector.Cli
     {
         /// <summary>User settings controlling the dependency solving process.</summary>
         public Policy Policy;
-
-        /// <summary>Only download <see cref="Implementation"/>s but don't execute them.</summary>
-        public bool DownloadOnly;
-
-        /// <summary>Only output what was supposed to be downloaded but don't actually use the network.</summary>
-        public bool DryRun;
-
-        /// <summary>Print the selected <see cref="Implementation"/>s to the console instead of executing them.</summary>
-        public bool GetSelections;
-
-        /// <summary>Only download feeds and not <see cref="Implementation"/>s.</summary>
-        public bool SelectOnly;
-
-        /// <summary>Load <see cref="Selections"/> from this file instead of using an <see cref="ISolver"/>.</summary>
-        public string SelectionsFile;
 
         /// <summary>An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="ImplementationBase.Main"/>.</summary>
         public string Main;
@@ -55,5 +40,20 @@ namespace ZeroInstall.Injector.Cli
 
         /// <summary>Arguments to pass to the launched application, additional feeds to add, additional terms to search for, etc.</summary>
         public IList<string> AdditionalArgs;
+
+        /// <summary>Only download <see cref="Implementation"/>s but don't execute them.</summary>
+        public bool DownloadOnly;
+
+        /// <summary>Load <see cref="Selections"/> from this file instead of using an <see cref="ISolver"/>.</summary>
+        public string SelectionsFile;
+
+        /// <summary>Print the selected <see cref="Implementation"/>s to the console instead of executing them.</summary>
+        public bool GetSelections;
+
+        /// <summary>Only download feeds and not <see cref="Implementation"/>s.</summary>
+        public bool SelectOnly;
+
+        /// <summary>Only output what was supposed to be downloaded but don't actually use the network.</summary>
+        public bool DryRun;
     }
 }

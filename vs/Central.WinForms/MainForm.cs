@@ -86,8 +86,7 @@ namespace ZeroInstall.Central.WinForms
         #region Tools
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            using (var interfaceUriForm = new InterfaceUriForm())
-                interfaceUriForm.ShowDialog(this);
+            Program.LaunchHelperApp(this, "0launchw.exe");
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)
