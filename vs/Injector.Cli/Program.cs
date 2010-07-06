@@ -56,7 +56,7 @@ namespace ZeroInstall.Injector.Cli
             #endregion
 
             // Prepare a structure for storing settings found in the arguments
-            var results = new ParseResults {Policy = Policy.CreateDefault()};
+            var results = new ParseResults {Policy = Policy.CreateDefault(new SilentHandler())};
 
             #region Define options
             var options = new OptionSet
@@ -169,7 +169,7 @@ namespace ZeroInstall.Injector.Cli
                 case ProgramMode.List:
                     if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
 
-                    var interfaces = new InterfaceCache().ListAllInterfaces();
+                    var interfaces = results.Policy.InterfaceCache.ListAllInterfaces();
                     foreach (var entry in interfaces)
                     {
                         if (results.Feed == null || entry.Contains(results.Feed))

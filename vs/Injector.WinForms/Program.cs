@@ -35,6 +35,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        [STAThread]
         static void Main(string[] args)
         {
             Execute(ParseArgs(args));
@@ -55,7 +56,7 @@ namespace ZeroInstall.Injector.WinForms
             #endregion
 
             // Prepare a structure for storing settings found in the arguments
-            var results = new ParseResults {Policy = Policy.CreateDefault()};
+            var results = new ParseResults {Policy = Policy.CreateDefault(new SilentHandler())};
 
             #region Define options
             var options = new OptionSet

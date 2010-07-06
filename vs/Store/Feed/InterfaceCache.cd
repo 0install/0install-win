@@ -3,18 +3,32 @@
   <Class Name="ZeroInstall.Store.Feed.InterfaceCache">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAABAAACAAAAAAAAAACYCgAAAAAAACAAAAAA=</HashCode>
-      <FileName>Interface\InterfaceCache.cs</FileName>
+      <HashCode>AAAAAAAAAABIAACAAAAAAAAAAAYCgAAIAAAACAAAAAA=</HashCode>
+      <FileName>Feed\InterfaceCache.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_networkLevel" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="ZeroInstall.Store.Feed.SilentHandler" Collapsed="true">
+    <Position X="2.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Feed\SilentHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.Handler">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Feed\Handler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Enum Name="ZeroInstall.Store.Feed.NetworkLevel">
     <Position X="0.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
-      <FileName>Interface\InterfaceCache.cs</FileName>
+      <FileName>Feed\InterfaceCache.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
