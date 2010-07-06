@@ -20,19 +20,15 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.Globalization;
 using System.Text;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace Common.Collections
 {
     /// <summary>
     /// A collection of languages that can be serialized as a simple space-separated list of ISO language codes with an underscore (_) separator.
     /// </summary>
-    public sealed class LanguageCollection : C5.TreeSet<CultureInfo>, IXmlSerializable
+    public sealed class LanguageCollection : C5.TreeSet<CultureInfo>
     {
         #region Constructor
         /// <summary>
@@ -57,6 +53,9 @@ namespace Common.Collections
         //--------------------//
 
         #region Conversion
+        /// <summary>
+        /// Serializes the list as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
+        /// </summary>
         public override string ToString()
         {
             // Serialize list as string split by spaces
@@ -71,33 +70,13 @@ namespace Common.Collections
             return output.ToString().TrimEnd();
         }
 
-        public static LanguageCollection FromString(string value)
+        /// <summary>
+        /// Deserializes a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
+        /// </summary>
+        public void FromString(string value)
         {
-            var result = new LanguageCollection();
-
-            if (string.IsNullOrEmpty(value)) return result;
-
-            // Replace list by parsing input string split by spaces
-            foreach (string language in value.Split(' '))
-            {
-                // .NET uses a hypen while Zero Install uses an underscore as a seperator
-                result.Add(new CultureInfo(language.Replace('_', '-')));
-            }
-
-            return result;
-        }
-        #endregion
-
-        #region XML Serialization
-        void IXmlSerializable.ReadXml(XmlReader reader)
-        {
-            #region Sanity checks
-            if (reader == null) throw new ArgumentNullException("reader");
-            #endregion
-
             Clear();
 
-            string value = reader.ReadElementContentAsString();
             if (string.IsNullOrEmpty(value)) return;
 
             // Replace list by parsing input string split by spaces
@@ -106,20 +85,6 @@ namespace Common.Collections
                 // .NET uses a hypen while Zero Install uses an underscore as a seperator
                 Add(new CultureInfo(language.Replace('_', '-')));
             }
-        }
-
-        void IXmlSerializable.WriteXml(XmlWriter writer)
-        {
-            #region Sanity checks
-            if (writer == null) throw new ArgumentNullException("writer");
-            #endregion
-            
-            writer.WriteString(ToString());
-        }
-
-        XmlSchema IXmlSerializable.GetSchema()
-        {
-            return null;
         }
         #endregion
     }

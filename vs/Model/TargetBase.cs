@@ -34,13 +34,19 @@ namespace ZeroInstall.Model
         // Order is always alphabetical, duplicate entries are not allowed
         private readonly LanguageCollection _languages = new LanguageCollection();
         /// <summary>
-        /// The natural language(s) which an <see cref="Implementation"/> supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
+        /// The natural language(s) which an <see cref="Implementation"/> supports.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
-        [Category("Release"), Description("The natural language(s) which an implementation supports, as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).")]
-        [XmlAttribute("langs"), DefaultValue("")]
+        [Category("Release"), Description("The natural language(s) which an implementation supports.")]
+        [XmlIgnore]
         public LanguageCollection Languages { get { return _languages; } }
-        
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Architecture"/>
+        [Browsable(false)]
+        [XmlAttribute("langs"), DefaultValue("")]
+        public string LanguagesString { get { return _languages.ToString(); } set { _languages.FromString(value); } }
+
         /// <summary>
         /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
         /// </summary>

@@ -241,11 +241,7 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-
-        // ToDo: Implement ToString, Equals and Clone
         
-        //--------------------//
-
         #region Storage
         /// <summary>
         /// Loads an <see cref="Feed"/> from an XML file (feed).
@@ -290,6 +286,10 @@ namespace ZeroInstall.Model
         }
         #endregion
 
+        //--------------------//
+
+        // ToDo: Implement ToString and Clone
+
         #region Equality
         public bool Equals(Feed other)
         {
@@ -304,8 +304,10 @@ namespace ZeroInstall.Model
             if (NeedsTerminal != other.NeedsTerminal) return false;
             if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
             if (!Categories.UnsequencedEquals(other.Categories)) return false;
-            if (!Groups.UnsequencedEquals(other.Groups)) return false;
             if (!Icons.UnsequencedEquals(other.Icons)) return false;
+            if (!Groups.UnsequencedEquals(other.Groups)) return false;
+            if (!Implementations.UnsequencedEquals(other.Implementations)) return false;
+            if (!PackageImplementations.UnsequencedEquals(other.PackageImplementations)) return false;
             return true;
         }
 
@@ -328,6 +330,11 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
+                result = (result * 397) ^ Categories.GetUnsequencedHashCode();
+                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
+                result = (result * 397) ^ Groups.GetUnsequencedHashCode();
+                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
+                result = (result * 397) ^ PackageImplementations.GetUnsequencedHashCode();
                 return result;
             }
         }

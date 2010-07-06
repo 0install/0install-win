@@ -165,17 +165,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (ReferenceEquals(null, other)) return false;
 
-            if (Interface != other.Interface) return false;
-
-            if (other._implementations.Count != _implementations.Count) return false;
-            for (int i = 0; i < _implementations.Count; i++)
-            {
-                // If any implementation pair does not match, the selections are not equal
-                if (!Equals(_implementations[i], other._implementations[i])) return false;
-            }
-
-            // If the for-loop ran through, all node pairs are identical and the selections are equal
-            return true;
+            return (Interface == other.Interface) && Implementations.SequencedEquals(other.Implementations);
         }
 
         public override bool Equals(object obj)
@@ -190,10 +180,7 @@ namespace ZeroInstall.Injector.Solver
             unchecked
             {
                 int result = (Interface != null ? Interface.GetHashCode() : 0);
-                foreach (var implementation in _implementations)
-                    result = (result * 397) ^ implementation.GetHashCode();
-                //foreach (var implementation in _packageImplementation)
-                //    result = (result * 397) ^ implementation.GetHashCode();
+                result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }
         }

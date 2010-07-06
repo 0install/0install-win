@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using Common.Storage;
 using NUnit.Framework;
 
 namespace Common.Collections
@@ -31,24 +30,6 @@ namespace Common.Collections
     [TestFixture]
     public class LanguageCollectionTest
     {
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
-        public void TestSaveLoad()
-        {
-            var collection1 = new LanguageCollection {"en-US", "de"};
-
-            // Serialize and deserialize data
-            string data = XmlStorage.ToString(collection1);
-            var collection2 = XmlStorage.FromString<LanguageCollection>(data);
-
-            // Ensure data stayed the same
-            Assert.AreEqual(collection1, collection2, "Serialized objects should be equal.");
-            Assert.AreEqual(collection1.GetSequencedHashCode(), collection2.GetSequencedHashCode(), "Serialized objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(collection1, collection2), "Serialized objects should not return the same reference.");
-        }
-
         [Test]
         public void TestToString()
         {
@@ -59,7 +40,8 @@ namespace Common.Collections
         [Test]
         public void TestFromString()
         {
-            var collection = LanguageCollection.FromString("en_US de");
+            var collection = new LanguageCollection();
+            collection.FromString("en_US de");
             CollectionAssert.AreEquivalent(new LanguageCollection {"de", "en-US"}, collection);
         }
     }

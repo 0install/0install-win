@@ -28,6 +28,26 @@ namespace ZeroInstall.Model
     [TestFixture]
     public class FeedTest
     {
+        #region Helpers
+        /// <summary>
+        /// Creates a fictive test <see cref="Implementation"/>.
+        /// </summary>
+        internal static Implementation CreateTestImplementation()
+        {
+            return new Implementation
+            {
+                ID = "id",
+                ManifestDigest = new ManifestDigest("sha256=invalid"),
+                Version = new ImplementationVersion("1.0"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                Languages = { new CultureInfo("en-US") },
+                Main = "executable",
+                DocDir = "doc",
+                Stability = Stability.Developer
+            };
+        }
+        #endregion
+
         /// <summary>
         /// Ensures that the class is correctly serialized and deserialized.
         /// </summary>
@@ -43,9 +63,12 @@ namespace ZeroInstall.Model
                 // Write and read file
                 feed1 = new Feed
                 {
-                    Name = "MyApp", Categories = {"Category"}, Homepage = new Uri("http://0install.net/"),
-                    Summaries = { "Default summary", {"German summary", new CultureInfo("de-DE")} },
-                    Descriptions = { "Default descriptions", {"German descriptions", new CultureInfo("de-DE")} }
+                    Name = "MyApp",
+                    Categories = { "Category" },
+                    Homepage = new Uri("http://0install.net/"),
+                    Summaries = { "Default summary", { "German summary", new CultureInfo("de-DE") } },
+                    Descriptions = { "Default descriptions", { "German descriptions", new CultureInfo("de-DE") } },
+                    Implementations = { CreateTestImplementation() }
                 };
                 feed1.Save(tempFile);
                 feed2 = Feed.Load(tempFile);
@@ -54,7 +77,7 @@ namespace ZeroInstall.Model
             { // Clean up
                 if (tempFile != null) File.Delete(tempFile);
             }
-            
+
             // Ensure data stayed the same
             Assert.AreEqual(feed1, feed2, "Serialized objects should be equal.");
             Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Serialized objects' hashes should be equal.");
