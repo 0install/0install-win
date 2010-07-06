@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using Common;
 using Common.Helpers;
 using NDesk.Options;
 using ZeroInstall.Model;
@@ -38,7 +39,24 @@ namespace ZeroInstall.Injector.WinForms
         [STAThread]
         static void Main(string[] args)
         {
-            Execute(ParseArgs(args));
+            ParseResults results;
+            switch (ParseArgs(args, out results))
+            {
+                case OperationMode.Normal:
+                    Execute(results);
+                    break;
+
+                case OperationMode.List:
+                case OperationMode.Import:
+                case OperationMode.Manage:
+                    // ToDo: Implement
+                    throw new NotImplementedException();
+
+                case OperationMode.Version:
+                    // ToDo: Read version number from assembly data
+                    Msg.Inform(null, "Zero Install for Windows Injector v1.0", MsgSeverity.Information);
+                    break;
+            }
         }
         #endregion
 
@@ -47,50 +65,52 @@ namespace ZeroInstall.Injector.WinForms
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The arguments to be parsed.</param>
-        /// <returns>The results of the parsing process.</returns>
+        /// <param name="results">The options detected by the parsing process.</param>
+        /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        public static ParseResults ParseArgs(IEnumerable<string> args)
+        public static OperationMode ParseArgs(IEnumerable<string> args, out ParseResults results)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
             #endregion
 
             // Prepare a structure for storing settings found in the arguments
-            var results = new ParseResults {Policy = Policy.CreateDefault(new SilentHandler())};
+            var mode = OperationMode.Normal;
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new SilentHandler())};
 
             #region Define options
             var options = new OptionSet
             {
                 // Policy options
-                {"before=", version => results.Policy.Constraint = new Constraint(results.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
-                {"not-before=", version => results.Policy.Constraint = new Constraint(new ImplementationVersion(version), results.Policy.Constraint.BeforeVersion)},
-                {"s|source", unused => results.Policy.Architecture = new Architecture(results.Policy.Architecture.OS, Cpu.Source)},
-                {"os=", os => results.Policy.Architecture = new Architecture(Architecture.ParseOS(os), results.Policy.Architecture.Cpu)},
-                {"cpu=", cpu => results.Policy.Architecture = new Architecture(results.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  results.Policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", unused => results.Policy.InterfaceCache.Refresh = true},
-                {"with-store=", path => results.Policy.AdditionalStore = new DirectoryStore(path)},
+                {"before=", version => parseResults.Policy.Constraint = new Constraint(parseResults.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
+                {"not-before=", version => parseResults.Policy.Constraint = new Constraint(new ImplementationVersion(version), parseResults.Policy.Constraint.BeforeVersion)},
+                {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
+                {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
+                {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
+                {"o|offline", unused =>  parseResults.Policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", unused => parseResults.Policy.InterfaceCache.Refresh = true},
+                {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
-                {"d|download-only", unused => results.DownloadOnly = true},
-                {"set-selections=", file => results.SelectionsFile = file},
+                {"d|download-only", unused => parseResults.DownloadOnly = true},
+                {"set-selections=", file => parseResults.SelectionsFile = file},
 
                 // Launcher options
-                {"m|main=", newMain => results.Main = newMain},
-                {"w|wrapper=", newWrapper => results.Wrapper = newWrapper}
+                {"m|main=", newMain => parseResults.Main = newMain},
+                {"w|wrapper=", newWrapper => parseResults.Wrapper = newWrapper}
             };
             #endregion
 
             #region Feed and arguments
             var targetArgs = new List<string>();
-            results.AdditionalArgs = targetArgs;
+            parseResults.AdditionalArgs = targetArgs;
             options.Add("<>", v =>
             {
-                if (results.Feed == null)
+                if (parseResults.Feed == null)
                 {
                     if (v.StartsWith("-")) throw new ArgumentException("Unknown options");
 
-                    results.Feed = v;
+                    parseResults.Feed = v;
                     options.Clear();
                 }
                 else targetArgs.Add(v);
@@ -101,16 +121,19 @@ namespace ZeroInstall.Injector.WinForms
             options.Parse(args);
 
             // Return the now filled results structure
-            return results;
+            results = parseResults;
+            return mode;
         }
         #endregion
+
+        //--------------------//
 
         #region Execute
         /// <summary>
         /// Executes the commands specified by parsing command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        public static void Execute(ParseResults results)
+        private static void Execute(ParseResults results)
         {
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 

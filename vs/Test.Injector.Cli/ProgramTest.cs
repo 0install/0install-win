@@ -15,9 +15,9 @@ namespace ZeroInstall.Injector.Cli
         public void TestNormal()
         {
             var testArgs = new[] {"--not-before=2.0", "--cpu=x86_64", "--refresh", "--os=Windows", "--before=3.0", "-w", "gdb", "http://mozilla.org/firefox.xml", "-url", "http://google.com"};
-            ParseResults results = Program.ParseArgs(testArgs);
-
-            Assert.AreEqual(ProgramMode.Normal, results.Mode);
+            
+            ParseResults results;
+            Assert.AreEqual(OperationMode.Normal, Program.ParseArgs(testArgs, out results));
             Assert.AreEqual(new ImplementationVersion("2.0"), results.Policy.Constraint.NotBeforeVersion);
             Assert.AreEqual(new ImplementationVersion("3.0"), results.Policy.Constraint.BeforeVersion);
             Assert.AreEqual(OS.Windows, results.Policy.Architecture.OS);
@@ -38,9 +38,9 @@ namespace ZeroInstall.Injector.Cli
         public void TestSetSelections()
         {
             var testArgs = new[] {"--offline", "--source", "-D", "--main=app", "--set-selections=/local/selections.xml", "/local/feed.xml"};
-            ParseResults results = Program.ParseArgs(testArgs);
 
-            Assert.AreEqual(ProgramMode.Normal, results.Mode);
+            ParseResults results;
+            Assert.AreEqual(OperationMode.Normal, Program.ParseArgs(testArgs, out results));
             Assert.AreEqual(NetworkLevel.Offline, results.Policy.InterfaceCache.NetworkLevel);
             Assert.AreEqual(Cpu.Source, results.Policy.Architecture.Cpu);
             Assert.IsFalse(results.DownloadOnly);
@@ -58,9 +58,9 @@ namespace ZeroInstall.Injector.Cli
         public void TestGetSelections()
         {
             var testArgs = new[] {"-d", "--get-selections", "--select-only", "/local/feed.xml"};
-            ParseResults results = Program.ParseArgs(testArgs);
 
-            Assert.AreEqual(ProgramMode.Normal, results.Mode);
+            ParseResults results;
+            Assert.AreEqual(OperationMode.Normal, Program.ParseArgs(testArgs, out results));
             Assert.IsTrue(results.DownloadOnly);
             Assert.IsFalse(results.DryRun);
             Assert.IsTrue(results.GetSelections);
@@ -76,34 +76,36 @@ namespace ZeroInstall.Injector.Cli
         public void TestListMode()
         {
             var testArgs = new[] {"--list", "some", "search", "terms"};
-            ParseResults results = Program.ParseArgs(testArgs);
 
-            Assert.AreEqual(ProgramMode.List, results.Mode);
+            ParseResults results;
+            Assert.AreEqual(OperationMode.List, Program.ParseArgs(testArgs, out results));
         }
         
         [Test]
         public void TestManageMode()
         {
             var testArgs = new[] {"--feed", "http://signed/feed.xml", "http://another/signed/feed.xml"};
-            ParseResults results = Program.ParseArgs(testArgs);
 
-            Assert.AreEqual(ProgramMode.Manage, results.Mode);
+            ParseResults results;
+            Assert.AreEqual(OperationMode.Manage, Program.ParseArgs(testArgs, out results));
         }
 
         [Test]
         public void TestVersionMode()
         {
             var testArgs = new[] {"--version"};
-            ParseResults results = Program.ParseArgs(testArgs);
 
-            Assert.AreEqual(ProgramMode.Version, results.Mode);
+            ParseResults results;
+            Assert.AreEqual(OperationMode.Version, Program.ParseArgs(testArgs, out results));
         }
 
         [Test]
         public void TestException()
         {
             var testArgs = new[] { "--refresh", "--invalid-argument", "--offline", "/local/feed.xml" };
-            Assert.Throws<ArgumentException>(() => Program.ParseArgs(testArgs));
+
+            ParseResults results;
+            Assert.Throws<ArgumentException>(() => Program.ParseArgs(testArgs, out results));
         }
     }
 }
