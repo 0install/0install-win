@@ -30,6 +30,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Takes an interface URI and provides operations like solving and launching.
     /// </summary>
+    /// <remarks>This class acts as a mediator between <see cref="ISolver"/>, <see cref="Fetcher"/> and <see cref="Launcher"/>.</remarks>
     public class Controller
     {
         #region Variables
@@ -120,7 +121,7 @@ namespace ZeroInstall.Injector
 
         #region Implementation
         /// <summary>
-        /// Lists 
+        /// Returns a list of any selected <see cref="IDImplementation"/>s that are missing from the <see cref="Injector.Policy.SearchStore"/>.
         /// </summary>
         /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
@@ -149,7 +150,6 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Downloads any selected <see cref="IDImplementation"/>s that are missing from the <see cref="Injector.Policy.SearchStore"/>.
         /// </summary>
-        /// <returns>An object that allows the main <see cref="IDImplementation"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
         // ToDo: Add callbacks and make asynchronous
