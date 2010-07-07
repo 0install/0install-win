@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Security.Cryptography;
 using System.Text;
 using Common.Helpers;
 using ZeroInstall.Model;
@@ -83,8 +84,37 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            #region Parse external X-Bits file
-            // Executable bits must be stored externally on some platforms (e.g. Windows) because the filesystem attributes can't
+            var externalXBits = GetExternalXBits(path);
+
+            // Iterate through the directory to build a list of manifets entries
+            var nodes = new C5.ArrayList<ManifestNode>();
+            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
+            {
+                var file = entry as FileInfo;
+                if (file != null)
+                {
+                    // Don't include manifest management files in manifest
+                    if (file.Name == ".manifest" || file.Name == ".xbit") continue;
+
+                    nodes.Add(GetFileNode(file, format.HashAlgorithm, externalXBits));
+                }
+                else
+                {
+                    var directory = entry as DirectoryInfo;
+                    if (directory != null) nodes.Add(GetDirectoryNode(directory, path));
+                }
+            }
+
+            return new Manifest(nodes, format);
+        }
+
+        /// <summary>
+        /// Executable bits must be stored in an external file (named <code>.xbit</code>) on some platforms (e.g. Windows) because the filesystem attributes can't.
+        /// </summary>
+        /// <param name="path">The path of the directory containing a <code>.xbit</code> file.</param>
+        /// <returns>A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</returns>
+        private static ICollection<string> GetExternalXBits(string path)
+        {
             var externalXBits = new C5.HashSet<string>();
             string xBitPath = Path.Combine(path, ".xbit");
             if (File.Exists(xBitPath))
@@ -104,41 +134,39 @@ namespace ZeroInstall.Store.Implementation
                     }
                 }
             }
-            #endregion
+            return externalXBits;
+        }
 
-            #region Create nodes
-            var nodes = new C5.ArrayList<ManifestNode>();
-            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
-            {
-                var file = entry as FileInfo;
-                if (file != null)
-                {
-                    // Don't include manifest management files in manifest
-                    if (file.Name == ".manifest" || file.Name == ".xbit") continue;
+        /// <summary>
+        /// Creates a manifest node for a file.
+        /// </summary>
+        /// <param name="file">The file object to create a node for.</param>
+        /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
+        /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
+        /// <returns>The node for the list.</returns>
+        private static ManifestFileBase GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
+        {
+            // ToDo: Handle symlinks
 
-                    // ToDo: Handle symlinks
+            // ToDo: Handle executable bits in filesystem itself
+            if (externalXBits.Contains(file.FullName))
+                return new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
 
-                    // ToDo: Handle executable bits in filesystem itself
-                    if (externalXBits.Contains(file.FullName))
-                        nodes.Add(new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
-                    else
-                        nodes.Add(new ManifestFile(FileHelper.ComputeHash(file.FullName, format.HashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name));
-                }
-                else
-                {
-                    var directory = entry as DirectoryInfo;
-                    if (directory != null)
-                    {
-                        nodes.Add(new ManifestDirectory(
-                            FileHelper.UnixTime(directory.LastWriteTime),
-                            // Remove leading portion of path and use Unix slashes
-                            directory.FullName.Substring(path.Length).Replace(Path.DirectorySeparatorChar, '/')));
-                    }
-                }
-            }
-            #endregion
+            return new ManifestFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+        }
 
-            return new Manifest(nodes, format);
+        /// <summary>
+        /// Creates a manifest node for a directory.
+        /// </summary>
+        /// <param name="directory">The directory object to create a node for.</param>
+        /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
+        /// <returns>Thenode for the list.</returns>
+        private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
+        {
+            return new ManifestDirectory(
+                FileHelper.UnixTime(directory.LastWriteTime),
+                // Remove leading portion of path and use Unix slashes
+                directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/'));
         }
         #endregion
 

@@ -196,12 +196,14 @@ namespace ZeroInstall.Store.Implementation
                 {
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
                 }
+                #region Error handling
                 catch (Exception)
                 {
                     // Remove extracted directory if validation or something else failed
                     Directory.Delete(tempDir, true);
                     throw;
                 }
+                #endregion
             }
         }
 
@@ -223,12 +225,14 @@ namespace ZeroInstall.Store.Implementation
             {
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest);
             }
+            #region Error handling
             catch (Exception)
             {
                 // Remove extracted directory if validation or something else failed
                 Directory.Delete(tempDir, true);
                 throw;
             }
+            #endregion
         }
         #endregion
 

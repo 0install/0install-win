@@ -76,6 +76,22 @@ namespace ZeroInstall.Injector
 
         #region Helpers
         /// <summary>
+        /// Determines the actual executable file to be launched.
+        /// </summary>
+        /// <returns>A fully qualified path to the executable file.</returns>
+        private string GetStartupMain()
+        {
+            // Get the implementation to be launched
+            IDImplementation startupImplementation = _selections.Implementations.First;
+
+            // Apply the user-override for the Main exectuable if set
+            string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
+
+            // Find the actual executable file
+            return Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
+        }
+
+        /// <summary>
         /// Locates an <see cref="IDImplementation"/> on the disk (usually in a <see cref="Store"/>).
         /// </summary>
         /// <param name="implementation">The <see cref="IDImplementation"/> to be located.</param>
@@ -130,21 +146,12 @@ namespace ZeroInstall.Injector
         /// Prepares a <see cref="ProcessStartInfo"/> for executing the application as specified by the <see cref="Selections"/>.
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
-        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to create a new <see cref="Process"/>.</returns>
+        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
         public ProcessStartInfo Prepare(string arguments)
         {
-            // Get the implementation to be launched
-            IDImplementation startupImplementation = _selections.Implementations.First;
-
-            // Apply the user-override for the Main exectuable if set
-            string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
-
-            // Find the actual executable file
-            startupMain = Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
-
             // Prepare the new process to launch the implementation
-            var startInfo = new ProcessStartInfo(startupMain, arguments)
+            var startInfo = new ProcessStartInfo(GetStartupMain(), arguments)
             { ErrorDialog = true, UseShellExecute = false };
 
             // Apply user-given wrapper application if set
@@ -154,7 +161,6 @@ namespace ZeroInstall.Injector
                 startInfo.FileName = Wrapper;
             }
 
-            #region Bindings
             foreach (var implementation in _selections.Implementations)
             {
                 // Apply bindings implementations use to find themselves
@@ -164,7 +170,6 @@ namespace ZeroInstall.Injector
                 foreach (var dependency in implementation.Dependencies)
                     ApplyBindings(startInfo, dependency, _selections.GetSelection(dependency.Interface));
             }
-            #endregion
 
             return startInfo;
         }

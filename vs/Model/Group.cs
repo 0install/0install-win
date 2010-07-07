@@ -74,7 +74,15 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            // Apply attribute inheritance to implementations and set missing default values
+            ApplyInheritance();
+            CollapseGroups();
+        }
+
+        /// <summary>
+        /// Apply attribute inheritance to contained <see cref="Implementation"/>s and set missing default values.
+        /// </summary>
+        private void ApplyInheritance()
+        {
             foreach (var implementation in Implementations)
             {
                 implementation.InheritFrom(this);
@@ -85,7 +93,13 @@ namespace ZeroInstall.Model
                 implementation.InheritFrom(this);
                 implementation.Simplify();
             }
+        }
 
+        /// <summary>
+        /// Collapse all contained <see cref="Group"/>s and move their contents directly into this one.
+        /// </summary>
+        private void CollapseGroups()
+        {
             foreach (var group in Groups)
             {
                 // Apply attribute inheritance to sub-groups

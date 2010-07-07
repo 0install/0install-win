@@ -142,12 +142,14 @@ namespace ZeroInstall.Store.Implementation
                     store.AddArchive(archiveInfo, manifestDigest);
                     return;
                 }
+                #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Remember the first authorization error and try the next store
                     if (innerException == null) innerException = ex;
                 }
             }
+                #endregion
 
             // If we reach this, the implementation couldn't be added to any store
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
@@ -169,11 +171,13 @@ namespace ZeroInstall.Store.Implementation
                     store.AddMultipleArchives(archiveInfos, manifestDigest);
                     return;
                 }
+                #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Remember the first authorization error and try the next store
                     if (innerException == null) innerException = ex;
                 }
+                #endregion
             }
 
             // If we reach this, the implementation couldn't be added to any store

@@ -204,6 +204,14 @@ namespace ZeroInstall.Model
             foreach (var implementation in Implementations) implementation.Simplify();
             foreach (var implementation in PackageImplementations) implementation.Simplify();
 
+            CollapseGroups();
+        }
+
+        /// <summary>
+        /// Collapse all contained <see cref="Group"/>s and move their contents directly into the feed.
+        /// </summary>
+        private void CollapseGroups()
+        {
             foreach (var group in Groups)
             {
                 // Flatten structure in groups and set missing default values in contained implementations

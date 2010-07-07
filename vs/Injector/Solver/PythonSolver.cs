@@ -87,7 +87,28 @@ namespace ZeroInstall.Injector.Solver
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            // Build the arguments list for the solver script
+            var process = new Process {StartInfo = GetStartInfo(feed, policy)};
+
+            // Start the Python process
+            process.Start();
+
+            // ToDo: Parse stderr immediatley
+
+            // Parse stdout after the process has completed
+            process.WaitForExit();
+            return Selections.Load(process.StandardOutput.BaseStream);
+        }
+        #endregion
+
+        #region Python IPC
+        /// <summary>
+        /// Prepares to launch a the Python solver code in a child process.
+        /// </summary>
+        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
+        private static ProcessStartInfo GetStartInfo(string feed, Policy policy)
+        {
             string arguments = "";
             if (policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.InterfaceCache.Refresh) arguments += "--refresh ";
@@ -105,7 +126,7 @@ namespace ZeroInstall.Injector.Solver
             arguments += feed;
 
             // Prepare to launch the Python interpreter (no window, redirect all output)
-            var python = new ProcessStartInfo
+            var startInfo = new ProcessStartInfo
             {
                 FileName = PythonBinary,
                 Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + arguments,
@@ -117,17 +138,9 @@ namespace ZeroInstall.Injector.Solver
             };
 
             // Add helper applications to search path
-            python.EnvironmentVariables["PATH"] = PythonDirectory + Path.PathSeparator + GnuPGDirectory + Path.PathSeparator + python.EnvironmentVariables["PATH"];
+            startInfo.EnvironmentVariables["PATH"] = PythonDirectory + Path.PathSeparator + GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
-            // Start the Python process
-            var process = Process.Start(python);
-            if (process == null) throw new IOException("Unable to launch Python interpreter.");
-
-            // ToDo: Parse stderr immediatley
-
-            // Parse stdout after the process has completed
-            process.WaitForExit();
-            return Selections.Load(process.StandardOutput.BaseStream);
+            return startInfo;
         }
         #endregion
     }
