@@ -88,15 +88,22 @@ namespace ZeroInstall.Injector.Solver
             #endregion
 
             var process = new Process {StartInfo = GetStartInfo(feed, policy)};
+            process.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
+            { };
+            process.ErrorDataReceived += delegate(object sender, DataReceivedEventArgs e)
+            { };
 
             // Start the Python process
             process.Start();
-
-            // ToDo: Parse stderr immediatley
+            process.StandardInput.WriteLine();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
+            
+            //policy.InterfaceCache.Handler.AcceptNewKey(process.StandardError.ReadToEnd());
 
             // Parse stdout after the process has completed
             process.WaitForExit();
-            return Selections.Load(process.StandardOutput.BaseStream);
+            return Selections.LoadFromString(process.StandardOutput.ReadToEnd());
         }
         #endregion
 
