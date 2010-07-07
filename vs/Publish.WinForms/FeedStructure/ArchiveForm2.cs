@@ -26,10 +26,11 @@ using Common.Download;
 using Common.Helpers;
 using Common.Archive;
 using ZeroInstall.Store.Implementation;
+using Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class ArchiveForm : Form
+    public partial class ArchiveForm2 : OKCancelDialog
     {
         #region Attributes
 
@@ -80,7 +81,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #region Initialization
 
-        public ArchiveForm()
+        public ArchiveForm2()
         {
             InitializeComponent();
         }

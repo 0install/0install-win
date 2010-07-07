@@ -657,24 +657,35 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void treeViewFeedStructure_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            Form window;
+            //Form window;
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
 
             selectedNode.Toggle();
 
+
             // open a new window to change the selected object
             if (selectedNode.Tag is Group)
             {
-                window = new GroupForm { Group = (Group)selectedNode.Tag };
+                var window = new GroupForm { Group = (Group)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else if (selectedNode.Tag is Implementation)
             {
-                window = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
+                var window = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else if (selectedNode.Tag is Archive)
             {
-                window = new ArchiveForm { Archive = (Archive)selectedNode.Tag};
+                var window = new ArchiveForm();
+                var returnValue = window.ShowDialog();
+                if(returnValue == System.Windows.Forms.DialogResult.OK) {
+                    selectedNode.Tag = window.Archive;
+                }
             }
             else if (selectedNode.Tag is Recipe)
             {
@@ -682,28 +693,36 @@ namespace ZeroInstall.Publish.WinForms
             }
             else if (selectedNode.Tag is PackageImplementation)
             {
-                window = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
+                var window = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else if (selectedNode.Tag is Dependency)
             {
-                window = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
+                var window = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else if (selectedNode.Tag is EnvironmentBinding)
             {
-                window = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
+                var window = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else if (selectedNode.Tag is OverlayBinding)
             {
-                window = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
+                var window = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
+                window.Owner = this;
+                Enabled = false;
+                window.Show();
             }
             else
             {
                 throw new InvalidOperationException("Not an object to change.");
             }
-
-            window.Owner = this;
-            Enabled = false;
-            window.Show();
         }
 
         #endregion

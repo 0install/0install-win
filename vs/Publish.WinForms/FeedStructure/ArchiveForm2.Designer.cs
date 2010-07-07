@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    partial class ArchiveForm
+    partial class ArchiveForm2
     {
         /// <summary>
         /// Required designer variable.
@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.labelArchiveFormat = new System.Windows.Forms.Label();
             this.comboBoxArchiveFormat = new System.Windows.Forms.ComboBox();
             this.buttonArchiveDownload = new System.Windows.Forms.Button();
@@ -53,27 +51,11 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(197, 418);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 0;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Location = new System.Drawing.Point(116, 541);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(116, 418);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 1;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Location = new System.Drawing.Point(197, 541);
             // 
             // labelArchiveFormat
             // 
@@ -251,11 +233,9 @@
             // 
             // ArchiveForm
             // 
-            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(284, 453);
+            this.ClientSize = new System.Drawing.Size(284, 431);
             this.Controls.Add(this.labelExtractArchive);
             this.Controls.Add(this.buttonExtractArchive);
             this.Controls.Add(this.buttonChooseArchive);
@@ -273,13 +253,28 @@
             this.Controls.Add(this.hintTextBoxArchiveUrl);
             this.Controls.Add(this.comboBoxArchiveFormat);
             this.Controls.Add(this.labelArchiveFormat);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ArchiveForm";
-            this.ShowInTaskbar = false;
             this.Text = "ArchiveForm";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ArchiveForm_FormClosed);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.labelArchiveFormat, 0);
+            this.Controls.SetChildIndex(this.comboBoxArchiveFormat, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxArchiveUrl, 0);
+            this.Controls.SetChildIndex(this.buttonArchiveDownload, 0);
+            this.Controls.SetChildIndex(this.labelLocalArchive, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxLocalArchive, 0);
+            this.Controls.SetChildIndex(this.labelArchiveUrl, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxStartOffset, 0);
+            this.Controls.SetChildIndex(this.labelStartOffset, 0);
+            this.Controls.SetChildIndex(this.labelStartOffsetBytes, 0);
+            this.Controls.SetChildIndex(this.treeViewExtract, 0);
+            this.Controls.SetChildIndex(this.labelExtract, 0);
+            this.Controls.SetChildIndex(this.labelArchiveDownloadMessages, 0);
+            this.Controls.SetChildIndex(this.downloadProgressBarArchive, 0);
+            this.Controls.SetChildIndex(this.buttonChooseArchive, 0);
+            this.Controls.SetChildIndex(this.buttonExtractArchive, 0);
+            this.Controls.SetChildIndex(this.labelExtractArchive, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -287,8 +282,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelArchiveFormat;
         private System.Windows.Forms.ComboBox comboBoxArchiveFormat;
         private Common.Controls.HintTextBox hintTextBoxArchiveUrl;

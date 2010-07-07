@@ -91,6 +91,12 @@
     <Compile Include="FeedStructure\ArchiveForm.Designer.cs">
       <DependentUpon>ArchiveForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedStructure\ArchiveForm2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\ArchiveForm2.Designer.cs">
+      <DependentUpon>ArchiveForm2.cs</DependentUpon>
+    </Compile>
     <Compile Include="ControlHelpers.cs" />
     <Compile Include="FeedStructure\DependencyForm.cs">
       <SubType>Form</SubType>
@@ -156,6 +162,9 @@
     </Compile>
     <EmbeddedResource Include="FeedStructure\ArchiveForm.resx">
       <DependentUpon>ArchiveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\ArchiveForm2.resx">
+      <DependentUpon>ArchiveForm2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\DependencyForm.resx">
       <DependentUpon>DependencyForm.cs</DependentUpon>
