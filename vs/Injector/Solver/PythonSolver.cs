@@ -116,6 +116,31 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         private static ProcessStartInfo GetStartInfo(string feed, Policy policy)
         {
+            // Prepare to launch the Python interpreter (no window, redirect all output)
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = PythonBinary,
+                Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + feed,
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+            };
+
+            // Add helper applications to search path
+            startInfo.EnvironmentVariables["PATH"] = PythonDirectory + Path.PathSeparator + GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+
+            return startInfo;
+        }
+
+        /// <summary>
+        /// Generates a list of arguments to be passed on to the solver script.
+        /// </summary>
+        /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <returns>An empty string or a list of arguments terminated by a space.</returns>
+        private static string GetSolverArguments(Policy policy)
+        {
             string arguments = "";
             if (policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.InterfaceCache.Refresh) arguments += "--refresh ";
@@ -130,24 +155,7 @@ namespace ZeroInstall.Injector.Solver
             var additionalStore = policy.AdditionalStore as DirectoryStore;
             if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath;
 
-            arguments += feed;
-
-            // Prepare to launch the Python interpreter (no window, redirect all output)
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = PythonBinary,
-                Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + arguments,
-                CreateNoWindow = true,
-                UseShellExecute = false,
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-            };
-
-            // Add helper applications to search path
-            startInfo.EnvironmentVariables["PATH"] = PythonDirectory + Path.PathSeparator + GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
-
-            return startInfo;
+            return arguments;
         }
         #endregion
     }
