@@ -72,8 +72,24 @@ namespace Common.Controls
 
         //--------------------//
 
-        #region Report
         private void buttonReport_Click(object sender, EventArgs e)
+        {
+            _callback(GenerateReportFile());
+
+            Close();
+        }
+
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        
+        #region Report
+        /// <summary>
+        /// Generates a ZIP archive containing the log file, exception information and any user comments.
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateReportFile()
         {
             string reportPath = Path.Combine(Path.GetTempPath(), Application.ProductName + " Error Report.zip");
             if (File.Exists(reportPath)) File.Delete(reportPath);
@@ -88,11 +104,13 @@ namespace Common.Controls
                 // Store the log file
                 zipStream.PutNextEntry(new ZipEntry("Log.txt"));
                 writer.Write(Log.Content);
+                writer.Flush();
                 zipStream.CloseEntry();
 
                 // Store the exception information as TXT
                 zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
                 writer.Write(detailsBox.Text);
+                writer.Flush();
                 zipStream.CloseEntry();
 
                 // Store the exception information as XML
@@ -107,19 +125,8 @@ namespace Common.Controls
                     writer.Write(commentBox.Text);
                     zipStream.CloseEntry();
                 }
-
-                writer.Flush();
             }
-            _callback(reportPath);
-
-            Close();
-        }
-        #endregion
-
-        #region Misc
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
+            return reportPath;
         }
         #endregion
     }
