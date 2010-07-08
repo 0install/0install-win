@@ -38,9 +38,16 @@
             this.labelDocDir = new System.Windows.Forms.Label();
             this.comboBoxLicense = new System.Windows.Forms.ComboBox();
             this.labelLicense = new System.Windows.Forms.Label();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(198, 213);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(279, 213);
             // 
             // labelPackage
             // 
@@ -99,7 +106,7 @@
             this.hintTextBoxMain.Name = "hintTextBoxMain";
             this.hintTextBoxMain.Size = new System.Drawing.Size(340, 20);
             this.hintTextBoxMain.TabIndex = 1;
-            this.hintTextBoxMain.TextChanged += new System.EventHandler(this.hintTextBoxMain_TextChanged);
+            this.hintTextBoxMain.TextChanged += new System.EventHandler(this.HintTextBoxMainTextChanged);
             // 
             // hintTextBoxDocDir
             // 
@@ -108,7 +115,7 @@
             this.hintTextBoxDocDir.Name = "hintTextBoxDocDir";
             this.hintTextBoxDocDir.Size = new System.Drawing.Size(271, 20);
             this.hintTextBoxDocDir.TabIndex = 7;
-            this.hintTextBoxDocDir.TextChanged += new System.EventHandler(this.hintTextBoxDocDir_TextChanged);
+            this.hintTextBoxDocDir.TextChanged += new System.EventHandler(this.HintTextBoxDocDirTextChanged);
             // 
             // labelDocDir
             // 
@@ -201,36 +208,11 @@
             this.labelLicense.TabIndex = 4;
             this.labelLicense.Text = "License";
             // 
-            // buttonOK
-            // 
-            this.buttonOK.Location = new System.Drawing.Point(279, 213);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 11;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(198, 213);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 10;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // PackageImplementationForm
             // 
-            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(370, 248);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOK);
+            this.ClientSize = new System.Drawing.Size(366, 248);
             this.Controls.Add(this.hintTextBoxDocDir);
             this.Controls.Add(this.labelDocDir);
             this.Controls.Add(this.comboBoxLicense);
@@ -241,9 +223,19 @@
             this.Controls.Add(this.checkedListBoxDistribution);
             this.Controls.Add(this.hintTextBoxPackage);
             this.Controls.Add(this.labelPackage);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "PackageImplementationForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PackageImplementationForm_FormClosed);
+            this.Controls.SetChildIndex(this.labelPackage, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxPackage, 0);
+            this.Controls.SetChildIndex(this.checkedListBoxDistribution, 0);
+            this.Controls.SetChildIndex(this.labelDistributions, 0);
+            this.Controls.SetChildIndex(this.labelMain, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxMain, 0);
+            this.Controls.SetChildIndex(this.labelLicense, 0);
+            this.Controls.SetChildIndex(this.comboBoxLicense, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.labelDocDir, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxDocDir, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -261,7 +253,5 @@
         private System.Windows.Forms.Label labelDocDir;
         private System.Windows.Forms.ComboBox comboBoxLicense;
         private System.Windows.Forms.Label labelLicense;
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
     }
 }

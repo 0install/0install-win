@@ -38,14 +38,21 @@
             this.dateTimePickerRelease = new System.Windows.Forms.DateTimePicker();
             this.labelReleased = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
-            this.buttonOk = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.hintTextBoxDocDir = new Common.Controls.HintTextBox();
             this.hintTextBoxSelfTest = new Common.Controls.HintTextBox();
             this.hintTextBoxMain = new Common.Controls.HintTextBox();
             this.hintTextBoxVersion = new Common.Controls.HintTextBox();
             this.targetBaseControl = new ZeroInstall.Publish.WinForms.TargetBaseControl();
             this.SuspendLayout();
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(439, 290);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(520, 290);
             // 
             // labelStability
             // 
@@ -199,27 +206,6 @@
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version";
             // 
-            // buttonOk
-            // 
-            this.buttonOk.Location = new System.Drawing.Point(520, 290);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 16;
-            this.buttonOk.Text = "OK";
-            this.buttonOk.UseVisualStyleBackColor = true;
-            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(439, 290);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 15;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // hintTextBoxDocDir
             // 
             this.hintTextBoxDocDir.HintText = "Relative path of a directory inside the implementation";
@@ -227,7 +213,7 @@
             this.hintTextBoxDocDir.Name = "hintTextBoxDocDir";
             this.hintTextBoxDocDir.Size = new System.Drawing.Size(289, 20);
             this.hintTextBoxDocDir.TabIndex = 11;
-            this.hintTextBoxDocDir.TextChanged += new System.EventHandler(this.hintTextBoxDocDir_TextChanged);
+            this.hintTextBoxDocDir.TextChanged += new System.EventHandler(this.HintTextBoxDocDirTextChanged);
             // 
             // hintTextBoxSelfTest
             // 
@@ -236,7 +222,7 @@
             this.hintTextBoxSelfTest.Name = "hintTextBoxSelfTest";
             this.hintTextBoxSelfTest.Size = new System.Drawing.Size(285, 20);
             this.hintTextBoxSelfTest.TabIndex = 13;
-            this.hintTextBoxSelfTest.TextChanged += new System.EventHandler(this.hintTextBoxSelfTest_TextChanged);
+            this.hintTextBoxSelfTest.TextChanged += new System.EventHandler(this.HintTextBoxSelfTestTextChanged);
             // 
             // hintTextBoxMain
             // 
@@ -245,7 +231,7 @@
             this.hintTextBoxMain.Name = "hintTextBoxMain";
             this.hintTextBoxMain.Size = new System.Drawing.Size(462, 20);
             this.hintTextBoxMain.TabIndex = 7;
-            this.hintTextBoxMain.TextChanged += new System.EventHandler(this.hintTextBoxMain_TextChanged);
+            this.hintTextBoxMain.TextChanged += new System.EventHandler(this.HintTextBoxMainTextChanged);
             // 
             // hintTextBoxVersion
             // 
@@ -254,7 +240,7 @@
             this.hintTextBoxVersion.Name = "hintTextBoxVersion";
             this.hintTextBoxVersion.Size = new System.Drawing.Size(100, 20);
             this.hintTextBoxVersion.TabIndex = 1;
-            this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.hintTextBoxVersion_TextChanged);
+            this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.HintTextBoxVersionTextChanged);
             // 
             // targetBaseControl
             // 
@@ -266,13 +252,9 @@
             // 
             // GroupForm
             // 
-            this.AcceptButton = this.buttonOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(611, 325);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.labelStability);
             this.Controls.Add(this.comboBoxStability);
             this.Controls.Add(this.hintTextBoxDocDir);
@@ -288,10 +270,24 @@
             this.Controls.Add(this.dateTimePickerRelease);
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "GroupForm";
-            this.ShowIcon = false;
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.GroupForm_FormClosed);
+            this.Controls.SetChildIndex(this.labelVersion, 0);
+            this.Controls.SetChildIndex(this.labelReleased, 0);
+            this.Controls.SetChildIndex(this.dateTimePickerRelease, 0);
+            this.Controls.SetChildIndex(this.labelLicense, 0);
+            this.Controls.SetChildIndex(this.comboBoxLicense, 0);
+            this.Controls.SetChildIndex(this.targetBaseControl, 0);
+            this.Controls.SetChildIndex(this.labelMain, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxVersion, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxMain, 0);
+            this.Controls.SetChildIndex(this.labelSelfTest, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxSelfTest, 0);
+            this.Controls.SetChildIndex(this.labelDocDir, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxDocDir, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.comboBoxStability, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.labelStability, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,7 +310,5 @@
         private System.Windows.Forms.DateTimePicker dateTimePickerRelease;
         private System.Windows.Forms.Label labelReleased;
         private System.Windows.Forms.Label labelVersion;
-        private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.Button buttonCancel;
     }
 }

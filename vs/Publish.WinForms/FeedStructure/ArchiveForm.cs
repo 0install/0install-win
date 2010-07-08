@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <summary>
         /// List with supported archive types by 0install. If more types become supported, add them to this list.
         /// </summary>
-        private List<string> _supportedMimeTypes = new List<string> { "application/zip" };
+        private readonly List<string> _supportedMimeTypes = new List<string> { "application/zip" };
 
         #endregion
 
@@ -52,10 +52,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             get { return _archive; }
             set
             {
-                setControlsReadonly();
                 buttonOK.Enabled = false;
                 _archive = value ?? new Archive();
                 UpdateFormControls();
+                SetControlsReadonly();
             }
         }
 
@@ -88,13 +88,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         private void ClearFormControls()
         {
-            comboBoxArchiveFormat.SelectedText = "(auto detect)";
+            comboBoxArchiveFormat.SelectedIndex = 0;
             hintTextBoxStartOffset.Text = String.Empty;
             hintTextBoxArchiveUrl.Text = String.Empty;
             labelArchiveDownloadMessages.Text = String.Empty;
             hintTextBoxLocalArchive.Text = String.Empty;
             treeViewExtract.Nodes.Clear();
-            treeViewExtract.Nodes.Add("Top Folder");
+            treeViewExtract.Nodes.Add("Top folder");
             labelExtractArchiveMessage.Text = String.Empty;
         }
 
@@ -107,19 +107,17 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!String.IsNullOrEmpty(_archive.MimeType)) comboBoxArchiveFormat.Text = _archive.MimeType;
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
             if (!String.IsNullOrEmpty(_archive.LocationString)) hintTextBoxArchiveUrl.Text = _archive.LocationString;
-            if (!String.IsNullOrEmpty(_archive.Extract))
-            {
-                var currentNode = treeViewExtract.TopNode;
-                var splittedPath = _archive.Extract.Split('/');
-                foreach (var folder in splittedPath)
-                    currentNode = currentNode.Nodes.Add(folder);
-            }
+            if (String.IsNullOrEmpty(_archive.Extract)) return;
+            var currentNode = treeViewExtract.TopNode;
+            var splittedPath = _archive.Extract.Split('/');
+            foreach (var folder in splittedPath)
+                currentNode = currentNode.Nodes.Add(folder);
         }
 
         /// <summary>
         /// Sets all controls as readonly, that the user can not modify them.
         /// </summary>
-        private void setControlsReadonly()
+        private void SetControlsReadonly()
         {
             comboBoxArchiveFormat.Enabled = false;
             hintTextBoxStartOffset.Enabled = false;
@@ -141,16 +139,17 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             Uri uri;
             long startOffset;
 
-            if (getValidStartOffset(out startOffset)) _archive.StartOffset = startOffset;
-            if (comboBoxArchiveFormat.Text != "(auto detect)") _archive.MimeType = comboBoxArchiveFormat.Text;
-            if (isValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
+            if (GetValidStartOffset(out startOffset)) _archive.StartOffset = startOffset;
+            if (comboBoxArchiveFormat.SelectedIndex != 0) _archive.MimeType = comboBoxArchiveFormat.Text;
+            if (ControlHelpers.IsValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
-            _archive.Extract = treeViewExtract.SelectedNode.FullPath.Substring("Top folder".Length);    
+            if(treeViewExtract.SelectedNode != null)
+                _archive.Extract = treeViewExtract.SelectedNode.FullPath.Substring("Top folder".Length);    
             
             var manifestDigestPath = hintTextBoxLocalArchive.Text + "_extracted" + StringHelper.UnifySlashes(_archive.Extract);
             _manifestDigest = Manifest.CreateDigest(manifestDigestPath);
@@ -163,7 +162,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
+        private void ButtonCancelClick(object sender, EventArgs e)
         {
             if (downloadProgressBarArchive.Download != null) downloadProgressBarArchive.Download.Cancel(false);
         }
@@ -185,7 +184,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonArchiveDownload_Click(object sender, EventArgs e)
+        private void ButtonArchiveDownloadClick(object sender, EventArgs e)
         {
             var url = new Uri(hintTextBoxArchiveUrl.Text);
 
@@ -194,7 +193,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // show dialog to choose download folder
             if (folderBrowserDialogDownloadPath.ShowDialog() == DialogResult.Cancel) return;
             string absoluteFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
-            if (!setArchiveMimeType(fileName)) return;
+            if (!SetArchiveMimeType(fileName)) return;
 
             downloadProgressBarArchive.Download = new DownloadFile(url, absoluteFilePath);
             downloadProgressBarArchive.UseTaskbar = true;
@@ -213,14 +212,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <summary>
         /// Shows a dialog where the user can choose a local archive and sets the the text of
         /// <see cref="hintTextBoxLocalArchive"/> with the chosen archive path.
-        /// Enables <see cref="buttonExtractArchive"/> and disables <see cref="buttonOK"/>.
+        /// Enables <see cref="buttonExtractArchive"/> and disables <see cref="OKCancelDialog.buttonOK"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonChooseArchive_Click(object sender, EventArgs e)
+        private void ButtonChooseArchiveClick(object sender, EventArgs e)
         {
             if (openFileDialogLocalArchive.ShowDialog() == DialogResult.Cancel) return;
-            if (!setArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
+            if (!SetArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
             hintTextBoxLocalArchive.Text = openFileDialogLocalArchive.FileName;
             
             buttonExtractArchive.Enabled = true;
@@ -236,18 +235,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonExtractArchive_Click(object sender, EventArgs e)
+        private void ButtonExtractArchiveClick(object sender, EventArgs e)
         {
-            string archive = hintTextBoxLocalArchive.Text;
+            var archive = hintTextBoxLocalArchive.Text;
             long startOffset;
-            if (!getValidStartOffset(out startOffset)) startOffset = 0;
+            if (!GetValidStartOffset(out startOffset)) startOffset = 0;
 
-            string extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive), Path.GetFileName(archive) + "_extracted");
+            var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive), Path.GetFileName(archive) + "_extracted");
 
+            labelExtractArchiveMessage.Text = "Extracting...";
             try
             {
                 //TODO add progress bar?
-                labelExtractArchiveMessage.Text = "Extracting...";
                 var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset);
                 archiveExtractor.Extract(extractedArchivePath, null);
                 buttonExtractArchive.Enabled = false;
@@ -266,7 +265,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
             treeViewExtract.Nodes.Clear();
             treeViewExtract.Nodes.Add("Top folder");
-            fillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewExtract.TopNode);
+            FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewExtract.TopNode);
             treeViewExtract.ExpandAll();
             labelExtractArchiveMessage.Text = "Archive extracted.";
 
@@ -282,10 +281,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxArchiveUrl_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxArchiveUrlTextChanged(object sender, EventArgs e)
         {
             Uri uri;
-            if (isValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri))
+            if (ControlHelpers.IsValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri))
             {
                 hintTextBoxArchiveUrl.ForeColor = Color.Green;
                 buttonArchiveDownload.Enabled = true;
@@ -300,7 +299,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
 
         /// <summary>
-        /// Disables the <see cref="buttonOK"/>.
+        /// Disables the <see cref="OKCancelDialog.buttonOK"/>.
         /// Disables the buttons <see cref="buttonArchiveDownload"/> and
         /// <see cref="buttonExtractArchive"/> and sets the forcolor to <see cref="Color.Red"/>
         /// if the text in <see cref="hintTextBoxStartOffset"/> is NOT valid.
@@ -309,11 +308,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxStartOffset_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxStartOffsetTextChanged(object sender, EventArgs e)
         {
             buttonOK.Enabled = false;
             long startOffset;
-            if (getValidStartOffset(out startOffset))
+            if (GetValidStartOffset(out startOffset))
             {
                 buttonArchiveDownload.Enabled = true;
                 buttonExtractArchive.Enabled = true;
@@ -335,14 +334,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <summary>
         /// If in <see cref="comboBoxArchiveFormat"/> is chosen "(auto detect)", the mime type
         /// of <paramref name="fileName"/> will be guessed and setted into 
-        /// <see cref="comboBoxArchiveType"/>.
+        /// <see cref="comboBoxArchiveFormat"/>.
         /// If the mime type is not supported by 0install, a <see cref="MessageBox"/> with an
         /// error message will be shown to the user.
         /// </summary>
         /// <param name="fileName">File to guess the mime type for.</param>
         /// <returns><see langword="true"/>, if mime type is supported by 0install, else
         /// <see langword="false"/></returns>
-        private bool setArchiveMimeType(string fileName)
+        private bool SetArchiveMimeType(string fileName)
         {
             if (comboBoxArchiveFormat.SelectedIndex == 0)
             {
@@ -379,36 +378,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="extractedDirectory">Top folder of a folder tree</param>
         /// <param name="currentNode">Node to insert the folder tree</param>
-        private void fillTreeViewExtract(DirectoryInfo extractedDirectory, TreeNode currentNode)
+// ReSharper disable MemberCanBeMadeStatic.Local
+        private void FillTreeViewExtract(DirectoryInfo extractedDirectory, TreeNode currentNode)
+// ReSharper restore MemberCanBeMadeStatic.Local
         {
             var folderList = extractedDirectory.GetDirectories();
             if (folderList.Length == 0) return;
             foreach (var folder in folderList)
             {
-                fillTreeViewExtract(folder, currentNode.Nodes.Add(folder.Name));
+                FillTreeViewExtract(folder, currentNode.Nodes.Add(folder.Name));
             }
-        }
-
-        /// <summary>
-        /// Checks if <paramref name="prooveUrl"/> is a valid internet url and creates a new
-        /// <see cref="Uri"/> object.
-        /// </summary>
-        /// <param name="prooveUrl">Url to check.</param>
-        /// <param name="uri">New <see cref="Uri"/> object with <paramref name="prooveUrl"/>
-        /// </param>
-        /// <returns><see langword="true"/> if <paramref name="prooveUrl"/> is a valid internet
-        /// url, else <see langword="false"/></returns>
-        private bool isValidArchiveUrl(string prooveUrl, out Uri uri)
-        {
-            if (Uri.TryCreate(prooveUrl, UriKind.Absolute, out uri))
-            {
-                if (uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeFtp || uri.Scheme == Uri.UriSchemeHttps)
-                {
-                    return true;
-                }
-                return false;
-            }
-            return false;
         }
 
         /// <summary>
@@ -457,7 +436,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="startOffset">Variable where to store the startOffset.</param>
         /// <returns><see langword="true"/> if the text in <see cref="hintTextBoxStartOffset"/>
         /// is a number >= 0, else <see langword="false"/>.</returns>
-        private bool getValidStartOffset(out long startOffset)
+        private bool GetValidStartOffset(out long startOffset)
         {
             if (hintTextBoxStartOffset.Text == String.Empty)
             {

@@ -32,9 +32,16 @@
             this.labelSrc = new System.Windows.Forms.Label();
             this.labelMountPoint = new System.Windows.Forms.Label();
             this.hintTextBoxMountPoint = new Common.Controls.HintTextBox();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(153, 119);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(234, 119);
             // 
             // hintTextBoxSrc
             // 
@@ -43,7 +50,7 @@
             this.hintTextBoxSrc.Name = "hintTextBoxSrc";
             this.hintTextBoxSrc.Size = new System.Drawing.Size(294, 20);
             this.hintTextBoxSrc.TabIndex = 1;
-            this.hintTextBoxSrc.TextChanged += new System.EventHandler(this.hintTextBoxSrc_TextChanged);
+            this.hintTextBoxSrc.TextChanged += new System.EventHandler(this.HintTextBoxSrcTextChanged);
             // 
             // labelSrc
             // 
@@ -70,45 +77,24 @@
             this.hintTextBoxMountPoint.Name = "hintTextBoxMountPoint";
             this.hintTextBoxMountPoint.Size = new System.Drawing.Size(294, 20);
             this.hintTextBoxMountPoint.TabIndex = 3;
-            this.hintTextBoxMountPoint.TextChanged += new System.EventHandler(this.hintTextBoxMountPoint_TextChanged);
-            // 
-            // buttonOK
-            // 
-            this.buttonOK.Location = new System.Drawing.Point(234, 114);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 5;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(153, 114);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 4;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.hintTextBoxMountPoint.TextChanged += new System.EventHandler(this.HintTextBoxMountPointTextChanged);
             // 
             // OverlayBindingForm
             // 
-            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(324, 146);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOK);
+            this.ClientSize = new System.Drawing.Size(321, 154);
             this.Controls.Add(this.hintTextBoxMountPoint);
             this.Controls.Add(this.labelMountPoint);
             this.Controls.Add(this.labelSrc);
             this.Controls.Add(this.hintTextBoxSrc);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "OverlayBindingForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OverlayBindingForm_FormClosed);
+            this.Controls.SetChildIndex(this.hintTextBoxSrc, 0);
+            this.Controls.SetChildIndex(this.labelSrc, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.labelMountPoint, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxMountPoint, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,7 +106,5 @@
         private System.Windows.Forms.Label labelSrc;
         private System.Windows.Forms.Label labelMountPoint;
         private Common.Controls.HintTextBox hintTextBoxMountPoint;
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
     }
 }

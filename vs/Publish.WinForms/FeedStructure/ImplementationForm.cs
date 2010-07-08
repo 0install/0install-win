@@ -17,11 +17,12 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class ImplementationForm : Form
+    public partial class ImplementationForm : OKCancelDialog
     {
 
         #region Properties
@@ -122,10 +123,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             ImplementationVersion version;
-            var targetBase = targetBaseControl.TargetBase;
 
             _implementation.Version = (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version)) ? version : null;
             _implementation.Released = dateTimePickerRelease.Value;
@@ -140,27 +140,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 _implementation.Languages.Add(language);
             }
             _implementation.Architecture = targetBaseControl.TargetBase.Architecture;
-
-            buttonCancel_Click(null, null);
-        }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
         }
 
         #endregion
-
-        private void ImplementationForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
     }
 }

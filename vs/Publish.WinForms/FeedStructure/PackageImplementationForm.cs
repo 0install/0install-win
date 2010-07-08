@@ -18,12 +18,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class PackageImplementationForm : Form
+    public partial class PackageImplementationForm : OKCancelDialog
     {
 
         #region Properties
@@ -100,7 +101,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxMain_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxMainTextChanged(object sender, EventArgs e)
         {
             hintTextBoxMain.ForeColor = Path.IsPathRooted(hintTextBoxMain.Text) ? Color.Green : Color.Red;
         }
@@ -110,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxDocDir_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxDocDirTextChanged(object sender, EventArgs e)
         {
             hintTextBoxDocDir.ForeColor = !Path.IsPathRooted(hintTextBoxDocDir.Text) ? Color.Green : Color.Red;
         }
@@ -124,7 +125,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             _packageImplementation.Main = (Path.IsPathRooted(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
             _packageImplementation.Package = (!String.IsNullOrEmpty(hintTextBoxPackage.Text)) ? hintTextBoxPackage.Text : null;
@@ -135,27 +136,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             {
                 _packageImplementation.Distributions.Add(checkedItem);
             }
-
-            buttonCancel_Click(null, null);
         }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
-        }
-
         #endregion
-
-        private void PackageImplementationForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
     }
 }

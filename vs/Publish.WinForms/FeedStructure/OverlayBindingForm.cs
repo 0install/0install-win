@@ -19,11 +19,12 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class OverlayBindingForm : Form
+    public partial class OverlayBindingForm : OKCancelDialog
     {
 
         #region Properties
@@ -90,7 +91,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxSrc_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxSrcTextChanged(object sender, EventArgs e)
         {
             hintTextBoxSrc.ForeColor = (!Path.IsPathRooted(hintTextBoxSrc.Text)) ? Color.Green : Color.Red;
         }
@@ -101,7 +102,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxMountPoint_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxMountPointTextChanged(object sender, EventArgs e)
         {
             hintTextBoxMountPoint.ForeColor = (Path.IsPathRooted(hintTextBoxMountPoint.Text)) ? Color.Green : Color.Red;
         }
@@ -115,30 +116,12 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             _overlayBinding.Source = (!String.IsNullOrEmpty(hintTextBoxSrc.Text)) ? hintTextBoxSrc.Text : null;
             _overlayBinding.MountPoint = (!String.IsNullOrEmpty(hintTextBoxMountPoint.Text)) ? hintTextBoxMountPoint.Text : null;
-            buttonCancel_Click(null, null);
-        }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
         }
 
         #endregion
-
-        private void OverlayBindingForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
     }
 }

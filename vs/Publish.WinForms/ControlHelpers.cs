@@ -51,5 +51,27 @@ namespace ZeroInstall.Publish.WinForms
             return IsValidFeedUrl(url, out uri);
         }
 
+        public static bool IsValidFeedUrl(Uri url)
+        {
+            return IsValidFeedUrl(url.AbsolutePath);
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="prooveUrl"/> is a valid internet url and creates a new
+        /// <see cref="Uri"/> object.
+        /// </summary>
+        /// <param name="prooveUrl">Url to check.</param>
+        /// <param name="uri">New <see cref="Uri"/> object with <paramref name="prooveUrl"/>
+        /// </param>
+        /// <returns><see langword="true"/> if <paramref name="prooveUrl"/> is a valid internet
+        /// url, else <see langword="false"/></returns>
+        public static bool IsValidArchiveUrl(string prooveUrl, out Uri uri)
+        {
+            if (Uri.TryCreate(prooveUrl, UriKind.Absolute, out uri))
+            {
+                return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeFtp || uri.Scheme == Uri.UriSchemeHttps;
+            }
+            return false;
+        }
     }
 }

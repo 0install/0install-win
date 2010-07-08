@@ -18,6 +18,7 @@
 using System;
 using System.Windows.Forms;
 using Common.Collections;
+using Common.Controls;
 using Common.Storage;
 using ZeroInstall.Model;
 using System.Drawing;
@@ -491,28 +492,16 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Feed Tab
 
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text of <paramref name="text"/> to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="text"></param>
-        /// <param name="tag"></param>
-        private void addTreeNode(string text, object tag)
-        {
-            var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
-            var treeNode = new TreeNode(text) {Tag = tag};
-            selectedNode.Nodes.Add(treeNode);
-            treeViewFeedStructure.SelectedNode = treeNode;
-            selectedNode.Expand();
-        }
+        #region add buttons clicked methods
 
         /// <summary>
         /// Adds a new <see cref="TreeNode"/> with text "Group" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddGroup_Click(object sender, EventArgs e)
+        private void BtnAddGroupClick(object sender, EventArgs e)
         {
-            addTreeNode("Group", new Group());
+            AddTreeNode("Group", new Group());
         }
 
         /// <summary>
@@ -520,9 +509,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddImplementation_Click(object sender, EventArgs e)
+        private void BtnAddImplementationClick(object sender, EventArgs e)
         {
-            addTreeNode("Implementation", new Implementation());
+            AddTreeNode("Implementation", new Implementation());
         }
 
         /// <summary>
@@ -530,9 +519,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddPackageImplementation_Click(object sender, EventArgs e)
+        private void BtnAddPackageImplementationClick(object sender, EventArgs e)
         {
-            addTreeNode("Package Implementation", new PackageImplementation());
+            AddTreeNode("Package Implementation", new PackageImplementation());
         }
 
         /// <summary>
@@ -540,9 +529,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddDependency_Click(object sender, EventArgs e)
+        private void BtnAddDependencyClick(object sender, EventArgs e)
         {
-            addTreeNode("Dependency", new Dependency());
+            AddTreeNode("Dependency", new Dependency());
         }
 
         /// <summary>
@@ -550,9 +539,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddEnvironmentBinding_Click(object sender, EventArgs e)
+        private void BtnAddEnvironmentBindingClick(object sender, EventArgs e)
         {
-            addTreeNode("Environment Binding", new EnvironmentBinding());
+            AddTreeNode("Environment Binding", new EnvironmentBinding());
         }
 
         /// <summary>
@@ -560,9 +549,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnAddOverlayBinding_Click(object sender, EventArgs e)
+        private void BtnAddOverlayBindingClick(object sender, EventArgs e)
         {
-            addTreeNode("Overlay Binding", new OverlayBinding());
+            AddTreeNode("Overlay Binding", new OverlayBinding());
         }
 
         /// <summary>
@@ -570,9 +559,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonAddArchive_Click(object sender, EventArgs e)
+        private void ButtonAddArchiveClick(object sender, EventArgs e)
         {
-            addTreeNode("Archive", new Archive());
+            AddTreeNode("Archive", null);
         }
 
         /// <summary>
@@ -580,10 +569,26 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonAddRecipe_Click(object sender, EventArgs e)
+        private void ButtonAddRecipeClick(object sender, EventArgs e)
         {
-            addTreeNode("Recipe", new Recipe());
+            AddTreeNode("Recipe", null);
         }
+
+        /// <summary>
+        /// Adds a new <see cref="TreeNode"/> with text of <paramref name="text"/> to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="tag"></param>
+        private void AddTreeNode(string text, object tag)
+        {
+            var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
+            selectedNode.Nodes.Add(new TreeNode(text) {Tag = tag });
+            selectedNode.Expand();
+        }
+
+        #endregion
+
+        #region treeviewFeedStructure methods
 
         /// <summary>
         /// Enables the buttons which allow the user to add specific new <see cref="TreeNode"/>s in subject to the selected <see cref="TreeNode"/>.
@@ -591,7 +596,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void treeViewFeedStructure_AfterSelect(object sender, TreeViewEventArgs e)
+        private void TreeViewFeedStructureAfterSelect(object sender, TreeViewEventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode;
 
@@ -609,15 +614,15 @@ namespace ZeroInstall.Publish.WinForms
             {
                 enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation };
             }
-            else if (selectedNode.Tag is Group)
+            else if (selectedNode.Text.StartsWith("Group"))
             {
                 enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
-            else if (selectedNode.Tag is Implementation)
+            else if (selectedNode.Text.StartsWith("Implementation"))
             {
                 enableAddButtons = new Button[] { buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
-            else if (selectedNode.Tag is Dependency)
+            else if (selectedNode.Text.StartsWith("Dependency"))
             {
                 enableAddButtons = new Button[] { btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
@@ -629,11 +634,111 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
+        /// Opens a new window to edit the selected entry.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
+        private void TreeViewFeedStructureNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            //Form window;
+            var selectedNode = treeViewFeedStructure.SelectedNode;
+            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
+
+            selectedNode.Toggle();
+
+            // open a new window to change the selected object
+            if (selectedNode.Text.StartsWith("Group"))
+            {
+                var feedStructurForm = new GroupForm { Group = (Group) selectedNode.Tag};
+                feedStructurForm.ShowDialog();
+            }
+            else if (selectedNode.Text.StartsWith("Implementation"))
+            {
+                var feedStructurForm = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
+                feedStructurForm.ShowDialog();
+            }
+            else if (selectedNode.Text.StartsWith("Archive"))
+            {
+                var feedStructurForm = new ArchiveForm();
+                if (selectedNode.Tag is Archive) feedStructurForm.Archive = (Archive) selectedNode.Tag;
+
+                if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
+
+                if(selectedNode.Parent.FirstNode.Tag is ManifestDigest)
+                {
+                    if(!CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
+                    {
+                        MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was disacared,");
+                        return;
+                    }
+                } else
+                {
+                    var manifestDigestNode = new TreeNode("Manifest digest") {Tag = feedStructurForm.ManifestDigest};
+                    selectedNode.Parent.Nodes.Insert(0, manifestDigestNode);
+                }
+                selectedNode.Tag = feedStructurForm.Archive;
+            }
+            else if (selectedNode.Text.StartsWith("Recipe"))
+            {
+                throw new NotImplementedException();
+            }
+            else if (selectedNode.Text.StartsWith("Package Implementation"))
+            {
+                var feedStructurForm = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
+                feedStructurForm.ShowDialog();
+            }
+            else if (selectedNode.Text.StartsWith("Dependency"))
+            {
+                var feedStructurForm = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
+                feedStructurForm.ShowDialog();
+            }
+            else if (selectedNode.Text.StartsWith("Environment Binding"))
+            {
+                var feedStructurForm = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
+                feedStructurForm.ShowDialog();
+            }
+            else if (selectedNode.Text.StartsWith("Overlay Binding"))
+            {
+                var feedStructurForm = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
+                feedStructurForm.ShowDialog();
+            }
+            else if(selectedNode.Text.StartsWith("Manifest digest"))
+            {
+                var feedStructurForm = new ManifestDigestForm((ManifestDigest) selectedNode.Tag);
+                feedStructurForm.ShowDialog();
+            }
+            else
+            {
+                throw new InvalidOperationException("Not an object to change.");
+            }
+        }
+
+        private bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
+        {
+            bool ret = false;
+            if (manifestDigest1.Sha1New != String.Empty && manifestDigest2.Sha1New != String.Empty)
+            {
+                ret = manifestDigest1.Sha1New == manifestDigest2.Sha1New;
+                if (!ret) return false;
+            }
+            else if (manifestDigest1.Sha1Old != String.Empty && manifestDigest2.Sha1Old != String.Empty)
+            {
+                ret = manifestDigest1.Sha1Old == manifestDigest2.Sha1Old;
+                if (!ret) return false;
+            } else if(manifestDigest1.Sha256 != String.Empty && manifestDigest2.Sha256 != String.Empty)
+            {
+                ret = manifestDigest1.Sha256 == manifestDigest2.Sha256;
+                if (!ret) return false;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// Removes the selected <see cref="TreeNode"/> and all of its subnodes.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnRemoveFeedStructureObject_Click(object sender, EventArgs e)
+        private void BtnRemoveFeedStructureObjectClick(object sender, EventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode;
             if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
@@ -645,85 +750,12 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonClearList_Click(object sender, EventArgs e)
+        private void ButtonClearListClick(object sender, EventArgs e)
         {
             treeViewFeedStructure.TopNode.Nodes.Clear();
         }
 
-        /// <summary>
-        /// Opens a new window to edit the selected entry.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void treeViewFeedStructure_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
-        {
-            //Form window;
-            var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
-
-            selectedNode.Toggle();
-
-
-            // open a new window to change the selected object
-            if (selectedNode.Tag is Group)
-            {
-                var window = new GroupForm { Group = (Group)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else if (selectedNode.Tag is Implementation)
-            {
-                var window = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else if (selectedNode.Tag is Archive)
-            {
-                var window = new ArchiveForm();
-                var returnValue = window.ShowDialog();
-                if(returnValue == System.Windows.Forms.DialogResult.OK) {
-                    selectedNode.Tag = window.Archive;
-                }
-            }
-            else if (selectedNode.Tag is Recipe)
-            {
-                throw new NotImplementedException();
-            }
-            else if (selectedNode.Tag is PackageImplementation)
-            {
-                var window = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else if (selectedNode.Tag is Dependency)
-            {
-                var window = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else if (selectedNode.Tag is EnvironmentBinding)
-            {
-                var window = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else if (selectedNode.Tag is OverlayBinding)
-            {
-                var window = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
-                window.Owner = this;
-                Enabled = false;
-                window.Show();
-            }
-            else
-            {
-                throw new InvalidOperationException("Not an object to change.");
-            }
-        }
+        #endregion
 
         #endregion
 

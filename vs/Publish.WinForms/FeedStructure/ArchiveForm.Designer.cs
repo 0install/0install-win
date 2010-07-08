@@ -52,13 +52,13 @@
             // buttonOK
             // 
             this.buttonOK.Enabled = false;
-            this.buttonOK.Location = new System.Drawing.Point(116, 425);
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            this.buttonOK.Location = new System.Drawing.Point(116, 403);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(197, 425);
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            this.buttonCancel.Location = new System.Drawing.Point(197, 403);
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
             // 
             // labelExtractArchiveMessage
             // 
@@ -77,7 +77,7 @@
             this.buttonExtractArchive.TabIndex = 36;
             this.buttonExtractArchive.Text = "Extract archive";
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
-            this.buttonExtractArchive.Click += new System.EventHandler(this.buttonExtractArchive_Click);
+            this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
             // 
             // buttonChooseArchive
             // 
@@ -88,7 +88,7 @@
             this.buttonChooseArchive.TabIndex = 35;
             this.buttonChooseArchive.Text = "Choose Archive";
             this.buttonChooseArchive.UseVisualStyleBackColor = true;
-            this.buttonChooseArchive.Click += new System.EventHandler(this.buttonChooseArchive_Click);
+            this.buttonChooseArchive.Click += new System.EventHandler(this.ButtonChooseArchiveClick);
             // 
             // downloadProgressBarArchive
             // 
@@ -150,7 +150,7 @@
             this.hintTextBoxStartOffset.Name = "hintTextBoxStartOffset";
             this.hintTextBoxStartOffset.Size = new System.Drawing.Size(218, 20);
             this.hintTextBoxStartOffset.TabIndex = 28;
-            this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.hintTextBoxStartOffset_TextChanged);
+            this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.HintTextBoxStartOffsetTextChanged);
             // 
             // labelArchiveUrl
             // 
@@ -188,7 +188,7 @@
             this.buttonArchiveDownload.TabIndex = 24;
             this.buttonArchiveDownload.Text = "Download";
             this.buttonArchiveDownload.UseVisualStyleBackColor = true;
-            this.buttonArchiveDownload.Click += new System.EventHandler(this.buttonArchiveDownload_Click);
+            this.buttonArchiveDownload.Click += new System.EventHandler(this.ButtonArchiveDownloadClick);
             // 
             // hintTextBoxArchiveUrl
             // 
@@ -197,7 +197,7 @@
             this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
             this.hintTextBoxArchiveUrl.Size = new System.Drawing.Size(257, 20);
             this.hintTextBoxArchiveUrl.TabIndex = 23;
-            this.hintTextBoxArchiveUrl.TextChanged += new System.EventHandler(this.hintTextBoxArchiveUrl_TextChanged);
+            this.hintTextBoxArchiveUrl.TextChanged += new System.EventHandler(this.HintTextBoxArchiveUrlTextChanged);
             // 
             // comboBoxArchiveFormat
             // 
@@ -240,7 +240,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 460);
+            this.ClientSize = new System.Drawing.Size(284, 438);
             this.Controls.Add(this.labelExtractArchiveMessage);
             this.Controls.Add(this.buttonExtractArchive);
             this.Controls.Add(this.buttonChooseArchive);

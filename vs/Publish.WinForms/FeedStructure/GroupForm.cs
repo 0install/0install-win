@@ -18,12 +18,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class GroupForm : Form
+    public partial class GroupForm : OKCancelDialog
     {
         #region Properties
 
@@ -39,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             get { return _group; }
             set {
-                this._group = value ?? new Group();
+                _group = value ?? new Group();
                 targetBaseControl.TargetBase = _group.CloneGroup();
                 UpdateFormControls();
             }
@@ -115,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         //TODO If a retrieval methode is available add a ComboBox with files that can be selected.
-        private void hintTextBoxMain_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxMainTextChanged(object sender, EventArgs e)
         {
             hintTextBoxMain.ForeColor = !Path.IsPathRooted(hintTextBoxMain.Text) ? Color.Green : Color.Red;
         }
@@ -125,7 +126,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxVersion_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxVersionTextChanged(object sender, EventArgs e)
         {
             ImplementationVersion implementationVersion;
             hintTextBoxVersion.ForeColor = (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out implementationVersion)) ? Color.Green : Color.Red;
@@ -136,7 +137,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxDocDir_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxDocDirTextChanged(object sender, EventArgs e)
         {
             hintTextBoxDocDir.ForeColor = (!Path.IsPathRooted(hintTextBoxDocDir.Text)) ? Color.Green : Color.Red;
         }
@@ -146,7 +147,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxSelfTest_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxSelfTestTextChanged(object sender, EventArgs e)
         {
             hintTextBoxSelfTest.ForeColor = (!Path.IsPathRooted(hintTextBoxSelfTest.Text)) ? Color.Green : Color.Red;
         }
@@ -160,7 +161,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             ImplementationVersion implementationVersion;
             
@@ -176,28 +177,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             {
                 _group.Languages.Add(language);
             }
-
-            buttonCancel_Click(null, null);
-        }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
         }
 
         #endregion
-
-        private void GroupForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
-
     }
 }

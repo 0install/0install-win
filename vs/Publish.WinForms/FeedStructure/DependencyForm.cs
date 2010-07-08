@@ -18,12 +18,13 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 using Constraint = ZeroInstall.Model.Constraint;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class DependencyForm : Form
+    public partial class DependencyForm : OKCancelDialog
     {
 
         #region Properties
@@ -87,12 +88,12 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonConstraintAdd_Click(object sender, EventArgs e)
+        private void ButtonConstraintAddClick(object sender, EventArgs e)
         {
             Constraint constraint;
             ImplementationVersion notBefore = null, before = null;
 
-            // add NotBefore and Before)
+            // add NotBefore and Before
             if (ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out notBefore) & ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out before))
             {
                 constraint = new Constraint(notBefore, before);
@@ -117,7 +118,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonConstraintRemove_Click(object sender, EventArgs e)
+        private void ButtonConstraintRemoveClick(object sender, EventArgs e)
         {
             var selectedVersion = (Constraint)listBoxConstraints.SelectedItem;
             listBoxConstraints.Items.Remove(selectedVersion);
@@ -128,11 +129,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxNotBefore_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxNotBeforeTextChanged(object sender, EventArgs e)
         {
             ImplementationVersion implementationVersion;
             hintTextBoxNotBefore.ForeColor = ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out implementationVersion) ? Color.Green : Color.Red;
-            checkConstraints();
+            CheckConstraints();
         }
 
         /// <summary>
@@ -140,17 +141,17 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxBefore_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxBeforeTextChanged(object sender, EventArgs e)
         {
             ImplementationVersion implementationVersion;
             hintTextBoxBefore.ForeColor = ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out implementationVersion) ? Color.Green : Color.Red;
-            checkConstraints();
+            CheckConstraints();
         }
 
         /// <summary>
         /// Checks if "hintTextBoxNotBefore.Text" or "hintTextBoxBefore.Text" have a valid <see cref="ImplementationVersion"/> and enables <see cref="buttonConstraintAdd"/> if its valid or disables if not.
         /// </summary>
-        private void checkConstraints()
+        private void CheckConstraints()
         {
             ImplementationVersion implementationVersion;
             buttonConstraintAdd.Enabled = ImplementationVersion.TryCreate(hintTextBoxNotBefore.Text, out implementationVersion) || ImplementationVersion.TryCreate(hintTextBoxBefore.Text, out implementationVersion);
@@ -161,7 +162,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void listBoxConstraints_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxConstraintsSelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxConstraints.SelectedItem == null) return;
             var selectedItem = (Constraint)listBoxConstraints.SelectedItem;
@@ -178,7 +179,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void hintTextBoxInterface_TextChanged(object sender, EventArgs e)
+        private void HintTextBoxInterfaceTextChanged(object sender, EventArgs e)
         {
             Uri uri;
             hintTextBoxInterface.ForeColor = (ControlHelpers.IsValidFeedUrl(hintTextBoxInterface.Text, out uri)) ? Color.Green : Color.Red;
@@ -192,7 +193,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOk_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             _dependency.Interface = hintTextBoxInterface.Text;
             _dependency.Use = (!String.IsNullOrEmpty(hintTextBoxUse.Text)) ? hintTextBoxUse.Text : String.Empty;
@@ -200,27 +201,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             {
                 _dependency.Constraints.Add(constraint);
             }
-
-            buttonCancel_Click(null, null);
-        }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
         }
 
         #endregion
-
-        private void DependencyForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
     }
 }

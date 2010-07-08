@@ -36,9 +36,16 @@
             this.comboBoxMode = new System.Windows.Forms.ComboBox();
             this.labelDefault = new System.Windows.Forms.Label();
             this.hintTextBoxDefault = new Common.Controls.HintTextBox();
-            this.buttonOK = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(165, 193);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(246, 193);
             // 
             // labelName
             // 
@@ -117,36 +124,11 @@
             this.hintTextBoxDefault.Size = new System.Drawing.Size(305, 20);
             this.hintTextBoxDefault.TabIndex = 7;
             // 
-            // buttonOK
-            // 
-            this.buttonOK.Location = new System.Drawing.Point(245, 193);
-            this.buttonOK.Name = "buttonOK";
-            this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 9;
-            this.buttonOK.Text = "OK";
-            this.buttonOK.UseVisualStyleBackColor = true;
-            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(164, 193);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 8;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
             // EnvironmentBindingForm
             // 
-            this.AcceptButton = this.buttonOK;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(333, 228);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.hintTextBoxDefault);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.comboBoxMode);
@@ -155,9 +137,17 @@
             this.Controls.Add(this.labelInsert);
             this.Controls.Add(this.hintTextBoxInsert);
             this.Controls.Add(this.labelName);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "EnvironmentBindingForm";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.EnvironmentBindingForm_FormClosed);
+            this.Controls.SetChildIndex(this.labelName, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxInsert, 0);
+            this.Controls.SetChildIndex(this.labelInsert, 0);
+            this.Controls.SetChildIndex(this.comboBoxName, 0);
+            this.Controls.SetChildIndex(this.labelMode, 0);
+            this.Controls.SetChildIndex(this.comboBoxMode, 0);
+            this.Controls.SetChildIndex(this.buttonOK, 0);
+            this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.labelDefault, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxDefault, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -173,7 +163,5 @@
         private System.Windows.Forms.ComboBox comboBoxMode;
         private System.Windows.Forms.Label labelDefault;
         private Common.Controls.HintTextBox hintTextBoxDefault;
-        private System.Windows.Forms.Button buttonOK;
-        private System.Windows.Forms.Button buttonCancel;
     }
 }

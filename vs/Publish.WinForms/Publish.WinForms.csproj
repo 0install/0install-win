@@ -110,6 +110,12 @@
     <Compile Include="FeedReferenceControl.Designer.cs">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedStructure\ManifestDigestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\ManifestDigestForm.Designer.cs">
+      <DependentUpon>ManifestDigestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedStructure\ImplementationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -165,6 +171,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\ManifestDigestForm.resx">
+      <DependentUpon>ManifestDigestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ImplementationForm.resx">
       <DependentUpon>ImplementationForm.cs</DependentUpon>

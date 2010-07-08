@@ -17,11 +17,12 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class EnvironmentBindingForm : Form
+    public partial class EnvironmentBindingForm : OKCancelDialog
     {
 
         #region Properties
@@ -99,33 +100,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void buttonOK_Click(object sender, EventArgs e)
+        private void ButtonOkClick(object sender, EventArgs e)
         {
             _environmentBinding.Value = (!String.IsNullOrEmpty(hintTextBoxInsert.Text)) ? hintTextBoxInsert.Text : null;
             _environmentBinding.Mode = (EnvironmentMode)comboBoxMode.SelectedItem;
             _environmentBinding.Default = (!String.IsNullOrEmpty(hintTextBoxDefault.Text)) ? hintTextBoxDefault.Text : null;
             _environmentBinding.Name = (!String.IsNullOrEmpty(comboBoxName.Text)) ? comboBoxName.Text : null;
-
-            buttonCancel_Click(null, null);
-        }
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Owner.Enabled = true;
-            Close();
-            Dispose();
         }
 
         #endregion
-
-        private void EnvironmentBindingForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Owner.Enabled = true;
-        }
     }
 }
