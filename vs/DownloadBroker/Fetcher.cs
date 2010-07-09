@@ -108,8 +108,13 @@ namespace ZeroInstall.DownloadBroker
 
         private static void FetchArchive(Archive archive, string destination)
         {
+            #region Sanity checks
+            if (archive == null) throw new ArgumentNullException("archive");
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            #endregion
+
             if (archive.StartOffset != 0)
-                WriteNullsIntoIgnoredPartOfFile(archive, destination);
+                WriteZerosIntoIgnoredPartOfFile(archive, destination);
 
             var downloadFile = new DownloadFile(archive.Location, destination);
 
@@ -126,8 +131,13 @@ namespace ZeroInstall.DownloadBroker
             }
         }
 
-        private static void WriteNullsIntoIgnoredPartOfFile(Archive archive, string destination)
+        private static void WriteZerosIntoIgnoredPartOfFile(Archive archive, string destination)
         {
+            #region Sanity checks
+            if (archive == null) throw new ArgumentNullException("archive");
+            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            #endregion
+
             using (var tempArchiveStream = File.Create(destination))
             {
                 tempArchiveStream.Seek(archive.StartOffset - 1, SeekOrigin.Begin);
@@ -136,16 +146,18 @@ namespace ZeroInstall.DownloadBroker
         }
 
         /// <summary>
-        /// Checks if the size of <paramref name="downloadFile"/> matches the
-        /// <paramref name="archive"/>'s size and offset, otherwise throws a
-        /// <see cref="FetcherException"/>.
+        /// Checks if the size of <paramref name="downloadFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
         /// </summary>
-        /// <remarks>Does not perform any check if size isn't yet known.</remarks>
-        /// <exception cref="FetcherException">Thrown if the remote file is known
-        /// to have different size than stated in <paramref name="archive"/>.
+        /// <remarks>Does not perform any check if size isn't known yet.</remarks>
+        /// <exception cref="FetcherException">Thrown if the remote file is known to have different size than stated in <paramref name="archive"/>.
         /// </exception>
         private static void RejectRemoteFileOfDifferentSize(Archive archive, DownloadFile downloadFile)
         {
+            #region Sanity checks
+            if (archive == null) throw new ArgumentNullException("archive");
+            if (downloadFile == null) throw new ArgumentNullException("downloadFile");
+            #endregion
+
             Debug.Assert(archive != null);
             Debug.Assert(downloadFile != null);
 
@@ -159,12 +171,14 @@ namespace ZeroInstall.DownloadBroker
         }
         
         /// <summary>
-        /// Determines of the size of a <see cref="DownloadFile"/> is know prior to
-        /// performing the transmission.
+        /// Determines of the size of a <see cref="DownloadFile"/> is know prior to performing the download.
         /// </summary>
         private static bool IsSizeKnown(DownloadFile downloadFile)
         {
-            Debug.Assert(downloadFile != null);
+            #region Sanity checks
+            if (downloadFile == null) throw new ArgumentNullException("downloadFile");
+            #endregion
+
             return downloadFile.BytesTotal != -1;
         }
     }
