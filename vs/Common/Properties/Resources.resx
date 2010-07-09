@@ -246,9 +246,6 @@ Delete the changes</value>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
   </data>
-  <data name="InvalidEntry" xml:space="preserve">
-    <value>Invalid entry: </value>
-  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>

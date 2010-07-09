@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Helpers;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
-using Common.Helpers;
 
 namespace Common.Archive
 {
@@ -81,23 +81,16 @@ namespace Common.Archive
 
             try
             {
-                string xbitFilePath = Path.Combine(target, ".xbit");
-
                 foreach (ZipEntry entry in _zip)
                 {
-                    RejectArchiveIfNameContains(entry, "..");
-
                     // Only extract objects within the selected sub-directory
                     if (!string.IsNullOrEmpty(subDir) && !entry.Name.StartsWith(subDir)) continue;
 
-                    if (entry.IsDirectory)
-                    {
-                        ExtractFolderEntry(target, entry);
-                    }
+                    if (entry.IsDirectory) CreateDirectory(target, entry.Name, entry.DateTime);
                     else if (entry.IsFile)
                     {
-                        ExtractFileEntry(target, _zip, entry);
-                        AddEntryToXbitFileIfNecessary(entry, xbitFilePath);
+                        using (var stream = _zip.GetInputStream(entry))
+                            WriteFile(target, entry.Name, entry.DateTime, stream, IsXbitSet(entry));
                     }
                 }
             }
@@ -105,55 +98,6 @@ namespace Common.Archive
             {
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
-        }
-        #endregion
-
-        #region Helpers
-        private static void ExtractFileEntry(string path, ZipFile zip, ZipEntry entry)
-        {
-            string targetPath = Path.Combine(path, entry.Name);
-            Directory.CreateDirectory(Path.GetDirectoryName(targetPath));
-
-            DecompressAndWriteFile(zip, entry, targetPath);
-            File.SetLastWriteTimeUtc(targetPath, entry.DateTime);
-        }
-        
-        private static void DecompressAndWriteFile(ZipFile zip, ZipEntry entry, string targetPath)
-        {
-            long bytesRead = 0;
-            var entryInputStream = zip.GetInputStream(entry);
-            using (var output = File.Create(targetPath))
-            {
-                while (bytesRead < entry.Size)
-                {
-                    output.WriteByte((byte)entryInputStream.ReadByte());
-                    ++bytesRead;
-                }
-            }
-        }
-
-        private static void AddEntryToXbitFileIfNecessary(ZipEntry entry, string xbitFile)
-        {
-
-            if (IsXbitSet(entry))
-            {
-                using (var xbitWriter = File.AppendText(xbitFile))
-                {
-                    xbitWriter.Write("/");
-                    xbitWriter.Write(entry.Name);
-                }
-            }
-        }
-
-        private static void RejectArchiveIfNameContains(ZipEntry entry, string name)
-        {
-            if (entry.Name.Contains(name)) throw new IOException(Resources.InvalidEntry + entry.Name);
-        }
-
-        private static void ExtractFolderEntry(string path, ZipEntry entry)
-        {
-            Directory.CreateDirectory(Path.Combine(path, entry.Name));
-            Directory.SetLastWriteTimeUtc(Path.Combine(path, entry.Name), entry.DateTime);
         }
 
         /// <summary>

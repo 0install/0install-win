@@ -203,15 +203,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid entry: .
-        /// </summary>
-        internal static string InvalidEntry {
-            get {
-                return ResourceManager.GetString("InvalidEntry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The priority is invalid..
         /// </summary>
         internal static string InvalidPriority {

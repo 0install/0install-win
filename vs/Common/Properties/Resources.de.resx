@@ -239,9 +239,6 @@ Die Änderungen löschen</value>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>Die Archivdatei ist ungültig oder beschädigt.</value>
   </data>
-  <data name="InvalidEntry" xml:space="preserve">
-    <value>Ungültiger Eintrag: </value>
-  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>Der angegebene MIME Typ is unbekannt.</value>
   </data>
