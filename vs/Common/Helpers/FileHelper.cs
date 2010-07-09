@@ -138,18 +138,25 @@ namespace Common.Helpers
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Win32Windows:
+                {
                     // ToDo: Run for each contained file: "fileInfo.Attributes |= FileAttributes.ReadOnly;"
                     break;
+                }
 
                 case PlatformID.Win32NT:
+                {
                     DirectorySecurity security = dirInfo.GetAccessControl();
                     security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
                     dirInfo.SetAccessControl(security);
                     break;
+                }
 
                 case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                {
                     // ToDo: Set Unix octals
                     break;
+                }
             }
         }
 
