@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
 
 namespace ZeroInstall.Publish.WinForms
@@ -28,7 +27,7 @@ namespace ZeroInstall.Publish.WinForms
     class ControlHelpersTest
     {
         /// <summary>
-        /// Tests all methodes IsValidFeedUrl(...) with a set of valid an invalid feed URLs.
+        /// Tests all methods IsValidFeedUrl(...) with a set of valid an invalid feed URLs.
         /// </summary>
         [Test]
         public void TestIsValidFeedUrl()

@@ -7,9 +7,7 @@ using ZeroInstall.Model;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Utilities;
-using System.Text;
 using System.Reflection;
-using System.Net;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -149,7 +147,7 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldGenerateCorrectXbitFile()
         {
-            var thisAssembly = Assembly.GetAssembly(typeof (DownloadFunctionality));
+            var thisAssembly = Assembly.GetAssembly(typeof(DownloadFunctionality));
             DateTime readmeLastWrite, sdlDllLastWrite;
 
             using (var sdlArchive = thisAssembly.GetManifestResourceStream(typeof(DownloadFunctionality), "sdlArchive.zip"))

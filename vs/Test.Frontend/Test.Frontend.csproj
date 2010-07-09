@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZeroInstall</RootNamespace>
+    <AssemblyName>Test.Frontend</AssemblyName>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Frontend\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Frontend\Debug\Test.Frontend.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Frontend\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C5, Version=1.1.0.0, Culture=neutral, PublicKeyToken=06a1b38866503b69, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
+      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
+      <Name>DownloadBroker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Injector.Cli\Injector.Cli.csproj">
+      <Project>{B56D8478-0900-47C2-9113-1DC086A2D129}</Project>
+      <Name>Injector.Cli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Injector.WinForms\Injector.WinForms.csproj">
+      <Project>{D9719D11-B12D-4D51-919C-73C606BA9E47}</Project>
+      <Name>Injector.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Injector\Injector.csproj">
+      <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
+      <Name>Injector</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyApps\MyApps.csproj">
+      <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
+      <Name>MyApps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StoreManagement.Cli\StoreManagement.Cli.csproj">
+      <Project>{05E49C84-D6AB-418A-9978-8200CB76DD39}</Project>
+      <Name>StoreManagement.Cli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StoreManagement.WinForms\StoreManagement.WinForms.csproj">
+      <Project>{77A13B71-EF52-41C1-BB96-5337E37C4C65}</Project>
+      <Name>StoreManagement.WinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\StoreService\StoreService.csproj">
+      <Project>{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}</Project>
+      <Name>StoreService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Backend\Test.Backend.csproj">
+      <Project>{06237727-AEA0-4E42-85C0-C0886F425352}</Project>
+      <Name>Test.Backend</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Test.Common\Test.Common.csproj">
+      <Project>{CA9D6092-4365-4385-9700-9570A98EF09D}</Project>
+      <Name>Test.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DownloadBroker\ArchiveProvider.cs" />
+    <Compile Include="DownloadBroker\DownloadItemBuilders.cs" />
+    <Compile Include="DownloadBroker\FetcherStoreInteraction.cs" />
+    <Compile Include="DownloadBroker\FetcherTests.cs" />
+    <Compile Include="Injector\Cli\ProgramTest.cs" />
+    <Compile Include="Injector\ControllerTest.cs" />
+    <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
+    <Compile Include="Injector\Solver\PythonSolverTest.cs" />
+    <Compile Include="Injector\Solver\SelectionsTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Central\WinForms\" />
+    <Folder Include="Injector\WinForms\" />
+    <Folder Include="MyApps\" />
+    <Folder Include="StoreManagement\Cli\" />
+    <Folder Include="StoreManagement\WinForms\" />
+    <Folder Include="StoreService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DownloadBroker\sdlArchive.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DownloadBroker\README-SDL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DownloadBroker\SDL.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

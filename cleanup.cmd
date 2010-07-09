@@ -1,15 +1,16 @@
 @echo off
 
-rem Clear binaries (leave final Documentation intact, because it takes so long to generate)
-rd /s /q bin > NUL 2>&1
+rem Remove old build directories
+rd /s /q build\Debug > NUL 2>&1
+rd /s /q build\Release > NUL 2>&1
+rd /s /q build\Documentation > NUL 2>&1
+
+rem Clear binaries (leave Documentation and Portable intact)
 rd /s /q build\Backend\Debug > NUL 2>&1
 rd /s /q build\Backend\Release > NUL 2>&1
-rd /s /q build\Frontend\Debug > NUL 2>&1
-rd /s /q build\Frontend\Release > NUL 2>&1
-rd /s /q build\Publish\Debug > NUL 2>&1
-rd /s /q build\Publish\Release > NUL 2>&1
-rd /s /q build\Setup > NUL 2>&1
-rd /s /q build\Documentation\working > NUL 2>&1
+rd /s /q build\Backend\Documentation\working > NUL 2>&1
+rd /s /q build\Frontend > NUL 2>&1
+rd /s /q build\Tools > NUL 2>&1
 
 rem Clear ReSharper's cache
 rd /s /q vs\_ReSharper.ZeroInstall_VS2008 > NUL 2>&1
@@ -33,18 +34,9 @@ rd /s /q vs\Model\obj > NUL 2>&1
 rd /s /q vs\MyApps\obj > NUL 2>&1
 rd /s /q vs\Store\obj > NUL 2>&1
 rd /s /q vs\Test.Common\obj > NUL 2>&1
-rd /s /q vs\Test.DownloadBroker\obj > NUL 2>&1
-rd /s /q vs\Test.Injector\obj > NUL 2>&1
-rd /s /q vs\Test.Model\obj > NUL 2>&1
-rd /s /q vs\Test.MyApps\obj > NUL 2>&1
-rd /s /q vs\Test.Store\obj > NUL 2>&1
-rd /s /q vs\Test.Central.WinForms\obj > NUL 2>&1
-rd /s /q vs\Test.StoreService\obj > NUL 2>&1
-rd /s /q vs\Test.Publish.WinForms\obj > NUL 2>&1
-rd /s /q vs\Test.Injector.Cli\obj > NUL 2>&1
-rd /s /q vs\Test.Injector.WinForms\obj > NUL 2>&1
-rd /s /q vs\Test.StoreManagement.Cli\obj > NUL 2>&1
-rd /s /q vs\Test.StoreManagement.WinForms\obj > NUL 2>&1
+rd /s /q vs\Test.Backend\obj > NUL 2>&1
+rd /s /q vs\Test.Frontend\obj > NUL 2>&1
+rd /s /q vs\Test.Tools\obj > NUL 2>&1
 rd /s /q vs\Modeling\obj > NUL 2>&1
 
 rem Restore old VS2008 solution user options (temporarily unhide for copying)

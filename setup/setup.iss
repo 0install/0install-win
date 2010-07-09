@@ -38,7 +38,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\build\Injector\Setup
+OutputDir=..\build\Frontend\Setup
 #ifndef Update
 OutputBaseFilename=0install
 #endif
@@ -82,7 +82,7 @@ Name: de; MessagesFile: compiler:Languages\German.isl
 Name: {app}\Zero Install.exe; Type: files
 
 [Files]
-Source: ..\build\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
 Source: ..\build\Portable\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs

@@ -5,20 +5,19 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{927ACF8A-2A47-46F5-8EDD-36D3F9B90C17}</ProjectGuid>
+    <ProjectGuid>{06237727-AEA0-4E42-85C0-C0886F425352}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall.DownloadBroker</RootNamespace>
-    <AssemblyName>Test.ZeroInstall.DownloadBroker</AssemblyName>
+    <RootNamespace>ZeroInstall</RootNamespace>
+    <AssemblyName>Test.Backend</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\Frontend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Frontend\Debug\Test.ZeroInstall.DownloadBroker.xml</DocumentationFile>
+    <OutputPath>..\..\build\Backend\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Backend\Debug\Test.Backend.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -29,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\Frontend\Release\</OutputPath>
+    <OutputPath>..\..\build\Backend\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -41,15 +40,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.84.0.0, Culture=neutral, PublicKeyToken=1b03e6acf1164f73">
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.5.452, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.framework, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.framework, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
-    <Reference Include="nunit.mocks, Version=2.5.3.9345, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+    <Reference Include="nunit.mocks, Version=2.5.5.10112, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
@@ -60,39 +59,44 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
-      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
-      <Name>DownloadBroker</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyApps\MyApps.csproj">
+      <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
+      <Name>MyApps</Name>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Test.Model\Test.Model.csproj">
-      <Project>{8CFCCBA6-6F95-4C81-9D57-A9E8AA2E8FF5}</Project>
-      <Name>Test.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Test.Store\Test.Store.csproj">
-      <Project>{EEC57946-EF07-4D25-8EAF-5341BE746F7A}</Project>
-      <Name>Test.Store</Name>
+    <ProjectReference Include="..\Test.Common\Test.Common.csproj">
+      <Project>{CA9D6092-4365-4385-9700-9570A98EF09D}</Project>
+      <Name>Test.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArchiveProvider.cs" />
-    <Compile Include="DownloadItemBuilders.cs" />
-    <Compile Include="FetcherTests.cs" />
-    <Compile Include="FetcherStoreInteraction.cs" />
+    <Compile Include="Model\ArchitectureTest.cs" />
+    <Compile Include="Model\ArchiveTest.cs" />
+    <Compile Include="Model\EnvironmentBindingTest.cs" />
+    <Compile Include="Model\FeedReferenceTest.cs" />
+    <Compile Include="Model\FeedTest.cs" />
+    <Compile Include="Model\ImplementationTest.cs" />
+    <Compile Include="Model\ImplementationVersionTest.cs" />
+    <Compile Include="Model\ManifestDigestTest.cs" />
+    <Compile Include="Model\OverlayBindingTest.cs" />
+    <Compile Include="Model\PackageImplementationTest.cs" />
+    <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
+    <Compile Include="Store\Implementation\ManifestTest.cs" />
+    <Compile Include="Store\Implementation\StoreSetTest.cs" />
+    <Compile Include="Store\Implementation\StoreTest.cs" />
+    <Compile Include="Store\Interface\InterfaceCacheTest.cs" />
+    <Compile Include="Store\Interface\TrustTest.cs" />
+    <Compile Include="Store\Utilities\FolderDisposables.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="sdlArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="README-SDL.txt" />
-    <EmbeddedResource Include="SDL.dll" />
+    <Folder Include="MyApps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

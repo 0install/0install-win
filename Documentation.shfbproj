@@ -14,38 +14,18 @@
     <RootNamespace>Core</RootNamespace>
     <Name>Game</Name>
     <!-- SHFB properties -->
-    <OutputPath>build\Documentation</OutputPath>
+    <OutputPath>build\Backend\Documentation</OutputPath>
     <HtmlHelpName>ZeroInstall</HtmlHelpName>
     <PresentationStyle>hana</PresentationStyle>
     <IndentHtml>False</IndentHtml>
     <HelpTitle>Twilight Symphony</HelpTitle>
     <DocumentationSources>
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.exe" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.xml" />
-      <DocumentationSource sourceFile="build\Debug\StoreService.exe" />
-      <DocumentationSource sourceFile="build\Debug\StoreService.xml" />
-      <DocumentationSource sourceFile="build\Debug\0launch.exe" />
-      <DocumentationSource sourceFile="build\Debug\0launch.xml" />
-      <DocumentationSource sourceFile="build\Debug\0launchw.exe" />
-      <DocumentationSource sourceFile="build\Debug\0launchw.xml" />
-      <DocumentationSource sourceFile="build\Debug\0store.exe" />
-      <DocumentationSource sourceFile="build\Debug\0store.xml" />
-      <DocumentationSource sourceFile="build\Debug\0storew.exe" />
-      <DocumentationSource sourceFile="build\Debug\0storew.xml" />
-      <DocumentationSource sourceFile="build\Debug\FeedEditor.exe" />
-      <DocumentationSource sourceFile="build\Debug\FeedEditor.xml" />
-      <DocumentationSource sourceFile="build\Debug\Common.dll" />
-      <DocumentationSource sourceFile="build\Debug\Common.xml" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Model.dll" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Model.xml" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Solver.dll" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Solver.xml" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Store.dll" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Store.xml" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Injector.dll" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.Injector.xml" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.MyApps.dll" />
-      <DocumentationSource sourceFile="build\Debug\ZeroInstall.MyApps.xml" />
+      <DocumentationSource sourceFile="build\Backend\Debug\Common.dll" />
+      <DocumentationSource sourceFile="build\Backend\Debug\Common.xml" />
+      <DocumentationSource sourceFile="build\Backend\Debug\ZeroInstall.Model.dll" />
+      <DocumentationSource sourceFile="build\Backend\Debug\ZeroInstall.Model.xml" />
+      <DocumentationSource sourceFile="build\Backend\Debug\ZeroInstall.Store.dll" />
+      <DocumentationSource sourceFile="build\Backend\Debug\ZeroInstall.Store.xml" />
   </DocumentationSources>
   </PropertyGroup>
   <!-- There are no properties for these two groups but they need to appear in
