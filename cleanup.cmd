@@ -2,8 +2,12 @@
 
 rem Clear binaries (leave final Documentation intact, because it takes so long to generate)
 rd /s /q bin > NUL 2>&1
-rd /s /q build\Debug > NUL 2>&1
-rd /s /q build\Release > NUL 2>&1
+rd /s /q build\Backend\Debug > NUL 2>&1
+rd /s /q build\Backend\Release > NUL 2>&1
+rd /s /q build\Injector\Debug > NUL 2>&1
+rd /s /q build\Injector\Release > NUL 2>&1
+rd /s /q build\Publish\Debug > NUL 2>&1
+rd /s /q build\Publish\Release > NUL 2>&1
 rd /s /q build\Setup > NUL 2>&1
 rd /s /q build\Documentation\working > NUL 2>&1
 

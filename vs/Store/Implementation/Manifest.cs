@@ -210,7 +210,7 @@ namespace ZeroInstall.Store.Implementation
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            // Default constructor (UTF8 without BOM) and Unix-stlye linebreaks to ensure correct hash values
+            // Default encoding (UTF8 without BOM) and Unix-stlye linebreaks to ensure correct hash values
             var writer = new StreamWriter(stream) {NewLine = "\n"};
 
             // Write one line for each node

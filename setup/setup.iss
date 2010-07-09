@@ -38,7 +38,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\build\Setup
+OutputDir=..\build\Injector\Setup
 #ifndef Update
 OutputBaseFilename=0install
 #endif
