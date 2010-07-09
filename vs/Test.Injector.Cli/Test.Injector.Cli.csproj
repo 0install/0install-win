@@ -16,8 +16,8 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\build\Injector\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Injector\Debug\Test.ZeroInstall.Injector.Cli.xml</DocumentationFile>
+    <OutputPath>..\..\build\Frontend\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Frontend\Debug\Test.ZeroInstall.Injector.Cli.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -28,7 +28,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\build\Injector\Release\</OutputPath>
+    <OutputPath>..\..\build\Frontend\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>

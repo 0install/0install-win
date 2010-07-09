@@ -1,33 +1,22 @@
 ﻿<NUnitProject>
-  <Settings activeconfig="Debug" />
-  <Config name="Debug" buildpathtype="Auto">
-    <assembly path="build\Debug\Test.Common.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.DownloadBroker.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Injector.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Injector.Cli.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Injector.WinForms.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Model.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Store.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.StoreManagement.Cli.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.StoreManagement.WinForms.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Central.WinForms.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.StoreService.dll" />
-    <assembly path="build\Debug\Test.ZeroInstall.Publish.WinForms.dll" />
+  <Settings activeconfig="Backend" />
+  <Config name="Backend" buildpathtype="Auto">
+    <assembly path="build\Backend\Debug\Test.Common.dll" />
+    <assembly path="build\Backend\Debug\Test.ZeroInstall.Model.dll" />
+    <assembly path="build\Backend\Debug\Test.ZeroInstall.Store.dll" />
   </Config>
-  <Config name="Release" buildpathtype="Auto">
-    <assembly path="build\Release\Test.Common.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.DownloadBroker.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Injector.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Injector.Cli.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Injector.WinForms.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Model.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.MyApps.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Store.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.StoreManagement.Cli.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.StoreManagement.WinForms.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Central.WinForms.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.StoreService.dll" />
-    <assembly path="build\Release\Test.ZeroInstall.Publish.WinForms.dll" />
+  <Config name="Frontend" buildpathtype="Auto">
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.DownloadBroker.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.Injector.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.Injector.Cli.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.Injector.WinForms.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.MyApps.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.StoreManagement.Cli.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.StoreManagement.WinForms.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.Central.WinForms.dll" />
+    <assembly path="build\Frontend\Debug\Test.ZeroInstall.StoreService.dll" />
+  </Config>
+  <Config name="Publish" buildpathtype="Auto">
+    <assembly path="build\Publish\Debug\Test.ZeroInstall.Publish.WinForms.dll" />
   </Config>
 </NUnitProject>
