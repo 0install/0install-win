@@ -1,7 +1,7 @@
 The subdirectory "vs" contains the Visual Studio project with the actual source code.
 The subdirectory "wrappers" contains soon to be deprecated C# wrappers around the original Python code.
 
-"build.cmd" will call the build scripts in the subdirectories to create a complete Zero Install for Windows distribution in bin/Setup.
+"build.cmd" will call the build scripts in the subdirectories to create a complete Zero Install for Windows distribution in build/Frontend/Setup. With the command-line argument "doc" it will create source code documentation instead.
 Please read the "readme.txt" files in the subfolders before using this script.
 
 "cleanup.cmd" will delete any temporary files created by the build process or Visual Studio.

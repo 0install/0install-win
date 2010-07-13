@@ -1,4 +1,5 @@
 @echo off
+::Creates an Inno Setup installer. Assumes ..\src\build.cmd has already been called.
 cd /d "%~dp0"
 
 rem Project settings
