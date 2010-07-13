@@ -27,7 +27,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Common.Helpers;
-using LuaInterface;
+//using LuaInterface;
 
 namespace Common
 {
@@ -162,7 +162,7 @@ namespace Common
         /// <summary>
         /// Writes non-critical information to the log.
         /// </summary>
-        [LuaGlobal(Name = "Info", Description = "Writes non-critical information to the log.")]
+        //[LuaGlobal(Name = "Info", Description = "Writes non-critical information to the log.")]
         public static void Info(string message)
         {
             AddEntry(LogSeverity.Info, message);
@@ -171,7 +171,7 @@ namespace Common
         /// <summary>
         /// Writes non-critical warnings to the log.
         /// </summary>
-        [LuaGlobal(Name = "Warn", Description = "Writes non-critical warnings to the log.")]
+        //[LuaGlobal(Name = "Warn", Description = "Writes non-critical warnings to the log.")]
         public static void Warn(string message)
         {
             AddEntry(LogSeverity.Warn, message);
@@ -180,7 +180,7 @@ namespace Common
         /// <summary>
         /// Writes critical errors to the log.
         /// </summary>
-        [LuaGlobal(Name = "Error", Description = "Writes critical errors to the log.")]
+        //[LuaGlobal(Name = "Error", Description = "Writes critical errors to the log.")]
         public static void Error(string message)
         {
             AddEntry(LogSeverity.Error, message);

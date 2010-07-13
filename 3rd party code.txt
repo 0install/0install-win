@@ -22,13 +22,3 @@ The C5 Generic Collection Library 1.1.0
 http://www.itu.dk/research/c5/
 MIT-style open license: lib/C5.license.txt
 Unmodified, pre-compiled binary (lib/C5.dll)
-
-LuaInterface 2.0.3
-http://luaforge.net/projects/luainterface/
-MIT License: http://www.opensource.org/licenses/mit-license.php
-Source modified, self-compiled to lib/LuaInterface.dll
-
-Lua 5.1
-http://www.lua.org/
-MIT License: http://www.opensource.org/licenses/mit-license.php
-Source unmodified, self-compiled to lib/lua51.dll

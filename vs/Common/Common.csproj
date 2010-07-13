@@ -59,10 +59,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\TaskDialog.dll</HintPath>
     </Reference>
-    <Reference Include="LuaInterface, Version=2.0.0.39641, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\LuaInterface.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archive\Extractor.cs" />
@@ -89,12 +85,6 @@
     </Compile>
     <Compile Include="Controls\FilteredTreeView.Designer.cs">
       <DependentUpon>FilteredTreeView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\DebugConsole.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\DebugConsole.Designer.cs">
-      <DependentUpon>DebugConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ErrorReportForm.cs">
       <SubType>Form</SubType>
