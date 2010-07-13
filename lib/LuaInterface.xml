@@ -4,11 +4,6 @@
         <name>LuaInterface</name>
     </assembly>
     <members>
-        <member name="T:LuaInterface.LuaBase">
-            <summary>
-            Base class to provide consistent disposal flow across lua objects. Uses code provided by Yves Duhoux and suggestions by Hans Schmeidenbacher and Qingrui Li 
-            </summary>
-        </member>
         <member name="T:LuaInterface.ProxyType">
             <summary>
             Summary description for ProxyType.
@@ -54,6 +49,49 @@
             The position in the script where the exception was triggered.
             </summary>
         </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)">
+            <summary>
+            Registers all public instance methods in an object tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
+            </summary>
+            <param name="lua">The Lua VM to add the methods to</param>
+            <param name="o">The object to get the methods from</param>
+        </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)">
+            <summary>
+            Registers all public static methods in a class tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
+            </summary>
+            <param name="lua">The Lua VM to add the methods to</param>
+            <param name="type">The class type to get the methods from</param>
+        </member>
+        <member name="M:LuaInterface.LuaRegistrationHelper.Enumeration``1(LuaInterface.Lua)">
+            <summary>
+            Registers an enumeration's values for usage as a Lua variable table
+            </summary>
+            <typeparam name="T">The enum type to register</typeparam>
+            <param name="lua">The Lua VM to add the enum to</param>
+        </member>
+        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Int32)">
+            <summary>
+            Given the Lua int ID for an object remove it from our maps
+            </summary>
+            <param name="udata"></param>
+        </member>
+        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Object,System.Int32)">
+            <summary>
+            Given an object reference, remove it from our maps
+            </summary>
+            <param name="udata"></param>
+        </member>
+        <member name="F:LuaInterface.ObjectTranslator.nextObj">
+            <summary>
+            We want to ensure that objects always have a unique ID
+            </summary>
+        </member>
+        <member name="T:LuaInterface.LuaBase">
+            <summary>
+            Base class to provide consistent disposal flow across lua objects. Uses code provided by Yves Duhoux and suggestions by Hans Schmeidenbacher and Qingrui Li 
+            </summary>
+        </member>
         <member name="M:LuaInterface.MetaFunctions.dumpStack(LuaInterface.ObjectTranslator,System.IntPtr)">
             <summary>
             Debug tool to dump the lua stack
@@ -96,6 +134,11 @@
             <param name="extractValue"></param>
             <returns></returns>
         </member>
+        <member name="T:LuaInterface.LuaHideAttribute">
+            <summary>
+            Marks a method, field or property to be hidden from Lua auto-completion
+            </summary>
+        </member>
         <member name="M:LuaInterface.LuaMethodWrapper.SetPendingException(System.Exception)">
             <summary>
             Convert C# exceptions into Lua errors
@@ -111,6 +154,23 @@
         <member name="M:LuaInterface.EventHandlerContainer.Dispose">
             <summary>
             Remove any still registered handlers
+            </summary>
+        </member>
+        <member name="T:LuaInterface.LuaGlobalAttribute">
+            <summary>
+            Marks a method for global usage in Lua scripts
+            </summary>
+            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)"/>
+            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)"/>
+        </member>
+        <member name="P:LuaInterface.LuaGlobalAttribute.Name">
+            <summary>
+            An alternative name to use for calling the function in Lua - leave empty for CLR name
+            </summary>
+        </member>
+        <member name="P:LuaInterface.LuaGlobalAttribute.Description">
+            <summary>
+            A description of the function
             </summary>
         </member>
         <member name="F:LuaInterface.Lua.luaLock">
@@ -346,66 +406,6 @@
             Event args for hook callback event
             </summary>
             <author>Reinhard Ostermeier</author>
-        </member>
-        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Int32)">
-            <summary>
-            Given the Lua int ID for an object remove it from our maps
-            </summary>
-            <param name="udata"></param>
-        </member>
-        <member name="M:LuaInterface.ObjectTranslator.collectObject(System.Object,System.Int32)">
-            <summary>
-            Given an object reference, remove it from our maps
-            </summary>
-            <param name="udata"></param>
-        </member>
-        <member name="F:LuaInterface.ObjectTranslator.nextObj">
-            <summary>
-            We want to ensure that objects always have a unique ID
-            </summary>
-        </member>
-        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)">
-            <summary>
-            Registers all public instance methods in an object tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
-            </summary>
-            <param name="lua">The Lua VM to add the methods to</param>
-            <param name="o">The object to get the methods from</param>
-        </member>
-        <member name="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)">
-            <summary>
-            Registers all public static methods in a class tagged with <see cref="T:LuaInterface.LuaGlobalAttribute"/> as Lua global functions
-            </summary>
-            <param name="lua">The Lua VM to add the methods to</param>
-            <param name="type">The class type to get the methods from</param>
-        </member>
-        <member name="M:LuaInterface.LuaRegistrationHelper.Enumeration``1(LuaInterface.Lua)">
-            <summary>
-            Registers an enumeration's values for usage as a Lua variable table
-            </summary>
-            <typeparam name="T">The enum type to register</typeparam>
-            <param name="lua">The Lua VM to add the enum to</param>
-        </member>
-        <member name="T:LuaInterface.LuaHideAttribute">
-            <summary>
-            Marks a method, field or property to be hidden from Lua auto-completion
-            </summary>
-        </member>
-        <member name="T:LuaInterface.LuaGlobalAttribute">
-            <summary>
-            Marks a method for global usage in Lua scripts
-            </summary>
-            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedInstanceMethods(LuaInterface.Lua,System.Object)"/>
-            <see cref="M:LuaInterface.LuaRegistrationHelper.TaggedStaticMethods(LuaInterface.Lua,System.Type)"/>
-        </member>
-        <member name="P:LuaInterface.LuaGlobalAttribute.Name">
-            <summary>
-            An alternative name to use for calling the function in Lua - leave empty for CLR name
-            </summary>
-        </member>
-        <member name="P:LuaInterface.LuaGlobalAttribute.Description">
-            <summary>
-            A description of the function
-            </summary>
         </member>
     </members>
 </doc>
