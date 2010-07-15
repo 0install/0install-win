@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldTellIfItContainsAnImplementation()
         {
             string packageDir = CreateArtificialPackage();
-            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null);
 
             using (var cache = new TemporaryDirectory())
             {
@@ -95,12 +95,12 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddFolder()
         {
             string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null));
 
             using (var cache = new TemporaryDirectory())
             {
                 var store = new DirectoryStore(cache.Path);
-                store.AddDirectory(packageDir, digest);
+                store.AddDirectory(packageDir, digest, null);
                 Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
             }
         }
@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddArchive()
         {
             string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null));
 
             string zipFile = Path.GetTempFileName();
             new FastZip().CreateZip(zipFile, packageDir, true, "");
@@ -120,7 +120,7 @@ namespace ZeroInstall.Store.Implementation
                 using (var cache = new TemporaryDirectory())
                 {
                     var store = new DirectoryStore(cache.Path);
-                    store.AddArchive(new ArchiveFileInfo {Path = zipFile, MimeType = "application/zip"}, digest);
+                    store.AddArchive(new ArchiveFileInfo {Path = zipFile, MimeType = "application/zip"}, digest, null, null);
                     Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
                 }
             }
@@ -139,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 using (var cache = new TemporaryDirectory())
                 {
-                    Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).AddDirectory(package, new ManifestDigest()));
+                    Assert.Throws(typeof(ArgumentException), () => new DirectoryStore(cache.Path).AddDirectory(package, new ManifestDigest(), null));
                 }
             }
             finally
@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
             string packageDir = CreateArtificialPackage();
-            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+            string hash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null);
 
             using (var cache = new TemporaryDirectory())
             {

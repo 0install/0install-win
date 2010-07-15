@@ -152,7 +152,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 _archive.Extract = treeViewExtract.SelectedNode.FullPath.Substring("Top folder".Length);    
             
             var manifestDigestPath = hintTextBoxLocalArchive.Text + "_extracted" + StringHelper.UnifySlashes(_archive.Extract);
-            _manifestDigest = Manifest.CreateDigest(manifestDigestPath);
+            //TODO: Add progress callback hanlder
+            _manifestDigest = Manifest.CreateDigest(manifestDigestPath, null);
             //TODO: catch something like a access not possible excepetion
         }
 
@@ -248,7 +249,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             {
                 //TODO add progress bar?
                 var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset);
-                archiveExtractor.Extract(extractedArchivePath, null);
+                //TODO: Add progress callback hanlder
+                archiveExtractor.Extract(extractedArchivePath, null, null);
                 buttonExtractArchive.Enabled = false;
             }
             catch (IOException err)

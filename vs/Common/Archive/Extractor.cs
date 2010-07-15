@@ -137,8 +137,9 @@ namespace Common.Archive
         /// </summary>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="subDir">The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.</param>
+        /// <param name="extractionProgress">Callback to track the progress of extracting files; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged or not usable.</exception>
-        public abstract void Extract(string target, string subDir);
+        public abstract void Extract(string target, string subDir, ProgressCallback extractionProgress);
         #endregion
 
         //--------------------//

@@ -73,11 +73,12 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
+        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception> 
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
-        public static Manifest Generate(string path, ManifestFormat format)
+        public static Manifest Generate(string path, ManifestFormat format, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -86,11 +87,14 @@ namespace ZeroInstall.Store.Implementation
 
             var externalXBits = GetExternalXBits(path);
 
-            // Iterate through the directory to build a list of manifets entries
-            var nodes = new C5.ArrayList<ManifestNode>();
-            foreach (FileSystemInfo entry in format.GetSortedDirectoryEntries(path))
+            // Get the complete (recursive) content of the directory sorted according to the format specification
+            var entries = format.GetSortedDirectoryEntries(path);
+            
+            // Iterate through the directory listing to build a list of manifets entries
+            var nodes = new C5.ArrayList<ManifestNode>(entries.Length);
+            for (int i = 0; i < entries.Length; i++)
             {
-                var file = entry as FileInfo;
+                var file = entries[i] as FileInfo;
                 if (file != null)
                 {
                     // Don't include manifest management files in manifest
@@ -100,9 +104,12 @@ namespace ZeroInstall.Store.Implementation
                 }
                 else
                 {
-                    var directory = entry as DirectoryInfo;
+                    var directory = entries[i] as DirectoryInfo;
                     if (directory != null) nodes.Add(GetDirectoryNode(directory, path));
                 }
+
+                // Report back the progess
+                if (manifestProgress != null) manifestProgress(i + 1 / (float)entries.Length, entries[i].Name);
             }
 
             return new Manifest(nodes, format);
@@ -284,20 +291,21 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
+        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
         /// <returns>The manifest digest (format=hash).</returns>
         /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static string CreateDotFile(string path, ManifestFormat format)
+        public static string CreateDotFile(string path, ManifestFormat format, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            return Generate(path, format).Save(Path.Combine(path, ".manifest"));
+            return Generate(path, format, manifestProgress).Save(Path.Combine(path, ".manifest"));
         }
 
         /// <summary>
@@ -319,17 +327,18 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all available <see cref="ManifestFormat"/>s.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
         /// <returns>The combined manifest digest structure.</returns>
         /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static ManifestDigest CreateDigest(string path)
+        public static ManifestDigest CreateDigest(string path, ProgressCallback manifestProgress)
         {
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
             foreach (var format in ManifestFormat.All)
                 // ... and add the resulting digest to the return value
-                ManifestDigest.ParseID(Generate(path, format).CalculateDigest(), ref digest);
+                ManifestDigest.ParseID(Generate(path, format, manifestProgress).CalculateDigest(), ref digest);
 
             return digest;
         }

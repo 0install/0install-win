@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Archive;
 using Common.Download;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -28,9 +27,8 @@ namespace ZeroInstall.DownloadBroker
 {
     public class FetcherException : Exception
     {
-        internal FetcherException(string message)
-            : base(message)
-        { }
+        internal FetcherException(string message) : base(message)
+        {}
     }
 
     /// <summary>
@@ -85,7 +83,7 @@ namespace ZeroInstall.DownloadBroker
                 {
                     string tempArchive = Path.GetTempFileName();
                     FetchArchive(archive, tempArchive);
-                    Store.AddArchive(new ArchiveFileInfo {Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset}, implementation.ManifestDigest);
+                    Store.AddArchive(new ArchiveFileInfo {Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset}, implementation.ManifestDigest, null, null);
                     File.Delete(tempArchive);
                     return;
                 }
@@ -99,7 +97,7 @@ namespace ZeroInstall.DownloadBroker
                         FetchArchive(currentArchive, tempArchive);
                         archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
-                    Store.AddMultipleArchives(archives, implementation.ManifestDigest);
+                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, null, null);
                     return;
                 }
                 throw new InvalidOperationException("No working retrieval method.");

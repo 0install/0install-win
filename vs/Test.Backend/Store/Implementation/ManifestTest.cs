@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Generate manifest, write it to a file and read the file again
-                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old);
+                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old, null);
             }
             finally
             { // Clean up
@@ -85,8 +85,8 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = StoreFunctionality.CreateArtificialPackage();
             try
             {
-                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256).CalculateDigest();
-                string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256);
+                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256, null).CalculateDigest();
+                string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null);
                 Assert.AreEqual(diskHash, inMemoryHash);
             }
             finally 
@@ -104,7 +104,7 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = StoreFunctionality.CreateArtificialPackage();
             try
             {
-                ManifestDigest digest = Manifest.CreateDigest(packageDir);
+                ManifestDigest digest = Manifest.CreateDigest(packageDir, null);
                 Assert.IsNotNullOrEmpty(digest.Sha1Old);
                 Assert.IsNotNullOrEmpty(digest.Sha1New);
                 Assert.IsNotNullOrEmpty(digest.Sha256);
@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Implementation
             using (var package = new TemporaryDirectory())
             {
                 File.WriteAllText(Path.Combine(package.Path, "test\nfile"), @"AAA");
-                Assert.Throws<ArgumentException>(() => Manifest.Generate(package.Path, ManifestFormat.Sha256));
+                Assert.Throws<ArgumentException>(() => Manifest.Generate(package.Path, ManifestFormat.Sha256, null));
             }
         }
 
@@ -136,7 +136,7 @@ namespace ZeroInstall.Store.Implementation
                 string manifestPath = Path.Combine(package.Path, ".manifest");
 
                 File.WriteAllText(exePath, "");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -157,7 +157,7 @@ namespace ZeroInstall.Store.Implementation
                 
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
 
                 using (var manifest = File.OpenText(manifestPath))
                 {
@@ -172,7 +172,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var package = new TemporaryDirectory())
             {
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
                 using (var manifestFile = File.OpenRead(Path.Combine(package.Path, ".manifest")))
                 {
                     Assert.AreEqual(0, manifestFile.Length, "Empty package directory should make an empty manifest");
@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Implementation
                 path["manifest"] = Path.Combine(package.Path, ".manifest");
                 File.WriteAllText(path["inner exe"], @"xxxxxxx");
                 File.WriteAllText(path["xbit"], @"/inner/inner.exe");
-                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256);
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
                 using (var manifestFile = File.OpenText(path["manifest"]))
                 {
                     string currentLine = manifestFile.ReadLine();
@@ -201,6 +201,22 @@ namespace ZeroInstall.Store.Implementation
                     currentLine = manifestFile.ReadLine();
                     Assert.True(Regex.IsMatch(currentLine, @"^X \w+ \w+ \d+ inner.exe$"), "Manifest didn't match expected format:\n" + currentLine);
                 }
+            }
+        }
+
+        [Test]
+        public void ShouldCallProgressCallback()
+        {
+            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            try
+            {
+                bool callbackCalled = false;
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, delegate { callbackCalled = true; });
+                Assert.IsTrue(callbackCalled);
+            }
+            finally
+            {
+                Directory.Delete(packageDir, true);
             }
         }
     }

@@ -73,7 +73,7 @@ namespace Common.Archive
         #endregion
 
         #region Extraction
-        public override void Extract(string target, string subDir)
+        public override void Extract(string target, string subDir, ProgressCallback extractionProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
@@ -81,6 +81,7 @@ namespace Common.Archive
 
             try
             {
+                int i = 0;
                 foreach (ZipEntry entry in _zip)
                 {
                     // Only extract objects within the selected sub-directory
@@ -91,6 +92,9 @@ namespace Common.Archive
                     {
                         using (var stream = _zip.GetInputStream(entry))
                             WriteFile(target, entry.Name, entry.DateTime, stream, IsXbitSet(entry));
+
+                        // Report back the progess
+                        if (extractionProgress != null) extractionProgress(++i / (float)_zip.Count, entry.Name);
                     }
                 }
             }

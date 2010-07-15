@@ -85,10 +85,10 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a recursive list of all filesystem entries in a certain directory sorted according to the format specifications.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <returns>A list of filesystem entries.</returns>
+        /// <returns>An array of filesystem entries.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
-        public abstract IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path);
+        public abstract FileSystemInfo[] GetSortedDirectoryEntries(string path);
         #endregion
 
         //--------------------//
@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Implementation
                 return ManifestDirectory.FromStringOld(entry);
             }
 
-            public override IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path)
+            public override FileSystemInfo[] GetSortedDirectoryEntries(string path)
             {
                 #region Sanity checks
                 if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementation
                     // Simply list files
                     else result.Add(new FileInfo(entry));
                 }
-                return result;
+                return result.ToArray();
             }
         }
 
@@ -182,7 +182,7 @@ namespace ZeroInstall.Store.Implementation
                 return ManifestDirectory.FromString(entry);
             }
 
-            public override IEnumerable<FileSystemInfo> GetSortedDirectoryEntries(string path)
+            public override FileSystemInfo[] GetSortedDirectoryEntries(string path)
             {
                 #region Sanity checks
                 if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -209,7 +209,7 @@ namespace ZeroInstall.Store.Implementation
                     result.Add(new DirectoryInfo(directory));
                     result.AddAll(GetSortedDirectoryEntries(directory));
                 }
-                return result;
+                return result.ToArray();
             }
         }
 

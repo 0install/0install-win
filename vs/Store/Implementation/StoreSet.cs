@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -97,7 +98,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add directory
-        public void AddDirectory(string path, ManifestDigest manifestDigest)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -110,7 +111,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddDirectory(path, manifestDigest);
+                    store.AddDirectory(path, manifestDigest, manifestProgress);
                     return;
                 }
                 catch (UnauthorizedAccessException ex)
@@ -126,7 +127,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -139,7 +140,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(archiveInfo, manifestDigest);
+                    store.AddArchive(archiveInfo, manifestDigest, extractionProgress, manifestProgress);
                     return;
                 }
                 #region Error handling
@@ -155,7 +156,7 @@ namespace ZeroInstall.Store.Implementation
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
         }
 
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -168,7 +169,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddMultipleArchives(archiveInfos, manifestDigest);
+                    store.AddMultipleArchives(archiveInfos, manifestDigest, extractionProgress, manifestProgress);
                     return;
                 }
                 #region Error handling
