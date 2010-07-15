@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using LuaInterface;
 
 namespace Common.Helpers
 {
@@ -39,7 +38,7 @@ namespace Common.Helpers
         /// <summary>
         /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
         /// </summary>
-        [LuaGlobal(Description = "Replaces all slashes (forward and backward) with the system's directory separator character.")]
+        //[LuaGlobal(Description = "Replaces all slashes (forward and backward) with the system's directory separator character.")]
         public static string UnifySlashes(string value)
         {
             if (value == null) return null;
@@ -51,7 +50,7 @@ namespace Common.Helpers
         /// <summary>
         /// Compare strings using case insensitive, invariant culture comparison.
         /// </summary>
-        [LuaGlobal(Name = "CompareStrings", Description = "Compare strings using case insensitive, invariant culture comparison.")]
+        //[LuaGlobal(Name = "CompareStrings", Description = "Compare strings using case insensitive, invariant culture comparison.")]
         public static bool Compare(string s1, string s2)
         {
             return string.Compare(s1, s2, StringComparison.OrdinalIgnoreCase) == 0;
@@ -88,7 +87,7 @@ namespace Common.Helpers
         /// </summary>
         /// <param name="text">The string to search.</param>
         /// <param name="value">The string to search for in <paramref name="text"/>.</param>
-        [LuaGlobal(Name = "StringContains", Description = "Use case-insensitive compare to check for a contained string.")]
+        //[LuaGlobal(Name = "StringContains", Description = "Use case-insensitive compare to check for a contained string.")]
         public static bool Contains(string text, string value)
         {
             #region Sanity checks
@@ -104,7 +103,7 @@ namespace Common.Helpers
         /// <summary>
         /// Gets the last word in a string.
         /// </summary>
-        [LuaGlobal(Name = "GetLastWord", Description = "Gets the last word in a string.")]
+        //[LuaGlobal(Name = "GetLastWord", Description = "Gets the last word in a string.")]
         public static string GetLastWord(string value)
         {
             #region Sanity checks
@@ -118,7 +117,7 @@ namespace Common.Helpers
         /// <summary>
         /// Removes the last word in a string.
         /// </summary>
-        [LuaGlobal(Name = "RemoveLastWord", Description = "Removes the last word in a string.")]
+        //[LuaGlobal(Name = "RemoveLastWord", Description = "Removes the last word in a string.")]
         public static string RemoveLastWord(string value)
         {
             #region Sanity checks
