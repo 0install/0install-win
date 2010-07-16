@@ -156,9 +156,6 @@ namespace ZeroInstall.DownloadBroker
             if (downloadFile == null) throw new ArgumentNullException("downloadFile");
             #endregion
 
-            Debug.Assert(archive != null);
-            Debug.Assert(downloadFile != null);
-
             long actualSize;
             if (downloadFile.State == DownloadState.Complete) actualSize = downloadFile.BytesReceived;
             else if (IsSizeKnown(downloadFile)) actualSize = downloadFile.BytesTotal;

@@ -137,7 +137,7 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadBytesRecivedChanged(DownloadFile sender)
         {
-            int currentValue = (int)(_downloadFile.Progress * 100f);
+            int currentValue = (int)(_downloadFile.Progress * 100);
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 progressBar.Value = currentValue;

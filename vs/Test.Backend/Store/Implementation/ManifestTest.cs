@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRejectFileNamesWithNewline()
         {
-            if (Environment.OSVersion.Platform != PlatformID.Unix) throw new InconclusiveException("Can only run on Unix systems");
+            if (Environment.OSVersion.Platform != PlatformID.Unix) Assert.Inconclusive("Can only run on Unix systems");
 
             using (var package = new TemporaryDirectory())
             {
