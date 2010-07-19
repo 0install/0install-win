@@ -15,18 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Feed
+using Common;
+using ZeroInstall.Store.Feed;
+
+namespace ZeroInstall.Injector.WinForms
 {
     /// <summary>
-    /// A class with abstract callback methods to be used if the the user needs to be asked any questions.
+    /// Uses GUI message boxes to ask the user questions.
     /// </summary>
-    public abstract class Handler
+    public class GuiFeedHandler : FeedHandler
     {
-        /// <summary>
-        /// Called to ask the user whether he wishes to trust a new GPG key.
-        /// </summary>
-        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
-        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if he rejected it.</returns>
-        public abstract bool AcceptNewKey(string information);
+        public override bool AcceptNewKey(string information)
+        {
+            return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+        }
     }
 }

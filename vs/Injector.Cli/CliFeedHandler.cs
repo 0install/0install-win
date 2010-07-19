@@ -15,19 +15,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
+using System;
 using ZeroInstall.Store.Feed;
 
-namespace ZeroInstall.Injector.WinForms
+namespace ZeroInstall.Injector.Cli
 {
     /// <summary>
     /// Uses GUI message boxes to ask the user questions.
     /// </summary>
-    public class GuiHandler : Handler
+    public class CliFeedHandler : FeedHandler
     {
         public override bool AcceptNewKey(string information)
         {
-            return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+            throw new NotImplementedException();
         }
     }
 }

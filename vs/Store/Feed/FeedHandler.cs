@@ -18,13 +18,15 @@
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Silently ignores all requests and answers them with "No".
+    /// Callback methods to be used if the the user needs to be asked any questions while retrieving feeds.
     /// </summary>
-    public sealed class SilentHandler : Handler
+    public abstract class FeedHandler
     {
-        public override bool AcceptNewKey(string information)
-        {
-            return false;
-        }
+        /// <summary>
+        /// Called to ask the user whether he wishes to trust a new GPG key.
+        /// </summary>
+        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
+        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if he rejected it.</returns>
+        public abstract bool AcceptNewKey(string information);
     }
 }

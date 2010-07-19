@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).
         /// </summary>
-        public Handler Handler { get; private set; }
+        public FeedHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Feed
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
-        public InterfaceCache(Handler handler, string path)
+        public InterfaceCache(FeedHandler handler, string path)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -120,7 +120,7 @@ namespace ZeroInstall.Store.Feed
         /// Creates a new cache using a directory in the user-profile.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
-        public InterfaceCache(Handler handler) : this(handler, UserProfileDirectory)
+        public InterfaceCache(FeedHandler handler) : this(handler, UserProfileDirectory)
         {}
         #endregion
 

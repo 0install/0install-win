@@ -95,7 +95,7 @@ namespace ZeroInstall.Injector
         /// Creates a new policy using the default <see cref="InterfaceCache"/> and <see cref="DownloadBroker.Fetcher"/>.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
-        public static Policy CreateDefault(Handler handler)
+        public static Policy CreateDefault(FeedHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
