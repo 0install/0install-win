@@ -20,9 +20,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
-using Common.Values;
+using Common.Values.Design;
 
-namespace ZeroInstall.Model
+namespace ZeroInstall.Model.Design
 {
     internal class IconConverter : ValueTypeConverter<Icon>
     {

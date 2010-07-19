@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model

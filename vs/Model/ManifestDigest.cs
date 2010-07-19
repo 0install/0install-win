@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 using Common.Helpers;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {

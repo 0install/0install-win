@@ -19,6 +19,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
+using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {

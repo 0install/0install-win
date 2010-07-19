@@ -132,7 +132,7 @@
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
-    <Compile Include="Values\ValueTypeConverter.cs" />
+    <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
