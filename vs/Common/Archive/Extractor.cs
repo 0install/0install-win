@@ -264,7 +264,7 @@ namespace Common.Archive
         private static void RemoveExecutableBit(string relativePath, string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
