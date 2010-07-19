@@ -10,8 +10,9 @@
             <CustomDictionary>
               <Name>en-US</Name>
               <CaseSensitive>false</CaseSensitive>
-              <UserWords>apps
-args
+              <UserWords>args
+backend
+behaviour
 cancelled
 deserialization
 downloadable
@@ -21,6 +22,7 @@ foo
 internet
 localizable
 namespaces
+nano
 offline
 prepend
 sensisitive
@@ -28,6 +30,7 @@ serializable
 serializer
 Silva
 symlink
+timestamp
 uncached
 uri</UserWords>
             </CustomDictionary>

@@ -155,7 +155,7 @@ namespace Common.Archive
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
             string directoryPath = CombinePath(target, relativePath);
@@ -176,7 +176,7 @@ namespace Common.Archive
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
@@ -206,7 +206,7 @@ namespace Common.Archive
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
             if (Path.IsPathRooted(target) && target.Contains("../")) throw new IOException(Resources.ArchiveInvalid);
@@ -224,7 +224,7 @@ namespace Common.Archive
         private static void SetExecutableBit(string relativePath, string path)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("target");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 

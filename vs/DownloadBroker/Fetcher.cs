@@ -21,7 +21,6 @@ using System.IO;
 using Common.Download;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using System.Diagnostics;
 
 namespace ZeroInstall.DownloadBroker
 {

@@ -3,10 +3,8 @@
 cd /d "%~dp0"
 
 rem Project settings
-set ProgISS=setup.iss
-set ProgUpdateISS=update.iss
-set SetupTarget=..\build\Frontend\Setup
-set SetupName=0install.exe
+set BuildDir=..\build\Frontend\Setup
+set SetupEXE=0install.exe
 
 rem Check Inno Setup 5
 if not exist "%ProgramFiles%\Inno Setup 5" goto err_no_is
@@ -15,15 +13,15 @@ path %ProgramFiles%\Inno Setup 5;%path%
 
 
 echo Building Inno Setup...
-iscc /Q "%ProgISS%"
+iscc /Q setup.iss
 if errorlevel 1 pause
 
-if "%1"=="+run" "%SetupTarget%\%SetupName%" /silent
-if "%2"=="+run" "%SetupTarget%\%SetupName%" /silent
-if "%3"=="+run" "%SetupTarget%\%SetupName%" /silent
+if "%1"=="+run" "%BuildDir%\%SetupEXE%" /silent
+if "%2"=="+run" "%BuildDir%\%SetupEXE%" /silent
+if "%3"=="+run" "%BuildDir%\%SetupEXE%" /silent
 
 echo Building Inno Setup Update...
-iscc /Q "%ProgUpdateISS%"
+iscc /Q update.iss
 if errorlevel 1 pause
 
 goto end

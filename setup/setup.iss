@@ -52,10 +52,10 @@ MinVersion=0,5.0
 DefaultDirName={pf}\Zero Install
 AppName=Zero Install
 AppVerName=Zero Install for Windows v{#Maj}.{#Min}.{#Rev}
-AppCopyright=Copyright 2010 0install.net
+AppCopyright=Copyright 2010 0install.de
 AppID=Zero Install
 DefaultGroupName=Zero Install
-AppPublisher=0install.net
+AppPublisher=0install.de
 AppVersion={#Maj}.{#Min}.{#Rev}
 DisableProgramGroupPage=true
 PrivilegesRequired=admin
@@ -111,7 +111,7 @@ Name: desktopicon; Description: {cm:CreateDesktopIcon}
 Name: modifypath; Description: {cm:AddToPath}
 [Icons]
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
-Name: {group}\Website; Filename: http://0install.net/
+Name: {group}\Website; Filename: http://0install.de/
 Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
 Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-gui.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\ZeroInstall.exe
@@ -120,11 +120,6 @@ Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /auto
 ;Post-installations tasks
 [Run]
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
-
-
-;Uninstall cleanup additional files
-[UninstallDelete]
-;ToDo
 
 [Code]
 #ifndef Update
