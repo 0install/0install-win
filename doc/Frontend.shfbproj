@@ -15,6 +15,8 @@
     <Name>Game</Name>
     <!-- SHFB properties -->
     <OutputPath>..\build\Documentation\</OutputPath>
+    <KeepLogFile>False</KeepLogFile>
+    <NamingMethod>MemberName</NamingMethod>
     <HtmlHelpName>Frontend</HtmlHelpName>
     <HelpTitle>ZeroInstall Frontend Documentation</HelpTitle>
     <Language>en-US</Language>
