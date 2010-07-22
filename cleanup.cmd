@@ -13,10 +13,8 @@ rd /s /q build\Frontend > NUL 2>&1
 rd /s /q build\Tools > NUL 2>&1
 
 rem Clear ReSharper's cache
-rd /s /q vs\_ReSharper.ZeroInstall_VS2008 > NUL 2>&1
 rd /s /q vs\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
-copy "vs\ZeroInstall_VS2008.4.5.ReSharper.user.Backup" "vs\ZeroInstall_VS2008.4.5.ReSharper.user" > NUL
-copy "vs\ZeroInstall_VS2010.5.0.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.0.ReSharper.user" > NUL
+copy "vs\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.1.ReSharper.user" > NUL
 
 rem Clear VS.NET's object cache
 del vs\*.cache > NUL 2>&1
@@ -39,14 +37,7 @@ rd /s /q vs\Test.Frontend\obj > NUL 2>&1
 rd /s /q vs\Test.Tools\obj > NUL 2>&1
 rd /s /q vs\Modeling\obj > NUL 2>&1
 
-rem Restore old VS2008 solution user options (temporarily unhide for copying)
-attrib -h "vs\ZeroInstall_VS2008.suo.Backup" > NUL 2>&1
-attrib -h "vs\ZeroInstall_VS2008.suo" > NUL 2>&1
-copy "vs\ZeroInstall_VS2008.suo.Backup" "vs\ZeroInstall_VS2008.suo" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VS2008.suo.Backup" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VS2008.suo" > NUL 2>&1
-
-rem Restore old VS2010 solution user options (temporarily unhide for copying)
+rem Restore VS2010 solution user options (temporarily unhide for copying)
 attrib -h "vs\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
 attrib -h "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
 copy "vs\ZeroInstall_VS2010.suo.Backup" "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
