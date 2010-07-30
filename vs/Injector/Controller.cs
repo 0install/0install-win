@@ -161,7 +161,7 @@ namespace ZeroInstall.Injector
 
             if (Policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) return;
 
-            Policy.Fetcher.RunSync(new FetcherRequest(ListUncachedImplementations()));
+            Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()));
         }
         #endregion
 

@@ -72,7 +72,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAQgACAAIAAAAgAAAAAAAAAAAABAAQIAA=</HashCode>
+      <HashCode>AACAAAAAAAAAQgACAAIAAAAgAAAAAAAAAAAABAAQIAA=</HashCode>
       <FileName>Launcher.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -89,6 +89,7 @@
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="Store" />
+      <Property Name="Handler" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections" Collapsed="true">
@@ -116,7 +117,7 @@
   <Class Name="ZeroInstall.Injector.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="8.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAQABAAIAAAAAAAAAIAAQQAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAIQABAAIAAAAAAAAQIAAQQAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\PythonSolver.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -136,6 +137,7 @@
     <TypeIdentifier />
     <ShowAsAssociation>
       <Property Name="NetworkLevel" />
+      <Property Name="Handler" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Injector.Controller">
@@ -151,8 +153,8 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_selections" />
-      <Property Name="Policy" />
       <Property Name="Solver" />
+      <Property Name="Policy" />
     </ShowAsAssociation>
   </Class>
   <Struct Name="ZeroInstall.Model.Constraint" Collapsed="true">
@@ -176,16 +178,38 @@
     <Position X="6.5" Y="1.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
+  <Interface Name="ZeroInstall.Store.Feed.IFeedHandler" Collapsed="true">
+    <Position X="9.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
+  <Interface Name="ZeroInstall.Injector.IHandler" Collapsed="true">
+    <Position X="11" Y="2" Width="1.5" />
+    <InheritanceLine Type="ZeroInstall.Store.Feed.IFeedHandler" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="1.812" />
+        <Point X="10" Y="2.312" />
+        <Point X="11" Y="2.312" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="ZeroInstall.DownloadBroker.IFetchHandler" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="3" />
+        <Point X="10" Y="2.438" />
+        <Point X="11" Y="2.438" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>IHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ZeroInstall.DownloadBroker.IFetchHandler" Collapsed="true">
+    <Position X="9.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+  </Interface>
   <Enum Name="ZeroInstall.Store.Feed.NetworkLevel" Collapsed="true">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier />
-  </Enum>
-  <Enum Name="ZeroInstall.Injector.OperationMode">
-    <Position X="8.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAAABIAAAAAAAAAAIAAAAAAAAAAAAAAI=</HashCode>
-      <FileName>OperationMode.cs</FileName>
-    </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

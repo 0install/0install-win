@@ -39,7 +39,7 @@ namespace ZeroInstall.Injector
         [Test]
         public void TestExceptions()
         {
-            var controller = new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(new SilentFeedHandler()));
+            var controller = new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             Assert.Throws<InvalidOperationException>(() => controller.GetSelections(), "GetSelections should depend on Solve being called first");
             Assert.Throws<InvalidOperationException>(() => controller.GetLauncher(), "GetRun should depend on Solve being called first");
         }
@@ -55,7 +55,7 @@ namespace ZeroInstall.Injector
             IEnumerable<Implementation> implementations;
             using (var temp = new TemporaryDirectory())
             {
-                var policy = new Policy(new InterfaceCache(new SilentFeedHandler()), new Fetcher(new DirectoryStore(temp.Path)));
+                var policy = new Policy(new InterfaceCache(new SilentHandler()), new Fetcher(new SilentHandler(), new DirectoryStore(temp.Path)));
                 var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy);
                 controller.Solve();
                 implementations = controller.ListUncachedImplementations();
@@ -74,7 +74,7 @@ namespace ZeroInstall.Injector
         //[Test]
         public void TestGetSelections()
         {
-            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentFeedHandler()));
+            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
             Assert.AreEqual(controller.GetSelections().Interface, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
@@ -86,7 +86,7 @@ namespace ZeroInstall.Injector
         //[Test]
         public void TestGetLauncher()
         {
-            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentFeedHandler()));
+            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
             controller.DownloadUncachedImplementations();
             var launcher = controller.GetLauncher();

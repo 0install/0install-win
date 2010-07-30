@@ -24,45 +24,46 @@ using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.DownloadBroker
 {
-    public class FetcherException : Exception
-    {
-        internal FetcherException(string message) : base(message)
-        {}
-    }
-
     /// <summary>
-    /// Manages one or more <see cref="FetcherRequest"/>s and keeps clients informed of the progress.
+    /// Manages one or more <see cref="FetchRequest"/>s and keeps clients informed of the progress. Files are downloaded and added to <see cref="Store"/> automatically.
     /// </summary>
     public class Fetcher
     {
-        #region Singleton Properties
-        private static readonly Fetcher _defaultFetcher = new Fetcher(StoreProvider.Default);
-        /// <summary>
-        /// A singleton-instance of the <see cref="Fetcher"/> using <see cref="StoreProvider.Default"/>.
-        /// </summary>
-        public static Fetcher Default { get { return _defaultFetcher; } }
-        #endregion
-
         #region Properties
         /// <summary>
         /// The location to store the downloaded and unpacked <see cref="Implementation"/>s in.
         /// </summary>
         public IStore Store { get; private set; }
+
+        /// <summary>
+        /// A callback object used when the the user is to be informed about progress.
+        /// </summary>
+        public IFetchHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new download request. Use <see cref="Default"/> whenever possible instead.
+        /// Creates a new download fetcher with a custom target <see cref="IStore"/>.
         /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
-        public Fetcher(IStore store)
+        public Fetcher(IFetchHandler handler, IStore store)
         {
             #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
+            Handler = handler;
             Store = store;
         }
+
+        /// <summary>
+        /// Creates a new download fetcher with the default <see cref="IStore"/>.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        public Fetcher(IFetchHandler handler) : this(handler, StoreProvider.Default)
+        {}
         #endregion
         
         //--------------------//
@@ -70,7 +71,7 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Execute a complete request and block until it is done.
         /// </summary>
-        public void RunSync(FetcherRequest fetcherRequest)
+        public void RunSync(FetchRequest fetcherRequest)
         {
             #region Sanity checks
             if (fetcherRequest == null) throw new ArgumentNullException("fetcherRequest");
@@ -96,14 +97,14 @@ namespace ZeroInstall.DownloadBroker
                         FetchArchive(currentArchive, tempArchive);
                         archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
-                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, null, null);
+                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.ReportExtractionProgress, Handler.ReportManifestProgress);
                     return;
                 }
                 throw new InvalidOperationException("No working retrieval method.");
             }
         }
 
-        private static void FetchArchive(Archive archive, string destination)
+        private void FetchArchive(Archive archive, string destination)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
@@ -118,6 +119,7 @@ namespace ZeroInstall.DownloadBroker
             RejectRemoteFileOfDifferentSize(archive, downloadFile);
             try
             {
+                Handler.StartingDownload(downloadFile);
                 downloadFile.RunSync();
                 RejectRemoteFileOfDifferentSize(archive, downloadFile);
             }

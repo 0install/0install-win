@@ -16,7 +16,6 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -35,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
         {
             var solver = new PythonSolver();
 
-            Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(new SilentFeedHandler()));
+            Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(new SilentHandler()));
 
             Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.Interface);
         }

@@ -27,7 +27,7 @@ namespace ZeroInstall.DownloadBroker
     /// Handles the download and extraction of one or more <see cref="Implementation"/>s into an <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class FetcherRequest
+    public class FetchRequest
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -43,7 +43,7 @@ namespace ZeroInstall.DownloadBroker
         /// Creates a new download request.
         /// </summary>
         /// <param name="implementations">The <see cref="Implementation"/>s to be downloaded.</param>
-        public FetcherRequest(IEnumerable<Implementation> implementations)
+        public FetchRequest(IEnumerable<Implementation> implementations)
         {
             #region Sanity checks
             if (implementations == null) throw new ArgumentNullException("implementations");

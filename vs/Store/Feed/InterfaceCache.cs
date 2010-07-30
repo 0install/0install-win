@@ -92,18 +92,18 @@ namespace ZeroInstall.Store.Feed
         public int MaximumAge { get; set; }
 
         /// <summary>
-        /// A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).
+        /// A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).
         /// </summary>
-        public FeedHandler Handler { get; private set; }
+        public IFeedHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
+        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
-        public InterfaceCache(FeedHandler handler, string path)
+        public InterfaceCache(IFeedHandler handler, string path)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -119,8 +119,8 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Creates a new cache using a directory in the user-profile.
         /// </summary>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
-        public InterfaceCache(FeedHandler handler) : this(handler, UserProfileDirectory)
+        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        public InterfaceCache(IFeedHandler handler) : this(handler, UserProfileDirectory)
         {}
         #endregion
 

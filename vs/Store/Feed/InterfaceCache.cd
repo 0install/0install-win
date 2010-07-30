@@ -11,13 +11,13 @@
       <Property Name="Handler" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Store.Feed.FeedHandler">
+  <Interface Name="ZeroInstall.Store.Feed.IFeedHandler">
     <Position X="4" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
-      <FileName>Feed\FeedHandler.cs</FileName>
+      <FileName>Feed\IFeedHandler.cs</FileName>
     </TypeIdentifier>
-  </Class>
+  </Interface>
   <Enum Name="ZeroInstall.Store.Feed.NetworkLevel">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>

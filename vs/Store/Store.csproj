@@ -70,8 +70,7 @@
     <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Feed\Icon.cs" />
     <Compile Include="Feed\InterfaceCache.cs" />
-    <Compile Include="Feed\FeedHandler.cs" />
-    <Compile Include="Feed\SilentFeedHandler.cs" />
+    <Compile Include="Feed\IFeedHandler.cs" />
     <Compile Include="Feed\Trust.cs" />
     <Compile Include="Feed\Domain.cs" />
     <Compile Include="Feed\Key.cs" />

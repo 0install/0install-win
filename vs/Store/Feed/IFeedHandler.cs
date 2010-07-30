@@ -20,13 +20,13 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// Callback methods to be used if the the user needs to be asked any questions while retrieving feeds.
     /// </summary>
-    public abstract class FeedHandler
+    public interface IFeedHandler
     {
         /// <summary>
         /// Called to ask the user whether he wishes to trust a new GPG key.
         /// </summary>
         /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
         /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if he rejected it.</returns>
-        public abstract bool AcceptNewKey(string information);
+        bool AcceptNewKey(string information);
     }
 }

@@ -15,34 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
-using Common.Download;
+using ZeroInstall.Store.Feed;
 
-namespace ZeroInstall.Injector.WinForms
+namespace ZeroInstall.Store.Interface
 {
     /// <summary>
-    /// Uses GUI message boxes to ask the user questions.
+    /// Silently handles all requests answering them with "Yes".
     /// </summary>
-    public class GuiFeedHandler : IHandler
+    public class SilentFeedHandler : IFeedHandler
     {
         public bool AcceptNewKey(string information)
         {
-            return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
-        }
-
-        public void StartingDownload(DownloadFile download)
-        {
-            // ToDo: Implement
-        }
-
-        public void ReportExtractionProgress(float progress, string file)
-        {
-            // ToDo: Implement
-        }
-
-        public void ReportManifestProgress(float progress, string file)
-        {
-            // ToDo: Implement
+            return true;
         }
     }
 }

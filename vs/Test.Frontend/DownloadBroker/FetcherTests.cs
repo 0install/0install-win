@@ -2,6 +2,7 @@
 using System.IO;
 using NUnit.Framework;
 using Common.Storage;
+using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
 using System.Collections.Generic;
@@ -11,16 +12,6 @@ using System.Reflection;
 
 namespace ZeroInstall.DownloadBroker
 {
-    [TestFixture]
-    public class FetcherCreation
-    {
-        [Test]
-        public void ShouldProvideDefaultSingleton()
-        {
-            Assert.NotNull(Fetcher.Default, "Fetcher must provide a Default singleton");
-        }
-    }
-
     [TestFixture]
     public class DownloadFunctionality
     {
@@ -39,7 +30,7 @@ namespace ZeroInstall.DownloadBroker
             _testFolder = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
             _storeDir = new TemporaryDirectory(Path.Combine(_testFolder.Path, "store"));
             _store = new DirectoryStore(_storeDir.Path);
-            _fetcher = new Fetcher(_store);
+            _fetcher = new Fetcher(new SilentHandler(), _store);
             _archiveFile = Path.Combine(_testFolder.Path, "archive.zip");
             _server = new ArchiveProvider(_archiveFile);
             _server.Start();
@@ -85,7 +76,7 @@ namespace ZeroInstall.DownloadBroker
             PackageBuilder package = PreparePackageBuilder();
             package.GeneratePackageArchive(_archiveFile);
             Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -101,7 +92,7 @@ namespace ZeroInstall.DownloadBroker
                 package.AddFile("excess", new byte[] { });
                 package.GeneratePackageArchive(archiveStream);
             }
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             Assert.Throws<FetcherException>(() => _fetcher.RunSync(request));
         }
 
@@ -112,7 +103,7 @@ namespace ZeroInstall.DownloadBroker
             PackageBuilder package = PreparePackageBuilder();
             WritePackageToArchiveWithOffset(package, _archiveFile, ArchiveOffset);
             Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, package.ComputePackageDigest());
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -175,7 +166,7 @@ namespace ZeroInstall.DownloadBroker
             }
 
             var implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -223,7 +214,7 @@ namespace ZeroInstall.DownloadBroker
                 ManifestDigest = merged.ComputePackageDigest(),
                 Recipes = { recipe }
             };
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
@@ -247,7 +238,7 @@ namespace ZeroInstall.DownloadBroker
                 }
             };
 
-            var request = new FetcherRequest(new List<Implementation> { implementation });
+            var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.IsTrue(suppliedRangeToDownload, "The Fetcher must use a range to download only part of the file");
         }

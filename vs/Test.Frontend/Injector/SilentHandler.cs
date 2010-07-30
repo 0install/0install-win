@@ -15,48 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Common.Download;
+using ZeroInstall.Store.Interface;
 
-namespace ZeroInstall.Injector.Cli
+namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Uses the stderr stream to ask the user questions.
+    /// Silently handles all requests answering them with "Yes" and ignores progress reports.
     /// </summary>
-    public class CliFeedHandler : IHandler
+    public class SilentHandler : SilentFeedHandler, IHandler
     {
-        public bool AcceptNewKey(string information)
-        {
-            Console.Error.WriteLine(information);
-
-            while (true)
-            {
-                Console.Error.Write("[Y/N] ");
-                switch ((Console.ReadLine() ?? "").ToLower())
-                {
-                    case "y":
-                    case "yes":
-                        return true;
-                    case "n":
-                    case "no":
-                        return false;
-                }
-            }
-        }
-
         public void StartingDownload(DownloadFile download)
-        {
-            // ToDo: Implement
-        }
+        {}
 
         public void ReportExtractionProgress(float progress, string file)
-        {
-            // ToDo: Implement
-        }
+        {}
 
         public void ReportManifestProgress(float progress, string file)
-        {
-            // ToDo: Implement
-        }
+        {}
     }
 }

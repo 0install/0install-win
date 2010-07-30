@@ -25,7 +25,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Describes user settings controlling the dependency solving process.
+    /// Describes user settings controlling the dependency solving and implementation launching process.
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
@@ -94,14 +94,14 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new policy using the default <see cref="InterfaceCache"/> and <see cref="DownloadBroker.Fetcher"/>.
         /// </summary>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether he trusts a certain GPG key).</param>
-        public static Policy CreateDefault(FeedHandler handler)
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
+        public static Policy CreateDefault(IHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            return new Policy(new InterfaceCache(handler), Fetcher.Default);
+            return new Policy(new InterfaceCache(handler), new Fetcher(handler));
         }
         #endregion
     }

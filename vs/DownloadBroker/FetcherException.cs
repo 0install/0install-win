@@ -15,16 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Feed
+using System;
+
+namespace ZeroInstall.DownloadBroker
 {
     /// <summary>
-    /// Silently ignores all requests and answers them with "No".
+    /// Represents errors that occured in <see cref="Fetcher"/>.
     /// </summary>
-    public sealed class SilentFeedHandler : FeedHandler
+    public class FetcherException : Exception
     {
-        public override bool AcceptNewKey(string information)
-        {
-            return false;
-        }
+        internal FetcherException(string message) : base(message)
+        {}
     }
 }

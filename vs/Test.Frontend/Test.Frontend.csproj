@@ -107,6 +107,7 @@
     <Compile Include="DownloadBroker\FetcherTests.cs" />
     <Compile Include="Injector\Cli\ProgramTest.cs" />
     <Compile Include="Injector\ControllerTest.cs" />
+    <Compile Include="Injector\SilentHandler.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\PythonSolverTest.cs" />
     <Compile Include="Injector\Solver\SelectionsTest.cs" />
