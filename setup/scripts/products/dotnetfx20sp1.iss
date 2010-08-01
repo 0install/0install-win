@@ -21,9 +21,9 @@ var
 begin
 	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'SP', version);
 	if version < 1 then
-		AddProduct('dotnetfx20sp1.exe',
+		AddProduct(GetPlatformString('NetFx20SP1_x86.exe', 'NetFx20SP1_x64.exe', 'NetFx20SP1_ia64.exe'),
 			'/q:a /t:' + ExpandConstant('{tmp}{\}') + 'dotnetfx20sp1 /c:"install /qb /l /msipassthru MSI_PROP_BEGIN" REBOOT=Suppress "MSI_PROP_END"',
 			CustomMessage('dotnetfx20sp1_title'),
 			CustomMessage('dotnetfx20sp1_size'),
-			GetURL(dotnetfx20sp1_url, dotnetfx20sp1_url_x64, dotnetfx20sp1_url_ia64));
+            GetPlatformString(dotnetfx20sp1_url, dotnetfx20sp1_url_x64, dotnetfx20sp1_url_ia64));
 end;

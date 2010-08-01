@@ -19,9 +19,9 @@ var
 begin
 	RegQueryDWordValue(HKLM, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'SP', version);
 	if version < 2 then
-		AddProduct('dotnetfx20sp2.exe',
+		AddProduct(GetPlatformString('NetFx20SP2_x86.exe', 'NetFx20SP2_x64.exe', 'NetFx20SP2_ia64.exe'),
 			'/lang:enu /qb /norestart',
 			CustomMessage('dotnetfx20sp2_title'),
 			CustomMessage('dotnetfx20sp2_size'),
-			GetURL(dotnetfx20sp2_url, dotnetfx20sp2_url_x64, dotnetfx20sp2_url_ia64));
+            GetPlatformString(dotnetfx20sp2_url, dotnetfx20sp2_url_x64, dotnetfx20sp2_url_ia64));
 end;

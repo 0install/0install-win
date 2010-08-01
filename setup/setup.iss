@@ -13,11 +13,8 @@
 #include "scripts\products\msi31.iss"
 #include "scripts\products\vcredist.iss"
 #include "scripts\products\dotnetfx20.iss"
-#include "scripts\products\dotnetfx20lp.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
-#include "scripts\products\dotnetfx20sp1lp.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-#include "scripts\products\dotnetfx20sp2lp.iss"
 #include "scripts\products\nanogrid.iss"
 #endif
 
@@ -125,10 +122,10 @@ Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; F
 #ifndef Update
 function InitializeSetup(): Boolean;
 begin
-	//init windows version
+	// Determine the exact Windows version, including Service pack
 	initwinversion();
 
-	//check if vcredist and dotnetfx20 can be installed on this OS
+	// Check if vcredist and .NET 2.0 can be installed on this OS
 	if not minwinspversion(5, 0, 4) then begin
 		MsgBox(FmtMessage(CustomMessage('depinstall_missing'), [CustomMessage('win2000sp4_title')]), mbError, MB_OK);
 		exit;
@@ -138,31 +135,24 @@ begin
 		exit;
 	end;
 
-	//install Windows Installer as prequisite for vcredist and dotnetfx20
+  // Add all required products to the list
 	msi20('2.0');
 	msi31('3.0');
-
 	vcredist();	
-
-	//install .netfx 2.0 sp2 if possible; if not sp1 if possible; if not .netfx 2.0
 	if minwinversion(6, 0) then begin
 		//starting with Windows Vista, .netfx 3.0 or newer is included
 	end else begin
 		if minwinversion(5, 1) then begin
 			dotnetfx20sp2();
-			dotnetfx20sp2lp();
 		end else begin
 			if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
 				kb835732();
 				dotnetfx20sp1();
-				dotnetfx20sp1lp();
 			end else begin
 				dotnetfx20();
-				dotnetfx20lp();
 			end;
 		end;
 	end;
-
 	nanogrid();
 
 	Result := true;

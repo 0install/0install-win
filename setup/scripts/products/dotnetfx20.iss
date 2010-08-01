@@ -23,10 +23,10 @@ var
 begin
 	RegQueryDWordValue(HKEY_LOCAL_MACHINE, 'Software\Microsoft\NET Framework Setup\NDP\v2.0.50727', 'Install', version);
 	if version <> 1 then begin
-		AddProduct('dotnetfx20.exe',
+		AddProduct(GetPlatformString('dotnetfx.exe', 'NetFx64.exe', 'NetFx64.exe'),
 			'/q:a /t:' + ExpandConstant('{tmp}{\}') + 'dotnetfx20 /c:"install /qb /l"',
 			CustomMessage('dotnetfx20_title'),
 			CustomMessage('dotnetfx20_size'),
-			GetURL(dotnetfx20_url, dotnetfx20_url_x64, dotnetfx20_url_ia64));
+            GetPlatformString(dotnetfx20_url, dotnetfx20_url_x64, dotnetfx20_url_ia64));
 	end;
 end;

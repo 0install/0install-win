@@ -83,7 +83,7 @@ begin
 			DependencyPage.SetText(FmtMessage(CustomMessage('depinstall_status'), [products[i].Title]), '');
 			DependencyPage.SetProgress(i, productCount);
 			
-			if Exec(products[i].File, products[i].Parameters, '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then begin
+			if ShellExec('', products[i].File, products[i].Parameters, '', SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then begin
 				//success; ResultCode contains the exit code
 				if ResultCode = 0 then
 					finishCount := finishCount + 1
@@ -173,7 +173,7 @@ begin
 	Result := Is64BitInstallMode and (ProcessorArchitecture = paIA64);
 end;
 
-function GetURL(x86, x64, ia64: String): String;
+function GetPlatformString(x86, x64, ia64: String): String;
 begin
 	if IsX64() and (x64 <> '') then
 		Result := x64;
