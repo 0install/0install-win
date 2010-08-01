@@ -58,7 +58,8 @@ namespace Common.Controls
 
         private void OnSelectionConfirmed()
         {
-            if (SelectionConfirmed != null) SelectionConfirmed(this, EventArgs.Empty);
+            // Only confirm if the user actually selected something
+            if (_selectedEntry != null && SelectionConfirmed != null) SelectionConfirmed(this, EventArgs.Empty);
         }
         #endregion
 
