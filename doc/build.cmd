@@ -23,7 +23,7 @@ echo Compiling source documentation...
 if exist ..\build\Documentation rd /s /q ..\build\Documentation
 
 FOR %%A IN (%~dp0*.shfbproj) DO (
-  msbuild %%A.shfbproj /p:Configuration=Debug /v:q /nologo
+  msbuild "%%A" /p:Configuration=Debug /v:q /nologo
   if errorlevel 1 pause
 )
 
