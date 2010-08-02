@@ -22,14 +22,10 @@ call "%VS_COMNTOOLS%vsvars32.bat"
 echo Compiling source documentation...
 if exist ..\build\Documentation rd /s /q ..\build\Documentation
 
-msbuild Backend.shfbproj /p:Configuration=Debug /v:q /nologo
-if errorlevel 1 pause
-
-msbuild Frontend.shfbproj /p:Configuration=Debug /v:q /nologo
-if errorlevel 1 pause
-
-msbuild Tools.shfbproj /p:Configuration=Debug /v:q /nologo
-if errorlevel 1 pause
+FOR %%A IN (%~dp0*.shfbproj) DO (
+  msbuild %%A.shfbproj /p:Configuration=Debug /v:q /nologo
+  if errorlevel 1 pause
+)
 
 goto end
 

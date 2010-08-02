@@ -5,9 +5,9 @@
 
 #ifndef Update
 ;Automatic dependency download and installation
+#include "scripts\fileversion.iss"
+#include "scripts\winversion.iss"
 #include "scripts\products.iss"
-#include "scripts\products\winversion.iss"
-#include "scripts\products\fileversion.iss"
 #include "scripts\products\kb835732.iss"
 #include "scripts\products\msi20.iss"
 #include "scripts\products\msi31.iss"
@@ -35,7 +35,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\build\Frontend\Setup
+OutputDir=..\build\Setup
 #ifndef Update
 OutputBaseFilename=0install
 #endif

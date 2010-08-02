@@ -1,5 +1,5 @@
 This folder contains the Inno Setup Script for creating the Zero Install Windows Setup.
-The final setup executable is placed in ..\build\Frontend\Setup.
+The final setup executable is placed in ..\build\Setup.
 
 The Script assumes vs/build.cmd has already been executed.
 A portable Python 2.6 distribution with installed Zero Install scripts must be located at ..\build\Portable\Python.

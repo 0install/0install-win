@@ -17,7 +17,7 @@
     <OutputPath>..\build\Documentation\</OutputPath>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
-    <HtmlHelpName>OmegaEngine</HtmlHelpName>    <HtmlHelpName>Backend</HtmlHelpName>
+    <HtmlHelpName>Backend</HtmlHelpName>
     <HelpTitle>ZeroInstall Backend Documentation</HelpTitle>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>

@@ -1,24 +1,29 @@
 Windows API Code Pack for Microsoft .NET Framework 1.0.1
 http://code.msdn.microsoft.com/WindowsAPICodePack
 Custom license: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
-Extracted part of source, modified, compiled as part of Common.dll
+Extracted parts of source, modified
+Compiled as part of Common.dll
 
 NDesk.Options 0.2.1
 http://ndesk.org/Options
 MIT License: http://www.opensource.org/licenses/mit-license.php
-Source unmodified, self-compiled to lib/NDesk.Options.dll
+Source unmodified
+Self-compiled managed DLL: lib/NDesk.Options.dll
 
 SharpZipLib 0.85.5
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
 GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
-Unmodified, pre-compiled binary (lib/ICSharpCode.SharpZipLib.dll)
+Source unmodified
+Pre-compiled managed DLL: lib/ICSharpCode.SharpZipLib.dll
 
 TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
 Public Domain: http://creativecommons.org/licenses/publicdomain/
-Source unmodified, self-compiled to lib/TaskDialog.dll
+Source unmodified
+Self-compiled managed DLL: lib/TaskDialog.dll
 
 The C5 Generic Collection Library 1.1.0
 http://www.itu.dk/research/c5/
 MIT-style open license: lib/C5.license.txt
-Unmodified, pre-compiled binary (lib/C5.dll)
+Source unmodified
+Pre-compiled managed DLL: lib/C5.dll

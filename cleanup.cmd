@@ -1,16 +1,10 @@
 @echo off
 
-rem Remove old build directories
-rd /s /q build\Debug > NUL 2>&1
-rd /s /q build\Release > NUL 2>&1
-rd /s /q build\Documentation > NUL 2>&1
-
 rem Clear binaries (leave Documentation and Portable intact)
-rd /s /q build\Backend\Debug > NUL 2>&1
-rd /s /q build\Backend\Release > NUL 2>&1
-rd /s /q build\Backend\Documentation\working > NUL 2>&1
+rd /s /q build\Backend > NUL 2>&1
 rd /s /q build\Frontend > NUL 2>&1
 rd /s /q build\Tools > NUL 2>&1
+rd /s /q build\Setup > NUL 2>&1
 
 rem Clear ReSharper's cache
 rd /s /q vs\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1

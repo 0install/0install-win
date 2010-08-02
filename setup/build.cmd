@@ -3,7 +3,7 @@
 cd /d "%~dp0"
 
 rem Project settings
-set BuildDir=..\build\Frontend\Setup
+set BuildDir=..\build\Setup
 set SetupEXE=0install.exe
 
 rem Check Inno Setup 5
