@@ -127,10 +127,10 @@
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />
+    <Compile Include="Storage\TemporaryDirectoryMove.cs" />
+    <Compile Include="Storage\TemporaryDirectoryReplacement.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
-    <Compile Include="TemporaryDirectoryMove.cs" />
-    <Compile Include="TemporaryDirectoryReplacement.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
