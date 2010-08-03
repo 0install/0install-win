@@ -103,9 +103,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadBroker\ArchiveProvider.cs" />
-    <Compile Include="DownloadBroker\DownloadItemBuilders.cs" />
     <Compile Include="DownloadBroker\FetcherStoreInteraction.cs" />
     <Compile Include="DownloadBroker\FetcherTests.cs" />
+    <Compile Include="DownloadBroker\PackageBuilderManifestExtension.cs" />
     <Compile Include="Injector\Cli\ProgramTest.cs" />
     <Compile Include="Injector\ControllerTest.cs" />
     <Compile Include="Injector\SilentHandler.cs" />

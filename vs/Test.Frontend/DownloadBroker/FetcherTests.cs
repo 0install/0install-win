@@ -2,12 +2,12 @@
 using System.IO;
 using NUnit.Framework;
 using Common.Storage;
+using Common.Helpers;
 using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
 using System.Collections.Generic;
 using ICSharpCode.SharpZipLib.Zip;
-using ZeroInstall.Store.Utilities;
 using System.Reflection;
 
 namespace ZeroInstall.DownloadBroker
@@ -15,7 +15,7 @@ namespace ZeroInstall.DownloadBroker
     [TestFixture]
     public class DownloadFunctionality
     {
-        private TemporaryReplacement _testFolder;
+        private TemporaryDirectoryReplacement _testFolder;
         private TemporaryDirectory _storeDir;
         private DirectoryStore _store;
         private Fetcher _fetcher;
@@ -27,7 +27,7 @@ namespace ZeroInstall.DownloadBroker
         [SetUp]
         public void SetUp()
         {
-            _testFolder = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
+            _testFolder = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
             _storeDir = new TemporaryDirectory(Path.Combine(_testFolder.Path, "store"));
             _store = new DirectoryStore(_storeDir.Path);
             _fetcher = new Fetcher(new SilentHandler(), _store);
@@ -73,9 +73,9 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            PackageBuilder package = PreparePackageBuilder();
+            var package = PreparePackageBuilder();
             package.GeneratePackageArchive(_archiveFile);
-            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, PackageBuilderManifestExtension.ComputePackageDigest(package));
             var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -84,9 +84,9 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldRejectRemoteArchiveOfDifferentSize()
         {
-            PackageBuilder package = PreparePackageBuilder();
+            var package = PreparePackageBuilder();
             package.GeneratePackageArchive(_archiveFile);
-            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, package.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, 0, PackageBuilderManifestExtension.ComputePackageDigest(package));
             using (var archiveStream = File.Create(_archiveFile))
             {
                 package.AddFile("excess", new byte[] { });
@@ -100,9 +100,9 @@ namespace ZeroInstall.DownloadBroker
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
             const int ArchiveOffset = 0x1000;
-            PackageBuilder package = PreparePackageBuilder();
+            var package = PreparePackageBuilder();
             WritePackageToArchiveWithOffset(package, _archiveFile, ArchiveOffset);
-            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, package.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package));
             var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -110,7 +110,7 @@ namespace ZeroInstall.DownloadBroker
 
         private static PackageBuilder PreparePackageBuilder()
         {
-            PackageBuilder builder = new PackageBuilder();
+            var builder = new PackageBuilder();
 
             builder.AddFile("file1", @"AAAA").
                 AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
@@ -165,7 +165,7 @@ namespace ZeroInstall.DownloadBroker
                 builder.AddExecutable("SDL.dll", reader.ReadBytes((int)SDLdll.Length), sdlDllLastWrite);
             }
 
-            var implementation = SynthesizeImplementation(_archiveFile, 0, builder.ComputePackageDigest());
+            var implementation = SynthesizeImplementation(_archiveFile, 0, PackageBuilderManifestExtension.ComputePackageDigest(builder));
             var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
@@ -211,7 +211,7 @@ namespace ZeroInstall.DownloadBroker
 
             var implementation = new Implementation()
             {
-                ManifestDigest = merged.ComputePackageDigest(),
+                ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(merged),
                 Recipes = { recipe }
             };
             var request = new FetchRequest(new List<Implementation> { implementation });
@@ -223,9 +223,9 @@ namespace ZeroInstall.DownloadBroker
         public void ShouldSkipStartOffsetIfPossible()
         {
             const int ArchiveOffset = 0x1000;
-            PackageBuilder package = PreparePackageBuilder();
+            var package = PreparePackageBuilder();
             WritePackageToArchiveWithOffset(package, _archiveFile, ArchiveOffset);
-            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, package.ComputePackageDigest());
+            Implementation implementation = SynthesizeImplementation(_archiveFile, ArchiveOffset, PackageBuilderManifestExtension.ComputePackageDigest(package));
 
             bool suppliedRangeToDownload = false;
 

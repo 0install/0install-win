@@ -87,7 +87,6 @@
     <Compile Include="Store\Interface\InterfaceCacheTest.cs" />
     <Compile Include="Store\Interface\SilentFeedHandler.cs" />
     <Compile Include="Store\Interface\TrustTest.cs" />
-    <Compile Include="Store\Utilities\FolderDisposables.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyApps\" />

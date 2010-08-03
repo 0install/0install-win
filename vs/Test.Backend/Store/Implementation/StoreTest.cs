@@ -6,7 +6,6 @@ using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Utilities;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -17,7 +16,7 @@ namespace ZeroInstall.Store.Implementation
         public void DefaultConstructorShouldCreateCacheDirIfInexistant()
         {
             string cache = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
-            using (new TemporaryMove(cache))
+            using (new TemporaryDirectoryMove(cache))
             {
                 try
                 {
@@ -34,14 +33,14 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAcceptAnExistingPath()
         {
-            using (var dir = new TemporaryReplacement(Path.GetFullPath("test-store")))
+            using (var dir = new TemporaryDirectoryReplacement(Path.GetFullPath("test-store")))
                 Assert.DoesNotThrow(delegate { new DirectoryStore(dir.Path); }, "Store must instantiate given an existing path");
         }
 
         [Test]
         public void ShouldAcceptRelativePath()
         {
-            using (var dir = new TemporaryReplacement("relative-path"))
+            using (var dir = new TemporaryDirectoryReplacement("relative-path"))
             {
                 Assert.False(Path.IsPathRooted(dir.Path), "Internal assertion: Test path must be relative");
                 Assert.DoesNotThrow(delegate { new DirectoryStore(dir.Path); }, "Store must accept relative paths");
@@ -52,7 +51,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldProvideDefaultConstructor()
         {
             string cachePath = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
-            using (new TemporaryReplacement(cachePath))
+            using (new TemporaryDirectoryReplacement(cachePath))
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");
             }

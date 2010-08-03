@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using System.IO;
 using System.Collections.Generic;
+using Common.Storage;
+using Common.Helpers;
 
 namespace Common.Archive
 {
@@ -168,32 +170,32 @@ namespace Common.Archive
     [TestFixture]
     class CornerCases
     {
-        //private TemporaryReplacement _sandbox;
+        private TemporaryDirectoryReplacement _sandbox;
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    _sandbox = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-Corner"));
-        //}
+        [SetUp]
+        public void SetUp()
+        {
+            _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "zipExtraction-Corner"));
+        }
 
-        //[TearDown]
-        //public void TearDown()
-        //{
-        //    _sandbox.Dispose();
-        //}
+        [TearDown]
+        public void TearDown()
+        {
+            _sandbox.Dispose();
+        }
 
-        //[Test]
-        //public void TestRejectParentDirectoryEntry()
-        //{
-        //    var builder = new PackageBuilder();
-        //    builder.AddFolder("..");
+        [Test]
+        public void TestRejectParentDirectoryEntry()
+        {
+            var builder = new PackageBuilder();
+            builder.AddFolder("..");
 
-        //    var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
-        //    builder.GeneratePackageArchive(archiveStream);
-        //    archiveStream.Seek(0, SeekOrigin.Begin);
-        //    var extractor = new ZipExtractor(archiveStream, 0);
-        //    Assert.Throws<IOException>(() => extractor.Extract("extractedArchive", null), "ZipExtractor must not accept archives with '..' as entry");
-        //    archiveStream.Dispose();
-        //}
+            var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
+            builder.GeneratePackageArchive(archiveStream);
+            archiveStream.Seek(0, SeekOrigin.Begin);
+            var extractor = new ZipExtractor(archiveStream, 0);
+            Assert.Throws<IOException>(() => extractor.Extract("extractedArchive", null, null), "ZipExtractor must not accept archives with '..' as entry");
+            archiveStream.Dispose();
+        }
     }
 }

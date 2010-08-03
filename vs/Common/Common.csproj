@@ -129,6 +129,8 @@
     <Compile Include="Storage\TemporaryDirectory.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
+    <Compile Include="TemporaryDirectoryMove.cs" />
+    <Compile Include="TemporaryDirectoryReplacement.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
