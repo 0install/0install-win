@@ -91,7 +91,7 @@ namespace Common.Archive
                     else if (entry.IsFile)
                     {
                         using (var stream = _zip.GetInputStream(entry))
-                            WriteFile(target, entry.Name, entry.DateTime, stream, IsXbitSet(entry));
+                            WriteFile(target, entry.Name, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
 
                         // Report back the progess
                         if (extractionProgress != null) extractionProgress(++i / (float)_zip.Count, entry.Name);

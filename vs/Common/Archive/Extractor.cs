@@ -171,8 +171,9 @@ namespace Common.Archive
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <param name="dateTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
+        /// <param name="length">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
         /// <param name="executable"><see langword="true"/> if the file's executable bit was set; <see langword="false"/> otherwise.</param>
-        protected static void WriteFile(string target, string relativePath, DateTime dateTime, Stream stream, bool executable)
+        protected static void WriteFile(string target, string relativePath, DateTime dateTime, Stream stream, long length, bool executable)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
@@ -185,9 +186,9 @@ namespace Common.Archive
 
             bool alreadyExists = File.Exists(filePath);
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-
+            
             using (var fileStream = File.Create(filePath))
-                StreamHelper.Copy(stream, fileStream, 4096);
+                if (length != 0) StreamHelper.Copy(stream, fileStream, 4096);
 
             if (executable) SetExecutableBit(target, relativePath);
             // If an executable file is overwritten by a non-executable file, remove the xbit flag

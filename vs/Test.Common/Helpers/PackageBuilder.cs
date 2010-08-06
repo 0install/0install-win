@@ -161,6 +161,7 @@ namespace Common.Helpers
             zip.PutNextEntry(CreateZipEntry(entry));
             var writer = new BinaryWriter(zip);
             writer.Write(entry.Content);
+            writer.Flush();
         }
 
         private static ZipEntry CreateZipEntry(HierarchyEntry entry)

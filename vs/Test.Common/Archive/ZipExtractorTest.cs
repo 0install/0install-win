@@ -190,12 +190,14 @@ namespace Common.Archive
             var builder = new PackageBuilder();
             builder.AddFolder("..");
 
-            var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
-            builder.GeneratePackageArchive(archiveStream);
-            archiveStream.Seek(0, SeekOrigin.Begin);
-            var extractor = new ZipExtractor(archiveStream, 0);
-            Assert.Throws<IOException>(() => extractor.Extract("extractedArchive", null, null), "ZipExtractor must not accept archives with '..' as entry");
-            archiveStream.Dispose();
+            using (var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
+            {
+                builder.GeneratePackageArchive(archiveStream);
+                archiveStream.Seek(0, SeekOrigin.Begin);
+                var extractor = new ZipExtractor(archiveStream, 0);
+                Assert.Throws<IOException>(() => extractor.Extract("extractedArchive", null, null), "ZipExtractor must not accept archives with '..' as entry");
+                archiveStream.Dispose();
+            }
         }
 
         [Test]
@@ -203,15 +205,19 @@ namespace Common.Archive
         {
             var builder = new PackageBuilder()
                 .AddFile("emptyFile", new byte[] { });
-            var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip"));
-            builder.GeneratePackageArchive(archiveStream);
-            archiveStream.Seek(0, SeekOrigin.Begin);
-            var extractor = new ZipExtractor(archiveStream, 0);
 
-            const string message = "ZipExtractor should correctly extract empty files in an archive";
-            Assert.DoesNotThrow(() => extractor.Extract("extractedArchive", null, null), message);
-            Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "emptyFile")), message);
-            Assert.AreEqual(new byte[] { }, File.ReadAllBytes(Path.Combine("extractedArchive", "emptyFile")), message);
+            using(var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
+            {
+                builder.GeneratePackageArchive(archiveStream);
+                archiveStream.Seek(0, SeekOrigin.Begin);
+                var extractor = new ZipExtractor(archiveStream, 0);
+
+                const string message = "ZipExtractor should correctly extract empty files in an archive";
+                //Assert.DoesNotThrow(() => , message);
+                extractor.Extract("extractedArchive", null, null);
+                Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "emptyFile")), message);
+                Assert.AreEqual(new byte[] { }, File.ReadAllBytes(Path.Combine("extractedArchive", "emptyFile")), message);
+            }
         }
     }
 }
