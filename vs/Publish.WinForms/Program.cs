@@ -17,6 +17,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -31,7 +32,7 @@ namespace ZeroInstall.Publish.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new MainForm());
+            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()));
         }
     }
 }

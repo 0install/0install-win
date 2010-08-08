@@ -124,6 +124,8 @@
     <Compile Include="Controls\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="AppMutex.cs" />
+    <Compile Include="NanoGrid.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />

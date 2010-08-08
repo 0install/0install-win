@@ -30,7 +30,7 @@ using System.Text;
 namespace Common.Helpers
 {
     /// <summary>
-    /// Provides additional or simplified string functions
+    /// Provides additional or simplified string functions.
     /// </summary>
     public static class StringHelper
     {

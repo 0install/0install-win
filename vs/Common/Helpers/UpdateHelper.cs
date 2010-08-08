@@ -42,7 +42,7 @@ namespace Common.Helpers
     #endregion
 
     /// <summary>
-    /// Provides neat little code-shortcut for updating properties
+    /// Provides neat little code-shortcuts for updating properties.
     /// </summary>
     public static class UpdateHelper
     {

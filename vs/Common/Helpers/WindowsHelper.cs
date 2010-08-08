@@ -104,7 +104,7 @@ namespace Common.Helpers
     #endregion
 
     /// <summary>
-    /// Easily access non-Framework Windows DLLs
+    /// Easily access non-Framework Windows DLLs.
     /// </summary>
     public static class WindowsHelper
     {

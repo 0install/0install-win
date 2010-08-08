@@ -27,7 +27,7 @@ using System.Text;
 namespace Common.Helpers
 {
     /// <summary>
-    /// Provides generic helper methods for <see cref="Stream"/>s
+    /// Provides generic helper methods for <see cref="Stream"/>s.
     /// </summary>
     public static class StreamHelper
     {

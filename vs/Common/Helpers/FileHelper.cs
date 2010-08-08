@@ -31,7 +31,7 @@ using Common.Properties;
 namespace Common.Helpers
 {
     /// <summary>
-    /// Provides additional or simplified string functions
+    /// Provides filesystem-related helper methods.
     /// </summary>
     public static class FileHelper
     {

@@ -21,8 +21,11 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.IO;
+using System.Threading;
 using System.Windows.Forms;
+using Common.Helpers;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -70,8 +73,75 @@ namespace Common.Controls
         }
         #endregion
 
+        #region Static access
+        /// <summary>
+        /// Sets up hooks that catches any unhandled exceptions (both in <see cref="System.Windows.Forms"/> threads and otherwise), runs a delegate and then reports and exceptions that were caught.
+        /// </summary>
+        /// <param name="run">The delegate to run. Usually a call to <see cref="Application.Run(System.Windows.Forms.Form)"/>.</param>
+        /// <returns><see langword="true"/> if <paramref name="run"/> was executed successfully; <see langword="false"/> if an exception was caught.</returns>
+        /// <remarks>
+        ///   <para>
+        ///     If an exception is caught on a <see cref="System.Windows.Forms"/> thread any remaining <see cref="Form"/>s are closed in the hopes this will end <paramref name="run"/>.
+        ///     Such exceptions can only be reported once the <see cref="System.Windows.Forms"/> message loop has ended.
+        ///   </para>
+        ///   <para>
+        ///     If an exception is caught on a background thread any remaing <see cref="System.Windows.Forms"/> threads will continue to execute until the error has been reported. Then the entire process is terminated.
+        ///   </para>
+        /// </remarks>
+        public static bool RunAppMonitored(SimpleEventHandler run)
+        {
+            // Catch and report exceptions in background threads
+            UnhandledExceptionEventHandler exceptionHandler = delegate(object sender, UnhandledExceptionEventArgs e)
+            {
+                Report((e.ExceptionObject as Exception) ?? new Exception("Unkown error"));
+                Process.GetCurrentProcess().Kill();
+            };
+
+            Exception delayedException = null;
+
+            // Try to make WinForms catch exceptions
+            try { Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException); }
+            catch (InvalidOperationException) {}
+
+            // Catch exceptions in WinForms threads
+            Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
+            {
+                // Can only report exception after the message loop has terminated
+                delayedException = e.Exception;
+
+                // Cause the message loop to end by closing all forms
+                while (Application.OpenForms.Count > 0)
+                    Application.OpenForms[0].Close();
+            };
+
+            AppDomain.CurrentDomain.UnhandledException += exceptionHandler;
+            run();
+            AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
+
+            // Report exceptions in WinForms threads
+            if (delayedException != null)
+            {
+                Report(delayedException);
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Runs a new message loop to display the error reporting form.
+        /// </summary>
+        /// <param name="ex">The exception to report.</param>
+        /// <remarks>The report is uploaded via <see cref="NanoGrid"/>.</remarks>
+        private static void Report(Exception ex)
+        {
+            Application.Run(new ErrorReportForm(ex, NanoGrid.Upload));
+        }
+        #endregion
+
         //--------------------//
 
+        #region Buttons
         private void buttonReport_Click(object sender, EventArgs e)
         {
             _callback(GenerateReportFile());
@@ -83,8 +153,9 @@ namespace Common.Controls
         {
             Close();
         }
-        
-        #region Report
+        #endregion
+
+        #region Generate report
         /// <summary>
         /// Generates a ZIP archive containing the log file, exception information and any user comments.
         /// </summary>

@@ -41,8 +41,12 @@ namespace Common.Storage
     public static class XmlStorage
     {
         #region Serializer generation
+        /// <summary>An internal cache of XML serializers identified by the target type and ignored sub-types.</summary>
         private static readonly Dictionary<string, XmlSerializer> _serializers = new Dictionary<string, XmlSerializer>();
 
+        /// <summary>Used to mark something as "serialize as XML attribute".</summary>
+        private static readonly XmlAttributes _asAttribute = new XmlAttributes {XmlAttribute = new XmlAttributeAttribute()};
+        
         /// <summary>
         /// Gets a <see cref="XmlSerializer"/> for classes of the type <paramref name="type"/>. Results are automatically cached internally.
         /// </summary>
@@ -84,23 +88,18 @@ namespace Common.Storage
         private static XmlSerializer CreateSerializer(Type type, IEnumerable<MemberInfo> ignoreMembers)
         {
             var overrides = new XmlAttributeOverrides();
-            var asAttribute = new XmlAttributes {XmlAttribute = new XmlAttributeAttribute()};
             var ignore = new XmlAttributes {XmlIgnore = true};
 
-            // Augment .NET default types
-            overrides.Add(typeof(Point), "X", asAttribute);
-            overrides.Add(typeof(Point), "Y", asAttribute);
-            overrides.Add(typeof(Size), "Width", asAttribute);
-            overrides.Add(typeof(Size), "Height", asAttribute);
-            overrides.Add(typeof(Rectangle), "X", asAttribute);
-            overrides.Add(typeof(Rectangle), "Y", asAttribute);
-            overrides.Add(typeof(Rectangle), "Width", asAttribute);
-            overrides.Add(typeof(Rectangle), "Height", asAttribute);
+            #region Augment .NET BCL types
+            MembersAsAttributes<Point>(overrides, "X", "Y");
+            MembersAsAttributes<Size>(overrides, "Width", "Height");
+            MembersAsAttributes<Rectangle>(overrides, "X", "Y", "Width", "Height");
             overrides.Add(typeof(Rectangle), "Location", ignore);
             overrides.Add(typeof(Rectangle), "Size", ignore);
             overrides.Add(typeof(Exception), "Data", ignore);
+            #endregion
 
-            // Ignore specific fields
+            // Ignore specific fields)
             if (ignoreMembers != null)
             {
                 foreach (MemberInfo ignoreMember in ignoreMembers)
@@ -110,6 +109,16 @@ namespace Common.Storage
             }
 
             return new XmlSerializer(type, overrides);
+        }
+
+        /// <summary>
+        /// Configures a set of members of a type to be serialized as XML attributes.
+        /// </summary>
+        private static void MembersAsAttributes<T>(XmlAttributeOverrides overrides, params string[] members)
+        {
+            Type type = typeof(T);
+            foreach (string memeber in members)
+                overrides.Add(type, memeber, _asAttribute);
         }
         #endregion
 

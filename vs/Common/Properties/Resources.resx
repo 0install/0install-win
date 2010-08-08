@@ -249,4 +249,10 @@ Delete the changes</value>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>
+  <data name="AppAlreadyRunning" xml:space="preserve">
+    <value>This application is already running!</value>
+  </data>
+  <data name="MissingNanoGrid" xml:space="preserve">
+    <value>NanoGrid must be installed for this game to work properly.</value>
+  </data>
 </root>

@@ -61,6 +61,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This application is already running!.
+        /// </summary>
+        internal static string AppAlreadyRunning {
+            get {
+                return ResourceManager.GetString("AppAlreadyRunning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The archive file is invalid or damaged..
         /// </summary>
         internal static string ArchiveInvalid {
@@ -282,6 +291,15 @@ namespace Common.Properties {
         internal static string MinLargerMax {
             get {
                 return ResourceManager.GetString("MinLargerMax", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NanoGrid must be installed for this game to work properly..
+        /// </summary>
+        internal static string MissingNanoGrid {
+            get {
+                return ResourceManager.GetString("MissingNanoGrid", resourceCulture);
             }
         }
         
