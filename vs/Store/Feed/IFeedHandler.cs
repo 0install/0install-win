@@ -20,6 +20,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// Callback methods to be used if the the user needs to be asked any questions while retrieving feeds.
     /// </summary>
+    /// <remarks>All callbacks are called from the original thread. No special messures for thread-safety need to be taken.</remarks>
     public interface IFeedHandler
     {
         /// <summary>

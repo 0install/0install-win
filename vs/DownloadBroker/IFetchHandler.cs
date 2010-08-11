@@ -22,6 +22,7 @@ namespace ZeroInstall.DownloadBroker
     /// <summary>
     /// Callback methods to be used when the the user is to be informed about download and extraction progress.
     /// </summary>
+    /// <remarks>All callbacks are called from the original thread. No special messures for thread-safety need to be taken.</remarks>
     public interface IFetchHandler
     {
         /// <summary>

@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Windows.Forms;
 using Common.Helpers;
 using Common.Properties;
 
@@ -66,9 +67,12 @@ namespace Common.Download
     {
         #region Events
         /// <summary>
-        /// Occurs whenever <see cref="State"/> changes. Blocks the download thread, so handle quickly!
+        /// Occurs whenever <see cref="State"/> changes.
         /// </summary>
-        /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
+        /// <remarks>
+        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>The event handling blocks the download thread, therefore observers should handle the event quickly.</para>
+        /// </remarks>
         public event DownloadFileEventHandler StateChanged;
 
         private void OnStateChanged()
@@ -79,9 +83,12 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Occurs whenever <see cref="BytesReceived"/> changes. Blocks the download thread, so handle quickly!
+        /// Occurs whenever <see cref="BytesReceived"/> changes.
         /// </summary>
-        /// <remarks>This event is executed in a background thread. It must not be used to directly update UI elements.</remarks>
+        /// <remarks>
+        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
+        ///   <para>The event handling blocks the download thread, therefore observers should handle the event quickly.</para>
+        /// </remarks>
         public event DownloadFileEventHandler BytesReceivedChanged;
 
         private void OnBytesReceivedChanged()

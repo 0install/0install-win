@@ -16,6 +16,9 @@
             if (disposing && (components != null))
             {
                 components.Dispose();
+
+                // Remove update hooks
+                Download = null;
             }
             base.Dispose(disposing);
         }

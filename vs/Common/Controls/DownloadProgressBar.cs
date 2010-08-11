@@ -92,6 +92,7 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadStateChanged(DownloadFile sender)
         {
+            // Handle events coming from a non-UI thread
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 IntPtr formHandle = GetFormHandle();
@@ -138,7 +139,9 @@ namespace Common.Controls
         private void DownloadBytesRecivedChanged(DownloadFile sender)
         {
             int currentValue = (int)(_downloadFile.Progress * 100);
-            progressBar.Invoke((SimpleEventHandler) delegate
+
+            // Handle events coming from a non-UI thread
+            progressBar.Invoke((SimpleEventHandler)delegate
             {
                 progressBar.Value = currentValue;
                 IntPtr formHandle = GetFormHandle();
