@@ -26,7 +26,11 @@ namespace Common
                 string nanoGridCommand = string.Format(CultureInfo.InvariantCulture, "nanogrid:/launch/\"{0}:{1}\" /autoClose", appName, args);
                 Process.Start(nanoGridCommand);
             }
-            catch
+            catch (Win32Exception)
+            {
+                Msg.Inform(null, Resources.MissingNanoGrid, MsgSeverity.Error);
+            }
+            catch (FileNotFoundException)
             {
                 Msg.Inform(null, Resources.MissingNanoGrid, MsgSeverity.Error);
             }

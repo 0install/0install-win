@@ -75,9 +75,9 @@ namespace Common.Controls
 
         #region Static access
         /// <summary>
-        /// Sets up hooks that catches any unhandled exceptions (both in <see cref="System.Windows.Forms"/> threads and otherwise), runs a delegate and then reports and exceptions that were caught.
+        /// Runs a delegate, catching and reporting any unhandled exceptions that occur inside.
         /// </summary>
-        /// <param name="run">The delegate to run. Usually a call to <see cref="Application.Run(System.Windows.Forms.Form)"/>.</param>
+        /// <param name="run">The delegate to run.</param>
         /// <returns><see langword="true"/> if <paramref name="run"/> was executed successfully; <see langword="false"/> if an exception was caught.</returns>
         /// <remarks>
         ///   <para>
@@ -85,26 +85,19 @@ namespace Common.Controls
         ///     Such exceptions can only be reported once the <see cref="System.Windows.Forms"/> message loop has ended.
         ///   </para>
         ///   <para>
-        ///     If an exception is caught on a background thread any remaing <see cref="System.Windows.Forms"/> threads will continue to execute until the error has been reported. Then the entire process is terminated.
+        ///     If an exception is caught on a background thread any remaing <see cref="System.Windows.Forms"/> threads will continue to execute until the error has been reported.
+        ///     Then the entire process is terminated.
         ///   </para>
         /// </remarks>
         public static bool RunAppMonitored(SimpleEventHandler run)
         {
-            // Catch and report exceptions in background threads
-            UnhandledExceptionEventHandler exceptionHandler = delegate(object sender, UnhandledExceptionEventArgs e)
-            {
-                Report((e.ExceptionObject as Exception) ?? new Exception("Unkown error"));
-                Process.GetCurrentProcess().Kill();
-            };
-
-            Exception delayedException = null;
-
-            // Try to make WinForms catch exceptions
-            try { Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException); }
-            catch (InvalidOperationException) {}
+            #region Sanity checks
+            if (run == null) throw new ArgumentNullException("run");
+            #endregion
 
             // Catch exceptions in WinForms threads
-            Application.ThreadException += delegate(object sender, ThreadExceptionEventArgs e)
+            Exception delayedException = null;
+            ThreadExceptionEventHandler winFormsHandler = delegate(object sender, ThreadExceptionEventArgs e)
             {
                 // Can only report exception after the message loop has terminated
                 delayedException = e.Exception;
@@ -114,11 +107,24 @@ namespace Common.Controls
                     Application.OpenForms[0].Close();
             };
 
-            AppDomain.CurrentDomain.UnhandledException += exceptionHandler;
-            run();
-            AppDomain.CurrentDomain.UnhandledException -= exceptionHandler;
+            // Catch exceptions in background threads
+            UnhandledExceptionEventHandler backgroundHandler = delegate(object sender, UnhandledExceptionEventArgs e)
+            {
+                Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"));
+                Process.GetCurrentProcess().Kill();
+            };
 
-            // Report exceptions in WinForms threads
+            // Activate WinForms exception handling
+            try { Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException); }
+            catch (InvalidOperationException) {}
+
+            Application.ThreadException += winFormsHandler;
+            AppDomain.CurrentDomain.UnhandledException += backgroundHandler;
+            run();
+            AppDomain.CurrentDomain.UnhandledException -= backgroundHandler;
+            Application.ThreadException -= winFormsHandler;
+
+            // Report exceptions from WinForms threads
             if (delayedException != null)
             {
                 Report(delayedException);

@@ -27,7 +27,6 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Common.Helpers;
-//using LuaInterface;
 
 namespace Common
 {
