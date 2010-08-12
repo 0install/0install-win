@@ -16,7 +16,7 @@
  */
 
 using System;
-using Common.Download;
+using Common;
 
 namespace ZeroInstall.Injector.Cli
 {
@@ -44,17 +44,17 @@ namespace ZeroInstall.Injector.Cli
             }
         }
 
-        public void StartingDownload(DownloadFile download)
+        public void StartingDownload(IProgress download)
         {
             // ToDo: Implement
         }
 
-        public void ReportExtractionProgress(float progress, string file)
+        public void StartingExtraction(IProgress extraction)
         {
             // ToDo: Implement
         }
 
-        public void ReportManifestProgress(float progress, string file)
+        public void StartingManifest(IProgress manifest)
         {
             // ToDo: Implement
         }

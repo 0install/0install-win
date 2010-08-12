@@ -25,76 +25,33 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Windows.Forms;
 using Common.Helpers;
 using Common.Properties;
 
 namespace Common.Download
 {
-    #region Delegates
-    /// <summary>
-    /// Generic delegate for handling an event without passing any parameters.
-    /// </summary>
-    public delegate void DownloadFileEventHandler(DownloadFile sender);
-    #endregion
-
-    #region Enumerations
-    /// <seealso cref="DownloadFile.State"/>
-    public enum DownloadState
-    {
-        /// <summary>The download is ready to begin.</summary>
-        Ready,
-        /// <summary>The download thread has just been started.</summary>
-        Started,
-        /// <summary>Getting the header data.</summary>
-        GettingHeaders,
-        /// <summary>Downloading the actual data.</summary>
-        GettingData,
-        /// <summary>The download has been completed sucessfully.</summary>
-        Complete,
-        /// <summary>An error occured during the download.</summary>
-        WebError,
-        /// <summary>An error occured while writing the file.</summary>
-        IOError
-    }
-    #endregion
-
     /// <summary>
     /// Downloads a file from a specific internet address to a local file using a background thread.
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    public class DownloadFile
+    public class DownloadFile : IProgress
     {
         #region Events
-        /// <summary>
-        /// Occurs whenever <see cref="State"/> changes.
-        /// </summary>
-        /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
-        ///   <para>The event handling blocks the download thread, therefore observers should handle the event quickly.</para>
-        /// </remarks>
-        public event DownloadFileEventHandler StateChanged;
+        public event ProgressEventHandler StateChanged;
 
         private void OnStateChanged()
         {
             // Copy to local variable to prevent threading issues
-            DownloadFileEventHandler stateChanged = StateChanged;
+            ProgressEventHandler stateChanged = StateChanged;
             if (stateChanged != null) stateChanged(this);
         }
 
-        /// <summary>
-        /// Occurs whenever <see cref="BytesReceived"/> changes.
-        /// </summary>
-        /// <remarks>
-        ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
-        ///   <para>The event handling blocks the download thread, therefore observers should handle the event quickly.</para>
-        /// </remarks>
-        public event DownloadFileEventHandler BytesReceivedChanged;
+        public event ProgressEventHandler BytesReceivedChanged;
 
         private void OnBytesReceivedChanged()
         {
             // Copy to local variable to prevent threading issues
-            DownloadFileEventHandler bytesReceivedChanged = BytesReceivedChanged;
+            ProgressEventHandler bytesReceivedChanged = BytesReceivedChanged;
             if (bytesReceivedChanged != null) bytesReceivedChanged(this);
         }
         #endregion
@@ -111,7 +68,7 @@ namespace Common.Download
         /// <summary>
         /// The URL the file is to be downloaded from.
         /// </summary>
-        /// <remarks>This value may change once <see cref="DownloadState.GettingData"/> has been reached, based on HTTP redirections.</remarks>
+        /// <remarks>This value may change once <see cref="ProgressState.GettingData"/> has been reached, based on HTTP redirections.</remarks>
         [Description("The URL the file is to be downloaded from.")]
         public Uri Source { get; private set; }
 
@@ -121,35 +78,18 @@ namespace Common.Download
         [Description("The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.")]
         public string Target { get; private set; }
 
-        private DownloadState _state;
+        private ProgressState _state;
         /// <summary>
         /// The current status of the download.
         /// </summary>
         [Description("The current status of the download.")]
-        public DownloadState State
+        public ProgressState State
         {
             get { return _state; }
             private set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
         }
 
-        /// <summary>
-        /// Contains an error description if <see cref="State"/> is set to <see cref="DownloadState.WebError"/> or <see cref="DownloadState.IOError"/>.
-        /// </summary>
-        [Description("Contains an error description if State is set to WebError or IOError.")]
         public string ErrorMessage { get; private set; }
-
-        /// <summary>
-        /// The HTTP header data returned by the server for the download request. An empty collection in case of an FTP download.
-        /// </summary>
-        /// <remarks>This value is always <see langword="null"/> until <see cref="DownloadState.GettingData"/> has been reached.</remarks>
-        public WebHeaderCollection Headers { get; private set; }
-
-        /// <summary>
-        /// Indicates whether this download can be resumed without having to start from the beginning again.
-        /// </summary>
-        /// <remarks>This value is always <see langword="true"/> until <see cref="DownloadState.GettingData"/> has been reached.</remarks>
-        [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
-        public bool SupportsResume { get; private set; }
 
         private long _bytesReceived;
         /// <summary>
@@ -165,13 +105,14 @@ namespace Common.Download
         /// <summary>
         /// The number of bytes the file to be downloaded is long; -1 for unknown.
         /// </summary>
-        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="DownloadState.GettingData"/> has been reached.</remarks>
+        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.GettingData"/> has been reached.</remarks>
         [Description("The number of bytes the file to be downloaded is long; -1 for unknown.")]
         public long BytesTotal { get; private set; }
 
         /// <summary>
         /// The progress of the download as a value between 0 and 1; -1 when unknown.
         /// </summary>
+        [Description("The progress of the task as a value between 0 and 1; -1 when unknown.")]
         public double Progress
         {
             get
@@ -184,6 +125,19 @@ namespace Common.Download
                 }
             }
         }
+
+        /// <summary>
+        /// The HTTP header data returned by the server for the download request. An empty collection in case of an FTP download.
+        /// </summary>
+        /// <remarks>This value is always <see langword="null"/> until <see cref="ProgressState.GettingData"/> has been reached.</remarks>
+        public WebHeaderCollection Headers { get; private set; }
+
+        /// <summary>
+        /// Indicates whether this download can be resumed without having to start from the beginning again.
+        /// </summary>
+        /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.GettingData"/> has been reached.</remarks>
+        [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
+        public bool SupportsResume { get; private set; }
 
         /// <summary>
         /// <see langword="true"/> if <see cref="RunSync"/> was called.
@@ -247,14 +201,14 @@ namespace Common.Download
         /// <summary>
         /// Starts executing the download in a background thread.
         /// </summary>
-        /// <remarks>Calling this on a not <see cref="DownloadState.Ready"/> thread will have no effect.</remarks>
+        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> thread will have no effect.</remarks>
         public void Start()
         {
             lock (_stateLock)
             {
-                if (State != DownloadState.Ready || RunningSync) return;
+                if (State != ProgressState.Ready || RunningSync) return;
 
-                State = DownloadState.Started; 
+                State = ProgressState.Started; 
                 _thread.Start();
             }
         }
@@ -270,11 +224,11 @@ namespace Common.Download
             lock (_stateLock)
             {
                 if (RunningSync) throw new InvalidOperationException(Resources.CannotCancelSync);
-                if (State == DownloadState.Ready || State >= DownloadState.Complete) return;
+                if (State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
                 _thread.Abort();
                 _thread.Join();
-                State = DownloadState.Ready;
+                State = ProgressState.Ready;
 
                 if (keepPartial && File.Exists(Target))
                 {
@@ -312,14 +266,14 @@ namespace Common.Download
         /// <summary>
         /// Runs the download code in the current thread instead of a background thread.
         /// </summary>
-        /// <exception cref="WebException">Thrown if the downloaded ended with <see cref="DownloadState.WebError"/>.</exception>
-        /// <exception cref="IOException">Thrown if the downloaded ended with <see cref="DownloadState.IOError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="DownloadState.Ready"/>.</exception>
+        /// <exception cref="WebException">Thrown if the download ended with <see cref="ProgressState.WebError"/>.</exception>
+        /// <exception cref="IOException">Thrown if the download ended with <see cref="ProgressState.IOError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
         public void RunSync()
         {
             lock (_stateLock)
             {
-                if (State != DownloadState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
+                if (State != ProgressState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
                 RunningSync = true;
             }
 
@@ -328,8 +282,8 @@ namespace Common.Download
             lock (_stateLock)
             {
                 RunningSync = false;
-                if (State == DownloadState.WebError) throw new WebException(ErrorMessage);
-                if (State == DownloadState.IOError) throw new IOException(ErrorMessage);
+                if (State == ProgressState.WebError) throw new WebException(ErrorMessage);
+                if (State == ProgressState.IOError) throw new IOException(ErrorMessage);
             }
         }
         #endregion
@@ -352,7 +306,7 @@ namespace Common.Download
                 lock (_stateLock)
                 {
                     ErrorMessage = Resources.FileNotExpectedSize;
-                    State = DownloadState.WebError;
+                    State = ProgressState.WebError;
                 }
             }
 
@@ -434,7 +388,7 @@ namespace Common.Download
                     // Configure the request to continue the file transfer where the file ends
                     if (fileStream.Length != 0) SetResumePoint(request, fileStream);
 
-                    lock (_stateLock) State = DownloadState.GettingHeaders;
+                    lock (_stateLock) State = ProgressState.GettingHeaders;
 
                     // Start the server request
                     using (WebResponse response = request.GetResponse())
@@ -459,7 +413,7 @@ namespace Common.Download
                                 }
                             }
 
-                            State = DownloadState.GettingData;
+                            State = ProgressState.GettingData;
                         }
 
                         // Start writing data to the file
@@ -473,7 +427,7 @@ namespace Common.Download
                 lock (_stateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = DownloadState.WebError;
+                    State = ProgressState.WebError;
                 }
                 return;
             }
@@ -482,7 +436,7 @@ namespace Common.Download
                 lock (_stateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = DownloadState.IOError;
+                    State = ProgressState.IOError;
                 }
                 return;
             }
@@ -491,13 +445,13 @@ namespace Common.Download
                 lock (_stateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = DownloadState.IOError;
+                    State = ProgressState.IOError;
                 }
                 return;
             }
             #endregion
 
-            State = DownloadState.Complete;
+            State = ProgressState.Complete;
         }
         #endregion
     }

@@ -1,47 +1,48 @@
-﻿/*
- * Copyright 2010 Bastian Eicher
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser Public License for more details.
- * 
- * You should have received a copy of the GNU Lesser Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
+﻿using System.Windows.Forms;
 using Common;
-using Common.Download;
 
 namespace ZeroInstall.Injector.WinForms
 {
     /// <summary>
     /// Uses GUI message boxes to ask the user questions.
     /// </summary>
-    public class GuiFeedHandler : IHandler
+    public partial class GuiFeedHandler : Form, IHandler
     {
+        private bool _initialized;
+
+        private void Initialize()
+        {
+            if (_initialized) return;
+
+            InitializeComponent();
+            Show();
+
+            _initialized = true;
+        }
+
         public bool AcceptNewKey(string information)
         {
             return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
         }
 
-        public void StartingDownload(DownloadFile download)
+        public void StartingDownload(IProgress download)
         {
+            Initialize();
+
+            downloadProgressBar.Target = download;
+        }
+
+        public void StartingExtraction(IProgress extraction)
+        {
+            Initialize();
+
             // ToDo: Implement
         }
 
-        public void ReportExtractionProgress(float progress, string file)
+        public void StartingManifest(IProgress manifest)
         {
-            // ToDo: Implement
-        }
+            Initialize();
 
-        public void ReportManifestProgress(float progress, string file)
-        {
             // ToDo: Implement
         }
     }

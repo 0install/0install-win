@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common;
 using Common.Download;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -97,7 +98,7 @@ namespace ZeroInstall.DownloadBroker
                         FetchArchive(currentArchive, tempArchive);
                         archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
-                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.ReportExtractionProgress, Handler.ReportManifestProgress);
+                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, null, null);
                     return;
                 }
                 throw new InvalidOperationException("No working retrieval method.");
@@ -158,7 +159,7 @@ namespace ZeroInstall.DownloadBroker
             #endregion
 
             long actualSize;
-            if (downloadFile.State == DownloadState.Complete) actualSize = downloadFile.BytesReceived;
+            if (downloadFile.State == ProgressState.Complete) actualSize = downloadFile.BytesReceived;
             else if (IsSizeKnown(downloadFile)) actualSize = downloadFile.BytesTotal;
             else return;
 

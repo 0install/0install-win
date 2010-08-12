@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Download;
+using Common;
 using ZeroInstall.Store.Interface;
 
 namespace ZeroInstall.Injector
@@ -25,13 +25,13 @@ namespace ZeroInstall.Injector
     /// </summary>
     public class SilentHandler : SilentFeedHandler, IHandler
     {
-        public void StartingDownload(DownloadFile download)
+        public void StartingDownload(IProgress download)
         {}
 
-        public void ReportExtractionProgress(float progress, string file)
+        public void StartingExtraction(IProgress extraction)
         {}
 
-        public void ReportManifestProgress(float progress, string file)
+        public void StartingManifest(IProgress manifest)
         {}
     }
 }

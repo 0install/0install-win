@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
@@ -165,7 +163,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void ButtonCancelClick(object sender, EventArgs e)
         {
-            if (downloadProgressBarArchive.Download != null) downloadProgressBarArchive.Download.Cancel(false);
+            if (downloadProgressBarArchive.Target != null) downloadProgressBarArchive.Target.Cancel(false);
         }
 
         /// <summary>
@@ -175,7 +173,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Noy used.</param>
         private void ArchiveForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (downloadProgressBarArchive.Download != null) downloadProgressBarArchive.Download.Cancel(false);
+            if (downloadProgressBarArchive.Target != null) downloadProgressBarArchive.Target.Cancel(false);
         }
 
         /// <summary>
@@ -196,9 +194,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             string absoluteFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
             if (!SetArchiveMimeType(fileName)) return;
 
-            downloadProgressBarArchive.Download = new DownloadFile(url, absoluteFilePath);
+            downloadProgressBarArchive.Target = new DownloadFile(url, absoluteFilePath);
             downloadProgressBarArchive.UseTaskbar = true;
-            downloadProgressBarArchive.Download.StateChanged += ArchiveDownloadStateChanged;
+            downloadProgressBarArchive.Target.StateChanged += ArchiveDownloadStateChanged;
 
             // disable all buttons, because while downloading no user interaction shall be
             // possible.
@@ -207,7 +205,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             buttonExtractArchive.Enabled = false;
             buttonOK.Enabled = false;
 
-            downloadProgressBarArchive.Download.Start();
+            downloadProgressBarArchive.Target.Start();
         }
 
         /// <summary>
@@ -400,27 +398,27 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// download has completed, the button <see cref="buttonExtractArchive"/> will be
         /// enabled, too.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        private void ArchiveDownloadStateChanged(DownloadFile sender)
+        /// <param name="sender">The download being tracked.</param>
+        private void ArchiveDownloadStateChanged(IProgress sender)
         {
             //TODO: If the archive is self-extracted the method searchs for its <see cref="_archive"/>.StartOffset and sets it in <see cref="hintTextBoxStartOffset"/>.Text .
             Invoke((SimpleEventHandler) delegate
             {
                 switch (sender.State)
                 {
-                    case DownloadState.Started: labelArchiveDownloadMessages.Text = "Started"; break;
-                    case DownloadState.Ready: labelArchiveDownloadMessages.Text = "Ready"; break;
-                    case DownloadState.GettingHeaders: labelArchiveDownloadMessages.Text = "Getting headers"; break;
-                    case DownloadState.GettingData: labelArchiveDownloadMessages.Text = "Getting data"; break;
-                    case DownloadState.IOError:
-                    case DownloadState.WebError:
+                    case ProgressState.Started: labelArchiveDownloadMessages.Text = "Started"; break;
+                    case ProgressState.Ready: labelArchiveDownloadMessages.Text = "Ready"; break;
+                    case ProgressState.GettingHeaders: labelArchiveDownloadMessages.Text = "Getting headers"; break;
+                    case ProgressState.GettingData: labelArchiveDownloadMessages.Text = "Getting data"; break;
+                    case ProgressState.IOError:
+                    case ProgressState.WebError:
                         labelArchiveDownloadMessages.Text = "Error!";
                         MessageBox.Show(sender.ErrorMessage);
                         buttonArchiveDownload.Enabled = true;
                         buttonChooseArchive.Enabled = true;
                         break;
-                    case DownloadState.Complete:
-                        hintTextBoxLocalArchive.Text = sender.Target;
+                    case ProgressState.Complete:
+                        hintTextBoxLocalArchive.Text = ((DownloadFile)sender).Target;
                         
                         buttonArchiveDownload.Enabled = true;
                         buttonChooseArchive.Enabled = true;

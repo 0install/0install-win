@@ -31,7 +31,7 @@
             this.labelExtractArchiveMessage = new System.Windows.Forms.Label();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
             this.buttonChooseArchive = new System.Windows.Forms.Button();
-            this.downloadProgressBarArchive = new Common.Controls.DownloadProgressBar();
+            this.downloadProgressBarArchive = new Common.Controls.TrackingProgressBar();
             this.labelArchiveDownloadMessages = new System.Windows.Forms.Label();
             this.labelExtract = new System.Windows.Forms.Label();
             this.treeViewExtract = new System.Windows.Forms.TreeView();
@@ -92,7 +92,7 @@
             // 
             // downloadProgressBarArchive
             // 
-            this.downloadProgressBarArchive.Download = null;
+            this.downloadProgressBarArchive.Target = null;
             this.downloadProgressBarArchive.Location = new System.Drawing.Point(15, 130);
             this.downloadProgressBarArchive.Name = "downloadProgressBarArchive";
             this.downloadProgressBarArchive.Size = new System.Drawing.Size(176, 10);
@@ -290,7 +290,7 @@
         private System.Windows.Forms.Label labelExtractArchiveMessage;
         private System.Windows.Forms.Button buttonExtractArchive;
         private System.Windows.Forms.Button buttonChooseArchive;
-        private Common.Controls.DownloadProgressBar downloadProgressBarArchive;
+        private Common.Controls.TrackingProgressBar downloadProgressBarArchive;
         private System.Windows.Forms.Label labelArchiveDownloadMessages;
         private System.Windows.Forms.Label labelExtract;
         private System.Windows.Forms.TreeView treeViewExtract;

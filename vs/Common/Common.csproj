@@ -74,11 +74,11 @@
     <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
-    <Compile Include="Controls\DownloadProgressBar.cs">
+    <Compile Include="Controls\TrackingProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Controls\DownloadProgressBar.Designer.cs">
-      <DependentUpon>DownloadProgressBar.cs</DependentUpon>
+    <Compile Include="Controls\TrackingProgressBar.Designer.cs">
+      <DependentUpon>TrackingProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\InspectionForm.cs">
       <SubType>Form</SubType>
@@ -125,6 +125,7 @@
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
     <Compile Include="AppMutex.cs" />
+    <Compile Include="IProgress.cs" />
     <Compile Include="NanoGrid.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
@@ -152,8 +153,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\DownloadProgressBar.resx">
-      <DependentUpon>DownloadProgressBar.cs</DependentUpon>
+    <EmbeddedResource Include="Controls\TrackingProgressBar.resx">
+      <DependentUpon>TrackingProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>

@@ -63,13 +63,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadProgessForm.cs">
+    <Compile Include="GuiFeedHandler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DownloadProgessForm.Designer.cs">
-      <DependentUpon>DownloadProgessForm.cs</DependentUpon>
+    <Compile Include="GuiFeedHandler.Designer.cs">
+      <DependentUpon>GuiFeedHandler.cs</DependentUpon>
     </Compile>
-    <Compile Include="GuiFeedHandler.cs" />
     <Compile Include="InterfaceUriDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,8 +77,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DownloadProgessForm.resx">
-      <DependentUpon>DownloadProgessForm.cs</DependentUpon>
+    <EmbeddedResource Include="GuiFeedHandler.resx">
+      <DependentUpon>GuiFeedHandler.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceUriDialog.resx">
       <DependentUpon>InterfaceUriDialog.cs</DependentUpon>

@@ -1,6 +1,6 @@
 ﻿namespace Common.Controls
 {
-    partial class DownloadProgressBar
+    partial class TrackingProgressBar
     {
         /// <summary> 
         /// Required designer variable.
@@ -18,7 +18,7 @@
                 components.Dispose();
 
                 // Remove update hooks
-                Download = null;
+                Target = null;
             }
             base.Dispose(disposing);
         }

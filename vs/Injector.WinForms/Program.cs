@@ -158,12 +158,7 @@ namespace ZeroInstall.Injector.WinForms
             if (results.SelectionsFile == null) controller.Solve();
             else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
-            // ToDo: Add progress callbacks
-            var progress = new DownloadProgessForm();
-            progress.Show();
-            progress.Refresh();
             controller.DownloadUncachedImplementations();
-            progress.Close();
 
             if (!results.DownloadOnly)
             {

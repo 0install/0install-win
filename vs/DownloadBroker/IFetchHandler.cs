@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common.Download;
+using Common;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -31,21 +31,19 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Called when a new download is about to be started.
         /// </summary>
-        /// <param name="download">The acutal download. Can be used for tracking the progress.</param>
-        void StartingDownload(DownloadFile download);
+        /// <param name="download">A reference to the download. Can be used for tracking the progress.</param>
+        void StartingDownload(IProgress download);
 
         /// <summary>
-        /// Called to inform the user of the user of the progress of extracting files from an archive.
+        /// Called when a new extraction task is about to be started.
         /// </summary>
-        /// <param name="progress">The progress of the operation as a value between 0 and 1; -1 when unknown.</param>
-        /// <param name="file">The name of the file currently being processed.</param>
-        void ReportExtractionProgress(float progress, string file);
+        /// <param name="extraction">A reference to the extraction task. Can be used for tracking the progress.</param>
+        void StartingExtraction(IProgress extraction);
 
         /// <summary>
-        /// Called to inform the user of the user of the progress of generating a manifest (hashing files).
+        /// Called when a new manifest is about to be generated.
         /// </summary>
-        /// <param name="progress">The progress of the operation as a value between 0 and 1; -1 when unknown.</param>
-        /// <param name="file">The name of the file currently being processed.</param>
-        void ReportManifestProgress(float progress, string file);
+        /// <param name="manifest">A reference to the manifest generation task. Can be used for tracking the progress.</param>
+        void StartingManifest(IProgress manifest);
     }
 }

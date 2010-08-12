@@ -182,22 +182,22 @@ namespace Common.Download
 
         //--------------------//
 
-        private void UpdateFileState(DownloadFile sender)
+        private void UpdateFileState(IProgress sender)
         {
             switch (sender.State)
             {
-                case DownloadState.Complete:
+                case ProgressState.Complete:
                     // Check if all file downloads have been completed
                     foreach (DownloadFile file in Files)
                     {
                         // No event if any of the files aren't completed yet
-                        if (file.State != DownloadState.Complete) return;
+                        if (file.State != ProgressState.Complete) return;
                     }
                     OnCompleted();
                     break;
 
-                case DownloadState.WebError:
-                case DownloadState.IOError:
+                case ProgressState.WebError:
+                case ProgressState.IOError:
                     // Cancel all other file downloads in this job
                     foreach (DownloadFile file in Files)
                     {
