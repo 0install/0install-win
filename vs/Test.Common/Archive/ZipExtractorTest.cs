@@ -106,9 +106,10 @@ namespace Common.Archive
             using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0))
                 extractor.Extract("extractedArchive", "folder1", null);
 
-            Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "folder1")));
-            Assert.IsFalse(File.Exists("file1"));
-            Assert.IsFalse(File.Exists("file2"));
+            Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "nestedFolder")));
+            Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "nestedFile")));
+            Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file1")));
+            Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file2")));
         }
 
         [Test]
