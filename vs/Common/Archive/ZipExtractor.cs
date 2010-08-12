@@ -85,7 +85,7 @@ namespace Common.Archive
                 foreach (ZipEntry entry in _zip)
                 {
                     string entryName = GetSubEntryName(entry.Name, subDir);
-                    if (entryName == null) continue;
+                    if (string.IsNullOrEmpty(entryName)) continue;
 
                     if (entry.IsDirectory) CreateDirectory(target, entryName, entry.DateTime);
                     else if (entry.IsFile)

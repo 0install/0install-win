@@ -161,6 +161,8 @@ namespace Common.Archive
                 entryName = entryName.StartsWith(subDir) ? entryName.Substring(subDir.Length) : null;
             }
 
+            if (entryName != null) entryName = entryName.TrimStart(Path.DirectorySeparatorChar);
+
             return entryName;
         }
         #endregion
@@ -215,7 +217,7 @@ namespace Common.Archive
             // If an executable file is overwritten by a non-executable file, remove the xbit flag
             else if (alreadyExists) RemoveExecutableBit(target, relativePath);
 
-            Directory.SetLastWriteTimeUtc(filePath, dateTime);
+            File.SetLastWriteTimeUtc(filePath, dateTime);
         }
         /// <summary>
         /// Combines the extraction target path with the relative path inside the archive.
@@ -233,7 +235,7 @@ namespace Common.Archive
 
             if (Path.IsPathRooted(target) && target.Contains("../")) throw new IOException(Resources.ArchiveInvalid);
 
-            return Path.Combine(target, relativePath.TrimStart(Path.DirectorySeparatorChar));
+            return Path.Combine(target, relativePath);
         }
         #endregion
 
@@ -271,7 +273,7 @@ namespace Common.Archive
                     using (var xbitWriter = File.AppendText(xbitFilePath))
                     {
                         xbitWriter.NewLine = "\n";
-                        xbitWriter.WriteLine("/" + path);
+                        xbitWriter.WriteLine("/" + path.Replace(Path.DirectorySeparatorChar, '/'));
                     }
                     break;
                 }
