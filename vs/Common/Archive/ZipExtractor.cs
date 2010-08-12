@@ -84,17 +84,17 @@ namespace Common.Archive
                 int i = 0;
                 foreach (ZipEntry entry in _zip)
                 {
-                    // Only extract objects within the selected sub-directory
-                    if (!string.IsNullOrEmpty(subDir) && !entry.Name.StartsWith(subDir)) continue;
+                    string entryName = GetSubEntryName(entry.Name, subDir);
+                    if (entryName == null) continue;
 
-                    if (entry.IsDirectory) CreateDirectory(target, entry.Name, entry.DateTime);
+                    if (entry.IsDirectory) CreateDirectory(target, entryName, entry.DateTime);
                     else if (entry.IsFile)
                     {
                         using (var stream = _zip.GetInputStream(entry))
-                            WriteFile(target, entry.Name, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
+                            WriteFile(target, entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
 
                         // Report back the progess
-                        if (extractionProgress != null) extractionProgress(++i / (float)_zip.Count, entry.Name);
+                        if (extractionProgress != null) extractionProgress(++i / (float)_zip.Count, entryName);
                     }
                 }
             }

@@ -144,6 +144,27 @@ namespace Common.Archive
 
         //--------------------//
 
+        #region Get sub entries
+        /// <summary>
+        /// Returns the name of an archive entry trimmed by the selected sub-directory prefix.
+        /// </summary>
+        /// <param name="entryName">The path of the archive entry relative to the archive's root.</param>
+        /// <param name="subDir">The sub-directory prefix relative to the archive's root to trim away.</param>
+        /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <paramref name="subDir"/>.</returns>
+        protected static string GetSubEntryName(string entryName, string subDir)
+        {
+            entryName = StringHelper.UnifySlashes(entryName);
+
+            if (!string.IsNullOrEmpty(subDir))
+            {
+                // Only extract objects within the selected sub-directory
+                entryName = entryName.StartsWith(subDir) ? entryName.Substring(subDir.Length) : null;
+            }
+
+            return entryName;
+        }
+        #endregion
+
         #region Write entries
         /// <summary>
         /// Creates a directory in the file system and sets its last write time.
@@ -212,7 +233,7 @@ namespace Common.Archive
 
             if (Path.IsPathRooted(target) && target.Contains("../")) throw new IOException(Resources.ArchiveInvalid);
 
-            return Path.Combine(target, relativePath);
+            return Path.Combine(target, relativePath.TrimStart(Path.DirectorySeparatorChar));
         }
         #endregion
 
