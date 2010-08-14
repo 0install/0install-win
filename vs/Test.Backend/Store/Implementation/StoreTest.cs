@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using Common.Archive;
 using Common.Helpers;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
@@ -25,7 +24,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 finally
                 {
-                    if (Directory.Exists(cache)) Directory.Delete(cache, recursive: true);
+                    if (Directory.Exists(cache)) Directory.Delete(cache, true);
                 }
             }
         }
@@ -69,7 +68,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                if(Directory.Exists(path)) Directory.Delete(path, recursive: true);
+                if(Directory.Exists(path)) Directory.Delete(path, true);
             }
         }
     }

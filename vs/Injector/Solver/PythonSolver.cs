@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -44,7 +45,7 @@ namespace ZeroInstall.Injector.Solver
 #endif
 
                 if (Directory.Exists(Path.Combine(searchBase, "Python"))) return searchBase;
-                return Path.Combine(Path.Combine(searchBase, ".."), "Portable");
+                return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Portable");
             }
         }
 
@@ -95,11 +96,9 @@ namespace ZeroInstall.Injector.Solver
 
             // Start the Python process
             process.Start();
-            process.StandardInput.WriteLine();
-            process.BeginOutputReadLine();
+            //process.StandardInput.WriteLine();
+            //process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-            
-            //policy.InterfaceCache.Handler.AcceptNewKey(process.StandardError.ReadToEnd());
 
             // Parse stdout after the process has completed
             process.WaitForExit();
@@ -107,7 +106,7 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        #region Python IPC
+        #region Python subprocess
         /// <summary>
         /// Prepares to launch a the Python solver code in a child process.
         /// </summary>
