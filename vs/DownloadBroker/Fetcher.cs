@@ -84,7 +84,7 @@ namespace ZeroInstall.DownloadBroker
                 {
                     string tempArchive = Path.GetTempFileName();
                     FetchArchive(archive, tempArchive);
-                    Store.AddArchive(new ArchiveFileInfo {Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset}, implementation.ManifestDigest, null, null);
+                    Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, null);
                     File.Delete(tempArchive);
                     return;
                 }
@@ -98,7 +98,7 @@ namespace ZeroInstall.DownloadBroker
                         FetchArchive(currentArchive, tempArchive);
                         archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
                     }
-                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, null, null);
+                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, null);
                     return;
                 }
                 throw new InvalidOperationException("No working retrieval method.");

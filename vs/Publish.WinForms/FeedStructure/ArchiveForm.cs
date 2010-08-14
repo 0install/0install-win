@@ -246,9 +246,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             try
             {
                 //TODO add progress bar?
-                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset);
+                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath);
                 //TODO: Add progress callback hanlder
-                archiveExtractor.Extract(extractedArchivePath, null, null);
+                archiveExtractor.RunSync();
                 buttonExtractArchive.Enabled = false;
             }
             catch (IOException err)

@@ -180,18 +180,22 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
 
-            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset))
+            // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+            using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
             {
+                extractor.SubDir = archiveInfo.SubDir;
 
-                // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-                var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-                extractor.Extract(tempDir, archiveInfo.SubDir, extractionProgress);
+                // Prepare progress reporting
+                if (startingExtraction != null) startingExtraction(extractor);
+                
+                extractor.RunSync();
 
                 try
                 {
@@ -208,7 +212,7 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -218,8 +222,15 @@ namespace ZeroInstall.Store.Implementation
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             foreach (var archiveInfo in archiveInfos)
             {
-                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset))
-                    extractor.Extract(tempDir, archiveInfo.SubDir, extractionProgress);
+                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
+                {
+                    extractor.SubDir = archiveInfo.SubDir;
+
+                    // Prepare progress reporting
+                    if (startingExtraction != null) startingExtraction(extractor);
+
+                    extractor.RunSync();
+                }
             }
 
             try

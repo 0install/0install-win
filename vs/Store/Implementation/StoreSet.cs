@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Common;
 using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -127,7 +128,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -140,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(archiveInfo, manifestDigest, extractionProgress, manifestProgress);
+                    store.AddArchive(archiveInfo, manifestDigest, startingExtraction, manifestProgress);
                     return;
                 }
                 #region Error handling
@@ -156,7 +157,7 @@ namespace ZeroInstall.Store.Implementation
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
         }
 
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ProgressCallback extractionProgress, ProgressCallback manifestProgress)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -169,7 +170,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddMultipleArchives(archiveInfos, manifestDigest, extractionProgress, manifestProgress);
+                    store.AddMultipleArchives(archiveInfos, manifestDigest, startingExtraction, manifestProgress);
                     return;
                 }
                 #region Error handling

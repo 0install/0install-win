@@ -22,8 +22,9 @@ namespace Common.Archive
         /// </summary>
         /// <param name="archive">The stream containing the archive's data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public ZipExtractor(Stream archive, long startOffset) : base(archive, startOffset)
+        public ZipExtractor(Stream archive, long startOffset, string target) : base(archive, startOffset, target)
         {
             try
             {
@@ -73,35 +74,57 @@ namespace Common.Archive
         #endregion
 
         #region Extraction
-        public override void Extract(string target, string subDir, ProgressCallback extractionProgress)
+        protected override void RunExtraction()
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
-            #endregion
-
             try
             {
                 int i = 0;
                 foreach (ZipEntry entry in _zip)
                 {
-                    string entryName = GetSubEntryName(entry.Name, subDir);
+                    string entryName = GetSubEntryName(entry.Name);
                     if (string.IsNullOrEmpty(entryName)) continue;
 
-                    if (entry.IsDirectory) CreateDirectory(target, entryName, entry.DateTime);
+                    if (entry.IsDirectory) CreateDirectory(entryName, entry.DateTime);
                     else if (entry.IsFile)
                     {
                         using (var stream = _zip.GetInputStream(entry))
-                            WriteFile(target, entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
+                            WriteFile(entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
 
-                        // Report back the progess
-                        if (extractionProgress != null) extractionProgress(++i / (float)_zip.Count, entryName);
+                        // ToDo: Report progess
                     }
                 }
             }
+            #region Error handling
             catch (ZipException ex)
             {
-                throw new IOException(Resources.ArchiveInvalid, ex);
+                lock (StateLock)
+                {
+                    ErrorMessage = Resources.ArchiveInvalid + "\n" + ex.Message;
+                    State = ProgressState.IOError;
+                }
+                return;
             }
+            catch (IOException ex)
+            {
+                lock (StateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = ProgressState.IOError;
+                }
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                lock (StateLock)
+                {
+                    ErrorMessage = ex.Message;
+                    State = ProgressState.IOError;
+                }
+                return;
+            }
+            #endregion
+
+            State = ProgressState.Complete;
         }
 
         /// <summary>

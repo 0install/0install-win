@@ -80,7 +80,7 @@ namespace Common.Download
         //    }
 
         //    // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-        //    Assert.AreEqual(DownloadState.Complete, download.State);
+        //    Assert.AreEqual(ProgressState.Complete, download.State);
         //    Assert.AreEqual(@"abc", fileContent);
         //}
 
@@ -113,7 +113,7 @@ namespace Common.Download
         //    }
 
         //    // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-        //    Assert.AreEqual(DownloadState.Complete, download.State);
+        //    Assert.AreEqual(ProgressState.Complete, download.State);
         //    Assert.AreEqual(@"abc", fileContent);
         //}
     }

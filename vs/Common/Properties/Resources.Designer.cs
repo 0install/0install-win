@@ -114,24 +114,6 @@ namespace Common.Properties {
             }
         }
         
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot cancel a synchronous operation..
-        /// </summary>
-        internal static string CannotCancelSync {
-            get {
-                return ResourceManager.GetString("CannotCancelSync", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cannot wait for a synchronous operation..
-        /// </summary>
-        internal static string CannotJoinSync {
-            get {
-                return ResourceManager.GetString("CannotJoinSync", resourceCulture);
-            }
-        }
-        
         internal static System.Drawing.Bitmap ClearButton {
             get {
                 object obj = ResourceManager.GetObject("ClearButton", resourceCulture);

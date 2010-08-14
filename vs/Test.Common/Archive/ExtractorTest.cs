@@ -54,7 +54,7 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long)"/> correctly creates a <see cref="ZipExtractor"/>.
+        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long,string)"/> correctly creates a <see cref="ZipExtractor"/>.
         /// </summary>
         [Test]
         public void TestCreateExtractor()
@@ -73,7 +73,7 @@ namespace Common.Archive
                     }
                 }
 
-                using (var extractor = Extractor.CreateExtractor(null, path, 0))
+                using (var extractor = Extractor.CreateExtractor(null, path, 0, Path.GetTempPath()))
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
             }
         }
