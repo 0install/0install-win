@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Common.Helpers;
 using Common.Properties;
 
@@ -201,7 +202,12 @@ namespace Common.Download
                     // Cancel all other file downloads in this job
                     foreach (DownloadFile file in Files)
                     {
-                        if (file != sender) file.Cancel(false);
+                        if (file != sender)
+                        {
+                            file.Cancel();
+                            try { if (File.Exists(file.Target)) File.Delete(file.Target); }
+                            catch (UnauthorizedAccessException) {}
+                        }
                     }
                     OnFailed();
                     break;

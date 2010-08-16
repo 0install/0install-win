@@ -192,20 +192,20 @@ namespace ZeroInstall.Store.Implementation
             {
                 extractor.SubDir = archiveInfo.SubDir;
 
-                // Prepare progress reporting
+                // Set up progress reporting
                 if (startingExtraction != null) startingExtraction(extractor);
                 
-                extractor.RunSync();
-
                 try
                 {
+                    extractor.RunSync();
+
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, manifestProgress);
                 }
                 #region Error handling
                 catch (Exception)
                 {
                     // Remove extracted directory if validation or something else failed
-                    Directory.Delete(tempDir, true);
+                    if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
                     throw;
                 }
                 #endregion
@@ -220,28 +220,30 @@ namespace ZeroInstall.Store.Implementation
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            foreach (var archiveInfo in archiveInfos)
-            {
-                using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
-                {
-                    extractor.SubDir = archiveInfo.SubDir;
-
-                    // Prepare progress reporting
-                    if (startingExtraction != null) startingExtraction(extractor);
-
-                    extractor.RunSync();
-                }
-            }
 
             try
             {
+                // Extract archives "over each other" in order
+                foreach (var archiveInfo in archiveInfos)
+                {
+                    using (var extractor = Extractor.CreateExtractor(archiveInfo.MimeType, archiveInfo.Path, archiveInfo.StartOffset, tempDir))
+                    {
+                        extractor.SubDir = archiveInfo.SubDir;
+
+                        // Set up progress reporting
+                        if (startingExtraction != null) startingExtraction(extractor);
+
+                        extractor.RunSync();
+                    }
+                }
+
                 VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, manifestProgress);
             }
             #region Error handling
             catch (Exception)
             {
                 // Remove extracted directory if validation or something else failed
-                Directory.Delete(tempDir, true);
+                if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
                 throw;
             }
             #endregion

@@ -18,7 +18,7 @@
                 components.Dispose();
 
                 // Remove update hooks
-                Target = null;
+                Task = null;
             }
             base.Dispose(disposing);
         }

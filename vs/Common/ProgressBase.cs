@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -84,10 +83,6 @@ namespace Common
         //--------------------//
         
         #region User control
-        /// <summary>
-        /// Starts executing the download in a background thread.
-        /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> thread will have no effect.</remarks>
         public void Start()
         {
             lock (StateLock)
@@ -99,13 +94,7 @@ namespace Common
             }
         }
 
-        /// <summary>
-        /// Stops executing the download.
-        /// </summary>
-        /// <param name="keepPartial">Set to <see langword="true"/> to keep partially downloaded files; <see langword="false"/> to delete them.</param>
-        /// <remarks>Calling this on a not running thread will have no effect.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous download is running (launched via <see cref="RunSync"/>).</exception>
-        public void Cancel(bool keepPartial)
+        public void Cancel()
         {
             lock (StateLock)
             {
@@ -117,34 +106,10 @@ namespace Common
                 lock (StateLock)
                 {
                     State = ProgressState.Ready;
-
-                    if (keepPartial) return;
-
-                    // Clean up left-over files
-                    try
-                    {
-                        if (File.Exists(Target)) File.Delete(Target);
-                        if (Directory.Exists(Target)) Directory.Delete(Target, true);
-                    }
-                    #region Error handling
-                    catch (IOException ex)
-                    {
-                        Log.Warn("Unable to delete: " + Target + " (" + ex.Message + ")");
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Warn("Unable to delete: " + Target + " (" + ex.Message + ")");
-                    }
-                    #endregion
                 }
             }
         }
 
-        /// <summary>
-        /// Blocks until the download is completed or terminated.
-        /// </summary>
-        /// <remarks>Calling this on a not running thread will return immediately.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous download is running (launched via <see cref="RunSync"/>).</exception>
         public void Join()
         {
             lock (StateLock)
@@ -155,13 +120,6 @@ namespace Common
             Thread.Join();
         }
 
-        /// <summary>
-        /// Runs the download synchronously instead of executing it in a background thread.
-        /// </summary>
-        /// <exception cref="WebException">Thrown if the download ended with <see cref="ProgressState.WebError"/>.</exception>
-        /// <exception cref="IOException">Thrown if the download ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        /// <exception cref="UserCancelException">Thrown if <see cref="Cancel"/> was called from another thread.</exception>
         public void RunSync()
         {
             Start();

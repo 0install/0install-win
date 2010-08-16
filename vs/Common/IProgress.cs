@@ -126,10 +126,8 @@ namespace Common
         /// <summary>
         /// Stops executing the task.
         /// </summary>
-        /// <param name="keepPartial">Set to <see langword="true"/> to keep partially processed files; <see langword="false"/> to delete them.</param>
         /// <remarks>Calling this on a not running thread will have no effect.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running (launched via <see cref="RunSync"/>).</exception>
-        void Cancel(bool keepPartial);
+        void Cancel();
 
         /// <summary>
         /// Blocks until the task is completed or terminated.

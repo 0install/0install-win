@@ -92,7 +92,7 @@
             // 
             // downloadProgressBarArchive
             // 
-            this.downloadProgressBarArchive.Target = null;
+            this.downloadProgressBarArchive.Task = null;
             this.downloadProgressBarArchive.Location = new System.Drawing.Point(15, 130);
             this.downloadProgressBarArchive.Name = "downloadProgressBarArchive";
             this.downloadProgressBarArchive.Size = new System.Drawing.Size(176, 10);

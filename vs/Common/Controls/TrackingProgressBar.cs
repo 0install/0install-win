@@ -28,31 +28,31 @@ namespace Common.Controls
     public partial class TrackingProgressBar : UserControl
     {
         #region Properties
-        private IProgress _target;
+        private IProgress _task;
         /// <summary>
         /// The <see cref="IProgress"/> object to track.
         /// </summary>
         [Description("The IProgress object to track.")]
-        public IProgress Target
+        public IProgress Task
         {
             set
             {
                 // Remove all delegates from old _downloadFile
-                if (_target != null)
+                if (_task != null)
                 {
-                    _target.StateChanged -= DownloadStateChanged;
-                    _target.StateChanged -= DownloadBytesRecivedChanged;
+                    _task.StateChanged -= DownloadStateChanged;
+                    _task.StateChanged -= DownloadBytesRecivedChanged;
                 }
 
-                _target = value;
+                _task = value;
 
                 if (value != null)
                 {
                     // Set delegates to the new _downloadFile
-                    _target.StateChanged += DownloadStateChanged;
+                    _task.StateChanged += DownloadStateChanged;
                 }
             }
-            get { return _target; }
+            get { return _task; }
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the taskbar depending on the <see cref="ProgressState"/> of <see cref="_target"/>.
+        /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the taskbar depending on the <see cref="ProgressState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
@@ -94,7 +94,7 @@ namespace Common.Controls
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 IntPtr formHandle = GetFormHandle();
-                switch (_target.State)
+                switch (_task.State)
                 {
                     case ProgressState.Ready:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
@@ -109,7 +109,7 @@ namespace Common.Controls
                         // Is the final size known?
                         if (sender.BytesTotal > 0)
                         {
-                            _target.BytesReceivedChanged += DownloadBytesRecivedChanged;
+                            _task.BytesReceivedChanged += DownloadBytesRecivedChanged;
                             progressBar.Style = ProgressBarStyle.Continuous;
                             if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
@@ -136,7 +136,7 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void DownloadBytesRecivedChanged(IProgress sender)
         {
-            int currentValue = (int)(_target.Progress * 100);
+            int currentValue = (int)(_task.Progress * 100);
 
             // Handle events coming from a non-UI thread
             progressBar.Invoke((SimpleEventHandler)delegate

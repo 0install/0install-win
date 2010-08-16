@@ -29,7 +29,7 @@ namespace ZeroInstall.Injector.WinForms
         {
             Initialize();
 
-            downloadProgressBar.Target = download;
+            downloadProgressBar.Task = download;
         }
 
         public void StartingExtraction(IProgress extraction)

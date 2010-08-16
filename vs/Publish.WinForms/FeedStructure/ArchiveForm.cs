@@ -163,7 +163,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void ButtonCancelClick(object sender, EventArgs e)
         {
-            if (downloadProgressBarArchive.Target != null) downloadProgressBarArchive.Target.Cancel(false);
+            if (downloadProgressBarArchive.Task != null)
+            {
+                downloadProgressBarArchive.Task.Cancel();
+                string targetDir = ((Extractor)downloadProgressBarArchive.Task).Target;
+                try { if (Directory.Exists(targetDir)) Directory.Delete(targetDir); }
+                catch (UnauthorizedAccessException) {}
+            }
         }
 
         /// <summary>
@@ -173,7 +179,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Noy used.</param>
         private void ArchiveForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (downloadProgressBarArchive.Target != null) downloadProgressBarArchive.Target.Cancel(false);
+            if (downloadProgressBarArchive.Task != null)
+            {
+                downloadProgressBarArchive.Task.Cancel();
+                string targetDir = ((Extractor)downloadProgressBarArchive.Task).Target;
+                try { if (Directory.Exists(targetDir)) Directory.Delete(targetDir); }
+                catch (UnauthorizedAccessException) { }
+            }
         }
 
         /// <summary>
@@ -194,9 +206,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             string absoluteFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
             if (!SetArchiveMimeType(fileName)) return;
 
-            downloadProgressBarArchive.Target = new DownloadFile(url, absoluteFilePath);
+            downloadProgressBarArchive.Task = new DownloadFile(url, absoluteFilePath);
             downloadProgressBarArchive.UseTaskbar = true;
-            downloadProgressBarArchive.Target.StateChanged += ArchiveDownloadStateChanged;
+            downloadProgressBarArchive.Task.StateChanged += ArchiveDownloadStateChanged;
 
             // disable all buttons, because while downloading no user interaction shall be
             // possible.
@@ -205,7 +217,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             buttonExtractArchive.Enabled = false;
             buttonOK.Enabled = false;
 
-            downloadProgressBarArchive.Target.Start();
+            downloadProgressBarArchive.Task.Start();
         }
 
         /// <summary>

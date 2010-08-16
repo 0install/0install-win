@@ -34,7 +34,7 @@
             // 
             // downloadProgressBar
             // 
-            this.downloadProgressBar.Target = null;
+            this.downloadProgressBar.Task = null;
             this.downloadProgressBar.Location = new System.Drawing.Point(12, 12);
             this.downloadProgressBar.Name = "downloadProgressBar";
             this.downloadProgressBar.Size = new System.Drawing.Size(240, 23);
