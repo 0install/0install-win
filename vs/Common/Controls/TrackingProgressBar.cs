@@ -100,12 +100,12 @@ namespace Common.Controls
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
                         break;
 
-                    case ProgressState.GettingHeaders:
+                    case ProgressState.Header:
                         progressBar.Style = ProgressBarStyle.Marquee;
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
                         break;
 
-                    case ProgressState.GettingData:
+                    case ProgressState.Data:
                         // Is the final size known?
                         if (sender.BytesTotal > 0)
                         {

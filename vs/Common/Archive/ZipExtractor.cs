@@ -20,18 +20,19 @@ namespace Common.Archive
         /// <summary>
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
-        /// <param name="archive">The stream containing the archive's data.</param>
+        /// <param name="stream">The stream containing the archive's data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public ZipExtractor(Stream archive, long startOffset, string target) : base(archive, startOffset, target)
+        public ZipExtractor(Stream stream, long startOffset, string target) : base(stream, startOffset, target)
         {
             try
             {
-                _zip = new ZipFile(Stream) { IsStreamOwner = false };
+                _zip = new ZipFile(stream) { IsStreamOwner = false };
             }
             catch (ZipException ex)
             {
+                // Make sure only standard exception types are thrown to the outside
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
         }
@@ -76,6 +77,8 @@ namespace Common.Archive
         #region Extraction
         protected override void RunExtraction()
         {
+            State = ProgressState.Data;
+
             try
             {
                 int i = 0;
@@ -89,9 +92,9 @@ namespace Common.Archive
                     {
                         using (var stream = _zip.GetInputStream(entry))
                             WriteFile(entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
-
-                        // ToDo: Report progess
                     }
+
+                    BytesProcessed = Stream.Position - StartOffset;
                 }
             }
             #region Error handling

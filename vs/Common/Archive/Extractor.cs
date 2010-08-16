@@ -35,14 +35,16 @@ namespace Common.Archive
         /// <summary>
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
-        /// <param name="archive">The stream containing the archive data.</param>
+        /// <param name="stream">The stream containing the archive data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        protected Extractor(Stream archive, long startOffset, string target)
+        protected Extractor(Stream stream, long startOffset, string target)
         {
-            Stream = archive;
+            Stream = stream;
             StartOffset = startOffset;
             Target = target;
+
+            BytesTotal = stream.Length - startOffset;
 
             // Prepare the background thread for later execution
             Thread = new Thread(RunExtraction) { Name = "Extraction: " + target, IsBackground = true };

@@ -53,7 +53,7 @@ namespace Common
         public string ErrorMessage { get; protected set; }
 
         private long _bytesReceived;
-        public long BytesReceived
+        public long BytesProcessed
         {
             get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnBytesReceivedChanged); }
         }
@@ -68,7 +68,7 @@ namespace Common
                 {
                     case -1: return -1;
                     case 0: return 1;
-                    default: return BytesReceived / (double)BytesTotal;
+                    default: return BytesProcessed / (double)BytesTotal;
                 }
             }
         }
@@ -105,6 +105,7 @@ namespace Common
                 
                 lock (StateLock)
                 {
+                    // Reset the state so the task can be started again
                     State = ProgressState.Ready;
                 }
             }

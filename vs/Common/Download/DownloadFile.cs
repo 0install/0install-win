@@ -39,20 +39,20 @@ namespace Common.Download
         /// <summary>
         /// The URL the file is to be downloaded from.
         /// </summary>
-        /// <remarks>This value may change once <see cref="ProgressState.GettingData"/> has been reached, based on HTTP redirections.</remarks>
+        /// <remarks>This value may change once <see cref="ProgressState.Data"/> has been reached, based on HTTP redirections.</remarks>
         [Description("The URL the file is to be downloaded from.")]
         public Uri Source { get; private set; }
 
         /// <summary>
         /// The HTTP header data returned by the server for the download request. An empty collection in case of an FTP download.
         /// </summary>
-        /// <remarks>This value is always <see langword="null"/> until <see cref="ProgressState.GettingData"/> has been reached.</remarks>
+        /// <remarks>This value is always <see langword="null"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
         public WebHeaderCollection Headers { get; private set; }
 
         /// <summary>
         /// Indicates whether this download can be resumed without having to start from the beginning again.
         /// </summary>
-        /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.GettingData"/> has been reached.</remarks>
+        /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
         [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
         public bool SupportsResume { get; private set; }
 
@@ -127,7 +127,7 @@ namespace Common.Download
                     // Configure the request to continue the file transfer where the file ends
                     if (fileStream.Length != 0) SetResumePoint(request, fileStream);
 
-                    lock (StateLock) State = ProgressState.GettingHeaders;
+                    lock (StateLock) State = ProgressState.Header;
 
                     // Start the server request
                     using (WebResponse response = request.GetResponse())
@@ -143,7 +143,7 @@ namespace Common.Download
                                 if (EnsureResumePoint(response))
                                 {
                                     // Update the download progress to reflect preexisting data and move the file pointer to the end
-                                    BytesReceived = fileStream.Position = fileStream.Length;
+                                    BytesProcessed = fileStream.Position = fileStream.Length;
                                 }
                                 else
                                 {
@@ -152,7 +152,7 @@ namespace Common.Download
                                 }
                             }
 
-                            State = ProgressState.GettingData;
+                            State = ProgressState.Data;
                         }
 
                         // Start writing data to the file
@@ -273,7 +273,7 @@ namespace Common.Download
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 fileStream.Write(buffer, 0, length);
-                lock (StateLock) BytesReceived += length;
+                lock (StateLock) BytesProcessed += length;
             }
         }
         #endregion

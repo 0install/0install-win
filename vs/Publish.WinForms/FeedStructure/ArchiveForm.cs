@@ -420,8 +420,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 {
                     case ProgressState.Started: labelArchiveDownloadMessages.Text = "Started"; break;
                     case ProgressState.Ready: labelArchiveDownloadMessages.Text = "Ready"; break;
-                    case ProgressState.GettingHeaders: labelArchiveDownloadMessages.Text = "Getting headers"; break;
-                    case ProgressState.GettingData: labelArchiveDownloadMessages.Text = "Getting data"; break;
+                    case ProgressState.Header: labelArchiveDownloadMessages.Text = "Getting headers"; break;
+                    case ProgressState.Data: labelArchiveDownloadMessages.Text = "Getting data"; break;
                     case ProgressState.IOError:
                     case ProgressState.WebError:
                         labelArchiveDownloadMessages.Text = "Error!";

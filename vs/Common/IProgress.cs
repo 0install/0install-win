@@ -36,10 +36,10 @@ namespace Common
         Ready,
         /// <summary>The thread has just been started.</summary>
         Started,
-        /// <summary>Getting the header data.</summary>
-        GettingHeaders,
-        /// <summary>Downloading the actual data.</summary>
-        GettingData,
+        /// <summary>Handling the header.</summary>
+        Header,
+        /// <summary>Handling the actual data.</summary>
+        Data,
         /// <summary>The task has been completed sucessfully.</summary>
         Complete,
         /// <summary>An error occured during the task.</summary>
@@ -72,7 +72,7 @@ namespace Common
         event ProgressEventHandler StateChanged;
 
         /// <summary>
-        /// Occurs whenever <see cref="BytesReceived"/> changes.
+        /// Occurs whenever <see cref="BytesProcessed"/> changes.
         /// </summary>
         /// <remarks>
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
@@ -98,13 +98,13 @@ namespace Common
         /// The number of bytes that have been processed so far.
         /// </summary>
         [Description("The number of bytes that have been processed so far.")]
-        long BytesReceived { get; }
+        long BytesProcessed { get; }
 
         /// <summary>
-        /// The number of bytes the file to be processed is long; -1 for unknown.
+        /// The total number of bytes that are to be processed is long; -1 for unknown.
         /// </summary>
-        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.GettingData"/> has been reached.</remarks>
-        [Description("The number of bytes the file to be processed is long; -1 for unknown.")]
+        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.Data"/> has been reached.</remarks>
+        [Description("The total number of bytes that are to be processed is long; -1 for unknown.")]
         long BytesTotal { get; }
 
         /// <summary>

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using NUnit.Framework;
 using System.IO;
 using System.Collections.Generic;
@@ -169,6 +168,29 @@ namespace Common.Archive
                     Assert.IsTrue(archiveContentList.Contains(entry), "Extractor did not list archive subdirectory: " + entry);
                 }
             }
+        }
+
+        [Test]
+        public void TestProgressCallbacks()
+        {
+            bool data = false, complete = false;
+
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "extractedArchive"))
+            {
+                Assert.AreEqual(_archiveData.Length, extractor.BytesTotal);
+                extractor.StateChanged += delegate
+                {
+                    switch (extractor.State)
+                    {
+                        case ProgressState.Data: data = true; break;
+                        case ProgressState.Complete: complete = true; break;
+                    }
+                };
+                extractor.RunSync();
+            }
+
+            Assert.IsTrue(data);
+            Assert.IsTrue(complete);
         }
     }
 

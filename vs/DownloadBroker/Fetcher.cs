@@ -159,7 +159,7 @@ namespace ZeroInstall.DownloadBroker
             #endregion
 
             long actualSize;
-            if (downloadFile.State == ProgressState.Complete) actualSize = downloadFile.BytesReceived;
+            if (downloadFile.State == ProgressState.Complete) actualSize = downloadFile.BytesProcessed;
             else if (IsSizeKnown(downloadFile)) actualSize = downloadFile.BytesTotal;
             else return;
 
