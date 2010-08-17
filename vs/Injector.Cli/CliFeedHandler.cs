@@ -25,6 +25,7 @@ namespace ZeroInstall.Injector.Cli
     /// </summary>
     public class CliFeedHandler : IHandler
     {
+        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
             Console.Error.WriteLine(information);
@@ -44,16 +45,19 @@ namespace ZeroInstall.Injector.Cli
             }
         }
 
+        /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
             // ToDo: Implement
         }
 
+        /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
             // ToDo: Implement
         }
 
+        /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
             // ToDo: Implement

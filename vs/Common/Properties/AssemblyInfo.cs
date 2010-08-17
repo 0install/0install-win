@@ -6,7 +6,7 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Common functions")]
-[assembly: AssemblyDescription("Common functions used by desktop applications.")]
+[assembly: AssemblyDescription("Generic utility classes, interfaces, WinForms controls, etc. that are applicable to a wide range of different applications.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NanoByte")]
 [assembly: AssemblyProduct("Helper functions")]

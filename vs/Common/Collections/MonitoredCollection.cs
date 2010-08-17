@@ -121,6 +121,7 @@ namespace Common.Collections
         //--------------------//
         
         #region Hooks
+        /// <inheritdoc />
         protected override void InsertItem(int index, T item)
         {
             if (MaxElements != 0 && Count == MaxElements)
@@ -131,6 +132,7 @@ namespace Common.Collections
             OnChanged();
         }
 
+        /// <inheritdoc />
         protected override void SetItem(int index, T item)
         {
             T oldItem = Items[index];
@@ -142,6 +144,7 @@ namespace Common.Collections
             OnChanged();
         }
 
+        /// <inheritdoc />
         protected override void RemoveItem(int index)
         {
             var oldItem = Items[index];
@@ -151,6 +154,7 @@ namespace Common.Collections
             OnRemoved(oldItem);
         }
 
+        /// <inheritdoc />
         protected override void ClearItems()
         {
             foreach (var item in this) OnRemoving(item);

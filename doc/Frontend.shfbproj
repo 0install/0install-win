@@ -20,12 +20,13 @@
     <HtmlHelpName>Frontend</HtmlHelpName>
     <HelpTitle>ZeroInstall Frontend Documentation</HelpTitle>
     <Language>en-US</Language>
-    <FrameworkVersion>2.0.50727</FrameworkVersion>
+    <FrameworkVersion>3.0</FrameworkVersion>
     <SyntaxFilters>CSharp</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>Prototype</PresentationStyle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\vs\Injector.Cli\Injector.Cli.csproj" />
       <DocumentationSource sourceFile="..\vs\Injector.WinForms\Injector.WinForms.csproj" />
@@ -35,6 +36,14 @@
       <DocumentationSource sourceFile="..\vs\Central.WinForms\Central.WinForms.csproj" />
     </DocumentationSources>
     <ProjectSummary>The Zero Install frontend contains GUI and CLI executables that are used by the end-user. They surface the functionality provided by the Zero Install backend.</ProjectSummary>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">This assembly provides the main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Cli" isDocumented="True" xmlns="">This assembly launches Zero Install implementations and displays a CLI.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.WinForms" isDocumented="True" xmlns="">This assembly launches Zero Install implementations and displays a &lt;see cref="System.Windows.Forms" /&gt; GUI.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.StoreManagement.Cli" isDocumented="True" xmlns="">This assembly manages &lt;see cref="ZeroInstall.Store.Implementation.IStore" /&gt;s from the command-line.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.StoreManagement.WinForms" isDocumented="True" xmlns="">This assembly manages &lt;see cref="ZeroInstall.Store.Implementation.IStore" /&gt;s via a &lt;see cref="System.Windows.Forms" /&gt; GUI.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.StoreService" isDocumented="True" xmlns="">This assembly is a Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

@@ -31,6 +31,7 @@ namespace Common.Collections
     /// </summary>
     public class CultureComparer : IComparer<CultureInfo>
     {
+        /// <inheritdoc />
         public int Compare(CultureInfo x, CultureInfo y)
         {
             #region Sanity checks

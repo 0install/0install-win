@@ -63,6 +63,7 @@ namespace Common.Archive
         //--------------------//
 
         #region Content
+        /// <inheritdoc />
         public override IEnumerable<string> ListContent()
         {
             var contentList = new List<string>((int)_zip.Count);
@@ -79,6 +80,7 @@ namespace Common.Archive
             return contentList;
         }
 
+        /// <inheritdoc />
         public override IEnumerable<string> ListDirectories()
         {
             var directoryList = new List<string>((int)_zip.Count);
@@ -97,6 +99,7 @@ namespace Common.Archive
         #endregion
 
         #region Extraction
+        /// <inheritdoc />
         protected override void RunExtraction()
         {
             State = ProgressState.Data;

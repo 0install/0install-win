@@ -22,7 +22,7 @@
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp, VisualBasic, VisualBasicUsage</SyntaxFilters>
-    <HelpFileFormat>HtmlHelp1</HelpFileFormat>
+    <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>Prototype</PresentationStyle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>

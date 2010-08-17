@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Zero Install Central")]
-[assembly: AssemblyDescription("The main GUI for Zero Install operations.")]
+[assembly: AssemblyDescription("The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]

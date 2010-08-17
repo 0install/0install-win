@@ -59,11 +59,7 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Contains
-        /// <summary>
-        /// Determines whether one of the <see cref="Stores"/> contains a local copy of an <see cref="Implementation"/> identified by a specific <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> to check for.</param>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
+        /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
             foreach (IStore store in Stores)
@@ -78,13 +74,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Get
-        /// <summary>
-        /// Determines the local path of an <see cref="Implementation"/> with a given <see cref="ManifestDigest"/>.
-        /// </summary>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> to look for.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the requested <see cref="Implementation"/> could not be found in this store.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
-        /// <returns>A fully qualified path to the directory containing the <see cref="Implementation"/>.</returns>
+        /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
             foreach (IStore store in Stores)
@@ -99,6 +89,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add directory
+        /// <inheritdoc />
         public void AddDirectory(string path, ManifestDigest manifestDigest, ProgressCallback manifestProgress)
         {
             #region Sanity checks
@@ -128,6 +119,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Add archive
+        /// <inheritdoc />
         public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks
@@ -157,6 +149,7 @@ namespace ZeroInstall.Store.Implementation
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
         }
 
+        /// <inheritdoc />
         public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
         {
             #region Sanity checks

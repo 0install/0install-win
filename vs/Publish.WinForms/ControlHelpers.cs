@@ -51,11 +51,6 @@ namespace ZeroInstall.Publish.WinForms
             return IsValidFeedUrl(url, out uri);
         }
 
-        public static bool IsValidFeedUrl(Uri url)
-        {
-            return IsValidFeedUrl(url.AbsolutePath);
-        }
-
         /// <summary>
         /// Checks if <paramref name="prooveUrl"/> is a valid internet url and creates a new
         /// <see cref="Uri"/> object.

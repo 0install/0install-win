@@ -20,11 +20,13 @@ namespace ZeroInstall.Injector.WinForms
             _initialized = true;
         }
 
+        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
             return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
         }
 
+        /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
             Initialize();
@@ -32,6 +34,7 @@ namespace ZeroInstall.Injector.WinForms
             downloadProgressBar.Task = download;
         }
 
+        /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
             Initialize();
@@ -39,6 +42,7 @@ namespace ZeroInstall.Injector.WinForms
             // ToDo: Implement
         }
 
+        /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
             Initialize();

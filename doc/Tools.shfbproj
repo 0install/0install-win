@@ -26,6 +26,7 @@
     <PresentationStyle>Prototype</PresentationStyle>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
+    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\vs\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>

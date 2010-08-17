@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Zero Install Injector Library")]
-[assembly: AssemblyDescription("Methods for downloading Zero Install implementations.")]
+[assembly: AssemblyDescription("Manages Zero Install implementation download requests for the injector.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
