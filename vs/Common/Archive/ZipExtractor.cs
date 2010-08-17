@@ -81,7 +81,6 @@ namespace Common.Archive
 
             try
             {
-                int i = 0;
                 foreach (ZipEntry entry in _zip)
                 {
                     string entryName = GetSubEntryName(entry.Name);
