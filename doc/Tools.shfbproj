@@ -24,9 +24,11 @@
     <SyntaxFilters>CSharp</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>Prototype</PresentationStyle>
+    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
+    <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
-    <VisibleItems>InheritedMembers, InheritedFrameworkMembers, Internals, Protected, SealedProtected</VisibleItems>
+    <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\vs\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>

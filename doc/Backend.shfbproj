@@ -14,18 +14,21 @@
     <RootNamespace>ZeroInstall</RootNamespace>
     <Name>Game</Name>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\</OutputPath>
+    <OutputPath>..\build\Documentation\Backend\</OutputPath>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
-    <HtmlHelpName>Backend</HtmlHelpName>
+    <HtmlHelpName>Documentation</HtmlHelpName>
     <HelpTitle>ZeroInstall Backend Documentation</HelpTitle>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp, VisualBasic, VisualBasicUsage</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>Prototype</PresentationStyle>
+    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
+    <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
+    <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
       <DocumentationSource sourceFile="..\vs\Common\Common.csproj" />
       <DocumentationSource sourceFile="..\vs\Model\Model.csproj" />
