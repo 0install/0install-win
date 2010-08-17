@@ -27,15 +27,14 @@
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\vs\Injector\Injector.csproj" />
       <DocumentationSource sourceFile="..\vs\Injector.Cli\Injector.Cli.csproj" />
       <DocumentationSource sourceFile="..\vs\Injector.WinForms\Injector.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\vs\DownloadBroker\DownloadBroker.csproj" />
       <DocumentationSource sourceFile="..\vs\StoreService\StoreService.csproj" />
       <DocumentationSource sourceFile="..\vs\StoreManagement.Cli\StoreManagement.Cli.csproj" />
       <DocumentationSource sourceFile="..\vs\StoreManagement.WinForms\StoreManagement.WinForms.csproj" />
       <DocumentationSource sourceFile="..\vs\Central.WinForms\Central.WinForms.csproj" />
     </DocumentationSources>
+    <ProjectSummary>The Zero Install frontend contains GUI and CLI executables that are used by the end-user. They surface the functionality provided by the Zero Install backend.</ProjectSummary>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

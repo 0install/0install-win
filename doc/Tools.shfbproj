@@ -29,6 +29,11 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\vs\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>
+    <ProjectSummary>The Zero Install tools provide additional features for developers %28e.g. editing feed files%29 which are not required for normal end-user operation of the system.</ProjectSummary>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms" isDocumented="True" xmlns="">This assembly provides a &lt;see cref="System.Windows.Forms" /&gt;-based editor for &lt;see cref="ZeroInstall.Model.Feed" /&gt; XMLs.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.FeedStructure" isDocumented="True" xmlns="">This namespace contains dialogs for manipulating data stored within a &lt;see cref="ZeroInstall.Model.Feed" /&gt;.</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

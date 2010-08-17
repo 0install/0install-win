@@ -102,16 +102,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadBroker\ArchiveProvider.cs" />
-    <Compile Include="DownloadBroker\FetcherStoreInteraction.cs" />
-    <Compile Include="DownloadBroker\FetcherTests.cs" />
-    <Compile Include="DownloadBroker\PackageBuilderManifestExtension.cs" />
     <Compile Include="Injector\Cli\ProgramTest.cs" />
-    <Compile Include="Injector\ControllerTest.cs" />
-    <Compile Include="Injector\SilentHandler.cs" />
-    <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
-    <Compile Include="Injector\Solver\PythonSolverTest.cs" />
-    <Compile Include="Injector\Solver\SelectionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Central\WinForms\" />
@@ -120,15 +111,6 @@
     <Folder Include="StoreManagement\Cli\" />
     <Folder Include="StoreManagement\WinForms\" />
     <Folder Include="StoreService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\sdlArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\README-SDL.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\SDL.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
