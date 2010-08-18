@@ -74,7 +74,7 @@ namespace Common.Archive
                 }
 
                 using (var extractor = Extractor.CreateExtractor(null, path, 0, Path.GetTempPath()))
-                    Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
+                    Assert.IsInstanceOfType(typeof(ZipExtractor), extractor);
             }
         }
     }
