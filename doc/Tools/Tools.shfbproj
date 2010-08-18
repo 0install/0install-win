@@ -14,9 +14,9 @@
     <Name>Tools</Name>
     <RootNamespace>Tools</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\</OutputPath>
+    <OutputPath>..\..\build\Documentation\</OutputPath>
     <HtmlHelpName>Tools</HtmlHelpName>
-    <HelpTitle>ZeroInstall Tools Documentation</HelpTitle>
+    <HelpTitle>Zero Install Tools Source Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
@@ -30,14 +30,23 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\vs\Publish.WinForms\Publish.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>
-    <ProjectSummary>The Zero Install tools provide additional features for developers %28e.g. editing feed files%29 which are not required for normal end-user operation of the system.</ProjectSummary>
+    <ProjectSummary>The Zero Install Tools consist of mutliple executables that use the Zero Install Backend.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms" isDocumented="True" xmlns="">This assembly provides a &lt;see cref="System.Windows.Forms" /&gt;-based editor for &lt;see cref="ZeroInstall.Model.Feed" /&gt; XMLs.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.FeedStructure" isDocumented="True" xmlns="">This namespace contains dialogs for manipulating data stored within a &lt;see cref="ZeroInstall.Model.Feed" /&gt;.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
+  <ItemGroup>
+    <ContentLayout Include="Layout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="intro\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="intro\index.aml" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

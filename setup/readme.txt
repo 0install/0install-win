@@ -1,7 +1,7 @@
-This folder contains the Inno Setup Script for creating the Zero Install Windows Setup.
-The final setup executable is placed in ..\build\Setup.
+This folder contains an Inno Setup Script for creating a Windows Installer.
+The resulting setup executable is placed in ..\build\Setup.
 
-The Script assumes vs/build.cmd has already been executed.
+The "build.cmd" script assumes "..\vs\build.cmd Release" has already been executed.
 A portable Python 2.6 distribution with installed Zero Install scripts must be located at ..\build\Portable\Python.
 A portable GnuPG distribution must be located at ..\build\Portable\GnuPG.
 

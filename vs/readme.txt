@@ -1,4 +1,4 @@
-This folder contains the C# source code for the Windows GUI for Zero Install.
+This folder contains the complete source code for Zero Install for Windows (Bakend, Frontend and Tools).
 
 The "build.cmd" script will compile the application using the Visual Studio 2008 or 2010 build environment.
 

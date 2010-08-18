@@ -14,9 +14,9 @@
     <Name>Frontend</Name>
     <RootNamespace>Frontend</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\</OutputPath>
+    <OutputPath>..\..\build\Documentation\</OutputPath>
     <HtmlHelpName>Frontend</HtmlHelpName>
-    <HelpTitle>ZeroInstall Frontend Documentation</HelpTitle>
+    <HelpTitle>Zero Install Frontend Source Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
@@ -30,14 +30,14 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\vs\Injector.Cli\Injector.Cli.csproj" />
-      <DocumentationSource sourceFile="..\vs\Injector.WinForms\Injector.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\vs\StoreService\StoreService.csproj" />
-      <DocumentationSource sourceFile="..\vs\StoreManagement.Cli\StoreManagement.Cli.csproj" />
-      <DocumentationSource sourceFile="..\vs\StoreManagement.WinForms\StoreManagement.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\vs\Central.WinForms\Central.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Injector.Cli\Injector.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Injector.WinForms\Injector.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\StoreService\StoreService.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\StoreManagement.Cli\StoreManagement.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\StoreManagement.WinForms\StoreManagement.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Central.WinForms\Central.WinForms.csproj" />
     </DocumentationSources>
-    <ProjectSummary>The Zero Install frontend contains GUI and CLI executables that are used by the end-user. They surface the functionality provided by the Zero Install backend.</ProjectSummary>
+    <ProjectSummary>The Zero Install Frontend consists of mutliple executables that use the Zero Install Backend.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">This assembly provides the main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector.Cli" isDocumented="True" xmlns="">This assembly launches Zero Install implementations and displays a CLI.</NamespaceSummaryItem>
@@ -47,6 +47,15 @@
       <NamespaceSummaryItem name="ZeroInstall.StoreService" isDocumented="True" xmlns="">This assembly is a Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
+  <ItemGroup>
+    <ContentLayout Include="Layout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="intro\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="intro\index.aml" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

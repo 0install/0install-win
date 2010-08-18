@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="intro" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Zero Install Frontend</title>
+
+    <introduction>
+      <para>
+        The Zero Install Frontend contains GUI and CLI executables that are used by the end-user. They surface the functionality provided by the Zero Install backend.
+      </para>
+    </introduction>
+
+    <section address="features">
+      <title>Features</title>
+      <content>
+        <para>...</para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

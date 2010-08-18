@@ -1,5 +1,5 @@
 @echo off
-::Compiles the source documentation. Assumes "..\vs\build.cmd doc" has already been called.
+::Compiles the source documentation. Assumes "..\vs\build.cmd Debug" has already been executed.
 cd /d "%~dp0"
 
 rem Determine VS version
@@ -22,7 +22,7 @@ call "%VS_COMNTOOLS%vsvars32.bat"
 echo Compiling source documentation...
 if exist ..\build\Documentation rd /s /q ..\build\Documentation
 
-FOR %%A IN (%~dp0*.shfbproj) DO (
+FOR %%A IN (Backend\Backend.shfbproj Frontend\Frontend.shfbproj Tools\Tools.shfbproj) DO (
   msbuild "%%A" /p:Configuration=Debug /v:q /nologo
   if errorlevel 1 pause
 )

@@ -1,5 +1,5 @@
 @echo off
-::Creates an Inno Setup installer. Assumes ..\src\build.cmd has already been called.
+::Creates an Inno Setup installer. Assumes "..\vs\build.cmd Release" has already been executed.
 cd /d "%~dp0"
 
 rem Project settings

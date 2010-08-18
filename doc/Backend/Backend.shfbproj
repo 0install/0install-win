@@ -14,9 +14,9 @@
     <Name>Backend</Name>
     <RootNamespace>Backend</RootNamespace>
     <!-- SHFB properties -->
-    <OutputPath>..\build\Documentation\Backend\</OutputPath>
+    <OutputPath>..\..\build\Documentation\Backend\</OutputPath>
     <HtmlHelpName>Documentation</HtmlHelpName>
-    <HelpTitle>ZeroInstall Backend Documentation</HelpTitle>
+    <HelpTitle>Zero Install Backend Developer Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
@@ -30,14 +30,14 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\vs\Common\Common.csproj" />
-      <DocumentationSource sourceFile="..\vs\Model\Model.csproj" />
-      <DocumentationSource sourceFile="..\vs\Store\Store.csproj" />
-      <DocumentationSource sourceFile="..\vs\MyApps\MyApps.csproj" />
-      <DocumentationSource sourceFile="..\vs\Injector\Injector.csproj" />
-      <DocumentationSource sourceFile="..\vs\DownloadBroker\DownloadBroker.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Common\Common.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Model\Model.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Store\Store.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\MyApps\MyApps.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Injector\Injector.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\DownloadBroker\DownloadBroker.csproj" />
     </DocumentationSources>
-    <ProjectSummary>The Zero Install backend contains libraries required to manage interfaces, download and launch implementation, etc. It provides the basis for Zero Install%27s own executables and can be used to create tools such as a Feed Editor.</ProjectSummary>
+    <ProjectSummary>The Zero Install Backend consists of a library with generic helper classes (Common.dll), as well as a number of Zero Install-specific libraries.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="Common" isDocumented="True">This assembly contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Archive" isDocumented="True">This namespace contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
@@ -58,6 +58,15 @@
       <NamespaceSummaryItem name="ZeroInstall.Injector.Solver" isDocumented="True">This namespace contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
+  <ItemGroup>
+    <ContentLayout Include="Layout.content" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="intro\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="intro\index.aml" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">

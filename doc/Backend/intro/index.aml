@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="intro" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Zero Install Backend</title>
+
+    <introduction>
+      <para>
+        The Zero Install Backend contains libraries required to manage interfaces, download and launch implementation, etc. It provides the basis for Zero Install%27s own executables and can be used to create tools such as a Feed Editor.
+      </para>
+    </introduction>
+
+    <section address="features">
+      <title>Features</title>
+      <content>
+        <para>...</para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>
