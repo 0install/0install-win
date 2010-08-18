@@ -92,6 +92,12 @@ namespace ZeroInstall.Model
             // Guess the MIME type based on the file ending
             MimeType = Extractor.GuessMimeType(LocationString);
         }
+
+        public bool IsEmpty()
+        {
+            return LocationString == default(String) && Size == default(long) && Extract == default(String) &&
+                   MimeType == default(String) && StartOffset == default(long);
+        }
         #endregion
 
         //--------------------//
