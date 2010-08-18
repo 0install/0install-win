@@ -10,15 +10,15 @@
     <SHFBSchemaVersion>1.9.0.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
          Studio adds them anyway -->
-    <AssemblyName>ZeroInstall.Backend</AssemblyName>
-    <RootNamespace>ZeroInstall</RootNamespace>
-    <Name>Game</Name>
+    <AssemblyName>Backend</AssemblyName>
+    <Name>Backend</Name>
+    <RootNamespace>Backend</RootNamespace>
     <!-- SHFB properties -->
     <OutputPath>..\build\Documentation\Backend\</OutputPath>
-    <KeepLogFile>False</KeepLogFile>
-    <NamingMethod>MemberName</NamingMethod>
     <HtmlHelpName>Documentation</HtmlHelpName>
     <HelpTitle>ZeroInstall Backend Documentation</HelpTitle>
+    <KeepLogFile>False</KeepLogFile>
+    <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp, VisualBasic, VisualBasicUsage</SyntaxFilters>

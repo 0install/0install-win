@@ -101,10 +101,10 @@ namespace Common
         long BytesProcessed { get; }
 
         /// <summary>
-        /// The total number of bytes that are to be processed is long; -1 for unknown.
+        /// The total number of bytes that are to be processed; -1 for unknown.
         /// </summary>
         /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.Data"/> has been reached.</remarks>
-        [Description("The total number of bytes that are to be processed is long; -1 for unknown.")]
+        [Description("The total number of bytes that are to be processed; -1 for unknown.")]
         long BytesTotal { get; }
 
         /// <summary>

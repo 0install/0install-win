@@ -10,15 +10,15 @@
     <SHFBSchemaVersion>1.9.0.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
          Studio adds them anyway -->
-    <AssemblyName>ZeroInstall.Tools</AssemblyName>
-    <RootNamespace>ZeroInstall</RootNamespace>
-    <Name>Game</Name>
+    <AssemblyName>Tools</AssemblyName>
+    <Name>Tools</Name>
+    <RootNamespace>Tools</RootNamespace>
     <!-- SHFB properties -->
     <OutputPath>..\build\Documentation\</OutputPath>
-    <KeepLogFile>False</KeepLogFile>
-    <NamingMethod>MemberName</NamingMethod>
     <HtmlHelpName>Tools</HtmlHelpName>
     <HelpTitle>ZeroInstall Tools Documentation</HelpTitle>
+    <KeepLogFile>False</KeepLogFile>
+    <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
     <SyntaxFilters>CSharp</SyntaxFilters>

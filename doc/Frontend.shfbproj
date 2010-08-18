@@ -10,15 +10,15 @@
     <SHFBSchemaVersion>1.9.0.0</SHFBSchemaVersion>
     <!-- AssemblyName, Name, and RootNamespace are not used by SHFB but Visual
          Studio adds them anyway -->
-    <AssemblyName>ZeroInstall.Frontend</AssemblyName>
-    <RootNamespace>ZeroInstall</RootNamespace>
-    <Name>Game</Name>
+    <AssemblyName>Frontend</AssemblyName>
+    <Name>Frontend</Name>
+    <RootNamespace>Frontend</RootNamespace>
     <!-- SHFB properties -->
     <OutputPath>..\build\Documentation\</OutputPath>
-    <KeepLogFile>False</KeepLogFile>
-    <NamingMethod>MemberName</NamingMethod>
     <HtmlHelpName>Frontend</HtmlHelpName>
     <HelpTitle>ZeroInstall Frontend Documentation</HelpTitle>
+    <KeepLogFile>False</KeepLogFile>
+    <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>3.0</FrameworkVersion>
     <SyntaxFilters>CSharp</SyntaxFilters>
