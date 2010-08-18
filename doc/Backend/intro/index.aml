@@ -5,7 +5,7 @@
 
     <introduction>
       <para>
-        The Zero Install Backend contains libraries required to manage interfaces, download and launch implementation, etc. It provides the basis for Zero Install%27s own executables and can be used to create tools such as a Feed Editor.
+        The Zero Install Backend contains libraries required to manage interfaces, download and launch implementation, etc. It provides the basis for Zero Install's own executables and can be used to create tools such as a Feed Editor.
       </para>
     </introduction>
 
