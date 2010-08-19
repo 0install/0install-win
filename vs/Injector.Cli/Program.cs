@@ -116,6 +116,8 @@ namespace ZeroInstall.Injector.Cli
             #region Help text
             options.Add("h|help|?", Resources.OptionHelp, unused =>
             {
+                mode = OperationMode.Help;
+
                 Console.WriteLine(@"Usage: 0launch [options] -- interface [args]
        0launch --list [search-term]
        0launch --import [signed-interface-files]

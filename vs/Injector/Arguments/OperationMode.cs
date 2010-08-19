@@ -31,6 +31,8 @@ namespace ZeroInstall.Injector.Arguments
         /// <summary>Add feed aliases.</summary>
         Manage,
         /// <summary>Display version information.</summary>
-        Version
+        Version,
+        /// <summary>Help text has already been displayed.</summary>
+        Help
     }
 }
