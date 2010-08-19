@@ -23,7 +23,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An object that contains <see cref="Group"/>s and <see cref="FeedReference"/>s. Supports a composite pattern.
     /// </summary>
-    interface IGroupContainer
+    public interface IGroupContainer
     {
         /// <summary>
         /// A list of <see cref="Group"/>s contained within this element.
