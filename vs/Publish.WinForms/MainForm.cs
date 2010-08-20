@@ -316,6 +316,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             treeViewFeedStructure.BeginUpdate();
             treeViewFeedStructure.Nodes[0].Nodes.Clear();
+            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
             BuildElementsTreeNodes(_feedToEdit.Elements, treeViewFeedStructure.Nodes[0]);
             treeViewFeedStructure.EndUpdate();
 
@@ -1065,7 +1066,17 @@ namespace ZeroInstall.Publish.WinForms
 
         #endregion
 
+        private void hintTextBoxSummary_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         #endregion
+
+        private void labelSummary_Click(object sender, EventArgs e)
+        {
+
+        }
 
         #endregion
     }
