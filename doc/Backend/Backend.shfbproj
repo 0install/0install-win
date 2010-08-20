@@ -62,10 +62,15 @@
     <ContentLayout Include="Layout.content" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="intro\" />
+    <Folder Include="user\" />
+    <Folder Include="design\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="intro\index.aml" />
+    <None Include="index.aml" />
+    <None Include="user\index.aml" />
+    <None Include="user\getting_started.aml" />
+    <None Include="depolyment.aml" />
+    <None Include="design\index.aml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

@@ -1,4 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
   <Topic id="intro" visible="True" isDefault="true" title="Zero Install Backend" />
+  <Topic id="user" visible="True" title="Backend User Guide">
+    <Topic id="user_getting_started" visible="True" title="Getting started" />
+  </Topic>
+  <Topic id="deployment" visible="True" title="Deployment Guide" />
+  <Topic id="design" visible="True" title="Internal Design Guide" />
 </Topics>

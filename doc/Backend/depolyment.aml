@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="deployment" revisionNumber="1">
+  <developerHowToDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Deployment Guide</title>
+
+    <introduction>
+      <para>
+        ...
+      </para>
+    </introduction>
+
+    <prerequisites>
+      <content>
+        ...
+      </content>
+    </prerequisites>
+
+    <procedure>
+      <title>...</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>First step</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Hard-coded file paths</para>
+          </content>
+        </step>
+      </steps>
+      <conclusion>...</conclusion>
+    </procedure>
+  </developerHowToDocument>
+</topic>

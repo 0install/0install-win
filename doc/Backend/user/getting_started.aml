@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="user_getting_started" revisionNumber="1">
+  <developerWalkthroughDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Getting started</title>
+
+    <introduction>
+      <para>
+        ...
+      </para>
+    </introduction>
+
+    <prerequisites>
+      <content>
+        ...
+      </content>
+    </prerequisites>
+
+    <procedure>
+      <title>Creating a Zero Install project</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>First step</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Second step</para>
+          </content>
+        </step>
+      </steps>
+      <conclusion>...</conclusion>
+    </procedure>
+
+    <procedure>
+      <title>Launching an implementation</title>
+      <steps class="ordered">
+        <step>
+          <content>
+            <para>First step</para>
+          </content>
+        </step>
+        <step>
+          <content>
+            <para>Second step</para>
+          </content>
+        </step>
+      </steps>
+      <conclusion>...</conclusion>
+    </procedure>
+  </developerWalkthroughDocument>
+</topic>
