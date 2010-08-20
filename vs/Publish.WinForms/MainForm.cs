@@ -17,9 +17,7 @@
 
 using System;
 using System.Windows.Forms;
-using Common.Collections;
-using Common.Controls;
-using Common.Storage;
+using C5;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -30,10 +28,19 @@ namespace ZeroInstall.Publish.WinForms
 {
     public partial class MainForm : Form
     {
+        #region Attributes
+
         /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from.
         /// </summary>
-        private string _openInterfacePath;
+        private string _openFeedPath;
+
+        /// <summary>
+        /// The <see cref="ZeroInstall.Model.Feed"/> to edit by this form.
+        /// </summary>
+        private Feed _feedToEdit = new Feed();
+
+        #endregion
 
         #region Initialization
 
@@ -43,7 +50,8 @@ namespace ZeroInstall.Publish.WinForms
         public MainForm()
         {
             InitializeComponent();
-            _openInterfacePath = null;
+            _openFeedPath = null;
+            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
             InitializeSaveFileDialog();
             InitializeLoadFileDialog();
         }
@@ -51,7 +59,6 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Initializes the <see cref="saveFileDialog"/> with a file filter for .xml files.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeSaveFileDialog()
         {
             saveFileDialog.DefaultExt = ".xml";
@@ -78,7 +85,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonNew_Click(object sender, EventArgs e)
         {
-            ResetForm();
+            ResetFormControls();
+            _feedToEdit = new Feed();
         }
 
         /// <summary>
@@ -98,13 +106,16 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            saveFileDialog.InitialDirectory = _openInterfacePath;
+            if (_openFeedPath != null)
+            {
+                saveFileDialog.InitialDirectory = _openFeedPath;
+            }
             saveFileDialog.ShowDialog(this);
         }
 
         #endregion
 
-        #region Saving and opening dialogs
+        #region Save and open
 
         /// <summary>
         /// Opens the in <see cref="openFileDialog"/> chosen feed file and fills <see cref="MainForm"/> with its values.
@@ -113,10 +124,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _openInterfacePath = openFileDialog.FileName;
-            var feed = Feed.Load(_openInterfacePath);
-            FillForm(feed);
+            _openFeedPath = openFileDialog.FileName;
+            _feedToEdit = Feed.Load(_openFeedPath);
+            FillForm();
         }
+
 
         /// <summary>
         /// Saves the values from the filled controls on the <see cref="MainForm"/> in the feed file chosen by <see cref="openFileDialog"/>.
@@ -125,105 +137,107 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var zeroInterface = new Feed {Name = textName.Text, Summaries = {textSummary.Text}};
+            SaveGeneralTab();
+            SaveFeedTab();
+            SaveAdvancedTab();     
 
-            SaveGeneralTab(zeroInterface);
-            SaveFeedTab(zeroInterface);
-            SaveAdvancedTab(zeroInterface);     
-
-            // Save to file
-            zeroInterface.Save(saveFileDialog.FileName);
+            _feedToEdit.Save(saveFileDialog.FileName);
         }
 
         /// <summary>
         /// Saves the values from <see cref="tabPageGeneral"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
-        private void SaveGeneralTab(Feed zeroInterface)
+        private void SaveGeneralTab()
         {
             Uri url;
 
             // save categories
-            foreach (var category in checkedListCategory.CheckedItems)
+            foreach (var category in checkedListBoxCategories.CheckedItems)
             {
                 //TODO complete setting attribute type(required: understanding of the category system)
-                zeroInterface.Categories.Add(category.ToString());
+                _feedToEdit.Categories.Add(category.ToString());
             }
             // save icon urls
-            foreach (Model.Icon icon in listIconsUrls.Items)
+            foreach (Model.Icon icon in listBoxIconsUrls.Items)
             {
-                zeroInterface.Icons.Add(icon);
+                _feedToEdit.Icons.Add(icon);
             }
-            if (!String.IsNullOrEmpty(textDescription.Text))
+            if (!String.IsNullOrEmpty(hintTextBoxDescription.Text))
             {
-                zeroInterface.Descriptions.Clear();
-                zeroInterface.Descriptions.Add(textDescription.Text);
+                _feedToEdit.Descriptions.Clear();
+                _feedToEdit.Descriptions.Add(hintTextBoxDescription.Text);
             }
-            if (Uri.TryCreate(textInterfaceURL.Text, UriKind.Absolute, out url))
+            if (Uri.TryCreate(hintTextBoxInterfaceUrl.Text, UriKind.Absolute, out url))
             {
-                zeroInterface.Uri = url;
+                _feedToEdit.Uri = url;
             }
-            if (Uri.TryCreate(textHomepage.Text, UriKind.Absolute, out url))
+            if (Uri.TryCreate(hintTextBoxHomepage.Text, UriKind.Absolute, out url))
             {
-                zeroInterface.Homepage = url;
+                _feedToEdit.Homepage = url;
             }
-            zeroInterface.NeedsTerminal = checkBoxNeedsTerminal.Checked; 
+            _feedToEdit.NeedsTerminal = checkBoxNeedsTerminal.Checked; 
         }
 
         /// <summary>
         /// Saves the values from <see cref="tabPageFeed"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
-        private void SaveFeedTab(Feed zeroInterface)
+        private void SaveFeedTab()
         {
-            throw new NotImplementedException();
+            // the feed structure objects will be saved directly into _feedToEdit => no extra saving needed.
+            
         }
 
         /// <summary>
         /// Saves the values from <see cref="tabPageAdvanced"/>.
         /// </summary>
-        /// <param name="zeroInterface"><see cref="Feed"/> where to save values.</param>
-        private void SaveAdvancedTab(Feed zeroInterface)
+        private void SaveAdvancedTab()
         {
-            foreach (var feed in listBoxExtFeeds.Items)
+            foreach (var feed in listBoxExternalFeeds.Items)
             {
-                zeroInterface.Feeds.Add((FeedReference)feed);
+                _feedToEdit.Feeds.Add((FeedReference)feed);
             }
             foreach (InterfaceReference feedFor in listBoxFeedFor.Items)
             {
-                zeroInterface.FeedFor.Add(feedFor);
+                _feedToEdit.FeedFor.Add(feedFor);
             }
             if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText))
             {
-                zeroInterface.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
+                _feedToEdit.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
             }
         }
+
+        #endregion
+
+        #region Reset form controls
 
         /// <summary>
         /// Sets all controls on the <see cref="MainForm"/> to default values.
         /// </summary>
-        private void ResetForm()
+        private void ResetFormControls()
         {
-            ResetGeneralTab();
-            ResetFeedTab();
-            ResetAdvancedTab();
+            ResetGeneralTabControls();
+            ResetFeedTabControls();
+            ResetAdvancedTabControls();
         }
 
         /// <summary>
         /// Sets all controls on <see cref="tabPageGeneral"/> to default values.
         /// </summary>
-        private void ResetGeneralTab()
+        private void ResetGeneralTabControls()
         {
-            textName.ResetText();
-            textSummary.ResetText();
-            textDescription.ResetText();
-            textHomepage.ResetText();
-            textInterfaceURL.ResetText();
-            textIconUrl.ResetText();
-            listIconsUrls.Items.Clear();
-            foreach (int categoryIndex in checkedListCategory.CheckedIndices)
+            hintTextBoxProgramName.ResetText();
+            hintTextBoxSummary.ResetText();
+            hintTextBoxDescription.ResetText();
+            hintTextBoxHomepage.ResetText();
+            hintTextBoxInterfaceUrl.ResetText();
+            hintTextBoxIconUrl.ResetText();
+            comboBoxIconType.SelectedIndex = 0;
+            pictureBoxIconPreview.Image = null;
+            listBoxIconsUrls.Items.Clear();
+            lblIconUrlError.ResetText();
+            foreach (int category in checkedListBoxCategories.CheckedIndices)
             {
-                checkedListCategory.SetItemChecked(categoryIndex, false);
+                checkedListBoxCategories.SetItemChecked(category, false);
             }
             checkBoxNeedsTerminal.Checked = false;
         }
@@ -231,100 +245,109 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Sets all controls on <see cref="tabPageFeed"/> to default values.
         /// </summary>
-        private void ResetFeedTab()
+        private void ResetFeedTabControls()
         {
-            throw new NotImplementedException();
+            treeViewFeedStructure.Nodes[0].Nodes.Clear();
         }
 
         /// <summary>
         /// Sets all controls on <see cref="tabPageAdvanced"/> to default values.
         /// </summary>
-        private void ResetAdvancedTab()
+        private void ResetAdvancedTabControls()
         {
-            listBoxExtFeeds.Items.Clear();
-            textFeedFor.Clear();
+            listBoxExternalFeeds.Items.Clear();
+            hintTextBoxFeedFor.Clear();
             listBoxFeedFor.Items.Clear();
             feedReferenceControl.FeedReference = null;
             comboBoxMinInjectorVersion.SelectedIndex = 0;
         }
 
+        #endregion
+
+        #region Fill form controls
+
         /// <summary>
-        /// Fills the <see cref="MainForm"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
+        /// Clears all form controls and fills them with the values from a <see cref="_feedToEdit"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="MainForm"/>.</param>
-        private void FillForm(Feed zeroInterface)
+        private void FillForm()
         {
-            ResetForm();
-            FillGeneralTab(zeroInterface);
-            FillFeedTab(zeroInterface);
-            FillAdvancedTab(zeroInterface);
+            ResetFormControls();
+            FillGeneralTab();
+            FillFeedTab();
+            FillAdvancedTab();
         }
 
         /// <summary>
         /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageGeneral"/>.</param>
-        private void FillGeneralTab(Feed zeroInterface)
+        private void FillGeneralTab()
         {
-            textName.Text = zeroInterface.Name;
-            if (!zeroInterface.Summaries.IsEmpty) textSummary.Text = zeroInterface.Summaries.First.Value;
-            if (!zeroInterface.Descriptions.IsEmpty) textDescription.Text = zeroInterface.Descriptions.First.Value;
-            textHomepage.Text = zeroInterface.HomepageString;
-            textInterfaceURL.Text = zeroInterface.UriString;
+            hintTextBoxProgramName.Text = _feedToEdit.Name;
+            if (!_feedToEdit.Summaries.IsEmpty) hintTextBoxSummary.Text = _feedToEdit.Summaries.First.Value;
+            if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
+            hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
+            hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
             // fill icons list box
-            listIconsUrls.BeginUpdate();
-            listIconsUrls.Items.Clear();
-            foreach (var icon in zeroInterface.Icons)
+            listBoxIconsUrls.BeginUpdate();
+            listBoxIconsUrls.Items.Clear();
+            foreach (var icon in _feedToEdit.Icons)
             {
-                listIconsUrls.Items.Add(icon);
+                listBoxIconsUrls.Items.Add(icon);
             }
-            listIconsUrls.EndUpdate();
+            listBoxIconsUrls.EndUpdate();
             // fill category list
-            foreach (var category in zeroInterface.Categories)
+            foreach (var category in _feedToEdit.Categories)
             {
-                if (checkedListCategory.Items.Contains(category))
+                if (checkedListBoxCategories.Items.Contains(category))
                 {
-                    checkedListCategory.SetItemChecked(checkedListCategory.Items.IndexOf(category), true);
+                    checkedListBoxCategories.SetItemChecked(checkedListBoxCategories.Items.IndexOf(category), true);
                 }
             }
-            checkBoxNeedsTerminal.Checked = zeroInterface.NeedsTerminal;
+            checkBoxNeedsTerminal.Checked = _feedToEdit.NeedsTerminal;
         }
 
         /// <summary>
         /// Fills the <see cref="tabPageFeed"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageFeed"/>.</param>
-        private void FillFeedTab(Feed zeroInterface)
+        private void FillFeedTab()
         {
-            throw new NotImplementedException();
+            treeViewFeedStructure.BeginUpdate();
+            treeViewFeedStructure.Nodes[0].Nodes.Clear();
+            BuildGroupTreeNodes(_feedToEdit.Groups, treeViewFeedStructure.Nodes[0]);
+            BuildImplementationTreeNodes(_feedToEdit.Implementations, treeViewFeedStructure.Nodes[0]);
+            BuildPackageImplementationTreeNodes(_feedToEdit.PackageImplementations, treeViewFeedStructure.Nodes[0]);
+            treeViewFeedStructure.EndUpdate();
+
+            treeViewFeedStructure.ExpandAll();
         }
 
         /// <summary>
         /// Fills the <see cref="tabPageAdvanced"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
         /// </summary>
-        /// <param name="zeroInterface">The <see cref="ZeroInstall.Model.Feed"/> to use for fill the <see cref="tabPageAdvanced"/>.</param>
-        private void FillAdvancedTab(Feed zeroInterface)
+        private void FillAdvancedTab()
         {
-            foreach (var feed in zeroInterface.Feeds)
+            foreach (var feed in _feedToEdit.Feeds)
             {
                 listBoxFeedFor.Items.Add(feed);
             }
-            foreach (var feedFor in zeroInterface.FeedFor)
+            foreach (var feedFor in _feedToEdit.FeedFor)
             {
                 listBoxFeedFor.Items.Add(feedFor);
             }
-            comboBoxMinInjectorVersion.Text = zeroInterface.MinInjectorVersion;
+            comboBoxMinInjectorVersion.Text = _feedToEdit.MinInjectorVersion;
         }      
 
         #endregion
+
+        #region Tabs
 
         #region General Tab
 
         #region Icon Group
 
         /// <summary>
-        /// Tries to download the image with the url from <see cref="textIconUrl"/> and shows it in <see cref="iconBox"/>.
-        /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboIconType"/>.
+        /// Tries to download the image with the url from <see cref="hintTextBoxIconUrl"/> and shows it in <see cref="pictureBoxIconPreview"/>.
+        /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxIconType"/>.
         /// Error messages will be shown in <see cref="lblIconUrlError"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
@@ -336,7 +359,7 @@ namespace ZeroInstall.Publish.WinForms
             Image icon;
             lblIconUrlError.ForeColor = Color.Red;
             // check url
-            if(!ControlHelpers.IsValidFeedUrl(textIconUrl.Text, out iconUrl)) return;
+            if(!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out iconUrl)) return;
 
             // try downloading image
             try
@@ -365,11 +388,11 @@ namespace ZeroInstall.Publish.WinForms
             // check what format is the icon and set right value into comboIconType
             if (icon.RawFormat.Equals(ImageFormat.Png))
             {
-                comboIconType.SelectedIndex = 0;
+                comboBoxIconType.SelectedIndex = 0;
             }
             else if (icon.RawFormat.Equals(ImageFormat.Icon))
             {
-                comboIconType.SelectedIndex = 1;
+                comboBoxIconType.SelectedIndex = 1;
             }
             else
             {
@@ -377,11 +400,11 @@ namespace ZeroInstall.Publish.WinForms
                 return;
             }
 
-            iconBox.Image = icon;
+            pictureBoxIconPreview.Image = icon;
         }
 
         /// <summary>
-        /// Adds the url from <see cref="textIconUrl"/> and the chosen mime type in <see cref="comboIconType"/> to <see cref="listIconsUrls"/> if the url is a valid url.
+        /// Adds the url from <see cref="hintTextBoxIconUrl"/> and the chosen mime type in <see cref="comboBoxIconType"/> to <see cref="listBoxIconsUrls"/> if the url is a valid url.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -389,11 +412,11 @@ namespace ZeroInstall.Publish.WinForms
         {
             var icon = new Model.Icon();
             Uri uri;
-            if (!ControlHelpers.IsValidFeedUrl(textIconUrl.Text, out uri)) return;
+            if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out uri)) return;
 
             icon.Location = uri;
             // set mime type
-            switch (comboIconType.Text)
+            switch (comboBoxIconType.Text)
             {
                 case "PNG":
                     icon.MimeType = "image/png";
@@ -405,42 +428,42 @@ namespace ZeroInstall.Publish.WinForms
             }
 
             // add icon object to list box
-            if (!listIconsUrls.Items.Contains(icon)) listIconsUrls.Items.Add(icon);
+            if (!listBoxIconsUrls.Items.Contains(icon)) listBoxIconsUrls.Items.Add(icon);
         }
 
         /// <summary>
-        /// Removes chosen image url in <see cref="listIconsUrls"/> from the list.
+        /// Removes chosen image url in <see cref="listBoxIconsUrls"/> from the list.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void btnIconListRemove_Click(object sender, EventArgs e)
         {
-            var icon = listIconsUrls.SelectedItem;
-            if (listIconsUrls.SelectedItem == null) return;
-            listIconsUrls.Items.Remove(icon);
+            var icon = listBoxIconsUrls.SelectedItem;
+            if (listBoxIconsUrls.SelectedItem == null) return;
+            listBoxIconsUrls.Items.Remove(icon);
         }
 
         /// <summary>
-        /// Replaces the text and the icon type from <see cref="textIconUrl"/> and <see cref="comboIconType"/> with the text and the icon type of the chosen entry.
+        /// Replaces the text and the icon type from <see cref="hintTextBoxIconUrl"/> and <see cref="comboBoxIconType"/> with the text and the icon type of the chosen entry.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void listIconsUrls_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listIconsUrls.SelectedItem == null) return;
+            if (listBoxIconsUrls.SelectedItem == null) return;
 
-            var icon = (Model.Icon)listIconsUrls.SelectedItem;
-            textIconUrl.Text = icon.LocationString;
+            var icon = (Model.Icon)listBoxIconsUrls.SelectedItem;
+            hintTextBoxIconUrl.Text = icon.LocationString;
             switch (icon.MimeType)
             {
                 case null:
-                    comboIconType.Text = String.Empty;
+                    comboBoxIconType.Text = String.Empty;
                     break;
                 case "image/png":
-                    comboIconType.Text = "PNG";
+                    comboBoxIconType.Text = "PNG";
                     break;
                 case "image/vnd-microsoft-icon":
-                    comboIconType.Text = "ICO";
+                    comboBoxIconType.Text = "ICO";
                     break;
                 default:
                     throw new InvalidOperationException("Invalid MIME-Type");
@@ -448,44 +471,51 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Checks if the text in <see cref="textIconUrl"/> is a valid url and enables the <see cref="btnIconPreview"/> if true and disables it if false.
+        /// Checks if the text in <see cref="hintTextBoxIconUrl"/> is a valid url and enables the <see cref="buttonIconPreview"/> if true and disables it if false.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void textIconUrl_TextChanged(object sender, EventArgs e)
         {
-            if (ControlHelpers.IsValidFeedUrl(textIconUrl.Text))
+            if (ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text))
             {
-                textIconUrl.ForeColor = Color.Green;
-                btnIconPreview.Enabled = true;
+                hintTextBoxIconUrl.ForeColor = Color.Green;
+                buttonIconPreview.Enabled = true;
             }
             else
             {
-                textIconUrl.ForeColor = Color.Red;
-                btnIconPreview.Enabled = false;
+                hintTextBoxIconUrl.ForeColor = Color.Red;
+                buttonIconPreview.Enabled = false;
             }
         }
 
         #endregion
 
         /// <summary>
-        /// Checks if the text of <see cref="textInterfaceURL"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
+        /// Checks if the text of <see cref="hintTextBoxInterfaceUrl"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void textInterfaceURL_TextChanged(object sender, EventArgs e)
         {
-            textInterfaceURL.ForeColor = ControlHelpers.IsValidFeedUrl(textInterfaceURL.Text) ? Color.Green : Color.Red;
+            if(ControlHelpers.IsValidFeedUrl(hintTextBoxInterfaceUrl.Text))
+            {
+                hintTextBoxInterfaceUrl.ForeColor = Color.Green;
+
+            } else
+            {
+                hintTextBoxInterfaceUrl.ForeColor = Color.Red;
+            }
         }
 
         /// <summary>
-        /// Checks if the text of <see cref="textHomepage"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
+        /// Checks if the text of <see cref="hintTextBoxHomepage"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void textHomepage_TextChanged(object sender, EventArgs e)
         {
-            textHomepage.ForeColor = ControlHelpers.IsValidFeedUrl(textHomepage.Text) ? Color.Green : Color.Red;
+            hintTextBoxHomepage.ForeColor = ControlHelpers.IsValidFeedUrl(hintTextBoxHomepage.Text) ? Color.Green : Color.Red;
         }
 
         #endregion
@@ -501,7 +531,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddGroupClick(object sender, EventArgs e)
         {
-            AddTreeNode("Group", new Group());
+            AddFeedStructureObject(new Group());
         }
 
         /// <summary>
@@ -511,7 +541,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddImplementationClick(object sender, EventArgs e)
         {
-            AddTreeNode("Implementation", new Implementation());
+            AddFeedStructureObject(new Implementation());
         }
 
         /// <summary>
@@ -521,7 +551,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddPackageImplementationClick(object sender, EventArgs e)
         {
-            AddTreeNode("Package Implementation", new PackageImplementation());
+            AddFeedStructureObject(new PackageImplementation());
         }
 
         /// <summary>
@@ -531,7 +561,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddDependencyClick(object sender, EventArgs e)
         {
-            AddTreeNode("Dependency", new Dependency());
+            AddFeedStructureObject(new Dependency());
         }
 
         /// <summary>
@@ -541,7 +571,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddEnvironmentBindingClick(object sender, EventArgs e)
         {
-            AddTreeNode("Environment Binding", new EnvironmentBinding());
+            AddFeedStructureObject(new EnvironmentBinding());
         }
 
         /// <summary>
@@ -551,7 +581,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnAddOverlayBindingClick(object sender, EventArgs e)
         {
-            AddTreeNode("Overlay Binding", new OverlayBinding());
+            AddFeedStructureObject(new OverlayBinding());
         }
 
         /// <summary>
@@ -561,7 +591,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ButtonAddArchiveClick(object sender, EventArgs e)
         {
-            AddTreeNode("Archive", null);
+            AddFeedStructureObject(new Archive());
         }
 
         /// <summary>
@@ -571,19 +601,118 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ButtonAddRecipeClick(object sender, EventArgs e)
         {
-            AddTreeNode("Recipe", null);
+            AddFeedStructureObject(new Recipe());
         }
 
         /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text of <paramref name="text"/> to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
+        /// Gets the selected <see cref="TreeNode"/> from <see cref="treeViewFeedStructure"/> and adds (if allowed) <paramref name="feedStructureObject"/> to the container stored
+        /// in the Tag of the selected <see cref="TreeNode"/>. Then <see cref="treeViewFeedStructure"/> will be rebuild from <see cref="_feedToEdit"/>.
         /// </summary>
-        /// <param name="text"></param>
-        /// <param name="tag"></param>
-        private void AddTreeNode(string text, object tag)
+        /// <remarks>
+        /// It is allowed if <paramref name="feedStructureObject"/> can be added to the selected container (e.g. a <see cref="Implementation"/> can be added to a
+        /// <see cref="Group"/>).
+        /// See http://0install.net/interface-spec.html for more information.
+        /// </remarks>
+        /// <param name="feedStructureObject"></param>
+        private void AddFeedStructureObject(object feedStructureObject)
         {
-            var selectedNode = treeViewFeedStructure.SelectedNode ?? treeViewFeedStructure.TopNode;
-            selectedNode.Nodes.Add(new TreeNode(text) {Tag = tag });
-            selectedNode.Expand();
+            var firstFeedStructureNode = treeViewFeedStructure.Nodes[0];
+            var selectedNode = treeViewFeedStructure.SelectedNode ?? firstFeedStructureNode;
+
+            if (selectedNode.Tag is Feed)
+            {
+                var feed = (Feed)selectedNode.Tag;
+
+                if(feedStructureObject is Group)
+                {
+                    feed.Groups.Add((Group)feedStructureObject);
+                } else if (feedStructureObject is Implementation)
+                {
+                    feed.Implementations.Add((Implementation) feedStructureObject);
+                }
+                else if (feedStructureObject is PackageImplementation)
+                {
+                    feed.PackageImplementations.Add((PackageImplementation) feedStructureObject);
+                }
+            }
+            else if (selectedNode.Tag is Group)
+            {
+                var group = (Group) selectedNode.Tag;
+
+                if(feedStructureObject is Dependency)
+                {
+                    group.Dependencies.Add((Dependency)feedStructureObject);
+                }
+                else if(feedStructureObject is EnvironmentBinding)
+                {
+                    group.EnvironmentBindings.Add((EnvironmentBinding)feedStructureObject);
+                }
+                else if(feedStructureObject is Group)
+                {
+                    group.Groups.Add((Group)feedStructureObject);
+                    
+                } else if(feedStructureObject is Implementation)
+                {
+                    group.Implementations.Add((Implementation)feedStructureObject);
+                } else if (feedStructureObject is OverlayBinding)
+                {
+                    group.OverlayBindings.Add((OverlayBinding)feedStructureObject);
+                }
+                else if(feedStructureObject is PackageImplementation)
+                {
+                    group.PackageImplementations.Add((PackageImplementation)feedStructureObject);
+                }
+            }
+            else if (selectedNode.Tag is Implementation)
+            {
+                var implementation = (Implementation) selectedNode.Tag;
+
+                if(feedStructureObject is Archive)
+                {
+                    implementation.Archives.Add((Archive) feedStructureObject);
+                }
+                else if (feedStructureObject is Dependency)
+                {
+                    implementation.Dependencies.Add((Dependency) feedStructureObject);
+                } else if(feedStructureObject is EnvironmentBinding)
+                {
+                    implementation.EnvironmentBindings.Add((EnvironmentBinding) feedStructureObject);
+                } else if(feedStructureObject is OverlayBinding)
+                {
+                    implementation.OverlayBindings.Add((OverlayBinding)feedStructureObject);
+                } else if(feedStructureObject is Recipe)
+                {
+                    implementation.Recipes.Add((Recipe) feedStructureObject);
+                }
+            }
+            else if (selectedNode.Tag is PackageImplementation)
+            {
+                var packageImplementation = (PackageImplementation) selectedNode.Tag;
+                if(feedStructureObject is Dependency)
+                {
+                    packageImplementation.Dependencies.Add((Dependency) feedStructureObject);
+                } else if(feedStructureObject is EnvironmentBinding)
+                {
+                    packageImplementation.EnvironmentBindings.Add((EnvironmentBinding) feedStructureObject);
+                }
+                else if (feedStructureObject is OverlayBinding)
+                {
+                    packageImplementation.OverlayBindings.Add((OverlayBinding) feedStructureObject);
+                }
+            }
+            else if (selectedNode.Tag is Dependency)
+            {
+                var dependecy = (Dependency)selectedNode.Tag;
+                if (feedStructureObject is EnvironmentBinding)
+                {
+                    dependecy.EnvironmentBindings.Add((EnvironmentBinding)feedStructureObject);
+                }
+                else if (feedStructureObject is OverlayBinding)
+                {
+                    dependecy.OverlayBindings.Add((OverlayBinding)feedStructureObject);
+                }
+            }
+            FillFeedTab();
         }
 
         #endregion
@@ -610,7 +739,7 @@ namespace ZeroInstall.Publish.WinForms
             }
             
             // mark the addButtons that can be selected
-            if (selectedNode == treeViewFeedStructure.TopNode)
+            if (selectedNode == treeViewFeedStructure.Nodes[0])
             {
                 enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation };
             }
@@ -640,27 +769,21 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void TreeViewFeedStructureNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
-            //Form window;
             var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
+            if (selectedNode == null || selectedNode == treeViewFeedStructure.Nodes[0]) return;
 
             selectedNode.Toggle();
 
-            // open a new window to change the selected object
-            if (selectedNode.Text.StartsWith("Group"))
+            // show a dialog to change the selected object
+            if (selectedNode.Tag is Group) (new GroupForm { Group = (Group) selectedNode.Tag}).ShowDialog();
+            else if (selectedNode.Tag is Implementation) (new ImplementationForm { Implementation = (Implementation)selectedNode.Tag }).ShowDialog();
+            else if (selectedNode.Tag is Archive)
             {
-                var feedStructurForm = new GroupForm { Group = (Group) selectedNode.Tag};
-                feedStructurForm.ShowDialog();
-            }
-            else if (selectedNode.Text.StartsWith("Implementation"))
-            {
-                var feedStructurForm = new ImplementationForm { Implementation = (Implementation)selectedNode.Tag };
-                feedStructurForm.ShowDialog();
-            }
-            else if (selectedNode.Text.StartsWith("Archive"))
-            {
-                var feedStructurForm = new ArchiveForm();
-                if (selectedNode.Tag is Archive) feedStructurForm.Archive = (Archive) selectedNode.Tag;
+                var feedStructurForm = new ArchiveForm
+                                           {
+                                               Archive = (Archive) selectedNode.Tag,
+                                               Readonly = !IsEmpty((Archive) selectedNode.Tag)
+                                           };
 
                 if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
 
@@ -669,6 +792,7 @@ namespace ZeroInstall.Publish.WinForms
                     if(!CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
                     {
                         MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was disacared,");
+                        selectedNode.Tag = new Archive();
                         return;
                     }
                 } else
@@ -676,59 +800,34 @@ namespace ZeroInstall.Publish.WinForms
                     var manifestDigestNode = new TreeNode("Manifest digest") {Tag = feedStructurForm.ManifestDigest};
                     selectedNode.Parent.Nodes.Insert(0, manifestDigestNode);
                 }
-                selectedNode.Tag = feedStructurForm.Archive;
             }
-            else if (selectedNode.Text.StartsWith("Recipe"))
-            {
-                throw new NotImplementedException();
-            }
-            else if (selectedNode.Text.StartsWith("Package Implementation"))
-            {
-                var feedStructurForm = new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag };
-                feedStructurForm.ShowDialog();
-            }
-            else if (selectedNode.Text.StartsWith("Dependency"))
-            {
-                var feedStructurForm = new DependencyForm { Dependency = (Dependency)selectedNode.Tag };
-                feedStructurForm.ShowDialog();
-            }
-            else if (selectedNode.Text.StartsWith("Environment Binding"))
-            {
-                var feedStructurForm = new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag };
-                feedStructurForm.ShowDialog();
-            }
-            else if (selectedNode.Text.StartsWith("Overlay Binding"))
-            {
-                var feedStructurForm = new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag };
-                feedStructurForm.ShowDialog();
-            }
-            else if(selectedNode.Text.StartsWith("Manifest digest"))
-            {
-                var feedStructurForm = new ManifestDigestForm((ManifestDigest) selectedNode.Tag);
-                feedStructurForm.ShowDialog();
-            }
-            else
-            {
-                throw new InvalidOperationException("Not an object to change.");
-            }
+            else if (selectedNode.Tag is Recipe) throw new NotImplementedException();
+            else if (selectedNode.Tag is PackageImplementation) (new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag }).ShowDialog();
+            else if (selectedNode.Tag is Dependency) (new DependencyForm { Dependency = (Dependency)selectedNode.Tag }).ShowDialog();
+            else if (selectedNode.Tag is EnvironmentBinding) (new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag }).ShowDialog();
+            else if (selectedNode.Tag is OverlayBinding) (new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag }).ShowDialog();
+            else if(selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
+            else throw new InvalidOperationException("Not an object to change.");
         }
 
-        private bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
+        private static bool IsEmpty(Archive toCheck)
         {
-            bool ret = false;
-            if (manifestDigest1.Sha1New != String.Empty && manifestDigest2.Sha1New != String.Empty)
+            return (toCheck.Extract == default(String) && toCheck.Location == default(Uri) && toCheck.MimeType == default(String) && toCheck.Size == default(long) && toCheck.StartOffset == default(long));
+        }
+
+        private static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
+        {
+            if (manifestDigest1.Sha256 != String.Empty && manifestDigest2.Sha256 != String.Empty)
             {
-                ret = manifestDigest1.Sha1New == manifestDigest2.Sha1New;
-                if (!ret) return false;
+                if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
+            }
+            else if (manifestDigest1.Sha1New != String.Empty && manifestDigest2.Sha1New != String.Empty)
+            {
+                if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
             }
             else if (manifestDigest1.Sha1Old != String.Empty && manifestDigest2.Sha1Old != String.Empty)
             {
-                ret = manifestDigest1.Sha1Old == manifestDigest2.Sha1Old;
-                if (!ret) return false;
-            } else if(manifestDigest1.Sha256 != String.Empty && manifestDigest2.Sha256 != String.Empty)
-            {
-                ret = manifestDigest1.Sha256 == manifestDigest2.Sha256;
-                if (!ret) return false;
+                if (manifestDigest1.Sha1Old != manifestDigest2.Sha1Old) return false;
             }
             return true;
         }
@@ -741,8 +840,21 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnRemoveFeedStructureObjectClick(object sender, EventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode == null || selectedNode == treeViewFeedStructure.TopNode) return;
-            treeViewFeedStructure.Nodes.Remove(selectedNode);
+            if (selectedNode == null || selectedNode == treeViewFeedStructure.Nodes[0]) return;
+            RemoveObjectFromFeedStructure(selectedNode.Parent.Tag, selectedNode.Tag);
+            FillFeedTab();
+        }
+
+        private void RemoveObjectFromFeedStructure(object container, object toRemove)
+        {
+            if (toRemove is Group) ((IGroupContainer)container).Groups.Remove((Group)toRemove);
+            else if (toRemove is Implementation) ((IGroupContainer)container).Implementations.Remove((Implementation)toRemove);
+            else if (toRemove is PackageImplementation) ((IGroupContainer)container).PackageImplementations.Remove((PackageImplementation)toRemove);
+            else if (toRemove is Dependency) ((ImplementationBase) container).Dependencies.Remove((Dependency) toRemove);
+            else if (toRemove is EnvironmentBinding) ((IBindingContainer)container).EnvironmentBindings.Remove((EnvironmentBinding)toRemove);
+            else if (toRemove is OverlayBinding) ((IBindingContainer)container).OverlayBindings.Remove((OverlayBinding)toRemove);
+            else if (toRemove is Archive) ((Implementation)container).Archives.Remove((Archive)toRemove);
+            else if (toRemove is Recipe) ((Implementation)container).Recipes.Remove((Recipe)toRemove);
         }
 
         /// <summary>
@@ -752,7 +864,127 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ButtonClearListClick(object sender, EventArgs e)
         {
-            treeViewFeedStructure.TopNode.Nodes.Clear();
+            _feedToEdit.Groups.Clear();
+            _feedToEdit.Implementations.Clear();
+            _feedToEdit.PackageImplementations.Clear();
+            FillFeedTab();
+        }
+
+        private void BuildGroupTreeNodes(ICollectionValue<Group> groups, TreeNode parentNode)
+        {
+            if (groups == null) throw new ArgumentNullException("groups");
+
+            if (groups.IsEmpty) return;
+            foreach (var group in groups)
+            {
+                var groupNode = new TreeNode("Group") {Tag = group};
+                parentNode.Nodes.Add(groupNode);
+                BuildGroupTreeNodes(group.Groups, groupNode);
+                BuildImplementationTreeNodes(group.Implementations, groupNode);
+                BuildPackageImplementationTreeNodes(group.PackageImplementations, groupNode);
+                BuildDependencyTreeNodes(group.Dependencies, groupNode);
+                BuildEnvironmentBindingTreeNodes(group.EnvironmentBindings, groupNode);
+                BuildOverlayBindingTreeNodes(group.OverlayBindings, groupNode);
+            }
+        }
+
+        private void BuildPackageImplementationTreeNodes(ICollectionValue<PackageImplementation> packageImplementations, TreeNode parentNode)
+        {
+            if (packageImplementations == null) throw new ArgumentNullException("packageImplementations");
+            
+            if (packageImplementations.IsEmpty) return;
+            foreach (var packageImplementation in packageImplementations)
+            {
+                var packageImplementationNode = new TreeNode("Package implementation") {Tag = packageImplementation};
+                parentNode.Nodes.Add(packageImplementationNode);
+                BuildDependencyTreeNodes(packageImplementation.Dependencies, parentNode);
+                BuildEnvironmentBindingTreeNodes(packageImplementation.EnvironmentBindings, parentNode);
+                BuildOverlayBindingTreeNodes(packageImplementation.OverlayBindings, parentNode);
+            }
+        }
+
+        private void BuildOverlayBindingTreeNodes(ICollectionValue<OverlayBinding> overlayBindings, TreeNode parentNode)
+        {
+            if (overlayBindings == null) throw new ArgumentNullException("overlayBindings");
+
+            if (overlayBindings.IsEmpty) return;
+            foreach (var overlayBinding in overlayBindings)
+            {
+                var overlayBindingNode = new TreeNode("Overlay binding") {Tag = overlayBinding};
+                parentNode.Nodes.Add(overlayBindingNode);
+            }
+        }
+
+        private void BuildImplementationTreeNodes(ICollectionValue<Implementation> implementations, TreeNode parentNode)
+        {
+            if (implementations == null) throw new ArgumentNullException("implementations");
+
+            if (implementations.IsEmpty) return;
+            foreach (var implementation in implementations)
+            {
+                var implementationNode = new TreeNode("Implementation") {Tag = implementation};
+                parentNode.Nodes.Add(implementationNode);
+                BuildManifestDigestTreeNode(implementation.ManifestDigest, implementationNode);
+                BuildArchivTreeNodes(implementation.Archives, implementationNode);
+                BuildRecipeTreeNodes(implementation.Recipes, implementationNode);
+                BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
+                BuildEnvironmentBindingTreeNodes(implementation.EnvironmentBindings, implementationNode);
+                BuildOverlayBindingTreeNodes(implementation.OverlayBindings, implementationNode);
+            }
+        }
+
+        private void BuildManifestDigestTreeNode(ManifestDigest manifestDigest, TreeNode parentNode)
+        {
+            var manifestDigestNode = new TreeNode("Manifest digest") {Tag = manifestDigest};
+            parentNode.Nodes.Insert(0, manifestDigestNode);
+        }
+
+        private void BuildRecipeTreeNodes(ICollectionValue<Recipe> recipes, TreeNode parentNode)
+        {
+            if (recipes == null) throw new ArgumentNullException("recipes");
+
+            if (recipes.IsEmpty) return;
+            foreach (var recipe in recipes)
+            {
+                var recipeNode = new TreeNode("Recipe") {Tag = recipe};
+                parentNode.Nodes.Add(recipeNode);
+            }
+        }
+
+        private void BuildArchivTreeNodes(ICollectionValue<Archive> archives, TreeNode parentNode)
+        {
+            if (archives == null) throw new ArgumentNullException("archives");
+            
+            if (archives.IsEmpty) return;
+            foreach (var archive in archives)
+            {
+                var archiveNode = new TreeNode("Archive") {Tag = archive};
+                parentNode.Nodes.Add(archiveNode);
+            }
+        }
+
+        private void BuildEnvironmentBindingTreeNodes(ICollectionValue<EnvironmentBinding> environmentBindings, TreeNode parentNode)
+        {
+            if (environmentBindings == null) throw new ArgumentNullException("environmentBindings");
+
+            if (environmentBindings.IsEmpty) return;
+            foreach (var environmentBinding in environmentBindings)
+            {
+                var environmentBindingNode = new TreeNode("Environment binding") {Tag = environmentBinding};
+                parentNode.Nodes.Add(environmentBindingNode);
+            }
+        }
+
+        private void BuildDependencyTreeNodes(ICollectionValue<Dependency> dependencies, TreeNode parentNode)
+        {
+            if (dependencies == null) throw new ArgumentNullException("dependencies");
+
+            if (dependencies.IsEmpty) return;
+            foreach (var dependency in dependencies)
+            {
+                var dependencyNode = new TreeNode("Dependency") {Tag = dependency};
+                parentNode.Nodes.Add(dependencyNode);
+            }
         }
 
         #endregion
@@ -764,7 +996,7 @@ namespace ZeroInstall.Publish.WinForms
         #region External Feeds Group
 
         /// <summary>
-        /// Adds a clone of the <see cref="feedReferenceControl"/> to <see cref="listBoxExtFeeds"/> if no equal object is in the list.
+        /// Adds a clone of the <see cref="feedReferenceControl"/> to <see cref="listBoxExternalFeeds"/> if no equal object is in the list.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -772,22 +1004,22 @@ namespace ZeroInstall.Publish.WinForms
         {
             var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
-            if (!listBoxExtFeeds.Items.Contains(feedReference))
+            if (!listBoxExternalFeeds.Items.Contains(feedReference))
             {
-                listBoxExtFeeds.Items.Add(feedReference);
+                listBoxExternalFeeds.Items.Add(feedReference);
             }
         }
 
         /// <summary>
-        /// Removes the selected <see cref="FeedReference"/> from <see cref="listBoxExtFeeds"/>.
+        /// Removes the selected <see cref="FeedReference"/> from <see cref="listBoxExternalFeeds"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void btnExtFeedsRemove_Click(object sender, EventArgs e)
         {
-            var selectedItem = listBoxExtFeeds.SelectedItem;
+            var selectedItem = listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
-            listBoxExtFeeds.Items.Remove(selectedItem);
+            listBoxExternalFeeds.Items.Remove(selectedItem);
         }
 
         /// <summary>
@@ -797,38 +1029,38 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void listBoxExtFeeds_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedItem = (FeedReference)listBoxExtFeeds.SelectedItem;
+            var selectedItem = (FeedReference)listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
             feedReferenceControl.FeedReference = selectedItem.CloneFeedReference();
         }
 
         /// <summary>
-        /// Updates the selected <see cref="FeedReference"/> in <see cref="listBoxExtFeeds"/> with the new values from <see cref="feedReferenceControl"/>.
+        /// Updates the selected <see cref="FeedReference"/> in <see cref="listBoxExternalFeeds"/> with the new values from <see cref="feedReferenceControl"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void btnExtFeedUpdate_Click(object sender, EventArgs e)
         {
-            var selectedFeedReferenceIndex = listBoxExtFeeds.SelectedIndex;
+            var selectedFeedReferenceIndex = listBoxExternalFeeds.SelectedIndex;
             var feedReference = feedReferenceControl.FeedReference;
             if (selectedFeedReferenceIndex < 0) return;
             if (String.IsNullOrEmpty(feedReference.Source)) return;
-            listBoxExtFeeds.Items[selectedFeedReferenceIndex] = feedReference;
+            listBoxExternalFeeds.Items[selectedFeedReferenceIndex] = feedReference;
         }
 
         #endregion
 
-        #region Feed For Group
+        #region FeedFor Group
 
         /// <summary>
-        /// Adds a new <see cref="InterfaceReference"/> with the Uri from <see cref="textFeedFor"/> to <see cref="listBoxFeedFor"/>.
+        /// Adds a new <see cref="InterfaceReference"/> with the Uri from <see cref="hintTextBoxFeedFor"/> to <see cref="listBoxFeedFor"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void btnFeedForAdd_Click(object sender, EventArgs e)
         {
             Uri uri;
-            if (!ControlHelpers.IsValidFeedUrl(textFeedFor.Text, out uri)) return;
+            if (!ControlHelpers.IsValidFeedUrl(hintTextBoxFeedFor.Text, out uri)) return;
             var interfaceReference = new InterfaceReference();
             interfaceReference.Target = uri;
             listBoxFeedFor.Items.Add(interfaceReference);
@@ -855,6 +1087,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             listBoxFeedFor.Items.Clear();
         }
+
+        #endregion
 
         #endregion
 
