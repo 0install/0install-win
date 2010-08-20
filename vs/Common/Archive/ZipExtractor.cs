@@ -21,9 +21,7 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using Common.Helpers;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -61,42 +59,6 @@ namespace Common.Archive
         #endregion
 
         //--------------------//
-
-        #region Content
-        /// <inheritdoc />
-        public override IEnumerable<string> ListContent()
-        {
-            var contentList = new List<string>((int)_zip.Count);
-            try
-            {
-                foreach (ZipEntry entry in _zip)
-                    contentList.Add(StringHelper.UnifySlashes(entry.Name));
-            }
-            catch (ZipException ex)
-            {
-                throw new IOException(Resources.ArchiveInvalid, ex);
-            }
-
-            return contentList;
-        }
-
-        /// <inheritdoc />
-        public override IEnumerable<string> ListDirectories()
-        {
-            var directoryList = new List<string>((int)_zip.Count);
-            try
-            {
-                foreach (ZipEntry entry in _zip)
-                    if (entry.IsDirectory) directoryList.Add(StringHelper.UnifySlashes(entry.Name));
-            }
-            catch (ZipException ex)
-            {
-                throw new IOException(Resources.ArchiveInvalid, ex);
-            }
-
-            return directoryList;
-        }
-        #endregion
 
         #region Extraction
         /// <inheritdoc />

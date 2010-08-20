@@ -1,7 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
 using System.IO;
-using System.Collections.Generic;
 using Common.Storage;
 using Common.Helpers;
 
@@ -129,45 +128,6 @@ namespace Common.Archive
             Assert.AreEqual("This file should not be touched", file0Content);
             var comparer = new CompareHierarchyToExtractedFolder("destination");
             _package.AcceptVisitor(comparer);
-        }
-
-        [Test]
-        public void TestListContent()
-        {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "temp"))
-            {
-                var entryList = new List<string> { "file1", "file2", "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
-                    "folder1" + Path.DirectorySeparatorChar + "nestedFile", "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar,
-                    "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar + "doublyNestedFile" };
-
-                var archiveContentList = (List<string>)extractor.ListContent();
-
-                Assert.IsTrue(entryList.Count == archiveContentList.Count, "Extractor listed wrong number of entries.");
-
-                foreach (string entry in entryList)
-                {
-                    Assert.IsTrue(archiveContentList.Contains(entry), "Extractor did not list archive entry: " + entry);
-                }
-            }
-        }
-
-        [Test]
-        public void TestListDirectories()
-        {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "temp"))
-            {
-                var entryList = new List<string> { "emptyFolder" + Path.DirectorySeparatorChar, "folder1" + Path.DirectorySeparatorChar,
-                    "folder1" + Path.DirectorySeparatorChar + "nestedFolder" + Path.DirectorySeparatorChar };
-
-                var archiveContentList = (List<string>)extractor.ListDirectories();
-
-                Assert.IsTrue(entryList.Count == archiveContentList.Count, "Extractor listed wrong number of directories.");
-
-                foreach (string entry in entryList)
-                {
-                    Assert.IsTrue(archiveContentList.Contains(entry), "Extractor did not list archive subdirectory: " + entry);
-                }
-            }
         }
     }
 

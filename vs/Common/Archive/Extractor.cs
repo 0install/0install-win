@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Threading;
@@ -129,8 +128,6 @@ namespace Common.Archive
         }
         #endregion
 
-        //--------------------//
-
         #region Static helpers
         /// <summary>
         /// Tries to guess the MIME type of an archive file by looking at its file ending.
@@ -155,22 +152,6 @@ namespace Common.Archive
             if (fileName.EndsWith(".dmg")) return "application/x-apple-diskimage";
             return null;
         }
-        #endregion
-
-        #region Content
-        /// <summary>
-        /// Returns a list of all files and directories contained in the archive. Ignores the <see cref="SubDir"/> property.
-        /// </summary>
-        /// <returns>A list of files and directories using native path separators.</returns>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public abstract IEnumerable<string> ListContent();
-
-        /// <summary>
-        /// Returns a list of all directories contained in the archive. Ignores the <see cref="SubDir"/> property.
-        /// </summary>
-        /// <returns>A list of directories using native path separators.</returns>
-        /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public abstract IEnumerable<string> ListDirectories();
         #endregion
 
         //--------------------//

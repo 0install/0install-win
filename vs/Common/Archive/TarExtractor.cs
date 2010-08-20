@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Tar;
@@ -60,43 +59,7 @@ namespace Common.Archive
         #endregion
 
         //--------------------//
-
-        #region Content
-        /// <inheritdoc />
-        public override IEnumerable<string> ListContent()
-        {
-            var contentList = new LinkedList<string>();
-            //try
-            //{
-            //    foreach (TarEntry entry in _tar)
-            //        contentList.Add(StringHelper.UnifySlashes(entry.Name));
-            //}
-            //catch (TarException ex)
-            //{
-            //    throw new IOException(Resources.ArchiveInvalid, ex);
-            //}
-
-            return contentList;
-        }
-
-        /// <inheritdoc />
-        public override IEnumerable<string> ListDirectories()
-        {
-            var directoryList = new LinkedList<string>();
-            //try
-            //{
-            //    foreach (TarEntry entry in _tar)
-            //        if (entry.IsDirectory) directoryList.Add(StringHelper.UnifySlashes(entry.Name));
-            //}
-            //catch (TarException ex)
-            //{
-            //    throw new IOException(Resources.ArchiveInvalid, ex);
-            //}
-
-            return directoryList;
-        }
-        #endregion
-
+        
         #region Extraction
         /// <inheritdoc />
         protected override void RunExtraction()
