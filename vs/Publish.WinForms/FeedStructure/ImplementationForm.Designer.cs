@@ -45,6 +45,8 @@
             this.labelLocalPath = new System.Windows.Forms.Label();
             this.hintTextBoxLocalPath = new Common.Controls.HintTextBox();
             this.targetBaseControl = new ZeroInstall.Publish.WinForms.TargetBaseControl();
+            this.hintTextBoxID = new Common.Controls.HintTextBox();
+            this.labelID = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -265,11 +267,30 @@
             this.targetBaseControl.TabIndex = 16;
             this.targetBaseControl.TargetBase = null;
             // 
+            // hintTextBoxID
+            // 
+            this.hintTextBoxID.HintText = "";
+            this.hintTextBoxID.Location = new System.Drawing.Point(270, 63);
+            this.hintTextBoxID.Name = "hintTextBoxID";
+            this.hintTextBoxID.Size = new System.Drawing.Size(248, 20);
+            this.hintTextBoxID.TabIndex = 1002;
+            // 
+            // labelID
+            // 
+            this.labelID.AutoSize = true;
+            this.labelID.Location = new System.Drawing.Point(268, 47);
+            this.labelID.Name = "labelID";
+            this.labelID.Size = new System.Drawing.Size(18, 13);
+            this.labelID.TabIndex = 1003;
+            this.labelID.Text = "ID";
+            // 
             // ImplementationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 361);
+            this.Controls.Add(this.labelID);
+            this.Controls.Add(this.hintTextBoxID);
             this.Controls.Add(this.hintTextBoxLocalPath);
             this.Controls.Add(this.labelLocalPath);
             this.Controls.Add(this.labelStability);
@@ -307,6 +328,8 @@
             this.Controls.SetChildIndex(this.labelLocalPath, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.hintTextBoxLocalPath, 0);
+            this.Controls.SetChildIndex(this.hintTextBoxID, 0);
+            this.Controls.SetChildIndex(this.labelID, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -331,5 +354,7 @@
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Label labelLocalPath;
         private Common.Controls.HintTextBox hintTextBoxLocalPath;
+        private Common.Controls.HintTextBox hintTextBoxID;
+        private System.Windows.Forms.Label labelID;
     }
 }

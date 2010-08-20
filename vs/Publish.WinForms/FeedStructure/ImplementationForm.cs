@@ -84,6 +84,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             dateTimePickerRelease.Value = DateTime.Now;
             comboBoxStability.SelectedItem = Stability.Testing;
             comboBoxLicense.Text = @"GPL v3 (GNU General Public License)";
+            hintTextBoxID.Text = String.Empty;
             hintTextBoxMain.Text = String.Empty;
             hintTextBoxDocDir.Text = String.Empty;
             hintTextBoxSelfTest.Text = String.Empty;
@@ -101,6 +102,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (_implementation.Released != default(DateTime)) dateTimePickerRelease.Value = _implementation.Released;
             if (_implementation.Stability != default(Stability)) comboBoxStability.SelectedItem = _implementation.Stability;
             if (!String.IsNullOrEmpty(_implementation.License)) comboBoxLicense.Text = _implementation.License;
+            if (!String.IsNullOrEmpty(_implementation.ID)) hintTextBoxID.Text = _implementation.ID;
             if (!String.IsNullOrEmpty(_implementation.Main)) hintTextBoxMain.Text = _implementation.Main;
             if (!String.IsNullOrEmpty(_implementation.DocDir)) hintTextBoxDocDir.Text = _implementation.DocDir;
             if (!String.IsNullOrEmpty(_implementation.SelfTest)) hintTextBoxSelfTest.Text = _implementation.SelfTest;
