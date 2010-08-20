@@ -18,7 +18,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using Common;
+using System.Text;
+using System.Threading;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -89,20 +90,32 @@ namespace ZeroInstall.Injector.Solver
             #endregion
 
             var process = new Process {StartInfo = GetStartInfo(feed, policy)};
-            process.OutputDataReceived += delegate(object sender, DataReceivedEventArgs e)
-            { };
-            process.ErrorDataReceived += delegate(object sender, DataReceivedEventArgs e)
-            { };
-
-            // Start the Python process
             process.Start();
-            //process.StandardInput.WriteLine();
-            //process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
 
-            // Parse stdout after the process has completed
+            // Asynchronously store all StandardOutput as a string
+            var stdOut = new StringBuilder();
+            process.OutputDataReceived += (sender, e) => stdOut.AppendLine(e.Data);
+            process.BeginOutputReadLine();
+
+            // Asynchronously handle all StandardError
+            process.ErrorDataReceived += (sender, e) => HandleStdErrorLine(policy.InterfaceCache.Handler, e.Data);
+            process.BeginErrorReadLine();
+            
+            Thread.Sleep(1000);
+            process.StandardInput.WriteLine();
+
             process.WaitForExit();
-            return Selections.LoadFromString(process.StandardOutput.ReadToEnd());
+
+            // Parse StandardOutput as XML
+            return Selections.LoadFromString(stdOut.ToString());
+        }
+
+        private StringBuilder stdErrCache = new StringBuilder();
+        private void HandleStdErrorLine(IFeedHandler handler, string data)
+        {
+            // ToDo: Handle multi-line messages
+            stdErrCache.AppendLine(data);
+            handler.AcceptNewKey(data);
         }
         #endregion
 
@@ -155,6 +168,35 @@ namespace ZeroInstall.Injector.Solver
             if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath;
 
             return arguments;
+        }
+        #endregion
+
+        #region IO streams
+        /// <summary>
+        /// Handles reading of stdout and firing an event for
+        /// every line read
+        /// </summary>
+        private static string ReadStdOut(StreamReader standardOutput)
+        {
+            var result = new StringBuilder();
+            string line;
+            while ((line = standardOutput.ReadLine()) != null)
+            {
+                result.AppendLine(line);
+            }
+            return result.ToString();
+        }
+
+        /// <summary>
+        /// Handles reading of stdErr
+        /// </summary>
+        private static void ReadStdErr(StreamReader standardError, IFeedHandler handler)
+        {
+            string line;
+            while ((line = standardError.ReadLine()) != null)
+            {
+                handler.AcceptNewKey(line);
+            }
         }
         #endregion
     }

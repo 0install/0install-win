@@ -72,13 +72,13 @@ namespace Common
         event ProgressEventHandler StateChanged;
 
         /// <summary>
-        /// Occurs whenever <see cref="BytesProcessed"/> changes.
+        /// Occurs whenever <see cref="Progress"/> changes.
         /// </summary>
         /// <remarks>
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
         ///   <para>The event handling blocks the thread, therefore observers should handle the event quickly.</para>
         /// </remarks>
-        event ProgressEventHandler BytesReceivedChanged;
+        event ProgressEventHandler ProgressChanged;
         #endregion
 
         #region Properties
@@ -116,32 +116,34 @@ namespace Common
 
         //--------------------//
 
-        #region User control
+        #region Control
         /// <summary>
         /// Starts executing the task in a background thread.
         /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> thread will have no effect.</remarks>
+        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
         void Start();
 
         /// <summary>
         /// Stops executing the task.
         /// </summary>
-        /// <remarks>Calling this on a not running thread will have no effect.</remarks>
+        /// <remarks>Calling this on a not running task will have no effect.</remarks>
         void Cancel();
 
         /// <summary>
         /// Blocks until the task is completed or terminated.
         /// </summary>
-        /// <remarks>Calling this on a not running thread will return immediately.</remarks>
+        /// <remarks>Calling this on a not running task will return immediately.</remarks>
         /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running (launched via <see cref="RunSync"/>).</exception>
         void Join();
 
         /// <summary>
-        /// Runs the task in the current thread instead of a background thread.
+        /// Runs the task synchronously to the current thread.
         /// </summary>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
+        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
+        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
         void RunSync();
         #endregion
     }

@@ -63,6 +63,7 @@
     <Compile Include="Download\DownloadFile.cs" />
     <Compile Include="Archive\Extractor.cs" />
     <Compile Include="Archive\ZipExtractor.cs" />
+    <Compile Include="Archive\TarExtractor.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
@@ -125,9 +126,9 @@
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
     <Compile Include="AppMutex.cs" />
-    <Compile Include="IProgress.cs" />
     <Compile Include="NanoGrid.cs" />
-    <Compile Include="ProgressBase.cs" />
+    <Compile Include="IProgress.cs" />
+    <Compile Include="IOWriteProgress.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />

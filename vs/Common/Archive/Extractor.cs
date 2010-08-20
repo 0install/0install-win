@@ -33,7 +33,7 @@ namespace Common.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : ProgressBase, IDisposable
+    public abstract class Extractor : IOWriteProgress, IDisposable
     {
         #region Properties
         /// <summary>
@@ -97,6 +97,7 @@ namespace Common.Archive
             switch (mimeType)
             {
                 case "application/zip": extractor = new ZipExtractor(stream, startOffset, target); break;
+                case "application/x-tar": extractor = new TarExtractor(stream, startOffset, target); break;
                 default: throw new NotSupportedException(Resources.UnknownMimeType);
             }
 
@@ -179,6 +180,25 @@ namespace Common.Archive
         /// The actual extraction code to be executed by a background thread.
         /// </summary>
         protected abstract void RunExtraction();
+
+        /// <inheritdoc />
+        public override void Cancel()
+        {
+            lock (StateLock)
+            {
+                if (State == ProgressState.Ready || State >= ProgressState.Complete) return;
+
+                Thread.Abort();
+            }
+
+            Thread.Join();
+
+            lock (StateLock)
+            {
+                // Reset the state so the task can be started again
+                State = ProgressState.Ready;
+            }
+        }
         #endregion
 
         #region Get sub entries

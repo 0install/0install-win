@@ -33,8 +33,12 @@ namespace Common.Download
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    public class DownloadFile : ProgressBase
+    public class DownloadFile : IOWriteProgress
     {
+        #region Variables
+        private bool _cancelRequest;
+        #endregion
+
         #region Properties
         /// <summary>
         /// The URL the file is to be downloaded from.
@@ -55,8 +59,6 @@ namespace Common.Download
         /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
         [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
         public bool SupportsResume { get; private set; }
-
-
         #endregion
 
         #region Constructor
@@ -157,6 +159,8 @@ namespace Common.Download
 
                         // Start writing data to the file
                         WriteStreamToTarget(response.GetResponseStream(), fileStream);
+
+                        lock (StateLock) if (_cancelRequest) return;
                     }
                 }
             }
@@ -191,6 +195,26 @@ namespace Common.Download
             #endregion
 
             State = ProgressState.Complete;
+        }
+
+        /// <inheritdoc />
+        public override void Cancel()
+        {
+            lock (StateLock)
+            {
+                if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
+
+                _cancelRequest = true;
+            }
+
+            Thread.Join();
+
+            lock (StateLock)
+            {
+                // Reset the state so the task can be started again
+                State = ProgressState.Ready;
+                _cancelRequest = true;
+            }
         }
         #endregion
 
@@ -272,6 +296,7 @@ namespace Common.Download
             // Detect the end of the stream via a 0-write
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
+                lock (StateLock) if (_cancelRequest) return;
                 fileStream.Write(buffer, 0, length);
                 lock (StateLock) BytesProcessed += length;
             }

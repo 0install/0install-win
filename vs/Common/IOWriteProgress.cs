@@ -1,4 +1,26 @@
-﻿using System.ComponentModel;
+﻿/*
+ * Copyright 2006-2010 Bastian Eicher
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -7,15 +29,13 @@ using Common.Helpers;
 namespace Common
 {
     /// <summary>
-    /// Provides deafult implementations of threading code for file-related <see cref="IProgress"/> classes.
+    /// Abstract base class for background tasks that write files or directories.
     /// </summary>
-    /// <remarks>
-    /// Sub-classes must initalize the <see cref="Thread"/> member.
-    /// Calling <see cref="Cancel"/> will directly terminate the thread code without giving it any cleanup time.
-    /// </remarks>
-    public abstract class ProgressBase : IProgress
+    /// <remarks>Sub-classes must initalize the <see cref="Thread"/> member.</remarks>
+    public abstract class IOWriteProgress : IProgress
     {
         #region Events
+        /// <inheritdoc />
         public event ProgressEventHandler StateChanged;
 
         private void OnStateChanged()
@@ -25,12 +45,13 @@ namespace Common
             if (stateChanged != null) stateChanged(this);
         }
 
-        public event ProgressEventHandler BytesReceivedChanged;
+        /// <inheritdoc />
+        public event ProgressEventHandler ProgressChanged;
 
-        private void OnBytesReceivedChanged()
+        private void OnProgressChanged()
         {
             // Copy to local variable to prevent threading issues
-            ProgressEventHandler bytesReceivedChanged = BytesReceivedChanged;
+            ProgressEventHandler bytesReceivedChanged = ProgressChanged;
             if (bytesReceivedChanged != null) bytesReceivedChanged(this);
         }
         #endregion
@@ -44,7 +65,14 @@ namespace Common
         #endregion
 
         #region Properties
+        /// <summary>
+        /// The local path to save the file or directory to.
+        /// </summary>
+        [Description("The local path to save the file or directory to.")]
+        public string Target { get; protected set; }
+
         private ProgressState _state;
+        /// <inheritdoc />
         public ProgressState State
         {
             get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
@@ -53,13 +81,21 @@ namespace Common
         public string ErrorMessage { get; protected set; }
 
         private long _bytesReceived;
+        /// <inheritdoc />
         public long BytesProcessed
         {
-            get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnBytesReceivedChanged); }
+            get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); }
         }
 
-        public long BytesTotal { get; protected set; }
+        private long _bytesTotal;
+        /// <inheritdoc />
+        public long BytesTotal
+        {
+            get { return _bytesTotal; }
+            protected set { UpdateHelper.Do(ref _bytesTotal, value, OnProgressChanged); }
+        }
 
+        /// <inheritdoc />
         public double Progress
         {
             get
@@ -72,17 +108,12 @@ namespace Common
                 }
             }
         }
-
-        /// <summary>
-        /// The local path to save the file or directory to.
-        /// </summary>
-        [Description("The local path to save the file or directory to.")]
-        public string Target { get; protected set; }
         #endregion
 
         //--------------------//
-        
-        #region User control
+
+        #region Control
+        /// <inheritdoc />
         public void Start()
         {
             lock (StateLock)
@@ -94,23 +125,10 @@ namespace Common
             }
         }
 
-        public void Cancel()
-        {
-            lock (StateLock)
-            {
-                if (State == ProgressState.Ready || State >= ProgressState.Complete) return;
+        /// <inheritdoc />
+        public abstract void Cancel();
 
-                Thread.Abort();
-                Thread.Join();
-                
-                lock (StateLock)
-                {
-                    // Reset the state so the task can be started again
-                    State = ProgressState.Ready;
-                }
-            }
-        }
-
+        /// <inheritdoc />
         public void Join()
         {
             lock (StateLock)
@@ -121,6 +139,7 @@ namespace Common
             Thread.Join();
         }
 
+        /// <inheritdoc />
         public void RunSync()
         {
             Start();

@@ -37,19 +37,19 @@ namespace Common.Controls
         {
             set
             {
-                // Remove all delegates from old _downloadFile
+                // Remove all delegates from old _task
                 if (_task != null)
                 {
-                    _task.StateChanged -= DownloadStateChanged;
-                    _task.StateChanged -= DownloadBytesRecivedChanged;
+                    _task.StateChanged -= StateChanged;
+                    _task.ProgressChanged -= ProgressChanged;
                 }
 
                 _task = value;
 
                 if (value != null)
                 {
-                    // Set delegates to the new _downloadFile
-                    _task.StateChanged += DownloadStateChanged;
+                    // Set delegates to the new _task
+                    _task.StateChanged += StateChanged;
                 }
             }
             get { return _task; }
@@ -88,7 +88,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void DownloadStateChanged(IProgress sender)
+        private void StateChanged(IProgress sender)
         {
             // Handle events coming from a non-UI thread
             progressBar.Invoke((SimpleEventHandler) delegate
@@ -107,9 +107,9 @@ namespace Common.Controls
 
                     case ProgressState.Data:
                         // Is the final size known?
-                        if (sender.BytesTotal > 0)
+                        if (sender.Progress != -1)
                         {
-                            _task.BytesReceivedChanged += DownloadBytesRecivedChanged;
+                            _task.ProgressChanged += ProgressChanged;
                             progressBar.Style = ProgressBarStyle.Continuous;
                             if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
@@ -130,11 +130,11 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Changes the value of the <see cref="progressBar"/> and the taskbar depending on the already downloaded bytes.
+        /// Changes the value of the <see cref="progressBar"/> and the taskbar depending on the already proccessed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void DownloadBytesRecivedChanged(IProgress sender)
+        private void ProgressChanged(IProgress sender)
         {
             int currentValue = (int)(_task.Progress * 100);
 
