@@ -61,6 +61,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeSaveFileDialog()
         {
+            if (_openFeedPath != null) saveFileDialog.InitialDirectory = _openFeedPath;
             saveFileDialog.DefaultExt = ".xml";
             saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
@@ -70,8 +71,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeLoadFileDialog()
         {
+            if (_openFeedPath != null) openFileDialog.InitialDirectory = _openFeedPath;
             openFileDialog.DefaultExt = ".xml";
-            openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml |All Files|*.*";
+            openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
 
         #endregion
@@ -124,11 +126,10 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            _openFeedPath = openFileDialog.FileName;
-            _feedToEdit = Feed.Load(_openFeedPath);
+            _openFeedPath = openFileDialog.InitialDirectory;
+            _feedToEdit = Feed.Load(openFileDialog.FileName);
             FillForm();
         }
-
 
         /// <summary>
         /// Saves the values from the filled controls on the <see cref="MainForm"/> in the feed file chosen by <see cref="openFileDialog"/>.
@@ -328,7 +329,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             foreach (var feed in _feedToEdit.Feeds)
             {
-                listBoxFeedFor.Items.Add(feed);
+                listBoxExternalFeeds.Items.Add(feed);
             }
             foreach (var feedFor in _feedToEdit.FeedFor)
             {
