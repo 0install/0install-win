@@ -42,18 +42,44 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #region Properties
 
         /// <summary>
-        /// The <see cref="Archive" /> to be displayed and modified by this form. If this
-        /// property is setted, the form will be readonly.
+        /// The <see cref="Archive" /> to be displayed and modified by this form. If <see cref="Readonly"/> is <see langword="true"/>, the values can only be read.
         /// </summary>
         public Archive Archive
         {
             get { return _archive; }
             set
             {
-                buttonOK.Enabled = false;
+                if (Readonly)
+                {
+                    disableFormControls();
+                } else
+                {
+                    enableFormControls();
+                }
                 _archive = value ?? new Archive();
                 UpdateFormControls();
                 SetControlsReadonly();
+            }
+        }
+
+        private void disableFormControls()
+        {
+            Control[] formControlsToDisable = { comboBoxArchiveFormat, hintTextBoxStartOffset, hintTextBoxArchiveUrl,
+                                                  buttonArchiveDownload, hintTextBoxLocalArchive, buttonChooseArchive,
+                                                  buttonExtractArchive, buttonOK };
+            foreach (var control in formControlsToDisable)
+            {
+                control.Enabled = false;
+            }
+        }
+
+        private void enableFormControls()
+        {
+            Control[] formControlsToEnable = { comboBoxArchiveFormat, hintTextBoxStartOffset, hintTextBoxArchiveUrl,
+                                               buttonArchiveDownload, buttonChooseArchive };
+            foreach (var control in formControlsToEnable)
+            {
+                control.Enabled = true;
             }
         }
 
@@ -65,6 +91,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             get { return _manifestDigest; }
             set { _manifestDigest = value; }
+        }
+
+        /// <summary>
+        /// Defines if the form is readonly, means that nothing can be changed.
+        /// </summary>
+        public bool Readonly
+        {
+            get; set;
         }
 
         #endregion
@@ -106,7 +140,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
             if (!String.IsNullOrEmpty(_archive.LocationString)) hintTextBoxArchiveUrl.Text = _archive.LocationString;
             if (String.IsNullOrEmpty(_archive.Extract)) return;
-            var currentNode = treeViewExtract.TopNode;
+            var currentNode = treeViewExtract.Nodes[0];
             var splittedPath = _archive.Extract.Split('/');
             foreach (var folder in splittedPath)
                 currentNode = currentNode.Nodes.Add(folder);
@@ -168,7 +202,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 downloadProgressBarArchive.Task.Cancel();
                 string targetDir = ((Extractor)downloadProgressBarArchive.Task).Target;
                 try { if (Directory.Exists(targetDir)) Directory.Delete(targetDir); }
-                catch (UnauthorizedAccessException) {}
+                catch (UnauthorizedAccessException)
+                {
+                    //TODO handle exception
+                }
             }
         }
 
@@ -184,7 +221,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 downloadProgressBarArchive.Task.Cancel();
                 string targetDir = ((Extractor)downloadProgressBarArchive.Task).Target;
                 try { if (Directory.Exists(targetDir)) Directory.Delete(targetDir); }
-                catch (UnauthorizedAccessException) { }
+                catch (UnauthorizedAccessException)
+                {
+                    //TODO handle exception
+                }
             }
         }
 
@@ -277,7 +317,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
             treeViewExtract.Nodes.Clear();
             treeViewExtract.Nodes.Add("Top folder");
-            FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewExtract.TopNode);
+            FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewExtract.Nodes[0]);
             treeViewExtract.ExpandAll();
             labelExtractArchiveMessage.Text = "Archive extracted.";
 
