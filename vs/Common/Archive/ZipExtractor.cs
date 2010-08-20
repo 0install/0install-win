@@ -161,7 +161,7 @@ namespace Common.Archive
         {
             if (entry.HostSystem != (int)HostSystemID.Unix) return false;
             const int userExecuteFlag = 0x0040 << 16;
-            return ((entry.ExternalFileAttributes & userExecuteFlag) != 0);
+            return ((entry.ExternalFileAttributes & userExecuteFlag) == userExecuteFlag);
         }
         #endregion
     }
