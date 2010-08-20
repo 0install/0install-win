@@ -51,6 +51,9 @@
             // 
             // labelPackage
             // 
+            this.labelPackage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelPackage.AutoSize = true;
             this.labelPackage.Location = new System.Drawing.Point(12, 48);
             this.labelPackage.Name = "labelPackage";
@@ -60,6 +63,9 @@
             // 
             // hintTextBoxPackage
             // 
+            this.hintTextBoxPackage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxPackage.HintText = "Package name in the selected distributions";
             this.hintTextBoxPackage.Location = new System.Drawing.Point(14, 64);
             this.hintTextBoxPackage.Name = "hintTextBoxPackage";
@@ -68,6 +74,7 @@
             // 
             // checkedListBoxDistribution
             // 
+            this.checkedListBoxDistribution.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkedListBoxDistribution.CheckOnClick = true;
             this.checkedListBoxDistribution.FormattingEnabled = true;
             this.checkedListBoxDistribution.Items.AddRange(new object[] {
@@ -83,6 +90,9 @@
             // 
             // labelDistributions
             // 
+            this.labelDistributions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDistributions.AutoSize = true;
             this.labelDistributions.Location = new System.Drawing.Point(288, 87);
             this.labelDistributions.Name = "labelDistributions";
@@ -92,6 +102,9 @@
             // 
             // labelMain
             // 
+            this.labelMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMain.AutoSize = true;
             this.labelMain.Location = new System.Drawing.Point(12, 9);
             this.labelMain.Name = "labelMain";
@@ -101,7 +114,10 @@
             // 
             // hintTextBoxMain
             // 
-            this.hintTextBoxMain.HintText = "Absolute path to the main";
+            this.hintTextBoxMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxMain.HintText = "Absolute path to the main execution file";
             this.hintTextBoxMain.Location = new System.Drawing.Point(14, 25);
             this.hintTextBoxMain.Name = "hintTextBoxMain";
             this.hintTextBoxMain.Size = new System.Drawing.Size(340, 20);
@@ -110,7 +126,10 @@
             // 
             // hintTextBoxDocDir
             // 
-            this.hintTextBoxDocDir.HintText = "Relative path of a directory inside the implementation";
+            this.hintTextBoxDocDir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxDocDir.HintText = "Relative path to the docs inside the archive";
             this.hintTextBoxDocDir.Location = new System.Drawing.Point(14, 143);
             this.hintTextBoxDocDir.Name = "hintTextBoxDocDir";
             this.hintTextBoxDocDir.Size = new System.Drawing.Size(271, 20);
@@ -119,6 +138,9 @@
             // 
             // labelDocDir
             // 
+            this.labelDocDir.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDocDir.AutoSize = true;
             this.labelDocDir.Location = new System.Drawing.Point(12, 127);
             this.labelDocDir.Name = "labelDocDir";
@@ -128,6 +150,9 @@
             // 
             // comboBoxLicense
             // 
+            this.comboBoxLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLicense.FormattingEnabled = true;
             this.comboBoxLicense.Items.AddRange(new object[] {
             "AFL (Academic Free License)",
@@ -201,6 +226,9 @@
             // 
             // labelLicense
             // 
+            this.labelLicense.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.labelLicense.AutoSize = true;
             this.labelLicense.Location = new System.Drawing.Point(12, 87);
             this.labelLicense.Name = "labelLicense";
@@ -224,6 +252,7 @@
             this.Controls.Add(this.hintTextBoxPackage);
             this.Controls.Add(this.labelPackage);
             this.Name = "PackageImplementationForm";
+            this.Text = "Edit a package implementation";
             this.Controls.SetChildIndex(this.labelPackage, 0);
             this.Controls.SetChildIndex(this.hintTextBoxPackage, 0);
             this.Controls.SetChildIndex(this.checkedListBoxDistribution, 0);
