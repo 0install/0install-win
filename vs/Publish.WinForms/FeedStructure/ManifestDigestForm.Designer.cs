@@ -107,7 +107,6 @@
             this.hintTextBoxSha256.Name = "hintTextBoxSha256";
             this.hintTextBoxSha256.Size = new System.Drawing.Size(403, 20);
             this.hintTextBoxSha256.TabIndex = 6;
-            this.hintTextBoxSha256.Text = "139746a1dbf5958ce6581793be1594d2146492e99c7f406afc0ec2e519d1258c";
             // 
             // ManifestDigestForm
             // 
