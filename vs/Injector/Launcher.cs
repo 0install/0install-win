@@ -28,22 +28,22 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Executes a set of <see cref="IDImplementation"/>s as a program.
+    /// Executes a set of <see cref="ImplementationBase"/>s as a program.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Launcher
     {
         #region Variables
-        /// <summary>The <see cref="IDImplementation"/> to be launched, followed by all its dependencies.</summary>
+        /// <summary>The <see cref="ImplementationBase"/> to be launched, followed by all its dependencies.</summary>
         private readonly Selections _selections;
 
-        /// <summary>Used to locate the selected <see cref="IDImplementation"/>s.</summary>
+        /// <summary>Used to locate the selected <see cref="ImplementationBase"/>s.</summary>
         private readonly IStore _store;
         #endregion
 
         #region Properties
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="IDImplementation"/> instead of <see cref="ImplementationBase.Main"/>.
+        /// An alternative executable to to run from the main <see cref="ImplementationBase"/> instead of <see cref="Element.Main"/>.
         /// </summary>
         public string Main { get; set; }
 
@@ -57,8 +57,8 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="selections">The <see cref="IDImplementation"/> to be launched, followed by all its dependencies.</param>
-        /// <param name="store">Used to locate the selected <see cref="IDImplementation"/>s.</param>
+        /// <param name="selections">The <see cref="ImplementationBase"/> to be launched, followed by all its dependencies.</param>
+        /// <param name="store">Used to locate the selected <see cref="ImplementationBase"/>s.</param>
         public Launcher(Selections selections, IStore store)
         {
             #region Sanity checks
@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector
         private string GetStartupMain()
         {
             // Get the implementation to be launched
-            IDImplementation startupImplementation = _selections.Implementations.First;
+            ImplementationBase startupImplementation = _selections.Implementations.First;
 
             // Apply the user-override for the Main exectuable if set
             string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
@@ -92,12 +92,12 @@ namespace ZeroInstall.Injector
         }
 
         /// <summary>
-        /// Locates an <see cref="IDImplementation"/> on the disk (usually in a <see cref="Store"/>).
+        /// Locates an <see cref="ImplementationBase"/> on the disk (usually in a <see cref="Store"/>).
         /// </summary>
-        /// <param name="implementation">The <see cref="IDImplementation"/> to be located.</param>
+        /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
         /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        private string GetImplementationPath(IDImplementation implementation)
+        private string GetImplementationPath(ImplementationBase implementation)
         {
             return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
         }
@@ -105,39 +105,51 @@ namespace ZeroInstall.Injector
 
         #region Bindings
         /// <summary>
-        /// Applies <see cref="Binding"/>s allowing the launched application to locate selected <see cref="IDImplementation"/>s.
+        /// Applies <see cref="Binding"/>s allowing the launched application to locate selected <see cref="ImplementationBase"/>s.
         /// </summary>
         /// <param name="startInfo">The applications environment to apply the  <see cref="Binding"/>s to.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
-        /// <param name="implementation">The <see cref="IDImplementation"/> to be made locatable via the <see cref="Binding"/>s.</param>
-        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, IDImplementation implementation)
+        /// <param name="implementation">The <see cref="ImplementationBase"/> to be made locatable via the <see cref="Binding"/>s.</param>
+        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationBase implementation)
         {
             string implementationDirectory = GetImplementationPath(implementation);
 
-            #region EnvironmentBinding
-            foreach (var binding in bindingContainer.EnvironmentBindings)
+            foreach (var binding in bindingContainer.Bindings)
             {
-                var environmentVariables = startInfo.EnvironmentVariables;
-                string environmentValue = Path.Combine(implementationDirectory, StringHelper.UnifySlashes(binding.Value));
-
-                if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
-
-                switch (binding.Mode)
+                var environmentBinding = binding as EnvironmentBinding;
+                if (environmentBinding != null) ApplyEnvironmentBinding(startInfo, implementationDirectory, environmentBinding);
+                else
                 {
-                    case EnvironmentMode.Prepend:
-                        environmentVariables[binding.Name] = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
-                        break;
-                    case EnvironmentMode.Append:
-                        environmentVariables[binding.Name] += Path.PathSeparator + environmentValue;
-                        break;
-                    case EnvironmentMode.Replace:
-                        environmentVariables[binding.Name] = environmentValue;
-                        break;
+                    var overlayBinding = binding as OverlayBinding;
+                    if (overlayBinding != null) ApplyOverlayBinding(startInfo, implementationDirectory, overlayBinding);
                 }
             }
-            #endregion
+        }
 
-            // ToDo: Implement OverlayBindings
+        private void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
+        {
+            var environmentVariables = startInfo.EnvironmentVariables;
+            string environmentValue = Path.Combine(implementationDirectory, StringHelper.UnifySlashes(binding.Value));
+
+            if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
+
+            switch (binding.Mode)
+            {
+                case EnvironmentMode.Prepend:
+                    environmentVariables[binding.Name] = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
+                    break;
+                case EnvironmentMode.Append:
+                    environmentVariables[binding.Name] += Path.PathSeparator + environmentValue;
+                    break;
+                case EnvironmentMode.Replace:
+                    environmentVariables[binding.Name] = environmentValue;
+                    break;
+            }
+        }
+
+        private void ApplyOverlayBinding(ProcessStartInfo startInfo, string implementationDirectory, OverlayBinding binding)
+        {
+            // ToDo: Implement
         }
         #endregion
 
@@ -147,7 +159,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         public ProcessStartInfo Prepare(string arguments)
         {
             // Prepare the new process to launch the implementation
@@ -180,7 +192,7 @@ namespace ZeroInstall.Injector
         /// Launches the application as specified by the <see cref="Selections"/> and returns when it has finished executing.
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="IDImplementation"/>s is not cached yet.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         public void RunSync(string arguments)
         {
             var process = new Process {StartInfo = Prepare(arguments)};

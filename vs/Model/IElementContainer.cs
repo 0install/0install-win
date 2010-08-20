@@ -17,22 +17,22 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using C5;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An object that contains <see cref="Binding"/>s.
+    /// An object that contains <see cref="Group"/>s and <see cref="Implementation"/>s. Supports a composite pattern.
     /// </summary>
-    public interface IBindingContainer
+    public interface IElementContainer
     {
         /// <summary>
-        /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
+        /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this element.
         /// </summary>
-        [Description("A list of bindings for implementations to locate dependencies.")]
-        [XmlElement(Type = typeof(EnvironmentBinding), ElementName = "environment")]
-        [XmlElement(Type = typeof(OverlayBinding), ElementName = "overlay")]
+        [Category("Implementation"), Description("A list of groups and implementations contained within this element.")]
+        [XmlElement(Type = typeof(Group), ElementName = "group")]
+        [XmlElement(Type = typeof(Implementation), ElementName = "implementation")]
+        [XmlElement(Type = typeof(PackageImplementation), ElementName = "package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        ArrayList<Binding> Bindings { get; }
+        C5.ArrayList<Element> Elements { get; }
     }
 }

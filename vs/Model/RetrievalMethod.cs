@@ -15,12 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Model
 {
     /// <summary>
     /// A retrieval method is a way of getting an <see cref="Implementation"/>.
     /// </summary>
-    public abstract class RetrievalMethod : ISimplifyable
+    public abstract class RetrievalMethod : ISimplifyable, ICloneable
     {
         /// <summary>
         /// Sets missing default values, flattens the inheritance structure, etc.
@@ -28,5 +30,16 @@ namespace ZeroInstall.Model
         /// <remarks>This should be called to prepare an interface for launch.
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public abstract void Simplify();
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="RetrievalMethod"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="RetrievalMethod"/>.</returns>
+        public abstract RetrievalMethod CloneRetrievalMethod();
+
+        public object Clone()
+        {
+            return CloneRetrievalMethod();
+        }
     }
 }

@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Model
 {
     /// <summary>
@@ -22,8 +24,19 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>
     /// Bindings can appear in <see cref="Dependency"/>s, in which case they tell a component how to find its dependency,
-    /// or in <see cref="ImplementationBase"/>, where they tell a component how to find itself.
+    /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
-    public abstract class Binding
-    {}
+    public abstract class Binding : ICloneable
+    {
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Binding"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Binding"/>.</returns>
+        public abstract Binding CloneBinding();
+
+        public object Clone()
+        {
+            return CloneBinding();
+        }
+    }
 }

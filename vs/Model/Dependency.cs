@@ -54,27 +54,20 @@ namespace ZeroInstall.Model
         public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order
-        private readonly C5.ArrayList<EnvironmentBinding> _environmentBindings = new C5.ArrayList<EnvironmentBinding>();
+        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
         /// <summary>
-        /// A list of <see cref="EnvironmentBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
+        /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
-        [Description("A list of bindings for environment implementations to locate this dependency.")]
-        [XmlElement("environment")]
+        [Description("A list of bindings for implementations to locate dependencies.")]
+        [XmlElement(Type = typeof(EnvironmentBinding), ElementName = "environment")]
+        [XmlElement(Type = typeof(OverlayBinding), ElementName = "overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<EnvironmentBinding> EnvironmentBindings { get { return _environmentBindings; } }
-
-        // Preserve order
-        private readonly C5.ArrayList<OverlayBinding> _overlayBindings = new C5.ArrayList<OverlayBinding>();
-        /// <summary>
-        /// A list of <see cref="OverlayBinding"/>s for <see cref="Implementation"/>s to locate this dependency.
-        /// </summary>
-        [Description("A list of bindings for overlay implementations to locate this dependency.")]
-        [XmlElement("overlay")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<OverlayBinding> OverlayBindings { get { return _overlayBindings; } }
+        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion
 
         //--------------------//
+
+        // ToDo: Implement ToString
 
         #region Clone
         /// <summary>
@@ -84,8 +77,7 @@ namespace ZeroInstall.Model
         public Dependency CloneDependency()
         {
             var dependency = new Dependency {Interface = Interface, Use = Use};
-            foreach (var binding in EnvironmentBindings) dependency.EnvironmentBindings.Add(binding.CloneBinding());
-            foreach (var binding in OverlayBindings) dependency.OverlayBindings.Add(binding.CloneBinding());
+            foreach (var binding in Bindings) dependency.Bindings.Add(binding.CloneBinding());
 
             return dependency;
         }
@@ -100,6 +92,36 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        // ToDo: Implement ToString and Equals
+        #region Equality
+        public bool Equals(Dependency other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            if (Interface != other.Interface) return false;
+            if (Use != other.Use) return false;
+            if (!Constraints.SequencedEquals(other.Constraints)) return false;
+            if (!Bindings.SequencedEquals(other.Bindings)) return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Dependency) && Equals((Dependency)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ (Use ?? "").GetHashCode();
+                result = (result * 397) ^ Constraints.GetSequencedHashCode();
+                result = (result * 397) ^ Bindings.GetSequencedHashCode();
+                return result;
+            }
+        }
+        #endregion
     }
 }

@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Feed : IGroupContainer, ISimplifyable, IEquatable<Feed>
+    public sealed class Feed : IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
         #region Properties
         /// <summary>
@@ -155,39 +155,18 @@ namespace ZeroInstall.Model
         [XmlElement("icon")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
-        
-        // Preserve order
-        private readonly C5.ArrayList<Group> _groups = new C5.ArrayList<Group>();
-        /// <summary>
-        /// A list of <see cref="Group"/>s contained within this interface.
-        /// </summary>
-        [Category("Implementation"), Description("A list of groups contained within this interface.")]
-        [XmlElement("group")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Group> Groups { get { return _groups; } }
-
-        #region Implementations
-        // Preserve order
-        private readonly C5.ArrayList<Implementation> _implementations = new C5.ArrayList<Implementation>();
-        /// <summary>
-        /// A list of downloadable <see cref="Implementation"/>s for this interface.
-        /// </summary>
-        [Category("Implementation"), Description("A list of downloadable implementations contained for this interface.")]
-        [XmlElement("implementation")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Implementation> Implementations { get { return _implementations; } }
 
         // Preserve order
-        private readonly C5.ArrayList<PackageImplementation> _packageImplementation = new C5.ArrayList<PackageImplementation>();
+        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
         /// <summary>
-        /// A list of distribution-provided <see cref="PackageImplementation"/>s for this interface.
+        /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
-        [Category("Implementation"), Description("A list of distribution-provided package implementations for this interface.")]
-        [XmlElement("package-implementation")]
+        [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
+        [XmlElement(Type = typeof(Group), ElementName = "group")]
+        [XmlElement(Type = typeof(Implementation), ElementName = "implementation")]
+        [XmlElement(Type = typeof(PackageImplementation), ElementName = "package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
-        #endregion
-
+        public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion
 
         //--------------------//
@@ -200,32 +179,26 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public void Simplify()
         {
-            // Set missing default values
-            foreach (var implementation in Implementations) implementation.Simplify();
-            foreach (var implementation in PackageImplementations) implementation.Simplify();
+            var collapsedElements = new C5.LinkedList<Element>();
 
-            CollapseGroups();
-        }
-
-        /// <summary>
-        /// Collapse all contained <see cref="Group"/>s and move their contents directly into the feed.
-        /// </summary>
-        private void CollapseGroups()
-        {
-            foreach (var group in Groups)
+            foreach (var element in Elements)
             {
-                // Flatten structure in groups and set missing default values in contained implementations
-                group.Simplify();
+                // Flatten structure in groups, set missing default values in implementations
+                element.Simplify();
 
-                // Move implementations out of groups
-                foreach (var implementation in group.Implementations) Implementations.Add(implementation);
-                group.Implementations.Clear();
-                foreach (var implementation in group.PackageImplementations) PackageImplementations.Add(implementation);
-                group.Implementations.Clear();
+                var group = element as Group;
+                if (group != null)
+                {
+                    // Move implementations out of groups
+                    foreach (var groupElement in group.Elements)
+                        collapsedElements.Add(groupElement);
+                }
+                else collapsedElements.Add(element);
             }
 
-            // All groups are now empty and unnecessary
-            Groups.Clear();
+            // Replace original elements list with the collapsed version
+            Elements.Clear();
+            Elements.AddAll(collapsedElements);
         }
         #endregion
 
@@ -233,15 +206,16 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Returns the <see cref="Implementation"/> with a specific ID string.
         /// </summary>
-        /// <param name="id">The <see cref="IDImplementation.ID"/> to look for.</param>
+        /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
         /// <returns>The identified <see cref="Implementation"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Implementations"/>.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
         /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(string id)
         {
-            foreach (var implementation in Implementations)
+            foreach (var implementation in Elements)
             {
-                if (implementation.ID == id) return implementation;
+                var idImplementation = implementation as Implementation;
+                if (idImplementation != null && idImplementation.ID == id) return idImplementation;
             }
 
             throw new KeyNotFoundException();
@@ -296,7 +270,30 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString and Clone
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Feed"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Feed"/>.</returns>
+        public Feed CloneFeed()
+        {
+            var feed = new Feed {MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
+            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.CloneReference());
+            foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.CloneReference());
+            foreach (var summary in Summaries) feed.Summaries.Add(summary.CloneString());
+            foreach (var description in Descriptions) feed.Descriptions.Add(description.CloneString());
+            foreach (var category in Categories) feed.Categories.Add(category);
+            foreach (var icon in Icons) feed.Icons.Add(icon);
+            foreach (var element in Elements) feed.Elements.Add(element.CloneElement());
+
+            return feed;
+        }
+
+        public object Clone()
+        {
+            return CloneFeed();
+        }
+        #endregion
 
         #region Equality
         public bool Equals(Feed other)
@@ -310,12 +307,10 @@ namespace ZeroInstall.Model
             if (!Descriptions.UnsequencedEquals(other.Descriptions)) return false;
             if (Homepage != other.Homepage) return false;
             if (NeedsTerminal != other.NeedsTerminal) return false;
-            if (!Feeds.UnsequencedEquals(other.Feeds)) return false;
-            if (!Categories.UnsequencedEquals(other.Categories)) return false;
-            if (!Icons.UnsequencedEquals(other.Icons)) return false;
-            if (!Groups.UnsequencedEquals(other.Groups)) return false;
-            if (!Implementations.UnsequencedEquals(other.Implementations)) return false;
-            if (!PackageImplementations.UnsequencedEquals(other.PackageImplementations)) return false;
+            if (!Feeds.SequencedEquals(other.Feeds)) return false;
+            if (!Categories.SequencedEquals(other.Categories)) return false;
+            if (!Icons.SequencedEquals(other.Icons)) return false;
+            if (!Elements.SequencedEquals(other.Elements)) return false;
             return true;
         }
 
@@ -337,12 +332,10 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
                 result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
-                result = (result * 397) ^ Feeds.GetUnsequencedHashCode();
-                result = (result * 397) ^ Categories.GetUnsequencedHashCode();
-                result = (result * 397) ^ Icons.GetUnsequencedHashCode();
-                result = (result * 397) ^ Groups.GetUnsequencedHashCode();
-                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
-                result = (result * 397) ^ PackageImplementations.GetUnsequencedHashCode();
+                result = (result * 397) ^ Feeds.GetSequencedHashCode();
+                result = (result * 397) ^ Categories.GetSequencedHashCode();
+                result = (result * 397) ^ Icons.GetSequencedHashCode();
+                result = (result * 397) ^ Elements.GetSequencedHashCode();
                 return result;
             }
         }

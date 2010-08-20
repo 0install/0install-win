@@ -43,7 +43,7 @@ namespace ZeroInstall.Model
         public void TestClone()
         {
             var archive1 = CreateTestArchive();
-            var archive2 = archive1.CloneArchive();
+            var archive2 = archive1.CloneRecipeStep();
             
             // Ensure data stayed the same
             Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");

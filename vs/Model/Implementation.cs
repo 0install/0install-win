@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -27,28 +26,19 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Implementation : IDImplementation, ICloneable
+    public sealed class Implementation : ImplementationBase
     {
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<Archive> _archives = new C5.ArrayList<Archive>();
+        private readonly C5.ArrayList<RetrievalMethod> _retrievalMethods = new C5.ArrayList<RetrievalMethod>();
         /// <summary>
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
-        [XmlElement("archive")]
+        [XmlElement(Type = typeof(Archive), ElementName = "archive")]
+        [XmlElement(Type = typeof(Recipe), ElementName = "recipe")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Archive> Archives { get { return _archives; } }
-
-        // Preserve order
-        private readonly C5.ArrayList<Recipe> _recipes = new C5.ArrayList<Recipe>();
-        /// <summary>
-        /// A list of <see cref="Recipe"/>s as <see cref="RetrievalMethod"/>s.
-        /// </summary>
-        [Category("Retrieval"), Description("A list of recipes as retrieval methods.")]
-        [XmlElement("recipe")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Recipe> Recipes { get { return _recipes; } }
+        public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion
 
         //--------------------//
@@ -64,8 +54,7 @@ namespace ZeroInstall.Model
             base.Simplify();
 
             // Simplify retrieval methods
-            foreach (var archive in Archives) archive.Simplify();
-            foreach (var recipe in Recipes) recipe.Simplify();
+            foreach (var retrievalMethods in RetrievalMethods) retrievalMethods.Simplify();
         }
         #endregion
 
@@ -80,10 +69,8 @@ namespace ZeroInstall.Model
         {
             var implementation = new Implementation();
             CloneFromTo(this, implementation);
-            foreach (Archive archive in Archives)
-                implementation.Archives.Add(archive.CloneArchive());
-            foreach (Recipe recipe in Recipes)
-                implementation.Recipes.Add(recipe.CloneRecipe());
+            foreach (var method in RetrievalMethods)
+                implementation.RetrievalMethods.Add(method.CloneRetrievalMethod());
 
             return implementation;
         }
@@ -91,8 +78,8 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a deep copy of this <see cref="Implementation"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="Implementation"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        /// <returns>The new copy of the <see cref="Implementation"/>.</returns>
+        public override Element CloneElement()
         {
             return CloneImplementation();
         }
@@ -103,7 +90,9 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && Archives.SequencedEquals(other.Archives) && Recipes.SequencedEquals(other.Recipes);
+            if (!base.Equals(other)) return false;
+            if (!RetrievalMethods.SequencedEquals(other.RetrievalMethods)) return false;
+            return true;
         }
 
         public override bool Equals(object obj)
@@ -119,8 +108,7 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ Archives.GetSequencedHashCode();
-                result = (result * 397) ^ Recipes.GetSequencedHashCode();
+                result = (result * 397) ^ RetrievalMethods.GetSequencedHashCode();
                 return result;
             }
         }

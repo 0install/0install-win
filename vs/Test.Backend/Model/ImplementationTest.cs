@@ -37,8 +37,8 @@ namespace ZeroInstall.Model
                 ID = "id", ManifestDigest = new ManifestDigest("sha256=invalid"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
-                EnvironmentBindings = {EnvironmentBindingTest.CreateTestBinding()},
-                Archives = {ArchiveTest.CreateTestArchive()}
+                Bindings = {EnvironmentBindingTest.CreateTestBinding()},
+                RetrievalMethods = {ArchiveTest.CreateTestArchive()}
             };
         }
         #endregion

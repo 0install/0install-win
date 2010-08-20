@@ -1,26 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Model.Interface">
-    <Position X="4" Y="0.5" Width="1.75" />
+  <Class Name="ZeroInstall.Model.Feed">
+    <Position X="3.75" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Groups" Type="ZeroInstall.Model.Group">
+    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString" FixedFromPoint="true">
+      <Path>
+        <Point X="5.5" Y="4.688" />
+        <Point X="6.75" Y="4.688" />
+      </Path>
+    </AssociationLine>
+    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.732" Y="0.235" />
+        <Position X="0.185" Y="0.037" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQKIgMAAACAiQCgAhABAAYQAAAUAEICASAgAAAAAACI=</HashCode>
-      <FileName>Interface.cs</FileName>
+      <HashCode>AAAogIAABCAgQGkAhAhQAAQAAAUAEICASAgAAAAAACI=</HashCode>
+      <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="FeedFor" />
       <Property Name="Feeds" />
+      <Property Name="FeedFor" />
       <Property Name="Icons" />
-      <Property Name="Implementations" />
-      <Property Name="PackageImplementations" />
-      <Property Name="Groups" />
+      <Property Name="Elements" />
+      <Property Name="Descriptions" />
+      <Property Name="Summaries" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -41,72 +47,58 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAEgAAAIAAAAAAAAIAIAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAEgAAAAAAAAAAAAIAIAAAAAAAAABA=</HashCode>
       <FileName>FeedReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.Implementation">
-    <Position X="7.75" Y="0.5" Width="2" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
+  <Class Name="ZeroInstall.Model.Element" Collapsed="true">
+    <Position X="7" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAiAAAIAAAQQAQAIAAAAAAAAAAADA=</HashCode>
+      <HashCode>IAAAAAAAIIAACACAgABAIABQAADAEIEASEAABAAACCA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.Implementation" Collapsed="true">
+    <Position X="8" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAAQAAAIAAAAABAAAAADA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.PackageImplementation">
-    <Position X="7.75" Y="2.75" Width="2" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
+  <Class Name="ZeroInstall.Model.ImplementationBase" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACEoAAQAAAABQCAAIEACAAAAAAAABA=</HashCode>
-      <FileName>PackageImplementation.cs</FileName>
+      <HashCode>AAAAAAAAAIAAgAAEgABAAAAAACAAAIAAAAAAAAAAACE=</HashCode>
+      <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.Group">
-    <Position X="4" Y="5.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <AssociationLine Name="Groups" Type="ZeroInstall.Model.Group" FixedFromPoint="true" FixedToPoint="true">
+  <Class Name="ZeroInstall.Model.Group" Collapsed="true">
+    <Position X="6" Y="2" Width="1.5" />
+    <AssociationLine Name="Elements" Type="ZeroInstall.Model.Element" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4" Y="6.438" />
-        <Point X="3.75" Y="6.438" />
-        <Point X="3.75" Y="6.938" />
-        <Point X="4" Y="6.938" />
+        <Point X="6.438" Y="2" />
+        <Point X="6.438" Y="1" />
+        <Point X="7" Y="1" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.287" Y="0.175" />
+        <Position X="-0.286" Y="-0.44" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Implementations" Type="ZeroInstall.Model.Implementation" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="5.5" Y="6.938" />
-        <Point X="10.125" Y="6.938" />
-        <Point X="10.125" Y="1.562" />
-        <Point X="9.75" Y="1.562" />
-      </Path>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAIAAEAAAAACAAAAgAAAAYAAAAAAAAIAAAAAAAAAADA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAAgAgQAAAAAAAAAAAAAAAAAAIAADA=</HashCode>
       <FileName>Group.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Groups" />
-      <Property Name="Implementations" />
-      <Property Name="PackageImplementations" />
+      <Property Name="Elements" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Struct Name="ZeroInstall.Model.Icon">
-    <Position X="0.5" Y="4.25" Width="1.75" />
+    <Position X="0.5" Y="4" Width="1.75" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -114,6 +106,11 @@
       <HashCode>AAAAAAAAAAAAAAQEgAIAAAAAQAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Icon.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Struct>
+  <Struct Name="Common.Collections.LocalizableString" Collapsed="true">
+    <Position X="6.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Font Name="Segoe UI" Size="9" />

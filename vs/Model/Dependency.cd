@@ -1,62 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Model.Binding" Collapsed="true">
-    <Position X="2.25" Y="3.5" Width="1.5" />
+  <Class Name="ZeroInstall.Model.Binding">
+    <Position X="3.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
       <FileName>Binding.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Dependency" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="0.5" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="EnvironmentBindings" Type="ZeroInstall.Model.EnvironmentBinding" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.625" Y="2.891" />
-        <Point X="4.625" Y="3.775" />
-        <Point X="4.625" Y="3.775" />
-        <Point X="4.625" Y="4.75" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.535" Y="1.487" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="OverlayBindings" Type="ZeroInstall.Model.OverlayBinding" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.625" Y="2.891" />
-        <Point X="4.625" Y="3.318" />
-        <Point X="1.375" Y="3.318" />
-        <Point X="1.375" Y="4.75" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.245" Y="1.488" />
+    <AssociationLine Name="Bindings" Type="ZeroInstall.Model.Binding">
+      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
+        <Position X="-0.815" Y="0.193" Height="0.182" Width="0.764" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ABEABAAABAAAAAAAAAJAAAAAhAAEABAAAAAAAAAAABA=</HashCode>
+      <HashCode>ABEAAAAAAAAAAAAAgABAAABAAAAEAJAAAEAAAAAAABA=</HashCode>
       <FileName>Dependency.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Constraints" />
-      <Property Name="EnvironmentBindings" />
-      <Property Name="OverlayBindings" />
+      <Property Name="Bindings" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
-    <Position X="3.75" Y="4.75" Width="1.75" />
-    <InheritanceLine Type="ZeroInstall.Model.Binding" FixedToPoint="true">
-      <Path>
-        <Point X="3" Y="4.062" />
-        <Point X="3" Y="4.375" />
-        <Point X="4.312" Y="4.375" />
-        <Point X="4.312" Y="4.75" />
-      </Path>
-    </InheritanceLine>
+    <Position X="4.75" Y="5.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgEAAAABA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgEAAAAAA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -64,61 +39,26 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Model.ImplementationBase" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.75" />
+  <Class Name="ZeroInstall.Model.OverlayBinding">
+    <Position X="2.5" Y="5.75" Width="1.75" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="EnvironmentBindings" Type="ZeroInstall.Model.EnvironmentBinding" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.375" Y="1.191" />
-        <Point X="1.375" Y="3.323" />
-        <Point X="4.625" Y="3.323" />
-        <Point X="4.625" Y="4.75" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.018" Y="1.485" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="OverlayBindings" Type="ZeroInstall.Model.OverlayBinding" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="1.375" Y="1.191" />
-        <Point X="1.375" Y="3.537" />
-        <Point X="1.375" Y="3.537" />
-        <Point X="1.375" Y="4.75" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.018" Y="1.443" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>IAAABAAAJIAACACAgAJAIAAQgADAEIEASAAABAAACCA=</HashCode>
-      <FileName>ImplementationBase.cs</FileName>
+      <HashCode>AAAAAAAAAkAAAAAEgAABAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <FileName>OverlayBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.Element" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIIAACACAgABAIABQABDAEIEASEAABAAACDA=</HashCode>
+      <FileName>Element.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Dependencies" />
-      <Property Name="EnvironmentBindings" />
-      <Property Name="OverlayBindings" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.Model.OverlayBinding">
-    <Position X="0.5" Y="4.75" Width="1.75" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <InheritanceLine Type="ZeroInstall.Model.Binding" FixedToPoint="true">
-      <Path>
-        <Point X="3" Y="4.062" />
-        <Point X="3" Y="4.375" />
-        <Point X="1.688" Y="4.375" />
-        <Point X="1.688" Y="4.75" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAkAAAAAEgAABAAAAAAAAAIAAAAAAEAAAABA=</HashCode>
-      <FileName>OverlayBinding.cs</FileName>
-    </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Struct Name="ZeroInstall.Model.Constraint">
@@ -134,7 +74,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Enum Name="ZeroInstall.Model.EnvironmentMode">
-    <Position X="6.75" Y="4.75" Width="1.75" />
+    <Position X="7.5" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>

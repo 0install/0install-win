@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Feed"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class PackageImplementation : ImplementationBase, ICloneable, IEquatable<PackageImplementation>
+    public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {
         #region Override Properties
         /// <summary>
@@ -129,7 +129,7 @@ namespace ZeroInstall.Model
         #region Conversion
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Package, DistributionsString);
+            return string.Format("PackageImplementation: {0} ({1})", Package, DistributionsString);
         }
         #endregion
 
@@ -144,12 +144,12 @@ namespace ZeroInstall.Model
             CloneFromTo(this, implementation);
             return implementation;
         }
-        
+
         /// <summary>
         /// Creates a deep copy of this <see cref="PackageImplementation"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="PackageImplementation"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        /// <returns>The new copy of the <see cref="PackageImplementation"/>.</returns>
+        public override Element CloneElement()
         {
             return CloneImplementation();
         }
@@ -160,7 +160,10 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && Equals(other.Package, Package) && Equals(other.DistributionsString, DistributionsString);
+            if (!base.Equals(other)) return false;
+            if (Package != other.Package) return false;
+            if (DistributionsString != other.DistributionsString) return false;
+            return true;
         }
 
         public override bool Equals(object obj)

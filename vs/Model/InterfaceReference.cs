@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to an <see cref="Feed"/> URI.
     /// </summary>
-    public sealed class InterfaceReference : IEquatable<InterfaceReference>
+    public sealed class InterfaceReference : ICloneable, IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>
@@ -48,6 +48,26 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
+        public InterfaceReference CloneReference()
+        {
+            return new InterfaceReference {Target = Target};
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
+        public object Clone()
+        {
+            return CloneReference();
+        }
+        #endregion
 
         #region Equality
         public bool Equals(InterfaceReference other)

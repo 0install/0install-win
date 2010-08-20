@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents an archive to be downloaded and extracted.
     /// </summary>
-    public sealed class Archive : RetrievalStep, IEquatable<Archive>, ICloneable
+    public sealed class Archive : RecipeStep, IEquatable<Archive>
     {
         #region Properties
         /// <summary>
@@ -105,17 +105,12 @@ namespace ZeroInstall.Model
 
         #region Clone
         /// <summary>
-        /// Creates a copy of this <see cref="Archive"/> instance.
+        /// Creates a deep copy of this <see cref="Archive"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Archive"/>.</returns>
-        public Archive CloneArchive()
+        public override RecipeStep CloneRecipeStep()
         {
             return new Archive {Location = Location, MimeType = MimeType, Size = Size, StartOffset = StartOffset, Extract = Extract};
-        }
-
-        public object Clone()
-        {
-            return CloneArchive();
         }
         #endregion
 

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -22,63 +23,78 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A recipe is a list of <see cref="RetrievalStep"/>s used to create an <see cref="Implementation"/> directory.
+    /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Implementation"/> directory.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Recipe : RetrievalMethod
+    public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         #region Properties
-
-        #region Steps
         // Preserve order
-        private readonly C5.ArrayList<Archive> _archives = new C5.ArrayList<Archive>();
+        private readonly C5.ArrayList<RecipeStep> _steps = new C5.ArrayList<RecipeStep>();
         /// <summary>
-        /// An ordered list of archives to extract.
+        /// An ordered list of <see cref="RecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
-        [XmlElement("archive")]
+        [XmlElement(Type = typeof(Archive), ElementName = "archive")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Archive> Archives { get { return _archives; } }
-        #endregion
-
+        public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
         #endregion
         
         //--------------------//
 
         #region Simplify
         /// <summary>
-        /// Call <see cref="ISimplifyable.Simplify"/> on all contained <see cref="RetrievalStep"/>s.
+        /// Call <see cref="ISimplifyable.Simplify"/> on all contained <see cref="RecipeStep"/>s.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            foreach (var archive in Archives) archive.Simplify();
+            foreach (var step in Steps) step.Simplify();
         }
         #endregion
 
         //--------------------//
+        
+        // ToDo: Implement ToString
 
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Recipe"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Recipe"/>.</returns>
-        public Recipe CloneRecipe()
+        public override RetrievalMethod CloneRetrievalMethod()
         {
             var recipe = new Recipe();
-            foreach (Archive archive in Archives)
-                recipe.Archives.Add(archive.CloneArchive());
+            foreach (var step in Steps)
+                recipe.Steps.Add(step.CloneRecipeStep());
 
             return recipe;
         }
-
-        public object Clone()
+        #endregion
+        
+        #region Equality
+        public bool Equals(Recipe other)
         {
-            return CloneRecipe();
+            if (ReferenceEquals(null, other)) return false;
+
+            return base.Equals(other) && Steps.SequencedEquals(other.Steps);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Recipe) && Equals((Recipe)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return Steps.GetSequencedHashCode();
+            }
         }
         #endregion
-
-        // ToDo: Implement ToString and Equals
     }
 }

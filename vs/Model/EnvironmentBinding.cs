@@ -41,7 +41,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// The location of the chosen <see cref="Implementation"/> is passed to the program by setting environment variables.
     /// </summary>
-    public sealed class EnvironmentBinding : Binding, ICloneable, IEquatable<EnvironmentBinding>
+    public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
         #region Properties
         /// <summary>
@@ -88,18 +88,9 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public EnvironmentBinding CloneBinding()
+        public override Binding CloneBinding()
         {
             return new EnvironmentBinding { Name = Name, Value = Value, Mode = Mode, Default = Default };
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="EnvironmentBinding"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
-        public object Clone()
-        {
-            return CloneBinding();
         }
         #endregion
 
@@ -123,9 +114,9 @@ namespace ZeroInstall.Model
             unchecked
             {
                 int result = (Name != null ? Name.GetHashCode() : 0);
-                result = (result * 397) ^ (Value ?? "").GetHashCode(); ;
+                result = (result * 397) ^ (Value ?? "").GetHashCode();
                 result = (result * 397) ^ Mode.GetHashCode();
-                result = (result * 397) ^ (Default ?? "").GetHashCode(); ;
+                result = (result * 397) ^ (Default ?? "").GetHashCode();
                 return result;
             }
         }

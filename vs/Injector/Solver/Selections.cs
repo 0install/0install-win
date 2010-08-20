@@ -27,7 +27,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Represents a number of <see cref="IDImplementation"/>s chosen for executing an <see cref="Model.Feed"/>.
+    /// Represents a number of <see cref="ImplementationBase"/>s chosen for executing an <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
@@ -59,7 +59,7 @@ namespace ZeroInstall.Injector.Solver
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.Interface"/> to look for.</param>
-        /// <returns>The identified <see cref="IDImplementation"/>.</returns>
+        /// <returns>The identified <see cref="ImplementationBase"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
         public ImplementationSelection GetSelection(string interfaceID)
         {

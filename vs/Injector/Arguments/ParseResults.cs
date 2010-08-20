@@ -29,7 +29,7 @@ namespace ZeroInstall.Injector.Arguments
         /// <summary>User settings controlling the dependency solving process.</summary>
         public Policy Policy;
 
-        /// <summary>An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="ImplementationBase.Main"/>.</summary>
+        /// <summary>An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.</summary>
         public string Main;
 
         /// <summary>Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.</summary>

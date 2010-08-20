@@ -51,7 +51,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="FeedReference"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public FeedReference CloneFeedReference()
+        public FeedReference CloneReference()
         {
             var feedRereference = new FeedReference { Source = Source };
             CloneFromTo(this, feedRereference);
@@ -64,7 +64,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
         public object Clone()
         {
-            return CloneFeedReference();
+            return CloneReference();
         }
         #endregion
 

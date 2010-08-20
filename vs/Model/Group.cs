@@ -27,41 +27,20 @@ namespace ZeroInstall.Model
     /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove anything). 
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Group : ImplementationBase, IGroupContainer, ICloneable
+    public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
         #region Properties
         // Preserve order
-        private readonly C5.ArrayList<Group> _groups = new C5.ArrayList<Group>();
+        private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
         /// <summary>
-        /// A list of sub-groups.
+        /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
-        [Category("Implementation"), Description("A list of sub-groups.")]
-        [XmlElement("group")]
+        [Category("Implementation"), Description("A list of groups and implementations contained within this group.")]
+        [XmlElement(Type = typeof(Group), ElementName = "group")]
+        [XmlElement(Type = typeof(Implementation), ElementName = "implementation")]
+        [XmlElement(Type = typeof(PackageImplementation), ElementName = "package-implementation")]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Group> Groups { get { return _groups; } }
-
-        #region Implementations
-        // Preserve order
-        private readonly C5.ArrayList<Implementation> _implementation = new C5.ArrayList<Implementation>();
-        /// <summary>
-        /// A list of <see cref="Implementation"/>s contained within this group.
-        /// </summary>
-        [Category("Implementation"), Description("A list of implementations contained within this group.")]
-        [XmlElement("implementation")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Implementation> Implementations { get { return _implementation; } }
-
-        // Preserve order
-        private readonly C5.ArrayList<PackageImplementation> _packageImplementation = new C5.ArrayList<PackageImplementation>();
-        /// <summary>
-        /// A list of distribution-provided <see cref="PackageImplementation"/>s contained within this group.
-        /// </summary>
-        [Category("Implementation"), Description("A list of distribution-provided package implementations contained within this group.")]
-        [XmlElement("package-implementation")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<PackageImplementation> PackageImplementations { get { return _packageImplementation; } }
-        #endregion
-
+        public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion
 
         //--------------------//
@@ -74,49 +53,28 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            ApplyInheritance();
-            CollapseGroups();
-        }
+            var collapsedElements = new C5.LinkedList<Element>();
 
-        /// <summary>
-        /// Apply attribute inheritance to contained <see cref="Implementation"/>s and set missing default values.
-        /// </summary>
-        private void ApplyInheritance()
-        {
-            foreach (var implementation in Implementations)
+            foreach (var element in Elements)
             {
-                implementation.InheritFrom(this);
-                implementation.Simplify();
-            }
-            foreach (var implementation in PackageImplementations)
-            {
-                implementation.InheritFrom(this);
-                implementation.Simplify();
-            }
-        }
+                element.InheritFrom(this);
 
-        /// <summary>
-        /// Collapse all contained <see cref="Group"/>s and move their contents directly into this one.
-        /// </summary>
-        private void CollapseGroups()
-        {
-            foreach (var group in Groups)
-            {
-                // Apply attribute inheritance to sub-groups
-                group.InheritFrom(this);
+                // Flatten structure in sub-groups, set missing default values in implementations
+                element.Simplify();
 
-                // Flatten structure in sub-groups and set missing default values in contained implementations
-                group.Simplify();
-
-                // Move implementations out of groups
-                foreach (var implementation in group.Implementations) Implementations.Add(implementation);
-                group.Implementations.Clear();
-                foreach (var implementation in group.PackageImplementations) PackageImplementations.Add(implementation);
-                group.Implementations.Clear();
+                var group = element as Group;
+                if (group != null)
+                {
+                    // Move implementations out of sub-groups
+                    foreach (var groupElement in group.Elements)
+                        collapsedElements.Add(groupElement);
+                }
+                else collapsedElements.Add(element);
             }
 
-            // All sub-groups are now empty and unnecessary
-            Groups.Clear();
+            // Replace original elements list with the collapsed version
+            Elements.Clear();
+            Elements.AddAll(collapsedElements);
         }
         #endregion
 
@@ -131,12 +89,8 @@ namespace ZeroInstall.Model
         {
             var group = new Group();
             CloneFromTo(this, group);
-            foreach (Group subGroup in Groups)
-                group.Groups.Add(subGroup.CloneGroup());
-            foreach (Implementation implementation in Implementations)
-                group.Implementations.Add(implementation.CloneImplementation());
-            foreach (PackageImplementation implementation in PackageImplementations)
-                group.PackageImplementations.Add(implementation.CloneImplementation());
+            foreach (var element in Elements)
+                group.Elements.Add(element.CloneElement());
 
             return group;
         }
@@ -144,13 +98,46 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a deep copy of this <see cref="Group"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="Group"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        /// <returns>The new copy of the <see cref="Group"/>.</returns>
+        public override Element CloneElement()
         {
             return CloneGroup();
         }
         #endregion
 
-        // ToDo: Implement ToString and Equals
+        #region Conversion
+        public override string ToString()
+        {
+            return string.Format("Group: {0} elements", Elements.Count);
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(Group other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            if (!base.Equals(other)) return false;
+            if (!Elements.SequencedEquals(other.Elements)) return false;
+            return true;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(ImplementationBase) && Equals((ImplementationBase)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ Elements.GetSequencedHashCode();
+                return result;
+            }
+        }
+        #endregion
     }
 }

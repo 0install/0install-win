@@ -26,7 +26,7 @@ namespace ZeroInstall.Injector.Solver
     /// An executable implementation of an <see cref="Feed"/>.
     /// </summary>
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
-    public sealed class ImplementationSelection : IDImplementation, ICloneable, IEquatable<ImplementationSelection>
+    public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {
         #region Properties
         /// <summary>
@@ -75,8 +75,8 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Creates a deep copy of this <see cref="ImplementationSelection"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="ImplementationSelection"/> casted to a generic <see cref="object"/>.</returns>
-        public object Clone()
+        /// <returns>The new copy of the <see cref="ImplementationSelection"/>.</returns>
+        public override Element CloneElement()
         {
             return CloneImplementation();
         }

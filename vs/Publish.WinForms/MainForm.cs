@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using C5;
 using ZeroInstall.Model;
@@ -23,6 +24,7 @@ using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
 using ZeroInstall.Publish.WinForms.FeedStructure;
+using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -314,9 +316,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             treeViewFeedStructure.BeginUpdate();
             treeViewFeedStructure.Nodes[0].Nodes.Clear();
-            BuildGroupTreeNodes(_feedToEdit.Groups, treeViewFeedStructure.Nodes[0]);
-            BuildImplementationTreeNodes(_feedToEdit.Implementations, treeViewFeedStructure.Nodes[0]);
-            BuildPackageImplementationTreeNodes(_feedToEdit.PackageImplementations, treeViewFeedStructure.Nodes[0]);
+            BuildElementsTreeNodes(_feedToEdit.Elements, treeViewFeedStructure.Nodes[0]);
             treeViewFeedStructure.EndUpdate();
 
             treeViewFeedStructure.ExpandAll();
@@ -626,14 +626,14 @@ namespace ZeroInstall.Publish.WinForms
 
                 if(feedStructureObject is Group)
                 {
-                    feed.Groups.Add((Group)feedStructureObject);
+                    feed.Elements.Add((Group)feedStructureObject);
                 } else if (feedStructureObject is Implementation)
                 {
-                    feed.Implementations.Add((Implementation) feedStructureObject);
+                    feed.Elements.Add((Implementation)feedStructureObject);
                 }
                 else if (feedStructureObject is PackageImplementation)
                 {
-                    feed.PackageImplementations.Add((PackageImplementation) feedStructureObject);
+                    feed.Elements.Add((PackageImplementation)feedStructureObject);
                 }
             }
             else if (selectedNode.Tag is Group)
@@ -646,22 +646,22 @@ namespace ZeroInstall.Publish.WinForms
                 }
                 else if(feedStructureObject is EnvironmentBinding)
                 {
-                    group.EnvironmentBindings.Add((EnvironmentBinding)feedStructureObject);
+                    group.Bindings.Add((EnvironmentBinding)feedStructureObject);
                 }
                 else if(feedStructureObject is Group)
                 {
-                    group.Groups.Add((Group)feedStructureObject);
+                    group.Elements.Add((Group)feedStructureObject);
                     
                 } else if(feedStructureObject is Implementation)
                 {
-                    group.Implementations.Add((Implementation)feedStructureObject);
+                    group.Elements.Add((Implementation)feedStructureObject);
                 } else if (feedStructureObject is OverlayBinding)
                 {
-                    group.OverlayBindings.Add((OverlayBinding)feedStructureObject);
+                    group.Bindings.Add((OverlayBinding)feedStructureObject);
                 }
                 else if(feedStructureObject is PackageImplementation)
                 {
-                    group.PackageImplementations.Add((PackageImplementation)feedStructureObject);
+                    group.Elements.Add((PackageImplementation)feedStructureObject);
                 }
             }
             else if (selectedNode.Tag is Implementation)
@@ -670,20 +670,21 @@ namespace ZeroInstall.Publish.WinForms
 
                 if(feedStructureObject is Archive)
                 {
-                    implementation.Archives.Add((Archive) feedStructureObject);
+                    implementation.RetrievalMethods.Add((Archive)feedStructureObject);
+                }
+                else if (feedStructureObject is Recipe)
+                {
+                    implementation.RetrievalMethods.Add((Recipe)feedStructureObject);
                 }
                 else if (feedStructureObject is Dependency)
                 {
-                    implementation.Dependencies.Add((Dependency) feedStructureObject);
+                    implementation.Dependencies.Add((Dependency)feedStructureObject);
                 } else if(feedStructureObject is EnvironmentBinding)
                 {
-                    implementation.EnvironmentBindings.Add((EnvironmentBinding) feedStructureObject);
+                    implementation.Bindings.Add((EnvironmentBinding)feedStructureObject);
                 } else if(feedStructureObject is OverlayBinding)
                 {
-                    implementation.OverlayBindings.Add((OverlayBinding)feedStructureObject);
-                } else if(feedStructureObject is Recipe)
-                {
-                    implementation.Recipes.Add((Recipe) feedStructureObject);
+                    implementation.Bindings.Add((OverlayBinding)feedStructureObject);
                 }
             }
             else if (selectedNode.Tag is PackageImplementation)
@@ -691,14 +692,14 @@ namespace ZeroInstall.Publish.WinForms
                 var packageImplementation = (PackageImplementation) selectedNode.Tag;
                 if(feedStructureObject is Dependency)
                 {
-                    packageImplementation.Dependencies.Add((Dependency) feedStructureObject);
+                    packageImplementation.Dependencies.Add((Dependency)feedStructureObject);
                 } else if(feedStructureObject is EnvironmentBinding)
                 {
-                    packageImplementation.EnvironmentBindings.Add((EnvironmentBinding) feedStructureObject);
+                    packageImplementation.Bindings.Add((EnvironmentBinding)feedStructureObject);
                 }
                 else if (feedStructureObject is OverlayBinding)
                 {
-                    packageImplementation.OverlayBindings.Add((OverlayBinding) feedStructureObject);
+                    packageImplementation.Bindings.Add((OverlayBinding)feedStructureObject);
                 }
             }
             else if (selectedNode.Tag is Dependency)
@@ -706,11 +707,11 @@ namespace ZeroInstall.Publish.WinForms
                 var dependecy = (Dependency)selectedNode.Tag;
                 if (feedStructureObject is EnvironmentBinding)
                 {
-                    dependecy.EnvironmentBindings.Add((EnvironmentBinding)feedStructureObject);
+                    dependecy.Bindings.Add((EnvironmentBinding)feedStructureObject);
                 }
                 else if (feedStructureObject is OverlayBinding)
                 {
-                    dependecy.OverlayBindings.Add((OverlayBinding)feedStructureObject);
+                    dependecy.Bindings.Add((OverlayBinding)feedStructureObject);
                 }
             }
             FillFeedTab();
@@ -742,19 +743,19 @@ namespace ZeroInstall.Publish.WinForms
             // mark the addButtons that can be selected
             if (selectedNode == treeViewFeedStructure.Nodes[0])
             {
-                enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation };
+                enableAddButtons = new[] { btnAddGroup, btnAddImplementation };
             }
             else if (selectedNode.Text.StartsWith("Group"))
             {
-                enableAddButtons = new Button[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
+                enableAddButtons = new[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
             else if (selectedNode.Text.StartsWith("Implementation"))
             {
-                enableAddButtons = new Button[] { buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
+                enableAddButtons = new[] { buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
             else if (selectedNode.Text.StartsWith("Dependency"))
             {
-                enableAddButtons = new Button[] { btnAddEnvironmentBinding, btnAddOverlayBinding };
+                enableAddButtons = new[] { btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
 
             // enable marked buttons
@@ -848,14 +849,10 @@ namespace ZeroInstall.Publish.WinForms
 
         private void RemoveObjectFromFeedStructure(object container, object toRemove)
         {
-            if (toRemove is Group) ((IGroupContainer)container).Groups.Remove((Group)toRemove);
-            else if (toRemove is Implementation) ((IGroupContainer)container).Implementations.Remove((Implementation)toRemove);
-            else if (toRemove is PackageImplementation) ((IGroupContainer)container).PackageImplementations.Remove((PackageImplementation)toRemove);
-            else if (toRemove is Dependency) ((ImplementationBase) container).Dependencies.Remove((Dependency) toRemove);
-            else if (toRemove is EnvironmentBinding) ((IBindingContainer)container).EnvironmentBindings.Remove((EnvironmentBinding)toRemove);
-            else if (toRemove is OverlayBinding) ((IBindingContainer)container).OverlayBindings.Remove((OverlayBinding)toRemove);
-            else if (toRemove is Archive) ((Implementation)container).Archives.Remove((Archive)toRemove);
-            else if (toRemove is Recipe) ((Implementation)container).Recipes.Remove((Recipe)toRemove);
+            if (toRemove is Element) ((IElementContainer)container).Elements.Remove((Element)toRemove);
+            else if (toRemove is Dependency) ((ImplementationBase)container).Dependencies.Remove((Dependency)toRemove);
+            else if (toRemove is Binding) ((IBindingContainer)container).Bindings.Remove((Binding)toRemove);
+            else if (toRemove is RetrievalMethod) ((Implementation)container).RetrievalMethods.Remove((RetrievalMethod)toRemove);
         }
 
         /// <summary>
@@ -865,72 +862,67 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ButtonClearListClick(object sender, EventArgs e)
         {
-            _feedToEdit.Groups.Clear();
-            _feedToEdit.Implementations.Clear();
-            _feedToEdit.PackageImplementations.Clear();
+            _feedToEdit.Elements.Clear();
             FillFeedTab();
         }
 
-        private void BuildGroupTreeNodes(ICollectionValue<Group> groups, TreeNode parentNode)
+        private void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
         {
-            if (groups == null) throw new ArgumentNullException("groups");
+            #region Sanity checks
+            if (elements == null) throw new ArgumentNullException("elements");
+            #endregion
 
-            if (groups.IsEmpty) return;
-            foreach (var group in groups)
+            foreach (var element in elements)
             {
-                var groupNode = new TreeNode("Group") {Tag = group};
-                parentNode.Nodes.Add(groupNode);
-                BuildGroupTreeNodes(group.Groups, groupNode);
-                BuildImplementationTreeNodes(group.Implementations, groupNode);
-                BuildPackageImplementationTreeNodes(group.PackageImplementations, groupNode);
-                BuildDependencyTreeNodes(group.Dependencies, groupNode);
-                BuildEnvironmentBindingTreeNodes(group.EnvironmentBindings, groupNode);
-                BuildOverlayBindingTreeNodes(group.OverlayBindings, groupNode);
+                var group = element as Group;
+                if (group != null)
+                {
+                    var groupNode = new TreeNode("Group") {Tag = group};
+                    parentNode.Nodes.Add(groupNode);
+                    BuildElementsTreeNodes(group.Elements, groupNode);
+                    BuildDependencyTreeNodes(group.Dependencies, groupNode);
+                    BuildBindingTreeNodes(group.Bindings, groupNode);
+                }
+                else
+                {
+                    var implementation = element as Implementation;
+                    if (implementation != null)
+                    {
+                        var implementationNode = new TreeNode("Implementation") { Tag = implementation };
+                        parentNode.Nodes.Add(implementationNode);
+                        BuildManifestDigestTreeNode(implementation.ManifestDigest, implementationNode);
+                        BuildRetrievalMethodsTreeNodes(implementation.RetrievalMethods, implementationNode);
+                        BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
+                        BuildBindingTreeNodes(implementation.Bindings, implementationNode);
+                    }
+                    else
+                    {
+                        var packageImplementation = element as PackageImplementation;
+                        if (packageImplementation != null)
+                        {
+                            var packageImplementationNode = new TreeNode("Package implementation") { Tag = packageImplementation };
+                            parentNode.Nodes.Add(packageImplementationNode);
+                            BuildDependencyTreeNodes(packageImplementation.Dependencies, parentNode);
+                            BuildBindingTreeNodes(packageImplementation.Bindings, parentNode);
+                        }
+                    }
+                }
             }
         }
 
-        private void BuildPackageImplementationTreeNodes(ICollectionValue<PackageImplementation> packageImplementations, TreeNode parentNode)
+        private void BuildBindingTreeNodes(IEnumerable<Binding> bindings, TreeNode parentNode)
         {
-            if (packageImplementations == null) throw new ArgumentNullException("packageImplementations");
-            
-            if (packageImplementations.IsEmpty) return;
-            foreach (var packageImplementation in packageImplementations)
+            #region Sanity checks
+            if (bindings == null) throw new ArgumentNullException("overlayBindings");
+            #endregion
+
+            foreach (var binding in bindings)
             {
-                var packageImplementationNode = new TreeNode("Package implementation") {Tag = packageImplementation};
-                parentNode.Nodes.Add(packageImplementationNode);
-                BuildDependencyTreeNodes(packageImplementation.Dependencies, parentNode);
-                BuildEnvironmentBindingTreeNodes(packageImplementation.EnvironmentBindings, parentNode);
-                BuildOverlayBindingTreeNodes(packageImplementation.OverlayBindings, parentNode);
-            }
-        }
-
-        private void BuildOverlayBindingTreeNodes(ICollectionValue<OverlayBinding> overlayBindings, TreeNode parentNode)
-        {
-            if (overlayBindings == null) throw new ArgumentNullException("overlayBindings");
-
-            if (overlayBindings.IsEmpty) return;
-            foreach (var overlayBinding in overlayBindings)
-            {
-                var overlayBindingNode = new TreeNode("Overlay binding") {Tag = overlayBinding};
-                parentNode.Nodes.Add(overlayBindingNode);
-            }
-        }
-
-        private void BuildImplementationTreeNodes(ICollectionValue<Implementation> implementations, TreeNode parentNode)
-        {
-            if (implementations == null) throw new ArgumentNullException("implementations");
-
-            if (implementations.IsEmpty) return;
-            foreach (var implementation in implementations)
-            {
-                var implementationNode = new TreeNode("Implementation") {Tag = implementation};
-                parentNode.Nodes.Add(implementationNode);
-                BuildManifestDigestTreeNode(implementation.ManifestDigest, implementationNode);
-                BuildArchivTreeNodes(implementation.Archives, implementationNode);
-                BuildRecipeTreeNodes(implementation.Recipes, implementationNode);
-                BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
-                BuildEnvironmentBindingTreeNodes(implementation.EnvironmentBindings, implementationNode);
-                BuildOverlayBindingTreeNodes(implementation.OverlayBindings, implementationNode);
+                string bindingType = "Unknown binding";
+                if (binding is EnvironmentBinding) bindingType = "Environment binding";
+                else if (binding is OverlayBinding) bindingType = "Overlay binding";
+                var bindingNode = new TreeNode(bindingType) {Tag = binding};
+                parentNode.Nodes.Add(bindingNode);
             }
         }
 
@@ -940,54 +932,36 @@ namespace ZeroInstall.Publish.WinForms
             parentNode.Nodes.Insert(0, manifestDigestNode);
         }
 
-        private void BuildRecipeTreeNodes(ICollectionValue<Recipe> recipes, TreeNode parentNode)
+        private void BuildDependencyTreeNodes(IEnumerable<Dependency> dependencies, TreeNode parentNode)
         {
-            if (recipes == null) throw new ArgumentNullException("recipes");
-
-            if (recipes.IsEmpty) return;
-            foreach (var recipe in recipes)
-            {
-                var recipeNode = new TreeNode("Recipe") {Tag = recipe};
-                parentNode.Nodes.Add(recipeNode);
-            }
-        }
-
-        private void BuildArchivTreeNodes(ICollectionValue<Archive> archives, TreeNode parentNode)
-        {
-            if (archives == null) throw new ArgumentNullException("archives");
-            
-            if (archives.IsEmpty) return;
-            foreach (var archive in archives)
-            {
-                var archiveNode = new TreeNode("Archive") {Tag = archive};
-                parentNode.Nodes.Add(archiveNode);
-            }
-        }
-
-        private void BuildEnvironmentBindingTreeNodes(ICollectionValue<EnvironmentBinding> environmentBindings, TreeNode parentNode)
-        {
-            if (environmentBindings == null) throw new ArgumentNullException("environmentBindings");
-
-            if (environmentBindings.IsEmpty) return;
-            foreach (var environmentBinding in environmentBindings)
-            {
-                var environmentBindingNode = new TreeNode("Environment binding") {Tag = environmentBinding};
-                parentNode.Nodes.Add(environmentBindingNode);
-            }
-        }
-
-        private void BuildDependencyTreeNodes(ICollectionValue<Dependency> dependencies, TreeNode parentNode)
-        {
+            #region Sanity checks
             if (dependencies == null) throw new ArgumentNullException("dependencies");
+            #endregion
 
-            if (dependencies.IsEmpty) return;
             foreach (var dependency in dependencies)
             {
-                var dependencyNode = new TreeNode("Dependency") {Tag = dependency};
+                var dependencyNode = new TreeNode("Dependency") { Tag = dependency };
                 parentNode.Nodes.Add(dependencyNode);
+                BuildBindingTreeNodes(dependency.Bindings, dependencyNode);
             }
         }
 
+        private void BuildRetrievalMethodsTreeNodes(IEnumerable<RetrievalMethod> retrievalMethods, TreeNode parentNode)
+        {
+            #region Sanity checks
+            if (retrievalMethods == null) throw new ArgumentNullException("retrievalMethods");
+            #endregion
+            
+            foreach (var retrievalMethod in retrievalMethods)
+            {
+                string retrievalMethodType = "Unknown retrieval method";
+                if (retrievalMethod is Archive) retrievalMethodType = "Archive";
+                else if (retrievalMethod is Recipe) retrievalMethodType = "Recipe";
+
+                var retrievalMethodNode = new TreeNode(retrievalMethodType) { Tag = retrievalMethod };
+                parentNode.Nodes.Add(retrievalMethodNode);
+            }
+        }
         #endregion
 
         #endregion
@@ -1003,7 +977,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void btnExtFeedsAdd_Click(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.FeedReference.CloneFeedReference();
+            var feedReference = feedReferenceControl.FeedReference.CloneReference();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
             if (!listBoxExternalFeeds.Items.Contains(feedReference))
             {
@@ -1032,7 +1006,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             var selectedItem = (FeedReference)listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
-            feedReferenceControl.FeedReference = selectedItem.CloneFeedReference();
+            feedReferenceControl.FeedReference = selectedItem.CloneReference();
         }
 
         /// <summary>

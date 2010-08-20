@@ -80,29 +80,47 @@ namespace ZeroInstall.DownloadBroker
 
             foreach (var implementation in fetcherRequest.Implementations)
             {
-                foreach (var archive in implementation.Archives)
+                foreach (var method in implementation.RetrievalMethods)
                 {
-                    string tempArchive = Path.GetTempFileName();
-                    FetchArchive(archive, tempArchive);
-                    Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, null);
-                    File.Delete(tempArchive);
-                    return;
-                }
-                foreach (var recipe in implementation.Recipes)
-                {
-                    var archives = new List<ArchiveFileInfo>();
-                    foreach (var currentArchive in recipe.Archives)
+                    var archive = method as Archive;
+                    if (archive != null)
                     {
-                        string tempArchive = Path.GetTempFileName();
-
-                        FetchArchive(currentArchive, tempArchive);
-                        archives.Add(new ArchiveFileInfo {Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset});
+                        FetchArchive(implementation, archive);
+                        return;
                     }
-                    Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, null);
-                    return;
+                    var recipe = method as Recipe;
+                    if (recipe != null)
+                    {
+                        FetchMultipleArchives(implementation, recipe);
+                        return;
+                    }
                 }
                 throw new InvalidOperationException("No working retrieval method.");
             }
+        }
+
+        private void FetchArchive(Implementation implementation, Archive archive)
+        {
+            string tempArchive = Path.GetTempFileName();
+            FetchArchive(archive, tempArchive);
+            Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, null);
+            File.Delete(tempArchive);
+        }
+
+        private void FetchMultipleArchives(Implementation implementation, Recipe recipe)
+        {
+            var archives = new List<ArchiveFileInfo>();
+            foreach (var currentStep in recipe.Steps)
+            {
+                var currentArchive = currentStep as Archive;
+                if (currentArchive == null) throw new InvalidOperationException("Unknown RetreivalStep type");
+
+                string tempArchive = Path.GetTempFileName();
+
+                FetchArchive(currentArchive, tempArchive);
+                archives.Add(new ArchiveFileInfo { Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset });
+            }
+            Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, null);
         }
 
         private void FetchArchive(Archive archive, string destination)

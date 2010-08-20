@@ -24,7 +24,7 @@ using Common.Collections;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A common base class for <see cref="ImplementationBase"/> and <see cref="FeedReference"/>.
+    /// A common base class for <see cref="Element"/> and <see cref="FeedReference"/>.
     /// Contains language and architecture parameters.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]

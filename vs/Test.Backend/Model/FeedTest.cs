@@ -30,9 +30,27 @@ namespace ZeroInstall.Model
     {
         #region Helpers
         /// <summary>
+        /// Creates a fictive test <see cref="Feed"/>.
+        /// </summary>
+        private static Feed CreateTestFeed()
+        {
+            return new Feed
+            {
+                Name = "MyApp",
+                Categories = {"Category"},
+                Homepage = new Uri("http://0install.net/"),
+                Feeds = {new FeedReference {Source = "http://somedomain.net/feed.xml"}},
+                FeedFor = {new InterfaceReference {Target = new Uri("http://somedomain.net/interface.xml")}},
+                Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
+                Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
+                Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()}
+            };
+        }
+
+        /// <summary>
         /// Creates a fictive test <see cref="Implementation"/>.
         /// </summary>
-        internal static Implementation CreateTestImplementation()
+        private static Implementation CreateTestImplementation()
         {
             return new Implementation
             {
@@ -40,10 +58,50 @@ namespace ZeroInstall.Model
                 ManifestDigest = new ManifestDigest("sha256=invalid"),
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
-                Languages = { new CultureInfo("en-US") },
+                Languages = {new CultureInfo("en-US")},
                 Main = "executable",
                 DocDir = "doc",
-                Stability = Stability.Developer
+                Stability = Stability.Developer,
+                Dependencies = {new Dependency {Interface = "http://somedomain/interface.xml", Bindings = {new EnvironmentBinding {Name = "PATH"}}}},
+                RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://somedomain/archive.zip"), Size = 1024}}}}
+            };
+        }
+
+        /// <summary>
+        /// Creates a fictive test <see cref="PackageImplementation"/>.
+        /// </summary>
+        private static PackageImplementation CreateTestPackageImplementation()
+        {
+            return new PackageImplementation
+            {
+                Package = "firefox",
+                Distributions = {"RPM"},
+                Version = new ImplementationVersion("1.0"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586),
+                Languages = {new CultureInfo("en-US")},
+                Main = "executable",
+                DocDir = "doc",
+                Stability = Stability.Developer,
+                Dependencies = {new Dependency {Interface = "http://somedomain/interface.xml", Bindings = {new EnvironmentBinding {Name = "PATH"}}}}
+            };
+        }
+
+        /// <summary>
+        /// Creates a fictive test <see cref="Group"/>.
+        /// </summary>
+        private static Group CreateTestGroup()
+        {
+            return new Group
+            {
+                Languages = {"de"},
+                Architecture = new Architecture(OS.Solaris, Cpu.I586),
+                License = "GPL",
+                Stability = Stability.Developer,
+                Elements =
+                {
+                    new Implementation {Main = "main1"},
+                    new Group {Elements = {new Implementation {Main = "main2"}}},
+                }
             };
         }
         #endregion
@@ -61,15 +119,7 @@ namespace ZeroInstall.Model
                 tempFile = Path.GetTempFileName();
 
                 // Write and read file
-                feed1 = new Feed
-                {
-                    Name = "MyApp",
-                    Categories = { "Category" },
-                    Homepage = new Uri("http://0install.net/"),
-                    Summaries = { "Default summary", { "German summary", new CultureInfo("de-DE") } },
-                    Descriptions = { "Default descriptions", { "German descriptions", new CultureInfo("de-DE") } },
-                    Implementations = { CreateTestImplementation() }
-                };
+                feed1 = CreateTestFeed();
                 feed1.Save(tempFile);
                 feed2 = Feed.Load(tempFile);
             }
@@ -85,36 +135,37 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Ensures that the class can be correctly cloned.
+        /// </summary>
+        [Test]
+        public void TestClone()
+        {
+            var archive1 = CreateTestFeed();
+            var archive2 = archive1.CloneFeed();
+
+            // Ensure data stayed the same
+            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
+            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+        }
+
+        /// <summary>
         /// Ensures that <see cref="Feed.Simplify"/> correctly collapsed <see cref="Group"/> structures.
         /// </summary>
         [Test]
         public void TestSimplify()
         {
-            var feed = new Feed { Groups =
-            {
-                new Group
-                {
-                    Languages = {"de"},
-                    Architecture = new Architecture(OS.Solaris, Cpu.I586),
-                    License = "GPL",
-                    Stability = Stability.Developer,
-                    Implementations =
-                    {
-                        new Implementation { Main = "main1" },
-                        new Implementation { Main = "main2" },
-                    }
-                }
-            } };
+            var feed = new Feed { Elements = { CreateTestGroup() } };
             feed.Simplify();
 
-            var implementation = feed.Implementations[0];
+            var implementation = feed.Elements[0];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
             Assert.AreEqual("main1", implementation.Main);
 
-            implementation = feed.Implementations[1];
+            implementation = feed.Elements[1];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);

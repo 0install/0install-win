@@ -37,7 +37,7 @@ namespace ZeroInstall.Model
                 Distributions = {"RPM"}, Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
-                EnvironmentBindings = {EnvironmentBindingTest.CreateTestBinding()}
+                Bindings = {EnvironmentBindingTest.CreateTestBinding()}
             };
         }
         #endregion

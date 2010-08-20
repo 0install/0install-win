@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An overlay binding specifies that the chosen <see cref="Implementation"/> should be made available at the given location in the filesystem.
     /// </summary>
-    public sealed class OverlayBinding : Binding, ICloneable, IEquatable<OverlayBinding>
+    public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
         #region Properties
         private string _source = ".";
@@ -57,18 +57,9 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="OverlayBinding"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="OverlayBinding"/>.</returns>
-        public OverlayBinding CloneBinding()
+        public override Binding CloneBinding()
         {
             return new OverlayBinding { Source = Source, MountPoint = MountPoint };
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="OverlayBinding"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="OverlayBinding"/>.</returns>
-        public object Clone()
-        {
-            return CloneBinding();
         }
         #endregion
 

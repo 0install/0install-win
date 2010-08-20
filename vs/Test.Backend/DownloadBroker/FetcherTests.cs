@@ -65,7 +65,7 @@ namespace ZeroInstall.DownloadBroker
             var result = new Implementation
             {
                 ManifestDigest = digest,
-                Archives = { archive }
+                RetrievalMethods = { archive }
             };
             return result;
         }
@@ -206,13 +206,13 @@ namespace ZeroInstall.DownloadBroker
 
             var recipe = new Recipe()
             {
-                Archives = { archive1, archive2 }
+                Steps = { archive1, archive2 }
             };
 
             var implementation = new Implementation()
             {
                 ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(merged),
-                Recipes = { recipe }
+                RetrievalMethods = { recipe }
             };
             var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);

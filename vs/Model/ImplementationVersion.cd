@@ -1,24 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Model.ImplementationBase" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
-    <AssociationLine Name="Version" Type="ZeroInstall.Model.ImplementationVersion">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.289" Y="0.037" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>IAAABAAAJIAACACAgAJAIAAQgADAEIEASAAABAAACCA=</HashCode>
-      <FileName>ImplementationBase.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Version" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="ZeroInstall.Model.ImplementationVersion" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="3.25" Y="0.5" Width="2" />
     <Compartments>
@@ -80,6 +61,17 @@
       <HashCode>ABAAAAAAAAAAAAQEgAgAIAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>DottedList.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Model.Element" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAIIAACACAgABAIABQAADAEIEASEAABAAACCA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Version" />
+    </ShowAsAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Enum Name="ZeroInstall.Model.VersionModifier">

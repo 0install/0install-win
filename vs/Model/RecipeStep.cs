@@ -20,6 +20,21 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A retrieval step is a part of a <see cref="Recipe"/>.
     /// </summary>
-    public abstract class RetrievalStep : RetrievalMethod
-    {}
+    public abstract class RecipeStep : RetrievalMethod
+    {
+        /// <summary>
+        /// Creates a deep copy of this <see cref="RecipeStep"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="RecipeStep"/>.</returns>
+        public abstract RecipeStep CloneRecipeStep();
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="RecipeStep"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="RecipeStep"/>.</returns>
+        public override RetrievalMethod CloneRetrievalMethod()
+        {
+            return CloneRecipeStep();
+        }
+    }
 }

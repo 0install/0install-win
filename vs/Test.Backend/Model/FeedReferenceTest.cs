@@ -38,7 +38,7 @@ namespace ZeroInstall.Model
                 Source = "http://0install.de/feeds/test.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")}
             };
-            var reference2 = reference1.CloneFeedReference();
+            var reference2 = reference1.CloneReference();
 
             // Ensure data stayed the same
             Assert.AreEqual(reference1, reference2, "Cloned objects should be equal.");
