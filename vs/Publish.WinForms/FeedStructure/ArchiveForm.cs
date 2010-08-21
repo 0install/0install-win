@@ -49,20 +49,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             get { return _archive; }
             set
             {
-                if (Readonly)
-                {
-                    disableFormControls();
-                } else
-                {
-                    enableFormControls();
-                }
+                if (Readonly) SetControlsReadonly();
+                else EnableControls();
+
                 _archive = value ?? new Archive();
                 UpdateFormControls();
-                SetControlsReadonly();
+                
             }
         }
 
-        private void disableFormControls()
+        private void SetControlsReadonly()
         {
             Control[] formControlsToDisable = { comboBoxArchiveFormat, hintTextBoxStartOffset, hintTextBoxArchiveUrl,
                                                   buttonArchiveDownload, hintTextBoxLocalArchive, buttonChooseArchive,
@@ -73,7 +69,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
         }
 
-        private void enableFormControls()
+        private void EnableControls()
         {
             Control[] formControlsToEnable = { comboBoxArchiveFormat, hintTextBoxStartOffset, hintTextBoxArchiveUrl,
                                                buttonArchiveDownload, buttonChooseArchive };
@@ -144,21 +140,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             var splittedPath = _archive.Extract.Split('/');
             foreach (var folder in splittedPath)
                 currentNode = currentNode.Nodes.Add(folder);
-        }
-
-        /// <summary>
-        /// Sets all controls as readonly, that the user can not modify them.
-        /// </summary>
-        private void SetControlsReadonly()
-        {
-            comboBoxArchiveFormat.Enabled = false;
-            hintTextBoxStartOffset.Enabled = false;
-            hintTextBoxArchiveUrl.Enabled = false;
-            treeViewExtract.Enabled = false;
-
-            buttonArchiveDownload.Enabled = false;
-            buttonChooseArchive.Enabled = false;
-            buttonExtractArchive.Enabled = false;
         }
 
         #endregion
