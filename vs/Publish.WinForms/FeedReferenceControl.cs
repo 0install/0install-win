@@ -30,7 +30,7 @@ namespace ZeroInstall.Publish.WinForms
             get { return _feedReference; }
             set
             {
-                textBoxExtFeedURL.Text = (value == null ? String.Empty : _feedReference.Source);
+                textBoxExtFeedURL.Text = (value == null ? String.Empty : value.Source);
                 _feedReference = value;
                 targetBaseControl.TargetBase = value;
             }
