@@ -53,7 +53,6 @@
             this.textBoxExtFeedURL.Size = new System.Drawing.Size(502, 20);
             this.textBoxExtFeedURL.TabIndex = 1;
             this.textBoxExtFeedURL.TextChanged += new System.EventHandler(this.textBoxExtFeedURL_TextChanged);
-            this.textBoxExtFeedURL.Enter += new System.EventHandler(this.textBoxExtFeedURL_Enter);
             // 
             // targetBaseControl
             // 

@@ -30,17 +30,9 @@ namespace ZeroInstall.Publish.WinForms
             get { return _feedReference; }
             set
             {
-                if (value == null)
-                {
-                    _feedReference = new FeedReference();
-                    textBoxExtFeedURL.Text = String.Empty;
-                }
-                else
-                {
-                    _feedReference = value;
-                    textBoxExtFeedURL.Text = _feedReference.Source;
-                }
-                targetBaseControl.TargetBase = _feedReference;
+                textBoxExtFeedURL.Text = (value == null ? String.Empty : _feedReference.Source);
+                _feedReference = value;
+                targetBaseControl.TargetBase = value;
             }
         }
 
@@ -48,11 +40,6 @@ namespace ZeroInstall.Publish.WinForms
         {
             InitializeComponent();
             targetBaseControl.TargetBase = _feedReference;
-        }
-
-        private void textBoxExtFeedURL_Enter(object sender, EventArgs e)
-        {
-            textBoxExtFeedURL.Text = _feedReference == null ? String.Empty : _feedReference.Source;
         }
 
         private void textBoxExtFeedURL_TextChanged(object sender, EventArgs e)
