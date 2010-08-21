@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
         [XmlAttribute("before"), Browsable(false)]
         public string BeforeVersionString
         {
-            get { return (NotBeforeVersion == null ? null : BeforeVersion.ToString()); }
+            get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); }
             set { BeforeVersion = new ImplementationVersion(value); }
         }
         #endregion

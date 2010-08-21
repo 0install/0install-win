@@ -78,6 +78,7 @@ namespace ZeroInstall.Model
         {
             var dependency = new Dependency {Interface = Interface, Use = Use};
             foreach (var binding in Bindings) dependency.Bindings.Add(binding.CloneBinding());
+            foreach (var constraint in Constraints) dependency.Constraints.Add(constraint.CloneConstraint());
 
             return dependency;
         }
