@@ -58,6 +58,7 @@ namespace Common.Helpers
         /// <param name="stream">The stream containing the data to hash.</param>
         /// <param name="algorithm">The hashing algorithm to use.</param>
         /// <returns>A hexadecimal string representation of the hash value.</returns>
+        [SuppressMessage("Microsoft.Globalization", "CA1308:NormalizeStringsToUppercase", Justification = "The returned characters are only 0-9 and A-F")]
         public static string ComputeHash(Stream stream, HashAlgorithm algorithm)
         {
             #region Sanity checks
