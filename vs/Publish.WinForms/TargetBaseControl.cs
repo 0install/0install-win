@@ -96,8 +96,6 @@ namespace ZeroInstall.Publish.WinForms
         private void ClearControls()
         {
             listBoxLanguages.Items.Clear();
-            comboBoxOS.SelectedItem = OS.All;
-            comboBoxCpu.SelectedItem = Cpu.All;
         }
 
         private void UpdateControls()
@@ -195,17 +193,6 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Updates <see cref="comboBoxOS"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void comboBoxOS_Enter(object sender, EventArgs e)
-        {
-            if (_targetBase == null) return;
-            comboBoxOS.SelectedItem = _targetBase.Architecture.OS;
-        }
-
-        /// <summary>
         /// Updates "_targetBase.Architecture.Cpu".
         /// </summary>
         private void comboBoxCpu_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,16 +201,6 @@ namespace ZeroInstall.Publish.WinForms
             _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCpu.SelectedItem);
         }
 
-        /// <summary>
-        /// Updates <see cref="comboBoxCpu"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void comboBoxCpu_Enter(object sender, EventArgs e)
-        {
-            if (_targetBase == null) return;
-            comboBoxCpu.SelectedItem = _targetBase.Architecture.Cpu;
-        }
         #endregion
     }
 }

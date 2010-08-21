@@ -122,7 +122,6 @@
             this.comboBoxCpu.Size = new System.Drawing.Size(70, 21);
             this.comboBoxCpu.TabIndex = 9;
             this.comboBoxCpu.SelectedIndexChanged += new System.EventHandler(this.comboBoxCpu_SelectedIndexChanged);
-            this.comboBoxCpu.Enter += new System.EventHandler(this.comboBoxCpu_Enter);
             // 
             // lblOS
             // 
@@ -144,7 +143,6 @@
             this.comboBoxOS.Size = new System.Drawing.Size(70, 21);
             this.comboBoxOS.TabIndex = 7;
             this.comboBoxOS.SelectedIndexChanged += new System.EventHandler(this.comboBoxOS_SelectedIndexChanged);
-            this.comboBoxOS.Enter += new System.EventHandler(this.comboBoxOS_Enter);
             // 
             // TargetBaseControl
             // 
