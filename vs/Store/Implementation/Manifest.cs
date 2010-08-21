@@ -24,6 +24,8 @@ using System.Text;
 using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
+using Common;
+using System.Threading;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -388,6 +390,145 @@ namespace ZeroInstall.Store.Implementation
                 result = (result * 397) ^ _nodes.GetSequencedHashCode();
                 return result;
             }
+        }
+        #endregion
+    }
+
+    /// <summary>
+    /// Class to handle the possibly asynchronous generation of a <see cref="Manifest"/> based on a folder's contents.
+    /// For more information <seealso cref="IProgress"/>
+    /// </summary>
+    public class ManifestGenerator : IProgress
+    {
+        private Thread _executionThread;
+
+        /// <summary>
+        /// Reflects the path to the package's folder supplied to the constructor.
+        /// </summary>
+        public string PackagePath { get { return _packagePath; } }
+        private readonly string _packagePath;
+
+        /// <summary>
+        /// If <see cref="State"/> is <see cref="ProgressState.Complete"/> this property contains the Result, else it's null.
+        /// </summary>
+        public Manifest Result { get; private set; }
+
+        public ManifestGenerator(string packagePath)
+        {
+            _packagePath = packagePath;
+            State = ProgressState.Ready;
+        }
+
+        #region Events
+        /// <summary>
+        /// Occurs whenever <see cref="State"/> changes.
+        /// </summary>
+        public event ProgressEventHandler StateChanged;
+
+        /// <summary>
+        /// Occurs whenever <see cref="Progress"/> changes.
+        /// </summary>
+        public event ProgressEventHandler ProgressChanged;
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The current status of the task.
+        /// </summary>
+        public ProgressState State {
+            get { return _state; }
+            private set
+            {
+                var stateChangedEvent = StateChanged;
+                _state = value;
+                if (stateChangedEvent != null) stateChangedEvent(this);
+            }
+        }
+        private ProgressState _state;
+
+        /// <summary>
+        /// Contains an error description if <see cref="State"/> is set to <see cref="ProgressState.WebError"/> or <see cref="ProgressState.IOError"/>.
+        /// </summary>
+        public string ErrorMessage { get { return null; } }
+
+        /// <summary>
+        /// The number of bytes that have been processed so far.
+        /// </summary>
+        public long BytesProcessed { get { throw new NotImplementedException(); } }
+
+        /// <summary>
+        /// The total number of bytes that are to be processed; -1 for unknown.
+        /// </summary>
+        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.Data"/> has been reached.</remarks>
+        public long BytesTotal { get { throw new NotImplementedException(); } }
+
+        /// <summary>
+        /// The progress of the task as a value between 0 and 1; -1 when unknown.
+        /// </summary>
+        public double Progress
+        {
+            get
+            {
+                _progressLock.AcquireReaderLock(Timeout.Infinite);
+                double progress = _progress;
+                _progressLock.ReleaseReaderLock();
+                return progress;
+            }
+            private set
+            {
+                _progressLock.AcquireWriterLock(Timeout.Infinite);
+                _progress = value;
+                _progressLock.ReleaseWriterLock();
+                var progressEvent = ProgressChanged;
+                if (progressEvent != null) progressEvent(this);
+            }
+        }
+        private ReaderWriterLock _progressLock = new ReaderWriterLock();
+        private double _progress;
+        #endregion
+
+        //--------------------//
+
+        #region Control
+        /// <summary>
+        /// Starts executing the task in a background thread.
+        /// </summary>
+        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
+        public void Start()
+        {
+            _executionThread = new Thread(RunSync);
+            _executionThread.Start();
+        }
+
+        /// <summary>
+        /// Stops executing the task.
+        /// </summary>
+        /// <remarks>Calling this on a not running task will have no effect.</remarks>
+        public void Cancel() { throw new NotImplementedException(); }
+
+        /// <summary>
+        /// Blocks until the task is completed or terminated.
+        /// </summary>
+        /// <remarks>Calling this on a not running task will return immediately.</remarks>
+        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running (launched via <see cref="RunSync"/>).</exception>
+        public void Join()
+        {
+            _executionThread.Join();
+        }
+
+        /// <summary>
+        /// Runs the task synchronously to the current thread.
+        /// </summary>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
+        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
+        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
+        public void RunSync()
+        {
+            State = ProgressState.Started;
+            Result = Manifest.Generate(PackagePath, ManifestFormat.Sha256, (progress, file) => Progress = progress);
+            State = ProgressState.Complete;
         }
         #endregion
     }

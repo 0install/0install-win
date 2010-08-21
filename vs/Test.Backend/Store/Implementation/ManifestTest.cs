@@ -22,6 +22,10 @@ using System.Text.RegularExpressions;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using Common;
+using System.Threading;
+using Common.Helpers;
+using System.Diagnostics;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -218,6 +222,167 @@ namespace ZeroInstall.Store.Implementation
             {
                 Directory.Delete(packageDir, true);
             }
+        }
+    }
+
+    [TestFixture]
+    public class ManifestGeneration
+    {
+        private ManifestGenerator someGenerator;
+        private TemporaryDirectory sandbox;
+        private string packageFolder
+        {
+            get { return sandbox.Path; }
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            var packageBuilder = new PackageBuilder()
+                .AddFile("file1", Guid.NewGuid().ToByteArray())
+                .AddFolder("someFolder")
+                .AddFolder("someOtherFolder")
+                .AddFile("nestedFile", "");
+
+            sandbox = new TemporaryDirectory(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
+            packageBuilder.WritePackageInto(packageFolder);
+
+            someGenerator = new ManifestGenerator(packageFolder);
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            sandbox.Dispose();
+        }
+
+        [Test]
+        public void ShouldGenerateManifestWithAllFilesListed()
+        {
+            someGenerator.RunSync();
+            Assert.IsNotNull(someGenerator.Result);
+            ValidatePackage();
+        }
+
+        private void ValidatePackage()
+        {
+            var theManifest = someGenerator.Result;
+
+            string currentSubdir = "";
+            foreach (var node in theManifest.Nodes)
+            {
+                if (node is ManifestDirectory)
+                {
+                    DirectoryMustExistInDirectory((ManifestDirectory)node, packageFolder);
+                    currentSubdir = ((ManifestDirectory)node).FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
+                }
+                else if (node is ManifestFileBase)
+                {
+                    string directory = Path.Combine(packageFolder, currentSubdir);
+                    FileMustExistInDirectory((ManifestFileBase)node, directory);
+                }
+                else Debug.Fail("Unknown manifest node found: " + node.ToString());
+            }
+        }
+
+        private static void DirectoryMustExistInDirectory(ManifestDirectory node, string packageRoot)
+        {
+            string fullPath = Path.Combine(packageRoot, node.FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1));
+            Assert.IsTrue(Directory.Exists(fullPath), "Directory " + fullPath + " does not exist.");
+        }
+
+        private static void FileMustExistInDirectory(ManifestFileBase node, string directory)
+        {
+            string fullPath = Path.Combine(directory, node.FileName);
+            Assert.IsTrue(File.Exists(fullPath), "File " + fullPath + " does not exist.");
+        }
+
+        [Test]
+        public void ShouldReportReadyStateAtBeginning()
+        {
+            Assert.AreEqual(ProgressState.Ready, someGenerator.State);
+        }
+
+        [Test]
+        public void ShouldReportTransitionFromReadyToStarted()
+        {
+            bool changedToStarted = false;
+            someGenerator.StateChanged += (IProgress sender) => { if (sender.State == ProgressState.Started) changedToStarted = true; };
+            someGenerator.RunSync();
+            Assert.IsTrue(changedToStarted);
+        }
+
+        [Test]
+        public void ShouldReportTransitionToComplete()
+        {
+            bool changedToComplete = false;
+            someGenerator.StateChanged += (IProgress sender) => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
+            someGenerator.RunSync();
+            Assert.AreEqual(ProgressState.Complete, someGenerator.State);
+            Assert.IsTrue(changedToComplete);
+        }
+
+        [Test]
+        public void ShouldRunAsynchronously()
+        {
+            var testerLock = new ManualResetEvent(false);
+            var injectionLock = new ManualResetEvent(false);
+            var completionLock = new ManualResetEvent(false);
+            bool noTimeout = true;
+            someGenerator.StateChanged += (sender) => 
+            {
+                if (sender.State == ProgressState.Started) testerLock.Set(); noTimeout &= injectionLock.WaitOne(100);
+                if (sender.State == ProgressState.Complete) completionLock.Set();
+            };
+            someGenerator.Start();
+            noTimeout &= testerLock.WaitOne(100);
+            Assert.IsTrue(noTimeout, "A timeout occurred");
+            Assert.AreEqual(ProgressState.Started, someGenerator.State, "ManifestGenerator was not in Started state.");
+            injectionLock.Set();
+            completionLock.WaitOne();
+        }
+
+        [Test]
+        public void ShouldOfferJoin()
+        {
+            Thread testerThread = Thread.CurrentThread;
+            System.Threading.ThreadState? testerThreadState = null;
+            var completedLock = new ManualResetEvent(false);
+            someGenerator.StateChanged += (sender) =>
+            {
+                if (sender.State == ProgressState.Started)
+                {
+                    // Yield rest of time slice so that main thread can continue with Join()
+                    Thread.Sleep(0);
+                    testerThreadState = testerThread.ThreadState;
+                }
+                if (sender.State == ProgressState.Complete)
+                {
+                    completedLock.Set();
+                }
+            };
+            someGenerator.Start();
+            someGenerator.Join();
+            bool didTerminate;
+            try
+            {
+                Assert.AreEqual(ProgressState.Complete, someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
+                Assert.AreNotEqual(System.Threading.ThreadState.Running, testerThreadState, "The thread that called join must be in blocking state for some time.");
+            }
+            finally
+            {
+                didTerminate = completedLock.WaitOne(2000);
+            }
+            Assert.IsTrue(didTerminate, "ManifestGenerator did not terminate");
+        }
+
+        [Test]
+        public void ShouldReportChangedProgress()
+        {
+            bool progressChanged = false;
+            someGenerator.ProgressChanged += (sender) => progressChanged = true;
+            someGenerator.RunSync();
+            Assert.IsTrue(progressChanged);
         }
     }
 }
