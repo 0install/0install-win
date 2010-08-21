@@ -59,26 +59,6 @@ namespace ZeroInstall.Model
             set { Uri = (value == null ? null : new Uri(value)); }
         }
 
-        // Preserve order
-        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
-        /// <summary>
-        /// Zero ore more feeds containing more implementations of this interface.
-        /// </summary>
-        [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
-        [XmlElement("feed")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
-
-        // Preserve order
-        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
-        /// <summary>
-        /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
-        /// </summary>
-        [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
-        [XmlElement("feed-for")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
-
         /// <summary>
         /// A short name to identify the interface (e.g. "Foo").
         /// </summary>
@@ -145,6 +125,26 @@ namespace ZeroInstall.Model
             get { return (NeedsTerminal ? "" : null); }
             set { NeedsTerminal = (value != null); }
         }
+
+        // Preserve order
+        private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
+        /// <summary>
+        /// Zero ore more feeds containing more implementations of this interface.
+        /// </summary>
+        [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
+        [XmlElement("feed")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
+
+        // Preserve order
+        private readonly C5.ArrayList<InterfaceReference> _feedFor = new C5.ArrayList<InterfaceReference>();
+        /// <summary>
+        /// The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.
+        /// </summary>
+        [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
+        [XmlElement("feed-for")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         // Preserve order
         private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
