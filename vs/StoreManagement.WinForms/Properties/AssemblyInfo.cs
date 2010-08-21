@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Zero Install Store Management GUI")]
+[assembly: AssemblyTitle("Zero Install Store Management WinForms GUI")]
 [assembly: AssemblyDescription("Manages caches of Zero Install implementations via a WinForms GUI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Version information
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.50.0.0")]
+[assembly: AssemblyFileVersion("0.50.0.0")]

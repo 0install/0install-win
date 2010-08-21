@@ -59,7 +59,7 @@
         <terms><term>ZeroInstall.Store.dll</term></terms>
         <definition>
           <para>Root namespace: <literal>ZeroInstall.Store</literal></para>
-          <para>This assembly manages caches for feeds and implementations.</para>
+          <para>This assembly manages caches for feeds and implementations, etc.</para>
         </definition>
       </glossaryEntry>
     </glossary>

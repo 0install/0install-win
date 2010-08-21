@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Zero Install Injector Library")]
+[assembly: AssemblyTitle("Zero Install Download Broker Library")]
 [assembly: AssemblyDescription("Manages Zero Install implementation download requests for the injector.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
@@ -24,5 +24,5 @@ using System.Runtime.InteropServices;
 [assembly: Guid("baa28528-7b64-49f6-8d79-b07c465dc95c")]
 
 // Version information
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.50.0.0")]
+[assembly: AssemblyFileVersion("0.50.0.0")]

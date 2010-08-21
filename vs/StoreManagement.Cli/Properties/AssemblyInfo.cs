@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Zero Install Store Management CLI")]
-[assembly: AssemblyDescription("Manages caches of Zero Install implementations from the command-line.")]
+[assembly: AssemblyDescription("Caches for feeds and implementations, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
@@ -21,5 +21,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Version information
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.50.0.0")]
+[assembly: AssemblyFileVersion("0.50.0.0")]
