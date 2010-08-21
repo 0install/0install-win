@@ -155,7 +155,7 @@ namespace ZeroInstall.Injector.Cli
 
         #region Execute
         /// <summary>
-        /// Executes the commands specified by parsing command-line arguments.
+        /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         private static void Execute(ParseResults results)

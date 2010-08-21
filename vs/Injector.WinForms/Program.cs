@@ -46,8 +46,7 @@ namespace ZeroInstall.Injector.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Run GUI is seperate thread
-            var handler = new GuiFeedHandler();
-            new Thread(() => Application.Run(handler)).Start();
+            var handler = new MainForm();
 
             ParseResults results;
             switch (ParseArgs(args, handler, out results))
@@ -60,7 +59,7 @@ namespace ZeroInstall.Injector.WinForms
                         if (string.IsNullOrEmpty(results.Feed)) return;
                     }
 
-                    Execute(results);
+                    handler.Execute(results);
                     break;
 
                 case OperationMode.List:
@@ -147,32 +146,6 @@ namespace ZeroInstall.Injector.WinForms
             // Return the now filled results structure
             results = parseResults;
             return mode;
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Execute
-        /// <summary>
-        /// Executes the commands specified by parsing command-line arguments.
-        /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
-        private static void Execute(ParseResults results)
-        {
-            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
-
-            if (results.SelectionsFile == null) controller.Solve();
-            else controller.SetSelections(Selections.Load(results.SelectionsFile));
-
-            controller.DownloadUncachedImplementations();
-
-            if (!results.DownloadOnly)
-            {
-                var launcher = controller.GetLauncher();
-                launcher.Main = results.Main;
-                launcher.Wrapper = results.Wrapper;
-                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
-            }
         }
         #endregion
     }

@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Injector.WinForms
 {
-    partial class GuiFeedHandler
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GuiFeedHandler));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
@@ -43,16 +43,16 @@
             this.progressBar.Size = new System.Drawing.Size(260, 23);
             this.progressBar.TabIndex = 1;
             this.progressBar.Task = null;
-            this.progressBar.UseTaskbar = false;
+            this.progressBar.UseTaskbar = true;
             // 
             // labelOperation
             // 
             this.labelOperation.AutoSize = true;
             this.labelOperation.Location = new System.Drawing.Point(12, 9);
             this.labelOperation.Name = "labelOperation";
-            this.labelOperation.Size = new System.Drawing.Size(59, 13);
+            this.labelOperation.Size = new System.Drawing.Size(51, 13);
             this.labelOperation.TabIndex = 0;
-            this.labelOperation.Text = "(Operation)";
+            this.labelOperation.Text = "Solving...";
             // 
             // labelName
             // 
@@ -63,7 +63,7 @@
             this.labelName.TabIndex = 2;
             this.labelName.Text = "(Name)";
             // 
-            // GuiFeedHandler
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,7 +74,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "GuiFeedHandler";
+            this.Name = "MainForm";
             this.Text = "Zero Install";
             this.ResumeLayout(false);
             this.PerformLayout();

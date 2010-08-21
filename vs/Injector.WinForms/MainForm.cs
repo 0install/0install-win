@@ -1,19 +1,51 @@
-﻿using System.Windows.Forms;
+﻿using System.Threading;
+using System.Windows.Forms;
 using Common;
 using Common.Helpers;
+using ZeroInstall.Injector.Arguments;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Injector.WinForms
 {
     /// <summary>
     /// Uses GUI message boxes to ask the user questions.
     /// </summary>
-    public partial class GuiFeedHandler : Form, IHandler
+    public partial class MainForm : Form, IHandler
     {
-        public GuiFeedHandler()
+        #region Execute
+        /// <summary>
+        /// Executes the commands specified by the command-line arguments.
+        /// </summary>
+        /// <param name="results">The parser results to be executed.</param>
+        public void Execute(ParseResults results)
         {
-            InitializeComponent();
-        }
+            new Thread(delegate()
+            {
+                InitializeComponent();
+                labelName.Text = results.Feed;
+                Application.Run(this);
+            }).Start();
 
+            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
+
+            if (results.SelectionsFile == null) controller.Solve();
+            else controller.SetSelections(Selections.Load(results.SelectionsFile));
+
+            controller.DownloadUncachedImplementations();
+
+            Invoke((SimpleEventHandler)Close);
+
+            if (!results.DownloadOnly)
+            {
+                var launcher = controller.GetLauncher();
+                launcher.Main = results.Main;
+                launcher.Wrapper = results.Wrapper;
+                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
+            }
+        }
+        #endregion
+
+        #region Hanlder
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -55,5 +87,6 @@ namespace ZeroInstall.Injector.WinForms
                 labelName.Text = manifest.Name;
             });
         }
+        #endregion
     }
 }

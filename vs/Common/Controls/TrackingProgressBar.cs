@@ -59,7 +59,7 @@ namespace Common.Controls
         /// Show the progress in the Windows taskbar.
         /// </summary>
         /// <remarks>Use only once per window. Only works on Windows 7 or newer.</remarks>
-        [Description("Show the progress in the Windows taskbar.")]
+        [Description("Show the progress in the Windows taskbar."), DefaultValue(false)]
         public bool UseTaskbar { set; get; }
         #endregion
 

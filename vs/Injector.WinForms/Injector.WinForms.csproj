@@ -63,11 +63,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GuiFeedHandler.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GuiFeedHandler.Designer.cs">
-      <DependentUpon>GuiFeedHandler.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InterfaceUriDialog.cs">
       <SubType>Form</SubType>
@@ -77,8 +77,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="GuiFeedHandler.resx">
-      <DependentUpon>GuiFeedHandler.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="InterfaceUriDialog.resx">
       <DependentUpon>InterfaceUriDialog.cs</DependentUpon>
