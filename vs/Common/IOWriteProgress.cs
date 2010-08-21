@@ -66,10 +66,9 @@ namespace Common
 
         #region Properties
         /// <summary>
-        /// The local path to save the file or directory to.
+        /// The name of the task.
         /// </summary>
-        [Description("The local path to save the file or directory to.")]
-        public string Target { get; protected set; }
+        public abstract string Name { get; }
 
         private ProgressState _state;
         /// <inheritdoc />

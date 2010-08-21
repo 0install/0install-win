@@ -40,6 +40,9 @@ namespace Common.Download
         #endregion
 
         #region Properties
+        /// <inheritdoc />
+        public override string Name { get { return Source.ToString(); } }
+
         /// <summary>
         /// The URL the file is to be downloaded from.
         /// </summary>
@@ -59,6 +62,12 @@ namespace Common.Download
         /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
         [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
         public bool SupportsResume { get; private set; }
+
+        /// <summary>
+        /// The local path to save the file to.
+        /// </summary>
+        [Description("The local path to save the file to.")]
+        public string Target { get; protected set; }
         #endregion
 
         #region Constructor

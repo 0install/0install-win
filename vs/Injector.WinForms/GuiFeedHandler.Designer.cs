@@ -30,22 +30,46 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GuiFeedHandler));
             this.progressBar = new Common.Controls.TrackingProgressBar();
+            this.labelOperation = new System.Windows.Forms.Label();
+            this.labelName = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(12, 12);
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Location = new System.Drawing.Point(12, 33);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(240, 23);
-            this.progressBar.TabIndex = 0;
+            this.progressBar.Size = new System.Drawing.Size(260, 23);
+            this.progressBar.TabIndex = 1;
             this.progressBar.Task = null;
             this.progressBar.UseTaskbar = false;
+            // 
+            // labelOperation
+            // 
+            this.labelOperation.AutoSize = true;
+            this.labelOperation.Location = new System.Drawing.Point(12, 9);
+            this.labelOperation.Name = "labelOperation";
+            this.labelOperation.Size = new System.Drawing.Size(59, 13);
+            this.labelOperation.TabIndex = 0;
+            this.labelOperation.Text = "(Operation)";
+            // 
+            // labelName
+            // 
+            this.labelName.AutoSize = true;
+            this.labelName.Location = new System.Drawing.Point(9, 59);
+            this.labelName.Name = "labelName";
+            this.labelName.Size = new System.Drawing.Size(41, 13);
+            this.labelName.TabIndex = 2;
+            this.labelName.Text = "(Name)";
             // 
             // GuiFeedHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(264, 49);
+            this.ClientSize = new System.Drawing.Size(284, 92);
+            this.Controls.Add(this.labelName);
+            this.Controls.Add(this.labelOperation);
             this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -53,11 +77,14 @@
             this.Name = "GuiFeedHandler";
             this.Text = "Zero Install";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         private Common.Controls.TrackingProgressBar progressBar;
         #endregion
+        private System.Windows.Forms.Label labelOperation;
+        private System.Windows.Forms.Label labelName;
 
     }
 }

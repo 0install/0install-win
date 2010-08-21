@@ -59,7 +59,7 @@ namespace Common
     /// <summary>
     /// A background task that can report its progess via events.
     /// </summary>
-    public interface IProgress
+    public interface IProgress : INamed
     {
         #region Events
         /// <summary>

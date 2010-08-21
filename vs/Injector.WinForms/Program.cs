@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Helpers;
@@ -44,8 +45,12 @@ namespace ZeroInstall.Injector.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Run GUI is seperate thread
+            var handler = new GuiFeedHandler();
+            new Thread(() => Application.Run(handler)).Start();
+
             ParseResults results;
-            switch (ParseArgs(args, out results))
+            switch (ParseArgs(args, handler, out results))
             {
                 case OperationMode.Normal:
                     // Ask for URI via GUI if none was specified on command-line
@@ -77,10 +82,11 @@ namespace ZeroInstall.Injector.WinForms
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, out ParseResults results)
+        public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -88,7 +94,7 @@ namespace ZeroInstall.Injector.WinForms
 
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new GuiFeedHandler())};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
 
             #region Define options
             var options = new OptionSet

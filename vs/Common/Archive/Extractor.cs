@@ -35,6 +35,10 @@ namespace Common.Archive
     public abstract class Extractor : IOWriteProgress, IDisposable
     {
         #region Properties
+        private string _name;
+        /// <inheritdoc />
+        public override string Name { get { return _name; } }
+
         /// <summary>
         /// The backing stream to extract the data from.
         /// </summary>
@@ -50,6 +54,12 @@ namespace Common.Archive
         /// </summary>
         [Description("The sub-directory in the archive to be extracted; null for entire archive.")]
         public string SubDir { get; set; }
+
+        /// <summary>
+        /// The path to the directory to extract into.
+        /// </summary>
+        [Description("The path to the directory to extract into.")]
+        public string Target { get; protected set; }
         #endregion
 
         #region Constructor
@@ -124,7 +134,9 @@ namespace Common.Archive
             // Try to guess missing MIME type
             if (string.IsNullOrEmpty(mimeType)) mimeType = GuessMimeType(path);
 
-            return CreateExtractor(mimeType, File.OpenRead(path), startOffset, target);
+            var extractor = CreateExtractor(mimeType, File.OpenRead(path), startOffset, target);
+            extractor._name = Path.GetFileName(path);
+            return extractor;
         }
         #endregion
 

@@ -9,16 +9,9 @@ namespace ZeroInstall.Injector.WinForms
     /// </summary>
     public partial class GuiFeedHandler : Form, IHandler
     {
-        private bool _initialized;
-
-        private void Initialize()
+        public GuiFeedHandler()
         {
-            if (_initialized) return;
-
             InitializeComponent();
-            Show();
-
-            _initialized = true;
         }
 
         /// <inheritdoc />
@@ -33,9 +26,9 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                Initialize();
-
+                labelOperation.Text = "Downloading...";
                 progressBar.Task = download;
+                labelName.Text = download.Name;
             });
         }
 
@@ -45,9 +38,9 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                Initialize();
-
+                labelOperation.Text = "Extracting...";
                 progressBar.Task = extraction;
+                labelName.Text = extraction.Name;
             });
         }
 
@@ -57,9 +50,9 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                Initialize();
-
+                labelOperation.Text = "Generating manifest...";
                 progressBar.Task = manifest;
+                labelName.Text = manifest.Name;
             });
         }
     }

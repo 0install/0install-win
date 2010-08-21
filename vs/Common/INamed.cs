@@ -33,7 +33,7 @@ namespace Common
         /// <summary>
         /// A unique name for the object.
         /// </summary>
-        [ReadOnly(true)]
+        [Description("A unique name for the object.")]
         string Name { get; }
     }
 }
