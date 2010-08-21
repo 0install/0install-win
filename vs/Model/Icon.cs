@@ -66,7 +66,6 @@ namespace ZeroInstall.Model
             Location = location;
             MimeType = mimeType;
         }
-
         #endregion
 
         //--------------------//

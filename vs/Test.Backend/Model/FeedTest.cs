@@ -38,11 +38,12 @@ namespace ZeroInstall.Model
             {
                 Name = "MyApp",
                 Categories = {"Category"},
-                Homepage = new Uri("http://0install.net/"),
-                Feeds = {new FeedReference {Source = "http://somedomain.net/feed.xml"}},
-                FeedFor = {new InterfaceReference {Target = new Uri("http://somedomain.net/interface.xml")}},
+                Homepage = new Uri("http://somedomain/"),
+                Feeds = {new FeedReference {Source = "http://somedomain/feed.xml"}},
+                FeedFor = {new InterfaceReference {Target = new Uri("http://somedomain/interface.xml")}},
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
+                Icons = {new Icon(new Uri("http://somedomain/icon.png"), "image/png")},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()}
             };
         }
