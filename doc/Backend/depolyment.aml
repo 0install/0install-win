@@ -5,13 +5,19 @@
 
     <introduction>
       <para>
-        ...
+        The API of the Zero Install Backend libraries is not stable yet.
+        Therefore any applications using the libraries should deploy them as private assemblies.
       </para>
     </introduction>
 
     <prerequisites>
       <content>
-        ...
+        <para>
+          This how-to assumes you have aquired binary versions of the Zero
+          Install Backend libraries, either by downloading them from
+          <externalLink><linkText>0install.de</linkText><linkUri>http://0install.de/</linkUri><linkTarget>_blank</linkTarget></externalLink>
+          or building them yourself.
+        </para>
       </content>
     </prerequisites>
 
@@ -25,7 +31,7 @@
         </step>
         <step>
           <content>
-            <para>Hard-coded file paths</para>
+            <para>Portable applications</para>
           </content>
         </step>
       </steps>

@@ -15,15 +15,15 @@
     <RootNamespace>Backend</RootNamespace>
     <!-- SHFB properties -->
     <OutputPath>..\..\build\Documentation\Backend\</OutputPath>
-    <HtmlHelpName>Documentation</HtmlHelpName>
+    <HtmlHelpName>api</HtmlHelpName>
     <HelpTitle>Zero Install Backend Developer Documentation</HelpTitle>
     <KeepLogFile>False</KeepLogFile>
     <NamingMethod>MemberName</NamingMethod>
     <Language>en-US</Language>
     <FrameworkVersion>2.0.50727</FrameworkVersion>
-    <SyntaxFilters>CSharp, VisualBasic, VisualBasicUsage</SyntaxFilters>
+    <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
-    <PresentationStyle>Prototype</PresentationStyle>
+    <PresentationStyle>vs2005</PresentationStyle>
     <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
@@ -37,25 +37,25 @@
       <DocumentationSource sourceFile="..\..\vs\Injector\Injector.csproj" />
       <DocumentationSource sourceFile="..\..\vs\DownloadBroker\DownloadBroker.csproj" />
     </DocumentationSources>
-    <ProjectSummary>The Zero Install Backend consists of a library with generic helper classes (Common.dll), as well as a number of Zero Install-specific libraries.</ProjectSummary>
+    <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
-      <NamespaceSummaryItem name="Common" isDocumented="True">This assembly contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Archive" isDocumented="True">This namespace contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Collections" isDocumented="True">This namespace contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Controls" isDocumented="True">This namespace contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Download" isDocumented="True">This namespace contains classes for downloading files from the internet, including advanced features such as scheduling by priority.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Helpers" isDocumented="True">This namespace contains utility classes that provide helper functions for strings, files, streams, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Storage" isDocumented="True">This namespace contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Undo" isDocumented="True">This namespace contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">This namespace contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s for value types defined in this assembly. These are used to provide a better runtime experience when using this types with a &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Model" isDocumented="True">This assembly contains structures for parsing and in-memory representation of Zero Install feeds. The XML representation is defined here: http://0install.net/interface-spec.html</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.MyApps" isDocumented="True">This assembly maintains the user's list of "installed applications", manages menu entries in the desktop environment and provides cloud-storage functionality.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Feed" isDocumented="True">This namespace contains classes for managing the feed and icon caches, trusted keys, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">This namespace contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.DownloadBroker" isDocumented="True">This assembly manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the injector.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">This assembly contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.Arguments" isDocumented="True">This namespace contains helper classes for applications that wish to support the default command-line arguments provided by the Python implementation of 0launch.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.Solver" isDocumented="True">This namespace contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Archive" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Download" isDocumented="True">Contains classes for downloading files from the internet, including advanced features such as scheduling by priority.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Helpers" isDocumented="True">Contains utility classes that provide helper functions for strings, files, streams, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Storage" isDocumented="True">Contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Values.Design" isDocumented="True">Contains &lt;see cref="System.ComponentModel.TypeConverter" /&gt;s for value types defined in this assembly. These are used to provide a better runtime experience when using this types with a &lt;see cref="System.Windows.Forms.PropertyGrid" /&gt;.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Model" isDocumented="True">Contains structures for parsing and in-memory representation of Zero Install feeds. The XML representation is defined here: http://0install.net/interface-spec.html</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.MyApps" isDocumented="True">Maintains the user's list of "installed applications", manages menu entries in the desktop environment and provides cloud-storage functionality.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Feed" isDocumented="True">Contains classes for managing the feed and icon caches, trusted keys, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.DownloadBroker" isDocumented="True">Manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the injector.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Arguments" isDocumented="True">Contains helper classes for applications that wish to support the default command-line arguments provided by the Python implementation of 0launch.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Solver" isDocumented="True">Contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <ItemGroup>
@@ -68,9 +68,12 @@
   <ItemGroup>
     <None Include="index.aml" />
     <None Include="user\index.aml" />
+    <None Include="user\assemblies.aml" />
     <None Include="user\getting_started.aml" />
     <None Include="depolyment.aml" />
     <None Include="design\index.aml" />
+    <None Include="design\python.aml" />
+    <None Include="design\unit_tests.aml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
   </PropertyGroup>

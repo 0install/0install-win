@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="design_python" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Python integration</title>
+
+    <introduction>
+      <para>
+        The <application>Zero Install for Windows</application> implementation
+        currently uses a subset of the existing Python implementation
+        (<externalLink><linkText>git://repo.or.cz/zeroinstall/solver.git</linkText><linkUri>http://repo.or.cz/w/zeroinstall/solver.git</linkUri><linkTarget>_blank</linkTarget></externalLink>)
+        for downloading feeds and solving dependencies.
+      </para>
+      <para>
+        The .NET code downloads, extracts and launches implementations and
+        displays the entire UI.
+      </para>
+    </introduction>
+
+    <section address="ipc">
+      <title>Inter-process communication</title>
+      <content>
+        <para>
+          <link xlink:href="T:ZeroInstall.Injector.Solver.PythonSolver">PythonSolver</link>
+          translates requests into a set of command-line arguments and uses
+          them to invoke the <command>0solve</command> script stored in the
+          bundled Python installation.
+        </para>
+        <para>
+          <newTerm>stderr</newTerm> is redirected and parsed to get any questions
+          for the user (e.g. <quoteInline>do you want to accept this key</quoteInline>)
+          as well as actual warnings and errors that occured while solving.
+        </para>
+        <para>
+          <newTerm>stdout</newTerm> is redirected and parsed as an XML file to
+          get the results of the solving process.
+        </para>
+        <para>
+          <newTerm>stdin</newTerm> is redirected and used to relay the user's
+          Yes or No decisions.
+        </para>
+      </content>
+    </section>
+  </developerConceptualDocument>
+</topic>

@@ -5,13 +5,19 @@
 
     <introduction>
       <para>
-        ...
+        This walkthrough illustrates how to set up a new project that uses the
+        Zero Install Backend libraries.
       </para>
     </introduction>
 
     <prerequisites>
       <content>
-        ...
+        <para>
+          This walkthrough assumes you have aquired binary versions of the Zero
+          Install Backend libraries, either by downloading them from
+          <externalLink><linkText>0install.de</linkText><linkUri>http://0install.de/</linkUri><linkTarget>_blank</linkTarget></externalLink>
+          or building them yourself.
+        </para>
       </content>
     </prerequisites>
 

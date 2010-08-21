@@ -5,14 +5,41 @@
 
     <introduction>
       <para>
-        The Zero Install Backend contains libraries required to manage interfaces, download and launch implementation, etc. It provides the basis for Zero Install's own executables and can be used to create tools such as a Feed Editor.
+        The Zero Install Backend contains libraries for managing interfaces, downloading and launching implementation, etc.
+        It provides the basis for Zero Install's own executables and can be used to create tools such as a Feed Editor.
       </para>
     </introduction>
+
+    <section address="what_is">
+      <title>What is Zero Install?</title>
+      <content>
+        <para>
+          Zero Install is a new kind of software distribution system.
+          Applications can be launched or installed simply by entering a URL. An installation has no side-effects on your system and can undone by simply deleting some files.
+        </para>
+        <para>
+          For further information visit the
+          <externalLink><linkText>Zero Install project website</linkText><linkUri>http://0install.net/</linkUri><linkTarget>_blank</linkTarget></externalLink>.
+        </para>
+      </content>
+    </section>
 
     <section address="features">
       <title>Features</title>
       <content>
-        <para>...</para>
+        <para>
+          <list class="bullet">
+            <listItem>Fully compatible implementation of the existing
+              <externalLink><linkText>feed format</linkText><linkUri>http://0install.net/interface-spec.html</linkUri><linkTarget>_blank</linkTarget></externalLink>
+            </listItem>
+            <listItem>Supports the same command-line arguments for &quot;0launch&quot; command</listItem>
+            <listItem>Central list for all running downloads</listItem>
+            <listItem>&quot;App Store&quot;-like interface with recommended feeds</listItem>
+            <listItem>Optional server-side list of &quot;My feeds&quot;</listItem>
+            <listItem>Windows service for shared cache</listItem>
+            <listItem>Runs on Windows 2000, XP, Server 2003, Vista, Server 2008, 7 and Server 2008 R2</listItem>
+          </list>
+        </para>
       </content>
     </section>
   </developerConceptualDocument>

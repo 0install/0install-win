@@ -5,15 +5,13 @@
 
     <introduction>
       <para>
-        ...
+        This chapter explains the usage of the Backend from an API perspective.
+      </para>
+      <para>
+        This information is only sufficient for developers that intend to solely
+        use the existing library. If you wish to modify the library's code please
+        refer to the <link xlink:href="design">Internal Design Guide</link>.
       </para>
     </introduction>
-
-    <section address="...">
-      <title>...</title>
-      <content>
-        <para>...</para>
-      </content>
-    </section>
   </developerConceptualDocument>
 </topic>

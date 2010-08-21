@@ -5,15 +5,13 @@
 
     <introduction>
       <para>
-        ...
+        This chapter details the internal design decisions made for the library.
+      </para>
+      <para>
+        This information is only relevant for developers that wish to modify the
+        library's code. If you intend to solely use the existing library please
+        refer to the <link xlink:href="user">Backend User Guide</link>.
       </para>
     </introduction>
-
-    <section address="patterns">
-      <title>Patterns</title>
-      <content>
-        <para>...</para>
-      </content>
-    </section>
   </developerConceptualDocument>
 </topic>
