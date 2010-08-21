@@ -244,7 +244,7 @@ namespace Common.Archive
             if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
             
             using (var fileStream = File.Create(filePath))
-                if (length != 0) StreamHelper.Copy(stream, fileStream, 4096);
+                if (length != 0) StreamToFile(stream, fileStream);
 
             if (executable) SetExecutableBit(relativePath);
             // If an executable file is overwritten by a non-executable file, remove the xbit flag
@@ -252,6 +252,18 @@ namespace Common.Archive
 
             File.SetLastWriteTimeUtc(filePath, dateTime);
         }
+
+        /// <summary>
+        /// Helper method for <see cref="WriteFile"/>.
+        /// </summary>
+        /// <param name="stream">The stream to write to a file.</param>
+        /// <param name="fileStream">Stream access to the file to write.</param>
+        /// <remarks>Can be overwritten for archive formats that don't simply write a <see cref="Stream"/> to a file.</remarks>
+        protected virtual void StreamToFile(Stream stream, FileStream fileStream)
+        {
+            StreamHelper.Copy(stream, fileStream, 4096);
+        }
+
         /// <summary>
         /// Combines the extraction target path with the relative path inside the archive.
         /// </summary>

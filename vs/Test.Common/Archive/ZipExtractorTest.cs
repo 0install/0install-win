@@ -7,7 +7,7 @@ using Common.Helpers;
 namespace Common.Archive
 {
     [TestFixture]
-    class BasicFunctionality
+    class ZipTestBasicFunctionality
     {
         byte[] _archiveData;
         TemporaryDirectoryReplacement _sandbox;
@@ -132,7 +132,7 @@ namespace Common.Archive
     }
 
     [TestFixture]
-    class CornerCases
+    class ZipTesstCornerCases
     {
         private TemporaryDirectoryReplacement _sandbox;
 

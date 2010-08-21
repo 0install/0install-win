@@ -33,7 +33,7 @@ namespace Common.Archive
     public class TarExtractor : Extractor
     {
         #region Variables
-        private TarArchive _tar;
+        private TarInputStream _tar;
         #endregion
 
         #region Constructor
@@ -48,7 +48,7 @@ namespace Common.Archive
         {
             try
             {
-                _tar = TarArchive.CreateInputTarArchive(stream);
+                _tar = new TarInputStream(stream);
             }
             catch (TarException ex)
             {
@@ -68,20 +68,17 @@ namespace Common.Archive
 
             try
             {
-                //foreach (TarEntry entry in _tar)
-                //{
-                //    string entryName = GetSubEntryName(entry.Name);
-                //    if (string.IsNullOrEmpty(entryName)) continue;
+                TarEntry entry;
+                while ((entry = _tar.GetNextEntry()) != null)
+                {
+                    string entryName = GetSubEntryName(entry.Name);
+                    if (string.IsNullOrEmpty(entryName)) continue;
 
-                //    if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
-                //    else
-                //    {
-                //        using (var stream = _tar.GetInputStream(entry))
-                //            WriteFile(entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
-                //    }
+                    if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
+                    else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsXbitSet(entry));
 
-                //    BytesProcessed = Stream.Position - StartOffset;
-                //}
+                    BytesProcessed = _tar.Position - StartOffset;
+                }
             }
             #region Error handling
             catch (TarException ex)
@@ -123,6 +120,16 @@ namespace Common.Archive
         {
             const int executeFlags = 0111;
             return ((entry.TarHeader.Mode & executeFlags) != 0);
+        }
+
+        /// <summary>
+        /// Helper method for <see cref="Extractor.WriteFile"/>.
+        /// </summary>
+        /// <param name="stream">The <see cref="TarInputStream"/> containing the entry data to write to a file.</param>
+        /// <param name="fileStream">Stream access to the file to write.</param
+        protected override void StreamToFile(Stream stream, FileStream fileStream)
+        {
+            ((TarInputStream)stream).CopyEntryContents(fileStream);
         }
         #endregion
     }
