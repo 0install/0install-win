@@ -38,10 +38,17 @@ namespace ZeroInstall.Publish.WinForms
             ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.hintTextBoxDescription = new Common.Controls.HintTextBox();
+            this.labelDescription = new System.Windows.Forms.Label();
+            this.hintTextBoxSummary = new Common.Controls.HintTextBox();
+            this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
             this.hintTextBoxInterfaceUrl = new Common.Controls.HintTextBox();
             this.labelInterfaceUrl = new System.Windows.Forms.Label();
@@ -56,6 +63,7 @@ namespace ZeroInstall.Publish.WinForms
             this.labelIconMimeType = new System.Windows.Forms.Label();
             this.buttonIconPreview = new System.Windows.Forms.Button();
             this.buttonIconRemove = new System.Windows.Forms.Button();
+            this.pictureBoxIconPreview = new System.Windows.Forms.PictureBox();
             this.buttonIconAdd = new System.Windows.Forms.Button();
             this.listBoxIconsUrls = new System.Windows.Forms.ListBox();
             this.labelCategories = new System.Windows.Forms.Label();
@@ -86,29 +94,21 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
             this.buttonRemoveExternalFeed = new System.Windows.Forms.Button();
-            this.pictureBoxIconPreview = new System.Windows.Forms.PictureBox();
-            this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.hintTextBoxDescription = new Common.Controls.HintTextBox();
-            this.labelDescription = new System.Windows.Forms.Label();
-            this.hintTextBoxSummary = new Common.Controls.HintTextBox();
-            this.labelSummary = new System.Windows.Forms.Label();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.FeedReferenceControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).BeginInit();
             this.tabPageFeed.SuspendLayout();
             this.groupBoxFeedStructure.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
             this.groupBoxFeedFor.SuspendLayout();
             this.groupBoxExternalFeeds.SuspendLayout();
             this.groupBoxSelectedFeed.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).BeginInit();
             this.SuspendLayout();
             // 
             // toolStrip
@@ -126,6 +126,36 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.toolStrip.Size = new System.Drawing.Size(619, 25);
             this.toolStrip.TabIndex = 0;
+            // 
+            // toolStripButtonNew
+            // 
+            this.toolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonNew.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
+            this.toolStripButtonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonNew.Name = "toolStripButtonNew";
+            this.toolStripButtonNew.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonNew.Text = "New";
+            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNew_Click);
+            // 
+            // toolStripButtonOpen
+            // 
+            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
+            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
+            this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonOpen.Text = "Open";
+            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpen_Click);
+            // 
+            // toolStripButtonSave
+            // 
+            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButtonSave.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveButton;
+            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSave.Name = "toolStripButtonSave";
+            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButtonSave.Text = "Save";
+            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
             // 
             // openFileDialog
             // 
@@ -172,6 +202,47 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // hintTextBoxDescription
+            // 
+            this.hintTextBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxDescription.HintText = "a full description, which can be several paragraphs long";
+            this.hintTextBoxDescription.Location = new System.Drawing.Point(9, 137);
+            this.hintTextBoxDescription.Multiline = true;
+            this.hintTextBoxDescription.Name = "hintTextBoxDescription";
+            this.hintTextBoxDescription.Size = new System.Drawing.Size(593, 82);
+            this.hintTextBoxDescription.TabIndex = 17;
+            // 
+            // labelDescription
+            // 
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.Location = new System.Drawing.Point(6, 121);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(60, 13);
+            this.labelDescription.TabIndex = 16;
+            this.labelDescription.Text = "Description";
+            // 
+            // hintTextBoxSummary
+            // 
+            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSummary.HintText = "a short one-line description";
+            this.hintTextBoxSummary.Location = new System.Drawing.Point(9, 98);
+            this.hintTextBoxSummary.Name = "hintTextBoxSummary";
+            this.hintTextBoxSummary.Size = new System.Drawing.Size(593, 20);
+            this.hintTextBoxSummary.TabIndex = 15;
+            // 
+            // labelSummary
+            // 
+            this.labelSummary.AutoSize = true;
+            this.labelSummary.Location = new System.Drawing.Point(6, 82);
+            this.labelSummary.Name = "labelSummary";
+            this.labelSummary.Size = new System.Drawing.Size(50, 13);
+            this.labelSummary.TabIndex = 14;
+            this.labelSummary.Text = "Summary";
             // 
             // checkBoxNeedsTerminal
             // 
@@ -344,6 +415,17 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonIconRemove.UseVisualStyleBackColor = true;
             this.buttonIconRemove.Click += new System.EventHandler(this.btnIconListRemove_Click);
             // 
+            // pictureBoxIconPreview
+            // 
+            this.pictureBoxIconPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxIconPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBoxIconPreview.Location = new System.Drawing.Point(467, 19);
+            this.pictureBoxIconPreview.Name = "pictureBoxIconPreview";
+            this.pictureBoxIconPreview.Size = new System.Drawing.Size(120, 120);
+            this.pictureBoxIconPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxIconPreview.TabIndex = 9;
+            this.pictureBoxIconPreview.TabStop = false;
+            // 
             // buttonIconAdd
             // 
             this.buttonIconAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -433,6 +515,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // buttonAddRecipe
             // 
+            this.buttonAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddRecipe.Enabled = false;
             this.buttonAddRecipe.Location = new System.Drawing.Point(458, 106);
             this.buttonAddRecipe.Name = "buttonAddRecipe";
@@ -444,6 +527,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // buttonClearList
             // 
+            this.buttonClearList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonClearList.Location = new System.Drawing.Point(458, 439);
             this.buttonClearList.Name = "buttonClearList";
             this.buttonClearList.Size = new System.Drawing.Size(131, 23);
@@ -454,6 +538,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // buttonAddArchive
             // 
+            this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddArchive.Enabled = false;
             this.buttonAddArchive.Location = new System.Drawing.Point(458, 77);
             this.buttonAddArchive.Name = "buttonAddArchive";
@@ -582,8 +667,8 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFeedFor.Controls.Add(this.buttonClearFeedFor);
-            this.groupBoxFeedFor.Controls.Add(this.buttonRemoveFeedFor);
             this.groupBoxFeedFor.Controls.Add(this.buttonAddFeedFor);
+            this.groupBoxFeedFor.Controls.Add(this.buttonRemoveExternalFeed);
             this.groupBoxFeedFor.Controls.Add(this.listBoxFeedFor);
             this.groupBoxFeedFor.Controls.Add(this.hintTextBoxFeedFor);
             this.groupBoxFeedFor.Location = new System.Drawing.Point(6, 323);
@@ -607,13 +692,13 @@ namespace ZeroInstall.Publish.WinForms
             // buttonRemoveFeedFor
             // 
             this.buttonRemoveFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveFeedFor.Location = new System.Drawing.Point(513, 74);
+            this.buttonRemoveFeedFor.Location = new System.Drawing.Point(513, 275);
             this.buttonRemoveFeedFor.Name = "buttonRemoveFeedFor";
             this.buttonRemoveFeedFor.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveFeedFor.TabIndex = 5;
             this.buttonRemoveFeedFor.Text = "Remove";
             this.buttonRemoveFeedFor.UseVisualStyleBackColor = true;
-            this.buttonRemoveFeedFor.Click += new System.EventHandler(this.btnFeedForRemove_Click);
+            this.buttonRemoveFeedFor.Click += new System.EventHandler(this.btnExtFeedsRemove_Click);
             // 
             // buttonAddFeedFor
             // 
@@ -694,8 +779,8 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds.Controls.Add(this.buttonUpdateExternalFeed);
             this.groupBoxExternalFeeds.Controls.Add(this.groupBoxSelectedFeed);
             this.groupBoxExternalFeeds.Controls.Add(this.listBoxExternalFeeds);
+            this.groupBoxExternalFeeds.Controls.Add(this.buttonRemoveFeedFor);
             this.groupBoxExternalFeeds.Controls.Add(this.buttonAddExternalFeeds);
-            this.groupBoxExternalFeeds.Controls.Add(this.buttonRemoveExternalFeed);
             this.groupBoxExternalFeeds.Location = new System.Drawing.Point(6, 6);
             this.groupBoxExternalFeeds.Name = "groupBoxExternalFeeds";
             this.groupBoxExternalFeeds.Size = new System.Drawing.Size(594, 311);
@@ -705,8 +790,8 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // buttonUpdateExternalFeed
             // 
-            this.buttonUpdateExternalFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonUpdateExternalFeed.Location = new System.Drawing.Point(513, 48);
+            this.buttonUpdateExternalFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonUpdateExternalFeed.Location = new System.Drawing.Point(513, 245);
             this.buttonUpdateExternalFeed.Name = "buttonUpdateExternalFeed";
             this.buttonUpdateExternalFeed.Size = new System.Drawing.Size(75, 23);
             this.buttonUpdateExternalFeed.TabIndex = 2;
@@ -719,12 +804,47 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSelectedFeed.Controls.Add(this.feedReferenceControl);
-            this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 114);
+            this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 19);
             this.groupBoxSelectedFeed.Name = "groupBoxSelectedFeed";
             this.groupBoxSelectedFeed.Size = new System.Drawing.Size(582, 191);
             this.groupBoxSelectedFeed.TabIndex = 4;
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Selected Feed";
+            // 
+            // listBoxExternalFeeds
+            // 
+            this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxExternalFeeds.FormattingEnabled = true;
+            this.listBoxExternalFeeds.HorizontalScrollbar = true;
+            this.listBoxExternalFeeds.Location = new System.Drawing.Point(6, 216);
+            this.listBoxExternalFeeds.Name = "listBoxExternalFeeds";
+            this.listBoxExternalFeeds.Size = new System.Drawing.Size(501, 82);
+            this.listBoxExternalFeeds.TabIndex = 0;
+            this.listBoxExternalFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxExtFeeds_SelectedIndexChanged);
+            // 
+            // buttonAddExternalFeeds
+            // 
+            this.buttonAddExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddExternalFeeds.Location = new System.Drawing.Point(513, 216);
+            this.buttonAddExternalFeeds.Name = "buttonAddExternalFeeds";
+            this.buttonAddExternalFeeds.Size = new System.Drawing.Size(75, 23);
+            this.buttonAddExternalFeeds.TabIndex = 1;
+            this.buttonAddExternalFeeds.Text = "Add";
+            this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
+            this.buttonAddExternalFeeds.Click += new System.EventHandler(this.btnExtFeedsAdd_Click);
+            // 
+            // buttonRemoveExternalFeed
+            // 
+            this.buttonRemoveExternalFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRemoveExternalFeed.Location = new System.Drawing.Point(513, 74);
+            this.buttonRemoveExternalFeed.Name = "buttonRemoveExternalFeed";
+            this.buttonRemoveExternalFeed.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemoveExternalFeed.TabIndex = 3;
+            this.buttonRemoveExternalFeed.Text = "Remove";
+            this.buttonRemoveExternalFeed.UseVisualStyleBackColor = true;
+            this.buttonRemoveExternalFeed.Click += new System.EventHandler(this.btnFeedForRemove_Click);
             // 
             // feedReferenceControl
             // 
@@ -739,123 +859,6 @@ namespace ZeroInstall.Publish.WinForms
             this.feedReferenceControl.Size = new System.Drawing.Size(570, 171);
             this.feedReferenceControl.TabIndex = 0;
             // 
-            // listBoxExternalFeeds
-            // 
-            this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxExternalFeeds.FormattingEnabled = true;
-            this.listBoxExternalFeeds.HorizontalScrollbar = true;
-            this.listBoxExternalFeeds.Location = new System.Drawing.Point(6, 19);
-            this.listBoxExternalFeeds.Name = "listBoxExternalFeeds";
-            this.listBoxExternalFeeds.Size = new System.Drawing.Size(501, 82);
-            this.listBoxExternalFeeds.TabIndex = 0;
-            this.listBoxExternalFeeds.SelectedIndexChanged += new System.EventHandler(this.listBoxExtFeeds_SelectedIndexChanged);
-            // 
-            // buttonAddExternalFeeds
-            // 
-            this.buttonAddExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddExternalFeeds.Location = new System.Drawing.Point(513, 19);
-            this.buttonAddExternalFeeds.Name = "buttonAddExternalFeeds";
-            this.buttonAddExternalFeeds.Size = new System.Drawing.Size(75, 23);
-            this.buttonAddExternalFeeds.TabIndex = 1;
-            this.buttonAddExternalFeeds.Text = "Add";
-            this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
-            this.buttonAddExternalFeeds.Click += new System.EventHandler(this.btnExtFeedsAdd_Click);
-            // 
-            // buttonRemoveExternalFeed
-            // 
-            this.buttonRemoveExternalFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveExternalFeed.Location = new System.Drawing.Point(513, 77);
-            this.buttonRemoveExternalFeed.Name = "buttonRemoveExternalFeed";
-            this.buttonRemoveExternalFeed.Size = new System.Drawing.Size(75, 23);
-            this.buttonRemoveExternalFeed.TabIndex = 3;
-            this.buttonRemoveExternalFeed.Text = "Remove";
-            this.buttonRemoveExternalFeed.UseVisualStyleBackColor = true;
-            this.buttonRemoveExternalFeed.Click += new System.EventHandler(this.btnExtFeedsRemove_Click);
-            // 
-            // pictureBoxIconPreview
-            // 
-            this.pictureBoxIconPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxIconPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxIconPreview.Location = new System.Drawing.Point(467, 19);
-            this.pictureBoxIconPreview.Name = "pictureBoxIconPreview";
-            this.pictureBoxIconPreview.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxIconPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxIconPreview.TabIndex = 9;
-            this.pictureBoxIconPreview.TabStop = false;
-            // 
-            // toolStripButtonNew
-            // 
-            this.toolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNew.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
-            this.toolStripButtonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNew.Name = "toolStripButtonNew";
-            this.toolStripButtonNew.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNew.Text = "New";
-            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNew_Click);
-            // 
-            // toolStripButtonOpen
-            // 
-            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
-            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
-            this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpen_Click);
-            // 
-            // toolStripButtonSave
-            // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveButton;
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
-            // 
-            // hintTextBoxDescription
-            // 
-            this.hintTextBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxDescription.HintText = "a full description, which can be several paragraphs long";
-            this.hintTextBoxDescription.Location = new System.Drawing.Point(9, 137);
-            this.hintTextBoxDescription.Multiline = true;
-            this.hintTextBoxDescription.Name = "hintTextBoxDescription";
-            this.hintTextBoxDescription.Size = new System.Drawing.Size(593, 82);
-            this.hintTextBoxDescription.TabIndex = 17;
-            // 
-            // labelDescription
-            // 
-            this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(6, 121);
-            this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(60, 13);
-            this.labelDescription.TabIndex = 16;
-            this.labelDescription.Text = "Description";
-            // 
-            // hintTextBoxSummary
-            // 
-            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSummary.HintText = "a short one-line description";
-            this.hintTextBoxSummary.Location = new System.Drawing.Point(9, 98);
-            this.hintTextBoxSummary.Name = "hintTextBoxSummary";
-            this.hintTextBoxSummary.Size = new System.Drawing.Size(593, 20);
-            this.hintTextBoxSummary.TabIndex = 15;
-            // 
-            // labelSummary
-            // 
-            this.labelSummary.AutoSize = true;
-            this.labelSummary.Location = new System.Drawing.Point(6, 82);
-            this.labelSummary.Name = "labelSummary";
-            this.labelSummary.Size = new System.Drawing.Size(50, 13);
-            this.labelSummary.TabIndex = 14;
-            this.labelSummary.Text = "Summary";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -865,7 +868,7 @@ namespace ZeroInstall.Publish.WinForms
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(580, 568);
+            this.MinimumSize = new System.Drawing.Size(649, 616);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -877,6 +880,7 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.PerformLayout();
             this.groupBoxIcon.ResumeLayout(false);
             this.groupBoxIcon.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).EndInit();
             this.tabPageFeed.ResumeLayout(false);
             this.groupBoxFeedStructure.ResumeLayout(false);
             this.tabPageAdvanced.ResumeLayout(false);
@@ -885,7 +889,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedFor.PerformLayout();
             this.groupBoxExternalFeeds.ResumeLayout(false);
             this.groupBoxSelectedFeed.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
