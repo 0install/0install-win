@@ -126,7 +126,7 @@ namespace Common.Archive
         /// Helper method for <see cref="Extractor.WriteFile"/>.
         /// </summary>
         /// <param name="stream">The <see cref="TarInputStream"/> containing the entry data to write to a file.</param>
-        /// <param name="fileStream">Stream access to the file to write.</param
+        /// <param name="fileStream">Stream access to the file to write.</param>
         protected override void StreamToFile(Stream stream, FileStream fileStream)
         {
             ((TarInputStream)stream).CopyEntryContents(fileStream);
