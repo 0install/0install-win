@@ -120,6 +120,7 @@
     <Compile Include="FeedStructure\ImplementationForm.Designer.cs">
       <DependentUpon>ImplementationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

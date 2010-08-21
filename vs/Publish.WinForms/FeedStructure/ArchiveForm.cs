@@ -302,7 +302,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             treeViewExtract.ExpandAll();
             labelExtractArchiveMessage.Text = "Archive extracted.";
 
-            if(hintTextBoxArchiveUrl.Text != String.Empty) buttonOK.Enabled = true;
+            if(String.IsNullOrEmpty(hintTextBoxArchiveUrl.Text)) buttonOK.Enabled = true;
         }
 
         /// <summary>
@@ -471,7 +471,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// is a number >= 0, else <see langword="false"/>.</returns>
         private bool GetValidStartOffset(out long startOffset)
         {
-            if (hintTextBoxStartOffset.Text == String.Empty)
+            if (String.IsNullOrEmpty(hintTextBoxStartOffset.Text))
             {
                 startOffset = 0;
                 return true;

@@ -70,6 +70,7 @@
             // 
             // buttonExtractArchive
             // 
+            this.buttonExtractArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExtractArchive.Enabled = false;
             this.buttonExtractArchive.Location = new System.Drawing.Point(181, 341);
             this.buttonExtractArchive.Name = "buttonExtractArchive";
@@ -81,6 +82,7 @@
             // 
             // buttonChooseArchive
             // 
+            this.buttonChooseArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonChooseArchive.Enabled = false;
             this.buttonChooseArchive.Location = new System.Drawing.Point(181, 195);
             this.buttonChooseArchive.Name = "buttonChooseArchive";
@@ -92,11 +94,13 @@
             // 
             // downloadProgressBarArchive
             // 
-            this.downloadProgressBarArchive.Task = null;
+            this.downloadProgressBarArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.downloadProgressBarArchive.Location = new System.Drawing.Point(15, 130);
             this.downloadProgressBarArchive.Name = "downloadProgressBarArchive";
             this.downloadProgressBarArchive.Size = new System.Drawing.Size(176, 10);
             this.downloadProgressBarArchive.TabIndex = 34;
+            this.downloadProgressBarArchive.Task = null;
             this.downloadProgressBarArchive.UseTaskbar = false;
             // 
             // labelArchiveDownloadMessages
@@ -118,6 +122,9 @@
             // 
             // treeViewExtract
             // 
+            this.treeViewExtract.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewExtract.Location = new System.Drawing.Point(15, 237);
             this.treeViewExtract.Name = "treeViewExtract";
             this.treeViewExtract.PathSeparator = "/";
@@ -127,6 +134,7 @@
             // 
             // labelStartOffsetBytes
             // 
+            this.labelStartOffsetBytes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStartOffsetBytes.AutoSize = true;
             this.labelStartOffsetBytes.Location = new System.Drawing.Point(239, 68);
             this.labelStartOffsetBytes.Name = "labelStartOffsetBytes";
@@ -145,6 +153,8 @@
             // 
             // hintTextBoxStartOffset
             // 
+            this.hintTextBoxStartOffset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxStartOffset.HintText = "";
             this.hintTextBoxStartOffset.Location = new System.Drawing.Point(15, 65);
             this.hintTextBoxStartOffset.Name = "hintTextBoxStartOffset";
@@ -163,6 +173,8 @@
             // 
             // hintTextBoxLocalArchive
             // 
+            this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxLocalArchive.HintText = "";
             this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(15, 169);
             this.hintTextBoxLocalArchive.Name = "hintTextBoxLocalArchive";
@@ -181,6 +193,7 @@
             // 
             // buttonArchiveDownload
             // 
+            this.buttonArchiveDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonArchiveDownload.Enabled = false;
             this.buttonArchiveDownload.Location = new System.Drawing.Point(197, 130);
             this.buttonArchiveDownload.Name = "buttonArchiveDownload";
@@ -192,6 +205,8 @@
             // 
             // hintTextBoxArchiveUrl
             // 
+            this.hintTextBoxArchiveUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxArchiveUrl.HintText = "";
             this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(15, 104);
             this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
@@ -201,6 +216,8 @@
             // 
             // comboBoxArchiveFormat
             // 
+            this.comboBoxArchiveFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxArchiveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxArchiveFormat.FormattingEnabled = true;
             this.comboBoxArchiveFormat.Items.AddRange(new object[] {
@@ -259,7 +276,7 @@
             this.Controls.Add(this.comboBoxArchiveFormat);
             this.Controls.Add(this.labelArchiveFormat);
             this.Name = "ArchiveForm";
-            this.Text = "ArchiveForm";
+            this.Text = "Edit archive";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ArchiveForm_FormClosed);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);

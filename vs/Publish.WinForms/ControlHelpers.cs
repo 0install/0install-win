@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -52,6 +53,30 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
+        /// Checks if <paramref name="prooveUrl"/> is a valid archive url (begins with http:// , https:// or ftp://).
+        /// </summary>
+        /// <param name="prooveUrl">Url to check.</param>
+        /// <returns><see langword="true"/> if <paramref name="prooveUrl"/> is a valid archive
+        /// url, else <see langword="false"/></returns>
+        public static bool IsValidArchiveUrl(string prooveUrl)
+        {
+            Uri uri;
+            return Uri.TryCreate(prooveUrl, UriKind.Absolute, out uri) && IsValidArchiveUrl(uri);
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="prooveUrl"/> is a valid archive url (begins with http:// , https:// or ftp://).
+        /// </summary>
+        /// <param name="prooveUrl">Url to check.</param>
+        /// <returns><see langword="true"/> if <paramref name="prooveUrl"/> is a valid archive
+        /// url, else <see langword="false"/></returns>
+        public static bool IsValidArchiveUrl(Uri prooveUrl)
+        {
+            Uri uri;
+            return IsValidFeedUrl(prooveUrl.AbsolutePath, out uri);
+        }
+
+        /// <summary>
         /// Checks if <paramref name="prooveUrl"/> is a valid internet url and creates a new
         /// <see cref="Uri"/> object.
         /// </summary>
@@ -62,11 +87,50 @@ namespace ZeroInstall.Publish.WinForms
         /// url, else <see langword="false"/></returns>
         public static bool IsValidArchiveUrl(string prooveUrl, out Uri uri)
         {
+            if (prooveUrl == null) throw new ArgumentNullException("prooveUrl");
+
             if (Uri.TryCreate(prooveUrl, UriKind.Absolute, out uri))
             {
                 return uri.Scheme == Uri.UriSchemeHttp || uri.Scheme == Uri.UriSchemeFtp || uri.Scheme == Uri.UriSchemeHttps;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Checks if the properties of a <see cref="Archive"/> have their default values.
+        /// </summary>
+        /// <param name="toCheck"><see cref="Archive"/> to check.</param>
+        /// <returns>true, if Archive has default values.</returns>
+        public static bool IsEmpty(Archive toCheck)
+        {
+            if (toCheck == null) throw new ArgumentNullException("toCheck");
+
+            return (toCheck.Extract == default(String) && toCheck.Location == default(Uri) && toCheck.MimeType == default(String) && toCheck.Size == default(long) && toCheck.StartOffset == default(long));
+        }
+
+        /// <summary>
+        /// Checks if at least one hash in two <see cref="ManifestDigest"/>s is equal.
+        /// </summary>
+        /// <param name="manifestDigest1"><see cref="ManifestDigest"/> to check.</param>
+        /// <param name="manifestDigest2"><see cref="ManifestDigest"/> to check.</param>
+        /// <returns><see langword="true"/>, if at least on hash is equal, <see langword="false"/> if at least one hash is not equal.</returns>
+        public static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
+        {
+            if (String.IsNullOrEmpty(manifestDigest1.Sha256) && String.IsNullOrEmpty(manifestDigest2.Sha256))
+            {
+                if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
+            }
+
+            if (String.IsNullOrEmpty(manifestDigest1.Sha1New) && String.IsNullOrEmpty(manifestDigest2.Sha1New))
+            {
+                if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
+            }
+
+            if (String.IsNullOrEmpty(manifestDigest1.Sha1Old) && String.IsNullOrEmpty(manifestDigest2.Sha1Old))
+            {
+                if (manifestDigest1.Sha1Old != manifestDigest2.Sha1Old) return false;
+            }
+            return true;
         }
     }
 }

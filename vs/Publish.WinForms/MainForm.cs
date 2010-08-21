@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using C5;
 using ZeroInstall.Model;
@@ -33,9 +34,9 @@ namespace ZeroInstall.Publish.WinForms
         #region Attributes
 
         /// <summary>
-        /// The path of the file the <see cref="Feed"/> was loaded from.
+        /// The path of the file a <see cref="Feed"/> was loaded from.
         /// </summary>
-        private string _openFeedPath;
+        private string _openFeedPath = null;
 
         /// <summary>
         /// The <see cref="ZeroInstall.Model.Feed"/> to edit by this form.
@@ -52,10 +53,19 @@ namespace ZeroInstall.Publish.WinForms
         public MainForm()
         {
             InitializeComponent();
-            _openFeedPath = null;
-            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
+            InitializeComponentsExtended();
+        }
+
+        /// <summary>
+        /// Initializes settings of the form components which can't be setted by the property grid.
+        /// </summary>
+        private void InitializeComponentsExtended()
+        {
             InitializeSaveFileDialog();
             InitializeLoadFileDialog();
+            InitializeComboBoxIconType();
+            InitializeTreeViewFeedStructure();
+            InitializeFeedStructureButtons();
         }
 
         /// <summary>
@@ -71,11 +81,45 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Initializes the <see cref="openFileDialog"/> with a file filter for .xml files.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeLoadFileDialog()
         {
             if (_openFeedPath != null) openFileDialog.InitialDirectory = _openFeedPath;
             openFileDialog.DefaultExt = ".xml";
             openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
+        }
+
+        /// <summary>
+        /// Adds the supported <see cref="ImageFormat"/>s to <see cref="comboBoxIconType"/>.
+        /// </summary>
+        private void InitializeComboBoxIconType()
+        {
+            comboBoxIconType.Items.AddRange(new[] { ImageFormat.Png, ImageFormat.Icon });
+        }
+
+        /// <summary>
+        /// Adds <see cref="_feedToEdit"/> to the Tag of the first <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>.
+        /// </summary>
+        private void InitializeTreeViewFeedStructure()
+        {
+            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
+        }
+
+        /// <summary>
+        /// Sets the Tag of the feed structure buttons with a object they shall add to <see cref="treeViewFeedStructure"/>.
+        /// E.g. the button <see cref="btnAddGroup"/> gets a <see cref="Group"/> object.
+        /// Used to identify the buttons.
+        /// </summary>
+        private void InitializeFeedStructureButtons()
+        {
+            btnAddGroup.Tag = new Group();
+            btnAddDependency.Tag = new Dependency();
+            btnAddEnvironmentBinding.Tag = new EnvironmentBinding();
+            btnAddOverlayBinding.Tag = new OverlayBinding();
+            btnAddPackageImplementation.Tag = new PackageImplementation();
+            btnAddImplementation.Tag = new Implementation();
+            buttonAddArchive.Tag = new Archive();
+            buttonAddRecipe.Tag = new Recipe();
         }
 
         #endregion
@@ -110,10 +154,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            if (_openFeedPath != null)
-            {
-                saveFileDialog.InitialDirectory = _openFeedPath;
-            }
+            if (_openFeedPath != null)  saveFileDialog.InitialDirectory = _openFeedPath;
             saveFileDialog.ShowDialog(this);
         }
 
@@ -130,6 +171,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             _openFeedPath = openFileDialog.InitialDirectory;
             _feedToEdit = Feed.Load(openFileDialog.FileName);
+
             FillForm();
         }
 
@@ -152,42 +194,35 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveGeneralTab()
         {
-            Uri url;
+            _feedToEdit.Categories.Clear();
+            //TODO complete setting attribute type(required: understanding of the category system)
+            foreach (var category in checkedListBoxCategories.CheckedItems) _feedToEdit.Categories.Add(category.ToString());
 
-            // save categories
-            foreach (var category in checkedListBoxCategories.CheckedItems)
-            {
-                //TODO complete setting attribute type(required: understanding of the category system)
-                _feedToEdit.Categories.Add(category.ToString());
-            }
-            // save icon urls
-            foreach (Model.Icon icon in listBoxIconsUrls.Items)
-            {
-                _feedToEdit.Icons.Add(icon);
-            }
-            if (!String.IsNullOrEmpty(hintTextBoxDescription.Text))
-            {
-                _feedToEdit.Descriptions.Clear();
-                _feedToEdit.Descriptions.Add(hintTextBoxDescription.Text);
-            }
-            if (Uri.TryCreate(hintTextBoxInterfaceUrl.Text, UriKind.Absolute, out url))
-            {
-                _feedToEdit.Uri = url;
-            }
-            if (Uri.TryCreate(hintTextBoxHomepage.Text, UriKind.Absolute, out url))
-            {
-                _feedToEdit.Homepage = url;
-            }
+            _feedToEdit.Icons.Clear();
+            foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
+
+            _feedToEdit.Descriptions.Clear();
+            if (!String.IsNullOrEmpty(hintTextBoxDescription.Text)) _feedToEdit.Descriptions.Add(hintTextBoxDescription.Text);
+
+            _feedToEdit.Uri = null;
+            Uri url;
+            if (Uri.TryCreate(hintTextBoxInterfaceUrl.Text, UriKind.Absolute, out url)) _feedToEdit.Uri = url;
+
+            _feedToEdit.Homepage = null;
+            if (Uri.TryCreate(hintTextBoxHomepage.Text, UriKind.Absolute, out url)) _feedToEdit.Homepage = url;
+
             _feedToEdit.NeedsTerminal = checkBoxNeedsTerminal.Checked; 
         }
 
         /// <summary>
         /// Saves the values from <see cref="tabPageFeed"/>.
         /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
+// ReSharper disable MemberCanBeMadeStatic.Local
         private void SaveFeedTab()
+// ReSharper restore MemberCanBeMadeStatic.Local
         {
             // the feed structure objects will be saved directly into _feedToEdit => no extra saving needed.
-            
         }
 
         /// <summary>
@@ -195,18 +230,83 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveAdvancedTab()
         {
-            foreach (var feed in listBoxExternalFeeds.Items)
+            _feedToEdit.Feeds.Clear();
+            foreach (var feed in listBoxExternalFeeds.Items) _feedToEdit.Feeds.Add((FeedReference)feed);
+            
+            _feedToEdit.FeedFor.Clear();
+            foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedToEdit.FeedFor.Add(feedFor);
+            
+            _feedToEdit.MinInjectorVersion = null;
+            if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText)) _feedToEdit.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
+        }
+
+        #endregion
+
+        #region Fill form controls
+
+        /// <summary>
+        /// Clears all form controls and fills them with the values from a <see cref="_feedToEdit"/>.
+        /// </summary>
+        private void FillForm()
+        {
+            ResetFormControls();
+
+            FillGeneralTab();
+            FillFeedTab();
+            FillAdvancedTab();
+        }
+
+        /// <summary>
+        /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
+        /// </summary>
+        private void FillGeneralTab()
+        {
+            hintTextBoxProgramName.Text = _feedToEdit.Name;
+            if (!_feedToEdit.Summaries.IsEmpty) hintTextBoxSummary.Text = _feedToEdit.Summaries.First.Value;
+            if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
+            hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
+            hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
+
+            // fill icons list box
+            listBoxIconsUrls.BeginUpdate();
+                listBoxIconsUrls.Items.Clear();
+                foreach (var icon in _feedToEdit.Icons) listBoxIconsUrls.Items.Add(icon);
+            listBoxIconsUrls.EndUpdate();
+
+            // fill category list
+            foreach (var category in _feedToEdit.Categories)
             {
-                _feedToEdit.Feeds.Add((FeedReference)feed);
+                if (checkedListBoxCategories.Items.Contains(category))
+                {
+                    checkedListBoxCategories.SetItemChecked(checkedListBoxCategories.Items.IndexOf(category), true);
+                }
             }
-            foreach (InterfaceReference feedFor in listBoxFeedFor.Items)
-            {
-                _feedToEdit.FeedFor.Add(feedFor);
-            }
-            if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText))
-            {
-                _feedToEdit.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
-            }
+
+            checkBoxNeedsTerminal.Checked = _feedToEdit.NeedsTerminal;
+        }
+
+        /// <summary>
+        /// Fills the <see cref="tabPageFeed"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
+        /// </summary>
+        private void FillFeedTab()
+        {
+            treeViewFeedStructure.BeginUpdate();
+                treeViewFeedStructure.Nodes[0].Nodes.Clear();
+                treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
+                BuildElementsTreeNodes(_feedToEdit.Elements, treeViewFeedStructure.Nodes[0]);
+            treeViewFeedStructure.EndUpdate();
+
+            treeViewFeedStructure.ExpandAll();
+        }
+
+        /// <summary>
+        /// Fills the <see cref="tabPageAdvanced"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
+        /// </summary>
+        private void FillAdvancedTab()
+        {
+            foreach (var feed in _feedToEdit.Feeds) listBoxExternalFeeds.Items.Add(feed);
+            foreach (var feedFor in _feedToEdit.FeedFor) listBoxFeedFor.Items.Add(feedFor);
+            comboBoxMinInjectorVersion.Text = _feedToEdit.MinInjectorVersion;
         }
 
         #endregion
@@ -267,80 +367,6 @@ namespace ZeroInstall.Publish.WinForms
 
         #endregion
 
-        #region Fill form controls
-
-        /// <summary>
-        /// Clears all form controls and fills them with the values from a <see cref="_feedToEdit"/>.
-        /// </summary>
-        private void FillForm()
-        {
-            ResetFormControls();
-            FillGeneralTab();
-            FillFeedTab();
-            FillAdvancedTab();
-        }
-
-        /// <summary>
-        /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
-        /// </summary>
-        private void FillGeneralTab()
-        {
-            hintTextBoxProgramName.Text = _feedToEdit.Name;
-            if (!_feedToEdit.Summaries.IsEmpty) hintTextBoxSummary.Text = _feedToEdit.Summaries.First.Value;
-            if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
-            hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
-            hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
-            // fill icons list box
-            listBoxIconsUrls.BeginUpdate();
-            listBoxIconsUrls.Items.Clear();
-            foreach (var icon in _feedToEdit.Icons)
-            {
-                listBoxIconsUrls.Items.Add(icon);
-            }
-            listBoxIconsUrls.EndUpdate();
-            // fill category list
-            foreach (var category in _feedToEdit.Categories)
-            {
-                if (checkedListBoxCategories.Items.Contains(category))
-                {
-                    checkedListBoxCategories.SetItemChecked(checkedListBoxCategories.Items.IndexOf(category), true);
-                }
-            }
-            checkBoxNeedsTerminal.Checked = _feedToEdit.NeedsTerminal;
-        }
-
-        /// <summary>
-        /// Fills the <see cref="tabPageFeed"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
-        /// </summary>
-        private void FillFeedTab()
-        {
-            treeViewFeedStructure.BeginUpdate();
-            treeViewFeedStructure.Nodes[0].Nodes.Clear();
-            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
-            BuildElementsTreeNodes(_feedToEdit.Elements, treeViewFeedStructure.Nodes[0]);
-            treeViewFeedStructure.EndUpdate();
-
-            treeViewFeedStructure.ExpandAll();
-        }
-
-        /// <summary>
-        /// Fills the <see cref="tabPageAdvanced"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
-        /// </summary>
-        private void FillAdvancedTab()
-        {
-            foreach (var feed in _feedToEdit.Feeds)
-            {
-                listBoxExternalFeeds.Items.Add(feed);
-            }
-            foreach (var feedFor in _feedToEdit.FeedFor)
-            {
-                listBoxFeedFor.Items.Add(feedFor);
-            }
-            comboBoxMinInjectorVersion.Text = _feedToEdit.MinInjectorVersion;
-        }      
-
-        #endregion
-
         #region Tabs
 
         #region General Tab
@@ -354,12 +380,12 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "png")]
         private void BtnIconPreviewClick(object sender, EventArgs e)
         {
             Uri iconUrl;
             Image icon;
-            lblIconUrlError.ForeColor = Color.Red;
+            lblIconUrlError.Text = "Downloading image for preview...";
+            lblIconUrlError.ForeColor = Color.Black;
             // check url
             if(!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out iconUrl)) return;
 
@@ -370,66 +396,70 @@ namespace ZeroInstall.Publish.WinForms
             }
             catch (WebException ex)
             {
+                lblIconUrlError.ForeColor = Color.Red;
                 switch (ex.Status)
                 {
                     case WebExceptionStatus.ConnectFailure:
-                        lblIconUrlError.Text = "File not found";
+                        lblIconUrlError.Text = "File not found on the web server.";
                         break;
                     default:
-                        lblIconUrlError.Text = "Couldn't download image";
+                        lblIconUrlError.Text = "Couldn't download image.";
                         break;
                 }
                 return;
             }
             catch (ArgumentException)
             {
-                lblIconUrlError.Text = "URL does not describe an image";
+                lblIconUrlError.ForeColor = Color.Red;
+                lblIconUrlError.Text = "URL does not describe an image.";
                 return;
             }
 
-            // check what format is the icon and set right value into comboIconType
-            if (icon.RawFormat.Equals(ImageFormat.Png))
+            if(!IsIconFormatSupported(icon.RawFormat))
             {
-                comboBoxIconType.SelectedIndex = 0;
-            }
-            else if (icon.RawFormat.Equals(ImageFormat.Icon))
-            {
-                comboBoxIconType.SelectedIndex = 1;
-            }
-            else
-            {
-                lblIconUrlError.Text = "Image format must be png or ico";
+                lblIconUrlError.ForeColor = Color.Red;
+                lblIconUrlError.Text = "Image format not supported by 0install.";
                 return;
             }
 
+            comboBoxIconType.SelectedItem = icon.RawFormat;
             pictureBoxIconPreview.Image = icon;
         }
 
+        private static Image GetImageFromUrl(Uri url)
+        {
+            var fileRequest = (HttpWebRequest)WebRequest.Create(url);
+            var fileReponse = (HttpWebResponse)fileRequest.GetResponse();
+            Stream stream = fileReponse.GetResponseStream();
+            return Image.FromStream(stream);
+        }
+
         /// <summary>
-        /// Adds the url from <see cref="hintTextBoxIconUrl"/> and the chosen mime type in <see cref="comboBoxIconType"/> to <see cref="listBoxIconsUrls"/> if the url is a valid url.
+        /// Checks if the <see cref="ImageFormat"/> is supported by 0install.
+        /// </summary>
+        /// <param name="toCheck"><see cref="ImageFormat"/> to check.</param>
+        /// <returns>true, if supported, else false.</returns>
+        private static bool IsIconFormatSupported(ImageFormat toCheck)
+        {
+            var supportedImageFormats = new HashSet<ImageFormat>() { ImageFormat.Png, ImageFormat.Icon };
+            return supportedImageFormats.Contains(toCheck);
+        }
+
+        /// <summary>
+        /// Adds the url from <see cref="hintTextBoxIconUrl"/> and the chosen mime type in <see cref="comboBoxIconType"/>
+        /// to <see cref="listBoxIconsUrls"/> if the url is a valid url.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnIconListAdd_Click(object sender, EventArgs e)
+        private void BtnIconListAddClick(object sender, EventArgs e)
         {
-            var icon = new Model.Icon();
             Uri uri;
             if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out uri)) return;
+            var icon = new Model.Icon {Location = uri};
 
-            icon.Location = uri;
-            // set mime type
-            switch (comboBoxIconType.Text)
-            {
-                case "PNG":
-                    icon.MimeType = "image/png";
-                    break;
-                case "ICO":
-                    icon.MimeType = "image/vnd-microsoft-icon";
-                    break;
-                default: break;
-            }
+            var imageMimeTypes = new HashDictionary<Guid, string>() {{ImageFormat.Png.Guid, "image/png"}, {ImageFormat.Icon.Guid, "image/vnd-microsoft-icon"}};
+            icon.MimeType = imageMimeTypes[((ImageFormat)comboBoxIconType.SelectedItem).Guid];
 
-            // add icon object to list box
             if (!listBoxIconsUrls.Items.Contains(icon)) listBoxIconsUrls.Items.Add(icon);
         }
 
@@ -438,7 +468,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnIconListRemove_Click(object sender, EventArgs e)
+        private void BtnIconListRemoveClick(object sender, EventArgs e)
         {
             var icon = listBoxIconsUrls.SelectedItem;
             if (listBoxIconsUrls.SelectedItem == null) return;
@@ -446,29 +476,31 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Replaces the text and the icon type from <see cref="hintTextBoxIconUrl"/> and <see cref="comboBoxIconType"/> with the text and the icon type of the chosen entry.
+        /// Replaces the text and the icon type of <see cref="hintTextBoxIconUrl"/> and <see cref="comboBoxIconType"/> with the text and the icon type from the chosen entry.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void listIconsUrls_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListIconsUrlsSelectedIndexChanged(object sender, EventArgs e)
         {
             if (listBoxIconsUrls.SelectedItem == null) return;
 
             var icon = (Model.Icon)listBoxIconsUrls.SelectedItem;
             hintTextBoxIconUrl.Text = icon.LocationString;
+
             switch (icon.MimeType)
             {
                 case null:
                     comboBoxIconType.Text = String.Empty;
                     break;
                 case "image/png":
-                    comboBoxIconType.Text = "PNG";
+                    comboBoxIconType.SelectedItem = ImageFormat.Png;
                     break;
                 case "image/vnd-microsoft-icon":
-                    comboBoxIconType.Text = "ICO";
+                    comboBoxIconType.SelectedItem = ImageFormat.Icon;
                     break;
                 default:
-                    throw new InvalidOperationException("Invalid MIME-Type");
+                    comboBoxIconType.SelectedText = "unsupported";
+                    break;
             }
         }
 
@@ -477,7 +509,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void textIconUrl_TextChanged(object sender, EventArgs e)
+        private void TextIconUrlTextChanged(object sender, EventArgs e)
         {
             if (ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text))
             {
@@ -493,21 +525,16 @@ namespace ZeroInstall.Publish.WinForms
 
         #endregion
 
+        #region onChanged Events
+
         /// <summary>
         /// Checks if the text of <see cref="hintTextBoxInterfaceUrl"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void textInterfaceURL_TextChanged(object sender, EventArgs e)
+        private void TextInterfaceUrlTextChanged(object sender, EventArgs e)
         {
-            if(ControlHelpers.IsValidFeedUrl(hintTextBoxInterfaceUrl.Text))
-            {
-                hintTextBoxInterfaceUrl.ForeColor = Color.Green;
-
-            } else
-            {
-                hintTextBoxInterfaceUrl.ForeColor = Color.Red;
-            }
+            hintTextBoxInterfaceUrl.ForeColor = (ControlHelpers.IsValidFeedUrl(hintTextBoxInterfaceUrl.Text) ? Color.Green : Color.Red);
         }
 
         /// <summary>
@@ -515,95 +542,34 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void textHomepage_TextChanged(object sender, EventArgs e)
+        private void TextHomepageTextChanged(object sender, EventArgs e)
         {
             hintTextBoxHomepage.ForeColor = ControlHelpers.IsValidFeedUrl(hintTextBoxHomepage.Text) ? Color.Green : Color.Red;
         }
 
         #endregion
 
+        #endregion
+
         #region Feed Tab
 
-        #region add buttons clicked methods
+        #region Add buttons clicked
 
         /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Group" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
+        /// Detects the feed structure button which was clicked and adds the accordent feed structure elemtent to <see cref="treeViewFeedStructure"/>.
         /// </summary>
-        /// <param name="sender">Not used.</param>
+        /// <param name="sender"><see cref="Button"/> which was clicked.</param>
         /// <param name="e">Not used.</param>
-        private void BtnAddGroupClick(object sender, EventArgs e)
+        private void AddFeedStructureElementButtonClick(object sender, EventArgs e)
         {
-            AddFeedStructureObject(new Group());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Implementation" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnAddImplementationClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new Implementation());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Package Implementation" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnAddPackageImplementationClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new PackageImplementation());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Dependency" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnAddDependencyClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new Dependency());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Environment Binding" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnAddEnvironmentBindingClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new EnvironmentBinding());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Overlay Binding" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnAddOverlayBindingClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new OverlayBinding());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Archive" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ButtonAddArchiveClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new Archive());
-        }
-
-        /// <summary>
-        /// Adds a new <see cref="TreeNode"/> with text "Recipe" to the selected <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ButtonAddRecipeClick(object sender, EventArgs e)
-        {
-            AddFeedStructureObject(new Recipe());
+            if (((Button)sender).Tag is Group) AddFeedStructureObject(new Group());
+            else if (((Button)sender).Tag is Dependency) AddFeedStructureObject(new Dependency());
+            else if (((Button)sender).Tag is EnvironmentBinding) AddFeedStructureObject(new EnvironmentBinding());
+            else if (((Button)sender).Tag is OverlayBinding) AddFeedStructureObject(new OverlayBinding());
+            else if (((Button)sender).Tag is PackageImplementation) AddFeedStructureObject(new PackageImplementation());
+            else if (((Button)sender).Tag is Implementation) AddFeedStructureObject(new Implementation());
+            else if (((Button)sender).Tag is Archive) AddFeedStructureObject(new Archive());
+            else if (((Button)sender).Tag is Recipe) AddFeedStructureObject(new Recipe());
         }
 
         /// <summary>
@@ -715,6 +681,7 @@ namespace ZeroInstall.Publish.WinForms
                     dependecy.Bindings.Add((OverlayBinding)feedStructureObject);
                 }
             }
+
             FillFeedTab();
         }
 
@@ -785,16 +752,16 @@ namespace ZeroInstall.Publish.WinForms
                 var feedStructurForm = new ArchiveForm
                                            {
                                                Archive = (Archive) selectedNode.Tag,
-                                               Readonly = !IsEmpty((Archive) selectedNode.Tag)
+                                               Readonly = !ControlHelpers.IsEmpty((Archive) selectedNode.Tag)
                                            };
 
                 if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
 
                 if(selectedNode.Parent.FirstNode.Tag is ManifestDigest)
                 {
-                    if(!CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
+                    if(!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
                     {
-                        MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was disacared,");
+                        MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.");
                         selectedNode.Tag = new Archive();
                         return;
                     }
@@ -813,30 +780,8 @@ namespace ZeroInstall.Publish.WinForms
             else throw new InvalidOperationException("Not an object to change.");
         }
 
-        private static bool IsEmpty(Archive toCheck)
-        {
-            return (toCheck.Extract == default(String) && toCheck.Location == default(Uri) && toCheck.MimeType == default(String) && toCheck.Size == default(long) && toCheck.StartOffset == default(long));
-        }
-
-        private static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
-        {
-            if (manifestDigest1.Sha256 != String.Empty && manifestDigest2.Sha256 != String.Empty)
-            {
-                if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
-            }
-            else if (manifestDigest1.Sha1New != String.Empty && manifestDigest2.Sha1New != String.Empty)
-            {
-                if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
-            }
-            else if (manifestDigest1.Sha1Old != String.Empty && manifestDigest2.Sha1Old != String.Empty)
-            {
-                if (manifestDigest1.Sha1Old != manifestDigest2.Sha1Old) return false;
-            }
-            return true;
-        }
-
         /// <summary>
-        /// Removes the selected <see cref="TreeNode"/> and all of its subnodes.
+        /// Removes the Tag of the selected <see cref="TreeNode"/> from <see cref="_feedToEdit"/> and rebuilds <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -848,7 +793,12 @@ namespace ZeroInstall.Publish.WinForms
             FillFeedTab();
         }
 
-        private void RemoveObjectFromFeedStructure(object container, object toRemove)
+        /// <summary>
+        /// Removes an feed structure object from <see cref="_feedToEdit"/>.
+        /// </summary>
+        /// <param name="container">Not used.</param>
+        /// <param name="toRemove">Not used.</param>
+        private static void RemoveObjectFromFeedStructure(object container, object toRemove)
         {
             if (toRemove is Element) ((IElementContainer)container).Elements.Remove((Element)toRemove);
             else if (toRemove is Dependency) ((ImplementationBase)container).Dependencies.Remove((Dependency)toRemove);
@@ -857,7 +807,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Clears <see cref="treeViewFeedStructure"/>.
+        /// Removes all feed structure objects from <see cref="_feedToEdit"/> and rebuilds <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -867,7 +817,7 @@ namespace ZeroInstall.Publish.WinForms
             FillFeedTab();
         }
 
-        private void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
+        private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
         {
             #region Sanity checks
             if (elements == null) throw new ArgumentNullException("elements");
@@ -911,10 +861,10 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void BuildBindingTreeNodes(IEnumerable<Binding> bindings, TreeNode parentNode)
+        private static void BuildBindingTreeNodes(IEnumerable<Binding> bindings, TreeNode parentNode)
         {
             #region Sanity checks
-            if (bindings == null) throw new ArgumentNullException("overlayBindings");
+            if (bindings == null) throw new ArgumentNullException("bindings");
             #endregion
 
             foreach (var binding in bindings)
@@ -927,13 +877,13 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void BuildManifestDigestTreeNode(ManifestDigest manifestDigest, TreeNode parentNode)
+        private static void BuildManifestDigestTreeNode(ManifestDigest manifestDigest, TreeNode parentNode)
         {
             var manifestDigestNode = new TreeNode("Manifest digest") {Tag = manifestDigest};
             parentNode.Nodes.Insert(0, manifestDigestNode);
         }
 
-        private void BuildDependencyTreeNodes(IEnumerable<Dependency> dependencies, TreeNode parentNode)
+        private static void BuildDependencyTreeNodes(IEnumerable<Dependency> dependencies, TreeNode parentNode)
         {
             #region Sanity checks
             if (dependencies == null) throw new ArgumentNullException("dependencies");
@@ -947,7 +897,7 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
-        private void BuildRetrievalMethodsTreeNodes(IEnumerable<RetrievalMethod> retrievalMethods, TreeNode parentNode)
+        private static void BuildRetrievalMethodsTreeNodes(IEnumerable<RetrievalMethod> retrievalMethods, TreeNode parentNode)
         {
             #region Sanity checks
             if (retrievalMethods == null) throw new ArgumentNullException("retrievalMethods");
@@ -972,11 +922,11 @@ namespace ZeroInstall.Publish.WinForms
         #region External Feeds Group
 
         /// <summary>
-        /// Adds a clone of the <see cref="feedReferenceControl"/> to <see cref="listBoxExternalFeeds"/> if no equal object is in the list.
+        /// Adds a clone of <see cref="FeedReference"/> from <see cref="feedReferenceControl"/> to <see cref="listBoxExternalFeeds"/> if no equal object is in the list.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnExtFeedsAdd_Click(object sender, EventArgs e)
+        private void BtnExtFeedsAddClick(object sender, EventArgs e)
         {
             var feedReference = feedReferenceControl.FeedReference.CloneReference();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
@@ -992,7 +942,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnExtFeedsRemove_Click(object sender, EventArgs e)
+        private void BtnExtFeedsRemoveClick(object sender, EventArgs e)
         {
             var selectedItem = listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
@@ -1000,11 +950,11 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Loads a clone of the selected <see cref="FeedReference"/> into <see cref="feedReferenceControl"/>.
+        /// Loads a clone of the selected <see cref="FeedReference"/> from <see cref="listBoxExternalFeeds"/> into <see cref="feedReferenceControl"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void listBoxExtFeeds_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxExtFeedsSelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedItem = (FeedReference)listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
@@ -1016,7 +966,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnExtFeedUpdate_Click(object sender, EventArgs e)
+        private void BtnExtFeedUpdateClick(object sender, EventArgs e)
         {
             var selectedFeedReferenceIndex = listBoxExternalFeeds.SelectedIndex;
             var feedReference = feedReferenceControl.FeedReference.CloneReference();
@@ -1034,12 +984,11 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnFeedForAdd_Click(object sender, EventArgs e)
+        private void BtnFeedForAddClick(object sender, EventArgs e)
         {
             Uri uri;
             if (!ControlHelpers.IsValidFeedUrl(hintTextBoxFeedFor.Text, out uri)) return;
-            var interfaceReference = new InterfaceReference();
-            interfaceReference.Target = uri;
+            var interfaceReference = new InterfaceReference {Target = uri};
             listBoxFeedFor.Items.Add(interfaceReference);
         }
 
@@ -1048,7 +997,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnFeedForRemove_Click(object sender, EventArgs e)
+        private void BtnFeedForRemoveClick(object sender, EventArgs e)
         {
             var feedFor = listBoxFeedFor.SelectedItem;
             if (feedFor == null) return;
@@ -1060,24 +1009,14 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnFeedForClear_Click(object sender, EventArgs e)
+        private void BtnFeedForClearClick(object sender, EventArgs e)
         {
             listBoxFeedFor.Items.Clear();
         }
 
         #endregion
 
-        private void hintTextBoxSummary_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         #endregion
-
-        private void labelSummary_Click(object sender, EventArgs e)
-        {
-
-        }
 
         #endregion
     }

@@ -36,19 +36,21 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(153, 119);
+            this.buttonOK.Location = new System.Drawing.Point(156, 119);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(234, 119);
+            this.buttonCancel.Location = new System.Drawing.Point(237, 119);
             // 
             // hintTextBoxSrc
             // 
+            this.hintTextBoxSrc.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSrc.HintText = "Relative path of the directory in the implementation";
             this.hintTextBoxSrc.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxSrc.Name = "hintTextBoxSrc";
-            this.hintTextBoxSrc.Size = new System.Drawing.Size(294, 20);
+            this.hintTextBoxSrc.Size = new System.Drawing.Size(297, 20);
             this.hintTextBoxSrc.TabIndex = 1;
             this.hintTextBoxSrc.TextChanged += new System.EventHandler(this.HintTextBoxSrcTextChanged);
             // 
@@ -72,10 +74,12 @@
             // 
             // hintTextBoxMountPoint
             // 
-            this.hintTextBoxMountPoint.HintText = "Mount point on which source is to appear in the filesystem";
+            this.hintTextBoxMountPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxMountPoint.HintText = "Mount point on which source is to appear in the file system";
             this.hintTextBoxMountPoint.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxMountPoint.Name = "hintTextBoxMountPoint";
-            this.hintTextBoxMountPoint.Size = new System.Drawing.Size(294, 20);
+            this.hintTextBoxMountPoint.Size = new System.Drawing.Size(297, 20);
             this.hintTextBoxMountPoint.TabIndex = 3;
             this.hintTextBoxMountPoint.TextChanged += new System.EventHandler(this.HintTextBoxMountPointTextChanged);
             // 
@@ -83,12 +87,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(321, 154);
+            this.ClientSize = new System.Drawing.Size(324, 154);
             this.Controls.Add(this.hintTextBoxMountPoint);
             this.Controls.Add(this.labelMountPoint);
             this.Controls.Add(this.labelSrc);
             this.Controls.Add(this.hintTextBoxSrc);
             this.Name = "OverlayBindingForm";
+            this.Text = "Edit overlay binding";
             this.Controls.SetChildIndex(this.hintTextBoxSrc, 0);
             this.Controls.SetChildIndex(this.labelSrc, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);

@@ -309,6 +309,7 @@
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
             this.Name = "ImplementationForm";
+            this.Text = "Edit implementation";
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.labelReleased, 0);
             this.Controls.SetChildIndex(this.dateTimePickerRelease, 0);

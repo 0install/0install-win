@@ -47,17 +47,17 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(439, 290);
+            this.buttonOK.Location = new System.Drawing.Point(448, 290);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(520, 290);
+            this.buttonCancel.Location = new System.Drawing.Point(529, 290);
             // 
             // labelStability
             // 
             this.labelStability.AutoSize = true;
-            this.labelStability.Location = new System.Drawing.Point(480, 47);
+            this.labelStability.Location = new System.Drawing.Point(489, 47);
             this.labelStability.Name = "labelStability";
             this.labelStability.Size = new System.Drawing.Size(43, 13);
             this.labelStability.TabIndex = 8;
@@ -67,7 +67,7 @@
             // 
             this.comboBoxStability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStability.FormattingEnabled = true;
-            this.comboBoxStability.Location = new System.Drawing.Point(483, 63);
+            this.comboBoxStability.Location = new System.Drawing.Point(492, 63);
             this.comboBoxStability.Name = "comboBoxStability";
             this.comboBoxStability.Size = new System.Drawing.Size(112, 21);
             this.comboBoxStability.TabIndex = 9;
@@ -166,7 +166,7 @@
             "WTFPL v2 (Do What The Fuck You Want To Public License)",
             "zlib/libpng License",
             "ZPL (Zope Public License)"});
-            this.comboBoxLicense.Location = new System.Drawing.Point(327, 24);
+            this.comboBoxLicense.Location = new System.Drawing.Point(336, 25);
             this.comboBoxLicense.Name = "comboBoxLicense";
             this.comboBoxLicense.Size = new System.Drawing.Size(268, 21);
             this.comboBoxLicense.Sorted = true;
@@ -175,7 +175,7 @@
             // labelLicense
             // 
             this.labelLicense.AutoSize = true;
-            this.labelLicense.Location = new System.Drawing.Point(324, 9);
+            this.labelLicense.Location = new System.Drawing.Point(333, 9);
             this.labelLicense.Name = "labelLicense";
             this.labelLicense.Size = new System.Drawing.Size(44, 13);
             this.labelLicense.TabIndex = 4;
@@ -183,7 +183,7 @@
             // 
             // dateTimePickerRelease
             // 
-            this.dateTimePickerRelease.Location = new System.Drawing.Point(121, 25);
+            this.dateTimePickerRelease.Location = new System.Drawing.Point(130, 25);
             this.dateTimePickerRelease.Name = "dateTimePickerRelease";
             this.dateTimePickerRelease.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerRelease.TabIndex = 3;
@@ -191,7 +191,7 @@
             // labelReleased
             // 
             this.labelReleased.AutoSize = true;
-            this.labelReleased.Location = new System.Drawing.Point(118, 9);
+            this.labelReleased.Location = new System.Drawing.Point(127, 9);
             this.labelReleased.Name = "labelReleased";
             this.labelReleased.Size = new System.Drawing.Size(70, 13);
             this.labelReleased.TabIndex = 2;
@@ -220,7 +220,7 @@
             this.hintTextBoxSelfTest.HintText = "Relative path of an executable inside the implementation";
             this.hintTextBoxSelfTest.Location = new System.Drawing.Point(310, 103);
             this.hintTextBoxSelfTest.Name = "hintTextBoxSelfTest";
-            this.hintTextBoxSelfTest.Size = new System.Drawing.Size(285, 20);
+            this.hintTextBoxSelfTest.Size = new System.Drawing.Size(294, 20);
             this.hintTextBoxSelfTest.TabIndex = 13;
             this.hintTextBoxSelfTest.TextChanged += new System.EventHandler(this.HintTextBoxSelfTestTextChanged);
             // 
@@ -229,7 +229,7 @@
             this.hintTextBoxMain.HintText = "Relative path of an executable inside the implementation";
             this.hintTextBoxMain.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxMain.Name = "hintTextBoxMain";
-            this.hintTextBoxMain.Size = new System.Drawing.Size(462, 20);
+            this.hintTextBoxMain.Size = new System.Drawing.Size(471, 20);
             this.hintTextBoxMain.TabIndex = 7;
             this.hintTextBoxMain.TextChanged += new System.EventHandler(this.HintTextBoxMainTextChanged);
             // 
@@ -238,7 +238,7 @@
             this.hintTextBoxVersion.HintText = "";
             this.hintTextBoxVersion.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxVersion.Name = "hintTextBoxVersion";
-            this.hintTextBoxVersion.Size = new System.Drawing.Size(100, 20);
+            this.hintTextBoxVersion.Size = new System.Drawing.Size(109, 20);
             this.hintTextBoxVersion.TabIndex = 1;
             this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.HintTextBoxVersionTextChanged);
             // 
@@ -254,7 +254,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 325);
+            this.ClientSize = new System.Drawing.Size(620, 325);
             this.Controls.Add(this.labelStability);
             this.Controls.Add(this.comboBoxStability);
             this.Controls.Add(this.hintTextBoxDocDir);
@@ -271,6 +271,7 @@
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
             this.Name = "GroupForm";
+            this.Text = "Edit group";
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.labelReleased, 0);
             this.Controls.SetChildIndex(this.dateTimePickerRelease, 0);

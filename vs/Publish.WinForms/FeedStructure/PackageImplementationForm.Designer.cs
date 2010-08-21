@@ -42,12 +42,12 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(198, 213);
+            this.buttonOK.Location = new System.Drawing.Point(198, 222);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(279, 213);
+            this.buttonCancel.Location = new System.Drawing.Point(279, 222);
             // 
             // labelPackage
             // 
@@ -90,8 +90,7 @@
             // 
             // labelDistributions
             // 
-            this.labelDistributions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
+            this.labelDistributions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDistributions.AutoSize = true;
             this.labelDistributions.Location = new System.Drawing.Point(288, 87);
@@ -240,7 +239,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(366, 248);
+            this.ClientSize = new System.Drawing.Size(366, 257);
             this.Controls.Add(this.hintTextBoxDocDir);
             this.Controls.Add(this.labelDocDir);
             this.Controls.Add(this.comboBoxLicense);
@@ -252,7 +251,7 @@
             this.Controls.Add(this.hintTextBoxPackage);
             this.Controls.Add(this.labelPackage);
             this.Name = "PackageImplementationForm";
-            this.Text = "Edit a package implementation";
+            this.Text = "Edit package implementation";
             this.Controls.SetChildIndex(this.labelPackage, 0);
             this.Controls.SetChildIndex(this.hintTextBoxPackage, 0);
             this.Controls.SetChildIndex(this.checkedListBoxDistribution, 0);

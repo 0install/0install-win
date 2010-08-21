@@ -40,12 +40,12 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(165, 193);
+            this.buttonOK.Location = new System.Drawing.Point(165, 209);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(246, 193);
+            this.buttonCancel.Location = new System.Drawing.Point(246, 209);
             // 
             // labelName
             // 
@@ -58,10 +58,12 @@
             // 
             // hintTextBoxInsert
             // 
+            this.hintTextBoxInsert.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxInsert.HintText = "";
             this.hintTextBoxInsert.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxInsert.Name = "hintTextBoxInsert";
-            this.hintTextBoxInsert.Size = new System.Drawing.Size(305, 20);
+            this.hintTextBoxInsert.Size = new System.Drawing.Size(306, 20);
             this.hintTextBoxInsert.TabIndex = 3;
             // 
             // labelInsert
@@ -75,6 +77,8 @@
             // 
             // comboBoxName
             // 
+            this.comboBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxName.FormattingEnabled = true;
             this.comboBoxName.Items.AddRange(new object[] {
             "LD_LIBRARY_PATH",
@@ -85,7 +89,7 @@
             "XDG_DATA_DIRS"});
             this.comboBoxName.Location = new System.Drawing.Point(15, 25);
             this.comboBoxName.Name = "comboBoxName";
-            this.comboBoxName.Size = new System.Drawing.Size(305, 21);
+            this.comboBoxName.Size = new System.Drawing.Size(306, 21);
             this.comboBoxName.Sorted = true;
             this.comboBoxName.TabIndex = 1;
             // 
@@ -100,11 +104,13 @@
             // 
             // comboBoxMode
             // 
+            this.comboBoxMode.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxMode.FormattingEnabled = true;
             this.comboBoxMode.Location = new System.Drawing.Point(15, 104);
             this.comboBoxMode.Name = "comboBoxMode";
-            this.comboBoxMode.Size = new System.Drawing.Size(305, 21);
+            this.comboBoxMode.Size = new System.Drawing.Size(306, 21);
             this.comboBoxMode.TabIndex = 5;
             // 
             // labelDefault
@@ -118,17 +124,19 @@
             // 
             // hintTextBoxDefault
             // 
+            this.hintTextBoxDefault.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxDefault.HintText = "";
             this.hintTextBoxDefault.Location = new System.Drawing.Point(15, 144);
             this.hintTextBoxDefault.Name = "hintTextBoxDefault";
-            this.hintTextBoxDefault.Size = new System.Drawing.Size(305, 20);
+            this.hintTextBoxDefault.Size = new System.Drawing.Size(306, 20);
             this.hintTextBoxDefault.TabIndex = 7;
             // 
             // EnvironmentBindingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(333, 228);
+            this.ClientSize = new System.Drawing.Size(333, 244);
             this.Controls.Add(this.hintTextBoxDefault);
             this.Controls.Add(this.labelDefault);
             this.Controls.Add(this.comboBoxMode);
@@ -138,6 +146,7 @@
             this.Controls.Add(this.hintTextBoxInsert);
             this.Controls.Add(this.labelName);
             this.Name = "EnvironmentBindingForm";
+            this.Text = "Edit environment binding";
             this.Controls.SetChildIndex(this.labelName, 0);
             this.Controls.SetChildIndex(this.hintTextBoxInsert, 0);
             this.Controls.SetChildIndex(this.labelInsert, 0);

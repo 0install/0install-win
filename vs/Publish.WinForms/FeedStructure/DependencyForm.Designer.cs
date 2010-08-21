@@ -53,6 +53,8 @@
             // 
             // hintTextBoxInterface
             // 
+            this.hintTextBoxInterface.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxInterface.HintText = "";
             this.hintTextBoxInterface.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxInterface.Name = "hintTextBoxInterface";
@@ -80,6 +82,8 @@
             // 
             // hintTextBoxUse
             // 
+            this.hintTextBoxUse.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxUse.HintText = "";
             this.hintTextBoxUse.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxUse.Name = "hintTextBoxUse";
@@ -88,6 +92,9 @@
             // 
             // listBoxConstraints
             // 
+            this.listBoxConstraints.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxConstraints.FormattingEnabled = true;
             this.listBoxConstraints.Location = new System.Drawing.Point(15, 129);
             this.listBoxConstraints.Name = "listBoxConstraints";
@@ -115,6 +122,7 @@
             // 
             // hintTextBoxBefore
             // 
+            this.hintTextBoxBefore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxBefore.HintText = "";
             this.hintTextBoxBefore.Location = new System.Drawing.Point(203, 103);
             this.hintTextBoxBefore.Name = "hintTextBoxBefore";
@@ -124,6 +132,7 @@
             // 
             // labelBefore
             // 
+            this.labelBefore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelBefore.AutoSize = true;
             this.labelBefore.Location = new System.Drawing.Point(200, 87);
             this.labelBefore.Name = "labelBefore";
@@ -133,6 +142,7 @@
             // 
             // buttonConstraintAdd
             // 
+            this.buttonConstraintAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConstraintAdd.Location = new System.Drawing.Point(237, 133);
             this.buttonConstraintAdd.Name = "buttonConstraintAdd";
             this.buttonConstraintAdd.Size = new System.Drawing.Size(75, 23);
@@ -143,6 +153,7 @@
             // 
             // buttonConstraintRemove
             // 
+            this.buttonConstraintRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonConstraintRemove.Location = new System.Drawing.Point(237, 162);
             this.buttonConstraintRemove.Name = "buttonConstraintRemove";
             this.buttonConstraintRemove.Size = new System.Drawing.Size(75, 23);
@@ -153,6 +164,7 @@
             // 
             // labelVersion
             // 
+            this.labelVersion.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.labelVersion.AutoSize = true;
             this.labelVersion.Location = new System.Drawing.Point(132, 106);
             this.labelVersion.Name = "labelVersion";
@@ -178,7 +190,9 @@
             this.Controls.Add(this.labelUse);
             this.Controls.Add(this.labelInterface);
             this.Controls.Add(this.hintTextBoxInterface);
+            this.MinimumSize = new System.Drawing.Size(330, 304);
             this.Name = "DependencyForm";
+            this.Text = "Edit dependency";
             this.Controls.SetChildIndex(this.hintTextBoxInterface, 0);
             this.Controls.SetChildIndex(this.labelInterface, 0);
             this.Controls.SetChildIndex(this.labelUse, 0);

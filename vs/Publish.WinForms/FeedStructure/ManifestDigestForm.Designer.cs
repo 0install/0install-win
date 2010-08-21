@@ -41,7 +41,7 @@
             // 
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonOK.Location = new System.Drawing.Point(343, 148);
+            this.buttonOK.Location = new System.Drawing.Point(343, 157);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 0;
@@ -114,7 +114,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonOK;
-            this.ClientSize = new System.Drawing.Size(430, 183);
+            this.ClientSize = new System.Drawing.Size(430, 192);
             this.Controls.Add(this.hintTextBoxSha256);
             this.Controls.Add(this.labelSha256);
             this.Controls.Add(this.hintTextBoxSha1New);
@@ -122,9 +122,9 @@
             this.Controls.Add(this.labelSha1Old);
             this.Controls.Add(this.hintTextBoxSha1Old);
             this.Controls.Add(this.buttonOK);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "ManifestDigestForm";
-            this.Text = "Manifest digest";
+            this.Text = "Show manifest digest";
             this.ResumeLayout(false);
             this.PerformLayout();
 
