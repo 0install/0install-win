@@ -29,34 +29,34 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GuiFeedHandler));
-            this.downloadProgressBar = new Common.Controls.TrackingProgressBar();
+            this.progressBar = new Common.Controls.TrackingProgressBar();
             this.SuspendLayout();
             // 
-            // downloadProgressBar
+            // progressBar
             // 
-            this.downloadProgressBar.Task = null;
-            this.downloadProgressBar.Location = new System.Drawing.Point(12, 12);
-            this.downloadProgressBar.Name = "downloadProgressBar";
-            this.downloadProgressBar.Size = new System.Drawing.Size(240, 23);
-            this.downloadProgressBar.TabIndex = 0;
-            this.downloadProgressBar.UseTaskbar = false;
+            this.progressBar.Location = new System.Drawing.Point(12, 12);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(240, 23);
+            this.progressBar.TabIndex = 0;
+            this.progressBar.Task = null;
+            this.progressBar.UseTaskbar = false;
             // 
-            // DownloadProgessForm
+            // GuiFeedHandler
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(264, 49);
-            this.Controls.Add(this.downloadProgressBar);
+            this.Controls.Add(this.progressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.Name = "DownloadProgessForm";
+            this.Name = "GuiFeedHandler";
             this.Text = "Zero Install";
             this.ResumeLayout(false);
 
         }
 
-        private Common.Controls.TrackingProgressBar downloadProgressBar;
+        private Common.Controls.TrackingProgressBar progressBar;
         #endregion
 
     }

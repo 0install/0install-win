@@ -23,10 +23,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Callback methods to be used when the the user needs to be asked any questions or informed about progress.
     /// </summary>
-    /// <remarks>
-    /// All callbacks are called from the original thread.
-    /// Thread-safety messures are needed only if the process was started on a background thread and is intended to update a UI.
-    /// </remarks>
+    /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IHandler : IFeedHandler, IFetchHandler
     {
     }

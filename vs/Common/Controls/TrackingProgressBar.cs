@@ -90,7 +90,7 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void StateChanged(IProgress sender)
         {
-            // Handle events coming from a non-UI thread
+            // Handle events coming from a non-UI thread, block caller so we can safely retreive properties
             progressBar.Invoke((SimpleEventHandler) delegate
             {
                 IntPtr formHandle = GetFormHandle();
@@ -138,7 +138,7 @@ namespace Common.Controls
         {
             int currentValue = (int)(_task.Progress * 100);
 
-            // Handle events coming from a non-UI thread
+            // Handle events coming from a non-UI thread, block caller so we can safely retreive properties
             progressBar.Invoke((SimpleEventHandler)delegate
             {
                 progressBar.Value = currentValue;

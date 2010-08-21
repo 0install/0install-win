@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using Common;
+using Common.Helpers;
 
 namespace ZeroInstall.Injector.WinForms
 {
@@ -29,25 +30,37 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
-            Initialize();
+            // Handle events coming from a non-UI thread, don't block caller
+            BeginInvoke((SimpleEventHandler)delegate
+            {
+                Initialize();
 
-            downloadProgressBar.Task = download;
+                progressBar.Task = download;
+            });
         }
 
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
-            Initialize();
+            // Handle events coming from a non-UI thread, don't block caller
+            BeginInvoke((SimpleEventHandler)delegate
+            {
+                Initialize();
 
-            // ToDo: Implement
+                progressBar.Task = extraction;
+            });
         }
 
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
-            Initialize();
+            // Handle events coming from a non-UI thread, don't block caller
+            BeginInvoke((SimpleEventHandler)delegate
+            {
+                Initialize();
 
-            // ToDo: Implement
+                progressBar.Task = manifest;
+            });
         }
     }
 }
