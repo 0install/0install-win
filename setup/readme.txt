@@ -5,8 +5,12 @@ The "build.cmd" script assumes "..\vs\build.cmd Release" has already been execut
 A portable Python 2.6 distribution with installed Zero Install scripts must be located at ..\build\Portable\Python.
 A portable GnuPG distribution must be located at ..\build\Portable\GnuPG.
 
-Place a normal Python installation with pygobject and pywin32 in ..\build\Portable\Python. Place a GTK+ installation at "%apps%\GTK+" (some libraries need to be extracted from there).
-Now execute cleanup_python.cmd to minimize it and make it portable. Then call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install" in the directory of the Python code GIT checkout to install the Zero Install scripts.
+To create a portable Python distribution:
+- Install Python 2.6, pygobject and pywin32. Copy the files to ..\build\Portable\Python.
+- Place a GTK+ installation at "%apps%\GTK+" (some libraries need to be extracted from there).
+- Execute cleanup_python.cmd to minimize the Python distribution and copy some libraries to make it portable.
+- Perform a Git checkout of git://repo.or.cz/zeroinstall/solver.git.
+- Call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install" in the directory of the GIT checkout to install the Zero Install scripts into the portable Python distribution.
 
 Code based on this project is used to add the install directory to the System PATH:
 http://legroom.net/software/modpath
