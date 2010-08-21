@@ -20,8 +20,8 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.IO;
+using Common.Helpers;
 using NUnit.Framework;
 
 namespace Common.Download
@@ -32,89 +32,81 @@ namespace Common.Download
     [TestFixture]
     public class DownloadFileTest
     {
-        //private TemporaryReplacement _testFolder;
-        //private string _archiveFile;
-        //private ArchiveProvider _server;
+        private MicroServer _server;
+        private const string TestFileContent = "abc";
 
-        //[SetUp]
-        //public void SetUp()
-        //{
-        //    _testFolder = new TemporaryReplacement(Path.Combine(Path.GetTempPath(), "test-sandbox"));
-        //    _archiveFile = Path.Combine(_testFolder.Path, "archive.zip");
-        //    _server = new ArchiveProvider(_archiveFile);
-        //    _server.Start();
-        //}
+        [SetUp]
+        public void SetUp()
+        {
+            _server = new MicroServer(50222, StreamHelper.CreateFromString(TestFileContent));
+            _server.Start();
+        }
 
-        //[TearDown]
-        //public void TearDown()
-        //{
-        //    _server.Dispose();
-        //    _testFolder.Dispose();
-        //}
+        [TearDown]
+        public void TearDown()
+        {
+            _server.Dispose();
+        }
 
-        ///// <summary>
-        ///// Downloads a small file using <see cref="DownloadFile.RunSync"/>.
-        ///// </summary>
-        //[Test]
-        //public void TestRunSync()
-        //{
-        //    File.WriteAllText(_archiveFile, @"abc");
+        /// <summary>
+        /// Downloads a small file using <see cref="IOWriteProgress.RunSync"/>.
+        /// </summary>
+        [Test]
+        public void TestRunSync()
+        {
+            DownloadFile download;
+            string fileContent;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
 
-        //    DownloadFile download;
-        //    string fileContent;
-        //    string tempFile = null;
-        //    try
-        //    {
-        //        tempFile = Path.GetTempFileName();
+                // Download the file
+                download = new DownloadFile(_server.FileUri, tempFile);
+                download.RunSync();
 
-        //        // Download the file
-        //        download = new DownloadFile(new Uri("http://localhost:50222/archives/test.zip"), tempFile);
-        //        download.RunSync();
+                // Read the file
+                fileContent = File.ReadAllText(tempFile);
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
 
-        //        // Read the file
-        //        fileContent = File.ReadAllText(tempFile);
-        //    }
-        //    finally
-        //    { // Clean up
-        //        if (tempFile != null) File.Delete(tempFile);
-        //    }
+            // Ensure the download was successfull and the HTML file starts with a Doctype as expected
+            Assert.AreEqual(ProgressState.Complete, download.State);
+            Assert.AreEqual(TestFileContent, fileContent);
+        }
 
-        //    // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-        //    Assert.AreEqual(ProgressState.Complete, download.State);
-        //    Assert.AreEqual(@"abc", fileContent);
-        //}
+        /// <summary>
+        /// Downloads a small file using <see cref="IOWriteProgress.Start"/> and <see cref="IOWriteProgress.Join"/>.
+        /// </summary>
+        [Test]
+        public void TestThread()
+        {
+            DownloadFile download;
+            string fileContent;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
 
-        ///// <summary>
-        ///// Downloads a small file using <see cref="DownloadFile.Start"/> and <see cref="DownloadFile.Join"/>.
-        ///// </summary>
-        //[Test]
-        //public void TestThread()
-        //{
-        //    File.WriteAllText(_archiveFile, @"abc");
+                // Start a background download of the file and then wait
+                download = new DownloadFile(_server.FileUri, tempFile);
+                download.Start();
+                download.Join();
 
-        //    DownloadFile download;
-        //    string fileContent;
-        //    string tempFile = null;
-        //    try
-        //    {
-        //        tempFile = Path.GetTempFileName();
+                // Read the file
+                fileContent = File.ReadAllText(tempFile);
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
 
-        //        // Start a background download of the file and then wait
-        //        download = new DownloadFile(new Uri("http://localhost:50222/archives/test.zip"), tempFile);
-        //        download.Start();
-        //        download.Join();
-
-        //        // Read the file
-        //        fileContent = File.ReadAllText(tempFile);
-        //    }
-        //    finally
-        //    { // Clean up
-        //        if (tempFile != null) File.Delete(tempFile);
-        //    }
-
-        //    // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-        //    Assert.AreEqual(ProgressState.Complete, download.State);
-        //    Assert.AreEqual(@"abc", fileContent);
-        //}
+            // Ensure the download was successfull and the HTML file starts with a Doctype as expected
+            Assert.AreEqual(ProgressState.Complete, download.State);
+            Assert.AreEqual(TestFileContent, fileContent);
+        }
     }
 }

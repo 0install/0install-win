@@ -64,6 +64,7 @@
     <Compile Include="Helpers\PackageBuilder.cs" />
     <Compile Include="Helpers\StreamHelperTest.cs" />
     <Compile Include="Helpers\StringHelperTest.cs" />
+    <Compile Include="MicroServer.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
