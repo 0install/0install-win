@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
+﻿using ZeroInstall.Publish.WinForms.Controls;
+
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     partial class GroupForm
     {
@@ -42,7 +44,7 @@
             this.hintTextBoxSelfTest = new Common.Controls.HintTextBox();
             this.hintTextBoxMain = new Common.Controls.HintTextBox();
             this.hintTextBoxVersion = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new ZeroInstall.Publish.WinForms.TargetBaseControl();
+            this.targetBaseControl = new TargetBaseControl();
             this.SuspendLayout();
             // 
             // buttonOK

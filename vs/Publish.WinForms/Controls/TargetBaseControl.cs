@@ -21,7 +21,7 @@ using System.Globalization;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.WinForms
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     /// <summary>
     /// Control to manage a <see cref="TargetBase" />. You pass an subclass of <see cref="TargetBase" /> and the values will be written to it.

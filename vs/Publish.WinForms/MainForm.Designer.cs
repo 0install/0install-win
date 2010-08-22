@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Net;
+using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -94,7 +95,7 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.FeedReferenceControl();
+            this.feedReferenceControl = new FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();

@@ -102,10 +102,10 @@
     <Compile Include="FeedStructure\EnvironmentBindingForm.Designer.cs">
       <DependentUpon>EnvironmentBindingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedReferenceControl.cs">
+    <Compile Include="Controls\FeedReferenceControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="FeedReferenceControl.Designer.cs">
+    <Compile Include="Controls\FeedReferenceControl.Designer.cs">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </Compile>
     <Compile Include="FeedStructure\ManifestDigestForm.cs">
@@ -147,10 +147,10 @@
     <Compile Include="FeedStructure\RecipeForm.Designer.cs">
       <DependentUpon>RecipeForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="TargetBaseControl.cs">
+    <Compile Include="Controls\TargetBaseControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="TargetBaseControl.Designer.cs">
+    <Compile Include="Controls\TargetBaseControl.Designer.cs">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </Compile>
     <Compile Include="FeedStructure\GroupForm.cs">
@@ -168,7 +168,7 @@
     <EmbeddedResource Include="FeedStructure\EnvironmentBindingForm.resx">
       <DependentUpon>EnvironmentBindingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedReferenceControl.resx">
+    <EmbeddedResource Include="Controls\FeedReferenceControl.resx">
       <DependentUpon>FeedReferenceControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ManifestDigestForm.resx">
@@ -203,7 +203,7 @@
     <EmbeddedResource Include="FeedStructure\RecipeForm.resx">
       <DependentUpon>RecipeForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TargetBaseControl.resx">
+    <EmbeddedResource Include="Controls\TargetBaseControl.resx">
       <DependentUpon>TargetBaseControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\GroupForm.resx">

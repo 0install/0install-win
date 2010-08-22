@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Publish.WinForms.FeedStructure
+﻿using ZeroInstall.Publish.WinForms.Controls;
+
+namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     partial class ImplementationForm
     {
@@ -44,7 +46,7 @@
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelLocalPath = new System.Windows.Forms.Label();
             this.hintTextBoxLocalPath = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new ZeroInstall.Publish.WinForms.TargetBaseControl();
+            this.targetBaseControl = new TargetBaseControl();
             this.hintTextBoxID = new Common.Controls.HintTextBox();
             this.labelID = new System.Windows.Forms.Label();
             this.SuspendLayout();

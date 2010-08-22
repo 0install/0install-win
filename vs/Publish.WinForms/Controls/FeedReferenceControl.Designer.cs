@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Publish.WinForms
+﻿namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class FeedReferenceControl
     {
@@ -30,7 +30,7 @@
         {
             this.lblExtFeedURL = new System.Windows.Forms.Label();
             this.textBoxExtFeedURL = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new ZeroInstall.Publish.WinForms.TargetBaseControl();
+            this.targetBaseControl = new TargetBaseControl();
             this.SuspendLayout();
             // 
             // lblExtFeedURL
