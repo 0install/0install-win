@@ -118,7 +118,7 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Determines the "last changed" time of <see cref="ZipEntry"/>, using advanced Unix-entries if possible.
+        /// Determines the "last changed" time of <see cref="ZipEntry"/>, using extended Unix data if possible.
         /// </summary>
         private static DateTime GetEntryDateTime(ZipEntry entry)
         {
