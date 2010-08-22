@@ -745,11 +745,11 @@ namespace ZeroInstall.Publish.WinForms
             selectedNode.Toggle();
 
             // show a dialog to change the selected object
-            if (selectedNode.Tag is Group) (new GroupForm { Group = (Group) selectedNode.Tag}).ShowDialog();
+            if (selectedNode.Tag is Group) (new GroupForm { Group = (Group)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Implementation) (new ImplementationForm { Implementation = (Implementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Archive)
             {
-                var feedStructurForm = new ArchiveForm { Archive = (Archive) selectedNode.Tag };
+                var feedStructurForm = new ArchiveForm { Archive = (Archive)selectedNode.Tag };
 
                 if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
 
@@ -757,25 +757,27 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     if (ControlHelpers.IsEmpty((ManifestDigest)selectedNode.Parent.FirstNode.Tag))
                     {
-                        selectedNode.Parent.FirstNode.Tag = feedStructurForm.ManifestDigest;                     
-                    } else if(!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
+                        selectedNode.Parent.FirstNode.Tag = feedStructurForm.ManifestDigest;
+                    }
+                    else if (!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
                     {
                         MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.");
                         selectedNode.Tag = new Archive();
                         return;
                     }
-                } else
+                }
+                else
                 {
                     var manifestDigestNode = new TreeNode("Manifest digest") { Tag = feedStructurForm.ManifestDigest };
                     selectedNode.Parent.Nodes.Insert(0, manifestDigestNode);
                 }
             }
-            else if (selectedNode.Tag is Recipe) throw new NotImplementedException();
+            else if (selectedNode.Tag is Recipe) (new RecipeForm()).ShowDialog();
             else if (selectedNode.Tag is PackageImplementation) (new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Dependency) (new DependencyForm { Dependency = (Dependency)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is EnvironmentBinding) (new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is OverlayBinding) (new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag }).ShowDialog();
-            else if (selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
+            else if (selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest)selectedNode.Tag)).ShowDialog();
             else throw new InvalidOperationException("Not an object to change.");
         }
 

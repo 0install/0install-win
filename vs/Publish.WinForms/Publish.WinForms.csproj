@@ -66,6 +66,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0publish-gui, Version=0.50.0.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.DirectoryServices" />
@@ -83,6 +86,12 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ArchiveControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ArchiveControl.Designer.cs">
+      <DependentUpon>ArchiveControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedStructure\ArchiveForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +168,9 @@
     <Compile Include="FeedStructure\GroupForm.Designer.cs">
       <DependentUpon>GroupForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\ArchiveControl.resx">
+      <DependentUpon>ArchiveControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ArchiveForm.resx">
       <DependentUpon>ArchiveForm.cs</DependentUpon>
     </EmbeddedResource>
