@@ -72,12 +72,13 @@ namespace Common.Archive
                 {
                     string entryName = GetSubEntryName(entry.Name);
                     if (string.IsNullOrEmpty(entryName)) continue;
+                    DateTime modTime = GetEntryDateTime(entry);
 
-                    if (entry.IsDirectory) CreateDirectory(entryName, entry.DateTime);
+                    if (entry.IsDirectory) CreateDirectory(entryName, modTime);
                     else if (entry.IsFile)
                     {
                         using (var stream = _zip.GetInputStream(entry))
-                            WriteFile(entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
+                            WriteFile(entryName, modTime, stream, entry.Size, IsXbitSet(entry));
                     }
 
                     BytesProcessed += entry.CompressedSize;
@@ -114,6 +115,29 @@ namespace Common.Archive
             #endregion
 
             State = ProgressState.Complete;
+        }
+
+        /// <summary>
+        /// Determines the "last changed" time of <see cref="ZipEntry"/>, using advanced Unix-entries if possible.
+        /// </summary>
+        private static DateTime GetEntryDateTime(ZipEntry entry)
+        {
+            if (entry.HostSystem == (int)HostSystemID.Unix)
+            {
+                var unixData = new ExtendedUnixData();
+                var extraData = new ZipExtraData(entry.ExtraData);
+                if (extraData.Find(unixData.TagID))
+                {
+                    var entryData = extraData.GetEntryData();
+                    unixData.SetData(entryData, 0, entryData.Length);
+
+                    // ToDo: Remove this hack
+                    return unixData.CreateTime.ToUniversalTime() + new TimeSpan(1, 0, 0);
+                }
+            }
+
+            // Fall back to simple DOS time
+            return entry.DateTime;
         }
 
         /// <summary>
