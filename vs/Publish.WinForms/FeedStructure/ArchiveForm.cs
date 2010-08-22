@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #region Properties
 
         /// <summary>
-        /// The <see cref="Archive" /> to be displayed and modified by this form. If <see cref="Readonly"/> is <see langword="true"/>, the values can only be read.
+        /// The <see cref="Archive" /> to be displayed and modified by this form.
         /// </summary>
         public Archive Archive
         {
