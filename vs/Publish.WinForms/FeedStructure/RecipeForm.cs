@@ -28,19 +28,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             int lastTabIndex = tabControlRecipe.TabCount - 1;
             int selectedTabIndex = tabControlRecipe.SelectedIndex;
+            if (selectedTabIndex != lastTabIndex) return;
 
-            if (selectedTabIndex == lastTabIndex)
-            {
-                var newArchiveControl = new ArchiveControl();
-                newArchiveControl.Name = "archiveControl" + lastTabIndex;
-                newArchiveControl.Location = new Point(6, 6);
+            var newArchiveControl = new ArchiveControl
+                                        {
+                                            Name = "archiveControl" + lastTabIndex,
+                                            Location = new Point(6, 6),
+                                        };
+            var newTabPage = new TabPage("Archive") { UseVisualStyleBackColor = true };
+            newTabPage.Controls.Add(newArchiveControl);
 
-                var newTabPage = new TabPage("Archive");
-                newTabPage.Controls.Add(newArchiveControl);
-
-                tabControlRecipe.TabPages.Insert(lastTabIndex, newTabPage);
-                tabControlRecipe.SelectedIndex = lastTabIndex;
-            }
+            tabControlRecipe.TabPages.Insert(lastTabIndex, newTabPage);
+            tabControlRecipe.SelectedIndex = lastTabIndex;
         }
 
         /// <summary>

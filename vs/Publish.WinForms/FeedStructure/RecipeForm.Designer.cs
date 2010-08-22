@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.tabControlRecipe = new System.Windows.Forms.TabControl();
-            this.tabPageArchive1 = new System.Windows.Forms.TabPage();
-            this.archiveControl1 = new ZeroInstall.Publish.WinForms.Controls.ArchiveControl();
+            this.tabPageArchive0 = new System.Windows.Forms.TabPage();
+            this.archiveControl0 = new ZeroInstall.Publish.WinForms.Controls.ArchiveControl();
             this.tabPageAddNew = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
             this.tabControlRecipe.SuspendLayout();
-            this.tabPageArchive1.SuspendLayout();
+            this.tabPageArchive0.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -49,7 +49,7 @@
             // 
             this.tabControlRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.tabControlRecipe.Controls.Add(this.tabPageArchive1);
+            this.tabControlRecipe.Controls.Add(this.tabPageArchive0);
             this.tabControlRecipe.Controls.Add(this.tabPageAddNew);
             this.tabControlRecipe.Location = new System.Drawing.Point(12, 12);
             this.tabControlRecipe.Name = "tabControlRecipe";
@@ -59,23 +59,23 @@
             this.tabControlRecipe.DoubleClick += new System.EventHandler(this.TabControlRecipeDoubleClick);
             this.tabControlRecipe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TabControlRecipeMouseClick);
             // 
-            // tabPageArchive1
+            // tabPageArchive0
             // 
-            this.tabPageArchive1.Controls.Add(this.archiveControl1);
-            this.tabPageArchive1.Location = new System.Drawing.Point(4, 22);
-            this.tabPageArchive1.Name = "tabPageArchive1";
-            this.tabPageArchive1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageArchive1.Size = new System.Drawing.Size(271, 403);
-            this.tabPageArchive1.TabIndex = 0;
-            this.tabPageArchive1.Text = "Archive";
-            this.tabPageArchive1.UseVisualStyleBackColor = true;
+            this.tabPageArchive0.Controls.Add(this.archiveControl0);
+            this.tabPageArchive0.Location = new System.Drawing.Point(4, 22);
+            this.tabPageArchive0.Name = "tabPageArchive0";
+            this.tabPageArchive0.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageArchive0.Size = new System.Drawing.Size(271, 403);
+            this.tabPageArchive0.TabIndex = 0;
+            this.tabPageArchive0.Text = "Archive";
+            this.tabPageArchive0.UseVisualStyleBackColor = true;
             // 
-            // archiveControl1
+            // archiveControl0
             // 
-            this.archiveControl1.Location = new System.Drawing.Point(6, 6);
-            this.archiveControl1.Name = "archiveControl1";
-            this.archiveControl1.Size = new System.Drawing.Size(259, 396);
-            this.archiveControl1.TabIndex = 0;
+            this.archiveControl0.Location = new System.Drawing.Point(6, 6);
+            this.archiveControl0.Name = "archiveControl0";
+            this.archiveControl0.Size = new System.Drawing.Size(259, 396);
+            this.archiveControl0.TabIndex = 0;
             // 
             // tabPageAddNew
             // 
@@ -111,7 +111,7 @@
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.tabControlRecipe.ResumeLayout(false);
-            this.tabPageArchive1.ResumeLayout(false);
+            this.tabPageArchive0.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -119,9 +119,9 @@
         #endregion
 
         private System.Windows.Forms.TabControl tabControlRecipe;
-        private System.Windows.Forms.TabPage tabPageArchive1;
+        private System.Windows.Forms.TabPage tabPageArchive0;
         private System.Windows.Forms.TabPage tabPageAddNew;
         private System.Windows.Forms.Button button1;
-        private Controls.ArchiveControl archiveControl1;
+        private Controls.ArchiveControl archiveControl0;
     }
 }
