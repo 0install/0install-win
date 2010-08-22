@@ -80,7 +80,7 @@ namespace Common.Archive
                             WriteFile(entryName, entry.DateTime, stream, entry.Size, IsXbitSet(entry));
                     }
 
-                    BytesProcessed = Stream.Position - StartOffset;
+                    BytesProcessed += entry.CompressedSize;
                 }
             }
             #region Error handling
