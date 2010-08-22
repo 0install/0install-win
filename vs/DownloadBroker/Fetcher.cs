@@ -86,16 +86,16 @@ namespace ZeroInstall.DownloadBroker
                     if (archive != null)
                     {
                         FetchArchive(implementation, archive);
-                        return;
+                        break;
                     }
                     var recipe = method as Recipe;
                     if (recipe != null)
                     {
                         FetchMultipleArchives(implementation, recipe);
-                        return;
+                        break;
                     }
+                    throw new InvalidOperationException("No working retrieval method.");
                 }
-                throw new InvalidOperationException("No working retrieval method.");
             }
         }
 
