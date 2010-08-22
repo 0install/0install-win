@@ -10,7 +10,7 @@ MIT License: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
 Self-compiled managed DLL: lib/NDesk.Options.dll
 
-SharpZipLib 0.85.5
+SharpZipLib 0.86.0
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
 GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
 Source unmodified
