@@ -50,7 +50,13 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void TabControlRecipeDoubleClick(object sender, EventArgs e)
         {
-            tabControlRecipe.TabPages.RemoveAt(tabControlRecipe.SelectedIndex);
+            int openTabs = tabControlRecipe.TabCount;
+            int selectedTabIndex = tabControlRecipe.SelectedIndex;
+            int lastTabIndex = tabControlRecipe.TabCount - 1;
+
+            if (openTabs == 2 || selectedTabIndex == lastTabIndex) return;
+
+            tabControlRecipe.TabPages.RemoveAt(selectedTabIndex);
         }
 
         #endregion
