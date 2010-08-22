@@ -402,6 +402,9 @@ namespace ZeroInstall.Store.Implementation
     {
         private Thread _executionThread;
 
+        /// <inheritdoc />
+        public string Name { get { return _packagePath; } }
+
         /// <summary>
         /// Reflects the path to the package's folder supplied to the constructor.
         /// </summary>
