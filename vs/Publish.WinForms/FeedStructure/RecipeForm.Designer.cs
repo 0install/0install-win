@@ -30,9 +30,9 @@
         {
             this.tabControlRecipe = new System.Windows.Forms.TabControl();
             this.tabPageArchive1 = new System.Windows.Forms.TabPage();
+            this.archiveControl1 = new ZeroInstall.Publish.WinForms.Controls.ArchiveControl();
             this.tabPageAddNew = new System.Windows.Forms.TabPage();
             this.button1 = new System.Windows.Forms.Button();
-            this.archiveControl1 = new ZeroInstall.Publish.WinForms.Controls.ArchiveControl();
             this.tabControlRecipe.SuspendLayout();
             this.tabPageArchive1.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +56,7 @@
             this.tabControlRecipe.SelectedIndex = 0;
             this.tabControlRecipe.Size = new System.Drawing.Size(279, 429);
             this.tabControlRecipe.TabIndex = 1002;
+            this.tabControlRecipe.DoubleClick += new System.EventHandler(this.TabControlRecipeDoubleClick);
             this.tabControlRecipe.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TabControlRecipeMouseClick);
             // 
             // tabPageArchive1
@@ -69,12 +70,19 @@
             this.tabPageArchive1.Text = "Archive";
             this.tabPageArchive1.UseVisualStyleBackColor = true;
             // 
+            // archiveControl1
+            // 
+            this.archiveControl1.Location = new System.Drawing.Point(6, 6);
+            this.archiveControl1.Name = "archiveControl1";
+            this.archiveControl1.Size = new System.Drawing.Size(259, 396);
+            this.archiveControl1.TabIndex = 0;
+            // 
             // tabPageAddNew
             // 
             this.tabPageAddNew.Location = new System.Drawing.Point(4, 22);
             this.tabPageAddNew.Name = "tabPageAddNew";
             this.tabPageAddNew.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAddNew.Size = new System.Drawing.Size(271, 391);
+            this.tabPageAddNew.Size = new System.Drawing.Size(271, 403);
             this.tabPageAddNew.TabIndex = 1;
             this.tabPageAddNew.Text = "    +";
             this.tabPageAddNew.UseVisualStyleBackColor = true;
@@ -89,24 +97,17 @@
             this.button1.Text = "Create recipe";
             this.button1.UseVisualStyleBackColor = true;
             // 
-            // archiveControl1
-            // 
-            this.archiveControl1.Location = new System.Drawing.Point(6, 6);
-            this.archiveControl1.Name = "archiveControl1";
-            this.archiveControl1.Size = new System.Drawing.Size(259, 396);
-            this.archiveControl1.TabIndex = 0;
-            // 
             // RecipeForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(303, 538);
-            this.Controls.Add(this.tabControlRecipe);
             this.Controls.Add(this.button1);
+            this.Controls.Add(this.tabControlRecipe);
             this.Name = "RecipeForm";
             this.Text = "Edit recipe archives";
-            this.Controls.SetChildIndex(this.button1, 0);
             this.Controls.SetChildIndex(this.tabControlRecipe, 0);
+            this.Controls.SetChildIndex(this.button1, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.tabControlRecipe.ResumeLayout(false);

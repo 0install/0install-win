@@ -17,20 +17,42 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             InitializeComponent();
         }
 
+        #region Add/Remove Tab logic
+
+        /// <summary>
+        /// Adds a new <see cref="TabPage"/> with a <see cref="ArchiveControl"/> left to the last <see cref="TabPage"/> of <see cref="tabControlRecipe"/>.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
         private void TabControlRecipeMouseClick(object sender, MouseEventArgs e)
         {
             int lastTabIndex = tabControlRecipe.TabCount - 1;
-            if (tabControlRecipe.SelectedIndex != lastTabIndex) return;
+            int selectedTabIndex = tabControlRecipe.SelectedIndex;
 
-            var newArchiveControl = new ArchiveControl();
-            newArchiveControl.Name = "archiveControl" + lastTabIndex;
-            newArchiveControl.Location = new Point(6, 6);
+            if (selectedTabIndex == lastTabIndex)
+            {
+                var newArchiveControl = new ArchiveControl();
+                newArchiveControl.Name = "archiveControl" + lastTabIndex;
+                newArchiveControl.Location = new Point(6, 6);
 
-            var newTabPage = new TabPage("Archive");
-            newTabPage.Controls.Add(newArchiveControl);
+                var newTabPage = new TabPage("Archive");
+                newTabPage.Controls.Add(newArchiveControl);
 
-            tabControlRecipe.TabPages.Insert(lastTabIndex, newTabPage);
-            tabControlRecipe.SelectedIndex = lastTabIndex;
+                tabControlRecipe.TabPages.Insert(lastTabIndex, newTabPage);
+                tabControlRecipe.SelectedIndex = lastTabIndex;
+            }
         }
+
+        /// <summary>
+        /// Removes the double clicked <see cref="TabPage"/> on <see cref="tabControlRecipe"/>.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
+        private void TabControlRecipeDoubleClick(object sender, EventArgs e)
+        {
+            tabControlRecipe.TabPages.RemoveAt(tabControlRecipe.SelectedIndex);
+        }
+
+        #endregion
     }
 }
