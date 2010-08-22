@@ -34,7 +34,10 @@ namespace ZeroInstall.Injector
     public class Launcher
     {
         #region Variables
-        /// <summary>The <see cref="ImplementationBase"/> to be launched, followed by all its dependencies.</summary>
+        /// <summary>The interface defining the <see cref="ImplementationBase"/> to be launched.</summary>
+        private readonly string _interfaceID;
+
+        /// <summary>The specific <see cref="ImplementationBase"/>s chosen for the <see cref="Dependency"/>s.</summary>
         private readonly Selections _selections;
 
         /// <summary>Used to locate the selected <see cref="ImplementationBase"/>s.</summary>
@@ -57,9 +60,10 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="selections">The <see cref="ImplementationBase"/> to be launched, followed by all its dependencies.</param>
+        /// <param name="interfaceID">The interface defining the <see cref="ImplementationBase"/> to be launched.</param>
+        /// <param name="selections">The specific <see cref="ImplementationBase"/>s chosen for the <see cref="Dependency"/>s.</param>
         /// <param name="store">Used to locate the selected <see cref="ImplementationBase"/>s.</param>
-        public Launcher(Selections selections, IStore store)
+        public Launcher(string interfaceID, Selections selections, IStore store)
         {
             #region Sanity checks
             if (selections == null) throw new ArgumentNullException("selections");
@@ -67,6 +71,7 @@ namespace ZeroInstall.Injector
             if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 
+            _interfaceID = interfaceID;
             _selections = selections.CloneSelections();
             _store = store;
         }
@@ -79,13 +84,17 @@ namespace ZeroInstall.Injector
         /// Determines the actual executable file to be launched.
         /// </summary>
         /// <returns>A fully qualified path to the executable file.</returns>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         private string GetStartupMain()
         {
             // Get the implementation to be launched
-            ImplementationBase startupImplementation = _selections.Implementations.First;
+            ImplementationBase startupImplementation = _selections.GetSelection(_interfaceID);
 
             // Apply the user-override for the Main exectuable if set
-            string startupMain = (string.IsNullOrEmpty(Main) ? startupImplementation.Main : Main);
+            string startupMain;
+            if (!string.IsNullOrEmpty(Main)) startupMain = Main;
+            else if (!string.IsNullOrEmpty(startupImplementation.Main)) startupMain = startupImplementation.Main;
+            else throw new MissingMainException();
 
             // Find the actual executable file
             return Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
@@ -160,6 +169,7 @@ namespace ZeroInstall.Injector
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         public ProcessStartInfo Prepare(string arguments)
         {
             // Prepare the new process to launch the implementation
@@ -193,6 +203,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         public void RunSync(string arguments)
         {
             var process = new Process {StartInfo = Prepare(arguments)};

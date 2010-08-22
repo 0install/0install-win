@@ -40,9 +40,9 @@ namespace ZeroInstall.Injector
 
         #region Properties
         /// <summary>
-        /// The URI or local path to the feed to solve the dependencies for.
+        /// The URI or local path to the interface to solve the dependencies for.
         /// </summary>
-        public string Feed { get; private set; }
+        public string InterfaceID { get; private set; }
 
         /// <summary>
         /// The solver to use for solving dependencies.
@@ -57,20 +57,20 @@ namespace ZeroInstall.Injector
 
         #region Constructor
         /// <summary>
-        /// Creates a new Launcher for a specific feed.
+        /// Creates a new Launcher for a specific interface.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="interfaceID">The URI or local path to the feed to solve the dependencies for.</param>
         /// <param name="solver">The solver to use for solving dependencies.</param>
         /// <param name="policy">The user settings controlling the solving process.</param>
-        public Controller(string feed, ISolver solver, Policy policy)
+        public Controller(string interfaceID, ISolver solver, Policy policy)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (solver == null) throw new ArgumentNullException("solver");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            Feed = feed;
+            InterfaceID = interfaceID;
             Solver = solver;
             Policy = policy;
         }
@@ -80,14 +80,14 @@ namespace ZeroInstall.Injector
 
         #region Selections
         /// <summary>
-        /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified feed.
+        /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified interface.
         /// </summary>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         // ToDo: Add exceptions (feed problem, dependency problem)
         public void Solve()
         {
             // Run the solver algorithm
-            _selections = Solver.Solve(Feed, Policy);
+            _selections = Solver.Solve(InterfaceID, Policy);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Returns the <see cref="Selections"/> made earlier.
         /// </summary>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
+        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the interface.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Returns a new clone on each call")]
         public Selections GetSelections()
@@ -180,7 +180,7 @@ namespace ZeroInstall.Injector
             #endregion
 
             // Read to run the application
-            return new Launcher(_selections, Policy.SearchStore);
+            return new Launcher(InterfaceID, _selections, Policy.SearchStore);
         }
         #endregion
     }
