@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NUnit.Framework;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -59,6 +61,27 @@ namespace ZeroInstall.Publish.WinForms
                             };
             foreach (var url in validUrls)
                 Assert.IsTrue(ControlHelpers.IsValidFeedUrl(url));
+        }
+
+        /// <summary>
+        /// Test methode ControlHelpers.IsEmpty(Archive toCheck).
+        /// </summary>
+        [Test]
+        public void TestIsEmpty()
+        {
+            // Test with empty archive
+            Assert.IsTrue(ControlHelpers.IsEmpty(new Archive()));
+
+            // Test with archives with setted values
+            Archive[] toTest = {
+                                         new Archive() { Extract = "/home/0install" },
+                                         new Archive() { Location = new Uri(@"http://0install.de") },
+                                         new Archive() { MimeType = @"image/png" },
+                                         new Archive() { Size = 1024 },
+                                         new Archive() { StartOffset = 512 }
+                                     };
+            foreach (var archive in toTest)
+                Assert.IsFalse(ControlHelpers.IsEmpty(archive));
         }
     }
 }

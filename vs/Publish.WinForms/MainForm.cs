@@ -709,19 +709,19 @@ namespace ZeroInstall.Publish.WinForms
             }
             
             // mark the addButtons that can be selected
-            if (selectedNode == treeViewFeedStructure.Nodes[0])
+            if (selectedNode.Tag is Feed)
             {
                 enableAddButtons = new[] { btnAddGroup, btnAddImplementation };
             }
-            else if (selectedNode.Text.StartsWith("Group"))
+            else if (selectedNode.Tag is Group)
             {
                 enableAddButtons = new[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
-            else if (selectedNode.Text.StartsWith("Implementation"))
+            else if (selectedNode.Tag is Implementation)
             {
                 enableAddButtons = new[] { buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
-            else if (selectedNode.Text.StartsWith("Dependency"))
+            else if (selectedNode.Tag is Dependency)
             {
                 enableAddButtons = new[] { btnAddEnvironmentBinding, btnAddOverlayBinding };
             }
@@ -749,17 +749,16 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNode.Tag is Implementation) (new ImplementationForm { Implementation = (Implementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Archive)
             {
-                var feedStructurForm = new ArchiveForm
-                                           {
-                                               Archive = (Archive) selectedNode.Tag,
-                                               Readonly = !ControlHelpers.IsEmpty((Archive) selectedNode.Tag)
-                                           };
+                var feedStructurForm = new ArchiveForm { Archive = (Archive) selectedNode.Tag };
 
                 if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
 
-                if(selectedNode.Parent.FirstNode.Tag is ManifestDigest)
+                if (selectedNode.Parent.FirstNode.Tag is ManifestDigest)
                 {
-                    if(!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
+                    if (ControlHelpers.IsEmpty((ManifestDigest)selectedNode.Parent.FirstNode.Tag))
+                    {
+                        selectedNode.Parent.FirstNode.Tag = feedStructurForm.ManifestDigest;                     
+                    } else if(!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
                     {
                         MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.");
                         selectedNode.Tag = new Archive();
@@ -767,7 +766,7 @@ namespace ZeroInstall.Publish.WinForms
                     }
                 } else
                 {
-                    var manifestDigestNode = new TreeNode("Manifest digest") {Tag = feedStructurForm.ManifestDigest};
+                    var manifestDigestNode = new TreeNode("Manifest digest") { Tag = feedStructurForm.ManifestDigest };
                     selectedNode.Parent.Nodes.Insert(0, manifestDigestNode);
                 }
             }
@@ -776,7 +775,7 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNode.Tag is Dependency) (new DependencyForm { Dependency = (Dependency)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is EnvironmentBinding) (new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is OverlayBinding) (new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag }).ShowDialog();
-            else if(selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
+            else if (selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
             else throw new InvalidOperationException("Not an object to change.");
         }
 
@@ -815,6 +814,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             _feedToEdit.Elements.Clear();
             FillFeedTab();
+            treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
+            TreeViewFeedStructureAfterSelect(null, null);
         }
 
         private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)

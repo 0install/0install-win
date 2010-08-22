@@ -116,21 +116,33 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if at least on hash is equal, <see langword="false"/> if at least one hash is not equal.</returns>
         public static bool CompareManifestDigests(ManifestDigest manifestDigest1, ManifestDigest manifestDigest2)
         {
-            if (String.IsNullOrEmpty(manifestDigest1.Sha256) && String.IsNullOrEmpty(manifestDigest2.Sha256))
+            if (IsEmpty(manifestDigest1) || IsEmpty(manifestDigest2)) return false;
+            if (!String.IsNullOrEmpty(manifestDigest1.Sha256) && !String.IsNullOrEmpty(manifestDigest2.Sha256))
             {
                 if (manifestDigest1.Sha256 != manifestDigest2.Sha256) return false;
             }
 
-            if (String.IsNullOrEmpty(manifestDigest1.Sha1New) && String.IsNullOrEmpty(manifestDigest2.Sha1New))
+            if (!String.IsNullOrEmpty(manifestDigest1.Sha1New) && !String.IsNullOrEmpty(manifestDigest2.Sha1New))
             {
                 if (manifestDigest1.Sha1New != manifestDigest2.Sha1New) return false;
             }
 
-            if (String.IsNullOrEmpty(manifestDigest1.Sha1Old) && String.IsNullOrEmpty(manifestDigest2.Sha1Old))
+            if (!String.IsNullOrEmpty(manifestDigest1.Sha1Old) && !String.IsNullOrEmpty(manifestDigest2.Sha1Old))
             {
                 if (manifestDigest1.Sha1Old != manifestDigest2.Sha1Old) return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Checks if no <see cref="ManifestDigest"/> hash is set.
+        /// </summary>
+        /// <param name="toCheck"><see cref="ManifestDigest"/> to check.</param>
+        /// <returns><see langword="true"/>, if no hash was setted, else <see langword="false"/></returns>
+        public static bool IsEmpty(ManifestDigest toCheck)
+        {
+            return String.IsNullOrEmpty(toCheck.Sha1New) && String.IsNullOrEmpty(toCheck.Sha1Old) &&
+                   String.IsNullOrEmpty(toCheck.Sha256);
         }
     }
 }

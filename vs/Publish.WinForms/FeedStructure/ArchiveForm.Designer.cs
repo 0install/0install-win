@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Top folder");
             this.labelExtractArchiveMessage = new System.Windows.Forms.Label();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
             this.buttonChooseArchive = new System.Windows.Forms.Button();
@@ -101,7 +102,6 @@
             this.downloadProgressBarArchive.Size = new System.Drawing.Size(176, 10);
             this.downloadProgressBarArchive.TabIndex = 34;
             this.downloadProgressBarArchive.Task = null;
-            this.downloadProgressBarArchive.UseTaskbar = false;
             // 
             // labelArchiveDownloadMessages
             // 
@@ -127,6 +127,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewExtract.Location = new System.Drawing.Point(15, 237);
             this.treeViewExtract.Name = "treeViewExtract";
+            treeNode2.Name = "root";
+            treeNode2.Text = "Top folder";
+            this.treeViewExtract.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode2});
             this.treeViewExtract.PathSeparator = "/";
             this.treeViewExtract.ShowRootLines = false;
             this.treeViewExtract.Size = new System.Drawing.Size(257, 98);
