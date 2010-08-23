@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.ComponentModel;
+using System.Reflection;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms
@@ -143,6 +145,27 @@ namespace ZeroInstall.Publish.WinForms
         {
             return String.IsNullOrEmpty(toCheck.Sha1New) && String.IsNullOrEmpty(toCheck.Sha1Old) &&
                    String.IsNullOrEmpty(toCheck.Sha256);
+        }
+
+        /// <summary>
+        /// Get the [Description] text of a <see langword="Enum"/> value.
+        /// </summary>
+        /// <param name="toGetDescriptionFrom">Description of this <see langword="Enum"/></param>
+        /// <returns>A Description of a <see langword="Enum"/>.</returns>
+        public static string GetEnumDescription(Enum toGetDescriptionFrom)
+        {
+            FieldInfo fi = toGetDescriptionFrom.GetType().GetField(toGetDescriptionFrom.ToString());
+
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                typeof(DescriptionAttribute),
+                false);
+
+            if (attributes != null &&
+                attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return toGetDescriptionFrom.ToString();
         }
     }
 }

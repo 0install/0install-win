@@ -32,7 +32,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
             var newArchiveControl = new ArchiveControl
                                         {
-                                            Name = "archiveControl" + lastTabIndex,
+                                            Name = "archiveControl",
                                             Location = new Point(6, 6),
                                         };
             var newTabPage = new TabPage("Archive") { UseVisualStyleBackColor = true };

@@ -1,4 +1,8 @@
-﻿namespace ZeroInstall.Publish.WinForms.Controls
+﻿using System;
+using System.IO;
+using Common.Download;
+
+namespace ZeroInstall.Publish.WinForms.Controls
 {
     partial class ArchiveControl
     {
@@ -33,19 +37,21 @@
             this.comboBoxArchiveFormat = new System.Windows.Forms.ComboBox();
             this.labelStartOffset = new System.Windows.Forms.Label();
             this.labelStartOffsetBytes = new System.Windows.Forms.Label();
-            this.hintTextBox1 = new Common.Controls.HintTextBox();
             this.labelArchiveUrl = new System.Windows.Forms.Label();
-            this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
-            this.trackingProgressBarDownload = new Common.Controls.TrackingProgressBar();
             this.buttonDownload = new System.Windows.Forms.Button();
             this.labelDownloadMessages = new System.Windows.Forms.Label();
             this.labelLocalArchive = new System.Windows.Forms.Label();
-            this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
             this.buttonLocalArchive = new System.Windows.Forms.Button();
             this.labelSubDirectory = new System.Windows.Forms.Label();
             this.treeViewSubDirectory = new System.Windows.Forms.TreeView();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
             this.labelExtractArchiveMessages = new System.Windows.Forms.Label();
+            this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
+            this.trackingProgressBarDownload = new Common.Controls.TrackingProgressBar();
+            this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
+            this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
+            this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.openFileDialogLocalArchive = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // labelArchiveFormat
@@ -59,22 +65,14 @@
             // 
             // comboBoxArchiveFormat
             // 
+            this.comboBoxArchiveFormat.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxArchiveFormat.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxArchiveFormat.FormattingEnabled = true;
-            this.comboBoxArchiveFormat.Items.AddRange(new object[] {
-            "(auto detect)",
-            "application/x-rpm",
-            "application/x-deb",
-            "application/x-tar",
-            "application/x-bzip-compressed-tar",
-            "application/x-lzma-compressed-tar",
-            "application/x-compressed-tar",
-            "application/zip",
-            "application/vnd.ms-cab-compressed"});
             this.comboBoxArchiveFormat.Location = new System.Drawing.Point(3, 16);
             this.comboBoxArchiveFormat.Name = "comboBoxArchiveFormat";
             this.comboBoxArchiveFormat.Size = new System.Drawing.Size(254, 21);
-            this.comboBoxArchiveFormat.TabIndex = 1;
+            this.comboBoxArchiveFormat.TabIndex = 10;
             // 
             // labelStartOffset
             // 
@@ -82,25 +80,18 @@
             this.labelStartOffset.Location = new System.Drawing.Point(0, 40);
             this.labelStartOffset.Name = "labelStartOffset";
             this.labelStartOffset.Size = new System.Drawing.Size(58, 13);
-            this.labelStartOffset.TabIndex = 2;
+            this.labelStartOffset.TabIndex = 20;
             this.labelStartOffset.Text = "Start offset";
             // 
             // labelStartOffsetBytes
             // 
+            this.labelStartOffsetBytes.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelStartOffsetBytes.AutoSize = true;
             this.labelStartOffsetBytes.Location = new System.Drawing.Point(224, 59);
             this.labelStartOffsetBytes.Name = "labelStartOffsetBytes";
             this.labelStartOffsetBytes.Size = new System.Drawing.Size(33, 13);
-            this.labelStartOffsetBytes.TabIndex = 3;
+            this.labelStartOffsetBytes.TabIndex = 40;
             this.labelStartOffsetBytes.Text = "Bytes";
-            // 
-            // hintTextBox1
-            // 
-            this.hintTextBox1.HintText = "";
-            this.hintTextBox1.Location = new System.Drawing.Point(3, 56);
-            this.hintTextBox1.Name = "hintTextBox1";
-            this.hintTextBox1.Size = new System.Drawing.Size(215, 20);
-            this.hintTextBox1.TabIndex = 4;
             // 
             // labelArchiveUrl
             // 
@@ -108,33 +99,19 @@
             this.labelArchiveUrl.Location = new System.Drawing.Point(0, 79);
             this.labelArchiveUrl.Name = "labelArchiveUrl";
             this.labelArchiveUrl.Size = new System.Drawing.Size(59, 13);
-            this.labelArchiveUrl.TabIndex = 5;
+            this.labelArchiveUrl.TabIndex = 50;
             this.labelArchiveUrl.Text = "Archive Url";
-            // 
-            // hintTextBoxArchiveUrl
-            // 
-            this.hintTextBoxArchiveUrl.HintText = "";
-            this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(3, 95);
-            this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
-            this.hintTextBoxArchiveUrl.Size = new System.Drawing.Size(254, 20);
-            this.hintTextBoxArchiveUrl.TabIndex = 6;
-            // 
-            // trackingProgressBarDownload
-            // 
-            this.trackingProgressBarDownload.Location = new System.Drawing.Point(3, 121);
-            this.trackingProgressBarDownload.Name = "trackingProgressBarDownload";
-            this.trackingProgressBarDownload.Size = new System.Drawing.Size(180, 10);
-            this.trackingProgressBarDownload.TabIndex = 7;
-            this.trackingProgressBarDownload.Task = null;
             // 
             // buttonDownload
             // 
+            this.buttonDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDownload.Location = new System.Drawing.Point(189, 121);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(68, 23);
-            this.buttonDownload.TabIndex = 8;
+            this.buttonDownload.TabIndex = 80;
             this.buttonDownload.Text = "Download";
             this.buttonDownload.UseVisualStyleBackColor = true;
+            this.buttonDownload.Click += new System.EventHandler(this.ButtonDownloadClick);
             // 
             // labelDownloadMessages
             // 
@@ -142,7 +119,7 @@
             this.labelDownloadMessages.Location = new System.Drawing.Point(0, 131);
             this.labelDownloadMessages.Name = "labelDownloadMessages";
             this.labelDownloadMessages.Size = new System.Drawing.Size(0, 13);
-            this.labelDownloadMessages.TabIndex = 9;
+            this.labelDownloadMessages.TabIndex = 90;
             // 
             // labelLocalArchive
             // 
@@ -150,26 +127,19 @@
             this.labelLocalArchive.Location = new System.Drawing.Point(0, 147);
             this.labelLocalArchive.Name = "labelLocalArchive";
             this.labelLocalArchive.Size = new System.Drawing.Size(71, 13);
-            this.labelLocalArchive.TabIndex = 10;
+            this.labelLocalArchive.TabIndex = 100;
             this.labelLocalArchive.Text = "Local archive";
-            // 
-            // hintTextBoxLocalArchive
-            // 
-            this.hintTextBoxLocalArchive.HintText = "";
-            this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(3, 163);
-            this.hintTextBoxLocalArchive.Name = "hintTextBoxLocalArchive";
-            this.hintTextBoxLocalArchive.ReadOnly = true;
-            this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(254, 20);
-            this.hintTextBoxLocalArchive.TabIndex = 11;
             // 
             // buttonLocalArchive
             // 
+            this.buttonLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonLocalArchive.Location = new System.Drawing.Point(162, 189);
             this.buttonLocalArchive.Name = "buttonLocalArchive";
             this.buttonLocalArchive.Size = new System.Drawing.Size(95, 23);
-            this.buttonLocalArchive.TabIndex = 12;
+            this.buttonLocalArchive.TabIndex = 120;
             this.buttonLocalArchive.Text = "Choose archive";
             this.buttonLocalArchive.UseVisualStyleBackColor = true;
+            this.buttonLocalArchive.Click += new System.EventHandler(this.ButtonLocalArchiveClick);
             // 
             // labelSubDirectory
             // 
@@ -177,11 +147,14 @@
             this.labelSubDirectory.Location = new System.Drawing.Point(0, 215);
             this.labelSubDirectory.Name = "labelSubDirectory";
             this.labelSubDirectory.Size = new System.Drawing.Size(66, 13);
-            this.labelSubDirectory.TabIndex = 13;
+            this.labelSubDirectory.TabIndex = 130;
             this.labelSubDirectory.Text = "Subdirectory";
             // 
             // treeViewSubDirectory
             // 
+            this.treeViewSubDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewSubDirectory.Location = new System.Drawing.Point(3, 231);
             this.treeViewSubDirectory.Name = "treeViewSubDirectory";
             treeNode1.Name = "rootNode";
@@ -192,24 +165,80 @@
             this.treeViewSubDirectory.ShowLines = false;
             this.treeViewSubDirectory.ShowRootLines = false;
             this.treeViewSubDirectory.Size = new System.Drawing.Size(254, 133);
-            this.treeViewSubDirectory.TabIndex = 14;
+            this.treeViewSubDirectory.TabIndex = 140;
+            this.treeViewSubDirectory.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeViewSubDirectoryAfterSelect);
             // 
             // buttonExtractArchive
             // 
+            this.buttonExtractArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExtractArchive.Location = new System.Drawing.Point(162, 370);
             this.buttonExtractArchive.Name = "buttonExtractArchive";
             this.buttonExtractArchive.Size = new System.Drawing.Size(95, 23);
-            this.buttonExtractArchive.TabIndex = 15;
+            this.buttonExtractArchive.TabIndex = 150;
             this.buttonExtractArchive.Text = "Extract archive";
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
+            this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
             // 
             // labelExtractArchiveMessages
             // 
+            this.labelExtractArchiveMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.labelExtractArchiveMessages.AutoSize = true;
             this.labelExtractArchiveMessages.Location = new System.Drawing.Point(0, 367);
             this.labelExtractArchiveMessages.Name = "labelExtractArchiveMessages";
             this.labelExtractArchiveMessages.Size = new System.Drawing.Size(0, 13);
-            this.labelExtractArchiveMessages.TabIndex = 16;
+            this.labelExtractArchiveMessages.TabIndex = 160;
+            // 
+            // hintTextBoxLocalArchive
+            // 
+            this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxLocalArchive.HintText = "";
+            this.hintTextBoxLocalArchive.Location = new System.Drawing.Point(3, 163);
+            this.hintTextBoxLocalArchive.Name = "hintTextBoxLocalArchive";
+            this.hintTextBoxLocalArchive.ReadOnly = true;
+            this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(254, 20);
+            this.hintTextBoxLocalArchive.TabIndex = 110;
+            // 
+            // trackingProgressBarDownload
+            // 
+            this.trackingProgressBarDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackingProgressBarDownload.Location = new System.Drawing.Point(3, 121);
+            this.trackingProgressBarDownload.Name = "trackingProgressBarDownload";
+            this.trackingProgressBarDownload.Size = new System.Drawing.Size(180, 10);
+            this.trackingProgressBarDownload.TabIndex = 70;
+            this.trackingProgressBarDownload.Task = null;
+            // 
+            // hintTextBoxArchiveUrl
+            // 
+            this.hintTextBoxArchiveUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxArchiveUrl.HintText = "";
+            this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(3, 95);
+            this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
+            this.hintTextBoxArchiveUrl.Size = new System.Drawing.Size(254, 20);
+            this.hintTextBoxArchiveUrl.TabIndex = 60;
+            this.hintTextBoxArchiveUrl.TextChanged += new System.EventHandler(this.HintTextBoxArchiveUrlTextChanged);
+            // 
+            // hintTextBoxStartOffset
+            // 
+            this.hintTextBoxStartOffset.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxStartOffset.HintText = "";
+            this.hintTextBoxStartOffset.Location = new System.Drawing.Point(3, 56);
+            this.hintTextBoxStartOffset.Name = "hintTextBoxStartOffset";
+            this.hintTextBoxStartOffset.Size = new System.Drawing.Size(215, 20);
+            this.hintTextBoxStartOffset.TabIndex = 30;
+            this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.HintTextBoxStartOffsetTextChanged);
+            // 
+            // folderBrowserDialogDownloadPath
+            // 
+            this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
+            this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
+            // 
+            // openFileDialogLocalArchive
+            // 
+            this.openFileDialogLocalArchive.Title = "Choose local archive";
             // 
             // ArchiveControl
             // 
@@ -227,7 +256,7 @@
             this.Controls.Add(this.trackingProgressBarDownload);
             this.Controls.Add(this.hintTextBoxArchiveUrl);
             this.Controls.Add(this.labelArchiveUrl);
-            this.Controls.Add(this.hintTextBox1);
+            this.Controls.Add(this.hintTextBoxStartOffset);
             this.Controls.Add(this.labelStartOffsetBytes);
             this.Controls.Add(this.labelStartOffset);
             this.Controls.Add(this.comboBoxArchiveFormat);
@@ -245,7 +274,7 @@
         private System.Windows.Forms.ComboBox comboBoxArchiveFormat;
         private System.Windows.Forms.Label labelStartOffset;
         private System.Windows.Forms.Label labelStartOffsetBytes;
-        private Common.Controls.HintTextBox hintTextBox1;
+        private Common.Controls.HintTextBox hintTextBoxStartOffset;
         private System.Windows.Forms.Label labelArchiveUrl;
         private Common.Controls.HintTextBox hintTextBoxArchiveUrl;
         private Common.Controls.TrackingProgressBar trackingProgressBarDownload;
@@ -258,7 +287,7 @@
         private System.Windows.Forms.TreeView treeViewSubDirectory;
         private System.Windows.Forms.Button buttonExtractArchive;
         private System.Windows.Forms.Label labelExtractArchiveMessages;
-
-
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
+        private System.Windows.Forms.OpenFileDialog openFileDialogLocalArchive;
     }
 }
