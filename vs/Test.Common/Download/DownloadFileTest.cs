@@ -49,7 +49,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="IOWriteProgress.RunSync"/>.
+        /// Downloads a small file using <see cref="IOProgress.RunSync"/>.
         /// </summary>
         [Test]
         public void TestRunSync()
@@ -79,7 +79,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="IOWriteProgress.Start"/> and <see cref="IOWriteProgress.Join"/>.
+        /// Downloads a small file using <see cref="IOProgress.Start"/> and <see cref="IOProgress.Join"/>.
         /// </summary>
         [Test]
         public void TestThread()
