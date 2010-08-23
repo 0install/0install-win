@@ -118,7 +118,10 @@ namespace Common
         //--------------------//
 
         #region Control
-        /// <inheritdoc />
+        /// <summary>
+        /// Starts executing the task in a background thread.
+        /// </summary>
+        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
         public void Start()
         {
             lock (StateLock)
@@ -130,21 +133,14 @@ namespace Common
             }
         }
 
-        /// <inheritdoc />
-        public abstract void Cancel();
-
-        /// <inheritdoc />
-        public void Join()
-        {
-            lock (StateLock)
-            {
-                if (Thread == null || !Thread.IsAlive) return;
-            }
-
-            Thread.Join();
-        }
-
-        /// <inheritdoc />
+        /// <summary>
+        /// Runs the task synchronously to the current thread.
+        /// </summary>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
+        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
+        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
         public void RunSync()
         {
             Start();
@@ -165,6 +161,20 @@ namespace Common
                 }
             }
         }
+
+        /// <inheritdoc />
+        public void Join()
+        {
+            lock (StateLock)
+            {
+                if (Thread == null || !Thread.IsAlive) return;
+            }
+
+            Thread.Join();
+        }
+
+        /// <inheritdoc />
+        public abstract void Cancel();
         #endregion
 
         #region Thread code

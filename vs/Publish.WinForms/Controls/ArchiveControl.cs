@@ -248,7 +248,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             trackingProgressBarDownload.Task.StateChanged += ArchiveDownloadStateChanged;
 
             SetStartState();
-            trackingProgressBarDownload.Task.Start();
+            ((DownloadFile)trackingProgressBarDownload.Task).Start();
         }
 
         /// <summary>

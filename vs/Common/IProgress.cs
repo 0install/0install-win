@@ -22,8 +22,6 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
-using System.Net;
 using System.Windows.Forms;
 
 namespace Common
@@ -57,7 +55,7 @@ namespace Common
     #endregion
 
     /// <summary>
-    /// A background task that can report its progess via events.
+    /// A background task that can report its progess via events and that can be cancelled.
     /// </summary>
     public interface IProgress : INamed
     {
@@ -118,18 +116,6 @@ namespace Common
 
         #region Control
         /// <summary>
-        /// Starts executing the task in a background thread.
-        /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
-        void Start();
-
-        /// <summary>
-        /// Stops executing the task.
-        /// </summary>
-        /// <remarks>Calling this on a not running task will have no effect.</remarks>
-        void Cancel();
-
-        /// <summary>
         /// Blocks until the task is completed or terminated.
         /// </summary>
         /// <remarks>Calling this on a not running task will return immediately.</remarks>
@@ -137,14 +123,10 @@ namespace Common
         void Join();
 
         /// <summary>
-        /// Runs the task synchronously to the current thread.
+        /// Stops executing the task.
         /// </summary>
-        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
-        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
-        void RunSync();
+        /// <remarks>Calling this on a not running task will have no effect.</remarks>
+        void Cancel();
         #endregion
     }
 }
