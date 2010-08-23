@@ -132,7 +132,7 @@ namespace Common.Archive
     }
 
     [TestFixture]
-    class ZipTesstCornerCases
+    class TestZipCornerCases
     {
         private TemporaryDirectoryReplacement _sandbox;
 
@@ -146,6 +146,21 @@ namespace Common.Archive
         public void TearDown()
         {
             _sandbox.Dispose();
+        }
+
+        /// <summary>
+        /// Tests whether the zip extractor generates a correct .xbit file for
+        /// an example of a unix archive containing an executable file.
+        /// </summary>
+        [Test]
+        public void TestExtractUnixArchiveWithExecutable()
+        {
+            using (var archive = TestData.GetSdlArchiveStream())
+            using (var extractor = new ZipExtractor(archive, 0, _sandbox.Path))
+                extractor.RunSync();
+
+            string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
+            Assert.AreEqual("/SDL.dll", xbitFileContent);
         }
 
         [Test]

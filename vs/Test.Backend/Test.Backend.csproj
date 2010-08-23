@@ -108,15 +108,6 @@
   <ItemGroup>
     <Folder Include="MyApps\" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\README-SDL.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\SDL.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="DownloadBroker\sdlArchive.zip" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
