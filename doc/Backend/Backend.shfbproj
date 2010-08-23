@@ -72,6 +72,7 @@
     <None Include="user\getting_started.aml" />
     <None Include="depolyment.aml" />
     <None Include="design\index.aml" />
+    <None Include="design\progress_tracking.aml" />
     <None Include="design\python.aml" />
     <None Include="design\unit_tests.aml" />
   </ItemGroup>

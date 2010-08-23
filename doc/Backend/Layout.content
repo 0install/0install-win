@@ -7,6 +7,7 @@
   </Topic>
   <Topic id="deployment" visible="True" title="Deployment Guide" />
   <Topic id="design" visible="True" title="Internal Design Guide">
+    <Topic id="design_progress_tracking" visible="True" title="Progress tracking" />
     <Topic id="design_python" visible="True" title="Python integration" />
     <Topic id="design_unit_tests" visible="True" title="Unit tests" />
   </Topic>
