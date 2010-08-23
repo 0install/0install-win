@@ -12,24 +12,6 @@ namespace ZeroInstall.Store.Implementation
     public class StoreCreation
     {
         [Test]
-        public void DefaultConstructorShouldCreateCacheDirIfInexistant()
-        {
-            string cache = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
-            using (new TemporaryDirectoryMove(cache))
-            {
-                try
-                {
-                    Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store's default constructor must accept non-existing path");
-                    Assert.True(Directory.Exists(cache));
-                }
-                finally
-                {
-                    if (Directory.Exists(cache)) Directory.Delete(cache, true);
-                }
-            }
-        }
-
-        [Test]
         public void ShouldAcceptAnExistingPath()
         {
             using (var dir = new TemporaryDirectoryReplacement(Path.GetFullPath("test-store")))
