@@ -24,7 +24,6 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Threading;
 using Common.Properties;
 
 namespace Common.Download
@@ -33,7 +32,7 @@ namespace Common.Download
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    public class DownloadFile : IOWriteProgress
+    public class DownloadFile : IOProgress
     {
         #region Variables
         private bool _cancelRequest;
@@ -88,9 +87,6 @@ namespace Common.Download
             Source = source;
             Target = target;
             BytesTotal = bytesTotal;
-
-            // Prepare the background thread for later execution
-            Thread = new Thread(RunDownload) {Name = "Download: " + target, IsBackground = true};
         }
         
         /// <summary>
@@ -122,11 +118,31 @@ namespace Common.Download
 
         //--------------------//
 
+        #region Control
+        /// <inheritdoc />
+        public override void Cancel()
+        {
+            lock (StateLock)
+            {
+                if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
+
+                _cancelRequest = true;
+            }
+
+            Thread.Join();
+
+            lock (StateLock)
+            {
+                // Reset the state so the task can be started again
+                State = ProgressState.Ready;
+                _cancelRequest = true;
+            }
+        }
+        #endregion
+
         #region Thread code
-        /// <summary>
-        /// The actual download code to be executed by a background thread.
-        /// </summary>
-        private void RunDownload()
+        /// <inheritdoc />
+        protected override void RunTask()
         {
             try
             {
@@ -204,26 +220,6 @@ namespace Common.Download
             #endregion
 
             State = ProgressState.Complete;
-        }
-
-        /// <inheritdoc />
-        public override void Cancel()
-        {
-            lock (StateLock)
-            {
-                if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
-
-                _cancelRequest = true;
-            }
-
-            Thread.Join();
-
-            lock (StateLock)
-            {
-                // Reset the state so the task can be started again
-                State = ProgressState.Ready;
-                _cancelRequest = true;
-            }
         }
         #endregion
 

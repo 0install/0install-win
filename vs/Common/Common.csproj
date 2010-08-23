@@ -128,7 +128,7 @@
     <Compile Include="AppMutex.cs" />
     <Compile Include="NanoGrid.cs" />
     <Compile Include="IProgress.cs" />
-    <Compile Include="IOWriteProgress.cs" />
+    <Compile Include="IOProgress.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />

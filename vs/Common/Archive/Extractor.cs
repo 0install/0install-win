@@ -23,7 +23,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Threading;
 using Common.Helpers;
 using Common.Properties;
 
@@ -32,7 +31,7 @@ namespace Common.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : IOWriteProgress, IDisposable
+    public abstract class Extractor : IOProgress, IDisposable
     {
         #region Properties
         private string _name;
@@ -76,9 +75,6 @@ namespace Common.Archive
             Target = target;
 
             BytesTotal = stream.Length - startOffset;
-
-            // Prepare the background thread for later execution
-            Thread = new Thread(RunExtraction) { Name = "Extraction: " + target, IsBackground = true };
         }
         #endregion
 
@@ -168,12 +164,7 @@ namespace Common.Archive
 
         //--------------------//
 
-        #region Thread code
-        /// <summary>
-        /// The actual extraction code to be executed by a background thread.
-        /// </summary>
-        protected abstract void RunExtraction();
-
+        #region Control
         /// <inheritdoc />
         public override void Cancel()
         {

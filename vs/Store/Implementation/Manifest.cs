@@ -19,13 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Security.Cryptography;
 using System.Text;
+using Common;
 using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
-using Common;
-using System.Threading;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -55,7 +53,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="nodes">A list of all elements in the tree this manifest represents.</param>
         /// <param name="format">The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.</param>
-        private Manifest(C5.IList<ManifestNode> nodes, ManifestFormat format)
+        internal Manifest(C5.IList<ManifestNode> nodes, ManifestFormat format)
         {
             #region Sanity checks
             if (nodes == null) throw new ArgumentNullException("nodes");
@@ -66,116 +64,6 @@ namespace ZeroInstall.Store.Implementation
 
             // Make the collection immutable
             _nodes = new C5.GuardedList<ManifestNode>(nodes);
-        }
-        #endregion
-        
-        #region Factory methods
-        /// <summary>
-        /// Generates a manifest for a directory in the filesystem.
-        /// </summary>
-        /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
-        /// <returns>A manifest for the directory.</returns>
-        /// <exception cref="ArgumentException">Thrown if one of the filenames of the files in <paramref name="path"/> contains a newline character.</exception> 
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the directory is not permitted.</exception>
-        public static Manifest Generate(string path, ManifestFormat format, ProgressCallback manifestProgress)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (format == null) throw new ArgumentNullException("format");
-            #endregion
-
-            var externalXBits = GetExternalXBits(path);
-
-            // Get the complete (recursive) content of the directory sorted according to the format specification
-            var entries = format.GetSortedDirectoryEntries(path);
-            
-            // Iterate through the directory listing to build a list of manifets entries
-            var nodes = new C5.ArrayList<ManifestNode>(entries.Length);
-            for (int i = 0; i < entries.Length; i++)
-            {
-                var file = entries[i] as FileInfo;
-                if (file != null)
-                {
-                    // Don't include manifest management files in manifest
-                    if (file.Name == ".manifest" || file.Name == ".xbit") continue;
-
-                    nodes.Add(GetFileNode(file, format.HashAlgorithm, externalXBits));
-                }
-                else
-                {
-                    var directory = entries[i] as DirectoryInfo;
-                    if (directory != null) nodes.Add(GetDirectoryNode(directory, path));
-                }
-
-                // Report back the progess
-                if (manifestProgress != null) manifestProgress(i + 1 / (float)entries.Length, entries[i].Name);
-            }
-
-            return new Manifest(nodes, format);
-        }
-
-        /// <summary>
-        /// Executable bits must be stored in an external file (named <code>.xbit</code>) on some platforms (e.g. Windows) because the filesystem attributes can't.
-        /// </summary>
-        /// <param name="path">The path of the directory containing a <code>.xbit</code> file.</param>
-        /// <returns>A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</returns>
-        private static ICollection<string> GetExternalXBits(string path)
-        {
-            var externalXBits = new C5.HashSet<string>();
-            string xBitPath = Path.Combine(path, ".xbit");
-            if (File.Exists(xBitPath))
-            {
-                using (StreamReader xbitFile = File.OpenText(xBitPath))
-                {
-                    // Each line in the file signals an executable file
-                    while (!xbitFile.EndOfStream)
-                    {
-                        string currentLine = xbitFile.ReadLine();
-                        if (currentLine.StartsWith("/"))
-                        {
-                            // Trim away the first slash and then replace Unix-style slashes
-                            string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
-                            externalXBits.Add(Path.Combine(path, relativePath));
-                        }
-                    }
-                }
-            }
-            return externalXBits;
-        }
-
-        /// <summary>
-        /// Creates a manifest node for a file.
-        /// </summary>
-        /// <param name="file">The file object to create a node for.</param>
-        /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
-        /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
-        /// <returns>The node for the list.</returns>
-        private static ManifestFileBase GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
-        {
-            // ToDo: Handle symlinks
-
-            // ToDo: Handle executable bits in filesystem itself
-            if (externalXBits.Contains(file.FullName))
-                return new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
-
-            return new ManifestFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
-        }
-
-        /// <summary>
-        /// Creates a manifest node for a directory.
-        /// </summary>
-        /// <param name="directory">The directory object to create a node for.</param>
-        /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
-        /// <returns>Thenode for the list.</returns>
-        private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
-        {
-            return new ManifestDirectory(
-                FileHelper.UnixTime(directory.LastWriteTime),
-                // Remove leading portion of path and use Unix slashes
-                directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/'));
         }
         #endregion
 
@@ -289,25 +177,64 @@ namespace ZeroInstall.Store.Implementation
 
         #region Comfort methods
         /// <summary>
-        /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
+        /// Generates a manifest for a directory in the filesystem.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
-        /// <returns>The manifest digest (format=hash).</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <remarks>
-        /// The exact format is specified here: http://0install.net/manifest-spec.html
-        /// </remarks>
-        public static string CreateDotFile(string path, ManifestFormat format, ProgressCallback manifestProgress)
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <returns>A manifest for the directory.</returns>
+        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        public static Manifest Generate(string path, ManifestFormat format, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            return Generate(path, format, manifestProgress).Save(Path.Combine(path, ".manifest"));
+            var generator = new ManifestGenerator(path, format);
+            if (startingManifest != null) startingManifest(generator);
+            generator.RunSync();
+            return generator.Result;
+        }
+
+        /// <summary>
+        /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="format">The format of the manifest.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <returns>The manifest digest (format=hash).</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <remarks>
+        /// The exact format is specified here: http://0install.net/manifest-spec.html
+        /// </remarks>
+        public static string CreateDotFile(string path, ManifestFormat format, Action<IProgress> startingManifest)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (format == null) throw new ArgumentNullException("format");
+            #endregion
+
+            return Generate(path, format, startingManifest).Save(Path.Combine(path, ".manifest"));
+        }
+
+        /// <summary>
+        /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all available <see cref="ManifestFormat"/>s.
+        /// </summary>
+        /// <param name="path">The path of the directory to analyze.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <returns>The combined manifest digest structure.</returns>
+        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        public static ManifestDigest CreateDigest(string path, Action<IProgress> startingManifest)
+        {
+            var digest = new ManifestDigest();
+
+            // Generate manifest for each available format...
+            foreach (var format in ManifestFormat.All)
+                // ... and add the resulting digest to the return value
+                ManifestDigest.ParseID(Generate(path, format, startingManifest).CalculateDigest(), ref digest);
+
+            return digest;
         }
 
         /// <summary>
@@ -323,26 +250,6 @@ namespace ZeroInstall.Store.Implementation
                 stream.Position = 0;
                 return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashAlgorithm);
             }
-        }
-
-        /// <summary>
-        /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all available <see cref="ManifestFormat"/>s.
-        /// </summary>
-        /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
-        /// <returns>The combined manifest digest structure.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        public static ManifestDigest CreateDigest(string path, ProgressCallback manifestProgress)
-        {
-            var digest = new ManifestDigest();
-
-            // Generate manifest for each available format...
-            foreach (var format in ManifestFormat.All)
-                // ... and add the resulting digest to the return value
-                ManifestDigest.ParseID(Generate(path, format, manifestProgress).CalculateDigest(), ref digest);
-
-            return digest;
         }
         #endregion
 
@@ -390,148 +297,6 @@ namespace ZeroInstall.Store.Implementation
                 result = (result * 397) ^ _nodes.GetSequencedHashCode();
                 return result;
             }
-        }
-        #endregion
-    }
-
-    /// <summary>
-    /// Class to handle the possibly asynchronous generation of a <see cref="Manifest"/> based on a folder's contents.
-    /// For more information <seealso cref="IProgress"/>
-    /// </summary>
-    public class ManifestGenerator : IProgress
-    {
-        private Thread _executionThread;
-
-        /// <inheritdoc />
-        public string Name { get { return _packagePath; } }
-
-        /// <summary>
-        /// Reflects the path to the package's folder supplied to the constructor.
-        /// </summary>
-        public string PackagePath { get { return _packagePath; } }
-        private readonly string _packagePath;
-
-        /// <summary>
-        /// If <see cref="State"/> is <see cref="ProgressState.Complete"/> this property contains the Result, else it's null.
-        /// </summary>
-        public Manifest Result { get; private set; }
-
-        public ManifestGenerator(string packagePath)
-        {
-            _packagePath = packagePath;
-            State = ProgressState.Ready;
-        }
-
-        #region Events
-        /// <summary>
-        /// Occurs whenever <see cref="State"/> changes.
-        /// </summary>
-        public event ProgressEventHandler StateChanged;
-
-        /// <summary>
-        /// Occurs whenever <see cref="Progress"/> changes.
-        /// </summary>
-        public event ProgressEventHandler ProgressChanged;
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// The current status of the task.
-        /// </summary>
-        public ProgressState State {
-            get { return _state; }
-            private set
-            {
-                var stateChangedEvent = StateChanged;
-                _state = value;
-                if (stateChangedEvent != null) stateChangedEvent(this);
-            }
-        }
-        private ProgressState _state;
-
-        /// <summary>
-        /// Contains an error description if <see cref="State"/> is set to <see cref="ProgressState.WebError"/> or <see cref="ProgressState.IOError"/>.
-        /// </summary>
-        public string ErrorMessage { get { return null; } }
-
-        /// <summary>
-        /// The number of bytes that have been processed so far.
-        /// </summary>
-        public long BytesProcessed { get { throw new NotImplementedException(); } }
-
-        /// <summary>
-        /// The total number of bytes that are to be processed; -1 for unknown.
-        /// </summary>
-        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.Data"/> has been reached.</remarks>
-        public long BytesTotal { get { throw new NotImplementedException(); } }
-
-        /// <summary>
-        /// The progress of the task as a value between 0 and 1; -1 when unknown.
-        /// </summary>
-        public double Progress
-        {
-            get
-            {
-                _progressLock.AcquireReaderLock(Timeout.Infinite);
-                double progress = _progress;
-                _progressLock.ReleaseReaderLock();
-                return progress;
-            }
-            private set
-            {
-                _progressLock.AcquireWriterLock(Timeout.Infinite);
-                _progress = value;
-                _progressLock.ReleaseWriterLock();
-                var progressEvent = ProgressChanged;
-                if (progressEvent != null) progressEvent(this);
-            }
-        }
-        private ReaderWriterLock _progressLock = new ReaderWriterLock();
-        private double _progress;
-        #endregion
-
-        //--------------------//
-
-        #region Control
-        /// <summary>
-        /// Starts executing the task in a background thread.
-        /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
-        public void Start()
-        {
-            _executionThread = new Thread(RunSync);
-            _executionThread.Start();
-        }
-
-        /// <summary>
-        /// Stops executing the task.
-        /// </summary>
-        /// <remarks>Calling this on a not running task will have no effect.</remarks>
-        public void Cancel() { throw new NotImplementedException(); }
-
-        /// <summary>
-        /// Blocks until the task is completed or terminated.
-        /// </summary>
-        /// <remarks>Calling this on a not running task will return immediately.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running (launched via <see cref="RunSync"/>).</exception>
-        public void Join()
-        {
-            _executionThread.Join();
-        }
-
-        /// <summary>
-        /// Runs the task synchronously to the current thread.
-        /// </summary>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
-        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
-        public void RunSync()
-        {
-            State = ProgressState.Started;
-            Result = Manifest.Generate(PackagePath, ManifestFormat.Sha256, (progress, file) => Progress = progress);
-            State = ProgressState.Complete;
         }
         #endregion
     }

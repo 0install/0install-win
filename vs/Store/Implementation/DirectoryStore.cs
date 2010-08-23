@@ -120,10 +120,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, ProgressCallback manifestProgress)
+        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Implementation
             string source = Path.Combine(DirectoryPath, tempID);
 
             // Calculate the actual digest and compare it with the expected one
-            string actualDigest = Manifest.CreateDotFile(source, format, manifestProgress);
+            string actualDigest = Manifest.CreateDotFile(source, format, startingManifest);
             if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
 
             // Move directory to final store destination
@@ -156,7 +156,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ProgressCallback manifestProgress)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -166,13 +166,13 @@ namespace ZeroInstall.Store.Implementation
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             FileHelper.CopyDirectory(path, tempDir);
 
-            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, manifestProgress);
+            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
         }
         #endregion
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -191,7 +191,7 @@ namespace ZeroInstall.Store.Implementation
                 {
                     extractor.RunSync();
 
-                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, manifestProgress);
+                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
                 }
                 #region Error handling
                 catch (Exception)
@@ -205,7 +205,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation
                     }
                 }
 
-                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, manifestProgress);
+                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
             }
             #region Error handling
             catch (Exception)

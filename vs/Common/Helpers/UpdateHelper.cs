@@ -32,13 +32,6 @@ namespace Common.Helpers
     /// Generic delegate for getting an object without passing any parameters.
     /// </summary>
     public delegate T SimpleResult<T>();
-
-    /// <summary>
-    /// Callback to keep the callee informed of the progress of a file operation.
-    /// </summary>
-    /// <param name="progress">The progress of the operation as a value between 0 and 1; -1 when unknown.</param>
-    /// <param name="file">The name of the file currently being processed.</param>
-    public delegate void ProgressCallback(float progress, string file);
     #endregion
 
     /// <summary>

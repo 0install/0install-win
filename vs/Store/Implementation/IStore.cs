@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using Common.Helpers;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -51,12 +50,12 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The directory containing the implementation.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
-        void AddDirectory(string path, ManifestDigest manifestDigest, ProgressCallback manifestProgress);
+        void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest);
 
         /// <summary>
         /// Extracts an archive containing the files of an implementation into this store if it matches the provided <see cref="ManifestDigest"/>.
@@ -64,12 +63,12 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="archiveInfo">Parameter object providing the information to extract the archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <param name="startingExtraction">Callback to be called when a new extraction task is about to be started; may be <see langword="null"/>.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
-        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress);
+        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest);
         
         /// <summary>
         /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
@@ -77,11 +76,11 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <param name="startingExtraction">Callback to be called when a new extraction task is about to be started; may be <see langword="null"/>.</param>
-        /// <param name="manifestProgress">Callback to track the progress of generating the manifest (hashing files); may be <see langword="null"/>.</param>
+        /// <param name="startingManifest">CCallback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
-        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress);
+        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest);
     }
 }

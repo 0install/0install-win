@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -29,10 +28,9 @@ using Common.Helpers;
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that write files or directories.
+    /// Abstract base class for background tasks that read or write files or directories.
     /// </summary>
-    /// <remarks>Sub-classes must initalize the <see cref="Thread"/> member.</remarks>
-    public abstract class IOWriteProgress : IProgress
+    public abstract class IOProgress : IProgress
     {
         #region Events
         /// <inheritdoc />
@@ -51,8 +49,8 @@ namespace Common
         private void OnProgressChanged()
         {
             // Copy to local variable to prevent threading issues
-            ProgressEventHandler bytesReceivedChanged = ProgressChanged;
-            if (bytesReceivedChanged != null) bytesReceivedChanged(this);
+            ProgressEventHandler progressChanged = ProgressChanged;
+            if (progressChanged != null) progressChanged(this);
         }
         #endregion
 
@@ -61,7 +59,7 @@ namespace Common
         protected readonly object StateLock = new object();
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
-        protected Thread Thread;
+        protected readonly Thread Thread;
         #endregion
 
         #region Properties
@@ -106,6 +104,14 @@ namespace Common
                     default: return BytesProcessed / (double)BytesTotal;
                 }
             }
+        }
+        #endregion
+
+        #region Constructor
+        protected IOProgress()
+        {
+            // Prepare the background thread for later execution
+            Thread = new Thread(RunTask);
         }
         #endregion
 
@@ -159,6 +165,13 @@ namespace Common
                 }
             }
         }
+        #endregion
+
+        #region Thread code
+        /// <summary>
+        /// The actual code to be executed by a background thread.
+        /// </summary>
+        protected abstract void RunTask();
         #endregion
     }
 }

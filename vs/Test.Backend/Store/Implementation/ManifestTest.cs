@@ -242,12 +242,12 @@ namespace ZeroInstall.Store.Implementation
                 .AddFile("file1", Guid.NewGuid().ToByteArray())
                 .AddFolder("someFolder")
                 .AddFolder("someOtherFolder")
-                .AddFile("nestedFile", "");
+                .AddFile("nestedFile", "abc");
 
             sandbox = new TemporaryDirectory(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
             packageBuilder.WritePackageInto(packageFolder);
 
-            someGenerator = new ManifestGenerator(packageFolder);
+            someGenerator = new ManifestGenerator(packageFolder, ManifestFormat.Sha256);
         }
 
         [TearDown]
@@ -316,7 +316,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportTransitionToComplete()
         {
             bool changedToComplete = false;
-            someGenerator.StateChanged += (IProgress sender) => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
+            someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
             someGenerator.RunSync();
             Assert.AreEqual(ProgressState.Complete, someGenerator.State);
             Assert.IsTrue(changedToComplete);
@@ -329,9 +329,10 @@ namespace ZeroInstall.Store.Implementation
             var injectionLock = new ManualResetEvent(false);
             var completionLock = new ManualResetEvent(false);
             bool noTimeout = true;
-            someGenerator.StateChanged += (sender) => 
+            someGenerator.StateChanged += delegate(IProgress sender)
             {
-                if (sender.State == ProgressState.Started) testerLock.Set(); noTimeout &= injectionLock.WaitOne(100);
+                if (sender.State == ProgressState.Started) testerLock.Set();
+                noTimeout &= injectionLock.WaitOne(100);
                 if (sender.State == ProgressState.Complete) completionLock.Set();
             };
             someGenerator.Start();
@@ -380,7 +381,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportChangedProgress()
         {
             bool progressChanged = false;
-            someGenerator.ProgressChanged += (sender) => progressChanged = true;
+            someGenerator.ProgressChanged += delegate { progressChanged = true; };
             someGenerator.RunSync();
             Assert.IsTrue(progressChanged);
         }

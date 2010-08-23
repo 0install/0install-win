@@ -62,7 +62,7 @@ namespace Common.Archive
         
         #region Extraction
         /// <inheritdoc />
-        protected override void RunExtraction()
+        protected override void RunTask()
         {
             State = ProgressState.Data;
 

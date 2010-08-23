@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Common;
-using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -90,7 +89,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, ProgressCallback manifestProgress)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -103,7 +102,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddDirectory(path, manifestDigest, manifestProgress);
+                    store.AddDirectory(path, manifestDigest, startingManifest);
                     return;
                 }
                 catch (UnauthorizedAccessException ex)
@@ -120,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -133,7 +132,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(archiveInfo, manifestDigest, startingExtraction, manifestProgress);
+                    store.AddArchive(archiveInfo, manifestDigest, startingExtraction, startingManifest);
                     return;
                 }
                 #region Error handling
@@ -150,7 +149,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, ProgressCallback manifestProgress)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -163,7 +162,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddMultipleArchives(archiveInfos, manifestDigest, startingExtraction, manifestProgress);
+                    store.AddMultipleArchives(archiveInfos, manifestDigest, startingExtraction, startingManifest);
                     return;
                 }
                 #region Error handling

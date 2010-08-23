@@ -49,7 +49,15 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
-            return Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+            bool result = false;
+
+            // Handle events coming from a non-UI thread
+            BeginInvoke((SimpleEventHandler)delegate
+            {
+                result = Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+            });
+
+            return result;
         }
 
         /// <inheritdoc />
