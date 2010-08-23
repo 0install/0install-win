@@ -219,7 +219,7 @@ namespace Common.Download
             }
             #endregion
 
-            State = ProgressState.Complete;
+            lock (StateLock) State = ProgressState.Complete;
         }
         #endregion
 

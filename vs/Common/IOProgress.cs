@@ -55,7 +55,7 @@ namespace Common
         #endregion
 
         #region Variables
-        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switched.</summary>
+        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switching.</summary>
         protected readonly object StateLock = new object();
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>

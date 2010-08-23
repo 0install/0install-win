@@ -64,7 +64,7 @@ namespace Common.Archive
         /// <inheritdoc />
         protected override void RunTask()
         {
-            State = ProgressState.Data;
+            lock (StateLock) State = ProgressState.Data;
 
             try
             {
@@ -114,7 +114,7 @@ namespace Common.Archive
             }
             #endregion
 
-            State = ProgressState.Complete;
+            lock (StateLock) State = ProgressState.Complete;
         }
 
         /// <summary>
