@@ -229,7 +229,7 @@ namespace ZeroInstall.Store.Implementation
     public class ManifestGeneration
     {
         private ManifestGenerator someGenerator;
-        private TemporaryDirectory sandbox;
+        private TemporaryDirectoryReplacement sandbox;
         private string packageFolder
         {
             get { return sandbox.Path; }
@@ -244,7 +244,7 @@ namespace ZeroInstall.Store.Implementation
                 .AddFolder("someOtherFolder")
                 .AddFile("nestedFile", "abc");
 
-            sandbox = new TemporaryDirectory(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
+            sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
             packageBuilder.WritePackageInto(packageFolder);
 
             someGenerator = new ManifestGenerator(packageFolder, ManifestFormat.Sha256);
@@ -316,7 +316,7 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportTransitionToComplete()
         {
             bool changedToComplete = false;
-            someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
+            someGenerator.StateChanged += (sender) => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
             someGenerator.RunSync();
             Assert.AreEqual(ProgressState.Complete, someGenerator.State);
             Assert.IsTrue(changedToComplete);
@@ -329,16 +329,22 @@ namespace ZeroInstall.Store.Implementation
             var injectionLock = new ManualResetEvent(false);
             var completionLock = new ManualResetEvent(false);
             bool noTimeout = true;
-            someGenerator.StateChanged += delegate(IProgress sender)
+
+            // The assumption here is, that the StateChanged event is called
+            // from within the working thread.
+            someGenerator.StateChanged += (sender) =>
             {
-                if (sender.State == ProgressState.Started) testerLock.Set();
-                noTimeout &= injectionLock.WaitOne(100);
+                if (sender.State == ProgressState.Header)
+                {
+                    testerLock.Set();
+                    noTimeout &= injectionLock.WaitOne(100);
+                }
                 if (sender.State == ProgressState.Complete) completionLock.Set();
             };
             someGenerator.Start();
             noTimeout &= testerLock.WaitOne(100);
             Assert.IsTrue(noTimeout, "A timeout occurred");
-            Assert.AreEqual(ProgressState.Started, someGenerator.State, "ManifestGenerator was not in Started state.");
+            Assert.AreEqual(ProgressState.Header, someGenerator.State, "ManifestGenerator was not in Started state.");
             injectionLock.Set();
             completionLock.WaitOne();
         }
