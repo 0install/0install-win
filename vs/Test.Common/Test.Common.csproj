@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archive\ExtractorTest.cs" />
+    <Compile Include="Archive\TarExtractorTest.cs" />
     <Compile Include="Archive\ZipExtractorTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
