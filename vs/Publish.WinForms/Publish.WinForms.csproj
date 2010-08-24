@@ -83,12 +83,6 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\AddRemoveTabControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\AddRemoveTabControl.Designer.cs">
-      <DependentUpon>AddRemoveTabControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\ArchiveControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -171,9 +165,6 @@
     <Compile Include="FeedStructure\GroupForm.Designer.cs">
       <DependentUpon>GroupForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Controls\AddRemoveTabControl.resx">
-      <DependentUpon>AddRemoveTabControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ArchiveControl.resx">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </EmbeddedResource>

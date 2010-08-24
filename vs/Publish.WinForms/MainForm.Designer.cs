@@ -35,8 +35,8 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Interface");
-            ZeroInstall.Model.FeedReference feedReference11 = new ZeroInstall.Model.FeedReference();
+            System.Windows.Forms.TreeNode treeNode35 = new System.Windows.Forms.TreeNode("Interface");
+            ZeroInstall.Model.FeedReference feedReference19 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -46,20 +46,15 @@ namespace ZeroInstall.Publish.WinForms
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.hintTextBoxDescription = new Common.Controls.HintTextBox();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.hintTextBoxSummary = new Common.Controls.HintTextBox();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
-            this.hintTextBoxInterfaceUrl = new Common.Controls.HintTextBox();
             this.labelInterfaceUrl = new System.Windows.Forms.Label();
             this.checkedListBoxCategories = new System.Windows.Forms.CheckedListBox();
-            this.hintTextBoxHomepage = new Common.Controls.HintTextBox();
             this.labelHomepage = new System.Windows.Forms.Label();
             this.groupBoxIcon = new System.Windows.Forms.GroupBox();
             this.labelIconUrl = new System.Windows.Forms.Label();
             this.comboBoxIconType = new System.Windows.Forms.ComboBox();
-            this.hintTextBoxIconUrl = new Common.Controls.HintTextBox();
             this.lblIconUrlError = new System.Windows.Forms.Label();
             this.labelIconMimeType = new System.Windows.Forms.Label();
             this.buttonIconPreview = new System.Windows.Forms.Button();
@@ -68,7 +63,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonIconAdd = new System.Windows.Forms.Button();
             this.listBoxIconsUrls = new System.Windows.Forms.ListBox();
             this.labelCategories = new System.Windows.Forms.Label();
-            this.hintTextBoxProgramName = new Common.Controls.HintTextBox();
             this.labelProgramName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
@@ -89,7 +83,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddFeedFor = new System.Windows.Forms.Button();
             this.buttonRemoveExternalFeed = new System.Windows.Forms.Button();
             this.listBoxFeedFor = new System.Windows.Forms.ListBox();
-            this.hintTextBoxFeedFor = new Common.Controls.HintTextBox();
             this.comboBoxMinInjectorVersion = new System.Windows.Forms.ComboBox();
             this.labelMinInjectorVersion = new System.Windows.Forms.Label();
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
@@ -98,6 +91,13 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
+            this.hintTextBoxDescription = new Common.Controls.HintTextBox();
+            this.hintTextBoxSummary = new Common.Controls.HintTextBox();
+            this.hintTextBoxInterfaceUrl = new Common.Controls.HintTextBox();
+            this.hintTextBoxHomepage = new Common.Controls.HintTextBox();
+            this.hintTextBoxIconUrl = new Common.Controls.HintTextBox();
+            this.hintTextBoxProgramName = new Common.Controls.HintTextBox();
+            this.hintTextBoxFeedFor = new Common.Controls.HintTextBox();
             this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
@@ -204,18 +204,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
-            // hintTextBoxDescription
-            // 
-            this.hintTextBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxDescription.HintText = "a full description, which can be several paragraphs long";
-            this.hintTextBoxDescription.Location = new System.Drawing.Point(9, 137);
-            this.hintTextBoxDescription.Multiline = true;
-            this.hintTextBoxDescription.Name = "hintTextBoxDescription";
-            this.hintTextBoxDescription.Size = new System.Drawing.Size(536, 82);
-            this.hintTextBoxDescription.TabIndex = 17;
-            // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
@@ -224,17 +212,6 @@ namespace ZeroInstall.Publish.WinForms
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 16;
             this.labelDescription.Text = "Description";
-            // 
-            // hintTextBoxSummary
-            // 
-            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSummary.HintText = "a short one-line description";
-            this.hintTextBoxSummary.Location = new System.Drawing.Point(9, 98);
-            this.hintTextBoxSummary.Name = "hintTextBoxSummary";
-            this.hintTextBoxSummary.Size = new System.Drawing.Size(536, 20);
-            this.hintTextBoxSummary.TabIndex = 15;
             // 
             // labelSummary
             // 
@@ -255,17 +232,6 @@ namespace ZeroInstall.Publish.WinForms
             this.checkBoxNeedsTerminal.TabIndex = 13;
             this.checkBoxNeedsTerminal.Text = "needs Terminal";
             this.checkBoxNeedsTerminal.UseVisualStyleBackColor = true;
-            // 
-            // hintTextBoxInterfaceUrl
-            // 
-            this.hintTextBoxInterfaceUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxInterfaceUrl.HintText = "URL to a remote interface";
-            this.hintTextBoxInterfaceUrl.Location = new System.Drawing.Point(9, 59);
-            this.hintTextBoxInterfaceUrl.Name = "hintTextBoxInterfaceUrl";
-            this.hintTextBoxInterfaceUrl.Size = new System.Drawing.Size(414, 20);
-            this.hintTextBoxInterfaceUrl.TabIndex = 7;
-            this.hintTextBoxInterfaceUrl.TextChanged += new System.EventHandler(this.TextInterfaceUrlTextChanged);
             // 
             // labelInterfaceUrl
             // 
@@ -299,17 +265,6 @@ namespace ZeroInstall.Publish.WinForms
             this.checkedListBoxCategories.Size = new System.Drawing.Size(116, 64);
             this.checkedListBoxCategories.Sorted = true;
             this.checkedListBoxCategories.TabIndex = 5;
-            // 
-            // hintTextBoxHomepage
-            // 
-            this.hintTextBoxHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxHomepage.HintText = "the URL of a web-page describing this interface in more detail";
-            this.hintTextBoxHomepage.Location = new System.Drawing.Point(9, 415);
-            this.hintTextBoxHomepage.Name = "hintTextBoxHomepage";
-            this.hintTextBoxHomepage.Size = new System.Drawing.Size(536, 20);
-            this.hintTextBoxHomepage.TabIndex = 12;
-            this.hintTextBoxHomepage.TextChanged += new System.EventHandler(this.TextHomepageTextChanged);
             // 
             // labelHomepage
             // 
@@ -360,17 +315,6 @@ namespace ZeroInstall.Publish.WinForms
             this.comboBoxIconType.Name = "comboBoxIconType";
             this.comboBoxIconType.Size = new System.Drawing.Size(80, 21);
             this.comboBoxIconType.TabIndex = 3;
-            // 
-            // hintTextBoxIconUrl
-            // 
-            this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxIconUrl.HintText = "";
-            this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
-            this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
-            this.hintTextBoxIconUrl.Size = new System.Drawing.Size(309, 20);
-            this.hintTextBoxIconUrl.TabIndex = 1;
-            this.hintTextBoxIconUrl.TextChanged += new System.EventHandler(this.TextIconUrlTextChanged);
             // 
             // lblIconUrlError
             // 
@@ -457,17 +401,6 @@ namespace ZeroInstall.Publish.WinForms
             this.labelCategories.Size = new System.Drawing.Size(57, 13);
             this.labelCategories.TabIndex = 4;
             this.labelCategories.Text = "Categories";
-            // 
-            // hintTextBoxProgramName
-            // 
-            this.hintTextBoxProgramName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxProgramName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
-            this.hintTextBoxProgramName.Location = new System.Drawing.Point(9, 20);
-            this.hintTextBoxProgramName.Name = "hintTextBoxProgramName";
-            this.hintTextBoxProgramName.Size = new System.Drawing.Size(414, 20);
-            this.hintTextBoxProgramName.TabIndex = 1;
             // 
             // labelProgramName
             // 
@@ -567,11 +500,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode11.Name = "interface";
-            treeNode11.Tag = "";
-            treeNode11.Text = "Interface";
+            treeNode35.Name = "interface";
+            treeNode35.Tag = "";
+            treeNode35.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode11});
+            treeNode35});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -722,17 +655,6 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxFeedFor.Size = new System.Drawing.Size(448, 82);
             this.listBoxFeedFor.TabIndex = 3;
             // 
-            // hintTextBoxFeedFor
-            // 
-            this.hintTextBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxFeedFor.ClearButton = true;
-            this.hintTextBoxFeedFor.HintText = "URL to an Interface";
-            this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
-            this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
-            this.hintTextBoxFeedFor.Size = new System.Drawing.Size(530, 20);
-            this.hintTextBoxFeedFor.TabIndex = 2;
-            // 
             // comboBoxMinInjectorVersion
             // 
             this.comboBoxMinInjectorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -803,7 +725,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.groupBoxSelectedFeed.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxSelectedFeed.Controls.Add(this.feedReferenceControl);
             this.groupBoxSelectedFeed.Location = new System.Drawing.Point(6, 19);
             this.groupBoxSelectedFeed.Name = "groupBoxSelectedFeed";
             this.groupBoxSelectedFeed.Size = new System.Drawing.Size(530, 191);
@@ -845,13 +766,91 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
+            // hintTextBoxDescription
+            // 
+            this.hintTextBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxDescription.HintText = "a full description, which can be several paragraphs long";
+            this.hintTextBoxDescription.Location = new System.Drawing.Point(9, 137);
+            this.hintTextBoxDescription.Multiline = true;
+            this.hintTextBoxDescription.Name = "hintTextBoxDescription";
+            this.hintTextBoxDescription.Size = new System.Drawing.Size(536, 82);
+            this.hintTextBoxDescription.TabIndex = 17;
+            // 
+            // hintTextBoxSummary
+            // 
+            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSummary.HintText = "a short one-line description";
+            this.hintTextBoxSummary.Location = new System.Drawing.Point(9, 98);
+            this.hintTextBoxSummary.Name = "hintTextBoxSummary";
+            this.hintTextBoxSummary.Size = new System.Drawing.Size(536, 20);
+            this.hintTextBoxSummary.TabIndex = 15;
+            // 
+            // hintTextBoxInterfaceUrl
+            // 
+            this.hintTextBoxInterfaceUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxInterfaceUrl.HintText = "URL to a remote interface";
+            this.hintTextBoxInterfaceUrl.Location = new System.Drawing.Point(9, 59);
+            this.hintTextBoxInterfaceUrl.Name = "hintTextBoxInterfaceUrl";
+            this.hintTextBoxInterfaceUrl.Size = new System.Drawing.Size(414, 20);
+            this.hintTextBoxInterfaceUrl.TabIndex = 7;
+            this.hintTextBoxInterfaceUrl.TextChanged += new System.EventHandler(this.TextInterfaceUrlTextChanged);
+            // 
+            // hintTextBoxHomepage
+            // 
+            this.hintTextBoxHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxHomepage.HintText = "the URL of a web-page describing this interface in more detail";
+            this.hintTextBoxHomepage.Location = new System.Drawing.Point(9, 415);
+            this.hintTextBoxHomepage.Name = "hintTextBoxHomepage";
+            this.hintTextBoxHomepage.Size = new System.Drawing.Size(536, 20);
+            this.hintTextBoxHomepage.TabIndex = 12;
+            this.hintTextBoxHomepage.TextChanged += new System.EventHandler(this.TextHomepageTextChanged);
+            // 
+            // hintTextBoxIconUrl
+            // 
+            this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxIconUrl.HintText = "";
+            this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
+            this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
+            this.hintTextBoxIconUrl.Size = new System.Drawing.Size(309, 20);
+            this.hintTextBoxIconUrl.TabIndex = 1;
+            this.hintTextBoxIconUrl.TextChanged += new System.EventHandler(this.TextIconUrlTextChanged);
+            // 
+            // hintTextBoxProgramName
+            // 
+            this.hintTextBoxProgramName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxProgramName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
+            this.hintTextBoxProgramName.Location = new System.Drawing.Point(9, 20);
+            this.hintTextBoxProgramName.Name = "hintTextBoxProgramName";
+            this.hintTextBoxProgramName.Size = new System.Drawing.Size(414, 20);
+            this.hintTextBoxProgramName.TabIndex = 1;
+            // 
+            // hintTextBoxFeedFor
+            // 
+            this.hintTextBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxFeedFor.ClearButton = true;
+            this.hintTextBoxFeedFor.HintText = "URL to an Interface";
+            this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
+            this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
+            this.hintTextBoxFeedFor.Size = new System.Drawing.Size(530, 20);
+            this.hintTextBoxFeedFor.TabIndex = 2;
+            // 
             // feedReferenceControl
             // 
             this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            feedReference11.Source = null;
-            this.feedReferenceControl.FeedReference = feedReference11;
+            feedReference19.Source = null;
+            this.feedReferenceControl.FeedReference = feedReference19;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 20);
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(518, 171);

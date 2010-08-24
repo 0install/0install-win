@@ -74,6 +74,12 @@
     <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
+    <Compile Include="Controls\AddRemoveTabControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\AddRemoveTabControl.Designer.cs">
+      <DependentUpon>AddRemoveTabControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TrackingProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\AddRemoveTabControl.resx">
+      <DependentUpon>AddRemoveTabControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\TrackingProgressBar.resx">
       <DependentUpon>TrackingProgressBar.cs</DependentUpon>
     </EmbeddedResource>
