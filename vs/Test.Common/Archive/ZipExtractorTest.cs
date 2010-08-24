@@ -155,7 +155,7 @@ namespace Common.Archive
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetSdlArchiveStream())
+            using (var archive = TestData.GetSdlZipArchiveStream())
             using (var extractor = new ZipExtractor(archive, 0, _sandbox.Path))
                 extractor.RunSync();
 

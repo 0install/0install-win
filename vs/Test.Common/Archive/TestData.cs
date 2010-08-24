@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Reflection;
+﻿using System.Reflection;
 using System.IO;
 
-namespace Common
+namespace Common.Archive
 {
     /// <summary>
     /// Utility class that provides access to the test data contained in the
@@ -14,9 +11,14 @@ namespace Common
     {
         private static readonly Assembly testDataAssembly = Assembly.GetAssembly(typeof(TestData));
 
-        public static Stream GetSdlArchiveStream()
+        public static Stream GetSdlZipArchiveStream()
         {
             return GetTestDataResourceStreamByName("sdlArchive.zip");
+        }
+
+        public static Stream GetSdlTarArchiveStream()
+        {
+            return GetTestDataResourceStreamByName("sdlArchive.tar");
         }
 
         public static Stream GetSdlDllStream()

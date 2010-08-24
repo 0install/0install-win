@@ -67,16 +67,19 @@
     <Compile Include="Helpers\StringHelperTest.cs" />
     <Compile Include="MicroServer.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
-    <Compile Include="TestData.cs" />
+    <Compile Include="Archive\TestData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="sdlArchive.zip" />
+    <EmbeddedResource Include="Archive\sdlArchive.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="SDL.dll" />
+    <EmbeddedResource Include="Archive\SDL.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="README-SDL.txt" />
+    <EmbeddedResource Include="Archive\README-SDL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Archive\sdlArchive.tar" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

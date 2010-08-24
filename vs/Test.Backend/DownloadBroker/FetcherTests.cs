@@ -1,15 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
-using NUnit.Framework;
+using System.Reflection;
+using Common;
+using Common.Archive;
 using Common.Storage;
 using Common.Helpers;
+using ICSharpCode.SharpZipLib.Zip;
+using NUnit.Framework;
 using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
-using System.Collections.Generic;
-using ICSharpCode.SharpZipLib.Zip;
-using System.Reflection;
-using Common;
 
 namespace ZeroInstall.DownloadBroker
 {
@@ -141,7 +142,7 @@ namespace ZeroInstall.DownloadBroker
         {
             DateTime readmeLastWrite, sdlDllLastWrite;
 
-            using (var sdlArchive = TestData.GetSdlArchiveStream())
+            using (var sdlArchive = TestData.GetSdlZipArchiveStream())
             {
                 var reader = new BinaryReader(sdlArchive);
                 File.WriteAllBytes(_archiveFile, reader.ReadBytes((int)sdlArchive.Length));
