@@ -39,7 +39,7 @@ namespace Common.Collections
             if (y == null) throw new ArgumentNullException("y");
             #endregion
 
-            return x.ToString().CompareTo(y.ToString());
+            return StringComparer.Ordinal.Compare(x.ToString(), y.ToString());
         }
     }
 }

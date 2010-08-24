@@ -60,8 +60,9 @@ namespace Common.Collections
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
         /// <param name="language">The language of the <paramref name="value"/>.</param>
-        public LocalizableString(string value, CultureInfo language) : this(value)
+        public LocalizableString(string value, CultureInfo language) : this()
         {
+            Value = value;
             Language = language;
         }
         #endregion

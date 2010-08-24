@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace Common.Collections
@@ -36,6 +37,7 @@ namespace Common.Collections
         /// Adds a new string with no associated language to the collection.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
+        [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]
         public void Add(string value)
         {
             Add(new LocalizableString(value));
