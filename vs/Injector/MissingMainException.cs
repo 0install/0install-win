@@ -25,7 +25,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Indicates an <see cref="ImplementationBase"/> that was supposed to be launched did not specify a main executable.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
+    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need custom Messages")]
     [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
     public class MissingMainException : Exception
     {

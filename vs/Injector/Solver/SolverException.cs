@@ -16,15 +16,18 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Represents errors that occured in <see cref="ISolver"/> implementations.
     /// </summary>
+    [Serializable]
+    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has only a signaling purpose and doesn't need to carry custom Messages")]
     public class SolverException : Exception
     {
-        internal SolverException(string message) : base(message)
+        public SolverException(string message) : base(message)
         {}
     }
 }
