@@ -17,10 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using C5;
-using Common.Helpers;
+using Common;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -37,7 +38,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// The path of the file a <see cref="Feed"/> was loaded from.
         /// </summary>
-        private string _openFeedPath = null;
+        private string _openFeedPath;
 
         /// <summary>
         /// The <see cref="ZeroInstall.Model.Feed"/> to edit by this form.
@@ -168,9 +169,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            _openFeedPath = openFileDialog.InitialDirectory;
+            _openFeedPath = openFileDialog.FileName;
             _feedToEdit = Feed.Load(openFileDialog.FileName);
 
             FillForm();
@@ -181,13 +182,22 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void SaveFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
+        {
+            SaveFeed(saveFileDialog.FileName);
+        }
+
+        /// <summary>
+        /// Saves feed to a specific path as xml.
+        /// </summary>
+        /// <param name="toPath">Path to save.</param>
+        private void SaveFeed(string toPath)
         {
             SaveGeneralTab();
             SaveFeedTab();
-            SaveAdvancedTab();     
+            SaveAdvancedTab();
 
-            _feedToEdit.Save(saveFileDialog.FileName);
+            _feedToEdit.Save(toPath);
         }
 
         /// <summary>
@@ -239,6 +249,35 @@ namespace ZeroInstall.Publish.WinForms
             
             _feedToEdit.MinInjectorVersion = null;
             if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText)) _feedToEdit.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
+        }
+
+        /// <summary>
+        /// Shows a save dialog.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e"></param>
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            switch (Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Information,
+                true, "&Save\nSave the file and then close", "&Don't save\nIgnore the not saved changes"))
+            {
+                case DialogResult.Yes:
+                    if (String.IsNullOrEmpty(_openFeedPath))
+                    {
+                        if (saveFileDialog.ShowDialog(this) == DialogResult.Yes)
+                        {
+                            SaveFeed(saveFileDialog.FileName);
+                        }
+                    } else
+                    {
+                        SaveFeed(_openFeedPath);
+                    }
+                    break;
+                case DialogResult.No: break;
+                case DialogResult.Cancel:
+                    e.Cancel = true;
+                    break;
+            }
         }
 
         #endregion
@@ -837,6 +876,8 @@ namespace ZeroInstall.Publish.WinForms
             if (selectedNode == null || selectedNode == treeViewFeedStructure.Nodes[0]) return;
             RemoveObjectFromFeedStructure(selectedNode.Parent.Tag, selectedNode.Tag);
             FillFeedTab();
+            treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
+            TreeViewFeedStructureAfterSelect(null, null);
         }
 
         /// <summary>

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using Common.Controls;
 using Common.Helpers;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Controls;
-using ZeroInstall.Publish.WinForms.Properties;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
@@ -131,7 +125,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
                     var completeSourceDir = extractedArchiveDir + StringHelper.UnifySlashes(subfolder);
-                    CopyDirectory(completeSourceDir, tempDir.Path, true);
+                    FileHelper.CopyDirectory(completeSourceDir, tempDir.Path, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
                 ManifestDigest = Manifest.CreateDigest(tempDir.Path, null);
@@ -189,6 +183,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (openTabs == 2 || selectedTabIndex == lastTabIndex) return;
 
             tabControlRecipe.TabPages.RemoveAt(selectedTabIndex);
+            ValidArchiveCreated();
         }
 
         /// <summary>
@@ -231,55 +226,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             ManifestDigest = new ManifestDigest();
             buttonCreateRecipe.Enabled = false;
             buttonOK.Enabled = false;
-        }
-
-        #endregion
-
-        #region Helpers
-
-        /// <summary>
-        /// Copies the content of a directory to a new location.
-        /// </summary>
-        /// <param name="sourcePath">The path of source directory. Must exist!</param>
-        /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
-        /// <param name="overrideFiles">If <see langword="true"/> an existing file in <paramref name="destinationPath"/> will be overriden.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
-        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
-        public static void CopyDirectory(string sourcePath, string destinationPath, bool overrideFiles)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
-            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
-            if (sourcePath == destinationPath) throw new ArgumentException("sourcePath and destinationPath are equal.");
-            if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException();
-            #endregion
-
-            if (Directory.Exists(destinationPath))
-            {
-                var lastWriteTime = Directory.GetLastWriteTimeUtc(destinationPath);
-                Directory.CreateDirectory(destinationPath);
-                Directory.SetLastWriteTimeUtc(destinationPath, lastWriteTime);
-            }
-            else
-            {
-                Directory.CreateDirectory(destinationPath);
-            }
-            foreach (string entry in Directory.GetFileSystemEntries(sourcePath))
-            {
-                string destinationFilePath = Path.Combine(destinationPath, Path.GetFileName(entry));
-                if (Directory.Exists(entry))
-                {
-                    // Recurse into sub-direcories
-                    CopyDirectory(entry, destinationFilePath, overrideFiles);
-                }
-                else
-                {
-                    // Copy individual files
-                    var lastWriteTime = File.GetLastWriteTimeUtc(destinationFilePath);
-                    File.Copy(entry, destinationFilePath, overrideFiles);
-                    File.SetLastWriteTimeUtc(destinationFilePath, lastWriteTime);
-                }
-            }
         }
 
         #endregion
