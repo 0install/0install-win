@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -94,7 +95,7 @@ namespace ZeroInstall.Injector
             string startupMain;
             if (!string.IsNullOrEmpty(Main)) startupMain = Main;
             else if (!string.IsNullOrEmpty(startupImplementation.Main)) startupMain = startupImplementation.Main;
-            else throw new MissingMainException();
+            else throw new MissingMainException(_interfaceID);
 
             // Find the actual executable file
             return Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
@@ -204,6 +205,7 @@ namespace ZeroInstall.Injector
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         public void RunSync(string arguments)
         {
             var process = new Process {StartInfo = Prepare(arguments)};

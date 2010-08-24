@@ -17,6 +17,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Net;
+using Common;
 using Common.Helpers;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
@@ -160,13 +164,17 @@ namespace ZeroInstall.Injector.Cli
         /// <param name="results">The parser results to be executed.</param>
         private static void Execute(ParseResults results)
         {
-            // ToDo: Alternative policy for DryRun
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
             if (results.SelectionsFile == null)
             {
                 try { controller.Solve(); }
                 #region Error hanlding
+                catch (IOException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
                 catch (SolverException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
@@ -178,8 +186,23 @@ namespace ZeroInstall.Injector.Cli
 
             if (!results.SelectOnly)
             {
-                // ToDo: Add progress callbacks
-                controller.DownloadUncachedImplementations();
+                try { controller.DownloadUncachedImplementations(); }
+                #region Error hanlding
+                catch (IOException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                catch (WebException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                catch (UserCancelException)
+                {
+                    return;
+                }
+                #endregion
             }
 
             if (results.GetSelections)
@@ -191,7 +214,24 @@ namespace ZeroInstall.Injector.Cli
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
+                try { launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " ")); }
+                #region Error hanlding
+                catch (ImplementationNotFoundException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                catch (MissingMainException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                catch (Win32Exception ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                #endregion
             }
         }
         #endregion

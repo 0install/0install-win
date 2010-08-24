@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -33,6 +34,15 @@ namespace ZeroInstall.Store.Implementation
         /// The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
+
+        /// <inheritdoc />
+        public override string Message
+        {
+            get
+            {
+                return string.Format(Resources.ImplementationNotFound, ManifestDigest);
+            }
+        }
         #endregion
 
         #region Constructor

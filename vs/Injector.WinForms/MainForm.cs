@@ -1,10 +1,14 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Helpers;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.WinForms
 {
@@ -13,6 +17,7 @@ namespace ZeroInstall.Injector.WinForms
     /// </summary>
     public partial class MainForm : Form, IHandler
     {
+        #region Constructor
         public MainForm()
         {
             Closing += MainForm_Closing;
@@ -32,6 +37,7 @@ namespace ZeroInstall.Injector.WinForms
                 Process.GetCurrentProcess().Kill();
             }
         }
+        #endregion
 
         #region Execute
         /// <summary>
@@ -48,21 +54,38 @@ namespace ZeroInstall.Injector.WinForms
             {
                 try { controller.Solve(); }
                 #region Error hanlding
+                catch (IOException ex)
+                {
+                    ReportSyncError(ex.Message);
+                    return;
+                }
                 catch (SolverException ex)
                 {
-                    // Handle events coming from a non-UI thread, block caller until user has answered
-                    Invoke((SimpleEventHandler)(delegate
-                    {
-                        Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                        Close();
-                    }));
+                    ReportSyncError(ex.Message);
                     return;
                 }
                 #endregion
             }
             else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
-            controller.DownloadUncachedImplementations();
+            try { controller.DownloadUncachedImplementations(); }
+            #region Error hanlding
+            catch (IOException ex)
+            {
+                ReportSyncError(ex.Message);
+                return;
+            }
+            catch (WebException ex)
+            {
+                ReportSyncError(ex.Message);
+                return;
+            }
+            catch (UserCancelException)
+            {
+                Invoke((SimpleEventHandler)Close);
+                return;
+            }
+            #endregion
 
             Invoke((SimpleEventHandler)Close);
 
@@ -71,10 +94,29 @@ namespace ZeroInstall.Injector.WinForms
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
+                try { launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " ")); }
+                #region Error hanlding
+                catch (ImplementationNotFoundException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                catch (MissingMainException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
             }
         }
+        #endregion
 
+        #region Helpers
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>
@@ -86,6 +128,20 @@ namespace ZeroInstall.Injector.WinForms
                 labelName.Text = interfaceID;
                 Application.Run(this);
             }).Start();
+        }
+
+        /// <summary>
+        /// Displays error messages in dialogs synchronous to the main UI.
+        /// </summary>
+        /// <param name="message">The error message to be displayed.</param>
+        private void ReportSyncError(string message)
+        {
+            // Handle events coming from a non-UI thread, block caller until user has answered
+            Invoke((SimpleEventHandler)(delegate
+            {
+                Msg.Inform(this, message, MsgSeverity.Error);
+                Close();
+            }));
         }
         #endregion
 

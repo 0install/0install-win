@@ -138,16 +138,19 @@
   <data name="UnableToAddImplementionToStore" xml:space="preserve">
     <value>Unable to add implementation to a store.</value>
   </data>
-	<data name="NotValidDomain">
-		<value xml:space="preserve">The value is not a valid domain name.</value>
-	</data>
-	<data name="InvalidUrl">
-		<value xml:space="preserve">The requested URL is invalid.</value>
-	</data>
-	<data name="MissingPath">
-		<value xml:space="preserve">No path specified.</value>
-	</data>
-	<data name="InsufficientFSTimeAccuracy">
-		<value xml:space="preserve">The underlying filesystem does not store file change times with sufficient accuracy.</value>
-	</data>
+  <data name="NotValidDomain" xml:space="preserve">
+    <value>The value is not a valid domain name.</value>
+  </data>
+  <data name="InvalidUrl" xml:space="preserve">
+    <value>The requested URL is invalid.</value>
+  </data>
+  <data name="MissingPath" xml:space="preserve">
+    <value>No path specified.</value>
+  </data>
+  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
+    <value>The underlying filesystem does not store file change times with sufficient accuracy.</value>
+  </data>
+  <data name="ImplementationNotFound" xml:space="preserve">
+    <value>The following implementation could not be located: {0}</value>
+  </data>
 </root>

@@ -17,14 +17,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Threading;
 using System.Windows.Forms;
 using Common;
-using Common.Helpers;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Model;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
 

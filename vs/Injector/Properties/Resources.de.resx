@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MissingMain" xml:space="preserve">
+    <value>Das folgende Interface braucht eine ausführbare Datei um gestartet zu werden, aber es wurde keine angegeben: {0}</value>
+  </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>
   </data>
   <data name="NotSolved" xml:space="preserve">
     <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>
+  </data>
+  <data name="UnableToLaunchPython" xml:space="preserve">
+    <value>Die mitgelieferte Python-Installation konnte nicht gestartet werden. Bitte installieren Sie Zero Install neu.</value>
   </data>
 </root>

@@ -61,6 +61,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following implementation could not be located: {0}.
+        /// </summary>
+        internal static string ImplementationNotFound {
+            get {
+                return ResourceManager.GetString("ImplementationNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The underlying filesystem does not store file change times with sufficient accuracy..
         /// </summary>
         internal static string InsufficientFSTimeAccuracy {

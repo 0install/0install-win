@@ -61,6 +61,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following interface needs a main executable to be launched but none was specified: {0}.
+        /// </summary>
+        internal static string MissingMain {
+            get {
+                return ResourceManager.GetString("MissingMain", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At least one implementation must be passed..
         /// </summary>
         internal static string NoImplementationsPassed {
@@ -75,6 +84,15 @@ namespace ZeroInstall.Injector.Properties {
         internal static string NotSolved {
             get {
                 return ResourceManager.GetString("NotSolved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The bundled Python installation could not be launched. Please reinstall Zero Install..
+        /// </summary>
+        internal static string UnableToLaunchPython {
+            get {
+                return ResourceManager.GetString("UnableToLaunchPython", resourceCulture);
             }
         }
     }

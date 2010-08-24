@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Common;
 using Common.Download;
 using ZeroInstall.Model;
@@ -72,6 +73,9 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Execute a complete request and block until it is done.
         /// </summary>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
         public void RunSync(FetchRequest fetcherRequest)
         {
             #region Sanity checks

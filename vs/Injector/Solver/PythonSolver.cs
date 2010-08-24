@@ -16,10 +16,12 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -83,7 +85,13 @@ namespace ZeroInstall.Injector.Solver
             #endregion
 
             var process = new Process {StartInfo = GetStartInfo(feed, policy)};
-            process.Start();
+            try { process.Start(); }
+            #region Error handling
+            catch (Win32Exception ex)
+            {
+                throw new IOException(Resources.UnableToLaunchPython, ex);
+            }
+            #endregion
 
             // Asynchronously buffer all StandardOutput data
             var stdOut = new StringBuilder();

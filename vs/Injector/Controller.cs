@@ -18,6 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using System.Net;
+using Common;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -83,8 +86,9 @@ namespace ZeroInstall.Injector
         /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified interface.
         /// </summary>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="IOException">Thrown if the solver could not read or write required disk files.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        // ToDo: Add more exceptions (e.g.e feed problems)
+        // ToDo: Add more exceptions (e.g. feed problems)
         public void Solve()
         {
             // Run the solver algorithm
@@ -153,7 +157,9 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
-        // ToDo: Add callbacks and make asynchronous
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
         public void DownloadUncachedImplementations()
         {
             #region Sanity checks
@@ -172,7 +178,6 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if <see cref="DownloadUncachedImplementations"/> was not called first.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs extensive disk and network IO")]
         public Launcher GetLauncher()
         {
