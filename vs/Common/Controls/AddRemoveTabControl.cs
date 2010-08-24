@@ -20,6 +20,13 @@ using System.Windows.Forms;
 
 namespace Common.Controls
 {
+    #region Delegates
+
+    public delegate void NewTabEventHandler(TabControl sender, TabPage createdTabPage);
+
+    #endregion
+
+
     /// <summary>
     /// A tab control that can add and remove tabs.
     /// Adds a new tab to the right of the selected by pressing ctrl + w .
@@ -35,6 +42,17 @@ namespace Common.Controls
         /// The last inserted <see cref="TabPage"/>. <see langword="null"/> if no <see cref="TabPage"/> was inserted.
         /// </summary>
         public TabPage LastInsertedTabPage { get; private set; }
+
+        #endregion
+
+        #region Events
+
+        public event NewTabEventHandler NewTabCreated;
+
+        private void OnNewTabCreated()
+        {
+            if (NewTabCreated != null) NewTabCreated(tabControl1, LastInsertedTabPage);
+        }
 
         #endregion
 
@@ -63,6 +81,7 @@ namespace Common.Controls
                 var tabPageToInsert = new TabPage();
                 tabControl1.TabPages.Insert(insertTabIndex, tabPageToInsert);
                 LastInsertedTabPage = tabPageToInsert;
+                OnNewTabCreated();
             } else if(e.KeyData == (Keys.Control | Keys.W))
             {
                 RemoveTab(selectedTabIndex);
@@ -88,6 +107,7 @@ namespace Common.Controls
                 var tabPageToInsert = new TabPage();
                 tabControl1.TabPages.Insert(lastTabIndex, tabPageToInsert);
                 LastInsertedTabPage = tabPageToInsert;
+                OnNewTabCreated();
                 // select the new tab
                 tabControl1.SelectedIndex = lastTabIndex;
             }
