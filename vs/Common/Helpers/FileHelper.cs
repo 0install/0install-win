@@ -93,42 +93,43 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Copies the content of a directory to a new location.
+        /// Copies the content of a directory to a new location preserving the original file and directory modification times.
         /// </summary>
         /// <param name="sourcePath">The path of source directory. Must exist!</param>
         /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
-        /// <param name="overrideFiles">If <see langword="true"/> an existing file in <paramref name="destinationPath"/> will be overriden.</param>
+        /// <param name="overwrite">Overwrite exisiting files and directories at the <paramref name="destinationPath"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
         /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
-        /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overrideFiles"/> is <see langword="false"/>.</exception>
-        public static void CopyDirectory(string sourcePath, string destinationPath, bool overrideFiles)
+        /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overwrite"/> is <see langword="false"/>.</exception>
+        public static void CopyDirectory(string sourcePath, string destinationPath, bool overwrite)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
             if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
             if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
             if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
-            if (!overrideFiles)
-            {
-                if (Directory.Exists(destinationPath)) throw new IOException(Resources.DestinationDirExist);
-            }
+            if (!overwrite && Directory.Exists(destinationPath)) throw new IOException(Resources.DestinationDirExist);
             #endregion
 
-            Directory.CreateDirectory(destinationPath);
+            if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
+
             foreach (string entry in Directory.GetFileSystemEntries(sourcePath))
             {
                 string destinationFilePath = Path.Combine(destinationPath, Path.GetFileName(entry));
                 if (Directory.Exists(entry))
                 {
                     // Recurse into sub-direcories
-                    CopyDirectory(entry, destinationFilePath, overrideFiles);
+                    CopyDirectory(entry, destinationFilePath, overwrite);
                 }
                 else
                 {
                     // Copy individual files
-                    File.Copy(entry, destinationFilePath, overrideFiles);
+                    File.Copy(entry, destinationFilePath, overwrite);
                 }
             }
+
+            // Set directory write time as last step, since file changes within the dir will reset the value
+            Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
         }
 
         /// <summary>

@@ -127,5 +127,39 @@ namespace Common.Helpers
                 Directory.Delete(temp2, true);
             }
         }
+
+        /// <summary>
+        /// Ensures <see cref="FileHelper.CopyDirectory"/> correctly copies a directory on top another.
+        /// </summary>
+        [Test]
+        public void TestCopyDirectoryOverwrite()
+        {
+            string temp1 = FileHelper.GetTempDirectory();
+            string subdir1 = Path.Combine(temp1, "subdir");
+            Directory.CreateDirectory(subdir1);
+            File.WriteAllText(Path.Combine(subdir1, "file"), @"A");
+            File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
+            Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
+
+            string temp2 = FileHelper.GetTempDirectory();
+            string subdir2 = Path.Combine(temp2, "subdir");
+            Directory.CreateDirectory(subdir2);
+            File.WriteAllText(Path.Combine(subdir2, "file"), @"B");
+            File.SetLastWriteTimeUtc(Path.Combine(subdir2, "file"), new DateTime(2002, 1, 1));
+            Directory.SetLastWriteTimeUtc(subdir2, new DateTime(2002, 1, 1));
+
+            try
+            {
+                FileHelper.CopyDirectory(temp1, temp2, true);
+                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2));
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")));
+            }
+            finally
+            {
+                Directory.Delete(temp1, true);
+                Directory.Delete(temp2, true);
+            }
+        }
     }
 }
