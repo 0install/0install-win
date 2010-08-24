@@ -46,6 +46,11 @@ namespace Common.Archive
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public ZipExtractor(Stream stream, long startOffset, string target) : base(stream, startOffset, target)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
             try
             {
                 _zip = new ZipFile(stream) { IsStreamOwner = false };

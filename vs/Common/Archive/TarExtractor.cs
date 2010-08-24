@@ -46,6 +46,11 @@ namespace Common.Archive
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         public TarExtractor(Stream stream, long startOffset, string target) : base(stream, startOffset, target)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
             try
             {
                 _tar = new TarInputStream(stream);
@@ -118,7 +123,7 @@ namespace Common.Archive
         /// </summary>
         private static bool IsXbitSet(TarEntry entry)
         {
-            const int executeFlags = 0111;
+            const int executeFlags = 1 + 8 + 8 * 8; // Octal: 111
             return ((entry.TarHeader.Mode & executeFlags) != 0);
         }
 
