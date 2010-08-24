@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Diagnostics;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Helpers;
@@ -12,6 +13,26 @@ namespace ZeroInstall.Injector.WinForms
     /// </summary>
     public partial class MainForm : Form, IHandler
     {
+        public MainForm()
+        {
+            Closing += MainForm_Closing;
+        }
+        
+        void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (progressBar.Task != null)
+            {
+                // Try to cancel the current task instead of closing the window directly
+                progressBar.Task.Cancel();
+                e.Cancel = true;
+            }
+            else
+            {
+                // Stop any solving processes
+                Process.GetCurrentProcess().Kill();
+            }
+        }
+
         #region Execute
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
@@ -19,16 +40,26 @@ namespace ZeroInstall.Injector.WinForms
         /// <param name="results">The parser results to be executed.</param>
         public void Execute(ParseResults results)
         {
-            new Thread(delegate()
-            {
-                InitializeComponent();
-                labelName.Text = results.Feed;
-                Application.Run(this);
-            }).Start();
+            StartAsyncGui(results.Feed);
 
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
-            if (results.SelectionsFile == null) controller.Solve();
+            if (results.SelectionsFile == null)
+            {
+                try { controller.Solve(); }
+                #region Error hanlding
+                catch (SolverException ex)
+                {
+                    // Handle events coming from a non-UI thread, block caller until user has answered
+                    Invoke((SimpleEventHandler)(delegate
+                    {
+                        Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                        Close();
+                    }));
+                    return;
+                }
+                #endregion
+            }
             else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
             controller.DownloadUncachedImplementations();
@@ -43,6 +74,19 @@ namespace ZeroInstall.Injector.WinForms
                 launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
             }
         }
+
+        /// <summary>
+        /// Runs the GUI in a separate thread.
+        /// </summary>
+        private void StartAsyncGui(string interfaceID)
+        {
+            new Thread(delegate()
+            {
+                InitializeComponent();
+                labelName.Text = interfaceID;
+                Application.Run(this);
+            }).Start();
+        }
         #endregion
 
         #region Hanlder
@@ -51,11 +95,8 @@ namespace ZeroInstall.Injector.WinForms
         {
             bool result = false;
 
-            // Handle events coming from a non-UI thread
-            BeginInvoke((SimpleEventHandler)delegate
-            {
-                result = Msg.Ask(null, information, MsgSeverity.Warning, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
-            });
+            // Handle events coming from a non-UI thread, block caller until user has answered
+            Invoke((SimpleEventHandler)(() => result = Msg.Ask(this, information, MsgSeverity.Information, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
 
             return result;
         }

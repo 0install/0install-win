@@ -163,7 +163,17 @@ namespace ZeroInstall.Injector.Cli
             // ToDo: Alternative policy for DryRun
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
-            if (results.SelectionsFile == null) controller.Solve();
+            if (results.SelectionsFile == null)
+            {
+                try { controller.Solve(); }
+                #region Error hanlding
+                catch (SolverException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return;
+                }
+                #endregion
+            }
             else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
             if (!results.SelectOnly)

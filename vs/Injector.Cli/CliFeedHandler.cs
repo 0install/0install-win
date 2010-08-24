@@ -32,7 +32,7 @@ namespace ZeroInstall.Injector.Cli
 
             while (true)
             {
-                Console.Error.Write("[Y/N] ");
+                Console.Error.Write("Trust [Y/N] ");
                 switch ((Console.ReadLine() ?? "").ToLower())
                 {
                     case "y":

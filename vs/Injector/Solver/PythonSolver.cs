@@ -74,14 +74,7 @@ namespace ZeroInstall.Injector.Solver
         //--------------------//
 
         #region Solve
-        /// <summary>
-        /// Solves the dependencies for a specific feed.
-        /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
-        /// <param name="policy">The user settings controlling the solving process.</param>
-        /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
-        /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions (feed problem, dependency problem)
+        /// <inheritdoc />
         public Selections Solve(string feed, Policy policy)
         {
             #region Sanity checks
@@ -98,12 +91,12 @@ namespace ZeroInstall.Injector.Solver
             process.BeginOutputReadLine();
 
             // Asynchronously parse all StandardError data
-            string pendingQuestion = null;
-            var errorParser = new PythonErrorParser(question => pendingQuestion = question);
+            string pendingQuestion = null, pendingError = null;
+            var errorParser = new PythonErrorParser(question => pendingQuestion = question, error => pendingError = error);
             process.ErrorDataReceived += (sender, e) => errorParser.HandleStdErrorLine(e.Data);
             process.BeginErrorReadLine();
 
-            while(!process.HasExited)
+            while (!process.HasExited)
             {
                 if (pendingQuestion != null)
                 {
@@ -112,9 +105,12 @@ namespace ZeroInstall.Injector.Solver
                     process.StandardInput.Flush();
                     pendingQuestion = null;
                 }
+                if (pendingError != null) throw new SolverException(pendingError);
+                Thread.Sleep(100);
             }
             process.WaitForExit();
             errorParser.Flush();
+            if (pendingError != null) throw new SolverException(pendingError);
 
             // Parse StandardOutput data as XML
             return Selections.LoadFromString(stdOut.ToString());

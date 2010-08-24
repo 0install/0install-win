@@ -36,6 +36,7 @@ namespace ZeroInstall.Injector.Solver
 
         #region Variables
         private readonly Action<string> _questionCallback;
+        private readonly Action<string> _errorCallback;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -46,9 +47,11 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a new error parser.
         /// </summary>
         /// <param name="questionCallback">The callback to use to ask the user questions.</param>
-        public PythonErrorParser(Action<string> questionCallback)
+        /// <param name="errorCallback">The callback to use to report errors while solving.</param>
+        public PythonErrorParser(Action<string> questionCallback, Action<string> errorCallback)
         {
             _questionCallback = questionCallback;
+            _errorCallback = errorCallback;
         }
         #endregion
 
@@ -91,7 +94,7 @@ namespace ZeroInstall.Injector.Solver
                 case ErrorMode.Question:
                     if (lineMode == ErrorMode.None)
                     {
-                        if (line == "Trust [Y/N] " && _currentErrorMode == ErrorMode.Question)
+                        if (line.Contains("[Y/N]") && _currentErrorMode == ErrorMode.Question)
                         {
                             _questionCallback(_cache.ToString());
                             _currentErrorMode = ErrorMode.None;
@@ -129,15 +132,15 @@ namespace ZeroInstall.Injector.Solver
         #region Helpers
         private static ErrorMode IdentifyErrorMode(ref string line)
         {
-            if (ProbeErrorMode(ref line, ErrorMode.Info, "INFO:")) return ErrorMode.Info;
-            if (ProbeErrorMode(ref line, ErrorMode.Warn, "WARN:")) return ErrorMode.Warn;
-            if (ProbeErrorMode(ref line, ErrorMode.Error, "ERROR:")) return ErrorMode.Error;
-            if (ProbeErrorMode(ref line, ErrorMode.Critical, "CRITICAL:")) return ErrorMode.Critical;
-            if (ProbeErrorMode(ref line, ErrorMode.Question, "QUESTION:")) return ErrorMode.Question;
+            if (ProbeErrorMode(ref line, "INFO:")) return ErrorMode.Info;
+            if (ProbeErrorMode(ref line, "WARNING:")) return ErrorMode.Warn;
+            if (ProbeErrorMode(ref line, "ERROR:")) return ErrorMode.Error;
+            if (ProbeErrorMode(ref line, "CRITICAL:")) return ErrorMode.Critical;
+            if (ProbeErrorMode(ref line, "QUESTION:")) return ErrorMode.Question;
             return ErrorMode.None;
         }
 
-        private static bool ProbeErrorMode(ref string line, ErrorMode mode, string prefix)
+        private static bool ProbeErrorMode(ref string line, string prefix)
         {
             if (line.StartsWith(prefix))
             {
@@ -147,7 +150,7 @@ namespace ZeroInstall.Injector.Solver
             return false;
         }
 
-        private static void FlushMessage(ErrorMode currentErrorMode, string message)
+        private void FlushMessage(ErrorMode currentErrorMode, string message)
         {
             switch (currentErrorMode)
             {
@@ -160,11 +163,10 @@ namespace ZeroInstall.Injector.Solver
                     break;
 
                 case ErrorMode.Error:
-                    Log.Error(message);
-                    break;
-
                 case ErrorMode.Critical:
-                    throw new Exception(message);
+                    Log.Error(message);
+                    if (_errorCallback != null) _errorCallback(message);
+                    break;
             }
         }
         #endregion

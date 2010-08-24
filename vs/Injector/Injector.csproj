@@ -65,6 +65,7 @@
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
     <Compile Include="Solver\PythonErrorParser.cs" />
+    <Compile Include="Solver\SolverException.cs" />
     <Compile Include="Solver\SolverProvider.cs" />
     <Compile Include="Solver\PythonSolver.cs" />
     <Compile Include="Solver\Selections.cs" />

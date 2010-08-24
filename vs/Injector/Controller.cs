@@ -83,7 +83,8 @@ namespace ZeroInstall.Injector
         /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified interface.
         /// </summary>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions (feed problem, dependency problem)
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        // ToDo: Add more exceptions (e.g.e feed problems)
         public void Solve()
         {
             // Run the solver algorithm

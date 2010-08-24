@@ -33,7 +33,8 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        // ToDo: Add exceptions (feed problem, dependency problem)
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        // ToDo: Add more exceptions (e.g.e feed problems)
         Selections Solve(string feed, Policy policy);
         #endregion
     }

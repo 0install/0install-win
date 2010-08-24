@@ -36,8 +36,7 @@
             // 
             // progressBar
             // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(12, 33);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(260, 23);
@@ -47,6 +46,7 @@
             // 
             // labelOperation
             // 
+            this.labelOperation.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelOperation.AutoSize = true;
             this.labelOperation.Location = new System.Drawing.Point(12, 9);
             this.labelOperation.Name = "labelOperation";
@@ -56,6 +56,7 @@
             // 
             // labelName
             // 
+            this.labelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelName.AutoSize = true;
             this.labelName.Location = new System.Drawing.Point(9, 59);
             this.labelName.Name = "labelName";
@@ -71,7 +72,6 @@
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelOperation);
             this.Controls.Add(this.progressBar);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "MainForm";
