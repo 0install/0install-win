@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2010 Bastian Eicher, Simon E. Silva Lauinger
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -113,13 +113,13 @@ namespace Common.Helpers
             
             try
             {
-                Assert.Throws<ArgumentException>(() => FileHelper.CopyDirectory(temp1, temp1));
-                Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CopyDirectory(temp2, temp1));
+                Assert.Throws<ArgumentException>(() => FileHelper.CopyDirectory(temp1, temp1, false));
+                Assert.Throws<DirectoryNotFoundException>(() => FileHelper.CopyDirectory(temp2, temp1, false));
 
-                FileHelper.CopyDirectory(temp1, temp2);
+                FileHelper.CopyDirectory(temp1, temp2, false);
                 FileAssert.AreEqual(Path.Combine(subdir, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
 
-                Assert.Throws<IOException>(() => FileHelper.CopyDirectory(temp1, temp2));
+                Assert.Throws<IOException>(() => FileHelper.CopyDirectory(temp1, temp2, false));
             }
             finally
             {

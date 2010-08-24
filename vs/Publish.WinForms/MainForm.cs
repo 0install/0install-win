@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 using C5;
+using Common.Helpers;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -749,17 +750,21 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNode.Tag is Implementation) (new ImplementationForm { Implementation = (Implementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Archive)
             {
-                var feedStructurForm = new ArchiveForm { Archive = (Archive)selectedNode.Tag };
+                var archiveForm = new ArchiveForm { Archive = (Archive)selectedNode.Tag };
+                if (archiveForm.ShowDialog() != DialogResult.OK) return;
 
-                if (feedStructurForm.ShowDialog() != DialogResult.OK) return;
+                var manifestDigestFromArchive = archiveForm.ManifestDigest;
+                var implementationNode = selectedNode.Parent;
 
-                if (selectedNode.Parent.FirstNode.Tag is ManifestDigest)
+                if (implementationNode.FirstNode.Tag is ManifestDigest)
                 {
-                    if (ControlHelpers.IsEmpty((ManifestDigest)selectedNode.Parent.FirstNode.Tag))
+                    var existingManifestDigest = (ManifestDigest)implementationNode.FirstNode.Tag;
+                    if (ControlHelpers.IsEmpty(existingManifestDigest))
                     {
-                        selectedNode.Parent.FirstNode.Tag = feedStructurForm.ManifestDigest;
+                        implementationNode.FirstNode.Tag = manifestDigestFromArchive;
+                        ((Implementation)implementationNode.Tag).ManifestDigest = manifestDigestFromArchive;
                     }
-                    else if (!ControlHelpers.CompareManifestDigests((ManifestDigest)selectedNode.Parent.FirstNode.Tag, feedStructurForm.ManifestDigest))
+                    else if (!ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromArchive))
                     {
                         MessageBox.Show("The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.");
                         selectedNode.Tag = new Archive();
@@ -768,17 +773,57 @@ namespace ZeroInstall.Publish.WinForms
                 }
                 else
                 {
-                    var manifestDigestNode = new TreeNode("Manifest digest") { Tag = feedStructurForm.ManifestDigest };
-                    selectedNode.Parent.Nodes.Insert(0, manifestDigestNode);
+                    InsertManifestDigestNode(implementationNode, manifestDigestFromArchive);
                 }
             }
-            else if (selectedNode.Tag is Recipe) (new RecipeForm()).ShowDialog();
+            else if (selectedNode.Tag is Recipe)
+            {
+                var recipeForm = new RecipeForm { Recipe = (Recipe) selectedNode.Tag };
+                if(recipeForm.ShowDialog() != DialogResult.OK) return;
+
+                var manifestDigestFromRecipe = recipeForm.ManifestDigest;
+                var implementationNode = selectedNode.Parent;
+
+                if (implementationNode.FirstNode.Tag is ManifestDigest)
+                {
+                    var existingManifestDigest = (ManifestDigest)implementationNode.FirstNode.Tag;
+                    if (ControlHelpers.IsEmpty(existingManifestDigest))
+                    {
+                        implementationNode.FirstNode.Tag = manifestDigestFromRecipe;
+                        ((Implementation)implementationNode.Tag).ManifestDigest = manifestDigestFromRecipe;
+                    }
+                    else if (!ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromRecipe))
+                    {
+                        MessageBox.Show("The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.");
+                        selectedNode.Tag = new Recipe { Steps = {new Archive()} };
+                        return;
+                    }
+                }
+                else
+                {
+                    InsertManifestDigestNode(selectedNode.Parent, manifestDigestFromRecipe);
+                }
+
+            }
             else if (selectedNode.Tag is PackageImplementation) (new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Dependency) (new DependencyForm { Dependency = (Dependency)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is EnvironmentBinding) (new EnvironmentBindingForm { EnvironmentBinding = (EnvironmentBinding)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is OverlayBinding) (new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest)selectedNode.Tag)).ShowDialog();
             else throw new InvalidOperationException("Not an object to change.");
+        }
+
+        /// <summary>
+        /// Inserts a new <see cref="TreeNode"/> to the first position of <paramref name="insertInto"/>.
+        /// Adds <paramref name="toAddToTag"/> to the Tag of this <see cref="TreeNode"/>.
+        /// </summary>
+        /// <param name="insertInto">New <see cref="TreeNode"/> will be inserted to this <see cref="TreeNode"/>s first position.</param>
+        /// <param name="toAddToTag"><see cref="ManifestDigest"/> to add to the Tag of the new <see cref="TreeNode"/>.</param>
+        private static void InsertManifestDigestNode(TreeNode insertInto, ManifestDigest toAddToTag)
+        {
+            var manifestDigestNode = new TreeNode("Manifest digest") { Tag = toAddToTag };
+            ((Implementation) insertInto.Tag).ManifestDigest = toAddToTag;
+            insertInto.Nodes.Insert(0, manifestDigestNode);
         }
 
         /// <summary>
@@ -804,7 +849,12 @@ namespace ZeroInstall.Publish.WinForms
             if (toRemove is Element) ((IElementContainer)container).Elements.Remove((Element)toRemove);
             else if (toRemove is Dependency) ((ImplementationBase)container).Dependencies.Remove((Dependency)toRemove);
             else if (toRemove is Binding) ((IBindingContainer)container).Bindings.Remove((Binding)toRemove);
-            else if (toRemove is RetrievalMethod) ((Implementation)container).RetrievalMethods.Remove((RetrievalMethod)toRemove);
+            else if (toRemove is RetrievalMethod)
+            {
+                var implementationContainer = (Implementation) container;
+                implementationContainer.RetrievalMethods.Remove((RetrievalMethod)toRemove);
+                if(implementationContainer.RetrievalMethods.Count == 0) implementationContainer.ManifestDigest = new ManifestDigest();
+            }
         }
 
         /// <summary>
@@ -882,6 +932,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private static void BuildManifestDigestTreeNode(ManifestDigest manifestDigest, TreeNode parentNode)
         {
+            if(ControlHelpers.IsEmpty(manifestDigest)) return;
             var manifestDigestNode = new TreeNode("Manifest digest") {Tag = manifestDigest};
             parentNode.Nodes.Insert(0, manifestDigestNode);
         }

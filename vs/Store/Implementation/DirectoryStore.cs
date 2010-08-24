@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010 Bastian Eicher, Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -164,7 +164,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            FileHelper.CopyDirectory(path, tempDir);
+            FileHelper.CopyDirectory(path, tempDir, false);
 
             VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
         }

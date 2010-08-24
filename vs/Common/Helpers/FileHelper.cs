@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2010 Bastian Eicher, Simon E. Silva Lauinger
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -95,33 +95,38 @@ namespace Common.Helpers
         /// <summary>
         /// Copies the content of a directory to a new location.
         /// </summary>
-        /// <param name="source">The path of source directory. Must exist!</param>
-        /// <param name="destination">The path of the target directory. Must not exist!</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="source"/> and <paramref name="destination"/> are equal.</exception>
-        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="source"/> does not exist.</exception>
-        /// <exception cref="IOException">Thrown if <paramref name="destination"/> already exists.</exception>
-        public static void CopyDirectory(string source, string destination)
+        /// <param name="sourcePath">The path of source directory. Must exist!</param>
+        /// <param name="destinationPath">The path of the target directory. Must not exist!</param>
+        /// <param name="overrideFiles">If <see langword="true"/> an existing file in <paramref name="destinationPath"/> will be overriden.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="sourcePath"/> and <paramref name="destinationPath"/> are equal.</exception>
+        /// <exception cref="DirectoryNotFoundException">Thrown if <paramref name="sourcePath"/> does not exist.</exception>
+        /// <exception cref="IOException">Thrown if <paramref name="destinationPath"/> already exists and <paramref name="overrideFiles"/> is <see langword="false"/>.</exception>
+        public static void CopyDirectory(string sourcePath, string destinationPath, bool overrideFiles)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
-            if (source == destination) throw new ArgumentException(Resources.SourceDestinationEqual);
-            if (!Directory.Exists(source)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
-            if (Directory.Exists(destination)) throw new IOException(Resources.DestinationDirExist);
+            if (string.IsNullOrEmpty(sourcePath)) throw new ArgumentNullException("sourcePath");
+            if (string.IsNullOrEmpty(destinationPath)) throw new ArgumentNullException("destinationPath");
+            if (sourcePath == destinationPath) throw new ArgumentException(Resources.SourceDestinationEqual);
+            if (!Directory.Exists(sourcePath)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
+            if (!overrideFiles)
+            {
+                if (Directory.Exists(destinationPath)) throw new IOException(Resources.DestinationDirExist);
+            }
             #endregion
 
-            Directory.CreateDirectory(destination);
-            foreach (string entry in Directory.GetFileSystemEntries(source))
+            Directory.CreateDirectory(destinationPath);
+            foreach (string entry in Directory.GetFileSystemEntries(sourcePath))
             {
+                string destinationFilePath = Path.Combine(destinationPath, Path.GetFileName(entry));
                 if (Directory.Exists(entry))
                 {
                     // Recurse into sub-direcories
-                    CopyDirectory(entry, Path.Combine(destination, Path.GetFileName(entry)));
+                    CopyDirectory(entry, destinationFilePath, overrideFiles);
                 }
                 else
                 {
                     // Copy individual files
-                    File.Copy(entry, Path.Combine(destination, Path.GetFileName(entry)));
+                    File.Copy(entry, destinationFilePath, overrideFiles);
                 }
             }
         }

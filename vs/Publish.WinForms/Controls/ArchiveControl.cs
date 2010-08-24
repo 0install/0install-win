@@ -219,6 +219,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 currentNode = currentNode.Nodes.Add(folder);
             treeViewSubDirectory.ExpandAll();
             treeViewSubDirectory.EndUpdate();
+            
+            SetStartState();
         }
 
         #endregion
@@ -410,7 +412,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Inserts a folder tree in a node of <see cref="treeViewExtract"/>.
+        /// Inserts a folder tree in a node of <see cref="treeViewSubDirectory"/>.
         /// </summary>
         /// <param name="extractedDirectory">Top folder of a folder tree</param>
         /// <param name="currentNode">Node to insert the folder tree</param>

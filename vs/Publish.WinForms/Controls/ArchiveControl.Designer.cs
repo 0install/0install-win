@@ -171,6 +171,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // buttonExtractArchive
             // 
             this.buttonExtractArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonExtractArchive.Enabled = false;
             this.buttonExtractArchive.Location = new System.Drawing.Point(162, 370);
             this.buttonExtractArchive.Name = "buttonExtractArchive";
             this.buttonExtractArchive.Size = new System.Drawing.Size(95, 23);
