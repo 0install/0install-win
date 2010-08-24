@@ -119,7 +119,7 @@ namespace Common
         /// Blocks until the task is completed or terminated.
         /// </summary>
         /// <remarks>Calling this on a not running task will return immediately.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running (launched via <see cref="RunSync"/>).</exception>
+        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running.</exception>
         void Join();
 
         /// <summary>

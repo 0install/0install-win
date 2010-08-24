@@ -20,10 +20,12 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.IO;
 using System.Net;
 using System.Threading;
 using Common.Helpers;
+using Common.Properties;
 
 namespace Common
 {
@@ -143,7 +145,14 @@ namespace Common
         /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
         public void RunSync()
         {
-            Start();
+            // Still use threads so cancel request from other threads will work
+            lock (StateLock)
+            {
+                if (State != ProgressState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
+
+                State = ProgressState.Started;
+                Thread.Start();
+            }
             Join();
 
             lock (StateLock)
@@ -152,11 +161,17 @@ namespace Common
                 {
                     case ProgressState.Complete:
                         return;
+
                     case ProgressState.WebError:
+                        State = ProgressState.Ready;
                         throw new WebException(ErrorMessage);
+
                     case ProgressState.IOError:
+                        State = ProgressState.Ready;
                         throw new IOException(ErrorMessage);
+
                     default:
+                        State = ProgressState.Ready;
                         throw new UserCancelException();
                 }
             }
