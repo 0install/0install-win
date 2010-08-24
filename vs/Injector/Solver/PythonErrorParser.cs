@@ -17,9 +17,7 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
-using ZeroInstall.Store.Feed;
 using Common;
 
 namespace ZeroInstall.Injector.Solver
@@ -37,8 +35,7 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         #region Variables
-        private readonly IFeedHandler _handler;
-        private readonly StreamWriter _standardInput;
+        private readonly Action<string> _questionCallback;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -48,12 +45,10 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Creates a new error parser.
         /// </summary>
-        /// <param name="handler">The callback object to use to ask the user questions.</param>
-        /// <param name="standardInput">The stream to write user answers to.</param>
-        public PythonErrorParser(IFeedHandler handler, StreamWriter standardInput)
+        /// <param name="questionCallback">The callback to use to ask the user questions.</param>
+        public PythonErrorParser(Action<string> questionCallback)
         {
-            _handler = handler;
-            _standardInput = standardInput;
+            _questionCallback = questionCallback;
         }
         #endregion
 
@@ -98,7 +93,7 @@ namespace ZeroInstall.Injector.Solver
                     {
                         if (line == "Trust [Y/N] " && _currentErrorMode == ErrorMode.Question)
                         {
-                            FlushQuestion(_cache.ToString());
+                            _questionCallback(_cache.ToString());
                             _currentErrorMode = ErrorMode.None;
                         }
                         else _cache.AppendLine(line);
@@ -171,13 +166,6 @@ namespace ZeroInstall.Injector.Solver
                 case ErrorMode.Critical:
                     throw new Exception(message);
             }
-        }
-
-        private void FlushQuestion(string question)
-        {
-            char answer = _handler.AcceptNewKey(question) ? 'Y' : 'N';
-            _standardInput.WriteLine(answer);
-            _standardInput.Flush();
         }
         #endregion
     }

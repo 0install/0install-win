@@ -58,12 +58,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Download\DownloadManager.cs" />
-    <Compile Include="Download\DownloadJob.cs" />
-    <Compile Include="Download\DownloadFile.cs" />
     <Compile Include="Archive\Extractor.cs" />
     <Compile Include="Archive\ZipExtractor.cs" />
     <Compile Include="Archive\TarExtractor.cs" />
+    <Compile Include="Archive\TarBz2Extractor.cs" />
+    <Compile Include="Archive\TarGzExtractor.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
@@ -106,6 +105,9 @@
     <Compile Include="Controls\OKCancelDialog.Designer.cs">
       <DependentUpon>OKCancelDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Download\DownloadManager.cs" />
+    <Compile Include="Download\DownloadJob.cs" />
+    <Compile Include="Download\DownloadFile.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Controls\HintTextBox.cs">
       <SubType>Component</SubType>
@@ -189,6 +191,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Archive\ClassDiagram.cd" />
     <None Include="Download\ClassDiagram.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />

@@ -98,10 +98,21 @@ namespace ZeroInstall.Injector.Solver
             process.BeginOutputReadLine();
 
             // Asynchronously parse all StandardError data
-            var errorParser = new PythonErrorParser(policy.InterfaceCache.Handler, process.StandardInput);
+            string pendingQuestion = null;
+            var errorParser = new PythonErrorParser(question => pendingQuestion = question);
             process.ErrorDataReceived += (sender, e) => errorParser.HandleStdErrorLine(e.Data);
             process.BeginErrorReadLine();
-            
+
+            while(!process.HasExited)
+            {
+                if (pendingQuestion != null)
+                {
+                    char answer = policy.InterfaceCache.Handler.AcceptNewKey(pendingQuestion) ? 'Y' : 'N';
+                    process.StandardInput.WriteLine(answer);
+                    process.StandardInput.Flush();
+                    pendingQuestion = null;
+                }
+            }
             process.WaitForExit();
             errorParser.Flush();
 

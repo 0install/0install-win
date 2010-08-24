@@ -103,6 +103,8 @@ namespace Common.Archive
             {
                 case "application/zip": extractor = new ZipExtractor(stream, startOffset, target); break;
                 case "application/x-tar": extractor = new TarExtractor(stream, startOffset, target); break;
+                case "application/x-compressed-tar": extractor = new TarGzExtractor(stream, startOffset, target); break;
+                case "application/x-bzip-compressed-tar": extractor = new TarBz2Extractor(stream, startOffset, target); break;
                 default: throw new NotSupportedException(Resources.UnknownMimeType);
             }
 

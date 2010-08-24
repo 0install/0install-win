@@ -21,6 +21,16 @@ namespace Common.Archive
             return GetTestDataResourceStreamByName("sdlArchive.tar");
         }
 
+        public static Stream GetSdlTarGzArchiveStream()
+        {
+            return GetTestDataResourceStreamByName("sdlArchive.tar.gz");
+        }
+
+        public static Stream GetSdlTarBz2ArchiveStream()
+        {
+            return GetTestDataResourceStreamByName("sdlArchive.tar.bz2");
+        }
+
         public static Stream GetSdlDllStream()
         {
             return GetTestDataResourceStreamByName("SDL.dll");

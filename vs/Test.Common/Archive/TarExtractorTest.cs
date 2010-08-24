@@ -14,14 +14,37 @@ namespace Common.Archive
         [SetUp]
         public void SetUp()
         {
-            SetUpSandboxFolder();
-        }
-
-        private void SetUpSandboxFolder()
-        {
             _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "tarExtraction-Basic"));
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _sandbox.Path;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Environment.CurrentDirectory = _oldWorkingDirectory;
+        }
+
+        [Test]
+        public void TestGzCompressed()
+        {
+            using (var archive = TestData.GetSdlTarGzArchiveStream())
+            using (var extractor = new TarGzExtractor(archive, 0, _sandbox.Path))
+                extractor.RunSync();
+
+            Assert.IsTrue(File.Exists("SDL.dll"));
+            Assert.IsTrue(File.Exists("README-SDL.txt"));
+        }
+
+        [Test]
+        public void TestBz2Compressed()
+        {
+            using (var archive = TestData.GetSdlTarBz2ArchiveStream())
+            using (var extractor = new TarBz2Extractor(archive, 0, _sandbox.Path))
+                extractor.RunSync();
+
+            Assert.IsTrue(File.Exists("SDL.dll"));
+            Assert.IsTrue(File.Exists("README-SDL.txt"));
         }
     }
 
@@ -43,15 +66,14 @@ namespace Common.Archive
         }
 
         /// <summary>
-        /// Tests whether the tar extractor generates a correct .xbit file for
-        /// an example of a unix archive containing an executable file.
+        /// Tests whether the extractor generates a correct .xbit file for a sample TAR archive containing an executable file.
         /// </summary>
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetSdlTarArchiveStream())
-                using (var extractor = new TarExtractor(archive, 0, _sandbox.Path))
-                    extractor.RunSync();
+            using (var extractor = new TarExtractor(archive, 0, _sandbox.Path))
+                extractor.RunSync();
 
             string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
             Assert.AreEqual("/SDL.dll", xbitFileContent);

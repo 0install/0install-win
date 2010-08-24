@@ -28,7 +28,7 @@ using ICSharpCode.SharpZipLib.Tar;
 namespace Common.Archive
 {
     /// <summary>
-    /// Provides methods for extracting a ZIP archive (optionally as a background task).
+    /// Provides methods for extracting a TAR archive (optionally as a background task).
     /// </summary>
     public class TarExtractor : Extractor
     {
@@ -38,7 +38,7 @@ namespace Common.Archive
 
         #region Constructor
         /// <summary>
-        /// Prepares to extract a ZIP archive contained in a stream.
+        /// Prepares to extract a TAR archive contained in a stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive's data.</param>
         /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
