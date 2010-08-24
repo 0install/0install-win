@@ -108,10 +108,13 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = StoreFunctionality.CreateArtificialPackage();
             try
             {
-                ManifestDigest digest = Manifest.CreateDigest(packageDir, null);
-                Assert.IsNotNullOrEmpty(digest.Sha1Old);
-                Assert.IsNotNullOrEmpty(digest.Sha1New);
-                Assert.IsNotNullOrEmpty(digest.Sha256);
+                ManifestDigest digest1 = Manifest.CreateDigest(packageDir, null);
+                Assert.IsNotNullOrEmpty(digest1.Sha1Old);
+                Assert.IsNotNullOrEmpty(digest1.Sha1New);
+                Assert.IsNotNullOrEmpty(digest1.Sha256);
+
+                ManifestDigest digest2 = Manifest.CreateDigest(packageDir, null);
+                Assert.AreEqual(digest1, digest2);
             }
             finally
             {
@@ -228,11 +231,11 @@ namespace ZeroInstall.Store.Implementation
     [TestFixture]
     public class ManifestGeneration
     {
-        private ManifestGenerator someGenerator;
-        private TemporaryDirectoryReplacement sandbox;
-        private string packageFolder
+        private ManifestGenerator _someGenerator;
+        private TemporaryDirectoryReplacement _sandbox;
+        private string _packageFolder
         {
-            get { return sandbox.Path; }
+            get { return _sandbox.Path; }
         }
 
         [SetUp]
@@ -244,44 +247,44 @@ namespace ZeroInstall.Store.Implementation
                 .AddFolder("someOtherFolder")
                 .AddFile("nestedFile", "abc");
 
-            sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
-            packageBuilder.WritePackageInto(packageFolder);
+            _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
+            packageBuilder.WritePackageInto(_packageFolder);
 
-            someGenerator = new ManifestGenerator(packageFolder, ManifestFormat.Sha256);
+            _someGenerator = new ManifestGenerator(_packageFolder, ManifestFormat.Sha256);
         }
 
         [TearDown]
         public void TearDown()
         {
-            sandbox.Dispose();
+            _sandbox.Dispose();
         }
 
         [Test]
         public void ShouldGenerateManifestWithAllFilesListed()
         {
-            someGenerator.RunSync();
-            Assert.IsNotNull(someGenerator.Result);
+            _someGenerator.RunSync();
+            Assert.IsNotNull(_someGenerator.Result);
             ValidatePackage();
         }
 
         private void ValidatePackage()
         {
-            var theManifest = someGenerator.Result;
+            var theManifest = _someGenerator.Result;
 
             string currentSubdir = "";
             foreach (var node in theManifest.Nodes)
             {
                 if (node is ManifestDirectory)
                 {
-                    DirectoryMustExistInDirectory((ManifestDirectory)node, packageFolder);
+                    DirectoryMustExistInDirectory((ManifestDirectory)node, _packageFolder);
                     currentSubdir = ((ManifestDirectory)node).FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
                 }
                 else if (node is ManifestFileBase)
                 {
-                    string directory = Path.Combine(packageFolder, currentSubdir);
+                    string directory = Path.Combine(_packageFolder, currentSubdir);
                     FileMustExistInDirectory((ManifestFileBase)node, directory);
                 }
-                else Debug.Fail("Unknown manifest node found: " + node.ToString());
+                else Debug.Fail("Unknown manifest node found: " + node);
             }
         }
 
@@ -300,15 +303,15 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldReportReadyStateAtBeginning()
         {
-            Assert.AreEqual(ProgressState.Ready, someGenerator.State);
+            Assert.AreEqual(ProgressState.Ready, _someGenerator.State);
         }
 
         [Test]
         public void ShouldReportTransitionFromReadyToStarted()
         {
             bool changedToStarted = false;
-            someGenerator.StateChanged += (IProgress sender) => { if (sender.State == ProgressState.Started) changedToStarted = true; };
-            someGenerator.RunSync();
+            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Started) changedToStarted = true; };
+            _someGenerator.RunSync();
             Assert.IsTrue(changedToStarted);
         }
 
@@ -316,9 +319,9 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportTransitionToComplete()
         {
             bool changedToComplete = false;
-            someGenerator.StateChanged += (sender) => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
-            someGenerator.RunSync();
-            Assert.AreEqual(ProgressState.Complete, someGenerator.State);
+            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
+            _someGenerator.RunSync();
+            Assert.AreEqual(ProgressState.Complete, _someGenerator.State);
             Assert.IsTrue(changedToComplete);
         }
 
@@ -332,7 +335,7 @@ namespace ZeroInstall.Store.Implementation
 
             // The assumption here is, that the StateChanged event is called
             // from within the working thread.
-            someGenerator.StateChanged += (sender) =>
+            _someGenerator.StateChanged += delegate(IProgress sender)
             {
                 if (sender.State == ProgressState.Header)
                 {
@@ -341,10 +344,10 @@ namespace ZeroInstall.Store.Implementation
                 }
                 if (sender.State == ProgressState.Complete) completionLock.Set();
             };
-            someGenerator.Start();
+            _someGenerator.Start();
             noTimeout &= testerLock.WaitOne(100);
             Assert.IsTrue(noTimeout, "A timeout occurred");
-            Assert.AreEqual(ProgressState.Header, someGenerator.State, "ManifestGenerator was not in Started state.");
+            Assert.AreEqual(ProgressState.Header, _someGenerator.State, "ManifestGenerator was not in Started state.");
             injectionLock.Set();
             completionLock.WaitOne();
         }
@@ -355,7 +358,7 @@ namespace ZeroInstall.Store.Implementation
             Thread testerThread = Thread.CurrentThread;
             System.Threading.ThreadState? testerThreadState = null;
             var completedLock = new ManualResetEvent(false);
-            someGenerator.StateChanged += (sender) =>
+            _someGenerator.StateChanged += delegate(IProgress sender)
             {
                 if (sender.State == ProgressState.Started)
                 {
@@ -364,16 +367,14 @@ namespace ZeroInstall.Store.Implementation
                     testerThreadState = testerThread.ThreadState;
                 }
                 if (sender.State == ProgressState.Complete)
-                {
                     completedLock.Set();
-                }
             };
-            someGenerator.Start();
-            someGenerator.Join();
+            _someGenerator.Start();
+            _someGenerator.Join();
             bool didTerminate;
             try
             {
-                Assert.AreEqual(ProgressState.Complete, someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
+                Assert.AreEqual(ProgressState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
                 Assert.AreNotEqual(System.Threading.ThreadState.Running, testerThreadState, "The thread that called join must be in blocking state for some time.");
             }
             finally
@@ -387,8 +388,8 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportChangedProgress()
         {
             bool progressChanged = false;
-            someGenerator.ProgressChanged += delegate { progressChanged = true; };
-            someGenerator.RunSync();
+            _someGenerator.ProgressChanged += delegate { progressChanged = true; };
+            _someGenerator.RunSync();
             Assert.IsTrue(progressChanged);
         }
     }
