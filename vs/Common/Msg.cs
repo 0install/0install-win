@@ -47,7 +47,7 @@ namespace Common
         /// Displays a message to the user using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
-        /// <param name="text">The message to be displayed. Mustn't be <see langword="null"/>!</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
         public static void Inform(IWin32Window owner, string text, MsgSeverity severity)
         {
@@ -78,9 +78,9 @@ namespace Common
         /// Asks the user a OK/cancel-question using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
-        /// <param name="text">The message to be displayed. Mustn't be <see langword="null"/>!</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
-        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.OK"/> option. Mustn't be <see langword="null"/>!</param>
+        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.OK"/> option; must not be <see langword="null"/>.</param>
         /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Cancel"/> option; may be <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if <paramref name="option1"/> was selected, <see langword="false"/> if <paramref name="option2"/> was selected.</returns>
         /// <remarks>If a <see cref="MessageBox"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
@@ -144,11 +144,11 @@ namespace Common
         /// Asks the user to choose between two options (yes/no) using a <see cref="MessageBox"/> or <see cref="TaskDialog"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
-        /// <param name="text">The message to be displayed. Mustn't be <see langword="null"/>!</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
         /// <param name="allowCancel">Can the user also cancel / choose neither of the two?</param>
-        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Yes"/> option. Mustn't be <see langword="null"/>!</param>
-        /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.No"/> option. Mustn't be <see langword="null"/>!</param>
+        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Yes"/> option; must not be <see langword="null"/>.</param>
+        /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.No"/> option; must not be <see langword="null"/>.</param>
         /// <returns><see cref="DialogResult.Yes"/> if <paramref name="option1"/> was chosen,
         /// <see cref="DialogResult.No"/> if <paramref name="option2"/> was chosen,
         /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
@@ -207,7 +207,7 @@ namespace Common
         #region MsgBox
         /// <summary>Displays a message using a <see cref="MessageBox"/>.</summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
-        /// <param name="text">The message to be displayed. Mustn't be <see langword="null"/>!</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
         /// <param name="buttons">The buttons the user can click.</param>
         private static DialogResult ShowMesageBox(IWin32Window owner, string text, MsgSeverity severity, MessageBoxButtons buttons)
@@ -234,7 +234,7 @@ namespace Common
 
         #region TaskDialog
         /// <summary>Displays a message using a <see cref="TaskDialog"/>.</summary>
-        /// <param name="text">The message to be displayed. Mustn't be <see langword="null"/>!</param>
+        /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
         private static TaskDialog.TaskDialog GetTaskDialog(string text, MsgSeverity severity)
         {
