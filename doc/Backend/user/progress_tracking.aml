@@ -49,7 +49,7 @@
         <para>
           In order to have your user interface be informed of new tasks being
           started you need to take the following steps:
-		  <list class="bullet"></list>
+		  <list class="bullet">
   			<listItem>Run the user interface on a sperate thread so it won't block the task's execution.</listItem>
   			<listItem>Implement the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> interface.</listItem>
   			<listItem>Pass the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> implementation to
