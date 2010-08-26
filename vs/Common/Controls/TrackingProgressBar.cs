@@ -32,7 +32,7 @@ namespace Common.Controls
         /// <summary>
         /// The <see cref="IProgress"/> object to track.
         /// </summary>
-        [Description("The IProgress object to track.")]
+        [Description("The IProgress object to track."), DefaultValue(null)]
         public IProgress Task
         {
             set

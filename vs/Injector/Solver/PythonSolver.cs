@@ -20,7 +20,6 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using System.Threading;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -104,7 +103,7 @@ namespace ZeroInstall.Injector.Solver
             process.ErrorDataReceived += (sender, e) => errorParser.HandleStdErrorLine(e.Data);
             process.BeginErrorReadLine();
 
-            while (!process.HasExited)
+            while (!process.WaitForExit(50))
             {
                 if (pendingQuestion != null)
                 {
@@ -114,7 +113,6 @@ namespace ZeroInstall.Injector.Solver
                     pendingQuestion = null;
                 }
                 if (pendingError != null) throw new SolverException(pendingError);
-                Thread.Sleep(100);
             }
             process.WaitForExit();
             errorParser.Flush();
