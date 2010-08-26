@@ -24,7 +24,7 @@
     <SyntaxFilters>CSharp</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
-    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
+    <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>

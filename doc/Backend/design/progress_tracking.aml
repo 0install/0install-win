@@ -5,35 +5,32 @@
 
     <introduction>
       <para>
-        ...
+        Zero Install operations often start off with simple method calls that
+        end up triggering a lot of secondary task. For example, a method
+        designed to launch an application may trigger downloads and
+        extractions for missing implementations. Such methods have parameters
+        that allow you to provide callback delegates to be informed about new
+        trackable tasks.
       </para>
     </introduction>
-
-    <section address="progress">
-      <title>IProgress interface</title>
-      <content>
-        <para>
-          ...
-        </para>
-      </content>
-    </section>
 
     <section address="callback">
       <title>Callback delegates</title>
       <content>
         <para>
-          ...
+          When you call a method that triggers background tasks, the method
+          itself will run synchronously and only return once the entire
+          operation has been completed. The callback delegates may be called
+          intermittently and indicate that a new background task has been
+          started and may now be tracked. The callbacks will block the original
+          method. Therefor you should only use them to set up progress tracking
+          for the new task in a separate thread and return as soon as possible.
         </para>
       </content>
     </section>
 
-    <section address="handler">
-      <title>IHandler interface</title>
-      <content>
-        <para>
-          ...
-        </para>
-      </content>
-    </section>
+    <relatedTopics>
+      <link xlink:href="user_progress_tracking">User guide for progress tracking</link>
+    </relatedTopics>
   </developerConceptualDocument>
 </topic>

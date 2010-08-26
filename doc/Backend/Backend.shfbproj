@@ -24,7 +24,7 @@
     <SyntaxFilters>CSharp, VisualBasic</SyntaxFilters>
     <HelpFileFormat>HtmlHelp1, Website</HelpFileFormat>
     <PresentationStyle>vs2005</PresentationStyle>
-    <FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>
+    <!--<FeedbackEMailAddress>info%400install.de</FeedbackEMailAddress>-->
     <RootNamespaceContainer>True</RootNamespaceContainer>
     <RootNamespaceTitle>Class Reference</RootNamespaceTitle>
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
@@ -70,6 +70,7 @@
     <None Include="user\index.aml" />
     <None Include="user\assemblies.aml" />
     <None Include="user\getting_started.aml" />
+    <None Include="user\progress_tracking.aml" />
     <None Include="depolyment.aml" />
     <None Include="design\index.aml" />
     <None Include="design\progress_tracking.aml" />
