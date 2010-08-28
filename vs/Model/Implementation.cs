@@ -35,8 +35,8 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
-        [XmlElement(Type = typeof(Archive), ElementName = "archive")]
-        [XmlElement(Type = typeof(Recipe), ElementName = "recipe")]
+        [XmlElement(Type = typeof(Archive), ElementName = "archive"),
+        XmlElement(Type = typeof(Recipe), ElementName = "recipe")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion

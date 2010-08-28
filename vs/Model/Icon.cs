@@ -24,7 +24,7 @@ using ZeroInstall.Model.Design;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An icon for an <see cref="Feed"/>.
+    /// An icon for an interface.
     /// </summary>
     [TypeConverter(typeof(IconConverter))]
     public struct Icon : IEquatable<Icon>

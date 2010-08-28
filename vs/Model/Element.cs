@@ -56,7 +56,7 @@ namespace ZeroInstall.Model
     #endregion
 
     /// <summary>
-    /// A common base class for <see cref="ImplementationBase"/> and <see cref="Group"/>.
+    /// Abstract base class for <see cref="ImplementationBase"/> and <see cref="Group"/>.
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -161,8 +161,8 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
-        [XmlElement(Type = typeof(EnvironmentBinding), ElementName = "environment")]
-        [XmlElement(Type = typeof(OverlayBinding), ElementName = "overlay")]
+        [XmlElement(Type = typeof(EnvironmentBinding), ElementName = "environment"),
+        XmlElement(Type = typeof(OverlayBinding), ElementName = "overlay")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion

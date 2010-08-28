@@ -25,7 +25,7 @@ namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <summary>
-    /// Describes an operating system.
+    /// Describes an operating system family.
     /// </summary>
     public enum OS
     {

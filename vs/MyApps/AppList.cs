@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.MyApps
 {
     /// <summary>
-    /// Stores a list of applications in form of feed URLs.
+    /// Stores a list of applications in form of interface URIs.
     /// </summary>
     [XmlRoot("app-list", Namespace = "http://zero-install.sourceforge.net/2010/my-apps/app-list")]
     public sealed class AppList

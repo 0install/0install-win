@@ -24,7 +24,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.DownloadBroker
 {
     /// <summary>
-    /// Handles the download and extraction of one or more <see cref="Implementation"/>s into an <see cref="IStore"/>.
+    /// Lists one or more <see cref="Implementation"/>s that need to be downloaded and extracted into an <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class FetchRequest

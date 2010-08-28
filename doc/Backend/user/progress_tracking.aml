@@ -53,20 +53,35 @@
   			<listItem>Run the user interface on a sperate thread so it won't block the task's execution.</listItem>
   			<listItem>Implement the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> interface.</listItem>
   			<listItem>Pass the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> implementation to
-  			  <codeEntityReference qualifyHint="true">M:ZeroInstall.Injector.Controller..ctor</codeEntityReference>.</listItem>
+  			  <codeEntityReference qualifyHint="true">M:ZeroInstall.Injector.Controller._ctor</codeEntityReference>.</listItem>
 		  </list>
         </para>
         <para>
-         The <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference>
-         interface specifies a number of methods that will be called when a new
-         <codeEntityReference>T:Common.IProgress</codeEntityReference> has been
-         started. Since these methods will be called from a thread other than
-         the one the UI is running on you need to take care of appropriate
-         cross-thread marshalling (e.g. use
-         <codeInline>Control.BeginInvoke((SimpleEventHandler)delegate { yourCode });</codeInline>)
-         for WinForms.
+          The <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference>
+          interface specifies a number of methods that will be called when a new
+          <codeEntityReference>T:Common.IProgress</codeEntityReference> has been
+          started. Since these methods will be called from a thread other than
+          the one the UI is running on you need to take care of appropriate
+          cross-thread marshalling.
         </para>
       </content>
+    </section>
+
+    <section address="sample">
+      <title>Code sample</title>
+        <para>
+          Code sample for tracking new downloads with WinForms:
+<code language="C#">
+public void StartingDownload(IProgress download)
+{
+    // Handle events coming from a non-UI thread, don't block caller
+    BeginInvoke((SimpleEventHandler)delegate
+    {
+        progressBar.Task = download;
+    });
+}
+</code>
+        </para>
     </section>
 
     <relatedTopics>

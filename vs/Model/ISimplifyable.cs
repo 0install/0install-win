@@ -17,6 +17,9 @@
 
 namespace ZeroInstall.Model
 {
+    /// <summary>
+    /// ...
+    /// </summary>
     public interface ISimplifyable
     {
         /// <summary>

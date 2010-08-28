@@ -32,7 +32,11 @@ namespace Common.Controls
         /// <summary>
         /// The <see cref="IProgress"/> object to track.
         /// </summary>
-        [Description("The IProgress object to track."), DefaultValue(null)]
+        /// <remarks>
+        /// Setting this property will hook up event handlers to monitor the task.
+        /// Remember to set it back to <see langword="null"/> or to call <see cref="Dispose"/> when done, to remove the event handlers again.
+        /// </remarks>
+        [DefaultValue(null), Description("The IProgress object to track.")]
         public IProgress Task
         {
             set
