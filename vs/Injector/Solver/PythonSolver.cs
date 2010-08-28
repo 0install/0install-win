@@ -76,14 +76,14 @@ namespace ZeroInstall.Injector.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(string feed, Policy policy)
+        public Selections Solve(string interfaceID, Policy policy)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(feed)) throw new ArgumentNullException("feed");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("feed");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            var process = new Process {StartInfo = GetStartInfo(feed, policy)};
+            var process = new Process {StartInfo = GetStartInfo(interfaceID, policy)};
             try { process.Start(); }
             #region Error handling
             catch (Win32Exception ex)
@@ -127,16 +127,16 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Prepares to launch a the Python solver code in a child process.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="interfaceID">The URI or local path to the feed to solve the dependencies for.</param>
         /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        private static ProcessStartInfo GetStartInfo(string feed, Policy policy)
+        private static ProcessStartInfo GetStartInfo(string interfaceID, Policy policy)
         {
             // Prepare to launch the Python interpreter (no window, redirect all output)
             var startInfo = new ProcessStartInfo
             {
                 FileName = PythonBinary,
-                Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + feed,
+                Arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID,
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardInput = true,

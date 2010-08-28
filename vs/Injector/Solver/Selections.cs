@@ -39,7 +39,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         [Description("The URI or local path of the interface this selection is based on.")]
         [XmlAttribute("interface")]
-        public string Interface { get; set; }
+        public string InterfaceID { get; set; }
         
         // Preserve order, duplicate entries are not allowed
         private readonly C5.HashedArrayList<ImplementationSelection> _implementations = new C5.HashedArrayList<ImplementationSelection>();
@@ -58,14 +58,14 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
-        /// <param name="interfaceID">The <see cref="ImplementationSelection.Interface"/> to look for.</param>
+        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
         /// <returns>The identified <see cref="ImplementationBase"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
-        public ImplementationSelection GetSelection(string interfaceID)
+        public ImplementationSelection GetImplementation(string interfaceID)
         {
             foreach (var implementation in _implementations)
             {
-                if (implementation.Interface == interfaceID) return implementation;
+                if (implementation.InterfaceID == interfaceID) return implementation;
             }
             throw new KeyNotFoundException();
         }
@@ -142,7 +142,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The cloned <see cref="Selections"/>.</returns>
         public Selections CloneSelections()
         {
-            var newSelections = new Selections {Interface = Interface};
+            var newSelections = new Selections {InterfaceID = InterfaceID};
             foreach (var implementation in Implementations)
             {
                 newSelections.Implementations.Add(implementation.CloneImplementation());
@@ -165,7 +165,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return (Interface == other.Interface) && Implementations.SequencedEquals(other.Implementations);
+            return (InterfaceID == other.InterfaceID) && Implementations.SequencedEquals(other.Implementations);
         }
 
         public override bool Equals(object obj)
@@ -179,7 +179,7 @@ namespace ZeroInstall.Injector.Solver
         {
             unchecked
             {
-                int result = (Interface != null ? Interface.GetHashCode() : 0);
+                int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }

@@ -33,7 +33,7 @@ namespace ZeroInstall.Injector.Solver
         {
             return new Selections
             {
-                Interface = "http://0install.de/feeds/test.xml",
+                InterfaceID = "http://0install.de/feeds/test.xml",
                 Implementations = { ImplementationSelectionTest.CreateTestImplementation() }
             };
         }

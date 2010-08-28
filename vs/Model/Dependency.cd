@@ -58,6 +58,7 @@
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Dependencies" />
+      <Property Name="Bindings" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

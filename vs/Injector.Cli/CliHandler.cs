@@ -23,7 +23,7 @@ namespace ZeroInstall.Injector.Cli
     /// <summary>
     /// Uses the stderr stream to ask the user questions.
     /// </summary>
-    public class CliFeedHandler : IHandler
+    public class CliHandler : IHandler
     {
         /// <inheritdoc />
         public bool AcceptNewKey(string information)

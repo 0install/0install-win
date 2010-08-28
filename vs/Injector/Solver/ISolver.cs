@@ -29,13 +29,13 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Solves the dependencies for a specific feed.
         /// </summary>
-        /// <param name="feed">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="interfaceID">The URI or local path to the feed to solve the dependencies for.</param>
         /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         // ToDo: Add more exceptions (e.g. feed problems)
-        Selections Solve(string feed, Policy policy);
+        Selections Solve(string interfaceID, Policy policy);
         #endregion
     }
 }

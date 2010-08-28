@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
         [XmlEnum("Solaris")] Solaris,
         [XmlEnum("MacOSX")] MacOsX,
         [XmlEnum("Windows")] Windows,
-        [XmlEnum("unknown")] Unknown,
+        [XmlEnum("unknown")] Unknown = 99,
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ namespace ZeroInstall.Model
         [XmlEnum("ppc")] Ppc,
         [XmlEnum("ppc64")] Ppc64,
         [XmlEnum("src")] Source,
-        [XmlEnum("unknown")] Unknown
+        [XmlEnum("unknown")] Unknown = 99
     }
     #endregion
 

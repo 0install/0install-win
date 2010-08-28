@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector
         {
             var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
-            Assert.AreEqual(controller.GetSelections().Interface, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+            Assert.AreEqual(controller.GetSelections().InterfaceID, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
 
         /// <summary>

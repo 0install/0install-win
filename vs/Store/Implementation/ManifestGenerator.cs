@@ -208,8 +208,8 @@ namespace ZeroInstall.Store.Implementation
             // ToDo: Handle executable bits in filesystem itself
             if (externalXBits.Contains(file.FullName))
                 return new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
-
-            return new ManifestFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+            else
+                return new ManifestFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>

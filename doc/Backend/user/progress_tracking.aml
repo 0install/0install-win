@@ -69,6 +69,7 @@
 
     <section address="sample">
       <title>Code sample</title>
+      <content>
         <para>
           Code sample for tracking new downloads with WinForms:
 <code language="C#">
@@ -82,6 +83,7 @@ public void StartingDownload(IProgress download)
 }
 </code>
         </para>
+      </content>
     </section>
 
     <relatedTopics>

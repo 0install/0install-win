@@ -36,7 +36,7 @@ namespace ZeroInstall.Injector.Solver
 
             Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(new SilentHandler()));
 
-            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.Interface);
+            Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.InterfaceID);
         }
     }
 }

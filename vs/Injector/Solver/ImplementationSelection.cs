@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         [Description("The URI or local path of the interface this implementation is for.")]
         [XmlAttribute("interface")]
-        public string Interface { get; set; }
+        public string InterfaceID { get; set; }
 
         /// <summary>
         /// The URL of the feed that contains this implementation.
@@ -56,7 +56,7 @@ namespace ZeroInstall.Injector.Solver
         #region Conversion
         public override string ToString()
         {
-            return base.ToString() + " (" + Interface + ")";
+            return base.ToString() + " (" + InterfaceID + ")";
         }
         #endregion
 
@@ -67,7 +67,7 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>The cloned <see cref="ImplementationSelection"/>.</returns>
         public ImplementationSelection CloneImplementation()
         {
-            var implementation = new ImplementationSelection {Interface = Interface, FromFeed = FromFeed, Package = Package};
+            var implementation = new ImplementationSelection {InterfaceID = InterfaceID, FromFeed = FromFeed, Package = Package};
             CloneFromTo(this, implementation);
             return implementation;
         }
@@ -87,7 +87,7 @@ namespace ZeroInstall.Injector.Solver
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && Equals(other.Interface, Interface) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
+            return base.Equals(other) && Equals(other.InterfaceID, InterfaceID) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
         }
 
         public override bool Equals(object obj)
@@ -102,7 +102,7 @@ namespace ZeroInstall.Injector.Solver
             unchecked
             {
                 int result = base.GetHashCode();
-                result = (result * 397) ^ (Interface ?? "").GetHashCode();
+                result = (result * 397) ^ (InterfaceID ?? "").GetHashCode();
                 result = (result * 397) ^ (FromFeed ?? "").GetHashCode();
                 result = (result * 397) ^ (Package ?? "").GetHashCode();
                 return result;

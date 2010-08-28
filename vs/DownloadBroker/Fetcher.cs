@@ -76,13 +76,13 @@ namespace ZeroInstall.DownloadBroker
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
-        public void RunSync(FetchRequest fetcherRequest)
+        public void RunSync(FetchRequest fetchRequest)
         {
             #region Sanity checks
-            if (fetcherRequest == null) throw new ArgumentNullException("fetcherRequest");
+            if (fetchRequest == null) throw new ArgumentNullException("fetcherRequest");
             #endregion
 
-            foreach (var implementation in fetcherRequest.Implementations)
+            foreach (var implementation in fetchRequest.Implementations)
             {
                 foreach (var method in implementation.RetrievalMethods)
                 {

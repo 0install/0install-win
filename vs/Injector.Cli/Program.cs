@@ -83,7 +83,7 @@ namespace ZeroInstall.Injector.Cli
 
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new CliFeedHandler())};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new CliHandler())};
 
             #region Define options
             var options = new OptionSet

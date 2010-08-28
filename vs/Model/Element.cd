@@ -6,13 +6,12 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAAQAAAIAAAAABAAAAADA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAgAACAAAAARAAAIAAAAABAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="RetrievalMethods" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.ImplementationBase" BaseTypeListCollapsed="true">
     <Position X="5.5" Y="7.5" Width="1.75" />
@@ -51,7 +50,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAogIAABCAgQGkAhAhQAAQAAAUAEICASAgAAAAAACI=</HashCode>
+      <HashCode>AAAohIAABCAgQGkAhABQAAQAAAUAEICASAgAAAAAADI=</HashCode>
       <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -63,10 +62,9 @@
     <Position X="3" Y="7.5" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAAAAAAACEoAAQAAAABQCAAIEACAAAAAAAABA=</HashCode>
+      <HashCode>IAAAAAAAAAAAAACEoAAQAAAABRCAAIEACAAAAAAAAAA=</HashCode>
       <FileName>PackageImplementation.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -77,10 +75,13 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAAgAgQAAAAAAAAAAAAAAAAAAIAADA=</HashCode>
+      <HashCode>AAAAAAAABAAAAAAEgAAQAAAAABAAAIAAAAAAAAAAACA=</HashCode>
       <FileName>Group.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" />
+    <ShowAsCollectionAssociation>
+      <Property Name="Elements" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Element">
     <Position X="3.25" Y="3" Width="1.5" />
@@ -89,7 +90,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>IAAAAAAAIIAACACAgABAIABQAADAEIEASEAABAAACCA=</HashCode>
+      <HashCode>IAAAAAAAIIAACACAgABAIABQABDAEIEASEAABAAACDA=</HashCode>
       <FileName>Element.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -129,7 +130,7 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Struct>
-  <Interface Name="ZeroInstall.Model.IElementContainer" Collapsed="true">
+  <Interface Name="ZeroInstall.Model.IElementContainer">
     <Position X="0.5" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>

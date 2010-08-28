@@ -25,7 +25,6 @@ using ZeroInstall.DownloadBroker;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
-using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector
@@ -144,7 +143,7 @@ namespace ZeroInstall.Injector
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed file
-                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.Interface);
+                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }

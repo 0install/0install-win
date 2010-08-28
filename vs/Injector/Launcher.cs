@@ -89,7 +89,7 @@ namespace ZeroInstall.Injector
         private string GetStartupMain()
         {
             // Get the implementation to be launched
-            ImplementationBase startupImplementation = _selections.GetSelection(_interfaceID);
+            ImplementationBase startupImplementation = _selections.GetImplementation(_interfaceID);
 
             // Apply the user-override for the Main exectuable if set
             string startupMain;
@@ -191,7 +191,7 @@ namespace ZeroInstall.Injector
 
                 // Apply bindings implementations use to find their dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    ApplyBindings(startInfo, dependency, _selections.GetSelection(dependency.Interface));
+                    ApplyBindings(startInfo, dependency, _selections.GetImplementation(dependency.Interface));
             }
 
             return startInfo;
