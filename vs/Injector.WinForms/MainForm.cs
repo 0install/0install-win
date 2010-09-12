@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -25,11 +24,6 @@ namespace ZeroInstall.Injector.WinForms
                 // Try to cancel the current task instead of closing the window directly
                 progressBar.Task.Cancel();
                 e.Cancel = true;
-            }
-            else
-            {
-                // Stop any solving processes
-                Process.GetCurrentProcess().Kill();
             }
         }
         #endregion
@@ -86,12 +80,13 @@ namespace ZeroInstall.Injector.WinForms
             }
             catch (UserCancelException)
             {
-                AsyncColose();
+                progressBar.Task = null;
+                Invoke((SimpleEventHandler)Close);
                 return;
             }
             #endregion
 
-            AsyncColose();
+            Invoke((SimpleEventHandler)Close);
 
             if (!results.DownloadOnly)
             {
@@ -121,15 +116,6 @@ namespace ZeroInstall.Injector.WinForms
         #endregion
 
         #region Helpers
-        /// <summary>
-        /// Closes the form from a non-GUI thread.
-        /// </summary>
-        private void AsyncColose()
-        {
-            progressBar.Task = null;
-            Invoke((SimpleEventHandler)Close);
-        }
-
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>
