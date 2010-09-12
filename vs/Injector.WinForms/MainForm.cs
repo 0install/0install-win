@@ -17,13 +17,8 @@ namespace ZeroInstall.Injector.WinForms
     /// </summary>
     public partial class MainForm : Form, IHandler
     {
-        #region Constructor
-        public MainForm()
-        {
-            Closing += MainForm_Closing;
-        }
-        
-        void MainForm_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        #region Events
+        void MainForm_Closing(object sender, CancelEventArgs e)
         {
             if (progressBar.Task != null)
             {
@@ -38,6 +33,15 @@ namespace ZeroInstall.Injector.WinForms
             }
         }
         #endregion
+
+        #region Constructor
+        public MainForm()
+        {
+            Closing += MainForm_Closing;
+        }
+        #endregion
+
+        //--------------------//
 
         #region Execute
         /// <summary>
@@ -82,12 +86,12 @@ namespace ZeroInstall.Injector.WinForms
             }
             catch (UserCancelException)
             {
-                Invoke((SimpleEventHandler)Close);
+                AsyncColose();
                 return;
             }
             #endregion
 
-            Invoke((SimpleEventHandler)Close);
+            AsyncColose();
 
             if (!results.DownloadOnly)
             {
@@ -117,6 +121,15 @@ namespace ZeroInstall.Injector.WinForms
         #endregion
 
         #region Helpers
+        /// <summary>
+        /// Closes the form from a non-GUI thread.
+        /// </summary>
+        private void AsyncColose()
+        {
+            progressBar.Task = null;
+            Invoke((SimpleEventHandler)Close);
+        }
+
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>

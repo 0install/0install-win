@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.Text;
+using System.Web;
 using Common;
 
 namespace ZeroInstall.Injector.Solver
@@ -67,6 +68,9 @@ namespace ZeroInstall.Injector.Solver
             if (string.IsNullOrEmpty(line)) return;
 
             var lineMode = IdentifyErrorMode(ref line);
+
+            // Restore non-ASCII characters
+            line = HttpUtility.HtmlDecode(line);
 
             switch (_currentErrorMode)
             {
@@ -124,7 +128,7 @@ namespace ZeroInstall.Injector.Solver
                     break;
 
                 case ErrorMode.Question:
-                    throw new ArgumentException("Unfinished question is invalid");
+                    throw new ArgumentException("Unfinished question is invalid. Remaining data in cache:\n" + _cache);
             }
         }
         #endregion
