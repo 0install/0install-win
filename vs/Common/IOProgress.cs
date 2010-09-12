@@ -153,7 +153,8 @@ namespace Common
                 State = ProgressState.Started;
                 Thread.Start();
             }
-            Join();
+
+            Thread.Join();
 
             lock (StateLock)
             {

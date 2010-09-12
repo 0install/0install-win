@@ -137,6 +137,7 @@ namespace ZeroInstall.Injector.Solver
             if (ProbeErrorMode(ref line, "ERROR:")) return ErrorMode.Error;
             if (ProbeErrorMode(ref line, "CRITICAL:")) return ErrorMode.Critical;
             if (ProbeErrorMode(ref line, "QUESTION:")) return ErrorMode.Question;
+            if (line.StartsWith("Traceback")) return ErrorMode.Critical;
             return ErrorMode.None;
         }
 
