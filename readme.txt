@@ -9,17 +9,17 @@ The directory "build" contains the results of various compilation processes. It 
 - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
 - Documentation: Contains the generated source code documentation.
 - Setup: Contains generated Setup EXE files.
-- Portable: You MUST place a properly configured portable Python distribution and a portable GnuPG distribution here.
+- Portable: You MUST place a portable Python distribution and a portable GnuPG distribution here.
 
 To create a suitable Python distribution:
-- Install Python 2.6 for Windows, pygobject and pywin32. Copy the files to build\Portable\Python.
-- Place a GTK+ installation at "%apps%\GTK+" (some libraries need to be extracted from there).
+- Install Python 2.6.x for Windows, pygobject and pywin32. Copy the files to build\Portable\Python.
+- Place a GTK+ 2.x installation at "%apps%\GTK+" (some libraries need to be extracted from there).
 - Execute cleanup_python.cmd to minimize the Python distribution and copy some libraries to make it portable.
 - Perform a Git checkout of git://repo.or.cz/zeroinstall/solver.git.
 - Call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install" in the directory of the GIT checkout to install the Zero Install scripts into the portable Python distribution.
 
 To create a suitable GnuPG distribution:
-- Extract a current GnuPG 2.x for Windows release to build\Portable\GnuPG.
+- Extract GnuPG 1.4.x for Windows to build\Portable\GnuPG.
 - Remove the documentation directory.
 - Copy iconv.dll from the GTK+ installation into build\Portable\GnuPG.
 
