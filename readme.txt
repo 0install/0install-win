@@ -12,11 +12,15 @@ The directory "build" contains the results of various compilation processes. It 
 - Portable: You MUST place a portable Python distribution and a portable GnuPG distribution here.
 
 To create a suitable Python distribution:
-- Install Python 2.6.x for Windows, pygobject and pywin32. Copy the files to build\Portable\Python.
-- Place a GTK+ 2.x installation at "%apps%\GTK+" (some libraries need to be extracted from there).
+- Install Python 2.6.x for Windows with no additional features selected in the MSI installer.
+- Install compatible versions of pygobject and pywin32.
+- Copy the entire content of C:\Python26 to build\Portable\Python.
+- Place a GTK+ 2.x installation at %apps%\GTK+ (some libraries need to be extracted from there).
 - Execute cleanup_python.cmd to minimize the Python distribution and copy some libraries to make it portable.
+- You may now uninstall the Python installation at C:\Python26 if you wish.
 - Perform a Git checkout of git://repo.or.cz/zeroinstall/solver.git.
-- Call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install" in the directory of the GIT checkout to install the Zero Install scripts into the portable Python distribution.
+- Open a console and change the current directory to the GIT checkout.
+- Call "[SVN_CHECKOUT_DIR]\build\Portable\Python\python.exe setup.py install".
 
 To create a suitable GnuPG distribution:
 - Extract GnuPG 1.4.x for Windows to build\Portable\GnuPG.

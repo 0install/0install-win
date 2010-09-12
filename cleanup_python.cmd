@@ -1,19 +1,26 @@
 @echo off
-::This script removes files that are not necessary for a minimal Python installation and adds files that are required for portable operation
+echo.
+echo This script removes files that are not necessary for a minimal Python
+echo installation and adds files that are required for portable operation.
+pause
 
-cd ..\build\Portable\Python
+cd build\Portable\Python
 
+::Try to get the Python DLL either from the Windows directory or a shared "applications" directory
 copy %windir%\system32\python26.dll python26.dll
 copy %apps%\Python\python26.dll python26.dll
 
-move Lib\site-packages\pywin32_system32\pythoncom26.dll pythoncom26.dll
-move Lib\site-packages\pywin32_system32\pywintypes26.dll pywintypes26.dll
-rmdir Lib\site-packages\pywin32_system32
-
+::Move DLLs used by pygobject into the default search path
 copy "%apps%\GTK+\bin\libgobject-2.0-0.dll" libgobject-2.0-0.dll
 copy "%apps%\GTK+\bin\libgthread-2.0-0.dll" libgthread-2.0-0.dll
 copy "%apps%\GTK+\bin\libglib-2.0-0.dll" libglib-2.0-0.dll
 
+::Move DLLs used by pywin32 into the default search path
+move Lib\site-packages\pywin32_system32\pythoncom26.dll pythoncom26.dll
+move Lib\site-packages\pywin32_system32\pywintypes26.dll pywintypes26.dll
+rmdir Lib\site-packages\pywin32_system32
+
+::Delete unneeded files
 del README.txt
 del NEWS.txt
 del w9xpopen.exe
