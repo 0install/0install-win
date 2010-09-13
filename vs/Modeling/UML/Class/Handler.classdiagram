@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="590d1db6-d12c-4bf4-b46f-a82879a33991" name="Handler" linkedPackageId="a440487e-ea24-45af-a72f-c922fabfd4af" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="590d1db6-d12c-4bf4-b46f-a82879a33991" name="Handler" linkedPackageId="a440487e-ea24-45af-a72f-c922fabfd4af" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="bc8966e5-0676-457e-8e2e-08da0af59719" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -483,6 +483,12 @@
                       </stereotypeInstance>
                     </appliedStereotypesInternal>
                     <elementDefinition Id="1f40a297-9f72-4610-b501-c90a4a145f35" />
+                    <suppliersInternal>
+                      <dependency Id="43a68575-e151-4cca-8250-91375ab9aca9">
+                        <interfaceMoniker Id="2bb95866-59c4-44eb-838d-f8a70e044839" LastKnownName="IProgress" />
+                        <elementDefinition Id="f7d454ae-6bc4-4da6-be91-71f9344185ba" />
+                      </dependency>
+                    </suppliersInternal>
                     <targetEnds>
                       <association Id="107388b8-cdea-4e6f-9f51-9e3a55f3baa7" isDerived="false" sourceEndRoleName="" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
                         <interfaceMoniker Id="e6fdfb81-4a5f-4d20-9c23-5afcadc0e509" LastKnownName="IFetchHandler" />
@@ -653,6 +659,12 @@
                       </stereotypeInstance>
                     </appliedStereotypesInternal>
                     <elementDefinition Id="4c839ba5-4e2d-4f29-8747-64aff1f3a786" />
+                    <suppliersInternal>
+                      <dependency Id="3980ebd2-4a1c-4e6a-a59b-b12f0115c7cf">
+                        <interfaceMoniker Id="2bb95866-59c4-44eb-838d-f8a70e044839" LastKnownName="IProgress" />
+                        <elementDefinition Id="f4d1d18f-8e67-490e-8cf9-bba46c4db29c" />
+                      </dependency>
+                    </suppliersInternal>
                     <targetEnds>
                       <association Id="7c3111b3-3942-4dbb-a926-8bae783e22a8" isDerived="false" sourceEndRoleName="" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
                         <interfaceMoniker Id="0ad3f3e0-386c-4e44-a7aa-a2e1579c5520" LastKnownName="IFeedHandler" />

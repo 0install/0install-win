@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="d2eedc90-31f5-4be8-83ab-56de549e82e1" name="DownloadBroker" linkedPackageId="737e00e6-820c-48d7-8dc3-882dab03f048" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="d2eedc90-31f5-4be8-83ab-56de549e82e1" name="DownloadBroker" linkedPackageId="737e00e6-820c-48d7-8dc3-882dab03f048" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="39deee32-16ea-4d5f-846b-5c889c9276dc" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -70,6 +70,12 @@
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="1f40a297-9f72-4610-b501-c90a4a145f35" />
+              <suppliersInternal>
+                <dependency Id="3c922c67-df64-4dcc-94da-fad8ce14ea1c">
+                  <classMoniker Id="ee2b330e-2a99-4c7c-b0c8-5f6c6dcd9c67" LastKnownName="FetchRequest" />
+                  <elementDefinition Id="a3bd4ae6-6fbc-45d5-a329-d93070752c01" />
+                </dependency>
+              </suppliersInternal>
               <targetEnds>
                 <association Id="3be26523-e008-449c-8339-aad2046938f5" isDerived="false" sourceEndRoleName="" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="1dbd9055-4a7d-4f14-b784-71d411753d40" LastKnownName="IFetchHandler" />
@@ -162,7 +168,7 @@
               </appliedStereotypesInternal>
               <elementDefinition Id="64884655-8132-4085-b888-5830545bf06e" />
               <targetEnds>
-                <association Id="36bb60cf-0dfa-4dd1-8315-f45a403b4764" isDerived="false" sourceEndRoleName="" targetEndRoleName="Implementation" isLeaf="false" isAbstract="false">
+                <association Id="36bb60cf-0dfa-4dd1-8315-f45a403b4764" isDerived="false" sourceEndRoleName="" targetEndRoleName="Implementations" isLeaf="false" isAbstract="false">
                   <classMoniker Id="056f27df-9a6c-4632-9d7d-2cb8d4b6406b" LastKnownName="Implementation" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
@@ -181,7 +187,7 @@
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="6e499e5f-d539-47bb-9c43-10cc24899e1a" name="Implementation" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <memberEnd Id="6e499e5f-d539-47bb-9c43-10cc24899e1a" name="Implementations" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <lowerValueInternal>
                           <literalString Id="d15fe308-8011-442b-93d5-de73d3d5c235" name="Lower" value="*">
                             <elementDefinition Id="7b59f5d0-07cc-4dd7-98ab-1425682db520" />

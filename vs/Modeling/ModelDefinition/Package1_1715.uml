@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="90f8aa6c-022e-4e5d-8aba-0b7680e371f5"
   name="DownloadBroker" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -308,7 +308,7 @@
             Id="376d295a-8525-454b-8342-ffa671d8e122"
             isDerived="false"
             sourceEndRoleName=""
-            targetEndRoleName="Implementation"
+            targetEndRoleName="Implementations"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
@@ -344,7 +344,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="8db3ff0d-c97c-47de-82d9-21dbe32b6d4f"
-                  name="Implementation"
+                  name="Implementations"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -421,6 +421,22 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="f7d454ae-6bc4-4da6-be91-71f9344185ba">
+            <interfaceMoniker
+              Id="eb53f3f4-2324-4c76-af57-fda997587093"
+              LastKnownName="IProgress"
+              LastKnownLocation="Package_1718.uml" />
+          </dependency>
+          <dependency
+            Id="a3bd4ae6-6fbc-45d5-a329-d93070752c01">
+            <classMoniker
+              Id="64884655-8132-4085-b888-5830545bf06e"
+              LastKnownName="FetchRequest"
+              LastKnownLocation="Package1_1715.uml" />
+          </dependency>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="9a8dc4d6-04f4-47dd-9a7b-5fad3cc61212"
