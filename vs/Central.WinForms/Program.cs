@@ -38,11 +38,12 @@ namespace ZeroInstall.Central.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Settings.LoadCurrent();
-
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()));
-
-            Settings.SaveCurrent();
+            ErrorReportForm.RunAppMonitored(delegate
+            {
+                Settings.LoadCurrent();
+                Application.Run(new MainForm());
+                Settings.SaveCurrent();
+            });
         }
 
         #region Helper applications

@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Model;
@@ -42,34 +43,37 @@ namespace ZeroInstall.Injector.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Run GUI is seperate thread
-            var handler = new MainForm();
-
-            ParseResults results;
-            switch (ParseArgs(args, handler, out results))
+            ErrorReportForm.RunAppMonitored(delegate
             {
-                case OperationMode.Normal:
-                    // Ask for URI via GUI if none was specified on command-line
-                    if (string.IsNullOrEmpty(results.Feed))
-                    {
-                        results.Feed = InterfaceUriDialog.GetUri();
-                        if (string.IsNullOrEmpty(results.Feed)) return;
-                    }
+                // Run GUI is seperate thread
+                var handler = new MainForm();
 
-                    handler.Execute(results);
-                    break;
+                ParseResults results;
+                switch (ParseArgs(args, handler, out results))
+                {
+                    case OperationMode.Normal:
+                        // Ask for URI via GUI if none was specified on command-line
+                        if (string.IsNullOrEmpty(results.Feed))
+                        {
+                            results.Feed = InterfaceUriDialog.GetUri();
+                            if (string.IsNullOrEmpty(results.Feed)) return;
+                        }
 
-                case OperationMode.List:
-                case OperationMode.Import:
-                case OperationMode.Manage:
-                    // ToDo: Implement
-                    throw new NotImplementedException();
+                        handler.Execute(results);
+                        break;
 
-                case OperationMode.Version:
-                    // ToDo: Read version number from assembly data
-                    Msg.Inform(null, "Zero Install for Windows Injector v1.0", MsgSeverity.Information);
-                    break;
-            }
+                    case OperationMode.List:
+                    case OperationMode.Import:
+                    case OperationMode.Manage:
+                        // ToDo: Implement
+                        throw new NotImplementedException();
+
+                    case OperationMode.Version:
+                        // ToDo: Read version number from assembly data
+                        Msg.Inform(null, "Zero Install for Windows Injector v1.0", MsgSeverity.Information);
+                        break;
+                }
+            });
         }
         #endregion
 
