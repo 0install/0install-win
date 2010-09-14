@@ -86,6 +86,7 @@ namespace ZeroInstall.Injector.WinForms
             }
             #endregion
 
+            progressBar.Task = null;
             Invoke((SimpleEventHandler)Close);
 
             if (!results.DownloadOnly)
