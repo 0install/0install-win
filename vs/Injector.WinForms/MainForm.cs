@@ -193,5 +193,13 @@ namespace ZeroInstall.Injector.WinForms
             });
         }
         #endregion
+
+        private void buttonCancel_Click(object sender, System.EventArgs e)
+        {
+            // Only allow to cancel once
+            buttonCancel.Enabled = false;
+
+            Close();
+        }
     }
 }

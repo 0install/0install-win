@@ -86,14 +86,5 @@ namespace ZeroInstall.Injector.Properties {
                 return ResourceManager.GetString("NotSolved", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The bundled Python installation could not be launched. Please reinstall Zero Install..
-        /// </summary>
-        internal static string UnableToLaunchPython {
-            get {
-                return ResourceManager.GetString("UnableToLaunchPython", resourceCulture);
-            }
-        }
     }
 }

@@ -249,4 +249,7 @@ Delete the changes</value>
   <data name="MissingNanoGrid" xml:space="preserve">
     <value>NanoGrid must be installed for this game to work properly.</value>
   </data>
+  <data name="UnableToLaunchBundled" xml:space="preserve">
+    <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>
+  </data>
 </root>

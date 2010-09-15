@@ -32,23 +32,23 @@
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
             this.labelName = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(12, 33);
+            this.progressBar.Location = new System.Drawing.Point(12, 38);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(260, 23);
             this.progressBar.TabIndex = 1;
-            this.progressBar.Task = null;
             this.progressBar.UseTaskbar = true;
             // 
             // labelOperation
             // 
             this.labelOperation.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelOperation.AutoSize = true;
-            this.labelOperation.Location = new System.Drawing.Point(12, 9);
+            this.labelOperation.Location = new System.Drawing.Point(12, 14);
             this.labelOperation.Name = "labelOperation";
             this.labelOperation.Size = new System.Drawing.Size(51, 13);
             this.labelOperation.TabIndex = 0;
@@ -58,17 +58,29 @@
             // 
             this.labelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(9, 59);
+            this.labelName.Location = new System.Drawing.Point(9, 64);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(41, 13);
             this.labelName.TabIndex = 2;
             this.labelName.Text = "(Name)";
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Location = new System.Drawing.Point(197, 88);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 3;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 92);
+            this.ClientSize = new System.Drawing.Size(284, 123);
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelOperation);
             this.Controls.Add(this.progressBar);
@@ -85,6 +97,7 @@
         #endregion
         private System.Windows.Forms.Label labelOperation;
         private System.Windows.Forms.Label labelName;
+        private System.Windows.Forms.Button buttonCancel;
 
     }
 }

@@ -403,6 +403,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The bundled {0} installation could not be launched. Please reinstall the application..
+        /// </summary>
+        internal static string UnableToLaunchBundled {
+            get {
+                return ResourceManager.GetString("UnableToLaunchBundled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This undo command cannot be performed until the actual command has been performed..
         /// </summary>
         internal static string UndoNotAvailable {

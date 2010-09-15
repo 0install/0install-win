@@ -74,6 +74,7 @@
     <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
+    <Compile Include="CliAppControl.cs" />
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

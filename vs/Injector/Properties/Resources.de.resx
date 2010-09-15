@@ -126,7 +126,4 @@
   <data name="NotSolved" xml:space="preserve">
     <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>
   </data>
-  <data name="UnableToLaunchPython" xml:space="preserve">
-    <value>Die mitgelieferte Python-Installation konnte nicht gestartet werden. Bitte installieren Sie Zero Install neu.</value>
-  </data>
 </root>

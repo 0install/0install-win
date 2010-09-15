@@ -242,4 +242,7 @@ Die Änderungen löschen</value>
   <data name="MissingNanoGrid" xml:space="preserve">
     <value>NanoGrid muss installiert sein damit dieses Spiel korrekt funktioniert.</value>
   </data>
+  <data name="UnableToLaunchBundled" xml:space="preserve">
+    <value>Die mitgelieferte {0}-Installation konnte nicht gestartet werden. Bitte installieren Sie die Anwendung neu.</value>
+  </data>
 </root>

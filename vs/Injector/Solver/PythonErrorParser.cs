@@ -62,11 +62,14 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// To be called for every line of data received from <see cref="Process.StandardError"/>.
         /// </summary>
-        /// <param name="line">The line of data from <see cref="Process.StandardError"/>.</param>
-        public void HandleStdErrorLine(string line)
+        public void HandleStdErrorLine(object sender, DataReceivedEventArgs e)
         {
-            if (string.IsNullOrEmpty(line)) return;
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
 
+            string line = e.Data;
+            if (line == null) return;
             var lineMode = IdentifyErrorMode(ref line);
 
             // Restore non-ASCII characters

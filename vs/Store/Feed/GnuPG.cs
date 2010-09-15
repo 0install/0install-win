@@ -20,7 +20,10 @@ using Common;
 
 namespace ZeroInstall.Store.Feed
 {
-    public class GnuPG : ConsoleAppControl
+    /// <summary>
+    /// Provides access to the signature functions of GnuPG.
+    /// </summary>
+    public class GnuPG : CliAppControl
     {
         #region Properties
         /// <inheritdoc/>
@@ -30,11 +33,17 @@ namespace ZeroInstall.Store.Feed
         protected override string AppBinaryName { get { return "gpg"; } }
         #endregion
 
+        //--------------------//
+
+        /// <summary>
+        /// Creates a detached signature for a specific file using the user's default key.
+        /// </summary>
+        /// <param name="path">The file to create the signature for.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
         public void DetachSign(string path, SecureString passphrase)
         {
+            // ToDo: Finish implementing
             Execute("--batch --passphrase-fd 0 --detach-sign " + path, null, null);
         }
-
-        //--------------------//
     }
 }
