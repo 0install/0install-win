@@ -13,7 +13,6 @@ copy "vs\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.
 rem Clear VS.NET's object cache
 del vs\*.cache > NUL 2>&1
 rd /s /q vs\Central.WinForms\obj > NUL 2>&1
-rd /s /q vs\Publish.WinForms\obj > NUL 2>&1
 rd /s /q vs\StoreService\obj > NUL 2>&1
 rd /s /q vs\Injector.Cli\obj > NUL 2>&1
 rd /s /q vs\Injector.WinForms\obj > NUL 2>&1
@@ -29,6 +28,9 @@ rd /s /q vs\Test.Common\obj > NUL 2>&1
 rd /s /q vs\Test.Backend\obj > NUL 2>&1
 rd /s /q vs\Test.Frontend\obj > NUL 2>&1
 rd /s /q vs\Test.Tools\obj > NUL 2>&1
+rd /s /q vs\Publish\obj > NUL 2>&1
+rd /s /q vs\Publish.Cli\obj > NUL 2>&1
+rd /s /q vs\Publish.WinForms\obj > NUL 2>&1
 rd /s /q vs\Modeling\obj > NUL 2>&1
 
 rem Restore VS2010 solution user options (temporarily unhide for copying)

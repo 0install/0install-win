@@ -30,10 +30,14 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
+      <DocumentationSource sourceFile="..\..\vs\Publish.WinForms\Publish.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Publish.WinForms\Publish.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Tools implementations.</ProjectSummary>
     <NamespaceSummaries>
+      <NamespaceSummaryItem name="ZeroInstall.Publish" isDocumented="True" xmlns="">Provides shared code for feed publishing tools (feed editors).</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Publish.Cli" isDocumented="True" xmlns="">Provides a command-line tool for editing Zero Install &lt;see cref="ZeroInstall.Model.Feed" /&gt; XMLs.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms" isDocumented="True" xmlns="">Provides a &lt;see cref="System.Windows.Forms" /&gt;-based editor for &lt;see cref="ZeroInstall.Model.Feed" /&gt; XMLs.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Publish.WinForms.FeedStructure" isDocumented="True" xmlns="">Contains dialogs for manipulating data stored within a &lt;see cref="ZeroInstall.Model.Feed" /&gt;.</NamespaceSummaryItem>
     </NamespaceSummaries>

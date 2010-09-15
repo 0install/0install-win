@@ -52,6 +52,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Feed\GnuPG.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
