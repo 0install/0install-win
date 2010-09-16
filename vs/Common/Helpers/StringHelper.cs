@@ -154,9 +154,9 @@ namespace Common.Helpers
             if (value == null) throw new ArgumentNullException("value");
             #endregion
 
-            var ret = new ArrayList();
-            string[] splitted1 = value.Split(new[] { '\n' });
-            string[] splitted2 = value.Split(new[] { '\r' });
+            var ret = new List<string>();
+            string[] splitted1 = value.Split('\n');
+            string[] splitted2 = value.Split('\r');
             string[] splitted = splitted1.Length >= splitted2.Length ? splitted1 : splitted2;
 
             foreach (string s in splitted)
@@ -170,7 +170,7 @@ namespace Common.Helpers
                     ret.Add(s);
             }
 
-            return (string[])ret.ToArray(typeof(string));
+            return ret.ToArray();
         }
 
         /// <summary>
