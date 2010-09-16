@@ -16,7 +16,7 @@
  */
 
 using Common;
-using ZeroInstall.Store.Interface;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector
 {

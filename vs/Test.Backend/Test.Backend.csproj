@@ -101,9 +101,9 @@
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
     <Compile Include="Store\Implementation\StoreTest.cs" />
-    <Compile Include="Store\Interface\InterfaceCacheTest.cs" />
-    <Compile Include="Store\Interface\SilentFeedHandler.cs" />
-    <Compile Include="Store\Interface\TrustTest.cs" />
+    <Compile Include="Store\Feed\InterfaceCacheTest.cs" />
+    <Compile Include="Store\Feed\SilentFeedHandler.cs" />
+    <Compile Include="Store\Feed\TrustTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyApps\" />

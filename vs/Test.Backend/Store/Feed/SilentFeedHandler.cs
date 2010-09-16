@@ -15,9 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using ZeroInstall.Store.Feed;
-
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
     /// Silently handles all requests answering them with "Yes".

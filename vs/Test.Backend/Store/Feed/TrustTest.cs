@@ -16,9 +16,8 @@
  */
 
 using NUnit.Framework;
-using ZeroInstall.Store.Feed;
 
-namespace ZeroInstall.Store.Interface
+namespace ZeroInstall.Store.Feed
 {
     /// <summary>
     /// Contains test methods for <see cref="Trust"/>.
