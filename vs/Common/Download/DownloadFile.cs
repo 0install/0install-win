@@ -35,7 +35,7 @@ namespace Common.Download
     public class DownloadFile : IOProgress
     {
         #region Variables
-        private bool _cancelRequest;
+        private volatile bool _cancelRequest;
         #endregion
 
         #region Properties
@@ -126,7 +126,8 @@ namespace Common.Download
             {
                 if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
-                _cancelRequest = true;
+                if (State == ProgressState.Data) _cancelRequest = true;
+                else Thread.Abort();
             }
 
             Thread.Join();
@@ -135,7 +136,7 @@ namespace Common.Download
             {
                 // Reset the state so the task can be started again
                 State = ProgressState.Ready;
-                _cancelRequest = true;
+                _cancelRequest = false;
             }
         }
         #endregion
@@ -298,6 +299,7 @@ namespace Common.Download
         {
             int length;
             var buffer = new byte[1024];
+
             // Detect the end of the stream via a 0-write
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {

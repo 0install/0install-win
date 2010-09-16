@@ -99,11 +99,14 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void StateChanged(IProgress sender)
         {
-            // Handle events coming from a non-UI thread, block caller so we can safely retreive properties
-            progressBar.Invoke((SimpleEventHandler) delegate
+            // Copy value so it can be safely accessed from another thread
+            ProgressState state = sender.State;
+
+            // Handle events coming from a non-UI thread, don't block caller
+            progressBar.BeginInvoke((SimpleEventHandler) delegate
             {
                 IntPtr formHandle = GetFormHandle();
-                switch (_task.State)
+                switch (state)
                 {
                     case ProgressState.Ready:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
@@ -145,10 +148,11 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void ProgressChanged(IProgress sender)
         {
-            int currentValue = (int)(_task.Progress * 100);
+            // Copy value so it can be safely accessed from another thread
+            int currentValue = (int)(sender.Progress * 100);
 
-            // Handle events coming from a non-UI thread, block caller so we can safely retreive properties
-            progressBar.Invoke((SimpleEventHandler)delegate
+            // Handle events coming from a non-UI thread, don't block caller
+            progressBar.BeginInvoke((SimpleEventHandler)delegate
             {
                 progressBar.Value = currentValue;
                 IntPtr formHandle = GetFormHandle();

@@ -21,6 +21,7 @@
  */
 
 using System.IO;
+using System.Threading;
 using Common.Helpers;
 using NUnit.Framework;
 
@@ -107,6 +108,67 @@ namespace Common.Download
             // Ensure the download was successfull and the HTML file starts with a Doctype as expected
             Assert.AreEqual(ProgressState.Complete, download.State);
             Assert.AreEqual(TestFileContent, fileContent);
+        }
+
+        /// <summary>
+        /// Starts downloading a small file using <see cref="IOProgress.Start"/> and stops again right away using <see cref="IOProgress.Cancel"/>.
+        /// </summary>
+        [Test]
+        public void TestCancelAsync()
+        {
+            DownloadFile download;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
+
+                // Start a very slow download of the file and then cancel it right away again
+                _server.Slow = true;
+                download = new DownloadFile(_server.FileUri, tempFile);
+                download.Start();
+                download.Cancel();
+
+                Assert.AreNotEqual(ProgressState.Complete, download.State);
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
+        }
+
+        /// <summary>
+        /// Starts downloading a small file using <see cref="IOProgress.RunSync"/> and stops again right away using <see cref="IOProgress.Cancel"/>.
+        /// </summary>
+        [Test]
+        public void TestCancelSync()
+        {
+            DownloadFile download;
+            string tempFile = null;
+            try
+            {
+                tempFile = Path.GetTempFileName();
+
+                // Prepare a very slow download of the file and monitor for a cancellation exception
+                _server.Slow = true;
+                download = new DownloadFile(_server.FileUri, tempFile);
+                bool exceptionThrown = false;
+                var downloadThread = new Thread(delegate()
+                {
+                    try { download.RunSync(); }
+                    catch (UserCancelException) { exceptionThrown = true; }
+                });
+
+                // Start and then cancel the download
+                downloadThread.Start();
+                download.Cancel();
+                downloadThread.Join();
+
+                Assert.IsTrue(exceptionThrown);
+            }
+            finally
+            { // Clean up
+                if (tempFile != null) File.Delete(tempFile);
+            }
         }
     }
 }

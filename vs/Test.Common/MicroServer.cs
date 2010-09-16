@@ -44,6 +44,11 @@ namespace Common
         /// The complete URL under which the server provides its file.
         /// </summary>
         public Uri FileUri { get; private set; }
+
+        /// <summary>
+        /// Wait for ten seconds every time before finishing a response.
+        /// </summary>
+        public bool Slow { get; set; }
         #endregion
         
         //--------------------//
@@ -113,6 +118,9 @@ namespace Common
                     StreamHelper.Copy(_fileContent, context.Response.OutputStream);
                 else
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+
+                if (Slow) Thread.Sleep(10000);
+
                 context.Response.OutputStream.Close();
             }
         }
