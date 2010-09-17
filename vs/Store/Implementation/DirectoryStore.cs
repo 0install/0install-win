@@ -150,8 +150,7 @@ namespace ZeroInstall.Store.Implementation
             try { Directory.Move(source, target); }
             catch (IOException)
             {
-                // Detect exisiting directories that popped very last-minute-ish
-                throw new ImplementationAlreadyInStoreException(manifestDigest);
+                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
             }
 
             // Prevent any further changes to the directory
