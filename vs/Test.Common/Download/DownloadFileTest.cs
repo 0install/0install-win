@@ -160,6 +160,7 @@ namespace Common.Download
 
                 // Start and then cancel the download
                 downloadThread.Start();
+                while (download.State == ProgressState.Ready) Thread.Sleep(0);
                 download.Cancel();
                 downloadThread.Join();
 
