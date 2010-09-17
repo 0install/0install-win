@@ -24,7 +24,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Describes an object that allows the storage of <see cref="Feed"/>s.
+    /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
     /// </summary>
     /// <remarks>These objects do not download new files by themselves.</remarks>
     public interface IStore
@@ -54,6 +54,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
         void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest);
 
@@ -67,6 +68,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
         void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest);
         
@@ -76,11 +78,12 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
         /// <param name="startingExtraction">Callback to be called when a new extraction task is about to be started; may be <see langword="null"/>.</param>
-        /// <param name="startingManifest">CCallback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if one of the archives cannot be extracted.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest);
     }
 }

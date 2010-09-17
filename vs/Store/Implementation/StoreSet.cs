@@ -27,6 +27,10 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Combines multiple <see cref="IStore"/>s as a composite.
     /// </summary>
+    /// <remarks>
+    ///   <para>When adding new <see cref="Implementation"/>s the first child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
+    ///   <para>When when retreiving existing <see cref="Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
+    /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class StoreSet : IStore
     {

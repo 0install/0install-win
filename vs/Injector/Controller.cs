@@ -26,6 +26,7 @@ using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector
 {
@@ -87,7 +88,6 @@ namespace ZeroInstall.Injector
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
         /// <exception cref="IOException">Thrown if the solver could not read or write required disk files.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        // ToDo: Add more exceptions (e.g. feed problems)
         public void Solve()
         {
             // Run the solver algorithm
@@ -156,9 +156,11 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         /// <remarks>Implementation archives may be downloaded, digest validation is performed. Will do nothing, if <see cref="NetworkLevel"/> is <see cref="NetworkLevel.Offline"/>.</remarks>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
         public void DownloadUncachedImplementations()
         {
             #region Sanity checks
@@ -167,7 +169,9 @@ namespace ZeroInstall.Injector
 
             if (Policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) return;
 
-            Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()));
+            try { Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations())); }
+            catch (ImplementationAlreadyInStoreException)
+            {}
         }
         #endregion
 

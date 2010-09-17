@@ -25,7 +25,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Provides direct pass-through read-access to a <see cref="DirectoryStore"/> and service-mediated write-acess.
+    /// Uses a background service to add new entries to a backing <see cref="DirectoryStore"/> that requires elevated privileges to write.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class ServiceStore : IStore

@@ -73,9 +73,12 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Execute a complete request and block until it is done.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <see cref="ManifestDigest"/> in <see cref="Store"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
         public void RunSync(FetchRequest fetchRequest)
         {
             #region Sanity checks

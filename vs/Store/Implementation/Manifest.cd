@@ -135,6 +135,7 @@
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Result" />
+      <Property Name="Format" />
     </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />

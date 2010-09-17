@@ -28,7 +28,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Models a cache directory residing on the disk.
+    /// Models a cache directory that stores <see cref="Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : IStore, IEquatable<DirectoryStore>
@@ -123,6 +123,8 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
         {
             #region Sanity checks
@@ -134,16 +136,23 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
             var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
-            // Locate the source directory
+            // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
+            string target = Path.Combine(DirectoryPath, expectedDigest);
+
+            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Calculate the actual digest and compare it with the expected one
             string actualDigest = Manifest.CreateDotFile(source, format, startingManifest);
             if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
 
             // Move directory to final store destination
-            string target = Path.Combine(DirectoryPath, expectedDigest);
-            Directory.Move(source, target);
+            try { Directory.Move(source, target); }
+            catch (IOException)
+            {
+                // Detect exisiting directories that popped very last-minute-ish
+                throw new ImplementationAlreadyInStoreException(manifestDigest);
+            }
 
             // Prevent any further changes to the directory
             try { FileHelper.WriteProtection(target); }
