@@ -145,7 +145,7 @@ namespace ZeroInstall.Injector.WinForms
         }
         #endregion
 
-        #region Hanlder
+        #region Handler
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -177,7 +177,7 @@ namespace ZeroInstall.Injector.WinForms
             {
                 labelOperation.Text = "Extracting...";
                 progressBar.Task = extraction;
-                labelName.Text = extraction.Name;
+                labelName.Text = ""; // Nobody cares about random file names
             });
         }
 
@@ -189,7 +189,7 @@ namespace ZeroInstall.Injector.WinForms
             {
                 labelOperation.Text = "Generating manifest...";
                 progressBar.Task = manifest;
-                labelName.Text = manifest.Name;
+                labelName.Text = ""; // Nobody cares about random file names
             });
         }
         #endregion

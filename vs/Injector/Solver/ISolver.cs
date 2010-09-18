@@ -23,7 +23,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
     /// </summary>
-    /// <remarks>Implementations of this interface should be immutable.</remarks>
+    /// <remarks>This is an application of the strategy pattern. Implementations of this interface should be immutable.</remarks>
     public interface ISolver
     {
         #region Solve
