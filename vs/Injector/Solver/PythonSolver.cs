@@ -51,17 +51,7 @@ namespace ZeroInstall.Injector.Solver
 
         //--------------------//
 
-        /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments)
-        {
-            var startInfo = base.GetStartInfo(arguments);
-
-            // Add helper applications to search path
-            startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
-
-            return startInfo;
-        }
-
+        #region Solve
         /// <inheritdoc />
         public Selections Solve(string interfaceID, Policy policy)
         {
@@ -70,32 +60,22 @@ namespace ZeroInstall.Injector.Solver
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            // Asynchronously parse all StandardError data
-            string pendingQuestion = null, pendingError = null;
-            var errorParser = new PythonErrorParser(question => pendingQuestion = question, error => pendingError = error);
+            // Execute the external Python script
+            var errorParser = new PythonErrorParser(policy.InterfaceCache.Handler);
+            string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID;
+            string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
 
-            // Launch the script and pass in solver arguments with the interface ID
-            string result = Execute(BuildArguments(interfaceID, policy), errorParser.HandleStdErrorLine, delegate
-            {
-                if (pendingQuestion != null)
-                {
-                    string answer = policy.InterfaceCache.Handler.AcceptNewKey(pendingQuestion) ? "Y" : "N";
-                    pendingQuestion = null;
-                    return answer;
-                }
-                if (pendingError != null) throw new SolverException(pendingError);
-                return null;
-            });
+            // Handle any left-over error messages
             errorParser.Flush();
-            if (pendingError != null) throw new SolverException(pendingError);
 
             // Parse StandardOutput data as XML
-            return Selections.LoadFromString(result);
-        }
-
-        private string BuildArguments(string interfaceID, Policy policy)
-        {
-            return "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID;
+            try { return Selections.LoadFromString(result); }
+            #region Error handling
+            catch (InvalidOperationException)
+            {
+                throw new SolverException("Unknown solver problem");
+            }
+            #endregion
         }
 
         /// <summary>
@@ -121,5 +101,19 @@ namespace ZeroInstall.Injector.Solver
 
             return arguments;
         }
+        #endregion
+
+        #region Start info
+        /// <inheritdoc/>
+        protected override ProcessStartInfo GetStartInfo(string arguments)
+        {
+            var startInfo = base.GetStartInfo(arguments);
+
+            // Add helper applications to search path
+            startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+
+            return startInfo;
+        }
+        #endregion
     }
 }

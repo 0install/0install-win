@@ -21,17 +21,28 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Threading;
 using Common.Helpers;
 using Common.Properties;
 
 namespace Common
 {
+    #region Delegates
     /// <summary>
-    /// Provides an interface to an external command-line tool controlled via arguments and stdin and monitored via stdout and stderr.
+    /// A callback method for handling error messages from a CLI application.
+    /// </summary>
+    /// <param name="line">The error line written to stderr.</param>
+    /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
+    public delegate string CliErrorHandler(string line);
+    #endregion
+
+    /// <summary>
+    /// Provides an interface to an external command-line application controlled via arguments and stdin and monitored via stdout and stderr.
     /// </summary>
     public abstract class CliAppControl
     {
@@ -93,15 +104,33 @@ namespace Common
 
         //--------------------//
 
-        protected string Execute(string arguments, DataReceivedEventHandler errorHandler, SimpleResult<string> waitLoop)
+        #region Execute
+        /// <summary>
+        /// Runs the external application and waits until it has terminated.
+        /// </summary>
+        /// <param name="arguments">Command-line arguments to launch the application with.</param>
+        /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
+        /// <param name="errorHandler">A callback method to call whenever something is written to the stdout-stream and possibly to respond to it; <see langword="null"/> for none.</param>
+        /// <returns>The application's complete output to the stdout-stream.</returns>
+        /// <exception cref="IOException">Thrown if the external application could not be launched.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if there was output to stderr and <paramref name="errorHandler"/> was <see langword="null"/>.</exception>
+        protected string Execute(string arguments, string defaultInput, CliErrorHandler errorHandler)
         {
             var process = new Process { StartInfo = GetStartInfo(arguments) };
 
             // Asynchronously buffer all StandardOutput data
             var outputBuffer = new StringBuilder();
+            // No locking since the data will only be read at the end
             process.OutputDataReceived += (sender, e) => outputBuffer.AppendLine(e.Data);
 
-            if (errorHandler != null) process.ErrorDataReceived += errorHandler;
+            // Asynchronously buffer all StandardError messages
+            var errorList = new Queue<string>();
+            // Locking for thread-safe producer-consumer-behaviour
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                if (e.Data != null)
+                lock (errorList) errorList.Enqueue(e.Data);
+            };
 
             try { process.Start(); }
             #region Error handling
@@ -115,22 +144,52 @@ namespace Common
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
 
-            while (!process.WaitForExit(50))
+            // Write the default input first off
+            if (!string.IsNullOrEmpty(defaultInput)) process.StandardInput.Write(defaultInput);
+
+            if (errorHandler == null) process.WaitForExit();
+            else
             {
-                if (waitLoop != null)
+                do
                 {
-                    string write = waitLoop();
-                    if (write != null)
+                    // Handle messages to StandardError synchronously
+                    lock (errorList)
                     {
-                        process.StandardInput.WriteLine(write);
-                        process.StandardInput.Flush();
+                        while (errorList.Count > 0)
+                        {
+                            string result = errorHandler(errorList.Dequeue());
+                            if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
+                        }
+                    }
+                } while (!process.WaitForExit(50));
+            }
+
+            // HACK: Some extra time to finish any pending async operations
+            Thread.Sleep(100);
+
+            if (errorHandler != null)
+            {
+                lock (errorList)
+                {
+                    while (errorList.Count > 0)
+                    {
+                        string result = errorHandler(errorList.Dequeue());
+                        if (!string.IsNullOrEmpty(result)) process.StandardInput.WriteLine(result);
                     }
                 }
             }
 
+            if (errorList.Count > 0)
+                throw new UnhandledErrorsException(StringHelper.Concatenate(errorList, "\n"));
+
             return outputBuffer.ToString();
         }
+        #endregion
 
+        #region Start info
+        /// <summary>
+        /// Creates the <see cref="ProcessStartInfo"/> used by <see cref="Execute"/> to launch the external application.
+        /// </summary>
         protected virtual ProcessStartInfo GetStartInfo(string arguments)
         {
             var startInfo = new ProcessStartInfo
@@ -144,11 +203,12 @@ namespace Common
                 RedirectStandardError = true,
             };
 
-            // Make sure additional files of the portable application can be located
+            // Make sure additional files of the portable applications can be located
             if (Environment.OSVersion.Platform == PlatformID.Win32NT)
                 startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;
         }
+        #endregion
     }
 }

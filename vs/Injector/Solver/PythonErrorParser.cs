@@ -20,6 +20,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
+using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -36,8 +37,7 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         #region Variables
-        private readonly Action<string> _questionCallback;
-        private readonly Action<string> _errorCallback;
+        private readonly IFeedHandler _handler;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -47,12 +47,10 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Creates a new error parser.
         /// </summary>
-        /// <param name="questionCallback">The callback to use to ask the user questions.</param>
-        /// <param name="errorCallback">The callback to use to report errors while solving.</param>
-        public PythonErrorParser(Action<string> questionCallback, Action<string> errorCallback)
+        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        public PythonErrorParser(IFeedHandler handler)
         {
-            _questionCallback = questionCallback;
-            _errorCallback = errorCallback;
+            _handler = handler;
         }
         #endregion
 
@@ -60,16 +58,16 @@ namespace ZeroInstall.Injector.Solver
 
         #region Handle line
         /// <summary>
-        /// To be called for every line of data received from <see cref="Process.StandardError"/>.
+        /// To be called for every line of error data received from Python.
         /// </summary>
-        public void HandleStdErrorLine(object sender, DataReceivedEventArgs e)
+        /// <param name="line">The error line written to stderr.</param>
+        /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>
+        public string HandleStdErrorLine(string line)
         {
             #region Sanity checks
-            if (e == null) throw new ArgumentNullException("e");
+            if (line == null) throw new ArgumentNullException("line");
             #endregion
 
-            string line = e.Data;
-            if (line == null) return;
             var lineMode = IdentifyErrorMode(ref line);
 
             // Restore non-ASCII characters
@@ -103,10 +101,10 @@ namespace ZeroInstall.Injector.Solver
                     {
                         if (line.Contains("[Y/N]") && _currentErrorMode == ErrorMode.Question)
                         {
-                            _questionCallback(_cache.ToString());
                             _currentErrorMode = ErrorMode.None;
+                            return _handler.AcceptNewKey(_cache.ToString()) ? "Y" : "N";
                         }
-                        else _cache.AppendLine(line);
+                        _cache.AppendLine(line);
                     }
                     else if (lineMode >= ErrorMode.Info && lineMode <= ErrorMode.Critical)
                         FlushMessage(_currentErrorMode, line);
@@ -114,6 +112,8 @@ namespace ZeroInstall.Injector.Solver
                         throw new ArgumentException("Question within question is invalid", "line");
                     break;
             }
+
+            return null;
         }
 
         /// <summary>
@@ -173,8 +173,7 @@ namespace ZeroInstall.Injector.Solver
                 case ErrorMode.Error:
                 case ErrorMode.Critical:
                     Log.Error(message);
-                    if (_errorCallback != null) _errorCallback(message);
-                    break;
+                    throw new SolverException(message);
             }
         }
         #endregion
