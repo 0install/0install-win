@@ -151,6 +151,7 @@ namespace ZeroInstall.Store.Implementation
             catch (IOException)
             {
                 if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+                throw;
             }
 
             // Prevent any further changes to the directory
