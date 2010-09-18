@@ -15,16 +15,31 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Feed
+using Common;
+
+namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Silently handles all requests answering them with "Yes".
+    /// Silently handles all requests answering them with "No" and ignores progress reports.
     /// </summary>
-    public class SilentFeedHandler : IFeedHandler
+    public class SilentHandler : IHandler
     {
+        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
-            return true;
+            return false;
         }
+
+        /// <inheritdoc />
+        public void StartingDownload(IProgress download)
+        {}
+
+        /// <inheritdoc />
+        public void StartingExtraction(IProgress extraction)
+        {}
+
+        /// <inheritdoc />
+        public void StartingManifest(IProgress manifest)
+        {}
     }
 }

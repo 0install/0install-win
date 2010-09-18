@@ -83,7 +83,6 @@
     <Compile Include="DownloadBroker\FetcherTests.cs" />
     <Compile Include="DownloadBroker\PackageBuilderManifestExtension.cs" />
     <Compile Include="Injector\ControllerTest.cs" />
-    <Compile Include="Injector\SilentHandler.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\PythonSolverTest.cs" />
     <Compile Include="Injector\Solver\SelectionsTest.cs" />
@@ -102,7 +101,6 @@
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
     <Compile Include="Store\Implementation\StoreTest.cs" />
     <Compile Include="Store\Feed\InterfaceCacheTest.cs" />
-    <Compile Include="Store\Feed\SilentFeedHandler.cs" />
     <Compile Include="Store\Feed\TrustTest.cs" />
   </ItemGroup>
   <ItemGroup>

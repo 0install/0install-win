@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="5d833a8c-bf0d-43b6-a47c-3fe8f4436f4b"
   name="Injector" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -1313,6 +1313,166 @@
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="e5af1100-9607-4cc7-a9f3-c44ed7f6a3b0"
+        name="SilentHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="774b90bb-22fa-43f8-9e78-5d68d22e4d9e"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="20bc81a0-8ff5-4d0e-9ac9-625186504985">
+                <propertyInstance
+                  Id="b20caed3-944c-400f-8de1-9d924e90b73a"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f846050f-6cde-453a-b0ae-f144736a628e">
+                <propertyInstance
+                  Id="3afb4f15-6335-4222-aa46-dba85fd075cd"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="9c9995e5-ceec-4369-a424-404489485fde">
+                <propertyInstance
+                  Id="13d1a38d-07a8-495a-b9de-f54f1a187a64"
+                  name="IsStatic"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="73373a23-cf7d-4fa8-91ee-22223662edfc">
+                <propertyInstance
+                  Id="8633296a-6d5d-4d35-9e09-feb0b9dd5e90"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1894ec01-bb3f-48cb-8309-99a2be955c56">
+                <propertyInstance
+                  Id="1a9d4a8d-bcf7-45a1-8e02-6910b6cd2843"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="1a80dc4e-becd-44f1-8e60-1d38f6757427">
+            <interfaceMoniker
+              Id="b5343538-3205-4375-9ab5-ccdf3f5572a4"
+              LastKnownName="IHandler"
+              LastKnownLocation="Package_1423.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="67e7602c-dc56-44a3-a495-647a7e0b04e5"
+            name="AcceptNewKey"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6252a2ac-564b-49c7-a6ba-3e58604d8139"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="9ae6449a-0136-4be6-8c16-3ed6b4fa0efd"
+            name="StartingDownload"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a4e63192-7417-4dbf-974d-58b94c2439c4"
+                  name="download"
+                  direction="In">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="eb53f3f4-2324-4c76-af57-fda997587093"
+                      LastKnownName="IProgress"
+                      LastKnownLocation="Package_1718.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="835b65dc-67b4-4174-b040-a0b9b7ee518d"
+            name="StartingExtraction"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7ef326e6-8f68-4d57-a530-764ea62f0df6"
+                  name="download"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="eb53f3f4-2324-4c76-af57-fda997587093"
+                      LastKnownName="IProgress"
+                      LastKnownLocation="Package_1718.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="19298120-1909-41ad-abb8-a8c97118276a"
+            name="StartingManifest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="24cc598a-47af-4c5d-9f45-16c44a838906"
+                  name="download"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="eb53f3f4-2324-4c76-af57-fda997587093"
+                      LastKnownName="IProgress"
+                      LastKnownLocation="Package_1718.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
   </packagedElements>

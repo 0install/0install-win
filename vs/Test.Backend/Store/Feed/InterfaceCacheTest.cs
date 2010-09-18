@@ -18,6 +18,7 @@
 using System.IO;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Store.Feed
 {
@@ -39,7 +40,7 @@ namespace ZeroInstall.Store.Feed
                 File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
                 File.WriteAllText(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"), "");
 
-                var feed = new InterfaceCache(new SilentFeedHandler(), temp.Path).GetFeed("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
+                var feed = new InterfaceCache(new SilentHandler(), temp.Path).GetFeed("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
                 Assert.AreEqual(feed.Uri, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
             }
         }
@@ -55,7 +56,7 @@ namespace ZeroInstall.Store.Feed
                 File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
                 File.WriteAllText(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"), "");
 
-                var cached = new InterfaceCache(new SilentFeedHandler(), temp.Path).ListAllInterfaces();
+                var cached = new InterfaceCache(new SilentHandler(), temp.Path).ListAllInterfaces();
                 CollectionAssert.AreEqual(new[] {"http://0install.de/test/interface.xml"}, cached);
             }
         }
