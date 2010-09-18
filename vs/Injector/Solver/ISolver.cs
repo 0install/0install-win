@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
@@ -33,8 +34,8 @@ namespace ZeroInstall.Injector.Solver
         /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        // ToDo: Add more exceptions (e.g. feed problems)
         Selections Solve(string interfaceID, Policy policy);
         #endregion
     }

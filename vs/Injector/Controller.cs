@@ -86,7 +86,7 @@ namespace ZeroInstall.Injector
         /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified interface.
         /// </summary>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
-        /// <exception cref="IOException">Thrown if the solver could not read or write required disk files.</exception>
+        /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         public void Solve()
         {

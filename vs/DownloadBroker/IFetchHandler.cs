@@ -29,18 +29,21 @@ namespace ZeroInstall.DownloadBroker
         /// Called when a new download is about to be started.
         /// </summary>
         /// <param name="download">A reference to the download. Can be used for tracking the progress.</param>
+        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/>.</remarks>
         void StartingDownload(IProgress download);
 
         /// <summary>
         /// Called when a new extraction task is about to be started.
         /// </summary>
         /// <param name="extraction">A reference to the extraction task. Can be used for tracking the progress.</param>
+        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/>.</remarks>
         void StartingExtraction(IProgress extraction);
 
         /// <summary>
         /// Called when a new manifest is about to be generated.
         /// </summary>
         /// <param name="manifest">A reference to the manifest generation task. Can be used for tracking the progress.</param>
+        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/>.</remarks>
         void StartingManifest(IProgress manifest);
     }
 }
