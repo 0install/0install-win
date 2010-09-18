@@ -41,28 +41,50 @@ namespace ZeroInstall.Injector.Cli
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
             ParseResults results;
-            switch (ParseArgs(args, out results))
+            OperationMode mode;
+
+            try
+            { mode = ParseArgs(args, out results); }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                Console.Error.WriteLine(ex.Message);
+                return 1;
+            }
+            #endregion
+
+            switch (mode)
             {
                 case OperationMode.Normal:
-                    Execute(results);
-                    break;
+                    if (string.IsNullOrEmpty(results.Feed))
+                    {
+                        Console.Error.WriteLine("Missing arguments. Try 0launch --help");
+                        return 1;
+                    }
+                    
+                    return Execute(results);
 
                 case OperationMode.List:
                     List(results);
-                    break;
+                    return 0;
 
                 case OperationMode.Import:
                 case OperationMode.Manage:
                     // ToDo: Implement
-                    throw new NotImplementedException();
+                    Console.Error.WriteLine("Not implemented yet!");
+                    return 1;
 
                 case OperationMode.Version:
                     // ToDo: Read version number from assembly data
-                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "1.0");
-                    break;
+                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "0.50.0.0");
+                    return 0;
+
+                default:
+                    Console.Error.WriteLine("Unknown operation mode");
+                    return 1;
             }
         }
         #endregion
@@ -162,7 +184,8 @@ namespace ZeroInstall.Injector.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        private static void Execute(ParseResults results)
+        /// <returns>The error level to report to the original caller. 0 for everything OK, 1 or larger for an error.</returns>
+        private static int Execute(ParseResults results)
         {
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
@@ -173,12 +196,12 @@ namespace ZeroInstall.Injector.Cli
                 catch (IOException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 catch (SolverException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 #endregion
             }
@@ -191,16 +214,16 @@ namespace ZeroInstall.Injector.Cli
                 catch (IOException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 catch (WebException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 catch (UserCancelException)
                 {
-                    return;
+                    return 2;
                 }
                 #endregion
             }
@@ -219,20 +242,22 @@ namespace ZeroInstall.Injector.Cli
                 catch (ImplementationNotFoundException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 catch (MissingMainException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 catch (Win32Exception ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return;
+                    return 1;
                 }
                 #endregion
             }
+
+            return 0;
         }
         #endregion
 

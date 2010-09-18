@@ -49,7 +49,18 @@ namespace ZeroInstall.Injector.WinForms
                 var handler = new MainForm();
 
                 ParseResults results;
-                switch (ParseArgs(args, handler, out results))
+                OperationMode mode;
+
+                try { mode = ParseArgs(args, handler, out results); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    return;
+                }
+                #endregion
+
+                switch (mode)
                 {
                     case OperationMode.Normal:
                         // Ask for URI via GUI if none was specified on command-line
@@ -65,12 +76,16 @@ namespace ZeroInstall.Injector.WinForms
                     case OperationMode.List:
                     case OperationMode.Import:
                     case OperationMode.Manage:
-                        // ToDo: Implement
-                        throw new NotImplementedException();
+                        Msg.Inform(null, "Not implemented yet!", MsgSeverity.Error);
+                        break;
 
                     case OperationMode.Version:
                         // ToDo: Read version number from assembly data
                         Msg.Inform(null, "Zero Install for Windows Injector v1.0", MsgSeverity.Information);
+                        break;
+
+                    default:
+                        Msg.Inform(null, "Unknown operation mode", MsgSeverity.Error);
                         break;
                 }
             });
