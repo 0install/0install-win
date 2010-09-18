@@ -76,6 +76,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             if (Mode == EnvironmentMode.Replace) return string.Format("{0} = {1} ({2})", Name, Value, Mode);

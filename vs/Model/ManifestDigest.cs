@@ -157,6 +157,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1Old, Sha1New, Sha256);

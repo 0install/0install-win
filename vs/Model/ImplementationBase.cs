@@ -103,6 +103,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             string value = "Implementation: " + ID + " (" + ManifestDigest + ")";

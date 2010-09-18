@@ -67,7 +67,13 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        // ToDo: Implement ToString
+        #region Conversion
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return Interface;
+        }
+        #endregion
 
         #region Clone
         /// <summary>

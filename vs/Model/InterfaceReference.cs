@@ -94,6 +94,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return TargetString;

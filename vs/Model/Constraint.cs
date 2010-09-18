@@ -78,6 +78,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);

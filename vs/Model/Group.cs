@@ -106,6 +106,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("Group: {0} elements", Elements.Count);

@@ -38,6 +38,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return (Languages.IsEmpty)

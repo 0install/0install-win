@@ -54,6 +54,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             var output = new StringBuilder();

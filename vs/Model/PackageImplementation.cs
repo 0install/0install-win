@@ -127,6 +127,7 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return string.Format("PackageImplementation: {0} ({1})", Package, DistributionsString);

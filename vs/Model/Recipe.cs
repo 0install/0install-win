@@ -55,8 +55,6 @@ namespace ZeroInstall.Model
         #endregion
 
         //--------------------//
-        
-        // ToDo: Implement ToString
 
         #region Clone
         /// <summary>
