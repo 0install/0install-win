@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// A domain-name associated to a <see cref="Key"/>.
     /// </summary>
-    public struct Domain
+    public struct Domain : IEquatable<Domain>
     {
         #region Properties
         private string _value;
@@ -46,6 +46,32 @@ namespace ZeroInstall.Store.Feed
         }
         #endregion
 
-        // ToDo: Implement Equals
+        //--------------------//
+
+        #region Conversion
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return Value;
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(Domain other)
+        {
+            return Value == other.Value;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            return obj.GetType() == typeof(Domain) && Equals((Domain)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (Value ?? "").GetHashCode();
+        }
+        #endregion
     }
 }

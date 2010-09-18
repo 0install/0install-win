@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
 
@@ -24,7 +25,7 @@ namespace ZeroInstall.Store.Feed
     /// An entry in the <see cref="Trust"/> database.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Key
+    public sealed class Key : IEquatable<Key>
     {
         #region Properties
         /// <summary>
@@ -43,6 +44,40 @@ namespace ZeroInstall.Store.Feed
         public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
         #endregion
 
-        // ToDo: Implement Equals
+        //--------------------//
+
+        #region Conversion
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return Fingerprint + " (" + Domains + ")";
+        }
+        #endregion
+
+        #region Equality
+        public bool Equals(Key other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            return Fingerprint == other.Fingerprint && Domains.UnsequencedEquals(other.Domains);
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Key) && Equals((Key)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Fingerprint ?? "").GetHashCode();
+                result = (result * 397) ^ Domains.GetUnsequencedHashCode();
+                return result;
+            }
+        }
+        #endregion
     }
 }
