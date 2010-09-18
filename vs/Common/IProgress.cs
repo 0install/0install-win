@@ -26,26 +26,6 @@ using System.Windows.Forms;
 
 namespace Common
 {
-    #region Enumerations
-    /// <seealso cref="IProgress.State"/>
-    public enum ProgressState
-    {
-        /// <summary>The task is ready to begin.</summary>
-        Ready,
-        /// <summary>The thread has just been started.</summary>
-        Started,
-        /// <summary>Handling the header.</summary>
-        Header,
-        /// <summary>Handling the actual data.</summary>
-        Data,
-        /// <summary>The task has been completed sucessfully.</summary>
-        Complete,
-        /// <summary>An error occured during the task.</summary>
-        WebError,
-        /// <summary>An error occured while writing the file.</summary>
-        IOError
-    }
-    #endregion
 
     #region Delegates
     /// <summary>

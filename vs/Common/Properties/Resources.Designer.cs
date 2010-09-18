@@ -79,6 +79,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The argument must be greater than zero..
+        /// </summary>
+        internal static string ArgMustBeGreaterThanZero {
+            get {
+                return ResourceManager.GetString("ArgMustBeGreaterThanZero", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The argument may not be less than zero..
         /// </summary>
         internal static string ArgMustNotBeNegative {

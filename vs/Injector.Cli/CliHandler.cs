@@ -17,6 +17,7 @@
 
 using System;
 using Common;
+using Common.CliControls;
 
 namespace ZeroInstall.Injector.Cli
 {
@@ -48,19 +49,22 @@ namespace ZeroInstall.Injector.Cli
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
-            // ToDo: Implement
+            Console.Error.WriteLine("\nDownloading {0}...", download.Name);
+            new TrackingProgressBar(download);
         }
 
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
-            // ToDo: Implement
+            Console.Error.WriteLine("\nExtracting...");
+            new TrackingProgressBar(extraction);
         }
 
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
-            // ToDo: Implement
+            Console.Error.WriteLine("\nGenerating manifest...");
+            new TrackingProgressBar(manifest);
         }
     }
 }

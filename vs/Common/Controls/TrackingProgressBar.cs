@@ -57,7 +57,7 @@ namespace Common.Controls
 
                 if (value != null)
                 {
-                    // Set delegates to the new _task
+                    // Only hook up state event, progress tracking will be set up later
                     _task.StateChanged += StateChanged;
                 }
             }
@@ -136,6 +136,9 @@ namespace Common.Controls
 
                     case ProgressState.Complete:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+
+                        // When the status is complete the bar should always be full
+                        progressBar.Value = 100;
                         break;
                 }
             });

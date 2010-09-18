@@ -245,4 +245,7 @@ Die Änderungen löschen</value>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>Die mitgelieferte {0}-Installation konnte nicht gestartet werden. Bitte installieren Sie die Anwendung neu.</value>
   </data>
+  <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
+    <value>Das Argument muss größer als Null sein.</value>
+  </data>
 </root>

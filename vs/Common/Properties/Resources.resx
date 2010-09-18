@@ -252,4 +252,7 @@ Delete the changes</value>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>
   </data>
+  <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
+    <value>The argument must be greater than zero.</value>
+  </data>
 </root>

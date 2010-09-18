@@ -63,6 +63,8 @@
     <Compile Include="Archive\TarExtractor.cs" />
     <Compile Include="Archive\TarBz2Extractor.cs" />
     <Compile Include="Archive\TarGzExtractor.cs" />
+    <Compile Include="CliControls\ProgessBar.cs" />
+    <Compile Include="CliControls\TrackingProgessBar.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="NanoGrid.cs" />
     <Compile Include="IProgress.cs" />
     <Compile Include="IOProgress.cs" />
+    <Compile Include="ProgressState.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />
