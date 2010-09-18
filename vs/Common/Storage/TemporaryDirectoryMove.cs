@@ -7,7 +7,7 @@ namespace Common.Storage
     /// Helper class to move an existing directory to a temporary directory only within a
     /// using statement block.
     /// </summary>
-    public class TemporaryDirectoryMove : IDisposable
+    public sealed class TemporaryDirectoryMove : IDisposable
     {
         private readonly string _originalPath, _movedPath;
 

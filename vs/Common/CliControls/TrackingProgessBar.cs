@@ -25,7 +25,7 @@ using System;
 namespace Common.CliControls
 {
     /// <summary>
-    /// A progress bar rendered on the commmand-line that automatically tracks the progress of an <see cref="IProgress"/> object.
+    /// A progress bar rendered on the <see cref="Console"/> that automatically tracks the progress of an <see cref="IProgress"/> object.
     /// </summary>
     public class TrackingProgressBar : ProgessBar
     {

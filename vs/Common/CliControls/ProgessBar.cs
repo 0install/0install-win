@@ -28,7 +28,7 @@ using Common.Properties;
 namespace Common.CliControls
 {
     /// <summary>
-    /// A progress bar rendered on the commmand-line.
+    /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
     public class ProgessBar
     {

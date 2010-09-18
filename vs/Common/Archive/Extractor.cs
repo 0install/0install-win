@@ -70,6 +70,11 @@ namespace Common.Archive
         /// <param name="target">The path to the directory to extract into.</param>
         protected Extractor(Stream stream, long startOffset, string target)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
+            #endregion
+
             Stream = stream;
             StartOffset = startOffset;
             Target = target;
