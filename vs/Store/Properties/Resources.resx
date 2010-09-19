@@ -153,4 +153,7 @@
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>The following implementation could not be located: {0}</value>
   </data>
+  <data name="FileToSignNotFound" xml:space="preserve">
+    <value>The file to be signed could not be found.</value>
+  </data>
 </root>

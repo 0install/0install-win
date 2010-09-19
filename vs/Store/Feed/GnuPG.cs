@@ -17,8 +17,8 @@
 
 using System;
 using System.IO;
-using System.Security;
 using Common;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feed
 {
@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public string[] ListSecretKeys()
         {
-            string result = Execute("--batch --list-secret-keys", null, null);
+            string result = Execute("--batch --list-secret-keys", null, ErrorHanlder);
 
             // ToDo: Parse properly
             return result.Split(new[] {Environment.NewLine + Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
@@ -54,12 +54,27 @@ namespace ZeroInstall.Store.Feed
         /// Creates a detached signature for a specific file using the user's default key.
         /// </summary>
         /// <param name="path">The file to create the signature for.</param>
+        /// <param name="user">The GnuPG ID of the user whose signture to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public void DetachSign(string path, SecureString passphrase)
+        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
+        /// <exception cref="FileNotFoundException"></exception>
+        public void DetachSign(string path, string user, string passphrase)
         {
-            Execute("--batch --passphrase-fd 0 --detach-sign " + path, passphrase.ToString(), null);
+            #region Sanity chekcs
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
+            if (string.IsNullOrEmpty(passphrase)) throw new ArgumentNullException("passphrase");
+            if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
+            #endregion
+
+            Execute("--batch --passphrase-fd 0 --local-user" + user + "--detach-sign " + path, passphrase, ErrorHanlder);
+        }
+
+        private static string ErrorHanlder(string line)
+        {
+            // ToDo: Filter
+            throw new UnhandledErrorsException(line);
         }
     }
 }
