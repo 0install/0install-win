@@ -77,12 +77,11 @@ namespace ZeroInstall.DownloadBroker
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled from another thread.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <see cref="ManifestDigest"/> in <see cref="Store"/>.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
         public void RunSync(FetchRequest fetchRequest)
         {
             #region Sanity checks
-            if (fetchRequest == null) throw new ArgumentNullException("fetcherRequest");
+            if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
             #endregion
 
             foreach (var implementation in fetchRequest.Implementations)
@@ -110,8 +109,9 @@ namespace ZeroInstall.DownloadBroker
         {
             string tempArchive = Path.GetTempFileName();
             FetchArchive(archive, tempArchive);
-            Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest);
-            File.Delete(tempArchive);
+            try { Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest); }
+            catch (ImplementationAlreadyInStoreException) {}
+            finally { File.Delete(tempArchive); }
         }
 
         private void FetchMultipleArchives(Implementation implementation, Recipe recipe)
@@ -127,7 +127,9 @@ namespace ZeroInstall.DownloadBroker
                 FetchArchive(currentArchive, tempArchive);
                 archives.Add(new ArchiveFileInfo { Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset });
             }
-            Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest);
+            try { Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest); }
+            catch (ImplementationAlreadyInStoreException) { }
+            finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
 
         private void FetchArchive(Archive archive, string destination)
