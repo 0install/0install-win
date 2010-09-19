@@ -20,10 +20,15 @@ using Common;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Silently handles all requests answering them with "No" and ignores progress reports.
+    /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
     public class SilentHandler : IHandler
     {
+        /// <summary>
+        /// Always returns <see langword="true"/>.
+        /// </summary>
+        public bool Batch { get { return true; } set {} }
+
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {

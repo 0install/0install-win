@@ -61,6 +61,15 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any messages to the user and silently answer all questions with &quot;No&quot;..
+        /// </summary>
+        internal static string OptionBatch {
+            get {
+                return ResourceManager.GetString("OptionBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chosen implementation&apos;s version number must be earlier than {VERSION}. i.e., force the use of an old version the program..
         /// </summary>
         internal static string OptionBefore {

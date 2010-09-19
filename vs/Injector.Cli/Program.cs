@@ -47,7 +47,7 @@ namespace ZeroInstall.Injector.Cli
             OperationMode mode;
 
             try
-            { mode = ParseArgs(args, out results); }
+            { mode = ParseArgs(args, new CliHandler(), out results); }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -94,10 +94,11 @@ namespace ZeroInstall.Injector.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, out ParseResults results)
+        public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -105,7 +106,7 @@ namespace ZeroInstall.Injector.Cli
 
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(new CliHandler())};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
 
             #region Define options
             var options = new OptionSet
@@ -131,6 +132,7 @@ namespace ZeroInstall.Injector.Cli
                 {"set-selections=", Resources.OptionSetSelections, file => parseResults.SelectionsFile = file},
                 {"get-selections", Resources.OptionGetSelections, unused => parseResults.GetSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => parseResults.SelectOnly = true},
+                {"batch", Resources.OptionBatch, unused => handler.Batch = true},
                 {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
 
                 // Launcher options

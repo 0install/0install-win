@@ -26,9 +26,16 @@ namespace ZeroInstall.Injector.Cli
     /// </summary>
     public class CliHandler : IHandler
     {
+        /// <summary>
+        /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".
+        /// </summary>
+        public bool Batch { get; set; }
+
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
+            if (Batch) return false;
+
             Console.Error.WriteLine(information);
 
             while (true)
@@ -49,6 +56,8 @@ namespace ZeroInstall.Injector.Cli
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
+            if (Batch) return;
+
             Console.Error.WriteLine("\nDownloading {0}...", download.Name);
             new TrackingProgressBar(download);
         }
@@ -56,6 +65,8 @@ namespace ZeroInstall.Injector.Cli
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
+            if (Batch) return;
+
             Console.Error.WriteLine("\nExtracting...");
             new TrackingProgressBar(extraction);
         }
@@ -63,6 +74,8 @@ namespace ZeroInstall.Injector.Cli
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
+            if (Batch) return;
+
             Console.Error.WriteLine("\nGenerating manifest...");
             new TrackingProgressBar(manifest);
         }

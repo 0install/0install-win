@@ -28,6 +28,13 @@ namespace ZeroInstall.Injector.WinForms
         }
         #endregion
 
+        #region Properties
+        /// <summary>
+        /// Silently answer all questions with "No".
+        /// </summary>
+        public bool Batch { get; set; }
+        #endregion
+
         #region Constructor
         public MainForm()
         {
@@ -149,6 +156,8 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
+            if (Batch) return false;
+
             bool result = false;
 
             // Handle events coming from a non-UI thread, block caller until user has answered

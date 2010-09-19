@@ -22,6 +22,7 @@ using Common;
 using Common.Controls;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
+using ZeroInstall.Injector.WinForms.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -133,6 +134,7 @@ namespace ZeroInstall.Injector.WinForms
                 // Special operations
                 {"d|download-only", unused => parseResults.DownloadOnly = true},
                 {"set-selections=", file => parseResults.SelectionsFile = file},
+                {"batch", unused => handler.Batch = true},
 
                 // Launcher options
                 {"m|main=", newMain => parseResults.Main = newMain},
