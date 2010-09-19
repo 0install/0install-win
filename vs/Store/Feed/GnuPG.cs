@@ -44,7 +44,7 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public string[] ListSecretKeys()
         {
-            string result = Execute("--batch --list-secret-keys", null, ErrorHanlder);
+            string result = Execute("--batch --list-secret-keys", null, ErrorHandler);
 
             // ToDo: Parse properly
             return result.Split(new[] {Environment.NewLine + Environment.NewLine}, StringSplitOptions.RemoveEmptyEntries);
@@ -61,20 +61,27 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="FileNotFoundException"></exception>
         public void DetachSign(string path, string user, string passphrase)
         {
-            #region Sanity chekcs
+            #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
             if (string.IsNullOrEmpty(passphrase)) throw new ArgumentNullException("passphrase");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            Execute("--batch --passphrase-fd 0 --local-user" + user + "--detach-sign " + path, passphrase, ErrorHanlder);
+            Execute("--batch --passphrase-fd 0 --local-user" + user + "--detach-sign " + path, passphrase, ErrorHandler);
         }
 
-        private static string ErrorHanlder(string line)
+        /// <summary>
+        /// Provides error handling for GnuPG stderr.
+        /// </summary>
+        /// <param name="line">The error line written to stderr.</param>
+        /// <returns>Always <see langword="null"/>.</returns>
+        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        private static string ErrorHandler(string line)
         {
-            // ToDo: Filter
-            throw new UnhandledErrorsException(line);
+            if (line.StartsWith("gpg: NOTE:")) Log.Info(line);
+            else throw new UnhandledErrorsException(line);
+            return null;
         }
     }
 }
