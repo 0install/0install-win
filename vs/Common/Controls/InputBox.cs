@@ -46,19 +46,7 @@ namespace Common.Controls
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
         public static string Show(string prompt, string title, string defaultText)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            #endregion
-
-            var inputBox = new InputBox
-            {
-                Text = title,
-                labelPrompt = {Text = prompt},
-                textInput = {Text = defaultText}
-            };
-
-            return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
+            return Show(prompt, title, defaultText, false);
         }
         
         /// <summary>
@@ -70,6 +58,23 @@ namespace Common.Controls
         public static string Show(string prompt, string title)
         {
             return Show(prompt, title, "");
+        }
+
+        public static string Show(string prompt, string title, string defaultText, bool useSystemPasswortChar)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            #endregion
+
+            var inputBox = new InputBox
+            {
+                Text = title,
+                labelPrompt = { Text = prompt },
+                textInput = { Text = defaultText, UseSystemPasswordChar = useSystemPasswortChar }   
+            };
+
+            return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
         }
     }
 }
