@@ -64,6 +64,39 @@ namespace ZeroInstall.Model
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
         [XmlAttribute("sha256")]
         public string Sha256 { get; set; }
+
+        /// <summary>
+        /// Lists all contained manifest digests (format=hash) sorted from best (safest) to worst.
+        /// </summary>
+        [XmlIgnore]
+        public IEnumerable<string> AvailableDigests
+        {
+            get
+            {
+                ICollection<string> list = new LinkedList<string>();
+
+                if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
+                if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
+                if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
+
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// Returns the best (safest) contained manifest digest (format=hash). <see langword="null"/> if none is set.
+        /// </summary>
+        [XmlIgnore]
+        public string BestDigest
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix + "=" + Sha256;
+                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix + "=" + Sha1New;
+                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix + "=" + Sha1Old;
+                return null;
+            }
+        }
         #endregion
 
         #region Constructor
@@ -122,36 +155,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Access
-        /// <summary>
-        /// Lists all contained manifest digests (format=hash) sorted from best (safest) to worst.
-        /// </summary>
-        public IEnumerable<string> AvailableDigests
-        {
-            get
-            {
-                ICollection<string> list = new LinkedList<string>();
 
-                if (!string.IsNullOrEmpty(Sha256)) list.Add(Sha256Prefix + "=" + Sha256);
-                if (!string.IsNullOrEmpty(Sha1New)) list.Add(Sha1NewPrefix + "=" + Sha1New);
-                if (!string.IsNullOrEmpty(Sha1Old)) list.Add(Sha1OldPrefix + "=" + Sha1Old);
-
-                return list;
-            }
-        }
-
-        /// <summary>
-        /// Returns the best (safest) contained manifest digest (format=hash). <see langword="null"/> if none is set.
-        /// </summary>
-        public string BestDigest
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix + "=" + Sha256;
-                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix + "=" + Sha1New;
-                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix + "=" + Sha1Old;
-                return null;
-            }
-        }
         #endregion
 
         //--------------------//
