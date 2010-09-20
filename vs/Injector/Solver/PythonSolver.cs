@@ -76,9 +76,9 @@ namespace ZeroInstall.Injector.Solver
             // Parse StandardOutput data as XML
             try { return Selections.LoadFromString(result); }
             #region Error handling
-            catch (InvalidOperationException)
+            catch (InvalidOperationException ex)
             {
-                throw new SolverException("Unknown solver problem");
+                throw new SolverException(ex.Message, ex);
             }
             #endregion
         }

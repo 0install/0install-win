@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -26,7 +25,12 @@ namespace ZeroInstall.Injector.Solver
     [Serializable]
     public class SolverException : Exception
     {
+        /// <inheritdoc/>
         public SolverException(string message) : base(message)
+        {}
+        
+        /// <inheritdoc/>
+        public SolverException(string message, Exception innerException) : base(message, innerException)
         {}
     }
 }
