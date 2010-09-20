@@ -42,7 +42,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// List with supported archive types by 0install. If more types become supported, add them to this list.
         /// </summary>
-        private readonly List<ArchiveMimeTypes> _supportedMimeTypes = new List<ArchiveMimeTypes> { ArchiveMimeTypes.Zip };
+        private readonly List<ArchiveMimeTypes> _supportedMimeTypes = new List<ArchiveMimeTypes> { ArchiveMimeTypes.Zip, ArchiveMimeTypes.TarGz, ArchiveMimeTypes.TarBz2 };
 
         #endregion
 
