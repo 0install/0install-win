@@ -156,4 +156,10 @@
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>The file to be signed could not be found.</value>
   </data>
+  <data name="DigestMismatch" xml:space="preserve">
+    <value>An extracted implementation's manifest hash doesn't match the expected value!
+
+Expected value: {0}
+Actual value: {1}</value>
+  </data>
 </root>

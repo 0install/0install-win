@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -47,6 +48,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="expectedHash">The hash value the <see cref="Implementation"/> was supposed to have.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
         public DigestMismatchException(string expectedHash, string actualHash)
+            : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
         {
             ExpectedHash = expectedHash;
             ActualHash = actualHash;

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -75,9 +76,10 @@ namespace ZeroInstall.Injector.WinForms
 
             try { controller.DownloadUncachedImplementations(); }
             #region Error hanlding
-            catch (IOException ex)
+            catch (UserCancelException)
             {
-                ReportSyncError(ex.Message);
+                progressBar.Task = null;
+                Invoke((SimpleEventHandler)Close);
                 return;
             }
             catch (WebException ex)
@@ -85,10 +87,19 @@ namespace ZeroInstall.Injector.WinForms
                 ReportSyncError(ex.Message);
                 return;
             }
-            catch (UserCancelException)
+            catch (IOException ex)
             {
-                progressBar.Task = null;
-                Invoke((SimpleEventHandler)Close);
+                ReportSyncError(ex.Message);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                ReportSyncError(ex.Message);
+                return;
+            }
+            catch (DigestMismatchException ex)
+            {
+                ReportSyncError(ex.Message);
                 return;
             }
             #endregion

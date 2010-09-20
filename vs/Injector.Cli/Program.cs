@@ -32,6 +32,24 @@ using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Injector.Cli
 {
+    #region Enumerations
+    /// <summary>
+    /// A list of errorlevels that are returned to the original caller after the application terminates, to indicate success or the reason for failure.
+    /// </summary>
+    public enum ErrorLevel
+    {
+        OK = 0,
+        UserCanceled = 1,
+        InvalidArguments = 2,
+        NotSupported = 3,
+        IOError = 10,
+        WebError = 11,
+        ImplementationError = 12,
+        SolverError = 20,
+        DigestMismatch = 21
+    }
+    #endregion
+
     /// <summary>
     /// Command-line application for launching applications via the Zero Install Injector.
     /// </summary>
@@ -52,7 +70,7 @@ namespace ZeroInstall.Injector.Cli
             catch (ArgumentException ex)
             {
                 Console.Error.WriteLine(ex.Message);
-                return 1;
+                return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
 
@@ -62,29 +80,29 @@ namespace ZeroInstall.Injector.Cli
                     if (string.IsNullOrEmpty(results.Feed))
                     {
                         Console.Error.WriteLine("Missing arguments. Try 0launch --help");
-                        return 1;
+                        return (int)ErrorLevel.InvalidArguments;
                     }
                     
                     return Execute(results);
 
                 case OperationMode.List:
                     List(results);
-                    return 0;
+                    return (int)ErrorLevel.OK;
 
                 case OperationMode.Import:
                 case OperationMode.Manage:
                     // ToDo: Implement
                     Console.Error.WriteLine("Not implemented yet!");
-                    return 1;
+                    return (int)ErrorLevel.NotSupported;
 
                 case OperationMode.Version:
                     // ToDo: Read version number from assembly data
                     Console.WriteLine(@"Zero Install for Windows Injector v{0}", "0.50.0.0");
-                    return 0;
+                    return (int)ErrorLevel.OK;
 
                 default:
                     Console.Error.WriteLine("Unknown operation mode");
-                    return 1;
+                    return (int)ErrorLevel.NotSupported;
             }
         }
         #endregion
@@ -198,12 +216,12 @@ namespace ZeroInstall.Injector.Cli
                 catch (IOException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.IOError;
                 }
                 catch (SolverException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.SolverError;
                 }
                 #endregion
             }
@@ -213,19 +231,29 @@ namespace ZeroInstall.Injector.Cli
             {
                 try { controller.DownloadUncachedImplementations(); }
                 #region Error hanlding
-                catch (IOException ex)
+                catch (UserCancelException)
                 {
-                    Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.UserCanceled;
                 }
                 catch (WebException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.WebError;
                 }
-                catch (UserCancelException)
+                catch (IOException ex)
                 {
-                    return 2;
+                    Console.Error.WriteLine(ex.Message);
+                    return (int)ErrorLevel.IOError;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return (int)ErrorLevel.IOError;
+                }
+                catch (DigestMismatchException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return (int)ErrorLevel.DigestMismatch;
                 }
                 #endregion
             }
@@ -244,22 +272,22 @@ namespace ZeroInstall.Injector.Cli
                 catch (ImplementationNotFoundException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.ImplementationError;
                 }
                 catch (MissingMainException ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.ImplementationError;
                 }
                 catch (Win32Exception ex)
                 {
                     Console.Error.WriteLine(ex.Message);
-                    return 1;
+                    return (int)ErrorLevel.IOError;
                 }
                 #endregion
             }
 
-            return 0;
+            return (int)ErrorLevel.OK;
         }
         #endregion
 

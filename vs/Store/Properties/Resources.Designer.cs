@@ -61,6 +61,18 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An extracted implementation&apos;s manifest hash doesn&apos;t match the expected value!
+        ///
+        ///Expected value: {0}
+        ///Actual value: {1}.
+        /// </summary>
+        internal static string DigestMismatch {
+            get {
+                return ResourceManager.GetString("DigestMismatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be signed could not be found..
         /// </summary>
         internal static string FileToSignNotFound {
