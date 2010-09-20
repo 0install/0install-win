@@ -187,5 +187,14 @@ namespace ZeroInstall.Store.Properties {
                 return ResourceManager.GetString("UnableToAddImplementionToStore", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknow key type..
+        /// </summary>
+        internal static string UnknowGPGKeyType {
+            get {
+                return ResourceManager.GetString("UnknowGPGKeyType", resourceCulture);
+            }
+        }
     }
 }

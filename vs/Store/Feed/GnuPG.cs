@@ -1,5 +1,5 @@
 /*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010 Bastian Eicher, Simon E. Silva Lauinger
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -52,6 +52,8 @@ namespace ZeroInstall.Store.Feed
             
             return ExtractSecretKeys(result);
         }
+
+        #region Extract secret keys
 
         /// <summary>
         /// Returns a list of all secret gpg keys on this system.
@@ -115,7 +117,7 @@ namespace ZeroInstall.Store.Feed
                     return KeyType.Elgamal;
                 case "R":
                     return KeyType.Rsa;
-                default: throw new InvalidEnumArgumentException("Unknow key type.");
+                default: throw new InvalidEnumArgumentException(Resources.UnknowGPGKeyType);
             }
         }
 
@@ -175,6 +177,7 @@ namespace ZeroInstall.Store.Feed
             var emailAdress = suffixRemover.Replace(removedPrefix, String.Empty);
             return emailAdress;            
         }
+        #endregion
 
         /// <summary>
         /// Creates a detached signature for a specific file using the user's default key.
@@ -194,7 +197,7 @@ namespace ZeroInstall.Store.Feed
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            Execute("--batch --passphrase-fd 0 --local-user" + user + "--detach-sign " + path, passphrase, ErrorHandler);
+            Execute("--batch --passphrase-fd 0 --local-user " + user + "--detach-sign " + path, passphrase, ErrorHandler);
         }
 
         /// <summary>

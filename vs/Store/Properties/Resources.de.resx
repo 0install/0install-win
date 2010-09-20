@@ -161,4 +161,7 @@ Tatsächlicher Wert: {1}</value>
   <data name="UnableToAddImplementionToStore" xml:space="preserve">
     <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
   </data>
+  <data name="UnknowGPGKeyType" xml:space="preserve">
+    <value>Unbekannter Schlüsseltyp.</value>
+  </data>
 </root>

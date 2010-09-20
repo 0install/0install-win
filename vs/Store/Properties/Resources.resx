@@ -161,4 +161,7 @@
 Expected value: {0}
 Actual value: {1}</value>
   </data>
+  <data name="UnknowGPGKeyType" xml:space="preserve">
+    <value>Unknow key type.</value>
+  </data>
 </root>
