@@ -204,6 +204,9 @@ namespace Common.Archive
 
             if (!string.IsNullOrEmpty(SubDir))
             {
+                // Remove leading slashes
+                SubDir = SubDir.TrimStart(new[] {Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar});
+
                 // Only extract objects within the selected sub-directory
                 entryName = entryName.StartsWith(SubDir) ? entryName.Substring(SubDir.Length) : null;
             }

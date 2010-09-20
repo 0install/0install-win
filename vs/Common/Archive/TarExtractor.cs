@@ -73,6 +73,8 @@ namespace Common.Archive
 
             try
             {
+                if (!Directory.Exists(Target)) Directory.CreateDirectory(Target);
+
                 TarEntry entry;
                 while ((entry = _tar.GetNextEntry()) != null)
                 {

@@ -73,6 +73,8 @@ namespace Common.Archive
 
             try
             {
+                if (!Directory.Exists(Target)) Directory.CreateDirectory(Target);
+
                 foreach (ZipEntry entry in _zip)
                 {
                     string entryName = GetSubEntryName(entry.Name);
