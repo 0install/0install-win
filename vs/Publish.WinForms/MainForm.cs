@@ -22,11 +22,13 @@ using System.IO;
 using System.Windows.Forms;
 using C5;
 using Common;
+using Common.Controls;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
 using System.Drawing.Imaging;
 using ZeroInstall.Publish.WinForms.FeedStructure;
+using ZeroInstall.Store.Feed;
 using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.Publish.WinForms
@@ -68,6 +70,7 @@ namespace ZeroInstall.Publish.WinForms
             InitializeComboBoxIconType();
             InitializeTreeViewFeedStructure();
             InitializeFeedStructureButtons();
+            InitializeComboBoxGpg();
         }
 
         /// <summary>
@@ -124,6 +127,19 @@ namespace ZeroInstall.Publish.WinForms
             buttonAddRecipe.Tag = new Recipe();
         }
 
+        /// <summary>
+        /// Adds a list of secret gpg keys of the user to comboBoxGpg.
+        /// </summary>
+        private void InitializeComboBoxGpg()
+        {
+            var gpg = new GnuPG();
+            var bla = gpg.ListSecretKeys();
+            foreach (var secretKey in bla)
+            {
+                toolStripComboBoxGpg.Items.Add(secretKey);
+            }
+        }
+
         #endregion
 
         #region Toolbar
@@ -157,7 +173,7 @@ namespace ZeroInstall.Publish.WinForms
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
             if (_openFeedPath != null)  saveFileDialog.InitialDirectory = _openFeedPath;
-            saveFileDialog.ShowDialog(this);
+            MainForm_FormClosing(null, null);
         }
 
         #endregion
@@ -205,6 +221,8 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveGeneralTab()
         {
+            _feedToEdit.Name = hintTextBoxProgramName.Text;
+
             _feedToEdit.Categories.Clear();
             //TODO complete setting attribute type(required: understanding of the category system)
             foreach (var category in checkedListBoxCategories.CheckedItems) _feedToEdit.Categories.Add(category.ToString());
@@ -264,13 +282,14 @@ namespace ZeroInstall.Publish.WinForms
                 case DialogResult.Yes:
                     if (String.IsNullOrEmpty(_openFeedPath))
                     {
-                        if (saveFileDialog.ShowDialog(this) == DialogResult.Yes)
+                        if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                         {
                             SaveFeed(saveFileDialog.FileName);
                         }
                     } else
                     {
                         SaveFeed(_openFeedPath);
+
                     }
                     break;
                 case DialogResult.No: break;
@@ -922,7 +941,7 @@ namespace ZeroInstall.Publish.WinForms
                 var group = element as Group;
                 if (group != null)
                 {
-                    var groupNode = new TreeNode("Group") {Tag = group};
+                    var groupNode = new TreeNode("Group " + group.ToString()) {Tag = group};
                     parentNode.Nodes.Add(groupNode);
                     BuildElementsTreeNodes(group.Elements, groupNode);
                     BuildDependencyTreeNodes(group.Dependencies, groupNode);
@@ -933,7 +952,7 @@ namespace ZeroInstall.Publish.WinForms
                     var implementation = element as Implementation;
                     if (implementation != null)
                     {
-                        var implementationNode = new TreeNode("Implementation") { Tag = implementation };
+                        var implementationNode = new TreeNode("Implementation " + implementation.ToString()) { Tag = implementation };
                         parentNode.Nodes.Add(implementationNode);
                         BuildManifestDigestTreeNode(implementation.ManifestDigest, implementationNode);
                         BuildRetrievalMethodsTreeNodes(implementation.RetrievalMethods, implementationNode);
@@ -945,7 +964,7 @@ namespace ZeroInstall.Publish.WinForms
                         var packageImplementation = element as PackageImplementation;
                         if (packageImplementation != null)
                         {
-                            var packageImplementationNode = new TreeNode("Package implementation") { Tag = packageImplementation };
+                            var packageImplementationNode = new TreeNode("Package implementation " + packageImplementation.ToString()) { Tag = packageImplementation };
                             parentNode.Nodes.Add(packageImplementationNode);
                             BuildDependencyTreeNodes(packageImplementation.Dependencies, parentNode);
                             BuildBindingTreeNodes(packageImplementation.Bindings, parentNode);
@@ -964,9 +983,9 @@ namespace ZeroInstall.Publish.WinForms
             foreach (var binding in bindings)
             {
                 string bindingType = "Unknown binding";
-                if (binding is EnvironmentBinding) bindingType = "Environment binding";
-                else if (binding is OverlayBinding) bindingType = "Overlay binding";
-                var bindingNode = new TreeNode(bindingType) {Tag = binding};
+                if (binding is EnvironmentBinding) bindingType = "Environment binding ";
+                else if (binding is OverlayBinding) bindingType = "Overlay binding ";
+                var bindingNode = new TreeNode(bindingType + binding.ToString()) {Tag = binding};
                 parentNode.Nodes.Add(bindingNode);
             }
         }
@@ -986,7 +1005,7 @@ namespace ZeroInstall.Publish.WinForms
 
             foreach (var dependency in dependencies)
             {
-                var dependencyNode = new TreeNode("Dependency") { Tag = dependency };
+                var dependencyNode = new TreeNode("Dependency " + dependency.ToString()) { Tag = dependency };
                 parentNode.Nodes.Add(dependencyNode);
                 BuildBindingTreeNodes(dependency.Bindings, dependencyNode);
             }
@@ -1001,10 +1020,10 @@ namespace ZeroInstall.Publish.WinForms
             foreach (var retrievalMethod in retrievalMethods)
             {
                 string retrievalMethodType = "Unknown retrieval method";
-                if (retrievalMethod is Archive) retrievalMethodType = "Archive";
-                else if (retrievalMethod is Recipe) retrievalMethodType = "Recipe";
+                if (retrievalMethod is Archive) retrievalMethodType = "Archive ";
+                else if (retrievalMethod is Recipe) retrievalMethodType = "Recipe ";
 
-                var retrievalMethodNode = new TreeNode(retrievalMethodType) { Tag = retrievalMethod };
+                var retrievalMethodNode = new TreeNode(retrievalMethodType + retrievalMethod.ToString()) { Tag = retrievalMethod };
                 parentNode.Nodes.Add(retrievalMethodNode);
             }
         }
