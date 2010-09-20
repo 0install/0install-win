@@ -194,7 +194,7 @@ namespace Common
         /// </summary>
         protected virtual ProcessStartInfo GetStartInfo(string arguments)
         {
-            var startInfo = new ProcessStartInfo
+            return new ProcessStartInfo
             {
                 FileName = AppBinary,
                 WorkingDirectory = AppDirectory,
@@ -205,12 +205,6 @@ namespace Common
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
-
-            // Make sure additional files of the portable applications can be located
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
-                startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
-
-            return startInfo;
         }
         #endregion
     }

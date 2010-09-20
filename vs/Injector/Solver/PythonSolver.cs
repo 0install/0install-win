@@ -38,6 +38,11 @@ namespace ZeroInstall.Injector.Solver
         /// <inheritdoc/>
         protected override string AppBinaryName { get { return "python"; } }
 
+        private string PackagesDirectory
+        {
+            get { return Path.Combine(Path.Combine(AppDirectory, "Lib"), "site-packages"); }
+        }
+
         private string SolverScript
         {
             get { return Path.Combine(Path.Combine(AppDirectory, "Scripts"), "0solve"); }
@@ -109,8 +114,13 @@ namespace ZeroInstall.Injector.Solver
         {
             var startInfo = base.GetStartInfo(arguments);
 
-            // Add helper applications to search path
-            startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+            // Add bundled GnuPG to search path for Python script to use on Windows
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+
+            // Add bundled Python scripts to Python search python when using native Python installation
+            if (Environment.OSVersion.Platform != PlatformID.Win32Windows && Environment.OSVersion.Platform != PlatformID.Win32NT)
+                startInfo.EnvironmentVariables["PYTHONPATH"] = PackagesDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
 
             return startInfo;
         }
