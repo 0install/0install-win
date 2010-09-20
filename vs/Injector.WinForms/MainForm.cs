@@ -52,7 +52,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <param name="results">The parser results to be executed.</param>
         public void Execute(ParseResults results)
         {
-            StartAsyncGui(results.Feed);
+            RGuiAsync(results.Feed);
 
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
@@ -62,12 +62,12 @@ namespace ZeroInstall.Injector.WinForms
                 #region Error hanlding
                 catch (IOException ex)
                 {
-                    ReportSyncError(ex.Message);
+                    ReportErrorSync(ex.Message);
                     return;
                 }
                 catch (SolverException ex)
                 {
-                    ReportSyncError(ex.Message);
+                    ReportErrorSync(ex.Message);
                     return;
                 }
                 #endregion
@@ -84,28 +84,27 @@ namespace ZeroInstall.Injector.WinForms
             }
             catch (WebException ex)
             {
-                ReportSyncError(ex.Message);
+                ReportErrorSync(ex.Message);
                 return;
             }
             catch (IOException ex)
             {
-                ReportSyncError(ex.Message);
+                ReportErrorSync(ex.Message);
                 return;
             }
             catch (UnauthorizedAccessException ex)
             {
-                ReportSyncError(ex.Message);
+                ReportErrorSync(ex.Message);
                 return;
             }
             catch (DigestMismatchException ex)
             {
-                ReportSyncError(ex.Message);
+                ReportErrorSync(ex.Message);
                 return;
             }
             #endregion
-
-            progressBar.Task = null;
-            Invoke((SimpleEventHandler)Close);
+            
+            CloseSync();
 
             if (!results.DownloadOnly)
             {
@@ -138,7 +137,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>
-        private void StartAsyncGui(string interfaceID)
+        private void RGuiAsync(string interfaceID)
         {
             new Thread(delegate()
             {
@@ -149,15 +148,33 @@ namespace ZeroInstall.Injector.WinForms
         }
 
         /// <summary>
+        /// Safely closes the window running in the GUI thread.
+        /// </summary>
+        private void CloseSync()
+        {
+            progressBar.Task = null;
+
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
+            Invoke((SimpleEventHandler)Close);
+        }
+
+        /// <summary>
         /// Displays error messages in dialogs synchronous to the main UI.
         /// </summary>
         /// <param name="message">The error message to be displayed.</param>
-        private void ReportSyncError(string message)
+        private void ReportErrorSync(string message)
         {
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
             // Handle events coming from a non-UI thread, block caller until user has answered
             Invoke((SimpleEventHandler)(delegate
             {
                 Msg.Inform(this, message, MsgSeverity.Error);
+
+                progressBar.Task = null;
                 Close();
             }));
         }
@@ -171,6 +188,9 @@ namespace ZeroInstall.Injector.WinForms
 
             bool result = false;
 
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
             // Handle events coming from a non-UI thread, block caller until user has answered
             Invoke((SimpleEventHandler)(() => result = Msg.Ask(this, information, MsgSeverity.Information, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
 
@@ -180,6 +200,9 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
@@ -192,6 +215,9 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
@@ -204,6 +230,9 @@ namespace ZeroInstall.Injector.WinForms
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
+            // Wait until the GUI is actually up and running
+            while (!IsHandleCreated) Thread.Sleep(0);
+
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
@@ -219,6 +248,7 @@ namespace ZeroInstall.Injector.WinForms
             // Only allow to cancel once
             buttonCancel.Enabled = false;
 
+            // MainForm_Closing will end the current  progressBar.Task
             Close();
         }
     }
