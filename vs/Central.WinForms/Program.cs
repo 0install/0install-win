@@ -60,7 +60,15 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
             #endregion
 
-            try { Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appName), arguments); }
+            string appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appName);
+
+            try
+            {
+                // Only Windows can directly launch .NET executables, other platforms must run through Mono
+                if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT) Process.Start(appPath, arguments);
+                else Process.Start("mono", appPath + " " + arguments);
+            }
+            #region Sanity checks
             catch (Win32Exception)
             {
                 Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);
@@ -69,6 +77,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);
             }
+            #endregion
         }
 
         /// <summary>

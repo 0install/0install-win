@@ -96,8 +96,10 @@ namespace Common
         {
             get
             {
-                // Use portable version of application on Windows NT and a native version on all other OSes
-                return Environment.OSVersion.Platform == PlatformID.Win32NT ? Path.Combine(AppDirectory, AppBinaryName + ".exe") : AppBinaryName;
+                // Use portable version of application on Windows and a native version on all other OSes
+                return (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                    ? Path.Combine(AppDirectory, AppBinaryName + ".exe")
+                    : AppBinaryName;
             }
         }
         #endregion
@@ -195,6 +197,7 @@ namespace Common
             var startInfo = new ProcessStartInfo
             {
                 FileName = AppBinary,
+                WorkingDirectory = AppDirectory,
                 Arguments = arguments,
                 CreateNoWindow = true,
                 UseShellExecute = false,
@@ -204,7 +207,7 @@ namespace Common
             };
 
             // Make sure additional files of the portable applications can be located
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT)
+            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
                 startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;
