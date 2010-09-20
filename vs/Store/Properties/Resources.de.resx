@@ -119,7 +119,6 @@
   </resheader>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Der Manifest-Hash einer entpackten Implementierung entspricht nicht dem erwarteten Wert!
-
 Erwarteter Wert: {0}
 Tatsächlicher Wert: {1}</value>
   </data>

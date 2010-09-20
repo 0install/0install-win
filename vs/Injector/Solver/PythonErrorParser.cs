@@ -172,7 +172,6 @@ namespace ZeroInstall.Injector.Solver
 
                 case ErrorMode.Error:
                 case ErrorMode.Critical:
-                    Log.Error(message);
                     throw new SolverException(message);
             }
         }
