@@ -27,6 +27,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Common.Helpers;
+using Common.Storage;
 
 namespace Common
 {
@@ -45,8 +46,6 @@ namespace Common
 
         #region Variables
         private static readonly StringBuilder _sessionContent = new StringBuilder();
-        private static readonly string _filePath = Path.Combine(Path.GetTempPath(),
-            Path.GetFileNameWithoutExtension(Application.ExecutablePath) + " Log.txt");
         private static readonly StreamWriter _fileWriter;
         #endregion
 
@@ -68,17 +67,31 @@ namespace Common
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
+            string filePath;
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    // ToDo: Write to sensible log directory
+
+                case PlatformID.Win32Windows:
+                case PlatformID.Win32NT:
+                default:
+                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(Application.ExecutablePath) + " Log.txt");
+                    break;
+            }
+
             // Try to open the file for writing but give up right away if there are any problems
             FileStream file;
-            try { file = new FileStream(_filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite); }
+            try { file = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite); }
             catch { return; }
 
-            // Check if file is too big
+            // Check if the log file has exceeded 1MB
             if (file.Length > 1024 * 1024)
             {
                 // In this case we just kill it and create a new one
                 file.Close();
-                file = new FileStream(_filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             }
 
             // When writing to a new file use UTF-8, otherwise keep existing encoding
@@ -91,7 +104,7 @@ namespace Common
             // Add session identification block to the file
             Echo("");
             Echo("/// " + Application.ProductName + " v" + Application.ProductVersion);
-            Echo("///  Session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            Echo("///  Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             Echo("");
         }
         #endregion
