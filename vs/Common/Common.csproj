@@ -77,6 +77,7 @@
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
     <Compile Include="CliAppControl.cs" />
+    <Compile Include="UnhandledErrorsException.cs" />
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -154,7 +155,6 @@
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
-    <Compile Include="UnhandledErrorsException.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />

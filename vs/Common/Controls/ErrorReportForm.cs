@@ -175,14 +175,13 @@ namespace Common.Controls
             using (var zipStream = new ZipOutputStream(reportStream))
             {
                 zipStream.SetLevel(9);
+                
+                // Store the exception information as XML
+                zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
+                XmlStorage.Save(zipStream, _exceptionInformation);
+                zipStream.CloseEntry();
 
                 var writer = new StreamWriter(zipStream);
-
-                // Store the log file
-                zipStream.PutNextEntry(new ZipEntry("Log.txt"));
-                writer.Write(Log.Content);
-                writer.Flush();
-                zipStream.CloseEntry();
 
                 // Store the exception information as TXT
                 zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
@@ -190,9 +189,10 @@ namespace Common.Controls
                 writer.Flush();
                 zipStream.CloseEntry();
 
-                // Store the exception information as XML
-                zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
-                XmlStorage.Save(zipStream, _exceptionInformation);
+                // Store the log file
+                zipStream.PutNextEntry(new ZipEntry("Log.txt"));
+                writer.Write(Log.Content);
+                writer.Flush();
                 zipStream.CloseEntry();
 
                 if (!string.IsNullOrEmpty(commentBox.Text))
@@ -200,6 +200,7 @@ namespace Common.Controls
                     // Store the user comment
                     zipStream.PutNextEntry(new ZipEntry("Comment.txt"));
                     writer.Write(commentBox.Text);
+                    writer.Flush();
                     zipStream.CloseEntry();
                 }
             }
