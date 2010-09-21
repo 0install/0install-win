@@ -230,6 +230,9 @@ namespace ZeroInstall.Publish.WinForms
             _feedToEdit.Icons.Clear();
             foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
 
+            _feedToEdit.Summaries.Clear();
+            if (!String.IsNullOrEmpty(hintTextBoxSummary.Text)) _feedToEdit.Summaries.Add(hintTextBoxSummary.Text);
+
             _feedToEdit.Descriptions.Clear();
             if (!String.IsNullOrEmpty(hintTextBoxDescription.Text)) _feedToEdit.Descriptions.Add(hintTextBoxDescription.Text);
 
