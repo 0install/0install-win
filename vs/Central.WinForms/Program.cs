@@ -22,6 +22,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Helpers;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Central.WinForms.Storage;
 
@@ -65,7 +66,7 @@ namespace ZeroInstall.Central.WinForms
             try
             {
                 // Only Windows can directly launch .NET executables, other platforms must run through Mono
-                if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT) Process.Start(appPath, arguments);
+                if (WindowsHelper.IsWindows) Process.Start(appPath, arguments);
                 else Process.Start("mono", appPath + " " + arguments);
             }
             #region Sanity checks

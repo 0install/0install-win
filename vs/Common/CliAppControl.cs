@@ -97,7 +97,7 @@ namespace Common
             get
             {
                 // Use portable version of application on Windows and a native version on all other OSes
-                return (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return WindowsHelper.IsWindows
                     ? Path.Combine(AppDirectory, AppBinaryName + ".exe")
                     : AppBinaryName;
             }

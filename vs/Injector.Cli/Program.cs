@@ -284,6 +284,11 @@ namespace ZeroInstall.Injector.Cli
                     Console.Error.WriteLine(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
+                catch (BadImageFormatException ex)
+                {
+                    Console.Error.WriteLine(ex.Message);
+                    return (int)ErrorLevel.IOError;
+                }
                 #endregion
             }
 

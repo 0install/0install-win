@@ -173,15 +173,21 @@ namespace ZeroInstall.Injector
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         public ProcessStartInfo Prepare(string arguments)
         {
+            string main = GetStartupMain();
+
             // Prepare the new process to launch the implementation
-            var startInfo = new ProcessStartInfo(GetStartupMain(), arguments)
-            { ErrorDialog = true, UseShellExecute = false };
+            var startInfo = new ProcessStartInfo(main, arguments)
+            {
+                ErrorDialog = true,
+                // Use ShellExecute to open non-EXE files on Windows
+                UseShellExecute = WindowsHelper.IsWindows && !main.EndsWith(".exe")
+            };
 
             // Apply user-given wrapper application if set
             if (!string.IsNullOrEmpty(Wrapper))
             {
-                startInfo.Arguments = startInfo.FileName + " " + startInfo.Arguments;
                 startInfo.FileName = Wrapper;
+                startInfo.Arguments = main + " " + arguments;
             }
 
             foreach (var implementation in _selections.Implementations)
@@ -205,6 +211,7 @@ namespace ZeroInstall.Injector
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         public void RunSync(string arguments)
         {

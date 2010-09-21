@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Common;
+using Common.Helpers;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -115,7 +116,7 @@ namespace ZeroInstall.Injector.Solver
             var startInfo = base.GetStartInfo(arguments);
 
             // Add bundled GnuPG to search path for Python script to use on Windows
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+            if (WindowsHelper.IsWindows)
                 startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             // Add bundled Python scripts to Python search python when using native Python installation

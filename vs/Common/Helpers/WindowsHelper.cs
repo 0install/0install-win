@@ -201,7 +201,7 @@ namespace Common.Helpers
         {
             get
             {
-                if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                if (IsWindows)
                 {
                     SafeNativeMethods.WinMessage msg;
                     return !SafeNativeMethods.PeekMessage(out msg, IntPtr.Zero, 0, 0, 0);
@@ -216,8 +216,7 @@ namespace Common.Helpers
         /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
         public static bool IsKeyDown(Keys key)
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
-                return (SafeNativeMethods.GetAsyncKeyState((uint)key) & 0x8000) != 0;
+            if (IsWindows) return (SafeNativeMethods.GetAsyncKeyState((uint)key) & 0x8000) != 0;
             return false; // Not supported on non-Windows OSes
         }
 
@@ -227,8 +226,7 @@ namespace Common.Helpers
         public static float CaretBlinkTime
         {
             get {
-                return
-                    (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
+                return IsWindows
                     ? SafeNativeMethods.GetCaretBlinkTime() / 1000f
                     : 0.5f; // Default to 0.5 seconds on non-Windows OSes
             }
@@ -242,9 +240,7 @@ namespace Common.Helpers
         /// <remarks>Will do nothing on non-Windows OSes.</remarks>
         public static IntPtr SetCapture(IntPtr handle)
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
-                return SafeNativeMethods.SetCapture(handle);
-            return IntPtr.Zero; // Not supported on non-Windows OSes
+            return IsWindows ? SafeNativeMethods.SetCapture(handle) : IntPtr.Zero;
         }
 
         /// <summary>
@@ -254,13 +250,29 @@ namespace Common.Helpers
         /// <remarks>Will always return <see langword="false"/> on non-Windows OSes.</remarks>
         public static bool ReleaseCapture()
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT)
-                return SafeNativeMethods.ReleaseCapture();
-            return false; // Not supported on non-Windows OSes
+            return IsWindows ? SafeNativeMethods.ReleaseCapture() : false;
         }
         #endregion
 
-        #region 64bit Windows
+        #region Platform
+        /// <summary>
+        /// <see langword="true"/> if the current operating system is Windows-based; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindows
+        { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
+
+        /// <summary>
+        /// <see langword="true"/> if the current operating system is a 64-bit capable; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool Is64Bit
+        {
+            get
+            {
+                // Check if this is a 64-bit process or a 32-bit process running on WOW
+                return IntPtr.Size == 8 || (IntPtr.Size == 4 && Is32BitProcessOn64BitProcessor());
+            }
+        }
+
         private static bool Is32BitProcessOn64BitProcessor()
         {
             // Can only detect NT WOW
@@ -269,16 +281,6 @@ namespace Common.Helpers
             bool retVal;
             SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
             return retVal;
-        }
-
-        /// <summary>
-        /// Check if the operating system is a 64-bit capable.
-        /// </summary>
-        /// <returns><see langword="true"/> if the operating system is a 64-bit capable.</returns>
-        public static bool Is64Bit()
-        {
-            // Check if this is a 64-bit process or a 32-bit process running on WOW
-            return IntPtr.Size == 8 || (IntPtr.Size == 4 && Is32BitProcessOn64BitProcessor());
         }
         #endregion
 
