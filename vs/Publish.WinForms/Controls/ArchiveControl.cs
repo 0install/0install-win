@@ -434,7 +434,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             Uri uri;
             if (ControlHelpers.IsValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
-            //var manifestDigestPath = hintTextBoxLocalArchive.Text + "_extracted" + StringHelper.UnifySlashes(_archive.Extract);
         }
 
         private void SetManifestDigestProperty()
@@ -510,9 +509,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void TreeViewSubDirectoryAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeViewSubDirectory.SelectedNode != null && treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0])
-                _archive.Extract = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
-            else _archive.Extract = null;
+            if (treeViewSubDirectory.SelectedNode != null &&
+                treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0]) {
+                string extractPath = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
+                _archive.Extract = extractPath;
+                    ManifestDigest = Manifest.CreateDigest(Path.Combine(ExtractedArchivePath, extractPath), null);
+            }
+            else {
+                _archive.Extract = null;
+            }
         }
 
         #endregion
