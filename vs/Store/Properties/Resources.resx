@@ -164,4 +164,7 @@ Actual value: {1}</value>
   <data name="UnknowGPGKeyType" xml:space="preserve">
     <value>Unknow key type.</value>
   </data>
+  <data name="SignatureExistsException" xml:space="preserve">
+    <value>Signature file allready exists.</value>
+  </data>
 </root>

@@ -158,6 +158,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qulifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>
+  <data name="SignatureExistsException" xml:space="preserve">
+    <value>Die Signaturdatei existiert bereits.</value>
+  </data>
   <data name="UnableToAddImplementionToStore" xml:space="preserve">
     <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
   </data>

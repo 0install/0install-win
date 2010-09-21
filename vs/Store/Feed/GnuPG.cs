@@ -200,6 +200,16 @@ namespace ZeroInstall.Store.Feed
             Execute("--batch --passphrase-fd 0 --local-user " + user + "--detach-sign " + path, passphrase, ErrorHandler);
         }
 
+        private static string DetachSignErrorHandler(string line)
+        {
+            var wrongPassphraseProofer = new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase");
+            if (wrongPassphraseProofer.IsMatch(line)) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureExistsException);
+            throw new UnhandledErrorsException(line);
+            return null;
+        }
+
         /// <summary>
         /// Provides error handling for GnuPG stderr.
         /// </summary>

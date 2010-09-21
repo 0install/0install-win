@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Feed\GnuPG.cs" />
     <Compile Include="Feed\GpgSecretKey.cs" />
+    <Compile Include="Feed\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\ArchiveFileInfo.cs" />

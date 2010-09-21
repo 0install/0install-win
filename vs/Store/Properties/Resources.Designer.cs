@@ -180,6 +180,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Signature file allready exists..
+        /// </summary>
+        internal static string SignatureExistsException {
+            get {
+                return ResourceManager.GetString("SignatureExistsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to add implementation to a store..
         /// </summary>
         internal static string UnableToAddImplementionToStore {
