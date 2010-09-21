@@ -509,11 +509,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void TreeViewSubDirectoryAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeViewSubDirectory.SelectedNode != null &&
-                treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0]) {
+            if (treeViewSubDirectory.SelectedNode != null && treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0]) {
                 string extractPath = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
                 _archive.Extract = extractPath;
-                    ManifestDigest = Manifest.CreateDigest(Path.Combine(ExtractedArchivePath, extractPath), null);
+                string combinedPath = Path.Combine(ExtractedArchivePath, extractPath);
+                ManifestDigest = Manifest.CreateDigest(combinedPath, null);
             }
             else {
                 _archive.Extract = null;
