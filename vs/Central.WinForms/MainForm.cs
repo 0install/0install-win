@@ -49,7 +49,10 @@ namespace ZeroInstall.Central.WinForms
             browserNewApps.GoBack();
         }
 
+        /// <summary>A URL postfix that indicates that the URL points to an installable Zero Install feed.</summary>
         private const string UrlPostfixFeed = "#0install-feed";
+
+        /// <summary>A URL postfix that indicates that the URL should be opened in an external browser.</summary>
         private const string UrlPostfixBrowser = "#external-browser";
 
         private void browserNewApps_Navigating(object sender, WebBrowserNavigatingEventArgs e)
