@@ -67,6 +67,7 @@ namespace Common
             if (TaskDialog.TaskDialog.IsAvailable)
             {
                 try { ShowTaskDialog(GetTaskDialog(text, severity), owner); }
+                catch (BadImageFormatException) { ShowMesageBox(owner, text, severity, MessageBoxButtons.OK); }
                 catch (EntryPointNotFoundException) { ShowMesageBox(owner, text, severity, MessageBoxButtons.OK); }
             }
             else ShowMesageBox(owner, text, severity, MessageBoxButtons.OK);
@@ -129,6 +130,7 @@ namespace Common
                 if (severity >= MsgSeverity.Warning) taskDialog.DefaultButton = (int)DialogResult.Cancel;
 
                 try { return ShowTaskDialog(taskDialog, owner) == DialogResult.OK; }
+                catch (BadImageFormatException) { return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK; }
                 catch (EntryPointNotFoundException) { return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK; }
 
                 #endregion
@@ -194,6 +196,7 @@ namespace Common
                 }
 
                 try { return ShowTaskDialog(taskDialog, owner); }
+                catch (BadImageFormatException) { return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo); }
                 catch (EntryPointNotFoundException) { return ShowMesageBox(owner, text, severity, allowCancel ? MessageBoxButtons.YesNoCancel : MessageBoxButtons.YesNo); }
                 #endregion
             }
@@ -275,13 +278,14 @@ namespace Common
         /// <param name="taskDialog">The <see cref="TaskDialog"/> to display.</param>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
         /// <returns>Indicates the button the user pressed.</returns>
+        /// <exception cref="BadImageFormatException">Thrown if the task-dialog DLL could not be loaded.</exception>
         /// <exception cref="EntryPointNotFoundException">Thrown if the task-dialog DLL routine could not be called.</exception>
         private static DialogResult ShowTaskDialog(TaskDialog.TaskDialog taskDialog, IWin32Window owner)
         {
             // Note: If you get an EntryPointNotFoundException here, add this to your application manifest and test outside the IDE:
             // <dependency>
             //   <dependentAssembly>
-            //     <assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" processorArchitecture="x86" publicKeyToken="6595b64144ccf1df" language="*" />
+            //     <assemblyIdentity type="win32" name="Microsoft.Windows.Common-Controls" version="6.0.0.0" processorArchitecture="*" publicKeyToken="6595b64144ccf1df" language="*" />
             //   </dependentAssembly>
             // </dependency>
 
