@@ -988,13 +988,17 @@ namespace ZeroInstall.Publish.WinForms
         private static void RemoveObjectFromFeedStructure(object container, object toRemove)
         {
             if (toRemove is Element) ((IElementContainer)container).Elements.Remove((Element)toRemove);
-            else if (toRemove is Dependency) ((ImplementationBase)container).Dependencies.Remove((Dependency)toRemove);
+            else if (toRemove is Dependency) ((Group)container).Dependencies.Remove((Dependency)toRemove);
             else if (toRemove is Binding) ((IBindingContainer)container).Bindings.Remove((Binding)toRemove);
             else if (toRemove is RetrievalMethod)
             {
                 var implementationContainer = (Implementation) container;
                 implementationContainer.RetrievalMethods.Remove((RetrievalMethod)toRemove);
-                if(implementationContainer.RetrievalMethods.Count == 0) implementationContainer.ManifestDigest = new ManifestDigest();
+                if(implementationContainer.RetrievalMethods.Count == 0)
+                {
+                    implementationContainer.ManifestDigest = default(ManifestDigest);
+                    if(implementationContainer.ID.StartsWith("sha1new=")) implementationContainer.ID = String.Empty;
+                }
             }
         }
 
