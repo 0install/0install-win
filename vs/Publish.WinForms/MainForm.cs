@@ -40,7 +40,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// The path of the file a <see cref="Feed"/> was loaded from.
         /// </summary>
-        private string _openFeedPath;
+        private string _pathToOpenedFeed;
 
         /// <summary>
         /// The <see cref="ZeroInstall.Model.Feed"/> to edit by this form.
@@ -78,7 +78,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeSaveFileDialog()
         {
-            if (_openFeedPath != null) saveFileDialog.InitialDirectory = _openFeedPath;
+            if (_pathToOpenedFeed != null) saveFileDialog.InitialDirectory = _pathToOpenedFeed;
             saveFileDialog.DefaultExt = ".xml";
             saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
@@ -89,7 +89,7 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeLoadFileDialog()
         {
-            if (_openFeedPath != null) openFileDialog.InitialDirectory = _openFeedPath;
+            if (_pathToOpenedFeed != null) openFileDialog.InitialDirectory = _pathToOpenedFeed;
             openFileDialog.DefaultExt = ".xml";
             openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
@@ -172,7 +172,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            if (_openFeedPath != null)  saveFileDialog.InitialDirectory = _openFeedPath;
+            if (_pathToOpenedFeed != null)  saveFileDialog.InitialDirectory = _pathToOpenedFeed;
             MainForm_FormClosing(null, null);
         }
 
@@ -187,7 +187,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            _openFeedPath = openFileDialog.FileName;
+            _pathToOpenedFeed = openFileDialog.FileName;
             _feedToEdit = Feed.Load(openFileDialog.FileName);
 
             FillForm();
@@ -277,25 +277,38 @@ namespace ZeroInstall.Publish.WinForms
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             switch (Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Information,
-                true, "&Save\nSave the file and then close", "&Don't save\nIgnore the not saved changes"))
+                true, "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
             {
                 case DialogResult.Yes:
-                    if (String.IsNullOrEmpty(_openFeedPath))
+                    if (!String.IsNullOrEmpty(_pathToOpenedFeed)) saveFileDialog.InitialDirectory = _pathToOpenedFeed;
+                    if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     {
-                        if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-                        {
-                            SaveFeed(saveFileDialog.FileName);
-                        }
-                    } else
-                    {
-                        SaveFeed(_openFeedPath);
-
+                        SaveFeed(saveFileDialog.FileName);
+                        CreateFeedSignature(saveFileDialog.FileName);
                     }
                     break;
                 case DialogResult.No: break;
                 case DialogResult.Cancel:
                     e.Cancel = true;
                     break;
+            }
+        }
+
+        /// <summary>
+        /// Adds the signature of the 
+        /// </summary>
+        /// <param name="file"></param>
+        public void CreateFeedSignature(string file)
+        {
+            var passphrase = InputBox.Show("Please enter your gpg passphrase:", "GnuPG passphrase", String.Empty, true);
+            try
+            {
+                (new GnuPG()).DetachSign(file, ((GpgSecretKey)toolStripComboBoxGpg.SelectedItem).MainSigningKey,
+                                         passphrase);
+            }
+            catch (WrongPassphraseException wrongPassphraseException)
+            {
+                string i = "T";
             }
         }
 
