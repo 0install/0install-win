@@ -110,8 +110,8 @@ Name: modifypath; Description: {cm:AddToPath}
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.de/
 Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
-Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-gui.exe
-Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\ZeroInstall.exe
+;Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-gui.exe
+Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\0storew.exe
 Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 ;Post-installations tasks
