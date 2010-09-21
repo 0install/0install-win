@@ -906,6 +906,10 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     InsertManifestDigestNode(implementationNode, manifestDigestFromArchive);
                 }
+                if (String.IsNullOrEmpty(((Implementation)implementationNode.Tag).ID))
+                {
+                    ((Implementation) implementationNode.Tag).ID = "sha1new=" + manifestDigestFromArchive.Sha1New;
+                }
             }
             else if (selectedNode.Tag is Recipe)
             {
