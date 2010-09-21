@@ -369,7 +369,6 @@ namespace ZeroInstall.Publish.WinForms
         private static void AddSignatureToFeed(string file, string base64Signature)
         {
             StreamWriter sw = new StreamWriter(file, true) { NewLine = "\n"};
-            sw.WriteLine(String.Empty);
             sw.WriteLine("<!-- Base64 Signature");
             sw.WriteLine(base64Signature);
             sw.WriteLine(String.Empty);
