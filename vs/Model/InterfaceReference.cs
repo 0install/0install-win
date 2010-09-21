@@ -24,7 +24,8 @@ namespace ZeroInstall.Model
 {
     /// <summary>
     /// A reference to an <see cref="Feed"/> URI.
-    /// </summary>
+    /// </summary> 
+    /// <seealso cref="Feed.FeedFor"/>
     public sealed class InterfaceReference : ICloneable, IEquatable<InterfaceReference>
     {
         #region Properties
@@ -94,10 +95,12 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the interface reference in the form "InterfaceReference: Target". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return TargetString;
+            return "InterfaceReference: " + Target;
         }
         #endregion
     }

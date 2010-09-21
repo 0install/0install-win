@@ -106,10 +106,24 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the group in the form "Group: Comma-seperated names of the set values". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return string.Format("Group: {0} elements", Elements.Count);
+            string result = "Group: ";
+            if (!Languages.IsEmpty) result += "Languages, ";
+            if (Architecture != default(Architecture)) result += "Architecture, ";
+            if (Version != null) result += "Version, ";
+            if (Released != default(DateTime)) result += "Released, ";
+            if (Stability != default(Stability)) result += "Stability, ";
+            if (!string.IsNullOrEmpty(License)) result += "License, ";
+            if (!string.IsNullOrEmpty(Main)) result += "Main, ";
+            if (!string.IsNullOrEmpty(SelfTest)) result += "SelfTest, ";
+            if (!string.IsNullOrEmpty(DocDir)) result += "DocDir, ";
+
+            // Remove last two characters
+            return result.Substring(0, result.Length - 2);
         }
         #endregion
 

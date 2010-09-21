@@ -97,10 +97,14 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the archive in the form "Archive: Location (MimeType, Size + StartOffset) => Extract". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1}, {2}) + {3} => {4}", Location, MimeType, Size, StartOffset, Extract);
+            string result = string.Format("Archive: {0} ({1}, {2} + {3})", Location, MimeType, Size, StartOffset);
+            if (!string.IsNullOrEmpty(Extract)) result += " => " + Extract;
+            return result;
         }
         #endregion
 

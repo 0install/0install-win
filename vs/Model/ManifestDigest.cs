@@ -161,7 +161,9 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the manifest digests in the form "Algorithm1=Hash1, Algorithm2=Hash2, ...". Safe for parsing.
+        /// </summary>
         public override string ToString()
         {
             return string.Format("sha1={0}, sha1new={1}, sha256={2}", Sha1Old, Sha1New, Sha256);

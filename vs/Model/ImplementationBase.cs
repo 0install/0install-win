@@ -103,12 +103,12 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the implementation in the form "Implementation: Version (ID)". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            string value = "Implementation: " + ID + " (" + ManifestDigest + ")";
-            if (!string.IsNullOrEmpty(LocalPath)) value += " (" + LocalPath + ")";
-            return value;
+            return string.Format("Implementation: {0} ({1})", Version, ID);
         }
         #endregion
 

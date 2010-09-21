@@ -68,10 +68,14 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the dependency in the form "Dependency: Interface (Use)". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return Interface;
+            string result = "Dependency: " + Interface;
+            if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
+            return result;
         }
         #endregion
 

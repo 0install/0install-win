@@ -78,10 +78,12 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the constraint in the form "Constraint: NotBeforeVersion =&lt; Ver %lt; BeforeVersion". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return string.Format("{0}  =< Ver < {1}", NotBeforeVersion, BeforeVersion);
+            return string.Format("Constraint: {0} =< Ver < {1}", NotBeforeVersion, BeforeVersion);
         }
         #endregion
 

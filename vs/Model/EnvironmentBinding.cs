@@ -76,11 +76,14 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the binding in the form "EnvironmentBinding: Name = Value (Mode, Default)". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            if (Mode == EnvironmentMode.Replace) return string.Format("{0} = {1} ({2})", Name, Value, Mode);
-            return string.Format("{0} = {1} ({2}, Default: {3})", Name, Value, Mode, Default);
+            return (Mode == EnvironmentMode.Replace)
+                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Value, Mode)
+                : string.Format("EnvironmentBinding: {0} = {1} ({2}, {3})", Name, Value, Mode, Default);
         }
         #endregion
 

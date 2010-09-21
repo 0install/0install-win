@@ -71,10 +71,12 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the icon in the form "Icon: Location (MimeType)". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
-            return string.Format("{0} ({1})", Location, MimeType);
+            return string.Format("Icon: {0} ({1})", Location, MimeType);
         }
         #endregion
 

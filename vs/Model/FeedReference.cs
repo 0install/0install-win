@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An additional feed for an interface.
     /// </summary>
+    /// <seealso cref="Feed.Feeds"/>
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         #region Properties
@@ -38,12 +39,14 @@ namespace ZeroInstall.Model
         //--------------------//
 
         #region Conversion
-        /// <inheritdoc/>
+        /// <summary>
+        /// Returns the feed reference in the form "FeedReference: Source (Architecture, Languages)". Not safe for parsing!
+        /// </summary>
         public override string ToString()
         {
             return (Languages.IsEmpty)
-                ? string.Format("{0} ({1})", Source, Architecture)
-                : string.Format("{0} ({1}) ({2})", Source, Architecture, Languages.ToString());
+                ? string.Format("FeedReference: {0} ({1})", Source, Architecture)
+                : string.Format("FeedReference: {0} ({1}, {2})", Source, Architecture, Languages);
         }
         #endregion
 
