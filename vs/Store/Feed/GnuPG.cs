@@ -197,7 +197,7 @@ namespace ZeroInstall.Store.Feed
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            Execute("--batch --passphrase-fd 0 --local-user " + user + " --detach-sign " + path, passphrase, ErrorHandler);
+            Execute("--batch --passphrase-fd 0 --local-user " + user + " --detach-sign \"" + path + "\"", passphrase, ErrorHandler);
         }
 
         /// <summary>
