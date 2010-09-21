@@ -510,8 +510,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void TreeViewSubDirectoryAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (treeViewSubDirectory.SelectedNode != null)
+            if (treeViewSubDirectory.SelectedNode != null && treeViewSubDirectory.SelectedNode != treeViewSubDirectory.Nodes[0])
                 _archive.Extract = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
+            else _archive.Extract = null;
         }
 
         #endregion
