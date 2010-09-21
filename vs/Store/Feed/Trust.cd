@@ -1,40 +1,73 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Feed.Trust">
-    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Position X="3" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="Keys" Type="ZeroInstall.Store.Feed.Key">
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="-0.609" Y="0.154" />
+      </MemberNameLabel>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAQgIAAAAAAAAAACAAAAAgAAAAAAAQABAAAAAAAAAA=</HashCode>
-      <FileName>Interface\Trust.cs</FileName>
+      <FileName>Feed\Trust.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Keys" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Feed.Key">
-    <Position X="0.5" Y="2.75" Width="1.5" />
+    <Position X="3" Y="2.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAEAQAAAAAA=</HashCode>
-      <FileName>Interface\Key.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAEgAAACAAAAAAAAIAAAAEAQAAAAAA=</HashCode>
+      <FileName>Feed\Key.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Domains" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.GnuPG">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AiAAAAACAgQAAAAAAAAAEAAgAAAAAAAAAAAACQAAQCA=</HashCode>
+      <FileName>Feed\GnuPG.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Struct Name="ZeroInstall.Store.Feed.Domain">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="5.5" Y="2.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
-      <FileName>Interface\Domain.cs</FileName>
+      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAAA=</HashCode>
+      <FileName>Feed\Domain.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
+  <Struct Name="ZeroInstall.Store.Feed.GpgSecretKey">
+    <Position X="0.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAIAAACAAAAAAAAEAAAIAAAAACAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Feed\GpgSecretKey.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="KeyType" />
+    </ShowAsAssociation>
+  </Struct>
+  <Enum Name="ZeroInstall.Store.Feed.KeyType">
+    <Position X="3" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Feed\GpgSecretKey.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
