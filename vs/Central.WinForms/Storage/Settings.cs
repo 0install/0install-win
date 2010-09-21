@@ -27,7 +27,7 @@ namespace ZeroInstall.Central.WinForms.Storage
     /// <summary>
     /// Stores settings for the application.
     /// </summary>
-    [XmlRoot("settings", Namespace = "http://zero-install.sourceforge.net/2010/central/settings")]
+    [XmlRoot("settings", Namespace = "http://0install.de/central/settings")]
     public sealed class Settings
     {
         #region Variables
