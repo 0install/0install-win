@@ -97,7 +97,7 @@ namespace ZeroInstall.Injector.Cli
 
                 case OperationMode.Version:
                     // ToDo: Read version number from assembly data
-                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "0.50.0.0");
+                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "0.50.0");
                     return (int)ErrorLevel.OK;
 
                 default:
