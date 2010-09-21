@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public IEnumerable<GpgSecretKey> ListSecretKeys()
         {
-            string result = Execute("--batch --list-secret-keys", null, ErrorHandler);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys", null, ErrorHandler);
             
             return ExtractSecretKeys(result);
         }
@@ -197,7 +197,7 @@ namespace ZeroInstall.Store.Feed
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            Execute("--batch --passphrase-fd 0 --local-user " + user + " --detach-sign \"" + path + "\"", passphrase, ErrorHandler);
+            Execute("--batch --no-secmem-warning --passphrase-fd 0 --local-user " + user + " --detach-sign \"" + path + "\"", passphrase, ErrorHandler);
         }
 
         /// <summary>
