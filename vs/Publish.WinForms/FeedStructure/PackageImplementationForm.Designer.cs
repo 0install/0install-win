@@ -154,6 +154,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.comboBoxLicense.FormattingEnabled = true;
             this.comboBoxLicense.Items.AddRange(new object[] {
+            "",
             "AFL (Academic Free License)",
             "AFPL (Aladdin Free Public License)",
             "AGPL v1 (Affero General Public License)",
