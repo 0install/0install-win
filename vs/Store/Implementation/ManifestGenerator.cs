@@ -169,28 +169,37 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Executable bits must be stored in an external file (named <code>.xbit</code>) on some platforms (e.g. Windows) because the filesystem attributes can't.
         /// </summary>
-        /// <returns>A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</returns>
+        /// <returns>A list of fully qualified paths of files that are named in an <code>.xbit</code> file.</returns>
+        /// <remarks>This method searches for the <code>.xbit</code> file starting in the <see cref="TargetPath"/> and moving upwards until it finds it or until it reaches the root directory.</remarks>
         private ICollection<string> GetExternalXBits()
         {
             var externalXBits = new C5.HashSet<string>();
-            string xBitPath = Path.Combine(TargetPath, ".xbit");
-            if (File.Exists(xBitPath))
+
+            // Start searching for the x.bit file in the target directory and then move upwards
+            string xBitDir = TargetPath;
+            while (!File.Exists(Path.Combine(xBitDir, ".xbit")))
             {
-                using (StreamReader xbitFile = File.OpenText(xBitPath))
+                xBitDir = Path.GetDirectoryName(xBitDir);
+
+                // Cancel once the root dir has been reached
+                if (xBitDir == null) return externalXBits;
+            }
+            
+            using (StreamReader xbitFile = File.OpenText(Path.Combine(xBitDir, ".xbit")))
+            {
+                // Each line in the file signals an executable file
+                while (!xbitFile.EndOfStream)
                 {
-                    // Each line in the file signals an executable file
-                    while (!xbitFile.EndOfStream)
+                    string currentLine = xbitFile.ReadLine();
+                    if (currentLine != null && currentLine.StartsWith("/"))
                     {
-                        string currentLine = xbitFile.ReadLine();
-                        if (currentLine != null && currentLine.StartsWith("/"))
-                        {
-                            // Trim away the first slash and then replace Unix-style slashes
-                            string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
-                            externalXBits.Add(Path.Combine(TargetPath, relativePath));
-                        }
+                        // Trim away the first slash and then replace Unix-style slashes
+                        string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
+                        externalXBits.Add(Path.Combine(xBitDir, relativePath));
                     }
                 }
             }
+
             return externalXBits;
         }
 
