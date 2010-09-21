@@ -198,9 +198,8 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings { Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n" }))
+            using (var xmlWriter = XmlWriter.Create(stream, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"}))
             {
-                if (xmlWriter == null) throw new IOException(Resources.FailedToCreateXmlWriter);
                 var serializer = GetSerializer(typeof(T), ignoreMembers);
 
                 // Detect XmlRoot attribute
@@ -212,10 +211,13 @@ namespace Common.Storage
                 }
                 else
                 { // Set custom namespace
-                    var ns = new XmlSerializerNamespaces(new[] { new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace) });
+                    var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
                     serializer.Serialize(xmlWriter, data, ns);
                 }
             }
+
+            // End file with newline
+            stream.WriteByte((byte)'\n');
         }
 
         /// <summary>

@@ -176,15 +176,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to create XmlWriter..
-        /// </summary>
-        internal static string FailedToCreateXmlWriter {
-            get {
-                return ResourceManager.GetString("FailedToCreateXmlWriter", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The file does not have the expected size..
         /// </summary>
         internal static string FileNotExpectedSize {
