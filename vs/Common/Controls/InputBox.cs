@@ -37,6 +37,32 @@ namespace Common.Controls
         }
         #endregion
 
+        #region Static access
+        /// <summary>
+        /// Displays an input box asking the the user to input some text.
+        /// </summary>
+        /// <param name="prompt">The prompt to display.</param>
+        /// <param name="title">The window title to use.</param>
+        /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
+        /// <param name="password">Shall the input characters be hidden as a password?</param>
+        /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
+        public static string Show(string prompt, string title, string defaultText, bool password)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
+            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            #endregion
+
+            var inputBox = new InputBox
+            {
+                Text = title,
+                labelPrompt = { Text = prompt },
+                textInput = { Text = defaultText, UseSystemPasswordChar = password }
+            };
+
+            return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
+        }
+
         /// <summary>
         /// Displays an input box asking the the user to input some text.
         /// </summary>
@@ -48,7 +74,7 @@ namespace Common.Controls
         {
             return Show(prompt, title, defaultText, false);
         }
-        
+
         /// <summary>
         /// Displays an input box asking the the user to input some text.
         /// </summary>
@@ -59,22 +85,6 @@ namespace Common.Controls
         {
             return Show(prompt, title, "");
         }
-
-        public static string Show(string prompt, string title, string defaultText, bool useSystemPasswortChar)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            #endregion
-
-            var inputBox = new InputBox
-            {
-                Text = title,
-                labelPrompt = { Text = prompt },
-                textInput = { Text = defaultText, UseSystemPasswordChar = useSystemPasswortChar }   
-            };
-
-            return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
-        }
+        #endregion
     }
 }
