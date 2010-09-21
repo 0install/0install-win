@@ -52,10 +52,10 @@
             // 
             this.pictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxLogo.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.Logo;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(190, 25);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(169, 6);
             this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(325, 50);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(366, 95);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -66,10 +66,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlApps.Controls.Add(this.tabPageMyApps);
             this.tabControlApps.Controls.Add(this.tabPageNewApps);
-            this.tabControlApps.Location = new System.Drawing.Point(14, 94);
+            this.tabControlApps.Location = new System.Drawing.Point(14, 109);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
-            this.tabControlApps.Size = new System.Drawing.Size(676, 353);
+            this.tabControlApps.Size = new System.Drawing.Size(676, 338);
             this.tabControlApps.TabIndex = 0;
             // 
             // tabPageMyApps
@@ -78,7 +78,7 @@
             this.tabPageMyApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageMyApps.Name = "tabPageMyApps";
             this.tabPageMyApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMyApps.Size = new System.Drawing.Size(668, 320);
+            this.tabPageMyApps.Size = new System.Drawing.Size(668, 305);
             this.tabPageMyApps.TabIndex = 0;
             this.tabPageMyApps.Text = "My applications";
             this.tabPageMyApps.UseVisualStyleBackColor = true;
