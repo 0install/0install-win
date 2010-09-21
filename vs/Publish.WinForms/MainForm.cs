@@ -938,7 +938,6 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     InsertManifestDigestNode(selectedNode.Parent, manifestDigestFromRecipe);
                 }
-
             }
             else if (selectedNode.Tag is PackageImplementation) (new PackageImplementationForm { PackageImplementation = (PackageImplementation)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is Dependency) (new DependencyForm { Dependency = (Dependency)selectedNode.Tag }).ShowDialog();
@@ -946,6 +945,7 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNode.Tag is OverlayBinding) (new OverlayBindingForm { OverlayBinding = (OverlayBinding)selectedNode.Tag }).ShowDialog();
             else if (selectedNode.Tag is ManifestDigest) (new ManifestDigestForm((ManifestDigest)selectedNode.Tag)).ShowDialog();
             else throw new InvalidOperationException("Not an object to change.");
+            FillFeedTab();
         }
 
         /// <summary>
