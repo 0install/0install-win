@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using System.Windows.Forms;
 using C5;
 using Common;
@@ -367,7 +368,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="base64Signature">The base64 encoded signature.</param>
         private static void AddSignatureToFeed(string file, string base64Signature)
         {
-            StreamWriter sw = new StreamWriter(file, true);
+            StreamWriter sw = new StreamWriter(file, true) { NewLine = "\n"};
             sw.WriteLine(String.Empty);
             sw.WriteLine("<!-- Base64 Signature");
             sw.WriteLine(base64Signature);
