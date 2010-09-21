@@ -22,7 +22,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
-    /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
+    /// <remarks>This is to support legacy programs which can't properly locate their installation directory.</remarks>
     public sealed class WorkingDirBinding : Binding, IEquatable<WorkingDirBinding>
     {
         #region Conversion
