@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
     #endregion
 
     /// <summary>
-    /// The location of the chosen <see cref="Implementation"/> is passed to the program by setting environment variables.
+    /// Make a chosen <see cref="Implementation"/> available  by setting environment variables.
     /// </summary>
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {

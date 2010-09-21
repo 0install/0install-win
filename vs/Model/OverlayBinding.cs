@@ -22,8 +22,9 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An overlay binding specifies that the chosen <see cref="Implementation"/> should be made available at the given location in the filesystem.
+    /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
+    /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
         #region Properties
