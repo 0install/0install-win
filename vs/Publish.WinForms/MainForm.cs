@@ -246,10 +246,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Saves the values from <see cref="tabPageFeed"/>.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1822:MarkMembersAsStatic")]
-// ReSharper disable MemberCanBeMadeStatic.Local
-        private void SaveFeedTab()
-// ReSharper restore MemberCanBeMadeStatic.Local
+        private static void SaveFeedTab()
         {
             // the feed structure objects will be saved directly into _feedToEdit => no extra saving needed.
         }
@@ -294,24 +291,87 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
 
+        #region feed signing
         /// <summary>
-        /// Adds the signature of the 
+        /// Asks the user for his/hers gpg passphrase and adds the base64 coded signature of the given file to the end of it.
         /// </summary>
         /// <param name="file"></param>
-        public void CreateFeedSignature(string file)
+        private void CreateFeedSignature(string file)
         {
-            var passphrase = InputBox.Show("Please enter your gpg passphrase:", "GnuPG passphrase", String.Empty, true);
-            try
-            {
-                (new GnuPG()).DetachSign(file, ((GpgSecretKey)toolStripComboBoxGpg.SelectedItem).MainSigningKey,
-                                         passphrase);
-            }
-            catch (WrongPassphraseException wrongPassphraseException)
-            {
-                string i = "T";
-            }
+            if(toolStripComboBoxGpg.SelectedItem == null) return;
+            CreateSignatureFile(file);
+            string base64Signature = ConvertSignatureToBase64(file);
+            AddSignatureToFeed(file, base64Signature);
         }
 
+        /// <summary>
+        /// Asks the user for his/hers gpg passphrase and creates a signature file for the given file.
+        /// The signature file is the filename with ".sig" at the end.
+        /// </summary>
+        /// <param name="file">File to create signature for.</param>
+        private void CreateSignatureFile(string file)
+        {
+            bool wrongPassphrase = false;
+            string gpgOwner = ((GpgSecretKey) toolStripComboBoxGpg.SelectedItem).Owner;
+            string gpgOwnerEmail = ((GpgSecretKey) toolStripComboBoxGpg.SelectedItem).EmailAdress;
+            do
+            {
+                try
+                {
+                    string passphrase;
+                    if(wrongPassphrase) {
+                        passphrase = InputBox.Show("Wrong passphrase entered.\nPlease retry entering the gpg passphrase for " + gpgOwner + " <" + gpgOwnerEmail + "> :", "GnuPG passphrase", String.Empty, true);
+                    } else
+                    {
+                        passphrase = InputBox.Show("Please enter the gpg passphrase for " + gpgOwner + " <" + gpgOwnerEmail + "> :", "GnuPG passphrase", String.Empty, true);
+                    }
+                    if (passphrase == null) return;
+                    File.Delete(file + ".sig");
+                    (new GnuPG()).DetachSign(file, ((GpgSecretKey) toolStripComboBoxGpg.SelectedItem).MainSigningKey, passphrase);
+                    wrongPassphrase = false;
+                }
+                catch (WrongPassphraseException)
+                {
+                    wrongPassphrase = true;
+                }
+            } while (wrongPassphrase);
+        }
+
+        /// <summary>
+        /// Converts the signature file of <paramref name="file"/> to a base64 encoded <see langword="string"/>.
+        /// </summary>
+        /// <param name="file">File which signature shall be converted.</param>
+        /// <returns>The base64 encoded signature.</returns>
+        private static string ConvertSignatureToBase64(string file)
+        {
+            string signatureFile = file + ".sig";
+            
+            FileStream fs = File.OpenRead(signatureFile);
+            byte[] bytes = new byte[fs.Length];
+            try { fs.Read(bytes, 0, Convert.ToInt32(fs.Length)); }
+            finally { fs.Close(); }
+
+            string base64ConvertedSignature = Convert.ToBase64String(bytes);
+            File.Delete(signatureFile);
+
+            return base64ConvertedSignature;
+        }
+
+        /// <summary>
+        /// Adds <paramref name="base64Signature"/> as a comment to the end of the feed defined by <paramref name="file"/>.
+        /// </summary>
+        /// <param name="file">Path to the feed to add the signature.</param>
+        /// <param name="base64Signature">The base64 encoded signature.</param>
+        private static void AddSignatureToFeed(string file, string base64Signature)
+        {
+            StreamWriter sw = new StreamWriter(file, true);
+            sw.WriteLine("<!-- Base64 Signature");
+            sw.WriteLine(base64Signature);
+            sw.WriteLine("");
+            sw.WriteLine("-->");
+            sw.Close();
+        }
+        #endregion
         #endregion
 
         #region Fill form controls
