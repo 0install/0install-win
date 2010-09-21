@@ -50,7 +50,7 @@ namespace ZeroInstall.Store.Feed
         /// <inheritdoc/>
         public override string ToString()
         {
-            return Fingerprint + " (" + Domains + ")";
+            return Fingerprint + " " + Domains;
         }
         #endregion
 
