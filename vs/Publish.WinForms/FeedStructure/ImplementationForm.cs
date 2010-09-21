@@ -75,7 +75,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Control management
-
         /// <summary>
         /// Clear all controls on this form and set them (if needed) to the default values.
         /// </summary>
@@ -83,8 +82,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             hintTextBoxVersion.Text = string.Empty;
             dateTimePickerRelease.Value = DateTime.Now;
-            comboBoxStability.SelectedItem = Stability.Testing;
-            comboBoxLicense.Text = @"GPL v3 (GNU General Public License)";
+            comboBoxStability.SelectedItem = Stability.Unset;
+            comboBoxLicense.Text = String.Empty;
             hintTextBoxID.Text = String.Empty;
             hintTextBoxMain.Text = String.Empty;
             hintTextBoxDocDir.Text = String.Empty;
@@ -100,7 +99,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             ClearFormControls();
             if(!String.IsNullOrEmpty(_implementation.VersionString)) hintTextBoxVersion.Text = _implementation.VersionString;
-            if (_implementation.Released != default(DateTime)) dateTimePickerRelease.Value = _implementation.Released;
+            if (_implementation.Released != default(DateTime))
+            {
+                checkBoxSettingDateEnable.Checked = true;
+                dateTimePickerRelease.Value = _implementation.Released;
+            }
             if (_implementation.Stability != default(Stability)) comboBoxStability.SelectedItem = _implementation.Stability;
             if (!String.IsNullOrEmpty(_implementation.License)) comboBoxLicense.Text = _implementation.License;
             if (!String.IsNullOrEmpty(_implementation.ID)) hintTextBoxID.Text = _implementation.ID;
@@ -110,7 +113,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             if (!String.IsNullOrEmpty(_implementation.LocalPath)) hintTextBoxLocalPath.Text = _implementation.LocalPath;
             targetBaseControl.TargetBase = _implementation.CloneImplementation();
         }
-
         #endregion
 
         #region Control validation
@@ -118,6 +120,16 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             ImplementationVersion version;
             hintTextBoxVersion.ForeColor = ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version) ? Color.Green : Color.Red;
+        }
+
+        /// <summary>
+        /// Enables or disables <see cref="dateTimePickerRelease"/> when <see cref="checkBoxSettingDateEnable"/> is checked or unchecked.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
+        private void CheckBoxSettingDateEnableCheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerRelease.Enabled = checkBoxSettingDateEnable.Checked;
         }
         #endregion
 
@@ -133,7 +145,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             ImplementationVersion version;
 
             _implementation.Version = (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version)) ? version : null;
-            _implementation.Released = dateTimePickerRelease.Value;
+            _implementation.Released = checkBoxSettingDateEnable.Checked ? dateTimePickerRelease.Value : default(DateTime);
             _implementation.Stability = (Stability) comboBoxStability.SelectedItem;
             _implementation.License = (!String.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
             _implementation.ID = (!String.IsNullOrEmpty(hintTextBoxID.Text)) ? hintTextBoxID.Text : null;
