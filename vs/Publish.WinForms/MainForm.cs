@@ -373,7 +373,7 @@ namespace ZeroInstall.Publish.WinForms
             sw.WriteLine("<!-- Base64 Signature");
             sw.WriteLine(base64Signature);
             sw.WriteLine(String.Empty);
-            sw.WriteLine("-->");
+            sw.Write("-->");
             sw.Close();
         }
         #endregion
