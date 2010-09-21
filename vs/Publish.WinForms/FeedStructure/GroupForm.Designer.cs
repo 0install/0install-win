@@ -44,7 +44,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.hintTextBoxSelfTest = new Common.Controls.HintTextBox();
             this.hintTextBoxMain = new Common.Controls.HintTextBox();
             this.hintTextBoxVersion = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new TargetBaseControl();
+            this.targetBaseControl = new ZeroInstall.Publish.WinForms.Controls.TargetBaseControl();
+            this.checkBoxEnableSettingDate = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -105,6 +106,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             this.comboBoxLicense.FormattingEnabled = true;
             this.comboBoxLicense.Items.AddRange(new object[] {
+            "",
             "AFL (Academic Free License)",
             "AFPL (Aladdin Free Public License)",
             "AGPL v1 (Affero General Public License)",
@@ -185,9 +187,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             // dateTimePickerRelease
             // 
-            this.dateTimePickerRelease.Location = new System.Drawing.Point(130, 25);
+            this.dateTimePickerRelease.Enabled = false;
+            this.dateTimePickerRelease.Location = new System.Drawing.Point(151, 25);
             this.dateTimePickerRelease.Name = "dateTimePickerRelease";
-            this.dateTimePickerRelease.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerRelease.Size = new System.Drawing.Size(179, 20);
             this.dateTimePickerRelease.TabIndex = 3;
             // 
             // labelReleased
@@ -252,11 +255,22 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.targetBaseControl.TabIndex = 14;
             this.targetBaseControl.TargetBase = null;
             // 
+            // checkBoxEnableSettingDate
+            // 
+            this.checkBoxEnableSettingDate.AutoSize = true;
+            this.checkBoxEnableSettingDate.Location = new System.Drawing.Point(130, 28);
+            this.checkBoxEnableSettingDate.Name = "checkBoxEnableSettingDate";
+            this.checkBoxEnableSettingDate.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxEnableSettingDate.TabIndex = 1002;
+            this.checkBoxEnableSettingDate.UseVisualStyleBackColor = true;
+            this.checkBoxEnableSettingDate.CheckedChanged += new System.EventHandler(this.CheckBoxEnableSettingDateCheckedChanged);
+            // 
             // GroupForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(620, 325);
+            this.Controls.Add(this.checkBoxEnableSettingDate);
             this.Controls.Add(this.labelStability);
             this.Controls.Add(this.comboBoxStability);
             this.Controls.Add(this.hintTextBoxDocDir);
@@ -291,6 +305,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.SetChildIndex(this.comboBoxStability, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.labelStability, 0);
+            this.Controls.SetChildIndex(this.checkBoxEnableSettingDate, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -313,5 +328,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private System.Windows.Forms.DateTimePicker dateTimePickerRelease;
         private System.Windows.Forms.Label labelReleased;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.CheckBox checkBoxEnableSettingDate;
     }
 }

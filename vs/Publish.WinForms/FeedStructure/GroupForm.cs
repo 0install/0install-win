@@ -82,11 +82,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             hintTextBoxVersion.Text = String.Empty;
             dateTimePickerRelease.Value = DateTime.Now;
-            comboBoxLicense.Text = @"GPL v3 (GNU General Public License)";
+            comboBoxLicense.Text = String.Empty;
             hintTextBoxMain.Text = String.Empty;
             hintTextBoxSelfTest.Text = String.Empty;
             hintTextBoxDocDir.Text = String.Empty;
-            comboBoxStability.SelectedItem = Stability.Testing;
+            comboBoxStability.SelectedItem = Stability.Unset;
             targetBaseControl.TargetBase = null;
         }
 
@@ -97,7 +97,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             ClearFormControls();
             if(_group.Version != null) hintTextBoxVersion.Text = _group.VersionString;
-            if(_group.Released != default(DateTime)) dateTimePickerRelease.Value = _group.Released;
+            if(_group.Released != default(DateTime))
+            {
+                checkBoxEnableSettingDate.Checked = true;
+                dateTimePickerRelease.Value = _group.Released;
+            }
             if(!String.IsNullOrEmpty(_group.License)) comboBoxLicense.Text = _group.License;
             if(!String.IsNullOrEmpty(_group.Main)) hintTextBoxMain.Text = _group.Main;
             if(!String.IsNullOrEmpty(_group.SelfTest)) hintTextBoxSelfTest.Text = _group.SelfTest;
@@ -109,13 +113,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Control validation
-
         /// <summary>
         /// Sets "hintTextBoxMain.ForeColor" to <see cref="Color.Green"/> if the path is a relative path or to <see cref="Color.Red"/> if not.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        //TODO If a retrieval methode is available add a ComboBox with files that can be selected.
         private void HintTextBoxMainTextChanged(object sender, EventArgs e)
         {
             hintTextBoxMain.ForeColor = !Path.IsPathRooted(hintTextBoxMain.Text) ? Color.Green : Color.Red;
@@ -152,10 +154,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             hintTextBoxSelfTest.ForeColor = (!Path.IsPathRooted(hintTextBoxSelfTest.Text)) ? Color.Green : Color.Red;
         }
 
+        /// <summary>
+        /// Enables or disables <see cref="dateTimePickerRelease"/> when <see cref="checkBoxEnableSettingDate"/> is checked or unchecked.
+        /// </summary>
+        /// <param name="sender">Not used.</param>
+        /// <param name="e">Not used.</param>
+        private void CheckBoxEnableSettingDateCheckedChanged(object sender, EventArgs e)
+        {
+            dateTimePickerRelease.Enabled = checkBoxEnableSettingDate.Checked;
+        }
         #endregion
 
         #region Dialog buttons
-
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_group"/> and closes the window.
         /// </summary>
@@ -166,7 +176,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             ImplementationVersion implementationVersion;
             
             if (ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out implementationVersion)) _group.Version = implementationVersion;
-            _group.Released = dateTimePickerRelease.Value;
+            _group.Released = checkBoxEnableSettingDate.Checked ? dateTimePickerRelease.Value : default(DateTime);
             if (!String.IsNullOrEmpty(comboBoxLicense.Text)) _group.License = comboBoxLicense.Text;
             if (!Path.IsPathRooted(hintTextBoxMain.Text)) _group.Main = hintTextBoxMain.Text;
             if (!Path.IsPathRooted(hintTextBoxSelfTest.Text)) _group.SelfTest = hintTextBoxSelfTest.Text;
@@ -178,7 +188,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                 _group.Languages.Add(language);
             }
         }
-
         #endregion
     }
 }
