@@ -52,10 +52,10 @@
             // 
             this.hintTextBoxSha1Old.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSha1Old.Enabled = false;
             this.hintTextBoxSha1Old.HintText = "";
             this.hintTextBoxSha1Old.Location = new System.Drawing.Point(15, 25);
             this.hintTextBoxSha1Old.Name = "hintTextBoxSha1Old";
+            this.hintTextBoxSha1Old.ReadOnly = true;
             this.hintTextBoxSha1Old.Size = new System.Drawing.Size(403, 20);
             this.hintTextBoxSha1Old.TabIndex = 1;
             // 
@@ -81,10 +81,10 @@
             // 
             this.hintTextBoxSha1New.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSha1New.Enabled = false;
             this.hintTextBoxSha1New.HintText = "";
             this.hintTextBoxSha1New.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxSha1New.Name = "hintTextBoxSha1New";
+            this.hintTextBoxSha1New.ReadOnly = true;
             this.hintTextBoxSha1New.Size = new System.Drawing.Size(403, 20);
             this.hintTextBoxSha1New.TabIndex = 4;
             // 
@@ -101,10 +101,10 @@
             // 
             this.hintTextBoxSha256.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSha256.Enabled = false;
             this.hintTextBoxSha256.HintText = "";
             this.hintTextBoxSha256.Location = new System.Drawing.Point(15, 103);
             this.hintTextBoxSha256.Name = "hintTextBoxSha256";
+            this.hintTextBoxSha256.ReadOnly = true;
             this.hintTextBoxSha256.Size = new System.Drawing.Size(403, 20);
             this.hintTextBoxSha256.TabIndex = 6;
             // 
