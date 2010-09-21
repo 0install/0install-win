@@ -147,7 +147,7 @@ namespace Common
             process.BeginErrorReadLine();
 
             // Write the default input first off
-            if (!string.IsNullOrEmpty(defaultInput)) process.StandardInput.Write(defaultInput);
+            if (!string.IsNullOrEmpty(defaultInput)) process.StandardInput.WriteLine(defaultInput);
 
             if (errorHandler == null) process.WaitForExit();
             else

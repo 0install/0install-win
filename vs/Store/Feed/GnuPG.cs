@@ -197,17 +197,7 @@ namespace ZeroInstall.Store.Feed
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            Execute("--batch --passphrase-fd 0 --local-user " + user + "--detach-sign " + path, passphrase, ErrorHandler);
-        }
-
-        private static string DetachSignErrorHandler(string line)
-        {
-            var wrongPassphraseProofer = new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase");
-            if (wrongPassphraseProofer.IsMatch(line)) throw new WrongPassphraseException();
-            if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
-            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureExistsException);
-            throw new UnhandledErrorsException(line);
-            return null;
+            Execute("--batch --passphrase-fd 0 --local-user " + user + " --detach-sign " + path, passphrase, ErrorHandler);
         }
 
         /// <summary>
@@ -218,9 +208,11 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         private static string ErrorHandler(string line)
         {
-            if (line.StartsWith("gpg: NOTE:")) Log.Info(line);
-            else throw new UnhandledErrorsException(line);
-            return null;
+            var wrongPassphraseProofer = new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase");
+            if (wrongPassphraseProofer.IsMatch(line)) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
+            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureExistsException);
+            throw new UnhandledErrorsException(line);
         }
     }
 }
