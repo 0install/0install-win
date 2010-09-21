@@ -127,6 +127,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.hintTextBoxVersion.Name = "hintTextBoxVersion";
             this.hintTextBoxVersion.Size = new System.Drawing.Size(122, 20);
             this.hintTextBoxVersion.TabIndex = 1;
+            this.hintTextBoxVersion.TextChanged += new System.EventHandler(this.HintTextBoxVersionTextChanged);
             // 
             // labelMain
             // 

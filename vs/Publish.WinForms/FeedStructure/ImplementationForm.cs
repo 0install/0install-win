@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
@@ -113,9 +114,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Control validation
-
-
-
+        private void HintTextBoxVersionTextChanged(object sender, EventArgs e)
+        {
+            ImplementationVersion version;
+            hintTextBoxVersion.ForeColor = ImplementationVersion.TryCreate(hintTextBoxVersion.Text, out version) ? Color.Green : Color.Red;
+        }
         #endregion
 
         #region Dialog buttons 
