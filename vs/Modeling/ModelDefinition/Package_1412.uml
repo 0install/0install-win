@@ -4983,5 +4983,67 @@
         Id="614780d4-3fb5-468e-ae42-323a7ee2509d"
         name="LocalizedString" />
     </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="67ef2ddd-d3ac-4fa2-a173-1e873a5f7d30"
+        name="WorkingDirBinding"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="261c44cf-5626-48c3-854d-b9ba46218d69"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f7687ed4-d6d3-4e45-a11c-5de668888376">
+                <propertyInstance
+                  Id="a2043a96-7ffc-473b-9614-fedf59f89531"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="11669b07-e1cf-45cf-9f8d-e90bd0d6dc5e">
+                <propertyInstance
+                  Id="ec0c7872-45f0-4d4c-a850-b9fa24513540"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f3655ba1-9044-4746-9399-c6bb4fd3f1d3">
+                <propertyInstance
+                  Id="99b8d1f6-f6fa-41c1-8acf-99004f6392cb"
+                  name="IsStatic"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="b5c3068f-0e96-403a-b086-f17fa5d2cec4">
+                <propertyInstance
+                  Id="43110205-bb6e-4ed9-a5e3-3b5000f3e95a"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f624a86b-4a96-4b88-84d1-0b40594719b4">
+                <propertyInstance
+                  Id="c260c006-ef23-4b48-9d7e-b88f573a97e4"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="d15af962-075e-4d1c-bf1a-acce8be77747"
+            isSubstitutable="false">
+            <classMoniker
+              Id="67729032-caea-451f-8673-790dcf8a3f12"
+              LastKnownName="Binding"
+              LastKnownLocation="Package_1412.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
   </packagedElements>
 </package>

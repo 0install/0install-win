@@ -3667,6 +3667,54 @@
               </ownedAttributesInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="b18cba9b-3ff4-4d57-a711-29dcd5223b0c" name="WorkingDirBinding" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <appliedStereotypesInternal>
+                <stereotypeInstance Id="90cb1d15-e427-4584-a8b6-8972512429f9" name="class" profile="CSharpProfile">
+                  <elementDefinition Id="261c44cf-5626-48c3-854d-b9ba46218d69" />
+                  <propertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="190ea7bc-5b93-430f-b7a2-4d4e98c5f43a">
+                      <propertyInstance Id="5ce3a1c0-9e32-4266-90b6-370eb6f0b6b0" name="ClrAttributes">
+                        <elementDefinition Id="a2043a96-7ffc-473b-9614-fedf59f89531" />
+                      </propertyInstance>
+                      <elementDefinition Id="f7687ed4-d6d3-4e45-a11c-5de668888376" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="71a6b40b-ddba-40e1-a70b-04a6a5eb1d3d">
+                      <propertyInstance Id="5f5f4971-001c-4b85-87d5-6d678a0a574f" name="IsPartial" value="false">
+                        <elementDefinition Id="ec0c7872-45f0-4d4c-a850-b9fa24513540" />
+                      </propertyInstance>
+                      <elementDefinition Id="11669b07-e1cf-45cf-9f8d-e90bd0d6dc5e" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="dae5fae5-c382-444c-b01b-3264862b8442">
+                      <propertyInstance Id="a64d8a14-13ab-418f-aea2-264269a241d4" name="IsStatic" value="false">
+                        <elementDefinition Id="99b8d1f6-f6fa-41c1-8acf-99004f6392cb" />
+                      </propertyInstance>
+                      <elementDefinition Id="f3655ba1-9044-4746-9399-c6bb4fd3f1d3" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="551b8327-406a-495e-a2e6-e84ac7bcceb2">
+                      <propertyInstance Id="33f6512b-ca19-426d-8182-a16154c5fe69" name="IsUnsafe" value="false">
+                        <elementDefinition Id="43110205-bb6e-4ed9-a5e3-3b5000f3e95a" />
+                      </propertyInstance>
+                      <elementDefinition Id="b5c3068f-0e96-403a-b086-f17fa5d2cec4" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="5993792e-7c53-42a0-a38c-4b829b2f9a8d">
+                      <propertyInstance Id="6b7658b7-60bc-4895-aaae-b25e6120b834" name="PackageVisibility" value="internal">
+                        <elementDefinition Id="c260c006-ef23-4b48-9d7e-b88f573a97e4" />
+                      </propertyInstance>
+                      <elementDefinition Id="f624a86b-4a96-4b88-84d1-0b40594719b4" />
+                    </stereotypeInstanceHasPropertyInstances>
+                  </propertyInstances>
+                </stereotypeInstance>
+              </appliedStereotypesInternal>
+              <elementDefinition Id="67ef2ddd-d3ac-4fa2-a173-1e873a5f7d30" />
+              <generalsInternal>
+                <generalization Id="f0518d6c-6264-40b9-ba10-bcd0a61ac157" isSubstitutable="false">
+                  <classMoniker Id="013951ec-d86e-46e4-989b-50a89228a4c0" LastKnownName="Binding" />
+                  <elementDefinition Id="d15af962-075e-4d1c-bf1a-acce8be77747" />
+                </generalization>
+              </generalsInternal>
+            </class>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>

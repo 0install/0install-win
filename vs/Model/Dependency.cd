@@ -19,7 +19,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>ABEAAAAAAAAAAAAAgABAAABAAAAEAJAAAEAAAAAAABA=</HashCode>
+      <HashCode>ABEAAAAAAAAAAAAEgABAAABAAAAEAJAAAEAAAAAAABA=</HashCode>
       <FileName>Dependency.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -29,7 +29,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
-    <Position X="4.75" Y="5.75" Width="1.75" />
+    <Position X="5.75" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgEAAAAAA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
@@ -40,7 +40,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.OverlayBinding">
-    <Position X="2.5" Y="5.75" Width="1.75" />
+    <Position X="3.5" Y="5.75" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -62,6 +62,14 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="ZeroInstall.Model.WorkingDirBinding">
+    <Position X="1.5" Y="5.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <FileName>WorkingDirBinding.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
   <Struct Name="ZeroInstall.Model.Constraint">
     <Position X="6.75" Y="0.5" Width="2" />
     <Compartments>
@@ -75,7 +83,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Enum Name="ZeroInstall.Model.EnvironmentMode">
-    <Position X="7.5" Y="5.75" Width="1.75" />
+    <Position X="8.5" Y="5.75" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>

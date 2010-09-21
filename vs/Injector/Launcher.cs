@@ -126,14 +126,24 @@ namespace ZeroInstall.Injector
 
             foreach (var binding in bindingContainer.Bindings)
             {
-                var environmentBinding = binding as EnvironmentBinding;
-                if (environmentBinding != null) ApplyEnvironmentBinding(startInfo, implementationDirectory, environmentBinding);
+                var workingDirBinding = binding as WorkingDirBinding;
+                if (workingDirBinding != null) ApplyWorkingDirBinding(startInfo, implementationDirectory, workingDirBinding);
                 else
                 {
-                    var overlayBinding = binding as OverlayBinding;
-                    if (overlayBinding != null) ApplyOverlayBinding(startInfo, implementationDirectory, overlayBinding);
+                    var environmentBinding = binding as EnvironmentBinding;
+                    if (environmentBinding != null) ApplyEnvironmentBinding(startInfo, implementationDirectory, environmentBinding);
+                    else
+                    {
+                        var overlayBinding = binding as OverlayBinding;
+                        if (overlayBinding != null) ApplyOverlayBinding(startInfo, implementationDirectory, overlayBinding);
+                    }
                 }
             }
+        }
+
+        private void ApplyWorkingDirBinding(ProcessStartInfo startInfo, string implementationDirectory, WorkingDirBinding binding)
+        {
+            startInfo.WorkingDirectory = implementationDirectory;
         }
 
         private void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
