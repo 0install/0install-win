@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelLocalPath = new System.Windows.Forms.Label();
             this.hintTextBoxLocalPath = new Common.Controls.HintTextBox();
-            this.targetBaseControl = new TargetBaseControl();
+            this.targetBaseControl = new ZeroInstall.Publish.WinForms.Controls.TargetBaseControl();
             this.hintTextBoxID = new Common.Controls.HintTextBox();
             this.labelID = new System.Windows.Forms.Label();
             this.SuspendLayout();
@@ -63,7 +63,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // labelStability
             // 
             this.labelStability.AutoSize = true;
-            this.labelStability.Location = new System.Drawing.Point(346, 8);
+            this.labelStability.Location = new System.Drawing.Point(406, 9);
             this.labelStability.Name = "labelStability";
             this.labelStability.Size = new System.Drawing.Size(43, 13);
             this.labelStability.TabIndex = 4;
@@ -73,7 +73,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             this.comboBoxStability.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxStability.FormattingEnabled = true;
-            this.comboBoxStability.Location = new System.Drawing.Point(349, 24);
+            this.comboBoxStability.Location = new System.Drawing.Point(409, 25);
             this.comboBoxStability.Name = "comboBoxStability";
             this.comboBoxStability.Size = new System.Drawing.Size(109, 21);
             this.comboBoxStability.TabIndex = 5;

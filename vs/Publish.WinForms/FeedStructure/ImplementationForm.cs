@@ -133,6 +133,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _implementation.Released = dateTimePickerRelease.Value;
             _implementation.Stability = (Stability) comboBoxStability.SelectedItem;
             _implementation.License = (!String.IsNullOrEmpty(comboBoxLicense.Text)) ? comboBoxLicense.Text : null;
+            _implementation.ID = (!String.IsNullOrEmpty(hintTextBoxID.Text)) ? hintTextBoxID.Text : null;
             _implementation.Main = (!String.IsNullOrEmpty(hintTextBoxMain.Text)) ? hintTextBoxMain.Text : null;
             _implementation.DocDir = (!String.IsNullOrEmpty(hintTextBoxDocDir.Text)) ? hintTextBoxDocDir.Text : null;
             _implementation.SelfTest = (!String.IsNullOrEmpty(hintTextBoxSelfTest.Text)) ? hintTextBoxSelfTest.Text : null;
