@@ -286,7 +286,7 @@ namespace ZeroInstall.Publish.WinForms
                     break;
                 case DialogResult.No: break;
                 case DialogResult.Cancel:
-                    e.Cancel = true;
+                    if(e != null) e.Cancel = true;
                     break;
             }
         }
