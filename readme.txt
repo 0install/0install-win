@@ -2,7 +2,6 @@ The directory "vs" contains the Visual Studio project with the actual source cod
 The directory "lib" contains pre-compiled 3rd party libraries. Their licensing conditions are detailed in "3rd party code.txt".
 The directory "doc" contains scripts for generating source code and developer documentation.
 The directory "setup" contains scripts for creating a Windows Installer.
-The directory "wrappers" contains soon to be deprecated C# wrappers around the original Python code.
 The directory "build" contains the results of various compilation processes. It is created on first usage. It can contain the following subdirectories:
 - Backend: Contains the libraries forming the Zero Install Backend.
 - Frontend: Contains the executables for the Zero Install Frontend plus all required libraries (including the Backend).
