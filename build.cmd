@@ -5,7 +5,7 @@
 echo.
 call "%~dp0vs\build.cmd" Release
 echo.
-call "%~dp0setup\build.cmd"
+call "%~dp0setup\build.cmd" %*
 
 if "%1"=="+doc" (
   echo.
