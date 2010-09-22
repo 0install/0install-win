@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using Common;
 using Common.Helpers;
 using NDesk.Options;
@@ -69,7 +70,7 @@ namespace ZeroInstall.Injector.Cli
             #region Error handling
             catch (ArgumentException ex)
             {
-                Console.Error.WriteLine(ex.Message);
+                ReportError(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
@@ -79,7 +80,7 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Normal:
                     if (string.IsNullOrEmpty(results.Feed))
                     {
-                        Console.Error.WriteLine("Missing arguments. Try 0launch --help");
+                        ReportError("Missing arguments. Try 0launch --help");
                         return (int)ErrorLevel.InvalidArguments;
                     }
                     
@@ -92,16 +93,16 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Import:
                 case OperationMode.Manage:
                     // ToDo: Implement
-                    Console.Error.WriteLine("Not implemented yet!");
+                    ReportError("Not implemented yet!");
                     return (int)ErrorLevel.NotSupported;
 
                 case OperationMode.Version:
                     // ToDo: Read version number from assembly data
-                    Console.WriteLine(@"Zero Install for Windows Injector v{0}", "0.50.0");
+                    Console.WriteLine(@"Zero Install Injector CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
                     return (int)ErrorLevel.OK;
 
                 default:
-                    Console.Error.WriteLine("Unknown operation mode");
+                    ReportError("Unknown operation mode");
                     return (int)ErrorLevel.NotSupported;
             }
         }
@@ -197,6 +198,24 @@ namespace ZeroInstall.Injector.Cli
         }
         #endregion
 
+        #region Error handling
+        /// <summary>
+        /// Reports an error on <see cref="Console.Error"/> in red letters.
+        /// </summary>
+        /// <param name="message">The message to report.</param>
+        private static void ReportError(string message)
+        {
+#if !DEBUG
+            Log.Error(message);
+#endif
+
+            Console.Error.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Error.WriteLine(message);
+            Console.ResetColor();
+        }
+        #endregion
+
         //--------------------//
 
         #region Execute
@@ -215,12 +234,12 @@ namespace ZeroInstall.Injector.Cli
                 #region Error hanlding
                 catch (IOException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (SolverException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.SolverError;
                 }
                 #endregion
@@ -237,22 +256,22 @@ namespace ZeroInstall.Injector.Cli
                 }
                 catch (WebException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.WebError;
                 }
                 catch (IOException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.DigestMismatch;
                 }
                 #endregion
@@ -271,22 +290,22 @@ namespace ZeroInstall.Injector.Cli
                 #region Error hanlding
                 catch (ImplementationNotFoundException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.ImplementationError;
                 }
                 catch (MissingMainException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.ImplementationError;
                 }
                 catch (Win32Exception ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (BadImageFormatException ex)
                 {
-                    Console.Error.WriteLine(ex.Message);
+                    ReportError(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 #endregion

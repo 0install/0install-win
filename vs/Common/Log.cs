@@ -24,8 +24,8 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
 using Common.Helpers;
 
 namespace Common
@@ -66,6 +66,12 @@ namespace Common
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
+            AssemblyName assemblyInfo = Assembly.GetEntryAssembly().GetName();
+
+            // Try to determine assembly title, fall back to assembly name on failure
+            var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            string assemblyTitle = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
+            
             string filePath;
             switch (Environment.OSVersion.Platform)
             {
@@ -76,7 +82,7 @@ namespace Common
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(Application.ExecutablePath) + " Log.txt");
+                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(assemblyInfo.Name) + " Log.txt");
                     break;
             }
 
@@ -102,7 +108,7 @@ namespace Common
 
             // Add session identification block to the file
             Echo("");
-            Echo("/// " + Application.ProductName + " v" + Application.ProductVersion);
+            Echo("/// " + assemblyTitle + " v" + assemblyInfo.Version);
             Echo("///  Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             Echo("");
         }
