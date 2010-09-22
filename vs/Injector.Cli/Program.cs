@@ -134,7 +134,7 @@ namespace ZeroInstall.Injector.Cli
                 {"i|import", Resources.OptionImport, unused => mode = OperationMode.Import},
                 {"l|list", Resources.OptionList, unused => mode = OperationMode.List},
                 {"f|feed", Resources.OptionFeed, unused => mode = OperationMode.Manage},
-                {"V|version", Resources.OptionHelp, unused => mode = OperationMode.Version},
+                {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
 
                 // Policy options
                 {"before=", Resources.OptionBefore, version => parseResults.Policy.Constraint = new Constraint(parseResults.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
