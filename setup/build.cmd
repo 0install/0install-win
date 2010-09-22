@@ -8,7 +8,8 @@ set SetupEXE=0install.exe
 set SetupUpdateEXE=0install_upd.exe
 if not "%docs%"=="" set PublishDir=%docs%\Internet\Simon Server\srv\www\0install\download
 
-rem Check Inno Setup 5
+rem Check for Inno Setup 5 installation (32-bit)
+if %PROCESSOR_ARCHITECTURE%==AMD64 set ProgramFiles=%ProgramFiles(x86)%
 if not exist "%ProgramFiles%\Inno Setup 5" goto err_no_is
 path %ProgramFiles%\Inno Setup 5;%path%
 
