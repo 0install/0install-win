@@ -143,7 +143,7 @@ namespace ZeroInstall.Injector
 
         private void ApplyWorkingDirBinding(ProcessStartInfo startInfo, string implementationDirectory, WorkingDirBinding binding)
         {
-            startInfo.WorkingDirectory = implementationDirectory;
+            startInfo.WorkingDirectory = Path.Combine(implementationDirectory, binding.Source ?? "");
         }
 
         private void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)

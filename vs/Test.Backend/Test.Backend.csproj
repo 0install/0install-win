@@ -96,6 +96,7 @@
     <Compile Include="Model\ManifestDigestTest.cs" />
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
+    <Compile Include="Model\WorkingDirBinding.cs" />
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />

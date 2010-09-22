@@ -67,7 +67,7 @@ namespace ZeroInstall.Model
                 {
                     Interface = "http://somedomain/interface.xml",
                     Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
-                    Bindings = {new EnvironmentBinding {Name = "PATH"}}
+                    Bindings = {WorkingDirBindingTest.CreateTestBinding(), EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
                 } },
                 RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://somedomain/archive.zip"), Size = 1024}}}}
             };
@@ -88,7 +88,7 @@ namespace ZeroInstall.Model
                 Main = "executable",
                 DocDir = "doc",
                 Stability = Stability.Developer,
-                Dependencies = {new Dependency {Interface = "http://somedomain/interface.xml", Bindings = {new EnvironmentBinding {Name = "PATH"}}}}
+                Dependencies = {new Dependency {Interface = "http://somedomain/interface.xml", Bindings = {WorkingDirBindingTest.CreateTestBinding(), EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}}}
             };
         }
 

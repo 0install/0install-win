@@ -16,22 +16,39 @@
  */
 
 using System;
+using System.ComponentModel;
+using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
     /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
-    /// <remarks>This is to support legacy programs which can't properly locate their installation directory.</remarks>
+    /// <remarks>
+    /// <para>This is to support legacy programs which can't properly locate their installation directory.</para>
+    /// <para>Only the once instance of this binding type in a selection of <see cref="Implementation"/>s (the last one to be processed) is effective. All others are ignored.</para>
+    /// </remarks>
     public sealed class WorkingDirBinding : Binding, IEquatable<WorkingDirBinding>
     {
+        #region Properties
+        private string _source = ".";
+        /// <summary>
+        /// The relative path of the directory in the implementation to publish. The default is to publish everything.
+        /// </summary>
+        [Description("The name of the environment variable.")]
+        [XmlAttribute("src")]
+        public string Source { get { return _source; } set { _source = value; } }
+        #endregion
+
+        //--------------------//
+
         #region Conversion
         /// <summary>
-        /// Returns "WorkingDirBinding". Not safe for parsing!
+        /// Returns the binding in the form "WorkingDirBinding: Source". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "WorkingDirBinding";
+            return string.Format("WorkingDirBinding: {0}", Source);
         }
         #endregion
 
@@ -42,7 +59,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="WorkingDirBinding"/>.</returns>
         public override Binding CloneBinding()
         {
-            return new WorkingDirBinding();
+            return new WorkingDirBinding { Source = Source };
         }
         #endregion
 
@@ -51,7 +68,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return true;
+            return other.Source == Source;
         }
 
         public override bool Equals(object obj)
@@ -63,10 +80,7 @@ namespace ZeroInstall.Model
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return 0;
-            }
+            return (Source ?? "").GetHashCode();
         }
         #endregion
     }

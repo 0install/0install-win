@@ -30,10 +30,10 @@ namespace ZeroInstall.Model
         #region Properties
         private string _source = ".";
         /// <summary>
-        /// The relative path of the directory in the implementation to publish. The default is '.', to publish everything.
+        /// The relative path of the directory in the implementation to publish. The default is to publish everything.
         /// </summary>
         [Description("The name of the environment variable.")]
-        [XmlAttribute("src"), DefaultValue(".")]
+        [XmlAttribute("src")]
         public string Source { get { return _source; } set { _source = value; } }
 
         /// <summary>
