@@ -64,9 +64,9 @@ namespace ZeroInstall.Store.Feed
         /// <param name="path">The file to create the signature for.</param>
         /// <param name="user">The GnuPG ID of the user whose signture to use for signing the file.</param>
         /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
+        /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         public void DetachSign(string path, string user, string passphrase)
         {
             #region Sanity checks

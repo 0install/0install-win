@@ -236,7 +236,7 @@ namespace Common.Storage
 
             // Make sure the containing directory exists
             string directory = Path.GetDirectoryName(path);
-            if (!Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            if (directory != null && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             using (var fileStream = File.Create(path))
                 Save(fileStream, data, ignoreMembers);
@@ -258,6 +258,38 @@ namespace Common.Storage
 
                 // Copy the stream to a string
                 return StreamHelper.ReadToString(stream);
+            }
+        }
+        #endregion
+
+        #region Stylesheet
+        /// <summary>
+        /// Adds an XSL stylesheet instruction to an XML file.
+        /// </summary>
+        /// <param name="path">The XML file to add the stylesheet instruction to.</param>
+        /// <param name="stylesheetFile">The file name of the stylesheet to reference.</param>
+        public static void AddStylesheet(string path, string stylesheetFile)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(stylesheetFile)) throw new ArgumentNullException("stylesheetFile");
+            #endregion
+
+            // Loads the XML document
+            var feedDom = new XmlDocument();
+            feedDom.Load(path);
+
+            // Adds a new XSL stylesheet instruction to the DOM
+            var stylesheetInstruction = feedDom.CreateProcessingInstruction("xml-stylesheet", string.Format("type='text/xsl' href='{0}'", stylesheetFile));
+            feedDom.InsertAfter(stylesheetInstruction, feedDom.FirstChild);
+
+            // Writes back the modified XML document
+            using (var xmlWriter = XmlWriter.Create(path, new XmlWriterSettings {Encoding = new UTF8Encoding(false), Indent = true, IndentChars = "\t", NewLineChars = "\n"}))
+            {
+                feedDom.WriteTo(xmlWriter);
+
+                // End file with newline
+                xmlWriter.WriteWhitespace("\n");
             }
         }
         #endregion
