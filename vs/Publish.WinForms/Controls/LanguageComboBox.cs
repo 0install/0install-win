@@ -50,12 +50,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Fills the <see cref="ComboBox"/> with all <see cref="CultureTypes.SpecificCultures"/> and <see cref="CultureTypes.NeutralCultures"/>.
+        /// Clears the items and fills the <see cref="ComboBox"/> with all <see cref="CultureTypes.SpecificCultures"/> and <see cref="CultureTypes.NeutralCultures"/>.
         /// </summary>
-        private void FillLanguages()
+        public void FillLanguages()
         {
+            BeginUpdate();
+            Items.Clear();
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
                 Items.Add(language);
+            EndUpdate();
             SelectedItem = CultureInfo.CurrentCulture;
         }
         #endregion
