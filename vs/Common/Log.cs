@@ -99,7 +99,7 @@ namespace Common
                 file = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             }
 
-            // When writing to a new file use UTF-8, otherwise keep existing encoding
+            // When writing to a new file use UTF-8 with BOM, otherwise keep existing encoding
             _fileWriter = (file.Length == 0 ? new StreamWriter(file, Encoding.UTF8) : new StreamWriter(file));
             _fileWriter.AutoFlush = true;
 
