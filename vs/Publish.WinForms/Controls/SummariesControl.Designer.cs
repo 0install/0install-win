@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.languageComboBox = new ZeroInstall.Publish.WinForms.Controls.LanguageComboBox();
             this.hintTextBoxSummary = new Common.Controls.HintTextBox();
+            this.languageComboBox = new ZeroInstall.Publish.WinForms.Controls.LanguageComboBox();
             this.SuspendLayout();
-            // 
-            // languageComboBox
-            // 
-            this.languageComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.languageComboBox.Location = new System.Drawing.Point(193, 0);
-            this.languageComboBox.Name = "languageComboBox";
-            this.languageComboBox.Size = new System.Drawing.Size(125, 21);
-            this.languageComboBox.TabIndex = 0;
             // 
             // hintTextBoxSummary
             // 
@@ -49,6 +41,15 @@
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";
             this.hintTextBoxSummary.Size = new System.Drawing.Size(187, 20);
             this.hintTextBoxSummary.TabIndex = 1;
+            // 
+            // languageComboBox
+            // 
+            this.languageComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.languageComboBox.Location = new System.Drawing.Point(193, 0);
+            this.languageComboBox.Name = "languageComboBox";
+            this.languageComboBox.SelectedLanguage = new System.Globalization.CultureInfo("de-DE");
+            this.languageComboBox.Size = new System.Drawing.Size(125, 21);
+            this.languageComboBox.TabIndex = 0;
             // 
             // SummariesControl
             // 

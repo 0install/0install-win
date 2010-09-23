@@ -15,25 +15,77 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Globalization;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public partial class LanguageComboBox : UserControl
+    /// <summary>
+    /// A <see cref="ComboBox"/> filled with all <see cref="CultureTypes.SpecificCultures"/> and <see cref="CultureTypes.NeutralCultures"/>.
+    /// </summary>
+    public class LanguageComboBox : ComboBox
     {
+        #region Properties
+        /// <summary>
+        /// The currently selected language.
+        /// </summary>
+        public CultureInfo SelectedLanguage
+        {
+            get
+            {
+                return (SelectedItem is CultureInfo) ? (CultureInfo) SelectedItem : null;
+            }
+            set
+            {
+                if(value != null) SelectedItem = value;
+            }
+        }
+        #endregion
 
         #region Initialization
         public LanguageComboBox()
         {
-            InitializeComponent();
-            InitializeComboBoxLanguages();
+            FillLanguages();
         }
 
-        private void InitializeComboBoxLanguages()
+        /// <summary>
+        /// Fills the <see cref="ComboBox"/> with all <see cref="CultureTypes.SpecificCultures"/> and <see cref="CultureTypes.NeutralCultures"/>.
+        /// </summary>
+        private void FillLanguages()
         {
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
-                comboBoxLanguages.Items.Add(language);
+                Items.Add(language);
+            SelectedItem = CultureInfo.CurrentCulture;
+        }
+        #endregion
+
+        #region Add/Remove language
+        /// <summary>
+        /// Adds a language to the control if it doesn't contains it.
+        /// </summary>
+        /// <param name="language">The langugage to add.</param>
+        public void AddLanguage(CultureInfo language)
+        {
+            #region sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
+            if (Items.Contains(language)) return;
+            Items.Add(language);
+        }
+
+        /// <summary>
+        /// Removes the given language from the control.
+        /// </summary>
+        /// <param name="language">The language to remove.</param>
+        public void RemoveLanguage(CultureInfo language)
+        {
+            #region sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
+            Items.Remove(language);
         }
         #endregion
     }

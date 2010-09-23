@@ -65,7 +65,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private static TabPage CreateTabPage(LocalizableString summary)
         {
             var control = new SummariesControl();
-            control.languageComboBox.comboBoxLanguages.SelectedItem = summary.Language;
+            control.languageComboBox.SelectedLanguage = summary.Language;
             control.hintTextBoxSummary.Text = summary.Value;
 
             var newTabPage = new TabPage {Text = summary.Language.NativeName};
