@@ -6,7 +6,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Stores a list of applications in form of interface URIs.
     /// </summary>
-    [XmlRoot("app-list", Namespace = "http://0install.de/my-apps/app-list")]
+    [XmlRoot("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public sealed class AppList
     {
         #region Properties

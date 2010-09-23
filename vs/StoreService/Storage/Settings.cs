@@ -27,7 +27,7 @@ namespace ZeroInstall.StoreService.Storage
     /// <summary>
     /// Stores settings for the application.
     /// </summary>
-    [XmlRoot("settings", Namespace = "http://0install.de/store-service/settings")]
+    [XmlRoot("settings", Namespace = "http://0install.de/schema/store-service/settings")]
     public sealed class Settings
     {
         #region Variables
