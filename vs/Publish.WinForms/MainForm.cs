@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using System.Windows.Forms;
 using C5;
 using Common;
@@ -868,6 +867,10 @@ namespace ZeroInstall.Publish.WinForms
             else if (selectedNodeTag is Group)
             {
                 enableAddButtons = new[] { btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding, btnAddWorkingDir };
+            }
+            else if (selectedNodeTag is PackageImplementation)
+            {
+                enableAddButtons = new[] { btnAddDependency, btnAddEnvironmentBinding,btnAddOverlayBinding, btnAddWorkingDir };
             }
             else if (selectedNodeTag is Implementation)
             {

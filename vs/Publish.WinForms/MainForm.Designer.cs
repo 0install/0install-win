@@ -662,7 +662,6 @@ namespace ZeroInstall.Publish.WinForms
             // btnAddPackageImplementation
             // 
             this.btnAddPackageImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddPackageImplementation.Enabled = false;
             this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 164);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
@@ -847,7 +846,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // feedReferenceControl
             // 
-            feedReference.Architecture = new Architecture(OS.All, Cpu.All);
+            feedReference.Architecture = default(Architecture);
             feedReference.Source = null;
             this.feedReferenceControl.FeedReference = feedReference;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
