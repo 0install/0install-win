@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger
+ * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,12 +21,15 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace ZeroInstall.Store.Feed
 {
+    /// <summary>
+    /// Indicates that an incorrect passphrase was passed to <see cref="GnuPG"/>.
+    /// </summary>
+    [Serializable]
+    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has only a signaling purpose and doesn't need to carry custom Messages")]
     public class WrongPassphraseException : Exception
-    {
-        public WrongPassphraseException() : this(String.Empty) { }
-        public WrongPassphraseException(string message) : base(message) { }
-    }
+    {}
 }

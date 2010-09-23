@@ -59,7 +59,17 @@ namespace ZeroInstall.Store.Feed
         #region Equality
         public bool Equals(Domain other)
         {
-            return Value == other.Value;
+            return other.Value == Value;
+        }
+
+        public static bool operator ==(Domain left, Domain right)
+        {
+            return left.Equals(right);
+        }
+
+        public static bool operator !=(Domain left, Domain right)
+        {
+            return !left.Equals(right);
         }
 
         public override bool Equals(object obj)
