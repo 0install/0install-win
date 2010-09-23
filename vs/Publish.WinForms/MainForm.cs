@@ -931,13 +931,11 @@ namespace ZeroInstall.Publish.WinForms
                     InsertManifestDigestNode(implementationNode, manifestDigestFromArchive);
                 }
                 var implementation = (Implementation) implementationNode.Tag;
-                if (implementation.ID != null)
+
+                if (String.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1new="))
                 {
-                    if (String.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1new="))
-                    {
-                        implementation.ID = "sha1new=" + manifestDigestFromArchive.Sha1New;
-                    }
-            }
+                    implementation.ID = "sha1new=" + manifestDigestFromArchive.Sha1New;
+                }
         }
             else if (selectedNode.Tag is Recipe)
             {
