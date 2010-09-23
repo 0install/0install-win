@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Text;
 using Common.Helpers;
 using Common.Properties;
 
@@ -325,7 +326,7 @@ namespace Common.Archive
                     // Remember in a text-file instead
                     string xbitFilePath = Path.Combine(Target, ".xbit");
 
-                    // Default encoding (UTF8 without BOM)
+                    // Use default encoding: UTF-8 without BOM
                     using (var xbitWriter = File.AppendText(xbitFilePath))
                     {
                         xbitWriter.NewLine = "\n";
@@ -351,7 +352,7 @@ namespace Common.Archive
 
             string xbitFileContent = File.ReadAllText(xbitFilePath);
             xbitFileContent = xbitFileContent.Replace("/" + path + "\n", "");
-            File.WriteAllText(xbitFilePath, xbitFileContent); // Default encoding (UTF8 without BOM)
+            File.WriteAllText(xbitFilePath, xbitFileContent, new UTF8Encoding(false));
         }
         #endregion
 
