@@ -214,10 +214,10 @@ namespace Common.Storage
                     var ns = new XmlSerializerNamespaces(new[] {new XmlQualifiedName("", ((XmlRootAttribute)rootAttributes[0]).Namespace)});
                     serializer.Serialize(xmlWriter, data, ns);
                 }
+                
+                // End file with newline
+                xmlWriter.WriteWhitespace("\n");
             }
-
-            // End file with newline
-            stream.WriteByte((byte)'\n');
         }
 
         /// <summary>

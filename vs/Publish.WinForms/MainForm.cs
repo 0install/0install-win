@@ -285,6 +285,7 @@ namespace ZeroInstall.Publish.WinForms
                     if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     {
                         SaveFeed(saveFileDialog.FileName);
+                        FeedUtils.AddStylesheet(saveFileDialog.FileName, "interface.xsl");
                         SignFeed(saveFileDialog.FileName);
                     }
                     break;
@@ -302,17 +303,17 @@ namespace ZeroInstall.Publish.WinForms
         private void SignFeed(string path)
         {
             bool wrongPassphrase = false;
-            var key = (GpgSecretKey)toolStripComboBoxGpg.SelectedItem;
+            var key = (GnuPGSecretKey)toolStripComboBoxGpg.SelectedItem;
             do
             {
                 try
                 {
                     string passphrase = InputBox.Show(
-                        (wrongPassphrase ? "Wrong passphrase entered.\nPlease retry entering the gpg passphrase for " : "Please enter the gpg passphrase for ") +
-                        key.Owner + " <" + key.EMail + "> :", "GnuPG passphrase", String.Empty, true);
+                        (wrongPassphrase ? "Wrong passphrase entered.\nPlease retry entering the gpg passphrase for " : "Please enter the gpg passphrase for ") + key.UserID,
+                        "GnuPG passphrase", String.Empty, true);
                     if (passphrase == null) return;
 
-                    FeedUtils.SignFeed(path, key.MainSigningKey, passphrase);
+                    FeedUtils.SignFeed(path, key.KeyID, passphrase);
                 }
                 catch (WrongPassphraseException)
                 {

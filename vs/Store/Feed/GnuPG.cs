@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common;
@@ -46,138 +45,18 @@ namespace ZeroInstall.Store.Feed
         /// </summary>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public IEnumerable<GpgSecretKey> ListSecretKeys()
+        /// <exception cref="FormatException">Thrown if GnuPG's output cannot be properly parsed.</exception>
+        public IEnumerable<GnuPGSecretKey> ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys", null, ErrorHandler);
-            
-            return ExtractSecretKeys(result);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null, ErrorHandler);
+            string[] lines = StringHelper.SplitMultilineText(result);
+            var keys = new List<GnuPGSecretKey>(lines.Length / 2);
+
+            foreach (var line in lines)
+                if (line.StartsWith("sec")) keys.Add(GnuPGSecretKey.Parse(line));
+
+            return keys;
         }
-
-        #region Extract secret keys
-
-        /// <summary>
-        /// Returns a list of all secret gpg keys on this system.
-        /// </summary>
-        /// <param name="gpgResult">The ouput of stdout when listing all secret keys.</param>
-        /// <returns>The secret keys registred on this system.</returns>
-        private static IEnumerable<GpgSecretKey> ExtractSecretKeys(string gpgResult)
-        {
-            var secretKeys = new LinkedList<GpgSecretKey>();
-
-            var lines = StringHelper.SplitMultilineText(gpgResult);
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (!lines[i].StartsWith("sec")) continue;
-                var secretKey = new GpgSecretKey
-                                    {
-                                        BitLength = ExtractBitLength(lines[i]),
-                                        KeyType = ExtractKeyType(lines[i]),
-                                        MainSigningKey = ExtractMainSigningKey(lines[i]),
-                                        CreationDate = ExtractCreationDate(lines[i]),
-                                        Owner = ExtractOwner(lines[i + 1]),
-                                        EMail = ExtractEmailAdress(lines[i + 1])
-                                    };
-
-                secretKeys.AddLast(secretKey);
-            }
-
-            return secretKeys;
-        }
-
-        /// <summary>
-        /// Returns the bit length of a secret gpg key.
-        /// </summary>
-        /// <param name="secLine">A line beginning with "sec" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The bit length.</returns>
-        private static int ExtractBitLength(string secLine)
-        {
-            var prefixRemover = new Regex("sec\\s*");
-            var suffixRemover = new Regex("[DgR]/[\\w\\W]*");
-            var removedPrefix = prefixRemover.Replace(secLine, String.Empty);
-            var bitLength = suffixRemover.Replace(removedPrefix, String.Empty);
-            return Int32.Parse(bitLength);
-        }
-
-        /// <summary>
-        /// Returns the key type of a secret gpg key.
-        /// </summary>
-        /// <param name="secLine">A line beginning with "sec" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The key type.</returns>
-        private static KeyType ExtractKeyType(string secLine)
-        {
-            var prefixRemover = new Regex("sec\\s*[0-9]*");
-            var suffixRemover = new Regex("/[\\w\\W]*");
-            var removedPrefix = prefixRemover.Replace(secLine, String.Empty);
-            var keyType = suffixRemover.Replace(removedPrefix, String.Empty);
-            switch (keyType)
-            {
-                case "D":
-                    return KeyType.Dsa;
-                case "g":
-                    return KeyType.Elgamal;
-                case "R":
-                    return KeyType.Rsa;
-                default: throw new InvalidEnumArgumentException(Resources.UnknowGPGKeyType);
-            }
-        }
-
-        /// <summary>
-        /// Returns the id of a secret gpg key.
-        /// </summary>
-        /// <param name="secLine">A line beginning with "sec" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The key id.</returns>
-        private static string ExtractMainSigningKey(string secLine)
-        {
-            var prefixRemover = new Regex("sec\\s*[0-9]*[DgR]/");
-            var suffixRemover = new Regex("\\s*[0-9]{4}-[0-9]{2}-[0-9]{2}[\\w\\W]*");
-            var removedPrefix = prefixRemover.Replace(secLine, String.Empty);
-            var mainSigningKey = suffixRemover.Replace(removedPrefix, String.Empty);
-            return mainSigningKey;
-        }
-
-        /// <summary>
-        /// Returns the creation date of a secret gpg key.
-        /// </summary>
-        /// <param name="secLine">A line beginning with "sec" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The creation date of the key.</returns>
-        private static DateTime ExtractCreationDate(string secLine)
-        {
-            var prefixRemover = new Regex("sec\\s*[0-9]*[DgR]/\\w* ");
-            var suffixRemover = new Regex("[^[0-9]{4}-[0-9]{2}-[0-9]{2}]");
-            var removedPrefix = prefixRemover.Replace(secLine, String.Empty);
-            var creationDate = suffixRemover.Replace(removedPrefix, String.Empty);
-            var splittedDate = creationDate.Split(new[] {'-'});
-            return new DateTime(Int32.Parse(splittedDate[0]), Int32.Parse(splittedDate[1]), Int32.Parse(splittedDate[2]));
-        }
-
-        /// <summary>
-        /// Returns the owner of a secret gpg key.
-        /// </summary>
-        /// <param name="uidLine">A line beginning with "uid" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The owner of the key.</returns>
-        private static string ExtractOwner(string uidLine)
-        {
-            var prefixRemover = new Regex("uid\\s*");
-            var suffixRemover = new Regex("\\s*<[\\w\\W]*");
-            var removedPrefix = prefixRemover.Replace(uidLine, String.Empty);
-            var owner = suffixRemover.Replace(removedPrefix, String.Empty);
-            return owner;
-        }
-
-        /// <summary>
-        /// Returns the email adress of the owner of a secret gpg key.
-        /// </summary>
-        /// <param name="uidLine">A line beginning with "uid" of the output from gpg when listing all secret keys.</param>
-        /// <returns>The email adress of a gpg key.</returns>
-        private static string ExtractEmailAdress(string uidLine)
-        {
-            var prefixRemover = new Regex("uid[\\w\\W]* <");
-            var suffixRemover = new Regex(">[\\w\\W]*");
-            var removedPrefix = prefixRemover.Replace(uidLine, String.Empty);
-            var emailAdress = suffixRemover.Replace(removedPrefix, String.Empty);
-            return emailAdress;            
-        }
-        #endregion
 
         /// <summary>
         /// Creates a detached signature for a specific file using the user's default key.
@@ -201,6 +80,22 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
+        /// Returns the public key of a specific user
+        /// </summary>
+        /// <param name="user">The GnuPG ID of the user whose public key to return.</param>
+        /// <returns>The public key in the ASCII Armored format.</returns>
+        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
+        public string GetPublicKey(string user)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
+            #endregion
+
+            return Execute("--batch --no-secmem-warning --local-user " + user + " --armor --export", null, ErrorHandler);
+        }
+
+        /// <summary>
         /// Provides error handling for GnuPG stderr.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
@@ -208,8 +103,7 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         private static string ErrorHandler(string line)
         {
-            var wrongPassphraseProofer = new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase");
-            if (wrongPassphraseProofer.IsMatch(line)) throw new WrongPassphraseException();
+            if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureExistsException);
             throw new UnhandledErrorsException(line);
