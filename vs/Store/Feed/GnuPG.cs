@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Feed
                                         MainSigningKey = ExtractMainSigningKey(lines[i]),
                                         CreationDate = ExtractCreationDate(lines[i]),
                                         Owner = ExtractOwner(lines[i + 1]),
-                                        EmailAdress = ExtractEmailAdress(lines[i + 1])
+                                        EMail = ExtractEmailAdress(lines[i + 1])
                                     };
 
                 secretKeys.AddLast(secretKey);
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Feed
         /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="FileNotFoundException"></exception>
+        /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
         public void DetachSign(string path, string user, string passphrase)
         {
             #region Sanity checks

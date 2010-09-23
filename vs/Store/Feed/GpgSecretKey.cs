@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Feed
         public string MainSigningKey { get; set; }
         public DateTime CreationDate { get; set; }
         public string Owner { get; set; }
-        public string EmailAdress { get; set; }
+        public string EMail { get; set; }
 
         public override string ToString()
         {
