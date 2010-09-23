@@ -285,7 +285,7 @@ namespace ZeroInstall.Publish.WinForms
                     if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     {
                         SaveFeed(saveFileDialog.FileName);
-                        FeedUtils.AddStylesheet(saveFileDialog.FileName, "interface.xsl");
+                        FeedUtils.AddStylesheet(saveFileDialog.FileName);
                         SignFeed(saveFileDialog.FileName);
                     }
                     break;
