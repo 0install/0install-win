@@ -351,7 +351,7 @@ namespace Common.Archive
 
             string xbitFileContent = File.ReadAllText(xbitFilePath);
             xbitFileContent = xbitFileContent.Replace("/" + path + "\n", "");
-            File.WriteAllText(xbitFilePath, xbitFileContent);
+            File.WriteAllText(xbitFilePath, xbitFileContent); // Default encoding (UTF8 without BOM)
         }
         #endregion
 

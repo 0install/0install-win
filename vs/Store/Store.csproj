@@ -44,7 +44,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="C5">
@@ -59,9 +58,13 @@
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
+    <Compile Include="Implementation\Manifest.cs" />
+    <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\ManifestDirectory.cs" />
-    <Compile Include="Implementation\ManifestExecutableFile.cs" />
     <Compile Include="Implementation\ManifestFileBase.cs" />
+    <Compile Include="Implementation\ManifestFile.cs" />
+    <Compile Include="Implementation\ManifestExecutableFile.cs" />
+    <Compile Include="Implementation\ManifestSymlink.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
     <Compile Include="Implementation\ManifestFormat.cs" />
     <Compile Include="Implementation\ManifestGenerator.cs" />
@@ -69,9 +72,6 @@
     <Compile Include="Implementation\StoreProvider.cs" />
     <Compile Include="Implementation\StoreSet.cs" />
     <Compile Include="Implementation\IStore.cs" />
-    <Compile Include="Implementation\Manifest.cs" />
-    <Compile Include="Implementation\ManifestNode.cs" />
-    <Compile Include="Implementation\ManifestFile.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Feed\Icon.cs" />
     <Compile Include="Feed\InterfaceCache.cs" />
@@ -85,7 +85,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Implementation\ManifestSymlink.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
