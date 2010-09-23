@@ -218,6 +218,9 @@
     <EmbeddedResource Include="FeedStructure\ImplementationForm.resx">
       <DependentUpon>ImplementationForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\WorkingDirBindingForm.resx">
+      <DependentUpon>WorkingDirBindingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
