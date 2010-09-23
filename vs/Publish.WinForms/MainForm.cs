@@ -1076,8 +1076,8 @@ namespace ZeroInstall.Publish.WinForms
                         {
                             var packageImplementationNode = new TreeNode(packageImplementation.ToString()) { Tag = packageImplementation };
                             parentNode.Nodes.Add(packageImplementationNode);
-                            BuildDependencyTreeNodes(packageImplementation.Dependencies, parentNode);
-                            BuildBindingTreeNodes(packageImplementation.Bindings, parentNode);
+                            BuildDependencyTreeNodes(packageImplementation.Dependencies, packageImplementationNode);
+                            BuildBindingTreeNodes(packageImplementation.Bindings, packageImplementationNode);
                         }
                     }
                 }
@@ -1113,10 +1113,8 @@ namespace ZeroInstall.Publish.WinForms
             foreach (var dependency in dependencies)
             {
                 string constraints = String.Empty;
-                foreach (var constraint in dependency.Constraints)
-                {
-                    constraints += constraint.ToString();
-                }
+                foreach (var constraint in dependency.Constraints) constraints += constraint.ToString();
+
                 var dependencyNode = new TreeNode(string.Format("{0} {1}", dependency, constraints)) { Tag = dependency };
                 parentNode.Nodes.Add(dependencyNode);
                 BuildBindingTreeNodes(dependency.Bindings, dependencyNode);

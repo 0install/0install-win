@@ -545,6 +545,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddWorkingDir.TabIndex = 11;
             this.btnAddWorkingDir.Text = "Working dir";
             this.btnAddWorkingDir.UseVisualStyleBackColor = true;
+            this.btnAddWorkingDir.Click += new System.EventHandler(this.AddFeedStructureElementButtonClick);
             // 
             // buttonAddRecipe
             // 
@@ -846,7 +847,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // feedReferenceControl
             // 
-            feedReference.Architecture = default(Architecture);
+            feedReference.Architecture = new Architecture(OS.All, Cpu.All);
             feedReference.Source = null;
             this.feedReferenceControl.FeedReference = feedReference;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
