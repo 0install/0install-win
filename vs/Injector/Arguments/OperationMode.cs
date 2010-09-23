@@ -18,7 +18,7 @@
 namespace ZeroInstall.Injector.Arguments
 {
     /// <summary>
-    /// List of operational modes that can usually be selected via command-line arguments.
+    /// List of operational modes for an injector that can be selected via command-line arguments.
     /// </summary>
     public enum OperationMode
     {

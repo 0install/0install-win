@@ -62,11 +62,12 @@ namespace ZeroInstall.Injector.Cli
         /// </summary>
         static int Main(string[] args)
         {
+            var handler = new CliHandler();
             ParseResults results;
             OperationMode mode;
 
             try
-            { mode = ParseArgs(args, new CliHandler(), out results); }
+            { mode = ParseArgs(args, handler, out results); }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -99,6 +100,9 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Version:
                     // ToDo: Read version number from assembly data
                     Console.WriteLine(@"Zero Install Injector CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Help:
                     return (int)ErrorLevel.OK;
 
                 default:

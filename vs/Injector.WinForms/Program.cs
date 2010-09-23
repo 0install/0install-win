@@ -22,7 +22,6 @@ using Common;
 using Common.Controls;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
-using ZeroInstall.Injector.WinForms.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -46,9 +45,7 @@ namespace ZeroInstall.Injector.WinForms
 
             ErrorReportForm.RunAppMonitored(delegate
             {
-                // Run GUI is seperate thread
                 var handler = new MainForm();
-
                 ParseResults results;
                 OperationMode mode;
 
