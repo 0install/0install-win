@@ -56,6 +56,16 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
+        #region Conversion
+        /// <summary>
+        /// Returns the archive in the form "Archive: Location (MimeType, Size + StartOffset) => Extract". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("Recipe: {0} Archives", Steps.Count);
+        }
+        #endregion
+
         #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Recipe"/> instance.
