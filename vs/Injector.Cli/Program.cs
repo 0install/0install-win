@@ -70,7 +70,7 @@ namespace ZeroInstall.Injector.Cli
             #region Error handling
             catch (ArgumentException ex)
             {
-                ReportError(ex.Message);
+                Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
             #endregion
@@ -80,7 +80,7 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Normal:
                     if (string.IsNullOrEmpty(results.Feed))
                     {
-                        ReportError("Missing arguments. Try 0launch --help");
+                        Log.Error("Missing arguments. Try 0launch --help");
                         return (int)ErrorLevel.InvalidArguments;
                     }
                     
@@ -93,7 +93,7 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Import:
                 case OperationMode.Manage:
                     // ToDo: Implement
-                    ReportError("Not implemented yet!");
+                    Log.Error("Not implemented yet!");
                     return (int)ErrorLevel.NotSupported;
 
                 case OperationMode.Version:
@@ -102,7 +102,7 @@ namespace ZeroInstall.Injector.Cli
                     return (int)ErrorLevel.OK;
 
                 default:
-                    ReportError("Unknown operation mode");
+                    Log.Error("Unknown operation mode");
                     return (int)ErrorLevel.NotSupported;
             }
         }
@@ -198,24 +198,6 @@ namespace ZeroInstall.Injector.Cli
         }
         #endregion
 
-        #region Error handling
-        /// <summary>
-        /// Reports an error on <see cref="Console.Error"/> in red letters.
-        /// </summary>
-        /// <param name="message">The message to report.</param>
-        private static void ReportError(string message)
-        {
-#if !DEBUG
-            Log.Error(message);
-#endif
-
-            Console.Error.WriteLine();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Error.WriteLine(message);
-            Console.ResetColor();
-        }
-        #endregion
-
         //--------------------//
 
         #region Execute
@@ -234,12 +216,12 @@ namespace ZeroInstall.Injector.Cli
                 #region Error hanlding
                 catch (IOException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (SolverException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.SolverError;
                 }
                 #endregion
@@ -256,22 +238,22 @@ namespace ZeroInstall.Injector.Cli
                 }
                 catch (WebException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.WebError;
                 }
                 catch (IOException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (DigestMismatchException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.DigestMismatch;
                 }
                 #endregion
@@ -290,22 +272,22 @@ namespace ZeroInstall.Injector.Cli
                 #region Error hanlding
                 catch (ImplementationNotFoundException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.ImplementationError;
                 }
                 catch (MissingMainException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.ImplementationError;
                 }
                 catch (Win32Exception ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 catch (BadImageFormatException ex)
                 {
-                    ReportError(ex.Message);
+                    Log.Error(ex.Message);
                     return (int)ErrorLevel.IOError;
                 }
                 #endregion

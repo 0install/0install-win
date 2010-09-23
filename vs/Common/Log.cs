@@ -107,10 +107,10 @@ namespace Common
             _fileWriter.BaseStream.Seek(0, SeekOrigin.End);
 
             // Add session identification block to the file
-            Echo("");
-            Echo("/// " + assemblyTitle + " v" + assemblyInfo.Version);
-            Echo("///  Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
-            Echo("");
+            _fileWriter.WriteLine("");
+            _fileWriter.WriteLine("/// " + assemblyTitle + " v" + assemblyInfo.Version);
+            _fileWriter.WriteLine("/// Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            _fileWriter.WriteLine("");
         }
         #endregion
 
@@ -130,48 +130,43 @@ namespace Common
             if (message == null) throw new ArgumentNullException("message");
             #endregion
 
-            #region Prepare message string
             // Create uniform line-breaks and indention
             string[] lines = StringHelper.SplitMultilineText(message.Trim());
             message = StringHelper.Concatenate(lines, "\r\n\t");
 
-            switch(severity)
-            {
-                case LogSeverity.Info:
-                    // Prepend current time to message
-                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] {1}", DateTime.Now, message);
-                    break;
-
-                case LogSeverity.Warn:
-                    // Prepend current time and severity to message
-                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] WARN: {1}", DateTime.Now, message);
-                    break;
-
-                case LogSeverity.Error:
-                    // Prepend current time and severity to message
-                    message = string.Format(CultureInfo.InvariantCulture, "[{0:T}] ERROR: {1}", DateTime.Now, message);
-                    break;
-
-            }
-            #endregion
-
             // Thread-safety: Only one log message is handled at a time
             lock (_sessionContent)
             {
-#if DEBUG
-                // In debug mode write the message to the console
+                // Write the colored message to the console
+                Console.Error.WriteLine();
+                switch (severity)
+                {
+                    case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.Yellow; break;
+                    case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
+                }
                 Console.WriteLine(message);
-#endif
+                Console.ResetColor();
 
-                // Store the message in RAM
+                // Prepend severity and current time to message
+                string formatString;
+                switch (severity)
+                {
+                    case LogSeverity.Info: formatString = "[{0:T}] {1};"; break;
+                    case LogSeverity.Warn: formatString = "[{0:T}] WARN: {1}"; break;
+                    case LogSeverity.Error: formatString = "[{0:T}] ERROR: {1}"; break;
+                    default: formatString = "{1}"; break;
+                }
+                message = string.Format(CultureInfo.InvariantCulture, formatString, DateTime.Now, message);
+
+                // Store message in RAM
                 _sessionContent.AppendLine(message);
 
-                // If possible write to the log file
+                // If possible write message to the log file
                 if (_fileWriter != null) _fileWriter.WriteLine(message);
-            }
 
-            // Raise event
-            if (NewEntry != null) NewEntry();
+                // Raise event
+                if (NewEntry != null) NewEntry();
+            }
         }
         #endregion
 
