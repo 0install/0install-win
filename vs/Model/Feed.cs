@@ -99,6 +99,16 @@ namespace ZeroInstall.Model
             get { return Homepage != null ? Homepage.ToString() : null; }
             set { Homepage = (value == null ? null : new Uri(value)); }
         }
+
+        // Preserve order
+        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
+        /// <summary>
+        /// Zero or more icons to use for the program.
+        /// </summary>
+        [Category("Interface"), Description("Zero or more icons to use for the program.")]
+        [XmlElement("icon")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<Icon> Icons { get { return _icons; } }
         
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
@@ -145,16 +155,6 @@ namespace ZeroInstall.Model
         [XmlElement("feed-for")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
-
-        // Preserve order
-        private readonly C5.ArrayList<Icon> _icons = new C5.ArrayList<Icon>();
-        /// <summary>
-        /// Zero or more icons to use for the program.
-        /// </summary>
-        [Category("Interface"), Description("Zero or more icons to use for the program.")]
-        [XmlElement("icon")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Icon> Icons { get { return _icons; } }
 
         // Preserve order
         private readonly C5.ArrayList<Element> _elements = new C5.ArrayList<Element>();
