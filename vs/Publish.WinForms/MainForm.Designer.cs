@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Net;
+using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms
@@ -35,8 +36,8 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
-            ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
+            System.Windows.Forms.TreeNode treeNode = new System.Windows.Forms.TreeNode("Interface");
+            ZeroInstall.Model.FeedReference feedReference = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -74,6 +75,7 @@ namespace ZeroInstall.Publish.WinForms
             this.labelProgramName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
+            this.btnAddWorkingDir = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.buttonClearList = new System.Windows.Forms.Button();
             this.buttonAddArchive = new System.Windows.Forms.Button();
@@ -514,6 +516,7 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddWorkingDir);
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddRecipe);
             this.groupBoxFeedStructure.Controls.Add(this.buttonClearList);
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddArchive);
@@ -532,11 +535,22 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
             // 
+            // btnAddWorkingDir
+            // 
+            this.btnAddWorkingDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddWorkingDir.Enabled = false;
+            this.btnAddWorkingDir.Location = new System.Drawing.Point(401, 135);
+            this.btnAddWorkingDir.Name = "btnAddWorkingDir";
+            this.btnAddWorkingDir.Size = new System.Drawing.Size(131, 23);
+            this.btnAddWorkingDir.TabIndex = 11;
+            this.btnAddWorkingDir.Text = "Working dir";
+            this.btnAddWorkingDir.UseVisualStyleBackColor = true;
+            // 
             // buttonAddRecipe
             // 
             this.buttonAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddRecipe.Enabled = false;
-            this.buttonAddRecipe.Location = new System.Drawing.Point(401, 222);
+            this.buttonAddRecipe.Location = new System.Drawing.Point(401, 251);
             this.buttonAddRecipe.Name = "buttonAddRecipe";
             this.buttonAddRecipe.Size = new System.Drawing.Size(132, 23);
             this.buttonAddRecipe.TabIndex = 4;
@@ -559,7 +573,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonAddArchive.Enabled = false;
-            this.buttonAddArchive.Location = new System.Drawing.Point(401, 193);
+            this.buttonAddArchive.Location = new System.Drawing.Point(401, 222);
             this.buttonAddArchive.Name = "buttonAddArchive";
             this.buttonAddArchive.Size = new System.Drawing.Size(132, 23);
             this.buttonAddArchive.TabIndex = 3;
@@ -587,11 +601,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode1.Name = "interface";
-            treeNode1.Tag = "";
-            treeNode1.Text = "Interface";
+            treeNode.Name = "interface";
+            treeNode.Tag = "";
+            treeNode.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -649,7 +663,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddPackageImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddPackageImplementation.Enabled = false;
-            this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 135);
+            this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 164);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
             this.btnAddPackageImplementation.TabIndex = 5;
@@ -660,7 +674,7 @@ namespace ZeroInstall.Publish.WinForms
             // btnAddImplementation
             // 
             this.btnAddImplementation.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddImplementation.Location = new System.Drawing.Point(401, 164);
+            this.btnAddImplementation.Location = new System.Drawing.Point(401, 193);
             this.btnAddImplementation.Name = "btnAddImplementation";
             this.btnAddImplementation.Size = new System.Drawing.Size(132, 23);
             this.btnAddImplementation.TabIndex = 2;
@@ -833,9 +847,9 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // feedReferenceControl
             // 
-            feedReference1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
-            feedReference1.Source = null;
-            this.feedReferenceControl.FeedReference = feedReference1;
+            feedReference.Architecture = new Architecture(OS.All, Cpu.All);
+            feedReference.Source = null;
+            this.feedReferenceControl.FeedReference = feedReference;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
@@ -977,6 +991,7 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxGpg;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private FeedReferenceControl feedReferenceControl;
+        private System.Windows.Forms.Button btnAddWorkingDir;
     }
 }
 
