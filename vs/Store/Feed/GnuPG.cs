@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Feed
         protected override string AppName { get { return "GnuPG"; } }
 
         /// <inheritdoc/>
-        protected override string AppBinaryName { get { return "gpg"; } }
+        protected override string AppBinary { get { return "gpg"; } }
         #endregion
 
         //--------------------//

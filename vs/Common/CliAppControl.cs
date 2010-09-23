@@ -48,17 +48,17 @@ namespace Common
     {
         #region Properties
         /// <summary>
-        /// The name of the application to be executed. This also determines the name of the directory that is searched for a portable version.
+        /// The name of the application to be executed. This also determines the name of the directory that is searched for a bundled portable version on Windows.
         /// </summary>
         protected abstract string AppName { get; }
 
         /// <summary>
-        /// The name of the application's binary.
+        /// The name of the application's binary (without a file ending).
         /// </summary>
-        protected abstract string AppBinaryName { get; }
+        protected abstract string AppBinary { get; }
 
         /// <summary>
-        /// The directory to search for portable versions of applications.
+        /// The directory to search for bundled portable versions of applications.
         /// </summary>
         /// <remarks>
         /// If a sub-directory named like <see cref="AppName"/> is found in the installation directory this is used.
@@ -82,25 +82,11 @@ namespace Common
         }
 
         /// <summary>
-        /// The directory containing the portable version of the application. This is generally a sub-directory of <see cref="PortableDirectory"/>.
+        /// The directory containing the bundled portable version of the application. This is generally a sub-directory of <see cref="PortableDirectory"/>.
         /// </summary>
         protected string AppDirectory
         {
             get { return Path.Combine(PortableDirectory, AppName); }
-        }
-
-        /// <summary>
-        /// The path to the binary of the application to be executed.
-        /// </summary>
-        protected string AppBinary
-        {
-            get
-            {
-                // Use portable version of application on Windows and a native version on all other OSes
-                return WindowsHelper.IsWindows
-                    ? Path.Combine(AppDirectory, AppBinaryName + ".exe")
-                    : AppBinaryName;
-            }
         }
         #endregion
 
@@ -194,10 +180,12 @@ namespace Common
         /// </summary>
         protected virtual ProcessStartInfo GetStartInfo(string arguments)
         {
+            // Try to use bundled portable version of the application when running on Windows
+            bool usePortable = WindowsHelper.IsWindows && File.Exists(Path.Combine(AppDirectory, AppBinary + ".exe"));
+
             return new ProcessStartInfo
             {
-                FileName = AppBinary,
-                WorkingDirectory = AppDirectory,
+                FileName = (usePortable ? Path.Combine(AppDirectory, AppBinary) : AppBinary),
                 Arguments = arguments,
                 CreateNoWindow = true,
                 UseShellExecute = false,
