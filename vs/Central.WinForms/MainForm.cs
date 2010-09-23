@@ -43,12 +43,14 @@ namespace ZeroInstall.Central.WinForms
 
         //--------------------//
 
-        #region New apps browser
+        #region Toolbar
         private void toolStripButtonBack_Click(object sender, EventArgs e)
         {
             browserNewApps.GoBack();
         }
+        #endregion
 
+        #region Browser
         /// <summary>A URL postfix that indicates that the URL points to an installable Zero Install feed.</summary>
         private const string UrlPostfixFeed = "#0install-feed";
 
@@ -65,7 +67,7 @@ namespace ZeroInstall.Central.WinForms
                     // ToDo: Display details about the feed
                     if (Msg.Ask(this, "Do you want to launch this application?", MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
                     {
-                        Program.LaunchHelperApp(this, "0launchw.exe", e.Url.OriginalString.Replace(UrlPostfixFeed, ""));
+                        Program.LaunchHelperApp(this, "0launchw.exe", e.Url.AbsoluteUri.Replace(UrlPostfixFeed, ""));
                         Close();
                     }
                     break;
@@ -74,7 +76,7 @@ namespace ZeroInstall.Central.WinForms
                     e.Cancel = true;
 
                     // Use the system's default web browser to open the URL
-                    Process.Start(e.Url.OriginalString.Replace(UrlPostfixBrowser, ""));
+                    Process.Start(e.Url.AbsoluteUri.Replace(UrlPostfixBrowser, ""));
                     break;
             }
         }
