@@ -120,7 +120,7 @@ namespace ZeroInstall.Injector.Solver
                 startInfo.EnvironmentVariables["PYTHONPATH"] = PackagesDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
 
             // Add bundled portable GnuPG to search path for Python script to use on Windows
-            if (WindowsHelper.IsWindows && Directory.Exists(GnuPGDirectory))
+            if (WindowsHelper.IsWindows && File.Exists(Path.Combine(GnuPGDirectory, "gpg.exe")))
                 startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;

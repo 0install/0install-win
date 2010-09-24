@@ -52,6 +52,7 @@ namespace ZeroInstall.Store.Feed
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
             if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
+
             return Execute(arguments, null, ErrorHandler);
         }
 
@@ -114,8 +115,10 @@ namespace ZeroInstall.Store.Feed
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            string arguments = "--batch --no-secmem-warning --passphrase-fd 0 --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
+            string arguments = "--batch --no-secmem-warning --passphrase-fd 0";
             if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
+            arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
+
             Execute(arguments, passphrase, ErrorHandler);
         }
         #endregion

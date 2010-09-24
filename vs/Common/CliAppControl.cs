@@ -183,7 +183,7 @@ namespace Common
             // Try to use bundled portable version of the application when running on Windows
             bool usePortable = WindowsHelper.IsWindows && File.Exists(Path.Combine(AppDirectory, AppBinary + ".exe"));
 
-            return new ProcessStartInfo
+            var startInfo = new ProcessStartInfo
             {
                 FileName = (usePortable ? Path.Combine(AppDirectory, AppBinary) : AppBinary),
                 Arguments = arguments,
@@ -193,6 +193,12 @@ namespace Common
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
             };
+
+            // Add portable application directory to search path for locating DLLs
+            if (usePortable)
+                startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
+
+            return startInfo;
         }
         #endregion
     }
