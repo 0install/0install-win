@@ -61,6 +61,15 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
+        /// </summary>
+        internal static string MissingArguments {
+            get {
+                return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any messages to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {

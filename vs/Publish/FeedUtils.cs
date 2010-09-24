@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Xml;
 using Common;
 using Common.Storage;
 using ZeroInstall.Model;
@@ -37,18 +36,17 @@ namespace ZeroInstall.Publish
         /// Adds a Base64 signature to a feed file and exports the appropriate public key file in the same directory.
         /// </summary>
         /// <param name="path">The feed file to sign.</param>
-        /// <param name="user">The GnuPG ID of the user whose signture to use for signing the file.</param>
+        /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
         /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
         /// <exception cref="FileNotFoundException">Thrown if the feed file to be signed could not be found.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched or the feed file not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the feed file is not permitted.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed aswell. Old feed signatures are not removed.</remarks>
-        public static void SignFeed(string path, string user, string passphrase)
+        public static void SignFeed(string path, string name, string passphrase)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
             if (string.IsNullOrEmpty(passphrase)) throw new ArgumentNullException("passphrase");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
@@ -60,7 +58,7 @@ namespace ZeroInstall.Publish
             if (File.Exists(signatureFile)) File.Delete(signatureFile);
 
             // Create a new signature file, parse it as Base64 and then delete it again
-            gnuPG.DetachSign(path, user, passphrase);
+            gnuPG.DetachSign(path, name, passphrase);
             string base64Signature = Convert.ToBase64String(File.ReadAllBytes(signatureFile));
             File.Delete(signatureFile);
 
@@ -78,8 +76,8 @@ namespace ZeroInstall.Publish
             string feedDir = Path.GetDirectoryName(Path.GetFullPath(path));
             if (feedDir != null)
             {
-                string publicKeyFile = Path.Combine(feedDir, user + ".gpg");
-                File.WriteAllText(publicKeyFile, gnuPG.GetPublicKey(user), Encoding.ASCII);
+                string publicKeyFile = Path.Combine(feedDir, gnuPG.GetSecretKey(name).KeyID + ".gpg");
+                File.WriteAllText(publicKeyFile, gnuPG.GetPublicKey(name), Encoding.ASCII);
             }
         }
 

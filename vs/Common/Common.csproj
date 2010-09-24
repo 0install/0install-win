@@ -63,6 +63,7 @@
     <Compile Include="Archive\TarExtractor.cs" />
     <Compile Include="Archive\TarBz2Extractor.cs" />
     <Compile Include="Archive\TarGzExtractor.cs" />
+    <Compile Include="CliControls\InputUtils.cs" />
     <Compile Include="CliControls\ProgessBar.cs" />
     <Compile Include="CliControls\TrackingProgessBar.cs" />
     <Compile Include="Collections\CultureComparer.cs" />

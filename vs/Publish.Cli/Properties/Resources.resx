@@ -117,54 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DigestMismatch" xml:space="preserve">
-    <value>Der Manifest-Hash einer entpackten Implementierung entspricht nicht dem erwarteten Wert!
-Erwarteter Wert: {0}
-Tatsächlicher Wert: {1}</value>
+  <data name="MissingArguments" xml:space="preserve">
+    <value>Missing arguments. Try {0} --help</value>
   </data>
-  <data name="FileToSignNotFound" xml:space="preserve">
-    <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
   </data>
-  <data name="ImplementationNotFound" xml:space="preserve">
-    <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>
+  <data name="OptionGnuPGPassphrase" xml:space="preserve">
+    <value>Uses {PASS} to unlock the GnuPG private key.</value>
   </data>
-  <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>Das zugrunde liegende Dateisystem speichert  mit unzureichender Genauigkeit.</value>
+  <data name="OptionGnuPGUser" xml:space="preserve">
+    <value>Uses the private key associated to the GnuPG ID {USER} for signing feeds.</value>
   </data>
-  <data name="InvalidLinesInManifest" xml:space="preserve">
-    <value>Die Manifest-Datei enthält ungültige Zeilen.</value>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
   </data>
-  <data name="InvalidNumberOfLineParts" xml:space="preserve">
-    <value>Die Anzahl der Blöcke in dieser Zeile stimmt nicht.</value>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Remove any signature.</value>
   </data>
-  <data name="InvalidUrl" xml:space="preserve">
-    <value>Die angeforderte URL ist ungültig.</value>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
   </data>
-  <data name="MissingPath" xml:space="preserve">
-    <value>Kein Pfad angegeben.</value>
-  </data>
-  <data name="NewlineInName" xml:space="preserve">
-    <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
-  </data>
-  <data name="NoKnownDigestMethod" xml:space="preserve">
-    <value>Es wurde keine bekannte Digest-Methode definiert.</value>
-  </data>
-  <data name="NotValidDomain" xml:space="preserve">
-    <value>Der Wert ist kein gültiger Domainname.</value>
-  </data>
-  <data name="NumberTooLarge" xml:space="preserve">
-    <value>Der Zahlenwert ist zu groß.</value>
-  </data>
-  <data name="RootedPathRequired" xml:space="preserve">
-    <value>Ein vollständig qulifizierter/gewurzelter Pfad wird benötigt.</value>
-  </data>
-  <data name="SignatureExistsException" xml:space="preserve">
-    <value>Die Signaturdatei existiert bereits.</value>
-  </data>
-  <data name="UnableToAddImplementionToStore" xml:space="preserve">
-    <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
-  </data>
-  <data name="UnableToFindSecretKey" xml:space="preserve">
-    <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>
+  <data name="OptionXmlSign" xml:space="preserve">
+    <value>Add an XML signature block. All remote feeds must be signed.</value>
   </data>
 </root>

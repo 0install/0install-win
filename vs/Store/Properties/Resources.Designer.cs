@@ -198,11 +198,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknow key type..
+        ///   Looks up a localized string similar to Unable to find a secret key with the specified name..
         /// </summary>
-        internal static string UnknowGPGKeyType {
+        internal static string UnableToFindSecretKey {
             get {
-                return ResourceManager.GetString("UnknowGPGKeyType", resourceCulture);
+                return ResourceManager.GetString("UnableToFindSecretKey", resourceCulture);
             }
         }
     }

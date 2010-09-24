@@ -66,8 +66,7 @@ namespace ZeroInstall.Injector.Cli
             ParseResults results;
             OperationMode mode;
 
-            try
-            { mode = ParseArgs(args, handler, out results); }
+            try { mode = ParseArgs(args, handler, out results); }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -81,7 +80,7 @@ namespace ZeroInstall.Injector.Cli
                 case OperationMode.Normal:
                     if (string.IsNullOrEmpty(results.Feed))
                     {
-                        Log.Error("Missing arguments. Try 0launch --help");
+                        Log.Error(string.Format(Resources.MissingArguments, "0launch"));
                         return (int)ErrorLevel.InvalidArguments;
                     }
                     
@@ -209,7 +208,7 @@ namespace ZeroInstall.Injector.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <returns>The error level to report to the original caller. 0 for everything OK, 1 or larger for an error.</returns>
+        /// <returns>The error level to report to the original caller. See <see cref="ErrorLevel"/>.</returns>
         private static int Execute(ParseResults results)
         {
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
