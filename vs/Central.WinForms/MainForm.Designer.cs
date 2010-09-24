@@ -136,7 +136,7 @@
             this.browserNewApps.ScriptErrorsSuppressed = true;
             this.browserNewApps.Size = new System.Drawing.Size(665, 289);
             this.browserNewApps.TabIndex = 1;
-            this.browserNewApps.Url = new System.Uri("http://0install.de/appstore/client/", System.UriKind.Absolute);
+            this.browserNewApps.Url = new System.Uri("http://0install.de/appstore/", System.UriKind.Absolute);
             this.browserNewApps.WebBrowserShortcutsEnabled = false;
             this.browserNewApps.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
             this.browserNewApps.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
