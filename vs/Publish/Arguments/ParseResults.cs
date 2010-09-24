@@ -24,6 +24,8 @@ namespace ZeroInstall.Publish.Arguments
     {
         public string Feed;
 
+        public bool AddStylesheet;
+
         public bool XmlSign;
 
         public string GnuPGUser;

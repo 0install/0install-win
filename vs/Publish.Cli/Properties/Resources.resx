@@ -120,6 +120,9 @@
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
   </data>
+  <data name="OptionAddStylesheet" xml:space="preserve">
+    <value>Add the default stylesheet reference.</value>
+  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
   </data>
@@ -132,13 +135,13 @@
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
   </data>
-  <data name="OptionUnsign" xml:space="preserve">
-    <value>Remove any signature.</value>
-  </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
   <data name="OptionXmlSign" xml:space="preserve">
     <value>Add an XML signature block. All remote feeds must be signed.</value>
+  </data>
+  <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
+    <value>Please enter your GnuPG passphrase:</value>
   </data>
 </root>

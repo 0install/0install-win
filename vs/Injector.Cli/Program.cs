@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector.Cli
 {
     #region Enumerations
     /// <summary>
-    /// A list of errorlevels that are returned to the original caller after the application terminates, to indicate success or the reason for failure.
+    /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
     /// </summary>
     public enum ErrorLevel
     {
@@ -84,7 +84,60 @@ namespace ZeroInstall.Injector.Cli
                         return (int)ErrorLevel.InvalidArguments;
                     }
                     
-                    return Execute(results);
+                    try { Execute(results); }
+                    #region Error hanlding
+                    catch (UserCancelException)
+                    {
+                        return (int)ErrorLevel.UserCanceled;
+                    }
+                    catch (WebException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.WebError;
+                    }
+                    catch (IOException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (DigestMismatchException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.DigestMismatch;
+                    }
+                    catch (SolverException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.SolverError;
+                    }
+                    catch (ImplementationNotFoundException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.ImplementationError;
+                    }
+                    catch (MissingMainException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.ImplementationError;
+                    }
+                    catch (Win32Exception ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (BadImageFormatException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    #endregion
+
+                    return (int)ErrorLevel.OK;
 
                 case OperationMode.List:
                     List(results);
@@ -208,59 +261,24 @@ namespace ZeroInstall.Injector.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <returns>The error level to report to the original caller. See <see cref="ErrorLevel"/>.</returns>
-        private static int Execute(ParseResults results)
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        public static void Execute(ParseResults results)
         {
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
-            if (results.SelectionsFile == null)
-            {
-                try { controller.Solve(); }
-                #region Error hanlding
-                catch (IOException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.IOError;
-                }
-                catch (SolverException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.SolverError;
-                }
-                #endregion
-            }
+            if (results.SelectionsFile == null) controller.Solve();
             else controller.SetSelections(Selections.Load(results.SelectionsFile));
 
             if (!results.SelectOnly)
-            {
-                try { controller.DownloadUncachedImplementations(); }
-                #region Error hanlding
-                catch (UserCancelException)
-                {
-                    return (int)ErrorLevel.UserCanceled;
-                }
-                catch (WebException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.WebError;
-                }
-                catch (IOException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.IOError;
-                }
-                catch (UnauthorizedAccessException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.IOError;
-                }
-                catch (DigestMismatchException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.DigestMismatch;
-                }
-                #endregion
-            }
+                controller.DownloadUncachedImplementations();
 
             if (results.GetSelections)
             {
@@ -271,37 +289,13 @@ namespace ZeroInstall.Injector.Cli
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                try { launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " ")); }
-                #region Error hanlding
-                catch (ImplementationNotFoundException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.ImplementationError;
-                }
-                catch (MissingMainException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.ImplementationError;
-                }
-                catch (Win32Exception ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.IOError;
-                }
-                catch (BadImageFormatException ex)
-                {
-                    Log.Error(ex.Message);
-                    return (int)ErrorLevel.IOError;
-                }
-                #endregion
+                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
             }
-
-            return (int)ErrorLevel.OK;
         }
         #endregion
 
         #region List
-        private static void List(ParseResults results)
+        public static void List(ParseResults results)
         {
             if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
 

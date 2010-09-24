@@ -235,8 +235,8 @@ namespace Common.Storage
             #endregion
 
             // Make sure the containing directory exists
-            string directory = Path.GetDirectoryName(path);
-            if (directory != null && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
+            string directory = Path.GetDirectoryName(Path.GetFullPath(path));
+            if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory)) Directory.CreateDirectory(directory);
 
             using (var fileStream = File.Create(path))
                 Save(fileStream, data, ignoreMembers);
@@ -268,6 +268,9 @@ namespace Common.Storage
         /// </summary>
         /// <param name="path">The XML file to add the stylesheet instruction to.</param>
         /// <param name="stylesheetFile">The file name of the stylesheet to reference.</param>
+        /// <exception cref="FileNotFoundException">Thrown if the XML file to add the stylesheet reference to could not be found.</exception>
+        /// <exception cref="IOException">Thrown if the XML file to add the stylesheet reference to could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the XML file is not permitted.</exception>
         public static void AddStylesheet(string path, string stylesheetFile)
         {
             #region Sanity checks
