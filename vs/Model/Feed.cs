@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
         /// </summary>
         [Category("Feed"), Description("This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.")]
-        [XmlAttribute("min-injector-version")]
+        [XmlAttribute("min-injector-version"), DefaultValue("")]
         public string MinInjectorVersion { get; set; }
 
         /// <summary>

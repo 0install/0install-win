@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
         /// This can be used to indicate that this dependency is only needed in some cases.
         /// </summary>
         [Description("This can be used to indicate that this dependency is only needed in some cases.")]
-        [XmlAttribute("use")]
+        [XmlAttribute("use"), DefaultValue("")]
         public string Use { get; set; }
 
         // Preserve order

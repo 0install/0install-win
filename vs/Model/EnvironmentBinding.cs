@@ -52,9 +52,9 @@ namespace ZeroInstall.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// The relative path of the item within the implementation to insert into the variable's value.
+        /// The relative path of the item within the implementation to insert into the variable's value. Use <code>.</code> to publish the root directory.
         /// </summary>
-        [Description("The relative path of the item within the implementation to insert into the variable's value.")]
+        [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory")]
         [XmlAttribute("insert")]
         public string Value { get; set; }
 
@@ -69,7 +69,7 @@ namespace ZeroInstall.Model
         /// If the environment variable is not currently set then this value is used for prepending or appending.
         /// </summary>
         [Description("If the environment variable is not currently set then this value is used for prepending or appending.")]
-        [XmlAttribute("default")]
+        [XmlAttribute("default"), DefaultValue("")]
         public string Default { get; set; }
         #endregion
 

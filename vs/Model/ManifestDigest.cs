@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         /// A SHA-1 hash of the old manifest format.
         /// </summary>
         [Description("A SHA-1 hash of the old manifest format.")]
-        [XmlAttribute("sha1")]
+        [XmlAttribute("sha1"), DefaultValue("")]
         public string Sha1Old { get; set; }
 
         /// <summary>
@@ -55,14 +55,14 @@ namespace ZeroInstall.Model
         /// </summary>
         [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
         [Description("A SHA-1 hash of the new manifest format.")]
-        [XmlAttribute("sha1new")]
+        [XmlAttribute("sha1new"), DefaultValue("")]
         public string Sha1New { get; set; }
 
         /// <summary>
         /// A SHA-256 hash of the new manifest format. (most secure)
         /// </summary>
         [Description("A SHA-256 hash of the new manifest format. (most secure)")]
-        [XmlAttribute("sha256")]
+        [XmlAttribute("sha256"), DefaultValue("")]
         public string Sha256 { get; set; }
 
         /// <summary>

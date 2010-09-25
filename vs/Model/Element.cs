@@ -90,7 +90,7 @@ namespace ZeroInstall.Model
         /// A string to be appended to the version. The purpose of this is to allow complex version numbers (such as "1.0-rc2") in older versions of the injector.
         /// </summary>
         [Category("Release"), Description("A string to be appended to the version. The purpose of this is to allow complex version numbers (such as \"1.0-rc2\") in older versions of the injector.")]
-        [XmlAttribute("version-modifier")]
+        [XmlAttribute("version-modifier"), DefaultValue("")]
         public string VersionModifier { get; set; }
 
         /// <summary>
@@ -121,28 +121,28 @@ namespace ZeroInstall.Model
         /// License terms (typically a Trove category, as used on freshmeat.net).
         /// </summary>
         [Category("Release"), Description("License terms (typically a Trove category, as used on freshmeat.net).")]
-        [XmlAttribute("license")]
+        [XmlAttribute("license"), DefaultValue("")]
         public string License { get; set; }
 
         /// <summary>
         /// The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
         /// </summary>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
-        [XmlAttribute("main")]
+        [XmlAttribute("main"), DefaultValue("")]
         public string Main { get; set; }
 
         /// <summary>
         /// The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
         /// </summary>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
-        [XmlAttribute("self-test")]
+        [XmlAttribute("self-test"), DefaultValue("")]
         public string SelfTest { get; set; }
 
         /// <summary>
         /// The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.
         /// </summary>
         [Category("Execution"), Description("The relative path of a directory inside the implementation that contains the package's documentation. This is the directory that would end up inside /usr/share/doc on a traditional Linux system.")]
-        [XmlAttribute("doc-dir")]
+        [XmlAttribute("doc-dir"), DefaultValue("")]
         public string DocDir { get; set; }
 
         // Preserve order

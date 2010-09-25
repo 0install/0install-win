@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
         /// The relative path of the directory in the implementation to publish. The default is to publish everything.
         /// </summary>
         [Description("The name of the environment variable.")]
-        [XmlAttribute("src")]
+        [XmlAttribute("src"), DefaultValue("")]
         public string Source { get { return _source; } set { _source = value; } }
         #endregion
 

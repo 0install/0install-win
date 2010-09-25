@@ -32,15 +32,15 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The relative path of the directory in the implementation to publish. The default is to publish everything.
         /// </summary>
-        [Description("The name of the environment variable.")]
-        [XmlAttribute("src")]
+        [Description("The name of the environment variable. The default is to publish everything.")]
+        [XmlAttribute("src"), DefaultValue("")]
         public string Source { get { return _source; } set { _source = value; } }
 
         /// <summary>
         /// The mount point on which src is to appear in the filesystem. If missing, '/' (on POSIX) or '%systemdrive%' (on Windows) is assumed.
         /// </summary>
         [Description("The mount point on which src is to appear in the filesystem. If missing, '/' (on POSIX) or '%systemdrive%' (on Windows) is assumed.")]
-        [XmlAttribute("mount-point")]
+        [XmlAttribute("mount-point"), DefaultValue("")]
         public string MountPoint { get; set; }
         #endregion
 

@@ -41,7 +41,7 @@ namespace ZeroInstall.Model
         /// If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).
         /// </summary>
         [Category("Identity"), Description("If the feed file is a local file (the interface 'uri' starts with /) then the local-path attribute may contain the pathname of a local directory (either an absolute path or a path relative to the directory containing the feed file).")]
-        [XmlAttribute("local-path")]
+        [XmlAttribute("local-path"), DefaultValue("")]
         public string LocalPath { get; set; }
 
         private ManifestDigest _manifestDigest;

@@ -50,7 +50,7 @@ namespace ZeroInstall.Model
         /// The type of the archive as a MIME type. If missing, the type is guessed from the extension on the <see cref="Location"/> attribute.
         /// </summary>
         [Description("The type of the archive as a MIME type. If missing, the type is guessed from the extension on the location attribute.")]
-        [XmlAttribute("type")]
+        [XmlAttribute("type"), DefaultValue("")]
         public string MimeType { get; set; }
 
         /// <summary>
@@ -69,10 +69,10 @@ namespace ZeroInstall.Model
         public long StartOffset { get; set; }
 
         /// <summary>
-        /// The name of the subdirectory in the archive to extract; <see langword="null"/> for entire archive.
+        /// The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.
         /// </summary>
         [Description("The name of the subdirectory in the archive to extract; null for entire archive.")]
-        [XmlAttribute("extract")]
+        [XmlAttribute("extract"), DefaultValue("")]
         public string Extract { get; set; }
         #endregion
 
