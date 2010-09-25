@@ -66,7 +66,9 @@ namespace Common
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
-            AssemblyName assemblyInfo = Assembly.GetEntryAssembly().GetName();
+            var assmebly = Assembly.GetEntryAssembly();
+            if (assmebly == null) return; // Don't log to disk when assembly is unknown
+            var assemblyInfo = assmebly.GetName();
 
             // Try to determine assembly title, fall back to assembly name on failure
             var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
