@@ -72,13 +72,19 @@ SolidCompression=true
 ChangesEnvironment=yes
 
 [Languages]
-Name: en; MessagesFile: compiler:Default.isl
-Name: de; MessagesFile: compiler:Languages\German.isl
+#ifdef Update
+  Name: de; MessagesFile: Update_de.isl; InfoBeforeFile: Update_de.rtf
+  Name: en; MessagesFile: Update_en.isl; InfoBeforeFile: Update_en.rtf
+#else
+  Name: de; MessagesFile: compiler:Languages\German.isl; LicenseFile: License_de.rtf
+  Name: en; MessagesFile: compiler:Default.isl; LicenseFile: License_en.rtf
+#endif
 
 [InstallDelete]
 Name: {app}\Zero Install.exe; Type: files
 
 [Files]
+Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
