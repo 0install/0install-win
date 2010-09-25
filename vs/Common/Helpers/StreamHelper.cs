@@ -74,7 +74,7 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Creates a new <see cref="MemoryStream"/> and fills it with ASCII-encoded string data.
+        /// Creates a new <see cref="MemoryStream"/> and fills it with UTF-8 encoded string data.
         /// </summary>
         /// <param name="data">The data to fill the stream with.</param>
         /// <returns>A filled stream with the position set to zero.</returns>
@@ -90,7 +90,7 @@ namespace Common.Helpers
         }
 
         /// <summary>
-        /// Reads the entire content of a stream (will seek from zero to end).
+        /// Reads the entire content of a stream as UTF-8 encoded string data (will seek from zero to end).
         /// </summary>
         /// <param name="stream">The stream to read from.</param>
         /// <returns>A entire content of the stream.</returns>
@@ -101,7 +101,7 @@ namespace Common.Helpers
             #endregion
 
             stream.Position = 0;
-            var reader = new StreamReader(stream);
+            var reader = new StreamReader(stream, new UTF8Encoding(false));
             return reader.ReadToEnd();
         }
     }

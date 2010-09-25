@@ -72,7 +72,12 @@ namespace Common.CliControls
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(IProgress sender)
         {
-            Value = (int)(sender.Progress * Maximum);
+            // Clamp the progress to values between 0 and 1
+            double progress = sender.Progress;
+            if (progress < 0) progress = 0;
+            else if (progress > 1) progress = 1;
+
+            Value = (int)(progress * Maximum);
         }
         #endregion
     }

@@ -119,7 +119,7 @@ namespace Common.Controls
 
                     case ProgressState.Data:
                         // Is the final size known?
-                        if (sender.Progress != -1)
+                        if (sender.Progress >= 0)
                         {
                             _task.ProgressChanged += ProgressChanged;
                             progressBar.Style = ProgressBarStyle.Continuous;
@@ -151,8 +151,13 @@ namespace Common.Controls
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void ProgressChanged(IProgress sender)
         {
+            // Clamp the progress to values between 0 and 1
+            double progress = sender.Progress;
+            if (progress < 0) progress = 0;
+            else if (progress > 1) progress = 1;
+
             // Copy value so it can be safely accessed from another thread
-            int currentValue = (int)(sender.Progress * 100);
+            int currentValue = (int)(progress * 100);
 
             // Handle events coming from a non-UI thread, don't block caller
             progressBar.BeginInvoke((SimpleEventHandler)delegate
