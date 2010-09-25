@@ -45,11 +45,6 @@ namespace Common.Archive
         public Stream Stream { get; private set; }
 
         /// <summary>
-        /// The number of bytes at the beginning of the stream which should be ignored.
-        /// </summary>
-        public long StartOffset { get; private set; }
-        
-        /// <summary>
         /// The sub-directory in the archive to be extracted; <see langword="null"/> for entire archive.
         /// </summary>
         [Description("The sub-directory in the archive to be extracted; null for entire archive.")]
@@ -67,9 +62,8 @@ namespace Common.Archive
         /// Prepares to extract an archive contained in a stream.
         /// </summary>
         /// <param name="stream">The stream containing the archive data.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
         /// <param name="target">The path to the directory to extract into.</param>
-        protected Extractor(Stream stream, long startOffset, string target)
+        protected Extractor(Stream stream, string target)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -77,10 +71,9 @@ namespace Common.Archive
             #endregion
 
             Stream = stream;
-            StartOffset = startOffset;
             Target = target;
 
-            BytesTotal = stream.Length - startOffset;
+            BytesTotal = stream.Length;
         }
         #endregion
 
@@ -89,13 +82,12 @@ namespace Common.Archive
         /// Creates a new <see cref="Extractor"/> for extracting a sub-directory from an archive stream.
         /// </summary>
         /// <param name="mimeType">The MIME type of archive format of the stream; must not be <see langword="null"/>.</param>
-        /// <param name="stream">TThe stream containing the archive data.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <returns>The newly created <see cref="Extractor"/>.</returns>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="mimeType"/> doesn't belong to a known and supported archive type.</exception>
-        public static Extractor CreateExtractor(string mimeType, Stream stream, long startOffset, string target)
+        public static Extractor CreateExtractor(string mimeType, Stream stream, string target)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -107,10 +99,11 @@ namespace Common.Archive
             Extractor extractor;
             switch (mimeType)
             {
-                case "application/zip": extractor = new ZipExtractor(stream, startOffset, target); break;
-                case "application/x-tar": extractor = new TarExtractor(stream, startOffset, target); break;
-                case "application/x-compressed-tar": extractor = new TarGzExtractor(stream, startOffset, target); break;
-                case "application/x-bzip-compressed-tar": extractor = new TarBz2Extractor(stream, startOffset, target); break;
+                case "application/zip": extractor = new ZipExtractor(stream, target); break;
+                case "application/x-tar": extractor = new TarExtractor(stream, target); break;
+                case "application/x-compressed-tar": extractor = new TarGzExtractor(stream, target); break;
+                case "application/x-bzip-compressed-tar": extractor = new TarBz2Extractor(stream, target); break;
+                case "application/x-lzma-compressed-tar": extractor = new TarLzmaExtractor(stream, target); break;
                 default: throw new NotSupportedException(Resources.UnknownMimeType);
             }
 
@@ -138,7 +131,7 @@ namespace Common.Archive
             // Try to guess missing MIME type
             if (string.IsNullOrEmpty(mimeType)) mimeType = GuessMimeType(path);
 
-            var extractor = CreateExtractor(mimeType, File.OpenRead(path), startOffset, target);
+            var extractor = CreateExtractor(mimeType, new OffsetStream(File.OpenRead(path), startOffset), target);
             extractor._name = Path.GetFileName(path);
             return extractor;
         }
@@ -255,8 +248,8 @@ namespace Common.Archive
             string directoryPath = Path.GetDirectoryName(filePath);
 
             bool alreadyExists = File.Exists(filePath);
-            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-            
+            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+
             using (var fileStream = File.Create(filePath))
                 if (length != 0) StreamToFile(stream, fileStream);
 

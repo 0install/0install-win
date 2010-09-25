@@ -16,6 +16,12 @@ GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
 Source unmodified
 Pre-compiled managed DLL: lib/ICSharpCode.SharpZipLib.dll
 
+LZMA SDK 4.65
+http://www.7-zip.org/sdk.html
+Public domain
+Source unmodified
+Self-compiled managed DLL: lib/SevenZip.dll
+
 TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
 Public Domain: http://creativecommons.org/licenses/publicdomain/

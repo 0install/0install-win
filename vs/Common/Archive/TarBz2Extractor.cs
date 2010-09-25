@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,20 +35,22 @@ namespace Common.Archive
         /// <summary>
         /// Prepares to extract a TAR archive contained in a BZip2-compressed stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive's data.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public TarBz2Extractor(Stream stream, long startOffset, string target)
-            : base(GetDecompressionStream(stream), startOffset, target)
+        public TarBz2Extractor(Stream stream, string target)
+            : base(GetDecompressionStream(stream), target)
         {}
 
         /// <summary>
-        /// Adds a BZip2-extraction layer above a stream.
+        /// Adds a BZip2-extraction layer around a stream.
         /// </summary>
-        private static Stream GetDecompressionStream(Stream compressed)
+        /// <param name="stream">The stream containing the BZip2-compressed data.</param>
+        /// <returns>A stream representing the uncompressed data.</returns>
+        /// <exception cref="IOException">Thrown if the compressed stream contains invalid data.</exception>
+        private static Stream GetDecompressionStream(Stream stream)
         {
-            try { return new BZip2InputStream(compressed); }
+            try { return new BZip2InputStream(stream); }
             catch (BZip2Exception ex)
             {
                 // Make sure only standard exception types are thrown to the outside

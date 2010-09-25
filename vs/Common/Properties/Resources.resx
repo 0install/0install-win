@@ -252,4 +252,7 @@ Delete the changes</value>
   <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
     <value>The argument must be greater than zero.</value>
   </data>
+	<data name="MissingStreamSeekSupport">
+		<value xml:space="preserve">The stream must support seeking.</value>
+	</data>
 </root>

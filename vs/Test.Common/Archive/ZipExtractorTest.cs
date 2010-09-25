@@ -66,7 +66,7 @@ namespace Common.Archive
         [Test]
         public void ExtractionIntoFolder()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "extractedArchive"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "extractedArchive"))
                 extractor.RunSync();
 
             Assert.IsTrue(Directory.Exists("extractedArchive"));
@@ -102,7 +102,7 @@ namespace Common.Archive
         [Test]
         public void ExtractionOfSubDir()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "extractedArchive"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "extractedArchive"))
             {
                 extractor.SubDir = "folder1";
                 extractor.RunSync();
@@ -120,7 +120,7 @@ namespace Common.Archive
             Directory.CreateDirectory("destination");
             File.WriteAllText("destination/file1", "Wrong content");
             File.WriteAllText("destination/file0", "This file should not be touched");
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), 0, "destination"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "destination"))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("destination/file0"), "Extractor cleaned directory.");
@@ -156,7 +156,7 @@ namespace Common.Archive
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetSdlZipArchiveStream())
-            using (var extractor = new ZipExtractor(archive, 0, _sandbox.Path))
+            using (var extractor = new ZipExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
             string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
@@ -173,7 +173,7 @@ namespace Common.Archive
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, 0, "extractedArchive");
+                var extractor = new ZipExtractor(archiveStream, "extractedArchive");
                 Assert.Throws<IOException>(extractor.RunSync, "ZipExtractor must not accept archives with '..' as entry");
                 archiveStream.Dispose();
             }
@@ -189,7 +189,7 @@ namespace Common.Archive
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, 0, "extractedArchive");
+                var extractor = new ZipExtractor(archiveStream, "extractedArchive");
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
                 Assert.DoesNotThrow(extractor.RunSync);

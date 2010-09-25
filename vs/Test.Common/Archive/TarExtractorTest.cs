@@ -29,7 +29,7 @@ namespace Common.Archive
         public void TestGzCompressed()
         {
             using (var archive = TestData.GetSdlTarGzArchiveStream())
-            using (var extractor = new TarGzExtractor(archive, 0, _sandbox.Path))
+            using (var extractor = new TarGzExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("SDL.dll"));
@@ -40,7 +40,18 @@ namespace Common.Archive
         public void TestBz2Compressed()
         {
             using (var archive = TestData.GetSdlTarBz2ArchiveStream())
-            using (var extractor = new TarBz2Extractor(archive, 0, _sandbox.Path))
+            using (var extractor = new TarBz2Extractor(archive, _sandbox.Path))
+                extractor.RunSync();
+
+            Assert.IsTrue(File.Exists("SDL.dll"));
+            Assert.IsTrue(File.Exists("README-SDL.txt"));
+        }
+
+        [Test]
+        public void TestLzmaCompressed()
+        {
+            using (var archive = TestData.GetSdlTarLzmaArchiveStream())
+            using (var extractor = new TarLzmaExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("SDL.dll"));
@@ -72,7 +83,7 @@ namespace Common.Archive
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetSdlTarArchiveStream())
-            using (var extractor = new TarExtractor(archive, 0, _sandbox.Path))
+            using (var extractor = new TarExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
             string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();

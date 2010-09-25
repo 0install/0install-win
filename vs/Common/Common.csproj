@@ -56,13 +56,18 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="SevenZip">
+      <HintPath>..\..\lib\SevenZip.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Archive\Extractor.cs" />
+    <Compile Include="Archive\LzmaInputStream.cs" />
     <Compile Include="Archive\ZipExtractor.cs" />
     <Compile Include="Archive\TarExtractor.cs" />
     <Compile Include="Archive\TarBz2Extractor.cs" />
     <Compile Include="Archive\TarGzExtractor.cs" />
+    <Compile Include="Archive\TarLzmaExtractor.cs" />
     <Compile Include="CliControls\InputUtils.cs" />
     <Compile Include="CliControls\ProgessBar.cs" />
     <Compile Include="CliControls\TrackingProgessBar.cs" />
@@ -78,6 +83,7 @@
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
     <Compile Include="CliAppControl.cs" />
+    <Compile Include="OffsetStream.cs" />
     <Compile Include="UnhandledErrorsException.cs" />
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>UserControl</SubType>

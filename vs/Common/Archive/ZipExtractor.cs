@@ -40,11 +40,10 @@ namespace Common.Archive
         /// <summary>
         /// Prepares to extract a ZIP archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive's data.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public ZipExtractor(Stream stream, long startOffset, string target) : base(stream, startOffset, target)
+        public ZipExtractor(Stream stream, string target) : base(stream, target)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");

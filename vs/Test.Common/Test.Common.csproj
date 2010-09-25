@@ -66,6 +66,7 @@
     <Compile Include="Helpers\StreamHelperTest.cs" />
     <Compile Include="Helpers\StringHelperTest.cs" />
     <Compile Include="MicroServer.cs" />
+    <Compile Include="OffsetStreamTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
     <Compile Include="Archive\TestData.cs" />
   </ItemGroup>
@@ -84,6 +85,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Archive\sdlArchive.tar.bz2" />
     <EmbeddedResource Include="Archive\sdlArchive.tar.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Archive\sdlArchive.tar.lzma" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

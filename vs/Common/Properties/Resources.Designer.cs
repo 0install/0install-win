@@ -286,6 +286,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The stream must support seeking..
+        /// </summary>
+        internal static string MissingStreamSeekSupport {
+            get {
+                return ResourceManager.GetString("MissingStreamSeekSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         internal static string No {

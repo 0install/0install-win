@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using Common.Properties;
+using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Tar;
 
 namespace Common.Archive
@@ -40,11 +41,10 @@ namespace Common.Archive
         /// <summary>
         /// Prepares to extract a TAR archive contained in a stream.
         /// </summary>
-        /// <param name="stream">The stream containing the archive's data.</param>
-        /// <param name="startOffset">The number of bytes at the beginning of the stream which should be ignored.</param>
+        /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public TarExtractor(Stream stream, long startOffset, string target) : base(stream, startOffset, target)
+        public TarExtractor(Stream stream, string target) : base(stream, target)
         {
             #region Sanity checks
             if (stream == null) throw new ArgumentNullException("stream");
@@ -55,7 +55,7 @@ namespace Common.Archive
             {
                 _tar = new TarInputStream(stream);
             }
-            catch (TarException ex)
+            catch (SharpZipBaseException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
                 throw new IOException(Resources.ArchiveInvalid, ex);
@@ -84,11 +84,11 @@ namespace Common.Archive
                     if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
                     else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsXbitSet(entry));
 
-                    BytesProcessed = _tar.Position - StartOffset;
+                    BytesProcessed = _tar.Position;
                 }
             }
             #region Error handling
-            catch (TarException ex)
+            catch (SharpZipBaseException ex)
             {
                 lock (StateLock)
                 {
