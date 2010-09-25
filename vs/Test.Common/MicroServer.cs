@@ -24,7 +24,8 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Helpers;
+using Common.Streams;
+using Common.Utils;
 
 namespace Common
 {
@@ -115,7 +116,7 @@ namespace Common
                 { return; }
 
                 if (context.Request.RawUrl == "/file")
-                    StreamHelper.Copy(_fileContent, context.Response.OutputStream);
+                    StreamUtils.Copy(_fileContent, context.Response.OutputStream);
                 else
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 

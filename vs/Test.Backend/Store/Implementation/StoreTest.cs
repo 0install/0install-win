@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Common.Helpers;
+using Common.Utils;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
@@ -41,7 +41,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAcceptInexistantPathAndCreateIt()
         {
-            string path = FileHelper.GetTempDirectory();
+            string path = FileUtils.GetTempDirectory();
             Directory.Delete(path);
             try
             {
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>The path of the directory</returns>
         internal static string CreateArtificialPackage()
         {
-            string packageDir = FileHelper.GetTempDirectory();
+            string packageDir = FileUtils.GetTempDirectory();
             string subDir = Path.Combine(packageDir, "subdir");
             Directory.CreateDirectory(subDir);
             File.WriteAllText(Path.Combine(subDir, "file.txt"), @"AAA");

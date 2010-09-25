@@ -23,7 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common.Helpers;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -109,12 +109,12 @@ namespace Common.Controls
                 switch (state)
                 {
                     case ProgressState.Ready:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
                         break;
 
                     case ProgressState.Header:
                         progressBar.Style = ProgressBarStyle.Marquee;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
                         break;
 
                     case ProgressState.Data:
@@ -123,19 +123,19 @@ namespace Common.Controls
                         {
                             _task.ProgressChanged += ProgressChanged;
                             progressBar.Style = ProgressBarStyle.Continuous;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
+                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
                         break;
 
                     case ProgressState.IOError:
                     case ProgressState.WebError:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.Error, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
                         progressBar.Style = ProgressBarStyle.Continuous;
                         progressBar.Value = 0;
                         break;
 
                     case ProgressState.Complete:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
 
                         // When the status is complete the bar should always be full
                         progressBar.Value = 100;
@@ -164,7 +164,7 @@ namespace Common.Controls
             {
                 progressBar.Value = currentValue;
                 IntPtr formHandle = GetFormHandle();
-                if (UseTaskbar && formHandle != IntPtr.Zero) WindowsHelper.SetProgressValue(currentValue, 100, formHandle);
+                if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
             });
         }
         #endregion

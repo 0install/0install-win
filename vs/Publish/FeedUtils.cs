@@ -2,6 +2,7 @@
 using System.IO;
 using System.Text;
 using Common;
+using Common.Cli;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;

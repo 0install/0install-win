@@ -22,7 +22,8 @@
 
 using System.IO;
 using System.Threading;
-using Common.Helpers;
+using Common.Streams;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Download
@@ -39,7 +40,7 @@ namespace Common.Download
         [SetUp]
         public void SetUp()
         {
-            _server = new MicroServer(50222, StreamHelper.CreateFromString(TestFileContent));
+            _server = new MicroServer(50222, StreamUtils.CreateFromString(TestFileContent));
             _server.Start();
         }
 

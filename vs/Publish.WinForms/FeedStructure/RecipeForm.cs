@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Controls;
-using Common.Helpers;
+using Common.Utils;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Controls;
@@ -124,8 +124,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
-                    var completeSourceDir = extractedArchiveDir + StringHelper.UnifySlashes(subfolder);
-                    FileHelper.CopyDirectory(completeSourceDir, tempDir.Path, true);
+                    var completeSourceDir = extractedArchiveDir + StringUtils.UnifySlashes(subfolder);
+                    FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
                 ManifestDigest = Manifest.CreateDigest(tempDir.Path, null);

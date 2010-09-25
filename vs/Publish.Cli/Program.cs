@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Common;
-using Common.CliControls;
+using Common.Cli;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Arguments;

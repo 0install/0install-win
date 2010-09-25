@@ -26,7 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Windows.Forms;
 using Common.Collections;
-using Common.Helpers;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -174,7 +174,7 @@ namespace Common.Controls
                     else if (string.IsNullOrEmpty(textSearch.Text))
                         AddTreeNode(classEntry);
                     // Only list nodes that match the filter
-                    else if (StringHelper.Contains(classEntry.Name, textSearch.Text))
+                    else if (StringUtils.Contains(classEntry.Name, textSearch.Text))
                         AddTreeNode(classEntry);
                 }
 
@@ -259,10 +259,10 @@ namespace Common.Controls
             foreach (TreeNode node in subTree)
             {
                 // Nodes with matches in the last part of their name (the displayed text) shall always be visible
-                if (StringHelper.Contains(node.Text, textSearch.Text)) node.EnsureVisible();
+                if (StringUtils.Contains(node.Text, textSearch.Text)) node.EnsureVisible();
 
                 // Nodes with matches in their full name shall be expanded...
-                if (fullNameExpand && StringHelper.Contains(node.Name, textSearch.Text))
+                if (fullNameExpand && StringUtils.Contains(node.Name, textSearch.Text))
                 {
                     node.EnsureVisible();
                     node.Expand();

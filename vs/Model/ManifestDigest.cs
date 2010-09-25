@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
-using Common.Helpers;
+using Common.Utils;
 using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
@@ -135,8 +135,8 @@ namespace ZeroInstall.Model
         public static void ParseID(string id, ref ManifestDigest target)
         {
             // Split the ID string
-            string prefix = StringHelper.GetLeftPartAtFirstOccurrence(id, '=');
-            string hash = StringHelper.GetRightPartAtFirstOccurrence(id, '=');
+            string prefix = StringUtils.GetLeftPartAtFirstOccurrence(id, '=');
+            string hash = StringUtils.GetRightPartAtFirstOccurrence(id, '=');
 
             // Check for known prefixes (and don't overwrite existing values)
             switch (prefix)

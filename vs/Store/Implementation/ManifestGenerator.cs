@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using Common;
-using Common.Helpers;
+using Common.Utils;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -194,7 +194,7 @@ namespace ZeroInstall.Store.Implementation
                     if (currentLine != null && currentLine.StartsWith("/"))
                     {
                         // Trim away the first slash and then replace Unix-style slashes
-                        string relativePath = StringHelper.UnifySlashes(currentLine.Substring(1));
+                        string relativePath = StringUtils.UnifySlashes(currentLine.Substring(1));
                         externalXBits.Add(Path.Combine(xBitDir, relativePath));
                     }
                 }
@@ -216,9 +216,9 @@ namespace ZeroInstall.Store.Implementation
 
             // ToDo: Handle executable bits in filesystem itself
             if (externalXBits.Contains(file.FullName))
-                return new ManifestExecutableFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
             else
-                return new ManifestFile(FileHelper.ComputeHash(file.FullName, hashAlgorithm), FileHelper.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>
@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation
         private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
         {
             return new ManifestDirectory(
-                FileHelper.UnixTime(directory.LastWriteTime),
+                FileUtils.UnixTime(directory.LastWriteTime),
                 // Remove leading portion of path and use Unix slashes
                 directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/'));
         }

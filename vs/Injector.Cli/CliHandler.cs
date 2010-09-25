@@ -17,7 +17,7 @@
 
 using System;
 using Common;
-using Common.CliControls;
+using Common.Cli;
 
 namespace ZeroInstall.Injector.Cli
 {

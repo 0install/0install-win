@@ -20,7 +20,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common.Helpers;
+using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Injector.Solver;
@@ -98,7 +98,7 @@ namespace ZeroInstall.Injector
             else throw new MissingMainException(_interfaceID);
 
             // Find the actual executable file
-            return Path.Combine(GetImplementationPath(startupImplementation), StringHelper.UnifySlashes(startupMain));
+            return Path.Combine(GetImplementationPath(startupImplementation), StringUtils.UnifySlashes(startupMain));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace ZeroInstall.Injector
         private void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
         {
             var environmentVariables = startInfo.EnvironmentVariables;
-            string environmentValue = Path.Combine(implementationDirectory, StringHelper.UnifySlashes(binding.Value));
+            string environmentValue = Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Value));
 
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
@@ -190,7 +190,7 @@ namespace ZeroInstall.Injector
             {
                 ErrorDialog = true,
                 // Use ShellExecute to open non-EXE files on Windows
-                UseShellExecute = WindowsHelper.IsWindows && !main.EndsWith(".exe")
+                UseShellExecute = WindowsUtils.IsWindows && !main.EndsWith(".exe")
             };
 
             // Apply user-given wrapper application if set

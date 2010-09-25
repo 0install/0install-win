@@ -22,7 +22,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using Common;
-using Common.Helpers;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Injector.Cli.Properties;
@@ -289,7 +289,7 @@ namespace ZeroInstall.Injector.Cli
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " "));
+                launcher.RunSync(StringUtils.Concatenate(results.AdditionalArgs, " "));
             }
         }
         #endregion

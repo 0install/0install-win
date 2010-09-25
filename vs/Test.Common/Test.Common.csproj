@@ -54,40 +54,40 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Archive\ExtractorTest.cs" />
-    <Compile Include="Archive\TarExtractorTest.cs" />
-    <Compile Include="Archive\ZipExtractorTest.cs" />
+    <Compile Include="MicroServer.cs" />
+    <Compile Include="Compression\TestData.cs" />
+    <Compile Include="Compression\ExtractorTest.cs" />
+    <Compile Include="Compression\TarExtractorTest.cs" />
+    <Compile Include="Compression\ZipExtractorTest.cs" />
+    <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
-    <Compile Include="Download\DownloadFileTest.cs" />
-    <Compile Include="Helpers\FileHelperTest.cs" />
-    <Compile Include="Helpers\PackageBuilder.cs" />
-    <Compile Include="Helpers\StreamHelperTest.cs" />
-    <Compile Include="Helpers\StringHelperTest.cs" />
-    <Compile Include="MicroServer.cs" />
-    <Compile Include="OffsetStreamTest.cs" />
+    <Compile Include="Utils\FileUtilsTest.cs" />
+    <Compile Include="Utils\StringUtilsTest.cs" />
+    <Compile Include="Utils\PackageBuilder.cs" />
+    <Compile Include="Streams\StreamUtilsTest.cs" />
+    <Compile Include="Streams\OffsetStreamTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
-    <Compile Include="Archive\TestData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\sdlArchive.zip" />
+    <EmbeddedResource Include="Compression\sdlArchive.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\SDL.dll" />
+    <EmbeddedResource Include="Compression\SDL.dll" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\README-SDL.txt" />
+    <EmbeddedResource Include="Compression\README-SDL.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\sdlArchive.tar" />
+    <EmbeddedResource Include="Compression\sdlArchive.tar" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\sdlArchive.tar.bz2" />
-    <EmbeddedResource Include="Archive\sdlArchive.tar.gz" />
+    <EmbeddedResource Include="Compression\sdlArchive.tar.bz2" />
+    <EmbeddedResource Include="Compression\sdlArchive.tar.gz" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Archive\sdlArchive.tar.lzma" />
+    <EmbeddedResource Include="Compression\sdlArchive.tar.lzma" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

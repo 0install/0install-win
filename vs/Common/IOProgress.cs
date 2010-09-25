@@ -24,7 +24,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Helpers;
+using Common.Utils;
 using Common.Properties;
 
 namespace Common

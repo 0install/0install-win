@@ -25,7 +25,7 @@ namespace Common
     /// Represents different states a (usually Web- or IO-related) task can be in.
     /// </summary>
     /// <seealso cref="IProgress.State"/>
-    /// <seealso cref="Common.CliControls.ProgessBar"/>
+    /// <seealso cref="Common.Cli.ProgessBar"/>
     public enum ProgressState
     {
         /// <summary>The task is ready to begin.</summary>

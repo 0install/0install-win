@@ -17,7 +17,7 @@
 
 using System.Collections.Generic;
 using System.IO;
-using Common.Helpers;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Implementation
@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>The path of the directory</returns>
         internal static string CreateArtificialPackage()
         {
-            string packageDir = FileHelper.GetTempDirectory();
+            string packageDir = FileUtils.GetTempDirectory();
             File.WriteAllText(Path.Combine(packageDir, "x.txt"), @"AAA");
             File.WriteAllText(Path.Combine(packageDir, "Y.txt"), @"AAA");
             var subdir = Directory.CreateDirectory(Path.Combine(packageDir, "directory"));

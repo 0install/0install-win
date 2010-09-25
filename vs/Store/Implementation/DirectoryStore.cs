@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using Common.Archive;
-using Common.Helpers;
+using Common.Compression;
+using Common.Utils;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -66,7 +66,7 @@ namespace ZeroInstall.Store.Implementation
             // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
             try
             {
-                if (FileHelper.DetermineTimeAccuracy(path) > 0)
+                if (FileUtils.DetermineTimeAccuracy(path) > 0)
                     throw new InvalidOperationException(Resources.InsufficientFSTimeAccuracy);
             }
             catch (UnauthorizedAccessException)
@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Implementation
             // Determine the digest method to use
             string expectedDigest = manifestDigest.BestDigest;
             if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
-            var format = ManifestFormat.FromPrefix(StringHelper.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
+            var format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
@@ -155,7 +155,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Prevent any further changes to the directory
-            try { FileHelper.WriteProtection(target); }
+            try { FileUtils.WriteProtection(target); }
             catch (UnauthorizedAccessException)
             {
                 Log.Warn("Unable to enable write protection for " + target);
@@ -173,7 +173,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            FileHelper.CopyDirectory(path, tempDir, false);
+            FileUtils.CopyDirectory(path, tempDir, false);
 
             VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
         }

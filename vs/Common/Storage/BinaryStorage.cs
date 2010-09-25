@@ -25,7 +25,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using Common.Helpers;
+using Common.Streams;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Storage
@@ -90,7 +91,7 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
             #endregion
 
-            using (var stream = StreamHelper.CreateFromString(data))
+            using (var stream = StreamUtils.CreateFromString(data))
                 return Load<T>(stream);
         }
         #endregion

@@ -20,7 +20,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common;
-using Common.Helpers;
+using Common.Cli;
+using Common.Utils;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feed
@@ -72,7 +73,7 @@ namespace ZeroInstall.Store.Feed
 
             foreach (var key in secretKeys)
             {
-                if (key.KeyID == name || StringHelper.Contains(key.UserID, name))
+                if (key.KeyID == name || StringUtils.Contains(key.UserID, name))
                     return key;
             }
             throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
@@ -87,7 +88,7 @@ namespace ZeroInstall.Store.Feed
         public GnuPGSecretKey[] ListSecretKeys()
         {
             string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null, ErrorHandler);
-            string[] lines = StringHelper.SplitMultilineText(result);
+            string[] lines = StringUtils.SplitMultilineText(result);
             var keys = new List<GnuPGSecretKey>(lines.Length / 2);
 
             foreach (var line in lines)

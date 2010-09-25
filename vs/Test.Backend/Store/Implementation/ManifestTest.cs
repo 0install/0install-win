@@ -24,7 +24,7 @@ using NUnit.Framework;
 using ZeroInstall.Model;
 using Common;
 using System.Threading;
-using Common.Helpers;
+using Common.Utils;
 using System.Diagnostics;
 
 namespace ZeroInstall.Store.Implementation

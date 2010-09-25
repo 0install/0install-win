@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Archive;
+using Common.Compression;
 using Common.Storage;
-using Common.Helpers;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 using ZeroInstall.Injector;

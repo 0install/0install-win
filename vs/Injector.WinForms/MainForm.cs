@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
-using Common.Helpers;
+using Common.Utils;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
@@ -111,7 +111,7 @@ namespace ZeroInstall.Injector.WinForms
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                try { launcher.RunSync(StringHelper.Concatenate(results.AdditionalArgs, " ")); }
+                try { launcher.RunSync(StringUtils.Concatenate(results.AdditionalArgs, " ")); }
                 #region Error hanlding
                 catch (ImplementationNotFoundException ex)
                 {

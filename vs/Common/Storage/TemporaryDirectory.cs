@@ -22,7 +22,7 @@
 
 using System;
 using System.IO;
-using Common.Helpers;
+using Common.Utils;
 
 namespace Common.Storage
 {
@@ -44,7 +44,7 @@ namespace Common.Storage
         /// </summary>
         public TemporaryDirectory()
         {
-            Path = FileHelper.GetTempDirectory();
+            Path = FileUtils.GetTempDirectory();
         }
 
         /// <summary>

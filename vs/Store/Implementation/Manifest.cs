@@ -21,7 +21,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Common;
-using Common.Helpers;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
             // Caclulate the hash of the completed manifest file
-            return Format.Prefix + FileHelper.ComputeHash(path, Format.HashAlgorithm);
+            return Format.Prefix + FileUtils.ComputeHash(path, Format.HashAlgorithm);
         }
 
         /// <summary>
@@ -248,7 +248,7 @@ namespace ZeroInstall.Store.Implementation
                 Save(stream);
 
                 stream.Position = 0;
-                return Format.Prefix + FileHelper.ComputeHash(stream, Format.HashAlgorithm);
+                return Format.Prefix + FileUtils.ComputeHash(stream, Format.HashAlgorithm);
             }
         }
         #endregion

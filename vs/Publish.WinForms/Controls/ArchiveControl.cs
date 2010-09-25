@@ -22,9 +22,9 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using Common;
-using Common.Archive;
+using Common.Compression;
 using Common.Download;
-using Common.Helpers;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 

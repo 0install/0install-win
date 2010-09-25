@@ -26,7 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Common.Helpers;
+using Common.Utils;
 
 namespace Common
 {
@@ -133,8 +133,8 @@ namespace Common
             #endregion
 
             // Create uniform line-breaks and indention
-            string[] lines = StringHelper.SplitMultilineText(message.Trim());
-            message = StringHelper.Concatenate(lines, "\r\n\t");
+            string[] lines = StringUtils.SplitMultilineText(message.Trim());
+            message = StringUtils.Concatenate(lines, "\r\n\t");
 
             // Thread-safety: Only one log message is handled at a time
             lock (_sessionContent)

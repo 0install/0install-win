@@ -19,7 +19,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using Common;
-using Common.Helpers;
+using Common.Cli;
+using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -120,7 +121,7 @@ namespace ZeroInstall.Injector.Solver
                 startInfo.EnvironmentVariables["PYTHONPATH"] = PackagesDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
 
             // Add bundled portable GnuPG to search path for Python script to use on Windows
-            if (WindowsHelper.IsWindows && File.Exists(Path.Combine(GnuPGDirectory, "gpg.exe")))
+            if (WindowsUtils.IsWindows && File.Exists(Path.Combine(GnuPGDirectory, "gpg.exe")))
                 startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;

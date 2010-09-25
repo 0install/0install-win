@@ -29,7 +29,8 @@ using System.Reflection;
 using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
-using Common.Helpers;
+using Common.Streams;
+using Common.Utils;
 using Common.Properties;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -179,7 +180,7 @@ namespace Common.Storage
             #endregion
 
             // Copy string to a stream and then parse
-            using (var stream = StreamHelper.CreateFromString(data))
+            using (var stream = StreamUtils.CreateFromString(data))
                 return Load<T>(stream, ignoreMembers);
         }
         #endregion
@@ -257,7 +258,7 @@ namespace Common.Storage
                 Save(stream, data, ignoreMembers);
 
                 // Copy the stream to a string
-                return StreamHelper.ReadToString(stream);
+                return StreamUtils.ReadToString(stream);
             }
         }
         #endregion
@@ -341,7 +342,7 @@ namespace Common.Storage
                             // Read additional files from the ZIP archive
                             foreach (EmbeddedFile file in additionalFiles)
                             {
-                                if (StringHelper.Compare(zipEntry.Name, file.Filename))
+                                if (StringUtils.Compare(zipEntry.Name, file.Filename))
                                 {
                                     using (var inputStream = zipFile.GetInputStream(zipEntry))
                                         file.StreamDelegate(inputStream);
