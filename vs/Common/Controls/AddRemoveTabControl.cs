@@ -25,7 +25,6 @@ using System.Windows.Forms;
 
 namespace Common.Controls
 {
-
     #region Delegates
 
     public delegate void NewTabPageEventHandler(TabControl sender, TabPage createdTabPage);
@@ -36,20 +35,43 @@ namespace Common.Controls
 
     /// <summary>
     /// A <see cref="TabControl"/> that can add and remove <see cref="TabPage"/>s.
-    /// Adds a new tab to the right of the selected by pressing ctrl + w .
+    /// Adds a new tab to the right of the selected by pressing CTRL + W.
     /// Adds a new tab to the left of the last tab by clicking the adding tab.
-    /// Removes the selected tab by pressing ctrl + t .
+    /// Removes the selected tab by pressing CTRL + T.
     /// Removes the double clicked <see cref="TabPage"/>.
     /// </summary>
     public class AddRemoveTabControl : TabControl
     {
-        #region Attributes
+        #region Events
+        /// <summary>
+        /// Fired when a new <see cref="TabPage"/> was created by the user.
+        /// </summary>
+        public event NewTabPageEventHandler NewTabPageCreated;
+
+        /// <summary>
+        /// Fired when a new <see cref="TabPage"/> was removed by the user.
+        /// </summary>
+        public event RemovedTabPageEventHandler TabPageRemoved;
+
+        private void OnNewTabCreated(TabPage createdTabPage)
+        {
+            if (NewTabPageCreated != null) NewTabPageCreated(this, createdTabPage);
+        }
+
+        private void OnTabPageRemoved(TabPage removedTabPage)
+        {
+            if (TabPageRemoved != null) TabPageRemoved(this, removedTabPage);
+        }
+        #endregion
+
+        #region Variables
         /// <summary>
         /// Adds or removes the <see cref="TabPage"/> that allows
         /// the user to add a new <see cref="TabPage"/> by clicking
         /// on it.
         /// </summary>
-        private bool _useAddTabPage = false;
+        private bool _useAddTabPage;
+
         /// <summary>
         /// <see cref="TabPage"/> that allows the user to
         /// add new <see cref="TabPage"/>s by clicking on it.
@@ -85,62 +107,45 @@ namespace Common.Controls
             }
         }
         #endregion
-
-        #region Events
-        /// <summary>
-        /// Fired when a new <see cref="TabPage"/> was created by the user.
-        /// </summary>
-        public event NewTabPageEventHandler NewTabPageCreated;
-        /// <summary>
-        /// Fired when a new <see cref="TabPage"/> was removed by the user.
-        /// </summary>
-        public event RemovedTabPageEventHandler TabPageRemoved;
-
-        private void OnNewTabCreated(TabPage createdTabPage)
+        
+        #region Constructor
+        public AddRemoveTabControl()
         {
-            if (NewTabPageCreated != null) NewTabPageCreated(this, createdTabPage);
-        }
-
-        private void OnTabPageRemoved(TabPage removedTabPage)
-        {
-            if (TabPageRemoved != null) TabPageRemoved(this, removedTabPage);
+#pragma warning disable 168
+            // HACK: makes inserting tabs possible
+            IntPtr dummy = Handle;
+#pragma warning restore 168
         }
         #endregion
 
-        #region overriden events
+        //--------------------//
+
+        #region Overriden events
         /// <summary>
-        /// Adds a new <see cref="TabPage"/> right beside the selected tab by pressing ctrl + t .
-        /// Removes the selected <see cref="TabPage"/> by pressing ctrl + w .
+        /// Adds a new <see cref="TabPage"/> right beside the selected tab by pressing CTRL + T.
+        /// Removes the selected <see cref="TabPage"/> by pressing CTRL + W .
         /// If there is only one <see cref="TabPage"/> left, it will not be removed.
         /// </summary>
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
 
-            if (e.KeyData == (Keys.Control | Keys.T))
+            switch (e.KeyData)
             {
-                if (TabCount < 0)
-                {
-                    InsertTabPage(0);
-                }
-                else
-                {
-                    InsertTabPage(SelectedIndex + 1);
-                }
-            }
-            else if (e.KeyData == (Keys.Control | Keys.W))
-            {
-                if (TabCount > 1)
-                {
-                    RemoveTabPage(SelectedIndex);
-                }
+                case (Keys.Control | Keys.T):
+                    if (TabCount < 0) InsertTabPage(0);
+                    else InsertTabPage(SelectedIndex + 1);
+                    break;
+                case (Keys.Control | Keys.W):
+                    if (TabCount > 1) RemoveTabPage(SelectedIndex);
+                    break;
             }
         }
 
         /// <summary>
         /// Checks if the selected <see cref="TabPage"/> is <see cref="_addNewTabPage"/>.
         /// If yes, the selection will be canceled and a new <see cref="TabPage"/>
-        /// will be created left beside the <see cref="_addNewTabPage"/>
+        /// will be created left beside the <see cref="_addNewTabPage"/>.
         /// </summary>
         protected override void OnSelecting(TabControlCancelEventArgs e)
         {
@@ -156,15 +161,7 @@ namespace Common.Controls
         //TODO On double mouse click remove selected tab.
         #endregion
 
-        #region Initialization
-        public AddRemoveTabControl()
-        {
-            // HACK: makes inserting tabs possible.
-            IntPtr dummy = Handle;
-        }
-        #endregion
-
-        #region insert/remove new tab page
+        #region Insert/Remove new tab page
         /// <summary>
         /// Inserts a new <see cref="TabPage"/> to <paramref name="tabPageIndexToInsert"/>,
         /// sets <see cref="LastInsertedTabPage"/> and fires <see cref="OnNewTabCreated"/>.
@@ -193,7 +190,7 @@ namespace Common.Controls
         }
         #endregion
 
-        #region add/remove adding tab page
+        #region Add/Remove adding tab page
         /// <summary>
         /// Removes <see cref="_addNewTabPage"/>.
         /// </summary>
