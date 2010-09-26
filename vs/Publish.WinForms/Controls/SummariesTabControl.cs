@@ -15,12 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 using Common.Collections;
-using Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -37,16 +33,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             {
                 _summaries = value ?? new LocalizableStringCollection();
 
-                // remove all tab pages except the last one.
-                for (int i = 0; i < addRemoveTabControl1.tabControl1.TabPages.Count - 1; i++)
-                {
-                    addRemoveTabControl1.tabControl1.TabPages.RemoveAt(0);
-                }
-
-                foreach (var summary in _summaries)
-                {
-                    addRemoveTabControl1.tabControl1.TabPages.Insert(0, CreateTabPage(summary));
-                }
             }
             get
             {
@@ -61,23 +47,5 @@ namespace ZeroInstall.Publish.WinForms.Controls
             InitializeComponent();
         }
         #endregion
-
-        private static TabPage CreateTabPage(LocalizableString summary)
-        {
-            var control = new SummariesControl();
-            control.languageComboBox.SelectedLanguage = summary.Language;
-            control.hintTextBoxSummary.Text = summary.Value;
-
-            var newTabPage = new TabPage {Text = summary.Language.NativeName};
-            newTabPage.Controls.Add(control);
-
-            return newTabPage;
-        }
-
-        private void AddRemoveTabControl1NewTabCreated(TabControl sender, TabPage createdTabPage)
-        {
-            //createdTabPage.Controls.Add(CreateSummaryHintTextBox(String.Empty));
-            //createdTabPage.Controls.Add(CreateLanguageComboBox(CultureInfo.CurrentCulture));
-        }
     }
 }

@@ -25,118 +25,190 @@ using System.Windows.Forms;
 
 namespace Common.Controls
 {
+
     #region Delegates
-    public delegate void NewTabEventHandler(TabControl sender, TabPage createdTabPage);
+
+    public delegate void NewTabPageEventHandler(TabControl sender, TabPage createdTabPage);
+
+    public delegate void RemovedTabPageEventHandler(TabControl sender, TabPage removeTabPage);
+
     #endregion
 
     /// <summary>
-    /// A tab control that can add and remove tabs.
+    /// A <see cref="TabControl"/> that can add and remove <see cref="TabPage"/>s.
     /// Adds a new tab to the right of the selected by pressing ctrl + w .
     /// Adds a new tab to the left of the last tab by clicking the adding tab.
     /// Removes the selected tab by pressing ctrl + t .
-    /// Removes the double clicked tab.
+    /// Removes the double clicked <see cref="TabPage"/>.
     /// </summary>
-    public partial class AddRemoveTabControl : UserControl
+    public class AddRemoveTabControl : TabControl
     {
+        #region Attributes
+        /// <summary>
+        /// Adds or removes the <see cref="TabPage"/> that allows
+        /// the user to add a new <see cref="TabPage"/> by clicking
+        /// on it.
+        /// </summary>
+        private bool _useAddTabPage = false;
+        /// <summary>
+        /// <see cref="TabPage"/> that allows the user to
+        /// add new <see cref="TabPage"/>s by clicking on it.
+        /// </summary>
+        private readonly TabPage _addNewTabPage = new TabPage("    +   ");
+        #endregion
+
         #region Properties
+
         /// <summary>
         /// The last inserted <see cref="TabPage"/>. <see langword="null"/> if no <see cref="TabPage"/> was inserted.
         /// </summary>
         public TabPage LastInsertedTabPage { get; private set; }
+        
+        /// <summary>
+        /// The last removed <see cref="TabPage"/>. <see langword="null"/> if no <see cref="TabPage"/> was removed.
+        /// </summary>
+        public TabPage LastRemovedTabPage { get; private set; }
+
+        /// <summary>
+        /// Adds or removes the <see cref="TabPage"/> that allows
+        /// the user to add a new <see cref="TabPage"/> by clicking
+        /// on it.
+        /// </summary>
+        public Boolean UseAddTabPage
+        {
+            get { return _useAddTabPage; }
+            set
+            {
+                _useAddTabPage = value;
+                if (_useAddTabPage) InsertAddTabPage();
+                else RemoveAddTabPage();
+            }
+        }
         #endregion
 
         #region Events
-        public event NewTabEventHandler NewTabCreated;
+        /// <summary>
+        /// Fired when a new <see cref="TabPage"/> was created by the user.
+        /// </summary>
+        public event NewTabPageEventHandler NewTabPageCreated;
+        /// <summary>
+        /// Fired when a new <see cref="TabPage"/> was removed by the user.
+        /// </summary>
+        public event RemovedTabPageEventHandler TabPageRemoved;
 
-        private void OnNewTabCreated()
+        private void OnNewTabCreated(TabPage createdTabPage)
         {
-            if (NewTabCreated != null) NewTabCreated(tabControl1, LastInsertedTabPage);
+            if (NewTabPageCreated != null) NewTabPageCreated(this, createdTabPage);
+        }
+
+        private void OnTabPageRemoved(TabPage removedTabPage)
+        {
+            if (TabPageRemoved != null) TabPageRemoved(this, removedTabPage);
         }
         #endregion
 
+        #region overriden events
+        /// <summary>
+        /// Adds a new <see cref="TabPage"/> right beside the selected tab by pressing ctrl + t .
+        /// Removes the selected <see cref="TabPage"/> by pressing ctrl + w .
+        /// If there is only one <see cref="TabPage"/> left, it will not be removed.
+        /// </summary>
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (e.KeyData == (Keys.Control | Keys.T))
+            {
+                if (TabCount < 0)
+                {
+                    InsertTabPage(0);
+                }
+                else
+                {
+                    InsertTabPage(SelectedIndex + 1);
+                }
+            }
+            else if (e.KeyData == (Keys.Control | Keys.W))
+            {
+                if (TabCount > 1)
+                {
+                    RemoveTabPage(SelectedIndex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if the selected <see cref="TabPage"/> is <see cref="_addNewTabPage"/>.
+        /// If yes, the selection will be canceled and a new <see cref="TabPage"/>
+        /// will be created left beside the <see cref="_addNewTabPage"/>
+        /// </summary>
+        protected override void OnSelecting(TabControlCancelEventArgs e)
+        {
+            if (e.Action == TabControlAction.Selecting && e.TabPage == _addNewTabPage)
+            {
+                InsertTabPage(TabCount - 1);
+                e.Cancel = true;
+            }
+
+            base.OnSelecting(e);
+        }
+
+        //TODO On double mouse click remove selected tab.
+        #endregion
+
+        #region Initialization
         public AddRemoveTabControl()
         {
-            InitializeComponent();
-            // makes inserting tabs possible.
-            IntPtr dummy = tabControl1.Handle;
+            // HACK: makes inserting tabs possible.
+            IntPtr dummy = Handle;
+        }
+        #endregion
+
+        #region insert/remove new tab page
+        /// <summary>
+        /// Inserts a new <see cref="TabPage"/> to <paramref name="tabPageIndexToInsert"/>,
+        /// sets <see cref="LastInsertedTabPage"/> and fires <see cref="OnNewTabCreated"/>.
+        /// </summary>
+        /// <param name="tabPageIndexToInsert">Index to insert <see cref="TabPage"/>.</param>
+        private void InsertTabPage(int tabPageIndexToInsert)
+        {
+            var tabPageToInsert = new TabPage();
+            TabPages.Insert(tabPageIndexToInsert, tabPageToInsert);
+            LastInsertedTabPage = tabPageToInsert;
+            OnNewTabCreated(tabPageToInsert);
         }
 
         /// <summary>
-        /// Adds a new <see cref="TabPage"/> rigth beside the selected tab by pressing ctrl + t .
-        /// Removes the selected tab by pressing ctrl + w .
+        /// Removes the <see cref="TabPage"/> with index <paramref name="tabPageIndexToRemove"/>,
+        /// sets <see cref="LastRemovedTabPage"/> and fires <see cref="OnTabPageRemoved"/>.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void TabControl1PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        /// <param name="tabPageIndexToRemove">Index of the <see cref="TabPage"/> to remove.</param>
+        private void RemoveTabPage(int tabPageIndexToRemove)
         {
-            var selectedTabIndex = tabControl1.SelectedIndex;
-            var lastTabIndex = tabControl1.TabCount - 1;
+            var tabToRemove = TabPages[tabPageIndexToRemove];
+            TabPages.RemoveAt(tabPageIndexToRemove);
+            LastRemovedTabPage = tabToRemove;
+            SelectedIndex = tabPageIndexToRemove == TabCount ? tabPageIndexToRemove - 1 : tabPageIndexToRemove;
+            OnTabPageRemoved(tabToRemove);
+        }
+        #endregion
 
-            if(e.KeyData == (Keys.Control | Keys.T))
-            {
-                // if the selected tab is the last, insert to the left beside the tab, else to the right.
-                var insertTabIndex = (selectedTabIndex == lastTabIndex) ? selectedTabIndex : selectedTabIndex + 1;
-                var tabPageToInsert = new TabPage();
-                tabControl1.TabPages.Insert(insertTabIndex, tabPageToInsert);
-                LastInsertedTabPage = tabPageToInsert;
-                OnNewTabCreated();
-            } else if(e.KeyData == (Keys.Control | Keys.W))
-            {
-                RemoveTab(selectedTabIndex);
-            }
+        #region add/remove adding tab page
+        /// <summary>
+        /// Removes <see cref="_addNewTabPage"/>.
+        /// </summary>
+        private void RemoveAddTabPage()
+        {
+            TabPages.Remove(_addNewTabPage);
         }
 
         /// <summary>
-        /// Adds a new <see cref="TabPage"/> to the left of the "+" tab if clicked left on it.
+        /// Adds <see cref="_addNewTabPage"/> as last <see cref="TabPage"/>.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Clicked mouse buttons.</param>
-        private void TabControl1MouseClick(object sender, MouseEventArgs e)
+        private void InsertAddTabPage()
         {
-            if (e.Clicks != 1) return;
-
-            var selectedTabIndex = tabControl1.SelectedIndex;
-            var lastTabIndex = tabControl1.TabCount - 1;
-
-            if (e.Button == MouseButtons.Left)
-            {
-                if (selectedTabIndex != lastTabIndex) return;
-
-                var tabPageToInsert = new TabPage();
-                tabControl1.TabPages.Insert(lastTabIndex, tabPageToInsert);
-                LastInsertedTabPage = tabPageToInsert;
-                OnNewTabCreated();
-                // select the new tab
-                tabControl1.SelectedIndex = lastTabIndex;
-            }
+            TabPages.Add(_addNewTabPage);
         }
-
-        /// <summary>
-        /// Removes double clicked tab.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void TabControl1MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            var selectedTabIndex = tabControl1.SelectedIndex;
-
-            RemoveTab(selectedTabIndex);
-        }
-
-        /// <summary>
-        /// Remove tab with index <paramref name="tabIndex"/>.
-        /// </summary>
-        /// <param name="tabIndex">Index to the tab to remove.</param>
-        private void RemoveTab(int tabIndex)
-        {
-            var lastTabIndex = tabControl1.TabCount - 1;
-
-            // Don't remove if the selected tab is the tab to add new tabs.
-            if (tabControl1.SelectedTab.Name == "tabPageAddNew" && tabIndex == lastTabIndex) return;
-
-            tabControl1.TabPages.RemoveAt(tabIndex);
-            // select  the tab right beside the removed.
-            tabControl1.SelectedIndex = tabIndex;
-        }
+        #endregion
     }
 }
