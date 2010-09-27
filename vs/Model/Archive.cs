@@ -57,7 +57,7 @@ namespace ZeroInstall.Model
         /// The size of the archive in bytes. The archive must have the given size or it will be rejected.
         /// </summary>
         [Description("The size of the archive in bytes. The archive must have the given size or it will be rejected.")]
-        [XmlAttribute("size")]
+        [XmlAttribute("size"), DefaultValue(0L)]
         public long Size { get; set; }
 
         /// <summary>
