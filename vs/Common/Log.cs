@@ -140,7 +140,6 @@ namespace Common
             lock (_sessionContent)
             {
                 // Write the colored message to the console
-                Console.Error.WriteLine();
                 switch (severity)
                 {
                     case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.Yellow; break;

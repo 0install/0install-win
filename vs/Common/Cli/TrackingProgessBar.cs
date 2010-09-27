@@ -64,6 +64,14 @@ namespace Common.Cli
 
             // When the status is complete the bar should always be full
             if (State == ProgressState.Complete) Value = Maximum;
+
+            // Stop tracking when done
+            if (State == ProgressState.Complete || State == ProgressState.WebError || State == ProgressState.IOError)
+            {
+                _task.StateChanged -= StateChanged;
+                _task.ProgressChanged -= ProgressChanged;
+                Console.Error.WriteLine();
+            }
         }
 
         /// <summary>
