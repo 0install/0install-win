@@ -29,9 +29,11 @@ To create a suitable GnuPG distribution:
 
 "build.cmd" will call the build scripts in the subdirectories to create a complete Zero Install for Windows distribution in build/Frontend/Setup. With the command-line argument "doc" it will create source code documentation instead.
 Please read the "readme.txt" files in the subfolders before using this script.
+"build.sh" will perform a partial compilation using Mono's xbuild on Unix-like systems. Unit tests and the setup package will not be built.
 
 "cleanup.cmd" will delete any temporary files created by the build process or Visual Studio.
 It is recommended that you run this script once before opening the Visual Studio project for the first time.
+"cleanup.sh" will delete any temporary files created by the build process on Unix-like systems.
 
 Open "UnitTests.nunit" with NUnit (http://nunit.org/) to run Unit tests for the solution.
 Note: You must perform a Debug build in Visual Studio first (see vs/readme.txt) before you can run the Unit tests.
