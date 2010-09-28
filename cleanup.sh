@@ -1,5 +1,6 @@
 #!/bin/sh
 #Removes compilation artifacts and other temporary files.
+cd ${0%%/*}
 
 #Clear binaries
 rm -rf ./build
