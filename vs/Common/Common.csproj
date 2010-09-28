@@ -60,8 +60,7 @@
       <HintPath>..\..\lib\SevenZip.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Posix">
-      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
-      <Private>True</Private>
+      <HintPath Condition="'$(OS)'=='Windows_NT'">..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
