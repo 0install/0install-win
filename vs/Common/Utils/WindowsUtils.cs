@@ -112,17 +112,17 @@ namespace Common.Utils
         private static class SafeNativeMethods
         {
             #region Performance counters
-            [DllImport("Kernel32.dll")]
+            [DllImport("kernel32.dll")]
             [return : MarshalAs(UnmanagedType.Bool)]
             internal static extern bool QueryPerformanceFrequency(out long lpFrequency);
 
-            [DllImport("Kernel32.dll")]
+            [DllImport("kernel32.dll")]
             [return : MarshalAs(UnmanagedType.Bool)]
             internal static extern bool QueryPerformanceCounter(out long lpCounter);
             #endregion
 
             #region Window messages
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             [return: MarshalAs(UnmanagedType.Bool)]
             internal static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
 
@@ -138,16 +138,16 @@ namespace Common.Utils
                 // ReSharper restore InconsistentNaming
             }
 
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             internal static extern short GetAsyncKeyState(uint key);
 
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern int GetCaretBlinkTime();
 
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             public static extern IntPtr SetCapture(IntPtr handle);
 
-            [DllImport("User32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32.dll", CharSet = CharSet.Auto)]
             [return : MarshalAs(UnmanagedType.Bool)]
             public static extern bool ReleaseCapture();
             #endregion
