@@ -36,12 +36,12 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return false;
 
-            Console.Error.WriteLine(information);
+            Log.Info(information);
 
+            // Loop until the user has made a valid choice
             while (true)
             {
-                Console.Error.Write("Trust [Y/N] ");
-                switch ((Console.ReadLine() ?? "").ToLower())
+                switch ((InputUtils.ReadString("Trust [Y/N] ") ?? "n").ToLower())
                 {
                     case "y":
                     case "yes":
@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Console.Error.WriteLine("Downloading {0}...", download.Name);
+            Log.Info(string.Format("Downloading {0}...", download.Name));
             new TrackingProgressBar(download);
         }
 
@@ -67,7 +67,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Console.Error.WriteLine("Extracting...");
+            Log.Info("Extracting...");
             new TrackingProgressBar(extraction);
         }
 
@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Console.Error.WriteLine("Generating manifest...");
+            Log.Info("Generating manifest...");
             new TrackingProgressBar(manifest);
         }
     }

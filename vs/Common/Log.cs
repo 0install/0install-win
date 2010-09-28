@@ -31,7 +31,7 @@ using Common.Utils;
 namespace Common
 {
     /// <summary>
-    /// Maintains log messages in memory and in a plain text file.
+    /// Writes log messages to the <see cref="Console"/> and maintains copies in memory and in a plain text file.
     /// </summary>
     public static class Log
     {

@@ -33,7 +33,7 @@ namespace Common.Cli
         /// Asks the user to input a string.
         /// </summary>
         /// <param name="prompt">The prompt to display to the user on <see cref="Console.Error"/>.</param>
-        /// <returns>The string the user entered; <see cref="string.Empty"/> if none.</returns>
+        /// <returns>The string the user entered; <see cref="string.Empty"/> if none; <see langword="null"/> if the input stream has been closed.</returns>
         public static string ReadString(string prompt)
         {
             Console.Error.Write(prompt);

@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Xml;
 using Common;
 using Common.Cli;
 using Common.Utils;
@@ -79,6 +80,10 @@ namespace ZeroInstall.Injector.Solver
             try { return Selections.LoadFromString(result); }
             #region Error handling
             catch (InvalidOperationException ex)
+            {
+                throw new SolverException(ex.Message, ex);
+            }
+            catch (XmlException ex)
             {
                 throw new SolverException(ex.Message, ex);
             }
