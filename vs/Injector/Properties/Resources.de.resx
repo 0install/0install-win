@@ -126,4 +126,7 @@
   <data name="NotSolved" xml:space="preserve">
     <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>
   </data>
+  <data name="PythonSolverOutputErrror" xml:space="preserve">
+    <value>Die Ausgabe des Python-Solvers konnte nicht verarbeitet werden.</value>
+  </data>
 </root>

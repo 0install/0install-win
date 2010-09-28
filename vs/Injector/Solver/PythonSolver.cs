@@ -22,6 +22,7 @@ using System.Xml;
 using Common;
 using Common.Cli;
 using Common.Utils;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -81,11 +82,11 @@ namespace ZeroInstall.Injector.Solver
             #region Error handling
             catch (InvalidOperationException ex)
             {
-                throw new SolverException(ex.Message, ex);
+                throw new SolverException(Resources.PythonSolverOutputErrror + "\n" + ex.Message, ex);
             }
             catch (XmlException ex)
             {
-                throw new SolverException(ex.Message, ex);
+                throw new SolverException(Resources.PythonSolverOutputErrror + "\n" + ex.Message, ex);
             }
             #endregion
         }

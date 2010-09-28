@@ -86,5 +86,14 @@ namespace ZeroInstall.Injector.Properties {
                 return ResourceManager.GetString("NotSolved", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The output of the Python solver could not be processed..
+        /// </summary>
+        internal static string PythonSolverOutputErrror {
+            get {
+                return ResourceManager.GetString("PythonSolverOutputErrror", resourceCulture);
+            }
+        }
     }
 }
