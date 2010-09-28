@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldRejectFileNamesWithNewline()
         {
-            if (!FileUtils.IsUnix) Assert.Inconclusive("Test can only run on Unix-like systems");
+            if (!MonoUtils.IsUnix) Assert.Inconclusive("Test can only run on Unix-like systems");
 
             using (var package = new TemporaryDirectory())
             {

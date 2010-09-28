@@ -21,13 +21,14 @@
  */
 
 using System;
+using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using Common.Properties;
-using Mono.Unix;
 
 namespace Common.Utils
 {
@@ -36,6 +37,29 @@ namespace Common.Utils
     /// </summary>
     public static class FileUtils
     {
+        #region Helper applications
+        /// <summary>
+        /// Attempts to launch a .NET helper assembly in the application's base directory.
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
+        /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
+        public static void LaunchHelperAssembly(string assembly, string arguments)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
+            #endregion
+
+            string appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assembly + ".exe");
+            if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(Resources.UnableToLocateAssembly, assembly), appPath);
+
+            // Only Windows can directly launch .NET executables, other platforms must run through Mono
+            if (WindowsUtils.IsWindows) Process.Start(appPath, arguments);
+            else Process.Start("mono", "\"" + appPath + "\" " + arguments);
+        }
+        #endregion
+
         #region Hash
         /// <summary>
         /// Computes the hash value of the content of a file.
@@ -196,23 +220,22 @@ namespace Common.Utils
 
         #region Unix
         /// <summary>
-        /// <see langword="true"/> if the current operating system is a Unix-like system (e.g. Linux or MacOS X).
-        /// </summary>
-        public static bool IsUnix
-        { get { return Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.MacOSX; } }
-
-        /// <summary>
         /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.).
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a regular file; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
         public static bool IsRegularFile(string path)
         {
-            // ToDo: Detect special files on Windows
-
             if (!File.Exists(path)) return false;
-            if (!IsUnix) return true;
-            return new UnixFileInfo(path).IsRegularFile;
+
+            // ToDo: Detect special files on Windows
+            if (WindowsUtils.IsWindows)
+                return true;
+
+            if (MonoUtils.IsUnix)
+                return MonoUtils.IsRegularFile(path);
+
+            return true;
         }
 
         /// <summary>
@@ -222,26 +245,14 @@ namespace Common.Utils
         /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
         public static bool IsSymlink(string path, out string contents, out long length)
         {
-            bool result = File.Exists(path) && IsUnix && UnixFileSystemInfo.GetFileSystemEntry(path).IsSymbolicLink;
-            
-            if (result)
-            {
-                var symlinkInfo = new UnixSymbolicLinkInfo(path);
-                length = symlinkInfo.Length;
-                contents = symlinkInfo.ContentsPath;
-            }
-            else
-            {
-                contents = null;
-                length = 0;
-            }
+            if (File.Exists(path) && MonoUtils.IsUnix) return MonoUtils.IsSymlink(path, out contents, out length);
 
-            return result;
+            // Return default values
+            contents = null;
+            length = 0;
+            return false;
         }
 
-        /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
-        private const FileAccessPermissions AllExecutePermission = FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute | FileAccessPermissions.OtherExecute;
-        
         /// <summary>
         /// Checks whether a file is marked as Unix-executable.
         /// </summary>
@@ -249,11 +260,9 @@ namespace Common.Utils
         /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
         public static bool IsExecutable(string path)
         {
-            if (!File.Exists(path) || !IsUnix) return false;
+            if (!File.Exists(path) || !MonoUtils.IsUnix) return false;
 
-            // Check if any execution rights are set
-            var fileInfo = new UnixFileInfo(path);
-            return ((fileInfo.FileAccessPermissions & AllExecutePermission) > 0);
+            return MonoUtils.IsExecutable(path);
         }
 
         /// <summary>
@@ -265,13 +274,12 @@ namespace Common.Utils
         /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unix-like system.</exception>
         public static void SetExecutable(string path, bool executable)
         {
+            #region Sanity checks
             if (!File.Exists(path)) throw new FileNotFoundException("", path);
-            if (!IsUnix) throw new PlatformNotSupportedException();
+            if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
+            #endregion
 
-            // Set or unset all execution rights
-            var fileInfo = new UnixFileInfo(path);
-            if (executable) fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions | AllExecutePermission;
-            else fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions & ~AllExecutePermission;
+            MonoUtils.SetExecutable(path, executable);
         }
         #endregion
     }

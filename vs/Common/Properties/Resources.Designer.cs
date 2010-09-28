@@ -421,6 +421,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The assembly named &quot;{0}&quot; could not be located..
+        /// </summary>
+        internal static string UnableToLocateAssembly {
+            get {
+                return ResourceManager.GetString("UnableToLocateAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This undo command cannot be performed until the actual command has been performed..
         /// </summary>
         internal static string UndoNotAvailable {

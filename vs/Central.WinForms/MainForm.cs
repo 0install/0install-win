@@ -69,7 +69,7 @@ namespace ZeroInstall.Central.WinForms
                     // ToDo: Display more details about the feed
                     if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
                     {
-                        Program.LaunchHelperApp(this, "0launchw.exe", feedUri);
+                        Program.LaunchHelperAssembly(this, "0launchw", feedUri);
                         Close();
                     }
                     break;
@@ -93,7 +93,7 @@ namespace ZeroInstall.Central.WinForms
         #region Tools
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperApp(this, "0launchw.exe");
+            Program.LaunchHelperAssembly(this, "0launchw", null);
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

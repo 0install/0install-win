@@ -49,46 +49,29 @@ namespace ZeroInstall.Central.WinForms
 
         #region Helper applications
         /// <summary>
-        /// Attempts to launch a helper application in the installation directory. Displays friendly error messages if something goes wrong.
+        /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
         /// </summary>
-        /// <param name="owner">The parent window error messages are modal to.</param>
-        /// <param name="appName">The name of the EXE file to launch.</param>
-        /// <param name="arguments">The command-line arguments to pass to the application.</param>
-        public static void LaunchHelperApp(IWin32Window owner, string appName, string arguments)
+        /// <param name="owner">The parent window to which error messages are modal.</param>
+        /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        public static void LaunchHelperAssembly(IWin32Window owner, string assembly, string arguments)
         {
             #region Sanity checks
             if (owner == null) throw new ArgumentNullException("owner");
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
             #endregion
 
-            string appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appName);
-
-            try
-            {
-                // Only Windows can directly launch .NET executables, other platforms must run through Mono
-                if (WindowsUtils.IsWindows) Process.Start(appPath, arguments);
-                else Process.Start("mono", appPath + " " + arguments);
-            }
+            try { FileUtils.LaunchHelperAssembly(assembly, arguments); }
             #region Sanity checks
-            catch (Win32Exception)
+            catch (FileNotFoundException ex)
             {
-                Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);
+                Msg.Inform(owner, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
             }
-            catch (FileNotFoundException)
+            catch (Win32Exception ex)
             {
-                Msg.Inform(owner, string.Format(Resources.FailedToRun, appName), MsgSeverity.Error);
+                Msg.Inform(owner, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
             }
             #endregion
-        }
-
-        /// <summary>
-        /// Attempts to launch a helper application in the installation directory. Displays friendly error messages if something goes wrong.
-        /// </summary>
-        /// <param name="owner">The parent window error messages are modal to.</param>
-        /// <param name="appName">The name of the EXE file to launch.</param>
-        public static void LaunchHelperApp(IWin32Window owner, string appName)
-        {
-            LaunchHelperApp(owner, appName, null);
         }
         #endregion
     }
