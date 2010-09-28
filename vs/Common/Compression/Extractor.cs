@@ -307,10 +307,8 @@ namespace Common.Compression
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                {
-                    // ToDo: Set Unix octals
+                    FileUtils.SetExecutable(Path.Combine(Target, path), true);
                     break;
-                }
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
@@ -341,12 +339,26 @@ namespace Common.Compression
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            string xbitFilePath = Path.Combine(Target, ".xbit");
-            if (!File.Exists(xbitFilePath)) return;
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    FileUtils.SetExecutable(Path.Combine(Target, path), false);
+                    break;
 
-            string xbitFileContent = File.ReadAllText(xbitFilePath);
-            xbitFileContent = xbitFileContent.Replace("/" + path + "\n", "");
-            File.WriteAllText(xbitFilePath, xbitFileContent, new UTF8Encoding(false));
+                case PlatformID.Win32Windows:
+                case PlatformID.Win32NT:
+                default:
+                    // Non-Unixoid OSes (e.g. Windows) can't store the executable bit in the filesystem directly
+                    // Remember in a text-file instead
+                    string xbitFilePath = Path.Combine(Target, ".xbit");
+                    if (!File.Exists(xbitFilePath)) return;
+
+                    string xbitFileContent = File.ReadAllText(xbitFilePath);
+                    xbitFileContent = xbitFileContent.Replace("/" + path + "\n", "");
+                    File.WriteAllText(xbitFilePath, xbitFileContent, new UTF8Encoding(false));
+                    break;
+            }
         }
         #endregion
 

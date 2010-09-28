@@ -256,7 +256,7 @@ namespace Common.Utils
 
         #region Platform
         /// <summary>
-        /// <see langword="true"/> if the current operating system is Windows-based; <see langword="false"/> otherwise.
+        /// <see langword="true"/> if the current operating system is a modern desktop Windows version (9x- or NT-based); <see langword="false"/> otherwise.
         /// </summary>
         public static bool IsWindows
         { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }

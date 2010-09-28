@@ -81,6 +81,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file {0} is neither a symbolic link nor a regular file..
+        /// </summary>
+        internal static string IllegalFileType {
+            get {
+                return ResourceManager.GetString("IllegalFileType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following implementation could not be located: {0}.
         /// </summary>
         internal static string ImplementationNotFound {

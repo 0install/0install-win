@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
 using Common;
+using Common.Streams;
 using Common.Utils;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -137,7 +139,7 @@ namespace ZeroInstall.Store.Implementation
                 }
                 return;
             }
-            catch (ArgumentException ex)
+            catch (NotSupportedException ex)
             {
                 lock (StateLock)
                 {
@@ -210,12 +212,18 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
         /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
         /// <returns>The node for the list.</returns>
-        private static ManifestFileBase GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
+        /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has linebreaks in the filename, etc.).</exception>
+        private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
         {
-            // ToDo: Handle symlinks
+            string symlinkContents;
+            long symlinkLength;
+            if (FileUtils.IsSymlink(file.FullName, out symlinkContents, out symlinkLength))
+                return new ManifestSymlink(FileUtils.ComputeHash(StreamUtils.CreateFromString(symlinkContents), hashAlgorithm), symlinkLength, file.Name);
 
-            // ToDo: Handle executable bits in filesystem itself
-            if (externalXBits.Contains(file.FullName))
+            if (!FileUtils.IsRegularFile(file.FullName))
+                throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
+
+            if (externalXBits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
                 return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
             else
                 return new ManifestFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);

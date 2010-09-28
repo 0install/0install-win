@@ -161,5 +161,26 @@ namespace Common.Utils
                 Directory.Delete(temp2, true);
             }
         }
+
+        [Test]
+        public void TestIsRegularFile()
+        {
+            string tempFile = Path.GetTempFileName();
+            Assert.IsTrue(FileUtils.IsRegularFile(tempFile));
+            File.Delete(tempFile);
+        }
+
+        [Test]
+        public void TestIsSymlink()
+        {
+            string tempFile = Path.GetTempFileName();
+
+            string contents;
+            long length;
+            Assert.IsFalse(FileUtils.IsSymlink(tempFile, out contents, out length));
+            Assert.IsNull(contents);
+            Assert.AreEqual(0, length);
+            File.Delete(tempFile);
+        }
     }
 }

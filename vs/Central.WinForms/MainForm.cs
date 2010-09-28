@@ -64,10 +64,12 @@ namespace ZeroInstall.Central.WinForms
                 case UrlPostfixFeed:
                     e.Cancel = true;
 
-                    // ToDo: Display details about the feed
-                    if (Msg.Ask(this, "Do you want to launch this application?", MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
+                    string feedUri = e.Url.AbsoluteUri.Replace(UrlPostfixFeed, "");
+
+                    // ToDo: Display more details about the feed
+                    if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
                     {
-                        Program.LaunchHelperApp(this, "0launchw.exe", e.Url.AbsoluteUri.Replace(UrlPostfixFeed, ""));
+                        Program.LaunchHelperApp(this, "0launchw.exe", feedUri);
                         Close();
                     }
                     break;

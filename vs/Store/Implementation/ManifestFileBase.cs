@@ -56,13 +56,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="modifiedTime">The time this file was last modified in the number of seconds since the epoch.</param>
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
+        /// <exception cref="NotSupportedException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
         protected ManifestFileBase(string hash, long modifiedTime, long size, string fileName)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(hash)) throw new ArgumentNullException("hash");
             if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-            if (fileName.Contains("\n")) throw new ArgumentException(Resources.NewlineInName, "fileName");
+            if (fileName.Contains("\n")) throw new NotSupportedException(Resources.NewlineInName);
             #endregion
 
             Hash = hash;

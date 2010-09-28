@@ -125,6 +125,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>
+  <data name="IllegalFileType" xml:space="preserve">
+    <value>Die Datei {0} ist weder ein symbolischer Link noch eine reguläre Datei.</value>
+  </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>
   </data>

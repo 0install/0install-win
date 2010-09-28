@@ -167,4 +167,7 @@ Actual value: {1}</value>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Unable to find a secret key with the specified name.</value>
   </data>
+  <data name="IllegalFileType" xml:space="preserve">
+    <value>The file {0} is neither a symbolic link nor a regular file.</value>
+  </data>
 </root>

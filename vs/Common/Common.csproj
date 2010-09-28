@@ -59,6 +59,10 @@
     <Reference Include="SevenZip">
       <HintPath>..\..\lib\SevenZip.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Posix">
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Log.cs" />
