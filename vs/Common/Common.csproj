@@ -107,6 +107,7 @@
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Utils\Windows7Structures.cs" />
+    <Compile Include="Utils\MonoUtils.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
