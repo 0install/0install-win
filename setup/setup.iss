@@ -85,7 +85,7 @@ Name: {app}\Zero Install.exe; Type: files
 
 [Files]
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe,*.xml,Test.*,nunit.*,Mono.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
 Source: ..\build\Portable\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
