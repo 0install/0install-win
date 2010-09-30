@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using Common.Utils;
 using Common.Properties;
 
@@ -48,7 +49,8 @@ namespace Common.Cli
                     throw new InvalidEnumArgumentException("value", (int)value, typeof(ProgressState));
                 #endregion
 
-                UpdateHelper.Do(ref _state, value, Draw);
+                try { UpdateHelper.Do(ref _state, value, Draw); }
+                catch (IOException) {}
             }
         }
 
@@ -67,7 +69,9 @@ namespace Common.Cli
                     throw new ArgumentOutOfRangeException("value", Resources.ArgMustBeGreaterThanZero);
                 #endregion
 
-                UpdateHelper.Do(ref _maximum, value, Draw);
+                try { UpdateHelper.Do(ref _maximum, value, Draw); }
+                catch (IOException) {}
+
                 if (Value > Maximum) Value = Maximum;
             }
         }
@@ -87,7 +91,8 @@ namespace Common.Cli
                     throw new ArgumentOutOfRangeException("value");
                 #endregion
 
-                UpdateHelper.Do(ref _value, value, Draw);
+                try { UpdateHelper.Do(ref _value, value, Draw); }
+                catch (IOException) {}
             }
         }
         #endregion
@@ -99,6 +104,7 @@ namespace Common.Cli
         /// Draws the progress-bar to <see cref="Console.Error"/>.
         /// </summary>
         /// <remarks>The current line is overwritten.</remarks>
+        /// <exception cref="IOException">Thrown if the progress bar could not be drawn to the <see cref="Console"/> (e.g. if it isn't a TTY).</exception>
         public void Draw()
         {
             // Draw start of progress bar

@@ -139,14 +139,19 @@ namespace Common
             // Thread-safety: Only one log message is handled at a time
             lock (_sessionContent)
             {
-                // Write the colored message to the console
-                switch (severity)
+                try
                 {
-                    case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.Yellow; break;
-                    case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
+                    // Write the colored message to the console
+                    switch (severity)
+                    {
+                        case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.Yellow; break;
+                        case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
+                    }
                 }
+                catch (IOException) {}
                 Console.WriteLine(message);
-                Console.ResetColor();
+                try { Console.ResetColor(); }
+                catch (IOException) {}
 
                 // Prepend severity and current time to message
                 string formatString;
