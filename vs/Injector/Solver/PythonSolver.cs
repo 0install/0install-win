@@ -106,11 +106,11 @@ namespace ZeroInstall.Injector.Solver
             if (policy.Architecture.Cpu == Cpu.Source) arguments += "--source ";
             else
             {
-                if (policy.Architecture.OS != OS.All) arguments += "--os=" + policy.Architecture.OS;
-                if (policy.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + policy.Architecture.Cpu;
+                if (policy.Architecture.OS != OS.All) arguments += "--os=" + policy.Architecture.OS + " ";
+                if (policy.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + policy.Architecture.Cpu + " ";
             }
             var additionalStore = policy.AdditionalStore as DirectoryStore;
-            if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath;
+            if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
 
             return arguments;
         }

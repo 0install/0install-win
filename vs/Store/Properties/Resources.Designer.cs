@@ -72,6 +72,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache..
+        /// </summary>
+        internal static string FeedNotInCache {
+            get {
+                return ResourceManager.GetString("FeedNotInCache", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file to be signed could not be found..
         /// </summary>
         internal static string FileToSignNotFound {

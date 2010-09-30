@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Feed
                 string path = Path.Combine(DirectoryPath, urlEncoded);
 
                 // ToDo: Implement downloading
-                if (!File.Exists(path)) throw new FileNotFoundException("Feed not in cache", "path");
+                if (!File.Exists(path)) throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, feed), path);
 
                 return Model.Feed.Load(path);
             }

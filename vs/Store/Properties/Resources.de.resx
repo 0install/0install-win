@@ -122,6 +122,9 @@
 Erwarteter Wert: {0}
 Tatsächlicher Wert: {1}</value>
   </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>Der Feed {0} konnte nicht im Interface-Cache gefunden werden.</value>
+  </data>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>

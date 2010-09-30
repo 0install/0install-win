@@ -170,4 +170,7 @@ Actual value: {1}</value>
   <data name="IllegalFileType" xml:space="preserve">
     <value>The file {0} is neither a symbolic link nor a regular file.</value>
   </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>The feed {0} could not be located in the interface cache.</value>
+  </data>
 </root>
