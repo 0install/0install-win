@@ -95,9 +95,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
-    <Content Include="lgpl.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Resources\Back.png" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>

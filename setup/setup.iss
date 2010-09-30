@@ -84,6 +84,7 @@ ChangesEnvironment=yes
 Name: {app}\Zero Install.exe; Type: files
 
 [Files]
+Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe,*.xml,Test.*,nunit.*,Mono.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
