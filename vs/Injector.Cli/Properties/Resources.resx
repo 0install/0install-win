@@ -162,7 +162,7 @@ Use --select-only if you don't even want to download the packages.</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Forces the solver to target the operating system {OS}.
-Supported values: Linu, Solaris, MacOSX, Windows</value>
+Supported values: Linux, Solaris, MacOSX, Windows</value>
   </data>
   <data name="OptionRefresh" xml:space="preserve">
     <value>Fetch a fresh copy of all used interfaces.</value>

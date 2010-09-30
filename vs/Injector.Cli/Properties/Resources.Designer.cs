@@ -192,7 +192,7 @@ namespace ZeroInstall.Injector.Cli.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to Forces the solver to target the operating system {OS}.
-        ///Supported values: Linu, Solaris, MacOSX, Windows.
+        ///Supported values: Linux, Solaris, MacOSX, Windows.
         /// </summary>
         internal static string OptionOS {
             get {
