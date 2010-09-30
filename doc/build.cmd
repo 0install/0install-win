@@ -34,9 +34,7 @@ goto end
 rem Error messages
 
 :err_no_vs
-cls
-echo.
-echo ERROR! No Visual Studio installation found.
+echo No Visual Studio installation found. >&2
 pause
 goto end
 

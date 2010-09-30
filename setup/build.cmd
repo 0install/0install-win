@@ -10,7 +10,11 @@ if not "%docs%"=="" set PublishDir=%docs%\Internet\Simon Server\srv\www\0install
 
 rem Check for Inno Setup 5 installation (32-bit)
 if %PROCESSOR_ARCHITECTURE%==AMD64 set ProgramFiles=%ProgramFiles(x86)%
-if not exist "%ProgramFiles%\Inno Setup 5" goto err_no_is
+if not exist "%ProgramFiles%\Inno Setup 5" (
+  echo ERROR: No Inno Setup 5 installation found. >&2
+  pause
+  goto end
+)
 path %ProgramFiles%\Inno Setup 5;%path%
 
 
@@ -28,18 +32,5 @@ echo Building Inno Setup Update...
 iscc /Q update.iss
 if errorlevel 1 pause
 if not "%PublishDir%"=="" copy "%BuildDir%\%SetupUpdateEXE%" "%PublishDir%\%SetupUpdateEXE%" > NUL
-
-goto end
-
-
-
-rem Error messages
-
-:err_no_is
-cls
-echo.
-echo ERROR! No Inno Setup 5 installation found.
-pause
-goto end
 
 :end
