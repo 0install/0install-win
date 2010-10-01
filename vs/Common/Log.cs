@@ -144,7 +144,7 @@ namespace Common
                     // Write the colored message to the console
                     switch (severity)
                     {
-                        case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.Yellow; break;
+                        case LogSeverity.Warn: Console.ForegroundColor = ConsoleColor.DarkYellow; break;
                         case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
                     }
                 }
