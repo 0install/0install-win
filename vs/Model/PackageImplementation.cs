@@ -93,7 +93,7 @@ namespace ZeroInstall.Model
         // Order is always alphabetical, duplicate string entries are not allowed
         private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
         /// <summary>
-        /// A space-separated list of distribution names where <see cref="Package"/> applies.
+        /// A list of distribution names where <see cref="Package"/> applies.
         /// </summary>
         [Category("Identity"), Description("A space-separated list of distribution names where the package name applies.")]
         [XmlIgnore]

@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
 
@@ -55,11 +57,46 @@ namespace ZeroInstall.Injector.Solver
         public string FromFeed { get; set; }
 
         /// <summary>
-        /// The name of the package in the distribution-specific package manager. Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this is a real Zero Instal <see cref="Implementation"/>.
+        /// The name of the package in the distribution-specific package manager.
+        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Implementation"/>.
         /// </summary>
-        [Category("Identity"), Description("The name of the package in the distribution-specific package manager. Only set for PackageImplementation; null if this is a real Zero Instal implementation.")]
+        [Category("Identity"), Description("The name of the package in the distribution-specific package manager. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
         [XmlAttribute("package")]
         public string Package { get; set; }
+
+        // Order is always alphabetical, duplicate string entries are not allowed
+        private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
+        /// <summary>
+        /// A list of distribution names where <see cref="Package"/> applies.
+        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Implementation"/>.
+        /// </summary>
+        [Category("Identity"), Description("A space-separated list of distribution names where the package name applies. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
+        [XmlIgnore]
+        public ICollection<string> Distributions { get { return _distributions; } }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Version"/>
+        [XmlAttribute("distributions"), Browsable(false)]
+        public string DistributionsString
+        {
+            get
+            {
+                // Serialize list as string split by spaces
+                var output = new StringBuilder();
+                foreach (var distribution in _distributions) output.Append(distribution.Replace(' ', '_') + ' ');
+
+                // Return without trailing space
+                return output.ToString().TrimEnd();
+            }
+            set
+            {
+                _distributions.Clear();
+                if (string.IsNullOrEmpty(value)) return;
+
+                // Replace list by parsing input string split by spaces
+                foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
+            }
+        }
         #endregion
 
         //--------------------//
