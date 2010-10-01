@@ -139,28 +139,19 @@ namespace ZeroInstall.Injector
                 // Local paths are considered to be always available
                 if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
 
+                // Don't try to download PackageImplementations
+                if (implementation.FromFeed != null && implementation.FromFeed.StartsWith("distribution:")) continue;
+
                 // Check if an implementation with a matching digest is available in the cache
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
-                var feed = GetFeed(implementation);
+                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }
 
             return notCached;
-        }
-
-        /// <summary>
-        /// Gets the data from a <see cref="Feed"/> which an <see cref="ImplementationSelection"/> is based upon.
-        /// </summary>
-        private Feed GetFeed(ImplementationSelection implementation)
-        {
-            // ToDo: Properly handle "distribution:" (i.e. package implementations)
-            if (!string.IsNullOrEmpty(implementation.FromFeed) && !implementation.FromFeed.StartsWith("distribution:"))
-                return Policy.InterfaceCache.GetFeed(implementation.FromFeed);
-            else
-                return Policy.InterfaceCache.GetFeed(implementation.InterfaceID);
         }
 
         /// <summary>
