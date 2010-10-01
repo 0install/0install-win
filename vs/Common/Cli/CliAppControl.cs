@@ -48,7 +48,7 @@ namespace Common.Cli
     {
         #region Properties
         /// <summary>
-        /// The name of the application to be executed. This also determines the name of the directory that is searched for a bundled portable version on Windows.
+        /// The name of the application to be executed. This also determines the name of the directory that is searched for a bundled version on Windows.
         /// </summary>
         protected abstract string AppName { get; }
 
@@ -58,13 +58,13 @@ namespace Common.Cli
         protected abstract string AppBinary { get; }
 
         /// <summary>
-        /// The directory to search for bundled portable versions of applications.
+        /// The directory to search for bundled versions of applications.
         /// </summary>
         /// <remarks>
         /// If a sub-directory named like <see cref="AppName"/> is found in the installation directory this is used.
-        /// Otherwise a parallel directory named "Portable" is probed.
+        /// Otherwise a parallel directory named "Bundled" is probed.
         /// </remarks>
-        protected string PortableDirectory
+        protected string BundledDirectory
         {
             get
             {
@@ -77,16 +77,16 @@ namespace Common.Cli
 #endif
 
                 if (Directory.Exists(Path.Combine(searchBase, AppName))) return searchBase;
-                return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Portable");
+                return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Bundled");
             }
         }
 
         /// <summary>
-        /// The directory containing the bundled portable version of the application. This is generally a sub-directory of <see cref="PortableDirectory"/>.
+        /// The directory containing the bundled version of the application. This is generally a sub-directory of <see cref="BundledDirectory"/>.
         /// </summary>
         protected string AppDirectory
         {
-            get { return Path.Combine(PortableDirectory, AppName); }
+            get { return Path.Combine(BundledDirectory, AppName); }
         }
         #endregion
 
@@ -180,12 +180,12 @@ namespace Common.Cli
         /// </summary>
         protected virtual ProcessStartInfo GetStartInfo(string arguments)
         {
-            // Try to use bundled portable version of the application when running on Windows
-            bool usePortable = WindowsUtils.IsWindows && File.Exists(Path.Combine(AppDirectory, AppBinary + ".exe"));
+            // Try to use bundled version of the application when running on Windows
+            bool useBundled = WindowsUtils.IsWindows && File.Exists(Path.Combine(AppDirectory, AppBinary + ".exe"));
 
             var startInfo = new ProcessStartInfo
             {
-                FileName = (usePortable ? Path.Combine(AppDirectory, AppBinary) : AppBinary),
+                FileName = (useBundled ? Path.Combine(AppDirectory, AppBinary) : AppBinary),
                 Arguments = arguments,
                 CreateNoWindow = true,
                 UseShellExecute = false,
@@ -194,8 +194,8 @@ namespace Common.Cli
                 RedirectStandardError = true,
             };
 
-            // Add portable application directory to search path for locating DLLs
-            if (usePortable)
+            // Add bundled application directory to search path for locating DLLs
+            if (useBundled)
                 startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;

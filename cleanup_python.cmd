@@ -4,7 +4,7 @@ echo This script removes files that are not necessary for a minimal Python
 echo installation and adds files that are required for portable operation.
 pause
 
-cd build\Portable\Python
+cd build\Bundled\Python
 
 ::Try to get the Python DLL either from the Windows directory or a shared "applications" directory
 copy %windir%\system32\python26.dll python26.dll

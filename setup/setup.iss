@@ -89,12 +89,12 @@ Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe,*.xml,Test.*,nunit.*,Mono.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
-Source: ..\build\Portable\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Bundled\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #endif
 #ifdef Update
 ;Only update the Zero Install scripts and not the rest of Python
-Source: ..\build\Portable\Python\Scripts\*; DestDir: {app}\Python\Scripts; Flags: ignoreversion recursesubdirs
-Source: ..\build\Portable\Python\Lib\site-packages\zeroinstall\*; DestDir: {app}\Python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
+Source: ..\build\Bundled\Python\Scripts\*; DestDir: {app}\Python\Scripts; Flags: ignoreversion recursesubdirs
+Source: ..\build\Bundled\Python\Lib\site-packages\zeroinstall\*; DestDir: {app}\Python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
 #endif
 
 [Registry]

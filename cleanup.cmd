@@ -1,7 +1,7 @@
 @echo off
 ::Removes compilation artifacts and other temporary files.
 
-rem Clear binaries (leave Documentation and Portable intact)
+rem Clear binaries (leave Documentation and Bundled intact)
 rd /s /q build\Backend > NUL 2>&1
 rd /s /q build\Frontend > NUL 2>&1
 rd /s /q build\Tools > NUL 2>&1
