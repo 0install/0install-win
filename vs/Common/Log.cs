@@ -30,6 +30,34 @@ using Common.Utils;
 
 namespace Common
 {
+    #region Enumerations
+    /// <summary>
+    /// Describes how severe/important a <see cref="Log"/> entry is.
+    /// </summary>
+    /// <seealso cref="LogEntryEventHandler"/>
+    public enum LogSeverity
+    {
+        /// <summary>A message printed as-is (no timestamp, etc.). Usually used for <see cref="Console"/> output.</summary>
+        Echo,
+        /// <summary>A nice-to-know piece of information.</summary>
+        Info,
+        /// <summary>A warning that doesn't have to be acted upon immediately.</summary>
+        Warn,
+        /// <summary>A critical error that should be attended to.</summary>
+        Error
+    }
+    #endregion
+
+    #region Delegates
+    /// <summary>
+    /// Describes an event relating to an entry in the <see cref="Log"/>.
+    /// </summary>
+    /// <param name="severity">The type/severity of the entry.</param>
+    /// <param name="message">The actual message text of the entry.</param>
+    /// <seealso cref="Log.NewEntry"/>
+    public delegate void LogEntryEventHandler(LogSeverity severity, string message);
+    #endregion
+
     /// <summary>
     /// Writes log messages to the <see cref="Console"/> and maintains copies in memory and in a plain text file.
     /// </summary>
@@ -40,7 +68,7 @@ namespace Common
         /// Occurs whenever a new entry has been added to the log.
         /// </summary>
         [SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly")]
-        public static event SimpleEventHandler NewEntry;
+        public static event LogEntryEventHandler NewEntry;
         #endregion
 
         #region Variables
@@ -119,8 +147,6 @@ namespace Common
         //--------------------//
 
         #region Add entry
-        private enum LogSeverity { Echo, Info, Warn, Error }
-
         /// <summary>
         /// Adds a new entry to the log.
         /// </summary>
@@ -160,56 +186,54 @@ namespace Common
                     case LogSeverity.Info: formatString = "[{0:T}] {1};"; break;
                     case LogSeverity.Warn: formatString = "[{0:T}] WARN: {1}"; break;
                     case LogSeverity.Error: formatString = "[{0:T}] ERROR: {1}"; break;
+                    case LogSeverity.Echo:
                     default: formatString = "{1}"; break;
                 }
-                message = string.Format(CultureInfo.InvariantCulture, formatString, DateTime.Now, message);
+                string fileMessage = string.Format(CultureInfo.InvariantCulture, formatString, DateTime.Now, message);
 
                 // Store message in RAM
-                _sessionContent.AppendLine(message);
+                _sessionContent.AppendLine(fileMessage);
 
                 // If possible write message to the log file
-                if (_fileWriter != null) _fileWriter.WriteLine(message);
+                if (_fileWriter != null) _fileWriter.WriteLine(fileMessage);
 
                 // Raise event
-                if (NewEntry != null) NewEntry();
+                if (NewEntry != null) NewEntry(severity, message);
             }
         }
         #endregion
 
         #region Access
         /// <summary>
-        /// Writes non-critical information to the log.
+        /// Prints a message to the log as-is (no timestamp, etc.). Usually used for <see cref="Console"/> output.
         /// </summary>
-        //[LuaGlobal(Name = "Info", Description = "Writes non-critical information to the log.")]
+        public static void Echo(string message)
+        {
+            AddEntry(LogSeverity.Echo, message);
+        }
+
+        /// <summary>
+        /// Writes nice-to-know information to the log.
+        /// </summary>
         public static void Info(string message)
         {
             AddEntry(LogSeverity.Info, message);
         }
 
         /// <summary>
-        /// Writes non-critical warnings to the log.
+        /// Writes a warning that doesn't have to be acted upon immediately to the log.
         /// </summary>
-        //[LuaGlobal(Name = "Warn", Description = "Writes non-critical warnings to the log.")]
         public static void Warn(string message)
         {
             AddEntry(LogSeverity.Warn, message);
         }
 
         /// <summary>
-        /// Writes critical errors to the log.
+        /// Writes a critical error that should be attended to to the log.
         /// </summary>
-        //[LuaGlobal(Name = "Error", Description = "Writes critical errors to the log.")]
         public static void Error(string message)
         {
             AddEntry(LogSeverity.Error, message);
-        }
-
-        /// <summary>
-        /// Echos to the log without a timestamp or severity.
-        /// </summary>
-        public static void Echo(string message)
-        {
-            AddEntry(LogSeverity.Echo, message);
         }
         #endregion
     }
