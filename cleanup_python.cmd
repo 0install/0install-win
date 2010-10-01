@@ -46,6 +46,10 @@ rmdir /s /q Lib\wsgiref
 rmdir /s /q Lib\site-packages\adodbapi
 rmdir /s /q Lib\site-packages\pythonwin
 rmdir /s /q Lib\site-packages\isapi
+rmdir /s /q Lib\site-packages\msilib
+rmdir /s /q Lib\site-packages\json
+rmdir /s /q Lib\site-packages\email
+rmdir /s /q Lib\site-packages\hotshot
 
 del Lib\site-packages\PyWin32.chm
 del Lib\site-packages\win32com\readme.htm
