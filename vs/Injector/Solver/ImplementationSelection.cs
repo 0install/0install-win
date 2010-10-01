@@ -28,6 +28,15 @@ namespace ZeroInstall.Injector.Solver
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
     public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {
+        #region Constants
+        /// <summary>
+        /// This is prepended to <see cref="FromFeed"/> if data is pulled from a native package manager.
+        /// </summary>
+        /// <seealso cref="Package"/>
+        /// <seealso cref="PackageImplementation"/>
+        public const string DistributionFeedPrefix = "distribution:";
+        #endregion
+
         #region Properties
         /// <summary>
         /// The URI or local path of the interface this implementation is for.
@@ -38,15 +47,17 @@ namespace ZeroInstall.Injector.Solver
 
         /// <summary>
         /// The URL of the feed that contains this implementation.
+        /// <see cref="DistributionFeedPrefix"/> is prepended if data is pulled from a native package manager.
+        /// If <see langword="null"/> or <see cref="string.Empty"/> use <see cref="InterfaceID"/> instead.
         /// </summary>
-        [Description("The URL of the feed that contains this implementation.")]
+        [Description("The URL of the feed that contains this implementation. \"distribution:\" is prepended if data is pulled from a native package manager. If null or empty use InterfaceID instead.")]
         [XmlAttribute("from-feed")]
         public string FromFeed { get; set; }
 
         /// <summary>
-        /// The name of the package in the distribution-specific package manager.
+        /// The name of the package in the distribution-specific package manager. Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this is a real Zero Instal <see cref="Implementation"/>.
         /// </summary>
-        [Category("Identity"), Description("The name of the package in the distribution-specific package manager.")]
+        [Category("Identity"), Description("The name of the package in the distribution-specific package manager. Only set for PackageImplementation; null if this is a real Zero Instal implementation.")]
         [XmlAttribute("package")]
         public string Package { get; set; }
         #endregion

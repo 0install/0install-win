@@ -140,7 +140,8 @@ namespace ZeroInstall.Injector
                 if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
 
                 // Don't try to download PackageImplementations
-                if (implementation.FromFeed != null && implementation.FromFeed.StartsWith("distribution:")) continue;
+                // ToDo: PackageKit integration
+                if (!string.IsNullOrEmpty(implementation.Package)) continue;
 
                 // Check if an implementation with a matching digest is available in the cache
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;

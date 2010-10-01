@@ -29,25 +29,25 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Executes a set of <see cref="ImplementationBase"/>s as a program.
+    /// Executes a set of <see cref="ImplementationSelection"/>s as a program.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class Launcher
     {
         #region Variables
-        /// <summary>The interface defining the <see cref="ImplementationBase"/> to be launched.</summary>
+        /// <summary>The interface defining the <see cref="Implementation"/> to be launched.</summary>
         private readonly string _interfaceID;
 
-        /// <summary>The specific <see cref="ImplementationBase"/>s chosen for the <see cref="Dependency"/>s.</summary>
+        /// <summary>The specific <see cref="Implementation"/>s chosen for the <see cref="Dependency"/>s.</summary>
         private readonly Selections _selections;
 
-        /// <summary>Used to locate the selected <see cref="ImplementationBase"/>s.</summary>
+        /// <summary>Used to locate the selected <see cref="Implementation"/>s.</summary>
         private readonly IStore _store;
         #endregion
 
         #region Properties
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="ImplementationBase"/> instead of <see cref="Element.Main"/>.
+        /// An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.
         /// </summary>
         public string Main { get; set; }
 
@@ -61,9 +61,9 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface defining the <see cref="ImplementationBase"/> to be launched.</param>
-        /// <param name="selections">The specific <see cref="ImplementationBase"/>s chosen for the <see cref="Dependency"/>s.</param>
-        /// <param name="store">Used to locate the selected <see cref="ImplementationBase"/>s.</param>
+        /// <param name="interfaceID">The interface defining the <see cref="Implementation"/> to be launched.</param>
+        /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.</param>
+        /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
         public Launcher(string interfaceID, Selections selections, IStore store)
         {
             #region Sanity checks
@@ -85,11 +85,11 @@ namespace ZeroInstall.Injector
         /// Determines the actual executable file to be launched.
         /// </summary>
         /// <returns>A fully qualified path to the executable file.</returns>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
         private string GetStartupMain()
         {
             // Get the implementation to be launched
-            ImplementationBase startupImplementation = _selections.GetImplementation(_interfaceID);
+            var startupImplementation = _selections.GetImplementation(_interfaceID);
 
             // Apply the user-override for the Main exectuable if set
             string startupMain;
@@ -115,13 +115,16 @@ namespace ZeroInstall.Injector
 
         #region Bindings
         /// <summary>
-        /// Applies <see cref="Binding"/>s allowing the launched application to locate selected <see cref="ImplementationBase"/>s.
+        /// Applies <see cref="Binding"/>s allowing the launched application to locate <see cref="ImplementationSelection"/>s.
         /// </summary>
         /// <param name="startInfo">The applications environment to apply the  <see cref="Binding"/>s to.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
-        /// <param name="implementation">The <see cref="ImplementationBase"/> to be made locatable via the <see cref="Binding"/>s.</param>
-        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationBase implementation)
+        /// <param name="implementation">The <see cref="ImplementationSelection"/> to be made locatable via the <see cref="Binding"/>s.</param>
+        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationSelection implementation)
         {
+            // Don't use bindings for PackageImplementations
+            if (!string.IsNullOrEmpty(implementation.Package)) return;
+
             string implementationDirectory = GetImplementationPath(implementation);
 
             foreach (var binding in bindingContainer.Bindings)
@@ -179,8 +182,8 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
         public ProcessStartInfo Prepare(string arguments)
         {
             string main = GetStartupMain();
@@ -219,8 +222,8 @@ namespace ZeroInstall.Injector
         /// Launches the application as specified by the <see cref="Selections"/> and returns when it has finished executing.
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched applications.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         public void RunSync(string arguments)
