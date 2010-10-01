@@ -34,6 +34,7 @@ namespace Common.Controls
     /// <summary>
     /// Presents the user with a friendly interface in case of an error, offering to report it to the developers.
     /// </summary>
+    /// <remarks>This class should only be used by <see cref="System.Windows.Forms"/> applications.</remarks>
     public partial class ErrorReportForm : Form
     {
         #region Variables
@@ -94,6 +95,13 @@ namespace Common.Controls
             #region Sanity checks
             if (run == null) throw new ArgumentNullException("run");
             #endregion
+
+            // Just run the code without any monitoring if there is no NanoGrid installation to report potential errors
+            if (!NanoGrid.IsAvailable)
+            {
+                run();
+                return true;
+            }
 
             // Catch exceptions in WinForms threads
             Exception delayedException = null;

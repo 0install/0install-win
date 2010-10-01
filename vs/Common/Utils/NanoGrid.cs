@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -29,13 +30,43 @@ using Common.Properties;
 namespace Common.Utils
 {
     /// <summary>
-    /// Provides access to operations provided by NanoGrid.
+    /// Provides access to operations provided by NanoGrid. For details about NanoGrid see: http://www.nano-byte.de/info/nanogrid/
     /// </summary>
-    /// <remarks>
-    /// For details about NanoGrid see: http://www.nano-byte.de/info/nanogrid/
-    /// </remarks>
+    /// <remarks>This class should only be used by <see cref="System.Windows.Forms"/> applications.</remarks>
     public static class NanoGrid
     {
+        #region Properties
+        /// <summary>
+        /// <see langword="true"/> if NanoGrid is installed on this system and can be used; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsAvailable
+        {
+            get
+            {
+                // NanoGrid is only available for the Windows platform
+                if (!WindowsUtils.IsWindows) return false;
+
+                try
+                {
+                    // Locate the NanoGrid executable via the Windows registry
+                    var nanoGridInfo = Microsoft.Win32.Registry.LocalMachine.OpenSubKey("SOFTWARE\\NanoByte\\NanoGrid\\Info");
+                    if (nanoGridInfo == null) return false;
+                    string nanoGridPath = nanoGridInfo.GetValue("Position") as string;
+
+                    // Check if the file exists and is accessible
+                    return File.Exists(nanoGridPath);
+                }
+                #region Error handling
+                catch (UnauthorizedAccessException)
+                {
+                    return false;
+                }
+                #endregion
+            }
+        }
+        #endregion
+
+        #region Operations
         /// <summary>
         /// Launches an application via NanoGrid. Exceptions are handled and reported via message boxes.
         /// </summary>
@@ -59,7 +90,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Uploads a file using NanoGrid.
+        /// Uploads a file using NanoGrid. Exceptions are handled and reported via message boxes.
         /// </summary>
         /// <param name="path">The path to the file to be uploaded.</param>
         public static void Upload(string path)
@@ -78,5 +109,6 @@ namespace Common.Utils
                 Msg.Inform(null, Resources.MissingNanoGrid, MsgSeverity.Error);
             }
         }
+        #endregion
     }
 }
