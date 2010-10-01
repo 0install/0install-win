@@ -52,7 +52,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <param name="results">The parser results to be executed.</param>
         public void Execute(ParseResults results)
         {
-            RGuiAsync(results.Feed);
+            RunGuiAsync(results.Feed);
 
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
@@ -111,7 +111,13 @@ namespace ZeroInstall.Injector.WinForms
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                try { launcher.RunSync(StringUtils.Concatenate(results.AdditionalArgs, " ")); }
+
+                string args = StringUtils.Concatenate(results.AdditionalArgs, " ");
+                try
+                {
+                    if (results.NoWait) launcher.RunAsync(args);
+                    else launcher.RunSync(args);
+                }
                 #region Error hanlding
                 catch (ImplementationNotFoundException ex)
                 {
@@ -142,7 +148,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>
-        private void RGuiAsync(string interfaceID)
+        private void RunGuiAsync(string interfaceID)
         {
             new Thread(delegate()
             {

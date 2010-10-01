@@ -38,7 +38,7 @@ namespace ZeroInstall.Injector.Arguments
         /// <summary>The interface to launch, feed to download/add, term to search for, etc.</summary>
         public string Feed;
 
-        /// <summary>Arguments to pass to the launched application, additional feeds to add, additional terms to search for, etc.</summary>
+        /// <summary>Arguments to pass to the launched programs, additional feeds to add, additional terms to search for, etc.</summary>
         public IList<string> AdditionalArgs;
 
         /// <summary>Only download <see cref="Implementation"/>s but don't execute them.</summary>
@@ -52,6 +52,9 @@ namespace ZeroInstall.Injector.Arguments
 
         /// <summary>Only download feeds and not <see cref="Implementation"/>s.</summary>
         public bool SelectOnly;
+
+        /// <summary>Immediatley returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>
+        public bool NoWait;
 
         /// <summary>Only output what was supposed to be downloaded but don't actually use the network.</summary>
         public bool DryRun;

@@ -182,6 +182,15 @@ namespace ZeroInstall.Injector.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Immediatley returns once the chosen program has been launched instead of waiting for it to finish executing..
+        /// </summary>
+        internal static string OptionNoWait {
+            get {
+                return ResourceManager.GetString("OptionNoWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh)..
         /// </summary>
         internal static string OptionOffline {

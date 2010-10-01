@@ -208,11 +208,14 @@ namespace ZeroInstall.Injector.Cli
                 {"get-selections", Resources.OptionGetSelections, unused => parseResults.GetSelections = true},
                 {"select-only", Resources.OptionSelectOnly, unused => parseResults.SelectOnly = true},
                 {"batch", Resources.OptionBatch, unused => handler.Batch = true},
-                {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
 
                 // Launcher options
                 {"m|main=", Resources.OptionMain, newMain => parseResults.Main = newMain},
-                {"w|wrapper=", Resources.OptionWrapper, newWrapper => parseResults.Wrapper = newWrapper}
+                {"w|wrapper=", Resources.OptionWrapper, newWrapper => parseResults.Wrapper = newWrapper},
+
+                // Operation modifiers
+                {"no-wait", Resources.OptionNoWait, unused => parseResults.NoWait = true},
+                {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
             };
             #endregion
 
@@ -289,7 +292,10 @@ namespace ZeroInstall.Injector.Cli
                 var launcher = controller.GetLauncher();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
-                launcher.RunSync(StringUtils.Concatenate(results.AdditionalArgs, " "));
+
+                string args = StringUtils.Concatenate(results.AdditionalArgs, " ");
+                if (results.NoWait) launcher.RunAsync(args);
+                else launcher.RunSync(args);
             }
         }
         #endregion

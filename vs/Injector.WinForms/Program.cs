@@ -135,7 +135,10 @@ namespace ZeroInstall.Injector.WinForms
 
                 // Launcher options
                 {"m|main=", newMain => parseResults.Main = newMain},
-                {"w|wrapper=", newWrapper => parseResults.Wrapper = newWrapper}
+                {"w|wrapper=", newWrapper => parseResults.Wrapper = newWrapper},
+
+                // Operation modifiers
+                {"no-wait", unused => parseResults.NoWait = true}
             };
             #endregion
 

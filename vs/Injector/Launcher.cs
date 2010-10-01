@@ -115,9 +115,9 @@ namespace ZeroInstall.Injector
 
         #region Bindings
         /// <summary>
-        /// Applies <see cref="Binding"/>s allowing the launched application to locate <see cref="ImplementationSelection"/>s.
+        /// Applies <see cref="Binding"/>s allowing the launched program to locate <see cref="ImplementationSelection"/>s.
         /// </summary>
-        /// <param name="startInfo">The applications environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The programs environment to apply the  <see cref="Binding"/>s to.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
         /// <param name="implementation">The <see cref="ImplementationSelection"/> to be made locatable via the <see cref="Binding"/>s.</param>
         private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationSelection implementation)
@@ -178,9 +178,9 @@ namespace ZeroInstall.Injector
 
         #region Prepare Process
         /// <summary>
-        /// Prepares a <see cref="ProcessStartInfo"/> for executing the application as specified by the <see cref="Selections"/>.
+        /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched applications.</param>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
@@ -196,7 +196,7 @@ namespace ZeroInstall.Injector
                 UseShellExecute = WindowsUtils.IsWindows && !main.EndsWith(".exe")
             };
 
-            // Apply user-given wrapper application if set
+            // Apply user-given wrapper program if set
             if (!string.IsNullOrEmpty(Wrapper))
             {
                 startInfo.FileName = Wrapper;
@@ -219,9 +219,9 @@ namespace ZeroInstall.Injector
 
         #region Run
         /// <summary>
-        /// Launches the application as specified by the <see cref="Selections"/> and returns when it has finished executing.
+        /// Launches the program as specified by the <see cref="Selections"/> and returns when it has finished executing.
         /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched applications.</param>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
@@ -231,6 +231,20 @@ namespace ZeroInstall.Injector
             var process = new Process {StartInfo = Prepare(arguments)};
             process.Start();
             process.WaitForExit();
+        }
+
+        /// <summary>
+        /// Launches the program as specified by the <see cref="Selections"/> and returns when it has finished executing.
+        /// </summary>
+        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        public void RunAsync(string arguments)
+        {
+            var process = new Process { StartInfo = Prepare(arguments) };
+            process.Start();
         }
         #endregion
     }
