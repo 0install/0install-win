@@ -119,6 +119,8 @@ namespace Common.Controls
             UnhandledExceptionEventHandler backgroundHandler = delegate(object sender, UnhandledExceptionEventArgs e)
             {
                 Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"));
+
+                // Normally a background exception would only kill a single thread, but we want the whole application to end to be on the safe side
                 Process.GetCurrentProcess().Kill();
             };
 
