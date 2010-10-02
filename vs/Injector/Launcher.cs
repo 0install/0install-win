@@ -192,8 +192,8 @@ namespace ZeroInstall.Injector
             var startInfo = new ProcessStartInfo(main, arguments)
             {
                 ErrorDialog = true,
-                // Use ShellExecute to open non-EXE files on Windows
-                UseShellExecute = WindowsUtils.IsWindows && !main.EndsWith(".exe")
+                // Use ShellExecute to open non-executable files
+                UseShellExecute = (WindowsUtils.IsWindows && !main.EndsWith(".exe")) || (MonoUtils.IsUnix && !FileUtils.IsExecutable(main))
             };
 
             // Apply user-given wrapper program if set
