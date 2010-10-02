@@ -176,7 +176,7 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        #region Prepare Process
+        #region Prepare process
         /// <summary>
         /// Prepares a <see cref="ProcessStartInfo"/> for executing the program as specified by the <see cref="Selections"/>.
         /// </summary>
