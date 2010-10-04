@@ -64,7 +64,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
@@ -74,6 +73,7 @@
     <Compile Include="IProgress.cs" />
     <Compile Include="ProgressState.cs" />
     <Compile Include="IOProgress.cs" />
+    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
     <Compile Include="Download\DownloadManager.cs" />
     <Compile Include="Download\DownloadJob.cs" />
