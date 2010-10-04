@@ -36,8 +36,8 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode = new System.Windows.Forms.TreeNode("Interface");
-            ZeroInstall.Model.FeedReference feedReference = new ZeroInstall.Model.FeedReference();
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
+            ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -602,11 +602,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode.Name = "interface";
-            treeNode.Tag = "";
-            treeNode.Text = "Interface";
+            treeNode1.Name = "interface";
+            treeNode1.Tag = "";
+            treeNode1.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode});
+            treeNode1});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -847,9 +847,9 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // feedReferenceControl
             // 
-            feedReference.Architecture = new Architecture(OS.All, Cpu.All);
-            feedReference.Source = null;
-            this.feedReferenceControl.FeedReference = feedReference;
+            feedReference1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
+            feedReference1.Source = null;
+            this.feedReferenceControl.FeedReference = feedReference1;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
@@ -954,7 +954,6 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Label labelHomepage;
         private System.Windows.Forms.TabPage tabPageAdvanced;
         private System.Windows.Forms.CheckedListBox checkedListBoxCategories;
-
         private Common.Controls.HintTextBox hintTextBoxInterfaceUrl;
         private System.Windows.Forms.Label labelInterfaceUrl;
         private System.Windows.Forms.GroupBox groupBoxExternalFeeds;
