@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using ZeroInstall.Model;
 
@@ -24,7 +25,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class FeedReferenceControl : UserControl
     {
         private FeedReference _feedReference = new FeedReference();
-
+                
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FeedReference FeedReference
         {
             get { return _feedReference; }

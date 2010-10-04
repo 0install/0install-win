@@ -37,7 +37,6 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
-            ZeroInstall.Model.FeedReference feedReference1 = new ZeroInstall.Model.FeedReference();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
@@ -847,9 +846,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // feedReferenceControl
             // 
-            feedReference1.Architecture = new ZeroInstall.Model.Architecture(ZeroInstall.Model.OS.All, ZeroInstall.Model.Cpu.All);
-            feedReference1.Source = null;
-            this.feedReferenceControl.FeedReference = feedReference1;
             this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);

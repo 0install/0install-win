@@ -34,7 +34,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The <see cref="TargetBase" /> which fills the controls. If <see langword="null" /> the control resets.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public TargetBase TargetBase
         {
             get { return _targetBase; }
@@ -96,6 +96,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ClearControls()
         {
             listBoxLanguages.Items.Clear();
+            comboBoxOS.SelectedItem = OS.All;
+            comboBoxCpu.SelectedItem = Cpu.All;
         }
 
         private void UpdateControls()
@@ -188,7 +190,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void comboBoxOS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_targetBase == null) return;
+            if (_targetBase == null || comboBoxOS.SelectedItem == null) return;
             _targetBase.Architecture = new Architecture((OS)comboBoxOS.SelectedItem, _targetBase.Architecture.Cpu);
         }
 
@@ -197,7 +199,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void comboBoxCpu_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_targetBase == null) return;
+            if (_targetBase == null ||comboBoxCpu.SelectedItem == null) return;
             _targetBase.Architecture = new Architecture(_targetBase.Architecture.OS, (Cpu)comboBoxCpu.SelectedItem);
         }
 
