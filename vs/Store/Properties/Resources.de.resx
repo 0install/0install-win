@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>Die Archivdatei ist ungültig oder beschädigt.</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Der Manifest-Hash einer entpackten Implementierung entspricht nicht dem erwarteten Wert!
 Erwarteter Wert: {0}
@@ -172,5 +175,8 @@ Tatsächlicher Wert: {1}</value>
   </data>
   <data name="UnableToFindSecretKey" xml:space="preserve">
     <value>Es konnte kein geheimer Schlüssel mit dem angegebenen Namen gefunden werden.</value>
+  </data>
+  <data name="UnknownMimeType" xml:space="preserve">
+    <value>Der angegebene MIME Typ is unbekannt.</value>
   </data>
 </root>

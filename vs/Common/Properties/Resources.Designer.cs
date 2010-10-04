@@ -176,6 +176,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} could not be launched..
+        /// </summary>
+        internal static string FailedToLaunch {
+            get {
+                return ResourceManager.GetString("FailedToLaunch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file does not have the expected size..
         /// </summary>
         internal static string FileNotExpectedSize {
@@ -435,15 +444,6 @@ namespace Common.Properties {
         internal static string UndoNotAvailable {
             get {
                 return ResourceManager.GetString("UndoNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The specified MIME type is unknown..
-        /// </summary>
-        internal static string UnknownMimeType {
-            get {
-                return ResourceManager.GetString("UnknownMimeType", resourceCulture);
             }
         }
         

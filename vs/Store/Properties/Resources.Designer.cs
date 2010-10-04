@@ -61,6 +61,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The archive file is invalid or damaged..
+        /// </summary>
+        internal static string ArchiveInvalid {
+            get {
+                return ResourceManager.GetString("ArchiveInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An extracted implementation&apos;s manifest hash doesn&apos;t match the expected value!
         ///Expected value: {0}
         ///Actual value: {1}.
@@ -221,6 +230,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string UnableToFindSecretKey {
             get {
                 return ResourceManager.GetString("UnableToFindSecretKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The specified MIME type is unknown..
+        /// </summary>
+        internal static string UnknownMimeType {
+            get {
+                return ResourceManager.GetString("UnknownMimeType", resourceCulture);
             }
         }
     }

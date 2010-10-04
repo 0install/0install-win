@@ -1,34 +1,31 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2010 Bastian Eicher
  *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- * THE SOFTWARE.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 using System;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
+using Common;
+using Common.Compression;
 using Common.Streams;
 using Common.Utils;
-using Common.Properties;
+using ZeroInstall.Store.Properties;
 
-namespace Common.Compression
+namespace ZeroInstall.Store.Implementation.Archive
 {
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
@@ -130,37 +127,11 @@ namespace Common.Compression
             #endregion
 
             // Try to guess missing MIME type
-            if (string.IsNullOrEmpty(mimeType)) mimeType = GuessMimeType(path);
+            if (string.IsNullOrEmpty(mimeType)) mimeType = ArchiveUtils.GuessMimeType(path);
 
             var extractor = CreateExtractor(mimeType, new OffsetStream(File.OpenRead(path), startOffset), target);
             extractor._name = Path.GetFileName(path);
             return extractor;
-        }
-        #endregion
-
-        #region Static helpers
-        /// <summary>
-        /// Tries to guess the MIME type of an archive file by looking at its file ending.
-        /// </summary>
-        /// <param name="fileName">The file name to analyze.</param>
-        /// <returns>The MIME type if it could be guessed; <see langword="null"/> otherwise.</returns>
-        /// <remarks>The file's content is not analyzed.</remarks>
-        public static string GuessMimeType(string fileName)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-            #endregion
-
-            if (fileName.EndsWith(".zip")) return "application/zip";
-            if (fileName.EndsWith(".cab")) return "application/vnd.ms-cab-compressed";
-            if (fileName.EndsWith(".tar")) return "application/x-tar";
-            if (fileName.EndsWith(".tar.gz") || fileName.EndsWith(".tgz")) return "application/x-compressed-tar";
-            if (fileName.EndsWith(".tar.bz2") || fileName.EndsWith(".tbz2") || fileName.EndsWith(".tbz")) return "application/x-bzip-compressed-tar";
-            if (fileName.EndsWith(".tar.lzma")) return "application/x-lzma-compressed-tar";
-            if (fileName.EndsWith(".deb")) return "application/x-deb";
-            if (fileName.EndsWith(".rpm")) return "application/x-rpm";
-            if (fileName.EndsWith(".dmg")) return "application/x-apple-diskimage";
-            return null;
         }
         #endregion
 

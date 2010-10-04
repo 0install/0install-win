@@ -55,10 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MicroServer.cs" />
-    <Compile Include="Compression\TestData.cs" />
-    <Compile Include="Compression\ExtractorTest.cs" />
-    <Compile Include="Compression\TarExtractorTest.cs" />
-    <Compile Include="Compression\ZipExtractorTest.cs" />
+    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
@@ -69,25 +66,6 @@
     <Compile Include="Streams\StreamUtilsTest.cs" />
     <Compile Include="Streams\OffsetStreamTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\sdlArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\SDL.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\README-SDL.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\sdlArchive.tar" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\sdlArchive.tar.bz2" />
-    <EmbeddedResource Include="Compression\sdlArchive.tar.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Compression\sdlArchive.tar.lzma" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

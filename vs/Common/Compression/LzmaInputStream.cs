@@ -69,7 +69,7 @@ namespace Common.Compression
         /// Creates a new LZMA decompression stream.
         /// </summary>
         /// <param name="baseStream">The underlying <see cref="Stream"/> providing the compressed data. Will be disposed.</param>
-        /// <exception cref="InvalidParamException">Thrown if the <paramref name="baseStream"/> doesn't start with a valid 5-bit LZMA header.</exception>
+        /// <exception cref="InvalidDataException">Thrown if the <paramref name="baseStream"/> doesn't start with a valid 5-bit LZMA header.</exception>
         public LzmaInputStream(Stream baseStream)
         {
             #region Sanity checks
@@ -83,8 +83,15 @@ namespace Common.Compression
             // Read LZMA header
             if (baseStream.CanSeek) baseStream.Position = 0;
             var properties = new byte[5];
-            if (baseStream.Read(properties, 0, 5) != 5) throw new InvalidParamException();
-            decoder.SetDecoderProperties(properties);
+            if (baseStream.Read(properties, 0, 5) != 5) throw new InvalidDataException(Resources.ArchiveInvalid);
+            try { decoder.SetDecoderProperties(properties); }
+            #region Error handling
+            catch (InvalidParamException ex)
+            {
+                // Make sure only standard exception types are thrown to the outside
+                throw new InvalidDataException(Resources.ArchiveInvalid, ex);
+            }
+            #endregion
 
             // Detmerine uncompressed length
             long uncompressedLength = 0;
@@ -93,7 +100,7 @@ namespace Common.Compression
                 for (int i = 0; i < 8; i++)
                 {
                     int v = baseStream.ReadByte();
-                    if (v < 0) throw (new InvalidParamException());
+                    if (v < 0) throw new InvalidDataException(Resources.ArchiveInvalid);
 
                     uncompressedLength |= ((long)(byte)v) << (8 * i);
                 }
@@ -106,7 +113,7 @@ namespace Common.Compression
             catch (DataErrorException ex)
             {
                 // Make sure only standard exception types are thrown to the outside
-                throw new IOException(Resources.ArchiveInvalid, ex);
+                throw new InvalidDataException(Resources.ArchiveInvalid, ex);
             }
             #endregion
             _memoryStream.Position = 0;

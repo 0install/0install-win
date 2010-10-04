@@ -97,6 +97,10 @@
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\WorkingDirBinding.cs" />
+    <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
+    <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
+    <Compile Include="Store\Implementation\Archive\TestData.cs" />
+    <Compile Include="Store\Implementation\Archive\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
@@ -106,6 +110,27 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="MyApps\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\README-SDL.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\SDL.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.bz2" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.gz" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.lzma" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.zip" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

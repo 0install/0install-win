@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using Common.Compression;
+using ZeroInstall.Store.Implementation.Archive;
 using Common.Utils;
 using Common.Storage;
 using ZeroInstall.Model;

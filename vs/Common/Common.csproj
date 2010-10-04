@@ -50,20 +50,21 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="TaskDialog">
-      <HintPath>..\..\lib\TaskDialog.dll</HintPath>
-    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="SevenZip">
       <HintPath>..\..\lib\SevenZip.dll</HintPath>
     </Reference>
+    <Reference Include="TaskDialog">
+      <HintPath>..\..\lib\TaskDialog.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Posix">
       <HintPath Condition="'$(OS)'=='Windows_NT'">..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
@@ -73,13 +74,7 @@
     <Compile Include="IProgress.cs" />
     <Compile Include="ProgressState.cs" />
     <Compile Include="IOProgress.cs" />
-    <Compile Include="Compression\Extractor.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
-    <Compile Include="Compression\ZipExtractor.cs" />
-    <Compile Include="Compression\TarExtractor.cs" />
-    <Compile Include="Compression\TarBz2Extractor.cs" />
-    <Compile Include="Compression\TarGzExtractor.cs" />
-    <Compile Include="Compression\TarLzmaExtractor.cs" />
     <Compile Include="Download\DownloadManager.cs" />
     <Compile Include="Download\DownloadJob.cs" />
     <Compile Include="Download\DownloadFile.cs" />
@@ -211,7 +206,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Compression\ClassDiagram.cd" />
     <None Include="Download\ClassDiagram.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />

@@ -237,9 +237,6 @@ Delete the changes</value>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
   </data>
-  <data name="UnknownMimeType" xml:space="preserve">
-    <value>The specified MIME type is unknown.</value>
-  </data>
   <data name="AppAlreadyRunning" xml:space="preserve">
     <value>This application is already running!</value>
   </data>
@@ -257,5 +254,8 @@ Delete the changes</value>
   </data>
   <data name="UnableToLocateAssembly" xml:space="preserve">
     <value>The assembly named "{0}" could not be located.</value>
+  </data>
+  <data name="FailedToLaunch" xml:space="preserve">
+    <value>{0} could not be launched.</value>
   </data>
 </root>

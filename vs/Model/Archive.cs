@@ -90,7 +90,7 @@ namespace ZeroInstall.Model
             if (!string.IsNullOrEmpty(MimeType) || string.IsNullOrEmpty(LocationString)) return;
 
             // Guess the MIME type based on the file ending
-            MimeType = Extractor.GuessMimeType(LocationString);
+            MimeType = ArchiveUtils.GuessMimeType(LocationString);
         }
         #endregion
 

@@ -173,4 +173,10 @@ Actual value: {1}</value>
   <data name="FeedNotInCache" xml:space="preserve">
     <value>The feed {0} could not be located in the interface cache.</value>
   </data>
+  <data name="ArchiveInvalid" xml:space="preserve">
+    <value>The archive file is invalid or damaged.</value>
+  </data>
+  <data name="UnknownMimeType" xml:space="preserve">
+    <value>The specified MIME type is unknown.</value>
+  </data>
 </root>

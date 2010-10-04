@@ -42,7 +42,7 @@
       <NamespaceSummaryItem name="Common" isDocumented="True">Contains generic utility classes, interfaces, &lt;see cref="System.Windows.Forms" /&gt; controls, etc. that are applicable to a wide range of different applications. Platform checks are included and calls to WinForms code will be avoided on non-Windows platforms when possible.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Collections" isDocumented="True">Contains specialized collection types supplementing &lt;see cref="System.Collections.Generic" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Compression" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Compression" isDocumented="True">Contains helper classes for interacting with archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Download" isDocumented="True">Contains classes for downloading files from the internet, including advanced features such as scheduling by priority.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Storage" isDocumented="True">Contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
@@ -55,6 +55,7 @@
       <NamespaceSummaryItem name="ZeroInstall.MyApps" isDocumented="True">Maintains the user's list of "installed applications", manages menu entries in the desktop environment and provides cloud-storage functionality.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Feed" isDocumented="True">Contains classes for managing the feed and icon caches, GPG signatures and keys, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Store.Implementation.Archive" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.DownloadBroker" isDocumented="True">Manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the injector.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Injector.Arguments" isDocumented="True">Contains helper classes for applications that wish to support the default command-line arguments provided by the Python implementation of 0launch.</NamespaceSummaryItem>

@@ -23,6 +23,7 @@ using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Compression;
+using ZeroInstall.Store.Implementation.Archive;
 using Common.Download;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -267,7 +268,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             if (comboBoxArchiveFormat.SelectedIndex == 0)
             {
-                var guessMimeType = Extractor.GuessMimeType(fileName);
+                var guessMimeType = ArchiveUtils.GuessMimeType(fileName);
                 ArchiveMimeType archiveMimeType;
                 var archiveMimeTypeSucceeded = ArchiveMimeType.TryCreateFromDescription(guessMimeType, out archiveMimeType);
 

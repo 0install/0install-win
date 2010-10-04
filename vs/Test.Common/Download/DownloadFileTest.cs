@@ -23,7 +23,6 @@
 using System.IO;
 using System.Threading;
 using Common.Streams;
-using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Download

@@ -49,12 +49,21 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Feed\GnuPG.cs" />
     <Compile Include="Feed\GnuPGSecretKey.cs" />
     <Compile Include="Feed\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Implementation\Archive\Extractor.cs" />
+    <Compile Include="Implementation\Archive\TarBz2Extractor.cs" />
+    <Compile Include="Implementation\Archive\TarExtractor.cs" />
+    <Compile Include="Implementation\Archive\TarGzExtractor.cs" />
+    <Compile Include="Implementation\Archive\TarLzmaExtractor.cs" />
+    <Compile Include="Implementation\Archive\ZipExtractor.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
@@ -107,6 +116,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Implementation\Archive\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
     <None Include="Implementation\Store.cd" />
     <None Include="Feed\InterfaceCache.cd" />
