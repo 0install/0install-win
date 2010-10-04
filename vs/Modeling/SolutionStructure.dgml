@@ -192,10 +192,6 @@
     <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
   </QualifiedNames>
   <Styles>
-    <Style TargetType="Node" GroupLabel="Category 7" ValueLabel="Has category">
-      <Condition Expression="HasCategory('Category7')" />
-      <Setter Property="Background" Value="#FF007F0E" />
-    </Style>
     <Style TargetType="Node" GroupLabel="Solution Folder" ValueLabel="True">
       <Condition Expression="HasCategory('SolutionFolder')" />
       <Setter Property="Icon" Value="File" />
