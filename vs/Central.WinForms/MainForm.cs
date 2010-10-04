@@ -69,7 +69,7 @@ namespace ZeroInstall.Central.WinForms
                     // ToDo: Display more details about the feed
                     if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
                     {
-                        Program.LaunchHelperAssembly(this, "0launchw", feedUri);
+                        Program.LaunchHelperAssembly(this, "0launchw", "--no-wait " + feedUri);
                         Close();
                     }
                     break;

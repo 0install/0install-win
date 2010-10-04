@@ -184,7 +184,7 @@ namespace ZeroInstall.Injector
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
-        public ProcessStartInfo Prepare(string arguments)
+        public ProcessStartInfo GetStartInfo(string arguments)
         {
             string main = GetStartupMain();
 
@@ -214,37 +214,6 @@ namespace ZeroInstall.Injector
             }
 
             return startInfo;
-        }
-        #endregion
-
-        #region Run
-        /// <summary>
-        /// Launches the program as specified by the <see cref="Selections"/> and returns when it has finished executing.
-        /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        public void RunSync(string arguments)
-        {
-            var process = new Process {StartInfo = Prepare(arguments)};
-            process.Start();
-            process.WaitForExit();
-        }
-
-        /// <summary>
-        /// Launches the program as specified by the <see cref="Selections"/> and returns when it has finished executing.
-        /// </summary>
-        /// <param name="arguments">Arguments to be passed to the launched programs.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        public void RunAsync(string arguments)
-        {
-            var process = new Process { StartInfo = Prepare(arguments) };
-            process.Start();
         }
         #endregion
     }

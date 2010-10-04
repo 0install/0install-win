@@ -60,7 +60,7 @@ namespace ZeroInstall.Central.WinForms
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
             #endregion
 
-            try { FileUtils.LaunchHelperAssembly(assembly, arguments); }
+            try { ProcessUtils.LaunchHelperAssembly(assembly, arguments); }
             #region Sanity checks
             catch (FileNotFoundException ex)
             {

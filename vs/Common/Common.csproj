@@ -103,6 +103,7 @@
     <Compile Include="Streams\StreamUtils.cs" />
     <Compile Include="Utils\AppMutex.cs" />
     <Compile Include="Utils\NanoGrid.cs" />
+    <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />

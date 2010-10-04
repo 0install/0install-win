@@ -94,7 +94,7 @@ namespace Common.Cli
 
         #region Execute
         /// <summary>
-        /// Runs the external application and waits until it has terminated.
+        /// Runs the external application, processes its output and waits until it has terminated.
         /// </summary>
         /// <param name="arguments">Command-line arguments to launch the application with.</param>
         /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
@@ -104,7 +104,18 @@ namespace Common.Cli
         /// <exception cref="UnhandledErrorsException">Thrown if there was output to stderr and <paramref name="errorHandler"/> was <see langword="null"/>.</exception>
         protected string Execute(string arguments, string defaultInput, CliErrorHandler errorHandler)
         {
-            var process = new Process { StartInfo = GetStartInfo(arguments) };
+            Process process;
+            try { process = ProcessUtils.RunAsync(GetStartInfo(arguments)); }
+            #region Error handling
+            catch (Win32Exception ex)
+            {
+                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppName), ex);
+            }
+            catch (BadImageFormatException ex)
+            {
+                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppName), ex);
+            }
+            #endregion
 
             // Asynchronously buffer all StandardOutput data
             var outputBuffer = new StringBuilder();
@@ -119,14 +130,6 @@ namespace Common.Cli
                 if (e.Data != null)
                 lock (errorList) errorList.Enqueue(e.Data);
             };
-
-            try { process.Start(); }
-            #region Error handling
-            catch (Win32Exception ex)
-            {
-                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppName), ex);
-            }
-            #endregion
 
             // Start async read threads
             process.BeginOutputReadLine();

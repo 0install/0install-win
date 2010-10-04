@@ -90,7 +90,7 @@ namespace ZeroInstall.Injector
             controller.Solve();
             controller.DownloadUncachedImplementations();
             var launcher = controller.GetLauncher();
-            var startInfo = launcher.Prepare("--help");
+            var startInfo = launcher.GetStartInfo("--help");
             Assert.AreEqual("--help", startInfo.Arguments);
         }
     }

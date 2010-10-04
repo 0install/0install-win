@@ -112,11 +112,11 @@ namespace ZeroInstall.Injector.WinForms
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
 
-                string args = StringUtils.Concatenate(results.AdditionalArgs, " ");
+                var startInfo = launcher.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
                 try
                 {
-                    if (results.NoWait) launcher.RunAsync(args);
-                    else launcher.RunSync(args);
+                    if (results.NoWait) ProcessUtils.RunDetached(startInfo);
+                    else ProcessUtils.RunReplace(startInfo);
                 }
                 #region Error hanlding
                 catch (ImplementationNotFoundException ex)

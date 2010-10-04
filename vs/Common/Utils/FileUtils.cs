@@ -21,8 +21,6 @@
  */
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Security.AccessControl;
@@ -37,29 +35,6 @@ namespace Common.Utils
     /// </summary>
     public static class FileUtils
     {
-        #region Helper applications
-        /// <summary>
-        /// Attempts to launch a .NET helper assembly in the application's base directory.
-        /// </summary>
-        /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
-        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
-        /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
-        public static void LaunchHelperAssembly(string assembly, string arguments)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
-            #endregion
-
-            string appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assembly + ".exe");
-            if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(Resources.UnableToLocateAssembly, assembly), appPath);
-
-            // Only Windows can directly launch .NET executables, other platforms must run through Mono
-            if (WindowsUtils.IsWindows) Process.Start(appPath, arguments);
-            else Process.Start("mono", "\"" + appPath + "\" " + arguments);
-        }
-        #endregion
-
         #region Hash
         /// <summary>
         /// Computes the hash value of the content of a file.

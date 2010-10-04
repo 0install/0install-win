@@ -21,8 +21,11 @@
  */
 
 using System;
+using System.Collections.Specialized;
 using System.IO;
+using Common.Properties;
 using Mono.Unix;
+using Mono.Unix.Native;
 
 namespace Common.Utils
 {
@@ -77,7 +80,7 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Executable
+        #region Permissions
         /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
         private const FileAccessPermissions AllExecutePermission = FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute | FileAccessPermissions.OtherExecute;
         
@@ -106,6 +109,58 @@ namespace Common.Utils
             var fileInfo = new UnixFileInfo(path);
             if (executable) fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions | AllExecutePermission;
             else fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions & ~AllExecutePermission;
+        }
+        #endregion
+
+        #region Execute
+        /// <summary>
+        /// Replaces the currently executing process with a new one.
+        /// </summary>
+        /// <param name="path">The file containing the executable image for the new process.</param>
+        /// <param name="arguments">Command-line arguments to pass to the new process.</param>
+        /// <param name="environment">The environment variable values the new process should start off with.</param>
+        /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
+        public static void ProcessReplace(string path, string arguments, StringDictionary environment)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (environment == null) throw new ArgumentNullException("environment");
+            #endregion
+
+            if (Syscall.execve(path, arguments.Split(' '), GetEnv(environment)) == -1)
+                throw new IOException(string.Format(Resources.FailedToLaunch, path));
+        }
+
+        /// <summary>
+        /// Launches a new child process and detaches it so it can continue running after the parent terminates.
+        /// </summary>
+        /// <param name="path">The file containing the executable image for the new process.</param>
+        /// <param name="arguments">Command-line arguments to pass to the new process.</param>
+        /// <param name="environment">The environment variable values the new process should start off with.</param>
+        /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
+        public static void ProcessDetach(string path, string arguments, StringDictionary environment)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (arguments == null) throw new ArgumentNullException("arguments");
+            if (environment == null) throw new ArgumentNullException("environment");
+            #endregion
+
+            // ToDo: Implement
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Turns a string dictionary into a flat "name=value" array.
+        /// </summary>
+        private static string[] GetEnv(StringDictionary environment)
+        {
+            var env = new string[environment.Count];
+            int i = 0;
+            foreach (string varName in environment)
+                env[i++] = varName.Replace("=", "\\=") + "=" + environment[varName];
+            return env;
         }
         #endregion
     }

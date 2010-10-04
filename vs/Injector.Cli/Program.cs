@@ -293,9 +293,9 @@ namespace ZeroInstall.Injector.Cli
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
 
-                string args = StringUtils.Concatenate(results.AdditionalArgs, " ");
-                if (results.NoWait) launcher.RunAsync(args);
-                else launcher.RunSync(args);
+                var startInfo = launcher.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
+                if (results.NoWait) ProcessUtils.RunDetached(startInfo);
+                else ProcessUtils.RunReplace(startInfo);
             }
         }
         #endregion
