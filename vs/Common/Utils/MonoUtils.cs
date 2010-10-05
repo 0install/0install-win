@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using Common.Properties;
@@ -158,8 +159,8 @@ namespace Common.Utils
         {
             var env = new string[environment.Count];
             int i = 0;
-            foreach (string varName in environment)
-                env[i++] = varName.Replace("=", "\\=") + "=" + environment[varName];
+            foreach (DictionaryEntry variable in environment)
+                env[i++] = variable.Key.ToString().Replace("=", "\\=") + "=" + variable.Value.ToString();
             return env;
         }
         #endregion
