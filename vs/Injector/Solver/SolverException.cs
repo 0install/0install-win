@@ -32,5 +32,7 @@ namespace ZeroInstall.Injector.Solver
         /// <inheritdoc/>
         public SolverException(string message, Exception innerException) : base(message, innerException)
         {}
+
+        // ToDo: Implement default exception constructors
     }
 }

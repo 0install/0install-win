@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 
 namespace ZeroInstall.Store.Feed
 {
     #region Enumerations
     /// <seealso cref="GnuPGSecretKey.Algorithm"/>
+    [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
     public enum GnuPGAlgorithm
     {
         Unknown = 0,
@@ -96,7 +98,7 @@ namespace ZeroInstall.Store.Feed
             #endregion
 
             string[] componenets = line.Split(':');
-            if (componenets.Length != 13) throw new FormatException("The line must contain 13 colon-seperated blocks");
+            if (componenets.Length != 13) throw new FormatException("The line must contain 13 colon-separated blocks.");
 
             return new GnuPGSecretKey(
                 int.Parse(componenets[2]),

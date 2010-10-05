@@ -158,7 +158,7 @@ namespace ZeroInstall.Injector.Solver
             return false;
         }
 
-        private void FlushMessage(ErrorMode currentErrorMode, string message)
+        private static void FlushMessage(ErrorMode currentErrorMode, string message)
         {
             switch (currentErrorMode)
             {

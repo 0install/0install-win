@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -144,12 +143,12 @@ namespace ZeroInstall.Injector
             }
         }
 
-        private void ApplyWorkingDirBinding(ProcessStartInfo startInfo, string implementationDirectory, WorkingDirBinding binding)
+        private static void ApplyWorkingDirBinding(ProcessStartInfo startInfo, string implementationDirectory, WorkingDirBinding binding)
         {
             startInfo.WorkingDirectory = Path.Combine(implementationDirectory, binding.Source ?? "");
         }
 
-        private void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
+        private static void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
         {
             var environmentVariables = startInfo.EnvironmentVariables;
             string environmentValue = Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Value));
@@ -170,7 +169,7 @@ namespace ZeroInstall.Injector
             }
         }
 
-        private void ApplyOverlayBinding(ProcessStartInfo startInfo, string implementationDirectory, OverlayBinding binding)
+        private static void ApplyOverlayBinding(ProcessStartInfo startInfo, string implementationDirectory, OverlayBinding binding)
         {
             // ToDo: Implement
         }
