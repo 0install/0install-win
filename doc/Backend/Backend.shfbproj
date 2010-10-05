@@ -78,7 +78,8 @@
     <None Include="depolyment.aml" />
     <None Include="design\index.aml" />
     <None Include="design\progress_tracking.aml" />
-    <None Include="design\python.aml" />
+    <None Include="design\solver.aml" />
+    <None Include="design\solver_python.aml" />
     <None Include="design\unit_tests.aml" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
