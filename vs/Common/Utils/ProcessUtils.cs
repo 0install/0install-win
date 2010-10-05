@@ -42,7 +42,7 @@ namespace Common.Utils
         {
             if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
             {
-                Environment.CurrentDirectory = startInfo.WorkingDirectory;
+                if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) Environment.CurrentDirectory = startInfo.WorkingDirectory;
                 MonoUtils.ProcessDetach(startInfo.FileName, startInfo.Arguments, startInfo.EnvironmentVariables);
             }
             else RunAsync(startInfo);
@@ -58,7 +58,7 @@ namespace Common.Utils
         {
             if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
             {
-                Environment.CurrentDirectory = startInfo.WorkingDirectory;
+                if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) Environment.CurrentDirectory = startInfo.WorkingDirectory;
                 MonoUtils.ProcessReplace(startInfo.FileName, startInfo.Arguments, startInfo.EnvironmentVariables);
             }
             else RunSync(startInfo);
