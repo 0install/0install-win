@@ -139,6 +139,11 @@ namespace ZeroInstall.Injector.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     return;
                 }
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return;
+                }
                 #endregion
             }
         }

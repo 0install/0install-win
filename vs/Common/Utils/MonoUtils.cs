@@ -121,6 +121,7 @@ namespace Common.Utils
         /// <param name="arguments">Command-line arguments to pass to the new process.</param>
         /// <param name="environment">The environment variable values the new process should start off with.</param>
         /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
+        /// <remarks>This method does not return on success. Warning: Any concurrent threads will be terminated!</remarks>
         public static void ProcessReplace(string path, string arguments, StringDictionary environment)
         {
             #region Sanity checks
@@ -131,25 +132,6 @@ namespace Common.Utils
 
             if (Syscall.execve(path, arguments.Split(' '), GetEnv(environment)) == -1)
                 throw new IOException(string.Format(Resources.FailedToLaunch, path));
-        }
-
-        /// <summary>
-        /// Launches a new child process and detaches it so it can continue running after the parent terminates.
-        /// </summary>
-        /// <param name="path">The file containing the executable image for the new process.</param>
-        /// <param name="arguments">Command-line arguments to pass to the new process.</param>
-        /// <param name="environment">The environment variable values the new process should start off with.</param>
-        /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
-        public static void ProcessDetach(string path, string arguments, StringDictionary environment)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (arguments == null) throw new ArgumentNullException("arguments");
-            if (environment == null) throw new ArgumentNullException("environment");
-            #endregion
-
-            // ToDo: Implement
-            throw new NotImplementedException();
         }
 
         /// <summary>

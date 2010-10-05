@@ -10,7 +10,7 @@ namespace Common.Utils
     {
         #region Run
         /// <summary>
-        /// Runs the specified program and waits for it to exit.
+        /// Runs the specified program and waits for it to exit. Terminating this process (the parent) may also terminate the new process (the child).
         /// </summary>
         /// <param name="startInfo">Details about the program to be launched.</param>
         /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
@@ -21,7 +21,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Starts the specified program and immediately returns. On Unix-like systems terminating this process (the parent) will also terminate the new process (the child).
+        /// Starts the specified program and immediately returns. Terminating this process (the parent) may also terminate the new process (the child).
         /// </summary>
         /// <param name="startInfo">Details about the program to be launched.</param>
         /// <returns>A handle to the newly launched process.</returns>
@@ -40,12 +40,10 @@ namespace Common.Utils
         /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
         public static void RunDetached(ProcessStartInfo startInfo)
         {
-            if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
-            {
-                if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) Environment.CurrentDirectory = startInfo.WorkingDirectory;
-                MonoUtils.ProcessDetach(startInfo.FileName, startInfo.Arguments, startInfo.EnvironmentVariables);
-            }
-            else RunAsync(startInfo);
+            // On Unix-like systems using an external launch helper is required to detach the child process from the parent
+            if (MonoUtils.IsUnix) startInfo.UseShellExecute = true;
+
+            RunAsync(startInfo);
         }
 
         /// <summary>
@@ -54,6 +52,8 @@ namespace Common.Utils
         /// <param name="startInfo">Details about the program to be launched.</param>
         /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
+        /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
+        /// <remarks>This method may not return on success. Warning: Any concurrent threads may be terminated!</remarks>
         public static void RunReplace(ProcessStartInfo startInfo)
         {
             if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
