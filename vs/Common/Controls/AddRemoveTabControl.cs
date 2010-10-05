@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace Common.Controls
@@ -109,6 +110,7 @@ namespace Common.Controls
         #endregion
         
         #region Constructor
+        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "dummy")]
         public AddRemoveTabControl()
         {
 #pragma warning disable 168
@@ -128,6 +130,10 @@ namespace Common.Controls
         /// </summary>
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
             base.OnKeyDown(e);
 
             switch (e.KeyData)
@@ -149,6 +155,10 @@ namespace Common.Controls
         /// </summary>
         protected override void OnSelecting(TabControlCancelEventArgs e)
         {
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
             if (e.Action == TabControlAction.Selecting && e.TabPage == _addNewTabPage)
             {
                 InsertTabPage(TabCount - 1);

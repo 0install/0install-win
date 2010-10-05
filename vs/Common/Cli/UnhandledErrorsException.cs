@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Common.Cli
 {
@@ -28,6 +29,7 @@ namespace Common.Cli
     /// Represents error messages from external applications launched by <see cref="CliAppControl"/>.
     /// </summary>
     [Serializable]
+    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has only a signaling purpose and doesn't need to carry custom Messages")]
     public class UnhandledErrorsException : Exception
     {
         public UnhandledErrorsException(string message) : base(message)

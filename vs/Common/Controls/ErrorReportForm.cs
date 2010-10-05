@@ -22,6 +22,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading;
 using System.Windows.Forms;
@@ -90,6 +91,7 @@ namespace Common.Controls
         ///     Then the entire process is terminated.
         ///   </para>
         /// </remarks>
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
         public static bool RunAppMonitored(SimpleEventHandler run)
         {
             #region Sanity checks

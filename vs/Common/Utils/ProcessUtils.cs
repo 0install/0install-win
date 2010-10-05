@@ -17,6 +17,10 @@ namespace Common.Utils
         /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
         public static void RunSync(ProcessStartInfo startInfo)
         {
+            #region Sanity checks
+            if (startInfo == null) throw new ArgumentNullException("startInfo");
+            #endregion
+
             Process.Start(startInfo).WaitForExit();
         }
 
@@ -29,6 +33,10 @@ namespace Common.Utils
         /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
         public static Process RunAsync(ProcessStartInfo startInfo)
         {
+            #region Sanity checks
+            if (startInfo == null) throw new ArgumentNullException("startInfo");
+            #endregion
+
             return Process.Start(startInfo);
         }
 
@@ -40,6 +48,10 @@ namespace Common.Utils
         /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
         public static void RunDetached(ProcessStartInfo startInfo)
         {
+            #region Sanity checks
+            if (startInfo == null) throw new ArgumentNullException("startInfo");
+            #endregion
+
             // On Unix-like systems using an external launch helper is required to detach the child process from the parent
             if (MonoUtils.IsUnix) startInfo.UseShellExecute = true;
 
@@ -56,6 +68,10 @@ namespace Common.Utils
         /// <remarks>This method may not return on success. Warning: Any concurrent threads may be terminated!</remarks>
         public static void RunReplace(ProcessStartInfo startInfo)
         {
+            #region Sanity checks
+            if (startInfo == null) throw new ArgumentNullException("startInfo");
+            #endregion
+
             if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
             {
                 if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) Environment.CurrentDirectory = startInfo.WorkingDirectory;

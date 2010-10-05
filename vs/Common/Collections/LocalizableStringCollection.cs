@@ -77,6 +77,7 @@ namespace Common.Collections
         /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
         public string GetLanguage(CultureInfo language)
         {
+            // ToDo: Implement
             throw new NotImplementedException();
         }
         #endregion
