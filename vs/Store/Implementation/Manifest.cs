@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
-            foreach (var format in ManifestFormat.All)
+            foreach (var format in ManifestFormat.AllSupported)
                 // ... and add the resulting digest to the return value
                 ManifestDigest.ParseID(Generate(path, format, startingManifest).CalculateDigest(), ref digest);
 

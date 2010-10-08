@@ -35,9 +35,9 @@ namespace ZeroInstall.Store.Implementation
         public static ManifestFormat Sha256 { get { return _sha256; } }
 
         /// <summary>
-        /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
+        /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly IEnumerable<ManifestFormat> All = new[] { _sha256, _sha1New, _sha1Old };
+        public static readonly IEnumerable<ManifestFormat> AllSupported = new[] { _sha256, _sha1New };
         #endregion
 
         #region Factory methods
