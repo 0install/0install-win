@@ -111,18 +111,24 @@ namespace Common.Utils
         [SuppressUnmanagedCodeSecurity]
         private static class SafeNativeMethods
         {
+            #region Platform
+            [DllImport("kernel32", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
+            #endregion
+
             #region Performance counters
-            [DllImport("kernel32.dll")]
+            [DllImport("kernel32")]
             [return : MarshalAs(UnmanagedType.Bool)]
             internal static extern bool QueryPerformanceFrequency(out long lpFrequency);
 
-            [DllImport("kernel32.dll")]
+            [DllImport("kernel32")]
             [return : MarshalAs(UnmanagedType.Bool)]
             internal static extern bool QueryPerformanceCounter(out long lpCounter);
             #endregion
 
             #region Window messages
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32", CharSet = CharSet.Auto)]
             [return: MarshalAs(UnmanagedType.Bool)]
             internal static extern bool PeekMessage(out WinMessage msg, IntPtr hWnd, uint messageFilterMin, uint messageFilterMax, uint flags);
 
@@ -138,31 +144,68 @@ namespace Common.Utils
                 // ReSharper restore InconsistentNaming
             }
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32", CharSet = CharSet.Auto)]
             internal static extern short GetAsyncKeyState(uint key);
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32", CharSet = CharSet.Auto)]
             public static extern int GetCaretBlinkTime();
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32", CharSet = CharSet.Auto)]
             public static extern IntPtr SetCapture(IntPtr handle);
 
-            [DllImport("user32.dll", CharSet = CharSet.Auto)]
+            [DllImport("user32", CharSet = CharSet.Auto)]
             [return : MarshalAs(UnmanagedType.Bool)]
             public static extern bool ReleaseCapture();
             #endregion
 
-            #region 64bit Windows
-            [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
-            [return: MarshalAs(UnmanagedType.Bool)]
-            public static extern bool IsWow64Process([In] IntPtr hProcess, [Out, MarshalAs(UnmanagedType.Bool)] out bool lpSystemInfo);
-            #endregion
-
-            #region Windows 7
-            [DllImport("shell32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
+            #region Taskbar
+            [DllImport("shell32", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
             public static extern void SetCurrentProcessExplicitAppUserModelID([MarshalAs(UnmanagedType.LPWStr)] string appID);
             #endregion
         }
+
+        #region Platform
+        /// <summary>
+        /// <see langword="true"/> if the current operating system is a modern desktop Windows version (9x- or NT-based); <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindows
+        { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
+
+        /// <summary>
+        /// <see langword="true"/> if the current operating system is Windows 7 or newer; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool IsWindows7
+        { get { return Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1); } }
+
+        /// <summary>
+        /// <see langword="true"/> if the current operating system is 64-bit capable; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool Is64BitOperatingSystem
+        { get { return Is64BitProcess || Is32BitProcessOn64BitOperatingSystem; } }
+
+        /// <summary>
+        /// <see langword="true"/> if the current process is 64-bit; <see langword="false"/> otherwise.
+        /// </summary>
+        public static bool Is64BitProcess
+        { get { return IntPtr.Size == 8; } }
+
+        /// <summary>
+        /// <see langword="true"/> if the current process is 32-bit but the operating system is 64-bit capable; <see langword="false"/> otherwise.
+        /// </summary>
+        /// <remarks>Can only detect WOW on Windows XP and newer</remarks>
+        public static bool Is32BitProcessOn64BitOperatingSystem
+        {
+            get
+            {
+                // Can only detect WOW on Windows XP or newer
+                if (Environment.OSVersion.Platform != PlatformID.Win32NT || Environment.OSVersion.Version < new Version(5, 1)) return false;
+
+                bool retVal;
+                SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
+                return retVal;
+            }
+        }
+        #endregion
 
         #region Performance counter
         private static long _performanceFrequency;
@@ -254,37 +297,7 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Platform
-        /// <summary>
-        /// <see langword="true"/> if the current operating system is a modern desktop Windows version (9x- or NT-based); <see langword="false"/> otherwise.
-        /// </summary>
-        public static bool IsWindows
-        { get { return Environment.OSVersion.Platform == PlatformID.Win32Windows || Environment.OSVersion.Platform == PlatformID.Win32NT; } }
-
-        /// <summary>
-        /// <see langword="true"/> if the current operating system is a 64-bit capable; <see langword="false"/> otherwise.
-        /// </summary>
-        public static bool Is64Bit
-        {
-            get
-            {
-                // Check if this is a 64-bit process or a 32-bit process running on WOW
-                return IntPtr.Size == 8 || (IntPtr.Size == 4 && Is32BitProcessOn64BitProcessor());
-            }
-        }
-
-        private static bool Is32BitProcessOn64BitProcessor()
-        {
-            // Can only detect NT WOW
-            if (Environment.OSVersion.Platform != PlatformID.Win32NT) return false;
-
-            bool retVal;
-            SafeNativeMethods.IsWow64Process(Process.GetCurrentProcess().Handle, out retVal);
-            return retVal;
-        }
-        #endregion
-
-        #region Windows 7
+        #region TaskBar
         /// <summary>
         /// Sets the current process' explicit application user model ID.
         /// </summary>
@@ -296,15 +309,12 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(appId)) throw new ArgumentNullException("appId");
             #endregion
 
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
-            {
-                // Only execute on Windows 7 or newer
+            if (IsWindows7)
                 SafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
-            }
         }
 
         // Best practice recommends defining a private object to lock on
-        private static Object syncLock = new Object();
+        private static readonly Object syncLock = new Object();
 
         private static ITaskbarList4 _taskbarList;
         /// <summary>
@@ -340,11 +350,8 @@ namespace Common.Utils
         /// <param name="state">Progress state of the progress button</param>
         public static void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle)
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
-            {
-                // Only execute on Windows 7 or newer
-                TaskbarList.SetProgressState(windowHandle, (TBPFLAG) state);
-            }
+            if (IsWindows7)
+                TaskbarList.SetProgressState(windowHandle, (TBPFLAG)state);
         }
 
         /// <summary>
@@ -357,11 +364,8 @@ namespace Common.Utils
         /// <param name="maximumValue">An application-defined value that specifies the value <paramref name="currentValue"/> will have when the operation is complete.</param>
         public static void SetProgressValue(int currentValue, int maximumValue, IntPtr windowHandle)
         {
-            if (Environment.OSVersion.Platform == PlatformID.Win32NT && Environment.OSVersion.Version >= new Version(6, 1))
-            {
-                // Only execute on Windows 7 or newer
+            if (IsWindows7)
                 TaskbarList.SetProgressValue(windowHandle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
-            }
         }
         #endregion
     }

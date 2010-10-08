@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ComponentDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm12="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="c1b3050e-775a-4146-aebe-9f0dd2f0d8e1" name="Fetcher_FetchArchive" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="c1b3050e-775a-4146-aebe-9f0dd2f0d8e1" name="Fetcher_FetchArchive" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
   <packagedElements>
     <packageHasNamedElement>
       <interaction Id="44497290-55ae-46a2-ad8a-16ae8b74923b" name="Fetcher_FetchArchive" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
@@ -489,12 +489,6 @@
               <executionOccurrenceSpecificationMoniker Id="413abd5e-3dee-4bdd-9d89-a45a1c01dc55" LastKnownName="ExecutionOccurrenceSpecification" />
               <executionOccurrenceSpecificationMoniker Id="4d2476f8-da89-4633-bffa-7d219baa7a13" LastKnownName="ExecutionOccurrenceSpecification" />
             </topLevelOccurrences>
-          </lifeline>
-          <lifeline Id="6c158f25-1672-4580-93c8-b0a73a59f244" name="Fetcher" isActor="false" lifelineDisplayName="Fetcher" referencedType="ZeroInstall.DownloadBroker.Fetcher">
-            <referencesInternal>
-              <reference Id="fad77430-033b-4ede-b621-53e2ff67698f" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=ZeroInstall.DownloadBroker)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(37c09dc0-86fa-422c-b7ea-6970bf348ed0.OutputPathUri)&amp;quot; Namespace=ZeroInstall.DownloadBroker Type=Fetcher)&quot;)" tag="DGQL" />
-              <reference Id="706db971-fa4f-4703-a738-461d71d2f54a" handle="(Assembly=&quot;$(37c09dc0-86fa-422c-b7ea-6970bf348ed0.OutputPathUri)&quot; Namespace=ZeroInstall.DownloadBroker Type=Fetcher)" tag="DGML" />
-            </referencesInternal>
           </lifeline>
           <lifeline Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" name="downloadFile : DownloadFile" isActor="false" lifelineDisplayName="downloadFile : DownloadFile" referencedInstance="(Assembly=$(81af4fa5-44f7-4010-8769-b85b8b542fa2.OutputPathUri) Namespace=Common.Download Type=DownloadFile ObjectInstance=&quot;Object instance 28&quot;)" referencedType="Common.Download.DownloadFile">
             <referencesInternal>
