@@ -31,13 +31,19 @@ namespace ZeroInstall.Model
     public sealed class WorkingDirBinding : Binding, IEquatable<WorkingDirBinding>
     {
         #region Properties
-        private string _source = ".";
         /// <summary>
         /// The relative path of the directory in the implementation to publish. The default is to publish everything.
         /// </summary>
         [Description("The name of the environment variable.")]
         [XmlAttribute("src"), DefaultValue("")]
-        public string Source { get { return _source; } set { _source = value; } }
+        public string Source { get; set; }
+        #endregion
+
+        #region Constructor
+        public WorkingDirBinding()
+        {
+            Source = ".";
+        }
         #endregion
 
         //--------------------//
