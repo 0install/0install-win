@@ -53,7 +53,7 @@ namespace ZeroInstall.DownloadBroker
                 hash = FileUtils.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
             }
             if (entry.IsExecutable) node = new ManifestExecutableFile(hash, FileUtils.UnixTime(entry.LastWriteTime), size, entry.Name);
-            else node = new ManifestFile(hash, FileUtils.UnixTime(entry.LastWriteTime), size, entry.Name);
+            else node = new ManifestNormalFile(hash, FileUtils.UnixTime(entry.LastWriteTime), size, entry.Name);
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
         }
     }

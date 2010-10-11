@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementation
         public abstract string GenerateEntryForNode(ManifestNode node);
 
         /// <summary>
-        /// Parses a file entry (line) back into a <see cref="ManifestNode"/>.
+        /// Parses a file entry (line) back into a <see cref="ManifestDirectory"/>.
         /// </summary>
         internal abstract ManifestDirectory ReadDirectoryNodeFromEntry(string entry);
 

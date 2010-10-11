@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 // Parse each line as a node
                 string line = reader.ReadLine();
-                if (line.StartsWith("F")) nodes.Add(ManifestFile.FromString(line));
+                if (line.StartsWith("F")) nodes.Add(ManifestNormalFile.FromString(line));
                 else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
                 else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));
                 else if (line.StartsWith("D")) nodes.Add(format.ReadDirectoryNodeFromEntry(line));

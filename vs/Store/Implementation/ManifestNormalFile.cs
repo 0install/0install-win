@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Implementation
     /// An non-executable file-entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
-    public sealed class ManifestFile : ManifestFileBase, IEquatable<ManifestFile>
+    public sealed class ManifestNormalFile : ManifestFileBase, IEquatable<ManifestNormalFile>
     {
         #region Constructor
         /// <summary>
@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="size">The size of the file in bytes.</param>
         /// <param name="fileName">The name of the file without the containing directory.</param>
         /// <exception cref="NotSupportedException">Thrown if <paramref name="fileName"/> contains a newline character.</exception>
-        public ManifestFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
+        public ManifestNormalFile(string hash, long modifiedTime, long size, string fileName) : base(hash, modifiedTime, size, fileName)
         {}
         #endregion
 
@@ -47,13 +47,13 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="line">The string representation to parse.</param>
         /// <returns>The newly created node.</returns>
         /// <exception cref="FormatException">Thrown if the <paramref name="line"/> format is incorrect.</exception>
-        internal static ManifestFile FromString(string line)
+        internal static ManifestNormalFile FromString(string line)
         {
             const int numberOfParts = 5;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
             if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
 
-            try { return new ManifestFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
+            try { return new ManifestNormalFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
             #region Error handling
             catch (OverflowException ex)
             {
@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
-        public bool Equals(ManifestFile other)
+        public bool Equals(ManifestNormalFile other)
         {
             return base.Equals(other);
         }
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ManifestFile) && Equals((ManifestFile)obj);
+            return obj.GetType() == typeof(ManifestNormalFile) && Equals((ManifestNormalFile)obj);
         }
 
         public override int GetHashCode()

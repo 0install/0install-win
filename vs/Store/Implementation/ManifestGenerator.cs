@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation
             if (externalXBits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
                 return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
             else
-                return new ManifestFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>

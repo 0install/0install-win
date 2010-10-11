@@ -71,7 +71,7 @@
     <Compile Include="Implementation\ManifestNode.cs" />
     <Compile Include="Implementation\ManifestDirectory.cs" />
     <Compile Include="Implementation\ManifestFileBase.cs" />
-    <Compile Include="Implementation\ManifestFile.cs" />
+    <Compile Include="Implementation\ManifestNormalFile.cs" />
     <Compile Include="Implementation\ManifestExecutableFile.cs" />
     <Compile Include="Implementation\ManifestSymlink.cs" />
     <Compile Include="Implementation\ImplementationNotFoundException.cs" />
