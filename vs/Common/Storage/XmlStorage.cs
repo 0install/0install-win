@@ -328,7 +328,7 @@ namespace Common.Storage
 
                 foreach (ZipEntry zipEntry in zipFile)
                 {
-                    if (zipEntry.Name == "Data.xml")
+                    if (StringUtils.Compare(zipEntry.Name, "data.xml"))
                     {
                         // Read the XML file from the ZIP archive
                         using (var inputStream = zipFile.GetInputStream(zipEntry))
@@ -403,7 +403,7 @@ namespace Common.Storage
 
                 // Write the XML file to the ZIP archive
                 {
-                    var entry = new ZipEntry("Data.xml") { DateTime = DateTime.Now };
+                    var entry = new ZipEntry("data.xml") { DateTime = DateTime.Now };
                     zipStream.SetLevel(9);
                     zipStream.PutNextEntry(entry);
                     Save(zipStream, data, ignoreMembers);
