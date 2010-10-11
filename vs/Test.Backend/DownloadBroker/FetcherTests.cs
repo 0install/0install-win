@@ -155,8 +155,6 @@ namespace ZeroInstall.DownloadBroker
         [Test]
         public void ShouldGenerateCorrectXbitFile()
         {
-            DateTime readmeLastWrite, sdlDllLastWrite;
-
             using (var sdlArchive = TestData.GetSdlZipArchiveStream())
             {
                 var reader = new BinaryReader(sdlArchive);
@@ -164,21 +162,18 @@ namespace ZeroInstall.DownloadBroker
 
                 sdlArchive.Seek(0, SeekOrigin.Begin);
                 var zip = new ZipFile(sdlArchive);
-                readmeLastWrite = zip.GetEntry("README-SDL.txt").DateTime;
-                sdlDllLastWrite = zip.GetEntry("SDL.dll").DateTime;
             }
-
 
             var builder = new PackageBuilder();
             using (var readme = TestData.GetSdlReadmeStream())
             {
                 var reader = new BinaryReader(readme);
-                builder.AddFile("README-SDL.txt", reader.ReadBytes((int)readme.Length), readmeLastWrite);
+                builder.AddFile("README-SDL.txt", reader.ReadBytes((int)readme.Length), new DateTime(2007, 7, 20, 7, 25, 30));
             }
-            using (var SDLdll = TestData.GetSdlDllStream())
+            using (var sdlDll = TestData.GetSdlDllStream())
             {
-                var reader = new BinaryReader(SDLdll);
-                builder.AddExecutable("SDL.dll", reader.ReadBytes((int)SDLdll.Length), sdlDllLastWrite);
+                var reader = new BinaryReader(sdlDll);
+                builder.AddExecutable("SDL.dll", reader.ReadBytes((int)sdlDll.Length), new DateTime(2009, 10, 17, 19, 17, 0));
             }
 
             var implementation = SynthesizeImplementation(_archiveFile, 0, PackageBuilderManifestExtension.ComputePackageDigest(builder));

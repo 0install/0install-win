@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Collections;
-using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib.Zip;
 using System.Diagnostics;
 
@@ -51,14 +49,15 @@ namespace Common.Utils
     {
         private MemoryStream _content;
         private readonly bool _executable;
+        public bool IsExecutable { get { return _executable; } }
 
         public byte[] Content
         {
             get { return _content.ToArray(); }
         }
 
-        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWriteTime)
-            : base(name, parent, lastWriteTime)
+        internal FileEntry(string name, byte[] content, EntryContainer parent, bool executable, DateTime lastWrite)
+            : base(name, parent, lastWrite)
         {
             #region Preconditions
             Debug.Assert(!string.IsNullOrEmpty(name));
@@ -71,10 +70,7 @@ namespace Common.Utils
             _content.Seek(0, SeekOrigin.Begin);
             _executable = executable;
         }
-
-        public bool IsExecutable()
-        { return _executable; }
-
+        
         public override void AcceptVisitor(HierarchyVisitor visitor)
         { visitor.VisitFile(this); }
     }
