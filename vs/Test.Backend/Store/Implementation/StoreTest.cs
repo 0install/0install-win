@@ -19,10 +19,8 @@ using System;
 using System.IO;
 using Common.Utils;
 using Common.Storage;
-using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -100,31 +98,6 @@ namespace ZeroInstall.Store.Implementation
                 var store = new DirectoryStore(cache.Path);
                 store.AddDirectory(packageDir, digest, null);
                 Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
-            }
-        }
-
-        // Test deactivated because FastZip writes incorrect file changed times
-        //[Test]
-        public void ShouldAllowToAddArchive()
-        {
-            string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null));
-
-            string zipFile = Path.GetTempFileName();
-            new FastZip().CreateZip(zipFile, packageDir, true, "");
-
-            try
-            {
-                using (var cache = new TemporaryDirectory())
-                {
-                    var store = new DirectoryStore(cache.Path);
-                    store.AddArchive(new ArchiveFileInfo {Path = zipFile, MimeType = "application/zip"}, digest, null, null);
-                    Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
-                }
-            }
-            finally
-            {
-                File.Delete(zipFile);
             }
         }
 

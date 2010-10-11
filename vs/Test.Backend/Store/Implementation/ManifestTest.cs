@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 ManifestDigest digest1 = Manifest.CreateDigest(packageDir, null);
-                Assert.IsNotNullOrEmpty(digest1.Sha1Old);
+                Assert.IsNullOrEmpty(digest1.Sha1Old); // Sha1Old is deprecated
                 Assert.IsNotNullOrEmpty(digest1.Sha1New);
                 Assert.IsNotNullOrEmpty(digest1.Sha256);
 

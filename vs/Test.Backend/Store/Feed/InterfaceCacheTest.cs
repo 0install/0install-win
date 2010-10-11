@@ -46,7 +46,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures that <see cref="InterfaceCache.ListAllInterfaces"/> correctly identifies cached feed XMLs.
+        /// Ensures that <see cref="InterfaceCache.ListAllInterfaces"/> correctly identifies non-cached feed XMLs.
         /// </summary>
         [Test]
         public void TestGetCached()
