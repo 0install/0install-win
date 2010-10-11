@@ -82,6 +82,8 @@ namespace ZeroInstall.Store.Implementation.Archive
 
                     BytesProcessed = _tar.Position;
                 }
+
+                SetDirectoryWriteTimes();
             }
             #region Error handling
             catch (SharpZipBaseException ex)

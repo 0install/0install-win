@@ -65,7 +65,7 @@
     <Compile Include="Implementation\Archive\TarLzmaExtractor.cs" />
     <Compile Include="Implementation\Archive\ZipExtractor.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
-    <Compile Include="Implementation\ArchiveFileInfo.cs" />
+    <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
     <Compile Include="Implementation\Manifest.cs" />
     <Compile Include="Implementation\ManifestNode.cs" />

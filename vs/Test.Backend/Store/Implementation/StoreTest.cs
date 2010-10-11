@@ -22,6 +22,7 @@ using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 using NUnit.Framework;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Implementation
 {

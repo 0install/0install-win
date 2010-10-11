@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -32,6 +33,13 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// </summary>
     public abstract class Extractor : IOProgress, IDisposable
     {
+        #region Variables
+        /// <summary>
+        /// Stores the last write times for directories so they can be set by <see cref="SetDirectoryWriteTimes"/>.
+        /// </summary>
+        private readonly List<KeyValuePair<string, DateTime>> _directoryWriteTimes = new List<KeyValuePair<string, DateTime>>();
+        #endregion
+
         #region Properties
         private string _name;
         /// <inheritdoc />
@@ -198,7 +206,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             string directoryPath = CombinePath(Target, relativePath);
 
             Directory.CreateDirectory(directoryPath);
-            Directory.SetLastWriteTimeUtc(directoryPath, dateTime);
+            _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(directoryPath, dateTime));
         }
 
         /// <summary>
@@ -260,6 +268,20 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalid);
 
             return Path.Combine(target, relativePath);
+        }
+
+        /// <summary>
+        /// Sets the last write times of the directories that were recorded during extraction.
+        /// </summary>
+        /// <remarks>This must be done in a separate step, since changing anything within a directory will affect its last write time.</remarks>
+        protected void SetDirectoryWriteTimes()
+        {
+            // Run through list backwards to ensure directories are handled "from the inside out"
+            for (int index = _directoryWriteTimes.Count - 1; index >= 0; index--)
+            {
+                var pair = _directoryWriteTimes[index];
+                Directory.SetLastWriteTimeUtc(pair.Key, pair.Value);
+            }
         }
         #endregion
 

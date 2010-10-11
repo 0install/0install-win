@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.Store.Implementation
+namespace ZeroInstall.Store.Implementation.Archive
 {
     /// <summary>
     /// A parameter structure containing information about a requested archive extraction.

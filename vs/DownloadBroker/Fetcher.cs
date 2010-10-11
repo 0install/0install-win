@@ -23,6 +23,7 @@ using Common;
 using Common.Download;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.DownloadBroker
 {

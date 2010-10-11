@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Implementation
 {

@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using Common;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation

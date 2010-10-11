@@ -85,6 +85,8 @@ namespace ZeroInstall.Store.Implementation.Archive
 
                     BytesProcessed += entry.CompressedSize;
                 }
+
+                SetDirectoryWriteTimes();
             }
             #region Error handling
             catch (ZipException ex)

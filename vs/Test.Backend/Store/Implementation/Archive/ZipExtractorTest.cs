@@ -126,6 +126,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             }
 
             Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "nestedFolder")));
+            Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine("extractedArchive", "nestedFolder")));
             Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "nestedFile")));
             Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file1")));
             Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file2")));

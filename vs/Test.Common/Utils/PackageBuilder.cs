@@ -255,8 +255,9 @@ namespace Common.Utils
 
     public class PackageBuilder
     {
+        public static readonly DateTime DefaultDate = new DateTime(2000, 1, 1);
+
         private readonly EntryContainer _packageHierarchy;
-        private readonly DateTime defaultDate = DateTime.Today;
 
         public EntryContainer Hierarchy
         {
@@ -265,7 +266,7 @@ namespace Common.Utils
 
         public PackageBuilder()
         {
-            _packageHierarchy = new RootEntry(defaultDate);
+            _packageHierarchy = new RootEntry(DefaultDate);
         }
 
         internal PackageBuilder(EntryContainer folder)
@@ -274,7 +275,7 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddFolder(string name)
-        { return AddFolder(name, defaultDate); }
+        { return AddFolder(name, DefaultDate); }
 
         public PackageBuilder AddFolder(string name, DateTime lastWrite)
         {
@@ -284,7 +285,7 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddFile(string name, byte[] content)
-        { return AddFile(name, content, defaultDate); }
+        { return AddFile(name, content, DefaultDate); }
 
         public PackageBuilder AddFile(string name, string content)
         {
@@ -305,7 +306,7 @@ namespace Common.Utils
         }
 
         public PackageBuilder AddExecutable(string name, byte[] content)
-        { return AddExecutable(name, content, defaultDate); }
+        { return AddExecutable(name, content, DefaultDate); }
 
         public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWrite)
         {

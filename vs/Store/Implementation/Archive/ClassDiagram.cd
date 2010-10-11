@@ -7,7 +7,7 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAIAAASCAAQAAAAAAAACQAAAAYAAgAAAAgiACAARA=</HashCode>
+      <HashCode>AAAAIAAASCAAQAAAAAAAACQAAAAYCAgAAAAgiACCAQA=</HashCode>
       <FileName>Implementation\Archive\Extractor.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -47,5 +47,12 @@
       <FileName>Implementation\Archive\TarLzmaExtractor.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Struct Name="ZeroInstall.Store.Implementation.ArchiveFileInfo">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAABACAAAA=</HashCode>
+      <FileName>Implementation\Archive\ArchiveFileInfo.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
