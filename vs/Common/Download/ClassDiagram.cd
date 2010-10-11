@@ -17,6 +17,7 @@
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Jobs" />
+      <Property Name="Files" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Common.Download.DownloadFile">
@@ -25,19 +26,10 @@
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="State" Type="Common.ProgressState">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.152" Y="0.07" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AQAAIBAARmAAAAgAABABCCAACAAAQAAgACEFBFCQAiA=</HashCode>
+      <HashCode>AAAAABAAQkAAAAAgAAAAACQACAAAQAAAAAABARAAAAA=</HashCode>
       <FileName>Download\DownloadFile.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="State" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
   </Class>
   <Class Name="Common.Download.DownloadJob" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="0.75" Y="3" Width="1.5" />
@@ -71,8 +63,8 @@
   <Enum Name="Common.ProgressState">
     <Position X="6.5" Y="2" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAQMAEAAAAAAAAAIAAAAAAAABAAAAAAA=</HashCode>
-      <FileName>IProgress.cs</FileName>
+      <HashCode>BAAAAAAAAAAAAQMAEAAAAAAAAAIAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>ProgressState.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

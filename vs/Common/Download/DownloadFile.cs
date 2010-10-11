@@ -184,7 +184,7 @@ namespace Common.Download
                         }
 
                         // Start writing data to the file
-                        WriteStreamToTarget(response.GetResponseStream(), fileStream);
+                        if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
 
                         lock (StateLock) if (_cancelRequest) return;
                     }
