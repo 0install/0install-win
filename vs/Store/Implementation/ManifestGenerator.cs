@@ -173,6 +173,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <returns>A list of fully qualified paths of files that are named in an <code>.xbit</code> file.</returns>
         /// <remarks>This method searches for the <code>.xbit</code> file starting in the <see cref="TargetPath"/> and moving upwards until it finds it or until it reaches the root directory.</remarks>
+        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
         private ICollection<string> GetExternalXBits()
         {
             var externalXBits = new C5.HashSet<string>();
@@ -213,6 +215,8 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
         /// <returns>The node for the list.</returns>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has linebreaks in the filename, etc.).</exception>
+        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
         private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
         {
             string symlinkContents;
@@ -234,7 +238,9 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="directory">The directory object to create a node for.</param>
         /// <param name="rootPath">The fully qualified path of the root directory the manifest is being generated for.</param>
-        /// <returns>Thenode for the list.</returns>
+        /// <returns>The node for the list.</returns>
+        /// <exception cref="IOException">Thrown if there was an error reading the directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the directory.</exception>
         private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
         {
             return new ManifestDirectory(

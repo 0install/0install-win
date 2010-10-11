@@ -42,6 +42,8 @@ namespace Common.Utils
         /// <param name="path">The path of the file to hash.</param>
         /// <param name="algorithm">The hashing algorithm to use.</param>
         /// <returns>A hexadecimal string representation of the hash value.</returns>
+        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
         public static string ComputeHash(string path, HashAlgorithm algorithm)
         {
             #region Sanity checks
@@ -171,20 +173,50 @@ namespace Common.Utils
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to apply the write protection.</exception>
         public static void WriteProtection(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (!Directory.Exists(path)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
+            #endregion
+
             var dirInfo = new DirectoryInfo(path);
 
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    // ToDo: Set Unix octals
-                    break;
+                    try
+                    {
+                        // Make directory read-only
+                        MonoUtils.MakeReadOnly(path);
+
+                        // Recurse into subdirectories
+                        foreach (var directory in dirInfo.GetDirectories())
+                            WriteProtection(directory.FullName);
+
+                        // Make files read-only
+                        foreach (var file in dirInfo.GetFiles())
+                            MonoUtils.MakeReadOnly(file.FullName);
+                        break;
+                    }
+                    #region Error handling
+                    catch (InvalidOperationException ex)
+                    {
+                        throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    }
+                    #endregion
 
                 case PlatformID.Win32Windows:
-                    // ToDo: Run for each contained file: "fileInfo.IsReadOnly = true;"
+                    // Recurse into subdirectories
+                    foreach (var directory in dirInfo.GetDirectories())
+                        WriteProtection(directory.FullName);
+
+                    // Make files read-only
+                    foreach (var file in dirInfo.GetFiles())
+                        file.IsReadOnly = true;
                     break;
 
                 case PlatformID.Win32NT:
+                    // Set recursive ACL
                     DirectorySecurity security = dirInfo.GetAccessControl();
                     security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
                     dirInfo.SetAccessControl(security);
@@ -199,6 +231,7 @@ namespace Common.Utils
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a regular file; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsRegularFile(string path)
         {
             if (!File.Exists(path)) return false;
@@ -208,7 +241,15 @@ namespace Common.Utils
                 return true;
 
             if (MonoUtils.IsUnix)
-                return MonoUtils.IsRegularFile(path);
+            {
+                try { return MonoUtils.IsRegularFile(path); }
+                #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
 
             return true;
         }
@@ -218,9 +259,19 @@ namespace Common.Utils
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsSymlink(string path, out string contents, out long length)
         {
-            if (File.Exists(path) && MonoUtils.IsUnix) return MonoUtils.IsSymlink(path, out contents, out length);
+            if (File.Exists(path) && MonoUtils.IsUnix)
+            {
+                try { return MonoUtils.IsSymlink(path, out contents, out length); }
+                #region Error handling
+                catch (InvalidOperationException ex)
+                {
+                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                }
+                #endregion
+            }
 
             // Return default values
             contents = null;
@@ -233,11 +284,18 @@ namespace Common.Utils
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to an executable; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
         public static bool IsExecutable(string path)
         {
             if (!File.Exists(path) || !MonoUtils.IsUnix) return false;
 
-            return MonoUtils.IsExecutable(path);
+            try { return MonoUtils.IsExecutable(path); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
         }
 
         /// <summary>
@@ -247,6 +305,7 @@ namespace Common.Utils
         /// <param name="executable"><see lang="true"/> to mark the file as executable, <see lang="true"/> to mark it as not executable.</param>
         /// <exception cref="FileNotFoundException">Thrown if <paramref name="path"/> points to a file that does not exist or cannot be accessed.</exception>
         /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unix-like system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to change the file's properties.</exception>
         public static void SetExecutable(string path, bool executable)
         {
             #region Sanity checks
@@ -254,7 +313,13 @@ namespace Common.Utils
             if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
             #endregion
 
-            MonoUtils.SetExecutable(path, executable);
+            try { MonoUtils.SetExecutable(path, executable); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
         }
         #endregion
     }

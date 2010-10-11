@@ -248,4 +248,7 @@ Die Änderungen löschen</value>
   <data name="FailedToLaunch" xml:space="preserve">
     <value>{0} konnte nicht gestartet werden.</value>
   </data>
+  <data name="UnixSubsystemFail" xml:space="preserve">
+    <value>Das Unix Subsystem war nicht in der Lage die Anfrage zu bearbeiten. Eventuell haben Sie unzureichende Rechte.</value>
+  </data>
 </root>

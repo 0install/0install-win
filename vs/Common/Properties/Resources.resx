@@ -258,4 +258,7 @@ Delete the changes</value>
   <data name="FailedToLaunch" xml:space="preserve">
     <value>{0} could not be launched.</value>
   </data>
+  <data name="UnixSubsystemFail" xml:space="preserve">
+    <value>The Unix subsystem failed to process the request. You may have insufficient rights.</value>
+  </data>
 </root>

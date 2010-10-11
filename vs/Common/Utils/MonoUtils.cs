@@ -45,23 +45,23 @@ namespace Common.Utils
 
         #region File type
         /// <summary>
-        /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.). Don't call on non-Unix-like systems!
+        /// Checks whether a file is a regular file (i.e. not a device file, symbolic link, etc.).
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a regular file; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
-        internal static bool IsRegularFile(string path)
+        public static bool IsRegularFile(string path)
         {
             return new UnixFileInfo(path).IsRegularFile;
         }
 
         /// <summary>
-        /// Checks whether a file is a Unix symbolic link. Don't call on non-Unix-like systems!
+        /// Checks whether a file is a Unix symbolic link.
         /// </summary>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
-        internal static bool IsSymlink(string path, out string contents, out long length)
+        public static bool IsSymlink(string path, out string contents, out long length)
         {
             bool result = UnixFileSystemInfo.GetFileSystemEntry(path).IsSymbolicLink;
             
@@ -82,16 +82,33 @@ namespace Common.Utils
         #endregion
 
         #region Permissions
+        /// <summary>A combination of bit flags to grant everyone writing permissions.</summary>
+        private const FileAccessPermissions AllWritePermission = FileAccessPermissions.UserWrite | FileAccessPermissions.GroupWrite | FileAccessPermissions.OtherWrite;
+
+        /// <summary>
+        /// Removes write permissions for everyone on a file system object (file or directory).
+        /// </summary>
+        /// <param name="path">The file system object (file or directory) to make read-only.</param>
+        /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void MakeReadOnly(string path)
+        {
+            var fileSysInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
+            fileSysInfo.FileAccessPermissions = fileSysInfo.FileAccessPermissions & ~AllWritePermission;
+        }
+
         /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
         private const FileAccessPermissions AllExecutePermission = FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute | FileAccessPermissions.OtherExecute;
         
         /// <summary>
-        /// Checks whether a file is marked as Unix-executable. Don't call on non-Unix-like systems!
+        /// Checks whether a file is marked as Unix-executable.
         /// </summary>
+        /// <param name="path">The file to check for executable rights.</param>
         /// <return><see lang="true"/> if <paramref name="path"/> points to an executable; <see lang="false"/> otherwise.</return>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         /// <remarks>Will return <see langword="false"/> for non-existing files.</remarks>
-        internal static bool IsExecutable(string path)
+        public static bool IsExecutable(string path)
         {
             // Check if any execution rights are set
             var fileInfo = new UnixFileInfo(path);
@@ -99,17 +116,17 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Marks a file as Unix-executable or not Unix-executable. Don't call on non-Unix-like systems!
+        /// Marks a file as Unix-executable or not Unix-executable.
         /// </summary>
         /// <param name="path">The file to mark as executable or not executable.</param>
         /// <param name="executable"><see lang="true"/> to mark the file as executable, <see lang="true"/> to mark it as not executable.</param>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
-        internal static void SetExecutable(string path, bool executable)
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void SetExecutable(string path, bool executable)
         {
-            // Set or unset all execution rights
             var fileInfo = new UnixFileInfo(path);
-            if (executable) fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions | AllExecutePermission;
-            else fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions & ~AllExecutePermission;
+            if (executable) fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions | AllExecutePermission; // Set all execution rights
+            else fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions & ~AllExecutePermission; // Unset all execution rights
         }
         #endregion
 
@@ -142,7 +159,7 @@ namespace Common.Utils
             var env = new string[environment.Count];
             int i = 0;
             foreach (DictionaryEntry variable in environment)
-                env[i++] = variable.Key.ToString().Replace("=", "\\=") + "=" + variable.Value.ToString();
+                env[i++] = variable.Key.ToString().Replace("=", "\\=") + "=" + variable.Value;
             return env;
         }
         #endregion

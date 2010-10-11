@@ -447,6 +447,15 @@ namespace Common.Properties {
             }
         }
         
+        /// <summary>
+        ///   Looks up a localized string similar to The Unix subsystem failed to process the request. You may have insufficient rights..
+        /// </summary>
+        internal static string UnixSubsystemFail {
+            get {
+                return ResourceManager.GetString("UnixSubsystemFail", resourceCulture);
+            }
+        }
+        
         internal static System.Drawing.Bitmap Warning {
             get {
                 object obj = ResourceManager.GetObject("Warning", resourceCulture);
