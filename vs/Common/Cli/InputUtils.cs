@@ -36,7 +36,7 @@ namespace Common.Cli
         /// <returns>The string the user entered; <see cref="string.Empty"/> if none; <see langword="null"/> if the input stream has been closed.</returns>
         public static string ReadString(string prompt)
         {
-            Console.Error.Write(prompt);
+            Console.Error.Write(prompt + " ");
             return Console.ReadLine();
         }
 
@@ -47,7 +47,7 @@ namespace Common.Cli
         /// <returns>The password the user entered; <see cref="string.Empty"/> if none.</returns>
         public static string ReadPassword(string prompt)
         {
-            Console.Error.Write(prompt);
+            Console.Error.Write(prompt + " ");
 
             string password = "";
 
