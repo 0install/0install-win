@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="5ac26479-3c13-41d1-89a8-d0387cd5e421"
   name="Architecture" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
@@ -29,6 +29,61 @@
         </stereotypeInstanceHasPropertyInstances>
       </propertyInstances>
     </stereotypeInstance>
+    <stereotypeInstance
+      Id="4baa53ad-f0ab-487b-a2d9-959c0fca969c"
+      name="TextTemplateBindings"
+      profile="TextTemplateBindings">
+      <propertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="57eab531-06cb-4517-9c88-aacf6faca565">
+          <propertyInstance
+            Id="a6c27fd7-1ee8-463a-beab-e1eccbeb0096"
+            name="Alias"
+            value="ClassTemplate|EnumTemplate|InterfaceTemplate|StructTemplate" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="5f1e6c48-f58f-4df7-a2d8-4a4e52d4b1a8">
+          <propertyInstance
+            Id="3731999d-e43e-44a2-a667-875cf4ad3a01"
+            name="TemplateFilePath"
+            value="ClassTemplate=%LocalAppData%\Microsoft\VisualStudio\10.0\Extensions\Microsoft\Visualization and Modeling Feature Pack\1.0\Templates\Text\ClassTemplate.t4|EnumTemplate=%LocalAppData%\Microsoft\VisualStudio\10.0\Extensions\Microsoft\Visualization and Modeling Feature Pack\1.0\Templates\Text\EnumTemplate.t4|InterfaceTemplate=%LocalAppData%\Microsoft\VisualStudio\10.0\Extensions\Microsoft\Visualization and Modeling Feature Pack\1.0\Templates\Text\InterfaceTemplate.t4|StructTemplate=%LocalAppData%\Microsoft\VisualStudio\10.0\Extensions\Microsoft\Visualization and Modeling Feature Pack\1.0\Templates\Text\StructTemplate.t4" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="ed665ed6-1fc2-4011-bd36-1c3c6ba93885">
+          <propertyInstance
+            Id="798e187a-f136-46a7-930c-e4de4a487712"
+            name="ProjectPath"
+            value="ClassTemplate=..\ArchitectureLib\ArchitectureLib.csproj|EnumTemplate=..\ArchitectureLib\ArchitectureLib.csproj|InterfaceTemplate=..\ArchitectureLib\ArchitectureLib.csproj|StructTemplate=..\ArchitectureLib\ArchitectureLib.csproj" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="d883110f-2b88-4744-87ed-d074b94f4749">
+          <propertyInstance
+            Id="cd078f06-5f69-4b40-ba96-5b376a9234d4"
+            name="TargetDirectory"
+            value="ClassTemplate=GeneratedCode\{PackageStructure}|EnumTemplate=GeneratedCode\{PackageStructure}|InterfaceTemplate=GeneratedCode\{PackageStructure}|StructTemplate=GeneratedCode\{PackageStructure}" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="195411b7-d38b-40bd-80f7-954d1844d192">
+          <propertyInstance
+            Id="710ba237-6bd5-4be9-bab1-f6fca3b050ec"
+            name="TargetName"
+            value="ClassTemplate={Name}|EnumTemplate={Name}|InterfaceTemplate={Name}|StructTemplate={Name}" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="a10069d7-2f7d-4732-84c7-e78294a18e6e">
+          <propertyInstance
+            Id="49709a70-712b-444e-b58c-708bc4377830"
+            name="Overwrite"
+            value="ClassTemplate=True|EnumTemplate=True|InterfaceTemplate=True|StructTemplate=True" />
+        </stereotypeInstanceHasPropertyInstances>
+        <stereotypeInstanceHasPropertyInstances
+          Id="1bb2f771-c863-4c04-bcb4-899872f14e85">
+          <propertyInstance
+            Id="b918cc7c-3147-4fb6-a058-4c450215773f"
+            name="Parameters" />
+        </stereotypeInstanceHasPropertyInstances>
+      </propertyInstances>
+    </stereotypeInstance>
   </appliedStereotypesInternal>
   <profileInstances>
     <packageHasProfileInstances
@@ -37,19 +92,25 @@
         Id="6d95864c-8c9c-44b6-9b25-432e3c5f2a98"
         name="CSharpProfile" />
     </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="f4175628-e21e-4303-bbc8-2d30a137d611">
+      <profileInstance
+        Id="39836a96-0c65-4a77-ad78-6f7c4fbc16f6"
+        name="TextTemplateBindings" />
+    </packageHasProfileInstances>
   </profileInstances>
   <packagedElements>
     <packageHasNamedElement>
       <packageMoniker
-        Id="fcf5151d-4ef4-4013-90c3-1efddcfde510"
+        Id="5c0fcabd-422d-499e-8d55-1da3dc9a74b4"
         LastKnownName="ZeroInstall"
-        LastKnownLocation="Package_1402.uml" />
+        LastKnownLocation="Package_1629.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <packageMoniker
-        Id="3c323998-d850-4a26-94b1-bcee782cc0ea"
+        Id="bdfc0818-2f15-49d6-87f4-2c319d7d65cc"
         LastKnownName="Common"
-        LastKnownLocation="Package_1718.uml" />
+        LastKnownLocation="Package5_1629.uml" />
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

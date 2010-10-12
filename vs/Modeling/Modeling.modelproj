@@ -17,52 +17,52 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
-    <Content Include="ModelDefinition\Package1_1402.uml">
+    <Content Include="ModelDefinition\Package1_1629.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package1_1423.uml">
+    <Content Include="ModelDefinition\Package1_1632.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package1_1715.uml">
+    <Content Include="ModelDefinition\Package1_1637.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package1_1721.uml">
+    <Content Include="ModelDefinition\Package2_1632.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package1_1729.uml">
+    <Content Include="ModelDefinition\Package2_1637.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package1_1756.uml">
+    <Content Include="ModelDefinition\Package4_1632.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package2_1402.uml">
+    <Content Include="ModelDefinition\Package5_1629.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package2_1756.uml">
+    <Content Include="ModelDefinition\Package5_1632.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1402.uml">
+    <Content Include="ModelDefinition\Package5_1633.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1412.uml">
+    <Content Include="ModelDefinition\Package_1629.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1423.uml">
+    <Content Include="ModelDefinition\Package_1632.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1715.uml">
+    <Content Include="ModelDefinition\Package_1633.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1718.uml">
+    <Content Include="ModelDefinition\Package_1634.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1721.uml">
+    <Content Include="ModelDefinition\Package_1637.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1729.uml">
+    <Content Include="ModelDefinition\Package_1638.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1756.uml">
+    <Content Include="ModelDefinition\Package_1749.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ProjectReferences\Central.dgml">
@@ -83,12 +83,12 @@
     <Content Include="SolutionStructure.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\DownloadBroker.classdiagram">
+    <Content Include="UML\Class\Download.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\DownloadBroker.classdiagram.layout">
+    <Content Include="UML\Class\Download.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\DownloadBroker.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Download.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Handler.classdiagram">
       <SubType>Content</SubType>
@@ -111,12 +111,19 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Model.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Store.classdiagram">
+    <Content Include="UML\Class\Store.Feed.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Store.classdiagram.layout">
+    <Content Include="UML\Class\Store.Feed.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Store.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Store.Feed.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="UML\Class\Store.Implementation.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Class\Store.Implementation.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Class\Store.Implementation.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Sequence\DirectoryStore_AddArchive.sequencediagram">
       <SubType>Content</SubType>

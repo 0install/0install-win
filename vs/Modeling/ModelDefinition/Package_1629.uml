@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="5c0fcabd-422d-499e-8d55-1da3dc9a74b4"
+  name="ZeroInstall"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="2f2db160-ceb7-4bd8-919e-a7ad90f8bcc8"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="6955e68d-7ae0-4eea-9d4e-7e1263e910b7"
+        LastKnownName="Model"
+        LastKnownLocation="Package1_1629.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
+        LastKnownName="Injector"
+        LastKnownLocation="Package1_1632.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="8f060a8a-5515-48de-9b93-54c6044ae49f"
+        LastKnownName="Store"
+        LastKnownLocation="Package5_1632.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="0efbe23b-beab-4ef8-87dd-efc6e7aeca20"
+        LastKnownName="DownloadBroker"
+        LastKnownLocation="Package_1633.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>

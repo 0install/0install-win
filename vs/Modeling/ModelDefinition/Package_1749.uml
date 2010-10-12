@@ -1,0 +1,1708 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+  dslVersion="1.0.0.0"
+  Id="18f9f18a-0e13-4a50-8628-e609e81f814b"
+  name="Download"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="0d9e4b11-bb59-4f79-8b56-4646586e658b"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Download"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="7006f839-60f5-49ef-a500-00cfb8268342"
+        name="DownloadFile"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="0eb8c3ce-465e-4206-98b7-d300264098ce"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="b7635c44-c88f-4200-8221-1d32e0b4738e"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="f9f7b6ae-a296-47d8-9e08-98fc0bfe6697">
+                <propertyInstance
+                  Id="6a765eec-2265-46b1-97bd-4f9b14568275"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1b91250c-239e-4a29-b4ed-1ebe3ceac8ef">
+                <propertyInstance
+                  Id="1174d280-39cd-46c6-a21d-6bdcf10bf8e5"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="dc553d4a-f0e2-449d-bb64-37f61bccae99">
+                <propertyInstance
+                  Id="78ad9b54-e809-4d7d-9bcb-8d3b5beaa25d"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c574584c-922b-4713-b067-025a2a1a39ec">
+                <propertyInstance
+                  Id="ec16f778-0bf6-4400-8d71-c3cc8773e298"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="5717ec17-6fdf-44d8-a10f-b0ddd7ef2750">
+                <propertyInstance
+                  Id="862fbd53-a833-4eb9-9de6-3b20f99396c6"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="77e30e20-78e6-4243-9c9f-e5831f9a62d4"
+            isSubstitutable="false">
+            <classMoniker
+              Id="2d2a5820-718c-48b2-81b9-e205075cad07"
+              LastKnownName="IOProgress"
+              LastKnownLocation="Package5_1629.uml" />
+          </generalization>
+        </generalsInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="b2e3341b-d645-4ff3-9fff-7e67979b3be4"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="3b563f72-d9ef-414d-bd05-d9a8f5d2d24e"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Name"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0c458705-95fc-48a5-b139-043a5e1c351a"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="084099e1-8690-4177-b23f-819b9d26fc60">
+                    <propertyInstance
+                      Id="12a535f8-0af4-4f39-9605-8d8d2692780a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c37d509b-067b-460e-9a9c-c9873584c49a">
+                    <propertyInstance
+                      Id="a7b04a54-a554-45ad-801a-5009821b00e9"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="486ebadc-10e1-466e-af41-359a302fe2e2">
+                    <propertyInstance
+                      Id="9e3061b1-4465-433b-86a3-847797643b5c"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0bc0f09-f63b-4795-9500-8b3cd0fbaf22">
+                    <propertyInstance
+                      Id="c1ae3ed0-a9ae-46d8-acae-9aacabda6c23"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ee1cb5b1-0303-4a06-bc52-58268925fa22">
+                    <propertyInstance
+                      Id="e955b610-a436-4538-8640-9942330049cb"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="73fe5209-7099-48ce-a75f-48e55b9c8ddd">
+                    <propertyInstance
+                      Id="d5452286-4b75-41c3-8e53-ab4ed2ca01d6"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="898f65f9-a26a-49e9-a8f1-788ccef3b995"
+            name="Source"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="9f1609f7-0217-431a-9576-5b272ed5c74e"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Source"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="eef71129-652c-40ae-9206-b355a39e47d9"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1ca9ca06-6ad7-4f6f-bc91-9cca668b2bce">
+                    <propertyInstance
+                      Id="9bb2baaf-2ce8-4767-a009-985e7df40e87"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="16aa474a-87dd-4d9d-9b12-d373a0e0254b">
+                    <propertyInstance
+                      Id="b7a81b01-e408-4c53-b6bf-82d1249bb9d8"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c4569117-71bd-4906-8e4b-e1738bdc9218">
+                    <propertyInstance
+                      Id="c2b7e5b8-e0a1-43af-89e4-175e164bd062"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="53318a00-ed8e-4d95-8194-79a5b14ca330">
+                    <propertyInstance
+                      Id="b7063c9b-87fb-47f4-a0b8-9ec978b3a5f6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="501a9990-63d9-46e7-a003-89b454038b54">
+                    <propertyInstance
+                      Id="6f7797c7-4cec-4d3b-a887-a6554be4eb62"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5fa65feb-7c74-48d3-82cb-a4e93f31fd7e">
+                    <propertyInstance
+                      Id="aae4f2e5-1e49-4d37-b965-a86cbf2d4d95"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
+                LastKnownName="Uri"
+                LastKnownLocation="Package1_1629.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="ba4d7154-38ee-4e37-b564-d364e2c55129"
+            name="Headers"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="7c7cab14-9f67-4e7a-a61d-78bea104f230"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Headers"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d5ff447f-0c94-4c8a-a5b0-84e87a71bfda"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9799ae5f-a918-4b5e-a2eb-f799d61be3e9">
+                    <propertyInstance
+                      Id="34b2e82e-2cc8-4397-98d3-98e8abceaf2c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30536284-89f3-4193-8e91-da4e2b973a04">
+                    <propertyInstance
+                      Id="ad11a0a3-cb37-49b6-8bde-53af44b9a907"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3986c2da-e54f-4049-bb10-67e16348daa1">
+                    <propertyInstance
+                      Id="5532cf27-2935-49ed-99b5-6a59c92185c3"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="01fc14d1-2ad2-49e7-b69c-5860ff41277c">
+                    <propertyInstance
+                      Id="2016ac11-cb4f-4172-9c4d-a126f44b6b5b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fbe6ecb6-24ed-4ed4-aa22-f02293298726">
+                    <propertyInstance
+                      Id="00b83bad-763b-445e-8c0d-15b226732e0f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="381aca67-de6d-42f2-a358-a52125f69988">
+                    <propertyInstance
+                      Id="64850b58-3f58-4ad2-a708-803f3430148a"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </property>
+          <property
+            Id="7e5ad6e9-38b0-4333-a1c6-13845e1f8391"
+            name="SupportsResume"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="20082695-1e9a-4c2d-85ea-1f21ebb504ac"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=SupportsResume"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b1a72f2a-12d5-4f9a-a401-9819a7835465"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6fb9527f-79be-468e-b327-1ca1c85fd2ef">
+                    <propertyInstance
+                      Id="a39fe651-a14f-4720-9cfb-0b973c8a9aa7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="be41d217-778c-4b37-ac9b-735848136b4d">
+                    <propertyInstance
+                      Id="af968b0a-f96a-46cf-9359-8303f6f4b47c"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="328365b0-94a1-42f7-9d51-126d3f1a01e8">
+                    <propertyInstance
+                      Id="89a86a86-c4b1-4de0-b900-cb85539d82ff"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="698328ca-659a-44c1-b2ee-1d3013a39312">
+                    <propertyInstance
+                      Id="5ecb3fe6-d9e9-487e-ae5b-f6c19e3da507"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2f91b996-5b68-45e4-b794-a033114dd0f3">
+                    <propertyInstance
+                      Id="29248634-a09f-4779-be51-d2a766c0ff2b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0243f8b3-038a-41ed-88a8-4048df3b8eb6">
+                    <propertyInstance
+                      Id="93c19534-9d4e-4427-afb9-59eb73ffd0eb"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="51b8b7b3-96f3-4426-a392-1db3ae40f0f9"
+            name="Target"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="231d0946-4523-43fb-9e6b-a230abf8054b"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Target"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="4a3f91e6-dc16-4056-9391-1a0c07afce71"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e79a9ac5-52c7-483a-aef4-5132cb8bde87">
+                    <propertyInstance
+                      Id="2bf962cd-39ec-4ca1-b928-0f02ed2a1a4e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f641d0d4-ebcd-4317-b0d2-548edd9d83bd">
+                    <propertyInstance
+                      Id="7dfdc746-7b67-49f4-b5ea-8510e70107bd"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="156caa6c-4a93-4b35-984a-51774ceb2550">
+                    <propertyInstance
+                      Id="d9f3197a-9182-4c72-bc20-88a643082467"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b43fada3-b4ff-4a68-85d2-ceda7ad52822">
+                    <propertyInstance
+                      Id="3ff17464-f699-4e58-bbcf-f8e18f8e7c15"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="29cc2ed3-a01e-4ced-9547-8f0cc8219f95">
+                    <propertyInstance
+                      Id="2b3e3152-1c0f-411a-b9d0-9ce8cfb8d39c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b720241-f490-4327-b7bb-4974b4b43a0f">
+                    <propertyInstance
+                      Id="6f818d0e-ba0b-412f-8fb0-3b0474c178ca"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="1236c015-9005-4058-8758-b9fb7057bedc"
+            name="Cancel"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="8a1d8a77-505b-422b-8436-598f8930f839"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Cancel"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="83fd397a-0713-4c28-bf54-8e83146e0e0c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="04e1ab77-296d-4d13-9e88-35b536a81f21">
+                    <propertyInstance
+                      Id="60c1d693-2635-435e-9cb1-80a65eb94944"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b4ca2e4e-dbee-4f8c-8a79-353802340513">
+                    <propertyInstance
+                      Id="2edd3db4-8e7e-4241-9a4c-077d38406854"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="91709d32-8f5b-4c84-815b-6ce73166dd73">
+                    <propertyInstance
+                      Id="189dceca-13e8-4565-ae0e-42370d2a7cf0"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a523c93-019a-42b7-8991-8b5807f7867c">
+                    <propertyInstance
+                      Id="a8c85c22-6dc4-45ab-b958-afd939ce5dc1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="59bf492a-ea8a-4e53-811d-4be98d1a79ba">
+                    <propertyInstance
+                      Id="bd8c057a-164d-470f-80e3-5986e8712ad6"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
+        name="DownloadJob"
+        isAbstract="false"
+        isLeaf="true"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="788da135-b24f-4817-b7e3-75c0d784bcfa"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="997ace51-2eae-465d-8f42-2dd799673e8d"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="033a2810-4795-4b64-a02e-6efb2a23374e">
+                <propertyInstance
+                  Id="b95e7e06-a72c-4027-8c7b-cde357965771"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d4d105f7-5675-4414-b223-daceeb464d3e">
+                <propertyInstance
+                  Id="23078f5a-1432-4846-ae15-47a697924571"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bfd0676d-e079-45ea-aee4-26e1839513e1">
+                <propertyInstance
+                  Id="ce757e9f-5294-4ad9-b1c1-2d01baed256b"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="547e8ba8-42d0-43e9-bfa6-3eb0e2002ba8">
+                <propertyInstance
+                  Id="d6d09dd5-86bd-4c25-868d-57812c8fb603"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a50af151-d17f-481c-b83e-726d6c0c3247">
+                <propertyInstance
+                  Id="8a7c4c0b-311f-4626-a7e3-0ab38c441b4b"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="3b8df32a-af29-4bd4-8c8c-64bf9552b5bc"
+            isDerived="false"
+            sourceEndRoleName="DownloadJob"
+            targetEndRoleName="Priority"
+            isLeaf="false"
+            isAbstract="false">
+            <enumerationMoniker
+              Id="249c194c-d4a4-4ba0-97ac-a532766a8e0a"
+              LastKnownName="DownloadPriority"
+              LastKnownLocation="Package_1749.uml" />
+            <description>Property Priority references type DownloadPriority.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8239d5c3-f580-40c3-bd98-ef6102a6b3a6"
+                  name="DownloadJob"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5f1c3a23-e048-480b-b716-acc53d8d267f"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="142168f6-0ae3-4f80-8187-cb12059322de"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f95aa1b5-36b0-4ce1-b06a-3ebd89dd783f"
+                  name="Priority"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="6e91e9cc-077d-4cd9-9c72-8656b837ed64"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="9aeddd08-e1a6-4abc-a26a-17e036bacc06"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="6fbe0e98-beb1-42db-a764-9e146d523271"
+            isDerived="false"
+            sourceEndRoleName="DownloadJob"
+            targetEndRoleName="Files"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="7006f839-60f5-49ef-a500-00cfb8268342"
+              LastKnownName="DownloadFile"
+              LastKnownLocation="Package_1749.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e3571d2e-c42d-48bd-ac36-6d50e68f0ced"
+                  name="DownloadJob"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5de748b2-2d60-4c62-9ec4-d2b87074df10"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="597eefdd-924b-48c6-94a0-c735262b0eb2"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4c17348c-b042-4080-a274-b52e6ac1c59b"
+                  name="Files"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="499818e1-bad1-4b74-9d25-f26b18270b10"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="24544307-eb3c-44b6-9a58-517a3494bcef"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="75dd6d11-a2ce-4ec1-87b5-2a07e1692df1"
+            name="Name"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="6fda15d9-a281-418c-b5f7-75067241a4d1"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Name"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="120429f5-6b78-40ed-a747-d570aa22a623"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f438f63d-cafc-4d54-b448-7fcd898a0e2c">
+                    <propertyInstance
+                      Id="3d69eef4-8086-4941-85d9-9ce313177b13"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fb874188-e461-4dad-9a47-4670f08f5d4c">
+                    <propertyInstance
+                      Id="851b3db1-1947-4bdf-ad5d-e2b858cd1ccf"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="842a5492-e282-4c01-9850-a80a13c147cf">
+                    <propertyInstance
+                      Id="c449dc91-b894-4a3b-a57f-17e9d670b94c"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1284b370-ddb9-4724-92e3-7d3234c49270">
+                    <propertyInstance
+                      Id="519b7a32-cb11-4c75-a639-932409e17984"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c18c946c-c8c7-4c28-a6f1-411b06e8cf53">
+                    <propertyInstance
+                      Id="b8a76c7b-67a0-48d8-b73e-8c4cd6f43f12"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0623a6c9-d002-4097-a622-dfcaff17a21b">
+                    <propertyInstance
+                      Id="4b7df9a4-8636-4d4a-b1a9-0e599c060248"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a8279dda-ff70-4d83-b963-e2cbb3f56bc8"
+            name="Completed"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="8a94434a-976a-4dc7-9f98-822442acdefe"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Completed"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3f249d86-9488-4aae-accb-557c37fb7e63"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4c74b2b3-ff6d-4ec5-96bd-6c13a61f4780">
+                    <propertyInstance
+                      Id="2d78f332-7225-4415-a73a-1deba8cb2d23"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="84d3b841-b031-4443-924c-5c689e24c423">
+                    <propertyInstance
+                      Id="0030e8b0-2536-41e9-8b19-9efe2568fa10"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b357b05a-539a-41c7-b356-bd7d1febf5b3">
+                    <propertyInstance
+                      Id="6b7d7aaf-e340-4761-bbd9-633eccecd23b"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="88d06a63-1b38-4053-a92c-490d4dac13a7">
+                    <propertyInstance
+                      Id="d06a4e1f-a044-4a0d-a9eb-9d6d21d3b772"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0823e324-2f01-4ffd-ae53-bc7d5cf493bd">
+                    <propertyInstance
+                      Id="0c6b892b-137d-4a01-a7b3-02a69303e680"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="01ac0261-949c-4506-a6ab-c2ded9e08eea"
+                LastKnownName="DownloadJobEventHandler"
+                LastKnownLocation="Package_1749.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="20b89430-67ea-4fe2-bc71-259a3cac25a7"
+            name="Failed"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="f8600e13-1b76-4c3a-9de0-a0a37b6d99c1"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Failed"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9a6721cd-3c65-44db-a746-420715ca2b10"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2d5b725d-65d9-4b99-b4f8-61602fec6b29">
+                    <propertyInstance
+                      Id="1edf6fd2-950a-4b8b-a295-65fdf756bc16"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a9b2496d-67d8-4cac-86d7-f991b0bf493f">
+                    <propertyInstance
+                      Id="5baa51a5-0719-42e7-baef-1abee3f49ffb"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fa4e1971-83be-4aa7-aed3-126081c98ea6">
+                    <propertyInstance
+                      Id="b70a94f0-0906-4cea-ab9b-2c6fb3355d01"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dac61928-febf-4cb2-92b1-682638aa7a59">
+                    <propertyInstance
+                      Id="2193f64e-4272-4a5e-b497-29e52d2d5b95"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30cf7bed-583f-482f-9fbd-0df987ba92f7">
+                    <propertyInstance
+                      Id="64989b94-0c7f-4a13-804a-83b87b7d774c"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="01ac0261-949c-4506-a6ab-c2ded9e08eea"
+                LastKnownName="DownloadJobEventHandler"
+                LastKnownLocation="Package_1749.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="2935c041-511a-453c-958e-b8fe4bcd6f45"
+            name="PriorityChanged"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="7e28b81b-5685-41ea-9211-8f9c7b631d49"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=PriorityChanged"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3691c7f7-be52-414a-a05e-ede9833b30d9"
+                name="event"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="36af0d98-71ff-4051-9026-bf51a272349b">
+                    <propertyInstance
+                      Id="f65a482b-a760-49af-84b0-3911487d3293"
+                      name="Add"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2d9caf8d-7380-438c-96a8-f98f06e3dabd">
+                    <propertyInstance
+                      Id="8da18a0b-41be-494e-91d4-89d1faa58bc4"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b58bd29c-7243-429d-9eb9-b6600f48ca47">
+                    <propertyInstance
+                      Id="1e5800e5-ceff-43ac-9b56-297cb27dd4ba"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="da6cb71f-65db-4f50-82b2-767d5babce0e">
+                    <propertyInstance
+                      Id="f6b05f6c-69ee-4bf7-b4f1-e049a8c31da0"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3bddd52a-1074-4fa0-b00e-413366b19286">
+                    <propertyInstance
+                      Id="6e7abe88-f06e-49d0-9637-00d9c3ef0da9"
+                      name="Remove"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="01ac0261-949c-4506-a6ab-c2ded9e08eea"
+                LastKnownName="DownloadJobEventHandler"
+                LastKnownLocation="Package_1749.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="54af7e0b-e823-4f07-88a4-5ff2427d4cc8"
+            name="DownloadJob"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="8379481f-68d9-47e2-9859-b443afe4ec13"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d63ec358-43b1-48ba-b17e-30911d88296d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0108e7f-a4ed-4e78-873d-2553dbef8491">
+                    <propertyInstance
+                      Id="db592bc4-a034-4a11-8bc3-e0cba1b5c576"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3e032e1c-b1a1-4e88-9b6a-816fe97f0dc0">
+                    <propertyInstance
+                      Id="5676a6fa-edb5-4d72-9046-943ded5dff7e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="69fd2afa-78ac-418b-9698-956368c031e6">
+                    <propertyInstance
+                      Id="ab8358a3-7835-4801-933f-a7db552e2b00"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="43e7d408-142b-4ff3-bb7b-2f6c002ed323">
+                    <propertyInstance
+                      Id="251ef670-f4f3-4c95-8dbe-3e4b0533c86a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3d5e10ab-4471-474c-805f-6c033a8796c8">
+                    <propertyInstance
+                      Id="77a5a581-148e-4144-8ddd-1ad7af0e2c91"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="edd7d9ac-b510-484e-9558-5613d8d4b7e2"
+                  name="name"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="48c3fba4-e592-4e92-9e8e-0779eb23a03b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=name"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9299d4c0-fb36-4fb0-aa16-9bce3888533b"
+                  name="files"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="42128480-1dba-474d-8671-c7bd4a853892"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=files"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <lowerValueInternal>
+                    <literalString
+                      Id="16612a76-3313-4018-afa5-5df2592e3367"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="71061589-efee-4a91-8d4d-b2a804eb1b84"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="7006f839-60f5-49ef-a500-00cfb8268342"
+                      LastKnownName="DownloadFile"
+                      LastKnownLocation="Package_1749.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cd1b08f6-92b0-4627-b512-32740fda4e91"
+                  name="priority"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="23c22e95-7cad-40ea-932c-2582900e4ff4"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=priority"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <enumerationMoniker
+                      Id="249c194c-d4a4-4ba0-97ac-a532766a8e0a"
+                      LastKnownName="DownloadPriority"
+                      LastKnownLocation="Package_1749.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <enumeration
+        Id="249c194c-d4a4-4ba0-97ac-a532766a8e0a"
+        name="DownloadPriority"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="0662b7c2-d24e-4147-8686-f1665d17cdec"
+            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="6cd35a5c-7fb6-48fa-9610-a2a419cccd99"
+            name="enum"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="bdff62e4-b406-41e8-8d0a-25fbbfde487b">
+                <propertyInstance
+                  Id="e465bb63-0279-4aec-a797-b15091b19d9d"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4289b9a2-3bd5-4bcb-87f3-664840cb7f9e">
+                <propertyInstance
+                  Id="292ec124-e56d-4a3e-af94-28a119d11cc5"
+                  name="BaseType"
+                  value="int" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4718089d-1e05-468e-ab7f-421a71f0b1f0">
+                <propertyInstance
+                  Id="f4c1a524-f04f-4886-a98a-2ab38d85c43d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedLiterals>
+          <enumerationLiteral
+            Id="36190268-c74e-4159-9686-33eae8372ec8"
+            name="Low">
+            <referencesInternal>
+              <reference
+                Id="fdb9af02-ec13-40ec-bcf3-6f361e44c3dd"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Low"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="950a9d18-6857-4b41-ae7c-a26e222d74cc"
+            name="Foreground">
+            <referencesInternal>
+              <reference
+                Id="ea136feb-6d7f-433a-8973-a7c6b1da6d1e"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Foreground"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="a892d48b-da19-465e-b90f-7f94ce28e041"
+            name="Medium">
+            <referencesInternal>
+              <reference
+                Id="274377f9-b136-4c5a-b993-8bc4a776a6da"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Medium"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="8f32d1bb-9379-40dd-99a1-9cbb2a71e4dd"
+            name="High">
+            <referencesInternal>
+              <reference
+                Id="0e5e2f2d-7247-4fbe-826b-2eb45a2a995b"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=High"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="01ac0261-949c-4506-a6ab-c2ded9e08eea"
+        name="DownloadJobEventHandler"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="2b11d839-ad26-4af8-b4ba-e0a6d6346275"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="acb711f5-9bc3-4b34-a773-0f612e71effa"
+            name="delegate"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="86411484-5031-463f-a77d-55e25f5b4c85">
+                <propertyInstance
+                  Id="ad7d0231-5280-482a-831e-5727ddb77cc9"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="a4975039-3914-4b57-b6b9-101e106614b3">
+                <propertyInstance
+                  Id="26559c5c-db9e-406d-a196-37292ecefc59"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="1fa9abf7-4934-4e23-91a1-61cb32ac8eb6">
+                <propertyInstance
+                  Id="5ba16958-4503-4537-a21c-4bcc1cf51e1e"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="3d3e4461-e89b-4585-9d77-f2b98fd7ab29"
+            name="Invoke"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="a8654f32-e243-4250-a289-b2400017072e"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="dca33f39-d1ec-4fdc-8a50-0d76e54294cb"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2b3efa72-16bf-4315-8c78-e8276a788e66">
+                    <propertyInstance
+                      Id="48e3da57-d56c-4fe5-bbf8-6feaf9f204ba"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0dbc9fd-cf83-4cd2-a4a1-3433209d1884">
+                    <propertyInstance
+                      Id="06a75462-27c5-43c6-a06f-22ab134c266b"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b26816fd-f183-49dc-a092-b5568e50908d">
+                    <propertyInstance
+                      Id="b2b9dde2-a2a8-4dcc-8348-797f061e6568"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c05e09a9-ad53-4d4b-bfe2-02bc62703727">
+                    <propertyInstance
+                      Id="30873f1f-db92-4a6d-ba1e-fc9b071acad6"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0a09df76-9ce6-4f27-b464-36ea55016031">
+                    <propertyInstance
+                      Id="ae7a609b-6f42-4c28-94e2-20429367e765"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="56ea55de-09a9-4eb2-bb73-9c2cfed925ae"
+                  name="sender"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="32686b7c-4f59-4a3e-96d4-b67fe40062e5"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=sender"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
+                      LastKnownName="DownloadJob"
+                      LastKnownLocation="Package_1749.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0bb6dd2e-7215-44b3-9dae-5a482a798e41"
+        name="DownloadManager"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="d4e04ee7-26b9-434b-b3e4-95bb9c729c22"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4e83fc81-12dd-43d3-9966-02c952dfb4c6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c64ff7b8-f060-4478-b64d-250f73d93c4d">
+                <propertyInstance
+                  Id="c9cc4393-1e4d-4ae5-9456-388702666e2c"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8aec02e5-5a69-4b83-b426-0cc1a34cecd8">
+                <propertyInstance
+                  Id="fba3c7eb-f7f2-4167-b403-8c0f18ff4d67"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="740f9809-305d-4ce9-aa18-46633a8c1586">
+                <propertyInstance
+                  Id="4dec2c76-3e43-43b6-9589-b0f69945f878"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="eb0830df-8749-420b-8145-8597c8d3b303">
+                <propertyInstance
+                  Id="ac264bbc-e356-4d61-ad2e-c0762527d0af"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="43db5232-65a7-4fbc-857a-db538e50f87f">
+                <propertyInstance
+                  Id="06789747-4de6-47a1-a300-ac00c385abf6"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="776d51fd-a82f-4c7a-8e6b-365059e17fce"
+            isDerived="false"
+            sourceEndRoleName="DownloadManager"
+            targetEndRoleName="Jobs"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
+              LastKnownName="DownloadJob"
+              LastKnownLocation="Package_1749.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0ef337b5-d66f-4f84-8a74-6936c134c844"
+                  name="DownloadManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1fcaf87d-177c-47d1-a3c4-64da60248954"
+                  name="Jobs"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="98ebf347-ee6f-4f5e-9064-b57b1b4f3c1d"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="e1d7ebb3-63ab-4711-80f0-83cba14ea6dd"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d842cc94-44d2-4be8-aa53-ae41e1585046"
+            isDerived="false"
+            sourceEndRoleName="DownloadManager"
+            targetEndRoleName="Files"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="7006f839-60f5-49ef-a500-00cfb8268342"
+              LastKnownName="DownloadFile"
+              LastKnownLocation="Package_1749.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="02160370-5410-4299-98d2-a8c2f3211766"
+                  name="DownloadManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d853f0aa-b6dc-48fe-82ad-4510e354b644"
+                  name="Files"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="79f18041-71da-4872-a093-1338be597330"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="4acc66b4-d065-45b0-8516-8f87fe4df74a"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="488dd0e2-5973-4c7b-b6e4-9a4b6ebccaf7"
+            name="MaxSimultaneousDownloads"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="a58e3fd1-20a1-4ba7-abb7-e9b3947fa707"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=MaxSimultaneousDownloads"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="ad94bb07-50c8-4923-b159-fbb61064900f"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="59c56996-1655-4b3c-83cc-fb1396eb47c3">
+                    <propertyInstance
+                      Id="554a97ef-7fc7-470e-8348-30c5ab81226c"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5ca65ac8-1024-46e1-9dc5-05fc58cf3c46">
+                    <propertyInstance
+                      Id="2ea8fd20-f66e-4560-9a38-807da3230af8"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7676b73e-f1e1-4ff9-b8d1-651c0be77912">
+                    <propertyInstance
+                      Id="bf239e20-eb98-4193-8f86-22fa975a95d3"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="af4ea440-f62d-4e02-90c8-aad973486e34">
+                    <propertyInstance
+                      Id="7de4967e-07ea-4cb1-8824-ff0b2a7ff860"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d2a3ea8a-5329-4e31-838b-53d3c6a56763">
+                    <propertyInstance
+                      Id="d1221646-b70d-4636-98ab-5c01fcfcb94c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d0e35ca5-5b5d-432b-9175-6b7536835767">
+                    <propertyInstance
+                      Id="22eefb3a-08bb-4c33-b4c6-ae3567c330b0"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="220a3521-e091-4221-bae9-3ef9018e845c"
+                LastKnownName="Integer"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="6c1a207f-f41d-4120-a4ac-3d0ff18f66a9"
+            name="AddJob"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ce81f839-86e6-4587-9215-faabd78cc719"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="244ce6d7-b8e6-445a-baf9-e08d493a8546"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a75f0020-a0e8-4e00-8fc0-f241a59b5032">
+                    <propertyInstance
+                      Id="068d30f9-364d-49ce-9969-253beda79b3f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7d664987-ca62-40f5-b79f-015aa38b532f">
+                    <propertyInstance
+                      Id="87c976a2-1f97-4a85-bbbd-cbd386095721"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c055c62b-603a-4ebf-89eb-203aae255938">
+                    <propertyInstance
+                      Id="6c90150c-28ba-4929-bf14-958c6483bb9d"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a924b8e3-39a0-4547-85bb-8b2c12633adc">
+                    <propertyInstance
+                      Id="29938d89-9be3-482f-b492-298d9c711668"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="749fdcb6-aca5-498a-8228-07948c46e17a">
+                    <propertyInstance
+                      Id="310e8350-86fc-4d49-be13-6296c0a805be"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8cb2c4c7-fa18-4fc8-b373-d52ca2405643"
+                  name="job"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="97eb60b6-a3b4-480d-8987-ce15e50fa15b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
+                      LastKnownName="DownloadJob"
+                      LastKnownLocation="Package_1749.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="ce89e772-9ebb-48d3-8cf5-94f69c6f72ad"
+            name="RemoveJob"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="eff1dccb-55e4-4a04-b9c4-9fdf0bc58505"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9f9676bd-c578-49c2-9a20-dd3c0f46f2f7"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="34968c57-00a4-450b-a0b8-2b5007783617">
+                    <propertyInstance
+                      Id="ea02f389-0569-49c9-9397-13c1e6b9880d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3e0b5672-945b-4638-b67d-dcbe7277249e">
+                    <propertyInstance
+                      Id="f786f1ed-8d6c-404c-a227-6fecfa5b2338"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5db71654-8d5c-4a9c-ba38-e3c72ebd6c24">
+                    <propertyInstance
+                      Id="cd4390e9-20a8-4a8e-b818-cf7a4b6347cc"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="87e50bd0-b9b7-4bca-b120-f5e526c6652e">
+                    <propertyInstance
+                      Id="d5c5379b-e939-4efd-857e-5ed6c8b2bfc3"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="533485a7-091a-46f1-8920-5bec202eb364">
+                    <propertyInstance
+                      Id="532a1714-9ce9-4b4b-a3aa-8483b3ab75e8"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9be4bed1-d45a-4bb2-88e7-a4ac05364833"
+                  name="job"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="46806b3e-407d-4a99-b4f1-d5903280d417"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
+                      LastKnownName="DownloadJob"
+                      LastKnownLocation="Package_1749.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
