@@ -24,15 +24,14 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Utils;
 using Common.Properties;
 
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that read or write files or directories.
+    /// Abstract base class for background tasks that implement <see cref="IProgress"/>.
     /// </summary>
-    public abstract class IOProgress : IProgress
+    public abstract class ProgressBase : IProgress
     {
         #region Events
         /// <inheritdoc />
@@ -110,7 +109,7 @@ namespace Common
         #endregion
 
         #region Constructor
-        protected IOProgress()
+        protected ProgressBase()
         {
             // Prepare the background thread for later execution
             Thread = new Thread(RunTask);
@@ -120,10 +119,7 @@ namespace Common
         //--------------------//
 
         #region Control
-        /// <summary>
-        /// Starts executing the task in a background thread.
-        /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
+        /// <inheritdoc/>
         public void Start()
         {
             lock (StateLock)
@@ -135,14 +131,8 @@ namespace Common
             }
         }
 
-        /// <summary>
-        /// Runs the task synchronously to the current thread.
-        /// </summary>
-        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        /// <remarks>Event though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
+        
+        /// <inheritdoc/>
         public void RunSync()
         {
             // Still use threads so cancel request from other threads will work

@@ -22,6 +22,8 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
 
 namespace Common
@@ -96,10 +98,25 @@ namespace Common
 
         #region Control
         /// <summary>
+        /// Starts executing the task in a background thread.
+        /// </summary>
+        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
+        void Start();
+
+        /// <summary>
+        /// Runs the task synchronously to the current thread.
+        /// </summary>
+        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
+        /// <remarks>Even though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
+        void RunSync();
+
+        /// <summary>
         /// Blocks until the task is completed or terminated.
         /// </summary>
         /// <remarks>Calling this on a not running task will return immediately.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if called while a synchronous task is running.</exception>
         void Join();
 
         /// <summary>

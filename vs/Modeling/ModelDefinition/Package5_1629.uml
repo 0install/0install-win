@@ -145,79 +145,6 @@
         </targetEnds>
         <ownedAttributes>
           <property
-            Id="b3bf8623-0bdc-437e-bb20-d6dc77f5058e"
-            name="State"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="89fef8a1-2a67-43af-abb3-cdb2e1077d76"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=State"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="ec4e375c-c03c-4577-91e7-ddb2916decda"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="783451eb-8b54-41b9-8803-171bfcd5660a">
-                    <propertyInstance
-                      Id="f9bcfc90-c843-4c67-b988-ba6c909f562e"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="160a3dda-97bc-48bc-9a83-1c6bd0e371e2">
-                    <propertyInstance
-                      Id="42fc5c08-d2ef-43ca-a69f-5d4fa3ed5384"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ff878b3b-aa52-4935-8cc0-0b56e0fb9e2c">
-                    <propertyInstance
-                      Id="24079ecd-49b1-4bdf-bf44-8e6a46d46014"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="8435dbf1-5f3f-4bf0-8841-7abd6a1e9069">
-                    <propertyInstance
-                      Id="b7f5b28f-5c86-4925-91a5-92c24dc937f1"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="969ccf68-8e06-46ac-a57c-2a812a99f839">
-                    <propertyInstance
-                      Id="e8589cdd-4791-4519-a15a-6e23f9072629"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="130acf1f-8818-4bac-bebb-fa53e991699f">
-                    <propertyInstance
-                      Id="91e30603-aba5-443d-92a0-aaf0e7c30e5c"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <enumerationMoniker
-                Id="7a7de8e8-5028-4455-9612-d495916bc50b"
-                LastKnownName="ProgressState"
-                LastKnownLocation="Package5_1629.uml" />
-            </type_NamedElement>
-          </property>
-          <property
             Id="2bfb892e-1cfe-4644-a937-3b67ddea7e4e"
             name="ErrorMessage"
             isLeaf="false"
@@ -759,13 +686,117 @@
               </stereotypeInstance>
             </appliedStereotypesInternal>
           </operation>
+          <operation
+            Id="c7119f35-59aa-4534-b1c0-077940001fae"
+            name="Start"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="d96eaee0-df31-44ab-ae89-619ed9e4a807"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9017f556-367d-4040-80c0-6e6b3490dbd6">
+                    <propertyInstance
+                      Id="115b0a04-3d9d-4c4f-b100-5a0e31c93066"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e9285a48-57ac-4e20-8e01-0a462b29906f">
+                    <propertyInstance
+                      Id="ba43cc7b-d9f4-437b-a030-3e21ae677061"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="543b6efa-27f7-46b3-804b-604bfcf8d15c">
+                    <propertyInstance
+                      Id="8dce3030-f5b1-4809-bffd-e996e7949eba"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="976855a3-5628-4321-95a9-f462f476845c">
+                    <propertyInstance
+                      Id="36d38c36-0ad7-4bc8-9476-1db6be01a74a"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5e857dd0-8074-4dee-8221-2971fe26f5e1">
+                    <propertyInstance
+                      Id="5c0d1884-ac93-40e1-a619-b125208f927b"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="fd1be90f-1d93-4076-a235-dd1ad6ffa1e7"
+            name="RunSync"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="89991cb7-5350-43b5-9e4b-fecb92670b88"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1a2d1c85-a0f5-4a1d-96b4-4fc783cb17fb">
+                    <propertyInstance
+                      Id="116a5db4-8324-4000-ad41-4ae2be8afa5a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="53f528cc-2148-4807-92f3-40eef30ceef6">
+                    <propertyInstance
+                      Id="3883197e-1838-4475-8aee-d93818c46040"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="edfdf1f3-ef97-4e79-b265-38808c28ef54">
+                    <propertyInstance
+                      Id="8cd527fe-5438-40d3-8a58-92ec5210616c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d031e8d7-6db0-4a3e-898d-14c14e433be6">
+                    <propertyInstance
+                      Id="807bdd3b-45ed-470a-ac9e-fd6316448971"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8a0f1d44-3a86-4180-b18f-9fd8ad8fa84f">
+                    <propertyInstance
+                      Id="35d84326-ec5d-498c-b18e-b7f03995f25e"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
         </ownedOperations>
       </Interface>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
         Id="2d2a5820-718c-48b2-81b9-e205075cad07"
-        name="IOProgress"
+        name="ProgressBase"
         isAbstract="true"
         isLeaf="false"
         isActiveClass="false">
@@ -827,74 +858,6 @@
               LastKnownLocation="Package5_1629.uml" />
           </interfaceRealization>
         </suppliersInternal>
-        <targetEnds>
-          <association
-            Id="566e6a36-1bbd-4854-91af-7528ed7301e1"
-            isDerived="false"
-            sourceEndRoleName="IOProgress"
-            targetEndRoleName="State"
-            isLeaf="false"
-            isAbstract="false">
-            <enumerationMoniker
-              Id="7a7de8e8-5028-4455-9612-d495916bc50b"
-              LastKnownName="ProgressState"
-              LastKnownLocation="Package5_1629.uml" />
-            <description>Property State references type ProgressState.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="90534202-0978-4aff-8e38-5c13673cd573"
-                  name="IOProgress"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="3a8c6959-079e-4bd0-9560-e9b6efa21fb7"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="81fbfd47-05ef-41f4-9f26-a3586c9c9bed"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="d4922d99-30d5-44ea-ab95-45c0771d73a8"
-                  name="State"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="762e960f-27eb-46f0-8595-a0b3cf3943a7"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="4349da41-ca83-40b6-91a9-1c233fa4ec67"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
         <ownedAttributesInternal>
           <property
             Id="cb03905d-4e58-4f4b-a58b-e23c8ece804a"
@@ -967,79 +930,6 @@
                 Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
                 LastKnownName="String"
                 LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="18efeea4-fc7d-4ccc-bb90-efd5b3c4d98b"
-            name="State"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="1a86e5fa-cde3-48c7-910e-eda10de19086"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=State"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="542b3ccc-ddd1-48fa-8207-ab4ee9582727"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ed9388d9-ea1c-4c43-bcb8-41723d61ad3e">
-                    <propertyInstance
-                      Id="2c2631fb-eece-4e9d-aa0a-9b408ee923c3"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2a95c883-e612-48b3-a800-6dcf8bb9c4e1">
-                    <propertyInstance
-                      Id="a9cd51d8-1455-4327-840c-755c12997278"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="64dfb60d-6e9d-4414-ac40-483dc1a97a06">
-                    <propertyInstance
-                      Id="a2db3bce-115e-4947-8e06-70220dbec2d2"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0bcffbcc-6628-4d36-ba57-0768ae742154">
-                    <propertyInstance
-                      Id="32020bd8-2e81-4f4e-9ef5-1165a7dbf5a5"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2c100182-bb1f-41d7-9ac9-7cc020f84900">
-                    <propertyInstance
-                      Id="fbf901c7-001a-49f8-8da8-859e1fda47bf"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="902f1a63-4f9b-4e19-9db7-016abbdf5769">
-                    <propertyInstance
-                      Id="2487ab0e-b665-4f4f-a3ca-9c0956d2ade0"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <enumerationMoniker
-                Id="7a7de8e8-5028-4455-9612-d495916bc50b"
-                LastKnownName="ProgressState"
-                LastKnownLocation="Package5_1629.uml" />
             </type_NamedElement>
           </property>
           <property

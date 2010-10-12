@@ -72,7 +72,7 @@
     <Compile Include="INamed.cs" />
     <Compile Include="IProgress.cs" />
     <Compile Include="ProgressState.cs" />
-    <Compile Include="IOProgress.cs" />
+    <Compile Include="ProgressBase.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
     <Compile Include="Download\DownloadManager.cs" />

@@ -12,7 +12,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
     /// </summary>
-    public class ManifestGenerator : IOProgress
+    public class ManifestGenerator : ProgressBase
     {
         #region Variables
         private bool _cancelRequest;
@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Implementation
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="IOProgress.State"/> is <see cref="ProgressState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="ProgressBase.State"/> is <see cref="ProgressState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion

@@ -854,6 +854,9 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="0a8a1746-9643-4611-ad05-b320fd4a2a8d" />
                       </operation>
+                      <operation Id="c5e24a95-162c-41fe-9076-a31ffb8fcbda" name="RunTask" visibility="Protected" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                        <elementDefinition Id="35c3b9ed-f0e1-4e4a-9ab1-3bfd77ca7a1f" />
+                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>

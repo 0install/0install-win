@@ -50,7 +50,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="IOProgress.RunSync"/>.
+        /// Downloads a small file using <see cref="ProgressBase.RunSync"/>.
         /// </summary>
         [Test]
         public void TestRunSync()
@@ -80,7 +80,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="IOProgress.Start"/> and <see cref="IOProgress.Join"/>.
+        /// Downloads a small file using <see cref="ProgressBase.Start"/> and <see cref="ProgressBase.Join"/>.
         /// </summary>
         [Test]
         public void TestThread()
@@ -111,7 +111,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Starts downloading a small file using <see cref="IOProgress.Start"/> and stops again right away using <see cref="IOProgress.Cancel"/>.
+        /// Starts downloading a small file using <see cref="ProgressBase.Start"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
         /// </summary>
         [Test]
         public void TestCancelAsync()
@@ -137,7 +137,7 @@ namespace Common.Download
         }
 
         /// <summary>
-        /// Starts downloading a small file using <see cref="IOProgress.RunSync"/> and stops again right away using <see cref="IOProgress.Cancel"/>.
+        /// Starts downloading a small file using <see cref="ProgressBase.RunSync"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
         /// </summary>
         [Test]
         public void TestCancelSync()

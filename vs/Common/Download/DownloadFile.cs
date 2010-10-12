@@ -32,7 +32,7 @@ namespace Common.Download
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    public class DownloadFile : IOProgress
+    public class DownloadFile : ProgressBase
     {
         #region Variables
         private volatile bool _cancelRequest;

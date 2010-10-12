@@ -125,6 +125,13 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Store.Implementation.classdiagram</DependentUpon>
     </Content>
+    <Content Include="UML\Class\Progress.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Class\Progress.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Class\Progress.classdiagram</DependentUpon>
+    </Content>
     <Content Include="UML\Sequence\DirectoryStore_AddArchive.sequencediagram">
       <SubType>Content</SubType>
     </Content>

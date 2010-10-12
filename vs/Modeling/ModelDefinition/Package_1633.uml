@@ -76,13 +76,6 @@
               LastKnownLocation="Package_1634.uml" />
           </dependency>
           <dependency
-            Id="e2dfd854-8321-4f0b-98cb-cfde94b64485">
-            <interfaceMoniker
-              Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-              LastKnownName="IProgress"
-              LastKnownLocation="Package5_1629.uml" />
-          </dependency>
-          <dependency
             Id="d887f7d3-a6f5-4b34-86e3-bc729dbac2de">
             <classMoniker
               Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"

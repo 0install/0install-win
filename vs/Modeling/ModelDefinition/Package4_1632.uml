@@ -1276,13 +1276,6 @@
         </appliedStereotypesInternal>
         <suppliersInternal>
           <dependency
-            Id="842c9a1a-4911-40f6-95ec-35047c0f4bb3">
-            <interfaceMoniker
-              Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-              LastKnownName="IProgress"
-              LastKnownLocation="Package5_1629.uml" />
-          </dependency>
-          <dependency
             Id="48d7f569-7199-414e-b353-c0794266953b">
             <classMoniker
               Id="1a697764-be2b-4551-8581-2d1d415576ee"
