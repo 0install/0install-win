@@ -183,7 +183,7 @@ namespace Common
                 string formatString;
                 switch (severity)
                 {
-                    case LogSeverity.Info: formatString = "[{0:T}] {1};"; break;
+                    case LogSeverity.Info: formatString = "[{0:T}] {1}"; break;
                     case LogSeverity.Warn: formatString = "[{0:T}] WARN: {1}"; break;
                     case LogSeverity.Error: formatString = "[{0:T}] ERROR: {1}"; break;
                     case LogSeverity.Echo:
