@@ -28,10 +28,10 @@ namespace Common.Controls
     /// <summary>
     /// Shows a simple dialog asking the user to input some text.
     /// </summary>
-    public partial class InputBox : Form
+    public sealed partial class InputBox : Form
     {
         #region Constructor
-        public InputBox()
+        private InputBox()
         {
             InitializeComponent();
         }

@@ -36,7 +36,7 @@ namespace Common.Controls
     /// Presents the user with a friendly interface in case of an error, offering to report it to the developers.
     /// </summary>
     /// <remarks>This class should only be used by <see cref="System.Windows.Forms"/> applications.</remarks>
-    public partial class ErrorReportForm : Form
+    public sealed partial class ErrorReportForm : Form
     {
         #region Variables
         private readonly Action<string> _callback;
@@ -49,7 +49,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="ex">The exception object describing the error.</param>
         /// <param name="callback">A delegate that is called when the user decides to report the error with the path of the file with the report information.</param>
-        public ErrorReportForm(Exception ex, Action<string> callback)
+        private ErrorReportForm(Exception ex, Action<string> callback)
         {
             #region Sanity checks
             if (ex == null) throw new ArgumentNullException("ex");
