@@ -144,7 +144,7 @@ namespace ZeroInstall.Store.Implementation
 
             // Calculate the actual digest and compare it with the expected one
             string actualDigest = Manifest.CreateDotFile(source, format, startingManifest);
-            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest);
+            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest, File.ReadAllText(Path.Combine(source, ".manifest")));
 
             // Move directory to final store destination
             try { Directory.Move(source, target); }

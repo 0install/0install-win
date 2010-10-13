@@ -39,6 +39,11 @@ namespace ZeroInstall.Store.Implementation
         /// The hash value that was actually calculated.
         /// </summary>
         public string ActualHash { get; private set; }
+
+        /// <summary>
+        /// The content of the ".manifest" file that created <see cref="ActualHash"/>.
+        /// </summary>
+        public string Manifest { get; private set; }
         #endregion
 
         #region Constructor
@@ -47,11 +52,13 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="expectedHash">The hash value the <see cref="Implementation"/> was supposed to have.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
-        public DigestMismatchException(string expectedHash, string actualHash)
+        /// <param name="manifest">The content of the ".manifest" file that created <paramref name="actualHash"/>.</param>
+        public DigestMismatchException(string expectedHash, string actualHash, string manifest)
             : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
         {
             ExpectedHash = expectedHash;
             ActualHash = actualHash;
+            Manifest = manifest;
         }
         #endregion
     }
