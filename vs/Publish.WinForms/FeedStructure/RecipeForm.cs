@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using Common.Utils;
 using Common.Storage;
@@ -128,7 +130,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
                     FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
-                ManifestDigest = Manifest.CreateDigest(tempDir.Path, null);
+                try { ManifestDigest = ManifestUtils.CreateDigest(this, tempDir.Path); }
+                #region Error handling
+                catch (UserCancelException)
+                {
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
             }
             buttonOK.Enabled = true;
         }

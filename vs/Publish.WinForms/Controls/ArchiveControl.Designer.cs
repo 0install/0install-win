@@ -45,7 +45,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelSubDirectory = new System.Windows.Forms.Label();
             this.treeViewSubDirectory = new System.Windows.Forms.TreeView();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
-            this.labelExtractArchiveMessages = new System.Windows.Forms.Label();
             this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
             this.trackingProgressBarDownload = new Common.Controls.TrackingProgressBar();
             this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
@@ -180,15 +179,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
             this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
             // 
-            // labelExtractArchiveMessages
-            // 
-            this.labelExtractArchiveMessages.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.labelExtractArchiveMessages.AutoSize = true;
-            this.labelExtractArchiveMessages.Location = new System.Drawing.Point(0, 367);
-            this.labelExtractArchiveMessages.Name = "labelExtractArchiveMessages";
-            this.labelExtractArchiveMessages.Size = new System.Drawing.Size(0, 13);
-            this.labelExtractArchiveMessages.TabIndex = 160;
-            // 
             // hintTextBoxLocalArchive
             // 
             this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -208,7 +198,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.trackingProgressBarDownload.Name = "trackingProgressBarDownload";
             this.trackingProgressBarDownload.Size = new System.Drawing.Size(180, 10);
             this.trackingProgressBarDownload.TabIndex = 70;
-            this.trackingProgressBarDownload.Task = null;
             // 
             // hintTextBoxArchiveUrl
             // 
@@ -245,7 +234,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.labelExtractArchiveMessages);
             this.Controls.Add(this.buttonExtractArchive);
             this.Controls.Add(this.treeViewSubDirectory);
             this.Controls.Add(this.labelSubDirectory);
@@ -287,7 +275,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private System.Windows.Forms.Label labelSubDirectory;
         private System.Windows.Forms.TreeView treeViewSubDirectory;
         private System.Windows.Forms.Button buttonExtractArchive;
-        private System.Windows.Forms.Label labelExtractArchiveMessages;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogLocalArchive;
     }

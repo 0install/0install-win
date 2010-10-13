@@ -103,6 +103,7 @@
     <Compile Include="Controls\SummariesTabControl.Designer.cs">
       <DependentUpon>SummariesTabControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManifestUtils.cs" />
     <Compile Include="FeedStructure\ArchiveForm.cs">
       <SubType>Form</SubType>
     </Compile>

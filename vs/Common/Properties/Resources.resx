@@ -261,4 +261,7 @@ Delete the changes</value>
   <data name="UnixSubsystemFail" xml:space="preserve">
     <value>The Unix subsystem failed to process the request. You may have insufficient rights.</value>
   </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>Downloading {0}</value>
+  </data>
 </root>

@@ -20,9 +20,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Compression;
+using Common.Controls;
 using ZeroInstall.Store.Implementation.Archive;
 using Common.Download;
 using Common.Utils;
@@ -293,7 +295,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 }
                 else
                 {
-                    MessageBox.Show(errorMessage);
+                    Msg.Inform(this, errorMessage, MsgSeverity.Error);
                     return false;
                 }
             }
@@ -323,7 +325,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                     case ProgressState.IOError:
                     case ProgressState.WebError:
                         labelDownloadMessages.Text = "Error!";
-                        MessageBox.Show(sender.ErrorMessage);
+                        Msg.Inform(this, sender.ErrorMessage, MsgSeverity.Warning);
                         SetArchiveUrlChosenState();
                         break;
                     case ProgressState.Complete:
@@ -364,36 +366,48 @@ namespace ZeroInstall.Publish.WinForms.Controls
             long startOffset = GetValidStartOffset(hintTextBoxStartOffset.Text);
             if (startOffset < 0) startOffset = 0;
 
-            var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive), Path.GetFileName(archive) + "_extracted");
+            var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive) ?? "", Path.GetFileName(archive) + "_extracted");
 
-            labelExtractArchiveMessages.Text = "Extracting...";
             try
             {
-                //TODO add progress bar?
-                var archiveExtractor = Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath);
-                //TODO: Add progress callback hanlder
-                archiveExtractor.RunSync();
+                TrackingProgressDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath));
             }
-            catch (IOException err)
+            #region Error handling
+            catch (UserCancelException)
             {
-                MessageBox.Show(err.Message);
-                labelExtractArchiveMessages.Text = "Error!";
                 return;
             }
-            catch (AccessViolationException err)
+            catch (IOException ex)
             {
-                MessageBox.Show(err.Message);
-                labelExtractArchiveMessages.Text = "Error!";
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;
             }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
             FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewSubDirectory.Nodes[0]);
             treeViewSubDirectory.ExpandAll();
-            labelExtractArchiveMessages.Text = "Archive extracted.";
             
             ExtractedArchivePath = extractedArchivePath;
             SetArchiveProperty();
-            SetManifestDigestProperty();
+
+            try { SetManifestDigestProperty(); }
+            #region Error handling
+            catch (UserCancelException)
+            {
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
             SetArchiveExtractedState();
         }
 
@@ -439,9 +453,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetManifestDigestProperty()
         {
-            //TODO: Add progress callback handler
-            //TODO: catch something like a access not possible excepetion
-            ManifestDigest = Manifest.CreateDigest(ExtractedArchivePath, null);
+            ManifestDigest = ManifestUtils.CreateDigest(this, ExtractedArchivePath);
         }
 
         /// <summary>
@@ -514,11 +526,20 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 string extractPath = treeViewSubDirectory.SelectedNode.FullPath.Substring("Top folder/".Length);
                 _archive.Extract = extractPath;
                 string combinedPath = Path.Combine(ExtractedArchivePath, extractPath);
-                ManifestDigest = Manifest.CreateDigest(combinedPath, null);
+                try { ManifestDigest = ManifestUtils.CreateDigest(this, combinedPath); }
+                #region Error handling
+                catch (UserCancelException)
+                {
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
             }
-            else {
-                _archive.Extract = null;
-            }
+            else _archive.Extract = null;
         }
 
         #endregion

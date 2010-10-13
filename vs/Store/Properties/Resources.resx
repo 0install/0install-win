@@ -179,4 +179,10 @@ Actual value: {1}</value>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>
+  <data name="GeneratingManifest" xml:space="preserve">
+    <value>Generating manifest ({0})</value>
+  </data>
+  <data name="ExtractingArchive" xml:space="preserve">
+    <value>Extracting archive ({0})</value>
+  </data>
 </root>

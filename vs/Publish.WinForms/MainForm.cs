@@ -902,8 +902,7 @@ namespace ZeroInstall.Publish.WinForms
                     else if (
                         !ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromArchive))
                     {
-                        MessageBox.Show(
-                            "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.");
+                        Msg.Inform(this, "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.", MsgSeverity.Warning);
                         selectedNode.Tag = new Archive();
                         return;
                     }
@@ -937,8 +936,7 @@ namespace ZeroInstall.Publish.WinForms
                     }
                     else if (!ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromRecipe))
                     {
-                        MessageBox.Show(
-                            "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.");
+                        Msg.Inform(this, "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.", MsgSeverity.Warning);
                         selectedNode.Tag = new Recipe {Steps = {new Archive()}};
                         return;
                     }

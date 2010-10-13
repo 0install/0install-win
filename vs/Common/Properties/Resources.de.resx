@@ -251,4 +251,7 @@ Die Änderungen löschen</value>
   <data name="UnixSubsystemFail" xml:space="preserve">
     <value>Das Unix Subsystem war nicht in der Lage die Anfrage zu bearbeiten. Eventuell haben Sie unzureichende Rechte.</value>
   </data>
+  <data name="Downloading" xml:space="preserve">
+    <value>Lade {0} runter</value>
+  </data>
 </root>

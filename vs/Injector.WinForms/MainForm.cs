@@ -52,7 +52,7 @@ namespace ZeroInstall.Injector.WinForms
         /// <param name="results">The parser results to be executed.</param>
         public void Execute(ParseResults results)
         {
-            RunGuiAsync(results.Feed);
+            RunGuiAsync();
 
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
@@ -153,12 +153,11 @@ namespace ZeroInstall.Injector.WinForms
         /// <summary>
         /// Runs the GUI in a separate thread.
         /// </summary>
-        private void RunGuiAsync(string interfaceID)
+        private void RunGuiAsync()
         {
             new Thread(delegate()
             {
                 InitializeComponent();
-                labelName.Text = interfaceID;
                 Application.Run(this);
             }).Start();
         }
@@ -222,9 +221,8 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                labelOperation.Text = "Downloading...";
+                labelOperation.Text = download.Name + @"...";
                 progressBar.Task = download;
-                labelName.Text = download.Name;
             });
         }
 
@@ -237,9 +235,8 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                labelOperation.Text = "Extracting...";
+                labelOperation.Text = extraction.Name + @"...";
                 progressBar.Task = extraction;
-                labelName.Text = ""; // Nobody cares about random file names
             });
         }
 
@@ -252,14 +249,13 @@ namespace ZeroInstall.Injector.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                labelOperation.Text = "Generating manifest...";
+                labelOperation.Text = manifest.Name + @"...";
                 progressBar.Task = manifest;
-                labelName.Text = ""; // Nobody cares about random file names
             });
         }
         #endregion
 
-        private void buttonCancel_Click(object sender, System.EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
         {
             // Only allow to cancel once
             buttonCancel.Enabled = false;

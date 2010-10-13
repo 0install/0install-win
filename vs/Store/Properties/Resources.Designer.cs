@@ -81,6 +81,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extracting archive ({0}).
+        /// </summary>
+        internal static string ExtractingArchive {
+            get {
+                return ResourceManager.GetString("ExtractingArchive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache..
         /// </summary>
         internal static string FeedNotInCache {
@@ -95,6 +104,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string FileToSignNotFound {
             get {
                 return ResourceManager.GetString("FileToSignNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Generating manifest ({0}).
+        /// </summary>
+        internal static string GeneratingManifest {
+            get {
+                return ResourceManager.GetString("GeneratingManifest", resourceCulture);
             }
         }
         

@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         #region Properties
         private string _name;
         /// <inheritdoc />
-        public override string Name { get { return _name; } }
+        public override string Name { get { return string.Format(Resources.ExtractingArchive, Path.GetFileName(_name)); } }
 
         /// <summary>
         /// The backing stream to extract the data from.

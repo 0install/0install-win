@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
-            this.labelName = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -54,16 +53,6 @@
             this.labelOperation.TabIndex = 0;
             this.labelOperation.Text = "Solving...";
             // 
-            // labelName
-            // 
-            this.labelName.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(9, 64);
-            this.labelName.Name = "labelName";
-            this.labelName.Size = new System.Drawing.Size(41, 13);
-            this.labelName.TabIndex = 2;
-            this.labelName.Text = "(Name)";
-            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -81,7 +70,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 122);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.labelName);
             this.Controls.Add(this.labelOperation);
             this.Controls.Add(this.progressBar);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -98,7 +86,6 @@
         private Common.Controls.TrackingProgressBar progressBar;
         #endregion
         private System.Windows.Forms.Label labelOperation;
-        private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Button buttonCancel;
 
     }

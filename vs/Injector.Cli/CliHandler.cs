@@ -58,7 +58,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Log.Info(string.Format("Downloading {0}...", download.Name));
+            Log.Info(download.Name + "...");
             new TrackingProgressBar(download);
         }
 
@@ -67,7 +67,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Log.Info("Extracting...");
+            Log.Info(extraction.Name + "...");
             new TrackingProgressBar(extraction);
         }
 
@@ -76,7 +76,7 @@ namespace ZeroInstall.Injector.Cli
         {
             if (Batch) return;
 
-            Log.Info("Generating manifest...");
+            Log.Info(manifest.Name + "...");
             new TrackingProgressBar(manifest);
         }
     }

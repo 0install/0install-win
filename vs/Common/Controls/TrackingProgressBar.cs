@@ -28,7 +28,7 @@ using Common.Utils;
 namespace Common.Controls
 {
     /// <summary>
-    /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> object.
+    /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
     /// </summary>
     public partial class TrackingProgressBar : UserControl
     {

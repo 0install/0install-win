@@ -40,7 +40,7 @@ namespace Common.Download
 
         #region Properties
         /// <inheritdoc />
-        public override string Name { get { return Source.ToString(); } }
+        public override string Name { get { return string.Format(Resources.Downloading, Source); } }
 
         /// <summary>
         /// The URL the file is to be downloaded from.
