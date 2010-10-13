@@ -3268,7 +3268,7 @@
           </property>
           <property
             Id="02e8bdf9-4273-44a2-90d7-28d3ab24a6c7"
-            name="AllSupported"
+            name="All"
             isLeaf="false"
             isStatic="true"
             isReadOnly="false"
@@ -3334,6 +3334,84 @@
             <upperValueInternal>
               <literalString
                 Id="f3a7d351-887f-4d8a-b43a-756b8fe265a8"
+                name="Upper"
+                value="*" />
+            </upperValueInternal>
+            <type_NamedElement>
+              <classMoniker
+                Id="ebf82c2f-d81f-4737-a387-49212b970323"
+                LastKnownName="ManifestFormat"
+                LastKnownLocation="Package5_1633.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="02ff743d-6966-42c6-a137-bcc00418d212"
+            name="Recommended"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="01528185-d10f-4cb8-ad9a-147c337edef0"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ManifestFormat Member=AllSupported"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="6f0443e2-f0bf-49dc-9f9e-96f59a2951a8"
+                name="field"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="fa86c98a-479b-4d06-96da-4be40424866b">
+                    <propertyInstance
+                      Id="4787bd4c-8acc-4efe-8f15-552129a2eabe"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ac39247a-3bd5-417e-aaff-1d750d57ee65">
+                    <propertyInstance
+                      Id="158054aa-ad0e-44b8-972e-9d0db3e5ab40"
+                      name="IsConst"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9c77a229-e133-45a8-89e2-8d10325d74a0">
+                    <propertyInstance
+                      Id="fdf40b7c-b273-4ac6-84f6-d5d280053428"
+                      name="IsNullable"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="32471858-14af-4df4-9a9c-6278892fbf10">
+                    <propertyInstance
+                      Id="bf06b0cf-f56f-4f16-b0de-d34c143f9fa7"
+                      name="IsVolatile"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a99d40dd-4e89-45a4-bbb6-391a91a4957a">
+                    <propertyInstance
+                      Id="653a7867-1ee5-4928-a18d-0e4983cac893"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <lowerValueInternal>
+              <literalString
+                Id="bb3c7eb6-f516-41a5-8d6a-d802bf3143ec"
+                name="Lower"
+                value="*" />
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString
+                Id="411f3a2e-7560-45e6-aa49-3fbbab1bd0f6"
                 name="Upper"
                 value="*" />
             </upperValueInternal>
@@ -8821,7 +8899,7 @@
             isSubstitutable="false">
             <classMoniker
               Id="2d2a5820-718c-48b2-81b9-e205075cad07"
-              LastKnownName="IOProgress"
+              LastKnownName="ProgressBase"
               LastKnownLocation="Package5_1629.uml" />
           </generalization>
         </generalsInternal>

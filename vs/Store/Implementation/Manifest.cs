@@ -219,7 +219,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all available <see cref="ManifestFormat"/>s.
+        /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all <see cref="ManifestFormat.Recommended"/>.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
@@ -230,7 +230,7 @@ namespace ZeroInstall.Store.Implementation
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
-            foreach (var format in ManifestFormat.AllSupported)
+            foreach (var format in ManifestFormat.Recommended)
                 // ... and add the resulting digest to the return value
                 ManifestDigest.ParseID(Generate(path, format, startingManifest).CalculateDigest(), ref digest);
 

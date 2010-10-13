@@ -4917,7 +4917,7 @@
                     <referencedTypeMoniker Id="4c086967-eb5a-4896-ae43-70128f46108f" LastKnownName="ManifestFormat" />
                   </type_NamedElement>
                 </property>
-                <property Id="02377dee-551c-403b-841d-41e6d789605f" name="AllSupported" isLeaf="false" isStatic="true" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="02377dee-551c-403b-841d-41e6d789605f" name="All" isLeaf="false" isStatic="true" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
                     <reference Id="021590b1-2add-4593-90cd-ba2054086dc1" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ManifestFormat Member=AllSupported" tag="ViewCode">
                       <elementDefinition Id="a069d020-99e7-4453-a468-f63d989aa1db" />
@@ -4972,7 +4972,65 @@
                   </upperValueInternal>
                   <elementDefinition Id="02e8bdf9-4273-44a2-90d7-28d3ab24a6c7" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="30a394c4-59d8-4183-9a25-71347b960222" LastKnownName="ManifestFormat" />
+                    <referencedTypeMoniker Id="b438551a-c574-4634-b2c1-73c0b3c4af7b" LastKnownName="ManifestFormat" />
+                  </type_NamedElement>
+                </property>
+                <property Id="b464ad86-c9ef-4e90-9e31-72148bc6f2ba" name="Recommended" isLeaf="false" isStatic="true" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <referencesInternal>
+                    <reference Id="736299d0-6099-44c7-bb67-12036ddbc1ba" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ManifestFormat Member=AllSupported" tag="ViewCode">
+                      <elementDefinition Id="01528185-d10f-4cb8-ad9a-147c337edef0" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="793bb2b5-6acb-4b53-9bbb-adbac0418d5b" name="field" profile="CSharpProfile">
+                      <elementDefinition Id="6f0443e2-f0bf-49dc-9f9e-96f59a2951a8" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="65c4ae81-b1f1-4da7-91ed-792ade01109a">
+                          <propertyInstance Id="4880b0e0-58d2-4799-bd18-f5823c3719ab" name="ClrAttributes">
+                            <elementDefinition Id="4787bd4c-8acc-4efe-8f15-552129a2eabe" />
+                          </propertyInstance>
+                          <elementDefinition Id="fa86c98a-479b-4d06-96da-4be40424866b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="7a511bd1-6911-42f2-a890-e9c13edc0b32">
+                          <propertyInstance Id="d9f73b82-b975-4a08-9403-a6e4eed88498" name="IsConst" value="false">
+                            <elementDefinition Id="158054aa-ad0e-44b8-972e-9d0db3e5ab40" />
+                          </propertyInstance>
+                          <elementDefinition Id="ac39247a-3bd5-417e-aaff-1d750d57ee65" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="75931ad4-82f3-4382-adb6-75ec807cd1fd">
+                          <propertyInstance Id="32bbc2f2-0e4b-4ed9-86ab-e574bc696892" name="IsNullable" value="false">
+                            <elementDefinition Id="fdf40b7c-b273-4ac6-84f6-d5d280053428" />
+                          </propertyInstance>
+                          <elementDefinition Id="9c77a229-e133-45a8-89e2-8d10325d74a0" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="0b65dda3-6562-47e5-be69-6df2f5b15414">
+                          <propertyInstance Id="b6553413-739e-4213-811f-4e1df0fb8ee4" name="IsVolatile" value="false">
+                            <elementDefinition Id="bf06b0cf-f56f-4f16-b0de-d34c143f9fa7" />
+                          </propertyInstance>
+                          <elementDefinition Id="32471858-14af-4df4-9a9c-6278892fbf10" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="2325d361-fb97-465b-8ba1-8a846a595c6a">
+                          <propertyInstance Id="4313437a-eb43-48b2-aca5-47a9734264d3" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="653a7867-1ee5-4928-a18d-0e4983cac893" />
+                          </propertyInstance>
+                          <elementDefinition Id="a99d40dd-4e89-45a4-bbb6-391a91a4957a" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <lowerValueInternal>
+                    <literalString Id="140d9c09-190a-4121-87d8-6b90cf3740b7" name="Lower" value="*">
+                      <elementDefinition Id="bb3c7eb6-f516-41a5-8d6a-d802bf3143ec" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="35a3abb8-dad5-4f1f-af1d-6a6f9b4b5fda" name="Upper" value="*">
+                      <elementDefinition Id="411f3a2e-7560-45e6-aa49-3fbbab1bd0f6" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="02ff743d-6966-42c6-a137-bcc00418d212" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="15909e19-d10a-4cdb-b2e8-dfae7bfd11e3" LastKnownName="ManifestFormat" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -8614,11 +8672,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="30a394c4-59d8-4183-9a25-71347b960222" name="ManifestFormat" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ManifestFormat">
-        <elementDefinition Id="ebf82c2f-d81f-4737-a387-49212b970323" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="a02254e5-92e1-4d3e-a3ca-3d73c69c4666" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
         <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
       </referencedType>
@@ -8636,6 +8689,16 @@
     <packageHasNamedElement>
       <referencedType Id="34a56409-09be-4da7-a18e-ee967f8e7b67" name="ManifestExecutableFile" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ManifestExecutableFile">
         <elementDefinition Id="41305536-6098-4ee2-b842-3de662637e2e" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b438551a-c574-4634-b2c1-73c0b3c4af7b" name="ManifestFormat" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ManifestFormat">
+        <elementDefinition Id="ebf82c2f-d81f-4737-a387-49212b970323" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="15909e19-d10a-4cdb-b2e8-dfae7bfd11e3" name="ManifestFormat" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ManifestFormat">
+        <elementDefinition Id="ebf82c2f-d81f-4737-a387-49212b970323" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
