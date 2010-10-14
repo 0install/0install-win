@@ -382,11 +382,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
                 return;
             }
-            catch (WebException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                return;
-            }
             #endregion
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
             FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewSubDirectory.Nodes[0]);
