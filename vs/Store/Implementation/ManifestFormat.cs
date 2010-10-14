@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// All currently supported <see cref="ManifestFormat"/>s listed from best to worst.
         /// </summary>
-        public static readonly IEnumerable<ManifestFormat> All = new[] { _sha256, _sha1New };
+        public static readonly IEnumerable<ManifestFormat> All = new[] { _sha256, _sha1New, _sha1Old };
 
         /// <summary>
         /// All currently supported and non-deprecated <see cref="ManifestFormat"/>s listed from best to worst.
