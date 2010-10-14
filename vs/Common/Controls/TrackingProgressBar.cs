@@ -30,9 +30,22 @@ namespace Common.Controls
     /// <summary>
     /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
     /// </summary>
-    public partial class TrackingProgressBar : UserControl
+    public partial class TrackingProgressBar : ProgressBar
     {
         #region Properties
+        /// <summary>
+        /// Determines the handle of the <see cref="Form"/> containing this control.
+        /// </summary>
+        /// <returns>The handle of the parent <see cref="Form"/> or <see cref="IntPtr.Zero"/> if there is no parent.</returns>
+        private IntPtr ParentHandle
+        {
+            get
+            {
+                Form parent = FindForm();
+                return (parent == null ? IntPtr.Zero : parent.Handle);
+            }
+        }
+
         private IProgress _task;
         /// <summary>
         /// The <see cref="IProgress"/> object to track.
@@ -72,24 +85,7 @@ namespace Common.Controls
         public bool UseTaskbar { set; get; }
         #endregion
 
-        #region Constructor
-        public TrackingProgressBar()
-        {
-            InitializeComponent();
-        }
-        #endregion
-
         //--------------------//
-
-        /// <summary>
-        /// Determines the handle of the <see cref="Form"/> containing this control.
-        /// </summary>
-        /// <returns>The handle of the parent <see cref="Form"/> or <see cref="IntPtr.Zero"/> if there is no parent.</returns>
-        private IntPtr GetFormHandle()
-        {
-            Form parent = FindForm();
-            return (parent == null ? IntPtr.Zero : parent.Handle);
-        }
 
         #region Event callbacks
         /// <summary>
@@ -103,9 +99,9 @@ namespace Common.Controls
             ProgressState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
-            progressBar.BeginInvoke((SimpleEventHandler) delegate
+            BeginInvoke((SimpleEventHandler) delegate
             {
-                IntPtr formHandle = GetFormHandle();
+                IntPtr formHandle = ParentHandle;
                 switch (state)
                 {
                     case ProgressState.Ready:
@@ -113,7 +109,7 @@ namespace Common.Controls
                         break;
 
                     case ProgressState.Header:
-                        progressBar.Style = ProgressBarStyle.Marquee;
+                        Style = ProgressBarStyle.Marquee;
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
                         break;
 
@@ -122,7 +118,7 @@ namespace Common.Controls
                         if (sender.Progress >= 0)
                         {
                             _task.ProgressChanged += ProgressChanged;
-                            progressBar.Style = ProgressBarStyle.Continuous;
+                            Style = ProgressBarStyle.Continuous;
                             if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
                         break;
@@ -130,15 +126,15 @@ namespace Common.Controls
                     case ProgressState.IOError:
                     case ProgressState.WebError:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
-                        progressBar.Style = ProgressBarStyle.Continuous;
-                        progressBar.Value = 0;
+                        Style = ProgressBarStyle.Continuous;
+                        Value = 0;
                         break;
 
                     case ProgressState.Complete:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
 
                         // When the status is complete the bar should always be full
-                        progressBar.Value = 100;
+                        Value = 100;
                         break;
                 }
             });
@@ -160,13 +156,29 @@ namespace Common.Controls
             int currentValue = (int)(progress * 100);
 
             // Handle events coming from a non-UI thread, don't block caller
-            progressBar.BeginInvoke((SimpleEventHandler)delegate
+            BeginInvoke((SimpleEventHandler)delegate
             {
-                progressBar.Value = currentValue;
-                IntPtr formHandle = GetFormHandle();
+                Value = currentValue;
+                IntPtr formHandle = ParentHandle;
                 if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
             });
         }
         #endregion
+
+        //--------------------//
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                // Remove update hooks
+                Task = null;
+            }
+            base.Dispose(disposing);
+        }
     }
 }

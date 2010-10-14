@@ -136,10 +136,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\TrackingProgressBar.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingProgressBar.Designer.cs">
-      <DependentUpon>TrackingProgressBar.cs</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\InspectionForm.cs">
       <SubType>Form</SubType>
@@ -178,9 +175,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Controls\TrackingProgressBar.resx">
-      <DependentUpon>TrackingProgressBar.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </EmbeddedResource>
