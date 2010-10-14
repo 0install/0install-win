@@ -30,7 +30,7 @@ namespace Common.Controls
     /// <summary>
     /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
     /// </summary>
-    public partial class TrackingProgressBar : ProgressBar
+    public class TrackingProgressBar : ProgressBar
     {
         #region Properties
         /// <summary>
@@ -89,7 +89,7 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> of <see cref="progressBar"/> and the taskbar depending on the <see cref="ProgressState"/> of <see cref="_task"/>.
+        /// Changes the <see cref="ProgressBarStyle"/> and the taskbar depending on the <see cref="ProgressState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
@@ -141,7 +141,7 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Changes the value of the <see cref="progressBar"/> and the taskbar depending on the already proccessed bytes.
+        /// Changes the <see cref="ProgressBar.Value"/> and the taskbar depending on the already proccessed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
