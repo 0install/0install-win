@@ -19,7 +19,6 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Xml;
-using Common;
 using Common.Cli;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
@@ -68,6 +67,10 @@ namespace ZeroInstall.Injector.Solver
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
+
+            // Sanitize interface ID (support both URIs and local paths)
+            interfaceID = interfaceID.Replace("\"", "");
+            if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
             // Execute the external Python script
             var errorParser = new PythonErrorParser(policy.InterfaceCache.Handler);
