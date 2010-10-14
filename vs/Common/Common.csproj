@@ -47,6 +47,10 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="Mono.Posix" Condition=" '$(OS)' != 'Windows_NT' " />
+    <Reference Include="Mono.Posix" Condition=" '$(OS)' == 'Windows_NT' ">
+      <HintPath>..\..\lib\Mono.Posix.dll</HintPath>
+    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
@@ -58,9 +62,6 @@
     </Reference>
     <Reference Include="TaskDialog">
       <HintPath>..\..\lib\TaskDialog.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Posix">
-      <HintPath Condition="'$(OS)'=='Windows_NT'">..\..\lib\Mono.Posix.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
