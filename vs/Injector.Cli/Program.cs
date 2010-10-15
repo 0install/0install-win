@@ -90,6 +90,11 @@ namespace ZeroInstall.Injector.Cli
                     {
                         return (int)ErrorLevel.UserCanceled;
                     }
+                    catch (ArgumentException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
                     catch (WebException ex)
                     {
                         Log.Error(ex.Message);
@@ -265,6 +270,7 @@ namespace ZeroInstall.Injector.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>

@@ -83,6 +83,7 @@
     <Compile Include="DownloadBroker\FetcherTests.cs" />
     <Compile Include="DownloadBroker\PackageBuilderManifestExtension.cs" />
     <Compile Include="Injector\ControllerTest.cs" />
+    <Compile Include="Injector\LauncherTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\PythonSolverTest.cs" />
     <Compile Include="Injector\Solver\SelectionsTest.cs" />

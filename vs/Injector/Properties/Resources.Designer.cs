@@ -61,6 +61,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and isn&apos;t a valid local path either..
+        /// </summary>
+        internal static string InvalidInterfaceID {
+            get {
+                return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following interface needs a main executable to be launched but none was specified: {0}.
         /// </summary>
         internal static string MissingMain {

@@ -66,6 +66,7 @@ namespace ZeroInstall.Injector.Solver
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (policy == null) throw new ArgumentNullException("policy");
+            if (!interfaceID.StartsWith("http:") && !Path.IsPathRooted(interfaceID)) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, interfaceID));
             #endregion
 
             // Sanitize interface ID (support both URIs and local paths)

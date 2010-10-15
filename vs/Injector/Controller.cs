@@ -43,7 +43,7 @@ namespace ZeroInstall.Injector
 
         #region Properties
         /// <summary>
-        /// The URI or local path to the interface to solve the dependencies for.
+        /// The URI or local path (is always absolute) to the interface to use.
         /// </summary>
         public string InterfaceID { get; private set; }
 
@@ -62,9 +62,10 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new Launcher for a specific interface.
         /// </summary>
-        /// <param name="interfaceID">The URI or local path to the feed to solve the dependencies for.</param>
+        /// <param name="interfaceID">The URI or local path (may be relative) to the feed to use.</param>
         /// <param name="solver">The solver to use for solving dependencies.</param>
         /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or an existing local file.</exception>
         public Controller(string interfaceID, ISolver solver, Policy policy)
         {
             #region Sanity checks
@@ -72,6 +73,13 @@ namespace ZeroInstall.Injector
             if (solver == null) throw new ArgumentNullException("solver");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
+
+            if (interfaceID.StartsWith("http:")) InterfaceID = interfaceID;
+            else
+            { // If the interface ID is no HTTP URI, try to get an absolute path instead
+                InterfaceID = Path.GetFullPath(interfaceID);
+                if (!File.Exists(InterfaceID)) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, interfaceID));
+            }
 
             InterfaceID = interfaceID;
             Solver = solver;

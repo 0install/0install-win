@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NUnit.Framework;
 
 namespace ZeroInstall.Injector.Solver
@@ -25,6 +26,17 @@ namespace ZeroInstall.Injector.Solver
     [TestFixture]
     public class PythonSolverTest
     {
+        private readonly PythonSolver _solver = new PythonSolver();
+
+        /// <summary>
+        /// Ensures <see cref="PythonSolver.Solve"/> throws the correct exceptions.
+        /// </summary>
+        [Test]
+        public void TestExceptions()
+        {
+            Assert.Throws<ArgumentException>(() => _solver.Solve("invalid", Policy.CreateDefault(new SilentHandler())), "Relative paths should be rejected");
+        }
+
         /// <summary>
         /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
         /// </summary>
@@ -32,9 +44,7 @@ namespace ZeroInstall.Injector.Solver
         //[Test]
         public void TestSolve()
         {
-            var solver = new PythonSolver();
-
-            Selections selections = solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(new SilentHandler()));
+            Selections selections = _solver.Solve("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", Policy.CreateDefault(new SilentHandler()));
 
             Assert.AreEqual("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", selections.InterfaceID);
         }

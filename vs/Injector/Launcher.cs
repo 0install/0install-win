@@ -60,14 +60,17 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="interfaceID">The interface defining the <see cref="Implementation"/> to be launched.</param>
+        /// <param name="interfaceID">The URI or local path (must be absolute) to the interface defining the <see cref="Implementation"/> to be launched.</param>
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.</param>
         /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or absolute local path or if <paramref name="selections"/> contains no <see cref="ImplementationSelection"/>s.</exception>
         public Launcher(string interfaceID, Selections selections, IStore store)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (selections == null) throw new ArgumentNullException("selections");
             if (store == null) throw new ArgumentNullException("store");
+            if (!interfaceID.StartsWith("http:") && !Path.IsPathRooted(interfaceID)) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, interfaceID));
             if (selections.Implementations.IsEmpty) throw new ArgumentException(Resources.NoImplementationsPassed, "selections");
             #endregion
 

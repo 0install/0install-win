@@ -34,12 +34,14 @@ namespace ZeroInstall.Injector
     public class ControllerTest
     {
         /// <summary>
-        /// Ensures <see cref="Controller.GetSelections"/> and <see cref="Controller.GetLauncher"/> throw exceptions if <see cref="Controller.Solve"/> wasn't called first.
+        /// Ensures the <see cref="Controller"/> constructor, <see cref="Controller.GetSelections"/> and <see cref="Controller.GetLauncher"/> throw the correct exceptions.
         /// </summary>
         [Test]
         public void TestExceptions()
         {
-            var controller = new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
+            Assert.Throws<ArgumentException>(() => new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(new SilentHandler())), "Invalid paths should be detected");
+
+            var controller = new Controller("http://nothing", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             Assert.Throws<InvalidOperationException>(() => controller.GetSelections(), "GetSelections should depend on Solve being called first");
             Assert.Throws<InvalidOperationException>(() => controller.GetLauncher(), "GetRun should depend on Solve being called first");
         }

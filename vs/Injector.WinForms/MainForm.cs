@@ -54,7 +54,15 @@ namespace ZeroInstall.Injector.WinForms
         {
             RunGuiAsync();
 
-            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
+            Controller controller;
+            try { controller = new Controller(results.Feed, SolverProvider.Default, results.Policy); }
+            #region Error hanlding
+            catch (ArgumentException ex)
+            {
+                ReportErrorSync(ex.Message);
+                return;
+            }
+            #endregion
 
             if (results.SelectionsFile == null)
             {
