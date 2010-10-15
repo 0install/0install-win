@@ -17,6 +17,7 @@
 
 using System.IO;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -34,7 +35,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="owner">The parent window any displayed progress windows are modal to.</param>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <returns>The combined manifest digest structure.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
         public static ManifestDigest CreateDigest(IWin32Window owner, string path)
         {
             var digest = new ManifestDigest();

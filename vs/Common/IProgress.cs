@@ -106,7 +106,7 @@ namespace Common
         /// <summary>
         /// Runs the task synchronously to the current thread.
         /// </summary>
-        /// <exception cref="UserCancelException">The task was cancelled from another thread.</exception>
+        /// <exception cref="UserCancelException">Thrown if the task was cancelled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
