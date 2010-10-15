@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and isn&apos;t a valid local path either..
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and isn&apos;t a an absolute local path either..
         /// </summary>
         internal static string InvalidInterfaceID {
             get {
@@ -84,6 +84,15 @@ namespace ZeroInstall.Injector.Properties {
         internal static string NoImplementationsPassed {
             get {
                 return ResourceManager.GetString("NoImplementationsPassed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and doesn&apos;t exist as a file &apos;{1}&apos; either..
+        /// </summary>
+        internal static string NotInterfaceID {
+            get {
+                return ResourceManager.GetString("NotInterfaceID", resourceCulture);
             }
         }
         

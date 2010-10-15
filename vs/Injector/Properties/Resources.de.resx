@@ -118,13 +118,16 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidInterfaceID" xml:space="preserve">
-    <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch kein gültiger lokaler Pfad.</value>
+    <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch kein absoluter lokaler Pfad.</value>
   </data>
   <data name="MissingMain" xml:space="preserve">
     <value>Das folgende Interface braucht eine ausführbare Datei um gestartet zu werden, aber es wurde keine angegeben: {0}</value>
   </data>
   <data name="NoImplementationsPassed" xml:space="preserve">
     <value>Es muss mindestens eine Implementierung übergeben werden.</value>
+  </data>
+  <data name="NotInterfaceID" xml:space="preserve">
+    <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
   </data>
   <data name="NotSolved" xml:space="preserve">
     <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>

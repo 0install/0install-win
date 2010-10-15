@@ -78,10 +78,8 @@ namespace ZeroInstall.Injector
             else
             { // If the interface ID is no HTTP URI, try to get an absolute path instead
                 InterfaceID = Path.GetFullPath(interfaceID);
-                if (!File.Exists(InterfaceID)) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, interfaceID));
+                if (!File.Exists(InterfaceID)) throw new ArgumentException(string.Format(Resources.NotInterfaceID, interfaceID, InterfaceID));
             }
-
-            InterfaceID = interfaceID;
             Solver = solver;
             Policy = policy;
         }
