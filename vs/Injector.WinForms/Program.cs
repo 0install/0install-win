@@ -64,7 +64,7 @@ namespace ZeroInstall.Injector.WinForms
                         // Ask for URI via GUI if none was specified on command-line
                         if (string.IsNullOrEmpty(results.Feed))
                         {
-                            results.Feed = InterfaceUriDialog.GetUri();
+                            results.Feed = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
                             if (string.IsNullOrEmpty(results.Feed)) return;
                         }
 

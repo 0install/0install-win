@@ -69,19 +69,10 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="InterfaceUriDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="InterfaceUriDialog.Designer.cs">
-      <DependentUpon>InterfaceUriDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="InterfaceUriDialog.resx">
-      <DependentUpon>InterfaceUriDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
