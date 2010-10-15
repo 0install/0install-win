@@ -306,7 +306,7 @@ namespace ZeroInstall.Injector.Cli
             if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
 
             var interfaces = results.Policy.InterfaceCache.ListAllInterfaces();
-            foreach (var entry in interfaces)
+            foreach (string entry in interfaces)
             {
                 if (results.Feed == null || entry.Contains(results.Feed))
                     Console.WriteLine(entry);
