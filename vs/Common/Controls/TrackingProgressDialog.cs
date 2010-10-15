@@ -51,8 +51,8 @@ namespace Common.Controls
             // Hook up event tracking
             trackingProgressBar.Task = task;
             Shown += delegate { task.Start(); };
-            task.StateChanged += delegate { if (task.State >= ProgressState.Complete) Invoke((SimpleEventHandler)Close); };
-            buttonCancel.Click += delegate { task.Cancel(); };
+            FormClosing += delegate { task.Cancel(); };
+            task.StateChanged += delegate { if (task.State >= ProgressState.Complete) BeginInvoke((SimpleEventHandler)Close); };
         }
         #endregion
 
