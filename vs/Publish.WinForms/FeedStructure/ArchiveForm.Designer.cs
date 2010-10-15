@@ -40,7 +40,6 @@
             // buttonCancel
             // 
             this.buttonCancel.Location = new System.Drawing.Point(195, 446);
-            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancelClick);
             // 
             // archiveControl
             // 
@@ -66,7 +65,6 @@
             this.Controls.Add(this.archiveControl);
             this.Name = "ArchiveForm";
             this.Text = "Edit archive";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ArchiveForm_FormClosed);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.archiveControl, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);

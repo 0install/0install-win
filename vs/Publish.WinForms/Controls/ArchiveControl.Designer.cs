@@ -39,14 +39,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelStartOffsetBytes = new System.Windows.Forms.Label();
             this.labelArchiveUrl = new System.Windows.Forms.Label();
             this.buttonDownload = new System.Windows.Forms.Button();
-            this.labelDownloadMessages = new System.Windows.Forms.Label();
             this.labelLocalArchive = new System.Windows.Forms.Label();
             this.buttonLocalArchive = new System.Windows.Forms.Button();
             this.labelSubDirectory = new System.Windows.Forms.Label();
             this.treeViewSubDirectory = new System.Windows.Forms.TreeView();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
             this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
-            this.trackingProgressBarDownload = new Common.Controls.TrackingProgressBar();
             this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
             this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
             this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
@@ -111,14 +109,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonDownload.Text = "Download";
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Click += new System.EventHandler(this.ButtonDownloadClick);
-            // 
-            // labelDownloadMessages
-            // 
-            this.labelDownloadMessages.AutoSize = true;
-            this.labelDownloadMessages.Location = new System.Drawing.Point(0, 131);
-            this.labelDownloadMessages.Name = "labelDownloadMessages";
-            this.labelDownloadMessages.Size = new System.Drawing.Size(0, 13);
-            this.labelDownloadMessages.TabIndex = 90;
             // 
             // labelLocalArchive
             // 
@@ -190,15 +180,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(254, 20);
             this.hintTextBoxLocalArchive.TabIndex = 110;
             // 
-            // trackingProgressBarDownload
-            // 
-            this.trackingProgressBarDownload.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackingProgressBarDownload.Location = new System.Drawing.Point(3, 121);
-            this.trackingProgressBarDownload.Name = "trackingProgressBarDownload";
-            this.trackingProgressBarDownload.Size = new System.Drawing.Size(180, 10);
-            this.trackingProgressBarDownload.TabIndex = 70;
-            // 
             // hintTextBoxArchiveUrl
             // 
             this.hintTextBoxArchiveUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -240,9 +221,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.Controls.Add(this.buttonLocalArchive);
             this.Controls.Add(this.hintTextBoxLocalArchive);
             this.Controls.Add(this.labelLocalArchive);
-            this.Controls.Add(this.labelDownloadMessages);
             this.Controls.Add(this.buttonDownload);
-            this.Controls.Add(this.trackingProgressBarDownload);
             this.Controls.Add(this.hintTextBoxArchiveUrl);
             this.Controls.Add(this.labelArchiveUrl);
             this.Controls.Add(this.hintTextBoxStartOffset);
@@ -266,9 +245,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private Common.Controls.HintTextBox hintTextBoxStartOffset;
         private System.Windows.Forms.Label labelArchiveUrl;
         private Common.Controls.HintTextBox hintTextBoxArchiveUrl;
-        private Common.Controls.TrackingProgressBar trackingProgressBarDownload;
         private System.Windows.Forms.Button buttonDownload;
-        private System.Windows.Forms.Label labelDownloadMessages;
         private System.Windows.Forms.Label labelLocalArchive;
         private Common.Controls.HintTextBox hintTextBoxLocalArchive;
         private System.Windows.Forms.Button buttonLocalArchive;

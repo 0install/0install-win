@@ -71,30 +71,5 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
 
         #endregion
-
-        #region Control events
-
-        /// <summary>
-        /// Closes the window WITHOUT saving the values from the controls and stops a the
-        /// downloading of a archive.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ButtonCancelClick(object sender, EventArgs e)
-        {
-            archiveControl.StopDownload();
-        }
-
-        /// <summary>
-        /// Stops the downloading of a archive on closing the form.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Noy used.</param>
-        private void ArchiveForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            archiveControl.StopDownload();
-        }
-
-        #endregion
     }
 }

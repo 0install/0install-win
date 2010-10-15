@@ -25,11 +25,9 @@ using System.Windows.Forms;
 using Common;
 using Common.Compression;
 using Common.Controls;
-using ZeroInstall.Store.Implementation.Archive;
 using Common.Download;
-using Common.Utils;
+using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -186,8 +184,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             comboBoxArchiveFormat.SelectedIndex = 0;
             hintTextBoxStartOffset.Text = String.Empty;
             hintTextBoxArchiveUrl.Text = String.Empty;
-            labelDownloadMessages.Text = String.Empty;
-            labelDownloadMessages.Text = String.Empty;
             hintTextBoxLocalArchive.Text = String.Empty;
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
         }
@@ -248,12 +244,29 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             if (!SetArchiveMimeType(fileName)) return;
 
-            trackingProgressBarDownload.Task = new DownloadFile(url, absoluteFilePath);
-            trackingProgressBarDownload.UseTaskbar = true;
-            trackingProgressBarDownload.Task.StateChanged += ArchiveDownloadStateChanged;
+            try { TrackingProgressDialog.Run(this, new DownloadFile(url, absoluteFilePath)); }
+            #region Error handling
+            catch (UserCancelException)
+            {
+                SetArchiveUrlChosenState();
+                return;
+            }
+            catch (WebException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                SetArchiveUrlChosenState();
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                SetArchiveUrlChosenState();
+                return;
+            }
+            #endregion
 
-            SetStartState();
-            ((DownloadFile)trackingProgressBarDownload.Task).Start();
+            hintTextBoxLocalArchive.Text = absoluteFilePath;
+            SetArchiveDownloadedState();
         }
 
         /// <summary>
@@ -303,40 +316,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Sets <see cref="labelDownloadMessages"/> with the current download state.
-        /// If there was an error while downloading, the buttons
-        /// <see cref="buttonDownload"/> and <see cref="buttonLocalArchive"/> will be
-        /// enabled and a <see cref="MessageBox"/> with a error message will be shown. If the
-        /// download has been completed, the button <see cref="buttonExtractArchive"/> will be
-        /// enabled, too.
-        /// </summary>
-        /// <param name="sender">The download being tracked.</param>
-        private void ArchiveDownloadStateChanged(IProgress sender)
-        {
-            //TODO: If the archive is self-extracted the method searchs for its <see cref="_archive"/>.StartOffset and sets it in <see cref="hintTextBoxStartOffset"/>.Text .
-            Invoke((SimpleEventHandler)delegate
-            {
-                switch (sender.State)
-                {
-                    case ProgressState.Started: labelDownloadMessages.Text = "Started"; break;
-                    case ProgressState.Ready: labelDownloadMessages.Text = "Ready"; break;
-                    case ProgressState.Header: labelDownloadMessages.Text = "Getting headers"; break;
-                    case ProgressState.Data: labelDownloadMessages.Text = "Getting data"; break;
-                    case ProgressState.IOError:
-                    case ProgressState.WebError:
-                        labelDownloadMessages.Text = "Error!";
-                        Msg.Inform(this, sender.ErrorMessage, MsgSeverity.Warning);
-                        SetArchiveUrlChosenState();
-                        break;
-                    case ProgressState.Complete:
-                        hintTextBoxLocalArchive.Text = ((DownloadFile)sender).Target;
-                        SetGettedArchiveState();
-                        break;
-                }
-            });
-        }
-
-        /// <summary>
         /// Shows a dialog where the user can choose a local archive and sets the the text of
         /// <see cref="hintTextBoxLocalArchive"/> with the chosen archive path.
         /// Enables <see cref="buttonExtractArchive"/>.
@@ -349,7 +328,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (!SetArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
             hintTextBoxLocalArchive.Text = openFileDialogLocalArchive.FileName;
 
-            SetGettedArchiveState();
+            SetArchiveDownloadedState();
         }
 
         /// <summary>
@@ -367,11 +346,21 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (startOffset < 0) startOffset = 0;
 
             var extractedArchivePath = Path.Combine(Path.GetDirectoryName(archive) ?? "", Path.GetFileName(archive) + "_extracted");
-
-            try
+            try { if (Directory.Exists(extractedArchivePath)) Directory.Delete(extractedArchivePath, true); }
+            #region Error handling
+            catch (UnauthorizedAccessException ex)
             {
-                TrackingProgressDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath));
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
             }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+           
+            try { TrackingProgressDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath)); }
             #region Error handling
             catch (UserCancelException)
             {
@@ -383,6 +372,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 return;
             }
             #endregion
+            
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
             FillTreeViewExtract(new DirectoryInfo(extractedArchivePath), treeViewSubDirectory.Nodes[0]);
             treeViewSubDirectory.ExpandAll();
@@ -500,17 +490,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Stops the download of an archive. Call when control isn't needed anymore!
-        /// </summary>
-        public void StopDownload()
-        {
-            if (trackingProgressBarDownload.Task != null)
-            {
-                trackingProgressBarDownload.Task.Cancel();
-            }
-        }
-
-        /// <summary>
         /// Sets the Extract value of the <see cref="Archive"/> property.
         /// </summary>
         /// <param name="sender">Not used.</param>
@@ -558,7 +537,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             foreach (var button in toDisable) button.Enabled = false;
         }
 
-        private void SetGettedArchiveState()
+        private void SetArchiveDownloadedState()
         {
             Button[] toEnable = { buttonDownload, buttonLocalArchive, buttonExtractArchive };
             foreach (var button in toEnable) button.Enabled = true;
