@@ -129,7 +129,7 @@
     <value>12, 12</value>
   </data>
   <data name="labelPrompt.Size" type="System.Drawing.Size, System.Drawing">
-    <value>244, 54</value>
+    <value>244, 36</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="labelPrompt.TabIndex" type="System.Int32, mscorlib">
@@ -208,7 +208,7 @@
     <value>Bottom, Left, Right</value>
   </data>
   <data name="textInput.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 76</value>
+    <value>12, 80</value>
   </data>
   <data name="textInput.Size" type="System.Drawing.Size, System.Drawing">
     <value>320, 20</value>
@@ -232,7 +232,7 @@
     <value>True</value>
   </metadata>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>344, 130</value>
+    <value>344, 112</value>
   </data>
   <data name="$this.MaximumSize" type="System.Drawing.Size, System.Drawing">
     <value>2048, 256</value>

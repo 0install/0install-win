@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            ZeroInstall.Model.Archive archive2 = new ZeroInstall.Model.Archive();
+            ZeroInstall.Model.Archive archive1 = new ZeroInstall.Model.Archive();
             this.archiveControl = new ZeroInstall.Publish.WinForms.Controls.ArchiveControl();
             this.SuspendLayout();
             // 
@@ -46,12 +46,11 @@
             this.archiveControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            archive2.Extract = null;
-            archive2.Location = null;
-            archive2.LocationString = null;
-            archive2.MimeType = null;
-            archive2.Size = ((long)(0));
-            this.archiveControl.Archive = archive2;
+            archive1.Extract = null;
+            archive1.Location = null;
+            archive1.LocationString = null;
+            archive1.MimeType = null;
+            this.archiveControl.Archive = archive1;
             this.archiveControl.Location = new System.Drawing.Point(13, 13);
             this.archiveControl.Name = "archiveControl";
             this.archiveControl.Size = new System.Drawing.Size(257, 395);
@@ -64,6 +63,7 @@
             this.ClientSize = new System.Drawing.Size(282, 481);
             this.Controls.Add(this.archiveControl);
             this.Name = "ArchiveForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit archive";
             this.Controls.SetChildIndex(this.buttonCancel, 0);
             this.Controls.SetChildIndex(this.archiveControl, 0);

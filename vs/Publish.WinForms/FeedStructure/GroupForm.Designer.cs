@@ -253,7 +253,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.targetBaseControl.Name = "targetBaseControl";
             this.targetBaseControl.Size = new System.Drawing.Size(502, 128);
             this.targetBaseControl.TabIndex = 14;
-            this.targetBaseControl.TargetBase = null;
             // 
             // checkBoxEnableSettingDate
             // 
@@ -287,6 +286,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.Add(this.labelReleased);
             this.Controls.Add(this.labelVersion);
             this.Name = "GroupForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit group";
             this.Controls.SetChildIndex(this.labelVersion, 0);
             this.Controls.SetChildIndex(this.labelReleased, 0);

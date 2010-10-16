@@ -146,6 +146,7 @@
             this.Controls.Add(this.hintTextBoxInsert);
             this.Controls.Add(this.labelName);
             this.Name = "EnvironmentBindingForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit environment binding";
             this.Controls.SetChildIndex(this.labelName, 0);
             this.Controls.SetChildIndex(this.hintTextBoxInsert, 0);

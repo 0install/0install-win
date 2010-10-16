@@ -192,6 +192,7 @@
             this.Controls.Add(this.hintTextBoxInterface);
             this.MinimumSize = new System.Drawing.Size(330, 304);
             this.Name = "DependencyForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit dependency";
             this.Controls.SetChildIndex(this.hintTextBoxInterface, 0);
             this.Controls.SetChildIndex(this.labelInterface, 0);
