@@ -2,6 +2,10 @@
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Implementation" BaseTypeListCollapsed="true">
     <Position X="5.5" Y="10" Width="1.75" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -30,6 +34,10 @@
   </Class>
   <Class Name="ZeroInstall.Model.TargetBase">
     <Position X="3.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Property Name="ArchitectureString" Hidden="true" />
+      <Property Name="LanguagesString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -56,10 +64,17 @@
     <ShowAsCollectionAssociation>
       <Property Name="Elements" />
     </ShowAsCollectionAssociation>
-    <Lollipop Position="0.2" />
+    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.PackageImplementation">
     <Position X="3" Y="7.5" Width="2" />
+    <Members>
+      <Property Name="DistributionsString" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="ReleasedString" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -71,9 +86,21 @@
   </Class>
   <Class Name="ZeroInstall.Model.Group">
     <Position X="1" Y="7.5" Width="1.5" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="Elements" Type="ZeroInstall.Model.Element" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="1.5" Y="7.5" />
+        <Point X="1.5" Y="5.75" />
+        <Point X="3.25" Y="5.75" />
+      </Path>
+    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAEgAAQAAAAABAAAIAAAAAAAAAAACA=</HashCode>
       <FileName>Group.cs</FileName>
@@ -85,6 +112,10 @@
   </Class>
   <Class Name="ZeroInstall.Model.Element">
     <Position X="3.25" Y="3" Width="1.5" />
+    <Members>
+      <Property Name="ReleasedString" Hidden="true" />
+      <Property Name="VersionString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -99,7 +130,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.RetrievalMethod" Collapsed="true">
-    <Position X="8.75" Y="10.25" Width="1.5" />
+    <Position X="8.75" Y="10.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADA=</HashCode>
       <FileName>RetrievalMethod.cs</FileName>
@@ -119,7 +150,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Struct Name="ZeroInstall.Model.ManifestDigest">
-    <Position X="8.75" Y="7" Width="1.5" />
+    <Position X="8.75" Y="7.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -130,12 +161,15 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Struct>
-  <Interface Name="ZeroInstall.Model.IElementContainer">
-    <Position X="0.5" Y="5" Width="1.75" />
+  <Interface Name="ZeroInstall.Model.IElementContainer" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IElementContainer.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Elements" />
+    </ShowAsCollectionAssociation>
   </Interface>
   <Enum Name="ZeroInstall.Model.Stability">
     <Position X="5.75" Y="3.5" Width="1.5" />

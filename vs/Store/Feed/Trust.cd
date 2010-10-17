@@ -36,7 +36,7 @@
   <Class Name="ZeroInstall.Store.Feed.GnuPG">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AiAAAAACAgQAAAAAAAAAEAAgAAAAAAAAAAAACQAAQCA=</HashCode>
+      <HashCode>ACAAAAAAAgACAAAAACAAEABAAAAAAAAAAAAAAQAAAAA=</HashCode>
       <FileName>Feed\GnuPG.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -47,26 +47,23 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAiA=</HashCode>
       <FileName>Feed\Domain.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
-  <Struct Name="ZeroInstall.Store.Feed.GpgSecretKey">
-    <Position X="0.5" Y="4.5" Width="1.5" />
+  <Struct Name="ZeroInstall.Store.Feed.GnuPGSecretKey">
+    <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAIAAACAAAAAAAAEAAAIAAAAACAQAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Feed\GpgSecretKey.cs</FileName>
+      <HashCode>QAAgAAAAAAAAAAAEAAAAAAgAACAAAAAAAAAAAAQAAAg=</HashCode>
+      <FileName>Feed\GnuPGSecretKey.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="KeyType" />
-    </ShowAsAssociation>
   </Struct>
-  <Enum Name="ZeroInstall.Store.Feed.KeyType">
-    <Position X="3" Y="4.5" Width="1.5" />
+  <Enum Name="ZeroInstall.Store.Feed.GnuPGAlgorithm">
+    <Position X="3" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAAAA=</HashCode>
-      <FileName>Feed\GpgSecretKey.cs</FileName>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAgAAAIAAAAAAAAAABA=</HashCode>
+      <FileName>Feed\GnuPGSecretKey.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

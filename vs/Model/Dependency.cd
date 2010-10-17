@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Binding">
-    <Position X="3.75" Y="3.75" Width="1.5" />
+    <Position X="3.75" Y="3.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABA=</HashCode>
       <FileName>Binding.cs</FileName>
@@ -10,6 +13,11 @@
   </Class>
   <Class Name="ZeroInstall.Model.Dependency" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="0.5" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
@@ -29,7 +37,12 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.EnvironmentBinding">
-    <Position X="5.75" Y="5.75" Width="1.75" />
+    <Position X="5.75" Y="5.25" Width="1.75" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAEgAAAIAQAAAAAAIAAAAAgEAAAAAA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
@@ -40,12 +53,18 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.OverlayBinding">
-    <Position X="3.5" Y="5.75" Width="2" />
+    <Position X="3.5" Y="5.25" Width="2" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="OverlayBinding" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAkAAAAAEgAABAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAEgAABAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
       <FileName>OverlayBinding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
@@ -63,15 +82,25 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.WorkingDirBinding">
-    <Position X="1.5" Y="5.75" Width="1.75" />
+    <Position X="1.5" Y="5.25" Width="1.75" />
+    <Members>
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+      <Method Name="WorkingDirBinding" Hidden="true" />
+    </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAgAAAAAEgAAAAAAAAAAAAIAAAAAAEAAAAAA=</HashCode>
       <FileName>WorkingDirBinding.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Struct Name="ZeroInstall.Model.Constraint">
     <Position X="6.75" Y="0.5" Width="2" />
+    <Members>
+      <Property Name="BeforeVersionString" Hidden="true" />
+      <Property Name="NotBeforeVersionString" Hidden="true" />
+    </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -83,7 +112,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Enum Name="ZeroInstall.Model.EnvironmentMode">
-    <Position X="8.5" Y="5.75" Width="1.75" />
+    <Position X="8.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAAAAAAAAAAAAAQAAAAAAAAAAACA=</HashCode>
       <FileName>EnvironmentBinding.cs</FileName>
