@@ -203,13 +203,14 @@ namespace Common.Controls
             // Start off at the top-level
             TreeNodeCollection subTree = treeView.Nodes;
 
+            // Try to use a pre-existing nodes for namespace-subtrees, if non-existant create new ones
             string partialName = "";
             for (int i = 0; i < nameSplit.Length - 1; i++)
             {
-                partialName += nameSplit[i] + ".";
-                // Try to use a pre-existing node for namespace-subtrees, if non-existant create new ones
+                partialName += nameSplit[i];
                 TreeNode node = subTree[partialName] ?? subTree.Add(partialName, nameSplit[i]);
                 subTree = node.Nodes;
+                partialName += ".";
             }
 
             // Create node storing full name, using last part as visible text
