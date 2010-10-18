@@ -113,9 +113,9 @@ namespace ZeroInstall.Model
         // Preserve order, duplicate string entries are not allowed
         private readonly C5.HashedArrayList<string> _categories = new C5.HashedArrayList<string>();
         /// <summary>
-        /// Zero or more categories as classification for the interface.
+        /// Zero or more categories as defined by the freedesktop.org menu specification.
         /// </summary>
-        [Category("Interface"), Description("Zero or more categories as classification for the interface.")]
+        [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
         [XmlElement("category")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<string> Categories { get { return _categories; } }

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://0install.de/schema/my-apps/app-list" elementFormDefault="qualified" targetNamespace="http://0install.de/schema/my-apps/app-list" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="app-list" nillable="true" type="tns:AppList" />
+  <xs:complexType name="AppList">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:AppEntry" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AppEntry">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="tns:Alias" />
+        <xs:element minOccurs="0" maxOccurs="1" name="menu-entry" type="tns:MenuEntry" />
+        <xs:element minOccurs="0" maxOccurs="1" name="desktop-shortcut" type="tns:DesktopShortcut" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" />
+    <xs:attribute name="interface" type="xs:string" />
+  </xs:complexType>
+  <xs:complexType name="Alias">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Integration">
+        <xs:attribute name="name" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="Integration" abstract="true" />
+  <xs:complexType name="DesktopShortcut">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Integration">
+        <xs:attribute name="name" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="MenuEntry">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Integration">
+        <xs:attribute name="name" type="xs:string" />
+        <xs:attribute name="category" type="xs:string" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>

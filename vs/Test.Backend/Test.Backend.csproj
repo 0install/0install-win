@@ -98,6 +98,7 @@
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\WorkingDirBinding.cs" />
+    <Compile Include="MyApps\AppListTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
@@ -109,9 +110,7 @@
     <Compile Include="Store\Feed\InterfaceCacheTest.cs" />
     <Compile Include="Store\Feed\TrustTest.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MyApps\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Store\Implementation\Archive\README-SDL.txt" />
   </ItemGroup>

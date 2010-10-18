@@ -17,7 +17,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.MyApps.Alias">
-    <Position X="4.5" Y="5" Width="1.5" />
+    <Position X="4.5" Y="4.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -28,7 +28,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.MyApps.DesktopShortcut">
-    <Position X="2.5" Y="5" Width="1.5" />
+    <Position X="2.5" Y="4.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -39,7 +39,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.MyApps.Integration" Collapsed="true">
-    <Position X="2.5" Y="4" Width="1.5" />
+    <Position X="2.5" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAABA=</HashCode>
       <FileName>Integration.cs</FileName>
@@ -47,7 +47,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.MyApps.MenuEntry">
-    <Position X="0.5" Y="5" Width="1.5" />
+    <Position X="0.5" Y="4.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
@@ -68,7 +68,7 @@
     </Compartments>
     <AssociationLine Name="Integrations" Type="ZeroInstall.MyApps.Integration">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.982" Y="0.193" />
+        <Position X="-1.005" Y="0.154" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
