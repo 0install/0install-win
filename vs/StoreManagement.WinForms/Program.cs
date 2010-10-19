@@ -21,7 +21,10 @@ using Common.Controls;
 
 namespace ZeroInstall.StoreManagement.WinForms
 {
-    internal static class Program
+    /// <summary>
+    /// Launches a WinForms tool for managing caches of Zero Install implementations.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.

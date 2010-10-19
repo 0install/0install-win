@@ -17,7 +17,10 @@
 
 namespace ZeroInstall.StoreManagement.Cli
 {
-    internal static class Program
+    /// <summary>
+    /// Launches a command-line tool for managing caches of Zero Install implementations.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.

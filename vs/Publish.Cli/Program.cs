@@ -44,7 +44,7 @@ namespace ZeroInstall.Publish.Cli
     #endregion
 
     /// <summary>
-    /// Command-line application for modifiying <see cref="Feed"/>s.
+    /// Launches a command-line tool for editing Zero Install feed XMLs.
     /// </summary>
     public static class Program
     {

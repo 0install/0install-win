@@ -52,7 +52,7 @@ namespace ZeroInstall.Injector.Cli
     #endregion
 
     /// <summary>
-    /// Command-line application for launching applications via the Zero Install Injector.
+    /// Launches Zero Install implementations and displays a command-line interface.
     /// </summary>
     public static class Program
     {

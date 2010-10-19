@@ -27,7 +27,10 @@ using ZeroInstall.Central.WinForms.Storage;
 
 namespace ZeroInstall.Central.WinForms
 {
-    internal static class Program
+    /// <summary>
+    /// Launches the main WinForms GUI for Zero Install.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.

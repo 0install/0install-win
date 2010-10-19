@@ -21,19 +21,16 @@ using Gtk;
 namespace ZeroInstall.StoreManagement.Gtk
 {
     /// <summary>
-    /// GUI application for managing the Zero Install application cache.
+    /// Launches a GTK# tool for managing caches of Zero Install implementations.
     /// </summary>
     public static class Program
     {
-        #region Startup
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main(string[] args)
         {
             // ToDo: Implement
         }
-        #endregion
     }
 }

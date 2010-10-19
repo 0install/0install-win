@@ -21,13 +21,16 @@ using Common.Controls;
 
 namespace ZeroInstall.Publish.WinForms
 {
-    static class Program
+    /// <summary>
+    /// Launches a WinForms-based editor for Zero Install feed XMLs.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

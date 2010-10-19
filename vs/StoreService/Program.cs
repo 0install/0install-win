@@ -19,7 +19,10 @@ using System.ServiceProcess;
 
 namespace ZeroInstall.StoreService
 {
-    static class Program
+    /// <summary>
+    /// Launches a Windows service for managing the secure shared cache of Zero Install implementations.
+    /// </summary>
+    public static class Program
     {
         /// <summary>
         /// The main entry point for the application.

@@ -29,7 +29,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Injector.Gtk
 {
     /// <summary>
-    /// GUI application for launching applications via the Zero Install Injector.
+    /// Launches Zero Install implementations and displays a GTK# GUI.
     /// </summary>
     public static class Program
     {
@@ -37,7 +37,6 @@ namespace ZeroInstall.Injector.Gtk
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main(string[] args)
         {
             // ToDo: Implement

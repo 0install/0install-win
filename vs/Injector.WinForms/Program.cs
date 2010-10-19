@@ -29,7 +29,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Injector.WinForms
 {
     /// <summary>
-    /// GUI application for launching applications via the Zero Install Injector.
+    /// Launches Zero Install implementations and displays a WinForms GUI.
     /// </summary>
     public static class Program
     {
