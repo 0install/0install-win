@@ -78,7 +78,7 @@ namespace Common.Collections
         public string GetExactLanguage(CultureInfo language)
         {
             foreach (LocalizableString entry in this)
-                if (Equals(language, entry.Language)) return entry;
+                if (Equals(language, entry.Language)) return entry.Value;
 			throw new KeyNotFoundException();
         }
 
