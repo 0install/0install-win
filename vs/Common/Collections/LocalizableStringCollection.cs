@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -68,14 +68,27 @@ namespace Common.Collections
         }
         #endregion
 
-        #region Indexer
+        #region Access
         /// <summary>
-        /// Returns the best string in the collection associated for a specific language.
+        /// Returns the first string in the collection exactly matching the specified language.
         /// </summary>
         /// <param name="language">The language to look for.</param>
-        /// <returns>The best string value found in the collection. May have the exact language, a similar language or no specified language.</returns>
+        /// <returns>The string value found in the collection.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
-        public string GetLanguage(CultureInfo language)
+        public string GetExactLanguage(CultureInfo language)
+        {
+            foreach (LocalizableString entry in this)
+                if (Equals(language, entry.Language)) return entry;
+			throw new KeyNotFoundException();
+        }
+
+        /// <summary>
+        /// Returns the best-fitting string in the collection for the specified language.
+        /// </summary>
+        /// <param name="language">The language to look for.</param>
+        /// <returns>The best-fitting string value found in the collection. May have the exact language, a similar language or no language.</returns>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
+        public string GetBestLanguage(CultureInfo language)
         {
             // ToDo: Implement
             throw new NotImplementedException();
