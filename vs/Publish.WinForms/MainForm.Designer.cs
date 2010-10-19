@@ -102,6 +102,7 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
+            this.summariesControl1 = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -203,6 +204,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // tabPageGeneral
             // 
+            this.tabPageGeneral.Controls.Add(this.summariesControl1);
             this.tabPageGeneral.Controls.Add(this.hintTextBoxDescription);
             this.tabPageGeneral.Controls.Add(this.labelDescription);
             this.tabPageGeneral.Controls.Add(this.hintTextBoxSummary);
@@ -885,6 +887,13 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
+            // summariesControl1
+            // 
+            this.summariesControl1.Location = new System.Drawing.Point(200, 68);
+            this.summariesControl1.Name = "summariesControl1";
+            this.summariesControl1.Size = new System.Drawing.Size(318, 22);
+            this.summariesControl1.TabIndex = 18;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -987,6 +996,7 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private FeedReferenceControl feedReferenceControl;
         private System.Windows.Forms.Button btnAddWorkingDir;
+        private SummariesControl summariesControl1;
     }
 }
 

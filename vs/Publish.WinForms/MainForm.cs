@@ -352,6 +352,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             hintTextBoxProgramName.Text = _feedToEdit.Name;
             if (!_feedToEdit.Summaries.IsEmpty) hintTextBoxSummary.Text = _feedToEdit.Summaries.First.Value;
+            //TEST:
+            summariesControl1.Summaries = _feedToEdit.Summaries;
+
             if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
             hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
             hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
