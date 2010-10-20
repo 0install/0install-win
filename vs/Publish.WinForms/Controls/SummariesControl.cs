@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Drawing;
+using System.Windows.Forms;
 using Common.Collections;
 using System.Globalization;
 
@@ -20,6 +21,32 @@ namespace ZeroInstall.Publish.WinForms.Controls
             get { return _summaries; }
         }
 
+        private bool _multiline = false;
+
+        public bool Multiline
+        {
+            get
+            {
+                return _multiline;
+            }
+            set
+            {
+                _multiline = value;
+                hintTextBoxSummary.Multiline = _multiline;
+                if (_multiline)
+                {
+                    Size = new Size(Size.Width, 83);
+                    hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 79);
+                    hintTextBoxSummary.HintText = "a short one-line description";
+                }
+                else
+                {
+                    Size = new Size(Size.Width, 23);
+                    hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 20);
+                    hintTextBoxSummary.HintText = "a full description, which can be several paragraphs long";
+                }
+            }
+        }
         #endregion
 
         #region Constants
@@ -45,7 +72,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             ClearControl();
 
             UpdateComboBoxLanguages();
-            var selectedLanguage = GetLanguageFromComboBox();
+            comboBoxLanguages.SelectedIndex = 0;
+            var selectedLanguage = GetSelectedLanguage();
             hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(selectedLanguage)
                                           ? _summaries.GetExactLanguage(selectedLanguage)
                                           : string.Empty;
@@ -53,7 +81,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void UpdateComboBoxLanguages()
         {
-            var selectedLanguage = GetLanguageFromComboBox();
+            var selectedLanguage = GetSelectedLanguage();
             comboBoxLanguages.BeginUpdate();
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {
@@ -72,7 +100,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// Returns the selected language from <see cref="comboBoxLanguages"/> as a <see cref="CultureInfo"/>.
         /// </summary>
         /// <returns>The selected language or <see langword="null" /> if no language is selected.</returns>
-        private CultureInfo GetLanguageFromComboBox()
+        private CultureInfo GetSelectedLanguage()
         {
             string languageWithMarker = comboBoxLanguages.Text;
             return
@@ -84,7 +112,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void HintTextBoxSummaryTextChanged(object sender, System.EventArgs e)
         {
             string changedSummary = hintTextBoxSummary.Text;
-            var selectedLanguage = GetLanguageFromComboBox();
+            var selectedLanguage = GetSelectedLanguage();
             if (string.IsNullOrEmpty(changedSummary) && _summaries.ContainsExactLanguage(selectedLanguage))
                 _summaries.RemoveAll(selectedLanguage);
             if(!string.IsNullOrEmpty(changedSummary))
@@ -95,7 +123,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void ComboBoxLanguagesSelectionChangeCommitted(object sender, System.EventArgs e)
         {
-            var selectedLanguage = GetLanguageFromComboBox();
+            var selectedLanguage = GetSelectedLanguage();
             hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(selectedLanguage)
                                           ? _summaries.GetExactLanguage(selectedLanguage)
                                           : string.Empty;

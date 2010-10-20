@@ -48,7 +48,6 @@ namespace ZeroInstall.Publish.WinForms
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.hintTextBoxDescription = new Common.Controls.HintTextBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -100,8 +99,9 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
-            this.summariesControl1 = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
             this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -203,8 +203,8 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // tabPageGeneral
             // 
-            this.tabPageGeneral.Controls.Add(this.summariesControl1);
-            this.tabPageGeneral.Controls.Add(this.hintTextBoxDescription);
+            this.tabPageGeneral.Controls.Add(this.descriptionControl);
+            this.tabPageGeneral.Controls.Add(this.summariesControl);
             this.tabPageGeneral.Controls.Add(this.labelDescription);
             this.tabPageGeneral.Controls.Add(this.labelSummary);
             this.tabPageGeneral.Controls.Add(this.checkBoxNeedsTerminal);
@@ -225,22 +225,10 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
-            // hintTextBoxDescription
-            // 
-            this.hintTextBoxDescription.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxDescription.HintText = "a full description, which can be several paragraphs long";
-            this.hintTextBoxDescription.Location = new System.Drawing.Point(9, 137);
-            this.hintTextBoxDescription.Multiline = true;
-            this.hintTextBoxDescription.Name = "hintTextBoxDescription";
-            this.hintTextBoxDescription.Size = new System.Drawing.Size(536, 82);
-            this.hintTextBoxDescription.TabIndex = 17;
-            // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
-            this.labelDescription.Location = new System.Drawing.Point(6, 121);
+            this.labelDescription.Location = new System.Drawing.Point(6, 124);
             this.labelDescription.Name = "labelDescription";
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 16;
@@ -867,12 +855,13 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
-            // summariesControl1
+            // summariesControl
             // 
-            this.summariesControl1.Location = new System.Drawing.Point(9, 99);
-            this.summariesControl1.Name = "summariesControl1";
-            this.summariesControl1.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl1.TabIndex = 18;
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 18;
             // 
             // feedReferenceControl
             // 
@@ -880,6 +869,14 @@ namespace ZeroInstall.Publish.WinForms
             this.feedReferenceControl.Name = "feedReferenceControl";
             this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
             this.feedReferenceControl.TabIndex = 0;
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 19;
             // 
             // MainForm
             // 
@@ -975,14 +972,14 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button buttonAddArchive;
         private System.Windows.Forms.Button buttonAddRecipe;
         private System.Windows.Forms.TreeView treeViewFeedStructure;
-        private Common.Controls.HintTextBox hintTextBoxDescription;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelSummary;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxGpg;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private FeedReferenceControl feedReferenceControl;
         private System.Windows.Forms.Button btnAddWorkingDir;
-        private SummariesControl summariesControl1;
+        private SummariesControl summariesControl;
+        private SummariesControl descriptionControl;
     }
 }
 

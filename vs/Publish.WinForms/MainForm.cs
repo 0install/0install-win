@@ -235,11 +235,10 @@ namespace ZeroInstall.Publish.WinForms
             foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
 
             _feedToEdit.Summaries.Clear();
-            _feedToEdit.Summaries.AddAll(summariesControl1.Summaries);
+            _feedToEdit.Summaries.AddAll(summariesControl.Summaries);
 
             _feedToEdit.Descriptions.Clear();
-            if (!String.IsNullOrEmpty(hintTextBoxDescription.Text))
-                _feedToEdit.Descriptions.Add(hintTextBoxDescription.Text);
+            _feedToEdit.Descriptions.AddAll(descriptionControl.Summaries);
 
             _feedToEdit.Uri = null;
             Uri url;
@@ -352,10 +351,8 @@ namespace ZeroInstall.Publish.WinForms
         private void FillGeneralTab()
         {
             hintTextBoxProgramName.Text = _feedToEdit.Name;
-
-            summariesControl1.Summaries = _feedToEdit.Summaries;
-
-            if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
+            summariesControl.Summaries = (LocalizableStringCollection) _feedToEdit.Summaries.Clone();
+            descriptionControl.Summaries = (LocalizableStringCollection) _feedToEdit.Descriptions.Clone();
             hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
             hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
 
@@ -421,8 +418,8 @@ namespace ZeroInstall.Publish.WinForms
         private void ResetGeneralTabControls()
         {
             hintTextBoxProgramName.ResetText();
-            summariesControl1.Summaries = new LocalizableStringCollection();
-            hintTextBoxDescription.ResetText();
+            summariesControl.Summaries = new LocalizableStringCollection();
+            descriptionControl.Summaries = new LocalizableStringCollection();
             hintTextBoxHomepage.ResetText();
             hintTextBoxInterfaceUrl.ResetText();
             hintTextBoxIconUrl.ResetText();
