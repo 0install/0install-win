@@ -149,7 +149,7 @@ namespace Common.Collections
             #endregion
 
             // Write xml:lang attribute
-            if (Language != null && Language != CultureInfo.InvariantCulture) writer.WriteAttributeString("xml", "lang", "", Language.ToString());
+            if (Language != null && !Language.Equals(CultureInfo.InvariantCulture)) writer.WriteAttributeString("xml", "lang", "", Language.ToString());
 
             // Write actual string value
             writer.WriteString(Value);

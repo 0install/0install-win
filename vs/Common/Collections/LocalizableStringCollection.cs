@@ -154,7 +154,10 @@ namespace Common.Collections
 
             // Try to find "no language specified"
             foreach (LocalizableString entry in this)
-                if (entry.Language == CultureInfo.InvariantCulture) return entry.Value;
+            {
+                if (entry.Language == null) continue;
+                if (entry.Language.Equals(CultureInfo.InvariantCulture)) return entry.Value;
+            }
 
             // Try to find "en-US"
             foreach (LocalizableString entry in this)
