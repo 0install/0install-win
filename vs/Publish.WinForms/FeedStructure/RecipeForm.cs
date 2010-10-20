@@ -8,7 +8,6 @@ using Common.Utils;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Controls;
-using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
@@ -126,7 +125,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
-                    var completeSourceDir = extractedArchiveDir + StringUtils.UnifySlashes(subfolder);
+                    var completeSourceDir = Path.Combine(extractedArchiveDir, StringUtils.UnifySlashes(subfolder ?? ""));
                     FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }
