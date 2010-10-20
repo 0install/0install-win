@@ -41,7 +41,7 @@
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";
             this.hintTextBoxSummary.Size = new System.Drawing.Size(299, 20);
             this.hintTextBoxSummary.TabIndex = 1;
-            this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.hintTextBoxSummary_TextChanged);
+            this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.HintTextBoxSummaryTextChanged);
             // 
             // comboBoxLanguages
             // 
@@ -51,6 +51,7 @@
             this.comboBoxLanguages.Name = "comboBoxLanguages";
             this.comboBoxLanguages.Size = new System.Drawing.Size(158, 21);
             this.comboBoxLanguages.TabIndex = 2;
+            this.comboBoxLanguages.SelectedValueChanged += new System.EventHandler(this.ComboBoxLanguagesSelectedValueChanged);
             // 
             // SummariesControl
             // 

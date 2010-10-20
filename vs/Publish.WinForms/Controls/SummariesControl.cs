@@ -1,7 +1,6 @@
 ﻿using System.Windows.Forms;
 using Common.Collections;
 using System.Globalization;
-using System.Collections.Generic;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -32,29 +31,87 @@ namespace ZeroInstall.Publish.WinForms.Controls
             UpdateControl();
         }
 
+        private void ClearControl()
+        {
+            comboBoxLanguages.Items.Clear();
+            hintTextBoxSummary.Text = string.Empty;
+        }
+
         private void UpdateControl()
         {
+            var selectedLanguage = GetLanguageFromComboBox();
+            ClearControl();
+
             comboBoxLanguages.BeginUpdate();
-            comboBoxLanguages.Items.Clear();
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {
-                comboBoxLanguages.Items.Add(_summaries.ContainsLanguage(language) ? UsingLanguageMarker + language.DisplayName : language.DisplayName);   
+                comboBoxLanguages.Items.Add(_summaries.ContainsLanguage(language)
+                                                ? UsingLanguageMarker + language.IetfLanguageTag
+                                                : language.IetfLanguageTag);
+            }
+            if (selectedLanguage == null)
+            {
+                comboBoxLanguages.SelectedItem = CultureInfo.CurrentCulture.IetfLanguageTag;
+            }
+            else
+            {
+                comboBoxLanguages.SelectedItem = _summaries.ContainsLanguage(selectedLanguage)
+                                                     ? UsingLanguageMarker + selectedLanguage.IetfLanguageTag
+                                                     : selectedLanguage.IetfLanguageTag;
+                hintTextBoxSummary.Text = _summaries.ContainsLanguage(selectedLanguage) ? _summaries.GetExactLanguage(selectedLanguage) : string.Empty;
             }
             comboBoxLanguages.EndUpdate();
         }
 
-        private void hintTextBoxSummary_TextChanged(object sender, System.EventArgs e)
+        private void HintTextBoxSummaryTextChanged(object sender, System.EventArgs e)
         {
-
+            string changedSummary = hintTextBoxSummary.Text;
+            if (string.IsNullOrEmpty(changedSummary) && _summaries.ContainsLanguage(GetLanguageFromComboBox()))
+            {
+                _summaries.RemoveAt(GetIndexOfLanguage(GetLanguageFromComboBox()));
+                UpdateControl();
+            }
+            else
+            {
+                if (_summaries.ContainsLanguage(GetLanguageFromComboBox()))
+                {
+                    _summaries[GetIndexOfLanguage(GetLanguageFromComboBox())] = new LocalizableString(changedSummary, GetLanguageFromComboBox());
+                }
+                else
+                {
+                    _summaries.Add(new LocalizableString(changedSummary, GetLanguageFromComboBox()));
+                    UpdateControl();
+                }
+            }
         }
 
         private CultureInfo GetLanguageFromComboBox()
         {
-            string languageWithMarker = comboBoxLanguages.SelectedValue.ToString();
-            if(languageWithMarker.StartsWith(UsingLanguageMarker)
-                return CultureInfo.CreateSpecificCulture(languageWithMarker.Substring(UsingLanguageMarker.Length));
-            else
-                return CultureInfo.CreateSpecificCulture(languageWithMarker);
+            if (comboBoxLanguages.SelectedItem == null) return null;
+            string languageWithMarker = comboBoxLanguages.SelectedItem.ToString();
+            return CultureInfo.GetCultureInfo(languageWithMarker.StartsWith(UsingLanguageMarker) ? languageWithMarker.Substring(UsingLanguageMarker.Length) : languageWithMarker);
+        }
+
+        private int GetIndexOfLanguage(CultureInfo toGetIndexFor)
+        {
+            for (int i = 0; i < _summaries.Count; i++)
+            {
+                var currentLanguage = _summaries[i].Language;
+                if (currentLanguage != null)
+                {
+                    if (_summaries[i].Language.Equals(toGetIndexFor))
+                        return i;
+                } else if(toGetIndexFor.Equals(CultureInfo.GetCultureInfo(string.Empty)))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        private void ComboBoxLanguagesSelectedValueChanged(object sender, System.EventArgs e)
+        {
+            hintTextBoxSummary.Text = _summaries.ContainsLanguage(GetLanguageFromComboBox()) ? _summaries.GetExactLanguage(GetLanguageFromComboBox()) : string.Empty;
         }
     }
 }
