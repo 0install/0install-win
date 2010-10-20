@@ -67,7 +67,7 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            Assert.IsTrue(dictionary.ContainsExactLanguage(null));
+            Assert.IsTrue(dictionary.ContainsExactLanguage(CultureInfo.InvariantCulture));
             Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-AT")));
@@ -85,8 +85,8 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            dictionary.RemoveAll(null);
-            Assert.IsFalse(dictionary.ContainsExactLanguage(null));
+            dictionary.RemoveAll(CultureInfo.InvariantCulture);
+            Assert.IsFalse(dictionary.ContainsExactLanguage(CultureInfo.InvariantCulture));
             dictionary.RemoveAll(new CultureInfo("de-DE"));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
         }
@@ -103,7 +103,7 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            Assert.AreEqual("neturalValue", dictionary.GetExactLanguage(null));
+            Assert.AreEqual("neturalValue", dictionary.GetExactLanguage(CultureInfo.InvariantCulture));
             Assert.AreEqual("americaValue", dictionary.GetExactLanguage(new CultureInfo("en-US")));
             Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("en-CA")));
             Assert.AreEqual("gbValue", dictionary.GetExactLanguage(new CultureInfo("en-GB")));
@@ -124,7 +124,7 @@ namespace Common.Collections
                 "neturalValue"
             };
 
-            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(null));
+            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(CultureInfo.InvariantCulture));
             Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US")));
             Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-CA")));
             Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB")));

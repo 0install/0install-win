@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -49,6 +50,10 @@ namespace Common.Collections
         /// <param name="language">The language of the <paramref name="value"/>.</param>
         public void Add(string value, CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             Add(new LocalizableString(value, language));
         }
         #endregion
@@ -57,11 +62,15 @@ namespace Common.Collections
         /// <summary>
         /// Checks if the collection contains an entry exactly matching the specified language.
         /// </summary>
-        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
+        /// <param name="language">The exact language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <returns><see langword="true"/> if an element with the specified language exists in the collection; <see langword="false"/> otherwise.</returns>
         /// <seealso cref="GetExactLanguage"/>
         public bool ContainsExactLanguage(CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return true;
             return false;
@@ -72,9 +81,13 @@ namespace Common.Collections
         /// <summary>
         /// Removes all entries in the collection exactly matching the specified language.
         /// </summary>
-        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
+        /// <param name="language">The exact language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         public void RemoveAll(CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             var toRemove = new LinkedList<LocalizableString>();
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) toRemove.AddLast(entry);
@@ -86,12 +99,16 @@ namespace Common.Collections
         /// <summary>
         /// Returns the first string in the collection exactly matching the specified language.
         /// </summary>
-        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
+        /// <param name="language">The exact language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <returns>The string value found in the collection.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
         /// <seealso cref="ContainsExactLanguage"/>
         public string GetExactLanguage(CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return entry.Value;
             throw new KeyNotFoundException();
@@ -100,7 +117,7 @@ namespace Common.Collections
         /// <summary>
         /// Returns the best-fitting string in the collection for the specified language.
         /// </summary>
-        /// <param name="language">The language to look for; may be <see langword="null"/>.</param>
+        /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <returns>The best-fitting string value found in the collection; <see langword="null"/> if the collection is empty.</returns>
         /// <remarks>
         /// Language preferences in decreasing order:
@@ -113,12 +130,13 @@ namespace Common.Collections
         /// </remarks>
         public string GetBestLanguage(CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             // Try to find exact match
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return entry.Value;
-
-            // No language only qualifies for exact match
-            if (language == null) throw new KeyNotFoundException();
 
             // Try to find same country code and region-neutral
             foreach (LocalizableString entry in this)
@@ -136,7 +154,7 @@ namespace Common.Collections
 
             // Try to find "no language specified"
             foreach (LocalizableString entry in this)
-                if (entry.Language == null) return entry.Value;
+                if (entry.Language == CultureInfo.InvariantCulture) return entry.Value;
 
             // Try to find "en-US"
             foreach (LocalizableString entry in this)
@@ -162,10 +180,14 @@ namespace Common.Collections
         /// <summary>
         /// Adds a new string with an associated language to the collection. Pre-existing entries with the same language are removed.
         /// </summary>
-        /// <param name="value">The actual string value to store.</param>
+        /// <param name="value">The actual string value to store; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="language">The language of the <paramref name="value"/>.</param>
         public void Set(string value, CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             RemoveAll(language);
             Add(value, language);
         }

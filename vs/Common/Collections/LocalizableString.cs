@@ -40,7 +40,7 @@ namespace Common.Collections
         public string Value { get; set; }
 
         /// <summary>
-        /// The language of the <see cref="Value"/>; may be <see langword="null"/>.
+        /// The language of the <see cref="Value"/>; use <see cref="CultureInfo.InvariantCulture"/> for none.
         /// </summary>
         public CultureInfo Language { get; set; }
         #endregion
@@ -50,10 +50,8 @@ namespace Common.Collections
         /// Creates a new string with no associated language.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
-        public LocalizableString(string value) : this()
-        {
-            Value = value;
-        }
+        public LocalizableString(string value) : this(value, CultureInfo.InvariantCulture)
+        {}
 
         /// <summary>
         /// Creates a new string with an associated language.
@@ -138,7 +136,7 @@ namespace Common.Collections
             #endregion
 
             // Read xml:lang attribute
-            if (!string.IsNullOrEmpty(reader.XmlLang)) Language = new CultureInfo(reader.XmlLang);
+            Language = string.IsNullOrEmpty(reader.XmlLang) ? CultureInfo.InvariantCulture : new CultureInfo(reader.XmlLang);
 
             // Read actual string value
             Value = reader.ReadElementContentAsString();
@@ -151,7 +149,7 @@ namespace Common.Collections
             #endregion
 
             // Write xml:lang attribute
-            if (Language != null) writer.WriteAttributeString("xml", "lang", "", Language.ToString());
+            if (Language != null && Language != CultureInfo.InvariantCulture) writer.WriteAttributeString("xml", "lang", "", Language.ToString());
 
             // Write actual string value
             writer.WriteString(Value);
