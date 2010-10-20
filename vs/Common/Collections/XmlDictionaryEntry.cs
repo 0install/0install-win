@@ -21,8 +21,6 @@
  */
 
 using System;
-using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using Common.Properties;
 
@@ -31,7 +29,7 @@ namespace Common.Collections
     /// <summary>
     /// A key-value string pair for <see ref="XmlCollection" />.
     /// </summary>
-    public sealed class XmlDictionaryEntry : IEquatable<XmlDictionaryEntry>, ICloneable, IXmlSerializable
+    public sealed class XmlDictionaryEntry : IEquatable<XmlDictionaryEntry>, ICloneable
     {
         #region Variables
         /// <summary>
@@ -44,10 +42,10 @@ namespace Common.Collections
 
         #region Properties
         /// <summary>
-        /// The unique text key
+        /// The unique text key.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the new key value already exists in the <see cref="Parent"/> dictionary.</exception>
-        //[XmlAttribute("key")]
+        [XmlAttribute("key")]
         public string Key
         {
             get { return _key; }
@@ -60,8 +58,9 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// The text value
+        /// The text value.
         /// </summary>
+        [XmlText]
         public string Value { get; set; }
         #endregion
 
@@ -73,10 +72,10 @@ namespace Common.Collections
         {}
 
         /// <summary>
-        /// Creates a new entry for <see ref="XmlCollection" />
+        /// Creates a new entry for <see ref="XmlCollection" />.
         /// </summary>
-        /// <param name="key">The unique text key</param>
-        /// <param name="value">The text value</param>
+        /// <param name="key">The unique text key.</param>
+        /// <param name="value">The text value.</param>
         public XmlDictionaryEntry(string key, string value)
         {
             _key = key;
@@ -145,35 +144,6 @@ namespace Common.Collections
         public object Clone()
         {
             return CloneEntry();
-        }
-        #endregion
-
-        //--------------------//
-
-        #region XML Serialization
-        void IXmlSerializable.ReadXml(XmlReader reader)
-        {
-            #region Sanity checks
-            if (reader == null) throw new ArgumentNullException("reader");
-            #endregion
-
-            Key = reader.GetAttribute("key");
-            Value = reader.ReadElementContentAsString();
-        }
-
-        void IXmlSerializable.WriteXml(XmlWriter writer)
-        {
-            #region Sanity checks
-            if (writer == null) throw new ArgumentNullException("writer");
-            #endregion
-
-            writer.WriteAttributeString("key", Key);
-            writer.WriteString(Value);
-        }
-
-        XmlSchema IXmlSerializable.GetSchema()
-        {
-            return null;
         }
         #endregion
     }

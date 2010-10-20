@@ -22,8 +22,6 @@
 
 using System;
 using System.Globalization;
-using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 
 namespace Common.Collections
@@ -31,18 +29,29 @@ namespace Common.Collections
     /// <summary>
     /// A string with an optionally associated language that can be XML serialized to an element with an xml:lang tag.
     /// </summary>
-    public struct LocalizableString : IEquatable<LocalizableString>, ICloneable, IXmlSerializable
+    public struct LocalizableString : IEquatable<LocalizableString>, ICloneable
     {
         #region Properties
         /// <summary>
         /// The actual string value to store.
         /// </summary>
+        [XmlText]
         public string Value { get; set; }
 
         /// <summary>
         /// The language of the <see cref="Value"/>; use <see cref="CultureInfo.InvariantCulture"/> for none.
         /// </summary>
+        [XmlIgnore]
         public CultureInfo Language { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="Language"/>
+        [XmlAttribute("xml:lang", DataType = "language")]
+        public string LanguageString
+        {
+            get { return (Language == null || Language.Equals(CultureInfo.InvariantCulture)) ? null : Language.ToString(); }
+            set { Language = string.IsNullOrEmpty(value) ? CultureInfo.InvariantCulture : new CultureInfo(value); }
+        }
         #endregion
 
         #region Contructor
@@ -123,41 +132,6 @@ namespace Common.Collections
         public object Clone()
         {
             return CloneString();
-        }
-        #endregion
-        
-        //--------------------//
-
-        #region XML Serialization
-        void IXmlSerializable.ReadXml(XmlReader reader)
-        {
-            #region Sanity checks
-            if (reader == null) throw new ArgumentNullException("reader");
-            #endregion
-
-            // Read xml:lang attribute
-            Language = string.IsNullOrEmpty(reader.XmlLang) ? CultureInfo.InvariantCulture : new CultureInfo(reader.XmlLang);
-
-            // Read actual string value
-            Value = reader.ReadElementContentAsString();
-        }
-
-        void IXmlSerializable.WriteXml(XmlWriter writer)
-        {
-            #region Sanity checks
-            if (writer == null) throw new ArgumentNullException("writer");
-            #endregion
-
-            // Write xml:lang attribute
-            if (Language != null && !Language.Equals(CultureInfo.InvariantCulture)) writer.WriteAttributeString("xml", "lang", "", Language.ToString());
-
-            // Write actual string value
-            writer.WriteString(Value);
-        }
-
-        XmlSchema IXmlSerializable.GetSchema()
-        {
-            return null;
         }
         #endregion
     }
