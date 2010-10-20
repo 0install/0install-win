@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             comboBoxLanguages.BeginUpdate();
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {
-                comboBoxLanguages.Items.Add(_summaries.ContainsLanguage(language)
+                comboBoxLanguages.Items.Add(_summaries.ContainsExactLanguage(language)
                                                 ? UsingLanguageMarker + language.IetfLanguageTag
                                                 : language.IetfLanguageTag);
             }
@@ -55,10 +55,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             else
             {
-                comboBoxLanguages.SelectedItem = _summaries.ContainsLanguage(selectedLanguage)
+                comboBoxLanguages.SelectedItem = _summaries.ContainsExactLanguage(selectedLanguage)
                                                      ? UsingLanguageMarker + selectedLanguage.IetfLanguageTag
                                                      : selectedLanguage.IetfLanguageTag;
-                hintTextBoxSummary.Text = _summaries.ContainsLanguage(selectedLanguage) ? _summaries.GetExactLanguage(selectedLanguage) : string.Empty;
+                hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(selectedLanguage) ? _summaries.GetExactLanguage(selectedLanguage) : string.Empty;
             }
             comboBoxLanguages.EndUpdate();
         }
@@ -66,14 +66,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void HintTextBoxSummaryTextChanged(object sender, System.EventArgs e)
         {
             string changedSummary = hintTextBoxSummary.Text;
-            if (string.IsNullOrEmpty(changedSummary) && _summaries.ContainsLanguage(GetLanguageFromComboBox()))
+            if (string.IsNullOrEmpty(changedSummary) && _summaries.ContainsExactLanguage(GetLanguageFromComboBox()))
             {
                 _summaries.RemoveAt(GetIndexOfLanguage(GetLanguageFromComboBox()));
                 UpdateControl();
             }
             else
             {
-                if (_summaries.ContainsLanguage(GetLanguageFromComboBox()))
+                if (_summaries.ContainsExactLanguage(GetLanguageFromComboBox()))
                 {
                     _summaries[GetIndexOfLanguage(GetLanguageFromComboBox())] = new LocalizableString(changedSummary, GetLanguageFromComboBox());
                 }
@@ -111,7 +111,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void ComboBoxLanguagesSelectedValueChanged(object sender, System.EventArgs e)
         {
-            hintTextBoxSummary.Text = _summaries.ContainsLanguage(GetLanguageFromComboBox()) ? _summaries.GetExactLanguage(GetLanguageFromComboBox()) : string.Empty;
+            hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(GetLanguageFromComboBox()) ? _summaries.GetExactLanguage(GetLanguageFromComboBox()) : string.Empty;
         }
     }
 }

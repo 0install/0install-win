@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -28,7 +27,7 @@ using System.Globalization;
 namespace Common.Collections
 {
     /// <summary>
-    /// An unsorted collection of <see cref="LocalizableString"/>s with language-search methods.
+    /// A collection of <see cref="LocalizableString"/>s with language-search methods.
     /// </summary>
     public class LocalizableStringCollection : C5.ArrayList<LocalizableString>
     {
@@ -56,11 +55,12 @@ namespace Common.Collections
 
         #region Contains
         /// <summary>
-        /// Checks if the collection contains an entry with a specific language.
+        /// Checks if the collection contains an entry exactly matching the specified language.
         /// </summary>
-        /// <param name="language">The exact language to look for.</param>
+        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
         /// <returns><see langword="true"/> if an element with the specified language exists in the collection; <see langword="false"/> otherwise.</returns>
-        public bool ContainsLanguage(CultureInfo language)
+        /// <seealso cref="GetExactLanguage"/>
+        public bool ContainsExactLanguage(CultureInfo language)
         {
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return true;
@@ -68,30 +68,106 @@ namespace Common.Collections
         }
         #endregion
 
-        #region Access
+        #region Remove
+        /// <summary>
+        /// Removes all entries in the collection exactly matching the specified language.
+        /// </summary>
+        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
+        public void RemoveAll(CultureInfo language)
+        {
+            var toRemove = new LinkedList<LocalizableString>();
+            foreach (LocalizableString entry in this)
+                if (Equals(language, entry.Language)) toRemove.AddLast(entry);
+            RemoveAll(toRemove);
+        }
+        #endregion
+
+        #region Get
         /// <summary>
         /// Returns the first string in the collection exactly matching the specified language.
         /// </summary>
-        /// <param name="language">The language to look for.</param>
+        /// <param name="language">The exact language to look for; may be <see langword="null"/>.</param>
         /// <returns>The string value found in the collection.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
+        /// <seealso cref="ContainsExactLanguage"/>
         public string GetExactLanguage(CultureInfo language)
         {
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return entry.Value;
-			throw new KeyNotFoundException();
+            throw new KeyNotFoundException();
         }
 
         /// <summary>
         /// Returns the best-fitting string in the collection for the specified language.
         /// </summary>
-        /// <param name="language">The language to look for.</param>
-        /// <returns>The best-fitting string value found in the collection. May have the exact language, a similar language or no language.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching strings were found in the collection.</exception>
+        /// <param name="language">The language to look for; may be <see langword="null"/>.</param>
+        /// <returns>The best-fitting string value found in the collection; <see langword="null"/> if the collection is empty.</returns>
+        /// <remarks>
+        /// Language preferences in decreasing order:
+        /// exact match,
+        /// same country code and region-neutral,
+        /// same country code,
+        /// no language specified,
+        /// en-US,
+        /// first entry in collection
+        /// </remarks>
         public string GetBestLanguage(CultureInfo language)
         {
-            // ToDo: Implement
-            throw new NotImplementedException();
+            // Try to find exact match
+            foreach (LocalizableString entry in this)
+                if (Equals(language, entry.Language)) return entry.Value;
+
+            // No language only qualifies for exact match
+            if (language == null) throw new KeyNotFoundException();
+
+            // Try to find same country code and region-neutral
+            foreach (LocalizableString entry in this)
+            {
+                if (entry.Language == null) continue;
+                if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName && entry.Language.IsNeutralCulture) return entry.Value;
+            }
+
+            // Try to find same country code
+            foreach (LocalizableString entry in this)
+            {
+                if (entry.Language == null) continue;
+                if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName) return entry.Value;
+            }
+
+            // Try to find "no language specified"
+            foreach (LocalizableString entry in this)
+                if (entry.Language == null) return entry.Value;
+
+            // Try to find "en-US"
+            foreach (LocalizableString entry in this)
+                if (Equals(entry.Language, new CultureInfo("en-US"))) return entry.Value;
+
+            // Try to find first entry in collection
+            return IsEmpty ? null : First.Value;
+        }
+        #endregion
+
+        #region Set
+        /// <summary>
+        /// Sets a new string with no associated language in the collection. Pre-existing entries with no associated language are removed.
+        /// </summary>
+        /// <param name="value">The actual string value to store.</param>
+        [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]
+        public void Set(string value)
+        {
+            RemoveAll(null);
+            Add(value);
+        }
+
+        /// <summary>
+        /// Adds a new string with an associated language to the collection. Pre-existing entries with the same language are removed.
+        /// </summary>
+        /// <param name="value">The actual string value to store.</param>
+        /// <param name="language">The language of the <paramref name="value"/>.</param>
+        public void Set(string value, CultureInfo language)
+        {
+            RemoveAll(language);
+            Add(value, language);
         }
         #endregion
 

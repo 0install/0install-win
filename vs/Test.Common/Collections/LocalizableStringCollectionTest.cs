@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Generic;
 using System.Globalization;
 using Common.Storage;
 using NUnit.Framework;
@@ -41,6 +42,8 @@ namespace Common.Collections
             var collection1 = new LocalizableStringCollection
             {
                 "neturalValue",
+                {"americaValue", new CultureInfo("en-US")},
+                {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
                 {"germanyValue", new CultureInfo("de-DE")}
             };
@@ -56,17 +59,79 @@ namespace Common.Collections
         }
 
         [Test]
-        public void TestContainsLanguage()
+        public void TestContainsExactLanguage()
         {
             var dictionary = new LocalizableStringCollection
             {
                 "neturalValue",
+                {"germanyValue", new CultureInfo("de-DE")}
+            };
+
+            Assert.IsTrue(dictionary.ContainsExactLanguage(null));
+            Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
+            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de")));
+            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-AT")));
+            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("en-US")));
+        }
+
+        [Test]
+        public void TestRemoveAll()
+        {
+            var dictionary = new LocalizableStringCollection
+            {
+                "neturalValue",
+                {"germanyValue", new CultureInfo("de-DE")},
+                "neturalValue",
+                {"germanyValue", new CultureInfo("de-DE")}
+            };
+
+            dictionary.RemoveAll(null);
+            Assert.IsFalse(dictionary.ContainsExactLanguage(null));
+            dictionary.RemoveAll(new CultureInfo("de-DE"));
+            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
+        }
+
+        [Test]
+        public void TestGetExactLanguage()
+        {
+            var dictionary = new LocalizableStringCollection
+            {
+                "neturalValue",
+                {"americaValue", new CultureInfo("en-US")},
+                {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
                 {"germanyValue", new CultureInfo("de-DE")}
             };
-            Assert.IsTrue(dictionary.ContainsLanguage(null));
-            Assert.IsTrue(dictionary.ContainsLanguage(new CultureInfo("de-DE")));
-            Assert.IsFalse(dictionary.ContainsLanguage(new CultureInfo("en-US")));
+
+            Assert.AreEqual("neturalValue", dictionary.GetExactLanguage(null));
+            Assert.AreEqual("americaValue", dictionary.GetExactLanguage(new CultureInfo("en-US")));
+            Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("en-CA")));
+            Assert.AreEqual("gbValue", dictionary.GetExactLanguage(new CultureInfo("en-GB")));
+            Assert.AreEqual("germanValue", dictionary.GetExactLanguage(new CultureInfo("de")));
+            Assert.AreEqual("germanyValue", dictionary.GetExactLanguage(new CultureInfo("de-DE")));
+            Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("de-AT")));
+        }
+
+        [Test]
+        public void TestGetBestLanguage()
+        {
+            var dictionary = new LocalizableStringCollection
+            {
+                {"americaValue", new CultureInfo("en-US")},
+                {"gbValue", new CultureInfo("en-GB")},
+                {"germanValue", new CultureInfo("de")},
+                {"germanyValue", new CultureInfo("de-DE")},
+                "neturalValue"
+            };
+
+            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(null));
+            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US")));
+            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-CA")));
+            Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB")));
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de")));
+            Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE")));
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT")));
+            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")));
         }
     }
 }
