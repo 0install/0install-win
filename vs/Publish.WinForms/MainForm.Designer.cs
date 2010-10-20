@@ -50,7 +50,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.hintTextBoxDescription = new Common.Controls.HintTextBox();
             this.labelDescription = new System.Windows.Forms.Label();
-            this.hintTextBoxSummary = new Common.Controls.HintTextBox();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
             this.hintTextBoxInterfaceUrl = new Common.Controls.HintTextBox();
@@ -98,11 +97,11 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
             this.summariesControl1 = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -207,7 +206,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.Controls.Add(this.summariesControl1);
             this.tabPageGeneral.Controls.Add(this.hintTextBoxDescription);
             this.tabPageGeneral.Controls.Add(this.labelDescription);
-            this.tabPageGeneral.Controls.Add(this.hintTextBoxSummary);
             this.tabPageGeneral.Controls.Add(this.labelSummary);
             this.tabPageGeneral.Controls.Add(this.checkBoxNeedsTerminal);
             this.tabPageGeneral.Controls.Add(this.hintTextBoxInterfaceUrl);
@@ -247,17 +245,6 @@ namespace ZeroInstall.Publish.WinForms
             this.labelDescription.Size = new System.Drawing.Size(60, 13);
             this.labelDescription.TabIndex = 16;
             this.labelDescription.Text = "Description";
-            // 
-            // hintTextBoxSummary
-            // 
-            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSummary.HintText = "a short one-line description";
-            this.hintTextBoxSummary.Location = new System.Drawing.Point(9, 98);
-            this.hintTextBoxSummary.Name = "hintTextBoxSummary";
-            this.hintTextBoxSummary.Size = new System.Drawing.Size(536, 20);
-            this.hintTextBoxSummary.TabIndex = 15;
             // 
             // labelSummary
             // 
@@ -846,13 +833,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
-            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -889,10 +869,17 @@ namespace ZeroInstall.Publish.WinForms
             // 
             // summariesControl1
             // 
-            this.summariesControl1.Location = new System.Drawing.Point(200, 68);
+            this.summariesControl1.Location = new System.Drawing.Point(9, 99);
             this.summariesControl1.Name = "summariesControl1";
-            this.summariesControl1.Size = new System.Drawing.Size(318, 22);
+            this.summariesControl1.Size = new System.Drawing.Size(536, 23);
             this.summariesControl1.TabIndex = 18;
+            // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
             // 
             // MainForm
             // 
@@ -990,7 +977,6 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.TreeView treeViewFeedStructure;
         private Common.Controls.HintTextBox hintTextBoxDescription;
         private System.Windows.Forms.Label labelDescription;
-        private Common.Controls.HintTextBox hintTextBoxSummary;
         private System.Windows.Forms.Label labelSummary;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxGpg;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;

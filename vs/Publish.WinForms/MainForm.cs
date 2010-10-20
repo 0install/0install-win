@@ -22,6 +22,7 @@ using System.IO;
 using System.Windows.Forms;
 using C5;
 using Common;
+using Common.Collections;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.Drawing;
@@ -234,7 +235,7 @@ namespace ZeroInstall.Publish.WinForms
             foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
 
             _feedToEdit.Summaries.Clear();
-            if (!String.IsNullOrEmpty(hintTextBoxSummary.Text)) _feedToEdit.Summaries.Add(hintTextBoxSummary.Text);
+            _feedToEdit.Summaries.AddAll(summariesControl1.Summaries);
 
             _feedToEdit.Descriptions.Clear();
             if (!String.IsNullOrEmpty(hintTextBoxDescription.Text))
@@ -351,8 +352,7 @@ namespace ZeroInstall.Publish.WinForms
         private void FillGeneralTab()
         {
             hintTextBoxProgramName.Text = _feedToEdit.Name;
-            if (!_feedToEdit.Summaries.IsEmpty) hintTextBoxSummary.Text = _feedToEdit.Summaries.First.Value;
-            //TEST:
+
             summariesControl1.Summaries = _feedToEdit.Summaries;
 
             if (!_feedToEdit.Descriptions.IsEmpty) hintTextBoxDescription.Text = _feedToEdit.Descriptions.First.Value;
@@ -421,7 +421,7 @@ namespace ZeroInstall.Publish.WinForms
         private void ResetGeneralTabControls()
         {
             hintTextBoxProgramName.ResetText();
-            hintTextBoxSummary.ResetText();
+            summariesControl1.Summaries = new LocalizableStringCollection();
             hintTextBoxDescription.ResetText();
             hintTextBoxHomepage.ResetText();
             hintTextBoxInterfaceUrl.ResetText();

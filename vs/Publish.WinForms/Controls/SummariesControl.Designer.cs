@@ -34,12 +34,13 @@
             // 
             // hintTextBoxSummary
             // 
-            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.hintTextBoxSummary.ClearButton = true;
             this.hintTextBoxSummary.HintText = "a short one-line description";
-            this.hintTextBoxSummary.Location = new System.Drawing.Point(164, 2);
+            this.hintTextBoxSummary.Location = new System.Drawing.Point(85, 2);
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";
-            this.hintTextBoxSummary.Size = new System.Drawing.Size(299, 20);
+            this.hintTextBoxSummary.Size = new System.Drawing.Size(342, 20);
             this.hintTextBoxSummary.TabIndex = 1;
             this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.HintTextBoxSummaryTextChanged);
             // 
@@ -49,9 +50,9 @@
             this.comboBoxLanguages.FormattingEnabled = true;
             this.comboBoxLanguages.Location = new System.Drawing.Point(0, 1);
             this.comboBoxLanguages.Name = "comboBoxLanguages";
-            this.comboBoxLanguages.Size = new System.Drawing.Size(158, 21);
+            this.comboBoxLanguages.Size = new System.Drawing.Size(79, 21);
             this.comboBoxLanguages.TabIndex = 2;
-            this.comboBoxLanguages.SelectedValueChanged += new System.EventHandler(this.ComboBoxLanguagesSelectedValueChanged);
+            this.comboBoxLanguages.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxLanguagesSelectionChangeCommitted);
             // 
             // SummariesControl
             // 
@@ -60,7 +61,7 @@
             this.Controls.Add(this.comboBoxLanguages);
             this.Controls.Add(this.hintTextBoxSummary);
             this.Name = "SummariesControl";
-            this.Size = new System.Drawing.Size(463, 23);
+            this.Size = new System.Drawing.Size(427, 23);
             this.ResumeLayout(false);
             this.PerformLayout();
 
