@@ -1,121 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
-  <xs:element name="interface" nillable="true" type="tns:Feed" />
-  <xs:complexType name="Feed">
+  <xs:element name="interface" nillable="true" type="tns:feed" />
+  <xs:complexType name="feed">
     <xs:sequence>
       <xs:element minOccurs="1" maxOccurs="1" name="name" type="xs:string" />
-      <xs:element minOccurs="1" maxOccurs="unbounded" name="summary" type="tns:LocalizableString" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:LocalizableString" />
+      <xs:element minOccurs="1" maxOccurs="unbounded" name="summary" type="tns:localizable-string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="description" type="tns:localizable-string" />
       <xs:element minOccurs="0" maxOccurs="1" name="homepage" type="xs:string" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:Icon" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="icon" type="tns:icon" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="category" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="needs-terminal" type="xs:string" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="feed" type="tns:FeedReference" />
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="feed-for" type="tns:InterfaceReference" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="feed" type="tns:feed-reference" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="feed-for" type="tns:interface-reference" />
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:Group" />
-        <xs:element minOccurs="0" maxOccurs="1" name="implementation" type="tns:Implementation" />
-        <xs:element minOccurs="0" maxOccurs="1" name="package-implementation" type="tns:PackageImplementation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="implementation" type="tns:implementation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="package-implementation" type="tns:package-implementation" />
+        <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:group" />
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="min-injector-version" type="xs:string" use="optional" />
     <xs:attribute name="uri" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:complexType name="LocalizableString">
+  <xs:complexType name="localizable-string">
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute ref="xml:lang" use="optional" />
       </xs:extension>
     </xs:simpleContent>
   </xs:complexType>
-  <xs:complexType name="Icon">
+  <xs:complexType name="icon">
     <xs:attribute name="href" type="xs:string" use="required" />
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
-  <xs:complexType name="FeedReference">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:TargetBase">
-        <xs:attribute name="src" type="xs:string" use="required" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="TargetBase" abstract="true">
+  <xs:complexType name="feed-reference">
+    <xs:attribute name="src" type="xs:string" use="required" />
     <xs:attribute name="langs" type="xs:string" use="optional" />
     <xs:attribute name="arch" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:complexType name="Element" abstract="true">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:TargetBase">
-        <xs:sequence>
-          <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:Dependency" />
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:EnvironmentBinding" />
-            <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:WorkingDirBinding" />
-            <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:OverlayBinding" />
-          </xs:choice>
-        </xs:sequence>
-        <xs:attribute name="version" type="xs:string" use="optional" />
-        <xs:attribute name="version-modifier" type="xs:string" use="optional" />
-        <xs:attribute name="released" type="xs:string" use="optional" />
-        <xs:attribute name="stability" type="tns:Stability" use="optional" />
-        <xs:attribute name="license" type="xs:string" use="optional" />
-        <xs:attribute name="main" type="xs:string" use="optional" />
-        <xs:attribute name="self-test" type="xs:string" use="optional" />
-        <xs:attribute name="doc-dir" type="xs:string" use="optional" />
-      </xs:extension>
-    </xs:complexContent>
+  <xs:complexType name="interface-reference">
+    <xs:attribute name="interface" type="xs:string" use="required" />
   </xs:complexType>
-  <xs:complexType name="Dependency">
+  <xs:complexType name="element" abstract="true">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="version" type="tns:Constraint" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:WorkingDirBinding" />
-        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:EnvironmentBinding" />
-        <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:OverlayBinding" />
+        <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:overlay" />
+        <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
+        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:environment" />
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="langs" type="xs:string" use="optional" />
+    <xs:attribute name="arch" type="xs:string" use="optional" />
+    <xs:attribute name="version" type="xs:string" use="optional" />
+    <xs:attribute name="version-modifier" type="xs:string" use="optional" />
+    <xs:attribute name="released" type="xs:string" use="optional" />
+    <xs:attribute name="stability" type="tns:stability" use="optional" />
+    <xs:attribute name="license" type="xs:string" use="optional" />
+    <xs:attribute name="main" type="xs:string" use="optional" />
+    <xs:attribute name="self-test" type="xs:string" use="optional" />
+    <xs:attribute name="doc-dir" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="dependency">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="version" type="tns:constraint" />
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:environment" />
+        <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:overlay-binding" />
+        <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="interface" type="xs:string" use="required" />
     <xs:attribute name="use" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:complexType name="Constraint">
+  <xs:complexType name="constraint">
     <xs:attribute name="not-before" type="xs:string" use="optional" />
     <xs:attribute name="before" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:complexType name="WorkingDirBinding">
+  <xs:complexType name="binding" abstract="true" />
+  <xs:complexType name="environment">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Binding">
-        <xs:attribute name="src" type="xs:string" use="optional" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Binding" abstract="true" />
-  <xs:complexType name="OverlayBinding">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Binding">
-        <xs:attribute name="src" type="xs:string" use="optional" />
-        <xs:attribute name="mount-point" type="xs:string" use="optional" />
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EnvironmentBinding">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:Binding">
+      <xs:extension base="tns:binding">
         <xs:attribute name="name" type="xs:string" use="required" />
         <xs:attribute name="insert" type="xs:string" use="required" />
-        <xs:attribute default="prepend" name="mode" type="tns:EnvironmentMode" use="optional" />
+        <xs:attribute default="prepend" name="mode" type="tns:environment-mode" use="optional" />
         <xs:attribute name="default" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="EnvironmentMode">
+  <xs:simpleType name="environment-mode">
     <xs:restriction base="xs:string">
       <xs:enumeration value="prepend" />
       <xs:enumeration value="append" />
       <xs:enumeration value="replace" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="Stability">
+  <xs:complexType name="overlay">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:binding">
+        <xs:attribute name="src" type="xs:string" use="optional" />
+        <xs:attribute name="mount-point" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="working-dir">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:binding">
+        <xs:attribute name="src" type="xs:string" use="optional" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:simpleType name="stability">
     <xs:restriction base="xs:string">
       <xs:enumeration value="stable" />
       <xs:enumeration value="testing" />
@@ -124,62 +119,54 @@
       <xs:enumeration value="insecure" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="PackageImplementation">
+  <xs:complexType name="package-implementation">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Element">
+      <xs:extension base="tns:element">
         <xs:attribute name="package" type="xs:string" use="required" />
         <xs:attribute name="distributions" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ImplementationBase" abstract="true">
+  <xs:complexType name="implementation">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Element">
+      <xs:extension base="tns:element">
         <xs:sequence>
-          <xs:element minOccurs="1" maxOccurs="1" name="manifest-digest" type="tns:ManifestDigest" />
+          <xs:element minOccurs="0" maxOccurs="1" name="manifest-digest" type="tns:manifest-digest" />
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element minOccurs="0" maxOccurs="1" name="recipe" type="tns:recipe" />
+            <xs:element minOccurs="0" maxOccurs="1" name="archive" type="tns:archive" />
+          </xs:choice>
         </xs:sequence>
         <xs:attribute name="id" type="xs:string" use="required" />
         <xs:attribute name="local-path" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="ManifestDigest">
+  <xs:complexType name="manifest-digest">
     <xs:attribute name="sha1" type="xs:string" use="optional" />
     <xs:attribute name="sha1new" type="xs:string" use="optional" />
     <xs:attribute name="sha256" type="xs:string" use="optional" />
   </xs:complexType>
-  <xs:complexType name="Implementation">
+  <xs:complexType name="recipe">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:ImplementationBase">
-        <xs:sequence>
-          <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element minOccurs="0" maxOccurs="1" name="recipe" type="tns:Recipe" />
-            <xs:element minOccurs="0" maxOccurs="1" name="archive" type="tns:Archive" />
-          </xs:choice>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="Recipe">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:RetrievalMethod">
+      <xs:extension base="tns:retrieval-method">
         <xs:sequence>
           <xs:choice minOccurs="1" maxOccurs="unbounded">
-            <xs:element minOccurs="0" maxOccurs="1" name="archive" type="tns:Archive" />
+            <xs:element minOccurs="0" maxOccurs="1" name="archive" type="tns:archive" />
           </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="RetrievalMethod" abstract="true" />
-  <xs:complexType name="RecipeStep" abstract="true">
+  <xs:complexType name="retrieval-method" abstract="true" />
+  <xs:complexType name="recipe-step" abstract="true">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:RetrievalMethod" />
+      <xs:extension base="tns:retrieval-method" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Archive">
+  <xs:complexType name="archive">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:RecipeStep">
+      <xs:extension base="tns:recipe-step">
         <xs:attribute name="href" type="xs:string" use="required" />
         <xs:attribute name="type" type="xs:string" use="optional" />
         <xs:attribute name="size" type="xs:long" use="required" />
@@ -188,20 +175,17 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Group">
+  <xs:complexType name="group">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Element">
+      <xs:extension base="tns:element">
         <xs:sequence>
           <xs:choice minOccurs="0" maxOccurs="unbounded">
-            <xs:element minOccurs="0" maxOccurs="1" name="implementation" type="tns:Implementation" />
-            <xs:element minOccurs="0" maxOccurs="1" name="package-implementation" type="tns:PackageImplementation" />
-            <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:Group" />
+            <xs:element minOccurs="0" maxOccurs="1" name="implementation" type="tns:implementation" />
+            <xs:element minOccurs="0" maxOccurs="1" name="package-implementation" type="tns:package-implementation" />
+            <xs:element minOccurs="0" maxOccurs="1" name="group" type="tns:group" />
           </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="InterfaceReference">
-    <xs:attribute name="interface" type="xs:string" use="required" />
   </xs:complexType>
 </xs:schema>
