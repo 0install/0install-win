@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
     [TypeConverter(typeof(ConstraintConverter))]
+    [XmlType("constraint", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public struct Constraint : ICloneable, IEquatable<Constraint>
     {
         #region Properties

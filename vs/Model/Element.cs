@@ -60,6 +60,7 @@ namespace ZeroInstall.Model
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [XmlType("element", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public abstract class Element : TargetBase, IBindingContainer, ISimplifyable, ICloneable, IEquatable<Element>
     {
         #region Constants
@@ -161,9 +162,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
-        [XmlElement(Type = typeof(WorkingDirBinding), ElementName = "working-dir"),
-        XmlElement(Type = typeof(EnvironmentBinding), ElementName = "environment"),
-        XmlElement(Type = typeof(OverlayBinding), ElementName = "overlay")]
+        [XmlElement(typeof(WorkingDirBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion

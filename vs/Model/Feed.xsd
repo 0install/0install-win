@@ -164,7 +164,9 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:RetrievalMethod">
         <xs:sequence>
-          <xs:element minOccurs="1" maxOccurs="unbounded" name="archive" type="tns:Archive" />
+          <xs:choice minOccurs="1" maxOccurs="unbounded">
+            <xs:element minOccurs="0" maxOccurs="1" name="archive" type="tns:Archive" />
+          </xs:choice>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>

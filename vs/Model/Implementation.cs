@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [XmlType("implementation", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Implementation : ImplementationBase
     {
         #region Properties
@@ -35,8 +36,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Archive"/>s as <see cref="RetrievalMethod"/>s.
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
-        [XmlElement(Type = typeof(Archive), ElementName = "archive"),
-        XmlElement(Type = typeof(Recipe), ElementName = "recipe")]
+        [XmlElement(typeof(Archive)), XmlElement(typeof(Recipe))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion

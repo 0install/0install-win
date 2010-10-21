@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Implementation"/> directory.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [XmlType("recipe", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         #region Properties
@@ -35,7 +36,7 @@ namespace ZeroInstall.Model
         /// An ordered list of <see cref="RecipeStep"/>s to execute.
         /// </summary>
         [Description("An ordered list of archives to extract.")]
-        [XmlElement(Type = typeof(Archive), ElementName = "archive")]
+        [XmlElement("archive", typeof(Archive))] // Note: explicit naming of XML tag can be removed once other RecipeStep types have been added
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
         #endregion

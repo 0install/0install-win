@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="f6a40e41-9e7c-4bdf-88c5-254d92ef979c" name="Model" linkedPackageId="15d3b864-5faa-44a3-9ac3-2dfa67ddd544" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="f6a40e41-9e7c-4bdf-88c5-254d92ef979c" name="Model" linkedPackageId="15d3b864-5faa-44a3-9ac3-2dfa67ddd544" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="03758138-ec3d-4331-868f-39ae566aea3a" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -651,7 +651,7 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <lowerValueInternal>
-                    <literalString Id="49914973-6fda-47d9-9eff-09067ac33625" name="Lower" value="1">
+                    <literalString Id="49914973-6fda-47d9-9eff-09067ac33625" name="Lower" value="*">
                       <elementDefinition Id="a2553886-796a-4451-9b20-c066e26f7180" />
                     </literalString>
                   </lowerValueInternal>
@@ -662,7 +662,7 @@
                   </upperValueInternal>
                   <elementDefinition Id="690bb3cd-25a7-47fd-852d-34e13bd10a69" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="1971feca-02b0-470c-85b7-ef9fe6dfd88c" LastKnownName="String" />
+                    <referencedTypeMoniker Id="e535356a-405a-4cbb-80a7-7f733bc06521" LastKnownName="String" />
                   </type_NamedElement>
                 </property>
                 <property Id="15d01b06-9bda-48e0-a4c5-09bfaa922125" name="Homepage" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -4105,7 +4105,7 @@
                     <associationHasOwnedEnds>
                       <memberEnd Id="d624cfbd-a98c-484c-8fc8-3509d0634682" name="RetrievalMethods" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true">
                         <lowerValueInternal>
-                          <literalString Id="d5e72a54-24be-412d-bae3-53601c9d162d" name="Lower" value="1">
+                          <literalString Id="d5e72a54-24be-412d-bae3-53601c9d162d" name="Lower" value="*">
                             <elementDefinition Id="3f1f77d2-6ebc-47fd-8124-7efc871891d7" />
                           </literalString>
                         </lowerValueInternal>
@@ -4441,7 +4441,7 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <lowerValueInternal>
-                    <literalString Id="0ddd2e0a-885c-488a-910f-e9a06f982cd3" name="Lower" value="1">
+                    <literalString Id="0ddd2e0a-885c-488a-910f-e9a06f982cd3" name="Lower" value="*">
                       <elementDefinition Id="b7dc496b-bfbc-4870-b44d-da5098ed4843" />
                     </literalString>
                   </lowerValueInternal>
@@ -4452,7 +4452,7 @@
                   </upperValueInternal>
                   <elementDefinition Id="3e7a17f9-28d6-4d69-b2ad-41adcea55a80" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="06c7476e-30ca-4257-8d37-4902419c547f" LastKnownName="String" />
+                    <referencedTypeMoniker Id="debb8d9c-b422-4563-b87f-8aaac994e724" LastKnownName="String" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -6323,11 +6323,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="1971feca-02b0-470c-85b7-ef9fe6dfd88c" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
-        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="d1754413-c18e-4f9a-ac81-47b3da32b058" name="ManifestDigest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::ManifestDigest">
         <elementDefinition Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37" />
       </referencedType>
@@ -6335,11 +6330,6 @@
     <packageHasNamedElement>
       <referencedType Id="54896bb4-0060-4766-b17f-9c03d84e85b2" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
         <elementDefinition Id="1a83575b-d0b7-4cb3-b780-2734244d99a8" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="06c7476e-30ca-4257-8d37-4902419c547f" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
-        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -6375,6 +6365,16 @@
     <packageHasNamedElement>
       <referencedType Id="83db21e8-cf2a-4b29-83e2-ac220a717d8e" name="Stream" isAbstract="false" isLeaf="false" cachedFullName="Stream">
         <elementDefinition Id="74c3046f-528e-48fb-8ecc-073710cc2555" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e535356a-405a-4cbb-80a7-7f733bc06521" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="debb8d9c-b422-4563-b87f-8aaac994e724" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

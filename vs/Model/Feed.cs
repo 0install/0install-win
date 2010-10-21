@@ -32,6 +32,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Feed : IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
         #region Properties
@@ -162,9 +163,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this interface.
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
-        [XmlElement(Type = typeof(Group), ElementName = "group"),
-        XmlElement(Type = typeof(Implementation), ElementName = "implementation"),
-        XmlElement(Type = typeof(PackageImplementation), ElementName = "package-implementation")]
+        [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion
@@ -303,8 +302,8 @@ namespace ZeroInstall.Model
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;
             if (Name != other.Name) return false;
-            if (!Summaries.UnsequencedEquals(other.Summaries)) return false;
-            if (!Descriptions.UnsequencedEquals(other.Descriptions)) return false;
+            if (!Summaries.SequencedEquals(other.Summaries)) return false;
+            if (!Descriptions.SequencedEquals(other.Descriptions)) return false;
             if (Homepage != other.Homepage) return false;
             if (NeedsTerminal != other.NeedsTerminal) return false;
             if (!Feeds.SequencedEquals(other.Feeds)) return false;

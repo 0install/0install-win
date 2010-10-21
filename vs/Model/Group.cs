@@ -27,6 +27,7 @@ namespace ZeroInstall.Model
     /// All <see cref="Dependency"/>s and <see cref="Binding"/>s are inherited (sub-groups may add more <see cref="Dependency"/>s and <see cref="Binding"/>s to the list, but cannot remove anything). 
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [XmlType("group", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Group : Element, IElementContainer, IEquatable<Group>
     {
         #region Properties
@@ -36,9 +37,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Group"/>s and <see cref="Implementation"/>s contained within this group.
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this group.")]
-        [XmlElement(Type = typeof(Group), ElementName = "group"),
-        XmlElement(Type = typeof(Implementation), ElementName = "implementation"),
-        XmlElement(Type = typeof(PackageImplementation), ElementName = "package-implementation")]
+        [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion

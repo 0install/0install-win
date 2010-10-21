@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Xml.Serialization;
 
 namespace ZeroInstall.Model
 {
@@ -26,6 +27,7 @@ namespace ZeroInstall.Model
     /// Bindings can appear in <see cref="Dependency"/>s, in which case they tell a component how to find its dependency,
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
+    [XmlType("binding", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public abstract class Binding : ICloneable
     {
         /// <summary>

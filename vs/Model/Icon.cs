@@ -27,6 +27,7 @@ namespace ZeroInstall.Model
     /// An icon for an interface.
     /// </summary>
     [TypeConverter(typeof(IconConverter))]
+    [XmlType("icon", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public struct Icon : IEquatable<Icon>
     {
         #region Properties

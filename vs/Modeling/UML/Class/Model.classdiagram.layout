@@ -384,7 +384,7 @@
         <interfaceShapeMoniker Id="fe21d396-5621-4724-9eb6-548b34d92410" />
       </nodes>
     </realizationConnector>
-    <associationConnector edgePoints="[(5.875 : 8.71891780972481); (3.875 : 8.71891780972481)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="1" targetMultiplicity="1..*">
+    <associationConnector edgePoints="[(5.875 : 8.71891780972481); (3.875 : 8.71891780972481)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="1" targetMultiplicity="*">
       <associationMoniker Id="994acfdc-f3cb-4e22-a90c-f62a30c43824" />
       <relativeChildShapes />
       <nodes>

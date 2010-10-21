@@ -29,6 +29,7 @@ namespace ZeroInstall.Model
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
     [TypeConverter(typeof(ManifestDigestConverter))]
+    [XmlType("manifest-digest", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public struct ManifestDigest : IEquatable<ManifestDigest>
     {
         #region Constants

@@ -15,11 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Xml.Serialization;
+
 namespace ZeroInstall.Model
 {
     /// <summary>
     /// A retrieval step is a part of a <see cref="Recipe"/>.
     /// </summary>
+    [XmlType("recipe-step", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public abstract class RecipeStep : RetrievalMethod
     {
         /// <summary>

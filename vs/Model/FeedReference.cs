@@ -25,6 +25,7 @@ namespace ZeroInstall.Model
     /// An additional feed for an interface.
     /// </summary>
     /// <seealso cref="Feed.Feeds"/>
+    [XmlType("feed-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         #region Properties

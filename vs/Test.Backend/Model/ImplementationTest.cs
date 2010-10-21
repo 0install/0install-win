@@ -38,7 +38,7 @@ namespace ZeroInstall.Model
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
                 Bindings = {EnvironmentBindingTest.CreateTestBinding()},
-                RetrievalMethods = {ArchiveTest.CreateTestArchive()}
+                RetrievalMethods = {ArchiveTest.CreateTestArchive(), new Recipe {Steps = {ArchiveTest.CreateTestArchive()}}}
             };
         }
         #endregion
