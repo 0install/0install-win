@@ -49,7 +49,7 @@ namespace Common.Collections
         [XmlAttribute("xml:lang", DataType = "language")]
         public string LanguageString
         {
-            get { return (Language == null || Language.Equals(CultureInfo.InvariantCulture)) ? null : Language.ToString(); }
+            get { return (Language == null || string.IsNullOrEmpty(Language.ToString())) ? null : Language.ToString(); }
             set { Language = string.IsNullOrEmpty(value) ? CultureInfo.InvariantCulture : new CultureInfo(value); }
         }
         #endregion
@@ -86,7 +86,7 @@ namespace Common.Collections
         #region Equality
         public bool Equals(LocalizableString other)
         {
-            return other.Value == Value && Equals(other.Language, Language);
+            return other.Value == Value && other.LanguageString == LanguageString;
         }
 
         public static bool operator ==(LocalizableString left, LocalizableString right)
@@ -110,7 +110,7 @@ namespace Common.Collections
         {
             unchecked
             {
-                return ((Value != null ? Value.GetHashCode() : 0) * 397) ^ (Language != null ? Language.GetHashCode() : 0);
+                return ((Value ?? "").GetHashCode() * 397) ^ (LanguageString ?? "").GetHashCode();
             }
         }
         #endregion
