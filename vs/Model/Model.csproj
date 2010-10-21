@@ -103,7 +103,7 @@
   <ItemGroup>
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
-    <None Include="Feed.xsd">
+    <None Include="Schema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ImplementationVersion.cd" />

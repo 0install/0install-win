@@ -85,7 +85,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AppList.xsd">
+    <None Include="Schema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ClassDiagram.cd" />

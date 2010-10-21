@@ -45,9 +45,9 @@
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
       <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:environment" />
         <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:overlay" />
         <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
-        <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:environment" />
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="langs" type="xs:string" use="optional" />
@@ -66,7 +66,7 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="version" type="tns:constraint" />
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element minOccurs="0" maxOccurs="1" name="environment" type="tns:environment" />
-        <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:overlay-binding" />
+        <xs:element minOccurs="0" maxOccurs="1" name="overlay" type="tns:overlay" />
         <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
       </xs:choice>
     </xs:sequence>
