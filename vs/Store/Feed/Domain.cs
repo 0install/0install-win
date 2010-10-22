@@ -22,9 +22,10 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// A domain-name associated to a <see cref="Key"/>.
+    /// A domain-name associated to a <see cref="Domain"/>.
     /// </summary>
-    public struct Domain : IEquatable<Domain>
+    [XmlType("domain", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
+    public struct Domain : ICloneable, IEquatable<Domain>
     {
         #region Properties
         private string _value;
@@ -53,6 +54,22 @@ namespace ZeroInstall.Store.Feed
         public override string ToString()
         {
             return Value;
+        }
+        #endregion
+        
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Domain"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Domain"/>.</returns>
+        public Domain CloneDomain()
+        {
+            return new Domain {Value = Value};
+        }
+
+        public object Clone()
+        {
+            return CloneDomain();
         }
         #endregion
 

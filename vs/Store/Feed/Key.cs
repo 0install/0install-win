@@ -25,7 +25,8 @@ namespace ZeroInstall.Store.Feed
     /// An entry in the <see cref="Trust"/> database.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public sealed class Key : IEquatable<Key>
+    [XmlType("key", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
+    public sealed class Key : ICloneable, IEquatable<Key>
     {
         #region Properties
         /// <summary>
@@ -39,7 +40,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
-        [XmlElement("domain")]
+        [XmlElement]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
         #endregion
@@ -51,6 +52,25 @@ namespace ZeroInstall.Store.Feed
         public override string ToString()
         {
             return Fingerprint + " " + Domains;
+        }
+        #endregion
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Key"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Key"/>.</returns>
+        public Key CloneKey()
+        {
+            var key = new Key {Fingerprint = Fingerprint};
+            foreach (var domain in Domains) key.Domains.Add(domain.CloneDomain());
+
+            return key;
+        }
+
+        public object Clone()
+        {
+            return CloneKey();
         }
         #endregion
 

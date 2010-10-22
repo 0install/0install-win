@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the file to write.</param>
         /// <returns>The manifest digest (format=hash).</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
@@ -204,7 +204,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="format">The format of the manifest.</param>
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <returns>The manifest digest (format=hash).</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <returns>The combined manifest digest structure.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         public static ManifestDigest CreateDigest(string path, Action<IProgress> startingManifest)
         {
             var digest = new ManifestDigest();

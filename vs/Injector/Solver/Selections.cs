@@ -31,6 +31,7 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Selections : IEquatable<Selections>, ICloneable
     {
         #region Properties
@@ -77,7 +78,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Selections"/>.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Selections Load(string path)
@@ -111,7 +112,7 @@ namespace ZeroInstall.Injector.Solver
         /// Saves these <see cref="Selections"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {

@@ -229,8 +229,9 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Feed"/>.</returns>
-        /// <exception cref="IOException">Thrown if the file couldn't be read.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Feed Load(string path)
         {
             return XmlStorage.Load<Feed>(path);
@@ -250,7 +251,7 @@ namespace ZeroInstall.Model
         /// Saves this <see cref="Feed"/> to an XML file (feed).
         /// </summary>
         /// <param name="path">The file to save in.</param>
-        /// <exception cref="IOException">Thrown if the file couldn't be created.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {

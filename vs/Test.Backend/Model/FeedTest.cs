@@ -146,13 +146,13 @@ namespace ZeroInstall.Model
         [Test]
         public void TestClone()
         {
-            var archive1 = CreateTestFeed();
-            var archive2 = archive1.CloneFeed();
+            var feed1 = CreateTestFeed();
+            var feed2 = feed1.CloneFeed();
 
             // Ensure data stayed the same
-            Assert.AreEqual(archive1, archive2, "Cloned objects should be equal.");
-            Assert.AreEqual(archive1.GetHashCode(), archive2.GetHashCode(), "Cloned objects' hashes should be equal.");
-            Assert.IsFalse(ReferenceEquals(archive1, archive2), "Cloning should not return the same reference.");
+            Assert.AreEqual(feed1, feed2, "Cloned objects should be equal.");
+            Assert.AreEqual(feed1.GetHashCode(), feed2.GetHashCode(), "Cloned objects' hashes should be equal.");
+            Assert.IsFalse(ReferenceEquals(feed1, feed2), "Cloning should not return the same reference.");
         }
 
         /// <summary>

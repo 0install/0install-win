@@ -152,6 +152,7 @@ namespace Common.Storage
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path, params MemberInfo[] ignoreMembers)
@@ -229,6 +230,7 @@ namespace Common.Storage
         /// <param name="data">The object to be stored.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public static void Save<T>(string path, T data, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
@@ -367,6 +369,7 @@ namespace Common.Storage
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
@@ -435,6 +438,7 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public static void ToZip<T>(string path, T data, string password, EmbeddedFile[] additionalFiles, params MemberInfo[] ignoreMembers)
         {
             #region Sanity checks
@@ -461,6 +465,7 @@ namespace Common.Storage
         /// <param name="name">The name of the embedded file.</param>
         /// <returns>A stream containing the embedded file.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
         public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
         {

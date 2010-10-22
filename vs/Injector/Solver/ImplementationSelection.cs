@@ -30,6 +30,7 @@ namespace ZeroInstall.Injector.Solver
     /// </summary>
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
+    [XmlType("selection", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {
         #region Constants

@@ -166,7 +166,6 @@ namespace ZeroInstall.Store.Feed
         public IEnumerable<string> ListAllInterfaces()
         {
             // Find all files whose names begin with an URL protocol
-            // ToDo: Find more reliable discriminator
             string[] files = Directory.GetFiles(DirectoryPath, "http*");
 
             for (int i = 0; i < files.Length; i++)
