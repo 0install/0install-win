@@ -107,7 +107,7 @@ namespace ZeroInstall.Model
         /// Zero or more icons to use for the program.
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
-        [XmlElement("icon")]
+        [XmlElement]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
         
