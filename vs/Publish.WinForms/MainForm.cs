@@ -309,15 +309,19 @@ namespace ZeroInstall.Publish.WinForms
             var key = (GnuPGSecretKey) toolStripComboBoxGpg.SelectedItem;
             do
             {
+                string passphrase = InputBox.Show(
+                    (wrongPassphrase
+                         ? "Wrong passphrase entered.\nPlease retry entering the gpg passphrase for "
+                         : "Please enter the gpg passphrase for ") + key.UserID,
+                    "GnuPG passphrase", String.Empty, true);
+
+                if (passphrase == null)
+                {
+                    return;
+                }
+
                 try
                 {
-                    string passphrase = InputBox.Show(
-                        (wrongPassphrase
-                             ? "Wrong passphrase entered.\nPlease retry entering the gpg passphrase for "
-                             : "Please enter the gpg passphrase for ") + key.UserID,
-                        "GnuPG passphrase", String.Empty, true);
-                    if (passphrase == null) return;
-
                     FeedUtils.SignFeed(path, key.KeyID, passphrase);
                 }
                 catch (WrongPassphraseException)
@@ -834,7 +838,8 @@ namespace ZeroInstall.Publish.WinForms
             {
                 enableAddButtons = new[]
                                        {
-                                           btnAddGroup, btnAddImplementation, btnAddPackageImplementation, btnAddDependency
+                                           btnAddGroup, btnAddImplementation, btnAddPackageImplementation,
+                                           btnAddDependency
                                            , btnAddEnvironmentBinding, btnAddOverlayBinding, btnAddWorkingDir
                                        };
             }
@@ -850,7 +855,8 @@ namespace ZeroInstall.Publish.WinForms
             {
                 enableAddButtons = new[]
                                        {
-                                           buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding,
+                                           buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding
+                                           ,
                                            btnAddOverlayBinding, btnAddWorkingDir
                                        };
             }
@@ -900,7 +906,9 @@ namespace ZeroInstall.Publish.WinForms
                     else if (
                         !ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromArchive))
                     {
-                        Msg.Inform(this, "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.", MsgSeverity.Warning);
+                        Msg.Inform(this,
+                                   "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.",
+                                   MsgSeverity.Warning);
                         selectedNode.Tag = new Archive();
                         return;
                     }
@@ -934,7 +942,9 @@ namespace ZeroInstall.Publish.WinForms
                     }
                     else if (!ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromRecipe))
                     {
-                        Msg.Inform(this, "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.", MsgSeverity.Warning);
+                        Msg.Inform(this,
+                                   "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.",
+                                   MsgSeverity.Warning);
                         selectedNode.Tag = new Recipe {Steps = {new Archive()}};
                         return;
                     }
