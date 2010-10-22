@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Feed
     {
         #region Variables
         private static readonly string
-            _portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"trustdb.xml"),
+            _portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "trustdb.xml"),
             _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "injector")), @"trustdb.xml");
 
         /// <summary>Was the trust data loaded from the application's directory?</summary>
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Feed
         //--------------------//
 
         #region Storage
-        
+
         #region Load
         /// <summary>
         /// Loads a <see cref="Trust"/> database from an XML file.

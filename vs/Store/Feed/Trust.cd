@@ -1,31 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Feed.Trust">
+  <Class Name="ZeroInstall.Store.Feed.Trust" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <AssociationLine Name="Keys" Type="ZeroInstall.Store.Feed.Key">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.609" Y="0.154" />
+        <Position X="-0.617" Y="0.225" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAQgIAAAAAAAAAACAAAAAgAAAAAAAQABAAAAAAAAAA=</HashCode>
+      <HashCode>AAAQgIAAAAAAAAAAiAAAAAgAAAAAAKQABAAAAAAAABA=</HashCode>
       <FileName>Feed\Trust.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Keys" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Feed.Key">
-    <Position X="3" Y="2.5" Width="1.5" />
+    <Position X="3" Y="2" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAAACAAAAAAAAIAAAAEAQAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAAAEgAAACAAAAAAAAIAAAAEAQAAAABA=</HashCode>
       <FileName>Feed\Key.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -41,13 +42,13 @@
     </TypeIdentifier>
   </Class>
   <Struct Name="ZeroInstall.Store.Feed.Domain">
-    <Position X="5.5" Y="2.5" Width="1.5" />
+    <Position X="5.5" Y="2" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAiA=</HashCode>
+      <HashCode>ABAAAAAAAAIAAAAEgAAAAAAAAAAAAIAAAAAgAAAAAjA=</HashCode>
       <FileName>Feed\Domain.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
