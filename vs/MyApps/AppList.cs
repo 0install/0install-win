@@ -27,6 +27,7 @@ namespace ZeroInstall.MyApps
     /// Stores a list of applications the user prefers to use.
     /// </summary>
     [XmlRoot("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public sealed class AppList : ICloneable, IEquatable<AppList>
     {
         #region Properties
@@ -36,7 +37,7 @@ namespace ZeroInstall.MyApps
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
-        [XmlElement("app")]
+        [XmlElement]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<AppEntry> Entries { get { return _entries; } }
         #endregion

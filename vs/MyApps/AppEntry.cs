@@ -25,6 +25,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Represents an application in the <see cref="AppList"/> indentified by its interface URI.
     /// </summary>
+    [XmlType("app", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public class AppEntry : IEquatable<AppEntry>
     {
         #region Properties
@@ -59,9 +60,7 @@ namespace ZeroInstall.MyApps
         /// A list of <see cref="Integration"/> handlers specifing how this application should be integrated into the system environment.
         /// </summary>
         [Description("A list of Integration handlers specifing how this application should be integrated into the system environment.")]
-        [XmlElement(Type = typeof(MenuEntry), ElementName = "menu-entry"),
-        XmlElement(Type = typeof(DesktopShortcut), ElementName = "desktop-shortcut"),
-        XmlElement(Type = typeof(Alias), ElementName = "alias")]
+        [XmlElement(typeof(MenuEntry)), XmlElement(typeof(DesktopShortcut)), XmlElement(typeof(Alias))]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Integration> Integrations { get { return _integrations; } }
         #endregion

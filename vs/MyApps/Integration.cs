@@ -16,14 +16,27 @@
  */
 
 using System;
+using System.Xml.Serialization;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.MyApps
 {
     /// <summary>
     /// Integrations describe how an application is made available to user in the operating system's environment.
     /// </summary>
+    [XmlType("integration", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public abstract class Integration : ICloneable
     {
+        #region Properties
+        /// <summary>
+        /// An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.
+        /// </summary>
+        public string Main { get; set; }
+        #endregion
+
+        //--------------------//
+
+        #region Clone
         /// <summary>
         /// Creates a deep copy of this <see cref="Integration"/> instance.
         /// </summary>
@@ -34,5 +47,6 @@ namespace ZeroInstall.MyApps
         {
             return CloneIntegration();
         }
+        #endregion
     }
 }

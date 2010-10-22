@@ -24,6 +24,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Registers a command-line alias for launching the application.
     /// </summary>
+    [XmlType("alias", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public class Alias : Integration, IEquatable<Alias>
     {
         #region Properties

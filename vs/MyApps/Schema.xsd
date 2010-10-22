@@ -1,40 +1,44 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://0install.de/schema/my-apps/app-list" elementFormDefault="qualified" targetNamespace="http://0install.de/schema/my-apps/app-list" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="app-list" nillable="true" type="tns:AppList" />
-  <xs:complexType name="AppList">
+  <xs:element name="app-list" nillable="true" type="tns:app-list" />
+  <xs:complexType name="app-list">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:AppEntry" />
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="AppEntry">
+  <xs:complexType name="app">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="tns:Alias" />
-        <xs:element minOccurs="0" maxOccurs="1" name="menu-entry" type="tns:MenuEntry" />
-        <xs:element minOccurs="0" maxOccurs="1" name="desktop-shortcut" type="tns:DesktopShortcut" />
+        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="tns:alias" />
+        <xs:element minOccurs="0" maxOccurs="1" name="menu-entry" type="tns:menu-entry" />
+        <xs:element minOccurs="0" maxOccurs="1" name="desktop-shortcut" type="tns:desktop-shortcut" />
       </xs:choice>
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" />
     <xs:attribute name="interface" type="xs:string" />
   </xs:complexType>
-  <xs:complexType name="Alias">
+  <xs:complexType name="alias">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Integration">
+      <xs:extension base="tns:integration">
         <xs:attribute name="name" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Integration" abstract="true" />
-  <xs:complexType name="DesktopShortcut">
+  <xs:complexType name="integration" abstract="true">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="1" name="Main" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="desktop-shortcut">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Integration">
+      <xs:extension base="tns:integration">
         <xs:attribute name="name" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="MenuEntry">
+  <xs:complexType name="menu-entry">
     <xs:complexContent mixed="false">
-      <xs:extension base="tns:Integration">
+      <xs:extension base="tns:integration">
         <xs:attribute name="name" type="xs:string" />
         <xs:attribute name="category" type="xs:string" />
       </xs:extension>
