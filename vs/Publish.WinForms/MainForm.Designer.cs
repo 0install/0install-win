@@ -48,6 +48,8 @@ namespace ZeroInstall.Publish.WinForms
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -96,12 +98,10 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
-            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
-            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.SummariesControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -224,6 +224,22 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 19;
+            // 
+            // summariesControl
+            // 
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 18;
             // 
             // labelDescription
             // 
@@ -821,6 +837,13 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
+            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -854,29 +877,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.Text = "Add";
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
-            // 
-            // summariesControl
-            // 
-            this.summariesControl.Location = new System.Drawing.Point(9, 98);
-            this.summariesControl.Multiline = false;
-            this.summariesControl.Name = "summariesControl";
-            this.summariesControl.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl.TabIndex = 18;
-            // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
-            // 
-            // descriptionControl
-            // 
-            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
-            this.descriptionControl.Multiline = true;
-            this.descriptionControl.Name = "descriptionControl";
-            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
-            this.descriptionControl.TabIndex = 19;
             // 
             // MainForm
             // 

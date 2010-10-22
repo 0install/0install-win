@@ -136,8 +136,10 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComboBoxGpg()
         {
             var gpg = new GnuPG();
-            var bla = gpg.ListSecretKeys();
-            foreach (var secretKey in bla)
+
+            toolStripComboBoxGpg.Items.Add(string.Empty);
+            var secretKeys = gpg.ListSecretKeys();
+            foreach (var secretKey in secretKeys)
             {
                 toolStripComboBoxGpg.Items.Add(secretKey);
             }
@@ -234,12 +236,6 @@ namespace ZeroInstall.Publish.WinForms
             _feedToEdit.Icons.Clear();
             foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
 
-            _feedToEdit.Summaries.Clear();
-            _feedToEdit.Summaries.AddAll(summariesControl.Summaries);
-
-            _feedToEdit.Descriptions.Clear();
-            _feedToEdit.Descriptions.AddAll(descriptionControl.Summaries);
-
             _feedToEdit.Uri = null;
             Uri url;
             if (Uri.TryCreate(hintTextBoxInterfaceUrl.Text, UriKind.Absolute, out url)) _feedToEdit.Uri = url;
@@ -308,6 +304,8 @@ namespace ZeroInstall.Publish.WinForms
         private void SignFeed(string path)
         {
             bool wrongPassphrase = false;
+
+            if (toolStripComboBoxGpg.Text == string.Empty) return;
             var key = (GnuPGSecretKey) toolStripComboBoxGpg.SelectedItem;
             do
             {
@@ -351,8 +349,8 @@ namespace ZeroInstall.Publish.WinForms
         private void FillGeneralTab()
         {
             hintTextBoxProgramName.Text = _feedToEdit.Name;
-            summariesControl.Summaries = (LocalizableStringCollection) _feedToEdit.Summaries.Clone();
-            descriptionControl.Summaries = (LocalizableStringCollection) _feedToEdit.Descriptions.Clone();
+            summariesControl.Summaries = _feedToEdit.Summaries;
+            descriptionControl.Summaries = _feedToEdit.Descriptions;
             hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
             hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
 
