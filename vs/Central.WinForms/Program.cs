@@ -23,7 +23,6 @@ using Common;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
-using ZeroInstall.Central.WinForms.Storage;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -43,9 +42,9 @@ namespace ZeroInstall.Central.WinForms
 
             ErrorReportForm.RunAppMonitored(delegate
             {
-                Settings.LoadCurrent();
+                //Settings.LoadCurrent();
                 Application.Run(new MainForm());
-                Settings.SaveCurrent();
+                //Settings.SaveCurrent();
             });
         }
 
