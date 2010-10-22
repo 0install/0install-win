@@ -140,7 +140,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ImplementationBase) && Equals((ImplementationBase)obj);
+            return obj.GetType() == typeof(Group) && Equals((Group)obj);
         }
 
         public override int GetHashCode()

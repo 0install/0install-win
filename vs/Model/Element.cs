@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("element", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public abstract class Element : TargetBase, IBindingContainer, ISimplifyable, ICloneable, IEquatable<Element>
+    public abstract class Element : TargetBase, IBindingContainer, ISimplifyable, ICloneable
     {
         #region Constants
         /// <summary>

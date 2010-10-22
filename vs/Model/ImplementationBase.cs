@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("implementation-base", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public abstract class ImplementationBase : Element, IEquatable<ImplementationBase>
+    public abstract class ImplementationBase : Element
     {
         #region Properties
         /// <summary>

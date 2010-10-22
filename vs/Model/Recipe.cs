@@ -87,7 +87,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return base.Equals(other) && Steps.SequencedEquals(other.Steps);
+            return Steps.SequencedEquals(other.Steps);
         }
 
         public override bool Equals(object obj)

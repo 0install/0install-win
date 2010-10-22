@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
@@ -32,10 +33,11 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Creates a fictive test <see cref="Feed"/>.
         /// </summary>
-        private static Feed CreateTestFeed()
+        public static Feed CreateTestFeed()
         {
             return new Feed
             {
+                Uri = new Uri("http://somedomain/someapp.xml"),
                 Name = "MyApp",
                 Categories = {"Category"},
                 Homepage = new Uri("http://somedomain/"),
@@ -177,6 +179,18 @@ namespace ZeroInstall.Model
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
             Assert.AreEqual("main2", implementation.Main);
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetImplementation"/> correctly finds contained <see cref="Implementation"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetImplementation()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation("id"));
+            Assert.Throws<KeyNotFoundException>(() => feed.GetImplementation("invalid"));
         }
     }
 }
