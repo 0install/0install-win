@@ -70,6 +70,15 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find any matching feed files..
+        /// </summary>
+        internal static string NoFeedFilesFound {
+            get {
+                return ResourceManager.GetString("NoFeedFilesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add the default stylesheet reference..
         /// </summary>
         internal static string OptionAddStylesheet {
@@ -84,6 +93,15 @@ namespace ZeroInstall.Publish.Cli.Properties {
         internal static string OptionBatch {
             get {
                 return ResourceManager.GetString("OptionBatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Combine all specified feeds into a single catalog {FILE}..
+        /// </summary>
+        internal static string OptionCatalog {
+            get {
+                return ResourceManager.GetString("OptionCatalog", resourceCulture);
             }
         }
         

@@ -89,6 +89,7 @@
     <Compile Include="Injector\Solver\SelectionsTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
+    <Compile Include="Model\CatalogTest.cs" />
     <Compile Include="Model\EnvironmentBindingTest.cs" />
     <Compile Include="Model\FeedReferenceTest.cs" />
     <Compile Include="Model\FeedTest.cs" />

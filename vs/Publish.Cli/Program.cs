@@ -21,6 +21,7 @@ using System.IO;
 using System.Reflection;
 using Common;
 using Common.Cli;
+using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Arguments;
@@ -71,12 +72,17 @@ namespace ZeroInstall.Publish.Cli
                 case OperationMode.Normal:
                     if (string.IsNullOrEmpty(results.Feed))
                     {
-                        Log.Error(string.Format(Resources.MissingArguments, "0launch"));
+                        Log.Error(string.Format(Resources.MissingArguments, "0publish"));
                         return (int)ErrorLevel.InvalidArguments;
                     }
-                    
+
                     try { Execute(results); }
                     #region Error hanlding
+                    catch (InvalidOperationException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
                     catch (FileNotFoundException ex)
                     {
                         Log.Error(ex.Message);
@@ -93,6 +99,38 @@ namespace ZeroInstall.Publish.Cli
                         return (int)ErrorLevel.IOError;
                     }
                     catch (UnhandledErrorsException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    #endregion
+
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Catalog:
+                    try { CreateCatalog(results); }
+                    #region Error hanlding
+                    catch (ArgumentException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (InvalidOperationException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (FileNotFoundException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (IOException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    catch (UnauthorizedAccessException ex)
                     {
                         Log.Error(ex.Message);
                         return (int)ErrorLevel.IOError;
@@ -139,6 +177,7 @@ namespace ZeroInstall.Publish.Cli
             {
                 // Mode selection
                 {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
+                {"catalog=", Resources.OptionCatalog, catalogFile => { mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
                 
                 // Stylesheet
                 {"add-stylesheet", Resources.OptionAddStylesheet, unused => parseResults.AddStylesheet = true},
@@ -163,6 +202,7 @@ namespace ZeroInstall.Publish.Cli
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
             if (additionalArgs.Count > 0) parseResults.Feed = additionalArgs[0];
+            parseResults.AdditionalArgs = additionalArgs;
 
             // Return the now filled results structure
             results = parseResults;
@@ -177,8 +217,9 @@ namespace ZeroInstall.Publish.Cli
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public static void Execute(ParseResults results)
@@ -196,6 +237,53 @@ namespace ZeroInstall.Publish.Cli
 
                 FeedUtils.SignFeed(results.Feed, results.GnuPGUser, results.GnuPGPassphrase);
             }
+        }
+        #endregion
+
+        #region Catalog
+        /// <summary>
+        /// Creates a <see cref="Catalog"/> from the <see cref="Feed"/>s specified in the command-line arguments.
+        /// </summary>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="ArgumentException">Throw if the specified feed file paths were invalid.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the feed file is damaged.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the feed files could not be found.</exception>
+        /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        public static void CreateCatalog(ParseResults results)
+        {
+            var catalog = new Catalog();
+
+            if (results.AdditionalArgs.Count == 0)
+                AddFeedsToCatalog(catalog, Environment.CurrentDirectory, "*.xml");
+            else
+            {
+                foreach (var feedArg in results.AdditionalArgs)
+                {
+                    if (File.Exists(feedArg)) catalog.Feeds.Add(Feed.Load(feedArg));
+                    else if (Directory.Exists(feedArg)) AddFeedsToCatalog(catalog, feedArg, "*.xml");
+                    else
+                    {
+                        string feedsDirectory = Path.GetDirectoryName(feedArg.Replace("*", ""));
+                        if (string.IsNullOrEmpty(feedsDirectory)) feedsDirectory = Environment.CurrentDirectory;
+                        string feedsPattern = Path.GetFileName(feedArg);
+                        if (string.IsNullOrEmpty(feedsPattern)) feedsPattern = "*.xml";
+                        AddFeedsToCatalog(catalog, feedsDirectory, feedsPattern);
+                    }
+                }
+            }
+
+            if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
+
+            catalog.Simplify();
+            catalog.Save(results.CatalogFile);
+            XmlStorage.AddStylesheet(results.CatalogFile, "catalog.xsl");
+        }
+
+        private static void AddFeedsToCatalog(Catalog catalog, string directory, string pattern)
+        {
+            foreach (string feedFile in Directory.GetFiles(directory, pattern))
+                catalog.Feeds.Add(Feed.Load(feedFile));
         }
         #endregion
     }

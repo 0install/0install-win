@@ -26,6 +26,8 @@ namespace ZeroInstall.Publish.Arguments
     {
         /// <summary>Modify an existing <see cref="Feed"/> or create a new one.</summary>
         Normal,
+        /// <summary>Combine all specified <see cref="Feed"/>s into a single <see cref="Catalog"/> file.</summary>
+        Catalog,
         /// <summary>Display version information.</summary>
         Version,
         /// <summary>Help text has already been displayed.</summary>

@@ -120,11 +120,17 @@
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments. Try {0} --help</value>
   </data>
+  <data name="NoFeedFilesFound" xml:space="preserve">
+    <value>Unable to find any matching feed files.</value>
+  </data>
   <data name="OptionAddStylesheet" xml:space="preserve">
     <value>Add the default stylesheet reference.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
+  </data>
+  <data name="OptionCatalog" xml:space="preserve">
+    <value>Combine all specified feeds into a single catalog {FILE}.</value>
   </data>
   <data name="OptionGnuPGPassphrase" xml:space="preserve">
     <value>Uses {PASS} to unlock the GnuPG private key.</value>
