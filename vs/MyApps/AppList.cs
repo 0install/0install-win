@@ -37,7 +37,7 @@ namespace ZeroInstall.MyApps
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
-        [XmlElement]
+        [XmlElement("entry")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<AppEntry> Entries { get { return _entries; } }
         #endregion

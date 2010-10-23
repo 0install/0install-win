@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Feed
         #endregion
 
         #region Properties
-        // Order is preserved
+        // Order is preserved, but ignore it when comparing
         private readonly C5.ArrayList<Key> _keys = new C5.ArrayList<Key>();
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.

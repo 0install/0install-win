@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// A list of <see cref="Domain"/>s this key is valid for.
         /// </summary>
-        [XmlElement]
+        [XmlElement("domain")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedLinkedList<Domain> Domains { get { return _domains; } }
         #endregion

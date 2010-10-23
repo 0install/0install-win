@@ -24,6 +24,8 @@ namespace ZeroInstall.Publish.Arguments
     {
         public string Feed;
 
+        public string CatalogFile;
+
         public bool AddStylesheet;
 
         public bool XmlSign;
