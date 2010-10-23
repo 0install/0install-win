@@ -193,7 +193,22 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             _pathToOpenedFeed = openFileDialog.FileName;
-            _feedToEdit = Feed.Load(openFileDialog.FileName);
+            try
+            {
+                _feedToEdit = Feed.Load(openFileDialog.FileName);
+            }
+            catch (InvalidOperationException)
+            {
+                Msg.Inform(this, "The feed you tried to open is not valid.", MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException exception)
+            {
+                Msg.Inform(this, exception.Message, MsgSeverity.Error);
+            }
+            catch (IOException exception)
+            {
+                Msg.Inform(this, exception.Message, MsgSeverity.Error);
+            }
 
             FillForm();
         }
