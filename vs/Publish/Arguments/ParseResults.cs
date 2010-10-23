@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Collections.Generic;
+
 namespace ZeroInstall.Publish.Arguments
 {
     /// <summary>
@@ -23,6 +25,8 @@ namespace ZeroInstall.Publish.Arguments
     public struct ParseResults
     {
         public string Feed;
+
+        public List<string> AdditionalArgs;
 
         public string CatalogFile;
 
