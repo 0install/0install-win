@@ -135,13 +135,28 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeComboBoxGpg()
         {
-            var gpg = new GnuPG();
-
             toolStripComboBoxGpg.Items.Add(string.Empty);
-            var secretKeys = gpg.ListSecretKeys();
-            foreach (var secretKey in secretKeys)
+
+            foreach (var secretKey in GetGnuPGSecretKeys())
             {
                 toolStripComboBoxGpg.Items.Add(secretKey);
+            }
+        }
+
+        /// <summary>
+        /// Returns all GnuPG secret keys of the user. If GnuPG can not be found on the system, a message box informs the user.
+        /// </summary>
+        /// <returns>The GnuPG secret keys.</returns>
+        private IEnumerable<GnuPGSecretKey> GetGnuPGSecretKeys()
+        {
+            try
+            {
+                return new GnuPG().ListSecretKeys();
+            }
+            catch (IOException)
+            {
+                Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.", MsgSeverity.Warning);
+                return new GnuPGSecretKey[0];
             }
         }
 
