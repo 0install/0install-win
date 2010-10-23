@@ -274,6 +274,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxInterfaceUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxInterfaceUrl.ClearButton = true;
             this.hintTextBoxInterfaceUrl.HintText = "URL to a remote interface";
             this.hintTextBoxInterfaceUrl.Location = new System.Drawing.Point(9, 59);
             this.hintTextBoxInterfaceUrl.Name = "hintTextBoxInterfaceUrl";
@@ -318,6 +319,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxHomepage.ClearButton = true;
             this.hintTextBoxHomepage.HintText = "the URL of a web-page describing this interface in more detail";
             this.hintTextBoxHomepage.Location = new System.Drawing.Point(9, 415);
             this.hintTextBoxHomepage.Name = "hintTextBoxHomepage";
@@ -361,9 +363,9 @@ namespace ZeroInstall.Publish.WinForms
             this.labelIconUrl.AutoSize = true;
             this.labelIconUrl.Location = new System.Drawing.Point(6, 16);
             this.labelIconUrl.Name = "labelIconUrl";
-            this.labelIconUrl.Size = new System.Drawing.Size(42, 13);
+            this.labelIconUrl.Size = new System.Drawing.Size(53, 13);
             this.labelIconUrl.TabIndex = 0;
-            this.labelIconUrl.Text = "Icon url";
+            this.labelIconUrl.Text = "Icon URL";
             // 
             // comboBoxIconType
             // 
@@ -379,6 +381,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxIconUrl.ClearButton = true;
             this.hintTextBoxIconUrl.HintText = "";
             this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
             this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
@@ -477,6 +480,7 @@ namespace ZeroInstall.Publish.WinForms
             this.hintTextBoxProgramName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxProgramName.ClearButton = true;
             this.hintTextBoxProgramName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
             this.hintTextBoxProgramName.Location = new System.Drawing.Point(9, 20);
             this.hintTextBoxProgramName.Name = "hintTextBoxProgramName";
