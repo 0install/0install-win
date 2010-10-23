@@ -114,18 +114,11 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
-        public bool Equals(ImplementationBase other)
+        protected bool Equals(ImplementationBase other)
         {
             if (ReferenceEquals(null, other)) return false;
 
             return base.Equals(other) && other.ID == ID && other.LocalPath == LocalPath && other.ManifestDigest == ManifestDigest;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(ImplementationBase) && Equals((ImplementationBase)obj);
         }
 
         public override int GetHashCode()

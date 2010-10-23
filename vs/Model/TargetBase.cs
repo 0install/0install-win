@@ -87,7 +87,7 @@ namespace ZeroInstall.Model
         #endregion
         
         #region Equality
-        public bool Equals(TargetBase other)
+        protected bool Equals(TargetBase other)
         {
             if (ReferenceEquals(null, other)) return false;
 

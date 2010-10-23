@@ -241,7 +241,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
-        public bool Equals(Element other)
+        protected bool Equals(Element other)
         {
             if (ReferenceEquals(null, other)) return false;
 
