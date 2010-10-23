@@ -37,13 +37,13 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 {
                     Size = new Size(Size.Width, 83);
                     hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 79);
-                    hintTextBoxSummary.HintText = "a short one-line description";
+                    hintTextBoxSummary.HintText = "a full description, which can be several paragraphs long";
                 }
                 else
                 {
                     Size = new Size(Size.Width, 23);
                     hintTextBoxSummary.Size = new Size(hintTextBoxSummary.Size.Width, 20);
-                    hintTextBoxSummary.HintText = "a full description, which can be several paragraphs long";
+                    hintTextBoxSummary.HintText = "a short one-line description";
                 }
             }
         }
