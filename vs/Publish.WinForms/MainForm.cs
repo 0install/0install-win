@@ -311,9 +311,9 @@ namespace ZeroInstall.Publish.WinForms
             {
                 string passphrase = InputBox.Show(
                     (wrongPassphrase
-                         ? "Wrong passphrase entered.\nPlease retry entering the gpg passphrase for "
-                         : "Please enter the gpg passphrase for ") + key.UserID,
-                    "GnuPG passphrase", String.Empty, true);
+                         ? "Wrong passphrase entered.\nPlease retry entering the GnuPG passphrase for "
+                         : "Please enter the GnuPG passphrase for ") + key.UserID,
+                    "Enter GnuPG passphrase", String.Empty, true);
 
                 if (passphrase == null)
                 {
