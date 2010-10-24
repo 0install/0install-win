@@ -118,12 +118,13 @@
     <Compile Include="Storage\TemporaryDirectory.cs" />
     <Compile Include="Storage\TemporaryDirectoryMove.cs" />
     <Compile Include="Storage\TemporaryDirectoryReplacement.cs" />
+    <Compile Include="Undo\IUndoCommand.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />
     <Compile Include="Undo\PropertyChangedCommand.cs" />
     <Compile Include="Undo\SimpleCommand.cs" />
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
-    <Compile Include="Undo\IUndoCommand.cs" />
+    <Compile Include="Undo\SetValueCommand.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />

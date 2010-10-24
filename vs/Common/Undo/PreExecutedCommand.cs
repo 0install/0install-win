@@ -28,7 +28,7 @@ namespace Common.Undo
     public abstract class PreExecutedCommand : FirstExecuteCommand
     {
         /// <summary>
-        /// Do nothing on first execute
+        /// Do nothing on first execute.
         /// </summary>
         protected override sealed void OnFirstExecute()
         {}

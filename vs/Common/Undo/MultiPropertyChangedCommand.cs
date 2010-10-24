@@ -29,7 +29,7 @@ using Common.Properties;
 namespace Common.Undo
 {
     /// <summary>
-    /// An undo command that handles multiple changed properties - usually used with a <see cref="PropertyGrid"/>
+    /// An undo command that handles multiple changed properties - usually used with a <see cref="PropertyGrid"/>.
     /// </summary>
     public class MultiPropertyChangedCommand : PreExecutedCommand
     {
@@ -42,12 +42,12 @@ namespace Common.Undo
 
         #region Constructor
         /// <summary>
-        /// Initializes the command after the properties were first changed
+        /// Initializes the command after the properties were first changed.
         /// </summary>
-        /// <param name="targets">The objects the property belongs to</param>
-        /// <param name="property">The property that was changed</param>
-        /// <param name="oldValues">The property's old values</param>
-        /// <param name="newValue">The property's current value</param>
+        /// <param name="targets">The objects the property belongs to.</param>
+        /// <param name="property">The property that was changed.</param>
+        /// <param name="oldValues">The property's old values.</param>
+        /// <param name="newValue">The property's current value.</param>
         public MultiPropertyChangedCommand(object[] targets, PropertyDescriptor property, object[] oldValues, object newValue)
         {
             #region Sanity checks
@@ -64,11 +64,11 @@ namespace Common.Undo
         }
 
         /// <summary>
-        /// Initializes the command after the property was first changed
+        /// Initializes the command after the property was first changed.
         /// </summary>
-        /// <param name="targets">The objects the <see cref="PropertyGrid.SelectedObject"/> is target at</param>
-        /// <param name="e">The event data from the <see cref="PropertyGrid.PropertyValueChanged"/></param>
-        /// <param name="oldValues">The property's old values</param>
+        /// <param name="targets">The objects the <see cref="PropertyGrid.SelectedObject"/> is target at.</param>
+        /// <param name="e">The event data from the <see cref="PropertyGrid.PropertyValueChanged"/>.</param>
+        /// <param name="oldValues">The property's old values.</param>
         [SuppressMessage("Microsoft.Design", "CA1062:Validate arguments of public methods", Justification = "The arguments are passed on to a different overload of the constructor")]
         [SuppressMessage("Microsoft.Security", "CA2109:ReviewVisibleEventHandlers", Justification = "This is simply a comfort wrapper for extracting values from the event arguments")]
         public MultiPropertyChangedCommand(object[] targets, PropertyValueChangedEventArgs e, object[] oldValues)
@@ -80,7 +80,7 @@ namespace Common.Undo
 
         #region Undo / Redo
         /// <summary>
-        /// Set the changed property value again
+        /// Set the changed property value again.
         /// </summary>
         protected override void OnRedo()
         {
@@ -92,7 +92,7 @@ namespace Common.Undo
         }
 
         /// <summary>
-        /// Restore the original property values
+        /// Restore the original property values.
         /// </summary>
         protected override void OnUndo()
         {

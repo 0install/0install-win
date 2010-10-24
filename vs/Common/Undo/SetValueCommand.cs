@@ -21,61 +21,61 @@
  */
 
 using System;
-using Common.Properties;
 
 namespace Common.Undo
 {
     /// <summary>
-    /// An undo command that automatically tracks when <see cref="Execute"/> and <see cref="Undo"/> can be called.
+    /// An undo command that uses a delegates for getting and setting values from a backing model.
     /// </summary>
-    public abstract class SimpleCommand : IUndoCommand
+    /// <typeparam name="T"></typeparam>
+    public class SetValueCommand<T> : SimpleCommand
     {
         #region Variables
-        private bool _actionPerformed;
+        private readonly T _newValue;
+        private T _oldValue;
+        private readonly SimpleResult<T> _getValue;
+        private readonly Action<T> _setValue;
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new value-setting command.
+        /// </summary>
+        /// <param name="newValue">The new value to be set</param>
+        /// <param name="getValue">A delegate that returns the current value from the model.</param>
+        /// <param name="setValue">A delegate that changes the value in the model.</param>
+        public SetValueCommand(T newValue, SimpleResult<T> getValue, Action<T> setValue)
+        {
+            #region Sanity checks
+            if (getValue == null) throw new ArgumentNullException("getValue");
+            if (setValue == null) throw new ArgumentNullException("setValue");
+            #endregion
+
+            _newValue = newValue;
+            _getValue = getValue;
+            _setValue = setValue;
+        }
         #endregion
 
         //--------------------//
 
-        #region Execute
+        #region Undo / Redo
         /// <summary>
-        /// Performs the desired action.
+        /// Sets the new value in the model.
         /// </summary>
-        public void Execute()
+        protected override void OnExecute()
         {
-            // We cannot perform the action repeatedly in a row
-            if (_actionPerformed) throw new InvalidOperationException(Resources.RedoNotAvailable);
-
-            OnExecute();
-
-            // Ready for undo, don't redo
-            _actionPerformed = true;
+            _oldValue = _getValue();
+            _setValue(_newValue);
         }
 
         /// <summary>
-        /// Hook to perform the desired action.
+        /// Restores the old value in the model.
         /// </summary>
-        protected abstract void OnExecute();
-        #endregion
-
-        #region Undo
-        /// <summary>
-        /// Undoes the changes made by <see cref="Execute"/>.
-        /// </summary>
-        public virtual void Undo()
+        protected override void OnUndo()
         {
-            // If the action has not been performed yet, we cannnot undo it
-            if (!_actionPerformed) throw new InvalidOperationException(Resources.UndoNotAvailable);
-
-            OnUndo();
-
-            // As if the action had never happened
-            _actionPerformed = false;
+            _setValue(_oldValue);
         }
-
-        /// <summary>
-        /// Hook to undo the changes made by <see cref="OnExecute"/>.
-        /// </summary>
-        protected abstract void OnUndo();
         #endregion
     }
 }

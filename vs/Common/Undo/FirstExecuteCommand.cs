@@ -26,7 +26,7 @@ using Common.Properties;
 namespace Common.Undo
 {
     /// <summary>
-    /// An undo command that does something different on the first call to <see cref="Execute"/> than on subsequent redo calls
+    /// An undo command that does something different on the first call to <see cref="Execute"/> than on subsequent redo calls.
     /// </summary>
     public abstract class FirstExecuteCommand : IUndoCommand
     {
@@ -38,7 +38,7 @@ namespace Common.Undo
 
         #region Execute
         /// <summary>
-        /// Performs the desired action
+        /// Performs the desired action.
         /// </summary>
         public void Execute()
         {
@@ -53,19 +53,19 @@ namespace Common.Undo
         }
 
         /// <summary>
-        /// Hook to perform the desired action the first time
+        /// Hook to perform the desired action the first time.
         /// </summary>
         protected abstract void OnFirstExecute();
 
         /// <summary>
-        /// Hook to perform the desired action again
+        /// Hook to perform the desired action again.
         /// </summary>
         protected abstract void OnRedo();
         #endregion
 
         #region Undo
         /// <summary>
-        /// Undoes the changes made by <see cref="Execute"/>
+        /// Undoes the changes made by <see cref="Execute"/>.
         /// </summary>
         public virtual void Undo()
         {
@@ -79,7 +79,7 @@ namespace Common.Undo
         }
 
         /// <summary>
-        /// Hook to undo the changes made by <see cref="OnFirstExecute"/> or <see cref="OnRedo"/>
+        /// Hook to undo the changes made by <see cref="OnFirstExecute"/> or <see cref="OnRedo"/>.
         /// </summary>
         protected abstract void OnUndo();
         #endregion
