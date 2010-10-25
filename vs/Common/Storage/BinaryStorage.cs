@@ -26,7 +26,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using Common.Streams;
-using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 
 namespace Common.Storage
@@ -47,7 +46,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="stream">The binary file to be loaded.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(Stream stream)
         {
@@ -64,8 +63,8 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="path">The binary file to be loaded.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path)
         {
@@ -83,7 +82,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="data">The binary string to be parsed</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromString<T>(string data)
         {
@@ -118,7 +117,7 @@ namespace Common.Storage
         /// <typeparam name="T">The type of object to be saved in an binary stream.</typeparam>
         /// <param name="path">The binary file to be written.</param>
         /// <param name="data">The object to be stored.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while writing the file.</exception>
         public static void Save<T>(string path, T data)
         {
             #region Sanity checks
@@ -159,8 +158,8 @@ namespace Common.Storage
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the binary file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, EmbeddedFile[] additionalFiles)
         {
@@ -212,9 +211,9 @@ namespace Common.Storage
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files stored alongside the binary file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the binary data.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the binary data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, EmbeddedFile[] additionalFiles)
         {
@@ -276,7 +275,7 @@ namespace Common.Storage
         /// <param name="data">The object to be stored.</param>
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the binary file in the ZIP archive; may be <see langword="null"/>.</param>
-        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while writing the file.</exception>
         public static void ToZip<T>(string path, T data, string password, IEnumerable<EmbeddedFile> additionalFiles)
         {
             #region Sanity checks
@@ -298,8 +297,8 @@ namespace Common.Storage
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="name">The name of the embedded file.</param>
         /// <returns>A stream containing the embedded file.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occurs while reading the ZIP data.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
         public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
         {
             using (var zipFile = new ZipFile(stream))
