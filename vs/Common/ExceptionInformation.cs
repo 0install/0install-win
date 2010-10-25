@@ -21,39 +21,47 @@
  */
 
 using System;
+using System.Xml.Serialization;
 
-namespace Common.Controls
+namespace Common
 {
     /// <summary>
     /// Wraps information about an exception in a serializer-friendly format.
     /// </summary>
     // Note: Must be public, not internal, so XML Serialization will work
+    [XmlType("exception")]
+    [XmlRoot("exception")]
     public class ExceptionInformation
     {
         #region Properties
         /// <summary>
         /// The type of exception.
         /// </summary>
+        [XmlElement("type")]
         public string ExceptionType { get; set; }
 
         /// <summary>
         /// The message describing the exception.
         /// </summary>
+        [XmlElement("message")]
         public string Message { get; set; }
 
         /// <summary>
         /// The name of the application or the object that causes the error.
         /// </summary>
+        [XmlElement("source")]
         public string Source { get; set; }
 
         /// <summary>
         /// A string representation of the frames on the call stack at the time the exception was thrown.
         /// </summary>
+        [XmlElement("stack-trace")]
         public string StackTrace { get; set; }
 
         /// <summary>
         /// Information about the exception that originally caused the exception being described here.
         /// </summary>
+        [XmlElement("inner-exception")]
         public ExceptionInformation InnerException { get; set; }
         #endregion
 

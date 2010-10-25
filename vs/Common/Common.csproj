@@ -65,12 +65,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\TrackingProgressDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Controls\TrackingProgressDialog.Designer.cs">
-      <DependentUpon>TrackingProgressDialog.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ExceptionInformation.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
@@ -137,6 +132,12 @@
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TrackingProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\TrackingProgressDialog.Designer.cs">
+      <DependentUpon>TrackingProgressDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TrackingProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -158,7 +159,6 @@
     <Compile Include="Controls\ErrorReportForm.Designer.cs">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ExceptionInformation.cs" />
     <Compile Include="Controls\OKCancelDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -211,6 +211,11 @@
     <None Include="Download\ClassDiagram.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ExceptionInformation.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
