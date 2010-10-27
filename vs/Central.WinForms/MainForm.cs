@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Common;
+using ZeroInstall.Central.WinForms.Properties;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -38,6 +39,8 @@ namespace ZeroInstall.Central.WinForms
         {
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
+
+            browserNewApps.Navigate(Resources.AppstoreUri);
         }
         #endregion
 

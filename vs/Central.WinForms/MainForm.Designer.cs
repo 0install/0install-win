@@ -52,7 +52,7 @@
             // 
             this.pictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxLogo.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.Logo;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(169, 6);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(209, 6);
             this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
             this.pictureBoxLogo.Size = new System.Drawing.Size(366, 95);
@@ -69,7 +69,7 @@
             this.tabControlApps.Location = new System.Drawing.Point(14, 109);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
-            this.tabControlApps.Size = new System.Drawing.Size(676, 338);
+            this.tabControlApps.Size = new System.Drawing.Size(756, 338);
             this.tabControlApps.TabIndex = 0;
             // 
             // tabPageMyApps
@@ -78,7 +78,7 @@
             this.tabPageMyApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageMyApps.Name = "tabPageMyApps";
             this.tabPageMyApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMyApps.Size = new System.Drawing.Size(668, 305);
+            this.tabPageMyApps.Size = new System.Drawing.Size(748, 305);
             this.tabPageMyApps.TabIndex = 0;
             this.tabPageMyApps.Text = "My applications";
             this.tabPageMyApps.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.tabPageNewApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewApps.Size = new System.Drawing.Size(668, 320);
+            this.tabPageNewApps.Size = new System.Drawing.Size(668, 305);
             this.tabPageNewApps.TabIndex = 1;
             this.tabPageNewApps.Text = "New applications";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -136,7 +136,7 @@
             this.browserNewApps.ScriptErrorsSuppressed = true;
             this.browserNewApps.Size = new System.Drawing.Size(665, 289);
             this.browserNewApps.TabIndex = 1;
-            this.browserNewApps.Url = new System.Uri("http://0install.de/appstore/", System.UriKind.Absolute);
+            this.browserNewApps.Url = new System.Uri("", System.UriKind.Relative);
             this.browserNewApps.WebBrowserShortcutsEnabled = false;
             this.browserNewApps.Navigating += new System.Windows.Forms.WebBrowserNavigatingEventHandler(this.browserNewApps_Navigating);
             this.browserNewApps.NewWindow += new System.ComponentModel.CancelEventHandler(this.browserNewApps_NewWindow);
@@ -161,7 +161,7 @@
             this.groupBoxTools.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxTools.Name = "groupBoxTools";
             this.groupBoxTools.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
-            this.groupBoxTools.Size = new System.Drawing.Size(676, 83);
+            this.groupBoxTools.Size = new System.Drawing.Size(756, 83);
             this.groupBoxTools.TabIndex = 1;
             this.groupBoxTools.TabStop = false;
             this.groupBoxTools.Text = "Tools";
@@ -169,7 +169,7 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(517, 29);
+            this.buttonHelp.Location = new System.Drawing.Point(597, 29);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(140, 35);
             this.buttonHelp.TabIndex = 2;
@@ -182,7 +182,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(704, 562);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.groupBoxTools);
             this.Controls.Add(this.tabControlApps);
             this.Controls.Add(this.pictureBoxLogo);
