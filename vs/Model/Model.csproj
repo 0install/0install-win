@@ -104,7 +104,7 @@
   <ItemGroup>
     <None Include="Dependency.cd" />
     <None Include="Element.cd" />
-    <None Include="Schema.xsd">
+    <None Include="Feed.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="ImplementationVersion.cd" />

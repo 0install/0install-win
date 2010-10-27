@@ -116,6 +116,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Feed\Trust.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Implementation\Archive\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
     <None Include="Implementation\Store.cd" />

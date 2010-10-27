@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2007/injector/trust" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2007/injector/trust" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="trusted-keys" nillable="true" type="tns:trusted-keys" />
+  <xs:complexType name="trusted-keys">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="key" type="tns:key" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="key">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="domain" type="tns:domain" />
+    </xs:sequence>
+    <xs:attribute name="fingerprint" type="xs:string" use="required" />
+  </xs:complexType>
+  <xs:complexType name="domain">
+    <xs:attribute name="value" type="xs:string" use="required" />
+  </xs:complexType>
+</xs:schema>
