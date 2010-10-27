@@ -24,9 +24,7 @@ namespace ZeroInstall.Publish.Arguments
     /// </summary>
     public struct ParseResults
     {
-        public string Feed;
-
-        public List<string> AdditionalArgs;
+        public List<string> Feeds;
 
         public string CatalogFile;
 

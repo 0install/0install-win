@@ -70,7 +70,7 @@ namespace ZeroInstall.Publish.Cli
             switch (mode)
             {
                 case OperationMode.Normal:
-                    if (string.IsNullOrEmpty(results.Feed))
+                    if (results.Feeds.Count == 0)
                     {
                         Log.Error(string.Format(Resources.MissingArguments, "0publish"));
                         return (int)ErrorLevel.InvalidArguments;
@@ -201,8 +201,7 @@ namespace ZeroInstall.Publish.Cli
 
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
-            if (additionalArgs.Count > 0) parseResults.Feed = additionalArgs[0];
-            parseResults.AdditionalArgs = additionalArgs;
+            parseResults.Feeds = additionalArgs;
 
             // Return the now filled results structure
             results = parseResults;
@@ -224,18 +223,21 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public static void Execute(ParseResults results)
         {
-            // Always start off by removing signatures since they will become invalid if anything is changed
-            FeedUtils.UnsignFeed(results.Feed);
-
-            if (results.AddStylesheet)
-                FeedUtils.AddStylesheet(results.Feed);
-
-            if (results.XmlSign)
+            foreach (var feed in results.Feeds)
             {
-                if (string.IsNullOrEmpty(results.GnuPGPassphrase))
-                    results.GnuPGPassphrase = InputUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+                // Always start off by removing signatures since they will become invalid if anything is changed
+                FeedUtils.UnsignFeed(feed);
 
-                FeedUtils.SignFeed(results.Feed, results.GnuPGUser, results.GnuPGPassphrase);
+                if (results.AddStylesheet)
+                    FeedUtils.AddStylesheet(feed);
+
+                if (results.XmlSign)
+                {
+                    if (string.IsNullOrEmpty(results.GnuPGPassphrase))
+                        results.GnuPGPassphrase = InputUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+
+                    FeedUtils.SignFeed(feed, results.GnuPGUser, results.GnuPGPassphrase);
+                }
             }
         }
         #endregion
@@ -254,11 +256,11 @@ namespace ZeroInstall.Publish.Cli
         {
             var catalog = new Catalog();
 
-            if (results.AdditionalArgs.Count == 0)
+            if (results.Feeds.Count == 0)
                 AddFeedsToCatalog(catalog, Environment.CurrentDirectory, "*.xml");
             else
             {
-                foreach (var feedArg in results.AdditionalArgs)
+                foreach (var feedArg in results.Feeds)
                 {
                     if (File.Exists(feedArg)) catalog.Feeds.Add(Feed.Load(feedArg));
                     else if (Directory.Exists(feedArg)) AddFeedsToCatalog(catalog, feedArg, "*.xml");
