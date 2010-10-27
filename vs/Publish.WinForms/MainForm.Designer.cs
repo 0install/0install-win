@@ -36,14 +36,16 @@ namespace ZeroInstall.Publish.WinForms
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "Foo")]
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBoxGpg = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.buttonUndo = new System.Windows.Forms.ToolStripButton();
+            this.buttonRedo = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
@@ -125,7 +127,9 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripButtonOpen,
             this.toolStripButtonSave,
             this.toolStripComboBoxGpg,
-            this.toolStripLabel1});
+            this.toolStripLabel1,
+            this.buttonUndo,
+            this.buttonRedo});
             this.toolStrip.Location = new System.Drawing.Point(7, 6);
             this.toolStrip.Margin = new System.Windows.Forms.Padding(2);
             this.toolStrip.Name = "toolStrip";
@@ -178,6 +182,27 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(68, 22);
             this.toolStripLabel1.Text = "GnuPG key:";
+            // 
+            // buttonUndo
+            // 
+            this.buttonUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonUndo.Enabled = false;
+            this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
+            this.buttonUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonUndo.Name = "buttonUndo";
+            this.buttonUndo.Size = new System.Drawing.Size(39, 22);
+            this.buttonUndo.Text = "undo";
+            this.buttonUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            // 
+            // buttonRedo
+            // 
+            this.buttonRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.buttonRedo.Enabled = false;
+            this.buttonRedo.Image = ((System.Drawing.Image)(resources.GetObject("buttonRedo.Image")));
+            this.buttonRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonRedo.Name = "buttonRedo";
+            this.buttonRedo.Size = new System.Drawing.Size(35, 22);
+            this.buttonRedo.Text = "redo";
             // 
             // openFileDialog
             // 
@@ -274,13 +299,13 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxInterfaceUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.hintTextBoxInterfaceUrl.BackColor = System.Drawing.SystemColors.Window;
             this.hintTextBoxInterfaceUrl.ClearButton = true;
             this.hintTextBoxInterfaceUrl.HintText = "URL to a remote interface";
             this.hintTextBoxInterfaceUrl.Location = new System.Drawing.Point(9, 59);
             this.hintTextBoxInterfaceUrl.Name = "hintTextBoxInterfaceUrl";
             this.hintTextBoxInterfaceUrl.Size = new System.Drawing.Size(414, 20);
             this.hintTextBoxInterfaceUrl.TabIndex = 7;
-            this.hintTextBoxInterfaceUrl.TextChanged += new System.EventHandler(this.TextInterfaceUrlTextChanged);
             // 
             // labelInterfaceUrl
             // 
@@ -486,6 +511,7 @@ namespace ZeroInstall.Publish.WinForms
             this.hintTextBoxProgramName.Name = "hintTextBoxProgramName";
             this.hintTextBoxProgramName.Size = new System.Drawing.Size(414, 20);
             this.hintTextBoxProgramName.TabIndex = 1;
+            this.hintTextBoxProgramName.Validated += new System.EventHandler(this.ProgramNameValidated);
             // 
             // labelProgramName
             // 
@@ -984,6 +1010,8 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button btnAddWorkingDir;
         private SummariesControl summariesControl;
         private SummariesControl descriptionControl;
+        private System.Windows.Forms.ToolStripButton buttonUndo;
+        private System.Windows.Forms.ToolStripButton buttonRedo;
     }
 }
 

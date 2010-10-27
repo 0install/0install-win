@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -24,6 +25,7 @@ using C5;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Undo;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -36,6 +38,13 @@ namespace ZeroInstall.Publish.WinForms
 {
     public partial class MainForm : Form
     {
+        #region Events
+
+        /// <summary>To be called when the controls on the form need to filled with content from the feed.</summary>
+        private event SimpleEventHandler _populate;
+
+        #endregion
+
         #region Attributes
 
         /// <summary>
@@ -48,6 +57,17 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private Feed _feedToEdit = new Feed();
 
+        /// <summary>
+        /// Indicates the file has to be saved.
+        /// </summary>
+        private bool _changed;
+
+        /// <summary>Entries used by the undo-system to undo changes</summary>
+        private readonly Stack<IUndoCommand> UndoBackups = new Stack<IUndoCommand>();
+
+        /// <summary>Entries used by the undo-system to redo changes previously undone</summary>
+        private readonly Stack<IUndoCommand> RedoBackups = new Stack<IUndoCommand>();
+
         #endregion
 
         #region Initialization
@@ -59,6 +79,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             InitializeComponent();
             InitializeComponentsExtended();
+            InitializeValidationEvents();
+            InitializeCommonEvents();
+            InitializeCommandHooks();
         }
 
         /// <summary>
@@ -155,9 +178,189 @@ namespace ZeroInstall.Publish.WinForms
             }
             catch (IOException)
             {
-                Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.", MsgSeverity.Warning);
+                Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.",
+                           MsgSeverity.Warning);
                 return new GnuPGSecretKey[0];
             }
+        }
+
+        private void InitializeCommonEvents()
+        {
+            #region Undo/Redo
+
+            buttonUndo.Click += delegate { Undo(); };
+            buttonRedo.Click += delegate { Redo(); };
+
+            #endregion
+        }
+
+        private void InitializeValidationEvents()
+        {
+        }
+
+        private void InitializeCommandHooks()
+        {
+            SetupCommandHooks(hintTextBoxProgramName, () => _feedToEdit.Name, value => _feedToEdit.Name = value, null);
+            SetupCommandHooks(hintTextBoxInterfaceUrl, () => _feedToEdit.HomepageString,
+                              value =>
+                                  {
+                                      if (!ControlHelpers.IsValidFeedUrl(value))
+                                      {
+                                          throw new UriFormatException();
+                                      }
+                                      _feedToEdit.Homepage = new Uri(value);
+                                  }, (textBox, eventArgs) =>
+                                         {
+                                             ((TextBox) textBox).ForeColor =
+                                                 ControlHelpers.IsValidFeedUrl(((TextBox) textBox).Text)
+                                                     ? Color.Green
+                                                     : Color.Red;
+                                         });
+        }
+
+        #endregion
+
+        #region Undo/Redo
+
+        /// <summary>
+        /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
+        /// </summary>
+        /// <param name="command">The command to be executed.</param>
+        private void ExecuteCommand(IUndoCommand command)
+        {
+            #region Sanity checks
+
+            if (command == null) throw new ArgumentNullException("command");
+
+            #endregion
+
+            // Execute the command and store it for later undo
+            command.Execute();
+
+            UndoBackups.Push(command);
+
+            buttonUndo.Enabled = true;
+
+            _changed = true;
+        }
+
+        private void OnUndo()
+        {
+            // Remove last command from the undo list, execute it and add it to the redo list
+            IUndoCommand lastCommand = UndoBackups.Pop();
+            lastCommand.Undo();
+            RedoBackups.Push(lastCommand);
+        }
+
+        private void OnRedo()
+        {
+            // Remove last command from the redo list, execute it and add it to the undo list
+            IUndoCommand lastCommand = RedoBackups.Pop();
+            lastCommand.Execute();
+            UndoBackups.Push(lastCommand);
+        }
+
+        private void Undo()
+        {
+            // Since this might be triggered by a hotkey instead of the actual button, we must check
+            if (!buttonUndo.Enabled) return;
+
+            OnUndo();
+
+            // Only enable the buttons that still have a use
+            if (UndoBackups.Count == 0)
+            {
+                buttonUndo.Enabled = false;
+                _changed = false;
+            }
+            buttonRedo.Enabled = true;
+
+            OnUpdate();
+        }
+
+        private void Redo()
+        {
+            // Since this might be triggered by a hotkey instead of the actual button, we must check
+            if (!buttonRedo.Enabled) return;
+
+            OnRedo();
+
+            // Mark as "to be saved" again
+            _changed = true;
+
+            // Only enable the buttons that still have a use
+            buttonRedo.Enabled = (RedoBackups.Count > 0);
+            buttonUndo.Enabled = true;
+
+            OnUpdate();
+        }
+
+        private void OnUpdate()
+        {
+            FillForm();
+            if (_populate != null) _populate();
+        }
+
+        /// <summary>
+        /// Hooks up a <see cref="TextBox"/> for automatic synchronization with the <see cref="_feedToEdit"/> via command objects.
+        /// </summary>
+        /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
+        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="textChanged">A delegate that will be called if the text of the textbox changes.</param>
+        private void SetupCommandHooks(TextBox textBox, SimpleResult<string> getValue, Action<string> setValue,
+                                       EventHandler textChanged)
+        {
+            // Transfer data from the feed to the TextBox when refreshing
+            _populate += delegate
+                             {
+                                 textBox.CausesValidation = false;
+                                 textBox.Text = getValue();
+                                 textBox.CausesValidation = true;
+                             };
+
+            // Transfer data from the TextBox to the feed via a command object
+            textBox.Validating += (sender, e) =>
+                                      {
+                                          if (textBox.Text == getValue()) return;
+                                          try
+                                          {
+                                              ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue,
+                                                                                         setValue));
+                                          }
+                                          catch (Exception exception)
+                                          {
+                                              e.Cancel = true;
+                                              Msg.Inform(this, exception.Message, MsgSeverity.Error);
+                                          }
+                                      };
+            if (textChanged != null)
+                textBox.TextChanged += textChanged;
+        }
+
+        /// <summary>
+        /// Hooks up a <see cref="CheckBox"/> for automatic synchronization with the <see cref="_feedToEdit"/> via command objects.
+        /// </summary>
+        /// <param name="checkBox">The <see cref="TextBox"/> to track for input and to update.</param>
+        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        private void SetupCommandHooks(CheckBox checkBox, SimpleResult<bool> getValue, Action<bool> setValue)
+        {
+            // Transfer data from the feed to the CheckBox when refreshing
+            _populate += delegate
+                             {
+                                 checkBox.CausesValidation = false;
+                                 checkBox.Checked = getValue();
+                                 checkBox.CausesValidation = true;
+                             };
+
+            // Transfer data from the CheckBox to the feed via a command object
+            checkBox.Validating += delegate
+                                       {
+                                           if (checkBox.Checked != getValue())
+                                               ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue,
+                                                                                        setValue));
+                                       };
         }
 
         #endregion
@@ -225,7 +428,7 @@ namespace ZeroInstall.Publish.WinForms
                 Msg.Inform(this, exception.Message, MsgSeverity.Error);
             }
 
-            FillForm();
+            OnUpdate();
         }
 
         /// <summary>
@@ -256,7 +459,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveGeneralTab()
         {
-            _feedToEdit.Name = hintTextBoxProgramName.Text;
+            //_feedToEdit.Name = hintTextBoxProgramName.Text;
 
             _feedToEdit.Categories.Clear();
             //TODO complete setting attribute type(required: understanding of the category system)
@@ -382,7 +585,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillGeneralTab()
         {
-            hintTextBoxProgramName.Text = _feedToEdit.Name;
+            //hintTextBoxProgramName.Text = _feedToEdit.Name;
             summariesControl.Summaries = _feedToEdit.Summaries;
             descriptionControl.Summaries = _feedToEdit.Descriptions;
             hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
@@ -543,6 +746,7 @@ namespace ZeroInstall.Publish.WinForms
                 return;
             }
 
+            lblIconUrlError.Text = "Image downloaded.";
             comboBoxIconType.SelectedItem = icon.RawFormat;
             pictureBoxIconPreview.Image = icon;
         }
@@ -674,6 +878,15 @@ namespace ZeroInstall.Publish.WinForms
             hintTextBoxHomepage.ForeColor = ControlHelpers.IsValidFeedUrl(hintTextBoxHomepage.Text)
                                                 ? Color.Green
                                                 : Color.Red;
+        }
+
+        #endregion
+
+        #region validating events
+
+        private void ProgramNameValidated(object sender, EventArgs e)
+        {
+            //_feedToEdit.Name = 
         }
 
         #endregion
