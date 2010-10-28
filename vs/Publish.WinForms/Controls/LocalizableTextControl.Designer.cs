@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Publish.WinForms.Controls
 {
-    partial class SummariesControl
+    partial class LocalizableTextControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -52,7 +52,7 @@
             this.comboBoxLanguages.Location = new System.Drawing.Point(0, 1);
             this.comboBoxLanguages.Name = "comboBoxLanguages";
             this.comboBoxLanguages.Size = new System.Drawing.Size(79, 21);
-            this.comboBoxLanguages.TabIndex = 2;
+            this.comboBoxLanguages.TabIndex = 0;
             this.comboBoxLanguages.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxLanguagesSelectionChangeCommitted);
             // 
             // SummariesControl

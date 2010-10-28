@@ -1,0 +1,208 @@
+﻿/*
+ * Copyright 2010 Bastian Eicher
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Common;
+using Common.Undo;
+using ZeroInstall.Model;
+
+namespace ZeroInstall.Publish
+{
+    /// <summary>
+    /// Represents a <see cref="Feed"/> being edited using <see cref="IUndoCommand"/>s.
+    /// </summary>
+    public class FeedEditing
+    {
+        #region Events
+        /// <summary>
+        /// Is raised when the content of the <see cref="Feed"/> has been updated.
+        /// </summary>
+        public event SimpleEventHandler Update;
+
+        /// <summary>
+        /// Is raised when the availability of the <see cref="Undo"/> operation has changed.
+        /// </summary>
+        public event Action<bool> UndoEnabled;
+
+        /// <summary>
+        /// Is raised when the availability of the <see cref="Redo"/> operation has changed.
+        /// </summary>
+        public event Action<bool> RedoEnabled;
+
+        private void OnUpdate()
+        {
+            if (Update != null) Update();
+        }
+
+        private void OnUndoEnabled(bool value)
+        {
+            if (UndoEnabled != null) UndoEnabled(value);
+        }
+
+        private void OnRedoEnabled(bool value)
+        {
+            if (RedoEnabled != null) RedoEnabled(value);
+        }
+        #endregion
+
+        #region Variables
+        /// <summary>Entries used by the undo-system to undo changes</summary>
+        private readonly Stack<IUndoCommand> _undoStack = new Stack<IUndoCommand>();
+
+        /// <summary>Entries used by the undo-system to redo changes previously undone</summary>
+        private readonly Stack<IUndoCommand> _redoStack = new Stack<IUndoCommand>();
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The <see cref="ZeroInstall.Model.Feed"/> to be editted.
+        /// </summary>
+        public Feed Feed { get; private set;  }
+
+        /// <summary>
+        /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
+        /// </summary>
+        public string Path { get; private set; }
+
+        /// <summary>
+        /// Indicates the file has unsaved changes
+        /// </summary>
+        public bool Changed { get; private set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Starts with an empty <see cref="ZeroInstall.Model.Feed"/>.
+        /// </summary>
+        public FeedEditing()
+        {
+            Feed = new Feed();
+        }
+
+        /// <summary>
+        /// Starts with a <see cref="ZeroInstall.Model.Feed"/> loaded from a file.
+        /// </summary>
+        /// <param name="feed">The <see cref="ZeroInstall.Model.Feed"/> to be editted.</param>
+        /// <param name="path">The path of the file the <paramref name="feed"/> was loaded from.</param>
+        private FeedEditing(Feed feed, string path)
+        {
+            Feed = feed;
+            Path = path;
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Storage
+        /// <summary>
+        /// Loads a <see cref="Feed"/> from an XML file (feed).
+        /// </summary>
+        /// <param name="path">The file to load from.</param>
+        /// <returns>A <see cref="FeedEditing"/> containing the loaded <see cref="Feed"/>.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        public static FeedEditing Load(string path)
+        {
+            return new FeedEditing(Feed.Load(path), path);
+        }
+        #endregion
+
+        //--------------------//
+
+        /// <summary>
+        /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
+        /// </summary>
+        /// <param name="command">The command to be executed.</param>
+        public void ExecuteCommand(IUndoCommand command)
+        {
+            #region Sanity checks
+            if (command == null) throw new ArgumentNullException("command");
+            #endregion
+
+            // Execute the command and store it for later undo
+            command.Execute();
+
+            _undoStack.Push(command);
+
+            OnUndoEnabled(true);
+
+            Changed = true;
+        }
+
+        /// <summary>
+        /// Undoes the last action performed by <see cref="ExecuteCommand"/>.
+        /// </summary>
+        public void Undo()
+        {
+            if (_undoStack.Count == 0) return;
+
+            // Remove last command from the undo list, execute it and add it to the redo list
+            IUndoCommand lastCommand = _undoStack.Pop();
+            lastCommand.Undo();
+            _redoStack.Push(lastCommand);
+
+            // Only enable the buttons that still have a use
+            if (_undoStack.Count == 0)
+            {
+                OnUndoEnabled(false);
+                Changed = false;
+            }
+            OnRedoEnabled(true);
+
+            OnUpdate();
+        }
+
+        /// <summary>
+        /// Redoes the last action undone by <see cref="Undo"/>.
+        /// </summary>
+        public void Redo()
+        {
+            if (_redoStack.Count == 0) return;
+
+            // Remove last command from the redo list, execute it and add it to the undo list
+            IUndoCommand lastCommand = _redoStack.Pop();
+            lastCommand.Execute();
+            _undoStack.Push(lastCommand);
+
+            // Mark as "to be saved" again
+            Changed = true;
+
+            // Only enable the buttons that still have a use
+            OnRedoEnabled(_redoStack.Count > 0);
+            OnUndoEnabled(true);
+
+            OnUpdate();
+        }
+
+        /// <summary>
+        /// Resets the entire undo system, clearing all stacks.
+        /// </summary>
+        public void Reset()
+        {
+            Changed = false;
+
+            _undoStack.Clear();
+            _redoStack.Clear();
+
+            OnUndoEnabled(false);
+            OnRedoEnabled(false);
+        }
+    }
+}

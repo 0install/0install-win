@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
@@ -39,39 +38,15 @@ namespace ZeroInstall.Publish.WinForms
     public partial class MainForm : Form
     {
         #region Events
-
         /// <summary>To be called when the controls on the form need to filled with content from the feed.</summary>
-        private event SimpleEventHandler _populate;
-
+        private event SimpleEventHandler Populate;
         #endregion
 
-        #region Attributes
-
-        /// <summary>
-        /// The path of the file a <see cref="Feed"/> was loaded from.
-        /// </summary>
-        private string _pathToOpenedFeed;
-
-        /// <summary>
-        /// The <see cref="ZeroInstall.Model.Feed"/> to edit by this form.
-        /// </summary>
-        private Feed _feedToEdit = new Feed();
-
-        /// <summary>
-        /// Indicates the file has to be saved.
-        /// </summary>
-        private bool _changed;
-
-        /// <summary>Entries used by the undo-system to undo changes</summary>
-        private readonly Stack<IUndoCommand> UndoBackups = new Stack<IUndoCommand>();
-
-        /// <summary>Entries used by the undo-system to redo changes previously undone</summary>
-        private readonly Stack<IUndoCommand> RedoBackups = new Stack<IUndoCommand>();
-
+        #region Variables
+        private FeedEditing _feedEditing = new FeedEditing();
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creats a new <see cref="MainForm"/> object.
         /// </summary>
@@ -79,9 +54,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             InitializeComponent();
             InitializeComponentsExtended();
-            InitializeValidationEvents();
             InitializeCommonEvents();
             InitializeCommandHooks();
+            InitializeEditingHooks();
         }
 
         /// <summary>
@@ -102,7 +77,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeSaveFileDialog()
         {
-            if (_pathToOpenedFeed != null) saveFileDialog.InitialDirectory = _pathToOpenedFeed;
+            if (_feedEditing.Path != null) saveFileDialog.InitialDirectory = _feedEditing.Path;
             saveFileDialog.DefaultExt = ".xml";
             saveFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
@@ -114,7 +89,7 @@ namespace ZeroInstall.Publish.WinForms
             "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeLoadFileDialog()
         {
-            if (_pathToOpenedFeed != null) openFileDialog.InitialDirectory = _pathToOpenedFeed;
+            if (_feedEditing.Path != null) openFileDialog.InitialDirectory = _feedEditing.Path;
             openFileDialog.DefaultExt = ".xml";
             openFileDialog.Filter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         }
@@ -128,11 +103,11 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Adds <see cref="_feedToEdit"/> to the Tag of the first <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>.
+        /// Adds <see cref="Feed"/> to the Tag of the first <see cref="TreeNode"/> of <see cref="treeViewFeedStructure"/>.
         /// </summary>
         private void InitializeTreeViewFeedStructure()
         {
-            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
+            treeViewFeedStructure.Nodes[0].Tag = _feedEditing.Feed;
         }
 
         /// <summary>
@@ -188,158 +163,98 @@ namespace ZeroInstall.Publish.WinForms
         {
             #region Undo/Redo
 
-            buttonUndo.Click += delegate { Undo(); };
-            buttonRedo.Click += delegate { Redo(); };
+            buttonUndo.Click += delegate { _feedEditing.Undo(); };
+            buttonRedo.Click += delegate { _feedEditing.Redo(); };
 
             #endregion
         }
-
-        private void InitializeValidationEvents()
-        {
-        }
-
+        
         private void InitializeCommandHooks()
         {
-            SetupCommandHooks(hintTextBoxProgramName, () => _feedToEdit.Name, value => _feedToEdit.Name = value, null);
-            SetupCommandHooks(hintTextBoxInterfaceUrl, () => _feedToEdit.HomepageString,
-                              value =>
-                                  {
-                                      if (!ControlHelpers.IsValidFeedUrl(value))
-                                      {
-                                          throw new UriFormatException();
-                                      }
-                                      _feedToEdit.Homepage = new Uri(value);
-                                  }, (textBox, eventArgs) =>
-                                         {
-                                             ((TextBox) textBox).ForeColor =
-                                                 ControlHelpers.IsValidFeedUrl(((TextBox) textBox).Text)
-                                                     ? Color.Green
-                                                     : Color.Red;
-                                         });
+            SetupCommandHooks(textName, () => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value);
+            SetupCommandHooks(textInterfaceUri, () => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value);
+            SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value);
+            SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
         }
 
+        private void InitializeEditingHooks()
+        {
+            _feedEditing.Update += OnUpdate;
+            _feedEditing.UndoEnabled += value => buttonUndo.Enabled = value;
+            _feedEditing.RedoEnabled += value => buttonRedo.Enabled = value;
+
+            buttonUndo.Enabled = buttonRedo.Enabled = false;
+        }
         #endregion
 
         #region Undo/Redo
-
-        /// <summary>
-        /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
-        /// </summary>
-        /// <param name="command">The command to be executed.</param>
-        private void ExecuteCommand(IUndoCommand command)
-        {
-            #region Sanity checks
-
-            if (command == null) throw new ArgumentNullException("command");
-
-            #endregion
-
-            // Execute the command and store it for later undo
-            command.Execute();
-
-            UndoBackups.Push(command);
-
-            buttonUndo.Enabled = true;
-
-            _changed = true;
-        }
-
-        private void OnUndo()
-        {
-            // Remove last command from the undo list, execute it and add it to the redo list
-            IUndoCommand lastCommand = UndoBackups.Pop();
-            lastCommand.Undo();
-            RedoBackups.Push(lastCommand);
-        }
-
-        private void OnRedo()
-        {
-            // Remove last command from the redo list, execute it and add it to the undo list
-            IUndoCommand lastCommand = RedoBackups.Pop();
-            lastCommand.Execute();
-            UndoBackups.Push(lastCommand);
-        }
-
-        private void Undo()
-        {
-            // Since this might be triggered by a hotkey instead of the actual button, we must check
-            if (!buttonUndo.Enabled) return;
-
-            OnUndo();
-
-            // Only enable the buttons that still have a use
-            if (UndoBackups.Count == 0)
-            {
-                buttonUndo.Enabled = false;
-                _changed = false;
-            }
-            buttonRedo.Enabled = true;
-
-            OnUpdate();
-        }
-
-        private void Redo()
-        {
-            // Since this might be triggered by a hotkey instead of the actual button, we must check
-            if (!buttonRedo.Enabled) return;
-
-            OnRedo();
-
-            // Mark as "to be saved" again
-            _changed = true;
-
-            // Only enable the buttons that still have a use
-            buttonRedo.Enabled = (RedoBackups.Count > 0);
-            buttonUndo.Enabled = true;
-
-            OnUpdate();
-        }
-
         private void OnUpdate()
         {
             FillForm();
-            if (_populate != null) _populate();
+            if (Populate != null) Populate();
         }
 
         /// <summary>
-        /// Hooks up a <see cref="TextBox"/> for automatic synchronization with the <see cref="_feedToEdit"/> via command objects.
+        /// Hooks up a <see cref="UriTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
         /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
         /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
-        /// <param name="textChanged">A delegate that will be called if the text of the textbox changes.</param>
-        private void SetupCommandHooks(TextBox textBox, SimpleResult<string> getValue, Action<string> setValue,
-                                       EventHandler textChanged)
+        private void SetupCommandHooks(UriTextBox textBox, SimpleResult<Uri> getValue, Action<Uri> setValue)
         {
             // Transfer data from the feed to the TextBox when refreshing
-            _populate += delegate
-                             {
-                                 textBox.CausesValidation = false;
-                                 textBox.Text = getValue();
-                                 textBox.CausesValidation = true;
-                             };
+            Populate += delegate
+            {
+                textBox.CausesValidation = false;
+                textBox.Uri = getValue();
+                textBox.CausesValidation = true;
+            };
 
             // Transfer data from the TextBox to the feed via a command object
             textBox.Validating += (sender, e) =>
-                                      {
-                                          if (textBox.Text == getValue()) return;
-                                          try
-                                          {
-                                              ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue,
-                                                                                         setValue));
-                                          }
-                                          catch (Exception exception)
-                                          {
-                                              e.Cancel = true;
-                                              Msg.Inform(this, exception.Message, MsgSeverity.Error);
-                                          }
-                                      };
-            if (textChanged != null)
-                textBox.TextChanged += textChanged;
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
+
+                // Ignore irrelevant changes
+                if (textBox.Uri == getValue()) return;
+
+                _feedEditing.ExecuteCommand(new SetValueCommand<Uri>(textBox.Uri, getValue, setValue));
+            };
         }
 
         /// <summary>
-        /// Hooks up a <see cref="CheckBox"/> for automatic synchronization with the <see cref="_feedToEdit"/> via command objects.
+        /// Hooks up a <see cref="TextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
+        /// </summary>
+        /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
+        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        private void SetupCommandHooks(TextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
+        {
+            // Transfer data from the feed to the TextBox when refreshing
+            Populate += delegate
+            {
+                textBox.CausesValidation = false;
+                textBox.Text = getValue();
+                textBox.CausesValidation = true;
+            };
+
+            // Transfer data from the TextBox to the feed via a command object
+            textBox.Validating += (sender, e) =>
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
+
+                // Ignore irrelevant changes
+                string oldValue = getValue();
+                if (string.IsNullOrEmpty(oldValue) && string.IsNullOrEmpty(textBox.Text) || (textBox.Text == oldValue)) return;
+
+                _feedEditing.ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue, setValue));
+            };
+        }
+
+        /// <summary>
+        /// Hooks up a <see cref="CheckBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="checkBox">The <see cref="TextBox"/> to track for input and to update.</param>
         /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
@@ -347,20 +262,24 @@ namespace ZeroInstall.Publish.WinForms
         private void SetupCommandHooks(CheckBox checkBox, SimpleResult<bool> getValue, Action<bool> setValue)
         {
             // Transfer data from the feed to the CheckBox when refreshing
-            _populate += delegate
-                             {
-                                 checkBox.CausesValidation = false;
-                                 checkBox.Checked = getValue();
-                                 checkBox.CausesValidation = true;
-                             };
+            Populate += delegate
+            {
+                checkBox.CausesValidation = false;
+                checkBox.Checked = getValue();
+                checkBox.CausesValidation = true;
+            };
 
             // Transfer data from the CheckBox to the feed via a command object
-            checkBox.Validating += delegate
-                                       {
-                                           if (checkBox.Checked != getValue())
-                                               ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue,
-                                                                                        setValue));
-                                       };
+            checkBox.Validating += (sender, e) =>
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
+
+                // Ignore irrelevant changes
+                if (checkBox.Checked == getValue()) return;
+
+                _feedEditing.ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue, setValue));
+            };
         }
 
         #endregion
@@ -375,7 +294,8 @@ namespace ZeroInstall.Publish.WinForms
         private void ToolStripButtonNew_Click(object sender, EventArgs e)
         {
             ResetFormControls();
-            _feedToEdit = new Feed();
+            _feedEditing = new FeedEditing();
+            InitializeEditingHooks();
         }
 
         /// <summary>
@@ -395,7 +315,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            if (_pathToOpenedFeed != null) saveFileDialog.InitialDirectory = _pathToOpenedFeed;
+            if (_feedEditing.Path != null) saveFileDialog.InitialDirectory = _feedEditing.Path;
             MainForm_FormClosing(null, null);
         }
 
@@ -410,11 +330,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
-            _pathToOpenedFeed = openFileDialog.FileName;
-            try
-            {
-                _feedToEdit = Feed.Load(openFileDialog.FileName);
-            }
+            try { _feedEditing = FeedEditing.Load(openFileDialog.FileName); }
+            #region Error handling
             catch (InvalidOperationException)
             {
                 Msg.Inform(this, "The feed you tried to open is not valid.", MsgSeverity.Error);
@@ -427,6 +344,8 @@ namespace ZeroInstall.Publish.WinForms
             {
                 Msg.Inform(this, exception.Message, MsgSeverity.Error);
             }
+            #endregion
+            InitializeEditingHooks();
 
             OnUpdate();
         }
@@ -451,7 +370,7 @@ namespace ZeroInstall.Publish.WinForms
             SaveFeedTab();
             SaveAdvancedTab();
 
-            _feedToEdit.Save(toPath);
+            _feedEditing.Feed.Save(toPath);
         }
 
         /// <summary>
@@ -459,24 +378,15 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveGeneralTab()
         {
-            //_feedToEdit.Name = hintTextBoxProgramName.Text;
+            //_feedEditing.Feed.Name = textName.Text;
 
-            _feedToEdit.Categories.Clear();
+            _feedEditing.Feed.Categories.Clear();
             //TODO complete setting attribute type(required: understanding of the category system)
             foreach (var category in checkedListBoxCategories.CheckedItems)
-                _feedToEdit.Categories.Add(category.ToString());
+                _feedEditing.Feed.Categories.Add(category.ToString());
 
-            _feedToEdit.Icons.Clear();
-            foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedToEdit.Icons.Add(icon);
-
-            _feedToEdit.Uri = null;
-            Uri url;
-            if (Uri.TryCreate(hintTextBoxInterfaceUrl.Text, UriKind.Absolute, out url)) _feedToEdit.Uri = url;
-
-            _feedToEdit.Homepage = null;
-            if (Uri.TryCreate(hintTextBoxHomepage.Text, UriKind.Absolute, out url)) _feedToEdit.Homepage = url;
-
-            _feedToEdit.NeedsTerminal = checkBoxNeedsTerminal.Checked;
+            _feedEditing.Feed.Icons.Clear();
+            foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedEditing.Feed.Icons.Add(icon);
         }
 
         /// <summary>
@@ -484,7 +394,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private static void SaveFeedTab()
         {
-            // the feed structure objects will be saved directly into _feedToEdit => no extra saving needed.
+            // the feed structure objects will be saved directly into _feedEditing.Feed => no extra saving needed.
         }
 
         /// <summary>
@@ -492,15 +402,15 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void SaveAdvancedTab()
         {
-            _feedToEdit.Feeds.Clear();
-            foreach (var feed in listBoxExternalFeeds.Items) _feedToEdit.Feeds.Add((FeedReference) feed);
+            _feedEditing.Feed.Feeds.Clear();
+            foreach (var feed in listBoxExternalFeeds.Items) _feedEditing.Feed.Feeds.Add((FeedReference) feed);
 
-            _feedToEdit.FeedFor.Clear();
-            foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedToEdit.FeedFor.Add(feedFor);
+            _feedEditing.Feed.FeedFor.Clear();
+            foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedEditing.Feed.FeedFor.Add(feedFor);
 
-            _feedToEdit.MinInjectorVersion = null;
+            _feedEditing.Feed.MinInjectorVersion = null;
             if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText))
-                _feedToEdit.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
+                _feedEditing.Feed.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
         }
 
         /// <summary>
@@ -514,7 +424,7 @@ namespace ZeroInstall.Publish.WinForms
                                true, "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
             {
                 case DialogResult.Yes:
-                    if (!String.IsNullOrEmpty(_pathToOpenedFeed)) saveFileDialog.InitialDirectory = _pathToOpenedFeed;
+                    if (!String.IsNullOrEmpty(_feedEditing.Path)) saveFileDialog.InitialDirectory = _feedEditing.Path;
                     if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                     {
                         SaveFeed(saveFileDialog.FileName);
@@ -569,7 +479,7 @@ namespace ZeroInstall.Publish.WinForms
         #region Fill form controls
 
         /// <summary>
-        /// Clears all form controls and fills them with the values from a <see cref="_feedToEdit"/>.
+        /// Clears all form controls and fills them with the values from a <see cref="Feed"/>.
         /// </summary>
         private void FillForm()
         {
@@ -585,28 +495,23 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillGeneralTab()
         {
-            //hintTextBoxProgramName.Text = _feedToEdit.Name;
-            summariesControl.Summaries = _feedToEdit.Summaries;
-            descriptionControl.Summaries = _feedToEdit.Descriptions;
-            hintTextBoxHomepage.Text = _feedToEdit.HomepageString;
-            hintTextBoxInterfaceUrl.Text = _feedToEdit.UriString;
+            summariesControl.Summaries = _feedEditing.Feed.Summaries;
+            descriptionControl.Summaries = _feedEditing.Feed.Descriptions;
 
             // fill icons list box
             listBoxIconsUrls.BeginUpdate();
             listBoxIconsUrls.Items.Clear();
-            foreach (var icon in _feedToEdit.Icons) listBoxIconsUrls.Items.Add(icon);
+            foreach (var icon in _feedEditing.Feed.Icons) listBoxIconsUrls.Items.Add(icon);
             listBoxIconsUrls.EndUpdate();
 
             // fill category list
-            foreach (var category in _feedToEdit.Categories)
+            foreach (var category in _feedEditing.Feed.Categories)
             {
                 if (checkedListBoxCategories.Items.Contains(category))
                 {
                     checkedListBoxCategories.SetItemChecked(checkedListBoxCategories.Items.IndexOf(category), true);
                 }
             }
-
-            checkBoxNeedsTerminal.Checked = _feedToEdit.NeedsTerminal;
         }
 
         /// <summary>
@@ -616,8 +521,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             treeViewFeedStructure.BeginUpdate();
             treeViewFeedStructure.Nodes[0].Nodes.Clear();
-            treeViewFeedStructure.Nodes[0].Tag = _feedToEdit;
-            BuildElementsTreeNodes(_feedToEdit.Elements, treeViewFeedStructure.Nodes[0]);
+            treeViewFeedStructure.Nodes[0].Tag = _feedEditing.Feed;
+            BuildElementsTreeNodes(_feedEditing.Feed.Elements, treeViewFeedStructure.Nodes[0]);
             treeViewFeedStructure.EndUpdate();
 
             treeViewFeedStructure.ExpandAll();
@@ -628,9 +533,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillAdvancedTab()
         {
-            foreach (var feed in _feedToEdit.Feeds) listBoxExternalFeeds.Items.Add(feed);
-            foreach (var feedFor in _feedToEdit.FeedFor) listBoxFeedFor.Items.Add(feedFor);
-            comboBoxMinInjectorVersion.Text = _feedToEdit.MinInjectorVersion;
+            foreach (var feed in _feedEditing.Feed.Feeds) listBoxExternalFeeds.Items.Add(feed);
+            foreach (var feedFor in _feedEditing.Feed.FeedFor) listBoxFeedFor.Items.Add(feedFor);
+            comboBoxMinInjectorVersion.Text = _feedEditing.Feed.MinInjectorVersion;
         }
 
         #endregion
@@ -652,11 +557,11 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void ResetGeneralTabControls()
         {
-            hintTextBoxProgramName.ResetText();
+            textName.ResetText();
             summariesControl.Summaries = new LocalizableStringCollection();
             descriptionControl.Summaries = new LocalizableStringCollection();
-            hintTextBoxHomepage.ResetText();
-            hintTextBoxInterfaceUrl.ResetText();
+            textHomepage.ResetText();
+            textInterfaceUri.ResetText();
             hintTextBoxIconUrl.ResetText();
             comboBoxIconType.SelectedIndex = 0;
             pictureBoxIconPreview.Image = null;
@@ -782,11 +687,11 @@ namespace ZeroInstall.Publish.WinForms
             if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out uri)) return;
             var icon = new Model.Icon {Location = uri};
 
-            var imageMimeTypes = new HashDictionary<Guid, string>()
-                                     {
-                                         {ImageFormat.Png.Guid, "image/png"},
-                                         {ImageFormat.Icon.Guid, "image/vnd-microsoft-icon"}
-                                     };
+            var imageMimeTypes = new HashDictionary<Guid, string>
+            {
+                {ImageFormat.Png.Guid, "image/png"},
+                {ImageFormat.Icon.Guid, "image/vnd-microsoft-icon"}
+            };
             icon.MimeType = imageMimeTypes[((ImageFormat) comboBoxIconType.SelectedItem).Guid];
 
             if (!listBoxIconsUrls.Items.Contains(icon)) listBoxIconsUrls.Items.Add(icon);
@@ -854,43 +759,6 @@ namespace ZeroInstall.Publish.WinForms
 
         #endregion
 
-        #region onChanged Events
-
-        /// <summary>
-        /// Checks if the text of <see cref="hintTextBoxInterfaceUrl"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void TextInterfaceUrlTextChanged(object sender, EventArgs e)
-        {
-            hintTextBoxInterfaceUrl.ForeColor = (ControlHelpers.IsValidFeedUrl(hintTextBoxInterfaceUrl.Text)
-                                                     ? Color.Green
-                                                     : Color.Red);
-        }
-
-        /// <summary>
-        /// Checks if the text of <see cref="hintTextBoxHomepage"/> is a valid feed url and sets the the text to <see cref="Color.Green"/> if true or to <see cref="Color.Red"/> if false.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void TextHomepageTextChanged(object sender, EventArgs e)
-        {
-            hintTextBoxHomepage.ForeColor = ControlHelpers.IsValidFeedUrl(hintTextBoxHomepage.Text)
-                                                ? Color.Green
-                                                : Color.Red;
-        }
-
-        #endregion
-
-        #region validating events
-
-        private void ProgramNameValidated(object sender, EventArgs e)
-        {
-            //_feedToEdit.Name = 
-        }
-
-        #endregion
-
         #endregion
 
         #region Feed Tab
@@ -917,7 +785,7 @@ namespace ZeroInstall.Publish.WinForms
 
         /// <summary>
         /// Gets the selected <see cref="TreeNode"/> from <see cref="treeViewFeedStructure"/> and adds (if allowed) <paramref name="feedStructureObject"/> to the container stored
-        /// in the Tag of the selected <see cref="TreeNode"/>. Then <see cref="treeViewFeedStructure"/> will be rebuild from <see cref="_feedToEdit"/>.
+        /// in the Tag of the selected <see cref="TreeNode"/>. Then <see cref="treeViewFeedStructure"/> will be rebuild from <see cref="Feed"/>.
         /// </summary>
         /// <remarks>
         /// It is allowed if <paramref name="feedStructureObject"/> can be added to the selected container (e.g. a <see cref="Implementation"/> can be added to a
@@ -1231,7 +1099,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Removes the Tag of the selected <see cref="TreeNode"/> from <see cref="_feedToEdit"/> and rebuilds <see cref="treeViewFeedStructure"/>.
+        /// Removes the Tag of the selected <see cref="TreeNode"/> from <see cref="Feed"/> and rebuilds <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
@@ -1246,7 +1114,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Removes an feed structure object from <see cref="_feedToEdit"/>.
+        /// Removes an feed structure object from <see cref="Feed"/>.
         /// </summary>
         /// <param name="container">Not used.</param>
         /// <param name="toRemove">Not used.</param>
@@ -1269,13 +1137,13 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Removes all feed structure objects from <see cref="_feedToEdit"/> and rebuilds <see cref="treeViewFeedStructure"/>.
+        /// Removes all feed structure objects from <see cref="Feed"/> and rebuilds <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void ButtonClearListClick(object sender, EventArgs e)
         {
-            _feedToEdit.Elements.Clear();
+            _feedEditing.Feed.Elements.Clear();
             FillFeedTab();
             treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
             TreeViewFeedStructureAfterSelect(null, null);

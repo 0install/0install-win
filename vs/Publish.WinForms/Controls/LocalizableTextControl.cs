@@ -5,7 +5,7 @@ using System.Globalization;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
-    public partial class SummariesControl : UserControl
+    public partial class LocalizableTextControl : UserControl
     {
         #region Properties
 
@@ -55,7 +55,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         #endregion
 
-        public SummariesControl()
+        public LocalizableTextControl()
         {
             InitializeComponent();
             UpdateControl();
