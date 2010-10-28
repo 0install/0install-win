@@ -495,8 +495,8 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillGeneralTab()
         {
-            summariesControl.Summaries = _feedEditing.Feed.Summaries;
-            descriptionControl.Summaries = _feedEditing.Feed.Descriptions;
+            summariesControl.Values = _feedEditing.Feed.Summaries;
+            descriptionControl.Values = _feedEditing.Feed.Descriptions;
 
             // fill icons list box
             listBoxIconsUrls.BeginUpdate();
@@ -558,8 +558,8 @@ namespace ZeroInstall.Publish.WinForms
         private void ResetGeneralTabControls()
         {
             textName.ResetText();
-            summariesControl.Summaries = new LocalizableStringCollection();
-            descriptionControl.Summaries = new LocalizableStringCollection();
+            summariesControl.Values = new LocalizableStringCollection();
+            descriptionControl.Values = new LocalizableStringCollection();
             textHomepage.ResetText();
             textInterfaceUri.ResetText();
             hintTextBoxIconUrl.ResetText();

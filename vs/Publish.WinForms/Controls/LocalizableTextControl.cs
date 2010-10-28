@@ -9,26 +9,19 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         #region Properties
 
-        private LocalizableStringCollection _summaries = new LocalizableStringCollection();
+        private LocalizableStringCollection _values = new LocalizableStringCollection();
 
-        public LocalizableStringCollection Summaries
+        public LocalizableStringCollection Values
         {
-            set
-            {
-                _summaries = value;
-                UpdateControl();
-            }
-            get { return _summaries; }
+            set { _values = value; UpdateControl(); }
+            get { return _values; }
         }
 
-        private bool _multiline = false;
+        private bool _multiline;
 
         public bool Multiline
         {
-            get
-            {
-                return _multiline;
-            }
+            get { return _multiline; }
             set
             {
                 _multiline = value;
@@ -74,8 +67,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
             UpdateComboBoxLanguages();
             comboBoxLanguages.SelectedIndex = 0;
             var selectedLanguage = GetSelectedLanguage();
-            hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(selectedLanguage)
-                                          ? _summaries.GetExactLanguage(selectedLanguage)
+            hintTextBoxSummary.Text = _values.ContainsExactLanguage(selectedLanguage)
+                                          ? _values.GetExactLanguage(selectedLanguage)
                                           : string.Empty;
         }
 
@@ -85,12 +78,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             comboBoxLanguages.BeginUpdate();
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {
-                comboBoxLanguages.Items.Add(_summaries.ContainsExactLanguage(language)
+                comboBoxLanguages.Items.Add(_values.ContainsExactLanguage(language)
                                                 ? UsingLanguageMarker + language.IetfLanguageTag
                                                 : language.IetfLanguageTag);
             }
 
-            comboBoxLanguages.SelectedItem = _summaries.ContainsExactLanguage(selectedLanguage)
+            comboBoxLanguages.SelectedItem = _values.ContainsExactLanguage(selectedLanguage)
                                                  ? UsingLanguageMarker + selectedLanguage.IetfLanguageTag
                                                  : selectedLanguage.IetfLanguageTag;
             comboBoxLanguages.EndUpdate();
@@ -113,10 +106,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             string changedSummary = hintTextBoxSummary.Text;
             var selectedLanguage = GetSelectedLanguage();
-            if (string.IsNullOrEmpty(changedSummary) && _summaries.ContainsExactLanguage(selectedLanguage))
-                _summaries.RemoveAll(selectedLanguage);
+            if (string.IsNullOrEmpty(changedSummary) && _values.ContainsExactLanguage(selectedLanguage))
+                _values.RemoveAll(selectedLanguage);
             if(!string.IsNullOrEmpty(changedSummary))
-                _summaries.Set(changedSummary, selectedLanguage);
+                _values.Set(changedSummary, selectedLanguage);
 
             UpdateComboBoxLanguages();
         }
@@ -124,8 +117,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ComboBoxLanguagesSelectionChangeCommitted(object sender, System.EventArgs e)
         {
             var selectedLanguage = GetSelectedLanguage();
-            hintTextBoxSummary.Text = _summaries.ContainsExactLanguage(selectedLanguage)
-                                          ? _summaries.GetExactLanguage(selectedLanguage)
+            hintTextBoxSummary.Text = _values.ContainsExactLanguage(selectedLanguage)
+                                          ? _values.GetExactLanguage(selectedLanguage)
                                           : string.Empty;
         }
     }

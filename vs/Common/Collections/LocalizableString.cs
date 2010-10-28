@@ -29,7 +29,7 @@ namespace Common.Collections
     /// <summary>
     /// A string with an optionally associated language that can be XML serialized to an element with an xml:lang tag.
     /// </summary>
-    public struct LocalizableString : IEquatable<LocalizableString>, ICloneable
+    public sealed class LocalizableString : IEquatable<LocalizableString>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -56,6 +56,17 @@ namespace Common.Collections
 
         #region Contructor
         /// <summary>
+        /// Creates a new string with an associated language.
+        /// </summary>
+        /// <param name="value">The actual string value to store.</param>
+        /// <param name="language">The language of the <paramref name="value"/>.</param>
+        public LocalizableString(string value, CultureInfo language)
+        {
+            Value = value;
+            Language = language;
+        }
+
+        /// <summary>
         /// Creates a new string with no associated language.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
@@ -63,15 +74,10 @@ namespace Common.Collections
         {}
 
         /// <summary>
-        /// Creates a new string with an associated language.
+        /// Creates an empty string with no associated language.
         /// </summary>
-        /// <param name="value">The actual string value to store.</param>
-        /// <param name="language">The language of the <paramref name="value"/>.</param>
-        public LocalizableString(string value, CultureInfo language) : this()
-        {
-            Value = value;
-            Language = language;
-        }
+        public LocalizableString() : this(null)
+        {}
         #endregion
 
         //--------------------//
