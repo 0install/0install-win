@@ -225,7 +225,7 @@ namespace ZeroInstall.Model
         
         #region Storage
         /// <summary>
-        /// Loads an <see cref="Feed"/> from an XML file (feed).
+        /// Loads a <see cref="Feed"/> from an XML file (feed).
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Feed"/>.</returns>
@@ -238,7 +238,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Loads an <see cref="Feed"/> from a stream containing an XML file (feed).
+        /// Loads a <see cref="Feed"/> from a stream containing an XML file (feed).
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="Feed"/>.</returns>

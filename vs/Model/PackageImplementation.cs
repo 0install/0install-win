@@ -25,7 +25,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// An implementation of an <see cref="Feed"/> provided by a distribution-specific package manager.
+    /// An implementation of a <see cref="Feed"/> provided by a distribution-specific package manager.
     /// </summary>
     /// <remarks>
     /// Unlike a normal <see cref="Implementation"/>, a distribution package does not resolve to a directory.

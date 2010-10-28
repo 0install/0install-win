@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to an <see cref="Feed"/> URI.
+    /// A reference to a <see cref="Feed"/> URI.
     /// </summary> 
     /// <seealso cref="Feed.FeedFor"/>
     [XmlType("interface-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]

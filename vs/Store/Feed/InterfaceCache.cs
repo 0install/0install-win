@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Feed
 
         #region Get feed
         /// <summary>
-        /// Gets an <see cref="Feed"/> from the local cache or downloads it.
+        /// Gets a <see cref="Feed"/> from the local cache or downloads it.
         /// </summary>
         /// <param name="feed">The URI used to identify (and potentially download) the <see cref="Feed"/> or a local path to directly load the file from.</param>
         /// <returns>The parsed <see cref="Feed"/> object.</returns>

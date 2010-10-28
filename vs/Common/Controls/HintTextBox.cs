@@ -39,6 +39,7 @@ namespace Common.Controls
         {
             // No hint when the cursor is in the text box
             _hintLabel.Visible = false;
+
             base.OnEnter(e);
         }
 
@@ -46,6 +47,7 @@ namespace Common.Controls
         {
             // Restore hint when the cursor leaves the text box and the field is empty
             _hintLabel.Visible = string.IsNullOrEmpty(base.Text);
+
             base.OnLeave(e);
         }
 
@@ -63,12 +65,14 @@ namespace Common.Controls
         protected override void OnFontChanged(EventArgs e)
         {
             _hintLabel.Font = Font;
+
             base.OnFontChanged(e);
         }
 
         protected override void OnBackColorChanged(EventArgs e)
         {
             _buttonClear.BackColor = BackColor;
+
             base.OnBackColorChanged(e);
         }
         #endregion
