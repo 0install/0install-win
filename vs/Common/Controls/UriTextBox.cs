@@ -50,7 +50,7 @@ namespace Common.Controls
         /// The <see cref="Uri"/> represented by this text box.
         /// </summary>
         /// <exception cref="UriFormatException">Thrown when trying to read while <see cref="TextBox.Text"/> is not a well-formed <see cref="Uri"/>.</exception>
-        /// <remarks>It is always safe to set this property. It is safe to read this property after <see cref="TextBox.Validated"/> has been raised.</remarks>
+        /// <remarks>It is always safe to set this property. It is safe to read this property after validation has been performed.</remarks>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Uri Uri
         {
