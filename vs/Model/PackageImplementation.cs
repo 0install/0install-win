@@ -40,7 +40,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The version number as provided by the operating system.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override ImplementationVersion Version
         {
             get
@@ -54,7 +54,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The version number as provided by the operating system.
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override DateTime Released
         {
             get
@@ -66,7 +66,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>Not used.</summary>
-        [XmlIgnore, Browsable(false)]
+        [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override string ReleasedString
         {
             set {}
@@ -75,7 +75,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The default stability rating for all <see cref="PackageImplementation"/>s is always "packaged".
         /// </summary>
-        [XmlIgnore, Browsable(false)]
+        [XmlIgnore, Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public override Stability Stability
         {
             get { return Stability.Unset; }
@@ -102,7 +102,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("distributions"), Browsable(false)]
+        [XmlAttribute("distributions"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string DistributionsString
         {
             get

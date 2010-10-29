@@ -53,7 +53,7 @@ namespace ZeroInstall.Model
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("uri"), Browsable(false)]
+        [XmlAttribute("uri"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public String UriString
         {
             get { return (Uri == null ? null : Uri.ToString()); }
@@ -94,7 +94,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Homepage"/>
-        [XmlElement("homepage"), Browsable(false)]
+        [XmlElement("homepage"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public String HomepageString
         {
             get { return Homepage != null ? Homepage.ToString() : null; }
@@ -130,7 +130,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NeedsTerminal"/>
-        [XmlElement("needs-terminal"), Browsable(false)]
+        [XmlElement("needs-terminal"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string NeedsTerminalString
         {
             get { return (NeedsTerminal ? "" : null); }

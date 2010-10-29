@@ -47,7 +47,7 @@ namespace ZeroInstall.MyApps
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
-        [XmlAttribute("interface"), Browsable(false)]
+        [XmlAttribute("interface"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public String InterfaceString
         {
             get { return (Interface == null ? null : Interface.ToString()); }

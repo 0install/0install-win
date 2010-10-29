@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="NotBeforeVersion"/>
-        [XmlAttribute("not-before"), Browsable(false)]
+        [XmlAttribute("not-before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string NotBeforeVersionString
         {
             get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); }
@@ -55,7 +55,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="BeforeVersion"/>
-        [XmlAttribute("before"), Browsable(false)]
+        [XmlAttribute("before"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string BeforeVersionString
         {
             get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); }

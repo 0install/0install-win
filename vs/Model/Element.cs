@@ -80,7 +80,7 @@ namespace ZeroInstall.Model
         
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("version"), Browsable(false)]
+        [XmlAttribute("version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string VersionString
         {
             get { return (Version == null ? null : Version.ToString()); }
@@ -103,7 +103,7 @@ namespace ZeroInstall.Model
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Released"/>
-        [XmlAttribute("released"), Browsable(false)]
+        [XmlAttribute("released"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public virtual string ReleasedString
         {
             get { return (Released == default(DateTime) ? null : Released.ToString(ReleaseDateFormat)); }

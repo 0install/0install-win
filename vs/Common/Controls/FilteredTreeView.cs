@@ -83,7 +83,7 @@ namespace Common.Controls
         /// <summary>
         /// The <see cref="INamed"/> objects to be listed in the <see cref="TreeView"/>.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "This control is supposed to represent a live and mutable collection")]
         public INamedCollection<T> Entries
         {
@@ -95,7 +95,7 @@ namespace Common.Controls
         /// <summary>
         /// The <see cref="INamed"/> object currently selected in the <see cref="TreeView"/>; <see langword="null"/> for no selection.
         /// </summary>
-        [Browsable(false)]
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public T SelectedEntry
         {
             get { return _selectedEntry; }
