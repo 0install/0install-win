@@ -53,6 +53,10 @@ namespace Common.Controls
             Shown += delegate { task.Start(); };
             FormClosing += delegate { task.Cancel(); };
             task.StateChanged += delegate { if (task.State >= ProgressState.Complete) BeginInvoke((SimpleEventHandler)Close); };
+            task.ProgressChanged += delegate
+            {
+                if (task.BytesTotal > 1024) labelBytes.Text = string.Format("{0}k / {1}k", task.BytesProcessed / 1024, task.BytesTotal / 1024);
+            };
         }
         #endregion
 

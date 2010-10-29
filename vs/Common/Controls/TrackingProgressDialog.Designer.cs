@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.trackingProgressBar = new Common.Controls.TrackingProgressBar();
+            this.labelBytes = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -41,6 +42,14 @@
             this.trackingProgressBar.TabIndex = 0;
             this.trackingProgressBar.UseTaskbar = true;
             // 
+            // labelBytes
+            // 
+            this.labelBytes.AutoSize = true;
+            this.labelBytes.Location = new System.Drawing.Point(12, 38);
+            this.labelBytes.Name = "labelBytes";
+            this.labelBytes.Size = new System.Drawing.Size(0, 13);
+            this.labelBytes.TabIndex = 1;
+            // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -48,7 +57,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(207, 47);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 1;
+            this.buttonCancel.TabIndex = 2;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
@@ -57,6 +66,7 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(294, 82);
             this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.labelBytes);
             this.Controls.Add(this.trackingProgressBar);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(2048, 120);
@@ -66,12 +76,14 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private TrackingProgressBar trackingProgressBar;
+        private System.Windows.Forms.Label labelBytes;
         private System.Windows.Forms.Button buttonCancel;
     }
 }
