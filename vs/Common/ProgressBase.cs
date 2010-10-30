@@ -131,7 +131,6 @@ namespace Common
             }
         }
 
-        
         /// <inheritdoc/>
         public void RunSync()
         {

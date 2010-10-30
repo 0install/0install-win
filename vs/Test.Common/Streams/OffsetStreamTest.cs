@@ -21,7 +21,6 @@
  */
 
 using System.IO;
-using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Streams

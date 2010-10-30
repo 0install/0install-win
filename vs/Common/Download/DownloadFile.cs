@@ -35,6 +35,7 @@ namespace Common.Download
     public class DownloadFile : ProgressBase
     {
         #region Variables
+        /// <summary>Flag that indicates the current process should be cancelled.</summary>
         private volatile bool _cancelRequest;
         #endregion
 

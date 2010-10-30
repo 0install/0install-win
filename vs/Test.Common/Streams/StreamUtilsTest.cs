@@ -20,10 +20,9 @@
  * THE SOFTWARE.
  */
 
-using Common.Streams;
 using NUnit.Framework;
 
-namespace Common.Utils
+namespace Common.Streams
 {
     /// <summary>
     /// Contains test methods for <see cref="StreamUtils"/>.
