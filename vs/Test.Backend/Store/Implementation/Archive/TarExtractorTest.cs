@@ -40,6 +40,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TearDown()
         {
             Environment.CurrentDirectory = _oldWorkingDirectory;
+            _sandbox.Dispose();
         }
 
         [Test]

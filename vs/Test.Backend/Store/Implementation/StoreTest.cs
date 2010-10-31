@@ -90,14 +90,21 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            string packageDir = CreateArtificialPackage();
-            var digest = new ManifestDigest(Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, null));
-
-            using (var cache = new TemporaryDirectory())
+            string package = CreateArtificialPackage();
+            var digest = new ManifestDigest(Manifest.CreateDotFile(package, ManifestFormat.Sha256, null));
+            
+            try
             {
-                var store = new DirectoryStore(cache.Path);
-                store.AddDirectory(packageDir, digest, null);
-                Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+                using (var cache = new TemporaryDirectory())
+                {
+                    var store = new DirectoryStore(cache.Path);
+                    store.AddDirectory(package, digest, null);
+                    Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+                }
+            }
+            finally
+            {
+                Directory.Delete(package, true);
             }
         }
 
