@@ -84,6 +84,18 @@ namespace Common.Controls
         #endregion
 
         #region Properties
+        private Color _foreColor = SystemColors.ControlText;
+        /// <inheritdoc/>
+        public new Color ForeColor
+        {
+            get { return _foreColor; }
+            set
+            {
+                _foreColor = value;
+                if (!IsHintTextVisible) base.ForeColor = value;
+            }
+        }
+
         /// <inheritdoc/>
         public override string Text
         {
@@ -165,7 +177,7 @@ namespace Common.Controls
             _suppressTextChangedEvent = true;
             base.Text = _hintText;
             _suppressTextChangedEvent = false;
-            ForeColor = SystemColors.GrayText;
+            base.ForeColor = SystemColors.GrayText;
         }
 
         private void HideHintText()
@@ -179,7 +191,7 @@ namespace Common.Controls
             _suppressTextChangedEvent = true;
             base.Text = "";
             _suppressTextChangedEvent = false;
-            ForeColor = SystemColors.ControlText;
+            base.ForeColor = _foreColor;
         }
     }
 }
