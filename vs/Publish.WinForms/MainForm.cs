@@ -337,8 +337,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            ValidateChildren(); 
-            
+            ValidateChildren();
+
             Save();
         }
 
@@ -376,6 +376,9 @@ namespace ZeroInstall.Publish.WinForms
             SaveAdvancedTab();
 
             _feedEditing.Feed.Save(toPath);
+            
+            FeedUtils.AddStylesheet(toPath);
+            SignFeed(toPath);
         }
 
         /// <summary>
@@ -455,9 +458,8 @@ namespace ZeroInstall.Publish.WinForms
             saveFileDialog.FileName = _feedEditing.Path;
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                SaveFeed(saveFileDialog.FileName);
-                FeedUtils.AddStylesheet(saveFileDialog.FileName);
-                SignFeed(saveFileDialog.FileName);
+                _feedEditing.Path = saveFileDialog.FileName;
+                SaveFeed(_feedEditing.Path);
                 return true;
             }
             return false;
@@ -472,9 +474,7 @@ namespace ZeroInstall.Publish.WinForms
             if (string.IsNullOrEmpty(_feedEditing.Path)) return SaveAs();
             else
             {
-                SaveFeed(saveFileDialog.FileName);
-                FeedUtils.AddStylesheet(saveFileDialog.FileName);
-                SignFeed(saveFileDialog.FileName);
+                SaveFeed(_feedEditing.Path);
                 return true;
             }
         }

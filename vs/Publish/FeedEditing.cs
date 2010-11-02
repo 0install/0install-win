@@ -78,7 +78,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
         /// </summary>
-        public string Path { get; private set; }
+        public string Path { get; set; }
 
         /// <summary>
         /// Indicates the file has unsaved changes
