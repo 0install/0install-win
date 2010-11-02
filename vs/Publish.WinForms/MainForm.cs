@@ -54,7 +54,6 @@ namespace ZeroInstall.Publish.WinForms
         {
             InitializeComponent();
             InitializeComponentsExtended();
-            InitializeCommonEvents();
             InitializeCommandHooks();
             InitializeEditingHooks();
         }
@@ -157,16 +156,6 @@ namespace ZeroInstall.Publish.WinForms
                            MsgSeverity.Warning);
                 return new GnuPGSecretKey[0];
             }
-        }
-
-        private void InitializeCommonEvents()
-        {
-            #region Undo/Redo
-
-            buttonUndo.Click += delegate { _feedEditing.Undo(); };
-            buttonRedo.Click += delegate { _feedEditing.Redo(); };
-
-            #endregion
         }
         
         private void InitializeCommandHooks()
@@ -292,6 +281,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonNew_Click(object sender, EventArgs e)
         {
+            ValidateChildren();
+
             if (_feedEditing.Changed)
             {
                 if (!AskSave()) return;
@@ -309,12 +300,34 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
         {
+            ValidateChildren(); 
+            
             if (_feedEditing.Changed)
             {
                 if (!AskSave()) return;
             }
 
-            openFileDialog.ShowDialog(this);
+            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                try { _feedEditing = FeedEditing.Load(openFileDialog.FileName); }
+                #region Error handling
+                catch (InvalidOperationException)
+                {
+                    Msg.Inform(this, "The feed you tried to open is not valid.", MsgSeverity.Error);
+                }
+                catch (UnauthorizedAccessException exception)
+                {
+                    Msg.Inform(this, exception.Message, MsgSeverity.Error);
+                }
+                catch (IOException exception)
+                {
+                    Msg.Inform(this, exception.Message, MsgSeverity.Error);
+                }
+                #endregion
+                InitializeEditingHooks();
+
+                OnUpdate();
+            }
         }
 
         /// <summary>
@@ -324,54 +337,34 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
+            ValidateChildren(); 
+            
             Save();
         }
 
         private void toolStripButtonSaveAs_Click(object sender, EventArgs e)
         {
+            ValidateChildren();
+
             SaveAs();
+        }
+
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            ValidateChildren();
+
+            _feedEditing.Undo();
+        }
+
+        private void buttonRedo_Click(object sender, EventArgs e)
+        {
+            ValidateChildren();
+
+            _feedEditing.Redo();
         }
         #endregion
 
         #region Save and open
-
-        /// <summary>
-        /// Opens the in <see cref="openFileDialog"/> chosen feed file and fills <see cref="MainForm"/> with its values.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            try { _feedEditing = FeedEditing.Load(openFileDialog.FileName); }
-            #region Error handling
-            catch (InvalidOperationException)
-            {
-                Msg.Inform(this, "The feed you tried to open is not valid.", MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException exception)
-            {
-                Msg.Inform(this, exception.Message, MsgSeverity.Error);
-            }
-            catch (IOException exception)
-            {
-                Msg.Inform(this, exception.Message, MsgSeverity.Error);
-            }
-            #endregion
-            InitializeEditingHooks();
-
-            OnUpdate();
-        }
-
-        /// <summary>
-        /// Saves the values from the filled controls on the <see cref="MainForm"/> in the feed file chosen by <see cref="openFileDialog"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void SaveFileDialog_FileOk(object sender, CancelEventArgs e)
-        {
-            SaveFeed(saveFileDialog.FileName);
-        }
-
         /// <summary>
         /// Saves feed to a specific path as xml.
         /// </summary>
@@ -1398,7 +1391,6 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         #endregion
-
 
         #endregion
 
