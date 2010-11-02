@@ -33,7 +33,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Cli", "Stor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.WinForms", "StoreManagement.WinForms\StoreManagement.WinForms.csproj", "{77A13B71-EF52-41C1-BB96-5337E37C4C65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Gtk", "StoreManagement.Gtk\Injector.Gtk.csproj", "{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreManagement.Gtk", "StoreManagement.Gtk\StoreManagement.Gtk.csproj", "{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StoreService", "StoreService\StoreService.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
 EndProject
