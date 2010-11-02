@@ -46,7 +46,7 @@
             // 
             this.textBoxExtFeedURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxExtFeedURL.ClearButton = true;
+            this.textBoxExtFeedURL.ShowClearButton = true;
             this.textBoxExtFeedURL.HintText = "URL to an external feed";
             this.textBoxExtFeedURL.Location = new System.Drawing.Point(0, 16);
             this.textBoxExtFeedURL.Name = "textBoxExtFeedURL";

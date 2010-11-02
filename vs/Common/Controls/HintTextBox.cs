@@ -54,11 +54,11 @@ namespace Common.Controls
         protected override void OnTextChanged(EventArgs e)
         {
             // Show hint only when the cursor is not in the text box and the field is empty
-            _hintLabel.Visible = !Focused && string.IsNullOrEmpty(base.Text);
+            _hintLabel.Visible = HintTextVisible;
 
             // Show clear button only if it is enabled and the field is not empty
-            _buttonClear.Visible = _clearButton && !string.IsNullOrEmpty(base.Text);
-            
+            _buttonClear.Visible = _showClearButton && !string.IsNullOrEmpty(base.Text);
+
             base.OnTextChanged(e);
         }
 
@@ -84,7 +84,6 @@ namespace Common.Controls
             ForeColor = SystemColors.GrayText
         };
 
-        private bool _clearButton;
         private readonly PictureBox _buttonClear = new PictureBox
         {
             Visible = false, Cursor = Cursors.Default,
@@ -104,15 +103,25 @@ namespace Common.Controls
         }
 
         /// <summary>
+        /// Indicates whether the <see cref="HintText"/> is currently visible.
+        /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public bool HintTextVisible
+        {
+            get { return !Focused && string.IsNullOrEmpty(base.Text); }
+        }
+
+        private bool _showClearButton;
+        /// <summary>
         /// Controls whether the clear button is shown when <see cref="TextBox.Text"/> is not empty.
         /// </summary>
         [DefaultValue(false), Category("Appearance"), Description("Controls whether the clear button is shown when Text is not empty.")]
-        public bool ClearButton
+        public bool ShowClearButton
         {
-            get { return _clearButton; }
+            get { return _showClearButton; }
             set
             {
-                _clearButton = value;
+                _showClearButton = value;
 
                 // Show clear button only if it is enabled and the field is not empty
                 _buttonClear.Visible = value && !string.IsNullOrEmpty(base.Text);
@@ -124,7 +133,13 @@ namespace Common.Controls
         public HintTextBox()
         {
             _hintLabel.Click += delegate { Focus(); };
-            _buttonClear.Click += delegate { Text = ""; Focus(); };
+            _buttonClear.Click += delegate
+            {
+                Focus();
+
+                // Only clear the text if focus change was possible (might be prevented by validation)
+                if (Focused) Clear(); };
+            }
 
             Controls.Add(_hintLabel);
             Controls.Add(_buttonClear);

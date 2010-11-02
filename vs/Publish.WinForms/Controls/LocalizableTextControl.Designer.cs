@@ -37,7 +37,7 @@
             this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSummary.ClearButton = true;
+            this.hintTextBoxSummary.ShowClearButton = true;
             this.hintTextBoxSummary.HintText = "a short one-line description";
             this.hintTextBoxSummary.Location = new System.Drawing.Point(85, 2);
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";

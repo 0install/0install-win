@@ -30,13 +30,6 @@ namespace Common.Controls
     public class UriTextBox : HintTextBox
     {
         #region Events
-        protected override void OnTextChanged(EventArgs e)
-        {
-            ForeColor = ValidateUri() ? Color.Green : Color.Red;
-            
-            base.OnTextChanged(e);
-        }
-
         protected override void OnValidating(CancelEventArgs e)
         {
             e.Cancel = !ValidateUri();
@@ -63,6 +56,14 @@ namespace Common.Controls
         /// </summary>
         [DefaultValue(false), Category("Behavior"), Description("When set to true only URIs starting with \"http:\" or \"https:\" will be considered valid.")]
         public bool HttpOnly { get; set; }
+        #endregion
+
+        #region Constructor
+        public UriTextBox()
+        {
+            // Use event instead of method override to ensure special handling of HintText works
+            TextChanged += delegate { ForeColor = ValidateUri() ? Color.Green : Color.Red; };
+        }
         #endregion
 
         //--------------------//
