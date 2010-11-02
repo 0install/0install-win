@@ -138,8 +138,8 @@ namespace Common.Controls
                 Focus();
 
                 // Only clear the text if focus change was possible (might be prevented by validation)
-                if (Focused) Clear(); };
-            }
+                if (Focused) Clear();
+            };
 
             Controls.Add(_hintLabel);
             Controls.Add(_buttonClear);
