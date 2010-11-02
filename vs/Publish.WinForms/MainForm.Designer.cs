@@ -306,7 +306,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textInterfaceUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textInterfaceUri.BackColor = System.Drawing.SystemColors.Window;
-            this.textInterfaceUri.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textInterfaceUri.HintText = "URL to a remote interface";
             this.textInterfaceUri.HttpOnly = true;
             this.textInterfaceUri.Location = new System.Drawing.Point(9, 59);
@@ -352,7 +351,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomepage.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
             this.textHomepage.Location = new System.Drawing.Point(9, 415);
             this.textHomepage.Name = "textHomepage";
@@ -414,7 +412,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxIconUrl.ForeColor = System.Drawing.SystemColors.GrayText;
             this.hintTextBoxIconUrl.HintText = "";
             this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
             this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
@@ -514,7 +511,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
             this.textName.Location = new System.Drawing.Point(9, 20);
             this.textName.Name = "textName";
@@ -791,7 +787,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxFeedFor.ForeColor = System.Drawing.SystemColors.GrayText;
             this.hintTextBoxFeedFor.HintText = "URL to an Interface";
             this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
             this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
