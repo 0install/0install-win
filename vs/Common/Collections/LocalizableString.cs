@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2006-2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -46,7 +46,7 @@ namespace Common.Collections
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
-        [XmlAttribute("xml:lang", DataType = "language")]
+		[XmlAttribute("lang", Namespace="http://www.w3.org/XML/1998/namespace", DataType = "language")] // Will be serialized as xml:lang, must be done this way for Mono
         public string LanguageString
         {
             get { return (Language == null || string.IsNullOrEmpty(Language.ToString())) ? null : Language.ToString(); }
