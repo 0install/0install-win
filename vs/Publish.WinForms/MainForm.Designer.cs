@@ -45,6 +45,7 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
             this.toolStripComboBoxGpg = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButtonSaveAs = new System.Windows.Forms.ToolStripButton();
             this.buttonUndo = new System.Windows.Forms.ToolStripButton();
             this.buttonRedo = new System.Windows.Forms.ToolStripButton();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -129,6 +130,7 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripButtonSave,
             this.toolStripComboBoxGpg,
             this.toolStripLabel1,
+            this.toolStripButtonSaveAs,
             this.buttonUndo,
             this.buttonRedo});
             this.toolStrip.Location = new System.Drawing.Point(7, 6);
@@ -183,6 +185,15 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripLabel1.Name = "toolStripLabel1";
             this.toolStripLabel1.Size = new System.Drawing.Size(68, 22);
             this.toolStripLabel1.Text = "GnuPG key:";
+            // 
+            // toolStripButtonSaveAs
+            // 
+            this.toolStripButtonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButtonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonSaveAs.Name = "toolStripButtonSaveAs";
+            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonSaveAs.Text = "Save as...";
+            this.toolStripButtonSaveAs.Click += new System.EventHandler(this.toolStripButtonSaveAs_Click);
             // 
             // buttonUndo
             // 
@@ -301,11 +312,12 @@ namespace ZeroInstall.Publish.WinForms
             this.textInterfaceUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textInterfaceUri.BackColor = System.Drawing.SystemColors.Window;
-            this.textInterfaceUri.ShowClearButton = true;
+            this.textInterfaceUri.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textInterfaceUri.HintText = "URL to a remote interface";
             this.textInterfaceUri.HttpOnly = true;
             this.textInterfaceUri.Location = new System.Drawing.Point(9, 59);
             this.textInterfaceUri.Name = "textInterfaceUri";
+            this.textInterfaceUri.ShowClearButton = true;
             this.textInterfaceUri.Size = new System.Drawing.Size(414, 20);
             this.textInterfaceUri.TabIndex = 3;
             // 
@@ -346,10 +358,11 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomepage.ShowClearButton = true;
+            this.textHomepage.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
             this.textHomepage.Location = new System.Drawing.Point(9, 415);
             this.textHomepage.Name = "textHomepage";
+            this.textHomepage.ShowClearButton = true;
             this.textHomepage.Size = new System.Drawing.Size(536, 20);
             this.textHomepage.TabIndex = 12;
             // 
@@ -407,10 +420,11 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxIconUrl.ShowClearButton = true;
+            this.hintTextBoxIconUrl.ForeColor = System.Drawing.SystemColors.GrayText;
             this.hintTextBoxIconUrl.HintText = "";
             this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
             this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
+            this.hintTextBoxIconUrl.ShowClearButton = true;
             this.hintTextBoxIconUrl.Size = new System.Drawing.Size(309, 20);
             this.hintTextBoxIconUrl.TabIndex = 1;
             this.hintTextBoxIconUrl.TextChanged += new System.EventHandler(this.TextIconUrlTextChanged);
@@ -506,10 +520,11 @@ namespace ZeroInstall.Publish.WinForms
             this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.ShowClearButton = true;
+            this.textName.ForeColor = System.Drawing.SystemColors.GrayText;
             this.textName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
             this.textName.Location = new System.Drawing.Point(9, 20);
             this.textName.Name = "textName";
+            this.textName.ShowClearButton = true;
             this.textName.Size = new System.Drawing.Size(414, 20);
             this.textName.TabIndex = 1;
             // 
@@ -782,10 +797,11 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxFeedFor.ShowClearButton = true;
+            this.hintTextBoxFeedFor.ForeColor = System.Drawing.SystemColors.GrayText;
             this.hintTextBoxFeedFor.HintText = "URL to an Interface";
             this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
             this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
+            this.hintTextBoxFeedFor.ShowClearButton = true;
             this.hintTextBoxFeedFor.Size = new System.Drawing.Size(530, 20);
             this.hintTextBoxFeedFor.TabIndex = 2;
             // 
@@ -1012,6 +1028,7 @@ namespace ZeroInstall.Publish.WinForms
         private LocalizableTextControl descriptionControl;
         private System.Windows.Forms.ToolStripButton buttonUndo;
         private System.Windows.Forms.ToolStripButton buttonRedo;
+        private System.Windows.Forms.ToolStripButton toolStripButtonSaveAs;
     }
 }
 

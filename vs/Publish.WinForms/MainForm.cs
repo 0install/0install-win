@@ -285,7 +285,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Toolbar
-
         /// <summary>
         /// Sets all controls on the <see cref="MainForm"/> to default values.
         /// </summary>
@@ -293,6 +292,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonNew_Click(object sender, EventArgs e)
         {
+            if (_feedEditing.Changed)
+            {
+                if (!AskSave()) return;
+            }
+            
             ResetFormControls();
             _feedEditing = new FeedEditing();
             InitializeEditingHooks();
@@ -305,6 +309,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonOpen_Click(object sender, EventArgs e)
         {
+            if (_feedEditing.Changed)
+            {
+                if (!AskSave()) return;
+            }
+
             openFileDialog.ShowDialog(this);
         }
 
@@ -315,10 +324,13 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void ToolStripButtonSave_Click(object sender, EventArgs e)
         {
-            if (_feedEditing.Path != null) saveFileDialog.InitialDirectory = _feedEditing.Path;
-            MainForm_FormClosing(null, null);
+            Save();
         }
 
+        private void toolStripButtonSaveAs_Click(object sender, EventArgs e)
+        {
+            SaveAs();
+        }
         #endregion
 
         #region Save and open
@@ -413,33 +425,67 @@ namespace ZeroInstall.Publish.WinForms
                 _feedEditing.Feed.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
         }
 
-        /// <summary>
-        /// Shows a save dialog.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            switch (Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Information,
-                               true, "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
+            if (_feedEditing.Changed)
             {
-                case DialogResult.Yes:
-                    if (!String.IsNullOrEmpty(_feedEditing.Path)) saveFileDialog.InitialDirectory = _feedEditing.Path;
-                    if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-                    {
-                        SaveFeed(saveFileDialog.FileName);
-                        FeedUtils.AddStylesheet(saveFileDialog.FileName);
-                        SignFeed(saveFileDialog.FileName);
-                    }
-                    break;
-                case DialogResult.No:
-                    break;
-                case DialogResult.Cancel:
-                    if (e != null) e.Cancel = true;
-                    break;
+                if (!AskSave()) e.Cancel = true;
             }
         }
 
+        /// <summary>
+        /// Asks the user whether he wants to save the feed.
+        /// </summary>
+        /// <returns><see langword="true"/> if all went well (either Yes or No), <see langword="false"/> if the user chose to cancel.</returns>
+        private bool AskSave()
+        {
+            switch (Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Information, true, "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
+            {
+                case DialogResult.Yes:
+                    return Save();
+
+                case DialogResult.No:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>
+        /// Saves the feed at at a new location.
+        /// </summary>
+        /// <returns>The result of the "Save as" common dialog box used.</returns>
+        /// <returns><see langword="true"/> if all went well, <see langword="false"/> if the user chose to cancel.</returns>
+        private bool SaveAs()
+        {
+            saveFileDialog.FileName = _feedEditing.Path;
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                SaveFeed(saveFileDialog.FileName);
+                FeedUtils.AddStylesheet(saveFileDialog.FileName);
+                SignFeed(saveFileDialog.FileName);
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Saves the feed at its original location.
+        /// </summary>
+        /// <returns><see langword="true"/> if all went well, <see langword="false"/> if the user chose to cancel.</returns>
+        private bool Save()
+        {
+            if (string.IsNullOrEmpty(_feedEditing.Path)) return SaveAs();
+            else
+            {
+                SaveFeed(saveFileDialog.FileName);
+                FeedUtils.AddStylesheet(saveFileDialog.FileName);
+                SignFeed(saveFileDialog.FileName);
+                return true;
+            }
+        }
+        
         /// <summary>
         /// Asks the user for his/her GnuPG passphrase and adds the Base64 signature of the given file to the end of it.
         /// </summary>
@@ -458,10 +504,7 @@ namespace ZeroInstall.Publish.WinForms
                          : "Please enter the GnuPG passphrase for ") + key.UserID,
                     "Enter GnuPG passphrase", String.Empty, true);
 
-                if (passphrase == null)
-                {
-                    return;
-                }
+                if (passphrase == null) return;
 
                 try
                 {
@@ -1355,6 +1398,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         #endregion
+
 
         #endregion
 
