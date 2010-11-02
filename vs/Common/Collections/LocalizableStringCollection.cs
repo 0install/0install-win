@@ -120,13 +120,13 @@ namespace Common.Collections
         /// <param name="language">The language to look for; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <returns>The best-fitting string value found in the collection; <see langword="null"/> if the collection is empty.</returns>
         /// <remarks>
-        /// Language preferences in decreasing order:
-        /// exact match,
-        /// same country code and region-neutral,
-        /// same country code,
-        /// no language specified,
-        /// en-US,
-        /// first entry in collection
+        /// Language preferences in decreasing order:<br/>
+        /// 1. exact match<br/>
+        /// 2. same language with neutral culture<br/>
+        /// 3. neutral language (no language specified)<br/>
+        /// 4. en-US<br/>
+        /// 5. en<br/>
+        /// 6. first entry in collection
         /// </remarks>
         public string GetBestLanguage(CultureInfo language)
         {
@@ -138,21 +138,14 @@ namespace Common.Collections
             foreach (LocalizableString entry in this)
                 if (Equals(language, entry.Language)) return entry.Value;
 
-            // Try to find same country code and region-neutral
+            // Try to find same language with neutral culture
             foreach (LocalizableString entry in this)
             {
                 if (entry.Language == null) continue;
                 if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName && entry.Language.IsNeutralCulture) return entry.Value;
             }
 
-            // Try to find same country code
-            foreach (LocalizableString entry in this)
-            {
-                if (entry.Language == null) continue;
-                if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName) return entry.Value;
-            }
-
-            // Try to find "no language specified"
+            // Try to find neutral language
             foreach (LocalizableString entry in this)
             {
                 if (entry.Language == null) continue;
@@ -162,6 +155,10 @@ namespace Common.Collections
             // Try to find "en-US"
             foreach (LocalizableString entry in this)
                 if (Equals(entry.Language, new CultureInfo("en-US"))) return entry.Value;
+
+            // Try to find "en"
+            foreach (LocalizableString entry in this)
+                if (Equals(entry.Language, new CultureInfo("en"))) return entry.Value;
 
             // Try to find first entry in collection
             return IsEmpty ? null : First.Value;

@@ -37,9 +37,10 @@ namespace Common.Collections
         public LanguageCollection() : base(new CultureComparer())
         {}
         #endregion
-        
+
         //--------------------//
 
+        #region Add
         /// <summary>
         /// Adds a language identified by a string to the collection.
         /// </summary>
@@ -49,6 +50,7 @@ namespace Common.Collections
         {
             return Add(new CultureInfo(language));
         }
+        #endregion
 
         //--------------------//
 
