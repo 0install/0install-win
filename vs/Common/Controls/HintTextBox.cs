@@ -169,6 +169,9 @@ namespace Common.Controls
         }
         #endregion
 
+        //--------------------//
+
+        #region Hint text helpers
         private void ShowHintText()
         {
             IsHintTextVisible = true;
@@ -193,5 +196,6 @@ namespace Common.Controls
             _suppressTextChangedEvent = false;
             base.ForeColor = _foreColor;
         }
+        #endregion
     }
 }
