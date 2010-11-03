@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// Assembly info
 [assembly: AssemblyTitle("Zero Install Store Library")]
 [assembly: AssemblyDescription("Methods for managing the Zero Install caches for interfaces, implementations, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: CLSCompliant(true)]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("3b163e0d-d323-4c0d-b11d-e781cd5c1987")]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Version information
 [assembly: AssemblyVersion("0.50.2")]
 [assembly: AssemblyFileVersion("0.50.2")]
+
+// Security settings
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(true)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("3b163e0d-d323-4c0d-b11d-e781cd5c1987")]

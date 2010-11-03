@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Reflection;
+using System.Resources;
 using System.Runtime.InteropServices;
+using System.Security.Permissions;
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
+// Assembly info
 [assembly: AssemblyTitle("Zero Install Injector GTK# GUI")]
 [assembly: AssemblyDescription("Launches Zero Install implementations and displays a GTK# GUI.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
-[assembly: CLSCompliant(true)]
 
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+[assembly: NeutralResourcesLanguage("en")]
 
 // Version information
-[assembly: AssemblyVersion("0.50.1")]
-[assembly: AssemblyFileVersion("0.50.1")]
+[assembly: AssemblyVersion("0.50.2")]
+[assembly: AssemblyFileVersion("0.50.2")]
+
+// Security settings
+[assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
+[assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
+[assembly: CLSCompliant(true)]
+[assembly: ComVisible(false)]
