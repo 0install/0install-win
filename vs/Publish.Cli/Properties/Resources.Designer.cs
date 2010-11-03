@@ -79,15 +79,6 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add the default stylesheet reference..
-        /// </summary>
-        internal static string OptionAddStylesheet {
-            get {
-                return ResourceManager.GetString("OptionAddStylesheet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any messages to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {

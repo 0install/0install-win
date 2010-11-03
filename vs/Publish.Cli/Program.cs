@@ -178,9 +178,6 @@ namespace ZeroInstall.Publish.Cli
                 // Mode selection
                 {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
                 {"catalog=", Resources.OptionCatalog, catalogFile => { mode = OperationMode.Catalog; parseResults.CatalogFile = catalogFile; } },
-                
-                // Stylesheet
-                {"add-stylesheet", Resources.OptionAddStylesheet, unused => parseResults.AddStylesheet = true},
 
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
@@ -227,9 +224,7 @@ namespace ZeroInstall.Publish.Cli
             {
                 // Always start off by removing signatures since they will become invalid if anything is changed
                 FeedUtils.UnsignFeed(feed);
-
-                if (results.AddStylesheet)
-                    FeedUtils.AddStylesheet(feed);
+                FeedUtils.AddStylesheet(feed);
 
                 if (results.XmlSign)
                 {

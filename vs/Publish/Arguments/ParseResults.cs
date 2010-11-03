@@ -28,8 +28,6 @@ namespace ZeroInstall.Publish.Arguments
 
         public string CatalogFile;
 
-        public bool AddStylesheet;
-
         public bool XmlSign;
 
         public string GnuPGUser;

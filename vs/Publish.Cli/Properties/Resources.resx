@@ -123,9 +123,6 @@
   <data name="NoFeedFilesFound" xml:space="preserve">
     <value>Unable to find any matching feed files.</value>
   </data>
-  <data name="OptionAddStylesheet" xml:space="preserve">
-    <value>Add the default stylesheet reference.</value>
-  </data>
   <data name="OptionBatch" xml:space="preserve">
     <value>Run in batch mode: don't display any messages to the user and silently answer all questions with "No".</value>
   </data>
