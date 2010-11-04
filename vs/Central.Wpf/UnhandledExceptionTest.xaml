@@ -1,0 +1,9 @@
+﻿<Window x:Class="ZeroInstall.Central.Wpf.UnhandledExceptionTest"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Unhandled exception test" Height="300" Width="300">
+    <StackPanel>
+        <Button Name="raiseUnrecoverableException" Click="RaiseUnecoverableException_Click" Height="40">Raise Unrecoverable Exception</Button>
+        <Button Name="startSecondaryWorkerThread" Click="StartSecondaryWorkerThreadButton_Click" Height="40">Start Secondary Worker Thread</Button>
+    </StackPanel>
+</Window>

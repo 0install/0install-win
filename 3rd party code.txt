@@ -33,3 +33,9 @@ http://www.itu.dk/research/c5/
 MIT-style open license: lib/C5.license.txt
 Source unmodified
 Pre-compiled managed DLL: lib/C5.dll
+
+WPF NotifyIcon 1.0.3
+http://www.codeproject.com/KB/WPF/wpf_notifyicon.aspx
+The Code Project Open License (CPOL): http://www.codeproject.com/info/cpol10.aspx
+Source unmodified
+Self-compiled managed DLL: lib/Hardcodet.Wpf.TaskbarNotification.dll
