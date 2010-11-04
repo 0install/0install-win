@@ -113,6 +113,8 @@ namespace ZeroInstall.Central.Wpf
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            // Test
+
             App.NativeWnd = App.Current.MainWindow.GetNativeWnd();
 
             this.tbSearch.TextChanged += new TextChangedEventHandler(tbSearch_TextChanged);
