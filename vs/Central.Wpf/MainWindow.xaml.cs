@@ -53,7 +53,7 @@ namespace ZeroInstall.Central.Wpf
         public MainWindow()
         {
             InitializeComponent();
-            this.Icon = ResHelper.GetImage("ZeroInstall.Central.Wpf", "Icon.ico");
+            this.Icon = ResHelper.GetImage("ZeroInstall.Wpf", "Icon.ico");
 
             Instance = this;
 
@@ -197,7 +197,7 @@ namespace ZeroInstall.Central.Wpf
             TaskbarIcon icon = new TaskbarIcon();
             MainWindow.TaskbarIcon = icon;
 
-            icon.IconSource = ResHelper.GetImage("ZeroInstall.Central.Wpf", "Icon.ico");
+            icon.IconSource = ResHelper.GetImage("ZeroInstall.Wpf", "Icon.ico");
 
             //icon.IconSource = new BitmapImage(new Uri("pack://application:,,,/ZeroInstall_wpf;component/Icon.ico"));
             icon.ToolTip = "Zero Install - Use F12 or middle mouse button to show apps.";

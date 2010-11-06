@@ -14,7 +14,7 @@ namespace ZeroInstall.Central.Wpf
         public UnhandledExceptionTest()
         {
             InitializeComponent();
-            this.Icon = ResHelper.GetImage("ZeroInstall.Central.Wpf", "Icon.ico");
+            this.Icon = ResHelper.GetImage("ZeroInstall.Wpf", "Icon.ico");
         }
 
 
