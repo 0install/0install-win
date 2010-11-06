@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web;
 using Common.Storage;
@@ -162,7 +161,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Returns a list of all valid interfaces stored in this cache.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Generates new list on each call and performs disk IO")]
+        /// <returns>A list of interface URIs (e.g. "http://somedomain.net/interface.xml") in C-sorted order (ordinal comparison, increasing).</returns>
         public IEnumerable<string> ListAllInterfaces()
         {
             // Find all files whose names begin with an URL protocol

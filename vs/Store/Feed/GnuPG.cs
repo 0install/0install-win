@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Feed
         {
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();
             if (line.StartsWith("gpg: signing failed: bad passphrase")) throw new WrongPassphraseException();
-            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureExistsException);
+            if (line.StartsWith("gpg: signing failed: file exists")) throw new IOException(Resources.SignatureAldreadyExists);
             throw new UnhandledErrorsException(line);
         }
         #endregion

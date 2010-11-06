@@ -100,6 +100,7 @@ namespace ZeroInstall.Store.Implementation
                     var store = new DirectoryStore(cache.Path);
                     store.AddDirectory(package, digest, null);
                     Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
+                    CollectionAssert.AreEqual(new[] {digest.BestDigest}, store.ListAll(), "After adding, Store must show the added package in the complete list");
                 }
             }
             finally

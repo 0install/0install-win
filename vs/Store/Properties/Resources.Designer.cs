@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlying filesystem does not store file change times with sufficient accuracy..
+        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy..
         /// </summary>
         internal static string InsufficientFSTimeAccuracy {
             get {
@@ -225,11 +225,11 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Signature file allready exists..
+        ///   Looks up a localized string similar to Signature file already exists..
         /// </summary>
-        internal static string SignatureExistsException {
+        internal static string SignatureAldreadyExists {
             get {
-                return ResourceManager.GetString("SignatureExistsException", resourceCulture);
+                return ResourceManager.GetString("SignatureAldreadyExists", resourceCulture);
             }
         }
         
