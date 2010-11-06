@@ -76,17 +76,17 @@
       <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
       <Name>MyApps</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StoreManagement.Cli\StoreManagement.Cli.csproj">
+    <ProjectReference Include="..\Store.Management.Cli\Store.Management.Cli.csproj">
       <Project>{05E49C84-D6AB-418A-9978-8200CB76DD39}</Project>
-      <Name>StoreManagement.Cli</Name>
+      <Name>Store.Management.Cli</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StoreManagement.WinForms\StoreManagement.WinForms.csproj">
+    <ProjectReference Include="..\Store.Management.WinForms\Store.Management.WinForms.csproj">
       <Project>{77A13B71-EF52-41C1-BB96-5337E37C4C65}</Project>
-      <Name>StoreManagement.WinForms</Name>
+      <Name>Store.Management.WinForms</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StoreService\StoreService.csproj">
+    <ProjectReference Include="..\Store.Service\Store.Service.csproj">
       <Project>{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}</Project>
-      <Name>StoreService</Name>
+      <Name>Store.Service</Name>
     </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
@@ -108,9 +108,9 @@
     <Folder Include="Central\WinForms\" />
     <Folder Include="Injector\WinForms\" />
     <Folder Include="MyApps\" />
-    <Folder Include="StoreManagement\Cli\" />
-    <Folder Include="StoreManagement\WinForms\" />
-    <Folder Include="StoreService\" />
+    <Folder Include="Store.Management\Cli\" />
+    <Folder Include="Store.Management\WinForms\" />
+    <Folder Include="Store.Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

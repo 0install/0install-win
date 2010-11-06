@@ -15,11 +15,12 @@ rem Clear object cache
 del vs\*.cache > NUL 2>&1
 rd /s /q vs\Central.WinForms\obj > NUL 2>&1
 rd /s /q vs\Central.Wpf\obj > NUL 2>&1
-rd /s /q vs\StoreService\obj > NUL 2>&1
+rd /s /q vs\Central.Gtk\obj > NUL 2>&1
 rd /s /q vs\Injector.Cli\obj > NUL 2>&1
 rd /s /q vs\Injector.WinForms\obj > NUL 2>&1
-rd /s /q vs\StoreManagement.Cli\obj > NUL 2>&1
-rd /s /q vs\StoreManagement.WinForms\obj > NUL 2>&1
+rd /s /q vs\Store.Service\obj > NUL 2>&1
+rd /s /q vs\Store.Management.Cli\obj > NUL 2>&1
+rd /s /q vs\Store.Management.WinForms\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
 rd /s /q vs\Common.Wpf\obj > NUL 2>&1
 rd /s /q vs\DownloadBroker\obj > NUL 2>&1

@@ -2,7 +2,7 @@
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
     <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Publish">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.Cli">
@@ -10,15 +10,15 @@
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Cli">
-      <Category Ref="Category2" />
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.Cli">
-      <Category Ref="Category2" />
+    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.Cli">
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@2" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Backend">
@@ -30,15 +30,15 @@
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Tools">
@@ -46,35 +46,35 @@
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
-      <Category Ref="Category2" />
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
-      <Category Ref="Category2" />
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
-      <Category Ref="Category2" />
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="StoreManagement.WinForms">
-      <Category Ref="Category2" />
+    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.WinForms">
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Frontend">
       <Category Ref="Category8" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="StoreService">
-      <Category Ref="Category2" />
+    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Service">
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="Store">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
   </Nodes>
@@ -155,10 +155,10 @@
     <Link Source="@8" Target="@22" Category="References" />
   </Links>
   <Categories>
-    <Category Id="Category2" Background="#FF7DC633" />
+    <Category Id="ExeFile" Background="#FF7DC633" />
     <Category Id="Category7" Label="Category 7" Background="#FF007F0E" IsTag="True" />
     <Category Id="Category8" Background="#FF008080" />
-    <Category Id="Category9" Background="#FF004A7F" />
+    <Category Id="DllFile" Background="#FF004A7F" />
     <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
     <Category Id="CodeSchema_Project" Label="Project" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projects" />
     <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
@@ -191,11 +191,11 @@
       <Setter Property="Background" Value="#FF007F0E" />
     </Style>
     <Style TargetType="Node" GroupLabel="exe File" ValueLabel="True">
-      <Condition Expression="HasCategory('Category2')" />
+      <Condition Expression="HasCategory('ExeFile')" />
       <Setter Property="Background" Value="#FF008000" />
     </Style>
     <Style TargetType="Node" GroupLabel="dll File" ValueLabel="True">
-      <Condition Expression="HasCategory('Category9')" />
+      <Condition Expression="HasCategory('DllFile')" />
       <Setter Property="Background" Value="#FF0000A0" />
     </Style>
     <Style TargetType="Node" GroupLabel="Unit tests" ValueLabel="Has category">
@@ -208,7 +208,7 @@
     <Alias n="2" Id="(@1)" />
     <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Test.Frontend/Test.Frontend.csproj" />
     <Alias n="4" Id="(@3)" />
-    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/StoreService/StoreService.csproj" />
+    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Store.Service/Store.Service.csproj" />
     <Alias n="6" Id="(@5)" />
     <Alias n="7" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
     <Alias n="8" Id="(@7)" />
@@ -218,7 +218,7 @@
     <Alias n="12" Id="(@11)" />
     <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
     <Alias n="14" Id="(@13)" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/StoreManagement.Cli/StoreManagement.Cli.csproj" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Store.Management.Cli/Store.Management.Cli.csproj" />
     <Alias n="16" Id="(@15)" />
     <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="18" Id="(@17)" />
@@ -238,7 +238,7 @@
     <Alias n="32" Id="(@31)" />
     <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
     <Alias n="34" Id="(@33)" />
-    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/StoreManagement.WinForms/StoreManagement.WinForms.csproj" />
+    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Store.Management.WinForms/Store.Management.WinForms.csproj" />
     <Alias n="36" Id="(@35)" />
     <Alias n="37" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="38" Id="(@37)" />

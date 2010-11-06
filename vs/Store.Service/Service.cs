@@ -1,6 +1,6 @@
 ﻿using System.ServiceProcess;
 
-namespace ZeroInstall.StoreService
+namespace ZeroInstall.Store.Service
 {
     public partial class Service : ServiceBase
     {

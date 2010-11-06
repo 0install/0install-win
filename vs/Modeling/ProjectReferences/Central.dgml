@@ -2,27 +2,27 @@
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
     <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@2" Category="CodeSchema_Project" IsDragSource="True" Label="Store">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
-      <Category Ref="Category2" />
+      <Category Ref="ExeFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
-      <Category Ref="Category9" />
+      <Category Ref="DllFile" />
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
   </Nodes>
@@ -41,8 +41,8 @@
     <Link Source="@8" Target="@6" Category="References" />
   </Links>
   <Categories>
-    <Category Id="Category2" Background="#FF7DC633" />
-    <Category Id="Category9" Background="#FF004A7F" />
+    <Category Id="ExeFile" Background="#FF7DC633" />
+    <Category Id="DllFile" Background="#FF004A7F" />
     <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
     <Category Id="CodeSchema_Project" Label="Project" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projects" />
     <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
@@ -70,11 +70,11 @@
   </QualifiedNames>
   <Styles>
     <Style TargetType="Node" GroupLabel="exe File" ValueLabel="True">
-      <Condition Expression="HasCategory('Category2')" />
+      <Condition Expression="HasCategory('ExeFile')" />
       <Setter Property="Background" Value="#FF008000" />
     </Style>
     <Style TargetType="Node" GroupLabel="dll File" ValueLabel="True">
-      <Condition Expression="HasCategory('Category9')" />
+      <Condition Expression="HasCategory('DllFile')" />
       <Setter Property="Background" Value="#FF0000A0" />
     </Style>
   </Styles>

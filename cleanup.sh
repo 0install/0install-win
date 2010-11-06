@@ -11,11 +11,12 @@ rm -rf build/Setup
 #Clear object cache
 rm -rf vs/Central.WinForms/obj
 rm -rf vs/Central.Wpf/obj
-rm -rf vs/StoreService/obj
+rm -rf vs/Central.Gtk/obj
 rm -rf vs/Injector.Cli/obj
 rm -rf vs/Injector.WinForms/obj
-rm -rf vs/StoreManagement.Cli/obj
-rm -rf vs/StoreManagement.WinForms/obj
+rm -rf vs/Store.Service/obj
+rm -rf vs/Store.Management.Cli/obj
+rm -rf vs/Store.Management.WinForms/obj
 rm -rf vs/Common/obj
 rm -rf vs/Common.Wpf/obj
 rm -rf vs/DownloadBroker/obj

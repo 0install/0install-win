@@ -11,7 +11,6 @@ using System.Security.Permissions;
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
-
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.StoreService
+﻿namespace ZeroInstall.Store.Service
 {
     partial class Service
     {

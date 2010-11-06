@@ -16,21 +16,26 @@
  */
 
 using System;
-using Gtk;
+using System.Windows.Forms;
+using Common.Controls;
 
-namespace ZeroInstall.StoreManagement.Gtk
+namespace ZeroInstall.Store.Management.WinForms
 {
     /// <summary>
-    /// Launches a GTK# tool for managing caches of Zero Install implementations.
+    /// Launches a WinForms tool for managing caches of Zero Install implementations.
     /// </summary>
     public static class Program
     {
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        [STAThread]
         static void Main(string[] args)
         {
-            // ToDo: Implement
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()));
         }
     }
 }

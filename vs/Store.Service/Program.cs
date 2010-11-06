@@ -15,10 +15,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-namespace ZeroInstall.StoreManagement.Cli
+using System.ServiceProcess;
+
+namespace ZeroInstall.Store.Service
 {
     /// <summary>
-    /// Launches a command-line tool for managing caches of Zero Install implementations.
+    /// Launches a Windows service for managing the secure shared cache of Zero Install implementations.
     /// </summary>
     public static class Program
     {
@@ -27,7 +29,8 @@ namespace ZeroInstall.StoreManagement.Cli
         /// </summary>
         static void Main(string[] args)
         {
-            // ToDo: Implement
+            var ServicesToRun = new ServiceBase[] { new Service() };
+            ServiceBase.Run(ServicesToRun);
         }
     }
 }
