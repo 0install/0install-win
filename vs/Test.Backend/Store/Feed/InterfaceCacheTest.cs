@@ -49,15 +49,31 @@ namespace ZeroInstall.Store.Feed
         /// Ensures that <see cref="InterfaceCache.ListAllInterfaces"/> correctly identifies non-cached feed XMLs.
         /// </summary>
         [Test]
-        public void TestGetCached()
+        public void TestListAllInterfaces()
         {
             using (var temp = new TemporaryDirectory())
             {
                 File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
-                File.WriteAllText(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"), "");
+                Model.FeedTest.CreateTestFeed().Save(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"));
 
-                var cached = new InterfaceCache(new SilentHandler(), temp.Path).ListAllInterfaces();
-                CollectionAssert.AreEqual(new[] {"http://0install.de/test/interface.xml"}, cached);
+                var interfaces = new InterfaceCache(new SilentHandler(), temp.Path).ListAllInterfaces();
+                CollectionAssert.AreEqual(new[] {"http://0install.de/test/interface.xml"}, interfaces);
+            }
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="InterfaceCache.GetAllFeeds"/> correctly loads feed XMLs.
+        /// </summary>
+        [Test]
+        public void TestGetAllFeeds()
+        {
+            using (var temp = new TemporaryDirectory())
+            {
+                File.WriteAllText(Path.Combine(temp.Path, "invalid"), "");
+                Model.FeedTest.CreateTestFeed().Save(Path.Combine(temp.Path, "http%3a%2f%2f0install.de%2ftest%2finterface.xml"));
+
+                var feeds = new InterfaceCache(new SilentHandler(), temp.Path).GetAllFeeds();
+                CollectionAssert.AreEqual(new[] {Model.FeedTest.CreateTestFeed()}, feeds);
             }
         }
     }

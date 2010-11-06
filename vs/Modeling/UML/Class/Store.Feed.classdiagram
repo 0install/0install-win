@@ -675,7 +675,7 @@
                   <elementDefinition Id="aeeb9aa5-a209-41be-b9ac-1afa930b3e7c" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="a9c22209-4d51-4ed9-8a04-a1498c5f2e3c" direction="Return">
+                      <parameter Id="a9c22209-4d51-4ed9-8a04-a1498c5f2e3c" direction="Return" isOrdered="true">
                         <lowerValueInternal>
                           <literalString Id="791f085c-ebb8-477c-a8da-5fd1ff575fe7" name="Lower" value="*">
                             <elementDefinition Id="8aa38f73-b26e-4587-a047-8ce44add244b" />
@@ -689,6 +689,29 @@
                         <elementDefinition Id="b08244ca-320f-4d41-ab1b-db00e340175a" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="2826a3b4-fc93-42c1-85cf-213aa80a7c23" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="1423ed2a-22a2-4270-9b04-2165a1287125" name="GetAllFeeds" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="be5c269a-b148-41f2-82b1-2ac289d0bb09" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="765840fd-7fc7-462e-9b60-2138ca5cc9fe" direction="Return">
+                        <lowerValueInternal>
+                          <literalString Id="0f85ff76-2657-4917-a355-e867b313e0c7" name="Lower" value="*">
+                            <elementDefinition Id="d0effdd9-af05-4a61-be18-0337b5595854" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="3683f36d-ad07-480f-b687-7620137cfc5a" name="Upper" value="*">
+                            <elementDefinition Id="ad3abcd8-83b7-4907-ba3a-0c9d55f01db9" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="61070c7e-2335-4d73-90a3-47e93a03b77a" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="e4dc0fdf-e149-4f54-85b5-6cc00f8b4814" LastKnownName="Feed" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2290,6 +2313,11 @@
     <packageHasNamedElement>
       <referencedType Id="6b5707e0-4da3-441b-b690-3ed2b2e0a552" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
         <elementDefinition Id="1a83575b-d0b7-4cb3-b780-2734244d99a8" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e4dc0fdf-e149-4f54-85b5-6cc00f8b4814" name="Feed" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Feed">
+        <elementDefinition Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

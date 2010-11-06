@@ -2143,7 +2143,7 @@
                   <elementDefinition Id="65ad0cb9-3bee-4b17-bd3f-0bbafa782022" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="5a74d6ce-0ce0-4d7a-94a1-3daf61a93f25" direction="Return">
+                      <parameter Id="5a74d6ce-0ce0-4d7a-94a1-3daf61a93f25" direction="Return" isOrdered="true">
                         <lowerValueInternal>
                           <literalString Id="05c195f2-62fa-428a-885c-86fc57449e01" name="Lower" value="*">
                             <elementDefinition Id="e11bec44-a1b4-4712-aa47-a2eee84fc04d" />
@@ -2963,7 +2963,7 @@
                   <elementDefinition Id="6f70427e-3a05-41e5-9dc7-15491dcbef0d" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="105d3d9d-3d93-44ec-9f61-4c12085213cb" direction="Return">
+                      <parameter Id="105d3d9d-3d93-44ec-9f61-4c12085213cb" direction="Return" isOrdered="true">
                         <lowerValueInternal>
                           <literalString Id="024efb54-7987-48a5-81d9-71fb7b6fbd2c" name="Lower" value="*">
                             <elementDefinition Id="48a70c4c-7188-48eb-9380-ce20f8966444" />
@@ -3648,7 +3648,7 @@
                   <elementDefinition Id="daa8ab70-99fd-4b4e-a47d-87b7aa405d58" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="c073bab0-5b3b-4f4b-ab0f-923446920161" direction="Return">
+                      <parameter Id="c073bab0-5b3b-4f4b-ab0f-923446920161" direction="Return" isOrdered="true">
                         <lowerValueInternal>
                           <literalString Id="7ab4339b-6611-43b9-b3ee-efd552fcdbc2" name="Lower" value="*">
                             <elementDefinition Id="fef4609d-1312-456f-b53c-619a7b3598af" />
@@ -4353,7 +4353,7 @@
                   <elementDefinition Id="a5679bfa-3758-4de7-88ed-04990aa79dee" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="81d385ee-5d6b-4f8d-b592-e27170a5cb3e" direction="Return">
+                      <parameter Id="81d385ee-5d6b-4f8d-b592-e27170a5cb3e" direction="Return" isOrdered="true">
                         <lowerValueInternal>
                           <literalString Id="0ea79c9a-49c8-4b67-8c09-6b34fe7cbcc4" name="Lower" value="*">
                             <elementDefinition Id="ac4013b3-fcbd-4611-a236-8fc89036acbf" />

@@ -2041,7 +2041,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="b08244ca-320f-4d41-ab1b-db00e340175a"
-                  direction="Return">
+                  direction="Return"
+                  isOrdered="true">
                   <lowerValueInternal>
                     <literalString
                       Id="8aa38f73-b26e-4587-a047-8ce44add244b"
@@ -2059,6 +2060,41 @@
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
                       LastKnownName="String"
                       LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="be5c269a-b148-41f2-82b1-2ac289d0bb09"
+            name="GetAllFeeds"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="61070c7e-2335-4d73-90a3-47e93a03b77a"
+                  direction="Return">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d0effdd9-af05-4a61-be18-0337b5595854"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ad3abcd8-83b7-4907-ba3a-0c9d55f01db9"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>

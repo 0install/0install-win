@@ -159,7 +159,7 @@ namespace ZeroInstall.Store.Feed
 
         #region List interfaces
         /// <summary>
-        /// Returns a list of all valid interfaces stored in this cache.
+        /// Returns a list of all interfaces for <see cref="Feed"/>s stored in this cache.
         /// </summary>
         /// <returns>A list of interface URIs (e.g. "http://somedomain.net/interface.xml") in C-sorted order (ordinal comparison, increasing).</returns>
         public IEnumerable<string> ListAllInterfaces()
@@ -176,5 +176,21 @@ namespace ZeroInstall.Store.Feed
             return files;
         }
         #endregion
+
+        /// <summary>
+        /// Loads all <see cref="Feed"/>s currently in this cache.
+        /// </summary>
+        /// <returns>A list of <see cref="Feed"/>s in no guaranteed order.</returns>
+        public IEnumerable<Model.Feed> GetAllFeeds()
+        {
+            // Find all files whose names begin with an URL protocol
+            string[] files = Directory.GetFiles(DirectoryPath, "http*");
+
+            var feeds = new Model.Feed[files.LongLength];
+            for (int i = 0; i < files.Length; i++)
+                feeds[i] = Model.Feed.Load(files[i]);
+
+            return feeds;
+        }
     }
 }

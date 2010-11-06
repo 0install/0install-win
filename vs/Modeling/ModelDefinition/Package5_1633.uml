@@ -1070,7 +1070,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="8334922e-7767-448e-ac40-dc8d0a7db7b6"
-                  direction="Return">
+                  direction="Return"
+                  isOrdered="true">
                   <lowerValueInternal>
                     <literalString
                       Id="48a70c4c-7188-48eb-9380-ce20f8966444"
@@ -1848,7 +1849,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="4f78fda4-234e-4eb4-97a0-6fcfb094c5e9"
-                  direction="Return">
+                  direction="Return"
+                  isOrdered="true">
                   <lowerValueInternal>
                     <literalString
                       Id="e11bec44-a1b4-4712-aa47-a2eee84fc04d"
@@ -4989,7 +4991,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="22ae1690-82b8-4d2e-ac12-75c0c73ccc8a"
-                  direction="Return">
+                  direction="Return"
+                  isOrdered="true">
                   <lowerValueInternal>
                     <literalString
                       Id="ac4013b3-fcbd-4611-a236-8fc89036acbf"
@@ -5908,7 +5911,8 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="87fbc2cf-f357-4a1e-a39f-51a996bf9a71"
-                  direction="Return">
+                  direction="Return"
+                  isOrdered="true">
                   <lowerValueInternal>
                     <literalString
                       Id="fef4609d-1312-456f-b53c-619a7b3598af"
