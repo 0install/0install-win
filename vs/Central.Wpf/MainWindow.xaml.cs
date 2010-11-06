@@ -109,6 +109,7 @@ namespace ZeroInstall.Central.Wpf
             }
         }
 
+        [CLSCompliant(false)]
         public static TaskbarIcon TaskbarIcon;
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -181,10 +182,6 @@ namespace ZeroInstall.Central.Wpf
                     this.AppInfos.Add(appInfo);
                 }
             }
-
-            Feed f;
-            Implementation im;
-            
 
             this.dgApplications.DataContext = this;
 
