@@ -165,13 +165,17 @@ namespace Common.Utils
         #endregion
 
         #region Permssions
+        /// <summary>Recursivley deny everyone write access to a directory.</summary>
+        private static readonly FileSystemAccessRule _denyAllWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
+
         /// <summary>
         /// Uses whatever means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
         /// </summary>
         /// <remarks>May do nothing if the platform doesn't provide any known protection mechanisms.</remarks>
         /// <param name="path">The directory to protect.</param>
+        /// <param name="enable"><see langword="true"/> to apply the write protection, <see langword="false"/> to remove it again.</param>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to apply the write protection.</exception>
-        public static void WriteProtection(string path)
+        public static void WriteProtection(string path, bool enable)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -191,11 +195,14 @@ namespace Common.Utils
 
                         // Recurse into subdirectories
                         foreach (var directory in dirInfo.GetDirectories())
-                            WriteProtection(directory.FullName);
+                            WriteProtection(directory.FullName, enable);
 
-                        // Make files read-only
+                        // Make files read-only (or undo it)
                         foreach (var file in dirInfo.GetFiles())
-                            MonoUtils.MakeReadOnly(file.FullName);
+                        {
+                            if (enable) MonoUtils.MakeReadOnly(file.FullName);
+                            else MonoUtils.MakeWriteAll(file.FullName);
+                        }
                         break;
                     }
                     #region Error handling
@@ -208,17 +215,18 @@ namespace Common.Utils
                 case PlatformID.Win32Windows:
                     // Recurse into subdirectories
                     foreach (var directory in dirInfo.GetDirectories())
-                        WriteProtection(directory.FullName);
+                        WriteProtection(directory.FullName, enable);
 
-                    // Make files read-only
+                    // Make files read-only (or undo it)
                     foreach (var file in dirInfo.GetFiles())
-                        file.IsReadOnly = true;
+                        file.IsReadOnly = enable;
                     break;
 
                 case PlatformID.Win32NT:
                     // Set recursive ACL
                     DirectorySecurity security = dirInfo.GetAccessControl();
-                    security.AddAccessRule(new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny));
+                    if (enable) security.AddAccessRule(_denyAllWrite);
+                    else security.RemoveAccessRule(_denyAllWrite);
                     dirInfo.SetAccessControl(security);
                     break;
             }

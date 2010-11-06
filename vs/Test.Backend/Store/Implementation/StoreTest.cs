@@ -92,14 +92,37 @@ namespace ZeroInstall.Store.Implementation
         {
             string package = CreateArtificialPackage();
             var digest = new ManifestDigest(Manifest.CreateDotFile(package, ManifestFormat.Sha256, null));
-            
+
             try
             {
                 using (var cache = new TemporaryDirectory())
                 {
                     var store = new DirectoryStore(cache.Path);
                     store.AddDirectory(package, digest, null);
-                    Assert.True(store.Contains(digest), "After adding, Store must contain the added package");
+                    Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
+                }
+            }
+            finally
+            {
+                Directory.Delete(package, true);
+            }
+        }
+
+        [Test]
+        public void ShouldAllowToRemove()
+        {
+            string package = CreateArtificialPackage();
+            var digest = new ManifestDigest(Manifest.CreateDotFile(package, ManifestFormat.Sha256, null));
+
+            try
+            {
+                using (var cache = new TemporaryDirectory())
+                {
+                    var store = new DirectoryStore(cache.Path);
+                    store.AddDirectory(package, digest, null);
+                    Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
+                    store.Remove(digest);
+                    Assert.IsFalse(store.Contains(digest), "After remove, Store may no longer contain the added package");
                 }
             }
             finally

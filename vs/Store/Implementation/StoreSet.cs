@@ -110,11 +110,13 @@ namespace ZeroInstall.Store.Implementation
                     store.AddDirectory(path, manifestDigest, startingManifest);
                     return;
                 }
+                #region Error handling
                 catch (UnauthorizedAccessException ex)
                 {
                     // Remember the first authorization error and try the next store
                     if (innerException == null) innerException = ex;
                 }
+                #endregion
             }
 
             // If we reach this, the implementation couldn't be added to any store
@@ -146,8 +148,8 @@ namespace ZeroInstall.Store.Implementation
                     // Remember the first authorization error and try the next store
                     if (innerException == null) innerException = ex;
                 }
-            }
                 #endregion
+            }
 
             // If we reach this, the implementation couldn't be added to any store
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
@@ -181,6 +183,17 @@ namespace ZeroInstall.Store.Implementation
 
             // If we reach this, the implementation couldn't be added to any store
             throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+        }
+        #endregion
+
+        #region Remove
+        /// <inheritdoc />
+        public void Remove(ManifestDigest manifestDigest)
+        {
+            foreach (IStore store in Stores)
+            {
+                if (store.Contains(manifestDigest)) store.Remove(manifestDigest);
+            }
         }
         #endregion
     }

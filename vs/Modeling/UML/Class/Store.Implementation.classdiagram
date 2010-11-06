@@ -2022,6 +2022,46 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="f58f2d5f-a6e6-4561-b813-99e510a8f274" name="Remove(manifestDigest : ManifestDigest" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="59ff44ab-0fcb-4827-9e87-65de955790fe" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="5f92339c-2b03-4913-af3f-af5ebcf10165" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="1d2db3bb-f1db-4487-8b16-e559a085bed8">
+                          <propertyInstance Id="68b7e225-2da0-450c-98a2-a7b3dcdc89af" name="ClrAttributes">
+                            <elementDefinition Id="c547cc57-2f3a-4dca-b642-e5e562de69b9" />
+                          </propertyInstance>
+                          <elementDefinition Id="30d69f1f-c150-449d-8a70-7546b64ae53c" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="12af75fc-dbd5-4269-b0de-d93cb6adea01">
+                          <propertyInstance Id="274b8474-26e9-463f-a4ac-5e0aedbf33aa" name="IsPartial" value="false">
+                            <elementDefinition Id="7994597b-7df2-41f0-b975-ca9d8787d5ef" />
+                          </propertyInstance>
+                          <elementDefinition Id="d98e0cc8-fe6d-4807-a2dd-624b93c06757" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="981c0b68-9670-4a9a-83a4-313f21fc7c6b">
+                          <propertyInstance Id="92f2e699-a4c9-4773-a80d-fd5ad36a4895" name="IsUnsafe" value="false">
+                            <elementDefinition Id="fb22432f-7790-487e-9607-c1ac74646b23" />
+                          </propertyInstance>
+                          <elementDefinition Id="1fd749fd-b2fd-431e-8266-d5125f7a839a" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="d217330c-be16-4711-80d1-b239758a70b6">
+                          <propertyInstance Id="41a6fc98-b079-4360-81ad-f9c63d999c33" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="4cab7149-dbf2-4151-8bd7-d1821b41e7e7" />
+                          </propertyInstance>
+                          <elementDefinition Id="98e1321f-72ef-42d9-990c-e99df603d342" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="e247316a-0283-4dcf-b3a2-22db97b92248">
+                          <propertyInstance Id="650a20b3-dec6-48c6-8154-3b592543babc" name="params" value="false">
+                            <elementDefinition Id="01e87883-0815-4cb2-860b-2efedc163957" />
+                          </propertyInstance>
+                          <elementDefinition Id="b9cfde9e-eaa0-47ed-87dc-7ee46b83632b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada" />
+                </operation>
               </ownedOperations>
             </Interface>
           </packageHasNamedElement>
@@ -2702,6 +2742,9 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="6c65b1a3-eda4-4b95-bd8a-c32e4b0c380d" name="Remove(manifestDigest : ManifestDigest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="7a051eaf-f39e-411c-b715-879a15940de1" />
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -3246,6 +3289,9 @@
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
+                </operation>
+                <operation Id="df70996a-6f88-465c-802d-8bdc416e235f" name="Remove(manifestDigest : ManifestDigest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="1cb5306a-b05f-48f9-a018-6c46742adf42" />
                 </operation>
               </ownedOperationsInternal>
             </class>
@@ -3811,6 +3857,9 @@
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
+                </operation>
+                <operation Id="8c71f79a-df0f-43ae-9f13-e8235e02ce1b" name="Remove(manifestDigest : ManifestDigest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="9756e16e-442f-4338-bfd5-5894d25e15c1" />
                 </operation>
               </ownedOperationsInternal>
             </class>

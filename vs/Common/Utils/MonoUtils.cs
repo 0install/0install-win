@@ -97,6 +97,18 @@ namespace Common.Utils
             fileSysInfo.FileAccessPermissions = fileSysInfo.FileAccessPermissions & ~AllWritePermission;
         }
 
+        /// <summary>
+        /// Sets write permissions for everyone on a file system object (file or directory).
+        /// </summary>
+        /// <param name="path">The file system object (file or directory) to make writeable by everyone.</param>
+        /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
+        public static void MakeWriteAll(string path)
+        {
+            var fileSysInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
+            fileSysInfo.FileAccessPermissions = fileSysInfo.FileAccessPermissions | AllWritePermission;
+        }
+
         /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
         private const FileAccessPermissions AllExecutePermission = FileAccessPermissions.UserExecute | FileAccessPermissions.GroupExecute | FileAccessPermissions.OtherExecute;
         

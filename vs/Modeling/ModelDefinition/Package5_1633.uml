@@ -911,6 +911,14 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="7a051eaf-f39e-411c-b715-879a15940de1"
+            name="Remove(manifestDigest : ManifestDigest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -1506,6 +1514,58 @@
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
+          </operation>
+          <operation
+            Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada"
+            name="Remove(manifestDigest : ManifestDigest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="5f92339c-2b03-4913-af3f-af5ebcf10165"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="30d69f1f-c150-449d-8a70-7546b64ae53c">
+                    <propertyInstance
+                      Id="c547cc57-2f3a-4dca-b642-e5e562de69b9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d98e0cc8-fe6d-4807-a2dd-624b93c06757">
+                    <propertyInstance
+                      Id="7994597b-7df2-41f0-b975-ca9d8787d5ef"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1fd749fd-b2fd-431e-8266-d5125f7a839a">
+                    <propertyInstance
+                      Id="fb22432f-7790-487e-9607-c1ac74646b23"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="98e1321f-72ef-42d9-990c-e99df603d342">
+                    <propertyInstance
+                      Id="4cab7149-dbf2-4151-8bd7-d1821b41e7e7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b9cfde9e-eaa0-47ed-87dc-7ee46b83632b">
+                    <propertyInstance
+                      Id="01e87883-0815-4cb2-860b-2efedc163957"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
           </operation>
         </ownedOperations>
       </Interface>
@@ -4466,6 +4526,14 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="9756e16e-442f-4338-bfd5-5894d25e15c1"
+            name="Remove(manifestDigest : ManifestDigest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -5203,6 +5271,14 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="1cb5306a-b05f-48f9-a018-6c46742adf42"
+            name="Remove(manifestDigest : ManifestDigest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>

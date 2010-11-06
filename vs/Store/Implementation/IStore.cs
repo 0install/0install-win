@@ -86,5 +86,15 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
         void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest);
+
+        /// <summary>
+        /// Removes a specific implementation from the cache.
+        /// </summary>
+        /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> be found in this store.</exception>
+        /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        void Remove(ManifestDigest manifestDigest);
     }
 }

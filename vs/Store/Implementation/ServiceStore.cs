@@ -104,5 +104,13 @@ namespace ZeroInstall.Store.Implementation
             throw new NotImplementedException();
         }
         #endregion
+
+        #region Remove
+        /// <inheritdoc />
+        public void Remove(ManifestDigest manifestDigest)
+        {
+            throw new NotImplementedException(); ;
+        }
+        #endregion
     }
 }
