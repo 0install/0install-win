@@ -125,13 +125,13 @@ namespace Common.Collections
             };
 
             Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(CultureInfo.InvariantCulture));
-            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US")));
-            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-CA")));
-            Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB")));
-            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de")));
-            Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE")));
-            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT")));
-            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")));
+            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US"))); // Exact match
+            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("en-CA"))); // No English generic, fall back to neutral
+            Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB"))); // Exact match
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de"))); // Exact match
+            Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE"))); // Fall back to German generic
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT"))); // Fall back to German generic
+            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("es-ES"))); // No match, fall back to neutral
         }
     }
 }
