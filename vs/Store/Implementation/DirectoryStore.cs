@@ -85,6 +85,28 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region List all
+        /// <inheritdoc />
+        public IEnumerable<string> ListAll()
+        {
+            // Find all directories whose names contain an equals sign
+            string[] directories = Directory.GetDirectories(DirectoryPath, "*=*");
+
+            var result = new List<string>();
+            for (int i = 0; i < directories.Length; i++)
+            {
+                // Exclude (temporary) dot-directories
+                if (directories[i].StartsWith(".")) continue;
+
+                result.Add(Path.GetFileName(directories[i]));
+            }
+
+            // Return as a C-sorted list
+            result.Sort(StringComparer.Ordinal);
+            return result;
+        }
+        #endregion
+
         #region Contains
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
@@ -262,6 +284,14 @@ namespace ZeroInstall.Store.Implementation
             FileUtils.WriteProtection(path, false);
 
             Directory.Delete(path, true);
+        }
+        #endregion
+
+        #region Optimise
+        /// <inheritdoc />
+        public void Optimise()
+        {
+            throw new NotImplementedException();
         }
         #endregion
 

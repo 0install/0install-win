@@ -62,6 +62,19 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region List all
+        /// <inheritdoc />
+        public IEnumerable<string> ListAll()
+        {
+            // Merge the lists from all contained stores, eliminating duplicates
+            var result = new C5.TreeSet<string>(StringComparer.Ordinal);
+            foreach (IStore store in Stores)
+                result.AddSorted(store.ListAll());
+
+            return result;
+        }
+        #endregion
+
         #region Contains
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
@@ -101,7 +114,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
-            Exception innerException = null;
+            UnauthorizedAccessException innerException = null;
             foreach (IStore store in Stores)
             {
                 try
@@ -133,7 +146,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
-            Exception innerException = null;
+            UnauthorizedAccessException innerException = null;
             foreach (IStore store in Stores)
             {
                 try
@@ -163,7 +176,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
-            Exception innerException = null;
+            UnauthorizedAccessException innerException = null;
             foreach (IStore store in Stores)
             {
                 try
@@ -193,6 +206,22 @@ namespace ZeroInstall.Store.Implementation
             foreach (IStore store in Stores)
             {
                 if (store.Contains(manifestDigest)) store.Remove(manifestDigest);
+            }
+        }
+        #endregion
+
+        #region Optimise
+        /// <inheritdoc />
+        public void Optimise()
+        {
+            // Try to optimize all contained stores
+            foreach (IStore store in Stores)
+            {
+                try { store.Optimise(); }
+                catch (UnauthorizedAccessException)
+                {
+                    // Ignore authorization errors, since optimisation is not a critical task
+                }
             }
         }
         #endregion

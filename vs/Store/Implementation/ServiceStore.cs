@@ -55,6 +55,14 @@ namespace ZeroInstall.Store.Implementation
 
         //--------------------//
 
+        #region List all
+        /// <inheritdoc />
+        public IEnumerable<string> ListAll()
+        {
+            return _backingStore.ListAll();
+        }
+        #endregion
+
         #region Contains
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
@@ -110,6 +118,14 @@ namespace ZeroInstall.Store.Implementation
         public void Remove(ManifestDigest manifestDigest)
         {
             throw new NotImplementedException(); ;
+        }
+        #endregion
+
+        #region Optimise
+        /// <inheritdoc />
+        public void Optimise()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }

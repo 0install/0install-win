@@ -31,6 +31,13 @@ namespace ZeroInstall.Store.Implementation
     public interface IStore
     {
         /// <summary>
+        /// Returns a list of all implementations currently in the store.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
+        /// <returns>A list of implementations formated as "algorithm=digest" (e.g. "sha256=123abc") in C-sorted order (ordinal comparison, increasing).</returns>
+        IEnumerable<string> ListAll();
+
+        /// <summary>
         /// Determines whether this store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
@@ -96,5 +103,12 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         void Remove(ManifestDigest manifestDigest);
+
+        /// <summary>
+        /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.
+        /// </summary>
+        /// <exception cref="IOException">Thrown if two files could not be hard-linked together.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        void Optimise();
     }
 }
