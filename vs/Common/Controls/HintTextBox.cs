@@ -85,7 +85,9 @@ namespace Common.Controls
 
         #region Properties
         private Color _foreColor = SystemColors.ControlText;
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets or sets the color used when displaying text in the control.
+        /// </summary>
         public new Color ForeColor
         {
             get { return _foreColor; }

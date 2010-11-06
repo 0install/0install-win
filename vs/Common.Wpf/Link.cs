@@ -17,7 +17,8 @@ namespace Common.Wpf
     /// <summary>
     /// Summary description for Link.
     /// </summary>
-    public class Link
+    [ClsCompliant(false)]
+	public class Link
     {
         /// <summary>
         /// Check to see if a shortcut exists in a given directory with a specified file name

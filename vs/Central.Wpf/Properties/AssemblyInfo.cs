@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Central")]
-[assembly: AssemblyDescription("The main WPF GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
+[assembly: AssemblyDescription("A WPF-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
