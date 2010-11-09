@@ -39,6 +39,13 @@ namespace ZeroInstall.Model
         [XmlElement("archive", typeof(Archive))] // Note: explicit naming of XML tag can be removed once other RecipeStep types have been added
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
+
+        /// <summary>
+        /// Indicates whether this recipe contains steps of unknown type and therefore can not be processed.
+        /// </summary>
+        [Description("Indicates whether this recipe contains steps of unknown type and therefore can not be processed.")]
+        [XmlIgnore]
+        public bool ContainsUnknownSteps { get { return UnknownElements != null && UnknownElements.Length > 0; } }
         #endregion
         
         //--------------------//
