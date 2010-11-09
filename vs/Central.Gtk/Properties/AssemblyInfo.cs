@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
 // Assembly info
-[assembly: AssemblyTitle("Zero Install Central")]
+[assembly: AssemblyTitle("Zero Install Central GTK# GUI")]
 [assembly: AssemblyDescription("A GTK#-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
