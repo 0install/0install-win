@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="TopToBottom" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="(Namespace=ZeroInstall.Central.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Central.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Central.Wpf)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.Wpf" />
+    <Node Id="(Namespace=ZeroInstall.DownloadBroker)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.DownloadBroker" />
+    <Node Id="(Namespace=ZeroInstall.Injector.Arguments)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.Arguments" />
+    <Node Id="(Namespace=ZeroInstall.Injector.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Injector.Solver)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.Solver" />
+    <Node Id="(Namespace=ZeroInstall.Injector.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Model)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Model" />
+    <Node Id="(Namespace=ZeroInstall.MyApps)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.MyApps" />
+    <Node Id="(Namespace=ZeroInstall.Publish.Arguments)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Arguments" />
+    <Node Id="(Namespace=ZeroInstall.Publish.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Publish.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Store.Feed)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Feed" />
+    <Node Id="(Namespace=ZeroInstall.Store.Implementation)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Implementation" />
+    <Node Id="(Namespace=ZeroInstall.Store.Management.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Store.Management.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Store.Service)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Service" />
+    <Node Id="@1" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central" />
+    <Node Id="@2" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector" />
+    <Node Id="@3" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish" />
+    <Node Id="@4" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store" />
+    <Node Id="@5" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management" />
+  </Nodes>
+  <Links>
+    <Link Source="@1" Target="(Namespace=ZeroInstall.Central.Cli)" Category="Contains" />
+    <Link Source="@1" Target="(Namespace=ZeroInstall.Central.WinForms)" Category="Contains" />
+    <Link Source="@1" Target="(Namespace=ZeroInstall.Central.Wpf)" Category="Contains" />
+    <Link Source="@2" Target="(Namespace=ZeroInstall.Injector.Arguments)" Category="Contains" />
+    <Link Source="@2" Target="(Namespace=ZeroInstall.Injector.Cli)" Category="Contains" />
+    <Link Source="@2" Target="(Namespace=ZeroInstall.Injector.Solver)" Category="Contains" />
+    <Link Source="@2" Target="(Namespace=ZeroInstall.Injector.WinForms)" Category="Contains" />
+    <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.Arguments)" Category="Contains" />
+    <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.Cli)" Category="Contains" />
+    <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.WinForms)" Category="Contains" />
+    <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Feed)" Category="Contains" />
+    <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Implementation)" Category="Contains" />
+    <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Service)" Category="Contains" />
+    <Link Source="@4" Target="@5" Category="Contains" />
+    <Link Source="@5" Target="(Namespace=ZeroInstall.Store.Management.Cli)" Category="Contains" />
+    <Link Source="@5" Target="(Namespace=ZeroInstall.Store.Management.WinForms)" Category="Contains" />
+  </Links>
+  <Categories>
+    <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
+    <Category Id="CodeSchema_Namespace" Label="Namespace" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="CodeSchema_Namespace" IsProviderRoot="False" NavigationActionLabel="Namespaces" />
+    <Category Id="CodeSchema_Statement" Label="Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Statement" />
+    <Category Id="Contains" Label="Contains" CanBeDataDriven="False" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Contained By" IsContainment="True" OutgoingActionLabel="Contains" />
+  </Categories>
+  <Properties>
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Progression.Layout.GraphDirection" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsContainment" DataType="System.Boolean" />
+    <Property Id="IsDragSource" Label="IsDragSource" Description="IsDragSource" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Namespace" Label="Namespace" ValueType="System.String" />
+  </QualifiedNames>
+  <IdentifierAliases>
+    <Alias n="1" Id="(Namespace=ZeroInstall.Central)" />
+    <Alias n="2" Id="(Namespace=ZeroInstall.Injector)" />
+    <Alias n="3" Id="(Namespace=ZeroInstall.Publish)" />
+    <Alias n="4" Id="(Namespace=ZeroInstall.Store)" />
+    <Alias n="5" Id="(Namespace=ZeroInstall.Store.Management)" />
+  </IdentifierAliases>
+</DirectedGraph>

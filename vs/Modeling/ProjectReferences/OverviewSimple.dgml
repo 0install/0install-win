@@ -106,6 +106,8 @@
     <Link Source="@30" Target="@18" Category="References" />
     <Link Source="@30" Target="@4" Category="References" />
     <Link Source="@32" Target="@18" Category="References" />
+    <Link Source="@32" Target="@22" Category="References" />
+    <Link Source="@32" Target="@4" Category="References" />
     <Link Source="@4" Target="@18" Category="References" />
     <Link Source="@6" Target="@18" Category="References" />
     <Link Source="@6" Target="@20" Category="References" />

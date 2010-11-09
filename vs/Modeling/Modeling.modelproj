@@ -17,6 +17,9 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
+    <Content Include="NamespaceOverview.dgml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ModelDefinition\Package1_1629.uml">
       <SubType>Content</SubType>
     </Content>
