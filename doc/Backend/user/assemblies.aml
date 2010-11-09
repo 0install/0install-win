@@ -20,22 +20,6 @@
       </glossaryEntry>
 
       <glossaryEntry>
-        <terms><term>ZeroInstall.DownloadBroker.dll</term></terms>
-        <definition>
-          <para>Root namespace: <literal>ZeroInstall.DownloadBroker</literal></para>
-          <para>This assembly manages Implementation download requests for the injector.</para>
-        </definition>
-      </glossaryEntry>
-
-      <glossaryEntry>
-        <terms><term>ZeroInstall.Injector.dll</term></terms>
-        <definition>
-          <para>Root namespace: <literal>ZeroInstall.Injector</literal></para>
-          <para>This assembly contains code for solving dependencies, launching implementations and injecting the selected dependencies.</para>
-        </definition>
-      </glossaryEntry>
-
-      <glossaryEntry>
         <terms><term>ZeroInstall.Model.dll</term></terms>
         <definition>
           <para>Root namespace: <literal>ZeroInstall.Model</literal></para>
@@ -48,18 +32,34 @@
       </glossaryEntry>
 
       <glossaryEntry>
-        <terms><term>ZeroInstall.MyApps.dll</term></terms>
-        <definition>
-          <para>Root namespace: <literal>ZeroInstall.MyApps</literal></para>
-          <para>This assembly maintains the user's list of &quot;installed applications&quot;, manages menu entries in the desktop environment and provides cloud-storage functionality.</para>
-        </definition>
-      </glossaryEntry>
-
-      <glossaryEntry>
         <terms><term>ZeroInstall.Store.dll</term></terms>
         <definition>
           <para>Root namespace: <literal>ZeroInstall.Store</literal></para>
           <para>This assembly manages caches for feeds and implementations, etc.</para>
+        </definition>
+      </glossaryEntry>
+
+      <glossaryEntry>
+        <terms><term>ZeroInstall.Injector.dll</term></terms>
+        <definition>
+          <para>Root namespace: <literal>ZeroInstall.Injector</literal></para>
+          <para>This assembly contains code for solving dependencies, launching implementations and injecting the selected dependencies.</para>
+        </definition>
+      </glossaryEntry>
+
+      <glossaryEntry>
+        <terms><term>ZeroInstall.DownloadBroker.dll</term></terms>
+        <definition>
+          <para>Root namespace: <literal>ZeroInstall.DownloadBroker</literal></para>
+          <para>This assembly manages Implementation download requests for the injector.</para>
+        </definition>
+      </glossaryEntry>
+
+      <glossaryEntry>
+        <terms><term>ZeroInstall.MyApps.dll</term></terms>
+        <definition>
+          <para>Root namespace: <literal>ZeroInstall.MyApps</literal></para>
+          <para>This assembly maintains the user's list of &quot;installed applications&quot;, manages menu entries in the desktop environment and provides cloud-storage functionality.</para>
         </definition>
       </glossaryEntry>
     </glossary>
