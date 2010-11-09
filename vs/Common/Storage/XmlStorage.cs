@@ -109,7 +109,10 @@ namespace Common.Storage
                 }
             }
 
-            return new XmlSerializer(type, overrides);
+            var serializer = new XmlSerializer(type, overrides);
+            serializer.UnknownAttribute += (sender, e) => Log.Warn("Ignored XML attribute while deserializing: " + e.Attr);
+            serializer.UnknownElement += (sender, e) => Log.Warn("Ignored XML element while deserializing: " + e.Element);
+            return serializer;
         }
 
         /// <summary>
