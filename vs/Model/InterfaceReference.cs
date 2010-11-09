@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary> 
     /// <seealso cref="Feed.FeedFor"/>
     [XmlType("interface-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class InterfaceReference : ICloneable, IEquatable<InterfaceReference>
+    public sealed class InterfaceReference : XmlUnknown, ICloneable, IEquatable<InterfaceReference>
     {
         #region Properties
         /// <summary>

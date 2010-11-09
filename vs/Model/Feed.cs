@@ -33,7 +33,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     [XmlType("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public sealed class Feed : IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
+    public sealed class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
         #region Properties
         /// <summary>

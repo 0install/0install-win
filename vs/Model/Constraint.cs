@@ -18,16 +18,14 @@
 using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
-using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
     /// <summary>
     /// Restricts the set of versions from which the injector may choose an <see cref="Implementation"/>. 
     /// </summary>
-    [TypeConverter(typeof(ConstraintConverter))]
     [XmlType("constraint", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public struct Constraint : ICloneable, IEquatable<Constraint>
+    public class Constraint : XmlUnknown, ICloneable, IEquatable<Constraint>
     {
         #region Properties
         /// <summary>
@@ -64,6 +62,12 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates an empty constraint
+        /// </summary>
+        public Constraint()
+        {}
+
         /// <summary>
         /// Creates a new constraint structure with pre-set values.
         /// </summary>
@@ -112,16 +116,6 @@ namespace ZeroInstall.Model
         public bool Equals(Constraint other)
         {
             return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
-        }
-
-        public static bool operator ==(Constraint left, Constraint right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(Constraint left, Constraint right)
-        {
-            return !left.Equals(right);
         }
 
         public override bool Equals(object obj)

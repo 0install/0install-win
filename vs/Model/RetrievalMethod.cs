@@ -24,7 +24,7 @@ namespace ZeroInstall.Model
     /// A retrieval method is a way of getting an <see cref="Implementation"/>.
     /// </summary>
     [XmlType("retrieval-method", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public abstract class RetrievalMethod : ISimplifyable, ICloneable
+    public abstract class RetrievalMethod : XmlUnknown, ISimplifyable, ICloneable
     {
         /// <summary>
         /// Sets missing default values, flattens the inheritance structure, etc.

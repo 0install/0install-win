@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 using System.Xml.Serialization;
 using ZeroInstall.Model.Design;
 
@@ -54,6 +55,12 @@ namespace ZeroInstall.Model
         [Description("The MIME type of the icon.")]
         [XmlAttribute("type")]
         public String MimeType { get; set; }
+
+        /// <summary>
+        /// Contains any unknown additional XML attributes.
+        /// </summary>
+        [XmlAnyAttribute]
+        public XmlAttribute[] UnknownAttributes;
         #endregion
 
         #region Constructor

@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
     [XmlType("binding", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public abstract class Binding : ICloneable
+    public abstract class Binding : XmlUnknown, ICloneable
     {
         /// <summary>
         /// Creates a deep copy of this <see cref="Binding"/> instance.

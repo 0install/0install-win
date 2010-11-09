@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Xml;
 using System.Xml.Serialization;
 using Common.Utils;
 using ZeroInstall.Model.Design;
@@ -98,6 +99,12 @@ namespace ZeroInstall.Model
                 return null;
             }
         }
+
+        /// <summary>
+        /// Contains any unknown hash algorithms specified as pure XML attributes.
+        /// </summary>
+        [XmlAnyAttribute]
+        public XmlAttribute[] UnknownAlgorithms;
         #endregion
 
         #region Constructor

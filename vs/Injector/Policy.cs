@@ -46,11 +46,12 @@ namespace ZeroInstall.Injector
         /// </summary>
         public Architecture Architecture { get; set; }
 
+        private Constraint _constraint = new Constraint();
         /// <summary>
         /// Only choose <see cref="Implementation"/>s with certain version numbers.
         /// </summary>
-        public Constraint Constraint { get; set; }
-        
+        public Constraint Constraint { get { return _constraint; } }
+
         /// <summary>
         /// A location to search for cached <see cref="ImplementationBase"/>s in addition to <see cref="DownloadBroker.Fetcher.Store"/>; may be <see langword="null"/>.
         /// </summary>

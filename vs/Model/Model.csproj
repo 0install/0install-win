@@ -55,7 +55,6 @@
     <Compile Include="Archive.cs" />
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
-    <Compile Include="Design\ConstraintConverter.cs" />
     <Compile Include="Dependency.cs" />
     <Compile Include="DottedList.cs" />
     <Compile Include="EnvironmentBinding.cs" />
@@ -90,6 +89,7 @@
     </Compile>
     <Compile Include="ImplementationVersion.cs" />
     <Compile Include="WorkingDirBinding.cs" />
+    <Compile Include="XmlUnknown.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

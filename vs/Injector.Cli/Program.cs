@@ -198,8 +198,8 @@ namespace ZeroInstall.Injector.Cli
                 {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
 
                 // Policy options
-                {"before=", Resources.OptionBefore, version => parseResults.Policy.Constraint = new Constraint(parseResults.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
-                {"not-before=", Resources.OptionNotBefore, version => parseResults.Policy.Constraint = new Constraint(new ImplementationVersion(version), parseResults.Policy.Constraint.BeforeVersion)},
+                {"before=", version => parseResults.Policy.Constraint.BeforeVersion = new ImplementationVersion(version)},
+                {"not-before=", version => parseResults.Policy.Constraint.NotBeforeVersion = new ImplementationVersion(version)},
                 {"s|source", Resources.OptionSource, unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", Resources.OptionOS, os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", Resources.OptionCpu, cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},

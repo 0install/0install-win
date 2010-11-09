@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [XmlRoot("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
     [XmlType("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
-    public class Catalog : ISimplifyable, ICloneable, IEquatable<Catalog>
+    public class Catalog : XmlUnknown, ISimplifyable, ICloneable, IEquatable<Catalog>
     {
         #region Properties
         // Preserve order

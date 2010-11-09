@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("target-base", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    public abstract class TargetBase
+    public abstract class TargetBase : XmlUnknown
     {
         #region Properties
         // Order is always alphabetical, duplicate entries are not allowed
