@@ -9,6 +9,7 @@ rm -rf build/Tools
 rm -rf build/Setup
 
 #Clear object cache
+rm -rf vs/Central.Cli/obj
 rm -rf vs/Central.WinForms/obj
 rm -rf vs/Central.Wpf/obj
 rm -rf vs/Central.Gtk/obj

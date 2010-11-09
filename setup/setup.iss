@@ -57,7 +57,7 @@ AppVersion={#Maj}.{#Min}.{#Rev}
 DisableProgramGroupPage=true
 PrivilegesRequired=admin
 ChangesAssociations=true
-UninstallDisplayIcon={app}\ZeroInstall.exe
+UninstallDisplayIcon={app}\0install-win.exe
 UninstallDisplayName=Zero Install
 VersionInfoVersion={#Maj}.{#Min}.{#Rev}
 VersionInfoCompany=0install.net
@@ -82,6 +82,11 @@ ChangesEnvironment=yes
 
 [InstallDelete]
 Name: {app}\Zero Install.exe; Type: files
+Name: {app}\ZeroInstall.exe; Type: files
+Name: {app}\StoreService.exe; Type: files
+Name: {app}\0launchw.exe; Type: files
+Name: {app}\0storew.exe; Type: files
+Name: {app}\de\*.resources.dll; Type: files
 
 [Files]
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
@@ -103,8 +108,8 @@ Root: HKLM; Subkey: Software\Zero Install; Flags: deletekey
 Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey; Permissions: authusers-modify
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\0publish-gui.exe
+Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\0install-win.exe
+;Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\0publish-win.exe
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
@@ -116,14 +121,14 @@ Name: modifypath; Description: {cm:AddToPath}
 [Icons]
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.de/
-Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
-;Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-gui.exe
+Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\0install-win.exe
+;Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-win.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0storew.exe; IconFilename: {app}\0storew.exe
-Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
+Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\0install-win.exe; Tasks: desktopicon
 
 ;Post-installations tasks
 [Run]
-Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
+Filename: {app}\0install-win.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [Code]
 #ifndef Update

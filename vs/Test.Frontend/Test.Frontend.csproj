@@ -48,6 +48,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Central.Cli\Central.Cli.csproj">
+      <Project>{F52544A4-EC24-11DF-8FA3-0F04E0D72085}</Project>
+      <Name>Central.Cli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Central.WinForms\Central.WinForms.csproj">
+      <Project>{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}</Project>
+      <Name>Central.WinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
@@ -105,12 +113,13 @@
     <Compile Include="Injector\Cli\ProgramTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Central\Cli\" />
     <Folder Include="Central\WinForms\" />
     <Folder Include="Injector\WinForms\" />
     <Folder Include="MyApps\" />
-    <Folder Include="Store.Management\Cli\" />
-    <Folder Include="Store.Management\WinForms\" />
-    <Folder Include="Store.Service\" />
+    <Folder Include="Store\Management\Cli\" />
+    <Folder Include="Store\Management\WinForms\" />
+    <Folder Include="Store\Service\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
