@@ -298,7 +298,7 @@ namespace ZeroInstall.Central.Wpf
                         InstallTest(feedUri);
 
           
-                        //App.LaunchHelperApp(this, "0launchw_wpf", "--no-wait " + feedUri);
+                        //App.LaunchHelperApp(this, "0launch-win", "--no-wait " + feedUri);
                         //Close();
                     }
                     break;
@@ -355,7 +355,7 @@ namespace ZeroInstall.Central.Wpf
 
         private void bAddFromUrl_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            App.LaunchHelperApp(this, "0launchw_wpf.exe");
+            App.LaunchHelperApp(this, "0launch-win.exe");
 
             //InstallWindow w = new InstallWindow();
             //w.ShowDialog();
