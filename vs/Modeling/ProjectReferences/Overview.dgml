@@ -182,8 +182,6 @@
     <Link Source="@44" Target="@32" Category="References" />
     <Link Source="@44" Target="@8" Category="References" />
     <Link Source="@6" Target="@24" Category="References" />
-    <Link Source="@6" Target="@28" Category="References" />
-    <Link Source="@6" Target="@32" Category="References" />
     <Link Source="@6" Target="@44" Category="References" />
     <Link Source="@6" Target="@8" Category="References" />
     <Link Source="@8" Target="@24" Category="References" />
