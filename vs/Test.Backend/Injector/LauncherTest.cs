@@ -41,7 +41,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Ensures <see cref="Controller.GetLauncher"/> correctly provides an application that can be launched.
         /// </summary>
-        // Test deactivated because it performs network IO
+        // Test deactivated because it uses an external process and performs network IO
         //[Test]
         public void TestGetLauncher()
         {

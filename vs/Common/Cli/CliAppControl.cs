@@ -68,13 +68,8 @@ namespace Common.Cli
         {
             get
             {
-#if DEBUG
-                // Use the current directory since the launching application might be a test runner in another directory
-                string searchBase = Environment.CurrentDirectory;
-#else
                 // Use the base directory of the launching application since the current directory may be arbitrary
                 string searchBase = AppDomain.CurrentDomain.BaseDirectory;
-#endif
 
                 if (Directory.Exists(Path.Combine(searchBase, AppName))) return searchBase;
                 return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Bundled");

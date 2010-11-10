@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Ensures <see cref="InterfaceCache.GetFeed"/> correctly gets an interface from the cache or the network.
         /// </summary>
-        // Test deactivated because it performs network IO
+        // Test deactivated because it uses an external process and performs network IO
         //[Test]
         public void TestGetFeed()
         {
