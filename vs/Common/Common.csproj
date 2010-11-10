@@ -69,6 +69,9 @@
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
+    <Compile Include="Undo\AddToCollection.cs" />
+    <Compile Include="Undo\CollectionCommand.cs" />
+    <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
