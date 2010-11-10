@@ -20,5 +20,5 @@ using System.Security.Permissions;
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
-[assembly: CLSCompliant(true)]
+[assembly: CLSCompliant(false)]
 [assembly: ComVisible(false)]

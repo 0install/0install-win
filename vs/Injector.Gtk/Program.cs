@@ -72,8 +72,8 @@ namespace ZeroInstall.Injector.Gtk
                 {"V|version", unused => mode = OperationMode.Version},
 
                 // Policy options
-                {"before=", version => parseResults.Policy.Constraint = new Constraint(parseResults.Policy.Constraint.NotBeforeVersion, new ImplementationVersion(version))},
-                {"not-before=", version => parseResults.Policy.Constraint = new Constraint(new ImplementationVersion(version), parseResults.Policy.Constraint.BeforeVersion)},
+                {"before=", version => parseResults.Policy.Constraint.BeforeVersion = new ImplementationVersion(version)},
+                {"not-before=", version => parseResults.Policy.Constraint.NotBeforeVersion = new ImplementationVersion(version)},
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
