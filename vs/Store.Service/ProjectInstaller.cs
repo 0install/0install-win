@@ -15,22 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.ServiceProcess;
+using System.ComponentModel;
+using System.Configuration.Install;
 
 namespace ZeroInstall.Store.Service
 {
-    /// <summary>
-    /// Launches a Windows service for managing the secure shared cache of Zero Install implementations.
-    /// </summary>
-    public static class Program
+    [RunInstaller(true)]
+    public partial class ProjectInstaller : Installer
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        static void Main(string[] args)
+        public ProjectInstaller()
         {
-            var servicesToRun = new ServiceBase[] { new Service() };
-            ServiceBase.Run(servicesToRun);
+            InitializeComponent();
         }
     }
 }
