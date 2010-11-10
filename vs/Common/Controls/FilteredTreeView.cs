@@ -72,7 +72,7 @@ namespace Common.Controls
         /// <summary>
         /// Toggle the visibility of the search box.
         /// </summary>
-        [DefaultValue(true), Category("Appearance"), Description("Toggle the visibility of the search box.")]
+        [DefaultValue(true), Description("Toggle the visibility of the search box."), Category("Appearance")]
         public bool ShowSearchBox
         {
             get { return textSearch.Visible; }

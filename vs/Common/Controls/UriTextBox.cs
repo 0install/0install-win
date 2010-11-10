@@ -54,7 +54,7 @@ namespace Common.Controls
         /// <summary>
         /// When set to <see langword="true"/> only URIs starting with "http:" or "https:" will be considered valid.
         /// </summary>
-        [DefaultValue(false), Category("Behavior"), Description("When set to true only URIs starting with \"http:\" or \"https:\" will be considered valid.")]
+        [DefaultValue(false), Description("When set to true only URIs starting with \"http:\" or \"https:\" will be considered valid."), Category("Behavior")]
         public bool HttpOnly { get; set; }
         #endregion
 

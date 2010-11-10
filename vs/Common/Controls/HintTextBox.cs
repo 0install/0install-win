@@ -69,6 +69,17 @@ namespace Common.Controls
 
             base.OnBackColorChanged(e);
         }
+
+        /// <summary>
+        /// Occurs when the clear button is clicked.
+        /// </summary>
+        [Description("Occurs when the clear button is clicked.")]
+        public event EventHandler ClearButtonClicked;
+
+        protected virtual void OnClearButtonClicked(EventArgs e)
+        {
+            if (ClearButtonClicked != null) ClearButtonClicked(this, e);
+        }
         #endregion
 
         #region Variables
@@ -88,6 +99,7 @@ namespace Common.Controls
         /// <summary>
         /// Gets or sets the color used when displaying text in the control.
         /// </summary>
+        [DefaultValue(typeof(Color), "ControlText")]
         public new Color ForeColor
         {
             get { return _foreColor; }
@@ -117,7 +129,7 @@ namespace Common.Controls
         /// <summary>
         /// A text to be displayed in <see cref="SystemColors.GrayText"/> when <see cref="TextBox.Text"/> is empty.
         /// </summary>
-        [Category("Appearance"), Description("A text to be displayed in gray when Text is empty."), Localizable(true)]
+        [Description("A text to be displayed in gray when Text is empty."), Category("Appearance"), Localizable(true)]
         public string HintText
         {
             get { return _hintText; }
@@ -140,7 +152,7 @@ namespace Common.Controls
         /// <summary>
         /// Controls whether the clear button is shown. Remains invisible when the HintText is visible.
         /// </summary>
-        [DefaultValue(false), Category("Appearance"), Description("Controls whether the clear button is shown. Remains invisible when the HintText is visible.")]
+        [DefaultValue(false), Description("Controls whether the clear button is shown. Remains invisible when the HintText is visible."), Category("Appearance")]
         public bool ShowClearButton
         {
             get { return _showClearButton; }
@@ -165,7 +177,11 @@ namespace Common.Controls
                 Focus();
 
                 // Only clear the text if focus change was possible (might be prevented by validation)
-                if (Focused) Clear();
+                if (Focused)
+                {
+                    Clear();
+                    OnClearButtonClicked(EventArgs.Empty);
+                }
             };
             Controls.Add(_buttonClear);
         }

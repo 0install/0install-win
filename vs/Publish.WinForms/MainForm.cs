@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using C5;
 using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Undo;
+using Common.Utils;
 using ZeroInstall.Model;
 using System.Drawing;
 using System.Net;
@@ -49,9 +49,7 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Variables
-
         private FeedEditing _feedEditing = new FeedEditing();
-
         #endregion
 
         #region Initialization
@@ -175,10 +173,8 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(textName, () => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value);
             SetupCommandHooks(checkedListBoxCategories, () => _feedEditing.Feed.Categories);
             SetupCommandHooks(textInterfaceUri, () => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value);
-            SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage,
-                              value => _feedEditing.Feed.Homepage = value);
-            SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal,
-                              value => _feedEditing.Feed.NeedsTerminal = value);
+            SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value);
+            SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
         }
 
         /// <summary>
@@ -213,24 +209,41 @@ namespace ZeroInstall.Publish.WinForms
         {
             // Transfer data from the feed to the TextBox when refreshing
             Populate += delegate
-                            {
-                                textBox.CausesValidation = false;
-                                textBox.Uri = getValue();
-                                textBox.CausesValidation = true;
-                            };
+            {
+                textBox.CausesValidation = false;
+                textBox.Uri = getValue();
+                textBox.CausesValidation = true;
+            };
 
             // Transfer data from the TextBox to the feed via a command object
             textBox.Validating += (sender, e) =>
-                                      {
-                                          // Detect lower-level validation failures
-                                          if (e.Cancel) return;
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
 
-                                          // Ignore irrelevant changes
-                                          if (textBox.Uri == getValue()) return;
+                // Ignore irrelevant changes
+                if (textBox.Uri == getValue()) return;
 
-                                          _feedEditing.ExecuteCommand(new SetValueCommand<Uri>(textBox.Uri, getValue,
-                                                                                               setValue));
-                                      };
+                _feedEditing.ExecuteCommand(new SetValueCommand<Uri>(textBox.Uri, getValue, setValue));
+            };
+
+            // Enable the undo button even before the command has been created
+            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); };
+            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); };
+        }
+        
+        /// <summary>
+        /// Hooks up a <see cref="HintTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
+        /// </summary>
+        /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
+        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        private void SetupCommandHooks(HintTextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
+        {
+            SetupCommandHooks((TextBox)textBox, getValue, setValue);
+
+            // Enable the undo button even before the command has been created
+            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, getValue())); };
         }
 
         /// <summary>
@@ -243,26 +256,26 @@ namespace ZeroInstall.Publish.WinForms
         {
             // Transfer data from the feed to the TextBox when refreshing
             Populate += delegate
-                            {
-                                textBox.CausesValidation = false;
-                                textBox.Text = getValue();
-                                textBox.CausesValidation = true;
-                            };
+            {
+                textBox.CausesValidation = false;
+                textBox.Text = getValue();
+                textBox.CausesValidation = true;
+            };
 
             // Transfer data from the TextBox to the feed via a command object
             textBox.Validating += (sender, e) =>
-                                      {
-                                          // Detect lower-level validation failures
-                                          if (e.Cancel) return;
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
 
-                                          // Ignore irrelevant changes
-                                          string oldValue = getValue();
-                                          if (string.IsNullOrEmpty(oldValue) && string.IsNullOrEmpty(textBox.Text) ||
-                                              (textBox.Text == oldValue)) return;
+                // Ignore irrelevant changes
+                if (StringUtils.CompareEmptyNull(textBox.Text, getValue())) return;
 
-                                          _feedEditing.ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue,
-                                                                                                  setValue));
-                                      };
+                _feedEditing.ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue, setValue));
+            };
+
+            // Enable the undo button even before the command has been created
+            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, getValue())); };
         }
 
         /// <summary>
@@ -275,31 +288,31 @@ namespace ZeroInstall.Publish.WinForms
         {
             // Transfer data from the feed to the CheckBox when refreshing
             Populate += delegate
-                            {
-                                checkBox.CausesValidation = false;
-                                checkBox.Checked = getValue();
-                                checkBox.CausesValidation = true;
-                            };
+            {
+                checkBox.CausesValidation = false;
+                checkBox.Checked = getValue();
+                checkBox.CausesValidation = true;
+            };
 
             // Transfer data from the CheckBox to the feed via a command object
             checkBox.Validating += (sender, e) =>
-                                       {
-                                           // Detect lower-level validation failures
-                                           if (e.Cancel) return;
+            {
+                // Detect lower-level validation failures
+                if (e.Cancel) return;
 
-                                           // Ignore irrelevant changes
-                                           if (checkBox.Checked == getValue()) return;
+                // Ignore irrelevant changes
+                if (checkBox.Checked == getValue()) return;
 
-                                           _feedEditing.ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue, setValue));
-                                       };
+                _feedEditing.ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue, setValue));
+            };
         }
 
         /// <summary>
         /// Hooks up a <see cref="CheckedListBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="checkedListBox">The <see cref="CheckedListBox"/> to track for input and to update.</param>
-        /// <param name="getCollection">A delegate that reads the coressponding value from the <see cref="System.Collections.Generic.ICollection{string}"/>.</param>
-        private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<System.Collections.Generic.ICollection<string>> getCollection)
+        /// <param name="getCollection">A delegate that reads the coressponding value from the <see cref="ICollection{T}"/>.</param>
+        private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<ICollection<string>> getCollection)
         {
             ItemCheckEventHandler itemCheckEventHandler = (sender, e) =>
             {
@@ -315,21 +328,20 @@ namespace ZeroInstall.Publish.WinForms
             };
 
             Populate += delegate
-                            {
-                                checkedListBox.ItemCheck -= itemCheckEventHandler;
-                                for(int i = 0; i < checkedListBox.Items.Count; i++)
-                                {
-                                    if(getCollection().Contains(checkedListBox.Items[i].ToString()))
-                                    {
-                                        checkedListBox.SetItemChecked(i, true);
-                                    }
-                                }
-                                checkedListBox.ItemCheck += itemCheckEventHandler;
-                            };
+            {
+                checkedListBox.ItemCheck -= itemCheckEventHandler;
+                for(int i = 0; i < checkedListBox.Items.Count; i++)
+                {
+                    if(getCollection().Contains(checkedListBox.Items[i].ToString()))
+                    {
+                        checkedListBox.SetItemChecked(i, true);
+                    }
+                }
+                checkedListBox.ItemCheck += itemCheckEventHandler;
+            };
 
             checkedListBox.ItemCheck += itemCheckEventHandler;
         }
-
         #endregion
 
         #region Toolbar
@@ -443,9 +455,7 @@ namespace ZeroInstall.Publish.WinForms
             SaveFeedTab();
             SaveAdvancedTab();
 
-            _feedEditing.Feed.Save(toPath);
-
-            FeedUtils.AddStylesheet(toPath);
+            _feedEditing.Save(toPath);
             SignFeed(toPath);
         }
 
@@ -521,7 +531,6 @@ namespace ZeroInstall.Publish.WinForms
             saveFileDialog.FileName = _feedEditing.Path;
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                _feedEditing.Path = saveFileDialog.FileName;
                 SaveFeed(_feedEditing.Path);
                 return true;
             }
@@ -647,21 +656,13 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void ResetGeneralTabControls()
         {
-            textName.ResetText();
             summariesControl.Values = new LocalizableStringCollection();
             descriptionControl.Values = new LocalizableStringCollection();
-            textHomepage.ResetText();
-            textInterfaceUri.ResetText();
             hintTextBoxIconUrl.ResetText();
             comboBoxIconType.SelectedIndex = 0;
             pictureBoxIconPreview.Image = null;
             listBoxIconsUrls.Items.Clear();
             lblIconUrlError.ResetText();
-            foreach (int category in checkedListBoxCategories.CheckedIndices)
-            {
-                checkedListBoxCategories.SetItemChecked(category, false);
-            }
-            checkBoxNeedsTerminal.Checked = false;
         }
 
         /// <summary>
@@ -761,7 +762,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>true, if supported, else false.</returns>
         private static bool IsIconFormatSupported(ImageFormat toCheck)
         {
-            var supportedImageFormats = new HashSet<ImageFormat>() {ImageFormat.Png, ImageFormat.Icon};
+            var supportedImageFormats = new C5.HashSet<ImageFormat>() {ImageFormat.Png, ImageFormat.Icon};
             return supportedImageFormats.Contains(toCheck);
         }
 
@@ -777,7 +778,7 @@ namespace ZeroInstall.Publish.WinForms
             if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out uri)) return;
             var icon = new Model.Icon {Location = uri};
 
-            var imageMimeTypes = new HashDictionary<Guid, string>
+            var imageMimeTypes = new C5.HashDictionary<Guid, string>
                                      {
                                          {ImageFormat.Png.Guid, "image/png"},
                                          {ImageFormat.Icon.Guid, "image/vnd-microsoft-icon"}

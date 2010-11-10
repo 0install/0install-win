@@ -63,6 +63,15 @@ namespace Common.Utils
         }
 
         /// <summary>
+        /// Compare strings using case sensitive, invariant culture comparison and considering <see langword="null"/> and <see cref="string.Empty"/> equal.
+        /// </summary>
+        public static bool CompareEmptyNull(string s1, string s2)
+        {
+            if (string.IsNullOrEmpty(s1) && string.IsNullOrEmpty(s2)) return true;
+            return s1 == s2;
+        }
+
+        /// <summary>
         /// Checks if a character is a space ' ' or any punctuation (. , : ; ' " ! ?).
         /// </summary>
         public static bool IsSpaceOrPunctuation(char letter)

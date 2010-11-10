@@ -78,7 +78,7 @@ namespace ZeroInstall.Publish
         /// <summary>
         /// The path of the file the <see cref="Feed"/> was loaded from. <see langword="null"/> if none.
         /// </summary>
-        public string Path { get; set; }
+        public string Path { get; private set; }
 
         /// <summary>
         /// Indicates the file has unsaved changes
@@ -122,10 +122,26 @@ namespace ZeroInstall.Publish
         {
             return new FeedEditing(Feed.Load(path), path);
         }
+
+        /// <summary>
+        /// Saves a <see cref="Feed"/> to an XML file (feed).
+        /// </summary>
+        /// <param name="path">The file to save in.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        public void Save(string path)
+        {
+            Feed.Save(path);
+            FeedUtils.AddStylesheet(path);
+
+            Path = path;
+            Reset();
+        }
         #endregion
 
         //--------------------//
 
+        #region Execute
         /// <summary>
         /// Executes an <see cref="IUndoCommand"/> and stores it for later undo-operations.
         /// </summary>
@@ -139,13 +155,19 @@ namespace ZeroInstall.Publish
             // Execute the command and store it for later undo
             command.Execute();
 
+            // Store the command and invalidate previous redo history
             _undoStack.Push(command);
+            _redoStack.Clear();
 
+            // Only enable the buttons that still have a use
             OnUndoEnabled(true);
+            OnRedoEnabled(false);
 
             Changed = true;
         }
+        #endregion
 
+        #region Undo
         /// <summary>
         /// Undoes the last action performed by <see cref="ExecuteCommand"/>.
         /// </summary>
@@ -168,7 +190,9 @@ namespace ZeroInstall.Publish
 
             OnUpdate();
         }
+        #endregion
 
+        #region Redo
         /// <summary>
         /// Redoes the last action undone by <see cref="Undo"/>.
         /// </summary>
@@ -190,7 +214,21 @@ namespace ZeroInstall.Publish
 
             OnUpdate();
         }
+        #endregion
 
+        #region Button status
+        /// <summary>
+        /// Uses <see cref="UndoEnabled"/> and <see cref="RedoEnabled"/> to enable the appropriate buttons based on the current state of the Undo system.
+        /// </summary>
+        /// <param name="commandPending">Pretend another command has already been executed.</param>
+        public void UpdateButtonStatus(bool commandPending)
+        {
+            OnUndoEnabled(commandPending || _undoStack.Count > 0);
+            OnRedoEnabled(!commandPending && _redoStack.Count > 0);
+        }
+        #endregion
+
+        #region Reset
         /// <summary>
         /// Resets the entire undo system, clearing all stacks.
         /// </summary>
@@ -204,5 +242,6 @@ namespace ZeroInstall.Publish
             OnUndoEnabled(false);
             OnRedoEnabled(false);
         }
+        #endregion
     }
 }
