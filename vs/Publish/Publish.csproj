@@ -52,8 +52,6 @@
   <ItemGroup>
     <Compile Include="Arguments\OperationMode.cs" />
     <Compile Include="Arguments\ParseResults.cs" />
-    <Compile Include="Commands\AddCategory.cs" />
-    <Compile Include="Commands\RemoveCategory.cs" />
     <Compile Include="Commands\FeedCommand.cs" />
     <Compile Include="FeedEditing.cs" />
     <Compile Include="FeedUtils.cs" />
