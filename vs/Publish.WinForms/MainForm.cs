@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger
+ * Copyright 2010 Simon E. Silva Lauinger, Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using C5;
@@ -158,6 +157,9 @@ namespace ZeroInstall.Publish.WinForms
             }
         }
         
+        /// <summary>
+        /// Sets up hooks for keeping the WinForms controls synchronized with the <see cref="Feed"/> data using the command pattern.
+        /// </summary>
         private void InitializeCommandHooks()
         {
             SetupCommandHooks(textName, () => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value);
@@ -166,6 +168,9 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
         }
 
+        /// <summary>
+        /// Sets up event handlers for <see cref="_feedEditing"/> integration.
+        /// </summary>
         private void InitializeEditingHooks()
         {
             _feedEditing.Update += OnUpdate;
