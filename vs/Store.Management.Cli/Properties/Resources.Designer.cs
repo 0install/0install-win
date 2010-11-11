@@ -59,5 +59,32 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
+        /// </summary>
+        internal static string MissingArguments {
+            get {
+                return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Show the built-in help text..
+        /// </summary>
+        internal static string OptionHelp {
+            get {
+                return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Display version information..
+        /// </summary>
+        internal static string OptionVersion {
+            get {
+                return ResourceManager.GetString("OptionVersion", resourceCulture);
+            }
+        }
     }
 }
