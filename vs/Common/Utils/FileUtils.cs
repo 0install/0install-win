@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2006-2010 Bastian Eicher, Simon E. Silva Lauinger
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -190,8 +190,9 @@ namespace Common.Utils
                 case PlatformID.MacOSX:
                     try
                     {
-                        // Make directory read-only
-                        MonoUtils.MakeReadOnly(path);
+                        // Make directory read-only (or undo it)
+                        if (enable) MonoUtils.MakeReadOnly(path);
+                        else MonoUtils.MakeWritable(path);
 
                         // Recurse into subdirectories
                         foreach (var directory in dirInfo.GetDirectories())
@@ -201,7 +202,7 @@ namespace Common.Utils
                         foreach (var file in dirInfo.GetFiles())
                         {
                             if (enable) MonoUtils.MakeReadOnly(file.FullName);
-                            else MonoUtils.MakeWriteAll(file.FullName);
+                            else MonoUtils.MakeWritable(file.FullName);
                         }
                         break;
                     }
