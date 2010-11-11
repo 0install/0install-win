@@ -165,7 +165,7 @@ Global
 		{50B1586B-040A-4805-AC05-1C77721EF4BD} = {55783758-0BFF-436F-B3F8-854DA1B7E17D}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Central.WinForms\Central.WinForms.csproj
+		StartupItem = Central.Gtk\Central.Gtk.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
