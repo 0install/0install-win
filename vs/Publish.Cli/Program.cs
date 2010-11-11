@@ -140,8 +140,7 @@ namespace ZeroInstall.Publish.Cli
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.Version:
-                    // ToDo: Read version number from assembly data
-                    Console.WriteLine(@"Zero Install Injector CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
+                    Console.WriteLine(@"Zero Install Publish CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.Help:

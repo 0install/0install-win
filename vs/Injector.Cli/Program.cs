@@ -155,7 +155,6 @@ namespace ZeroInstall.Injector.Cli
                     return (int)ErrorLevel.NotSupported;
 
                 case OperationMode.Version:
-                    // ToDo: Read version number from assembly data
                     Console.WriteLine(@"Zero Install Injector CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
                     return (int)ErrorLevel.OK;
 
