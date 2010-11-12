@@ -100,6 +100,10 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Common.Gtk\Common.Gtk.csproj">
+      <Project>{D602F86B-EF33-4DB3-8FD5-18DFBB98C306}</Project>
+      <Name>Common.Gtk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>

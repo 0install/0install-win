@@ -20,6 +20,7 @@ rm -rf vs/Store.Management.Cli/obj
 rm -rf vs/Store.Management.WinForms/obj
 rm -rf vs/Common/obj
 rm -rf vs/Common.Wpf/obj
+rm -rf vs/Common.Gtk/obj
 rm -rf vs/DownloadBroker/obj
 rm -rf vs/Injector/obj
 rm -rf vs/Model/obj
