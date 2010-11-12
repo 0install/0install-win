@@ -11,7 +11,7 @@ rem Clear ReSharper's cache
 rd /s /q vs\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
 copy "vs\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.1.ReSharper.user" > NUL
 
-rem Clear object cache
+rem Clear object caches
 del vs\*.cache > NUL 2>&1
 rd /s /q vs\Central.Cli\obj > NUL 2>&1
 rd /s /q vs\Central.WinForms\obj > NUL 2>&1
