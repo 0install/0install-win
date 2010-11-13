@@ -41,7 +41,7 @@ namespace Common.Collections
         {
             var collection1 = new LocalizableStringCollection
             {
-                "neturalValue",
+                "neutralValue",
                 {"americaValue", new CultureInfo("en-US")},
                 {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
@@ -63,7 +63,7 @@ namespace Common.Collections
         {
             var dictionary = new LocalizableStringCollection
             {
-                "neturalValue",
+                "neutralValue",
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
@@ -79,9 +79,9 @@ namespace Common.Collections
         {
             var dictionary = new LocalizableStringCollection
             {
-                "neturalValue",
+                "neutralValue",
                 {"germanyValue", new CultureInfo("de-DE")},
-                "neturalValue",
+                "neutralValue",
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
@@ -96,14 +96,14 @@ namespace Common.Collections
         {
             var dictionary = new LocalizableStringCollection
             {
-                "neturalValue",
+                "neutralValue",
                 {"americaValue", new CultureInfo("en-US")},
                 {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            Assert.AreEqual("neturalValue", dictionary.GetExactLanguage(CultureInfo.InvariantCulture));
+            Assert.AreEqual("neutralValue", dictionary.GetExactLanguage(CultureInfo.InvariantCulture));
             Assert.AreEqual("americaValue", dictionary.GetExactLanguage(new CultureInfo("en-US")));
             Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("en-CA")));
             Assert.AreEqual("gbValue", dictionary.GetExactLanguage(new CultureInfo("en-GB")));
@@ -121,17 +121,17 @@ namespace Common.Collections
                 {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
                 {"germanyValue", new CultureInfo("de-DE")},
-                "neturalValue"
+                "neutralValue"
             };
 
-            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(CultureInfo.InvariantCulture));
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(CultureInfo.InvariantCulture));
             Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US"))); // Exact match
-            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("en-CA"))); // No English generic, fall back to neutral
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en-CA"))); // No English generic, fall back to neutral
             Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB"))); // Exact match
             Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de"))); // Exact match
             Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE"))); // Fall back to German generic
             Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT"))); // Fall back to German generic
-            Assert.AreEqual("neturalValue", dictionary.GetBestLanguage(new CultureInfo("es-ES"))); // No match, fall back to neutral
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("es-ES"))); // No match, fall back to neutral
         }
     }
 }
