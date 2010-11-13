@@ -39,13 +39,13 @@ namespace Common.Cli
         /// <returns>Handles to all matching files that were found</returns>
         /// <exception cref="FileNotFoundException">Thrown if a file that was explicitly specified in <paramref name="args"/> (no wildcards) could not be found.</exception>
         /// <remarks><paramref name="args"/> are first interpreted as files, then as directories. Directories are searched using the <paramref name="defaultPattern"/>. * and ? characters are considered as wildcards.</remarks>
-        public static IEnumerable<FileInfo> GetFiles(string[] args, string defaultPattern)
+        public static ICollection<FileInfo> GetFiles(IEnumerable<string> args, string defaultPattern)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
             #endregion
 
-            var result = new List<FileInfo>(args.Length);
+            var result = new List<FileInfo>();
 
             foreach (var entry in args)
             {

@@ -108,6 +108,10 @@ namespace ZeroInstall.Publish.Cli
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.Catalog:
+                    // Default to using all XML files in the current directory
+                    if (results.Feeds.Count == 0)
+                        results.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
+
                     try { CreateCatalog(results); }
                     #region Error hanlding
                     catch (ArgumentException ex)
@@ -197,7 +201,7 @@ namespace ZeroInstall.Publish.Cli
 
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
-            parseResults.Feeds = additionalArgs;
+            parseResults.Feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml");
 
             // Return the now filled results structure
             results = parseResults;
@@ -222,15 +226,15 @@ namespace ZeroInstall.Publish.Cli
             foreach (var feed in results.Feeds)
             {
                 // Always start off by removing signatures since they will become invalid if anything is changed
-                FeedUtils.UnsignFeed(feed);
-                FeedUtils.AddStylesheet(feed);
+                FeedUtils.UnsignFeed(feed.FullName);
+                FeedUtils.AddStylesheet(feed.FullName);
 
                 if (results.XmlSign)
                 {
                     if (string.IsNullOrEmpty(results.GnuPGPassphrase))
                         results.GnuPGPassphrase = InputUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-                    FeedUtils.SignFeed(feed, results.GnuPGUser, results.GnuPGPassphrase);
+                    FeedUtils.SignFeed(feed.FullName, results.GnuPGUser, results.GnuPGPassphrase);
                 }
             }
         }
@@ -250,36 +254,14 @@ namespace ZeroInstall.Publish.Cli
         {
             var catalog = new Catalog();
 
-            if (results.Feeds.Count == 0)
-                AddFeedsToCatalog(catalog, Environment.CurrentDirectory, "*.xml");
-            else
-            {
-                foreach (var feedArg in results.Feeds)
-                {
-                    if (File.Exists(feedArg)) catalog.Feeds.Add(Feed.Load(feedArg));
-                    else if (Directory.Exists(feedArg)) AddFeedsToCatalog(catalog, feedArg, "*.xml");
-                    else
-                    {
-                        string feedsDirectory = Path.GetDirectoryName(feedArg.Replace("*", ""));
-                        if (string.IsNullOrEmpty(feedsDirectory)) feedsDirectory = Environment.CurrentDirectory;
-                        string feedsPattern = Path.GetFileName(feedArg);
-                        if (string.IsNullOrEmpty(feedsPattern)) feedsPattern = "*.xml";
-                        AddFeedsToCatalog(catalog, feedsDirectory, feedsPattern);
-                    }
-                }
-            }
+            foreach (var feed in results.Feeds)
+                catalog.Feeds.Add(Feed.Load(feed.FullName));
 
             if (catalog.Feeds.IsEmpty) throw new FileNotFoundException(Resources.NoFeedFilesFound);
 
             catalog.Simplify();
             catalog.Save(results.CatalogFile);
             XmlStorage.AddStylesheet(results.CatalogFile, "catalog.xsl");
-        }
-
-        private static void AddFeedsToCatalog(Catalog catalog, string directory, string pattern)
-        {
-            foreach (string feedFile in Directory.GetFiles(directory, pattern))
-                catalog.Feeds.Add(Feed.Load(feedFile));
         }
         #endregion
     }
