@@ -31,8 +31,8 @@
       <FileName>Dependency.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Constraints" />
       <Property Name="Bindings" />
+      <Property Name="Constraints" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -95,22 +95,21 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Struct Name="ZeroInstall.Model.Constraint">
-    <Position X="6.75" Y="0.5" Width="2" />
+  <Class Name="ZeroInstall.Model.Constraint">
+    <Position X="6.75" Y="0.5" Width="1.5" />
     <Members>
       <Property Name="BeforeVersionString" Hidden="true" />
       <Property Name="NotBeforeVersionString" Hidden="true" />
     </Members>
     <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEhAACAAAAAAAAAIAAAABBAgAAAjA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEhAACAAAAAAAAAIAAAABBAgAAABA=</HashCode>
       <FileName>Constraint.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
-  </Struct>
+  </Class>
   <Enum Name="ZeroInstall.Model.EnvironmentMode">
     <Position X="8.5" Y="5.25" Width="1.75" />
     <TypeIdentifier>

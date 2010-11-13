@@ -13,19 +13,19 @@
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.859" Y="4.175" />
+        <Point X="4.859" Y="4.938" />
+        <Point X="8" Y="4.938" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.329" Y="0.06" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.185" Y="0.037" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString" FixedFromPoint="true">
-      <Path>
-        <Point X="5.5" Y="3.66" />
-        <Point X="7.375" Y="3.66" />
-        <Point X="7.375" Y="4.25" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.06" Y="0.329" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -33,12 +33,12 @@
       <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Summaries" />
-      <Property Name="Descriptions" />
       <Property Name="Icons" />
       <Property Name="Feeds" />
       <Property Name="FeedFor" />
       <Property Name="Elements" />
+      <Property Name="Descriptions" />
+      <Property Name="Summaries" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -88,7 +88,6 @@
       <HashCode>AAAAAAAAAIAAgAAEgABAAAAAACAAAIAAAAAAAAAAACE=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Group" Collapsed="true">
     <Position X="6" Y="2" Width="1.5" />
@@ -111,6 +110,11 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="Common.Collections.LocalizableString" Collapsed="true">
+    <Position X="8" Y="4.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
   <Struct Name="ZeroInstall.Model.Icon">
     <Position X="0.5" Y="4" Width="1.75" />
     <Members>
@@ -120,14 +124,9 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQEgAIAAAAAQAAAAIAAAAAAAAAAAiA=</HashCode>
+      <HashCode>AAAAAQAAAAAAAAQEgAIAAAAAQAAAAIAAAAAAAAAAAiA=</HashCode>
       <FileName>Icon.cs</FileName>
     </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Struct>
-  <Struct Name="Common.Collections.LocalizableString" Collapsed="true">
-    <Position X="6.75" Y="4.25" Width="1.5" />
-    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
   <Font Name="Segoe UI" Size="9" />

@@ -24,16 +24,6 @@
         <Position X="0.123" Y="0.11" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Constraint" Type="ZeroInstall.Model.Constraint" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="3.938" Y="2.75" />
-        <Point X="3.938" Y="2.281" />
-        <Point X="2" Y="2.281" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.143" Y="0.068" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="AdditionalStore" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="5.062" Y="2.75" />
@@ -55,14 +45,14 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAAAAAAAAAIAAAAAAAAAAAAIAAQAAAAAgiAAAAAAAAA=</HashCode>
+      <HashCode>CAEAAAAAAAIAAAAAAAAAAAAIAAQAAAAAgiAAAAAAAAA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
+      <Field Name="_constraint" />
       <Property Name="InterfaceCache" />
       <Property Name="Fetcher" />
       <Property Name="Architecture" />
-      <Property Name="Constraint" />
       <Property Name="AdditionalStore" />
       <Property Name="SearchStore" />
     </ShowAsAssociation>
@@ -182,18 +172,18 @@
       <Property Name="Policy" />
     </ShowAsAssociation>
   </Class>
-  <Struct Name="ZeroInstall.Model.Constraint" Collapsed="true">
+  <Class Name="ZeroInstall.Model.Constraint" Collapsed="true">
     <Position X="0.5" Y="2" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
-  </Struct>
+  </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Struct>
-  <Interface Name="ZeroInstall.Injector.Solver.ISolver">
-    <Position X="3.75" Y="4" Width="1.5" />
+  <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\ISolver.cs</FileName>
