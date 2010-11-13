@@ -50,7 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Alias.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="AppEntry.cs" />
     <Compile Include="DesktopShortcut.cs" />
     <Compile Include="GlobalSuppressions.cs" />

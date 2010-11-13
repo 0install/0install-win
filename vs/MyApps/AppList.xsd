@@ -3,13 +3,13 @@
   <xs:element name="app-list" nillable="true" type="tns:app-list" />
   <xs:complexType name="app-list">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:AppEntry" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="app" type="tns:app" />
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="app">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="tns:alias" />
+        <xs:element minOccurs="0" maxOccurs="1" name="alias" type="tns:bootstrapper" />
         <xs:element minOccurs="0" maxOccurs="1" name="menu-entry" type="tns:menu-entry" />
         <xs:element minOccurs="0" maxOccurs="1" name="desktop-shortcut" type="tns:desktop-shortcut" />
       </xs:choice>
@@ -17,7 +17,7 @@
     <xs:attribute name="name" type="xs:string" />
     <xs:attribute name="interface" type="xs:string" />
   </xs:complexType>
-  <xs:complexType name="alias">
+  <xs:complexType name="bootstrapper">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:integration">
         <xs:attribute name="name" type="xs:string" />

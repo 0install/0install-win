@@ -16,14 +16,14 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.MyApps.Alias">
+  <Class Name="ZeroInstall.MyApps.Bootstrapper">
     <Position X="4.5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAEgAQAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Alias.cs</FileName>
+      <FileName>Bootstrapper.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

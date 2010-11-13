@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
@@ -26,6 +27,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Stores a list of applications the user prefers to use.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
     [XmlType("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
     public sealed class AppList : ICloneable, IEquatable<AppList>

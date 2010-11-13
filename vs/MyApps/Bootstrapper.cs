@@ -22,10 +22,10 @@ using System.Xml.Serialization;
 namespace ZeroInstall.MyApps
 {
     /// <summary>
-    /// Registers a command-line alias for launching the application.
+    /// Creates a bootstrapper executable for launching the application.
     /// </summary>
-    [XmlType("alias", Namespace = "http://0install.de/schema/my-apps/app-list")]
-    public class Alias : Integration, IEquatable<Alias>
+    [XmlType("bootstrapper", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    public class Bootstrapper : Integration, IEquatable<Bootstrapper>
     {
         #region Properties
         /// <summary>
@@ -50,17 +50,17 @@ namespace ZeroInstall.MyApps
 
         #region Clone
         /// <summary>
-        /// Creates a deep copy of this <see cref="Alias"/> instance.
+        /// Creates a deep copy of this <see cref="Bootstrapper"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="Alias"/>.</returns>
+        /// <returns>The new copy of the <see cref="Bootstrapper"/>.</returns>
         public override Integration CloneIntegration()
         {
-            return new Alias {Name = Name};
+            return new Bootstrapper {Name = Name};
         }
         #endregion
 
         #region Equality
-        public bool Equals(Alias other)
+        public bool Equals(Bootstrapper other)
         {
             if (ReferenceEquals(null, other)) return false;
 
@@ -71,7 +71,7 @@ namespace ZeroInstall.MyApps
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(Alias) && Equals((Alias)obj);
+            return obj.GetType() == typeof(Bootstrapper) && Equals((Bootstrapper)obj);
         }
 
         public override int GetHashCode()
