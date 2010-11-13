@@ -59,5 +59,32 @@ namespace ZeroInstall.DownloadBroker.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The size of the file downloaded from {0} was invalid..
+        /// </summary>
+        internal static string InvalidFileSize {
+            get {
+                return ResourceManager.GetString("InvalidFileSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No working retrieval method found..
+        /// </summary>
+        internal static string NoRetrievalMethod {
+            get {
+                return ResourceManager.GetString("NoRetrievalMethod", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The recipe step was of an unknown type..
+        /// </summary>
+        internal static string UnknownRecipeStepType {
+            get {
+                return ResourceManager.GetString("UnknownRecipeStepType", resourceCulture);
+            }
+        }
     }
 }

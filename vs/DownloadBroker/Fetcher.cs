@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Download;
+using ZeroInstall.DownloadBroker.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
@@ -30,7 +31,7 @@ namespace ZeroInstall.DownloadBroker
     /// <summary>
     /// Manages one or more <see cref="FetchRequest"/>s and keeps clients informed of the progress. Files are downloaded and added to <see cref="Store"/> automatically.
     /// </summary>
-    public class Fetcher
+    public class Fetcher : MarshalByRefObject
     {
         #region Properties
         /// <summary>
@@ -100,7 +101,7 @@ namespace ZeroInstall.DownloadBroker
                         FetchMultipleArchives(implementation, recipe);
                         break;
                     }
-                    throw new InvalidOperationException("No working retrieval method.");
+                    throw new InvalidOperationException(Resources.NoRetrievalMethod);
                 }
             }
         }
@@ -120,7 +121,7 @@ namespace ZeroInstall.DownloadBroker
             foreach (var currentStep in recipe.Steps)
             {
                 var currentArchive = currentStep as Archive;
-                if (currentArchive == null) throw new InvalidOperationException("Unknown RetreivalStep type");
+                if (currentArchive == null) throw new InvalidOperationException(Resources.UnknownRecipeStepType);
 
                 string tempArchive = Path.GetTempFileName();
 
@@ -191,7 +192,7 @@ namespace ZeroInstall.DownloadBroker
             else return;
 
             if (actualSize != archive.Size + archive.StartOffset)
-                throw new FetcherException("Invalid size of file downloaded from " + archive.Location.AbsolutePath);
+                throw new FetcherException(string.Format(Resources.InvalidFileSize, archive.Location.AbsolutePath));
         }
         
         /// <summary>

@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="InvalidFileSize" xml:space="preserve">
+    <value>The size of the file downloaded from {0} was invalid.</value>
+  </data>
+  <data name="NoRetrievalMethod" xml:space="preserve">
+    <value>No working retrieval method found.</value>
+  </data>
+  <data name="UnknownRecipeStepType" xml:space="preserve">
+    <value>The recipe step was of an unknown type.</value>
+  </data>
 </root>
