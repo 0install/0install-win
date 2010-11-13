@@ -16,7 +16,8 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -25,24 +26,14 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Indicates an <see cref="Implementation"/> could not be found in a <see cref="IStore"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
-    public class ImplementationNotFoundException : Exception
+    [Serializable]
+    public sealed class ImplementationNotFoundException : Exception
     {
         #region Properties
         /// <summary>
         /// The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
-
-        /// <inheritdoc />
-        public override string Message
-        {
-            get
-            {
-                return string.Format(Resources.ImplementationNotFound, ManifestDigest);
-            }
-        }
         #endregion
 
         #region Constructor
@@ -51,8 +42,43 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.</param>
         public ImplementationNotFoundException(ManifestDigest manifestDigest)
+            : base(string.Format(Resources.ImplementationNotFound, manifestDigest))
         {
             ManifestDigest = manifestDigest;
+        }
+
+        public ImplementationNotFoundException()
+            : base(string.Format(Resources.ImplementationNotFound, "unknown"))
+        {}
+
+        public ImplementationNotFoundException(string message) : base(message) 
+        {}
+
+        public ImplementationNotFoundException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private ImplementationNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            ManifestDigest = (ManifestDigest)info.GetValue("ManifestDigest", typeof(ManifestDigest));
+        }
+        #endregion
+
+        #region Serialization
+        /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            info.AddValue("ManifestDigest", ManifestDigest);
+
+            base.GetObjectData(info, context);
         }
         #endregion
     }

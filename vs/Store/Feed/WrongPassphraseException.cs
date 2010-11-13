@@ -21,7 +21,8 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Feed
 {
@@ -29,7 +30,20 @@ namespace ZeroInstall.Store.Feed
     /// Indicates that an incorrect passphrase was passed to <see cref="GnuPG"/>.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has only a signaling purpose and doesn't need to carry custom Messages")]
-    public class WrongPassphraseException : Exception
-    {}
+    public sealed class WrongPassphraseException : Exception
+    {
+        #region Constructor
+        public WrongPassphraseException() : base(Resources.WrongPassphrase)
+        {}
+
+        public WrongPassphraseException(string message) : base(message) 
+        {}
+
+        public WrongPassphraseException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private WrongPassphraseException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {}
+        #endregion
+    }
 }

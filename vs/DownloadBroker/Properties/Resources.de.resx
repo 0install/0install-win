@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FetcherProblem" xml:space="preserve">
+    <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
+  </data>
   <data name="InvalidFileSize" xml:space="preserve">
     <value>Die Größe der Datei, die von {0} runtergeladen wurde ist ungültig.</value>
   </data>

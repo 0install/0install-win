@@ -21,7 +21,8 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using Common.Properties;
 
 namespace Common
 {
@@ -29,7 +30,20 @@ namespace Common
     /// To be thrown when an action was cancelled because the user wished it to be.
     /// </summary>
     [Serializable]
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has only a signaling purpose and doesn't need to carry custom Messages")]
-    public class UserCancelException : Exception
-    {}
+    public sealed class UserCancelException : Exception
+    {
+        #region Constructor
+        public UserCancelException() : base (Resources.UserCancel)
+        {}
+
+        public UserCancelException(string message) : base(message) 
+        {}
+
+        public UserCancelException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private UserCancelException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {}
+        #endregion
+    }
 }

@@ -16,7 +16,8 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -25,9 +26,8 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Indicates an <see cref="Implementation"/> directory does not match a <see cref="ManifestDigest"/>.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
-    public class DigestMismatchException : Exception
+    [Serializable]
+    public sealed class DigestMismatchException : Exception
     {
         #region Properties
         /// <summary>
@@ -59,6 +59,44 @@ namespace ZeroInstall.Store.Implementation
             ExpectedHash = expectedHash;
             ActualHash = actualHash;
             Manifest = manifest;
+        }
+
+        public DigestMismatchException()
+            : base(string.Format(Resources.DigestMismatch, "unknown", "unknown"))
+        {}
+
+        public DigestMismatchException(string message) : base(message) 
+        {}
+
+        public DigestMismatchException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private DigestMismatchException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            ExpectedHash = info.GetString("ExpectedHash");
+            ActualHash = info.GetString("ActualHash");
+            Manifest = info.GetString("Manifest");
+        }
+        #endregion
+
+        #region Serialization
+        /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            info.AddValue("ExpectedHash", ExpectedHash);
+            info.AddValue("ActualHash", ActualHash);
+            info.AddValue("Manifest", Manifest);
+
+            base.GetObjectData(info, context);
         }
         #endregion
     }

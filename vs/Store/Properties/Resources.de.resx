@@ -140,6 +140,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="IllegalFileType" xml:space="preserve">
     <value>Die Datei {0} ist weder ein symbolischer Link noch eine reguläre Datei.</value>
   </data>
+  <data name="ImplementationAlreadyInStore" xml:space="preserve">
+    <value>Die Implementierung "{0}" ist bereits im Store.</value>
+  </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>
   </data>
@@ -184,5 +187,8 @@ Tatsächlicher Wert: {1}</value>
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>Der angegebene MIME Typ is unbekannt.</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>
   </data>
 </root>

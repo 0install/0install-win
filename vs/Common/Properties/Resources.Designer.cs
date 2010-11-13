@@ -430,11 +430,29 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more errors from an external command-line application were not handled..
+        /// </summary>
+        internal static string UnhandledCliErrors {
+            get {
+                return ResourceManager.GetString("UnhandledCliErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The Unix subsystem failed to process the request. You may have insufficient rights..
         /// </summary>
         internal static string UnixSubsystemFail {
             get {
                 return ResourceManager.GetString("UnixSubsystemFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has chosen to cancel the operation..
+        /// </summary>
+        internal static string UserCancel {
+            get {
+                return ResourceManager.GetString("UserCancel", resourceCulture);
             }
         }
         

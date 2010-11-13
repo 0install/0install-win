@@ -185,4 +185,10 @@ Actual value: {1}</value>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Extracting archive ({0})</value>
   </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>The passphrase you entered is incorrect.</value>
+  </data>
+  <data name="ImplementationAlreadyInStore" xml:space="preserve">
+    <value>The implementation "{0}" is already in the store.</value>
+  </data>
 </root>

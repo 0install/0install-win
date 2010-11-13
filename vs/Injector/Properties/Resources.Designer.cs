@@ -113,5 +113,14 @@ namespace ZeroInstall.Injector.Properties {
                 return ResourceManager.GetString("PythonSolverOutputErrror", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The solver encountered an unexpected problem..
+        /// </summary>
+        internal static string SolverProblem {
+            get {
+                return ResourceManager.GetString("SolverProblem", resourceCulture);
+            }
+        }
     }
 }

@@ -16,7 +16,8 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
@@ -25,34 +26,54 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Indicates an <see cref="ImplementationBase"/> that was supposed to be launched did not specify a main executable.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need custom Messages")]
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
-    public class MissingMainException : Exception
+    [Serializable]
+    public sealed class MissingMainException : Exception
     {
         #region Properties
         /// <summary>
         /// The ID (URI or file path) of the interface that is missing a main executable.
         /// </summary>
         public string InterfaceID { get; private set; }
-
-        /// <inheritdoc />
-        public override string Message
-        {
-            get
-            {
-                return string.Format(Resources.MissingMain, InterfaceID);
-            }
-        }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates anew missing main exception.
+        /// Creates a new missing main exception.
         /// </summary>
         /// <param name="interfaceID">The ID (URI or file path) of the interface that is missing a main executable.</param>
         public MissingMainException(string interfaceID)
+            : base(string.Format(Resources.MissingMain, interfaceID))
         {
             InterfaceID = interfaceID;
+        }
+
+        public MissingMainException()
+            : base(string.Format(Resources.MissingMain, "unknown"))
+        {}
+        
+        public MissingMainException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private MissingMainException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            InterfaceID = info.GetString("InterfaceID");
+        }
+        #endregion
+
+        #region Serialization
+        /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            info.AddValue("InterfaceID", InterfaceID);
         }
         #endregion
     }

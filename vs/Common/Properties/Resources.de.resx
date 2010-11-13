@@ -248,4 +248,10 @@ Die Änderungen löschen</value>
   <data name="FileNotFound" xml:space="preserve">
     <value>Die Datei "{0}" konnte nicht gefunden werden.</value>
   </data>
+  <data name="UserCancel" xml:space="preserve">
+    <value>Der Benutzer hat sich entschieden den Vorgang abzubrechen.</value>
+  </data>
+  <data name="UnhandledCliErrors" xml:space="preserve">
+    <value>Ein oder mehrere Fehler von einer externen Befehlszeilenanwendung wurden nicht behandelt.</value>
+  </data>
 </root>

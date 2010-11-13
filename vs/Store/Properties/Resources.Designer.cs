@@ -126,6 +126,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The implementation &quot;{0}&quot; is already in the store..
+        /// </summary>
+        internal static string ImplementationAlreadyInStore {
+            get {
+                return ResourceManager.GetString("ImplementationAlreadyInStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The following implementation could not be located: {0}.
         /// </summary>
         internal static string ImplementationNotFound {
@@ -257,6 +266,15 @@ namespace ZeroInstall.Store.Properties {
         internal static string UnknownMimeType {
             get {
                 return ResourceManager.GetString("UnknownMimeType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The passphrase you entered is incorrect..
+        /// </summary>
+        internal static string WrongPassphrase {
+            get {
+                return ResourceManager.GetString("WrongPassphrase", resourceCulture);
             }
         }
     }

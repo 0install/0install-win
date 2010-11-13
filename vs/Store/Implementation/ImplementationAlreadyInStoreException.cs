@@ -16,17 +16,18 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
     /// Indicates an <see cref="Implementation"/> being added to an <see cref="IStore"/> is already in the store.
     /// </summary>
-    [SuppressMessage("Microsoft.Design", "CA1032:ImplementStandardExceptionConstructors", Justification = "This exception type has a specific signaling purpose and doesn't need to carry extra info like Messages")]
-    [SuppressMessage("Microsoft.Usage", "CA2237:MarkISerializableTypesWithSerializable", Justification = "This exception type has a specific signaling purpose and doesn't need to be serializable")]
-    public class ImplementationAlreadyInStoreException : Exception
+    [Serializable]
+    public sealed class ImplementationAlreadyInStoreException : Exception
     {
         #region Properties
         /// <summary>
@@ -41,8 +42,43 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest of the <see cref="Implementation"/> that was supposed to be added.</param>
         public ImplementationAlreadyInStoreException(ManifestDigest manifestDigest)
+            : base(string.Format(Resources.ImplementationAlreadyInStore, manifestDigest))
         {
             ManifestDigest = manifestDigest;
+        }
+
+        public ImplementationAlreadyInStoreException()
+            : base(string.Format(Resources.ImplementationAlreadyInStore, "unknown"))
+        {}
+
+        public ImplementationAlreadyInStoreException(string message) : base(message) 
+        {}
+
+        public ImplementationAlreadyInStoreException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private ImplementationAlreadyInStoreException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            ManifestDigest = (ManifestDigest)info.GetValue("ManifestDigest", typeof(ManifestDigest));
+        }
+        #endregion
+
+        #region Serialization
+        /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            info.AddValue("ManifestDigest", ManifestDigest);
+
+            base.GetObjectData(info, context);
         }
         #endregion
     }

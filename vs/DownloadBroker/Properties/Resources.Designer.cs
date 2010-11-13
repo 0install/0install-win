@@ -61,6 +61,15 @@ namespace ZeroInstall.DownloadBroker.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The solver encountered an unexpected problem..
+        /// </summary>
+        internal static string FetcherProblem {
+            get {
+                return ResourceManager.GetString("FetcherProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The size of the file downloaded from {0} was invalid..
         /// </summary>
         internal static string InvalidFileSize {

@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -23,16 +25,20 @@ namespace ZeroInstall.Injector.Solver
     /// Represents errors that occured in <see cref="ISolver"/> implementations.
     /// </summary>
     [Serializable]
-    public class SolverException : Exception
+    public sealed class SolverException : Exception
     {
-        /// <inheritdoc/>
-        public SolverException(string message) : base(message)
-        {}
-        
-        /// <inheritdoc/>
-        public SolverException(string message, Exception innerException) : base(message, innerException)
+        #region Constructor
+        public SolverException() : base(Resources.SolverProblem)
         {}
 
-        // ToDo: Implement default exception constructors
+        public SolverException(string message) : base(message) 
+        {}
+
+        public SolverException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private SolverException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {}
+        #endregion
     }
 }

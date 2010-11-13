@@ -16,15 +16,29 @@
  */
 
 using System;
+using System.Runtime.Serialization;
+using ZeroInstall.DownloadBroker.Properties;
 
 namespace ZeroInstall.DownloadBroker
 {
     /// <summary>
     /// Represents errors that occured in <see cref="Fetcher"/>.
     /// </summary>
-    public class FetcherException : Exception
+    [Serializable]
+    public sealed class FetcherException : Exception
     {
-        internal FetcherException(string message) : base(message)
+        #region Constructor
+        public FetcherException() : base(Resources.FetcherProblem)
         {}
+
+        public FetcherException(string message) : base(message) 
+        {}
+
+        public FetcherException(string message, Exception innerException) : base (message, innerException)
+        {}
+
+        private FetcherException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {}
+        #endregion
     }
 }

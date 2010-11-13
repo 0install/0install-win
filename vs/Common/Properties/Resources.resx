@@ -255,4 +255,10 @@ Delete the changes</value>
   <data name="Downloading" xml:space="preserve">
     <value>Downloading {0}</value>
   </data>
+  <data name="UserCancel" xml:space="preserve">
+    <value>The user has chosen to cancel the operation.</value>
+  </data>
+  <data name="UnhandledCliErrors" xml:space="preserve">
+    <value>One or more errors from an external command-line application were not handled.</value>
+  </data>
 </root>

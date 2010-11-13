@@ -135,4 +135,7 @@
   <data name="PythonSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des Python-Solvers konnte nicht verarbeitet werden.</value>
   </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
+  </data>
 </root>
