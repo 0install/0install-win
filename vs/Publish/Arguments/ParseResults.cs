@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.IO;
 
 namespace ZeroInstall.Publish.Arguments
 {
@@ -24,7 +25,7 @@ namespace ZeroInstall.Publish.Arguments
     /// </summary>
     public struct ParseResults
     {
-        public List<string> Feeds;
+        public ICollection<FileInfo> Feeds;
 
         public string CatalogFile;
 
