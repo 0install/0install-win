@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Web;
 using Common.Storage;
@@ -182,6 +183,7 @@ namespace ZeroInstall.Store.Feed
         /// Loads all <see cref="Feed"/>s currently in this cache.
         /// </summary>
         /// <returns>A list of <see cref="Feed"/>s in no guaranteed order.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs disk IO, may take some time to process and always creates new objects")]
         public IEnumerable<Model.Feed> GetAllFeeds()
         {
             // Find all files whose names begin with an URL protocol

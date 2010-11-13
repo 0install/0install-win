@@ -40,13 +40,13 @@ namespace ZeroInstall.MyApps
                     {
                         new MenuEntry { Name = "FileZilla", Category = "Network" },
                         new DesktopShortcut { Name = "FileZilla" },
-                        new Alias { Name = "filezilla" }
+                        new Bootstrapper { Name = "filezilla" }
                     } },
                     new AppEntry { Interface = new Uri("http://0install.de/feeds/VLC.xml"), Name = "VLC media player", Integrations =
                     {
                         new MenuEntry { Name = "VLC media player", Category = "AudioVideo" },
                         new DesktopShortcut { Name = "VLC media player" },
-                        new Alias { Name = "vlc" }
+                        new Bootstrapper { Name = "vlc" }
                     } }
                 }
             };

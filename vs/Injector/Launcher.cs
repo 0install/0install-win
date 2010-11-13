@@ -88,6 +88,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <returns>A fully qualified path to the executable file.</returns>
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the startup implementation is not cached yet.</exception>
         private string GetStartupMain()
         {
             // Get the implementation to be launched
@@ -122,6 +123,7 @@ namespace ZeroInstall.Injector
         /// <param name="startInfo">The programs environment to apply the  <see cref="Binding"/>s to.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
         /// <param name="implementation">The <see cref="ImplementationSelection"/> to be made locatable via the <see cref="Binding"/>s.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationSelection implementation)
         {
             // Don't use bindings for PackageImplementations
