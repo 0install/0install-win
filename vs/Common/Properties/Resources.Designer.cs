@@ -203,6 +203,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file &quot;{0}&quot; could not be found..
+        /// </summary>
+        internal static string FileNotFound {
+            get {
+                return ResourceManager.GetString("FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Only HTTP and FTP are supported download protocols..
         /// </summary>
         internal static string HttpAndFtpOnly {
@@ -318,42 +327,6 @@ namespace Common.Properties {
         internal static string No {
             get {
                 return ResourceManager.GetString("No", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is currently no active mod..
-        /// </summary>
-        internal static string NoModActive {
-            get {
-                return ResourceManager.GetString("NoModActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following game data file could not be found:.
-        /// </summary>
-        internal static string NotFoundGameContentFile {
-            get {
-                return ResourceManager.GetString("NotFoundGameContentFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The game data directory could not be found:.
-        /// </summary>
-        internal static string NotFoundGameDataDir {
-            get {
-                return ResourceManager.GetString("NotFoundGameDataDir", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The mod directory could not be found:.
-        /// </summary>
-        internal static string NotFoundModDataDir {
-            get {
-                return ResourceManager.GetString("NotFoundModDataDir", resourceCulture);
             }
         }
         

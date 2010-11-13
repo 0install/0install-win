@@ -28,7 +28,6 @@ using System.Windows.Forms;
 
 namespace Common
 {
-
     #region Delegates
     /// <summary>
     /// Delegate for handling an event concerning a specific <see cref="IProgress"/> instance.

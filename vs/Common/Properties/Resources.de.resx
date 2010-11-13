@@ -120,15 +120,6 @@
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
   </data>
-  <data name="NotFoundGameDataDir" xml:space="preserve">
-    <value>Der Spieldaten-Ordner konnte nicht gefunden werden:</value>
-  </data>
-  <data name="NotFoundModDataDir" xml:space="preserve">
-    <value>Der Mod-Ordner konnte nicht gefunden werden:</value>
-  </data>
-  <data name="NotFoundGameContentFile" xml:space="preserve">
-    <value>Die folgende Spieldaten-Datei konnte nicht gefunden werden:</value>
-  </data>
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>Es wurden keine XML Daten in der Datei gefunden.</value>
   </data>
@@ -253,5 +244,8 @@ Die Änderungen löschen</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Lade {0} runter</value>
+  </data>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Die Datei "{0}" konnte nicht gefunden werden.</value>
   </data>
 </root>

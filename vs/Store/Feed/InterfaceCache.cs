@@ -177,6 +177,7 @@ namespace ZeroInstall.Store.Feed
         }
         #endregion
 
+        #region Get feeds
         /// <summary>
         /// Loads all <see cref="Feed"/>s currently in this cache.
         /// </summary>
@@ -192,5 +193,6 @@ namespace ZeroInstall.Store.Feed
 
             return feeds;
         }
+        #endregion
     }
 }

@@ -69,9 +69,6 @@
     <Compile Include="Log.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
-    <Compile Include="Undo\AddToCollection.cs" />
-    <Compile Include="Undo\CollectionCommand.cs" />
-    <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
@@ -83,6 +80,7 @@
     <Compile Include="Download\DownloadManager.cs" />
     <Compile Include="Download\DownloadJob.cs" />
     <Compile Include="Download\DownloadFile.cs" />
+    <Compile Include="Cli\ArgumentUtils.cs" />
     <Compile Include="Cli\InputUtils.cs" />
     <Compile Include="Cli\ProgessBar.cs" />
     <Compile Include="Cli\TrackingProgessBar.cs" />
@@ -123,6 +121,9 @@
     <Compile Include="Undo\MultiPropertyChangedCommand.cs" />
     <Compile Include="Undo\FirstExecuteCommand.cs" />
     <Compile Include="Undo\SetValueCommand.cs" />
+    <Compile Include="Undo\AddToCollection.cs" />
+    <Compile Include="Undo\CollectionCommand.cs" />
+    <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />

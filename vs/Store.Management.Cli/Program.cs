@@ -17,14 +17,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using Common;
-using Common.Cli;
-using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Feed;
 using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
 
@@ -82,7 +78,7 @@ namespace ZeroInstall.Store.Management.Cli
 
                 case "list":
                     foreach (string implementation in StoreProvider.Default.ListAll())
-                        System.Console.WriteLine(implementation);
+                        Console.WriteLine(implementation);
                     return (int)ErrorLevel.OK;
 
                 case "manifest":
@@ -103,7 +99,6 @@ namespace ZeroInstall.Store.Management.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The arguments to be parsed.</param>
-        /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>Any unparsed commands left over.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
         public static IList<string> ParseArgs(IEnumerable<string> args)
