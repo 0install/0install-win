@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Store.Implementation.Archive
 {
     /// <summary>
@@ -22,6 +24,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// </summary>
     /// <see cref="IStore.AddArchive"/>
     /// <see cref="IStore.AddMultipleArchives"/>
+    [Serializable]
     public struct ArchiveFileInfo
     {
         /// <summary>
