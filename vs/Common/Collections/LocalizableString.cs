@@ -46,7 +46,7 @@ namespace Common.Collections
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
-		[XmlAttribute("lang", Namespace="http://www.w3.org/XML/1998/namespace", DataType = "language")] // Will be serialized as xml:lang, must be done this way for Mono
+        [XmlAttribute("lang", Namespace="http://www.w3.org/XML/1998/namespace", DataType = "language")] // Will be serialized as xml:lang, must be done this way for Mono
         public string LanguageString
         {
             get { return (Language == null || string.IsNullOrEmpty(Language.ToString())) ? null : Language.ToString(); }
@@ -92,24 +92,26 @@ namespace Common.Collections
         #region Equality
         public bool Equals(LocalizableString other)
         {
+            if (ReferenceEquals(null, other)) return false;
+
             return other.Value == Value && other.LanguageString == LanguageString;
         }
 
         public static bool operator ==(LocalizableString left, LocalizableString right)
         {
-            return left.Equals(right);
+            return Equals(left, right);
         }
 
         public static bool operator !=(LocalizableString left, LocalizableString right)
         {
-            return !left.Equals(right);
+            return !Equals(left, right);
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
-            if (obj.GetType() != typeof(LocalizableString)) return false;
-            return Equals((LocalizableString)obj);
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(LocalizableString) && Equals((LocalizableString)obj);
         }
 
         public override int GetHashCode()

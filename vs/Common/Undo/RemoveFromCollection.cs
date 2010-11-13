@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Common.Undo
 {
@@ -23,6 +24,7 @@ namespace Common.Undo
     /// An undo command that removes an element from a collection.
     /// </summary>
     /// <typeparam name="T">The type of elements the collection contains.</typeparam>
+    [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "The complete name is not ambiguous.")]
     public sealed class RemoveFromCollection<T> : CollectionCommand<T>
     {
         #region Constructor

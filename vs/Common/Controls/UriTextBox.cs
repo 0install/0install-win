@@ -32,6 +32,10 @@ namespace Common.Controls
         #region Events
         protected override void OnValidating(CancelEventArgs e)
         {
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
             e.Cancel = !ValidateUri();
 
             base.OnValidating(e);

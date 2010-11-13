@@ -16,6 +16,7 @@
  */
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Common.Undo
 {
@@ -23,6 +24,7 @@ namespace Common.Undo
     /// An undo command that adds an element to a collection.
     /// </summary>
     /// <typeparam name="T">The type of elements the collection contains.</typeparam>
+    [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix", Justification = "The complete name is not ambiguous.")]
     public sealed class AddToCollection<T> : CollectionCommand<T>
     {
         #region Constructor

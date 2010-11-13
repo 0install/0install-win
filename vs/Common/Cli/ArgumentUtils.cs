@@ -41,6 +41,10 @@ namespace Common.Cli
         /// <remarks><paramref name="args"/> are first interpreted as files, then as directories. Directories are searched using the <paramref name="defaultPattern"/>. * and ? characters are considered as wildcards.</remarks>
         public static IEnumerable<FileInfo> GetFiles(string[] args, string defaultPattern)
         {
+            #region Sanity checks
+            if (args == null) throw new ArgumentNullException("args");
+            #endregion
+
             var result = new List<FileInfo>(args.Length);
 
             foreach (var entry in args)

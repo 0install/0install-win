@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2010 Roland Leopold Walkling, Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
