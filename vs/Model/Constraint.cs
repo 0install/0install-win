@@ -115,12 +115,15 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(Constraint other)
         {
+            if (ReferenceEquals(null, other)) return false;
+
             return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
         }
 
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
             return obj.GetType() == typeof(Constraint) && Equals((Constraint)obj);
         }
 

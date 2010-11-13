@@ -29,7 +29,6 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents a Zero Install feed containing information about an application or library.
     /// </summary>
-    [SuppressMessage("Microsoft.Naming", "CA1716:IdentifiersShouldNotMatchKeywords", MessageId = "Interface")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     [XmlType("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]

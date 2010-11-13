@@ -79,7 +79,7 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value must be a specific CPU (not &quot;All&quot; or &quot;Unkown&quot;)..
+        ///   Looks up a localized string similar to The value must be a specific CPU (not &quot;All&quot; or &quot;Unknown&quot;)..
         /// </summary>
         internal static string MustBeSpecificCPU {
             get {
@@ -88,7 +88,7 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value must be a specific operating system (not &quot;All&quot; or &quot;Unkown&quot;)..
+        ///   Looks up a localized string similar to The value must be a specific operating system (not &quot;All&quot; or &quot;Unknown&quot;)..
         /// </summary>
         internal static string MustBeSpecificOS {
             get {

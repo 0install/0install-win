@@ -124,10 +124,10 @@
     <value>The dot-separated list may only contain decimal numbers.</value>
   </data>
   <data name="MustBeSpecificCPU" xml:space="preserve">
-    <value>The value must be a specific CPU (not "All" or "Unkown").</value>
+    <value>The value must be a specific CPU (not "All" or "Unknown").</value>
   </data>
   <data name="MustBeSpecificOS" xml:space="preserve">
-    <value>The value must be a specific operating system (not "All" or "Unkown").</value>
+    <value>The value must be a specific operating system (not "All" or "Unknown").</value>
   </data>
   <data name="MustBeValidVersionPart" xml:space="preserve">
     <value>The version number may only contain dot-separated decimals and modifier strings.</value>
