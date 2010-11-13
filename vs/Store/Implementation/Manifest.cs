@@ -32,6 +32,7 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     /// <remarks>This class is immutable.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     public sealed class Manifest : IEquatable<Manifest>
     {
         #region Properties
@@ -140,7 +141,7 @@ namespace ZeroInstall.Store.Implementation
             while (!reader.EndOfStream)
             {
                 // Parse each line as a node
-                string line = reader.ReadLine();
+                string line = reader.ReadLine() ?? "";
                 if (line.StartsWith("F")) nodes.Add(ManifestNormalFile.FromString(line));
                 else if (line.StartsWith("X")) nodes.Add(ManifestExecutableFile.FromString(line));
                 else if (line.StartsWith("S")) nodes.Add(ManifestSymlink.FromString(line));

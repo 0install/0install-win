@@ -15,22 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using Common;
+using System;
+using ZeroInstall.Store.Feed;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.DownloadBroker
+namespace ZeroInstall.Store.Management
 {
     /// <summary>
-    /// Callback methods to be used when the the user is to be informed about download, extraction and manifest progress.
+    /// Proviedes methods for combinding data from <see cref="ZeroInstall.Store.Feed"/> and <see cref="ZeroInstall.Store.Implementation"/>.
     /// </summary>
-    /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
-    public interface IFetchHandler : IImplementationHandler
+    public static class Overview
     {
-        /// <summary>
-        /// Called when a new download is about to be started.
-        /// </summary>
-        /// <param name="download">A reference to the download. Can be used for tracking the progress.</param>
-        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/>.</remarks>
-        void StartingDownload(IProgress download);
     }
 }

@@ -48,12 +48,11 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Creates a new download fetcher with a custom target <see cref="IStore"/>.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
         public Fetcher(IFetchHandler handler, IStore store)
         {
             #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
@@ -64,7 +63,7 @@ namespace ZeroInstall.DownloadBroker
         /// <summary>
         /// Creates a new download fetcher with the default <see cref="IStore"/>.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         public Fetcher(IFetchHandler handler) : this(handler, StoreProvider.Default)
         {}
         #endregion
@@ -110,7 +109,7 @@ namespace ZeroInstall.DownloadBroker
         {
             string tempArchive = Path.GetTempFileName();
             FetchArchive(archive, tempArchive);
-            try { Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest); }
+            try { Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler); }
             catch (ImplementationAlreadyInStoreException) {}
             finally { File.Delete(tempArchive); }
         }
@@ -128,7 +127,7 @@ namespace ZeroInstall.DownloadBroker
                 FetchArchive(currentArchive, tempArchive);
                 archives.Add(new ArchiveFileInfo { Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset });
             }
-            try { Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest); }
+            try { Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler); }
             catch (ImplementationAlreadyInStoreException) { }
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
@@ -148,7 +147,7 @@ namespace ZeroInstall.DownloadBroker
             RejectRemoteFileOfDifferentSize(archive, downloadFile);
             try
             {
-                Handler.StartingDownload(downloadFile);
+                if (Handler != null) Handler.StartingDownload(downloadFile);
                 downloadFile.RunSync();
                 RejectRemoteFileOfDifferentSize(archive, downloadFile);
             }

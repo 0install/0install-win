@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation
     /// Models a cache directory that stores <see cref="Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class DirectoryStore : IStore, IEquatable<DirectoryStore>
+    public class DirectoryStore : MarshalByRefObject, IStore, IEquatable<DirectoryStore>
     {
         #region Properties
         /// <summary>
@@ -138,7 +138,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -148,13 +148,13 @@ namespace ZeroInstall.Store.Implementation
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             FileUtils.CopyDirectory(path, tempDir, false);
 
-            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
+            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
         }
         #endregion
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -167,13 +167,13 @@ namespace ZeroInstall.Store.Implementation
                 extractor.SubDir = archiveInfo.SubDir;
 
                 // Set up progress reporting
-                if (startingExtraction != null) startingExtraction(extractor);
-                
+                if (handler != null) handler.StartingExtraction(extractor);
+
                 try
                 {
                     extractor.RunSync();
 
-                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
+                    VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
                 #region Error handling
                 catch (Exception)
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -206,13 +206,13 @@ namespace ZeroInstall.Store.Implementation
                         extractor.SubDir = archiveInfo.SubDir;
 
                         // Set up progress reporting
-                        if (startingExtraction != null) startingExtraction(extractor);
+                        if (handler != null) handler.StartingExtraction(extractor);
 
                         extractor.RunSync();
                     }
                 }
 
-                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, startingManifest);
+                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
             }
             #region Error handling
             catch (Exception)
@@ -231,12 +231,12 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
+        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
@@ -254,6 +254,8 @@ namespace ZeroInstall.Store.Implementation
             if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Calculate the actual digest and compare it with the expected one
+            Action<IProgress> startingManifest = null;
+            if (handler != null) startingManifest = handler.StartingManifest;
             string actualDigest = Manifest.CreateDotFile(source, format, startingManifest);
             if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest, File.ReadAllText(Path.Combine(source, ".manifest")));
 

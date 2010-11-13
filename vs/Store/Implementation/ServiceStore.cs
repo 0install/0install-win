@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Properties;
@@ -29,7 +28,7 @@ namespace ZeroInstall.Store.Implementation
     /// Uses a background service to add new entries to a backing <see cref="DirectoryStore"/> that requires elevated privileges to write.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class ServiceStore : IStore
+    public class ServiceStore : MarshalByRefObject, IStore
     {
         #region Variables
         /// <summary>The store to use for read-access.</summary>
@@ -81,7 +80,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -93,7 +92,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -103,7 +102,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");

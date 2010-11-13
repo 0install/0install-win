@@ -25,6 +25,7 @@ namespace ZeroInstall.Store.Implementation
     /// An non-executable file-entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
+    [Serializable]
     public sealed class ManifestNormalFile : ManifestFileBase, IEquatable<ManifestNormalFile>
     {
         #region Constructor

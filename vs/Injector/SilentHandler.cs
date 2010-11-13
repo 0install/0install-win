@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common;
 
 namespace ZeroInstall.Injector
@@ -22,7 +23,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
-    public class SilentHandler : IHandler
+    public class SilentHandler : MarshalByRefObject, IHandler
     {
         /// <summary>
         /// Always returns <see langword="true"/>.

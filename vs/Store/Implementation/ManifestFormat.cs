@@ -13,6 +13,7 @@ namespace ZeroInstall.Store.Implementation
     /// <remarks>
     /// Comprises: The hashing method used and the format specification used to serialize and deserialize manifests.
     /// </remarks>
+    [Serializable]
     public abstract class ManifestFormat
     {
         #region Singleton properties

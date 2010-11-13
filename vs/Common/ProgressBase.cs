@@ -31,7 +31,7 @@ namespace Common
     /// <summary>
     /// Abstract base class for background tasks that implement <see cref="IProgress"/>.
     /// </summary>
-    public abstract class ProgressBase : IProgress
+    public abstract class ProgressBase : MarshalByRefObject, IProgress
     {
         #region Events
         /// <inheritdoc />

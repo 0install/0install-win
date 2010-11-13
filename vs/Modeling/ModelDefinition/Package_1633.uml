@@ -802,165 +802,17 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="8b5c3b0e-aa84-48de-8198-dbd18241aa9c"
+            isSubstitutable="false">
+            <interfaceMoniker
+              Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+              LastKnownName="IImplementationHandler"
+              LastKnownLocation="Package5_1633.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedOperations>
-          <operation
-            Id="98f35a2e-2250-4b15-bbb3-f9dc59c46aae"
-            name="StartingExtraction"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="f7fc5e39-5a4a-4e0d-b5bf-8ea06351770a"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="1322287a-851d-45c1-a854-c679d56fc466"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d31ac2c0-a4e5-4d26-9c26-832a15a7095d">
-                    <propertyInstance
-                      Id="75f3facd-73dd-4032-9971-6db2dcdde297"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a7d81f5a-dd20-475f-ba5e-6e8d28d99752">
-                    <propertyInstance
-                      Id="83ce9725-9088-4ce6-a8d5-eaeb25a6330f"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a1945015-7188-4783-95ff-d735b84483c6">
-                    <propertyInstance
-                      Id="f2f3fe2e-8b3a-4cfa-93f7-0723424f595e"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6ad1fa2e-8672-4119-9457-18d6635982a3">
-                    <propertyInstance
-                      Id="5e6739e6-01fb-431a-a1b0-2030f97215b7"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bcb55395-0384-4798-81c5-5a6c4ce52464">
-                    <propertyInstance
-                      Id="d84baf4a-f5b9-469a-b62c-b02457473504"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="120a1635-9c3c-4764-a330-ce49e3964f08"
-                  name="extraction"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="84911514-391a-4a87-a569-2cc6bb464ad0"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=extraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
-                      LastKnownLocation="Package5_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="fe372a41-7776-4ed1-9d50-a39fccb9c76b"
-            name="StartingManifest"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="ffa63134-cf9d-4c5e-adab-3a7e14ab7ebb"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="a8e04ed5-752a-41bc-96b0-2c80bbc8c83e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="68290b9d-1d39-446c-a264-79444100d251">
-                    <propertyInstance
-                      Id="ad44435b-e5c4-4ab4-8dad-c2e483c4943c"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a5088017-9e31-4aff-a78c-3fe7fcd318ba">
-                    <propertyInstance
-                      Id="ea51ab9f-7dc0-491b-87b3-ce3e9d2bf487"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b0b8304f-d3db-444f-bc8e-fe76b2599559">
-                    <propertyInstance
-                      Id="25dc61e3-583d-4976-9801-1798fe17a9d2"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="872f7abe-1a34-419c-9312-c0b97ef25976">
-                    <propertyInstance
-                      Id="03e704e2-c526-4f5b-a150-b51849c4391c"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5e9ea1a5-c34c-4531-a907-2c0d76c12ee0">
-                    <propertyInstance
-                      Id="320943ff-4707-471a-b688-56a6561e2219"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="75d6e058-1949-4986-99cf-1d9f83cf9d60"
-                  name="manifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8b6a96a1-6be7-4c16-b0a4-ac16b91f79d7"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=manifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
-                      LastKnownLocation="Package5_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
           <operation
             Id="7ce4427a-6cef-4da2-90e4-16e5e3b7e7bd"
             name="StartingDownload"

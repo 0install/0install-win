@@ -64,6 +64,7 @@
     <Compile Include="Implementation\Archive\TarGzExtractor.cs" />
     <Compile Include="Implementation\Archive\TarLzmaExtractor.cs" />
     <Compile Include="Implementation\Archive\ZipExtractor.cs" />
+    <Compile Include="Implementation\IImplementationHandler.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />
     <Compile Include="Implementation\DigestMismatchException.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Feed\Trust.cs" />
     <Compile Include="Feed\Domain.cs" />
     <Compile Include="Feed\Key.cs" />
+    <Compile Include="Management\Overview.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -125,9 +127,7 @@
     <None Include="Feed\InterfaceCache.cd" />
     <None Include="Feed\Trust.cd" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Management\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

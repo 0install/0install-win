@@ -25,6 +25,7 @@ namespace ZeroInstall.Store.Implementation
     /// An immutable symlink-entry in a <see cref="Manifest"/>.
     /// </summary>
     /// <remarks>This class is immutable. It should only be used as a part of a <see cref="Manifest"/>.</remarks>
+    [Serializable]
     public sealed class ManifestSymlink : ManifestNode, IEquatable<ManifestSymlink>
     {
         #region Properties

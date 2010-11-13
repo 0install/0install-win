@@ -24,7 +24,7 @@ namespace ZeroInstall.Injector.Cli
     /// <summary>
     /// Uses the stderr stream to ask the user questions.
     /// </summary>
-    public class CliHandler : IHandler
+    public class CliHandler : MarshalByRefObject, IHandler
     {
         /// <summary>
         /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".

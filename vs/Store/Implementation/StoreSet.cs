@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Properties;
@@ -33,7 +32,7 @@ namespace ZeroInstall.Store.Implementation
     ///   <para>When when retreiving existing <see cref="Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class StoreSet : IStore
+    public class StoreSet : MarshalByRefObject, IStore
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -107,7 +106,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, Action<IProgress> startingManifest)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -120,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddDirectory(path, manifestDigest, startingManifest);
+                    store.AddDirectory(path, manifestDigest, handler);
                     return;
                 }
                 #region Error handling
@@ -139,7 +138,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -152,7 +151,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddArchive(archiveInfo, manifestDigest, startingExtraction, startingManifest);
+                    store.AddArchive(archiveInfo, manifestDigest, handler);
                     return;
                 }
                 #region Error handling
@@ -169,7 +168,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, Action<IProgress> startingExtraction, Action<IProgress> startingManifest)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -182,7 +181,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Try to add implementation to this store
-                    store.AddMultipleArchives(archiveInfos, manifestDigest, startingExtraction, startingManifest);
+                    store.AddMultipleArchives(archiveInfos, manifestDigest, handler);
                     return;
                 }
                 #region Error handling

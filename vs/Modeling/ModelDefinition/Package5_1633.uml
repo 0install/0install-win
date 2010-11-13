@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="68c2789d-278f-46a6-8fcb-6dced1ad8c23"
   name="Implementation"
@@ -69,7 +69,7 @@
         </appliedStereotypesInternal>
         <suppliersInternal>
           <interfaceRealization
-            Id="5069d608-8261-4ac8-9dce-abb225242c33">
+            Id="ea06e802-f4d1-4ac9-a371-aa408fcc2df6">
             <interfaceMoniker
               Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
               LastKnownName="IStore"
@@ -319,188 +319,6 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="7e5c52ea-a11c-47ec-b32b-9b37134bdc76"
-            name="Contains"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="1d8ebd0f-51d9-49b2-9a6b-647599dc7670"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="925a1a9d-af65-4378-a5b1-404c53c14a86"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d6612124-52dd-4231-8711-57aca3c4c1bd">
-                    <propertyInstance
-                      Id="73111b35-3781-47af-9f7b-911e5fa17dfb"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ae7c2227-64cc-4e44-bc3e-583368082189">
-                    <propertyInstance
-                      Id="750bf071-5775-463a-b39c-864ee19d4a6e"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b4783e13-a40a-4f9a-a20f-faa5192b7227">
-                    <propertyInstance
-                      Id="6a866a40-f74a-4092-96a8-f56016415630"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cb8311da-cae1-4f16-ab94-9638507fc577">
-                    <propertyInstance
-                      Id="926c1ef0-2b24-4422-b8e7-417c37fe5ab3"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f2472ab9-2d1a-495f-b232-d365c10d3066">
-                    <propertyInstance
-                      Id="29bd3d1b-bda2-4cd8-9ec4-5e0f950b6b58"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="b4424def-b646-4159-9f09-a7ca4b45a396"
-                  direction="Return">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                      LastKnownName="Boolean"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="5cd3559a-47ea-482a-8e90-5726c666fbf6"
-                  name="manifestDigest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="0e988b62-31fd-4321-99a8-f01c03bb0dee"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="53c62559-5983-4357-900d-edc50782aeb8"
-            name="GetPath"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="33043ddb-15e2-4435-8bec-a773b197f719"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="5b1fa103-3f9d-4df1-9276-673335181b4e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1379485b-bd91-429d-bd13-d33b6b1dbd99">
-                    <propertyInstance
-                      Id="e4d8e615-c4e1-4aa7-bfc5-62a8f4d646f8"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f7119646-b208-4a2e-958d-9d3780d6127e">
-                    <propertyInstance
-                      Id="2a36a6d5-38cb-4bdd-867c-3c7ae5d947bd"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fe50a239-d7bd-4e0e-b77a-5abbccbb345a">
-                    <propertyInstance
-                      Id="a8cc603e-bc18-4e16-a1f0-9a8a1ecd76fa"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bce6974c-35c3-4e24-8055-6dc3116e66e0">
-                    <propertyInstance
-                      Id="c167f3ec-92f8-46dc-800a-71778e063ba2"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b443ebc4-0f71-40f6-b6e1-5fd564918402">
-                    <propertyInstance
-                      Id="fcb1d385-dba6-4f06-8bb7-957cf93ae3fa"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="d6fe51a4-9492-4e10-a8be-345d3f917d5a"
-                  direction="Return">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="5cdfbac2-5308-484a-856c-5e3033170236"
-                  name="manifestDigest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="ed65fdc2-4964-4716-b482-cedf3a5961c1"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
             Id="4e0f1a10-e344-4067-8c21-6dfab862bc5e"
             name="DirectoryStore"
             isLeaf="false"
@@ -559,74 +377,91 @@
             </appliedStereotypesInternal>
           </operation>
           <operation
-            Id="058a1972-8dd9-4e2c-9bc6-600a3bff4ca2"
+            Id="48c80067-c590-40e4-8093-c2a503104dba"
+            name="Contains"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="72a5a0c6-4ff8-4cbb-acaf-4b66fcaf3f2f"
+                  name="manifestDigest"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="85d91437-03a8-484d-9554-59eba76d1891"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="39345132-7911-46fd-8ba1-b658df4bd34d"
+            name="GetPath"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="616de474-7104-418a-8baa-fe16f4e6ec19"
+                  name="manifestDigest"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="83a1f4db-b930-4103-b62f-641ae531afc1"
+                  direction="Return">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="03d66608-8779-4945-b528-84d9f6c070da"
             name="AddDirectory"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="b1e2f5ea-4b8d-4ba6-9fd8-934038eef1be"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="744c80fa-c71d-408a-a1fb-e39cbbd20170"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6eb3fa53-7900-4c67-bde3-e1c6c78e0ae6">
-                    <propertyInstance
-                      Id="adcd31a0-3222-4c49-b6fa-04ca8b235463"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4f6c7ad7-c39e-4f50-8491-81027dec1a91">
-                    <propertyInstance
-                      Id="f0d8b070-5d01-46fc-b936-9f7e5843a88f"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5cc10eb1-4982-4311-a3fc-12ce011ecbfc">
-                    <propertyInstance
-                      Id="f6208d46-29d7-4b3c-82dd-aa1c3d2e03bd"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3dc5305b-35f9-4598-b66b-dfc22320f589">
-                    <propertyInstance
-                      Id="fcfc7a4f-3cee-4c0f-bced-7c882b6b2b5a"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="63a60782-5777-4e18-a294-fd37102519f2">
-                    <propertyInstance
-                      Id="d9bb9419-c85f-45a1-9241-606a44c4a882"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1e596f1c-4eb5-46ef-a322-2f6bbc868221"
+                  Id="beed91db-a3ac-4b65-a1da-c06023722a25"
                   name="path"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="6a7c37e5-d6a9-43fa-83d1-b7e8665b11a5"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -637,15 +472,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="3df9f091-5c76-4d5b-bf67-73f4a5a4594c"
+                  Id="9384aaee-26b9-467d-ad0a-cc45ec583a5f"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="9318494c-0c25-43d6-92b9-d3385a0fa02f"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -656,88 +485,33 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="51c17c8e-251e-43d8-97f5-42508797fba5"
-                  name="startingManifest"
+                  Id="3cd11a5d-0d71-43b7-a5a1-14bb6749b1a9"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="891e459b-c78d-48a1-81d6-d3c712a0d876"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="2408ea15-dbae-4685-916f-363bf2e70f14"
+            Id="46dfe382-e734-4e6d-9eed-d99868cdc983"
             name="AddArchive"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="ef2f6aca-ffa9-45e9-9a18-7acd5b8c71b6"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="dba25d8d-f7df-4759-a2b2-6295b7e8795f"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c77657c5-ea85-446e-852a-05b8bd888567">
-                    <propertyInstance
-                      Id="4acb3ff6-b570-4dee-89dc-aabde3df1bda"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="24ffb5cd-9886-45a6-baa6-86ed4e412896">
-                    <propertyInstance
-                      Id="65fe153a-6509-439e-ad92-d87e2484a774"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="45f088c6-d634-4fbc-a045-7575b2dad33f">
-                    <propertyInstance
-                      Id="3a3b6f3a-3c64-46b6-92bd-64d80caad49b"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="85b976bc-8260-44c2-ab4b-921f577b711d">
-                    <propertyInstance
-                      Id="382571cd-49d1-4982-94b9-70e01fab9ca4"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9cc65802-c4c2-4136-936e-65c08eed3530">
-                    <propertyInstance
-                      Id="e26de184-f66d-4750-84b5-6f539b93cd6a"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ff4994e7-dfb8-4f8f-b885-43d2eb7775d2"
+                  Id="cf733740-9366-4d75-85f3-e0b6f27d9396"
                   name="archiveInfo"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="9e11acfd-ae01-46a2-a0b0-77a5d98b5555"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfo"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604"
@@ -748,15 +522,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="49bf1177-9e69-45e7-b751-61ec5254fef8"
+                  Id="0de00927-c00d-421c-a98d-4d6d086dfc61"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8a711303-b183-4c7f-9ed3-003201260b22"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -767,114 +535,39 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="42422b5c-c97f-4e3c-b04d-e99cf11605f4"
-                  name="startingExtraction"
+                  Id="94ac596b-1dc2-4a4d-84c3-7ee229bd60e3"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="164e7db3-5710-4dda-97bb-b0212c22ae53"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="c0234ce0-3a7f-4015-9558-6cebbf829837"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8abf2533-d5ec-47d6-bea6-b136f86ad283"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="16c02ed1-5048-4510-ad39-a308c7f58489"
+            Id="8f7b62ba-b04f-4584-9d64-0bf438c448b7"
             name="AddMultipleArchives"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="052d3b10-97c9-4f3d-b756-0c3d01f68607"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d43b5872-46fc-43e4-9dbd-a36a6cb1859f"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="846d74b8-0940-4738-9a7d-3f7c5490f974">
-                    <propertyInstance
-                      Id="d46a29d7-aec5-46db-8351-4656d129e953"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d093cfb6-4f8c-4a70-9b38-fe1e75c8b5d9">
-                    <propertyInstance
-                      Id="b6a232d1-2378-4cdd-a12b-4cb9539e6acd"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ab58a167-15fc-4fc5-95e6-e0edd5bd2165">
-                    <propertyInstance
-                      Id="f74e6693-f9f8-425d-aaa8-478c9777a64e"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d0a5dfdb-e354-42af-81d0-595e73e132b5">
-                    <propertyInstance
-                      Id="53983a6b-7444-4771-ba45-668645908f55"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ce45c975-c471-4606-93a7-bd15fa1c34ed">
-                    <propertyInstance
-                      Id="f99b2130-6d6d-45a2-8711-df34ffb15121"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ceb82307-1158-4f08-9bb0-d9ea5563f033"
+                  Id="3eb4aea9-fa0b-43e3-9b55-2f97ef1d5f42"
                   name="archiveInfos"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="03758fb6-152c-4a45-9cf2-6f5f2a266227"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfos"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
+                  direction="In" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="28183fd3-d183-410d-86e3-ea003dd22899"
+                  Id="a1f729a9-eacf-42ca-86e8-f390724292f4"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8597d689-38ba-437f-be66-e86d9cf032a7"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -885,202 +578,58 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8fcdd70c-15ba-420c-b91f-a765c5755a2b"
-                  name="startingExtraction"
+                  Id="6457ec81-cbc3-4ade-80fb-97e81be07c3b"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="e56c2a9b-c033-4ea4-91af-494c6a48c372"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="0ea095ed-dbc9-4767-b42d-74171e2e6a33"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8fc2a5db-bdc6-485d-a8e2-40fa15537cf9"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="7a051eaf-f39e-411c-b715-879a15940de1"
+            Id="06558b03-76ee-41b6-98e1-6d11c950c9c3"
             name="Remove(manifestDigest : ManifestDigest"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="af30bf82-a12e-459b-bfcf-14f8ee4f9ec2"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f018322d-103d-4757-9278-cf9af643bd85">
-                    <propertyInstance
-                      Id="cf3debb1-00b9-4d95-8abc-ede1b9cecf76"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0cccd2fb-67eb-499c-8bb7-77708dc6f2af">
-                    <propertyInstance
-                      Id="ab9af6a2-f898-421c-a997-c4fb29cadb43"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d34cc225-6ecd-40f7-afec-e17d8355ced4">
-                    <propertyInstance
-                      Id="84903b26-efc7-4f3f-b867-218fd3b1ec2f"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="964c04ba-06d5-4a79-9536-d2bbd07f7da8">
-                    <propertyInstance
-                      Id="ac013b96-13f5-4e9a-a233-e8a1a5cf8be3"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="da485d8b-ece1-4d79-932f-93f447460ddd">
-                    <propertyInstance
-                      Id="14292fe1-f340-402b-b981-6fbab0da78d4"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="d2db3154-6018-4896-8f36-c0b1dfcfb84d"
+            Id="a6278523-b9ed-4817-9e21-5282f97704cb"
             name="Optimise"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="b9eed2a3-a04f-4ba7-8140-4ed54735f4ab"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2ea589d1-2ffc-4949-92e1-7344d975b9e9">
-                    <propertyInstance
-                      Id="a0aac81f-196d-4d5a-952b-f7226a8e1ff0"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f2d91dc8-3321-4baa-ba63-b0ccc9b59d94">
-                    <propertyInstance
-                      Id="e3c262cd-f2a3-4ac1-90e8-2e1001d5991e"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4459261d-b0c0-4d8a-9c85-c0b4618eadea">
-                    <propertyInstance
-                      Id="9c3aae23-c280-489f-8689-4a964f1379f3"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9c69863b-41e7-4314-abc5-c2fb71ded7a6">
-                    <propertyInstance
-                      Id="bcf48aae-134e-4e5d-82b2-fd967290e9a2"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6e99bd9a-0dfc-45d5-b464-f8cb164d3171">
-                    <propertyInstance
-                      Id="e1ad5609-a87a-48da-8e6b-65e2b2417e5c"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="6f70427e-3a05-41e5-9dc7-15491dcbef0d"
+            Id="ca5028ca-dff4-47ec-a7ff-6582194109b9"
             name="ListAll"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="05e43beb-dae5-49a2-b34a-96637f22e361"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1b1546f8-6c54-410a-a7a2-21fdf3cb7cd9">
-                    <propertyInstance
-                      Id="ff6ea46a-26dd-4adc-b65a-48c782eb2dea"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="267c27c2-bc3b-4c6c-9916-23844fcbd43d">
-                    <propertyInstance
-                      Id="4b102c34-0c73-42cb-98a5-66b5dc418ecd"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2e55db97-0a0b-466b-85fb-4d07cf2b8971">
-                    <propertyInstance
-                      Id="3a109342-1584-4958-8366-fc43e7a5b2cb"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="80cfefe9-b1f5-4699-9197-fde7055bd40f">
-                    <propertyInstance
-                      Id="d5d77bb8-bccb-49c6-95c0-c3994ea20ca3"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d5a12120-e1c2-425f-92a3-35049e8cd2e1">
-                    <propertyInstance
-                      Id="68a9531e-3feb-4cc3-8025-b84cfac88e6f"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8334922e-7767-448e-ac40-dc8d0a7db7b6"
+                  Id="d1803fb5-b475-459f-950c-0a19ec1b8e13"
                   direction="Return"
                   isOrdered="true">
                   <lowerValueInternal>
                     <literalString
-                      Id="48a70c4c-7188-48eb-9380-ce20f8966444"
+                      Id="df9ca228-9a3d-432c-a0a3-a103665b4a1b"
                       name="Lower"
                       value="*" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="fe7c4a4a-3a40-45eb-894a-74dbb2eeaea5"
+                      Id="7adc77b3-e114-40f8-9391-845b4e8033f6"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -1152,6 +701,13 @@
               Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604"
               LastKnownName="ArchiveFileInfo"
               LastKnownLocation="Package_1634.uml" />
+          </dependency>
+          <dependency
+            Id="060b9953-26b7-4f4a-ba7a-c548353e8f1d">
+            <interfaceMoniker
+              Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+              LastKnownName="IImplementationHandler"
+              LastKnownLocation="Package5_1633.uml" />
           </dependency>
         </suppliersInternal>
         <ownedOperations>
@@ -1436,7 +992,7 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="85feb73a-3b5a-433b-be84-f266c559a3dc"
-                  name="startingManifest"
+                  name="handler"
                   direction="In">
                   <referencesInternal>
                     <reference
@@ -1444,6 +1000,12 @@
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
                       tag="ViewCode" />
                   </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -1547,7 +1109,7 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="2c06f406-1cf0-4356-a1c1-9a5762597e3b"
-                  name="startingExtraction"
+                  name="handler"
                   direction="In">
                   <referencesInternal>
                     <reference
@@ -1555,19 +1117,12 @@
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
                       tag="ViewCode" />
                   </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="fa95ff60-a019-48af-8128-ae43e6313223"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="eb5c6535-fa41-47f0-a28d-fe37d89779e4"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -1665,7 +1220,7 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="c5a84e1f-3f2a-4eca-b66e-9f7a662ff2b3"
-                  name="startingExtraction"
+                  name="handler"
                   direction="In">
                   <referencesInternal>
                     <reference
@@ -1673,19 +1228,12 @@
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
                       tag="ViewCode" />
                   </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="8ecb9079-fba6-425a-ada6-a68d9aff3b7f"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="d2bc4846-4248-401e-a8f6-2205e65be9d0"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -4131,7 +3679,7 @@
         </appliedStereotypesInternal>
         <suppliersInternal>
           <interfaceRealization
-            Id="73630d6f-f595-4fa4-84ae-68df44a9c51d">
+            Id="7296534d-8d09-4653-a6ad-fca85e21cfea">
             <interfaceMoniker
               Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
               LastKnownName="IStore"
@@ -4298,66 +3846,30 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="52e52462-f4e3-48d1-8076-d62c00c74c18"
+            Id="ff6aa44a-bb7b-4f3a-8bd5-60e58d9aaa71"
             name="Contains"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="32634209-5ed9-44e8-a49e-35550bb6292f"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d6d904b9-cef2-4aae-9755-d3d2a2feb60a"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9282ac54-98d8-4449-a6fe-ec76d2f2fcca">
-                    <propertyInstance
-                      Id="302985cd-6dc7-4cd4-89d9-c4e08580a7f7"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cf822281-f46d-4ab8-86f1-b9e84f2bdfb3">
-                    <propertyInstance
-                      Id="1bda4bcd-bdbe-41a4-adc6-10aad1700395"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="645fafc9-7138-4a79-af6c-feacdaf29727">
-                    <propertyInstance
-                      Id="07def7d3-1eda-4f95-b2e1-f6396a914288"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2947e935-8aa2-4a66-92b8-c495b836ce81">
-                    <propertyInstance
-                      Id="bd7ac39b-65bd-46fe-93d7-7a1ffda32f67"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4c62d5b7-2128-4986-9251-bacb8cca682a">
-                    <propertyInstance
-                      Id="54e2952a-178a-4d4e-8c40-860be27ab828"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ad3e3963-23db-4922-abc2-3526e252c494"
+                  Id="fc3ebfab-5757-4b28-884d-6dda442a2707"
+                  name="manifestDigest"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="991c324e-8771-43b9-af71-919823e6770a"
                   direction="Return">
                   <type_NamedElement>
                     <primitiveTypeMoniker
@@ -4367,17 +3879,22 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="f72caf11-0e1f-44e9-9c59-52dd0c94be73"
+            name="GetPath"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="74b04056-d646-4265-b97a-d2300ccf8713"
+                  Id="10ab2995-2218-4ee6-a022-7039d240008c"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="d47d24ca-e78d-4e13-a7de-27c9ad351265"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -4386,69 +3903,9 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="a3947255-7ad2-4d85-93e8-5d2519c46c04"
-            name="GetPath"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="891b86c8-0af1-437c-93e0-7428f36f1632"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="61f6c810-60ab-4dbe-b1ad-fb51ffa1328a"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="876eede6-8d02-418f-8fe0-5e25111d7708">
-                    <propertyInstance
-                      Id="c144d895-4124-4d81-ad4b-b45968d4d420"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="60460bd9-d47e-4e18-bd44-0677e874351a">
-                    <propertyInstance
-                      Id="00aef959-1994-4fec-b2f7-d29bdddf4645"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="053cf789-4a24-4ea2-ad7a-d1075cf73819">
-                    <propertyInstance
-                      Id="7d0395a9-2bc3-4179-a815-62d808d3f531"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bf1e9f9b-2516-4929-890b-662b31e9484e">
-                    <propertyInstance
-                      Id="356a3618-aea1-4147-92ec-87a24a7f58f7"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="91d3992a-a6ea-4f4f-b8c8-113962cc6aee">
-                    <propertyInstance
-                      Id="e9983096-272a-449c-aa32-e95d0e15e4ed"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="6f99471f-8238-44e4-ae38-6f5ca85e7eca"
+                  Id="fcded68c-265c-4f66-bfbe-829862dcc627"
                   direction="Return">
                   <type_NamedElement>
                     <primitiveTypeMoniker
@@ -4458,96 +3915,22 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="287f51eb-f6fa-442d-9311-9303d73fbab1"
-                  name="manifestDigest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="edb5c7f1-50a7-407e-b732-b8ed936da328"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="bea5a68a-cca3-42b6-b355-2bcdf4aa40b9"
+            Id="4ea981ae-c898-4fda-a1b5-4e895dd76a20"
             name="AddDirectory"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="64e49e23-ab74-40a9-a2c4-476e9e6e6698"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="68bdc28b-0859-4941-af48-36b518bd3472"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fe51646f-f933-44a8-af59-9a3b9cdc616d">
-                    <propertyInstance
-                      Id="8e305010-db1e-48c6-9387-2a2083dfb34e"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e176b92c-4acd-4431-b5fe-62fc013cc5de">
-                    <propertyInstance
-                      Id="3668725d-e4b8-4868-afd5-18f541637eea"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0d2b7aa8-1d0e-4e3e-909e-517d6c3e714b">
-                    <propertyInstance
-                      Id="a45a44a1-f0f8-46fc-a5be-10c8df028283"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="45b7c36a-0ffa-46d1-b497-98779e37f315">
-                    <propertyInstance
-                      Id="c384a858-bb00-4c3a-aa23-f52bffb14759"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0a9a4c62-07a1-4995-ade8-baab30326907">
-                    <propertyInstance
-                      Id="5a68027b-51a9-439f-89b6-847ca658d033"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="a03e43af-8554-4fdf-bfc6-5e978276fc74"
+                  Id="bf5426b6-670c-4c8b-8372-d38259c8340b"
                   name="path"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="5633dc6b-392b-42a0-8ce6-4d9928d1db33"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -4558,15 +3941,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1c8432dc-1951-41f6-9bc3-894ac568bb9f"
+                  Id="10513a2b-d901-4deb-a9b7-5bc7503c55a1"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="366fbd32-bca9-4e4e-a290-90ea9955e504"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -4577,88 +3954,33 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="b4ddd75e-31e5-44a1-abcd-5e550498be38"
-                  name="startingManifest"
+                  Id="37d540bd-fdf4-4014-82f5-b49f354df770"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="2ebb8c73-8647-4cb5-b3b0-fedaf715d2c4"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="6c511525-18cb-4ab1-aba0-2f1a65b0f821"
+            Id="01104c65-3dcb-40d0-8b5c-5b7b9842bd5a"
             name="AddArchive"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="f880e073-3da2-401e-8a5e-9f068c4c58ce"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="e3c1befd-802b-4925-a231-74d846eb06d4"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="63394ac7-e5b3-40a0-9267-7eead373b223">
-                    <propertyInstance
-                      Id="1e776e02-1dbd-43c4-aff2-6133f869a9a4"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e5e1dd8f-cef9-46ee-bba0-9c7deddb4b70">
-                    <propertyInstance
-                      Id="871f74cb-9873-4293-8e1b-a65c301ef4a3"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9cfee485-6689-41f0-b831-14ff91a05414">
-                    <propertyInstance
-                      Id="8c9838f0-ed3f-4117-89a6-d29bcf233a54"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bf753cbc-14f0-4529-a9bc-cf9905fc2ff0">
-                    <propertyInstance
-                      Id="0f7c0353-276d-44ab-b866-b898a4a05364"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f618ac13-5bf5-41d9-8665-cef5e1107485">
-                    <propertyInstance
-                      Id="c3740a1d-dc19-4f27-a5b9-0b8a82da4319"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="de8410d4-5eb4-49b8-9182-7f599638e6f7"
+                  Id="aabfe6e6-3d4f-4c87-b5da-502645083649"
                   name="archiveInfo"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="fc32dad2-d1f3-4272-a937-9464ac9d7705"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfo"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604"
@@ -4669,15 +3991,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="d1adef69-5478-4d7c-85a8-4239dc915bae"
+                  Id="2ee29ec9-0fd3-4dfe-b03c-aa6894037a47"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="02fabf3c-4b53-4685-a833-36949cca5c36"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -4688,114 +4004,39 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="0a323419-e87a-4a00-a578-7f087a8fb89b"
-                  name="startingExtraction"
+                  Id="2e7f21bd-71fe-46b9-835c-59d535b877da"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="4ca0fb65-9888-4847-8c0d-6288e6f3c87c"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="ec5dc0cf-cf31-4e3d-87b1-2b4f4d804433"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="3900026b-f51d-4a8d-addc-4bf0513cc28e"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="0b1d41dc-7414-44c7-9b6c-51afe59a86e2"
+            Id="899d0a67-f198-45ae-80ff-940925bbf5c8"
             name="AddMultipleArchives"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="f3505258-2e8e-4957-9a8d-b9f2990e57bc"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="c1eba799-ab8b-45a6-a2df-b915a1131550"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5aca90f8-8c31-4792-9851-f8fb6727cb11">
-                    <propertyInstance
-                      Id="44bea80a-b639-4596-9844-23880e298550"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="167f3c39-41d9-4269-a137-e91b72fb2813">
-                    <propertyInstance
-                      Id="87e1dec1-08ca-4e50-9f60-c5c1f597a85f"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="83c15acd-5f03-45a9-a766-8a0c6e5e581c">
-                    <propertyInstance
-                      Id="b36c7ad8-cb24-47df-8f3a-b3908d50a70e"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="47f3fb38-6105-4349-9758-32e365499388">
-                    <propertyInstance
-                      Id="a34d22b2-b7a5-4a34-bc3c-516721b8449f"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cf074e55-3a62-43d8-87da-f080a3908221">
-                    <propertyInstance
-                      Id="d9fddd64-2ba2-4a66-bebc-41d7611d0bc0"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="15e686cd-c28e-493a-8198-0558adf52c21"
+                  Id="93c46b9a-bd3f-47e4-aa76-6c8b19d7e66c"
                   name="archiveInfos"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="e4670313-725e-4642-b2dd-b816d4ac4c32"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfos"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
+                  direction="In" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="8943cf73-5f7b-494e-830a-f0cccb88d809"
+                  Id="2d208716-30cc-4811-880e-34eadf15b109"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="e1dae1e9-c729-414e-9319-5990949c5a7a"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -4806,202 +4047,58 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="faafafb6-c2d0-4938-9974-778b24e67b5b"
-                  name="startingExtraction"
+                  Id="33ea1cbb-3ace-4b8a-acc6-36bbe85d33d0"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="8a2f9d06-a53f-4ca1-b1d0-688e6a18df92"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="0cb86852-9ebb-4b4e-bfe4-2487218f5bca"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="e9b82b53-05a7-410e-a095-6e8649fb2541"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="9756e16e-442f-4338-bfd5-5894d25e15c1"
+            Id="1b0acd48-a64d-493a-a201-2e7072c9246f"
             name="Remove(manifestDigest : ManifestDigest"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="f2e4eb21-4758-4638-b8d1-cdda15673659"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1d20a0c1-5a8b-42d5-995e-6c212beb6312">
-                    <propertyInstance
-                      Id="d182406e-7bfd-43ed-9f07-a905c0f2a116"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4726c263-0602-42ba-9622-93700260aadc">
-                    <propertyInstance
-                      Id="4e04f1fd-27da-458b-9f17-804941265db1"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d56cf742-6807-40f1-ae4b-8ac2befec592">
-                    <propertyInstance
-                      Id="0201efab-338f-43e5-8fb0-e208901956f0"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cdb864f5-d0fd-4607-a8db-4d5d69e34164">
-                    <propertyInstance
-                      Id="cafb0dc6-1474-4f5b-88c9-c793c84d80bc"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="01edd838-8aeb-4633-9d74-5f2658e61447">
-                    <propertyInstance
-                      Id="6e4eaba8-be5e-48c2-9e54-95f2e4c38511"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="294225f3-8d74-4a97-8588-3cefe50a0c29"
+            Id="4d66945c-521e-4450-a5a8-bb8bec772715"
             name="Optimise"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="26308ffd-2e01-4aaa-93f4-3b45e5ba44df"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e3a57635-1a9a-4968-91b7-8f225f25ac4b">
-                    <propertyInstance
-                      Id="40956387-3220-4bf2-91a9-63cdd20a39f4"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="766736a8-66f2-4b99-a39c-c457b45e1e1c">
-                    <propertyInstance
-                      Id="09b056b6-21fc-4d4f-a53b-793fe9aa9105"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bf6aa7cf-6f98-4760-8e07-655f5c0e4f68">
-                    <propertyInstance
-                      Id="da49a603-8317-4f41-99e9-3f061fe007af"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0a1474a7-2417-4ec2-82d9-39b56243e840">
-                    <propertyInstance
-                      Id="3a685f32-4fad-4a6e-9bb4-b31cbfc1b954"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5df5f2d5-04d5-4c4a-9254-90582e9072cf">
-                    <propertyInstance
-                      Id="6dcd14c5-d097-4b86-832e-a7f3e8d97832"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="a5679bfa-3758-4de7-88ed-04990aa79dee"
+            Id="ff84a720-d3ff-459f-a7b5-014f1e1faab2"
             name="ListAll"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d3190273-2255-459c-b3ae-b6cf2989cd75"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="93a2fe37-998a-4b67-93a3-cf1a7507c24f">
-                    <propertyInstance
-                      Id="a58c4d33-2d9f-4c3e-ac39-a38663f9f1cd"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="68de4be2-27b1-4988-b126-2e971f17d99e">
-                    <propertyInstance
-                      Id="ed5aad51-4236-4bf8-ab0f-6613d46086b2"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d038a1e7-116f-49bd-a75c-76aad42344db">
-                    <propertyInstance
-                      Id="3ba2cb0d-cb88-4393-992b-77d0d00e69a1"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="026a2356-c3ef-42a8-bfb0-2fcbdfba6685">
-                    <propertyInstance
-                      Id="da8229d3-b954-4421-857c-3530e7bd6457"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="51f5def6-5b9d-47cd-a09c-0b52eec866f6">
-                    <propertyInstance
-                      Id="fcebff54-8758-4489-973d-b044cfc0db97"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="22ae1690-82b8-4d2e-ac12-75c0c73ccc8a"
+                  Id="bb483787-c3f8-4225-89e9-712819aa2181"
                   direction="Return"
                   isOrdered="true">
                   <lowerValueInternal>
                     <literalString
-                      Id="ac4013b3-fcbd-4611-a236-8fc89036acbf"
+                      Id="691863f2-7950-48dd-b134-f64542a4fe3f"
                       name="Lower"
                       value="*" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="33fbb533-ec94-4673-9676-7f4d0618266b"
+                      Id="96053ae0-c4d8-4c23-b158-ad3cd75aaea9"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -5076,7 +4173,7 @@
         </appliedStereotypesInternal>
         <suppliersInternal>
           <interfaceRealization
-            Id="519a0ea9-c474-4aac-8ab2-6577cf4c6ba4">
+            Id="798763c3-3d71-462b-bc7b-694df7241723">
             <interfaceMoniker
               Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
               LastKnownName="IStore"
@@ -5218,66 +4315,30 @@
             </ownedParameters>
           </operation>
           <operation
-            Id="a75ef088-bb66-49f5-b502-18b924c33f79"
+            Id="092a0a26-eb06-48ca-a18e-704369fd5bda"
             name="Contains"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="3f07d1bd-6c4b-48ff-b40e-1993af0eb219"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="f4de7b0b-b618-434d-88bd-fc4350a2e1b4"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7ce99d5e-4eef-428d-967b-04d12814666f">
-                    <propertyInstance
-                      Id="2cac8924-608a-4c30-8787-5a8cd44b2616"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ae9538bd-fae3-48d7-8f0f-4f5982ee7a4c">
-                    <propertyInstance
-                      Id="b733d714-d0fd-4abe-ab51-3588ed1863b0"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3d2844d5-0efe-47bd-a45c-a0252799e087">
-                    <propertyInstance
-                      Id="5e430d68-2cd3-4e58-9e6c-35e6146c8b1b"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7e8b65e9-21a6-457c-ae32-8d142fef9c37">
-                    <propertyInstance
-                      Id="39eeef63-08a9-47ef-8b68-08cd1b769f33"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d04e784b-e578-4260-aac9-88b9dcdec90a">
-                    <propertyInstance
-                      Id="32e37eb0-1e6a-4e6d-989a-6e53cedfa225"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1d506f2d-23b7-482f-a015-0a1666844f42"
+                  Id="f0e63ee6-61d4-4a19-86ca-ea9514d7c66b"
+                  name="manifestDigest"
+                  direction="In">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f293c4ad-5be6-4e74-b4aa-d391bab95f0a"
                   direction="Return">
                   <type_NamedElement>
                     <primitiveTypeMoniker
@@ -5287,17 +4348,22 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="212ddcd6-2895-4366-8cef-d670cc5d6e13"
+            name="GetPath"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="fea9d130-1c57-45b6-9874-78b933fd8fea"
+                  Id="2e4858bb-7df7-4f63-a113-4fa5ddbd41bd"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="b35b2899-7055-4a80-be4c-42a66b916b6e"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=Contains OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -5306,69 +4372,9 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="945a976e-5ca2-4aee-8705-d7453c61d4c7"
-            name="GetPath"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="1fbbdff3-fcca-4096-a4c1-1b1ac6977b5b"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="b08d5f29-5699-461e-91bd-a7172f485ffa"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9ab1d7d1-abf5-46fa-b827-8ab55f573487">
-                    <propertyInstance
-                      Id="e9ddd4fd-e9e6-42c1-8fd8-6d3e58bb286f"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6eb2c0ff-9987-450e-ba63-09b2def49cd0">
-                    <propertyInstance
-                      Id="935bd5fa-af33-41f7-b6ea-9ec185b23231"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="82096e4c-7e02-4de2-8ad1-9dd37c8fce8e">
-                    <propertyInstance
-                      Id="242bce9c-ef42-493b-85f8-9c47521af38e"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0df15e60-ace0-461a-8a46-3cf2c7d47193">
-                    <propertyInstance
-                      Id="b51e99f5-d1ab-4cf1-b196-bfa02de1dc29"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="62fa4d35-1f48-47ad-8fbc-9204643e638f">
-                    <propertyInstance
-                      Id="9a444430-3a1d-459a-9335-d78d8bd428df"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="9947514e-4a8f-45fa-ba73-18b82df4ff17"
+                  Id="8ee50b35-44c1-4af2-929b-ee9df29cb632"
                   direction="Return">
                   <type_NamedElement>
                     <primitiveTypeMoniker
@@ -5378,96 +4384,22 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="a2e8983f-332d-41ad-93c7-4e6bb668114d"
-                  name="manifestDigest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="7145d4e8-035d-4a34-bc39-7ce5489c69c3"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=GetPath OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest)]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="9f8fe4b4-3b1a-46c0-b75c-dcd08c60756a"
+            Id="ed65b5b5-0cc4-46a3-9432-cf5fe183862e"
             name="AddDirectory"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="6220befa-3a66-4edd-8232-05e15f4579d4"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="7d97c55d-f155-4b76-994e-f19201550b24"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e707ae39-c3de-4b2b-a17d-57fac2f536da">
-                    <propertyInstance
-                      Id="b3617dff-c560-436e-b4ae-95d959160a4e"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d2b88ab3-7e80-4731-96f3-9d7c23442508">
-                    <propertyInstance
-                      Id="b984a03b-b380-419f-a24e-496c9de1fcca"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="34c8435b-1169-4f10-8360-8b9805328f0a">
-                    <propertyInstance
-                      Id="9d9e572c-b697-441b-ad3b-c3c276527f0a"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="92e581aa-07a8-46f1-80e0-fb85d8037d12">
-                    <propertyInstance
-                      Id="4b4b9b9d-4dce-4ac1-ad1e-916c22b5523e"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c62f1deb-0224-4e71-a4fc-a5daf0e82c43">
-                    <propertyInstance
-                      Id="c82d3a35-6c5f-4694-ba27-001b0d2eb272"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="d80103b6-fe52-42a8-8219-bda66022ad7b"
+                  Id="c9bb9e10-77bc-464b-989a-71b219c1dcf6"
                   name="path"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="ca8e5e1a-8f6c-4846-b72d-29fa09800ba2"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -5478,15 +4410,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="c50222a8-89af-4568-9efb-4f71cc0e246e"
+                  Id="97b51a56-b380-4d77-afce-80fb16fa6d28"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="e11f3c88-6a22-4c7a-aaec-6157d6a32a30"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -5497,88 +4423,33 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="13e31d5c-aa86-4660-81c9-53043153f1cc"
-                  name="startingManifest"
+                  Id="35309a7c-5030-4d4e-8232-fc5dfb479a80"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="57680388-628f-4ccc-82eb-0529b13ffb0a"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddDirectory OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="921dcaef-5da3-40eb-9084-64954e7c964d"
+            Id="e99a4909-d130-4ef0-81e5-06ca9d580191"
             name="AddArchive"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="93716b7e-cbec-4298-b795-b2a32f69ff76"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="da23031b-1d7b-45c2-8b1e-ea44fc6b5a0e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e0040677-25f8-4409-a2d0-fef75da20644">
-                    <propertyInstance
-                      Id="81a8845d-871b-4cb6-bfcd-965cb048adf3"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="63b5e963-323c-4ec5-9645-5a0ecd4cfd37">
-                    <propertyInstance
-                      Id="e0755783-560d-46f7-9119-2202d0e9c7f5"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9dc17d9c-5ab1-4f3e-a95a-ce4e28dd1575">
-                    <propertyInstance
-                      Id="9ffb01b0-339b-4b19-9549-ecf02a4a38fd"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="00231b20-adc9-4b71-b606-6ec1914faece">
-                    <propertyInstance
-                      Id="3f4cc459-0a47-4fd6-8a94-ca3f4f8eb117"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="99fcbadc-447d-4ae2-9150-48380fa768b6">
-                    <propertyInstance
-                      Id="71c40b7f-362d-4aec-abad-f1a32f2f086c"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="7c76c325-31fc-4a67-ad9f-b02b852be3bb"
+                  Id="f7738d35-ef72-4c21-84d2-1ed80e444bfe"
                   name="archiveInfo"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="bc3a035f-1c21-435f-af20-09f037a7905f"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfo"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604"
@@ -5589,15 +4460,9 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="3ef8cd2f-783b-4c5e-89d3-ff24b2771731"
+                  Id="191c97b7-bf3b-4048-9c25-d2fb108281ef"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="52fb885e-1e6f-46bc-9389-586c2e1be484"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -5608,114 +4473,39 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e20f8d4c-2816-4f81-a348-a82248568f6c"
-                  name="startingExtraction"
+                  Id="3fcbc03e-f53f-434a-bf16-ac9ceadacebf"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="5074a345-c2c6-4ae2-bb16-787e30464b3b"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="886c951b-546d-40b3-b0dd-af01e9a86e55"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="2da18de6-773d-4dd8-9bc0-69487d1dd46d"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="abb06644-c7fe-4b73-b478-7632cda68a64"
+            Id="42f38b3c-c88f-440b-a36a-094c08ae409b"
             name="AddMultipleArchives"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="614e60e8-ba78-4555-8aac-27c301f22cc4"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="272451b5-77b6-44a0-b2ef-688949005808"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1d871f34-0618-437f-9458-a6cc741f1454">
-                    <propertyInstance
-                      Id="f252f95c-aa3b-494b-b393-72680d77057f"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fdd5675e-3c95-4dd8-92cc-23fce269caf7">
-                    <propertyInstance
-                      Id="70005dbe-5f97-4be3-a93a-e62422d1f4ed"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="06df21fd-56b1-4121-8366-a38ba5b33504">
-                    <propertyInstance
-                      Id="2a35d4db-5484-4d2e-93ad-fe668c4f0cfa"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e75d17a2-bb8c-4b8c-af0e-b4ab782a02bd">
-                    <propertyInstance
-                      Id="a81dbd43-52c5-4eab-8afd-1b1920ef1523"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f6dc112d-ba4f-42ab-a49c-9abfb733d64f">
-                    <propertyInstance
-                      Id="115214d7-3d3e-43f3-ac0e-4957c484696e"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ce6dfcf7-63fc-48b6-90e4-a01a3aad91e6"
+                  Id="dc9ba2e1-1a24-44ff-a3da-b6375f7b8a26"
                   name="archiveInfos"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="57f52fa1-408d-42d1-a83c-48a4a93cf6f1"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=archiveInfos"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
+                  direction="In" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="5136ab1f-357f-4279-bf0b-304c59b218c8"
+                  Id="3a9264d8-f33e-4b8a-8dcb-a8d58464ca80"
                   name="manifestDigest"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="925ce213-73e6-4eb5-9fd4-41f250d3afec"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=manifestDigest"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <type_NamedElement>
                     <classMoniker
                       Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
@@ -5726,202 +4516,58 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="46e158e4-b675-4c27-9b86-8c11385e5a99"
-                  name="startingExtraction"
+                  Id="7c3630a5-c1f7-489f-8f7e-ed50fa1d6313"
+                  name="handler"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="399324d3-45c8-47ff-93c9-3902124ae76b"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingExtraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="1b14d49f-b524-45be-88fc-bdb9848d4f5a"
-                  name="startingManifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="73efdbb4-6adc-46a1-b0c2-bc6caf73b73b"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=AddMultipleArchives OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]))]) ParameterIdentifier=startingManifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
           <operation
-            Id="1cb5306a-b05f-48f9-a018-6c46742adf42"
+            Id="e7b4be6e-445d-4064-ac6e-ceb41c56e4f6"
             name="Remove(manifestDigest : ManifestDigest"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="aa37c9bf-34f3-4cc2-b513-bf774a7b4d5f"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9064c5b7-a93d-4da5-907c-9e643cb1a206">
-                    <propertyInstance
-                      Id="a59d5329-fcdc-492d-97b9-3fe9bfaab244"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="60037034-0bc6-4f8e-833e-f19d288d8895">
-                    <propertyInstance
-                      Id="75bf9ac4-9c94-4674-ab26-b2f8c6a38728"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="486a3cda-1abf-4dc4-a2b8-953b5b5fc954">
-                    <propertyInstance
-                      Id="52f758d4-af80-4154-9da7-ec1bd2d6d615"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="62e3db38-fd9f-4f1a-b63e-fcd7dedcc48c">
-                    <propertyInstance
-                      Id="0a59dc05-340d-4ee6-96f8-2c129f098b10"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b0923447-f23d-4053-9e2a-f2d5c1fca235">
-                    <propertyInstance
-                      Id="65601725-093d-4a38-b875-59f4893e958b"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="8dadd874-d595-4596-a4f0-554fc81d1048"
+            Id="cb40f131-d9f5-4097-b4ff-c22de385042d"
             name="Optimise"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="62382c32-7311-402b-b35a-1ef7a1865a7a"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="9749c298-2647-41b8-8e09-05dc1e43a05e">
-                    <propertyInstance
-                      Id="25e1a48f-7823-415b-8840-1f727aa81b70"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7f9f059d-bfb2-49d7-8975-2df096a1da92">
-                    <propertyInstance
-                      Id="34fce277-85bb-482c-9023-465f544018f4"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="052499d7-a14d-41ff-8c19-a987a7b9c19d">
-                    <propertyInstance
-                      Id="5eea87f6-bb57-433c-bd9e-24e328002758"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d48c7bf3-b3b4-4414-84d2-bb6d4098fff3">
-                    <propertyInstance
-                      Id="a227f44c-9864-439e-9107-7adbc528b847"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="41826b0f-7db7-4549-9c57-b1546778d184">
-                    <propertyInstance
-                      Id="864075cc-289c-45c1-934a-1017334ef969"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
+            isQuery="false" />
           <operation
-            Id="daa8ab70-99fd-4b4e-a47d-87b7aa405d58"
+            Id="cb7d0555-5a4d-44ec-898c-17ee9cceecbf"
             name="ListAll"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
             isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d2f1cfc6-6cfc-404d-ba18-4c2f8582f25e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f6644bfc-f5dc-450e-8ab1-0c1d8330b011">
-                    <propertyInstance
-                      Id="23a4ae92-1118-42e0-bbdd-13cdbb9880f3"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f43e4e2b-6a49-44c7-889c-b63e2be65945">
-                    <propertyInstance
-                      Id="6baec9da-0d7f-4a94-94db-bf5d7b01c034"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1f3b612c-3b94-48bf-825e-0fbf115e812d">
-                    <propertyInstance
-                      Id="bb9fe634-02f1-4320-a9e8-acc21273e86d"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fc3ef673-d217-4e08-8cd4-1c47549efe4a">
-                    <propertyInstance
-                      Id="94edebba-40e2-48bf-9005-ed77d94f57a5"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="04d9d03b-f368-4013-a2b6-0ee58e099a36">
-                    <propertyInstance
-                      Id="95f12c6a-998a-4ed6-8f9e-38dca4665742"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="87fbc2cf-f357-4a1e-a39f-51a996bf9a71"
+                  Id="53895470-a9fe-486d-9c02-b5c32be973b2"
                   direction="Return"
                   isOrdered="true">
                   <lowerValueInternal>
                     <literalString
-                      Id="fef4609d-1312-456f-b53c-619a7b3598af"
+                      Id="945bea4f-dbed-4e8c-9a10-519c4057f0b8"
                       name="Lower"
                       value="*" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="a09b9b66-df07-4223-b780-f703f739196b"
+                      Id="738393f1-a9b3-42c3-95bd-e3b9005f3310"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -10287,6 +8933,216 @@
         Id="4f00b828-d2c8-4be2-b753-6b581e880434"
         LastKnownName="Archive"
         LastKnownLocation="Package_1634.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+        name="IImplementationHandler"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="01508c19-f8c8-47eb-b78e-c1528e859c02"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="cecf83c7-b0ef-4eed-8896-bdebc6acfc84">
+                <propertyInstance
+                  Id="9952ecff-fee9-424d-a8ca-d4b04a11dcdd"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="df661d39-7422-4fa8-91be-6b8b80a3d9af">
+                <propertyInstance
+                  Id="d7df10e9-ec9e-4185-8893-a65a85fead7a"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="97e25de1-47f9-4dd0-9179-8635b690d3db">
+                <propertyInstance
+                  Id="6773cf64-516d-40c2-ba79-c2100c40ce4d"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="37bdcb68-a35e-4f53-97ec-be8ca91b7ea0">
+                <propertyInstance
+                  Id="15e205c6-0671-4b39-9c83-1a25b05db14d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperations>
+          <operation
+            Id="dc2e7d27-280d-41da-aad9-67143ddcd887"
+            name="StartingExtraction"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c08cf5dc-0e34-44ce-b420-9ddda331894a"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="44e9f3a1-3e36-4e1e-8471-86715d3764f5"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="495fdf79-a693-4385-b5fa-6abfd6b6d5aa">
+                    <propertyInstance
+                      Id="2fba6dcf-17f6-495b-9fc5-db02e101a245"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="99005cfb-61fb-4784-9804-bbe9d26dae35">
+                    <propertyInstance
+                      Id="ad167eed-1988-4656-873d-db2f11944b03"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="346dada4-0f42-409a-acf4-73f72b85709e">
+                    <propertyInstance
+                      Id="70cc24b8-06d2-44fe-8414-78eee45018fe"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6549e63c-6ee5-42a1-b4cd-11b4beb476d4">
+                    <propertyInstance
+                      Id="d0491df0-e800-402f-95e3-1240bb202540"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b73efa67-2ab0-40b1-ab48-c7ca4a73ed2b">
+                    <propertyInstance
+                      Id="e7ecbf97-59d0-421b-a142-12dd17d2e63f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1ef26f56-496b-4a2f-b36b-1b24b44d8f17"
+                  name="extraction"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="8611f320-a1d2-4b48-9550-ea9b758b6f3d"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=extraction"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
+                      LastKnownName="IProgress"
+                      LastKnownLocation="Package5_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="e0300dd9-bb48-43d4-990d-24c310ba3d39"
+            name="StartingManifest"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="c9d33393-5e6c-445b-ba50-e6243aa0c5e9"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="f7c23698-5f69-413d-b48f-b8d406591ccc"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b7eec7ae-42e9-4b4e-98b0-b14c21b3e02a">
+                    <propertyInstance
+                      Id="54ab10c1-be1e-4ae4-a705-7d974d5f1586"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6823548d-9f5f-4dfc-937e-9ed958a22a21">
+                    <propertyInstance
+                      Id="3f1f912b-1e60-4110-8fe2-c9bffa1451ea"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8f4509e0-7e5a-48ab-9a6b-1d9b4605784c">
+                    <propertyInstance
+                      Id="31251f49-7545-40cb-b3ac-82e37fd2c233"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7d9dbc43-3664-4287-a371-6c72f4f4193d">
+                    <propertyInstance
+                      Id="3fb747db-3b08-45dd-820d-3bc6a579a208"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f485c12e-ba4a-4131-814a-172c9572bb9c">
+                    <propertyInstance
+                      Id="cb5260cf-4f7a-41cc-8ecc-4e1f7204bd50"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="37ace11f-5da3-4556-a95e-153adbd67da0"
+                  name="manifest"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="cdda0e2e-729d-4b02-8e6a-c74a5ae1bab7"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=manifest"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
+                      LastKnownName="IProgress"
+                      LastKnownLocation="Package5_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
     </packageHasNamedElement>
   </packagedElements>
 </package>
