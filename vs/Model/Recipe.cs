@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Implementation"/> directory.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     [XmlType("recipe", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {

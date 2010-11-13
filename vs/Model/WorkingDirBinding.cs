@@ -28,6 +28,7 @@ namespace ZeroInstall.Model
     /// <para>This is to support legacy programs which can't properly locate their installation directory.</para>
     /// <para>Only the once instance of this binding type in a selection of <see cref="Implementation"/>s (the last one to be processed) is effective. All others are ignored.</para>
     /// </remarks>
+    [Serializable]
     [XmlType("working-dir", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class WorkingDirBinding : Binding, IEquatable<WorkingDirBinding>
     {

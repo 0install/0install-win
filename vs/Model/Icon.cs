@@ -28,6 +28,7 @@ namespace ZeroInstall.Model
     /// An icon for an interface.
     /// </summary>
     [TypeConverter(typeof(IconConverter))]
+    [Serializable]
     [XmlType("icon", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public struct Icon : IEquatable<Icon>
     {

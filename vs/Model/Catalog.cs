@@ -28,6 +28,7 @@ namespace ZeroInstall.Model
     /// Contains a list of <see cref="Feed"/>s, optionally reduced to only contain information relevant for listings.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     [XmlRoot("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
     [XmlType("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
     public class Catalog : XmlUnknown, ISimplifyable, ICloneable, IEquatable<Catalog>

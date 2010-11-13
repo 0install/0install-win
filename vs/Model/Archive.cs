@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents an archive to be downloaded and extracted.
     /// </summary>
+    [Serializable]
     [XmlType("archive", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Archive : RecipeStep, IEquatable<Archive>
     {

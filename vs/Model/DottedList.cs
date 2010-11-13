@@ -15,6 +15,7 @@ namespace ZeroInstall.Model
     /// </code>
     /// </remarks>
     /// <remarks>This class is immutable.</remarks>
+    [Serializable]
     internal sealed class DottedList : IEquatable<DottedList>, IComparable<DottedList>
     {
         #region Singleton fields

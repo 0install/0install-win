@@ -26,6 +26,7 @@ namespace ZeroInstall.Model
     /// A reference to a <see cref="Feed"/> that is required by an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     [XmlType("depedency", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Dependency : XmlUnknown, IBindingContainer, ICloneable
     {

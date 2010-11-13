@@ -25,6 +25,7 @@ namespace ZeroInstall.Model
     /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
     /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
+    [Serializable]
     [XmlType("overlay", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {

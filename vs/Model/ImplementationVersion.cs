@@ -18,6 +18,7 @@ namespace ZeroInstall.Model
     ///   </code>
     /// </para>
     /// </remarks>
+    [Serializable]
     public sealed class ImplementationVersion : IEquatable<ImplementationVersion>, IComparable<ImplementationVersion>
     {
         #region Variables

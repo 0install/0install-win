@@ -33,6 +33,7 @@ namespace ZeroInstall.Model
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Feed"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     [XmlType("package-implementation", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {

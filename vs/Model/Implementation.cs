@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Xml.Serialization;
@@ -26,6 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     [XmlType("implementation", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public sealed class Implementation : ImplementationBase
     {
