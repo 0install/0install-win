@@ -87,35 +87,47 @@ namespace ZeroInstall.DownloadBroker
 
             foreach (var implementation in fetchRequest.Implementations)
             {
+                bool succeeded = false;
                 foreach (var method in implementation.RetrievalMethods)
                 {
+                    if (succeeded) break;
                     var archive = method as Archive;
+                    var recipe = method as Recipe;
                     if (archive != null)
                     {
-                        FetchArchive(implementation, archive);
-                        break;
+                        succeeded = FetchArchive(implementation, archive);
                     }
-                    var recipe = method as Recipe;
-                    if (recipe != null)
+                    else if (recipe != null)
                     {
-                        FetchMultipleArchives(implementation, recipe);
-                        break;
+                        succeeded = FetchMultipleArchives(implementation, recipe);
                     }
-                    throw new InvalidOperationException(Resources.NoRetrievalMethod);
                 }
+                if (!succeeded)
+                    throw new FetcherException("Request not completely fulfilled");
             }
         }
 
-        private void FetchArchive(Implementation implementation, Archive archive)
+        private bool FetchArchive(Implementation implementation, Archive archive)
         {
             string tempArchive = Path.GetTempFileName();
-            FetchArchive(archive, tempArchive);
-            try { Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler); }
-            catch (ImplementationAlreadyInStoreException) {}
+            try
+            {
+                DownloadArchive(archive, tempArchive);
+                Store.AddArchive(new ArchiveFileInfo
+                {
+                    Path = tempArchive,
+                    MimeType = archive.MimeType,
+                    SubDir = archive.Extract,
+                    StartOffset = archive.StartOffset
+                }, implementation.ManifestDigest, Handler);
+            }
+            catch (ImplementationAlreadyInStoreException) { return true; }
+            catch (Exception) { return false; }
             finally { File.Delete(tempArchive); }
+            return true;
         }
 
-        private void FetchMultipleArchives(Implementation implementation, Recipe recipe)
+        private bool FetchMultipleArchives(Implementation implementation, Recipe recipe)
         {
             var archives = new List<ArchiveFileInfo>();
             foreach (var currentStep in recipe.Steps)
@@ -125,15 +137,22 @@ namespace ZeroInstall.DownloadBroker
 
                 string tempArchive = Path.GetTempFileName();
 
-                FetchArchive(currentArchive, tempArchive);
-                archives.Add(new ArchiveFileInfo { Path = tempArchive, MimeType = currentArchive.MimeType, SubDir = currentArchive.Extract, StartOffset = currentArchive.StartOffset });
+                DownloadArchive(currentArchive, tempArchive);
+                archives.Add(new ArchiveFileInfo
+                {
+                    Path = tempArchive,
+                    MimeType = currentArchive.MimeType,
+                    SubDir = currentArchive.Extract,
+                    StartOffset = currentArchive.StartOffset
+                });
             }
             try { Store.AddMultipleArchives(archives, implementation.ManifestDigest, Handler); }
             catch (ImplementationAlreadyInStoreException) { }
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
+            return true;
         }
 
-        private void FetchArchive(Archive archive, string destination)
+        private void DownloadArchive(Archive archive, string destination)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");

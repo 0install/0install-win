@@ -38,7 +38,7 @@ namespace ZeroInstall.DownloadBroker
         private Fetcher _fetcher;
         private string _archiveFile;
         private ArchiveProvider _server;
-        private static readonly string ServerPrefix = "http://localhost:50222/archives/";
+        private const string ServerPrefix = "http://localhost:50222/archives/";
         string _oldWorkingDirectory;
 
         [SetUp]
@@ -226,7 +226,7 @@ namespace ZeroInstall.DownloadBroker
                 RetrievalMethods = { recipe }
             };
             var request = new FetchRequest(new List<Implementation> { implementation });
-            _fetcher.RunSync(request);
+            Assert.DoesNotThrow(() => _fetcher.RunSync(request));
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
 
@@ -252,6 +252,36 @@ namespace ZeroInstall.DownloadBroker
             var request = new FetchRequest(new List<Implementation> { implementation });
             _fetcher.RunSync(request);
             Assert.IsTrue(suppliedRangeToDownload, "The Fetcher must use a range to download only part of the file");
+        }
+
+        [Test]
+        public void ShouldTryNextRetrievalMethodOnFailure()
+        {
+            var package = PreparePackageBuilder();
+            package.GeneratePackageArchive(_archiveFile);
+
+            var archive = new Archive
+            {
+                MimeType = "application/zip",
+                Size = new FileInfo(_archiveFile).Length,
+                Location = new Uri(ServerPrefix + "test.zip")
+            };
+            var fakeArchive = new Archive
+            {
+                MimeType = "application/zip",
+                Size = new FileInfo(_archiveFile).Length,
+                Location = new Uri(ServerPrefix + "nothingHere.zip")
+            };
+            var implementation = new Implementation
+            {
+                ID = "testPackage",
+                ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(package),
+                RetrievalMethods = { fakeArchive, archive }
+            };
+
+            var request = new FetchRequest(new List<Implementation> { implementation });
+            _fetcher.RunSync(request);
+            Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
         }
     }
 }

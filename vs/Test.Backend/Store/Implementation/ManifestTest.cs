@@ -360,18 +360,15 @@ namespace ZeroInstall.Store.Implementation
             var completedLock = new ManualResetEvent(false);
             _someGenerator.StateChanged += delegate(IProgress sender)
             {
-                if (sender.State == ProgressState.Started)
-                {
-                    // Yield rest of time slice so that main thread can continue with Join()
-                    Thread.Sleep(0);
-                    testerThreadState = testerThread.ThreadState;
-                }
                 if (sender.State == ProgressState.Complete)
+                {
+                    testerThreadState = testerThread.ThreadState;
                     completedLock.Set();
+                }
             };
             _someGenerator.Start();
             _someGenerator.Join();
-            bool didTerminate;
+            bool didTerminate = false;
             try
             {
                 Assert.AreEqual(ProgressState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
