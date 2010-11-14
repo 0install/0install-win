@@ -32,12 +32,12 @@ namespace Common.Storage
     {
         #region Properties
         /// <summary>
-        /// The path were the directory was originally located.
+        /// The path were the directory was originally located; <see langword="null"/> if the directory didn't exist.
         /// </summary>
         public string OriginalPath { get; private set; }
 
         /// <summary>
-        /// The path were the directory was moved to.
+        /// The path were the directory was moved to; <see langword="null"/> if the directory didn't exist.
         /// </summary>
         public string BackupPath { get; private set; }
         #endregion
@@ -72,8 +72,11 @@ namespace Common.Storage
         /// </summary>
         public void Dispose()
         {
-            if (Directory.Exists(OriginalPath)) Directory.Delete(OriginalPath, true);
-            Directory.Move(BackupPath, OriginalPath);
+            if (!string.IsNullOrEmpty(OriginalPath))
+            {
+                if (Directory.Exists(OriginalPath)) Directory.Delete(OriginalPath, true);
+                Directory.Move(BackupPath, OriginalPath);
+            }
         }
         #endregion
     }
