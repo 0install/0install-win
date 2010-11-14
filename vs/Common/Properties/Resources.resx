@@ -127,6 +127,12 @@
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>The content archives were already loaded</value>
   </data>
+  <data name="UserCancel" xml:space="preserve">
+    <value>The user has chosen to cancel the operation.</value>
+  </data>
+  <data name="UnhandledCliErrors" xml:space="preserve">
+    <value>One or more errors from an external command-line application were not handled.</value>
+  </data>
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>There was no XML data found in the file.</value>
   </data>
@@ -254,11 +260,5 @@ Delete the changes</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Downloading {0}</value>
-  </data>
-  <data name="UserCancel" xml:space="preserve">
-    <value>The user has chosen to cancel the operation.</value>
-  </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>One or more errors from an external command-line application were not handled.</value>
   </data>
 </root>

@@ -120,6 +120,12 @@
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
   </data>
+  <data name="UserCancel" xml:space="preserve">
+    <value>Der Benutzer hat sich entschieden den Vorgang abzubrechen.</value>
+  </data>
+  <data name="UnhandledCliErrors" xml:space="preserve">
+    <value>Ein oder mehrere Fehler von einer externen Befehlszeilenanwendung wurden nicht behandelt.</value>
+  </data>
   <data name="NoXmlDataInFile" xml:space="preserve">
     <value>Es wurden keine XML Daten in der Datei gefunden.</value>
   </data>
@@ -174,8 +180,8 @@
   <data name="CollectionIsEmpty" xml:space="preserve">
     <value>Die Collection ist leer.</value>
   </data>
-  <data name="NoModActive" xml:space="preserve">
-    <value>Derzeit ist kein Mod aktiv.</value>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>Die Datei "{0}" konnte nicht gefunden werden.</value>
   </data>
   <data name="Delete" xml:space="preserve">
     <value>Löschen</value>
@@ -236,6 +242,9 @@ Die Änderungen löschen</value>
   <data name="MissingStreamSeekSupport" xml:space="preserve">
     <value>Der Stream muss Seeking unterstützen.</value>
   </data>
+  <data name="UnableToLocateAssembly" xml:space="preserve">
+    <value>Die Assembly mit dem Namen "{0}" konnte nicht gefunden werden.</value>
+  </data>
   <data name="FailedToLaunch" xml:space="preserve">
     <value>{0} konnte nicht gestartet werden.</value>
   </data>
@@ -244,14 +253,5 @@ Die Änderungen löschen</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Lade {0} runter</value>
-  </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>Die Datei "{0}" konnte nicht gefunden werden.</value>
-  </data>
-  <data name="UserCancel" xml:space="preserve">
-    <value>Der Benutzer hat sich entschieden den Vorgang abzubrechen.</value>
-  </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>Ein oder mehrere Fehler von einer externen Befehlszeilenanwendung wurden nicht behandelt.</value>
   </data>
 </root>
