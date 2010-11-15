@@ -355,14 +355,11 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldOfferJoin()
         {
-            Thread testerThread = Thread.CurrentThread;
-            System.Threading.ThreadState? testerThreadState = null;
             var completedLock = new ManualResetEvent(false);
             _someGenerator.StateChanged += delegate(IProgress sender)
             {
                 if (sender.State == ProgressState.Complete)
                 {
-                    testerThreadState = testerThread.ThreadState;
                     completedLock.Set();
                 }
             };
@@ -372,7 +369,6 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 Assert.AreEqual(ProgressState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
-                Assert.AreNotEqual(System.Threading.ThreadState.Running, testerThreadState, "The thread that called join must be in blocking state for some time.");
             }
             finally
             {
