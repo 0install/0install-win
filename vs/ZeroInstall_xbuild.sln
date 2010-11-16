@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # xbuild
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backend", "Backend", "{1C0DE327-172C-4845-BCB2-68872A0CE9FF}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{81AF4FA5-44F7-4010-8769-B85B8B542FA2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.Gtk", "Common.Gtk\Common.Gtk.csproj", "{D602F86B-EF33-4DB3-8FD5-18DFBB98C306}"
@@ -16,8 +14,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadBroker", "DownloadBroker\DownloadBroker.csproj", "{37C09DC0-86FA-422C-B7EA-6970BF348ED0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApps", "MyApps\MyApps.csproj", "{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Frontend", "Frontend", "{C6323B35-FD0B-49FB-83BB-D084DC6697DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.Cli", "Central.Cli\Central.Cli.csproj", "{F52544A4-EC24-11DF-8FA3-0F04E0D72085}"
 EndProject
@@ -38,8 +34,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Gtk", "Store.Management.Gtk\Store.Management.Gtk.csproj", "{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Service", "Store.Service\Store.Service.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{55783758-0BFF-436F-B3F8-854DA1B7E17D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publish", "Publish\Publish.csproj", "{841CD750-F9D0-4A2D-98C7-7A340C781F41}"
 EndProject
