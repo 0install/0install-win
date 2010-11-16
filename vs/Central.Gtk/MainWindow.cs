@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2010 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -20,14 +20,14 @@ using Gtk;
 
 public partial class MainWindow : Gtk.Window
 {
-	public MainWindow () : base(Gtk.WindowType.Toplevel)
+	public MainWindow() : base(Gtk.WindowType.Toplevel)
 	{
-		Build ();
+		Build();
 	}
 
-	protected void OnDeleteEvent (object sender, DeleteEventArgs a)
+	protected void OnDeleteEvent(object sender, DeleteEventArgs a)
 	{
-		Application.Quit ();
+		Application.Quit();
 		a.RetVal = true;
 	}
 }

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2010 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -30,7 +30,10 @@ namespace ZeroInstall.Store.Management.Gtk
         /// </summary>
         static void Main(string[] args)
         {
-            // ToDo: Implement
+            Application.Init();
+            MainWindow win = new MainWindow();
+            win.Show();
+            Application.Run();
         }
     }
 }
