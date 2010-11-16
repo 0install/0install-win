@@ -90,6 +90,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="Icon.png" />
+    <Content Include="DesktopIcon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\app.manifest" />
