@@ -17,7 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Runtime.Remoting;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Properties;
@@ -25,30 +25,45 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Uses a background service to add new entries to a backing <see cref="DirectoryStore"/> that requires elevated privileges to write.
+    /// Uses a background service to add new entries to a store that requires elevated privileges to write.
     /// </summary>
-    /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
-    public class ServiceStore : MarshalByRefObject, IStore
+    /// <remarks>
+    ///   <para>The represented store data is mutable but the class itself is immutable.</para>
+    ///   <para>All <see cref="RemotingException"/>s are wrapped as <see cref="UnauthorizedAccessException"/>s.</para>
+    /// </remarks>
+    public sealed class ServiceStore : MarshalByRefObject, IStore
     {
+        #region Constants
+        /// <summary>
+        /// The default port name to use to contact the service process.
+        /// </summary>
+        public const string IpcPortName = "ZeroInstallStoreService";
+
+        /// <summary>
+        /// The Uri fragment to use to request an <see cref="IStore"/> object from the service.
+        /// </summary>
+        public const string IpcObjectUri = "Store";
+        #endregion
+
         #region Variables
         /// <summary>The store to use for read-access.</summary>
-        private readonly DirectoryStore _backingStore;
+        private readonly IStore _serviceProxy;
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new service store based on the given path to a cache folder.
+        /// Initializes the IPC subsystem using the default IPC port name. No actual connection is established yet.
         /// </summary>
-        /// <param name="path">A fully qualified directory path. The directory must already exist.</param>
-        /// <exception cref="DirectoryNotFoundException">Thrown if there is no directory at <paramref name="path"/>.</exception>
-        public ServiceStore(string path)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (!Directory.Exists(path)) throw new DirectoryNotFoundException();
-            #endregion
+        public ServiceStore() : this(IpcPortName)
+        {}
 
-            _backingStore = new DirectoryStore(path);
+        /// <summary>
+        /// Initializes the IPC subsystem using a custom IPC port name. No actual connection is established yet.
+        /// </summary>
+        /// <param name="ipcPortName">The port name to use to contact the service process.</param>
+        public ServiceStore(string ipcPortName)
+        {
+            _serviceProxy = (IStore)Activator.GetObject(typeof(IStore), "ipc://" + ipcPortName + "/" + IpcObjectUri);
         }
         #endregion
 
@@ -58,7 +73,13 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<string> ListAll()
         {
-            return _backingStore.ListAll();
+            try { return _serviceProxy.ListAll(); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -66,7 +87,13 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
-            return _backingStore.Contains(manifestDigest);
+            try { return _serviceProxy.Contains(manifestDigest); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -74,7 +101,13 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
-            return _backingStore.GetPath(manifestDigest);
+            try { return _serviceProxy.GetPath(manifestDigest); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -86,7 +119,13 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            throw new NotImplementedException();
+            try { _serviceProxy.AddDirectory(path, manifestDigest, handler); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -98,7 +137,13 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
 
-            throw new NotImplementedException();
+            try { _serviceProxy.AddArchive(archiveInfo, manifestDigest, handler); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
 
         /// <inheritdoc />
@@ -108,7 +153,13 @@ namespace ZeroInstall.Store.Implementation
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             #endregion
 
-            throw new NotImplementedException();
+            try { _serviceProxy.AddMultipleArchives(archiveInfos, manifestDigest, handler); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -116,7 +167,13 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Remove(ManifestDigest manifestDigest)
         {
-            throw new NotImplementedException(); ;
+            try { _serviceProxy.Remove(manifestDigest); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
 
@@ -124,7 +181,13 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Optimise()
         {
-            throw new NotImplementedException();
+            try { _serviceProxy.Optimise(); }
+            #region Error handling
+            catch (RemotingException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+            }
+            #endregion
         }
         #endregion
     }

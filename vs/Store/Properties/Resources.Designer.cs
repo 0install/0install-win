@@ -243,6 +243,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to establish connection with StoreService..
+        /// </summary>
+        internal static string StoreServiceCommunicationProblem {
+            get {
+                return ResourceManager.GetString("StoreServiceCommunicationProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to add implementation to a store..
         /// </summary>
         internal static string UnableToAddImplementionToStore {

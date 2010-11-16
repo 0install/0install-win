@@ -2592,7 +2592,7 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="1bf16379-605d-4f10-92e8-698703afb970" name="ServiceStore" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="1bf16379-605d-4f10-92e8-698703afb970" name="ServiceStore" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
                 <reference Id="eb7db474-963e-4c9e-841d-443dcda29506" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore" tag="ViewCode">
                   <elementDefinition Id="ec1a763b-df56-4d48-afc1-34fc9c6ac31e" />
@@ -2643,33 +2643,47 @@
                 </interfaceRealization>
               </suppliersInternal>
               <targetEnds>
-                <association Id="8fa9fc52-798a-4d2f-a123-4c41122d4f50" isDerived="false" sourceEndRoleName="ServiceStore" targetEndRoleName="_backingStore" isLeaf="false" isAbstract="false">
-                  <classMoniker Id="631ed4bf-715d-4f08-b1b6-f0b279c42635" LastKnownName="DirectoryStore" />
+                <association Id="666ed7d2-a6c6-4707-a930-c6e071b08199" isDerived="false" sourceEndRoleName="ServiceStore" targetEndRoleName="_serviceProxy" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="ad572e2d-f15f-4ffc-9ab3-021d9a4716bd" LastKnownName="IStore" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="05d7a47f-a5b3-4717-a5a5-79e37e69f562" name="ServiceStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="46f41c14-bc67-46b4-b16f-df321cc14263" name="ServiceStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                         <lowerValueInternal>
-                          <literalString Id="05b89b15-6ac2-4eee-ac46-574e76008a56" name="Lower" value="*">
-                            <elementDefinition Id="89409fad-8506-4461-901f-4251258751f4" />
+                          <literalString Id="9350feb5-c013-41cd-a42e-6e2c9253d846" name="Lower" value="*">
+                            <elementDefinition Id="405e2441-e56a-44ed-87e1-ee796de5e752" />
                           </literalString>
                         </lowerValueInternal>
                         <upperValueInternal>
-                          <literalString Id="b87909ec-d4d4-4ad1-a8d3-0c13401d29c0" name="Upper" value="*">
-                            <elementDefinition Id="18b8053a-241f-4474-86e5-ff5f83103f13" />
+                          <literalString Id="4dbde706-faf7-40c7-8fbc-99e27bd6f1cd" name="Upper" value="*">
+                            <elementDefinition Id="5cc775e4-dc1d-4fbf-ac2e-eb5965172efe" />
                           </literalString>
                         </upperValueInternal>
-                        <elementDefinition Id="fae53e19-10b5-4a9d-aaee-1a6fcb0aabb0" />
+                        <elementDefinition Id="16c64da0-56cf-4412-a9a3-8dbf6feed29c" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="1e11c4a9-2973-4a6e-94a8-b343bfd6feeb" name="_backingStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="0e5f9ac3-2923-4f99-afc0-aabc8b0a54a9" />
+                      <memberEnd Id="82f3888d-f858-4868-9485-d52b64f6be0e" name="_serviceProxy" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="d123ada3-ad6e-464c-a932-514d820d8499" />
                       </memberEnd>
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="b4f8e600-625c-4b0a-9990-ff9e3eed27b5" />
+                  <elementDefinition Id="f4f93129-d624-4192-8855-6c0e3a4c6d51" />
                 </association>
               </targetEnds>
+              <ownedAttributesInternal>
+                <property Id="b5f7cf28-788f-4c33-b8b4-ec837497dc75" name="IpcPortName" isLeaf="false" isStatic="true" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="7b69bf41-b70c-408d-8616-8247c03317c0" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="8c881b06-d9a3-40ce-9ff5-2c816ea2c696" LastKnownName="String" />
+                  </type_NamedElement>
+                </property>
+                <property Id="d112e6b7-1bb7-4c09-9650-63024b16ae0b" name="IpcObjectUri" isLeaf="false" isStatic="true" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="0e1f50da-2d39-47e8-82dc-cc2eeaa17fda" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="51b20029-9584-446f-ae72-b166cf029266" LastKnownName="String" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributesInternal>
               <ownedOperationsInternal>
                 <operation Id="d5fd604e-8ce8-49ae-b110-85b510c645d0" name="ServiceStore" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
@@ -2715,21 +2729,6 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="ff952fa8-bc50-47a8-bf46-2a4d6baa90d5" />
-                  <ownedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="7663acd3-f0de-4757-864a-90e4f58645f5" name="path" direction="In">
-                        <referencesInternal>
-                          <reference Id="78789738-17a0-47fe-adc9-c81dc98d9f36" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path" tag="ViewCode">
-                            <elementDefinition Id="150c9745-97ad-475f-8aaf-c33af63fd899" />
-                          </reference>
-                        </referencesInternal>
-                        <elementDefinition Id="a9726113-f3d4-4a90-84ed-1a520d5e3fec" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                  </ownedParameters>
                 </operation>
                 <operation Id="3ab3d810-e723-4511-92a5-63c3a536c644" name="Contains" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <elementDefinition Id="092a0a26-eb06-48ca-a18e-704369fd5bda" />
@@ -2882,6 +2881,53 @@
                         <type_NamedElement>
                           <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
                         </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="51738022-c05e-4381-8b0a-18cb6191c08e" name="ServiceStore" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="5c585eb8-bce3-4a2d-936c-4c49be0d0120" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="9bd58100-5766-440c-87fc-88f2136bbfa6" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="9ba09449-d65a-4000-a613-96bd893f6fa2">
+                          <propertyInstance Id="3fd74768-0842-4bc6-a55f-d18c1581f7fe" name="ClrAttributes">
+                            <elementDefinition Id="50c00c1c-931e-490f-a670-574d9667d68d" />
+                          </propertyInstance>
+                          <elementDefinition Id="b173f696-9ac3-4364-a3d5-5364fb3f5aad" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="b9272a26-ff9c-4bd5-a1d3-150f820bdd28">
+                          <propertyInstance Id="e7087794-c0a9-4967-a19d-f828bdc2baa0" name="IsPartial" value="false">
+                            <elementDefinition Id="7b3d96a4-27b1-4622-871b-a486c6c0fe60" />
+                          </propertyInstance>
+                          <elementDefinition Id="f9637613-793d-4f69-bd1b-65acef9324d4" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="471d61e4-6a53-499b-ac89-9ebe410d3f61">
+                          <propertyInstance Id="164d3374-d727-4dd7-a4f4-09d920ae5341" name="IsUnsafe" value="false">
+                            <elementDefinition Id="ea76dd5e-d828-4037-9871-269a8ae5203a" />
+                          </propertyInstance>
+                          <elementDefinition Id="bcb698c7-2aa4-4996-98e5-2c69ac56e1f3" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="978ea390-d50e-4a48-97c1-b82539a37ddb">
+                          <propertyInstance Id="a3f42fe4-0fb2-4126-a61a-00240d007556" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="d92b6548-cb35-46e5-82c9-4ebc40be7ea2" />
+                          </propertyInstance>
+                          <elementDefinition Id="9dca71a5-5603-4360-8c1e-2190641b53c9" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="72e08d0b-a5cf-4034-aadc-3c70a78e1ebf">
+                          <propertyInstance Id="cb92020d-f3e8-426d-87f4-2ba53d0a4d57" name="params" value="false">
+                            <elementDefinition Id="f13eb785-c848-4164-8e6e-d7da7476af31" />
+                          </propertyInstance>
+                          <elementDefinition Id="31dc7445-87ef-49e2-a7d1-dac0b6de4ec5" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="50bb11c6-738e-4526-a56a-db826b1e7837" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="54dc3314-c539-4e01-b6d1-eb37b33fae22" name="String ipcPortName" direction="In" isUnique="false">
+                        <elementDefinition Id="79af7709-15fa-4952-8b30-7d1d5525d0fc" />
                       </parameter>
                     </operationHasOwnedParameters>
                   </ownedParameters>
@@ -8269,6 +8315,16 @@
     <packageHasNamedElement>
       <referencedType Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8c881b06-d9a3-40ce-9ff5-2c816ea2c696" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="51b20029-9584-446f-ae72-b166cf029266" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

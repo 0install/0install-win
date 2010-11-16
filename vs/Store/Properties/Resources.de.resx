@@ -179,6 +179,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="SignatureAldreadyExists" xml:space="preserve">
     <value>Die Signaturdatei existiert bereits.</value>
   </data>
+  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
+    <value>Es konnte keine Verbindung zum StoreService hergestellt werden.</value>
+  </data>
   <data name="UnableToAddImplementionToStore" xml:space="preserve">
     <value>Die Implementierung konnte keinem Store hinzugefügt werden.</value>
   </data>

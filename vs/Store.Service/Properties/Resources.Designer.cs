@@ -59,5 +59,14 @@ namespace ZeroInstall.Store.Service.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No path specified..
+        /// </summary>
+        internal static string MissingPath {
+            get {
+                return ResourceManager.GetString("MissingPath", resourceCulture);
+            }
+        }
     }
 }

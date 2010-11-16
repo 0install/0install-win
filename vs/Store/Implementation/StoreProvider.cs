@@ -15,9 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.IO;
-using Common.Storage;
-
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
@@ -25,24 +22,10 @@ namespace ZeroInstall.Store.Implementation
     /// </summary>
     public static class StoreProvider
     {
-        private static readonly IStore _default = new DirectoryStore();
+        private static readonly IStore _default = new StoreSet(new IStore[] {new ServiceStore(), new DirectoryStore()});
         /// <summary>
         /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
-        public static IStore Default
-        {
-            get
-            {
-                // ToDo: Make more flexible
-
-                //return new StoreSet(new IStore[]
-                //{
-                //    new ServiceStore(new DirectoryStore(Locations.GetSystemCacheDir(DirectoryStore.UserProfileDirectory))),
-                //    new DirectoryStore()
-                //});
-
-                return _default;
-            }
-        }
+        public static IStore Default { get { return _default; } }
     }
 }

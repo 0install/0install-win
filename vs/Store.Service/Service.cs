@@ -15,12 +15,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Runtime.Remoting;
+using System.Runtime.Remoting.Channels;
+using System.Runtime.Remoting.Channels.Ipc;
 using System.ServiceProcess;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Service
 {
     public partial class Service : ServiceBase
     {
+        private readonly IChannel _channel = new IpcChannel(ServiceStore.IpcPortName);
+
         public Service()
         {
             InitializeComponent();
@@ -28,10 +34,13 @@ namespace ZeroInstall.Store.Service
 
         protected override void OnStart(string[] args)
         {
+            ChannelServices.RegisterChannel(_channel, true);
+            RemotingConfiguration.RegisterWellKnownServiceType(typeof(SecureStore), ServiceStore.IpcObjectUri, WellKnownObjectMode.Singleton);
         }
 
         protected override void OnStop()
         {
+            ChannelServices.UnregisterChannel(_channel);
         }
     }
 }

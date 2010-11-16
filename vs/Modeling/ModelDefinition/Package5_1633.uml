@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="68c2789d-278f-46a6-8fcb-6dced1ad8c23"
   name="Implementation"
@@ -4120,7 +4120,7 @@
         Id="6fa275a8-b02c-420b-9496-68cadd1c5f69"
         name="ServiceStore"
         isAbstract="false"
-        isLeaf="false"
+        isLeaf="true"
         isActiveClass="false">
         <referencesInternal>
           <reference
@@ -4182,20 +4182,20 @@
         </suppliersInternal>
         <targetEnds>
           <association
-            Id="b4f8e600-625c-4b0a-9990-ff9e3eed27b5"
+            Id="f4f93129-d624-4192-8855-6c0e3a4c6d51"
             isDerived="false"
             sourceEndRoleName="ServiceStore"
-            targetEndRoleName="_backingStore"
+            targetEndRoleName="_serviceProxy"
             isLeaf="false"
             isAbstract="false">
-            <classMoniker
-              Id="a40891aa-02b5-4434-89c9-2137dd3e495b"
-              LastKnownName="DirectoryStore"
+            <interfaceMoniker
+              Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
+              LastKnownName="IStore"
               LastKnownLocation="Package5_1633.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="fae53e19-10b5-4a9d-aaee-1a6fcb0aabb0"
+                  Id="16c64da0-56cf-4412-a9a3-8dbf6feed29c"
                   name="ServiceStore"
                   isLeaf="false"
                   isStatic="false"
@@ -4207,13 +4207,13 @@
                   isNavigableOwned="false">
                   <lowerValueInternal>
                     <literalString
-                      Id="89409fad-8506-4461-901f-4251258751f4"
+                      Id="405e2441-e56a-44ed-87e1-ee796de5e752"
                       name="Lower"
                       value="*" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="18b8053a-241f-4474-86e5-ff5f83103f13"
+                      Id="5cc775e4-dc1d-4fbf-ac2e-eb5965172efe"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -4221,11 +4221,12 @@
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
-                  Id="0e5f9ac3-2923-4f99-afc0-aabc8b0a54a9"
-                  name="_backingStore"
+                  Id="d123ada3-ad6e-464c-a932-514d820d8499"
+                  name="_serviceProxy"
+                  visibility="Private"
                   isLeaf="false"
                   isStatic="false"
-                  isReadOnly="false"
+                  isReadOnly="true"
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
@@ -4234,6 +4235,42 @@
             </relationshipOwnedElementsInternal>
           </association>
         </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="7b69bf41-b70c-408d-8616-8247c03317c0"
+            name="IpcPortName"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="0e1f50da-2d39-47e8-82dc-cc2eeaa17fda"
+            name="IpcObjectUri"
+            isLeaf="false"
+            isStatic="true"
+            isReadOnly="true"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
             Id="ff952fa8-bc50-47a8-bf46-2a4d6baa90d5"
@@ -4292,27 +4329,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="a9726113-f3d4-4a90-84ed-1a520d5e3fec"
-                  name="path"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="150c9745-97ad-475f-8aaf-c33af63fd899"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=ServiceStore Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
           </operation>
           <operation
             Id="092a0a26-eb06-48ca-a18e-704369fd5bda"
@@ -4578,6 +4594,67 @@
                       LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="50bb11c6-738e-4526-a56a-db826b1e7837"
+            name="ServiceStore"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="9bd58100-5766-440c-87fc-88f2136bbfa6"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b173f696-9ac3-4364-a3d5-5364fb3f5aad">
+                    <propertyInstance
+                      Id="50c00c1c-931e-490f-a670-574d9667d68d"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f9637613-793d-4f69-bd1b-65acef9324d4">
+                    <propertyInstance
+                      Id="7b3d96a4-27b1-4622-871b-a486c6c0fe60"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bcb698c7-2aa4-4996-98e5-2c69ac56e1f3">
+                    <propertyInstance
+                      Id="ea76dd5e-d828-4037-9871-269a8ae5203a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9dca71a5-5603-4360-8c1e-2190641b53c9">
+                    <propertyInstance
+                      Id="d92b6548-cb35-46e5-82c9-4ebc40be7ea2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="31dc7445-87ef-49e2-a7d1-dac0b6de4ec5">
+                    <propertyInstance
+                      Id="f13eb785-c848-4164-8e6e-d7da7476af31"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="79af7709-15fa-4952-8b30-7d1d5525d0fc"
+                  name="String ipcPortName"
+                  direction="In"
+                  isUnique="false" />
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>

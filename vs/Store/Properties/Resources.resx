@@ -191,4 +191,7 @@ Actual value: {1}</value>
   <data name="ImplementationAlreadyInStore" xml:space="preserve">
     <value>The implementation "{0}" is already in the store.</value>
   </data>
+  <data name="StoreServiceCommunicationProblem" xml:space="preserve">
+    <value>Unable to establish connection with StoreService.</value>
+  </data>
 </root>
