@@ -5,7 +5,7 @@ using System.IO;
 
 namespace Common.Utils
 {
-    internal class ImageUtils
+    public class ImageUtils
     {
         /// <summary>
         /// Guesses the <see cref="ImageFormat"/> of an image on base of its extension.
