@@ -46,6 +46,8 @@ namespace ZeroInstall.Publish.WinForms
         #region Constants
         private const string FeedFileFilter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
         private readonly ImageFormat[] _supportedImageFormats = new[] {ImageFormat.Png, ImageFormat.Icon};
+        private readonly string[] _supportedInjectorVersions = new[] { string.Empty, "0.31", "0.32", "0.33", "0.34",
+            "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43", "0.44", "0.45"};
         #endregion
 
         #region Variables
@@ -75,6 +77,7 @@ namespace ZeroInstall.Publish.WinForms
             InitializeComboBoxIconType();
             InitializeTreeViewFeedStructure();
             InitializeFeedStructureButtons();
+            InitializeComboBoxMinInjectorVersion();
             InitializeComboBoxGpg();
         }
 
@@ -134,6 +137,11 @@ namespace ZeroInstall.Publish.WinForms
             buttonAddRecipe.Tag = new Recipe();
         }
 
+        private void InitializeComboBoxMinInjectorVersion()
+        {
+            comboBoxMinInjectorVersion.Items.AddRange(_supportedInjectorVersions);
+        }
+
         /// <summary>
         /// Adds a list of secret gpg keys of the user to comboBoxGpg.
         /// </summary>
@@ -175,6 +183,8 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(textInterfaceUri, () => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value);
             SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value);
             SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
+
+            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersion, value => _feedEditing.Feed.MinInjectorVersion = value.ToString());
         }
 
         /// <summary>
@@ -228,8 +238,16 @@ namespace ZeroInstall.Publish.WinForms
             };
 
             // Enable the undo button even before the command has been created
-            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); };
-            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); };
+            textBox.KeyPress += delegate
+            {
+                try { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); }
+                catch (UriFormatException) {}
+            };
+            textBox.ClearButtonClicked += delegate
+            {
+                try { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); }
+                catch (UriFormatException) {}
+            };
         }
         
         /// <summary>
@@ -342,6 +360,35 @@ namespace ZeroInstall.Publish.WinForms
 
             checkedListBox.ItemCheck += itemCheckEventHandler;
         }
+
+        /// <summary>
+        /// Hooks up a <see cref="ComboBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
+        /// </summary>
+        /// <param name="comboBox">The <see cref="ComboBox"/> to track for input and to update.</param>
+        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        private void SetupCommandHooks(ComboBox comboBox, SimpleResult<object> getValue, Action<object> setValue)
+        {
+            Populate += delegate
+            {
+                comboBox.CausesValidation = false;
+                if (getValue() == null)
+                    comboBox.SelectedItem = string.Empty;
+                else
+                    comboBox.SelectedItem = getValue();
+                comboBox.CausesValidation = true;
+            };
+
+            comboBox.Validating += (sender, e) =>
+            {
+                if (e.Cancel) return;
+
+                if (comboBox.SelectedItem == getValue()) return;
+
+                _feedEditing.ExecuteCommand(new SetValueCommand<object>(comboBox.SelectedItem, getValue, setValue));
+            };
+
+        }
         #endregion
 
         #region Toolbar
@@ -360,8 +407,8 @@ namespace ZeroInstall.Publish.WinForms
                 if (!AskSave()) return;
             }
 
-            ResetFormControls();
             _feedEditing = new FeedEditing();
+            OnUpdate();
             InitializeEditingHooks();
         }
 
@@ -486,10 +533,6 @@ namespace ZeroInstall.Publish.WinForms
 
             _feedEditing.Feed.FeedFor.Clear();
             foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedEditing.Feed.FeedFor.Add(feedFor);
-
-            _feedEditing.Feed.MinInjectorVersion = null;
-            if (!String.IsNullOrEmpty(comboBoxMinInjectorVersion.SelectedText))
-                _feedEditing.Feed.MinInjectorVersion = comboBoxMinInjectorVersion.SelectedText;
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -634,7 +677,6 @@ namespace ZeroInstall.Publish.WinForms
         {
             foreach (var feed in _feedEditing.Feed.Feeds) listBoxExternalFeeds.Items.Add(feed);
             foreach (var feedFor in _feedEditing.Feed.FeedFor) listBoxFeedFor.Items.Add(feedFor);
-            comboBoxMinInjectorVersion.Text = _feedEditing.Feed.MinInjectorVersion;
         }
 
         #endregion
@@ -682,7 +724,6 @@ namespace ZeroInstall.Publish.WinForms
             hintTextBoxFeedFor.Clear();
             listBoxFeedFor.Items.Clear();
             feedReferenceControl.FeedReference = null;
-            comboBoxMinInjectorVersion.SelectedIndex = 0;
         }
 
         #endregion

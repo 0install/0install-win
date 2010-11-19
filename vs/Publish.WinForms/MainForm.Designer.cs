@@ -52,8 +52,6 @@ namespace ZeroInstall.Publish.WinForms
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -102,10 +100,12 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -256,22 +256,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
             // 
-            // descriptionControl
-            // 
-            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
-            this.descriptionControl.Multiline = true;
-            this.descriptionControl.Name = "descriptionControl";
-            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
-            this.descriptionControl.TabIndex = 9;
-            // 
-            // summariesControl
-            // 
-            this.summariesControl.Location = new System.Drawing.Point(9, 98);
-            this.summariesControl.Multiline = false;
-            this.summariesControl.Name = "summariesControl";
-            this.summariesControl.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl.TabIndex = 7;
-            // 
             // labelDescription
             // 
             this.labelDescription.AutoSize = true;
@@ -306,7 +290,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textInterfaceUri.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.textInterfaceUri.BackColor = System.Drawing.SystemColors.Window;
-            this.textInterfaceUri.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textInterfaceUri.HintText = "URL to a remote interface";
             this.textInterfaceUri.HttpOnly = true;
             this.textInterfaceUri.Location = new System.Drawing.Point(9, 59);
@@ -352,7 +335,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.textHomepage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textHomepage.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textHomepage.HintText = "the URL of a web-page describing this interface in more detail";
             this.textHomepage.Location = new System.Drawing.Point(9, 415);
             this.textHomepage.Name = "textHomepage";
@@ -414,7 +396,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxIconUrl.ForeColor = System.Drawing.SystemColors.ControlText;
             this.hintTextBoxIconUrl.HintText = "";
             this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
             this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
@@ -514,7 +495,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textName.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.textName.ForeColor = System.Drawing.SystemColors.ControlText;
             this.textName.HintText = "a short name to identify the interface (e.g. \"Foo\")";
             this.textName.Location = new System.Drawing.Point(9, 20);
             this.textName.Name = "textName";
@@ -791,7 +771,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.hintTextBoxFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxFeedFor.ForeColor = System.Drawing.SystemColors.ControlText;
             this.hintTextBoxFeedFor.HintText = "URL to an Interface";
             this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
             this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
@@ -803,25 +782,6 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.comboBoxMinInjectorVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxMinInjectorVersion.FormattingEnabled = true;
-            this.comboBoxMinInjectorVersion.Items.AddRange(new object[] {
-            "",
-            "0.31",
-            "0.32",
-            "0.33",
-            "0.34",
-            "0.35",
-            "0.36",
-            "0.37",
-            "0.38",
-            "0.39",
-            "0.40",
-            "0.41",
-            "0.41.1",
-            "0.42",
-            "0.42.1",
-            "0.43",
-            "0.44",
-            "0.45"});
             this.comboBoxMinInjectorVersion.Location = new System.Drawing.Point(6, 472);
             this.comboBoxMinInjectorVersion.Name = "comboBoxMinInjectorVersion";
             this.comboBoxMinInjectorVersion.Size = new System.Drawing.Size(93, 21);
@@ -877,13 +837,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
-            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -917,6 +870,29 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.Text = "Add";
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 9;
+            // 
+            // summariesControl
+            // 
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 7;
+            // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
             // 
             // MainForm
             // 
