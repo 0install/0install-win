@@ -68,7 +68,13 @@ namespace ZeroInstall.Store.Implementation
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<string>(StringComparer.Ordinal);
             foreach (IStore store in Stores)
-                result.AddSorted(store.ListAll());
+            {
+                try { result.AddSorted(store.ListAll()); }
+                catch (UnauthorizedAccessException)
+                {
+                    // Ignore authorization errors, since listing is not a critical task
+                }
+            }
 
             return result;
         }

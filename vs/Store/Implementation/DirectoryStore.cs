@@ -336,7 +336,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an entry in the store has an incorrect digest.</exception>
-        /// <remarks>In</remarks>
+        /// <remarks>In order to completely sanitize a cache directory this method needs to be called repeatedly, <see cref="Remove"/>ing any entries reported by <see cref="DigestMismatchException"/>s until no more exceptions are thrown.</remarks>
         public void Verify(IImplementationHandler handler)
         {
             // Iterate through all entries - their names are the expected digest values
