@@ -40,7 +40,11 @@ namespace ZeroInstall.Store.Implementation
         /// Determines whether this store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
+        /// <returns>
+        ///   <see langword="true"/> if the request implementation is available in this store;
+        ///   <see langword="false"/> if the request implementation is not available in this store or if read access to this store is not permitted.
+        /// </returns>
+        /// <remarks>If read access to this store is not permitted, no exception is thrown.</remarks>
         bool Contains(ManifestDigest manifestDigest);
 
         /// <summary>

@@ -643,6 +643,114 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="b4979201-e4b1-445e-86ec-8877b8d253a4"
+            name="VerifyDirectory"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="fa3d6668-19c4-4aad-8a50-6e8cfe41fbb9"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="05703d41-bf05-455d-a564-d72ddf93914b">
+                    <propertyInstance
+                      Id="ba073d5c-d356-4a34-8981-cecbfb9fcf78"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="067ae370-0db8-425e-9bc8-2ccd1111e3e9">
+                    <propertyInstance
+                      Id="266406fe-17ef-4474-87ea-07dc4d21719d"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9ebbe68c-edf4-4ea6-92da-5883c4c6d97f">
+                    <propertyInstance
+                      Id="c54c91d8-57d3-4cd7-8807-0f934e2278ba"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2bf50e35-1dc0-4bde-b84c-23f70de1b050">
+                    <propertyInstance
+                      Id="2c9824c1-6415-4a79-ba7e-d169e4879382"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7dfb527c-b95e-4207-8a01-a97e333ddd5a">
+                    <propertyInstance
+                      Id="12a35645-debe-4a32-9014-4102f07c73c4"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="af287a9a-c146-443e-a2df-a2c645abeafa"
+                  name="directory"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="0d6051bd-96ad-48d5-ae1d-4432a7209952"
+                  name="expectedDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="b39e6144-d64b-4a95-a3e5-6ab18761f2f5"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1292921b-ca9f-462c-a916-dd70108a0c09"
+                  direction="Return">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="a5a2eefb-307c-4237-9544-ba615afde7bc"
+                      LastKnownName="Manifest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>

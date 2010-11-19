@@ -203,7 +203,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Get left part of everything to the left of the first occurrence of a character.
+        /// Get everything to the left of the first occurrence of a character.
         /// </summary>
         public static string GetLeftPartAtFirstOccurrence(string sourceText, char ch)
         {
@@ -216,7 +216,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Get right part of everything to the right of the first occurrence of a character.
+        /// Get everything to the right of the first occurrence of a character.
         /// </summary>
         public static string GetRightPartAtFirstOccurrence(string sourceText, char ch)
         {
@@ -229,7 +229,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Get left part of everything to the left of the last occurrence of a character.
+        /// Get everything to the left of the last occurrence of a character.
         /// </summary>
         public static string GetLeftPartAtLastOccurrence(string sourceText, char ch)
         {
@@ -242,7 +242,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Get right part of everything to the right of the last occurrence of a character.
+        /// Get everything to the right of the last occurrence of a character.
         /// </summary>
         public static string GetRightPartAtLastOccurrence(string sourceText, char ch)
         {

@@ -41,9 +41,9 @@ namespace ZeroInstall.Store.Implementation
         public string ActualHash { get; private set; }
 
         /// <summary>
-        /// The content of the ".manifest" file that created <see cref="ActualHash"/>.
+        /// The <see cref="Manifest"/> that resulted in the <see cref="ActualHash"/>.
         /// </summary>
-        public string Manifest { get; private set; }
+        public Manifest Manifest { get; private set; }
         #endregion
 
         #region Constructor
@@ -52,8 +52,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="expectedHash">The hash value the <see cref="Implementation"/> was supposed to have.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
-        /// <param name="manifest">The content of the ".manifest" file that created <paramref name="actualHash"/>.</param>
-        public DigestMismatchException(string expectedHash, string actualHash, string manifest)
+        /// <param name="manifest">The <see cref="Manifest"/> that resulted in the<paramref name="actualHash"/>.</param>
+        public DigestMismatchException(string expectedHash, string actualHash, Manifest manifest)
             : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
         {
             ExpectedHash = expectedHash;
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Implementation
 
             ExpectedHash = info.GetString("ExpectedHash");
             ActualHash = info.GetString("ActualHash");
-            Manifest = info.GetString("Manifest");
+            Manifest = (Manifest)info.GetValue("Manifest", typeof(Manifest));
         }
         #endregion
 

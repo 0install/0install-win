@@ -89,9 +89,9 @@ namespace ZeroInstall.Store.Implementation
         {
             try { return _serviceProxy.Contains(manifestDigest); }
             #region Error handling
-            catch (RemotingException ex)
+            catch (RemotingException)
             {
-                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
+                return false;
             }
             #endregion
         }

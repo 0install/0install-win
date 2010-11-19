@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common;
-using ZeroInstall.Store.Implementation.Archive;
 using Common.Utils;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -81,6 +81,82 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         public DirectoryStore() : this(UserProfileDirectory)
         {}
+        #endregion
+
+        //--------------------//
+        
+        #region Verify and add
+        /// <summary>
+        /// Verifies the manifest digest of a directory temporarily stored inside the cache and moves it to the final location if it passes.
+        /// </summary>
+        /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
+        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
+        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, IImplementationHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
+            #endregion
+
+            // Determine the digest method to use
+            string expectedDigest = manifestDigest.BestDigest;
+            if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
+
+            // Determine the source and target directories
+            string source = Path.Combine(DirectoryPath, tempID);
+            string target = Path.Combine(DirectoryPath, expectedDigest);
+
+            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+
+            // Calculate the actual digest, compare it with the expected one and create a manifest file
+            VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
+
+            // Move directory to final store destination
+            try { Directory.Move(source, target); }
+            catch (IOException)
+            {
+                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+                throw;
+            }
+
+            // Prevent any further changes to the directory
+            try { FileUtils.WriteProtection(target, true); }
+            catch (UnauthorizedAccessException)
+            {
+                Log.Warn("Unable to enable write protection for " + target);
+            }
+        }
+        #endregion
+
+        #region Verify manifest
+        /// <summary>
+        /// Verifies the manifest digest of a directory.
+        /// </summary>
+        /// <param name="directory">The directory to generate a <see cref="Manifest"/> for.</param>
+        /// <param name="expectedDigest">The digest the <see cref="Manifest"/> of the <paramref name="directory"/> should have.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <returns>The generated <see cref="Manifest"/>.</returns>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> indicates no known hash methods.</exception>
+        /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
+        public static Manifest VerifyDirectory(string directory, string expectedDigest, IImplementationHandler handler)
+        {
+            Action<IProgress> startingManifest = null;
+            if (handler != null) startingManifest = handler.StartingManifest;
+
+            var format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
+            var manifest = Manifest.Generate(directory, format, startingManifest);
+
+            string actualDigest = Manifest.Generate(directory, format, startingManifest).CalculateDigest();
+            if (actualDigest != expectedDigest) throw new DigestMismatchException(directory, actualDigest, manifest);
+
+            return manifest;
+        }
         #endregion
 
         //--------------------//
@@ -224,57 +300,6 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
         #endregion
-        
-        #region Verify and add
-        /// <summary>
-        /// Verifies the manifest digest of a directory temporarily stored inside the cache and moves it to the final location if it passes.
-        /// </summary>
-        /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
-        /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, IImplementationHandler handler)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
-            #endregion
-
-            // Determine the digest method to use
-            string expectedDigest = manifestDigest.BestDigest;
-            if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
-            var format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
-
-            // Determine the source and target directories
-            string source = Path.Combine(DirectoryPath, tempID);
-            string target = Path.Combine(DirectoryPath, expectedDigest);
-
-            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
-
-            // Calculate the actual digest and compare it with the expected one
-            Action<IProgress> startingManifest = null;
-            if (handler != null) startingManifest = handler.StartingManifest;
-            string actualDigest = Manifest.CreateDotFile(source, format, startingManifest);
-            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest, File.ReadAllText(Path.Combine(source, ".manifest")));
-
-            // Move directory to final store destination
-            try { Directory.Move(source, target); }
-            catch (IOException)
-            {
-                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
-                throw;
-            }
-
-            // Prevent any further changes to the directory
-            try { FileUtils.WriteProtection(target, true); }
-            catch (UnauthorizedAccessException)
-            {
-                Log.Warn("Unable to enable write protection for " + target);
-            }
-        }
-        #endregion
 
         #region Remove
         /// <inheritdoc />
@@ -285,7 +310,13 @@ namespace ZeroInstall.Store.Implementation
             // Remove write protection
             FileUtils.WriteProtection(path, false);
 
-            Directory.Delete(path, true);
+            var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
+
+            // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
+            Directory.Move(path, tempDir);
+
+            // Actually delete the files
+            Directory.Delete(tempDir, true);
         }
         #endregion
 
@@ -294,6 +325,28 @@ namespace ZeroInstall.Store.Implementation
         public void Optimise()
         {
             throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an entry in the store has an incorrect digest.</exception>
+        /// <remarks>In</remarks>
+        public void Verify(IImplementationHandler handler)
+        {
+            // Iterate through all entries - their names are the expected digest values
+            foreach (string entry in ListAll())
+            {
+                string directory = Path.Combine(DirectoryPath, entry);
+
+                // Calculate the actual digest and compare it with the expected one
+                VerifyDirectory(directory, entry, handler);
+            }
         }
         #endregion
 

@@ -257,6 +257,9 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Conversion
+        /// <summary>
+        /// Returns the manifest in the same text representation format used by <see cref="Save(System.IO.Stream)"/>.
+        /// </summary>
         public override string ToString()
         {
             // Use the same format as the file
