@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using Common.Storage;
+using Common.Utils;
 using Common.Wpf;
 using Common;
 using ZeroInstall.Injector;
@@ -62,7 +63,7 @@ namespace ZeroInstall.Central.Wpf
             this.AppInfo.RefreshImplementation();
 
             // Create desktop link
-            String implementationsPath = Path.Combine(Locations.GetUserCacheDir("0install.net"), "implementations");
+            String implementationsPath = StringUtils.PathCombine(Locations.UserCacheDir, "0install.net", "implementations");
             DirectoryStore dirStore = new DirectoryStore(implementationsPath);
             String path = dirStore.GetPath(this.AppInfo.Implementation.ManifestDigest);
                 

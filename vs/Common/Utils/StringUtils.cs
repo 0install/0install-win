@@ -254,5 +254,21 @@ namespace Common.Utils
             return index == -1 ? sourceText : sourceText.Substring(index + 1);
         }
         #endregion
+
+        #region Paths
+        /// <summary>
+        /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
+        /// </summary>
+        /// <returns><see langword="null"/> if <paramref name="parts"/> was <see langword="null"/> or empty.</returns>
+        public static string PathCombine(params string[] parts)
+        {
+            if (parts == null || parts.Length == 0) return null;
+
+            string temp = parts[0];
+            for (int i = 1; i < parts.Length; i++)
+                temp = Path.Combine(temp, parts[i]);
+            return temp;
+        }
+        #endregion
     }
 }

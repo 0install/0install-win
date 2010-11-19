@@ -28,224 +28,197 @@ namespace Common.Storage
     /// <summary>
     /// Provides easy access to platform-specific common directories for storing settings and application data.
     /// </summary>
+    /// <remarks>
+    /// Uses <see cref="Environment.SpecialFolder"/> on Windows and the freedesktop.org basedir spec (XDG) on Linux.
+    /// See http://freedesktop.org/wiki/Standards/basedir-spec
+    /// </remarks>
     public static class Locations
     {
-        #region Per user
+        #region Helpers
         /// <summary>
-        /// Returns the directory to store per-user settings that can roam across different machines.
+        /// Returns the value of an environment variable or a default value if it isn't set.
         /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>%appdata%</c>, on Linux it usually is <c>~/.config</c>.</returns>
-        public static string GetUserSettingsDir(string appName)
+        /// <param name="variable">The name of the environment variable to retrieve.</param>
+        /// <param name="defaultValue">The default value to return if the environment variable was not set.</param>
+        /// <returns>The value of the environment variable or <paramref name="defaultValue"/>.</returns>
+        private static string GetEnvironmentVariable(string variable, string defaultValue)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            // Mono will automatically use XDG specification on non-Windows platforms
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), appName);
+            string value = Environment.GetEnvironmentVariable(variable);
+            return (string.IsNullOrEmpty(value)) ? defaultValue : value;
         }
+        #endregion
+
+        #region Directories
+
+        #region Per-user
+        /// <summary>
+        /// The home directory of the current user.
+        /// </summary>
+        public static string HomeDir
+        { get { return Environment.GetFolderPath(Environment.SpecialFolder.Personal); } }
 
         /// <summary>
-        /// Returns the directory to store per-user data files that can not roam across different machines.
+        /// The directory to store per-user settings that can roam across different machines.
         /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.local/share</c>.</returns>
-        public static string GetUserDataDir(string appName)
+        /// <remarks>On Windows this is <c>%appdata%</c>, on Linux it usually is <c>~/.config</c>.</remarks>
+        public static string UserSettingsDir
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            // Mono will automatically use XDG specification on non-Windows platforms
-            return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), appName);
-        }
-
-        /// <summary>
-        /// Returns the directory to store per-user (non-essential) cache data.
-        /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.cache</c>.</returns>
-        public static string GetUserCacheDir(string appName)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            switch (Environment.OSVersion.Platform)
+            get
             {
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), appName);
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-                case PlatformID.Unix:
-                case PlatformID.MacOSX:
-                default:
-                    // Try to use XDG specification
-                    string cacheDir = Environment.GetEnvironmentVariable("XDG_CACHE_HOME");
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_CONFIG_HOME", Path.Combine(HomeDir, ".config"));
 
-                    // Fall back to default directory in case of failure
-                    if (string.IsNullOrEmpty(cacheDir))
-                        cacheDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), ".cache");
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
+            }
+        }
 
-                    return Path.Combine(cacheDir, appName);
+        /// <summary>
+        /// The directory to store per-user data files that can not roam across different machines.
+        /// </summary>
+        /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.local/share</c>.</remarks>
+        public static string UserDataDir
+        {
+            get
+            {
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_DATA_HOME", Path.Combine(HomeDir, ".local/share"));
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The directory to store per-user (non-essential) cache data.
+        /// </summary>
+        /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.cache</c>.</remarks>
+        public static string UserCacheDir
+        {
+            get
+            {
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_CACHE_HOME", Path.Combine(HomeDir, ".cache"));
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
             }
         }
         #endregion
 
         #region System-wide
         /// <summary>
-        /// Returns the directory to store system-wide settings that can roam across different machines.
+        /// The directories to store system-wide settings that can roam across different machines.
         /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>CommonApplicationData</c>, on Linux it is <c>/etc/xdg</c>.</returns>
-        public static string GetSystemSettingsDir(string appName)
+        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
+        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/etc/xdg</c>.</remarks>
+        public static string SystemSettingsDirs
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            switch (Environment.OSVersion.Platform)
+            get
             {
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName);
-                case PlatformID.Unix:
-                    return Path.Combine("/etc/xdg", appName);
-                case PlatformID.MacOSX:
-                    // ToDo: Do whatever you should do on MacOS X
-                    throw new NotImplementedException();
-                default:
-                    // Just write to filesystem root
-                    return Path.Combine("/config", appName);
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_CONFIG_DIRS", "/etc/xdg");
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
             }
         }
 
         /// <summary>
-        /// Returns the directory to store system-wide data files that can not roam across different machines.
+        /// The directories to store system-wide data files that can not roam across different machines.
         /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>CommonApplicationData</c>, on Linux it is <c>/usr/local/share</c>.</returns>
-        public static string GetSystemDataDir(string appName)
+        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
+        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/usr/local/share:/usr/share</c>.</remarks>
+        public static string SystemDataDirs
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            switch (Environment.OSVersion.Platform)
+            get
             {
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName);
-                case PlatformID.Unix:
-                    return Path.Combine("/usr/local/share", appName);
-                case PlatformID.MacOSX:
-                    // ToDo: Do whatever you should do on MacOS X
-                    throw new NotImplementedException();
-                default:
-                    // Just write to filesystem root
-                    return Path.Combine("/data", appName);
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_DATA_DIRS", "/usr/local/share:/usr/share");
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
             }
         }
 
         /// <summary>
-        /// Returns the directory to store system-wide cache data.
+        /// The directories to store system-wide cache data.
         /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the path.</param>
-        /// <returns>On Windows this is <c>CommonApplicationData</c>, on Linux it is <c>/var/cache</c>.</returns>
-        public static string GetSystemCacheDir(string appName)
+        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
+        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/var/cache</c>.</remarks>
+        public static string SystemCacheDir
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            #endregion
-
-            switch (Environment.OSVersion.Platform)
+            get
             {
-                case PlatformID.Win32Windows:
-                case PlatformID.Win32NT:
-                    return Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), appName);
-                case PlatformID.Unix:
-                    return Path.Combine("/var/cache", appName);
-                case PlatformID.MacOSX:
-                    // ToDo: Do whatever you should do on MacOS X
-                    throw new NotImplementedException();
-                default:
-                    // Just write to filesystem root
-                    return Path.Combine("/cache", appName);
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                    case PlatformID.Unix:
+                        // Use XDG specification
+                        return GetEnvironmentVariable("XDG_CACHE_DIRS", "/var/cache");
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
             }
         }
         #endregion
 
-        #region Find
-        /// <summary>
-        /// Searches all directories for storing settings that can roam across different machines for a specific file.
-        /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the directory paths.</param>
-        /// <param name="fileName">The name of the file to look for.</param>
-        /// <returns>The full path to the file if it was found; <see langword="null"/> otherwise.</returns>
-        public static string FindSettingsFile(string appName, string fileName)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-            #endregion
-
-            // Check in user profile
-            string path = Path.Combine(GetUserSettingsDir(appName), fileName);
-            if (File.Exists(path)) return path;
-
-            // Check in XDG locations
-            string xdgVariable = Environment.GetEnvironmentVariable("XDG_CONFIG_DIRS");
-            if (!string.IsNullOrEmpty(xdgVariable))
-            {
-                foreach (string directory in xdgVariable.Split(':'))
-                {
-                    path = Path.Combine(directory, fileName);
-                    if (File.Exists(path)) return path;
-                }
-            }
-
-            // Check system-wide
-            path = Path.Combine(GetSystemSettingsDir(appName), fileName);
-            if (File.Exists(path)) return path;
-
-            return null;
-        }
-
-        /// <summary>
-        /// Searches all directories for storing data files that can not roam across different machines for a specific file.
-        /// </summary>
-        /// <param name="appName">The name of the application to add to the end of the directory paths.</param>
-        /// <param name="fileName">The name of the file to look for.</param>
-        /// <returns>The full path to the file if it was found; <see langword="null"/> otherwise.</returns>
-        public static string FindDataFile(string appName, string fileName)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
-            if (string.IsNullOrEmpty(fileName)) throw new ArgumentNullException("fileName");
-            #endregion
-
-            // Check in user profile
-            string path = Path.Combine(GetUserDataDir(appName), fileName);
-            if (File.Exists(path)) return path;
-
-            // Check in XDG locations
-            string xdgVariable = Environment.GetEnvironmentVariable("XDG_DATA_DIRS");
-            if (!string.IsNullOrEmpty(xdgVariable))
-            {
-                foreach (string directory in xdgVariable.Split(':'))
-                {
-                    path = Path.Combine(directory, fileName);
-                    if (File.Exists(path)) return path;
-                }
-            }
-
-            // Check system-wide
-            path = Path.Combine(GetSystemDataDir(appName), fileName);
-            if (File.Exists(path)) return path;
-
-            return null;
-        }
         #endregion
     }
 }

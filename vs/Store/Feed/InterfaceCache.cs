@@ -54,7 +54,7 @@ namespace ZeroInstall.Store.Feed
         /// </summary>
         public static string UserProfileDirectory
         {
-            get { return Path.Combine(Locations.GetUserCacheDir("0install.net"), "interfaces"); }
+            get { return Path.Combine(Locations.UserCacheDir, Path.Combine("0install.net", "interfaces")); }
         }
         
         /// <summary>

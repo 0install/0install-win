@@ -21,6 +21,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feed
@@ -36,7 +37,7 @@ namespace ZeroInstall.Store.Feed
         #region Variables
         private static readonly string
             _portablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "trustdb.xml"),
-            _profilePath = Path.Combine(Locations.GetUserSettingsDir(Path.Combine("0install.net", "injector")), @"trustdb.xml");
+            _profilePath = StringUtils.PathCombine(Locations.UserSettingsDir, "0install.net", "injector", @"trustdb.xml");
 
         /// <summary>Was the trust data loaded from the application's directory?</summary>
         private bool _loadedFromAppDir;

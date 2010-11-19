@@ -333,7 +333,7 @@ namespace ZeroInstall.Central.Wpf
             RefreshImplementation();
         }
 
-        String implementationsPath = Path.Combine(Locations.GetUserCacheDir("0install.net"), "implementations");
+        String implementationsPath = Path.Combine(Locations.UserCacheDir, Path.Combine("0install.net", "implementations"));
 
         private void RefreshSize()
         {
