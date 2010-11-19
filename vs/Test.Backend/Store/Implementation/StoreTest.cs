@@ -47,7 +47,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldProvideDefaultConstructor()
         {
-            string cachePath = Locations.GetUserCacheDir(DirectoryStore.UserProfileDirectory);
+            string cachePath = Path.Combine(Locations.UserCacheDir, DirectoryStore.UserProfileDirectory);
             using (new TemporaryDirectoryReplacement(cachePath))
             {
                 Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");
