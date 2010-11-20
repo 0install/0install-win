@@ -38,8 +38,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-    <Reference Include="nunit.framework" />
-    <Reference Include="nunit.mocks" />
+    <Reference Include="nunit.framework, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.mocks, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
