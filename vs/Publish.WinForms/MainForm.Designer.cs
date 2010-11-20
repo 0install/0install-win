@@ -52,6 +52,8 @@ namespace ZeroInstall.Publish.WinForms
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -100,12 +102,10 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
-            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -137,7 +137,7 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStrip.Margin = new System.Windows.Forms.Padding(2);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip.Size = new System.Drawing.Size(562, 25);
+            this.toolStrip.Size = new System.Drawing.Size(570, 25);
             this.toolStrip.TabIndex = 0;
             // 
             // toolStripButtonNew
@@ -183,7 +183,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(68, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(63, 22);
             this.toolStripLabel1.Text = "GnuPG key:";
             // 
             // toolStripButtonSaveAs
@@ -191,7 +191,7 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripButtonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSaveAs.Name = "toolStripButtonSaveAs";
-            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(58, 22);
+            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(61, 22);
             this.toolStripButtonSaveAs.Text = "Save as...";
             this.toolStripButtonSaveAs.Click += new System.EventHandler(this.toolStripButtonSaveAs_Click);
             // 
@@ -202,7 +202,7 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
             this.buttonUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonUndo.Name = "buttonUndo";
-            this.buttonUndo.Size = new System.Drawing.Size(39, 22);
+            this.buttonUndo.Size = new System.Drawing.Size(35, 22);
             this.buttonUndo.Text = "undo";
             this.buttonUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
@@ -214,7 +214,7 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonRedo.Image = ((System.Drawing.Image)(resources.GetObject("buttonRedo.Image")));
             this.buttonRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRedo.Name = "buttonRedo";
-            this.buttonRedo.Size = new System.Drawing.Size(35, 22);
+            this.buttonRedo.Size = new System.Drawing.Size(33, 22);
             this.buttonRedo.Text = "redo";
             this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
             // 
@@ -255,6 +255,22 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 9;
+            // 
+            // summariesControl
+            // 
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 7;
             // 
             // labelDescription
             // 
@@ -837,6 +853,13 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
+            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -871,39 +894,16 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
-            // descriptionControl
-            // 
-            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
-            this.descriptionControl.Multiline = true;
-            this.descriptionControl.Name = "descriptionControl";
-            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
-            this.descriptionControl.TabIndex = 9;
-            // 
-            // summariesControl
-            // 
-            this.summariesControl.Location = new System.Drawing.Point(9, 98);
-            this.summariesControl.Multiline = false;
-            this.summariesControl.Name = "summariesControl";
-            this.summariesControl.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl.TabIndex = 7;
-            // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(576, 578);
+            this.ClientSize = new System.Drawing.Size(584, 578);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(592, 616);
+            this.MinimumSize = new System.Drawing.Size(592, 568);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

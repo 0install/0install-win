@@ -37,13 +37,13 @@
             this.hintTextBoxSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxSummary.ShowClearButton = true;
             this.hintTextBoxSummary.HintText = "a short one-line description";
             this.hintTextBoxSummary.Location = new System.Drawing.Point(85, 2);
             this.hintTextBoxSummary.Name = "hintTextBoxSummary";
+            this.hintTextBoxSummary.ShowClearButton = true;
             this.hintTextBoxSummary.Size = new System.Drawing.Size(342, 20);
             this.hintTextBoxSummary.TabIndex = 1;
-            this.hintTextBoxSummary.TextChanged += new System.EventHandler(this.HintTextBoxSummaryTextChanged);
+            this.hintTextBoxSummary.Validating += new System.ComponentModel.CancelEventHandler(this.HintTextBoxSummaryValidating);
             // 
             // comboBoxLanguages
             // 
@@ -55,13 +55,13 @@
             this.comboBoxLanguages.TabIndex = 0;
             this.comboBoxLanguages.SelectionChangeCommitted += new System.EventHandler(this.ComboBoxLanguagesSelectionChangeCommitted);
             // 
-            // SummariesControl
+            // LocalizableTextControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.comboBoxLanguages);
             this.Controls.Add(this.hintTextBoxSummary);
-            this.Name = "SummariesControl";
+            this.Name = "LocalizableTextControl";
             this.Size = new System.Drawing.Size(427, 23);
             this.ResumeLayout(false);
             this.PerformLayout();

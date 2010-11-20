@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using Common.Collections;
 using System.Globalization;
+using System.ComponentModel;
+using System;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -102,24 +104,24 @@ namespace ZeroInstall.Publish.WinForms.Controls
                                                : languageWithMarker);
         }
 
-        private void HintTextBoxSummaryTextChanged(object sender, System.EventArgs e)
-        {
-            string changedSummary = hintTextBoxSummary.Text;
-            var selectedLanguage = GetSelectedLanguage();
-            if (string.IsNullOrEmpty(changedSummary) && _values.ContainsExactLanguage(selectedLanguage))
-                _values.RemoveAll(selectedLanguage);
-            if(!string.IsNullOrEmpty(changedSummary))
-                _values.Set(changedSummary, selectedLanguage);
-
-            UpdateComboBoxLanguages();
-        }
-
-        private void ComboBoxLanguagesSelectionChangeCommitted(object sender, System.EventArgs e)
+        private void ComboBoxLanguagesSelectionChangeCommitted(object sender, EventArgs e)
         {
             var selectedLanguage = GetSelectedLanguage();
             hintTextBoxSummary.Text = _values.ContainsExactLanguage(selectedLanguage)
                                           ? _values.GetExactLanguage(selectedLanguage)
                                           : string.Empty;
+        }
+
+        private void HintTextBoxSummaryValidating(object sender, CancelEventArgs e)
+        {
+            string changedSummary = hintTextBoxSummary.Text;
+            var selectedLanguage = GetSelectedLanguage();
+            if (string.IsNullOrEmpty(changedSummary) && _values.ContainsExactLanguage(selectedLanguage))
+                _values.RemoveAll(selectedLanguage);
+            if (!string.IsNullOrEmpty(changedSummary))
+                _values.Set(changedSummary, selectedLanguage);
+
+            UpdateComboBoxLanguages();
         }
     }
 }

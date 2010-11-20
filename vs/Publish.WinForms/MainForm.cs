@@ -31,6 +31,7 @@ using System.Drawing.Imaging;
 using ZeroInstall.Publish.WinForms.FeedStructure;
 using ZeroInstall.Store.Feed;
 using Binding = ZeroInstall.Model.Binding;
+using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -182,9 +183,11 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(checkedListBoxCategories, () => _feedEditing.Feed.Categories);
             SetupCommandHooks(textInterfaceUri, () => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value);
             SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value);
+            SetupCommandHooks(summariesControl, () => _feedEditing.Feed.Summaries);
+            SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Descriptions);
             SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
-
-            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersion, value => _feedEditing.Feed.MinInjectorVersion = value.ToString());
+            
+            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersion, value => _feedEditing.Feed.MinInjectorVersion = (value == null ? null : value.ToString()));
         }
 
         /// <summary>
@@ -388,6 +391,25 @@ namespace ZeroInstall.Publish.WinForms
                 _feedEditing.ExecuteCommand(new SetValueCommand<object>(comboBox.SelectedItem, getValue, setValue));
             };
 
+        }
+
+        private void SetupCommandHooks(LocalizableTextControl localizableTextControl, SimpleResult<LocalizableStringCollection> getCollection)
+        {
+
+            localizableTextControl.Values.ItemsAdded += (sender, itemCountEventArgs) =>
+            {
+                _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            };
+
+            localizableTextControl.Values.ItemsRemoved += (sender, itemCountEventArgs) =>
+            {
+                _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
+            };
+
+            Populate += delegate
+            {
+                localizableTextControl.Values = getCollection();
+            };
         }
         #endregion
 
@@ -646,9 +668,6 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void FillGeneralTab()
         {
-            summariesControl.Values = _feedEditing.Feed.Summaries;
-            descriptionControl.Values = _feedEditing.Feed.Descriptions;
-
             // fill icons list box
             listBoxIconsUrls.BeginUpdate();
             listBoxIconsUrls.Items.Clear();
@@ -698,8 +717,6 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void ResetGeneralTabControls()
         {
-            summariesControl.Values = new LocalizableStringCollection();
-            descriptionControl.Values = new LocalizableStringCollection();
             hintTextBoxIconUrl.ResetText();
             comboBoxIconType.SelectedIndex = 0;
             pictureBoxIconPreview.Image = null;
