@@ -22,13 +22,14 @@ using System.Threading;
 using System.Net;
 using Gtk;
 using Common;
+using Common.Gtk;
 using Common.Utils;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Arguments;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 
-public partial class MainWindow : Gtk.Window, IHandler
+public partial class MainWindow : Window, IHandler
 {
     #region Events    
     protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -194,7 +195,7 @@ public partial class MainWindow : Gtk.Window, IHandler
     /// <param name="message">The error message to be displayed.</param>
     private void ReportErrorSync(string message)
     {
-        new MessageDialog(this, DialogFlags.Modal, MessageType.Error, ButtonsType.YesNo, message).Run();
+        GtkMsg.Inform(this, message, MsgSeverity.Error);
 
         //progressBar.Task = null;
         Application.Quit();
@@ -207,10 +208,7 @@ public partial class MainWindow : Gtk.Window, IHandler
     {
         if (Batch) return false;
 
-        // Handle events coming from a non-UI thread, block caller until user has answered
-        var dialog = new MessageDialog(this, DialogFlags.Modal, MessageType.Info, ButtonsType.YesNo, information);
-
-        return (dialog.Run() == (int)ResponseType.Yes);
+        return GtkMsg.Ask(this, information, MsgSeverity.Information);
     }
 
     /// <inheritdoc />
