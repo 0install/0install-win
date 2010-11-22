@@ -77,17 +77,27 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void UpdateComboBoxLanguages()
         {
             var selectedLanguage = GetSelectedLanguage();
-            comboBoxLanguages.BeginUpdate();
+
+            C5.SortedArray<CultureInfo> settedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
+            C5.SortedArray<CultureInfo> notSettedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
+
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {
-                comboBoxLanguages.Items.Add(_values.ContainsExactLanguage(language)
-                                                ? UsingLanguageMarker + language.IetfLanguageTag
-                                                : language.IetfLanguageTag);
+                if(_values.ContainsExactLanguage(language)) {
+                    settedLanguages.Add(language);
+                } else {
+                    notSettedLanguages.Add(language);
+                }
             }
 
-            comboBoxLanguages.SelectedItem = _values.ContainsExactLanguage(selectedLanguage)
-                                                 ? UsingLanguageMarker + selectedLanguage.IetfLanguageTag
-                                                 : selectedLanguage.IetfLanguageTag;
+            comboBoxLanguages.BeginUpdate();
+            foreach(var settedLanguage in settedLanguages) {
+                comboBoxLanguages.Items.Add(UsingLanguageMarker + settedLanguage.IetfLanguageTag);
+            }
+            foreach (var notSettedLanguage in notSettedLanguages)
+            {
+                comboBoxLanguages.Items.Add(notSettedLanguage.IetfLanguageTag);
+            }
             comboBoxLanguages.EndUpdate();
         }
 
