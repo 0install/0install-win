@@ -294,6 +294,16 @@ namespace ZeroInstall.Model
             return CloneFeed();
         }
         #endregion
+        
+        #region Conversion
+        /// <summary>
+        /// Returns the feed/interface in the form "Interface: Name (Uri)". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            return string.Format("Interface: {0} ({1})", Name, Uri);
+        }
+        #endregion
 
         #region Equality
         public bool Equals(Feed other)
