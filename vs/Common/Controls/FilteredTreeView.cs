@@ -81,7 +81,7 @@ namespace Common.Controls
 
         private INamedCollection<T> _entries;
         /// <summary>
-        /// The <see cref="INamed"/> objects to be listed in the <see cref="TreeView"/>.
+        /// The <see cref="INamed"/> (and optionally <see cref="IContextMenu"/>) objects to be listed in the tree.
         /// </summary>
         [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification = "This control is supposed to represent a live and mutable collection")]
