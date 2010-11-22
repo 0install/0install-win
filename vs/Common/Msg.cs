@@ -136,7 +136,6 @@ namespace Common
                 #endregion
             }
 
-            // MessgeBox
             return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK;
         }
         #endregion
@@ -207,7 +206,7 @@ namespace Common
 
         //--------------------//
 
-        #region MsgBox
+        #region MessageBox
         /// <summary>Displays a message using a <see cref="MessageBox"/>.</summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
@@ -226,11 +225,11 @@ namespace Common
             {
                 case MsgSeverity.Warning: icon = MessageBoxIcon.Warning; break;
                 case MsgSeverity.Error: icon = MessageBoxIcon.Error; break;
-                //case MsgSeverity.Information:
-                default: icon = MessageBoxIcon.Information; break;
+                default:
+                case MsgSeverity.Information: icon = MessageBoxIcon.Information; break;
             }
 
-            // Display message-box
+            // Display MessageDialog
             return MessageBox.Show(owner, text, Application.ProductName, buttons, icon, MessageBoxDefaultButton.Button1, localizedOptions);
         }
         #endregion
@@ -262,8 +261,8 @@ namespace Common
                     taskDialog.AllowDialogCancellation = false; // Real errors shouldn't be easily ESCed away
                     break;
 
-                //case MsgSeverity.Information:
                 default:
+                case MsgSeverity.Information:
                     taskDialog.MainIcon = TaskDialogIcon.Information;
                     taskDialog.AllowDialogCancellation = true;
                     break;
