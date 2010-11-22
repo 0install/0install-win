@@ -15,16 +15,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Windows.Forms;
-using Common.Controls;
-
 namespace ZeroInstall.Store.Management.WinForms
 {
-    public partial class MainForm : Form
+    public class ImplementationNode : StoreNode
     {
-        public MainForm()
+        #region Variables
+        private readonly Model.Feed _feed;
+        private readonly Model.Implementation _implementation;
+        #endregion
+
+        #region Properties
+        /// <inheritdoc/>
+        public override string Name { get { return _feed.ToString() + "#" + _implementation.ToString(); } }
+        #endregion
+
+        /// <inheritdoc/>
+        public override System.Windows.Forms.ContextMenu GetContextMenu()
         {
-            InitializeComponent();
+            return null;
         }
     }
 }
