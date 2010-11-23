@@ -29,6 +29,7 @@ namespace Common.Collections
     /// <summary>
     /// A keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
     /// </summary>
+    /// <remarks>The objects should be immutable for the indexing to work reliably.</remarks>
     public class NamedCollection<T> : KeyedCollection<string, T>, INamedCollection<T>, ICloneable where T : INamed
     {
         #region Constructor

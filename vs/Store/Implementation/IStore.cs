@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Describes an object that allows the storage and retrieval of <see cref="Implementation"/> directories.
     /// </summary>
-    /// <remarks>These objects do not download new files by themselves.</remarks>
+    /// <remarks>A store caches <see cref="Implementation"/>s identified by their <see cref="ManifestDigest"/>s.</remarks>
     public interface IStore
     {
         /// <summary>

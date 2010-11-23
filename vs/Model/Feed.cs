@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -29,6 +28,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Represents a Zero Install feed containing information about an application or library.
     /// </summary>
+    /// <remarks>A feed contains all the information required to download and execute an application. It is usually downloaded and updated from a specific URI.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
@@ -206,18 +206,35 @@ namespace ZeroInstall.Model
         /// Returns the <see cref="Implementation"/> with a specific ID string.
         /// </summary>
         /// <param name="id">The <see cref="ImplementationBase.ID"/> to look for.</param>
-        /// <returns>The identified <see cref="Implementation"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Thrown if no <see cref="Implementation"/> matching <paramref name="id"/> was found in <see cref="Elements"/>.</exception>
+        /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
         /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
         public Implementation GetImplementation(string id)
         {
-            foreach (var implementation in Elements)
+            foreach (var element in Elements)
             {
-                var idImplementation = implementation as Implementation;
-                if (idImplementation != null && idImplementation.ID == id) return idImplementation;
+                var implementation = element as Implementation;
+                if (implementation != null && implementation.ID == id) return implementation;
             }
 
-            throw new KeyNotFoundException();
+            return null;
+        }
+
+        /// <summary>
+        /// Returns the <see cref="Implementation"/> with a specific <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="digest">The <see cref="ManifestDigest"/> to look for.</param>
+        /// <returns>The identified <see cref="Implementation"/> or <see langword="null"/> no matching one was found.</returns>
+        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        public Implementation GetImplementation(ManifestDigest digest)
+        {
+            foreach (var element in Elements)
+            {
+                var implementation = element as Implementation;
+                if (implementation != null && implementation.ManifestDigest.PartialEquals(digest))
+                    return implementation;
+            }
+
+            return null;
         }
         #endregion
 
@@ -297,11 +314,11 @@ namespace ZeroInstall.Model
         
         #region Conversion
         /// <summary>
-        /// Returns the feed/interface in the form "Interface: Name (Uri)". Not safe for parsing!
+        /// Returns the feed/interface in the form "Name (Uri)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("Interface: {0} ({1})", Name, Uri);
+            return string.Format("{0} ({1})", Name, Uri);
         }
         #endregion
 

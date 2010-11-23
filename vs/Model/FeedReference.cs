@@ -24,6 +24,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// An additional feed for an interface.
     /// </summary>
+    /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
     /// <seealso cref="Feed.Feeds"/>
     [Serializable]
     [XmlType("feed-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]

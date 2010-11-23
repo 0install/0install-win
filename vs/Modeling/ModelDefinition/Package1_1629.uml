@@ -7436,6 +7436,93 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="54c6056e-f0e0-4d26-ab3a-fc5502652ddf"
+            name="GetImplementation"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="90fac96a-04ec-4daa-9d6e-bd4b99e0394f"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=(Name=GetImplementation OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e5283992-8db7-436b-bb04-94e412a9270b"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0b5508f9-bd7e-48b7-b919-4e18aa094e50">
+                    <propertyInstance
+                      Id="8d201190-89d5-4d7e-bf44-cc411694051f"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5bc5d25d-f4da-4dd3-ae51-98d6d5412c9e">
+                    <propertyInstance
+                      Id="fce4df5a-8e3f-4fcf-b724-1d6998be2228"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="be33772c-94f6-473a-bd77-4afd4fa47122">
+                    <propertyInstance
+                      Id="80125763-c51b-45b3-b22e-cf4db8166053"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="3dcb721e-9bd0-4b2a-b133-602d874909e7">
+                    <propertyInstance
+                      Id="926ab129-dddb-4b71-a0fe-5377a3f67223"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8bf56e5c-ea69-44c5-97e5-18f7a4ab11f7">
+                    <propertyInstance
+                      Id="0383c4b9-77d4-4092-87df-1e48ea48f108"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2d7dfd91-be96-41fb-a125-d615b8a02b6a"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="53bedb1c-ef5f-4c7e-b2e9-9ea717a4a5a3"
+                      LastKnownName="Implementation"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="68c35e09-deb8-423c-bee7-edaa0a8276e0"
+                  name="digest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="f23bfb97-892b-4f5a-afc4-0281a9b2ef37"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>

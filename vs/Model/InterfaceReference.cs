@@ -23,8 +23,9 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A reference to a <see cref="Feed"/> URI.
+    /// A reference to an interface URI.
     /// </summary> 
+    /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
     /// <seealso cref="Feed.FeedFor"/>
     [Serializable]
     [XmlType("interface-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]

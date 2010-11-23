@@ -29,6 +29,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
+    /// <remarks>A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.</remarks>
     [TypeConverter(typeof(ManifestDigestConverter))]
     [Serializable]
     [XmlType("manifest-digest", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
@@ -183,6 +184,20 @@ namespace ZeroInstall.Model
         public bool Equals(ManifestDigest other)
         {
             return other.Sha1Old == Sha1Old && other.Sha1New == Sha1New && other.Sha256 == Sha256;
+        }
+
+        /// <summary>
+        /// Indicates whether this digest is at least partially equal to another one.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        /// <remarks>If one of the algorithms isn't set (<see langword="null"/> value) it isn't considered for comparison).</remarks>
+        public bool PartialEquals(ManifestDigest other)
+        {
+            return
+                (other.Sha1Old == Sha1Old || string.IsNullOrEmpty(other.Sha1Old) || string.IsNullOrEmpty(Sha1Old)) &&
+                (other.Sha1New == Sha1New || string.IsNullOrEmpty(other.Sha1New) || string.IsNullOrEmpty(Sha1New)) &&
+                (other.Sha256 == Sha256 || string.IsNullOrEmpty(other.Sha256) || string.IsNullOrEmpty(Sha256));
         }
 
         public static bool operator ==(ManifestDigest left, ManifestDigest right)
