@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Architecture.cs" />
-    <Compile Include="Design\ArchitectureConverter.cs" />
     <Compile Include="Archive.cs" />
     <Compile Include="Binding.cs" />
     <Compile Include="Constraint.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="FeedReference.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="IBindingContainer.cs" />
-    <Compile Include="Design\IconConverter.cs" />
     <Compile Include="ImplementationBase.cs" />
     <Compile Include="IElementContainer.cs" />
     <Compile Include="Implementation.cs" />
@@ -73,7 +71,6 @@
     <Compile Include="InterfaceReference.cs" />
     <Compile Include="ISimplifyable.cs" />
     <Compile Include="ManifestDigest.cs" />
-    <Compile Include="Design\ManifestDigestConverter.cs" />
     <Compile Include="OverlayBinding.cs" />
     <Compile Include="PackageImplementation.cs" />
     <Compile Include="Recipe.cs" />

@@ -22,7 +22,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Xml;
 using System.Xml.Serialization;
 using Common.Utils;
-using ZeroInstall.Model.Design;
 
 namespace ZeroInstall.Model
 {
@@ -30,7 +29,7 @@ namespace ZeroInstall.Model
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
     /// <remarks>A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.</remarks>
-    [TypeConverter(typeof(ManifestDigestConverter))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
     [Serializable]
     [XmlType("manifest-digest", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
     public struct ManifestDigest : IEquatable<ManifestDigest>
