@@ -126,6 +126,7 @@
     <Compile Include="Undo\CollectionCommand.cs" />
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
+    <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
     <Compile Include="Controls\InputBox.cs">
