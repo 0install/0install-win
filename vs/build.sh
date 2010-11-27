@@ -1,5 +1,5 @@
 #!/bin/sh
-#Compiles the Visual Studio solution.
+#Compiles the xbuild solution.
 cd `dirname $0`
 
 # Handle Windows-style paths in project files

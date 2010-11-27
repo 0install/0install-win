@@ -15,10 +15,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DownloadBroker", "DownloadB
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApps", "MyApps\MyApps.csproj", "{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Common", "Test.Common\Test.Common.csproj", "{CA9D6092-4365-4385-9700-9570A98EF09D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Backend", "Test.Backend\Test.Backend.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.Cli", "Central.Cli\Central.Cli.csproj", "{F52544A4-EC24-11DF-8FA3-0F04E0D72085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Central.WinForms", "Central.WinForms\Central.WinForms.csproj", "{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}"
@@ -37,8 +33,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.WinForms",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Gtk", "Store.Management.Gtk\Store.Management.Gtk.csproj", "{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Frontend", "Test.Frontend\Test.Frontend.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Service", "Store.Service\Store.Service.csproj", "{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publish", "Publish\Publish.csproj", "{841CD750-F9D0-4A2D-98C7-7A340C781F41}"
@@ -46,8 +40,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publish.Cli", "Publish.Cli\Publish.Cli.csproj", "{4B66C00D-75B5-4535-985D-466042A09A84}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Publish.WinForms", "Publish.WinForms\Publish.WinForms.csproj", "{50B1586B-040A-4805-AC05-1C77721EF4BD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Tools", "Test.Tools\Test.Tools.csproj", "{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,12 +75,6 @@ Global
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Debug|x86.Build.0 = Debug|Any CPU
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Release|x86.Build.0 = Release|Any CPU
-		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|x86.Build.0 = Debug|Any CPU
-		{CA9D6092-4365-4385-9700-9570A98EF09D}.Release|x86.ActiveCfg = Release|Any CPU
-		{06237727-AEA0-4E42-85C0-C0886F425352}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{06237727-AEA0-4E42-85C0-C0886F425352}.Debug|x86.Build.0 = Debug|Any CPU
-		{06237727-AEA0-4E42-85C0-C0886F425352}.Release|x86.ActiveCfg = Release|Any CPU
 		{F52544A4-EC24-11DF-8FA3-0F04E0D72085}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{F52544A4-EC24-11DF-8FA3-0F04E0D72085}.Debug|x86.Build.0 = Debug|Any CPU
 		{F52544A4-EC24-11DF-8FA3-0F04E0D72085}.Release|x86.ActiveCfg = Release|Any CPU
@@ -129,9 +115,6 @@ Global
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Debug|x86.Build.0 = Debug|Any CPU
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Release|x86.ActiveCfg = Release|Any CPU
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Release|x86.Build.0 = Release|Any CPU
-		{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}.Debug|x86.Build.0 = Debug|Any CPU
-		{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}.Release|x86.ActiveCfg = Release|Any CPU
 		{841CD750-F9D0-4A2D-98C7-7A340C781F41}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{841CD750-F9D0-4A2D-98C7-7A340C781F41}.Debug|x86.Build.0 = Debug|Any CPU
 		{841CD750-F9D0-4A2D-98C7-7A340C781F41}.Release|x86.ActiveCfg = Release|Any CPU
@@ -144,9 +127,6 @@ Global
 		{50B1586B-040A-4805-AC05-1C77721EF4BD}.Debug|x86.Build.0 = Debug|Any CPU
 		{50B1586B-040A-4805-AC05-1C77721EF4BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{50B1586B-040A-4805-AC05-1C77721EF4BD}.Release|x86.Build.0 = Release|Any CPU
-		{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}.Debug|x86.Build.0 = Debug|Any CPU
-		{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
