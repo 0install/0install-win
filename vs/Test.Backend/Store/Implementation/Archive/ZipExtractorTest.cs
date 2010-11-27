@@ -177,8 +177,15 @@ namespace ZeroInstall.Store.Implementation.Archive
             using (var extractor = new ZipExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
-            string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
-            Assert.AreEqual("/SDL.dll", xbitFileContent);
+            if (MonoUtils.IsUnix)
+            {
+                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "SDL.dll")));
+            }
+            else
+            {
+                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
+                Assert.AreEqual("/SDL.dll", xbitFileContent);
+            }
         }
 
         [Test]

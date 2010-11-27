@@ -144,6 +144,8 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldListFilesInXbitWithFlagX()
         {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException(".xbit files are not used on Unix platforms");
+
             using (var package = new TemporaryDirectory())
             {
                 string exePath = Path.Combine(package.Path, "test.exe");
