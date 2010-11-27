@@ -1,6 +1,6 @@
 #!/bin/sh
 #Compiles the Visual Studio solution.
-cd ${0%%/*}
+cd `dirname $0`
 
 # Handle Windows-style paths in project files
 export MONO_IOMAP=all

@@ -1,6 +1,6 @@
 #!/bin/sh
 #Removes compilation artifacts and other temporary files.
-cd ${0%%/*}
+cd `dirname $0`
 
 #Clear binaries (leave Documentation and Portable intact)
 rm -rf build/Backend build/Frontend build/Tools build/Setup
