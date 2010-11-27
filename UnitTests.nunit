@@ -1,9 +1,9 @@
 ﻿<NUnitProject>
   <Settings activeconfig="Debug" />
   <Config name="Debug" buildpathtype="Auto">
-    <assembly path="build\Backend\Debug\Test.Common.dll" />
-    <assembly path="build\Backend\Debug\Test.Backend.dll" />
-    <assembly path="build\Frontend\Debug\Test.Frontend.dll" />
-    <assembly path="build\Tools\Debug\Test.Tools.dll" />
+    <assembly path="build/Backend/Debug/Test.Common.dll" />
+    <assembly path="build/Backend/Debug/Test.Backend.dll" />
+    <assembly path="build/Frontend/Debug/Test.Frontend.dll" />
+    <assembly path="build/Tools/Debug/Test.Tools.dll" />
   </Config>
 </NUnitProject>
