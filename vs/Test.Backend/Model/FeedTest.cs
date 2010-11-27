@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using NUnit.Framework;
@@ -58,7 +57,7 @@ namespace ZeroInstall.Model
             return new Implementation
             {
                 ID = "id",
-                ManifestDigest = new ManifestDigest("sha256=invalid"),
+                ManifestDigest = new ManifestDigest("sha256=123"),
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {new CultureInfo("en-US")},
@@ -182,15 +181,27 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Ensures that <see cref="Feed.GetImplementation"/> correctly finds contained <see cref="Implementation"/>s.
+        /// Ensures that <see cref="Feed.GetImplementation(string)"/> correctly finds contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]
-        public void TestGetImplementation()
+        public void TestGetImplementationString()
         {
             var feed = CreateTestFeed();
 
             Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation("id"));
-            Assert.Throws<KeyNotFoundException>(() => feed.GetImplementation("invalid"));
+            Assert.IsNull(feed.GetImplementation("invalid"));
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Feed.GetImplementation(ManifestDigest)"/> correctly finds contained <see cref="Implementation"/>s.
+        /// </summary>
+        [Test]
+        public void TestGetImplementationDigest()
+        {
+            var feed = CreateTestFeed();
+
+            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest("sha256=123")));
+            Assert.IsNull(feed.GetImplementation(new ManifestDigest("sha256=456")));
         }
     }
 }

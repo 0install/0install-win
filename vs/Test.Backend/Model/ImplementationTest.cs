@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
         {
             return new Implementation
             {
-                ID = "id", ManifestDigest = new ManifestDigest("sha256=invalid"), Version = new ImplementationVersion("1.0"),
+                ID = "id", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer,
                 Bindings = {EnvironmentBindingTest.CreateTestBinding()},
@@ -64,9 +64,9 @@ namespace ZeroInstall.Model
         [Test]
         public void TestSimplify()
         {
-            var implementation = new Implementation { ID = "sha256=invalid" };
+            var implementation = new Implementation { ID = "sha256=123" };
             implementation.Simplify();
-            Assert.AreEqual("invalid", implementation.ManifestDigest.Sha256);
+            Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
         }
     }
 }

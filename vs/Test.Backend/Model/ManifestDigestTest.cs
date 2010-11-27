@@ -56,5 +56,25 @@ namespace ZeroInstall.Model
             digest = new ManifestDigest("test1", null, null);
             Assert.AreEqual("sha1=test1", digest.BestDigest);
         }
+
+
+        /// <summary>
+        /// Ensures <see cref="ManifestDigest.PartialEquals"/> correctly compares digests.
+        /// </summary>
+        [Test]
+        public void TestPartialEqual()
+        {
+            var digest1 = new ManifestDigest("test1", null, null);
+            var digest2 = new ManifestDigest("test1", "test2", null);
+            Assert.IsTrue(digest1.PartialEquals(digest2));
+
+            digest1 = new ManifestDigest("test1", null, null);
+            digest2 = new ManifestDigest("test2", null, null);
+            Assert.IsFalse(digest1.PartialEquals(digest2));
+
+            digest1 = new ManifestDigest("test1", null, null);
+            digest2 = new ManifestDigest(null, "test2", null);
+            Assert.IsFalse(digest1.PartialEquals(digest2));
+        }
     }
 }

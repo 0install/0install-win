@@ -189,15 +189,16 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Indicates whether this digest is at least partially equal to another one.
         /// </summary>
-        /// <param name="other"></param>
-        /// <returns></returns>
-        /// <remarks>If one of the algorithms isn't set (<see langword="null"/> value) it isn't considered for comparison).</remarks>
+        /// <remarks>Two digests are considered partially equal if at least one digest format matches and no values are contradictory.</remarks>
         public bool PartialEquals(ManifestDigest other)
         {
-            return
-                (other.Sha1Old == Sha1Old || string.IsNullOrEmpty(other.Sha1Old) || string.IsNullOrEmpty(Sha1Old)) &&
-                (other.Sha1New == Sha1New || string.IsNullOrEmpty(other.Sha1New) || string.IsNullOrEmpty(Sha1New)) &&
-                (other.Sha256 == Sha256 || string.IsNullOrEmpty(other.Sha256) || string.IsNullOrEmpty(Sha256));
+            // Find contradictions
+            if ((other.Sha1Old != Sha1Old && !string.IsNullOrEmpty(other.Sha1Old) && !string.IsNullOrEmpty(Sha1Old)) ||
+                (other.Sha1New != Sha1New && !string.IsNullOrEmpty(other.Sha1New) && !string.IsNullOrEmpty(Sha1New)) ||
+                (other.Sha256 != Sha256 && !string.IsNullOrEmpty(other.Sha256) && !string.IsNullOrEmpty(Sha256)))
+                return false;
+
+            return (other.Sha1Old == Sha1Old) || (other.Sha1New == Sha1New) && (other.Sha256 == Sha256);
         }
 
         public static bool operator ==(ManifestDigest left, ManifestDigest right)
