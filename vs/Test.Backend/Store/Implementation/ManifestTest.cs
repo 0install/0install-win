@@ -123,18 +123,6 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldRejectFileNamesWithNewline()
-        {
-            if (!MonoUtils.IsUnix) Assert.Inconclusive("Test can only run on Unix-like systems");
-
-            using (var package = new TemporaryDirectory())
-            {
-                File.WriteAllText(Path.Combine(package.Path, "test\nfile"), @"AAA");
-                Assert.Throws<ArgumentException>(() => Manifest.Generate(package.Path, ManifestFormat.Sha256, null));
-            }
-        }
-
-        [Test]
         public void ShouldListExecutableWithFlagF()
         {
             using (var package = new TemporaryDirectory())

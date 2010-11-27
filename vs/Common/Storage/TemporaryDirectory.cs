@@ -70,6 +70,8 @@ namespace Common.Storage
         /// </summary>
         public void Dispose()
         {
+            // Write protection might prevent a directory from being deleted (especially on Unix-like sysmtes)
+            FileUtils.WriteProtection(Path, false);
             Directory.Delete(Path, true);
         }
         #endregion
