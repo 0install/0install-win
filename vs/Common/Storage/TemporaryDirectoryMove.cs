@@ -57,7 +57,7 @@ namespace Common.Storage
             if (Directory.Exists(path))
             {
                 // Create a sibling directory with a random name
-                string inexistantPath = Path.Combine(Path.Combine(path, ".."), Path.GetRandomFileName());
+                string inexistantPath = Path.Combine(Path.GetDirectoryName(path) ?? "", Path.GetRandomFileName());
 
                 Directory.Move(path, inexistantPath);
                 OriginalPath = path;
