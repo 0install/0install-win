@@ -63,8 +63,7 @@ namespace ZeroInstall.Central.Wpf
             this.AppInfo.RefreshImplementation();
 
             // Create desktop link
-            String implementationsPath = StringUtils.PathCombine(Locations.UserCacheDir, "0install.net", "implementations");
-            DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+            DirectoryStore dirStore = new DirectoryStore();
             String path = dirStore.GetPath(this.AppInfo.Implementation.ManifestDigest);
                 
             String exePath = path + @"\" + this.AppInfo.Implementation.Main;

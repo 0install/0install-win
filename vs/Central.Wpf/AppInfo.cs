@@ -265,7 +265,7 @@ namespace ZeroInstall.Central.Wpf
         {
             try
             {
-                DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+                DirectoryStore dirStore = new DirectoryStore();
                 String path = dirStore.GetPath(this.Implementation.ManifestDigest);
                 
                 Process.Start(new ProcessStartInfo(path + @"\" + this.implementation.Main));
@@ -300,7 +300,7 @@ namespace ZeroInstall.Central.Wpf
 
             try
             {
-                DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+                DirectoryStore dirStore = new DirectoryStore();
                 String path = dirStore.GetPath(this.Implementation.ManifestDigest);
 
                 Directory.Delete(path, true);
@@ -333,13 +333,11 @@ namespace ZeroInstall.Central.Wpf
             RefreshImplementation();
         }
 
-        String implementationsPath = Path.Combine(Locations.UserCacheDir, Path.Combine("0install.net", "implementations"));
-
         private void RefreshSize()
         {
             try
             {
-                DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+                DirectoryStore dirStore = new DirectoryStore();
                 String path = dirStore.GetPath(this.Implementation.ManifestDigest);
                 DirectoryInfo dirInfo = new DirectoryInfo(path);
                 this.Size = this.FormatBytes(dirInfo.GetSize());
@@ -350,7 +348,7 @@ namespace ZeroInstall.Central.Wpf
 
         public void RefreshImplementation()
         {
-            DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+            DirectoryStore dirStore = new DirectoryStore();
 
             feed.Simplify();
 

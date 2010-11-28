@@ -45,16 +45,6 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldProvideDefaultConstructor()
-        {
-            string cachePath = Path.Combine(Locations.UserCacheDir, DirectoryStore.UserProfileDirectory);
-            using (new TemporaryDirectoryReplacement(cachePath))
-            {
-                Assert.DoesNotThrow(delegate { new DirectoryStore(); }, "Store must be default constructible");
-            }
-        }
-
-        [Test]
         public void ShouldAcceptInexistantPathAndCreateIt()
         {
             string path = FileUtils.GetTempDirectory();
@@ -169,7 +159,7 @@ namespace ZeroInstall.Store.Implementation
         {
             using (var cache = new TemporaryDirectory())
             {
-                Assert.Throws(typeof(ImplementationNotFoundException), () => new DirectoryStore(cache.Path).GetPath(new ManifestDigest("sha256=invalid")));
+                Assert.Throws(typeof(ImplementationNotFoundException), () => new DirectoryStore(cache.Path).GetPath(new ManifestDigest("sha256=123")));
             }
         }
 

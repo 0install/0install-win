@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector.Solver
             {
                 InterfaceID = "http://0install.de/feeds/test.xml",
                 FromFeed = "http://0install.de/feeds/sub-feed.xml",
-                ID = "id", ManifestDigest = new ManifestDigest("sha256=invalid"), Version = new ImplementationVersion("1.0"),
+                ID = "id", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 Main = "executable", DocDir = "doc", Stability = Stability.Developer
             };

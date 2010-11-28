@@ -74,9 +74,9 @@ namespace Common.Download
                 if (tempFile != null) File.Delete(tempFile);
             }
 
-            // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-            Assert.AreEqual(ProgressState.Complete, download.State);
-            Assert.AreEqual(TestFileContent, fileContent);
+            // Ensure the download was successfull and the file is identical
+            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
+            Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
         /// <summary>
@@ -105,9 +105,9 @@ namespace Common.Download
                 if (tempFile != null) File.Delete(tempFile);
             }
 
-            // Ensure the download was successfull and the HTML file starts with a Doctype as expected
+            // Ensure the download was successfull and the file is identical
             Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
-            Assert.AreEqual(TestFileContent, fileContent);
+            Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
         /// <summary>
