@@ -106,7 +106,7 @@ namespace Common.Download
             }
 
             // Ensure the download was successfull and the HTML file starts with a Doctype as expected
-            Assert.AreEqual(ProgressState.Complete, download.State);
+            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent);
         }
 
