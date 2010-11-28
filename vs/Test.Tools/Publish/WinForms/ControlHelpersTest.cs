@@ -40,25 +40,24 @@ namespace ZeroInstall.Publish.WinForms
             // Test invalid URLs
             //TODO find more invalid URLs
             var invalidUrls = new[]
-                              {
-                                  @"foo://",
-                                  @"ftp://",
-                                  @"www://",
-                                  @"http://.de/",
-                                  @"http://abc..de/",
-                                  @"http://abc§.de/",
-                                  @"ggo;\\"
-                              };
+            {
+                @"foo://",
+                @"ftp://",
+                @"www://",
+                @"http://.de/",
+                @"http://abc§.de/",
+                @"ggo;\\"
+            };
             foreach (var url in invalidUrls)
                 Assert.IsFalse(ControlHelpers.IsValidFeedUrl(url));
 
             // Test valid URLs
             //TODO find more valid URLs
             var validUrls = new[]
-                            {
-                                @"http://0install.de/",
-                                @"https://0install.de/"
-                            };
+            {
+                @"http://0install.de/",
+                @"https://0install.de/"
+            };
             foreach (var url in validUrls)
                 Assert.IsTrue(ControlHelpers.IsValidFeedUrl(url));
         }
@@ -73,13 +72,14 @@ namespace ZeroInstall.Publish.WinForms
             Assert.IsTrue(ControlHelpers.IsEmpty(new Archive()));
 
             // Test with archives with setted values
-            Archive[] toTest = {
-                                         new Archive() { Extract = "/home/0install" },
-                                         new Archive() { Location = new Uri(@"http://0install.de") },
-                                         new Archive() { MimeType = @"image/png" },
-                                         new Archive() { Size = 1024 },
-                                         new Archive() { StartOffset = 512 }
-                                     };
+            var toTest = new[]
+            {
+                new Archive { Extract = "/home/0install" },
+                new Archive { Location = new Uri(@"http://0install.de") },
+                new Archive { MimeType = @"image/png" },
+                new Archive { Size = 1024 },
+                new Archive { StartOffset = 512 }
+            };
             foreach (var archive in toTest)
                 Assert.IsFalse(ControlHelpers.IsEmpty(archive));
         }
