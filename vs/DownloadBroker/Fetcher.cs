@@ -252,6 +252,9 @@ namespace ZeroInstall.DownloadBroker
         /// Creates a new download fetcher with the default <see cref="IStore"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public Fetcher(IFetchHandler handler) : this(handler, StoreProvider.Default)
         {}
         #endregion

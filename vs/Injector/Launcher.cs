@@ -126,6 +126,8 @@ namespace ZeroInstall.Injector
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
         private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationSelection implementation)
         {
+            if (bindingContainer.Bindings.IsEmpty) return;
+
             // Don't use bindings for PackageImplementations
             if (!string.IsNullOrEmpty(implementation.Package)) return;
 

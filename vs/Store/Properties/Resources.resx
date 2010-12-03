@@ -194,4 +194,7 @@ Actual value: {1}</value>
   <data name="StoreServiceCommunicationProblem" xml:space="preserve">
     <value>Unable to establish connection with StoreService.</value>
   </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>The directory "{0}" could not be found.</value>
+  </data>
 </root>

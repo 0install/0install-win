@@ -174,10 +174,16 @@ namespace Common
                         case LogSeverity.Error: Console.ForegroundColor = ConsoleColor.Red; break;
                     }
                 }
+                #region Error handling
+                catch (InvalidOperationException) {}
                 catch (IOException) {}
+                #endregion
                 Console.WriteLine(message);
                 try { Console.ResetColor(); }
+                #region Error handling
+                catch (InvalidOperationException) {}
                 catch (IOException) {}
+                #endregion
 
                 // Prepend severity and current time to message
                 string formatString;

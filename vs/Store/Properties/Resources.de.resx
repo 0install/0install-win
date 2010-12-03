@@ -125,6 +125,9 @@
 Erwarteter Wert: {0}
 Tatsächlicher Wert: {1}</value>
   </data>
+  <data name="DirectoryNotFound" xml:space="preserve">
+    <value>The directory "{0}" could not be found.</value>
+  </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Entpacke Archiv ({0})</value>
   </data>
