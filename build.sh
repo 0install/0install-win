@@ -1,5 +1,5 @@
 #!/bin/sh
-#Compiles the source code and runs unit tests.
+#Compiles the source code.
 cd `dirname $0`
 
-vs/build.sh && nunit-console UnitTests.nunit
+vs/build.sh
