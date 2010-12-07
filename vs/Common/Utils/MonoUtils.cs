@@ -94,7 +94,7 @@ namespace Common.Utils
         public static void MakeReadOnly(string path)
         {
             var fileSysInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
-            fileSysInfo.FileAccessPermissions = fileSysInfo.FileAccessPermissions & ~AllWritePermission;
+            fileSysInfo.FileAccessPermissions &= ~AllWritePermission;
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Common.Utils
         public static void MakeWritable(string path)
         {
             var fileSysInfo = UnixFileSystemInfo.GetFileSystemEntry(path);
-            fileSysInfo.FileAccessPermissions = fileSysInfo.FileAccessPermissions | FileAccessPermissions.UserWrite;
+            fileSysInfo.FileAccessPermissions |= FileAccessPermissions.UserWrite;
         }
 
         /// <summary>A combination of bit flags to grant everyone executing permissions.</summary>
@@ -137,8 +137,8 @@ namespace Common.Utils
         public static void SetExecutable(string path, bool executable)
         {
             var fileInfo = new UnixFileInfo(path);
-            if (executable) fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions | AllExecutePermission; // Set all execution rights
-            else fileInfo.FileAccessPermissions = fileInfo.FileAccessPermissions & ~AllExecutePermission; // Unset all execution rights
+            if (executable) fileInfo.FileAccessPermissions |=  AllExecutePermission; // Set all execution rights
+            else fileInfo.FileAccessPermissions &= ~AllExecutePermission; // Unset all execution rights
         }
         #endregion
 

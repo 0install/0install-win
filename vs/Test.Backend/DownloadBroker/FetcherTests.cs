@@ -153,7 +153,7 @@ namespace ZeroInstall.DownloadBroker
         }
 
         [Test]
-        public void ShouldGenerateCorrectXbitFile()
+        public void ShouldHandleExecutables()
         {
             using (var sdlArchive = TestData.GetSdlZipArchiveStream())
             {

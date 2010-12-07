@@ -321,7 +321,6 @@ namespace ZeroInstall.Store.Implementation
             var testerLock = new ManualResetEvent(false);
             var injectionLock = new ManualResetEvent(false);
             var completionLock = new ManualResetEvent(false);
-            bool noTimeout = true;
 
             // The assumption here is, that the StateChanged event is called
             // from within the working thread.
@@ -330,13 +329,10 @@ namespace ZeroInstall.Store.Implementation
                 if (sender.State == ProgressState.Header)
                 {
                     testerLock.Set();
-                    noTimeout &= injectionLock.WaitOne(100);
                 }
                 if (sender.State == ProgressState.Complete) completionLock.Set();
             };
             _someGenerator.Start();
-            noTimeout &= testerLock.WaitOne(100);
-            Assert.IsTrue(noTimeout, "A timeout occurred");
             Assert.AreEqual(ProgressState.Header, _someGenerator.State, "ManifestGenerator was not in Started state.");
             injectionLock.Set();
             completionLock.WaitOne();
