@@ -765,7 +765,7 @@ namespace ZeroInstall.Publish.WinForms
             lblIconUrlError.Text = "Downloading image for preview...";
             lblIconUrlError.ForeColor = Color.Black;
             // check url
-            if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out iconUrl)) return;
+            if (!Feed.IsValidUrl(hintTextBoxIconUrl.Text, out iconUrl)) return;
 
             // try downloading image
             try
@@ -833,7 +833,7 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnIconListAddClick(object sender, EventArgs e)
         {
             Uri uri;
-            if (!ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text, out uri)) return;
+            if (!Feed.IsValidUrl(hintTextBoxIconUrl.Text, out uri)) return;
             var icon = new Model.Icon {Location = uri};
 
             var imageMimeTypes = new C5.HashDictionary<Guid, string>
@@ -894,7 +894,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void TextIconUrlTextChanged(object sender, EventArgs e)
         {
-            if (ControlHelpers.IsValidFeedUrl(hintTextBoxIconUrl.Text))
+            if (Feed.IsValidUrl(hintTextBoxIconUrl.Text))
             {
                 hintTextBoxIconUrl.ForeColor = Color.Green;
                 buttonIconPreview.Enabled = true;
@@ -1417,7 +1417,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void BtnExtFeedsAddClick(object sender, EventArgs e)
         {
-            var feedReference = feedReferenceControl.FeedReference.CloneReference();
+            var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
             if (string.IsNullOrEmpty(feedReference.Source)) return;
             foreach (FeedReference feedReferenceFromListBox in listBoxExternalFeeds.Items)
             {
@@ -1447,7 +1447,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             var selectedItem = (FeedReference) listBoxExternalFeeds.SelectedItem;
             if (selectedItem == null) return;
-            feedReferenceControl.FeedReference = selectedItem.CloneReference();
+            feedReferenceControl.FeedReference = selectedItem.CloneFeedPreferences();
         }
 
         /// <summary>
@@ -1458,7 +1458,7 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnExtFeedUpdateClick(object sender, EventArgs e)
         {
             var selectedFeedReferenceIndex = listBoxExternalFeeds.SelectedIndex;
-            var feedReference = feedReferenceControl.FeedReference.CloneReference();
+            var feedReference = feedReferenceControl.FeedReference.CloneFeedPreferences();
             if (selectedFeedReferenceIndex < 0) return;
             if (String.IsNullOrEmpty(feedReference.Source)) return;
             listBoxExternalFeeds.Items[selectedFeedReferenceIndex] = feedReference;
@@ -1476,7 +1476,7 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnFeedForAddClick(object sender, EventArgs e)
         {
             Uri uri;
-            if (!ControlHelpers.IsValidFeedUrl(hintTextBoxFeedFor.Text, out uri)) return;
+            if (!Feed.IsValidUrl(hintTextBoxFeedFor.Text, out uri)) return;
             var interfaceReference = new InterfaceReference {Target = uri};
             listBoxFeedFor.Items.Add(interfaceReference);
         }

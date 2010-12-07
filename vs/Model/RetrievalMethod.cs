@@ -23,7 +23,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A retrieval method is a way of getting an <see cref="Implementation"/>.
     /// </summary>
-    [XmlType("retrieval-method", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class RetrievalMethod : XmlUnknown, ISimplifyable, ICloneable
     {
         /// <summary>

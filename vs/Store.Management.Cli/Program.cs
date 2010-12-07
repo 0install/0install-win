@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using Common;
 using NDesk.Options;
@@ -64,33 +65,24 @@ namespace ZeroInstall.Store.Management.Cli
 
             if (options.Count == 0) return (int)ErrorLevel.OK;
 
-            switch (options[0])
+            try { return Execute(options); }
+            #region Error handling
+            catch (InvalidOperationException ex)
             {
-                case "add":
-                case "copy":
-                case "find":
-                    Log.Error("Not implemented yet");
-                    return (int)ErrorLevel.NotSupported;
-
-                case "remove":
-                    StoreProvider.Default.Remove(new ManifestDigest(options[1]));
-                    return (int)ErrorLevel.OK;
-
-                case "list":
-                    foreach (string implementation in StoreProvider.Default.ListAll())
-                        Console.WriteLine(implementation);
-                    return (int)ErrorLevel.OK;
-
-                case "manifest":
-                case "optimise":
-                case "verify":
-                    Log.Error("Not implemented yet");
-                    return (int)ErrorLevel.NotSupported;
-
-                default:
-                    Log.Error("Unknown command");
-                    return (int)ErrorLevel.NotSupported;
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
             }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            #endregion
         }
         #endregion
 
@@ -133,6 +125,47 @@ namespace ZeroInstall.Store.Management.Cli
 
             // Parse the arguments and call the hooked handlers
             return options.Parse(args);
+        }
+        #endregion
+
+        #region Execute
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        private static int Execute(IList<string> options)
+        {
+            switch (options[0])
+            {
+                case "add":
+                case "copy":
+                case "find":
+                    Log.Error("Not implemented yet");
+                    return (int)ErrorLevel.NotSupported;
+
+                case "remove":
+                    StoreProvider.Default.Remove(new ManifestDigest(options[1]));
+                    return (int)ErrorLevel.OK;
+
+                case "list":
+                    foreach (string implementation in StoreProvider.Default.ListAll())
+                        Console.WriteLine(implementation);
+                    return (int)ErrorLevel.OK;
+
+                case "manifest":
+                case "optimise":
+                case "verify":
+                    Log.Error("Not implemented yet");
+                    return (int)ErrorLevel.NotSupported;
+
+                default:
+                    Log.Error("Unknown command");
+                    return (int)ErrorLevel.NotSupported;
+            }
         }
         #endregion
     }

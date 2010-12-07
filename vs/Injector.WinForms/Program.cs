@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -52,6 +53,21 @@ namespace ZeroInstall.Injector.WinForms
                 try { mode = ParseArgs(args, handler, out results); }
                 #region Error handling
                 catch (ArgumentException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    return;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warning);
                     return;
@@ -99,6 +115,9 @@ namespace ZeroInstall.Injector.WinForms
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
             #region Sanity checks
@@ -124,8 +143,8 @@ namespace ZeroInstall.Injector.WinForms
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  parseResults.Policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", unused => parseResults.Policy.InterfaceCache.Refresh = true},
+                {"o|offline", unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", unused => parseResults.Policy.FeedProvider.Refresh = true},
                 {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations

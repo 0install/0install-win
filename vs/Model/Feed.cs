@@ -31,10 +31,51 @@ namespace ZeroInstall.Model
     /// <remarks>A feed contains all the information required to download and execute an application. It is usually downloaded and updated from a specific URI.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    [XmlType("interface", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlRoot("interface", Namespace = XmlNamespace)]
+    [XmlType("interface", Namespace = XmlNamespace)]
     public sealed class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
+        #region Utility methods
+        /// <summary>
+        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// </summary>
+        /// <param name="value">The URL to check for validity.</param>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
+        public static bool IsValidUrl(Uri value)
+        {
+            return value != null && value.IsAbsoluteUri && (value.Scheme == Uri.UriSchemeHttp || value.Scheme == Uri.UriSchemeHttps);
+        }
+
+        /// <summary>
+        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// </summary>
+        /// <param name="value">The URL to check for validity.</param>
+        /// <param name="result">The parsed URL. Only use this if the result was <see langword="true"/>!</param>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
+        public static bool IsValidUrl(string value, out Uri result)
+        {
+            return Uri.TryCreate(value, UriKind.Absolute, out result) && IsValidUrl(result);
+        }
+
+        /// <summary>
+        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// </summary>
+        /// <param name="value">The URL to check for validity.</param>
+        /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
+        public static bool IsValidUrl(string value)
+        {
+            Uri url;
+            return IsValidUrl(value, out url);
+        }
+        #endregion
+
+        #region Constants
+        /// <summary>
+        /// The XML namespace used for storing feed/interface-related data.
+        /// </summary>
+        public const string XmlNamespace = "http://zero-install.sourceforge.net/2004/injector/interface";
+        #endregion
+
         #region Properties
         /// <summary>
         /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
@@ -140,9 +181,9 @@ namespace ZeroInstall.Model
         // Preserve order
         private readonly C5.ArrayList<FeedReference> _feeds = new C5.ArrayList<FeedReference>();
         /// <summary>
-        /// Zero ore more feeds containing more implementations of this interface.
+        /// Zero ore more additional feeds containing implementations of this interface.
         /// </summary>
-        [Category("Feed"), Description("Zero ore more feeds containing more implementations of this interface.")]
+        [Category("Feed"), Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
@@ -295,7 +336,7 @@ namespace ZeroInstall.Model
         public Feed CloneFeed()
         {
             var feed = new Feed {MinInjectorVersion = MinInjectorVersion, Uri = Uri, Name = Name, Homepage = Homepage, NeedsTerminal = NeedsTerminal};
-            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.CloneReference());
+            foreach (var feedReference in Feeds) feed.Feeds.Add(feedReference.CloneFeedPreferences());
             foreach (var interfaceReference in FeedFor) feed.FeedFor.Add(interfaceReference.CloneReference());
             foreach (var summary in Summaries) feed.Summaries.Add(summary.CloneString());
             foreach (var description in Descriptions) feed.Descriptions.Add(description.CloneString());

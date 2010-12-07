@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
     /// Contains those parameters that can be transferred from a <see cref="Group"/> to an <see cref="Implementation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("element", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("element", Namespace = Feed.XmlNamespace)]
     public abstract class Element : TargetBase, IBindingContainer, ISimplifyable, ICloneable
     {
         #region Constants

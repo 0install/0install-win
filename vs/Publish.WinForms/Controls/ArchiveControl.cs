@@ -432,7 +432,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (startOffset >= 0) _archive.StartOffset = startOffset;
             if (comboBoxArchiveFormat.SelectedIndex != 0) _archive.MimeType = comboBoxArchiveFormat.Text;
             Uri uri;
-            if (ControlHelpers.IsValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri)) _archive.Location = uri;
+            if (Uri.TryCreate(hintTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri)) _archive.Location = uri;
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
         }
 
@@ -453,7 +453,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void HintTextBoxArchiveUrlTextChanged(object sender, EventArgs e)
         {
             Uri uri;
-            if (ControlHelpers.IsValidArchiveUrl(hintTextBoxArchiveUrl.Text, out uri))
+            if (Uri.TryCreate(hintTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri))
             {
                 hintTextBoxArchiveUrl.ForeColor = Color.Green;
                 SetArchiveUrlChosenState();

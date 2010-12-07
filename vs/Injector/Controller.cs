@@ -153,7 +153,8 @@ namespace ZeroInstall.Injector
                 if (Policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
-                var feed = Policy.InterfaceCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
+                string feedUrl = implementation.FromFeed ?? implementation.InterfaceID;
+                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : Policy.FeedProvider.Cache.Get(new Uri(feedUrl));
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }
@@ -177,7 +178,7 @@ namespace ZeroInstall.Injector
             if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
             #endregion
 
-            if (Policy.InterfaceCache.NetworkLevel == NetworkLevel.Offline) return;
+            if (Policy.FeedProvider.NetworkLevel == NetworkLevel.Offline) return;
 
             Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()));
         }

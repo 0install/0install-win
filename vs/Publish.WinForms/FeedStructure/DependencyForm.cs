@@ -17,7 +17,6 @@
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 using Constraint = ZeroInstall.Model.Constraint;
@@ -182,7 +181,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void HintTextBoxInterfaceTextChanged(object sender, EventArgs e)
         {
             Uri uri;
-            hintTextBoxInterface.ForeColor = (ControlHelpers.IsValidFeedUrl(hintTextBoxInterface.Text, out uri)) ? Color.Green : Color.Red;
+            hintTextBoxInterface.ForeColor = (Feed.IsValidUrl(hintTextBoxInterface.Text, out uri)) ? Color.Green : Color.Red;
         }
         #endregion
 

@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// </summary>
     /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
     [Serializable]
-    [XmlType("overlay", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("overlay", Namespace = Feed.XmlNamespace)]
     public sealed class OverlayBinding : Binding, IEquatable<OverlayBinding>
     {
         #region Properties

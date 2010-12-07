@@ -28,10 +28,17 @@ namespace ZeroInstall.MyApps
     /// Stores a list of applications the user prefers to use.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
-    [XmlType("app-list", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlRoot("app-list", Namespace = XmlNamespace)]
+    [XmlType("app-list", Namespace = XmlNamespace)]
     public sealed class AppList : ICloneable, IEquatable<AppList>
     {
+        #region Constants
+        /// <summary>
+        /// The XML namespace used for storing application list data.
+        /// </summary>
+        public const string XmlNamespace = "http://0install.de/schema/my-apps/app-list";
+        #endregion
+
         #region Properties
         // Preserve order
         private readonly C5.ArrayList<AppEntry> _entries = new C5.ArrayList<AppEntry>();

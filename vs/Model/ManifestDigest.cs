@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
     /// <remarks>A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.</remarks>
     [TypeConverter(typeof(ManifestDigestConverter))]
     [Serializable]
-    [XmlType("manifest-digest", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
     public struct ManifestDigest : IEquatable<ManifestDigest>
     {
         #region Constants

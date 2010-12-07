@@ -24,7 +24,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Integrations describe how an application is made available to user in the operating system's environment.
     /// </summary>
-    [XmlType("integration", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("integration", Namespace = AppList.XmlNamespace)]
     public abstract class Integration : ICloneable
     {
         #region Properties

@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("recipe", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("recipe", Namespace = Feed.XmlNamespace)]
     public sealed class Recipe : RetrievalMethod, IEquatable<Recipe>
     {
         #region Properties

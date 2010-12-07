@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://zero-install.sourceforge.net/2004/injector/interface" elementFormDefault="qualified" targetNamespace="http://zero-install.sourceforge.net/2004/injector/interface" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:tns=Feed.XmlNamespace elementFormDefault="qualified" targetNamespace=Feed.XmlNamespace xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
   <xs:element name="interface" nillable="true" type="tns:feed" />
   <xs:complexType name="feed">

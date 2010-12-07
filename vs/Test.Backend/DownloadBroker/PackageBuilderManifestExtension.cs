@@ -38,7 +38,7 @@ namespace ZeroInstall.DownloadBroker
         }
         public override void VisitFolder(FolderEntry entry)
         {
-            ManifestNode node = new ManifestDirectory(FileUtils.UnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
+            ManifestNode node = new ManifestDirectory(FileUtils.ToUnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
             visitChildren(entry);
         }
@@ -52,8 +52,8 @@ namespace ZeroInstall.DownloadBroker
                 size = entryData.Length;
                 hash = FileUtils.ComputeHash(entryData, ManifestFormat.Sha256.HashAlgorithm);
             }
-            if (entry.IsExecutable) node = new ManifestExecutableFile(hash, FileUtils.UnixTime(entry.LastWriteTime), size, entry.Name);
-            else node = new ManifestNormalFile(hash, FileUtils.UnixTime(entry.LastWriteTime), size, entry.Name);
+            if (entry.IsExecutable) node = new ManifestExecutableFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
+            else node = new ManifestNormalFile(hash, FileUtils.ToUnixTime(entry.LastWriteTime), size, entry.Name);
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
         }
     }

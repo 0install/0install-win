@@ -29,17 +29,24 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlRoot("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
-    [XmlType("catalog", Namespace = "http://0install.de/schema/injector/catalog")]
+    [XmlRoot("catalog", Namespace = XmlNamespace)]
+    [XmlType("catalog", Namespace = XmlNamespace)]
     public class Catalog : XmlUnknown, ISimplifyable, ICloneable, IEquatable<Catalog>
     {
+        #region Constants
+        /// <summary>
+        /// The XML namespace used for storing feed catalogs. Used in combination with <see cref="Feed.XmlNamespace"/>.
+        /// </summary>
+        public const string XmlNamespace = "http://0install.de/schema/injector/catalog";
+        #endregion
+
         #region Properties
         // Preserve order
         private readonly C5.ArrayList<Feed> _feeds = new C5.ArrayList<Feed>();
         /// <summary>
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
-        [XmlElement("interface", typeof(Feed), Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+        [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<Feed> Feeds { get { return _feeds; } }
         #endregion

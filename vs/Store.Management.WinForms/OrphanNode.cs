@@ -25,6 +25,13 @@ namespace ZeroInstall.Store.Management.WinForms
         public override string Name { get { return _name; } }
         #endregion
 
+        #region Constructor
+        public OrphanNode(string name)
+        {
+            _name = name;
+        }
+        #endregion
+
         /// <inheritdoc/>
         public override System.Windows.Forms.ContextMenu GetContextMenu()
         {

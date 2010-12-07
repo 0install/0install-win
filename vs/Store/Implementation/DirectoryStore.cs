@@ -35,14 +35,6 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The default directory in the user-profile to use for storing the cache.
-        /// </summary>
-        public static string UserProfileDirectory
-        {
-            get { return StringUtils.PathCombine(Locations.UserCacheDir, "0install.net", "implementations"); }
-        }
-
-        /// <summary>
         /// The directory containing the cached <see cref="Implementation"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
@@ -76,10 +68,12 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Creates a new store using a directory in the user-profile.
+        /// Creates a new store using the default path (generally in the user-profile).
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        public DirectoryStore() : this(UserProfileDirectory)
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        public DirectoryStore() : this(Locations.GetCachePath("0install.net", "implementations"))
         {}
         #endregion
 

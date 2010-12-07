@@ -193,7 +193,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         #region Write entries
         /// <summary>
-        /// Creates a directory in the file system and sets its last write time.
+        /// Creates a directory in the filesystem and sets its last write time.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <param name="dateTime">The last write time to set.</param>
@@ -210,7 +210,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         /// <summary>
-        /// Writes a file to the file system and sets its last write time.
+        /// Writes a file to the filesystem and sets its last write time.
         /// </summary>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <param name="dateTime">The last write time to set.</param>

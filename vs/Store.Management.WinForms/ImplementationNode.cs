@@ -15,22 +15,30 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Windows.Forms;
+
 namespace ZeroInstall.Store.Management.WinForms
 {
-    public class ImplementationNode : StoreNode
+    public class ImplementationNode : InterfaceNode
     {
         #region Variables
-        private readonly Model.Feed _feed;
         private readonly Model.Implementation _implementation;
         #endregion
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return _feed.ToString() + "#" + _implementation.ToString(); } }
+        public override string Name { get { return base.Name + "#" + _implementation; } }
+        #endregion
+
+        #region Constructor
+        public ImplementationNode(Model.Feed feed, Model.Implementation implementation) : base(feed)
+        {
+            _implementation = implementation;
+        }
         #endregion
 
         /// <inheritdoc/>
-        public override System.Windows.Forms.ContextMenu GetContextMenu()
+        public override ContextMenu GetContextMenu()
         {
             return null;
         }

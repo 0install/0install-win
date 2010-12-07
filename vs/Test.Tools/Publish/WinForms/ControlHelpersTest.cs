@@ -29,40 +29,6 @@ namespace ZeroInstall.Publish.WinForms
     class ControlHelpersTest
     {
         /// <summary>
-        /// Tests all methods IsValidFeedUrl(...) with a set of valid an invalid feed URLs.
-        /// </summary>
-        [Test]
-        public void TestIsValidFeedUrl()
-        {
-            // Because "public static bool IsValidFeedUrl(string url, out Uri uri)" is used directly by "public static bool IsValidFeedUrl(string url)"
-            // it is sufficient only to test this methode.
-
-            // Test invalid URLs
-            //TODO find more invalid URLs
-            var invalidUrls = new[]
-            {
-                @"foo://",
-                @"ftp://",
-                @"www://",
-                @"http://.de/",
-                @"http://abc§.de/",
-                @"ggo;\\"
-            };
-            foreach (var url in invalidUrls)
-                Assert.IsFalse(ControlHelpers.IsValidFeedUrl(url));
-
-            // Test valid URLs
-            //TODO find more valid URLs
-            var validUrls = new[]
-            {
-                @"http://0install.de/",
-                @"https://0install.de/"
-            };
-            foreach (var url in validUrls)
-                Assert.IsTrue(ControlHelpers.IsValidFeedUrl(url));
-        }
-
-        /// <summary>
         /// Test methode ControlHelpers.IsEmpty(Archive toCheck).
         /// </summary>
         [Test]

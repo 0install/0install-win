@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [TypeConverter(typeof(IconConverter))]
     [Serializable]
-    [XmlType("icon", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("icon", Namespace = Feed.XmlNamespace)]
     public struct Icon : IEquatable<Icon>
     {
         #region Properties

@@ -24,7 +24,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Creates a bootstrapper executable for launching the application.
     /// </summary>
-    [XmlType("bootstrapper", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("bootstrapper", Namespace = AppList.XmlNamespace)]
     public class Bootstrapper : Integration, IEquatable<Bootstrapper>
     {
         #region Properties

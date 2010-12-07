@@ -73,6 +73,21 @@ namespace ZeroInstall.Injector.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
             }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
             #endregion
 
             switch (mode)
@@ -177,6 +192,9 @@ namespace ZeroInstall.Injector.Cli
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
             #region Sanity checks
@@ -202,8 +220,8 @@ namespace ZeroInstall.Injector.Cli
                 {"s|source", Resources.OptionSource, unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", Resources.OptionOS, os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", Resources.OptionCpu, cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", Resources.OptionOffline, unused =>  parseResults.Policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.InterfaceCache.Refresh = true},
+                {"o|offline", Resources.OptionOffline, unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.FeedProvider.Refresh = true},
                 {"with-store=", Resources.OptionWithStore, path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
@@ -310,10 +328,10 @@ namespace ZeroInstall.Injector.Cli
         {
             if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
 
-            var interfaces = results.Policy.InterfaceCache.ListAllInterfaces();
-            foreach (string entry in interfaces)
+            var interfaces = results.Policy.FeedProvider.Cache.ListAll();
+            foreach (Uri entry in interfaces)
             {
-                if (results.Feed == null || entry.Contains(results.Feed))
+                if (results.Feed == null || entry.ToString().Contains(results.Feed))
                     Console.WriteLine(entry);
             }
         }

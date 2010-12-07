@@ -24,7 +24,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Lists an application as an entry in the desktop environment's main menu (freedesktop.org, Windows start menu, etc.).
     /// </summary>
-    [XmlType("menu-entry", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
     public class MenuEntry : Integration, IEquatable<MenuEntry>
     {
         #region Properties

@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.Windows.Forms;
+
 namespace ZeroInstall.Store.Management.WinForms
 {
     public class InterfaceNode : StoreNode
@@ -28,8 +30,15 @@ namespace ZeroInstall.Store.Management.WinForms
         public override string Name { get { return _feed.ToString(); } }
         #endregion
 
+        #region Constructor
+        public InterfaceNode(Model.Feed feed)
+        {
+            _feed = feed;
+        }
+        #endregion
+
         /// <inheritdoc/>
-        public override System.Windows.Forms.ContextMenu GetContextMenu()
+        public override ContextMenu GetContextMenu()
         {
             return null;
         }

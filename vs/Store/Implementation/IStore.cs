@@ -41,8 +41,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <returns>
-        ///   <see langword="true"/> if the request implementation is available in this store;
-        ///   <see langword="false"/> if the request implementation is not available in this store or if read access to this store is not permitted.
+        ///   <see langword="true"/> if the specified implementation is available in this store;
+        ///   <see langword="false"/> if the specified implementation is not available in this store or if read access to this store is not permitted.
         /// </returns>
         /// <remarks>If read access to this store is not permitted, no exception is thrown.</remarks>
         bool Contains(ManifestDigest manifestDigest);

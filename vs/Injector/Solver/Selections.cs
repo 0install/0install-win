@@ -30,8 +30,8 @@ namespace ZeroInstall.Injector.Solver
     /// Represents a number of <see cref="ImplementationBase"/>s chosen for executing an <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlRoot("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
-    [XmlType("selections", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlRoot("selections", Namespace = Feed.XmlNamespace)]
+    [XmlType("selections", Namespace = Feed.XmlNamespace)]
     public sealed class Selections : IEquatable<Selections>, ICloneable
     {
         #region Properties

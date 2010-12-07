@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// A domain-name associated to a <see cref="Domain"/>.
     /// </summary>
-    [XmlType("domain", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
+    [XmlType("domain", Namespace = Trust.XmlNamespace)]
     public struct Domain : ICloneable, IEquatable<Domain>
     {
         #region Properties

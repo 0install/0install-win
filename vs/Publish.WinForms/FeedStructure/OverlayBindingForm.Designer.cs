@@ -76,7 +76,7 @@
             // 
             this.hintTextBoxMountPoint.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxMountPoint.HintText = "Mount point on which source is to appear in the file system";
+            this.hintTextBoxMountPoint.HintText = "Mount point on which source is to appear in the filesystem";
             this.hintTextBoxMountPoint.Location = new System.Drawing.Point(15, 64);
             this.hintTextBoxMountPoint.Name = "hintTextBoxMountPoint";
             this.hintTextBoxMountPoint.Size = new System.Drawing.Size(297, 20);

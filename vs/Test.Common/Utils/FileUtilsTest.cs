@@ -88,13 +88,23 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Ensures <see cref="FileUtils.UnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
+        /// Ensures <see cref="FileUtils.ToUnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
         /// </summary>
         [Test]
-        public void TestUnixTime()
+        public void TestToUnixTime()
         {
             // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
-            Assert.AreEqual(1095292800, FileUtils.UnixTime(new DateTime(2004, 09, 16)));
+            Assert.AreEqual(1095292800, FileUtils.ToUnixTime(new DateTime(2004, 09, 16)));
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileUtils.FromUnixTime"/> correctly converts a Unix epoch value to a <see cref="DateTime"/> value.
+        /// </summary>
+        [Test]
+        public void TestFromUnixTime()
+        {
+            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
+            Assert.AreEqual(new DateTime(2004, 09, 16), FileUtils.FromUnixTime(1095292800));
         }
 
         /// <summary>

@@ -246,9 +246,9 @@ namespace ZeroInstall.Store.Implementation
                 throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
 
             if (externalXBits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
-                return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
             else
-                return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.UnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+                return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace ZeroInstall.Store.Implementation
         private static ManifestDirectory GetDirectoryNode(DirectoryInfo directory, string rootPath)
         {
             return new ManifestDirectory(
-                FileUtils.UnixTime(directory.LastWriteTime),
+                FileUtils.ToUnixTime(directory.LastWriteTime),
                 // Remove leading portion of path and use Unix slashes
                 directory.FullName.Substring(rootPath.Length).Replace(Path.DirectorySeparatorChar, '/'));
         }

@@ -34,7 +34,7 @@ namespace ZeroInstall.Model
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("package-implementation", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("package-implementation", Namespace = Feed.XmlNamespace)]
     public sealed class PackageImplementation : Element, IEquatable<PackageImplementation>
     {
         #region Override Properties

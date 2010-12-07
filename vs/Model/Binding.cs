@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// Bindings can appear in <see cref="Dependency"/>s, in which case they tell a component how to find its dependency,
     /// or in <see cref="Element"/>, where they tell a component how to find itself.
     /// </remarks>
-    [XmlType("binding", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("binding", Namespace = Feed.XmlNamespace)]
     public abstract class Binding : XmlUnknown, ICloneable
     {
         /// <summary>

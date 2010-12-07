@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Feed
     /// An entry in the <see cref="Trust"/> database.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("key", Namespace = "http://zero-install.sourceforge.net/2007/injector/trust")]
+    [XmlType("key", Namespace = Trust.XmlNamespace)]
     public sealed class Key : ICloneable, IEquatable<Key>
     {
         #region Properties

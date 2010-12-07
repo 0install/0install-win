@@ -86,9 +86,9 @@ namespace Common.Utils
         private const FileAccessPermissions AllWritePermission = FileAccessPermissions.UserWrite | FileAccessPermissions.GroupWrite | FileAccessPermissions.OtherWrite;
 
         /// <summary>
-        /// Removes write permissions for everyone on a file system object (file or directory).
+        /// Removes write permissions for everyone on a filesystem object (file or directory).
         /// </summary>
-        /// <param name="path">The file system object (file or directory) to make read-only.</param>
+        /// <param name="path">The filesystem object (file or directory) to make read-only.</param>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         public static void MakeReadOnly(string path)
@@ -98,9 +98,9 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Sets write permissions for the owner on a file system object (file or directory).
+        /// Sets write permissions for the owner on a filesystem object (file or directory).
         /// </summary>
-        /// <param name="path">The file system object (file or directory) to make writeable by the owner.</param>
+        /// <param name="path">The filesystem object (file or directory) to make writeable by the owner.</param>
         /// <exception cref="IOException">Thrown if the Mono libraries could not be loaded.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
         public static void MakeWritable(string path)

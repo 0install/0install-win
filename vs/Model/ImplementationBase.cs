@@ -26,7 +26,7 @@ namespace ZeroInstall.Model
     /// Information for identifying an implementation of a <see cref="Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("implementation-base", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("implementation-base", Namespace = Feed.XmlNamespace)]
     public abstract class ImplementationBase : Element
     {
         #region Properties

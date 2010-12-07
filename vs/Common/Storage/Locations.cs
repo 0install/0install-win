@@ -21,7 +21,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Common.Utils;
 
 namespace Common.Storage
 {
@@ -48,9 +50,25 @@ namespace Common.Storage
         }
         #endregion
 
-        #region Directories
+        #region Variables
+        /// <summary>
+        /// The base directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>.
+        /// </summary>
+        public static readonly string PortableBase = AppDomain.CurrentDomain.BaseDirectory;
 
-        #region Per-user
+        /// <summary>
+        /// Indicates whether the application is currently operating in portable mode.
+        /// </summary>
+        /// <remarks>
+        ///   <para>Portable mode is activated by placing a file named ".portable" int the application's base directory.</para>
+        ///   <para>When portable mode is active files are stored and loaded from the application's base directory instead of the user profile and sysem directories.</para>
+        /// </remarks>
+        public static readonly bool IsPortable = File.Exists(Path.Combine(PortableBase, ".portable"));
+        #endregion
+
+        #region Properties
+
+        #region Per-user directories
         /// <summary>
         /// The home directory of the current user.
         /// </summary>
@@ -61,7 +79,7 @@ namespace Common.Storage
         /// The directory to store per-user settings that can roam across different machines.
         /// </summary>
         /// <remarks>On Windows this is <c>%appdata%</c>, on Linux it usually is <c>~/.config</c>.</remarks>
-        public static string UserSettingsDir
+        public static string UserConfigDir
         {
             get
             {
@@ -84,7 +102,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store per-user data files that can not roam across different machines.
+        /// The directory to store per-user data files that does not roam across different machines.
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.local/share</c>.</remarks>
         public static string UserDataDir
@@ -136,13 +154,13 @@ namespace Common.Storage
         }
         #endregion
 
-        #region System-wide
+        #region System-wide directories
         /// <summary>
         /// The directories to store system-wide settings that can roam across different machines.
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/etc/xdg</c>.</remarks>
-        public static string SystemSettingsDirs
+        public static string SystemConfigDirs
         {
             get
             {
@@ -165,7 +183,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directories to store system-wide data files that can not roam across different machines.
+        /// The directories to store system-wide data files that does not roam across different machines.
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/usr/local/share:/usr/share</c>.</remarks>
@@ -190,35 +208,168 @@ namespace Common.Storage
                 }
             }
         }
+        #endregion
+
+        #endregion
+
+        //--------------------//
+
+        #region Paths
+        /// <summary>
+        /// Determines a path for storing a configuration resource that can roam across different machines.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The file or directory name of the resource to be stored.</param>
+        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
+        public static string GetSaveConfigPath(string appName, string resource, bool isDirectory)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path = IsPortable
+                ? StringUtils.PathCombine(PortableBase, "config", resource)
+                : StringUtils.PathCombine(UserConfigDir, appName, resource);
+
+            // Ensure the directory part of the path exists
+            string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
+            if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+
+            return path;
+        }
 
         /// <summary>
-        /// The directories to store system-wide cache data.
+        /// Determines a list of paths for loading a configuration resource that can roam across different machines.
         /// </summary>
-        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
-        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/var/cache</c>.</remarks>
-        public static string SystemCacheDir
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The file or directory name of the resource to be stored.</param>
+        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <returns>
+        /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
+        /// This list will always reflect the current state in the filesystem and can not be modified!
+        /// </returns>
+        /// <remarks>The returned paths are guaranteed to exist.</remarks>
+        public static IEnumerable<string> GetLoadConfigPaths(string appName, string resource, bool isDirectory)
         {
-            get
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path;
+            if (IsPortable)
             {
-                switch (Environment.OSVersion.Platform)
+                path = StringUtils.PathCombine(PortableBase, "config", resource);
+                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+            }
+            else
+            {
+                path = StringUtils.PathCombine(UserConfigDir, appName, resource);
+                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+
+                foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-
-                    case PlatformID.Unix:
-                        // Use XDG specification
-                        return GetEnvironmentVariable("XDG_CACHE_DIRS", "/var/cache");
-
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    if (File.Exists(path) || Directory.Exists(path)) yield return path;
                 }
             }
         }
-        #endregion
 
+        /// <summary>
+        /// Determines a path for storing a data resource that does not roam across different machines.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The file or directory name of the resource to be stored.</param>
+        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
+        public static string GetSaveDataPath(string appName, string resource, bool isDirectory)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path = IsPortable
+                ? StringUtils.PathCombine(PortableBase, "data", resource)
+                : StringUtils.PathCombine(UserDataDir, appName, resource);
+
+            // Ensure the directory part of the path exists
+            string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
+            if (!Directory.Exists(dirPath)) Directory.CreateDirectory(dirPath);
+
+            return path;
+        }
+
+        /// <summary>
+        /// Determines a list of paths for loading a data resource that does not roam across different machines.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The file or directory name of the resource to be stored.</param>
+        /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
+        /// <returns>
+        /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
+        /// This list will always reflect the current state in the filesystem and can not be modified!
+        /// </returns>
+        /// <remarks>The returned paths are guaranteed to exist.</remarks>
+        public static IEnumerable<string> GetLoadDataPaths(string appName, string resource, bool isDirectory)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path;
+            if (IsPortable)
+            {
+                path = StringUtils.PathCombine(PortableBase, "data", resource);
+                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+            }
+            else
+            {
+                path = StringUtils.PathCombine(UserDataDir, appName, resource);
+                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+
+                foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
+                {
+                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Determines a path for a per-user cache directory that does not roam across different machines.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The directory name of the resource to be stored.</param>
+        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist.</remarks>
+        public static string GetCachePath(string appName, string resource)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path = IsPortable
+                ? StringUtils.PathCombine(PortableBase, "cache", resource)
+                : StringUtils.PathCombine(UserCacheDir, appName, resource);
+
+            // Ensure the directory exists
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            return path;
+        }
         #endregion
     }
 }

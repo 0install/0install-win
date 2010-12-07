@@ -77,10 +77,19 @@ namespace Common.Utils
         /// <summary>
         /// Converts a <see cref="DateTime"/> into the number of seconds since the Unix epoch (1970-1-1).
         /// </summary>
-        public static long UnixTime(DateTime time)
+        public static long ToUnixTime(DateTime time)
         {
-            TimeSpan timepan = (time - new DateTime(1970, 1, 1));
-            return (long)timepan.TotalSeconds;
+            TimeSpan timespan = (time - new DateTime(1970, 1, 1));
+            return (long)timespan.TotalSeconds;
+        }
+        
+        /// <summary>
+        /// Converts a number of seconds since the Unix epoch (1970-1-1) into a <see cref="DateTime"/>.
+        /// </summary>
+        public static DateTime FromUnixTime(long time)
+        {
+            TimeSpan timespan = TimeSpan.FromSeconds(time);
+            return new DateTime(1970, 1, 1) + timespan;
         }
 
         /// <summary>

@@ -148,7 +148,7 @@
     <value>No path specified.</value>
   </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>The underlying file system does not store file change times with sufficient accuracy.</value>
+    <value>The underlying filesystem does not store file change times with sufficient accuracy.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>The following implementation could not be located: {0}</value>
@@ -196,5 +196,11 @@ Actual value: {1}</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
     <value>The directory "{0}" could not be found.</value>
+  </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>New feed's modification time is before old version!
+Feed URL: {0}
+Old time: {1}
+New time: {2}</value>
   </data>
 </root>

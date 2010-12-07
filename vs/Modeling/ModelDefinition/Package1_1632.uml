@@ -158,7 +158,7 @@
             isAbstract="false">
             <classMoniker
               Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-              LastKnownName="InterfaceCache"
+              LastKnownName="FeedCache"
               LastKnownLocation="Package4_1632.uml" />
             <description>Property InterfaceCache references type InterfaceCache.</description>
             <relationshipOwnedElementsInternal>
@@ -701,7 +701,7 @@
                   <type_NamedElement>
                     <classMoniker
                       Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-                      LastKnownName="InterfaceCache"
+                      LastKnownName="FeedCache"
                       LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>

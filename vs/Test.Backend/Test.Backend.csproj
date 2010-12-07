@@ -100,6 +100,10 @@
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\WorkingDirBinding.cs" />
     <Compile Include="MyApps\AppListTest.cs" />
+    <Compile Include="Store\Feed\FeedCacheTest.cs" />
+    <Compile Include="Store\Feed\FeedPreferencesTest.cs" />
+    <Compile Include="Store\Feed\InterfacePreferencesTest.cs" />
+    <Compile Include="Store\Feed\TrustTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
@@ -108,8 +112,6 @@
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
     <Compile Include="Store\Implementation\StoreTest.cs" />
-    <Compile Include="Store\Feed\InterfaceCacheTest.cs" />
-    <Compile Include="Store\Feed\TrustTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

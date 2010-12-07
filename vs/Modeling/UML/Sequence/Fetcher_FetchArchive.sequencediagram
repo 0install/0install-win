@@ -1,77 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="c1b3050e-775a-4146-aebe-9f0dd2f0d8e1" name="Fetcher_FetchArchive" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
+<SequenceDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="c1b3050e-775a-4146-aebe-9f0dd2f0d8e1" name="Fetcher_FetchArchive" mode="DotNet" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner">
   <packagedElements>
     <packageHasNamedElement>
       <interaction Id="44497290-55ae-46a2-ad8a-16ae8b74923b" name="Fetcher_FetchArchive" collapseFragmentsFlag="false" isActiveClass="false" isAbstract="false" isLeaf="false" isReentrant="false">
         <fragments>
-          <messageOccurrenceSpecification Id="d256856e-3b71-41a7-84e1-a315a5d5266a" name="MessageOccurrenceSpecification">
+          <messageOccurrenceSpecification Id="0d62e025-182a-4eb4-bb74-98855cd5df56" name="MessageOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="5e4ee3e1-5665-4d3b-8cdb-dc842c4ccd73" name="MessageOccurrenceSpecification">
+          <messageOccurrenceSpecification Id="2754dd36-5f29-4288-bc0e-55c814f5ccb7" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="e9fd8229-d92f-4277-83b9-82490ffed2bc" name="MessageOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="fcea7248-3ad4-42ae-8d6c-f4d11b199773" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="ea2c752f-6911-40dc-bb65-5bad39e8e21d" name="MessageOccurrenceSpecification">
+          <messageOccurrenceSpecification Id="a7f9df89-d672-4735-9584-6ebd2fb714df" name="MessageOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="fcd6ee74-134d-4dc4-86c6-9d96f379ffc3" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="88aae0a6-5cdc-4c6c-80cb-6e1a853c552f" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="384400d2-8565-4854-b0cd-5200092e849c" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="b40df69b-4374-409e-93a3-edecfa3dc8ca" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="d4cda8e4-5503-4803-83d4-3939a093b7e6" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="2f1f406c-fd27-4465-95c8-362c517a35f7" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="3d1eb34a-0938-4b22-a7f0-ac385269060e" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="3db148ce-0f59-40a4-a203-c2a4621e7a56" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="f1ec30d6-075a-4a5e-9953-4c4f353030dd" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="04072564-f688-42b4-981f-6c6d294cb61a" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
             </covered>
           </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="28a542a6-2a6b-4b61-9b71-abf3e1dbd6df" name="MessageOccurrenceSpecification">
@@ -89,42 +39,6 @@
               <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
             </covered>
           </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="a7f9df89-d672-4735-9584-6ebd2fb714df" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="0d62e025-182a-4eb4-bb74-98855cd5df56" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="2754dd36-5f29-4288-bc0e-55c814f5ccb7" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="e9fd8229-d92f-4277-83b9-82490ffed2bc" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="7e75ed04-989b-4c37-9b57-8db7c693b8ea" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <lostFoundTarget Id="136a0883-c15e-46dc-822f-22277e2ac759" name="LostFoundTarget" />
-          <messageOccurrenceSpecification Id="4a47bb6b-bb0c-4e3f-a8df-cf1cb5c5fcf1" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
-            </covered>
-          </messageOccurrenceSpecification>
-          <messageOccurrenceSpecification Id="a8a95d24-7c36-43f9-a10d-b4f1aefbca0a" name="MessageOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
-            </covered>
-          </messageOccurrenceSpecification>
           <messageOccurrenceSpecification Id="12bfe17d-1123-43e6-a5e5-11bc81a0e16f" name="MessageOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
@@ -138,6 +52,92 @@
           <messageOccurrenceSpecification Id="59d2c6a7-9179-4cfa-ac4d-cf796c8e6b36" name="MessageOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="a8a95d24-7c36-43f9-a10d-b4f1aefbca0a" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="7e75ed04-989b-4c37-9b57-8db7c693b8ea" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <lostFoundTarget Id="136a0883-c15e-46dc-822f-22277e2ac759" name="LostFoundTarget" />
+          <messageOccurrenceSpecification Id="4a47bb6b-bb0c-4e3f-a8df-cf1cb5c5fcf1" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="fcd6ee74-134d-4dc4-86c6-9d96f379ffc3" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="88aae0a6-5cdc-4c6c-80cb-6e1a853c552f" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="384400d2-8565-4854-b0cd-5200092e849c" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="ea2c752f-6911-40dc-bb65-5bad39e8e21d" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="d256856e-3b71-41a7-84e1-a315a5d5266a" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="5e4ee3e1-5665-4d3b-8cdb-dc842c4ccd73" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="ed80567d-795b-4f92-b8ac-1c3c16122f4e" LastKnownName="downloadFile : DownloadFile" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="fcea7248-3ad4-42ae-8d6c-f4d11b199773" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="3db148ce-0f59-40a4-a203-c2a4621e7a56" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="f1ec30d6-075a-4a5e-9953-4c4f353030dd" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="04072564-f688-42b4-981f-6c6d294cb61a" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="3d1eb34a-0938-4b22-a7f0-ac385269060e" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="b40df69b-4374-409e-93a3-edecfa3dc8ca" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="d4cda8e4-5503-4803-83d4-3939a093b7e6" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="96d1f7f7-f06f-4d6d-9147-17c7941bf63a" LastKnownName="this : Fetcher" />
+            </covered>
+          </messageOccurrenceSpecification>
+          <messageOccurrenceSpecification Id="2f1f406c-fd27-4465-95c8-362c517a35f7" name="MessageOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
             </covered>
           </messageOccurrenceSpecification>
           <behaviorExecutionSpecification Id="0cc0009b-848d-43a7-96b9-e6ed26db8dab" name="BehaviorExecutionSpecification">
@@ -368,14 +368,14 @@
               </interactionOperand>
             </operands>
           </combinedFragment>
-          <operandOccurrenceSpecification Id="aace7439-7908-4f2c-9045-c52e3f41a8bc" name="OperandOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
-            </covered>
-          </operandOccurrenceSpecification>
           <operandOccurrenceSpecification Id="84662ccf-6e83-4480-a9df-775abbc15af5" name="OperandOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification Id="aace7439-7908-4f2c-9045-c52e3f41a8bc" name="OperandOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
             </covered>
           </operandOccurrenceSpecification>
           <behaviorExecutionSpecification Id="d74d691a-0307-4fa7-9bb7-2a238616fae0" name="BehaviorExecutionSpecification">
@@ -448,14 +448,14 @@
               <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
             </covered>
           </executionOccurrenceSpecification>
-          <operandOccurrenceSpecification Id="30defce7-4a8a-4d94-928f-159bf9035387" name="OperandOccurrenceSpecification">
-            <covered>
-              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
-            </covered>
-          </operandOccurrenceSpecification>
           <operandOccurrenceSpecification Id="c1d9f7aa-9d71-40b9-95d7-227dd1f9d4bb" name="OperandOccurrenceSpecification">
             <covered>
               <lifelineMoniker Id="07728b4c-1700-4c64-b542-b3f7914ab19b" LastKnownName="Store : IStore" />
+            </covered>
+          </operandOccurrenceSpecification>
+          <operandOccurrenceSpecification Id="30defce7-4a8a-4d94-928f-159bf9035387" name="OperandOccurrenceSpecification">
+            <covered>
+              <lifelineMoniker Id="2a504e22-d70c-43d1-9d5a-51c5e69bb635" LastKnownName="Handler : IFetchHandler" />
             </covered>
           </operandOccurrenceSpecification>
           <executionOccurrenceSpecification Id="9e05b030-cfef-4926-afc0-c103a6878cfe" name="ExecutionOccurrenceSpecification">
@@ -614,7 +614,7 @@
               <messageOccurrenceSpecificationMoniker Id="d256856e-3b71-41a7-84e1-a315a5d5266a" LastKnownName="MessageOccurrenceSpecification" />
             </receiveEvent>
           </message>
-          <message Id="9275aeec-9b17-4058-b454-a147ae23df23" name="AddArchive" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false" signatureText="Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler.StartingExtraction, Handler.StartingManifest)">
+          <message Id="9275aeec-9b17-4058-b454-a147ae23df23" name="AddArchive" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false" signatureText="Store.AddArchive(new ArchiveFileInfo { Path = tempArchive, MimeType = archive.MimeType, SubDir = archive.Extract, StartOffset = archive.StartOffset }, implementation.ManifestDigest, Handler)">
             <referencesInternal>
               <reference Id="96f7d6ab-b1a6-487f-bea6-7d45686bdc8e" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=ZeroInstall.Store.Implementation)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(bd330a44-dabf-43e9-83b4-0750f8f1db9d.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Store.Implementation Type=IStore)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(bd330a44-dabf-43e9-83b4-0750f8f1db9d.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=&amp;quot;$(bd330a44-dabf-43e9-83b4-0750f8f1db9d.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=&amp;quot;$(e9329c91-2656-418c-9d4a-7a4378dcd852.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=&amp;quot;$(FxRootUri)/v2.0.50727/mscorlib.dll&amp;quot; Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=&amp;quot;$(81af4fa5-44f7-4010-8769-b85b8b542fa2.OutputPathUri)&amp;quot; Namespace=Common Type=IProgress)])),(Assembly=&amp;quot;$(FxRootUri)/v2.0.50727/mscorlib.dll&amp;quot; Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=&amp;quot;$(81af4fa5-44f7-4010-8769-b85b8b542fa2.OutputPathUri)&amp;quot; Namespace=Common Type=IProgress)]))]))&quot;)" tag="DGQL" />
               <reference Id="1185fc1d-67f3-4658-aef8-64a7849293bd" handle="(Assembly=&quot;$(bd330a44-dabf-43e9-83b4-0750f8f1db9d.OutputPathUri)&quot; Namespace=ZeroInstall.Store.Implementation Type=IStore Member=(Name=AddArchive OverloadingParameters=[(Assembly=&quot;$(bd330a44-dabf-43e9-83b4-0750f8f1db9d.OutputPathUri)&quot; Namespace=ZeroInstall.Store.Implementation Type=ArchiveFileInfo),(Assembly=&quot;$(e9329c91-2656-418c-9d4a-7a4378dcd852.OutputPathUri)&quot; Namespace=ZeroInstall.Model Type=ManifestDigest),(Assembly=&quot;$(FxRootUri)/v2.0.50727/mscorlib.dll&quot; Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=&quot;$(81af4fa5-44f7-4010-8769-b85b8b542fa2.OutputPathUri)&quot; Namespace=Common Type=IProgress)])),(Assembly=&quot;$(FxRootUri)/v2.0.50727/mscorlib.dll&quot; Namespace=System Type=(Name=Action GenericParameterCount=1 GenericArguments=[(Assembly=&quot;$(81af4fa5-44f7-4010-8769-b85b8b542fa2.OutputPathUri)&quot; Namespace=Common Type=IProgress)]))]))" tag="DGML" />

@@ -203,5 +203,34 @@ namespace ZeroInstall.Model
             Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest("sha256=123")));
             Assert.IsNull(feed.GetImplementation(new ManifestDigest("sha256=456")));
         }
+
+        /// <summary>
+        /// Ensures <see cref="Feed.IsValidUrl(System.Uri)"/> correctly identify invalid feed URLs.
+        /// </summary>
+        [Test]
+        public void TestIsValidUrl()
+        {
+            // Test invalid URLs
+            var invalidUrls = new[]
+            {
+                @"foo://",
+                @"ftp://",
+                @"www://",
+                @"http://.de/",
+                @"http://abc§.de/",
+                @"ggo;\\"
+            };
+            foreach (var url in invalidUrls)
+                Assert.IsFalse(Feed.IsValidUrl(url));
+
+            // Test valid URLs
+            var validUrls = new[]
+            {
+                @"http://0install.de/",
+                @"https://0install.de/"
+            };
+            foreach (var url in validUrls)
+                Assert.IsTrue(Feed.IsValidUrl(url));
+        }
     }
 }

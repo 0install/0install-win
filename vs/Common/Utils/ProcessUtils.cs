@@ -25,6 +25,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using Common.Properties;
+using Common.Storage;
 
 namespace Common.Utils
 {
@@ -120,7 +121,7 @@ namespace Common.Utils
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
             #endregion
 
-            string appPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assembly + ".exe");
+            string appPath = Path.Combine(Locations.PortableBase, assembly + ".exe");
             if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono

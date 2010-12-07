@@ -22,7 +22,7 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A retrieval step is a part of a <see cref="Recipe"/>.
     /// </summary>
-    [XmlType("recipe-step", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("recipe-step", Namespace = Feed.XmlNamespace)]
     public abstract class RecipeStep : RetrievalMethod
     {
         /// <summary>

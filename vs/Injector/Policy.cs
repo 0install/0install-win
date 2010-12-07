@@ -17,6 +17,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using ZeroInstall.DownloadBroker;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -34,7 +35,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
-        public InterfaceCache InterfaceCache { get; private set; }
+        public FeedProvider FeedProvider { get; private set; }
 
         /// <summary>
         /// Used to download missing <see cref="Implementation"/>s.
@@ -77,32 +78,35 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new policy.
         /// </summary>
-        /// <param name="interfaceCache">The source used to request <see cref="Feed"/>s.</param>
+        /// <param name="feedProvider">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
-        public Policy(InterfaceCache interfaceCache, Fetcher fetcher)
+        public Policy(FeedProvider feedProvider, Fetcher fetcher)
         {
             #region Sanity checks
-            if (interfaceCache == null) throw new ArgumentNullException("interfaceCache");
+            if (feedProvider == null) throw new ArgumentNullException("feedProvider");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             #endregion
 
-            InterfaceCache = interfaceCache;
+            FeedProvider = feedProvider;
             Fetcher = fetcher;
         }
         #endregion
 
         #region Factory methods
         /// <summary>
-        /// Creates a new policy using the default <see cref="InterfaceCache"/> and <see cref="DownloadBroker.Fetcher"/>.
+        /// Creates a new policy using the default <see cref="FeedProvider"/> and <see cref="DownloadBroker.Fetcher"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            return new Policy(new InterfaceCache(handler), new Fetcher(handler));
+            return new Policy(new FeedProvider(new FeedCache(), handler), new Fetcher(handler));
         }
         #endregion
     }

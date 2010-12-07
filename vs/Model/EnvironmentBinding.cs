@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
     /// Make a chosen <see cref="Implementation"/> available  by setting environment variables.
     /// </summary>
     [Serializable]
-    [XmlType("environment", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("environment", Namespace = Feed.XmlNamespace)]
     public sealed class EnvironmentBinding : Binding, IEquatable<EnvironmentBinding>
     {
         #region Properties

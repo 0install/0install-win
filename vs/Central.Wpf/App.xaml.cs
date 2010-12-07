@@ -10,6 +10,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Interop;
 using Common;
+using Common.Storage;
 using Common.Wpf;
 
 namespace ZeroInstall.Central.Wpf
@@ -45,7 +46,7 @@ namespace ZeroInstall.Central.Wpf
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
             #endregion
 
-            try { Process.Start(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, appName), arguments); }
+            try { Process.Start(Path.Combine(Locations.PortableBase, appName), arguments); }
             catch (Win32Exception)
             {
                 Msg.Inform(new Wpf32Window(owner), string.Format(ZeroInstall.Central.Wpf.Properties.Resources.FailedToRun, appName), MsgSeverity.Error);

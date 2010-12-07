@@ -153,7 +153,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy..
+        ///   Looks up a localized string similar to The underlying filesystem does not store file change times with sufficient accuracy..
         /// </summary>
         internal static string InsufficientFSTimeAccuracy {
             get {
@@ -230,6 +230,18 @@ namespace ZeroInstall.Store.Properties {
         internal static string NumberTooLarge {
             get {
                 return ResourceManager.GetString("NumberTooLarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New feed&apos;s modification time is before old version!
+        ///Feed URL: {0}
+        ///Old time: {1}
+        ///New time: {2}.
+        /// </summary>
+        internal static string ReplayAttack {
+            get {
+                return ResourceManager.GetString("ReplayAttack", resourceCulture);
             }
         }
         

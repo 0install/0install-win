@@ -139,14 +139,8 @@ namespace ZeroInstall.Central.Wpf
             this.AppInfos = new ObservableCollection<AppInfo>();
 
             // Load App List
-            String interfacesPath = Path.Combine(Locations.UserCacheDir, Path.Combine("0install.net", "interfaces"));
-
-            InterfaceCache tempCache = new InterfaceCache(new TempFeedHandler(), interfacesPath);
-            IEnumerable<String> interfacePathList = tempCache.ListAllInterfaces();
-            IEnumerable<Feed> interfaces = interfacePathList.Select(interfacePath => tempCache.GetFeed(interfacePath));
-
-            String implementationsPath = Path.Combine(Locations.UserCacheDir, Path.Combine("0install.net", "implementations"));
-            DirectoryStore dirStore = new DirectoryStore(implementationsPath);
+            IEnumerable<Feed> interfaces = new FeedCache().GetAll();
+            DirectoryStore dirStore = new DirectoryStore();
 
             //String path = dirStore.GetPath(new ManifestDigest("sha1new=f989434c13d00773910976724af2a8b2906138cc"));
 

@@ -24,7 +24,7 @@ namespace ZeroInstall.MyApps
     /// <summary>
     /// Creates a desktop shortcut for launching the application.
     /// </summary>
-    [XmlType("desktop-shortcut", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("desktop-shortcut", Namespace = AppList.XmlNamespace)]
     public class DesktopShortcut : Integration, IEquatable<DesktopShortcut>
     {
         #region Properties

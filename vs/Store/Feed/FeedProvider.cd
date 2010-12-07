@@ -1,0 +1,115 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ZeroInstall.Store.Feed.FeedCache">
+    <Position X="8.5" Y="2" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAABAAEAAAAAAAAACAAAAAgAAAAAQAAA=</HashCode>
+      <FileName>Feed\FeedCache.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.FeedProvider">
+    <Position X="6" Y="2.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAABIAACAAAAAAAAAAAQAgAAAAEAAAAAAAAA=</HashCode>
+      <FileName>Feed\FeedProvider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Cache" />
+      <Property Name="NetworkLevel" />
+      <Property Name="Handler" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.FeedPreferences">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneFeedPreferences" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Property Name="LastCheckedLong" Hidden="true" />
+      <Method Name="Load" Hidden="true" />
+      <Method Name="Save" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AQQAgIAAAAAAAAAEgAAAAQAAAAAAAYAAAAAAAAAAADA=</HashCode>
+      <FileName>Feed\FeedPreferences.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Implementations" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.InterfacePreferences">
+    <Position X="3.75" Y="3.25" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneInterfacePreferences" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="Load" Hidden="true" />
+      <Method Name="Save" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgIAAAAAQgAAEhAAAAQAAAAAAAIAASAgAAAAAABA=</HashCode>
+      <FileName>Feed\InterfacePreferences.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Feeds" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="ZeroInstall.Model.FeedReference">
+    <Position X="0.5" Y="3.25" Width="1.75" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneFeedPreferences" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="FeedReference" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.Store.Feed.ImplementationPreferences">
+    <Position X="0.5" Y="1.5" Width="2.25" />
+    <Members>
+      <Method Name="Clone" Hidden="true" />
+      <Method Name="CloneImplementationPreferences" Hidden="true" />
+      <Method Name="Equals" Hidden="true" />
+      <Method Name="GetHashCode" Hidden="true" />
+      <Method Name="ToString" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAABEgAAAAAAAAAAAAIAAEAAAAAAAABA=</HashCode>
+      <FileName>Feed\ImplementationPreferences.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ZeroInstall.Store.Feed.IFeedHandler">
+    <Position X="6" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Feed\IFeedHandler.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="ZeroInstall.Store.Feed.NetworkLevel">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>Feed\FeedProvider.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

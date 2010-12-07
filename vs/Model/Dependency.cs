@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
-    [XmlType("depedency", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("depedency", Namespace = Feed.XmlNamespace)]
     public sealed class Dependency : XmlUnknown, IBindingContainer, ICloneable
     {
         #region Properties

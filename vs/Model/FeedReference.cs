@@ -27,7 +27,7 @@ namespace ZeroInstall.Model
     /// <remarks>An interface may have one or more actual feeds backing it.</remarks>
     /// <seealso cref="Feed.Feeds"/>
     [Serializable]
-    [XmlType("feed-reference", Namespace = "http://zero-install.sourceforge.net/2004/injector/interface")]
+    [XmlType("feed-reference", Namespace = Feed.XmlNamespace)]
     public sealed class FeedReference : TargetBase, ICloneable, IEquatable<FeedReference>
     {
         #region Properties
@@ -58,7 +58,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="FeedReference"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
-        public FeedReference CloneReference()
+        public FeedReference CloneFeedPreferences()
         {
             var feedRereference = new FeedReference { Source = Source };
             CloneFromTo(this, feedRereference);
@@ -71,7 +71,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="FeedReference"/>.</returns>
         public object Clone()
         {
-            return CloneReference();
+            return CloneFeedPreferences();
         }
         #endregion
 

@@ -1359,6 +1359,16 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="0b3b3536-f40a-4666-bf96-ad8a9de3c39b"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -1410,6 +1420,16 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="b54fc704-afbf-4b87-9a8d-cccadafa6a78"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="0dd6707d-1017-4672-b6a3-7487a14a20fb"
@@ -3228,6 +3248,16 @@
               LastKnownLocation="Package1_1629.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="c11e85b9-7d69-4494-a114-9ff988266838"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="14cf29b0-2d5c-40aa-95e5-744007a4f5e1"
@@ -5514,6 +5544,16 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="3c256729-29d3-438a-a7cf-f26ed8c903f9"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="f1bfdcff-00a8-4f6f-8303-644f36cb5816"
@@ -6175,6 +6215,16 @@
               LastKnownLocation="Package1_1629.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="abfe0ba1-4603-4461-97de-34ef9022afbe"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="5c322525-b2df-4432-90e0-1edbce2d5d5e"
@@ -8046,6 +8096,16 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <generalsInternal>
+          <generalization
+            Id="7101721c-e4d6-4ea7-b5ff-03f45c5e7cef"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedAttributesInternal>
           <property
             Id="a8127a1f-37e8-43f2-a55c-da5363848375"
@@ -8429,6 +8489,16 @@
               LastKnownLocation="Package1_1629.uml" />
           </interfaceRealization>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="a452839e-c8a5-4c9c-b74f-d29a9367e205"
+            isSubstitutable="false">
+            <classMoniker
+              Id="9a9e019f-8200-4a77-8899-db7e59849267"
+              LastKnownName="XmlUnknown"
+              LastKnownLocation="Package1_1629.uml" />
+          </generalization>
+        </generalsInternal>
         <ownedOperationsInternal>
           <operation
             Id="91435f88-39c2-418f-a8bb-767584333332"
@@ -12455,6 +12525,64 @@
       <undefinedType
         Id="82980ba2-9630-4f02-baf7-ac39b675d7c7"
         name="LocalizableString" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9a9e019f-8200-4a77-8899-db7e59849267"
+        name="XmlUnknown"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="e5ceabdc-7274-45f6-9004-a77f792e256e"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=XmlUnknown"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="35b058e9-a03f-4eb0-854d-c8775e863913"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="6288d84f-f736-4731-a5a6-cf2bf537d810">
+                <propertyInstance
+                  Id="62cb70ee-88f4-4251-8c1d-51e176d610cc"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="4008eeb2-9b60-4e1a-8ddc-5757198ea528">
+                <propertyInstance
+                  Id="05e401b4-7b71-420f-b190-e3634de08c16"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8fdc7ead-8de8-4f08-8527-6a1b13c5651a">
+                <propertyInstance
+                  Id="dce90067-58f4-44fa-ae2f-619dce65a65b"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8293edd2-8df9-4de8-b9dc-c843a20e0e68">
+                <propertyInstance
+                  Id="79962d12-e0d9-4c3f-98f2-a963aba1042b"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c8056470-cfc3-4749-8fae-657aabf112de">
+                <propertyInstance
+                  Id="f703d6f7-58d0-4bf8-8919-e664dc16ff31"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>

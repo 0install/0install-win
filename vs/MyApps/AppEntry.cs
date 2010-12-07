@@ -26,7 +26,7 @@ namespace ZeroInstall.MyApps
     /// Represents an application in the <see cref="AppList"/> indentified by its interface URI.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    [XmlType("app", Namespace = "http://0install.de/schema/my-apps/app-list")]
+    [XmlType("app", Namespace = AppList.XmlNamespace)]
     public class AppEntry : IEquatable<AppEntry>
     {
         #region Properties

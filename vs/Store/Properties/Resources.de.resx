@@ -176,6 +176,12 @@ Tatsächlicher Wert: {1}</value>
   <data name="NumberTooLarge" xml:space="preserve">
     <value>Der Zahlenwert ist zu groß.</value>
   </data>
+  <data name="ReplayAttack" xml:space="preserve">
+    <value>Änderungszeit des neuen Feeds liegt vor der der alten version!
+Feed URL: {0}
+Alte Zeit: {1}
+Neue Zeit: {2}</value>
+  </data>
   <data name="RootedPathRequired" xml:space="preserve">
     <value>Ein vollständig qulifizierter/gewurzelter Pfad wird benötigt.</value>
   </data>

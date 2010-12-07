@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="04bba244-10df-432e-a048-d7233fa7274d" name="Store.Implementation" linkedPackageId="49bf0185-b887-4b7c-96f0-a0060c3e16ee" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="04bba244-10df-432e-a048-d7233fa7274d" name="Store.Implementation" linkedPackageId="49bf0185-b887-4b7c-96f0-a0060c3e16ee" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="2fb4f12d-4a17-4120-90f4-170eec3f82d2" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -2218,60 +2218,6 @@
                 </interfaceRealization>
               </suppliersInternal>
               <ownedAttributesInternal>
-                <property Id="979eba1a-2fd7-4ba2-928d-976844138ece" name="UserProfileDirectory" isLeaf="false" isStatic="true" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                  <referencesInternal>
-                    <reference Id="98d2fc9c-0df9-4420-a99d-ab13beb6ba77" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=UserProfileDirectory" tag="ViewCode">
-                      <elementDefinition Id="f5dd2f9c-d42e-4273-a710-51f8c3e959fe" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="71447612-b2b1-46e4-a355-40a60f6a90c3" name="property" profile="CSharpProfile">
-                      <elementDefinition Id="3ad6b3f6-c9c5-4898-bb50-b1ecd1da73b6" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="09815a26-a2df-4fad-8838-07a45ed6be16">
-                          <propertyInstance Id="658dacba-9117-490f-bd2d-c482ae560706" name="ClrAttributes">
-                            <elementDefinition Id="a50dd44b-fa79-40be-afff-d396e82974d1" />
-                          </propertyInstance>
-                          <elementDefinition Id="3864d423-0264-4786-ade9-5aa367d8125a" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="595fc3f9-fa7f-4abe-ab9e-2ed5923381a2">
-                          <propertyInstance Id="a1eba51d-2d2f-43fb-a39a-699649ccb68e" name="Get" value="public">
-                            <elementDefinition Id="180a6649-7983-469a-9529-d7db44ae3c6f" />
-                          </propertyInstance>
-                          <elementDefinition Id="e53f118a-e42a-4ce5-9a55-7bc99d92eaf7" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="bf3517e8-a2ad-4c0b-87c7-a3716c66ef43">
-                          <propertyInstance Id="2f99ad27-c7f4-46ac-9082-a9f2ea8c870e" name="HasBody" value="false">
-                            <elementDefinition Id="423b1207-3b23-49f8-9dce-64dd3eaf0487" />
-                          </propertyInstance>
-                          <elementDefinition Id="c121125a-4f3c-4719-9563-a8fcc2a2bc3e" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="8812c6d4-bf7b-42bf-adae-b6151f60144d">
-                          <propertyInstance Id="e04d94ad-b645-4db6-a3ba-02666056cda0" name="IsUnsafe" value="false">
-                            <elementDefinition Id="c2f0f51f-d8f4-4b03-b5e2-3606d8f215c5" />
-                          </propertyInstance>
-                          <elementDefinition Id="fdeee2f6-53a8-4e19-a156-0ecf31db0d5a" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="f38ab9cb-a76e-472f-8ea0-fd1d5404ee25">
-                          <propertyInstance Id="7e23e7f7-6f0b-4649-816a-958b55637112" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="5b2048a0-481c-48b0-9eb2-7cb151ded407" />
-                          </propertyInstance>
-                          <elementDefinition Id="f20599a7-2782-47f0-85d7-25eccad33fe0" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="85a1bd9c-edac-4ead-82ef-40dc74d9c6d2">
-                          <propertyInstance Id="1d9ac873-a902-427c-a3f3-b4fd34c1a4b1" name="Set" value="none">
-                            <elementDefinition Id="317395f9-4a3b-4634-835c-cb61d22ee382" />
-                          </propertyInstance>
-                          <elementDefinition Id="166a44cb-2c4c-40b3-ac0e-d88825286bd8" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="d92a4dcf-1923-45c1-aa52-99fbcd07d296" />
-                  <type_NamedElement>
-                    <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
-                  </type_NamedElement>
-                </property>
                 <property Id="6580ed41-5fac-4316-b40b-5c096da1b74e" name="DirectoryPath" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
                     <reference Id="c52cc75f-568b-4386-9d45-435831bc4919" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=DirectoryPath" tag="ViewCode">

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="68c2789d-278f-46a6-8fcb-6dced1ad8c23"
   name="Implementation"
@@ -91,79 +91,6 @@
           </dependency>
         </suppliersInternal>
         <ownedAttributesInternal>
-          <property
-            Id="d92a4dcf-1923-45c1-aa52-99fbcd07d296"
-            name="UserProfileDirectory"
-            isLeaf="false"
-            isStatic="true"
-            isReadOnly="true"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="f5dd2f9c-d42e-4273-a710-51f8c3e959fe"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=DirectoryStore Member=UserProfileDirectory"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="3ad6b3f6-c9c5-4898-bb50-b1ecd1da73b6"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3864d423-0264-4786-ade9-5aa367d8125a">
-                    <propertyInstance
-                      Id="a50dd44b-fa79-40be-afff-d396e82974d1"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e53f118a-e42a-4ce5-9a55-7bc99d92eaf7">
-                    <propertyInstance
-                      Id="180a6649-7983-469a-9529-d7db44ae3c6f"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c121125a-4f3c-4719-9563-a8fcc2a2bc3e">
-                    <propertyInstance
-                      Id="423b1207-3b23-49f8-9dce-64dd3eaf0487"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="fdeee2f6-53a8-4e19-a156-0ecf31db0d5a">
-                    <propertyInstance
-                      Id="c2f0f51f-d8f4-4b03-b5e2-3606d8f215c5"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f20599a7-2782-47f0-85d7-25eccad33fe0">
-                    <propertyInstance
-                      Id="5b2048a0-481c-48b0-9eb2-7cb151ded407"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="166a44cb-2c4c-40b3-ac0e-d88825286bd8">
-                    <propertyInstance
-                      Id="317395f9-4a3b-4634-835c-cb61d22ee382"
-                      name="Set"
-                      value="none" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                LastKnownName="String"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
           <property
             Id="25280140-abb7-4efc-ae66-1ed3cea3ce5d"
             name="DirectoryPath"

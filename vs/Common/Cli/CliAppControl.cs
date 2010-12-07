@@ -27,6 +27,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
+using Common.Storage;
 using Common.Utils;
 using Common.Properties;
 
@@ -69,7 +70,7 @@ namespace Common.Cli
             get
             {
                 // Use the base directory of the launching application since the current directory may be arbitrary
-                string searchBase = AppDomain.CurrentDomain.BaseDirectory;
+                string searchBase = Locations.PortableBase;
 
                 if (Directory.Exists(Path.Combine(searchBase, AppName))) return searchBase;
                 return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Bundled");
