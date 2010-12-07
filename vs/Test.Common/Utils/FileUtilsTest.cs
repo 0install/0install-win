@@ -33,7 +33,7 @@ namespace Common.Utils
     [TestFixture]
     public class FileUtilsTest
     {
-        private const string _sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
+        private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
 
         /// <summary>
         /// Ensures <see cref="FileUtils.ComputeHash(string,HashAlgorithm)"/> can correctly hash files using SHA1.
@@ -46,7 +46,7 @@ namespace Common.Utils
             {
                 // Create and hash an empty file
                 tempFile = Path.GetTempFileName();
-                Assert.AreEqual(_sha1ForEmptyString, FileUtils.ComputeHash(tempFile, SHA1.Create()));
+                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(tempFile, SHA1.Create()));
             }
             finally
             { // Clean up
@@ -66,7 +66,7 @@ namespace Common.Utils
             {
                 // Create and hash an empty file
                 tempFile = Path.GetTempFileName();
-                Assert.AreEqual(_sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
+                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
             }
             finally
             { // Clean up
