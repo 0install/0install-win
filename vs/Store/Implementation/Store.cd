@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Store.Implementation.DigestMismatchException">
-    <Position X="6.75" Y="6.25" Width="2" />
+    <Position X="6.75" Y="7" Width="2" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEAAgAAAAAAAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAEgAgAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Implementation\DigestMismatchException.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -16,31 +16,28 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAAAAAAAAgEBABAAAAAACAIAAAAAACAAUAAA=</HashCode>
+      <HashCode>wAAAAAIAAAAABQAAgEBABAAAAAACAIAAAAAAAAAUAAA=</HashCode>
       <FileName>Implementation\DirectoryStore.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationNotFoundException">
-    <Position X="0.5" Y="6.25" Width="2.75" />
+    <Position X="0.5" Y="7" Width="2.75" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\ImplementationNotFoundException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ServiceStore" BaseTypeListCollapsed="true">
     <Position X="3.75" Y="3.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAAAAAAAAAEAABEAAAAACAAAAAAAAAAAUAAA=</HashCode>
+      <HashCode>wAAAAAIAAgBAAAAAAEAABAAAAAACAAAAAAAAAAAUAAA=</HashCode>
       <FileName>Implementation\ServiceStore.cs</FileName>
       <NewMemberFileName>Implementation\DirectoryStore.cs</NewMemberFileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="_backingStore" />
-    </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.StoreProvider" Collapsed="true">
@@ -68,12 +65,12 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ImplementationAlreadyInStoreException">
-    <Position X="3.5" Y="6.25" Width="3" />
+    <Position X="3.5" Y="7" Width="3" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\ImplementationAlreadyInStoreException.cs</FileName>
     </TypeIdentifier>
   </Class>

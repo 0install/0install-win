@@ -162,8 +162,8 @@ namespace Common.Utils
             {
                 FileUtils.CopyDirectory(temp1, temp2, true);
                 FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
-                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2));
-                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")));
+                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2), "Last-write time for copied directory is invalid");
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")), "Last-write time for copied file is invalid");
             }
             finally
             {
@@ -176,7 +176,8 @@ namespace Common.Utils
         public void TestIsRegularFile()
         {
             string tempFile = Path.GetTempFileName();
-            Assert.IsTrue(FileUtils.IsRegularFile(tempFile));
+            Assert.IsTrue(FileUtils.IsRegularFile(tempFile), "Regular file was not detected as such");
+            // ToDo: Check for opposite on Unix-like systems
             File.Delete(tempFile);
         }
 
@@ -187,7 +188,8 @@ namespace Common.Utils
 
             string contents;
             long length;
-            Assert.IsFalse(FileUtils.IsSymlink(tempFile, out contents, out length));
+            Assert.IsFalse(FileUtils.IsSymlink(tempFile, out contents, out length), "File was incorrectly identified as symlink");
+            // ToDo: Check for opposite on Unix-like systems
             Assert.IsNull(contents);
             Assert.AreEqual(0, length);
             File.Delete(tempFile);

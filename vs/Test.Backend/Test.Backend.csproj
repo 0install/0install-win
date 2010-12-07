@@ -111,7 +111,7 @@
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
-    <Compile Include="Store\Implementation\StoreTest.cs" />
+    <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

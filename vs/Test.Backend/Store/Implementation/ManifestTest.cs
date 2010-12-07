@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Implementation
         private static Manifest CreateTestManifest()
         {
             // Create a test directory to create a manifest for
-            string tempDir = StoreFunctionality.CreateArtificialPackage();
+            string tempDir = DirectoryStoreTest.CreateArtificialPackage();
 
             try
             {
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestCalculateHash()
         {
-            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
                 string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256, null).CalculateDigest();
@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestCreateDigest()
         {
-            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
                 ManifestDigest digest1 = Manifest.CreateDigest(packageDir, null);
@@ -204,7 +204,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldCallProgressCallback()
         {
-            string packageDir = StoreFunctionality.CreateArtificialPackage();
+            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
                 bool callbackCalled = false;
@@ -313,29 +313,6 @@ namespace ZeroInstall.Store.Implementation
             _someGenerator.RunSync();
             Assert.AreEqual(ProgressState.Complete, _someGenerator.State);
             Assert.IsTrue(changedToComplete);
-        }
-
-        [Test]
-        public void ShouldRunAsynchronously()
-        {
-            var testerLock = new ManualResetEvent(false);
-            var injectionLock = new ManualResetEvent(false);
-            var completionLock = new ManualResetEvent(false);
-
-            // The assumption here is, that the StateChanged event is called
-            // from within the working thread.
-            _someGenerator.StateChanged += delegate(IProgress sender)
-            {
-                if (sender.State == ProgressState.Header)
-                {
-                    testerLock.Set();
-                }
-                if (sender.State == ProgressState.Complete) completionLock.Set();
-            };
-            _someGenerator.Start();
-            Assert.AreEqual(ProgressState.Header, _someGenerator.State, "ManifestGenerator was not in Started state.");
-            injectionLock.Set();
-            completionLock.WaitOne();
         }
 
         [Test]
