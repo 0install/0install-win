@@ -119,8 +119,8 @@ namespace ZeroInstall.Injector.Gtk
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  parseResults.Policy.InterfaceCache.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", unused => parseResults.Policy.InterfaceCache.Refresh = true},
+                {"o|offline", unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", unused => parseResults.Policy.FeedProvider.Refresh = true},
                 {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
