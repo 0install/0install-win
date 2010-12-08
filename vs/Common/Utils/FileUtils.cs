@@ -160,16 +160,15 @@ namespace Common.Utils
                 {
                     // Recurse into sub-direcories
                     CopyDirectory(entry, destinationFilePath, overwrite);
+                    Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
                 }
                 else
                 {
                     // Copy individual files
                     File.Copy(entry, destinationFilePath, overwrite);
+                    File.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
                 }
             }
-
-            // Set directory write time as last step, since file changes within the dir will reset the value
-            Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
         }
         #endregion
 
