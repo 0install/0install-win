@@ -105,7 +105,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Contains any unknown hash algorithms specified as pure XML attributes.
         /// </summary>
-        [XmlAnyAttribute]
+        [XmlAnyAttribute, NonSerialized]
         public XmlAttribute[] UnknownAlgorithms;
         #endregion
 

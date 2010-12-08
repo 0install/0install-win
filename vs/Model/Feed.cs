@@ -62,6 +62,7 @@ namespace ZeroInstall.Model
         /// </summary>
         /// <param name="value">The URL to check for validity.</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
+        [SuppressMessage("Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads")]
         public static bool IsValidUrl(string value)
         {
             Uri url;

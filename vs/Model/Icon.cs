@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Contains any unknown additional XML attributes.
         /// </summary>
-        [XmlAnyAttribute]
+        [XmlAnyAttribute, NonSerialized]
         public XmlAttribute[] UnknownAttributes;
         #endregion
 

@@ -28,6 +28,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// Stores user-specific preferences for an interface.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface-preferences", Namespace = Model.Feed.XmlNamespace)]
     [XmlType("interface-preferences", Namespace = Model.Feed.XmlNamespace)]
     public sealed class InterfacePreferences : XmlUnknown

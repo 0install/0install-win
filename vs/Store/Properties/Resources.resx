@@ -148,7 +148,7 @@
     <value>No path specified.</value>
   </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>The underlying filesystem does not store file change times with sufficient accuracy.</value>
+    <value>The underlying file system does not store file change times with sufficient accuracy.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>The following implementation could not be located: {0}</value>

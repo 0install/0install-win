@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
@@ -28,6 +29,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// Stores user-specific preferences for a <see cref="Feed"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Model.Feed.XmlNamespace)]
     [XmlType("feed-preferences", Namespace = Model.Feed.XmlNamespace)]
     public sealed class FeedPreferences : XmlUnknown
@@ -43,7 +45,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="LastChecked"/>
         [XmlAttribute("last-checked"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        public long LastCheckedLong
+        public long LastCheckedUnix
         {
             get { return FileUtils.ToUnixTime(LastChecked); }
             set { LastChecked = FileUtils.FromUnixTime(value); }

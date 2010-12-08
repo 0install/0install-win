@@ -30,6 +30,7 @@ namespace Common.Collections
     /// <summary>
     /// A collection of <see cref="LocalizableString"/>s with language-search methods.
     /// </summary>
+    [Serializable]
     public class LocalizableStringCollection : C5.ArrayList<LocalizableString>
     {
         #region Add
