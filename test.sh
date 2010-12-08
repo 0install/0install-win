@@ -3,6 +3,8 @@
 cd `dirname $0`
 
 # Store all temporary files created by unit tests in a separate directory
-export TMPDIR=`mktemp -d -t 0install-unit-tests.XXXXXXXXXX` || exit 1
+export TMPDIR=/tmp/0install-unit-tests
+mkdir $TMPDIR || exit 1
 
-nunit-console UnitTests.nunit
+# Clean up temporary files if all unit tests passed
+nunit-console UnitTests.nunit && rm -rf $TMPDIR
