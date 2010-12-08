@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestCreateExtractor()
         {
-            using (var tempDir = new TemporaryDirectory())
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
             {
                 string path = Path.Combine(tempDir.Path, "a.zip");
 
@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                     }
                 }
 
-                using (var extractor = Extractor.CreateExtractor(null, path, 0, Path.GetTempPath()))
+                using (var extractor = Extractor.CreateExtractor(null, path, 0, tempDir.Path))
                     Assert.IsInstanceOf(typeof(ZipExtractor), extractor);
             }
         }

@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
@@ -50,19 +50,13 @@ namespace ZeroInstall.Store.Feed
         public void TestSaveLoad()
         {
             InterfacePreferences preferences1, preferences2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
 
                 // Write and read file
                 preferences1 = CreateTestInterfacePreferences();
-                preferences1.Save(tempFile);
-                preferences2 = InterfacePreferences.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                preferences1.Save(tempFile.Path);
+                preferences2 = InterfacePreferences.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same

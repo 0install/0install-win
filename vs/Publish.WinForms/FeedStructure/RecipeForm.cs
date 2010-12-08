@@ -116,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             _recipe.Steps.Clear();
 
-            using(var tempDir = new TemporaryDirectory())
+            using(var tempDir = new TemporaryDirectory("0install-feed-editor"))
             {
                 foreach (TabPage tabPage in tabControlRecipe.TabPages)
                 {

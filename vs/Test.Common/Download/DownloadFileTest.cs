@@ -22,7 +22,9 @@
 
 using System.IO;
 using System.Threading;
+using Common.Storage;
 using Common.Streams;
+using Common.Utils;
 using NUnit.Framework;
 
 namespace Common.Download
@@ -34,6 +36,7 @@ namespace Common.Download
     public class DownloadFileTest
     {
         private MicroServer _server;
+        private TemporaryFile _tempFile;
         private const string TestFileContent = "abc";
 
         [SetUp]
@@ -41,12 +44,16 @@ namespace Common.Download
         {
             _server = new MicroServer(50222, StreamUtils.CreateFromString(TestFileContent));
             _server.Start();
+
+            _tempFile = new TemporaryFile("unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
             _server.Dispose();
+
+            _tempFile.Dispose();
         }
 
         /// <summary>
@@ -55,24 +62,12 @@ namespace Common.Download
         [Test]
         public void TestRunSync()
         {
-            DownloadFile download;
-            string fileContent;
-            string tempFile = null;
-            try
-            {
-                tempFile = Path.GetTempFileName();
+            // Download the file
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.RunSync();
 
-                // Download the file
-                download = new DownloadFile(_server.FileUri, tempFile);
-                download.RunSync();
-
-                // Read the file
-                fileContent = File.ReadAllText(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Read the file
+            string fileContent = File.ReadAllText(_tempFile.Path);
 
             // Ensure the download was successfull and the file is identical
             Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
@@ -85,25 +80,13 @@ namespace Common.Download
         [Test]
         public void TestThread()
         {
-            DownloadFile download;
-            string fileContent;
-            string tempFile = null;
-            try
-            {
-                tempFile = Path.GetTempFileName();
+            // Start a background download of the file and then wait
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.Start();
+            download.Join();
 
-                // Start a background download of the file and then wait
-                download = new DownloadFile(_server.FileUri, tempFile);
-                download.Start();
-                download.Join();
-
-                // Read the file
-                fileContent = File.ReadAllText(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Read the file
+            string fileContent = File.ReadAllText(_tempFile.Path);
 
             // Ensure the download was successfull and the file is identical
             Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
@@ -116,24 +99,13 @@ namespace Common.Download
         [Test]
         public void TestCancelAsync()
         {
-            DownloadFile download;
-            string tempFile = null;
-            try
-            {
-                tempFile = Path.GetTempFileName();
+            // Start a very slow download of the file and then cancel it right away again
+            _server.Slow = true;
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.Start();
+            download.Cancel();
 
-                // Start a very slow download of the file and then cancel it right away again
-                _server.Slow = true;
-                download = new DownloadFile(_server.FileUri, tempFile);
-                download.Start();
-                download.Cancel();
-
-                Assert.AreNotEqual(ProgressState.Complete, download.State);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            Assert.AreNotEqual(ProgressState.Complete, download.State);
         }
 
         /// <summary>
@@ -142,34 +114,23 @@ namespace Common.Download
         [Test]
         public void TestCancelSync()
         {
-            DownloadFile download;
-            string tempFile = null;
-            try
+            // Prepare a very slow download of the file and monitor for a cancellation exception
+            _server.Slow = true;
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            bool exceptionThrown = false;
+            var downloadThread = new Thread(delegate()
             {
-                tempFile = Path.GetTempFileName();
+                try { download.RunSync(); }
+                catch (UserCancelException) { exceptionThrown = true; }
+            });
 
-                // Prepare a very slow download of the file and monitor for a cancellation exception
-                _server.Slow = true;
-                download = new DownloadFile(_server.FileUri, tempFile);
-                bool exceptionThrown = false;
-                var downloadThread = new Thread(delegate()
-                {
-                    try { download.RunSync(); }
-                    catch (UserCancelException) { exceptionThrown = true; }
-                });
+            // Start and then cancel the download
+            downloadThread.Start();
+            while (download.State == ProgressState.Ready) Thread.Sleep(0);
+            download.Cancel();
+            downloadThread.Join();
 
-                // Start and then cancel the download
-                downloadThread.Start();
-                while (download.State == ProgressState.Ready) Thread.Sleep(0);
-                download.Cancel();
-                downloadThread.Join();
-
-                Assert.IsTrue(exceptionThrown);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            Assert.IsTrue(exceptionThrown);
         }
     }
 }

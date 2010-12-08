@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010 Bastian Eicher, Roland Leopold Walkling
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
@@ -63,17 +62,12 @@ namespace ZeroInstall.Store.Implementation
         public void TestSaveLoad()
         {
             Manifest manifest1, manifest2;
-            string tempFile = Path.GetTempFileName();
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Generate manifest, write it to a file and read the file again
                 manifest1 = CreateTestManifest();
-                manifest1.Save(tempFile);
-                manifest2 = Manifest.Load(tempFile, ManifestFormat.Sha1Old);
-            }
-            finally
-            { // Clean up
-                File.Delete(tempFile);
+                manifest1.Save(tempFile.Path);
+                manifest2 = Manifest.Load(tempFile.Path, ManifestFormat.Sha1Old);
             }
 
             // Ensure data stayed the same
@@ -125,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldListExecutableWithFlagF()
         {
-            using (var package = new TemporaryDirectory())
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 string exePath = Path.Combine(package.Path, "test.exe");
                 string manifestPath = Path.Combine(package.Path, ".manifest");
@@ -146,7 +140,7 @@ namespace ZeroInstall.Store.Implementation
         {
             if (!MonoUtils.IsUnix) throw new InconclusiveException(".xbit files are not used on Unix platforms");
 
-            using (var package = new TemporaryDirectory())
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 string exePath = Path.Combine(package.Path, "test.exe");
                 string xbitPath = Path.Combine(package.Path, ".xbit");
@@ -167,7 +161,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldListNothingForEmptyPackage()
         {
-            using (var package = new TemporaryDirectory())
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
                 using (var manifestFile = File.OpenRead(Path.Combine(package.Path, ".manifest")))
@@ -180,18 +174,18 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldHandleSubdirectoriesWithExecutables()
         {
-            using (var package = new TemporaryDirectory())
-            using (var inner = new TemporaryDirectory(Path.Combine(package.Path, "inner")))
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
-                var path = new Dictionary<string, string>();
-                path["inner folder"] = inner.Path;
-                path["inner exe"] = Path.Combine(path["inner folder"], "inner.exe");
-                path["xbit"] = Path.Combine(package.Path, ".xbit");
-                path["manifest"] = Path.Combine(package.Path, ".manifest");
-                File.WriteAllText(path["inner exe"], @"xxxxxxx");
-                File.WriteAllText(path["xbit"], @"/inner/inner.exe");
+                string innerPath = Path.Combine(package.Path, "inner");
+                Directory.CreateDirectory(innerPath);
+
+                string innerExePath = Path.Combine(innerPath, "inner.exe");
+                string xbitPath = Path.Combine(package.Path, ".xbit");
+                string manifestPath = Path.Combine(package.Path, ".manifest");
+                File.WriteAllText(innerExePath, @"xxxxxxx");
+                File.WriteAllText(xbitPath, @"/inner/inner.exe");
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, null);
-                using (var manifestFile = File.OpenText(path["manifest"]))
+                using (var manifestFile = File.OpenText(manifestPath))
                 {
                     string currentLine = manifestFile.ReadLine();
                     Assert.True(Regex.IsMatch(currentLine, @"^D /inner$"), "Manifest didn't match expected format:\n" + currentLine);
@@ -222,7 +216,7 @@ namespace ZeroInstall.Store.Implementation
     public class ManifestGeneration
     {
         private ManifestGenerator _someGenerator;
-        private TemporaryDirectoryReplacement _sandbox;
+        private TemporaryDirectory _sandbox;
         private string _packageFolder
         {
             get { return _sandbox.Path; }
@@ -237,7 +231,7 @@ namespace ZeroInstall.Store.Implementation
                 .AddFolder("someOtherFolder")
                 .AddFile("nestedFile", "abc");
 
-            _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "ManifestGeneration-Sandbox"));
+            _sandbox = new TemporaryDirectory("0install-unit-tests");
             packageBuilder.WritePackageInto(_packageFolder);
 
             _someGenerator = new ManifestGenerator(_packageFolder, ManifestFormat.Sha256);

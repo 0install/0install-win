@@ -15,7 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Store.Feed
@@ -46,19 +46,12 @@ namespace ZeroInstall.Store.Feed
         public void TestSaveLoad()
         {
             Trust trust1, trust2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
-
                 // Write and read file
                 trust1 = CreateTestTrust();
-                trust1.Save(tempFile);
-                trust2 = Trust.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                trust1.Save(tempFile.Path);
+                trust2 = Trust.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same

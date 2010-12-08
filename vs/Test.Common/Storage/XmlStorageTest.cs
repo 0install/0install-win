@@ -20,7 +20,6 @@
  * THE SOFTWARE.
  */
 
-using System.IO;
 using NUnit.Framework;
 
 namespace Common.Storage
@@ -46,19 +45,12 @@ namespace Common.Storage
         public void TestFile()
         {
             TestData testData1, testData2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
-
                 // Write and read file
                 testData1 = new TestData { Data = "Hello" };
-                XmlStorage.Save(tempFile, testData1);
-                testData2 = XmlStorage.Load<TestData>(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                XmlStorage.Save(tempFile.Path, testData1);
+                testData2 = XmlStorage.Load<TestData>(tempFile.Path);
             }
 
             // Ensure data stayed the same

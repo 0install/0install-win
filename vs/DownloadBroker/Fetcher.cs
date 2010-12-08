@@ -21,6 +21,7 @@ using System.IO;
 using System.Net;
 using Common;
 using Common.Download;
+using Common.Utils;
 using ZeroInstall.DownloadBroker.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -110,7 +111,7 @@ namespace ZeroInstall.DownloadBroker
 
         private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive)
         {
-            string tempArchive = Path.GetTempFileName();
+            string tempArchive = FileUtils.GetTempFile("0install-unit-tests");
 
             DownloadArchive(archive, tempArchive);
 

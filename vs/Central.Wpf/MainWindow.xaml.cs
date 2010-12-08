@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using Common.Storage;
+using Common.Utils;
 using Hardcodet.Wpf.TaskbarNotification;
 using System.ComponentModel;
 using Common.Wpf;
@@ -310,7 +311,7 @@ namespace ZeroInstall.Central.Wpf
         {
             WebClient c = new WebClient();
             c.DownloadFileCompleted += new AsyncCompletedEventHandler(c_DownloadFileCompleted);
-            String feedPath =  Path.GetTempFileName();
+            String feedPath = FileUtils.GetTempFile("0install");
             c.DownloadFileAsync(new Uri(feedUri, UriKind.Absolute), feedPath, feedPath);
 
         }

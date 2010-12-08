@@ -117,17 +117,43 @@ namespace Common.Utils
 
         #region Temp
         /// <summary>
+        /// Creates a uniquely named, empty temporary file on disk and returns the full path of that file.
+        /// </summary>
+        /// <param name="prefix">A short string the filename should start with.</param>
+        /// <returns>The full path of the newly created temporary file.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a file in <see cref="Path.GetTempPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a file in <see cref="Path.GetTempPath"/> is not permitted.</exception>
+        /// <remarks>Use this method, because <see cref="Path.GetTempFileName"/> exhibits buggy behaviour in some Mono versions.</remarks>
+        public static string GetTempFile(string prefix)
+        {
+            // Make sure there are no name collisions
+            string path;
+            do
+            {
+                path = Path.Combine(Path.GetTempPath(), prefix + '-' + Path.GetRandomFileName());
+            } while (File.Exists(path));
+            
+            // Create the file to ensure nobody else uses the name
+            File.WriteAllBytes(path, new byte[0]);
+
+            return path;
+        }
+
+        /// <summary>
         /// Creates a uniquely named, empty temporary directory on disk and returns the full path of that directory.
         /// </summary>
-        /// <returns>The full path of the temporary directory.</returns>
-        /// <exception cref="IOException">Thrown if an IO error occurred, such as no unique temporary directory name is available.</exception>
+        /// <param name="prefix">A short string the filename should start with.</param>
+        /// <returns>The full path of the newly created temporary directory.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory in <see cref="Path.GetTempPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="Path.GetTempPath"/> is not permitted.</exception>
+        /// <remarks>Use this method, because <see cref="Path.GetTempFileName"/> exhibits buggy behaviour in some Mono versions.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Delivers a new value on each call")]
-        public static string GetTempDirectory()
+        public static string GetTempDirectory(string prefix)
         {
-            string tempPath = Path.GetTempFileName();
-            File.Delete(tempPath);
-            Directory.CreateDirectory(tempPath);
-            return tempPath;
+            string tempDir = GetTempFile(prefix);
+            File.Delete(tempDir);
+            Directory.CreateDirectory(tempDir);
+            return tempDir;
         }
         #endregion
 
@@ -153,22 +179,24 @@ namespace Common.Utils
 
             if (!Directory.Exists(destinationPath)) Directory.CreateDirectory(destinationPath);
 
-            foreach (string entry in Directory.GetFileSystemEntries(sourcePath))
+            // Copy individual files
+            foreach (string sourceSubPath in Directory.GetFiles(sourcePath))
             {
-                string destinationFilePath = Path.Combine(destinationPath, Path.GetFileName(entry) ?? "");
-                if (Directory.Exists(entry))
-                {
-                    // Recurse into sub-direcories
-                    CopyDirectory(entry, destinationFilePath, overwrite);
-                    Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
-                }
-                else
-                {
-                    // Copy individual files
-                    File.Copy(entry, destinationFilePath, overwrite);
-                    File.SetLastWriteTimeUtc(destinationPath, File.GetLastWriteTimeUtc(sourcePath));
-                }
+                string destinationSubPath = Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? "");
+                File.Copy(sourceSubPath, destinationSubPath, overwrite);
+                File.SetLastWriteTimeUtc(destinationSubPath, File.GetLastWriteTimeUtc(sourceSubPath));
             }
+
+            // Recurse into sub-direcories
+            foreach (string sourceSubPath in Directory.GetDirectories(sourcePath))
+            {
+                string destinationSubPath = Path.Combine(destinationPath, Path.GetFileName(sourceSubPath) ?? "");
+                CopyDirectory(sourceSubPath, destinationSubPath, overwrite);
+                Directory.SetLastWriteTimeUtc(destinationSubPath, Directory.GetLastWriteTimeUtc(sourceSubPath));
+            }
+
+            // Set directory write time as last step, since file changes within the directory may cause the OS to reset the value
+            Directory.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
         }
         #endregion
 

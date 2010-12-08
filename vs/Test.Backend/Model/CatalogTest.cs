@@ -17,7 +17,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model
@@ -57,19 +57,12 @@ namespace ZeroInstall.Model
         public void TestSaveLoad()
         {
             Catalog catalog1, catalog2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
-
                 // Write and read file
                 catalog1 = CreateTestCatalog();
-                catalog1.Save(tempFile);
-                catalog2 = Catalog.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                catalog1.Save(tempFile.Path);
+                catalog2 = Catalog.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same

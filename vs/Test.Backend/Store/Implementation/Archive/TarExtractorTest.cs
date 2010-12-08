@@ -26,13 +26,13 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     public class TarTestBasicFunctionality
     {
-        TemporaryDirectoryReplacement _sandbox;
+        TemporaryDirectory _sandbox;
         string _oldWorkingDirectory;
 
         [SetUp]
         public void SetUp()
         {
-            _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "tarExtraction-Basic"));
+            _sandbox = new TemporaryDirectory("0install-unit-tests");
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _sandbox.Path;
         }
@@ -81,12 +81,12 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     class TarTestCornerCases
     {
-        private TemporaryDirectoryReplacement _sandbox;
+        private TemporaryDirectory _sandbox;
 
         [SetUp]
         public void SetUp()
         {
-            _sandbox = new TemporaryDirectoryReplacement(Path.Combine(Path.GetTempPath(), "tarExtraction-Corner"));
+            _sandbox = new TemporaryDirectory("0install-unit-tests");
         }
 
         [TearDown]

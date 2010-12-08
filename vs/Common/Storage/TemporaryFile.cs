@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Roland Leopold Walkling, Bastian Eicher
+ * Copyright 2010 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -21,57 +21,48 @@
  */
 
 using System;
+using System.IO;
+using Common.Utils;
 
 namespace Common.Storage
 {
     /// <summary>
-    /// Disposable class that allows operating on a newly created directory at a specified path, and if necessary temporarily moving the original directory to a new position.
+    /// Disposable class to create a temporary file and delete it again when disposed.
     /// </summary>
-    public sealed class TemporaryDirectoryReplacement : IDisposable
+    public sealed class TemporaryFile : IDisposable
     {
-        #region Variables
-        private readonly TemporaryDirectory _tempDir;
-        private readonly TemporaryDirectoryMove _backupMove;
-        #endregion
-
         #region Properties
         /// <summary>
-        /// The path of the temporary directory.
+        /// The fully qualified path of the temporary file.
         /// </summary>
-        public string Path
-        {
-            get { return _tempDir.Path; }
-        }
-
-        /// <summary>
-        /// The path were the original directory is moved to.
-        /// </summary>
-        public string BackupPath
-        {
-            get { return _backupMove.BackupPath; }
-        }
+        public string Path { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Applies <see cref="TemporaryDirectoryMove"/> and <see cref="TemporaryDirectory"/>.
+        /// Creates a uniquely named, empty temporary file on disk.
         /// </summary>
-        /// <param name="path">The path of the temporary directory.</param>
-        public TemporaryDirectoryReplacement(string path)
+        /// <param name="prefix">A short string the directory name should start with.</param>
+        /// <returns>The full path of the newly created temporary directory.</returns>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a file in <see cref="System.IO.Path.GetTempPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a file in <see cref="System.IO.Path.GetTempPath"/> is not permitted.</exception>
+        public TemporaryFile(string prefix)
         {
-            _backupMove = new TemporaryDirectoryMove(path);
-            _tempDir = new TemporaryDirectory(path);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(prefix)) throw new ArgumentNullException("prefix");
+            #endregion
+
+            Path = FileUtils.GetTempFile(prefix);
         }
         #endregion
 
         #region Dispose
         /// <summary>
-        /// Applies the Dispose methods of <see cref="TemporaryDirectoryMove"/> and <see cref="TemporaryDirectory"/>.
+        /// Deletes the temporary folder.
         /// </summary>
         public void Dispose()
         {
-            _tempDir.Dispose();
-            _backupMove.Dispose();
+            if (File.Exists(Path)) File.Delete(Path);
         }
         #endregion
     }

@@ -23,6 +23,7 @@
 using System;
 using System.IO;
 using System.Security.Cryptography;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace Common.Utils
@@ -41,17 +42,9 @@ namespace Common.Utils
         [Test]
         public void TestComputeHashFile()
         {
-            string tempFile = null;
-            try
-            {
-                // Create and hash an empty file
-                tempFile = Path.GetTempFileName();
-                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(tempFile, SHA1.Create()));
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+            // Create and hash an empty file
+            using (var tempFile = new TemporaryFile("unit-tests"))
+                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(tempFile.Path, SHA1.Create()));
         }
 
         /// <summary>
@@ -60,18 +53,20 @@ namespace Common.Utils
         [Test]
         public void TestComputeHashStream()
         {
+            Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
+        }
 
-            string tempFile = null;
-            try
-            {
-                // Create and hash an empty file
-                tempFile = Path.GetTempFileName();
-                Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
-            }
+        /// <summary>
+        /// Creates a temporary fileusing <see cref="FileUtils.GetTempFile"/>, ensures it is empty and deletes it again.
+        /// </summary>
+        [Test]
+        public void TestGetTempFile()
+        {
+            string path = FileUtils.GetTempFile("unit-tests");
+            Assert.IsNotNullOrEmpty(path);
+            Assert.IsTrue(File.Exists(path));
+            Assert.AreEqual("", File.ReadAllText(path));
+            File.Delete(path);
         }
 
         /// <summary>
@@ -80,7 +75,7 @@ namespace Common.Utils
         [Test]
         public void TestGetTempDirectory()
         {
-            string path = FileUtils.GetTempDirectory();
+            string path = FileUtils.GetTempDirectory("unit-tests");
             Assert.IsNotNullOrEmpty(path);
             Assert.IsTrue(Directory.Exists(path));
             Assert.IsEmpty(Directory.GetFileSystemEntries(path));
@@ -113,13 +108,16 @@ namespace Common.Utils
         [Test]
         public void TestCopyDirectory()
         {
-            string temp1 = FileUtils.GetTempDirectory();
-            string subdir = Path.Combine(temp1, "subdir");
-            Directory.CreateDirectory(subdir);
-            File.WriteAllText(Path.Combine(subdir, "file"), "A");
+            string temp1 = FileUtils.GetTempDirectory("unit-tests");
+            string subdir1 = Path.Combine(temp1, "subdir");
+            Directory.CreateDirectory(subdir1);
+            File.WriteAllText(Path.Combine(subdir1, "file"), "A");
+            File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
+            Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
 
-            string temp2 = FileUtils.GetTempDirectory();
+            string temp2 = FileUtils.GetTempDirectory("unit-tests");
             Directory.Delete(temp2);
+            string subdir2 = Path.Combine(temp2, "subdir");
             
             try
             {
@@ -127,7 +125,9 @@ namespace Common.Utils
                 Assert.Throws<DirectoryNotFoundException>(() => FileUtils.CopyDirectory(temp2, temp1, false));
 
                 FileUtils.CopyDirectory(temp1, temp2, false);
-                FileAssert.AreEqual(Path.Combine(subdir, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(subdir2, "file"));
+                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2), "Last-write time for copied directory is invalid");
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")), "Last-write time for copied file is invalid");
 
                 Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, false));
             }
@@ -144,14 +144,14 @@ namespace Common.Utils
         [Test]
         public void TestCopyDirectoryOverwrite()
         {
-            string temp1 = FileUtils.GetTempDirectory();
+            string temp1 = FileUtils.GetTempDirectory("unit-tests");
             string subdir1 = Path.Combine(temp1, "subdir");
             Directory.CreateDirectory(subdir1);
             File.WriteAllText(Path.Combine(subdir1, "file"), @"A");
             File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
             Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
 
-            string temp2 = FileUtils.GetTempDirectory();
+            string temp2 = FileUtils.GetTempDirectory("unit-tests");
             string subdir2 = Path.Combine(temp2, "subdir");
             Directory.CreateDirectory(subdir2);
             File.WriteAllText(Path.Combine(subdir2, "file"), @"B");
@@ -161,7 +161,7 @@ namespace Common.Utils
             try
             {
                 FileUtils.CopyDirectory(temp1, temp2, true);
-                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(subdir2, "file"));
                 Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2), "Last-write time for copied directory is invalid");
                 Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")), "Last-write time for copied file is invalid");
             }
@@ -175,24 +175,24 @@ namespace Common.Utils
         [Test]
         public void TestIsRegularFile()
         {
-            string tempFile = Path.GetTempFileName();
-            Assert.IsTrue(FileUtils.IsRegularFile(tempFile), "Regular file was not detected as such");
+            using (var tempFile = new TemporaryFile("unit-tests"))
+                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "Regular file was not detected as such");
+
             // ToDo: Check for opposite on Unix-like systems
-            File.Delete(tempFile);
         }
 
         [Test]
         public void TestIsSymlink()
         {
-            string tempFile = Path.GetTempFileName();
-
-            string contents;
-            long length;
-            Assert.IsFalse(FileUtils.IsSymlink(tempFile, out contents, out length), "File was incorrectly identified as symlink");
-            // ToDo: Check for opposite on Unix-like systems
-            Assert.IsNull(contents);
-            Assert.AreEqual(0, length);
-            File.Delete(tempFile);
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                string contents;
+                long length;
+                Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents, out length), "File was incorrectly identified as symlink");
+                // ToDo: Check for opposite on Unix-like systems
+                Assert.IsNull(contents);
+                Assert.AreEqual(0, length);
+            }
         }
     }
 }

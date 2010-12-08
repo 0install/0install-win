@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Feed
         public void SetUp()
         {
             // Create a temporary cache
-            _tempDir = new TemporaryDirectory();
+            _tempDir = new TemporaryDirectory("0install-unit-tests");
             _cache = new FeedCache(_tempDir.Path);
 
             // Add some dummy feeds to the cache

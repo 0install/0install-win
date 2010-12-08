@@ -40,27 +40,18 @@ namespace Common.Storage
 
         #region Constructor
         /// <summary>
-        /// Creates a temporary directory in the system's temp directory.
+        /// Creates a uniquely named, empty temporary directory on disk.
         /// </summary>
-        public TemporaryDirectory()
-        {
-            Path = FileUtils.GetTempDirectory();
-        }
-
-        /// <summary>
-        /// Creates a temporary directory at a given path.
-        /// </summary>
-        /// <param name="path">Path where the new folder should be created.</param>
-        /// <exception cref="IOException">Thrown if a directory already exists at the location specified by <paramref name="path"/>.</exception>
-        public TemporaryDirectory(string path)
+        /// <param name="prefix">A short string the directory name should start with.</param>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory in <see cref="System.IO.Path.GetTempPath"/>.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="System.IO.Path.GetTempPath"/> is not permitted.</exception>
+        public TemporaryDirectory(string prefix)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (Directory.Exists(path)) throw new IOException("Directory already exists.");
+            if (string.IsNullOrEmpty(prefix)) throw new ArgumentNullException("prefix");
             #endregion
 
-            Directory.CreateDirectory(path);
-            Path = path;
+            Path = FileUtils.GetTempDirectory(prefix);
         }
         #endregion
 
@@ -70,9 +61,13 @@ namespace Common.Storage
         /// </summary>
         public void Dispose()
         {
-            // Write protection might prevent a directory from being deleted (especially on Unix-like sysmtes)
-            FileUtils.WriteProtection(Path, false);
-            Directory.Delete(Path, true);
+            if (Directory.Exists(Path))
+            {
+                // Write protection might prevent a directory from being deleted (especially on Unix-like sysmtes)
+                FileUtils.WriteProtection(Path, false);
+
+                Directory.Delete(Path, true);
+            }
         }
         #endregion
     }

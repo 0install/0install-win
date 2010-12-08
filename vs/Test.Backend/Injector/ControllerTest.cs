@@ -55,7 +55,7 @@ namespace ZeroInstall.Injector
         {
             // Look inside a temporary (empty) store
             IEnumerable<Implementation> implementations;
-            using (var temp = new TemporaryDirectory())
+            using (var temp = new TemporaryDirectory("0install-unit-tests"))
             {
                 var policy = new Policy(new FeedProvider(new FeedCache(), new SilentHandler()), new Fetcher(new SilentHandler(), new DirectoryStore(temp.Path)));
                 var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy);

@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
         /// <returns>The path of the directory</returns>
         internal static string CreateArtificialPackage()
         {
-            string packageDir = FileUtils.GetTempDirectory();
+            string packageDir = FileUtils.GetTempDirectory("0install-unit-tests");
             string subDir = Path.Combine(packageDir, "subdir");
             Directory.CreateDirectory(subDir);
             File.WriteAllText(Path.Combine(subDir, "file.txt"), @"AAA");
@@ -53,7 +53,7 @@ namespace ZeroInstall.Store.Implementation
         [SetUp]
         public void SetUp()
         {
-            _tempDir = new TemporaryDirectory();
+            _tempDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_tempDir.Path);
             _packageDir = CreateArtificialPackage();
         }

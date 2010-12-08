@@ -16,7 +16,7 @@
  */
 
 using System;
-using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.MyApps
@@ -60,19 +60,12 @@ namespace ZeroInstall.MyApps
         public void TestSaveLoad()
         {
             AppList appList1, appList2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
-
                 // Write and read file
                 appList1 = CreateTestAppList();
-                appList1.Save(tempFile);
-                appList2 = AppList.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                appList1.Save(tempFile.Path);
+                appList2 = AppList.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same

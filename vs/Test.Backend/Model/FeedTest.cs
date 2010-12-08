@@ -17,7 +17,7 @@
 
 using System;
 using System.Globalization;
-using System.IO;
+using Common.Storage;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model
@@ -120,19 +120,12 @@ namespace ZeroInstall.Model
         public void TestSaveLoad()
         {
             Feed feed1, feed2;
-            string tempFile = null;
-            try
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-                tempFile = Path.GetTempFileName();
-
                 // Write and read file
                 feed1 = CreateTestFeed();
-                feed1.Save(tempFile);
-                feed2 = Feed.Load(tempFile);
-            }
-            finally
-            { // Clean up
-                if (tempFile != null) File.Delete(tempFile);
+                feed1.Save(tempFile.Path);
+                feed2 = Feed.Load(tempFile.Path);
             }
 
             // Ensure data stayed the same
