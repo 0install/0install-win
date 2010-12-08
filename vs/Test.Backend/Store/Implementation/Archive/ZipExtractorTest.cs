@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using NUnit.Framework;
 using System.IO;
 using Common.Storage;
@@ -26,19 +25,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     public class ZipTestBasicFunctionality
     {
-        byte[] _archiveData;
-        TemporaryDirectory _sandbox;
-        HierarchyEntry _package;
-        string _oldWorkingDirectory;
-
-        [SetUp]
-        public void SetUp()
-        {
-            var packageBuilder = BuildSamplePackageHierarchy();
-            GenerateArchiveDataFromPackage(packageBuilder);
-            SetUpSandboxFolder();
-        }
-
+        #region Helpers
         private PackageBuilder BuildSamplePackageHierarchy()
         {
             var packageBuilder = new PackageBuilder()
@@ -60,34 +47,34 @@ namespace ZeroInstall.Store.Implementation.Archive
                 _archiveData = archiveStream.ToArray();
             }
         }
+        #endregion
 
-        private void SetUpSandboxFolder()
+        byte[] _archiveData;
+        TemporaryDirectory _extractDir;
+        HierarchyEntry _package;
+
+        [SetUp]
+        public void SetUp()
         {
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
-            _oldWorkingDirectory = Environment.CurrentDirectory;
-            Environment.CurrentDirectory = _sandbox.Path;
+            var packageBuilder = BuildSamplePackageHierarchy();
+            GenerateArchiveDataFromPackage(packageBuilder);
+            _extractDir = new TemporaryDirectory("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
-            TearDownSandboxFolder();
-        }
-
-        private void TearDownSandboxFolder()
-        {
-            Environment.CurrentDirectory = _oldWorkingDirectory;
-            _sandbox.Dispose();
+            _extractDir.Dispose();
         }
 
         [Test]
         public void ExtractionIntoFolder()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "extractedArchive"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _extractDir.Path))
                 extractor.RunSync();
 
-            Assert.IsTrue(Directory.Exists("extractedArchive"));
-            var comparer = new CompareHierarchyToExtractedFolder("extractedArchive");
+            Assert.IsTrue(Directory.Exists(_extractDir.Path));
+            var comparer = new CompareHierarchyToExtractedFolder(_extractDir.Path);
             _package.AcceptVisitor(comparer);
         }
 
@@ -119,32 +106,31 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void ExtractionOfSubDir()
         {
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "extractedArchive"))
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _extractDir.Path))
             {
                 extractor.SubDir = "folder1";
                 extractor.RunSync();
             }
 
-            Assert.IsTrue(Directory.Exists(Path.Combine("extractedArchive", "nestedFolder")));
-            Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine("extractedArchive", "nestedFolder")));
-            Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "nestedFile")));
-            Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file1")));
-            Assert.IsFalse(File.Exists(Path.Combine("extractedArchive", "file2")));
+            Assert.IsTrue(Directory.Exists(Path.Combine(_extractDir.Path, "nestedFolder")));
+            Assert.AreEqual(PackageBuilder.DefaultDate, Directory.GetLastWriteTimeUtc(Path.Combine(_extractDir.Path, "nestedFolder")));
+            Assert.IsTrue(File.Exists(Path.Combine(_extractDir.Path, "nestedFile")));
+            Assert.IsFalse(File.Exists(Path.Combine(_extractDir.Path, "file1")));
+            Assert.IsFalse(File.Exists(Path.Combine(_extractDir.Path, "file2")));
         }
 
         [Test]
         public void TestExtractOverwritingExistingItems()
         {
-            Directory.CreateDirectory("destination");
-            File.WriteAllText("destination/file1", "Wrong content");
-            File.WriteAllText("destination/file0", "This file should not be touched");
-            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), "destination"))
+            File.WriteAllText(Path.Combine(_extractDir.Path, "file1"), "Wrong content");
+            File.WriteAllText(Path.Combine(_extractDir.Path, "file0"), "This file should not be touched");
+            using (var extractor = Extractor.CreateExtractor("application/zip", new MemoryStream(_archiveData), _extractDir.Path))
                 extractor.RunSync();
 
-            Assert.IsTrue(File.Exists("destination/file0"), "Extractor cleaned directory.");
-            string file0Content = File.ReadAllText("destination/file0");
+            Assert.IsTrue(File.Exists(Path.Combine(_extractDir.Path, "file0")), "Extractor cleaned directory.");
+            string file0Content = File.ReadAllText(Path.Combine(_extractDir.Path, "file0"));
             Assert.AreEqual("This file should not be touched", file0Content);
-            var comparer = new CompareHierarchyToExtractedFolder("destination");
+            var comparer = new CompareHierarchyToExtractedFolder(_extractDir.Path);
             _package.AcceptVisitor(comparer);
         }
     }
@@ -152,18 +138,18 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     class TestZipCornerCases
     {
-        private TemporaryDirectory _sandbox;
+        private TemporaryDirectory _extractDir;
 
         [SetUp]
         public void SetUp()
         {
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
+            _extractDir = new TemporaryDirectory("0install-unit-tests");
         }
 
         [TearDown]
         public void TearDown()
         {
-            _sandbox.Dispose();
+            _extractDir.Dispose();
         }
 
         /// <summary>
@@ -174,16 +160,16 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractUnixArchiveWithExecutable()
         {
             using (var archive = TestData.GetSdlZipArchiveStream())
-            using (var extractor = new ZipExtractor(archive, _sandbox.Path))
+            using (var extractor = new ZipExtractor(archive, _extractDir.Path))
                 extractor.RunSync();
 
             if (MonoUtils.IsUnix)
             {
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "SDL.dll")));
+                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_extractDir.Path, "SDL.dll")));
             }
             else
             {
-                string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
+                string xbitFileContent = File.ReadAllText(Path.Combine(_extractDir.Path, ".xbit")).Trim();
                 Assert.AreEqual("/SDL.dll", xbitFileContent);
             }
         }
@@ -194,11 +180,11 @@ namespace ZeroInstall.Store.Implementation.Archive
             var builder = new PackageBuilder();
             builder.AddFolder("..");
 
-            using (var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
+            using (var archiveStream = File.Create(Path.Combine(_extractDir.Path, "ar.zip")))
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, "extractedArchive");
+                var extractor = new ZipExtractor(archiveStream, _extractDir.Path);
                 Assert.Throws<IOException>(extractor.RunSync, "ZipExtractor must not accept archives with '..' as entry");
                 archiveStream.Dispose();
             }
@@ -210,16 +196,16 @@ namespace ZeroInstall.Store.Implementation.Archive
             var builder = new PackageBuilder()
                 .AddFile("emptyFile", new byte[] { });
 
-            using(var archiveStream = File.Create(Path.Combine(_sandbox.Path, "ar.zip")))
+            using(var archiveStream = File.Create(Path.Combine(_extractDir.Path, "ar.zip")))
             {
                 builder.GeneratePackageArchive(archiveStream);
                 archiveStream.Seek(0, SeekOrigin.Begin);
-                var extractor = new ZipExtractor(archiveStream, "extractedArchive");
+                var extractor = new ZipExtractor(archiveStream, _extractDir.Path);
 
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
                 Assert.DoesNotThrow(extractor.RunSync);
-                Assert.IsTrue(File.Exists(Path.Combine("extractedArchive", "emptyFile")), message);
-                Assert.AreEqual(new byte[] { }, File.ReadAllBytes(Path.Combine("extractedArchive", "emptyFile")), message);
+                Assert.IsTrue(File.Exists(Path.Combine(_extractDir.Path, "emptyFile")), message);
+                Assert.AreEqual(new byte[] { }, File.ReadAllBytes(Path.Combine(_extractDir.Path, "emptyFile")), message);
             }
         }
     }
