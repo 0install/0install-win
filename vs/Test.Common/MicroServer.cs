@@ -29,7 +29,7 @@ using Common.Streams;
 namespace Common
 {
     /// <summary>
-    /// Provides a very basic webserver that can provide only a single file for testing purposes.
+    /// Provides a minimalistic HTTP webserver that can provide only a single file. Useful for testing download code.
     /// </summary>
     internal sealed class MicroServer : IDisposable
     {
@@ -71,7 +71,7 @@ namespace Common
 
         #region Thread control
         /// <summary>
-        /// Starts the webserver.
+        /// Starts listening for incoming HTTP connections.
         /// </summary>
         public void Start()
         {
@@ -80,45 +80,41 @@ namespace Common
         }
 
         /// <summary>
-        /// Stops the webserver.
+        /// Stops listening for incoming HTTP connections.
         /// </summary>
         public void Dispose()
         {
-            if (_listener != null)
-            {
-                _listener.Stop();
-            }
-            if (_listenerThread != null && _listenerThread.ThreadState == ThreadState.Running)
-            {
-                _listenerThread.Join();
-            }
-            if (_listener != null)
-            {
-                _listener.Close();
-            }
+            _listener.Stop();
+            _listener.Prefixes.Clear();
+            _listener.Close();
+            _listenerThread.Join();
         }
         #endregion
 
         #region Thread code
+        /// <summary>
+        /// Waits for HTTP requests and responds to them if they ask for "file".
+        /// </summary>
         private void Listen()
         {
             HttpListenerContext context;
-            while (true)
+            while (_listener.IsListening)
             {
-                try
-                {
-                    context = _listener.GetContext();
-                }
+                try { context = _listener.GetContext(); }
+                #region Error handling
                 catch (HttpListenerException)
                 { return; }
                 catch (InvalidOperationException)
                 { return; }
+                #endregion
 
+                // Only return one specific file
                 if (context.Request.RawUrl == "/file")
                     StreamUtils.Copy(_fileContent, context.Response.OutputStream);
                 else
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
+                // Delay finishing the file transfer if Slow-mode is active
                 if (Slow) Thread.Sleep(10000);
 
                 context.Response.OutputStream.Close();
