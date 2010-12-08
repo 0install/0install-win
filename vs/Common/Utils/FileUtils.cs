@@ -166,7 +166,7 @@ namespace Common.Utils
                 {
                     // Copy individual files
                     File.Copy(entry, destinationFilePath, overwrite);
-                    File.SetLastWriteTimeUtc(destinationPath, Directory.GetLastWriteTimeUtc(sourcePath));
+                    File.SetLastWriteTimeUtc(destinationPath, File.GetLastWriteTimeUtc(sourcePath));
                 }
             }
         }
