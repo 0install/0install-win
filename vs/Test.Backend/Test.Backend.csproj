@@ -78,7 +78,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DownloadBroker\ArchiveProvider.cs" />
     <Compile Include="DownloadBroker\FetcherStoreInteraction.cs" />
     <Compile Include="DownloadBroker\FetcherTests.cs" />
     <Compile Include="DownloadBroker\PackageBuilderManifestExtension.cs" />

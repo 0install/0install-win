@@ -41,8 +41,7 @@ namespace Common.Download
         [SetUp]
         public void SetUp()
         {
-            _server = new MicroServer(50222, StreamUtils.CreateFromString(TestFileContent));
-            _server.Start();
+            _server = new MicroServer(StreamUtils.CreateFromString(TestFileContent));
 
             _tempFile = new TemporaryFile("unit-tests");
         }

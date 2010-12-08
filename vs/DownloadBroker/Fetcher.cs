@@ -111,7 +111,7 @@ namespace ZeroInstall.DownloadBroker
 
         private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive)
         {
-            string tempArchive = FileUtils.GetTempFile("0install-unit-tests");
+            string tempArchive = FileUtils.GetTempFile("0install-fetcher");
 
             DownloadArchive(archive, tempArchive);
 

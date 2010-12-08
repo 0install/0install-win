@@ -31,9 +31,14 @@ namespace Common
     /// <summary>
     /// Provides a minimalistic HTTP webserver that can provide only a single file. Useful for testing download code.
     /// </summary>
-    internal sealed class MicroServer : IDisposable
+    public sealed class MicroServer : IDisposable
     {
         #region Variables
+        /// <summary>
+        /// A global port counter used to make sure no two instances of the <see cref="MicroServer"/> are listening on the same port.
+        /// </summary>
+        private static int _port = 50222;
+
         private readonly HttpListener _listener = new HttpListener();
         private readonly Thread _listenerThread;
         private readonly Stream _fileContent;
@@ -55,30 +60,26 @@ namespace Common
 
         #region Constructor
         /// <summary>
-        /// Creates a new micro webserver.
+        /// Starts a HTTP webserver that listens on a random port.
         /// </summary>
-        /// <param name="port">The port the server shall listen on. Should be greater than 1024.</param>
-        /// <param name="fileContent">The content of the file to server.</param>
-        public MicroServer(int port, Stream fileContent)
+        /// <param name="fileContent">The content of the file to serve. This stream will be closed when <see cref="Dispose"/> is called.</param>
+        public MicroServer(Stream fileContent)
         {
-            _listener.Prefixes.Add("http://localhost:" + port + "/");
-            FileUri = new Uri("http://localhost:" + port + "/file");
-
-            _listenerThread = new Thread(Listen);
             _fileContent = fileContent;
+
+            // Determine URI to listen for
+            string prefix = "http://localhost:" + _port++ + "/";
+            _listener.Prefixes.Add(prefix);
+            FileUri = new Uri(prefix + "file");
+
+            // Start listening
+            _listenerThread = new Thread(Listen);
+            _listener.Start();
+            _listenerThread.Start();
         }
         #endregion
 
         #region Thread control
-        /// <summary>
-        /// Starts listening for incoming HTTP connections.
-        /// </summary>
-        public void Start()
-        {
-            _listener.Start();
-            _listenerThread.Start();
-        }
-
         /// <summary>
         /// Stops listening for incoming HTTP connections.
         /// </summary>
@@ -88,6 +89,8 @@ namespace Common
             _listener.Prefixes.Clear();
             _listener.Close();
             _listenerThread.Join();
+
+            _fileContent.Dispose();
         }
         #endregion
 

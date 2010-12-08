@@ -318,8 +318,7 @@ namespace Common.Utils
 
         public void GeneratePackageArchive(string destination)
         {
-            using (var output = File.Create(destination))
-            using (var zip = new ZipOutputStream(output) { IsStreamOwner = false })
+            using (var zip = new ZipOutputStream(File.Create(destination)))
             {
                 zip.SetLevel(9);
                 var hierarchyToZip = new HierarchyToZip(zip);
