@@ -16,7 +16,10 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Security.Permissions;
+using Common.Collections;
 using ZeroInstall.DownloadBroker.Properties;
 
 namespace ZeroInstall.DownloadBroker
@@ -27,6 +30,14 @@ namespace ZeroInstall.DownloadBroker
     [Serializable]
     public sealed class FetcherException : Exception
     {
+        #region Properties
+        private readonly C5.ICollection<Exception> _problems;
+        /// <summary>
+        /// A list of all problems the <see cref="Fetcher"/> encountered while tying to process a <see cref="FetchRequest"/>.
+        /// </summary>
+        public IEnumerable<Exception> Problems { get { return _problems; } }
+        #endregion
+
         #region Constructor
         public FetcherException() : base(Resources.FetcherProblem)
         {}
@@ -34,11 +45,54 @@ namespace ZeroInstall.DownloadBroker
         public FetcherException(string message) : base(message) 
         {}
 
-        public FetcherException(string message, Exception innerException) : base (message, innerException)
+        public FetcherException(string message, Exception innerException) : base(message, innerException)
         {}
+        
+        /// <summary>
+        /// Creates a new fetcher exception.
+        /// </summary>
+        /// <param name="message">The error message that explains the reason for the exception.</param>
+        /// <param name="problems">A list of all problems the <see cref="Fetcher"/> encountered while tying to process a <see cref="FetchRequest"/>.</param>
+        public FetcherException(string message, IEnumerable<Exception> problems) : base(message, EnumUtils.GetFirst(problems))
+        {
+            // Defensive copy
+            var tempList = new C5.ArrayList<Exception>();
+            tempList.AddAll(problems);
+
+            // Make the collections immutable
+            _problems = new C5.GuardedList<Exception>(tempList);
+        }
 
         private FetcherException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {}
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            var problems = (Exception[])info.GetValue("Problems", typeof(Exception[]));
+
+            // Defensive copy
+            var tempList = new C5.ArrayList<Exception>();
+            tempList.AddAll(problems);
+
+            // Make the collections immutable
+            _problems = new C5.GuardedList<Exception>(tempList);
+        }
+        #endregion
+
+        #region Serialization
+        /// <inheritdoc/>
+        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            #region Sanity checks
+            if (info == null) throw new ArgumentNullException("info");
+            #endregion
+
+            info.AddValue("Problems", _problems.ToArray());
+
+            base.GetObjectData(info, context);
+        }
         #endregion
     }
 }

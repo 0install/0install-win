@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using Common.Wpf;
@@ -154,7 +155,7 @@ namespace ZeroInstall.Central.Wpf
             if(this.InstallActions.Count == 0) return;
             if (this.currentInstallAction != null) return;
 
-            this.currentInstallAction = this.InstallActions[0];
+            this.currentInstallAction = EnumUtils.GetFirst(InstallActions);
 
             this.currentInstallAction.Finished += new Action(currentInstallAction_Finished);
             this.currentInstallAction.Start();

@@ -87,6 +87,7 @@
     <Compile Include="Cli\TrackingProgessBar.cs" />
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
+    <Compile Include="Collections\EnumUtils.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />

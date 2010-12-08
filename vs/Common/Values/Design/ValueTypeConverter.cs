@@ -71,10 +71,7 @@ namespace Common.Values.Design
                 return new InstanceDescriptor(GetConstuctor(), GetArguments((T)value));
 
             if (destinationType == typeof(string))
-            {
-                if (null == culture) culture = CultureInfo.CurrentCulture;
                 return string.Join(culture.TextInfo.ListSeparator + " ", GetValues((T)value, context, culture));
-            }
 
             return base.ConvertTo(context, culture, value, destinationType);
         }
@@ -88,8 +85,6 @@ namespace Common.Values.Design
 
             sValue = sValue.Trim();
             if (sValue.Length == 0) return null;
-
-            if (culture == null) culture = CultureInfo.CurrentCulture;
 
             var arguments = sValue.Split(culture.TextInfo.ListSeparator[0]);
             if (arguments.Length != NoArguments) return null;

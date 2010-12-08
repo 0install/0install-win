@@ -61,7 +61,7 @@ namespace ZeroInstall.DownloadBroker
             }
         }
 
-        private void TryOneRetrievalMethodAndNoteProblems(ZeroInstall.Model.RetrievalMethod method)
+        private void TryOneRetrievalMethodAndNoteProblems(RetrievalMethod method)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace ZeroInstall.DownloadBroker
             }
         }
 
-        private void PerformRetrievalMethodDispatchingOnType(ZeroInstall.Model.RetrievalMethod method)
+        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method)
         {
             var archive = method as Archive;
             var recipe = method as Recipe;
@@ -280,7 +280,7 @@ namespace ZeroInstall.DownloadBroker
             {
                 var fetchProcess = new ImplementationFetch(this, implementation);
                 fetchProcess.Perform();
-                if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled");
+                if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
             }
         }
     }
