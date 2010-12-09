@@ -85,11 +85,7 @@ namespace Common
         /// </summary>
         public void Dispose()
         {
-            _listener.Stop();
-            _listener.Prefixes.Clear();
             _listener.Close();
-            _listenerThread.Join();
-
             _fileContent.Dispose();
         }
         #endregion

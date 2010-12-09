@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Implementation
             var manifest = Manifest.Generate(directory, format, startingManifest);
 
             string actualDigest = Manifest.Generate(directory, format, startingManifest).CalculateDigest();
-            if (actualDigest != expectedDigest) throw new DigestMismatchException(directory, actualDigest, manifest);
+            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest, manifest);
 
             return manifest;
         }
