@@ -99,24 +99,26 @@ namespace Common
             HttpListenerContext context;
             while (_listener.IsListening)
             {
-                try { context = _listener.GetContext(); }
+                try {
+                    context = _listener.GetContext();
+
+                    // Only return one specific file
+                    if (context.Request.RawUrl == "/file")
+                        StreamUtils.Copy(_fileContent, context.Response.OutputStream);
+                    else
+                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+
+                    // Delay finishing the file transfer if Slow-mode is active
+                    if (Slow) Thread.Sleep(10000);
+
+                    context.Response.OutputStream.Close();
+                }
                 #region Error handling
                 catch (HttpListenerException)
                 { return; }
                 catch (InvalidOperationException)
                 { return; }
                 #endregion
-
-                // Only return one specific file
-                if (context.Request.RawUrl == "/file")
-                    StreamUtils.Copy(_fileContent, context.Response.OutputStream);
-                else
-                    context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-
-                // Delay finishing the file transfer if Slow-mode is active
-                if (Slow) Thread.Sleep(10000);
-
-                context.Response.OutputStream.Close();
             }
         }
         #endregion
