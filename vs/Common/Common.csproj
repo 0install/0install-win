@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="ExceptionInformation.cs" />
     <Compile Include="Log.cs" />
-    <Compile Include="Storage\TemporaryFile.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="UpdateHelper.cs" />
@@ -114,6 +113,7 @@
     <Compile Include="Storage\BinaryStorage.cs" />
     <Compile Include="Storage\XmlStorage.cs" />
     <Compile Include="Storage\EmbeddedFile.cs" />
+    <Compile Include="Storage\TemporaryFile.cs" />
     <Compile Include="Storage\TemporaryDirectory.cs" />
     <Compile Include="Undo\IUndoCommand.cs" />
     <Compile Include="Undo\PreExecutedCommand.cs" />

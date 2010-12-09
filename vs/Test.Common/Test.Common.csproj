@@ -54,8 +54,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cli\ArgumentUtilsTest.cs" />
     <Compile Include="MicroServer.cs" />
+    <Compile Include="Cli\ArgumentUtilsTest.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Download\DownloadFileTest.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />

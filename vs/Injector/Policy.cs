@@ -26,7 +26,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Describes user settings controlling the dependency solving and implementation launching process.
+    /// Describes user settings (both stored on disk and selected for this specific run) controlling the dependency solving and implementation launching process.
     /// </summary>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     public class Policy
@@ -47,7 +47,7 @@ namespace ZeroInstall.Injector
         /// </summary>
         public Architecture Architecture { get; set; }
 
-        private Constraint _constraint = new Constraint();
+        private readonly Constraint _constraint = new Constraint();
         /// <summary>
         /// Only choose <see cref="Implementation"/>s with certain version numbers.
         /// </summary>
