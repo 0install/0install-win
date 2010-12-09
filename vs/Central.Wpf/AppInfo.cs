@@ -9,7 +9,7 @@ using ZeroInstall.Store.Implementation;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Input;
-using ZeroInstall.Injector;
+using ZeroInstall.Launcher;
 using System.Diagnostics;
 using Hardcodet.Wpf.TaskbarNotification;
 using Common;
@@ -277,7 +277,7 @@ namespace ZeroInstall.Central.Wpf
                 System.Windows.MessageBox.Show("Error executing " + this.Feed.Name + ". Details: " + ex.ToString());
             }
 
-            //Launcher l = new Launcher(this.Implementation.ID, new Injector.Solver.Selections()
+            //Launcher l = new Launcher(this.Implementation.ID, new Launcher.Solver.Selections()
         }
 
         public bool CanUninstallCommand(object parameter)

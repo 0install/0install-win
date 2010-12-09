@@ -103,13 +103,13 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DownloadBroker\DownloadBroker.csproj">
+    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
-      <Name>DownloadBroker</Name>
+      <Name>Fetchers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Injector\Injector.csproj">
+    <ProjectReference Include="..\Launcher\Launcher.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
-      <Name>Injector</Name>
+      <Name>Launcher</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>

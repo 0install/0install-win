@@ -9,6 +9,7 @@ Use "ZeroInstall_VS2010.sln" to open the solution in Visual Studio 2010.
 Use "ZeroInstall_VS2010_NoTest.sln" to open the solution in Visual Studio 2010 without NUnit tests.
 Use "ZeroInstall_VCE2010.sln" to open the solution in Visual C# Express 2010.
 Use "ZeroInstall_VCE2010_NoTest.sln" to open the solution in Visual C# Express 2010 without NUnit tests.
-Use "ZeroInstall_MonoDevelop.sln" to open the solution in MonoDevelop 2.4 or newer without NUnit tests.
-Use "ZeroInstall_xbuild.sln" to compile with xbuild with NUnit 2.5.x.
+Use "ZeroInstall_MonoDevelop.sln" to open the solution in MonoDevelop 2.4 or newer. (currently doesn't work properly due to an old version of NUnit being bundled)
+Use "ZeroInstall_MonoDevelop_NoTest.sln" to open the solution in MonoDevelop 2.4 or newer without NUnit tests.
+Use "ZeroInstall_xbuild.sln" to compile with xbuild.
 Don't use "ZeroInstall_xbuild.sln" to compile with xbuild without NUnit tests.

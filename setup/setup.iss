@@ -83,6 +83,8 @@ ChangesEnvironment=yes
 [InstallDelete]
 Name: {app}\Zero Install.exe; Type: files
 Name: {app}\ZeroInstall.exe; Type: files
+Name: {app}\ZeroInstall.Injector.dll; Type: files
+Name: {app}\ZeroInstall.DownloadBroker.dll; Type: files
 Name: {app}\0launchw.exe; Type: files
 Name: {app}\0storew.exe; Type: files
 Name: {app}\de\*.resources.dll; Type: files

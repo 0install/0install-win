@@ -1404,9 +1404,9 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <package Id="d40c496f-d3c7-4b6d-866c-7c3b3ab3cebd" name="Download" visibility="Private">
+            <package Id="d40c496f-d3c7-4b6d-866c-7c3b3ab3cebd" name="Net" visibility="Private">
               <referencesInternal>
-                <reference Id="dd4d31e3-528f-4f68-9a46-58dd7ec0660f" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Download" tag="ViewCode">
+                <reference Id="dd4d31e3-528f-4f68-9a46-58dd7ec0660f" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Net" tag="ViewCode">
                   <elementDefinition Id="0d9e4b11-bb59-4f79-8b56-4646586e658b" />
                 </reference>
               </referencesInternal>
@@ -1415,7 +1415,7 @@
                 <packageHasNamedElement>
                   <class Id="cccb6937-30e4-4280-8107-6e01c1db0989" name="DownloadFile" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <referencesInternal>
-                      <reference Id="90c1c374-4b67-4cbb-b6bc-b9dabb59f6b4" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile" tag="ViewCode">
+                      <reference Id="90c1c374-4b67-4cbb-b6bc-b9dabb59f6b4" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile" tag="ViewCode">
                         <elementDefinition Id="0eb8c3ce-465e-4206-98b7-d300264098ce" />
                       </reference>
                     </referencesInternal>
@@ -1466,7 +1466,7 @@
                     <ownedAttributesInternal>
                       <property Id="8cf0c49f-af3a-4baf-879d-94a0134a69d2" name="Name" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="2a31bdc3-a657-4ddb-b7d9-965725cc2e20" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Name" tag="ViewCode">
+                          <reference Id="2a31bdc3-a657-4ddb-b7d9-965725cc2e20" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Name" tag="ViewCode">
                             <elementDefinition Id="3b563f72-d9ef-414d-bd05-d9a8f5d2d24e" />
                           </reference>
                         </referencesInternal>
@@ -1520,7 +1520,7 @@
                       </property>
                       <property Id="78c3a968-416c-438b-97d9-dc0cfd3de045" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="7df7a0b6-56ca-4374-a1ed-35b3280d8e30" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Source" tag="ViewCode">
+                          <reference Id="7df7a0b6-56ca-4374-a1ed-35b3280d8e30" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Source" tag="ViewCode">
                             <elementDefinition Id="9f1609f7-0217-431a-9576-5b272ed5c74e" />
                           </reference>
                         </referencesInternal>
@@ -1574,7 +1574,7 @@
                       </property>
                       <property Id="d10272d8-6d70-4ca2-9595-340aaac3b2c3" name="Headers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="060a3147-2677-410d-8b5d-fff310e830cb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Headers" tag="ViewCode">
+                          <reference Id="060a3147-2677-410d-8b5d-fff310e830cb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Headers" tag="ViewCode">
                             <elementDefinition Id="7c7cab14-9f67-4e7a-a61d-78bea104f230" />
                           </reference>
                         </referencesInternal>
@@ -1625,7 +1625,7 @@
                       </property>
                       <property Id="a6cdcb8e-f9b9-40b7-a817-367c132c880f" name="SupportsResume" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="a50d6c02-1868-4ea2-a4db-85ee9eb3bc49" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=SupportsResume" tag="ViewCode">
+                          <reference Id="a50d6c02-1868-4ea2-a4db-85ee9eb3bc49" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=SupportsResume" tag="ViewCode">
                             <elementDefinition Id="20082695-1e9a-4c2d-85ea-1f21ebb504ac" />
                           </reference>
                         </referencesInternal>
@@ -1679,7 +1679,7 @@
                       </property>
                       <property Id="d3485f9b-a5f5-4cf5-b862-ac7d2223ec07" name="Target" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="803eed1f-fbdf-4058-af14-f9228d4391c6" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Target" tag="ViewCode">
+                          <reference Id="803eed1f-fbdf-4058-af14-f9228d4391c6" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Target" tag="ViewCode">
                             <elementDefinition Id="231d0946-4523-43fb-9e6b-a230abf8054b" />
                           </reference>
                         </referencesInternal>
@@ -1735,7 +1735,7 @@
                     <ownedOperationsInternal>
                       <operation Id="184924e0-471c-4b85-a448-e34e36170af6" name="Cancel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="dd3c97db-eb9c-4b63-a85d-b9fc837bcac7" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Cancel" tag="ViewCode">
+                          <reference Id="dd3c97db-eb9c-4b63-a85d-b9fc837bcac7" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel" tag="ViewCode">
                             <elementDefinition Id="8a1d8a77-505b-422b-8436-598f8930f839" />
                           </reference>
                         </referencesInternal>

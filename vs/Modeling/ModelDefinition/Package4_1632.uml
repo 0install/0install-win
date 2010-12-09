@@ -2707,72 +2707,6 @@
         </suppliersInternal>
         <targetEnds>
           <association
-            Id="3726f73f-e4c7-4fa3-8885-5c05fda35671"
-            isDerived="false"
-            sourceEndRoleName="FeedProvider"
-            targetEndRoleName="Handler"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-              LastKnownName="IFeedHandler"
-              LastKnownLocation="Package4_1632.uml" />
-            <description>Property Handler references type IFeedHandler.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="3953a278-f6a8-4a47-90df-3ef2bebbdfc0"
-                  name="FeedProvider"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="bd4f289c-7013-4e2b-b791-047ba4a613da"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="eeb7c78f-3e84-4dbd-841e-eb1f0a9bca5c"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="10f04a32-2f0c-485d-8dd6-13bea09c9b8c"
-                  name="Handler"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="f63710c4-8c56-476d-be1d-5dcbd88ae16e"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="5bcfd70e-e05e-4984-98ed-560f24e75b36"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
             Id="d8469f51-bb66-4dc9-9e4d-fb3853e8393b"
             isDerived="false"
             sourceEndRoleName="FeedProvider"
@@ -2874,6 +2808,58 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4da0628a-f33f-49d0-be8c-0219cc4dc4d8"
+            isDerived="false"
+            sourceEndRoleName="FeedProvider"
+            targetEndRoleName="Handler"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+              LastKnownName="IFeedHandler"
+              LastKnownLocation="Package4_1632.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8a5268b8-0b07-43b7-b20b-2cbff0149324"
+                  name="FeedProvider"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="536fb40d-07b7-4ade-b733-6b0b182208c3"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="3c5f083a-ab7c-47f0-83b8-547b7ee2a7ba"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d6c97b02-b76c-4dba-a96d-887bae9e03b2"
+                  name="Handler"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>

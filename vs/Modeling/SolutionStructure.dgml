@@ -5,10 +5,10 @@
     <Node Id="(Namespace=ZeroInstall.Central.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.Cli" />
     <Node Id="(Namespace=ZeroInstall.Central.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.WinForms" />
     <Node Id="(Namespace=ZeroInstall.Central.Wpf)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Central.Wpf" />
-    <Node Id="(Namespace=ZeroInstall.DownloadBroker)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.DownloadBroker" />
-    <Node Id="(Namespace=ZeroInstall.Injector)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector" />
-    <Node Id="(Namespace=ZeroInstall.Injector.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.Cli" />
-    <Node Id="(Namespace=ZeroInstall.Injector.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector.WinForms" />
+    <Node Id="(Namespace=ZeroInstall.Fetchers)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Fetchers" />
+    <Node Id="(Namespace=ZeroInstall.Launcher)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher" />
+    <Node Id="(Namespace=ZeroInstall.Launcher.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher.Cli" />
+    <Node Id="(Namespace=ZeroInstall.Launcher.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher.WinForms" />
     <Node Id="(Namespace=ZeroInstall.Model)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Model" />
     <Node Id="(Namespace=ZeroInstall.MyApps)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.MyApps" />
     <Node Id="(Namespace=ZeroInstall.Publish.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Cli" />
@@ -38,7 +38,7 @@
     <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Central.Cli">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Cli">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.Cli">
@@ -53,10 +53,10 @@
     <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
+    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Tools">
@@ -71,7 +71,7 @@
     <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
+    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.WinForms">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@44" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.WinForms">
@@ -92,7 +92,7 @@
     <Node Id="NewGroup1" Category="ExeFile" Group="Expanded" Label="0install-win.exe" />
     <Node Id="NewGroup10" Category="DllFile" Group="Expanded" Label="ZeroInstall.MyApps.dll" />
     <Node Id="NewGroup11" Category="DllFile" Group="Expanded" Label="ZeroInstall.Store.dll" />
-    <Node Id="NewGroup12" Category="DllFile" Group="Expanded" Label="ZeroInstall.Injector.dll" />
+    <Node Id="NewGroup12" Category="DllFile" Group="Expanded" Label="ZeroInstall.Launcher.dll" />
     <Node Id="NewGroup13" Category="UnitTests" Group="Expanded" Label="Test.Tools.dll" />
     <Node Id="NewGroup14" Category="UnitTests" Group="Expanded" Label="Test.Frontend.dll" />
     <Node Id="NewGroup15" Category="UnitTests" Group="Expanded" Label="Test.Backend.dll" />
@@ -102,7 +102,7 @@
     <Node Id="NewGroup19" Category="ExeFile" Group="Expanded" Label="0install-wpf.exe" />
     <Node Id="NewGroup2" Category="ExeFile" Group="Expanded" Label="0publish-win.exe" />
     <Node Id="NewGroup20" Category="ExeFile" Group="Expanded" Label="0install.exe" />
-    <Node Id="NewGroup23" Category="DllFile" Group="Expanded" Label="ZeroInstall.DownloadBroker.dll" />
+    <Node Id="NewGroup23" Category="DllFile" Group="Expanded" Label="ZeroInstall.Fetchers.dll" />
     <Node Id="NewGroup3" Category="ExeFile" Group="Expanded" Label="0launch.exe" />
     <Node Id="NewGroup4" Category="ExeFile" Group="Expanded" Label="0launch-win.exe" />
     <Node Id="NewGroup5" Category="ExeFile" Group="Expanded" Label="0store.exe" />
@@ -139,7 +139,7 @@
     <Link Source="NewGroup10" Target="@46" Category="Contains" />
     <Link Source="NewGroup11" Target="(Namespace=ZeroInstall.Store)" Category="Contains" />
     <Link Source="NewGroup11" Target="@12" Category="Contains" />
-    <Link Source="NewGroup12" Target="(Namespace=ZeroInstall.Injector)" Category="Contains" />
+    <Link Source="NewGroup12" Target="(Namespace=ZeroInstall.Launcher)" Category="Contains" />
     <Link Source="NewGroup12" Target="@34" Category="Contains" />
     <Link Source="NewGroup13" Target="@36" Category="Contains" />
     <Link Source="NewGroup14" Target="@8" Category="Contains" />
@@ -154,11 +154,11 @@
     <Link Source="NewGroup2" Target="@38" Category="Contains" />
     <Link Source="NewGroup20" Target="(Namespace=ZeroInstall.Central.Cli)" Category="Contains" />
     <Link Source="NewGroup20" Target="@20" Category="Contains" />
-    <Link Source="NewGroup23" Target="(Namespace=ZeroInstall.DownloadBroker)" Category="Contains" />
+    <Link Source="NewGroup23" Target="(Namespace=ZeroInstall.Fetchers)" Category="Contains" />
     <Link Source="NewGroup23" Target="@32" Category="Contains" />
-    <Link Source="NewGroup3" Target="(Namespace=ZeroInstall.Injector.Cli)" Category="Contains" />
+    <Link Source="NewGroup3" Target="(Namespace=ZeroInstall.Launcher.Cli)" Category="Contains" />
     <Link Source="NewGroup3" Target="@22" Category="Contains" />
-    <Link Source="NewGroup4" Target="(Namespace=ZeroInstall.Injector.WinForms)" Category="Contains" />
+    <Link Source="NewGroup4" Target="(Namespace=ZeroInstall.Launcher.WinForms)" Category="Contains" />
     <Link Source="NewGroup4" Target="@42" Category="Contains" />
     <Link Source="NewGroup5" Target="(Namespace=ZeroInstall.Store.Management.Cli)" Category="Contains" />
     <Link Source="NewGroup5" Target="@24" Category="Contains" />
@@ -256,7 +256,7 @@
     <Alias n="18" Id="(@17)" />
     <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Central.Cli/Central.Cli.csproj" />
     <Alias n="20" Id="(@19)" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Store.Management.Cli/Store.Management.Cli.csproj" />
     <Alias n="24" Id="(@23)" />
@@ -266,9 +266,9 @@
     <Alias n="28" Id="(@27)" />
     <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
     <Alias n="30" Id="(@29)" />
-    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/DownloadBroker/DownloadBroker.csproj" />
+    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
     <Alias n="32" Id="(@31)" />
-    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Launcher/Launcher.csproj" />
     <Alias n="34" Id="(@33)" />
     <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Test.Tools/Test.Tools.csproj" />
     <Alias n="36" Id="(@35)" />
@@ -276,7 +276,7 @@
     <Alias n="38" Id="(@37)" />
     <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="40" Id="(@39)" />
-    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Launcher.WinForms/Launcher.WinForms.csproj" />
     <Alias n="42" Id="(@41)" />
     <Alias n="43" Uri="Assembly=$(VsSolutionUri)/Store.Management.WinForms/Store.Management.WinForms.csproj" />
     <Alias n="44" Id="(@43)" />

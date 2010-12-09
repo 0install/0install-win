@@ -2280,7 +2280,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="18f9f18a-0e13-4a50-8628-e609e81f814b"
-        LastKnownName="Download"
+        LastKnownName="Net"
         LastKnownLocation="Package_1749.uml" />
     </packageHasNamedElement>
   </packagedElements>

@@ -7,7 +7,7 @@
   <referencesInternal>
     <reference
       Id="efbbbc60-04c1-421f-966f-1f443a34cff2"
-      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.Arguments"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher.Arguments"
       tag="ViewCode" />
   </referencesInternal>
   <packagedElements>
@@ -21,7 +21,7 @@
         <referencesInternal>
           <reference
             Id="0a14749f-b753-488c-bce3-ae2670fee144"
-            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Arguments Type=OperationMode"
+            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher.Arguments Type=OperationMode"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -65,7 +65,7 @@
         <referencesInternal>
           <reference
             Id="fb643572-07f0-4e67-91af-7b7a59566212"
-            handle="viewcode://./CodeSchema_Struct?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Arguments Type=ParseResults"
+            handle="viewcode://./CodeSchema_Struct?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher.Arguments Type=ParseResults"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>

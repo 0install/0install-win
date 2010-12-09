@@ -9,3 +9,6 @@ rm -rf build/Backend build/Frontend build/Tools build/Setup
 rm -f vs/*.cache
 rm -rf vs/*/obj
 rm -f vs/*/.pidb
+
+# Remove MonoDevelop user preferences
+rm -f vs/*.userprefs

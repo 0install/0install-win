@@ -20,7 +20,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
-        LastKnownName="Injector"
+        LastKnownName="Launcher"
         LastKnownLocation="Package1_1632.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -32,7 +32,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="0efbe23b-beab-4ef8-87dd-efc6e7aeca20"
-        LastKnownName="DownloadBroker"
+        LastKnownName="Fetchers"
         LastKnownLocation="Package_1633.uml" />
     </packageHasNamedElement>
   </packagedElements>

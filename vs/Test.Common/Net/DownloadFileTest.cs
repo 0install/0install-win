@@ -1,0 +1,134 @@
+﻿/*
+ * Copyright 2006-2010 Bastian Eicher
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+using System.IO;
+using System.Threading;
+using Common.Storage;
+using Common.Streams;
+using NUnit.Framework;
+
+namespace Common.Net
+{
+    /// <summary>
+    /// Contains test methods for <see cref="DownloadFile"/>.
+    /// </summary>
+    [TestFixture]
+    public class DownloadFileTest
+    {
+        private MicroServer _server;
+        private TemporaryFile _tempFile;
+        private const string TestFileContent = "abc";
+
+        [SetUp]
+        public void SetUp()
+        {
+            _server = new MicroServer(StreamUtils.CreateFromString(TestFileContent));
+
+            _tempFile = new TemporaryFile("unit-tests");
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            _server.Dispose();
+
+            _tempFile.Dispose();
+        }
+
+        /// <summary>
+        /// Downloads a small file using <see cref="ProgressBase.RunSync"/>.
+        /// </summary>
+        [Test]
+        public void TestRunSync()
+        {
+            // Download the file
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.RunSync();
+
+            // Read the file
+            string fileContent = File.ReadAllText(_tempFile.Path);
+
+            // Ensure the download was successfull and the file is identical
+            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
+            Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
+        }
+
+        /// <summary>
+        /// Downloads a small file using <see cref="ProgressBase.Start"/> and <see cref="ProgressBase.Join"/>.
+        /// </summary>
+        [Test]
+        public void TestThread()
+        {
+            // Start a background download of the file and then wait
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.Start();
+            download.Join();
+
+            // Read the file
+            string fileContent = File.ReadAllText(_tempFile.Path);
+
+            // Ensure the download was successfull and the file is identical
+            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
+            Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
+        }
+
+        /// <summary>
+        /// Starts downloading a small file using <see cref="ProgressBase.Start"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
+        /// </summary>
+        [Test]
+        public void TestCancelAsync()
+        {
+            // Start a very slow download of the file and then cancel it right away again
+            _server.Slow = true;
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            download.Start();
+            download.Cancel();
+
+            Assert.AreNotEqual(ProgressState.Complete, download.State);
+        }
+
+        /// <summary>
+        /// Starts downloading a small file using <see cref="ProgressBase.RunSync"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
+        /// </summary>
+        [Test]
+        public void TestCancelSync()
+        {
+            // Prepare a very slow download of the file and monitor for a cancellation exception
+            _server.Slow = true;
+            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
+            bool exceptionThrown = false;
+            var downloadThread = new Thread(delegate()
+            {
+                try { download.RunSync(); }
+                catch (UserCancelException) { exceptionThrown = true; }
+            });
+
+            // Start and then cancel the download
+            downloadThread.Start();
+            while (download.State == ProgressState.Ready) Thread.Sleep(0);
+            download.Cancel();
+            downloadThread.Join();
+
+            Assert.IsTrue(exceptionThrown);
+        }
+    }
+}

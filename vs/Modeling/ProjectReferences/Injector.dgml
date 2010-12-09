@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
   <Nodes>
-    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
+    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.WinForms">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
@@ -13,7 +13,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Cli">
+    <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
@@ -21,7 +21,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
+    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
@@ -84,15 +84,15 @@
   <IdentifierAliases>
     <Alias n="1" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
     <Alias n="2" Id="(@1)" />
-    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
+    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
     <Alias n="4" Id="(@3)" />
     <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="6" Id="(@5)" />
-    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/DownloadBroker/DownloadBroker.csproj" />
+    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
     <Alias n="8" Id="(@7)" />
-    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Launcher/Launcher.csproj" />
     <Alias n="10" Id="(@9)" />
-    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
+    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Launcher.WinForms/Launcher.WinForms.csproj" />
     <Alias n="12" Id="(@11)" />
   </IdentifierAliases>
   <Paths>

@@ -34,8 +34,8 @@
       <DocumentationSource sourceFile="..\..\vs\Model\Model.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store\Store.csproj" />
       <DocumentationSource sourceFile="..\..\vs\MyApps\MyApps.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Injector\Injector.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\DownloadBroker\DownloadBroker.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Launcher\Launcher.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Fetchers\Fetchers.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
@@ -44,7 +44,7 @@
       <NamespaceSummaryItem name="Common.Cli" isDocumented="True">Contains helper methods for interacting with the user via the &lt;see cref="System.Console" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Compression" isDocumented="True">Contains helper classes for interacting with archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Controls" isDocumented="True">Contains &lt;see cref="System.Windows.Forms" /&gt; controls and forms designed to simplify common UI designs.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="Common.Download" isDocumented="True">Contains classes for downloading files from the internet, including advanced features such as scheduling by priority.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="Common.Net" isDocumented="True">Contains classes for downloading files from the internet, including advanced features such as scheduling by priority.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Storage" isDocumented="True">Contains classes for data storage and serialization (XML and binary).</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Streams" isDocumented="True">Contains filter streams and utility classes with helper functions for stream handling.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="Common.Undo" isDocumented="True">Contains base classes for an Undo-system based on the Command pattern.</NamespaceSummaryItem>
@@ -56,10 +56,10 @@
       <NamespaceSummaryItem name="ZeroInstall.Store.Feed" isDocumented="True">Contains classes for managing the feed and icon caches, GPG signatures and keys, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementation.Archive" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.DownloadBroker" isDocumented="True">Manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the injector.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.Arguments" isDocumented="True">Contains helper classes for applications that wish to support the default command-line arguments provided by the Python implementation of 0launch.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.Solver" isDocumented="True">Contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the launcher.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.Arguments" isDocumented="True">Contains helper classes for applications that wish to support the default command-line arguments provided by the Python implementation of 0launch.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.Solver" isDocumented="True">Contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <ItemGroup>

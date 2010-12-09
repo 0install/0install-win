@@ -1,6 +1,6 @@
 ﻿using System;
 using System.IO;
-using Common.Download;
+using Common.Net;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {

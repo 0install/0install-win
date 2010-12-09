@@ -17,16 +17,18 @@ rd /s /q vs\Central.Cli\obj > NUL 2>&1
 rd /s /q vs\Central.WinForms\obj > NUL 2>&1
 rd /s /q vs\Central.Wpf\obj > NUL 2>&1
 rd /s /q vs\Central.Gtk\obj > NUL 2>&1
-rd /s /q vs\Injector.Cli\obj > NUL 2>&1
-rd /s /q vs\Injector.WinForms\obj > NUL 2>&1
+rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
+rd /s /q vs\Launcher.WinForms\obj > NUL 2>&1
+rd /s /q vs\Launcher.Gtk\obj > NUL 2>&1
 rd /s /q vs\Store.Service\obj > NUL 2>&1
 rd /s /q vs\Store.Management.Cli\obj > NUL 2>&1
 rd /s /q vs\Store.Management.WinForms\obj > NUL 2>&1
+rd /s /q vs\Store.Management.Gtk\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
 rd /s /q vs\Common.Wpf\obj > NUL 2>&1
 rd /s /q vs\Common.Gtk\obj > NUL 2>&1
-rd /s /q vs\DownloadBroker\obj > NUL 2>&1
-rd /s /q vs\Injector\obj > NUL 2>&1
+rd /s /q vs\Fetchers\obj > NUL 2>&1
+rd /s /q vs\Launcher\obj > NUL 2>&1
 rd /s /q vs\Model\obj > NUL 2>&1
 rd /s /q vs\MyApps\obj > NUL 2>&1
 rd /s /q vs\Store\obj > NUL 2>&1
@@ -52,6 +54,9 @@ attrib -h "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
 copy "vs\ZeroInstall_VCE2010.suo.Backup" "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
 attrib +h "vs\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
 attrib +h "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
+
+rem Remove MonoDevelop user preferences
+del "vs\*.userprefs"
 
 rem Remove NUnit logs
 del *.VisualState.xml > NUL 2>&1

@@ -77,9 +77,9 @@
     <Compile Include="ProgressBase.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
-    <Compile Include="Download\DownloadManager.cs" />
-    <Compile Include="Download\DownloadJob.cs" />
-    <Compile Include="Download\DownloadFile.cs" />
+    <Compile Include="Net\DownloadManager.cs" />
+    <Compile Include="Net\DownloadJob.cs" />
+    <Compile Include="Net\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
     <Compile Include="Cli\InputUtils.cs" />
     <Compile Include="Cli\ProgessBar.cs" />
@@ -217,7 +217,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Download\ClassDiagram.cd" />
+    <None Include="Net\ClassDiagram.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>

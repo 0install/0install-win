@@ -40,18 +40,18 @@
       </glossaryEntry>
 
       <glossaryEntry>
-        <terms><term>ZeroInstall.Injector.dll</term></terms>
+        <terms><term>ZeroInstall.Launcher.dll</term></terms>
         <definition>
-          <para>Root namespace: <literal>ZeroInstall.Injector</literal></para>
+          <para>Root namespace: <literal>ZeroInstall.Launcher</literal></para>
           <para>This assembly contains code for solving dependencies, launching implementations and injecting the selected dependencies.</para>
         </definition>
       </glossaryEntry>
 
       <glossaryEntry>
-        <terms><term>ZeroInstall.DownloadBroker.dll</term></terms>
+        <terms><term>ZeroInstall.Fetchers.dll</term></terms>
         <definition>
-          <para>Root namespace: <literal>ZeroInstall.DownloadBroker</literal></para>
-          <para>This assembly manages Implementation download requests for the injector.</para>
+          <para>Root namespace: <literal>ZeroInstall.Fetchers</literal></para>
+          <para>This assembly manages Implementation download requests for the launcher.</para>
         </definition>
       </glossaryEntry>
 

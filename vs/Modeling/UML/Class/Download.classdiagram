@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="feef74d8-0526-4eef-8965-18c931a4ded8" name="DownloadBroker" linkedPackageId="d7718ab7-6467-4c68-abae-1921afb87306" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="feef74d8-0526-4eef-8965-18c931a4ded8" name="Fetchers" linkedPackageId="d7718ab7-6467-4c68-abae-1921afb87306" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="44cd3a16-5181-4ff5-b3ce-73fc416675c8" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -74,9 +74,9 @@
   </appliedStereotypesInternal>
   <packagedElements>
     <logicalClassDesignerModelHasPackages>
-      <package Id="bdc75d99-b561-490d-b644-097b8b7d3c90" name="DownloadBroker" visibility="Private">
+      <package Id="bdc75d99-b561-490d-b644-097b8b7d3c90" name="Fetchers" visibility="Private">
         <referencesInternal>
-          <reference Id="1c9fe9b9-8bf8-4f91-a728-f066158958a7" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.DownloadBroker" tag="ViewCode">
+          <reference Id="1c9fe9b9-8bf8-4f91-a728-f066158958a7" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Fetchers" tag="ViewCode">
             <elementDefinition Id="c083d5a0-885c-42f4-9808-f803a4bf7da3" />
           </reference>
         </referencesInternal>
@@ -85,7 +85,7 @@
           <packageHasNamedElement>
             <class Id="b87e784f-e095-4258-b299-47d9190696ee" name="FetchRequest" isAbstract="false" isLeaf="false" isActiveClass="false">
               <referencesInternal>
-                <reference Id="8a9268f8-f572-4b5b-9002-a1b226a4dd3c" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=FetchRequest" tag="ViewCode">
+                <reference Id="8a9268f8-f572-4b5b-9002-a1b226a4dd3c" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest" tag="ViewCode">
                   <elementDefinition Id="9358adbb-693c-4971-a83c-02ad588e112a" />
                 </reference>
               </referencesInternal>
@@ -168,7 +168,7 @@
               <ownedOperationsInternal>
                 <operation Id="108cc93c-b4e1-4f26-8b08-520849e46527" name="FetchRequest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="da220872-d657-470b-a280-c6cece8375e1" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=FetchRequest Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Implementation)]))])" tag="ViewCode">
+                    <reference Id="da220872-d657-470b-a280-c6cece8375e1" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Implementation)]))])" tag="ViewCode">
                       <elementDefinition Id="03b4a886-68a7-4fa8-856e-876169888f92" />
                     </reference>
                   </referencesInternal>
@@ -214,7 +214,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="79308c16-63df-49ff-aea8-dd1f95ac6393" name="implementations" direction="In">
                         <referencesInternal>
-                          <reference Id="2c4e392a-30a0-47e3-90c0-34072b5ad1c7" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=FetchRequest Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Implementation)]))]) ParameterIdentifier=implementations" tag="ViewCode">
+                          <reference Id="2c4e392a-30a0-47e3-90c0-34072b5ad1c7" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Implementation)]))]) ParameterIdentifier=implementations" tag="ViewCode">
                             <elementDefinition Id="9e170b53-2763-4c90-9a59-35d9e1157b7f" />
                           </reference>
                         </referencesInternal>
@@ -242,7 +242,7 @@
           <packageHasNamedElement>
             <Interface Id="3d94799d-3bcb-4f52-a0be-43f8ac4046fe" name="IFetchHandler" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="67f3ec78-69e8-44f4-b801-aafab8b29fd2" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler" tag="ViewCode">
+                <reference Id="67f3ec78-69e8-44f4-b801-aafab8b29fd2" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler" tag="ViewCode">
                   <elementDefinition Id="26c49e4a-c135-4f39-9536-f12148ffdf52" />
                 </reference>
               </referencesInternal>
@@ -287,7 +287,7 @@
               <ownedOperations>
                 <operation Id="2725d262-6450-4160-b012-692b021ea8e8" name="StartingDownload" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="66a77e9a-0685-482f-8a52-cf5de74a78d6" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
+                    <reference Id="66a77e9a-0685-482f-8a52-cf5de74a78d6" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
                       <elementDefinition Id="7d3ae986-deb4-4c8a-9bb6-7c8a28cb9671" />
                     </reference>
                   </referencesInternal>
@@ -333,7 +333,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="9f261416-9576-4f7e-b0a7-3d9d046d2e23" name="download" direction="In">
                         <referencesInternal>
-                          <reference Id="8ed5589f-45d4-4f42-90bd-f4b08887e555" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=download" tag="ViewCode">
+                          <reference Id="8ed5589f-45d4-4f42-90bd-f4b08887e555" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=download" tag="ViewCode">
                             <elementDefinition Id="119d3078-1a90-416c-94af-2b7b263fdf59" />
                           </reference>
                         </referencesInternal>
@@ -351,7 +351,7 @@
           <packageHasNamedElement>
             <class Id="fd66a924-d6e3-4db7-b24a-f091bc996f3a" name="Fetcher" isAbstract="false" isLeaf="false" isActiveClass="false">
               <referencesInternal>
-                <reference Id="0e6f24ce-6cdd-4a55-9be4-39be3f3fbf05" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher" tag="ViewCode">
+                <reference Id="0e6f24ce-6cdd-4a55-9be4-39be3f3fbf05" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher" tag="ViewCode">
                   <elementDefinition Id="2f0ad227-09bc-47e8-9a03-bffee5187320" />
                 </reference>
               </referencesInternal>
@@ -512,7 +512,7 @@
               <ownedOperationsInternal>
                 <operation Id="2dce01c3-c0dd-4051-9570-d37bcffbada2" name="Fetcher" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="adca933e-5bb8-420e-8905-e1655390df57" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)])" tag="ViewCode">
+                    <reference Id="adca933e-5bb8-420e-8905-e1655390df57" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)])" tag="ViewCode">
                       <elementDefinition Id="834cec8f-cfda-4157-a8c5-24928e6d722b" />
                     </reference>
                   </referencesInternal>
@@ -558,7 +558,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="a95ade2d-8de1-4f4a-b2ff-ae048478baa4" name="handler" direction="In">
                         <referencesInternal>
-                          <reference Id="8aaffc02-b99d-4aab-90cb-f11828ffb817" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]) ParameterIdentifier=handler" tag="ViewCode">
+                          <reference Id="8aaffc02-b99d-4aab-90cb-f11828ffb817" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]) ParameterIdentifier=handler" tag="ViewCode">
                             <elementDefinition Id="77b6dffb-55a0-46d9-9eaf-b0a9e92e4b8c" />
                           </reference>
                         </referencesInternal>
@@ -571,7 +571,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="3b9d22cb-2244-42bd-b2dd-3b0f6deef549" name="store" direction="In">
                         <referencesInternal>
-                          <reference Id="2065a8f7-af13-49fb-83fb-6b29f1d4001e" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]) ParameterIdentifier=store" tag="ViewCode">
+                          <reference Id="2065a8f7-af13-49fb-83fb-6b29f1d4001e" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]) ParameterIdentifier=store" tag="ViewCode">
                             <elementDefinition Id="6e781146-f608-48ff-9bfb-d28ca0f7686b" />
                           </reference>
                         </referencesInternal>
@@ -585,7 +585,7 @@
                 </operation>
                 <operation Id="b8ab1e97-e08e-4013-87a2-94d518833cea" name="RunSync" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="3f47615a-f716-4ee0-a449-a2c080c86d5c" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=FetchRequest)])" tag="ViewCode">
+                    <reference Id="3f47615a-f716-4ee0-a449-a2c080c86d5c" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest)])" tag="ViewCode">
                       <elementDefinition Id="71d5319b-3ee0-44a7-ab6c-2343197305be" />
                     </reference>
                   </referencesInternal>
@@ -631,7 +631,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="529965e5-1ab6-4de5-9828-52bfdcc614df" name="fetchRequest" direction="In">
                         <referencesInternal>
-                          <reference Id="0d265cc0-5017-4706-9b76-2ab28b4fb203" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=FetchRequest)]) ParameterIdentifier=fetchRequest" tag="ViewCode">
+                          <reference Id="0d265cc0-5017-4706-9b76-2ab28b4fb203" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=RunSync OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest)]) ParameterIdentifier=fetchRequest" tag="ViewCode">
                             <elementDefinition Id="13cac7b1-2890-4664-b7b4-29ca2d461ce4" />
                           </reference>
                         </referencesInternal>
@@ -645,7 +645,7 @@
                 </operation>
                 <operation Id="89217b99-d3ed-4b50-88b0-eb37e9fc076c" name="Fetcher" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="5623a0a6-734f-40a7-aab6-143d36059700" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler)])" tag="ViewCode">
+                    <reference Id="5623a0a6-734f-40a7-aab6-143d36059700" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler)])" tag="ViewCode">
                       <elementDefinition Id="04922e4f-25c1-47e4-b7f0-37cf184d2246" />
                     </reference>
                   </referencesInternal>
@@ -691,7 +691,7 @@
                     <operationHasOwnedParameters>
                       <parameter Id="a120eb5f-80bd-4272-b3f0-9416aea18a2c" name="handler" direction="In">
                         <referencesInternal>
-                          <reference Id="2460b523-5e80-4a29-93fb-1e7d210a0067" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.DownloadBroker.dll Namespace=ZeroInstall.DownloadBroker Type=IFetchHandler)]) ParameterIdentifier=handler" tag="ViewCode">
+                          <reference Id="2460b523-5e80-4a29-93fb-1e7d210a0067" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler)]) ParameterIdentifier=handler" tag="ViewCode">
                             <elementDefinition Id="406badf2-f016-4735-b7aa-df027b03e9a1" />
                           </reference>
                         </referencesInternal>
@@ -1992,7 +1992,7 @@
           <packageHasNamedElement>
             <Interface Id="e700f62f-f60b-4b4a-bd7d-bfd9bf5c2f9c" name="IProgress" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="cf53f696-d44c-479c-8c6e-b3410fd5b3fc" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress" tag="ViewCode">
+                <reference Id="cf53f696-d44c-479c-8c6e-b3410fd5b3fc" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress" tag="ViewCode">
                   <elementDefinition Id="4ade628d-2023-4f0a-888b-3c73bc4a24c5" />
                 </reference>
               </referencesInternal>
@@ -3165,9 +3165,9 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <package Id="60359188-c4cc-471f-8c9d-9593c67336d2" name="Download" visibility="Private">
+            <package Id="60359188-c4cc-471f-8c9d-9593c67336d2" name="Net" visibility="Private">
               <referencesInternal>
-                <reference Id="5e2fd5ad-ce43-4fba-98e2-50e7b91b0bdd" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Download" tag="ViewCode">
+                <reference Id="5e2fd5ad-ce43-4fba-98e2-50e7b91b0bdd" handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Net" tag="ViewCode">
                   <elementDefinition Id="0d9e4b11-bb59-4f79-8b56-4646586e658b" />
                 </reference>
               </referencesInternal>
@@ -3176,7 +3176,7 @@
                 <packageHasNamedElement>
                   <class Id="2e53a366-8d7c-408d-9e4c-7f802862e374" name="DownloadFile" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <referencesInternal>
-                      <reference Id="7d9555a2-10d5-4e5f-a73f-2c24424b9757" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile" tag="ViewCode">
+                      <reference Id="7d9555a2-10d5-4e5f-a73f-2c24424b9757" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile" tag="ViewCode">
                         <elementDefinition Id="0eb8c3ce-465e-4206-98b7-d300264098ce" />
                       </reference>
                     </referencesInternal>
@@ -3227,7 +3227,7 @@
                     <ownedAttributesInternal>
                       <property Id="d987a1de-66d4-4d5c-830d-59acc38c59d8" name="Name" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="4747416a-69f2-43fe-8b52-9d1d52d8327b" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Name" tag="ViewCode">
+                          <reference Id="4747416a-69f2-43fe-8b52-9d1d52d8327b" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Name" tag="ViewCode">
                             <elementDefinition Id="3b563f72-d9ef-414d-bd05-d9a8f5d2d24e" />
                           </reference>
                         </referencesInternal>
@@ -3281,7 +3281,7 @@
                       </property>
                       <property Id="f5fddaeb-56d5-4164-83e9-2a92dae06948" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="b927ed76-5e49-4b4e-977b-3c7f0b3f69d1" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Source" tag="ViewCode">
+                          <reference Id="b927ed76-5e49-4b4e-977b-3c7f0b3f69d1" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Source" tag="ViewCode">
                             <elementDefinition Id="9f1609f7-0217-431a-9576-5b272ed5c74e" />
                           </reference>
                         </referencesInternal>
@@ -3335,7 +3335,7 @@
                       </property>
                       <property Id="50d0d132-5ae9-465a-8518-677433edd861" name="Headers" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="5c67c4a9-6874-4c86-95d2-24ead9ef2ceb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Headers" tag="ViewCode">
+                          <reference Id="5c67c4a9-6874-4c86-95d2-24ead9ef2ceb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Headers" tag="ViewCode">
                             <elementDefinition Id="7c7cab14-9f67-4e7a-a61d-78bea104f230" />
                           </reference>
                         </referencesInternal>
@@ -3386,7 +3386,7 @@
                       </property>
                       <property Id="054a32cc-592b-4907-94ad-52c942f8db27" name="SupportsResume" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="99e5d448-c38c-431e-84a3-cc2c1624046f" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=SupportsResume" tag="ViewCode">
+                          <reference Id="99e5d448-c38c-431e-84a3-cc2c1624046f" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=SupportsResume" tag="ViewCode">
                             <elementDefinition Id="20082695-1e9a-4c2d-85ea-1f21ebb504ac" />
                           </reference>
                         </referencesInternal>
@@ -3440,7 +3440,7 @@
                       </property>
                       <property Id="b7585a08-9f82-4b60-996e-d61c751ea5da" name="Target" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="0410bc94-e915-4e80-a201-fc47151b24cb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Target" tag="ViewCode">
+                          <reference Id="0410bc94-e915-4e80-a201-fc47151b24cb" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Target" tag="ViewCode">
                             <elementDefinition Id="231d0946-4523-43fb-9e6b-a230abf8054b" />
                           </reference>
                         </referencesInternal>
@@ -3496,7 +3496,7 @@
                     <ownedOperationsInternal>
                       <operation Id="172efe37-02b5-405d-901c-faece137d154" name="Cancel" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="0b5b1086-9aa0-4694-8e7e-2615ade9fac7" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Cancel" tag="ViewCode">
+                          <reference Id="0b5b1086-9aa0-4694-8e7e-2615ade9fac7" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel" tag="ViewCode">
                             <elementDefinition Id="8a1d8a77-505b-422b-8436-598f8930f839" />
                           </reference>
                         </referencesInternal>
@@ -3548,7 +3548,7 @@
                 <packageHasNamedElement>
                   <class Id="ce98e746-ec56-4a03-bdd8-12326f851b9f" name="DownloadJob" isAbstract="false" isLeaf="true" isActiveClass="false">
                     <referencesInternal>
-                      <reference Id="abc4e7d9-b137-4f97-9391-809fe4a6c950" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob" tag="ViewCode">
+                      <reference Id="abc4e7d9-b137-4f97-9391-809fe4a6c950" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob" tag="ViewCode">
                         <elementDefinition Id="788da135-b24f-4817-b7e3-75c0d784bcfa" />
                       </reference>
                     </referencesInternal>
@@ -3668,7 +3668,7 @@
                     <ownedAttributesInternal>
                       <property Id="60f72a38-b672-4481-a2ed-9aa608531543" name="Name" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="48193d3f-50cd-4686-aa20-73b299cd5828" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Name" tag="ViewCode">
+                          <reference Id="48193d3f-50cd-4686-aa20-73b299cd5828" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Name" tag="ViewCode">
                             <elementDefinition Id="6fda15d9-a281-418c-b5f7-75067241a4d1" />
                           </reference>
                         </referencesInternal>
@@ -3722,7 +3722,7 @@
                       </property>
                       <property Id="08ae56e4-cbac-4e47-a5f5-5ca5a52df2f2" name="Completed" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="4c93180d-c06a-4c7a-bf3b-1bb180bd1815" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Completed" tag="ViewCode">
+                          <reference Id="4c93180d-c06a-4c7a-bf3b-1bb180bd1815" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Completed" tag="ViewCode">
                             <elementDefinition Id="8a94434a-976a-4dc7-9f98-822442acdefe" />
                           </reference>
                         </referencesInternal>
@@ -3770,7 +3770,7 @@
                       </property>
                       <property Id="6190568b-4d90-485f-93e9-eab36f4d3706" name="Failed" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="5b7faf55-c8ce-4a39-b3b6-663e83e90342" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Failed" tag="ViewCode">
+                          <reference Id="5b7faf55-c8ce-4a39-b3b6-663e83e90342" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Failed" tag="ViewCode">
                             <elementDefinition Id="f8600e13-1b76-4c3a-9de0-a0a37b6d99c1" />
                           </reference>
                         </referencesInternal>
@@ -3818,7 +3818,7 @@
                       </property>
                       <property Id="da4e6a14-d299-4abf-8941-ec0ebf31a7c4" name="PriorityChanged" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="ef978479-c277-45b1-80b9-2d2589bf7de7" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=PriorityChanged" tag="ViewCode">
+                          <reference Id="ef978479-c277-45b1-80b9-2d2589bf7de7" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=PriorityChanged" tag="ViewCode">
                             <elementDefinition Id="7e28b81b-5685-41ea-9211-8f9c7b631d49" />
                           </reference>
                         </referencesInternal>
@@ -3868,7 +3868,7 @@
                     <ownedOperationsInternal>
                       <operation Id="0ab573af-a4da-4648-bc32-0cdef42d9b50" name="DownloadJob" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="ee87a78b-16a4-4ae3-b82e-aad5e1051319" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)])" tag="ViewCode">
+                          <reference Id="ee87a78b-16a4-4ae3-b82e-aad5e1051319" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)])" tag="ViewCode">
                             <elementDefinition Id="8379481f-68d9-47e2-9859-b443afe4ec13" />
                           </reference>
                         </referencesInternal>
@@ -3914,7 +3914,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="66513e43-fb5e-4500-b095-6618858a97f2" name="name" direction="In">
                               <referencesInternal>
-                                <reference Id="63c4f840-a373-477f-a91a-4c4490586596" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=name" tag="ViewCode">
+                                <reference Id="63c4f840-a373-477f-a91a-4c4490586596" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=name" tag="ViewCode">
                                   <elementDefinition Id="48c3fba4-e592-4e92-9e8e-0779eb23a03b" />
                                 </reference>
                               </referencesInternal>
@@ -3927,7 +3927,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="57553caf-7ba6-461a-83d7-8e85b86d87c6" name="files" direction="In">
                               <referencesInternal>
-                                <reference Id="56ece4fb-08c9-406a-b2ec-d0471c2314c0" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=files" tag="ViewCode">
+                                <reference Id="56ece4fb-08c9-406a-b2ec-d0471c2314c0" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=files" tag="ViewCode">
                                   <elementDefinition Id="42128480-1dba-474d-8671-c7bd4a853892" />
                                 </reference>
                               </referencesInternal>
@@ -3950,7 +3950,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="cf3f2286-5d37-4602-ab8b-46230dc2be06" name="priority" direction="In">
                               <referencesInternal>
-                                <reference Id="d5ddc3aa-bbf7-4679-bbb9-8aed32026cc3" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=priority" tag="ViewCode">
+                                <reference Id="d5ddc3aa-bbf7-4679-bbb9-8aed32026cc3" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=priority" tag="ViewCode">
                                   <elementDefinition Id="23c22e95-7cad-40ea-932c-2582900e4ff4" />
                                 </reference>
                               </referencesInternal>
@@ -3968,7 +3968,7 @@
                 <packageHasNamedElement>
                   <class Id="3b335659-1492-4b3d-a899-5aed4a621b6f" name="DownloadManager" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <referencesInternal>
-                      <reference Id="fdaa1efb-2384-4b44-859d-b4c340e3aef8" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager" tag="ViewCode">
+                      <reference Id="fdaa1efb-2384-4b44-859d-b4c340e3aef8" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager" tag="ViewCode">
                         <elementDefinition Id="d4e04ee7-26b9-434b-b3e4-95bb9c729c22" />
                       </reference>
                     </referencesInternal>
@@ -4067,7 +4067,7 @@
                     <ownedAttributesInternal>
                       <property Id="df37a110-da72-4db9-815e-c7835a17fb94" name="MaxSimultaneousDownloads" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="ea14e9d9-24b9-45b8-80b9-9db2bdc2f0cf" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=MaxSimultaneousDownloads" tag="ViewCode">
+                          <reference Id="ea14e9d9-24b9-45b8-80b9-9db2bdc2f0cf" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=MaxSimultaneousDownloads" tag="ViewCode">
                             <elementDefinition Id="a58e3fd1-20a1-4ba7-abb7-e9b3947fa707" />
                           </reference>
                         </referencesInternal>
@@ -4123,7 +4123,7 @@
                     <ownedOperationsInternal>
                       <operation Id="a936b0d1-2939-4aec-b72b-1edd2a404e84" name="AddJob" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="0dd26bc7-b42c-40d3-8cad-00515130d5f3" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])" tag="ViewCode">
+                          <reference Id="0dd26bc7-b42c-40d3-8cad-00515130d5f3" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)])" tag="ViewCode">
                             <elementDefinition Id="ce81f839-86e6-4587-9215-faabd78cc719" />
                           </reference>
                         </referencesInternal>
@@ -4169,7 +4169,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="d718f42f-174d-488c-9f9c-5ff62166c1fe" name="job" direction="In">
                               <referencesInternal>
-                                <reference Id="f7a696fb-ebac-4c42-89f4-0ec9552cf607" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job" tag="ViewCode">
+                                <reference Id="f7a696fb-ebac-4c42-89f4-0ec9552cf607" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)]) ParameterIdentifier=job" tag="ViewCode">
                                   <elementDefinition Id="97eb60b6-a3b4-480d-8987-ce15e50fa15b" />
                                 </reference>
                               </referencesInternal>
@@ -4183,7 +4183,7 @@
                       </operation>
                       <operation Id="0ea0f532-9158-4bd6-b459-915c72a9dcaf" name="RemoveJob" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="991b782d-a19a-4eab-baf7-6e8acb46bad9" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])" tag="ViewCode">
+                          <reference Id="991b782d-a19a-4eab-baf7-6e8acb46bad9" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)])" tag="ViewCode">
                             <elementDefinition Id="eff1dccb-55e4-4a04-b9c4-9fdf0bc58505" />
                           </reference>
                         </referencesInternal>
@@ -4229,7 +4229,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="eafeaba8-de2e-44b4-93cc-174340bd4d6b" name="job" direction="In">
                               <referencesInternal>
-                                <reference Id="6ca92842-9f95-4f2d-825a-7755e79e5830" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job" tag="ViewCode">
+                                <reference Id="6ca92842-9f95-4f2d-825a-7755e79e5830" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)]) ParameterIdentifier=job" tag="ViewCode">
                                   <elementDefinition Id="46806b3e-407d-4a99-b4f1-d5903280d417" />
                                 </reference>
                               </referencesInternal>
@@ -4247,7 +4247,7 @@
                 <packageHasNamedElement>
                   <enumeration Id="fbc68064-985c-4e96-be64-3385aa7f7aeb" name="DownloadPriority" isAbstract="false" isLeaf="false">
                     <referencesInternal>
-                      <reference Id="5a846911-434d-4de8-9c24-14632f3cdb0e" handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority" tag="ViewCode">
+                      <reference Id="5a846911-434d-4de8-9c24-14632f3cdb0e" handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority" tag="ViewCode">
                         <elementDefinition Id="0662b7c2-d24e-4147-8686-f1665d17cdec" />
                       </reference>
                     </referencesInternal>
@@ -4280,7 +4280,7 @@
                     <ownedLiterals>
                       <enumerationLiteral Id="41277c99-0f1b-4860-9d87-db22eba11b6f" name="Low">
                         <referencesInternal>
-                          <reference Id="4250caf8-1115-4d89-871a-ed2219830c58" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Low" tag="ViewCode">
+                          <reference Id="4250caf8-1115-4d89-871a-ed2219830c58" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Low" tag="ViewCode">
                             <elementDefinition Id="fdb9af02-ec13-40ec-bcf3-6f361e44c3dd" />
                           </reference>
                         </referencesInternal>
@@ -4288,7 +4288,7 @@
                       </enumerationLiteral>
                       <enumerationLiteral Id="7ab20dfd-00c8-4cee-99cd-814a846a820c" name="Foreground">
                         <referencesInternal>
-                          <reference Id="d904aa3c-7d1c-4117-83a4-69da96acf2f7" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Foreground" tag="ViewCode">
+                          <reference Id="d904aa3c-7d1c-4117-83a4-69da96acf2f7" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Foreground" tag="ViewCode">
                             <elementDefinition Id="ea136feb-6d7f-433a-8973-a7c6b1da6d1e" />
                           </reference>
                         </referencesInternal>
@@ -4296,7 +4296,7 @@
                       </enumerationLiteral>
                       <enumerationLiteral Id="eab4ee8e-45f5-4d9e-97ee-b8709d0f937b" name="Medium">
                         <referencesInternal>
-                          <reference Id="93d8e236-ae96-49bd-adb0-9994fab55081" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Medium" tag="ViewCode">
+                          <reference Id="93d8e236-ae96-49bd-adb0-9994fab55081" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Medium" tag="ViewCode">
                             <elementDefinition Id="274377f9-b136-4c5a-b993-8bc4a776a6da" />
                           </reference>
                         </referencesInternal>
@@ -4304,7 +4304,7 @@
                       </enumerationLiteral>
                       <enumerationLiteral Id="01551d8d-501c-458c-b4d6-ef08e4c8b16a" name="High">
                         <referencesInternal>
-                          <reference Id="40377af2-2b3a-431b-adb5-5d6361733f61" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=High" tag="ViewCode">
+                          <reference Id="40377af2-2b3a-431b-adb5-5d6361733f61" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=High" tag="ViewCode">
                             <elementDefinition Id="0e5e2f2d-7247-4fbe-826b-2eb45a2a995b" />
                           </reference>
                         </referencesInternal>
@@ -4330,7 +4330,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="bc08dff2-7b7e-4bec-a2ce-c2260b10e518" name="IFetchHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::DownloadBroker::IFetchHandler">
+      <referencedType Id="bc08dff2-7b7e-4bec-a2ce-c2260b10e518" name="IFetchHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Fetchers::IFetchHandler">
         <elementDefinition Id="166eabcb-bbf3-4726-865d-258cf0b1022d" />
       </referencedType>
     </packageHasNamedElement>
@@ -4340,7 +4340,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="3db437ad-90c7-4800-a6b3-95acf4c49b61" name="FetchRequest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::DownloadBroker::FetchRequest">
+      <referencedType Id="3db437ad-90c7-4800-a6b3-95acf4c49b61" name="FetchRequest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Fetchers::FetchRequest">
         <elementDefinition Id="dbe9d5b9-b47d-49f8-a1ba-069762b38164" />
       </referencedType>
     </packageHasNamedElement>

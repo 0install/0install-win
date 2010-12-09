@@ -9,7 +9,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
-    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.Cli">
+    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
@@ -25,11 +25,11 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
-    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="DownloadBroker">
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
@@ -41,7 +41,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
-    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Injector.WinForms">
+    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.WinForms">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
@@ -167,21 +167,21 @@
     <Alias n="10" Id="(@9)" />
     <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Central.Cli/Central.Cli.csproj" />
     <Alias n="12" Id="(@11)" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Injector.Cli/Injector.Cli.csproj" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
     <Alias n="14" Id="(@13)" />
     <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Store.Management.Cli/Store.Management.Cli.csproj" />
     <Alias n="16" Id="(@15)" />
     <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="18" Id="(@17)" />
-    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/DownloadBroker/DownloadBroker.csproj" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
     <Alias n="20" Id="(@19)" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Launcher/Launcher.csproj" />
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
     <Alias n="24" Id="(@23)" />
     <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="26" Id="(@25)" />
-    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Injector.WinForms/Injector.WinForms.csproj" />
+    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Launcher.WinForms/Launcher.WinForms.csproj" />
     <Alias n="28" Id="(@27)" />
     <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Store.Management.WinForms/Store.Management.WinForms.csproj" />
     <Alias n="30" Id="(@29)" />

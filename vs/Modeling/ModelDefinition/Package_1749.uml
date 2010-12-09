@@ -2,12 +2,12 @@
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="18f9f18a-0e13-4a50-8628-e609e81f814b"
-  name="Download"
+  name="Net"
   visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
   <referencesInternal>
     <reference
       Id="0d9e4b11-bb59-4f79-8b56-4646586e658b"
-      handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Download"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=Common.Net"
       tag="ViewCode" />
   </referencesInternal>
   <packagedElements>
@@ -21,7 +21,7 @@
         <referencesInternal>
           <reference
             Id="0eb8c3ce-465e-4206-98b7-d300264098ce"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -91,7 +91,7 @@
             <referencesInternal>
               <reference
                 Id="3b563f72-d9ef-414d-bd05-d9a8f5d2d24e"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Name"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Name"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -164,7 +164,7 @@
             <referencesInternal>
               <reference
                 Id="9f1609f7-0217-431a-9576-5b272ed5c74e"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Source"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Source"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -237,7 +237,7 @@
             <referencesInternal>
               <reference
                 Id="7c7cab14-9f67-4e7a-a61d-78bea104f230"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Headers"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Headers"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -304,7 +304,7 @@
             <referencesInternal>
               <reference
                 Id="20082695-1e9a-4c2d-85ea-1f21ebb504ac"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=SupportsResume"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=SupportsResume"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -377,7 +377,7 @@
             <referencesInternal>
               <reference
                 Id="231d0946-4523-43fb-9e6b-a230abf8054b"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Target"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Target"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -450,7 +450,7 @@
             <referencesInternal>
               <reference
                 Id="8a1d8a77-505b-422b-8436-598f8930f839"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile Member=Cancel"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -519,7 +519,7 @@
         <referencesInternal>
           <reference
             Id="788da135-b24f-4817-b7e3-75c0d784bcfa"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -712,7 +712,7 @@
             <referencesInternal>
               <reference
                 Id="6fda15d9-a281-418c-b5f7-75067241a4d1"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Name"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Name"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -785,7 +785,7 @@
             <referencesInternal>
               <reference
                 Id="8a94434a-976a-4dc7-9f98-822442acdefe"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Completed"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Completed"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -851,7 +851,7 @@
             <referencesInternal>
               <reference
                 Id="f8600e13-1b76-4c3a-9de0-a0a37b6d99c1"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=Failed"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=Failed"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -917,7 +917,7 @@
             <referencesInternal>
               <reference
                 Id="7e28b81b-5685-41ea-9211-8f9c7b631d49"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=PriorityChanged"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=PriorityChanged"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -983,7 +983,7 @@
             <referencesInternal>
               <reference
                 Id="8379481f-68d9-47e2-9859-b443afe4ec13"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1038,7 +1038,7 @@
                   <referencesInternal>
                     <reference
                       Id="48c3fba4-e592-4e92-9e8e-0779eb23a03b"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=name"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=name"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
@@ -1057,7 +1057,7 @@
                   <referencesInternal>
                     <reference
                       Id="42128480-1dba-474d-8671-c7bd4a853892"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=files"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=files"
                       tag="ViewCode" />
                   </referencesInternal>
                   <lowerValueInternal>
@@ -1088,7 +1088,7 @@
                   <referencesInternal>
                     <reference
                       Id="23c22e95-7cad-40ea-932c-2582900e4ff4"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority)]) ParameterIdentifier=priority"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile)])),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority)]) ParameterIdentifier=priority"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
@@ -1113,7 +1113,7 @@
         <referencesInternal>
           <reference
             Id="0662b7c2-d24e-4147-8686-f1665d17cdec"
-            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority"
+            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1152,7 +1152,7 @@
             <referencesInternal>
               <reference
                 Id="fdb9af02-ec13-40ec-bcf3-6f361e44c3dd"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Low"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Low"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1162,7 +1162,7 @@
             <referencesInternal>
               <reference
                 Id="ea136feb-6d7f-433a-8973-a7c6b1da6d1e"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Foreground"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Foreground"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1172,7 +1172,7 @@
             <referencesInternal>
               <reference
                 Id="274377f9-b136-4c5a-b993-8bc4a776a6da"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=Medium"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=Medium"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1182,7 +1182,7 @@
             <referencesInternal>
               <reference
                 Id="0e5e2f2d-7247-4fbe-826b-2eb45a2a995b"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadPriority Member=High"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadPriority Member=High"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1199,7 +1199,7 @@
         <referencesInternal>
           <reference
             Id="2b11d839-ad26-4af8-b4ba-e0a6d6346275"
-            handle="viewcode://./CodeSchema_Delegate?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJobEventHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1243,7 +1243,7 @@
             <referencesInternal>
               <reference
                 Id="a8654f32-e243-4250-a289-b2400017072e"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1298,7 +1298,7 @@
                   <referencesInternal>
                     <reference
                       Id="32686b7c-4f59-4a3e-96d4-b67fe40062e5"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=sender"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJobEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)]) ParameterIdentifier=sender"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
@@ -1324,7 +1324,7 @@
         <referencesInternal>
           <reference
             Id="d4e04ee7-26b9-434b-b3e4-95bb9c729c22"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1490,7 +1490,7 @@
             <referencesInternal>
               <reference
                 Id="a58e3fd1-20a1-4ba7-abb7-e9b3947fa707"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=MaxSimultaneousDownloads"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=MaxSimultaneousDownloads"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1563,7 +1563,7 @@
             <referencesInternal>
               <reference
                 Id="ce81f839-86e6-4587-9215-faabd78cc719"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1618,7 +1618,7 @@
                   <referencesInternal>
                     <reference
                       Id="97eb60b6-a3b4-480d-8987-ce15e50fa15b"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=AddJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)]) ParameterIdentifier=job"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
@@ -1642,7 +1642,7 @@
             <referencesInternal>
               <reference
                 Id="eff1dccb-55e4-4a04-b9c4-9fdf0bc58505"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1697,7 +1697,7 @@
                   <referencesInternal>
                     <reference
                       Id="46806b3e-407d-4a99-b4f1-d5903280d417"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Download Type=DownloadJob)]) ParameterIdentifier=job"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadManager Member=(Name=RemoveJob OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadJob)]) ParameterIdentifier=job"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
