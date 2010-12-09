@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common;
+using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
 
@@ -135,8 +136,10 @@ namespace ZeroInstall.Store.Implementation.Archive
                     var entryData = extraData.GetEntryData();
                     unixData.SetData(entryData, 0, entryData.Length);
 
-                    // ToDo: Remove this hack
-                    return unixData.CreateTime.ToUniversalTime() + new TimeSpan(1, 0, 0);
+                    DateTime dateTime = unixData.CreateTime.ToUniversalTime();
+                    // HACK: Strange handling of Unix time on Windows OSes
+                    if (WindowsUtils.IsWindows) dateTime += new TimeSpan(1, 0, 0);
+                    return dateTime;
                 }
             }
 

@@ -127,8 +127,7 @@ namespace Common.Download
             {
                 if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
-                if (State == ProgressState.Data) _cancelRequest = true;
-                else Thread.Abort();
+                _cancelRequest = true;
             }
 
             Thread.Join();
@@ -158,8 +157,16 @@ namespace Common.Download
 
                     lock (StateLock) State = ProgressState.Header;
 
-                    // Start the server request
-                    using (WebResponse response = request.GetResponse())
+                    // Start the server request, allowing for cancellation
+                    var responseRequest = request.BeginGetResponse(null, null);
+                    while (!responseRequest.IsCompleted)
+                    {
+                        lock (StateLock) if (_cancelRequest) return;
+                        System.Threading.Thread.Sleep(0);
+                    }
+
+                    // Process the response
+                    using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
                         lock (StateLock)
                         {
@@ -186,8 +193,6 @@ namespace Common.Download
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
-
-                        lock (StateLock) if (_cancelRequest) return;
                     }
                 }
             }
@@ -301,7 +306,7 @@ namespace Common.Download
             int length;
             var buffer = new byte[1024];
 
-            // Detect the end of the stream via a 0-write
+            // Write the response data to the file, allowing for cancellation
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
                 lock (StateLock) if (_cancelRequest) return;
