@@ -217,7 +217,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Net\ClassDiagram.cd" />
+    <None Include="Net\Download.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
   </ItemGroup>

@@ -1581,7 +1581,7 @@
             <referencesInternal>
               <reference
                 Id="d8f36924-57d1-4e84-9f89-3111c3de6e50"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=GetLauncher"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=GetExecutor"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>

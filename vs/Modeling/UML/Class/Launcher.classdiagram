@@ -3447,7 +3447,7 @@
                       </operation>
                       <operation Id="fbd993bd-eb61-4e09-bb98-20f0e34592d6" name="GetExecutor" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="fcb50d75-bb73-4952-8c8c-9d561c89fe32" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=GetLauncher" tag="ViewCode">
+                          <reference Id="fcb50d75-bb73-4952-8c8c-9d561c89fe32" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=GetExecutor" tag="ViewCode">
                             <elementDefinition Id="d8f36924-57d1-4e84-9f89-3111c3de6e50" />
                           </reference>
                         </referencesInternal>

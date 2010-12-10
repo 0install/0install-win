@@ -85,13 +85,13 @@ namespace ZeroInstall.Launcher
         /// </summary>
         // Test deactivated because it uses an external process and performs network IO
         //[Test]
-        public void TestGetLauncher()
+        public void TestGetExecutor()
         {
             var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
             controller.DownloadUncachedImplementations();
-            var launcher = controller.GetExecutor();
-            var startInfo = launcher.GetStartInfo("--help");
+            var executor = controller.GetExecutor();
+            var startInfo = executor.GetStartInfo("--help");
             Assert.AreEqual("--help", startInfo.Arguments);
         }
     }

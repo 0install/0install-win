@@ -82,7 +82,7 @@
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
     <Compile Include="Launcher\ControllerTest.cs" />
-    <Compile Include="Launcher\LauncherTest.cs" />
+    <Compile Include="Launcher\ExecutorTest.cs" />
     <Compile Include="Launcher\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Launcher\Solver\PythonSolverTest.cs" />
     <Compile Include="Launcher\Solver\SelectionsTest.cs" />

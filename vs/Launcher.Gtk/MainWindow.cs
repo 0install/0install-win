@@ -126,11 +126,11 @@ public partial class MainWindow : Window, IHandler
 
         if (!results.DownloadOnly)
         {
-            var launcher = controller.GetLauncher();
-            launcher.Main = results.Main;
-            launcher.Wrapper = results.Wrapper;
+            var executor = controller.GetExecutor();
+            executor.Main = results.Main;
+            executor.Wrapper = results.Wrapper;
 
-            var startInfo = launcher.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
+            var startInfo = executor.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
             try
             {
                 if (results.NoWait) ProcessUtils.RunDetached(startInfo);

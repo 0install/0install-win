@@ -13,7 +13,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAAAABAAAAAAAAEgAEAAEAACAAAAAAAAApAAAAAAEIA=</HashCode>
-      <FileName>Download\DownloadManager.cs</FileName>
+      <FileName>Net\DownloadManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Jobs" />
@@ -21,18 +21,18 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Common.Net.DownloadFile">
-    <Position X="3.5" Y="2" Width="2" />
+    <Position X="3.25" Y="2.75" Width="2" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
       <HashCode>AAAAABAAQkAAAAAgAAAAACQACAAAQAAAAAABARAAAAA=</HashCode>
-      <FileName>Download\DownloadFile.cs</FileName>
+      <FileName>Net\DownloadFile.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Common.Net.DownloadJob" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="0.75" Y="3" Width="1.5" />
+  <Class Name="Common.Net.DownloadJob" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="2.75" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
@@ -44,7 +44,7 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AQAAAgAAAAACAAIEAAAQQAQAAAAAAAAAABAAAAAAAIA=</HashCode>
-      <FileName>Download\DownloadJob.cs</FileName>
+      <FileName>Net\DownloadJob.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Priority" />
@@ -54,14 +54,14 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Enum Name="Common.Net.DownloadPriority">
-    <Position X="0.75" Y="4.25" Width="1.5" />
+    <Position X="0.75" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAACAAAAAAAAAAAgAAAAAAAAgAAAAAAAAAAAAEAAA=</HashCode>
-      <FileName>Download\DownloadJob.cs</FileName>
+      <FileName>Net\DownloadJob.cs</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Common.ProgressState">
-    <Position X="6.5" Y="2" Width="1.5" />
+    <Position X="5.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAQMAEAAAAAAAAAIAABAAAAAAAAAAAAA=</HashCode>
       <FileName>ProgressState.cs</FileName>

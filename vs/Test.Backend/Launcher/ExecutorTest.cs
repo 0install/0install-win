@@ -26,7 +26,7 @@ namespace ZeroInstall.Launcher
     /// Contains test methods for <see cref="Executor"/>.
     /// </summary>
     [TestFixture]
-    public class LauncherTest
+    public class ExecutorTest
     {
         /// <summary>
         /// Ensures the <see cref="Executor"/> constructor throws the correct exceptions.
@@ -43,7 +43,7 @@ namespace ZeroInstall.Launcher
         /// </summary>
         // Test deactivated because it uses an external process and performs network IO
         //[Test]
-        public void TestGetLauncher()
+        public void TestGetExecutor()
         {
             var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();

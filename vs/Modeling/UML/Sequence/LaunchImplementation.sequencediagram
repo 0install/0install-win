@@ -820,10 +820,10 @@
               <messageOccurrenceSpecificationMoniker Id="0f394844-82f6-40b2-9834-b440cac40eb6" LastKnownName="MessageOccurrenceSpecification" />
             </receiveEvent>
           </message>
-          <message Id="565dc9ea-8c08-4cf1-8d28-c6dda666aa02" name="GetLauncher" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false" signatureText="controller.GetLauncher()">
+          <message Id="565dc9ea-8c08-4cf1-8d28-c6dda666aa02" name="GetExecutor" messageKind="Complete" messageSort="SynchCall" createSelfMessage="false" signatureText="controller.GetExecutor()">
             <referencesInternal>
-              <reference Id="ac0c1ee8-1dff-4a95-87c9-0408e6b4143d" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=ZeroInstall.Launcher)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Launcher Type=Controller)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Launcher Type=Controller Member=GetLauncher)&quot;)" tag="DGQL" />
-              <reference Id="f7376c28-9d9e-424d-9019-896922c6765d" handle="(Assembly=&quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&quot; Namespace=ZeroInstall.Launcher Type=Controller Member=GetLauncher)" tag="DGML" />
+              <reference Id="ac0c1ee8-1dff-4a95-87c9-0408e6b4143d" handle="+ Id.Equals(&quot;Microsoft.Solution.ClassView&quot;) /&#xD;&#xA;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Namespace=ZeroInstall.Launcher)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Launcher Type=Controller)&quot;)/&#xD;&#xA;&quot;Microsoft.Contains&quot;/&#xD;&#xA;+ Id.EqualsIgnoreCase(&quot;(Assembly=&amp;quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&amp;quot; Namespace=ZeroInstall.Launcher Type=Controller Member=GetExecutor)&quot;)" tag="DGQL" />
+              <reference Id="f7376c28-9d9e-424d-9019-896922c6765d" handle="(Assembly=&quot;$(33df4c92-ac4a-4a36-89a2-db334be3d229.OutputPathUri)&quot; Namespace=ZeroInstall.Launcher Type=Controller Member=GetExecutor)" tag="DGML" />
             </referencesInternal>
             <sendEvent>
               <messageOccurrenceSpecificationMoniker Id="2ac3d697-dd04-4df7-990a-20b6fd2f5c19" LastKnownName="MessageOccurrenceSpecification" />

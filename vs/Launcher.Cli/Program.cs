@@ -312,11 +312,11 @@ namespace ZeroInstall.Launcher.Cli
             }
             else if (!results.DownloadOnly && !results.SelectOnly)
             {
-                var launcher = controller.GetExecutor();
-                launcher.Main = results.Main;
-                launcher.Wrapper = results.Wrapper;
+                var executor = controller.GetExecutor();
+                executor.Main = results.Main;
+                executor.Wrapper = results.Wrapper;
 
-                var startInfo = launcher.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
+                var startInfo = executor.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
                 if (results.NoWait) ProcessUtils.RunDetached(startInfo);
                 else ProcessUtils.RunReplace(startInfo);
             }
