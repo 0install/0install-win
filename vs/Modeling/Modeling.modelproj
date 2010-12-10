@@ -71,7 +71,7 @@
     <Content Include="ProjectReferences\Central.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Injector.dgml">
+    <Content Include="ProjectReferences\Launcher.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ProjectReferences\Overview.dgml">
@@ -100,12 +100,12 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Handler.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Injector.classdiagram">
+    <Content Include="UML\Class\Launcher.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Injector.classdiagram.layout">
+    <Content Include="UML\Class\Launcher.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Injector.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Launcher.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Model.classdiagram">
       <SubType>Content</SubType>

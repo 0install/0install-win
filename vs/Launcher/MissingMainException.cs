@@ -74,6 +74,8 @@ namespace ZeroInstall.Launcher
             #endregion
 
             info.AddValue("InterfaceID", InterfaceID);
+
+            base.GetObjectData(info, context);
         }
         #endregion
     }

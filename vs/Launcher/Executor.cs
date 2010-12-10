@@ -28,10 +28,10 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Launcher
 {
     /// <summary>
-    /// Executes a set of <see cref="ImplementationSelection"/>s as a program.
+    /// Executes a set of <see cref="ImplementationSelection"/>s as a program using dependency injection.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class Launcher
+    public class Executor
     {
         #region Variables
         /// <summary>The interface defining the <see cref="Implementation"/> to be launched.</summary>
@@ -64,7 +64,7 @@ namespace ZeroInstall.Launcher
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.</param>
         /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or absolute local path or if <paramref name="selections"/> contains no <see cref="ImplementationSelection"/>s.</exception>
-        public Launcher(string interfaceID, Selections selections, IStore store)
+        public Executor(string interfaceID, Selections selections, IStore store)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");

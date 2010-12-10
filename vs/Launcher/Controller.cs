@@ -33,7 +33,7 @@ namespace ZeroInstall.Launcher
     /// <summary>
     /// Takes an interface URI and provides operations like solving and launching.
     /// </summary>
-    /// <remarks>This class acts as a mediator between <see cref="ISolver"/>, <see cref="Fetcher"/> and <see cref="Launcher"/>.</remarks>
+    /// <remarks>This class acts as a mediator between <see cref="ISolver"/>, <see cref="Fetcher"/> and <see cref="Executor"/>.</remarks>
     public class Controller
     {
         #region Variables
@@ -191,14 +191,14 @@ namespace ZeroInstall.Launcher
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <exception cref="InvalidOperationException">Thrown if neither <see cref="Solve"/> nor <see cref="SetSelections"/> was not called first.</exception>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs extensive disk and network IO")]
-        public Launcher GetLauncher()
+        public Executor GetExecutor()
         {
             #region Sanity checks
             if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
             #endregion
 
             // Read to run the application
-            return new Launcher(InterfaceID, _selections, Policy.SearchStore);
+            return new Executor(InterfaceID, _selections, Policy.SearchStore);
         }
         #endregion
     }

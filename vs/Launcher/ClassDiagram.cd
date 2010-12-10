@@ -1,22 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Launcher.Policy">
-    <Position X="3.75" Y="2.75" Width="1.5" />
+    <Position X="3.75" Y="2" Width="1.5" />
     <Members>
+      <Field Name="_languages" Hidden="true" />
       <Method Name="Policy" Hidden="true" />
     </Members>
-    <AssociationLine Name="InterfaceCache" Type="ZeroInstall.Store.Feed.InterfaceCache" FixedToPoint="true">
-      <Path>
-        <Point X="4.5" Y="2.75" />
-        <Point X="4.5" Y="1.062" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.211" Y="0.079" />
-      </MemberNameLabel>
-    </AssociationLine>
     <AssociationLine Name="Architecture" Type="ZeroInstall.Model.Architecture" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.188" Y="2.75" />
+        <Point X="4.188" Y="2" />
         <Point X="4.188" Y="1.281" />
         <Point X="2" Y="1.281" />
       </Path>
@@ -24,44 +16,28 @@
         <Position X="0.123" Y="0.11" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="AdditionalStore" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="FeedProvider" Type="ZeroInstall.Store.Feed.FeedProvider" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="5.062" Y="2.75" />
-        <Point X="5.062" Y="2.171" />
-        <Point X="6.75" Y="2.171" />
+        <Point X="4.75" Y="2" />
+        <Point X="4.75" Y="1.25" />
+        <Point X="6.75" Y="1.25" />
       </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.156" Y="-0.237" />
-      </MemberNameLabel>
-    </AssociationLine>
-    <AssociationLine Name="SearchStore" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.812" Y="2.75" />
-        <Point X="4.812" Y="1.89" />
-        <Point X="6.75" Y="1.89" />
-      </Path>
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.144" Y="0.04" />
-      </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAEAAAAAAAIAAAAAAAAAAAAIAAQAAAAAgiAAAAAAAAA=</HashCode>
+      <HashCode>CAEAAAAACAIAAAgAAAAAAAAIAAQAAAAAAiAAAAAAAAg=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_constraint" />
-      <Property Name="InterfaceCache" />
       <Property Name="Fetcher" />
       <Property Name="Architecture" />
       <Property Name="AdditionalStore" />
       <Property Name="SearchStore" />
+      <Property Name="FeedProvider" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Launcher.Launcher">
+  <Class Name="ZeroInstall.Launcher.Executor">
     <Position X="0.5" Y="6" Width="2.25" />
-    <Members>
-      <Method Name="Launcher" Hidden="true" />
-    </Members>
     <AssociationLine Name="_selections" Type="ZeroInstall.Launcher.Solver.Selections">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.128" Y="0.069" />
@@ -69,14 +45,14 @@
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>AACAQAAIAAAgAgQCAAIAAAAgAAAAAAAAAAEABAAAIAA=</HashCode>
-      <FileName>Launcher.cs</FileName>
+      <FileName>Executor.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_selections" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Fetchers.Fetcher" Collapsed="true">
-    <Position X="6.75" Y="3" Width="1.5" />
+    <Position X="6.75" Y="3.25" Width="1.5" />
     <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.614" Y="0.268" />
@@ -122,7 +98,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Launcher.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="8.5" Y="4" Width="1.5" />
+    <Position X="8.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAIAAAAAIAAACABAAQIAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\PythonSolver.cs</FileName>
@@ -130,21 +106,13 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Launcher.Solver.SolverProvider">
-    <Position X="6.75" Y="4" Width="1.5" />
+    <Position X="6.75" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\SolverProvider.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Default" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="ZeroInstall.Store.Feed.InterfaceCache" Collapsed="true">
-    <Position X="3.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
-    <ShowAsAssociation>
-      <Property Name="NetworkLevel" />
-      <Property Name="Handler" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Launcher.Controller">
@@ -177,6 +145,13 @@
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
+  <Class Name="ZeroInstall.Store.Feed.FeedProvider" Collapsed="true">
+    <Position X="6.75" Y="1" Width="1.5" />
+    <TypeIdentifier />
+    <ShowAsAssociation>
+      <Property Name="Handler" />
+    </ShowAsAssociation>
+  </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="0.5" Y="1" Width="1.5" />
     <TypeIdentifier />
@@ -190,27 +165,37 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Implementation.IStore" Collapsed="true">
-    <Position X="6.75" Y="1.75" Width="1.5" />
+    <Position X="6.75" Y="2" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Store.Feed.IFeedHandler" Collapsed="true">
-    <Position X="9.25" Y="1.25" Width="1.5" />
+    <Position X="9.25" Y="1" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Launcher.IHandler" Collapsed="true">
-    <Position X="10.75" Y="2" Width="1.5" />
+    <Position X="10.5" Y="2" Width="1.5" />
+    <InheritanceLine Type="ZeroInstall.Store.Feed.IFeedHandler" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="1.562" />
+        <Point X="10" Y="2.438" />
+        <Point X="10.5" Y="2.438" />
+      </Path>
+    </InheritanceLine>
+    <InheritanceLine Type="ZeroInstall.Fetchers.IFetchHandler" FixedToPoint="true">
+      <Path>
+        <Point X="10" Y="3.25" />
+        <Point X="10" Y="2.438" />
+        <Point X="10.5" Y="2.438" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Fetchers.IFetchHandler" Collapsed="true">
-    <Position X="9.25" Y="3" Width="1.5" />
+    <Position X="9.25" Y="3.25" Width="1.5" />
     <TypeIdentifier />
   </Interface>
-  <Enum Name="ZeroInstall.Store.Feed.NetworkLevel" Collapsed="true">
-    <Position X="6.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier />
-  </Enum>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

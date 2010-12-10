@@ -23,23 +23,23 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Launcher
 {
     /// <summary>
-    /// Contains test methods for <see cref="Launcher"/>.
+    /// Contains test methods for <see cref="Executor"/>.
     /// </summary>
     [TestFixture]
     public class LauncherTest
     {
         /// <summary>
-        /// Ensures the <see cref="Launcher"/> constructor throws the correct exceptions.
+        /// Ensures the <see cref="Executor"/> constructor throws the correct exceptions.
         /// </summary>
         [Test]
         public void TestExceptions()
         {
-            Assert.Throws<ArgumentException>(() => new Launcher("invalid", new Selections {Implementations = {new ImplementationSelection()}}, StoreProvider.Default), "Relative paths should be rejected");
-            Assert.Throws<ArgumentException>(() => new Launcher("http://nothin", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor("invalid", new Selections {Implementations = {new ImplementationSelection()}}, StoreProvider.Default), "Relative paths should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor("http://nothin", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
         }
 
         /// <summary>
-        /// Ensures <see cref="Controller.GetLauncher"/> correctly provides an application that can be launched.
+        /// Ensures <see cref="Controller.GetExecutor"/> correctly provides an application that can be launched.
         /// </summary>
         // Test deactivated because it uses an external process and performs network IO
         //[Test]
@@ -48,7 +48,7 @@ namespace ZeroInstall.Launcher
             var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
             controller.DownloadUncachedImplementations();
-            var launcher = controller.GetLauncher();
+            var launcher = controller.GetExecutor();
             var startInfo = launcher.GetStartInfo("--help");
             Assert.AreEqual("--help", startInfo.Arguments);
         }

@@ -312,7 +312,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             else if (!results.DownloadOnly && !results.SelectOnly)
             {
-                var launcher = controller.GetLauncher();
+                var launcher = controller.GetExecutor();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
 

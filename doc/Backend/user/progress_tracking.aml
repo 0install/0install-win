@@ -51,13 +51,13 @@
           started you need to take the following steps:
 		  <list class="bullet">
   			<listItem>Run the user interface on a sperate thread so it won't block the task's execution.</listItem>
-  			<listItem>Implement the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> interface.</listItem>
-  			<listItem>Pass the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> implementation to
-  			  <codeEntityReference qualifyHint="true">M:ZeroInstall.Injector.Controller._ctor</codeEntityReference>.</listItem>
+              <listItem>Implement the <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference> interface.</listItem>
+              <listItem>Pass the <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference> implementation to
+                <codeEntityReference qualifyHint="true">M:ZeroInstall.Launcher.Controller._ctor</codeEntityReference>.</listItem>
 		  </list>
         </para>
         <para>
-          The <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference>
+          The <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference>
           interface specifies a number of methods that will be called when a new
           <codeEntityReference>T:Common.IProgress</codeEntityReference> has been
           started. Since these methods will be called from a thread other than

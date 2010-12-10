@@ -863,6 +863,15 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="25135384-e6ba-4de6-86d4-a4f67b78295f">
+            <classMoniker
+              Id="7eccd7e4-fc16-48af-9d48-2276bde36877"
+              LastKnownName="Executor"
+              LastKnownLocation="Package1_1632.uml" />
+          </dependency>
+        </suppliersInternal>
         <targetEnds>
           <association
             Id="0ce841fd-1983-4396-b3c7-1628a7de7158"
@@ -1563,7 +1572,7 @@
           </operation>
           <operation
             Id="8423be9c-fccf-4a8e-94f0-bb6960fea3dc"
-            name="GetLauncher"
+            name="GetExecutor"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -1622,11 +1631,12 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="a9e6b754-f88f-4bee-92c2-47a8b132c41f"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="7eccd7e4-fc16-48af-9d48-2276bde36877"
-                      LastKnownName="Launcher"
+                      LastKnownName="Executor"
                       LastKnownLocation="Package1_1632.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1639,7 +1649,7 @@
     <packageHasNamedElement>
       <class
         Id="7eccd7e4-fc16-48af-9d48-2276bde36877"
-        name="Launcher"
+        name="Executor"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -1696,7 +1706,7 @@
           <association
             Id="89e92a74-e700-4821-ac59-747dfbc63536"
             isDerived="false"
-            sourceEndRoleName="Launcher"
+            sourceEndRoleName="Executor"
             targetEndRoleName="_selections"
             isLeaf="false"
             isAbstract="false">
@@ -1708,7 +1718,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="b44af27a-58bd-4889-b828-fa13f65367d7"
-                  name="Launcher"
+                  name="Executor"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -1735,7 +1745,7 @@
           <association
             Id="ef4e2d59-4311-4d6e-8f94-9c37e0c1cc3d"
             isDerived="false"
-            sourceEndRoleName="Launcher"
+            sourceEndRoleName="Executor"
             targetEndRoleName="_store"
             isLeaf="false"
             isAbstract="false">
@@ -1747,7 +1757,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="2b200392-7911-4351-a8a8-39f7d5cbef51"
-                  name="Launcher"
+                  name="Executor"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"

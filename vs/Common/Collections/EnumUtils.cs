@@ -29,11 +29,15 @@ namespace Common.Collections
     public static class EnumUtils
     {
         /// <summary>
-        /// Returns the first element of an <see cref="IEnumerable{T}"/> collection or <see langword="null"/> if the collection is empty.
+        /// Returns the first element of an <see cref="IEnumerable{T}"/> collection.
         /// </summary>
-        public static T GetFirst<T>(IEnumerable<T> exceptions) where T : class
+        /// <param name="collection">The collection to get the first element from; may be <see langword="null"/>.</param>
+        /// <returns>The first element of <paramref name="collection"/> or <see langword="null"/> if <paramref name="collection"/> is empty or <see langword="null"/>.</returns>
+        public static T GetFirst<T>(IEnumerable<T> collection) where T : class
         {
-            using (var enumerator = exceptions.GetEnumerator())
+            if (collection == null) return null;
+
+            using (var enumerator = collection.GetEnumerator())
                 return enumerator.MoveNext() ? enumerator.Current : null;
         }
     }

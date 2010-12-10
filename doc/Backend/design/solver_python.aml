@@ -20,7 +20,7 @@
       <title>Inter-process communication</title>
       <content>
         <para>
-          <link xlink:href="T:ZeroInstall.Injector.Solver.PythonSolver">PythonSolver</link>
+          <link xlink:href="T:ZeroInstall.Launcher.Solver.PythonSolver">PythonSolver</link>
           translates requests into a set of command-line arguments and uses
           them to invoke the <command>0solve</command> script stored in the
           bundled Python installation.

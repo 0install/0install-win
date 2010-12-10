@@ -55,7 +55,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Controller.cs" />
     <Compile Include="IHandler.cs" />
-    <Compile Include="Launcher.cs" />
+    <Compile Include="Executor.cs" />
     <Compile Include="Arguments\OperationMode.cs" />
     <Compile Include="MissingMainException.cs" />
     <Compile Include="Policy.cs" />

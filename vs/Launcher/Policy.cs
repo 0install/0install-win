@@ -16,7 +16,9 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Model;
@@ -26,9 +28,11 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Launcher
 {
     /// <summary>
-    /// Describes user settings (both stored on disk and selected for this specific run) controlling the dependency solving and implementation launching process.
+    /// Describes user preferences and restrictions controlling the dependency solving and implementation launching process.
     /// </summary>
+    /// <remarks>The data for this object is accumulated from the system state, preference files, command-line arguments and GUI choices.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
+    [Serializable]
     public class Policy
     {
         #region Properties
@@ -46,6 +50,12 @@ namespace ZeroInstall.Launcher
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
         public Architecture Architecture { get; set; }
+
+        private readonly List<CultureInfo> _languages = new List<CultureInfo>();
+        /// <summary>
+        /// The preferred languages for implementations in decreasing order. Use system locale if empty.
+        /// </summary>
+        public ICollection<CultureInfo> Languages { get { return _languages; } }
 
         private readonly Constraint _constraint = new Constraint();
         /// <summary>

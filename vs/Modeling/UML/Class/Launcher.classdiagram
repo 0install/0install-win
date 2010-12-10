@@ -119,7 +119,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="cc96c0cc-9184-449f-8f3c-6f88cea435d1" name="Launcher" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Launcher::Launcher">
+      <referencedType Id="cc96c0cc-9184-449f-8f3c-6f88cea435d1" name="Executor" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Launcher::Executor">
         <elementDefinition Id="7eccd7e4-fc16-48af-9d48-2276bde36877" />
       </referencedType>
     </packageHasNamedElement>
@@ -2947,6 +2947,12 @@
                       </stereotypeInstance>
                     </appliedStereotypesInternal>
                     <elementDefinition Id="a9c62ec6-faa5-4850-a7e3-9c5e3d9c0877" />
+                    <suppliersInternal>
+                      <dependency Id="86e22321-b6d7-4347-83f3-8b8a96b169f2">
+                        <classMoniker Id="3c63645f-af50-4ec4-aac1-0d60f6f4cdab" LastKnownName="Executor" />
+                        <elementDefinition Id="25135384-e6ba-4de6-86d4-a4f67b78295f" />
+                      </dependency>
+                    </suppliersInternal>
                     <targetEnds>
                       <association Id="f47d1669-7676-46a0-a05b-a92ea93a01f2" isDerived="false" sourceEndRoleName="Controller" targetEndRoleName="Solver" isLeaf="false" isAbstract="false">
                         <interfaceMoniker Id="30f07a8d-3ff5-483c-bf9e-a79d258ffe8e" LastKnownName="ISolver" />
@@ -3439,7 +3445,7 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="09f37ae8-cf96-427e-8543-1eadf3944500" />
                       </operation>
-                      <operation Id="fbd993bd-eb61-4e09-bb98-20f0e34592d6" name="GetLauncher" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                      <operation Id="fbd993bd-eb61-4e09-bb98-20f0e34592d6" name="GetExecutor" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
                           <reference Id="fcb50d75-bb73-4952-8c8c-9d561c89fe32" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=GetLauncher" tag="ViewCode">
                             <elementDefinition Id="d8f36924-57d1-4e84-9f89-3111c3de6e50" />
@@ -3485,10 +3491,10 @@
                         <elementDefinition Id="8423be9c-fccf-4a8e-94f0-bb6960fea3dc" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="5d9b51f2-50a0-4f02-83cd-4460d66ebfe4" direction="Return">
+                            <parameter Id="5d9b51f2-50a0-4f02-83cd-4460d66ebfe4" direction="Return" isUnique="false">
                               <elementDefinition Id="a9e6b754-f88f-4bee-92c2-47a8b132c41f" />
                               <type_NamedElement>
-                                <referencedTypeMoniker Id="cc96c0cc-9184-449f-8f3c-6f88cea435d1" LastKnownName="Launcher" />
+                                <referencedTypeMoniker Id="cc96c0cc-9184-449f-8f3c-6f88cea435d1" LastKnownName="Executor" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
@@ -3498,7 +3504,7 @@
                   </class>
                 </packageHasNamedElement>
                 <packageHasNamedElement>
-                  <class Id="3c63645f-af50-4ec4-aac1-0d60f6f4cdab" name="Launcher" isAbstract="false" isLeaf="false" isActiveClass="false">
+                  <class Id="3c63645f-af50-4ec4-aac1-0d60f6f4cdab" name="Executor" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <referencesInternal>
                       <reference Id="45f3b6af-f099-44c2-ad21-c75397fa53cd" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Launcher" tag="ViewCode">
                         <elementDefinition Id="8aa3e6f7-8ad7-4224-abd4-a355bc563bc0" />
@@ -3543,11 +3549,11 @@
                     </appliedStereotypesInternal>
                     <elementDefinition Id="7eccd7e4-fc16-48af-9d48-2276bde36877" />
                     <targetEnds>
-                      <association Id="99da50d8-7341-4104-9df4-2a36c32b0981" isDerived="false" sourceEndRoleName="Launcher" targetEndRoleName="_selections" isLeaf="false" isAbstract="false">
+                      <association Id="99da50d8-7341-4104-9df4-2a36c32b0981" isDerived="false" sourceEndRoleName="Executor" targetEndRoleName="_selections" isLeaf="false" isAbstract="false">
                         <classMoniker Id="14408456-df8d-415b-953c-adb84d0172aa" LastKnownName="Selections" />
                         <relationshipOwnedElementsInternal>
                           <associationHasOwnedEnds>
-                            <memberEnd Id="7ba0a5cb-00f3-4853-9134-e065c0cc436c" name="Launcher" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                            <memberEnd Id="7ba0a5cb-00f3-4853-9134-e065c0cc436c" name="Executor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                               <elementDefinition Id="b44af27a-58bd-4889-b828-fa13f65367d7" />
                             </memberEnd>
                           </associationHasOwnedEnds>
@@ -3559,11 +3565,11 @@
                         </relationshipOwnedElementsInternal>
                         <elementDefinition Id="89e92a74-e700-4821-ac59-747dfbc63536" />
                       </association>
-                      <association Id="c32ef80d-aac8-45fe-b41a-321052c66b12" isDerived="false" sourceEndRoleName="Launcher" targetEndRoleName="_store" isLeaf="false" isAbstract="false">
+                      <association Id="c32ef80d-aac8-45fe-b41a-321052c66b12" isDerived="false" sourceEndRoleName="Executor" targetEndRoleName="_store" isLeaf="false" isAbstract="false">
                         <interfaceMoniker Id="ca5c7fd8-be6c-40c6-94a8-8965e41ca9dc" LastKnownName="IStore" />
                         <relationshipOwnedElementsInternal>
                           <associationHasOwnedEnds>
-                            <memberEnd Id="5a05c16d-f520-420a-b7dc-273ef64d9545" name="Launcher" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                            <memberEnd Id="5a05c16d-f520-420a-b7dc-273ef64d9545" name="Executor" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                               <elementDefinition Id="2b200392-7911-4351-a8a8-39f7d5cbef51" />
                             </memberEnd>
                           </associationHasOwnedEnds>

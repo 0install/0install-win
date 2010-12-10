@@ -133,7 +133,7 @@ namespace ZeroInstall.Launcher.WinForms
 
             if (!results.DownloadOnly)
             {
-                var launcher = controller.GetLauncher();
+                var launcher = controller.GetExecutor();
                 launcher.Main = results.Main;
                 launcher.Wrapper = results.Wrapper;
 

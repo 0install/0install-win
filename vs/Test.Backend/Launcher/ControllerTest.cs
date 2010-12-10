@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using Common.Collections;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Fetchers;
@@ -34,7 +35,7 @@ namespace ZeroInstall.Launcher
     public class ControllerTest
     {
         /// <summary>
-        /// Ensures the <see cref="Controller"/> constructor, <see cref="Controller.GetSelections"/> and <see cref="Controller.GetLauncher"/> throw the correct exceptions.
+        /// Ensures the <see cref="Controller"/> constructor, <see cref="Controller.GetSelections"/> and <see cref="Controller.GetExecutor"/> throw the correct exceptions.
         /// </summary>
         [Test]
         public void TestExceptions()
@@ -43,7 +44,7 @@ namespace ZeroInstall.Launcher
 
             var controller = new Controller("http://nothing", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             Assert.Throws<InvalidOperationException>(() => controller.GetSelections(), "GetSelections should depend on Solve being called first");
-            Assert.Throws<InvalidOperationException>(() => controller.GetLauncher(), "GetRun should depend on Solve being called first");
+            Assert.Throws<InvalidOperationException>(() => controller.GetExecutor(), "GetRun should depend on Solve being called first");
         }
 
         /// <summary>
@@ -64,9 +65,7 @@ namespace ZeroInstall.Launcher
             }
 
             // Check the first (and only) entry of the "missing list" is the correct implementation
-            var enumerator = implementations.GetEnumerator();
-            Assert.IsTrue(enumerator.MoveNext(), "An least one Implementation should be uncached.");
-            Assert.AreEqual("sha1new=91dba493cc1ff911df9860baebb6136be7341d38", enumerator.Current.ManifestDigest.BestDigest, "The actual Implementation should have the same digest as the selection information.");
+            Assert.AreEqual("sha1new=91dba493cc1ff911df9860baebb6136be7341d38", EnumUtils.GetFirst(implementations).ManifestDigest.BestDigest, "The actual Implementation should have the same digest as the selection information.");
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace ZeroInstall.Launcher
         }
 
         /// <summary>
-        /// Ensures <see cref="Controller.GetLauncher"/> correctly provides an application that can be launched.
+        /// Ensures <see cref="Controller.GetExecutor"/> correctly provides an application that can be launched.
         /// </summary>
         // Test deactivated because it uses an external process and performs network IO
         //[Test]
@@ -91,7 +90,7 @@ namespace ZeroInstall.Launcher
             var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             controller.Solve();
             controller.DownloadUncachedImplementations();
-            var launcher = controller.GetLauncher();
+            var launcher = controller.GetExecutor();
             var startInfo = launcher.GetStartInfo("--help");
             Assert.AreEqual("--help", startInfo.Arguments);
         }
