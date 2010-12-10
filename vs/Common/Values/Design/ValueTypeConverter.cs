@@ -67,6 +67,8 @@ namespace Common.Values.Design
         #region Convert to
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
+            if (culture == null) throw new ArgumentNullException("culture");
+
             if (destinationType == typeof(InstanceDescriptor))
                 return new InstanceDescriptor(GetConstuctor(), GetArguments((T)value));
 
@@ -80,6 +82,8 @@ namespace Common.Values.Design
         #region Convert from
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
+            if (culture == null) throw new ArgumentNullException("culture");
+
             var sValue = value as string;
             if (sValue == null) return base.ConvertFrom(context, culture, value);
 

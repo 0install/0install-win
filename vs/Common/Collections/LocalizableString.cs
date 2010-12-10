@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Serialization;
 
@@ -76,6 +77,7 @@ namespace Common.Collections
         /// <summary>
         /// Creates an empty string with no associated language.
         /// </summary>
+        [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo", Justification = "In this case the language is part of the data to be stored and not used for localizing the output formatting")]
         public LocalizableString() : this(null)
         {}
         #endregion

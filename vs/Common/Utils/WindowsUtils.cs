@@ -135,13 +135,13 @@ namespace Common.Utils
             [StructLayout(LayoutKind.Sequential)]
             internal struct WinMessage
             {
-                // ReSharper disable InconsistentNaming
+// ReSharper disable InconsistentNaming
                 public IntPtr hWnd;
                 public IntPtr wParam;
                 public IntPtr lParam;
                 public uint time;
                 public Point p;
-                // ReSharper restore InconsistentNaming
+// ReSharper restore InconsistentNaming
             }
 
             [DllImport("user32", CharSet = CharSet.Auto)]
@@ -313,8 +313,7 @@ namespace Common.Utils
                 SafeNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
         }
 
-        // Best practice recommends defining a private object to lock on
-        private static readonly Object syncLock = new Object();
+        private static readonly object _syncLock = new object();
 
         private static ITaskbarList4 _taskbarList;
         /// <summary>
@@ -327,7 +326,7 @@ namespace Common.Utils
                 if (_taskbarList == null)
                 {
                     // Create a new instance of ITaskbarList3
-                    lock (syncLock)
+                    lock (_syncLock)
                     {
                         if (_taskbarList == null)
                         {

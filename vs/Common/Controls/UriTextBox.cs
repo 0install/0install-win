@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace Common.Controls
@@ -91,7 +92,7 @@ namespace Common.Controls
             if (!Uri.TryCreate(Text, UriKind.Absolute, out temp)) return false;
 
             // Check URI is HTTP(S) if that was requested
-            if (HttpOnly) return Text.StartsWith("http:") || Text.StartsWith("https:");
+            if (HttpOnly) return Text.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || Text.StartsWith("https:", StringComparison.OrdinalIgnoreCase);
 
             return true;
         }

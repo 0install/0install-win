@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -289,7 +290,7 @@ namespace Common.Storage
             feedDom.Load(path);
 
             // Adds a new XSL stylesheet instruction to the DOM
-            var stylesheetInstruction = feedDom.CreateProcessingInstruction("xml-stylesheet", string.Format("type='text/xsl' href='{0}'", stylesheetFile));
+            var stylesheetInstruction = feedDom.CreateProcessingInstruction("xml-stylesheet", string.Format(CultureInfo.InvariantCulture, "type='text/xsl' href='{0}'", stylesheetFile));
             feedDom.InsertAfter(stylesheetInstruction, feedDom.FirstChild);
 
             // Writes back the modified XML document

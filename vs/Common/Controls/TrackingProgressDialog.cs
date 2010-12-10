@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -64,7 +65,7 @@ namespace Common.Controls
             {
                 if (task.BytesTotal > 1024)
                 {// Handle events coming from a non-UI thread, don't block caller
-                    labelBytes.BeginInvoke((SimpleEventHandler)(() => labelBytes.Text = string.Format("{0}k / {1}k", task.BytesProcessed / 1024, task.BytesTotal / 1024)));
+                    labelBytes.BeginInvoke((SimpleEventHandler)(() => labelBytes.Text = string.Format(CultureInfo.CurrentCulture, "{0}k / {1}k", task.BytesProcessed / 1024, task.BytesTotal / 1024)));
                 }
             };
         }
