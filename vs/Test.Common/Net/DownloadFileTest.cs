@@ -130,28 +130,14 @@ namespace Common.Net
             downloadThread.Join();
 
             Assert.IsTrue(exceptionThrown);
-
-            /*
-            // Prepare a very slow download of the file and and cancel it from a background thread
-            _server.Slow = true;
-            var download = new DownloadFile(_server.FileUri, _tempFile.Path);
-            new Thread(delegate()
-            {
-                Thread.Sleep(1000);
-                download.Cancel();
-            }).Start();
-
-            Assert.Throws<UserCancelException>(download.RunSync);
-            */
         }
         
         /// <summary>
-        /// 
+        /// Ensure files with an incorrect size are rejected.
         /// </summary>
         [Test]
         public void TestIncorrectSize()
         {
-            // Download the file
             var download = new DownloadFile(_server.FileUri, _tempFile.Path, 1024);
             Assert.Throws<WebException>(download.RunSync);
         }
