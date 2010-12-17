@@ -194,7 +194,7 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file does not have the expected size..
+        ///   Looks up a localized string similar to The file does not have the expected size. Should be {0} bytes but was {1} bytes..
         /// </summary>
         internal static string FileNotExpectedSize {
             get {

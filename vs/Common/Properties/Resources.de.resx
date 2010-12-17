@@ -207,7 +207,7 @@ Die Änderungen löschen</value>
     <value>Nur HTTP und FTP sind unterstützte Download-Protokolle.</value>
   </data>
   <data name="FileNotExpectedSize" xml:space="preserve">
-    <value>Die Datei hat nicht die erwartete Größe.</value>
+    <value>Die Datei hat nicht die erwartete Größe. Sollten {0} Bytes sein, waren aber {1} Bytes.</value>
   </data>
   <data name="InvalidPriority" xml:space="preserve">
     <value>Die angegebene Priorität ist ungültig.</value>

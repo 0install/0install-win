@@ -243,10 +243,10 @@ namespace Common.Net
             Source = response.ResponseUri;
 
             // Determine file size and make sure predetermined sizes are valid
-            if (BytesTotal == -1) BytesTotal = response.ContentLength;
+            if (BytesTotal == -1 || response.ContentLength == -1) BytesTotal = response.ContentLength;
             else if (BytesTotal != response.ContentLength)
             {
-                ErrorMessage = Resources.FileNotExpectedSize;
+                ErrorMessage = string.Format(Resources.FileNotExpectedSize, BytesTotal, response.ContentLength);
                 State = ProgressState.WebError;
                 return false;
             }
