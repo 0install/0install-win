@@ -30,7 +30,7 @@ namespace ZeroInstall.Fetchers
         /// Called when a new download is about to be started.
         /// </summary>
         /// <param name="download">A reference to the download. Can be used for tracking the progress.</param>
-        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/>.</remarks>
+        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/> and not <see cref="ProgressState.Started"/> yet.</remarks>
         void StartingDownload(IProgress download);
     }
 }

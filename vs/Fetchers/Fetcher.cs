@@ -67,9 +67,10 @@ namespace ZeroInstall.Fetchers
             {
                 PerformRetrievalMethodDispatchingOnType(method);
             }
-            catch (Exception e)
+            // ToDo: Catch more exceptions
+            catch (WebException ex)
             {
-                Problems.Add(e);
+                Problems.Add(ex);
             }
         }
 
@@ -270,6 +271,7 @@ namespace ZeroInstall.Fetchers
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="FetcherException"></exception>
         public void RunSync(FetchRequest fetchRequest)
         {
             #region Sanity checks

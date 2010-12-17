@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Launcher.Solver
@@ -34,6 +35,7 @@ namespace ZeroInstall.Launcher.Solver
         /// <param name="policy">The user settings controlling the solving process.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or absolute local path.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>

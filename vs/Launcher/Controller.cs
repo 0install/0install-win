@@ -92,6 +92,7 @@ namespace ZeroInstall.Launcher
         /// Uses an <see cref="ISolver"/> to solve the dependencies for the specified interface.
         /// </summary>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
+        /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         public void Solve()
