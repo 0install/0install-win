@@ -152,7 +152,7 @@ namespace ZeroInstall.Fetchers
             if (archive.StartOffset != 0)
                 WriteZerosIntoIgnoredPartOfFile(archive, destination);
 
-            var downloadFile = new DownloadFile(archive.Location, destination);
+            var downloadFile = new DownloadFile(archive.Location, destination, archive.Size);
 
             RejectRemoteFileOfDifferentSize(archive, downloadFile);
             try
