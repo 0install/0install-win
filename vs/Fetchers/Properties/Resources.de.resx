@@ -120,8 +120,8 @@
   <data name="FetcherProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>
-  <data name="InvalidFileSize" xml:space="preserve">
-    <value>Die Größe der Datei, die von {0} runtergeladen wurde ist ungültig.</value>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>Die Datei die von {0} runtergeladen wurde, hat nicht die erwartete Größe. Sollten {1} Bytes sein, waren aber {2} Bytes.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>Es wurden keine funktionsfähigen Retrieval Methoden gefunden.</value>

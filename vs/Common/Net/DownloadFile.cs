@@ -72,7 +72,7 @@ namespace Common.Net
 
         #region Constructor
         /// <summary>
-        /// Creates a new download thread with a predefined file size.
+        /// Creates a new download task with a predefined file size.
         /// </summary>
         /// <param name="source">The URL the file is to be downloaded from.</param>
         /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
@@ -89,31 +89,13 @@ namespace Common.Net
             Target = target;
             BytesTotal = bytesTotal;
         }
-        
-        /// <summary>
-        /// Creates a new download thread with a predefined file size.
-        /// </summary>
-        /// <param name="source">The URL the file is to be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
-        /// <param name="bytesTotal">The number of bytes the file to be downloaded is long. The file will be rejected if it does not have this length.</param>
-        /// <exception cref="NotSupportedException">Thrown if <paramref name="source"/> contains an unsupported protocol (usually should be HTTP or FTP).</exception>
-        public DownloadFile(string source, string target, long bytesTotal) : this(new Uri(source), target, bytesTotal)
-        {}
 
         /// <summary>
-        /// Creates a new download thread with no fixed file size.
+        /// Creates a new download task with no fixed file size.
         /// </summary>
         /// <param name="source">The URL the file is to be downloaded from.</param>
         /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
         public DownloadFile(Uri source, string target) : this(source, target, -1)
-        {}
-
-        /// <summary>
-        /// Creates a new download thread with no fixed file size.
-        /// </summary>
-        /// <param name="source">The URL the file is to be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
-        public DownloadFile(string source, string target) : this(new Uri(source), target)
         {}
         #endregion
 
@@ -246,7 +228,7 @@ namespace Common.Net
             if (BytesTotal == -1 || response.ContentLength == -1) BytesTotal = response.ContentLength;
             else if (BytesTotal != response.ContentLength)
             {
-                ErrorMessage = string.Format(Resources.FileNotExpectedSize, BytesTotal, response.ContentLength);
+                ErrorMessage = string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength);
                 State = ProgressState.WebError;
                 return false;
             }

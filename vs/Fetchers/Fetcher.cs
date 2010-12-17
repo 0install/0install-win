@@ -152,9 +152,8 @@ namespace ZeroInstall.Fetchers
             if (archive.StartOffset != 0)
                 WriteZerosIntoIgnoredPartOfFile(archive, destination);
 
-            var downloadFile = new DownloadFile(archive.Location, destination, archive.Size);
+            var downloadFile = new DownloadFile(archive.Location, destination, archive.Size + archive.StartOffset);
 
-            RejectRemoteFileOfDifferentSize(archive, downloadFile);
             try
             {
                 if (FetcherInstance.Handler != null) FetcherInstance.Handler.StartingDownload(downloadFile);
@@ -183,10 +182,10 @@ namespace ZeroInstall.Fetchers
         }
 
         /// <summary>
-        /// Checks if the size of <paramref name="downloadFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
+        /// Checks if the size of a file downloaded by <paramref name="downloadFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
         /// </summary>
         /// <remarks>Does not perform any check if size isn't known yet.</remarks>
-        /// <exception cref="FetcherException">Thrown if the remote file is known to have different size than stated in <paramref name="archive"/>.
+        /// <exception cref="FetcherException">Thrown if the downloaded file has a different size than stated in <paramref name="archive"/>.
         /// </exception>
         private static void RejectRemoteFileOfDifferentSize(Archive archive, DownloadFile downloadFile)
         {
@@ -195,25 +194,9 @@ namespace ZeroInstall.Fetchers
             if (downloadFile == null) throw new ArgumentNullException("downloadFile");
             #endregion
 
-            long actualSize;
-            if (downloadFile.State == ProgressState.Complete) actualSize = downloadFile.BytesProcessed;
-            else if (IsSizeKnown(downloadFile)) actualSize = downloadFile.BytesTotal;
-            else return;
-
+            long actualSize = new FileInfo(downloadFile.Target).Length;
             if (actualSize != archive.Size + archive.StartOffset)
-                throw new FetcherException(string.Format(Resources.InvalidFileSize, archive.Location.AbsolutePath));
-        }
-
-        /// <summary>
-        /// Determines of the size of a <see cref="DownloadFile"/> is know prior to performing the download.
-        /// </summary>
-        private static bool IsSizeKnown(DownloadFile downloadFile)
-        {
-            #region Sanity checks
-            if (downloadFile == null) throw new ArgumentNullException("downloadFile");
-            #endregion
-
-            return downloadFile.BytesTotal != -1;
+                throw new FetcherException(string.Format(Resources.FileNotExpectedSize, archive.Location, archive.Size + archive.StartOffset, actualSize));
         }
     }
 

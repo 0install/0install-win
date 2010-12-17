@@ -214,7 +214,7 @@ Delete the changes</value>
     <value>Only HTTP and FTP are supported download protocols.</value>
   </data>
   <data name="FileNotExpectedSize" xml:space="preserve">
-    <value>The file does not have the expected size. Should be {0} bytes but was {1} bytes.</value>
+    <value>The file that was supposed to be downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
   </data>
   <data name="InvalidPriority" xml:space="preserve">
     <value>The priority is invalid.</value>

@@ -120,8 +120,8 @@
   <data name="FetcherProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
   </data>
-  <data name="InvalidFileSize" xml:space="preserve">
-    <value>The size of the file downloaded from {0} was invalid.</value>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>The file downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
   </data>
   <data name="NoRetrievalMethod" xml:space="preserve">
     <value>No working retrieval method found.</value>

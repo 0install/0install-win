@@ -70,11 +70,11 @@ namespace ZeroInstall.Fetchers.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The size of the file downloaded from {0} was invalid..
+        ///   Looks up a localized string similar to The file downloaded from {0} doesn&apos;t have the expected size. Was supposed to be {1} bytes but was actually {2} bytes..
         /// </summary>
-        internal static string InvalidFileSize {
+        internal static string FileNotExpectedSize {
             get {
-                return ResourceManager.GetString("InvalidFileSize", resourceCulture);
+                return ResourceManager.GetString("FileNotExpectedSize", resourceCulture);
             }
         }
         
