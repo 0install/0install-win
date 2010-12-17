@@ -106,7 +106,7 @@ namespace ZeroInstall.Fetchers
                     ImplementationToFetch.ManifestDigest,
                     FetcherInstance.Handler);
             }
-            catch (ImplementationAlreadyInStoreException) { }
+            catch (ImplementationAlreadyInStoreException) {}
             finally { File.Delete(tempArchiveInfo.Path); }
         }
 
@@ -138,7 +138,7 @@ namespace ZeroInstall.Fetchers
             {
                 FetcherInstance.Store.AddMultipleArchives(archives, ImplementationToFetch.ManifestDigest, FetcherInstance.Handler);
             }
-            catch (ImplementationAlreadyInStoreException) { }
+            catch (ImplementationAlreadyInStoreException) {}
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
 

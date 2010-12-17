@@ -61,7 +61,7 @@ namespace Common.Controls
         /// This hook is called when the user clicks the Cancel button.
         /// </summary>
         protected virtual void OnCancelClicked()
-        { }
+        {}
         #endregion
     }
 }

@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             {
                 string extractedPosition = Path.Combine(folder, entry.RelativePath);
                 Assert.IsTrue(Directory.Exists(extractedPosition), "Directory " + extractedPosition + " does not exist.");
-                visitChildren(entry);
+                VisitChildren(entry);
             }
         }
 
@@ -194,7 +194,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestExtractEmptyFile()
         {
             var builder = new PackageBuilder()
-                .AddFile("emptyFile", new byte[] { });
+                .AddFile("emptyFile", new byte[] {});
 
             using(var archiveStream = File.Create(Path.Combine(_extractDir.Path, "ar.zip")))
             {
@@ -205,7 +205,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 const string message = "ZipExtractor should correctly extract empty files in an archive";
                 Assert.DoesNotThrow(extractor.RunSync);
                 Assert.IsTrue(File.Exists(Path.Combine(_extractDir.Path, "emptyFile")), message);
-                Assert.AreEqual(new byte[] { }, File.ReadAllBytes(Path.Combine(_extractDir.Path, "emptyFile")), message);
+                Assert.AreEqual(new byte[] {}, File.ReadAllBytes(Path.Combine(_extractDir.Path, "emptyFile")), message);
             }
         }
     }

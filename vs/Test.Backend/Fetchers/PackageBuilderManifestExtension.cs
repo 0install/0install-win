@@ -33,14 +33,14 @@ namespace ZeroInstall.Fetchers
 
         public override void VisitRoot(RootEntry entry)
         {
-            visitChildren(entry);
+            VisitChildren(entry);
             _writer.Flush();
         }
         public override void VisitFolder(FolderEntry entry)
         {
             ManifestNode node = new ManifestDirectory(FileUtils.ToUnixTime(entry.LastWriteTime), "/" + entry.RelativePath.Replace("\\", "/"));
             _writer.WriteLine(ManifestFormat.Sha256.GenerateEntryForNode(node));
-            visitChildren(entry);
+            VisitChildren(entry);
         }
         public override void VisitFile(FileEntry entry)
         {

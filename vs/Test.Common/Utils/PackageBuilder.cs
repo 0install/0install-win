@@ -1,4 +1,26 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Roland Leopold Walkling
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -81,7 +103,7 @@ namespace Common.Utils
 
         protected EntryContainer(string name, EntryContainer parent, DateTime lastWrite)
             : base(name, parent, lastWrite)
-        { }
+        {}
 
         public void Add(HierarchyEntry newEntry)
         {
@@ -114,7 +136,7 @@ namespace Common.Utils
     {
         internal RootEntry(DateTime lastWrite)
             : base("", null, lastWrite)
-        { }
+        {}
 
         public override void AcceptVisitor(HierarchyVisitor visitor)
         { visitor.VisitRoot(this); }
@@ -122,15 +144,15 @@ namespace Common.Utils
 
     public abstract class HierarchyVisitor
     {
-        public virtual void VisitFile(FileEntry entry) { }
+        public virtual void VisitFile(FileEntry entry) {}
 
         public virtual void VisitFolder(FolderEntry entry)
-        { visitChildren(entry); }
+        { VisitChildren(entry); }
 
         public virtual void VisitRoot(RootEntry entry)
-        { visitChildren(entry); }
+        { VisitChildren(entry); }
 
-        protected void visitChildren(EntryContainer entry)
+        protected void VisitChildren(EntryContainer entry)
         {
             foreach (var child in entry.Children)
                 child.AcceptVisitor(this);
@@ -170,7 +192,7 @@ namespace Common.Utils
         public override void VisitFolder(FolderEntry entry)
         {
             WriteFolderEntryToZip(zip, entry);
-            visitChildren(entry);
+            VisitChildren(entry);
         }
 
         private static void WriteFolderEntryToZip(ZipOutputStream zip, FolderEntry entry)
@@ -182,7 +204,7 @@ namespace Common.Utils
 
         public override void VisitRoot(RootEntry entry)
         {
-            visitChildren(entry);
+            VisitChildren(entry);
         }
     }
 
@@ -221,7 +243,7 @@ namespace Common.Utils
             string combinedPath = Path.Combine(folder, entry.RelativePath);
             CheckAndPrepareWritePathForFolder(combinedPath);
             SetDestinationDate(combinedPath, entry);
-            visitChildren(entry);
+            VisitChildren(entry);
         }
 
         protected static void CheckAndPrepareWritePathForFolder(string thisFoldersPath)
@@ -240,7 +262,7 @@ namespace Common.Utils
         {
             RejectNonEmptyFolder(folder);
             SetDestinationDate(folder, entry);
-            visitChildren(entry);
+            VisitChildren(entry);
         }
 
         protected static void RejectNonEmptyFolder(string path)

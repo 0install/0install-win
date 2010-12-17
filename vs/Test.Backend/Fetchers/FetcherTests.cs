@@ -153,7 +153,7 @@ namespace ZeroInstall.Fetchers
         private static void WriteInterferingData(FileStream archiveStream)
         {
             PackageBuilder interferingZipData = new PackageBuilder()
-                .AddFile("SKIPPED", new byte[] { });
+                .AddFile("SKIPPED", new byte[] {});
             interferingZipData.GeneratePackageArchive(archiveStream);
         }
 

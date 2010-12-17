@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Common.Storage;
 using Common.Wpf;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Input;
-using ZeroInstall.Launcher;
 using System.Diagnostics;
 using Hardcodet.Wpf.TaskbarNotification;
 using Common;
@@ -368,7 +364,7 @@ namespace ZeroInstall.Central.Wpf
                         foundImplementation = i;
                     }
                     catch (Exception)
-                    { }
+                    {}
 
                     Console.WriteLine("FOUND = " + path);
                 }

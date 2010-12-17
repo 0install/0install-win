@@ -19,7 +19,7 @@ namespace Common.Wpf
 
         #region Empty constructor
         public Model()
-        { }
+        {}
         #endregion
     }
 }
