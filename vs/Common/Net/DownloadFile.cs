@@ -128,12 +128,8 @@ namespace Common.Net
                 if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
                 _cancelRequest = true;
-            }
+                Thread.Join();
 
-            Thread.Join();
-
-            lock (StateLock)
-            {
                 // Reset the state so the task can be started again
                 State = ProgressState.Ready;
                 _cancelRequest = false;
@@ -155,22 +151,24 @@ namespace Common.Net
                     // Configure the request to continue the file transfer where the file ends
                     if (fileStream.Length != 0) SetResumePoint(request, fileStream);
 
+                    if (_cancelRequest) return;
                     lock (StateLock) State = ProgressState.Header;
 
                     // Start the server request, allowing for cancellation
                     var responseRequest = request.BeginGetResponse(null, null);
                     while (!responseRequest.IsCompleted)
                     {
-                        lock (StateLock) if (_cancelRequest) return;
+                        if (_cancelRequest) return;
                         System.Threading.Thread.Sleep(0);
                     }
 
                     // Process the response
                     using (WebResponse response = request.EndGetResponse(responseRequest))
                     {
+                        if (_cancelRequest) return;
                         lock (StateLock)
                         {
-                            ReadHeader(response);
+                            if (!ReadHeader(response)) return;
 
                             // If  a partial file exists locally...
                             if (fileStream.Length != 0)
@@ -193,6 +191,7 @@ namespace Common.Net
 
                         // Start writing data to the file
                         if (response != null) WriteStreamToTarget(response.GetResponseStream(), fileStream);
+                        if (_cancelRequest) return;
                     }
                 }
             }
@@ -226,6 +225,7 @@ namespace Common.Net
             }
             #endregion
 
+            if (_cancelRequest) return;
             lock (StateLock) State = ProgressState.Complete;
         }
         #endregion
@@ -234,7 +234,8 @@ namespace Common.Net
         /// <summary>
         /// Reads the header information in the <paramref name="response"/> and stores it the object properties.
         /// </summary>
-        private void ReadHeader(WebResponse response)
+        /// <returns><see langword="true"/> if everything is ok; <see langword="false"/> if there was an error.</returns>
+        private bool ReadHeader(WebResponse response)
         {
             Headers = response.Headers;
 
@@ -245,15 +246,14 @@ namespace Common.Net
             if (BytesTotal == -1) BytesTotal = response.ContentLength;
             else if (BytesTotal != response.ContentLength)
             {
-                lock (StateLock)
-                {
-                    ErrorMessage = Resources.FileNotExpectedSize;
-                    State = ProgressState.WebError;
-                }
+                ErrorMessage = Resources.FileNotExpectedSize;
+                State = ProgressState.WebError;
+                return false;
             }
 
             // HTTP servers with range-support and FTP servers support resuming downloads
             SupportsResume = (Headers[HttpResponseHeader.AcceptRanges] == "bytes") || response is FtpWebResponse;
+            return true;
         }
 
         /// <summary>
@@ -309,8 +309,8 @@ namespace Common.Net
             // Write the response data to the file, allowing for cancellation
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
             {
-                lock (StateLock) if (_cancelRequest) return;
                 fileStream.Write(buffer, 0, length);
+                if (_cancelRequest) return;
                 lock (StateLock) BytesProcessed += length;
             }
         }

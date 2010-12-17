@@ -85,12 +85,8 @@ namespace ZeroInstall.Store.Implementation
                 if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
                 _cancelRequest = true;
-            }
+                Thread.Join();
 
-            Thread.Join();
-
-            lock (StateLock)
-            {
                 // Reset the state so the task can be started again
                 State = ProgressState.Ready;
                 _cancelRequest = true;
@@ -104,6 +100,7 @@ namespace ZeroInstall.Store.Implementation
         {
             try
             {
+                if (_cancelRequest) return;
                 lock (StateLock) State = ProgressState.Header;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
@@ -112,6 +109,7 @@ namespace ZeroInstall.Store.Implementation
 
                 var externalXBits = GetExternalXBits();
 
+                if (_cancelRequest) return;
                 lock (StateLock) State = ProgressState.Data;
 
                 // Iterate through the directory listing to build a list of manifets entries
@@ -133,7 +131,7 @@ namespace ZeroInstall.Store.Implementation
                         if (directory != null) nodes.Add(GetDirectoryNode(directory, TargetPath));
                     }
 
-                    lock (StateLock) if (_cancelRequest) return;
+                    if (_cancelRequest) return;
                 }
 
                 Result = new Manifest(nodes, Format);
@@ -168,6 +166,7 @@ namespace ZeroInstall.Store.Implementation
             }
             #endregion
 
+            if (_cancelRequest) return;
             lock (StateLock) State = ProgressState.Complete;
         }
 

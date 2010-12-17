@@ -154,12 +154,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                 if (State == ProgressState.Ready || State >= ProgressState.Complete) return;
 
                 Thread.Abort();
-            }
+                Thread.Join();
 
-            Thread.Join();
-
-            lock (StateLock)
-            {
                 // Reset the state so the task can be started again
                 State = ProgressState.Ready;
             }
