@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Net;
 using ZeroInstall.Store.Implementation.Archive;
 using Common.Storage;
@@ -30,6 +29,93 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Fetchers
 {
+    public delegate void Action<in T1, in T2>(T1 argument1, T2 argument2);
+
+    internal class MockFetcher : Fetcher
+    {
+        class MockImplementationFetch : ImplementationFetch
+        {
+            private readonly MockFetcher _outer;
+            internal MockImplementationFetch(MockFetcher outer, Implementation implementation)
+                : base(outer, implementation)
+            {
+                _outer = outer;
+            }
+
+            protected override void DownloadArchive(Archive archive, string destination)
+            {
+                _outer.DownloadAction(archive, destination);
+            }
+        }
+
+        internal Action<Archive, string> DownloadAction;
+
+        internal MockFetcher(IStore store)
+            : base(new SilentHandler(), store)
+        { }
+
+        protected override ImplementationFetch CreateFetch(Implementation implementation)
+        {
+            return new MockImplementationFetch(this, implementation);
+        }
+    }
+
+    internal static class FetcherTesting
+    {
+        internal static PackageBuilder PreparePackageBuilder()
+        {
+            var builder = new PackageBuilder();
+
+            builder.AddFile("file1", @"AAAA").
+                AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
+                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
+            return builder;
+        }
+
+        internal static Archive PrepareArchiveForPackage(PackageBuilder package)
+        {
+            string archiveFile = FileUtils.GetTempFile("0install-unit-tests");
+            package.GeneratePackageArchive(archiveFile);
+            return new Archive
+                   {
+                       MimeType = "application/zip",
+                       Size = new FileInfo(archiveFile).Length,
+                       Location = new Uri(archiveFile, UriKind.Relative)
+                   };
+        }
+
+        internal static Recipe PrepareRecipeForPackages(IEnumerable<PackageBuilder> packages)
+        {
+            var result = new Recipe();
+
+            foreach(var package in packages)
+            {
+                Archive correspondingArchive = PrepareArchiveForPackage(package);
+                result.Steps.Add(correspondingArchive);
+            }
+
+            return result;
+        }
+
+        internal static Archive HostArchiveOnMicroServer(Archive archive, out MicroServer server)
+        {
+            server = new MicroServer(File.OpenRead(archive.LocationString));
+            var hostedArchive = (Archive) archive.Clone();
+            hostedArchive.Location = server.FileUri;
+            return hostedArchive;
+        }
+
+        internal static Implementation PrepareImplementation(PackageBuilder package, params RetrievalMethod[] sources)
+        {
+            var result = new Implementation
+            {
+                ManifestDigest = PackageBuilderManifestExtension.ComputePackageDigest(package)
+            };
+            result.RetrievalMethods.AddAll(sources);
+            return result;
+        }
+    }
+
     [TestFixture]
     public class DownloadFunctionality
     {
@@ -58,33 +144,15 @@ namespace ZeroInstall.Fetchers
             _testFolder.Dispose();
         }
 
-        private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest, out MicroServer server)
-        {
-            server = new MicroServer(File.OpenRead(archiveFile));
-
-            var archive = new Archive
-            {
-                StartOffset = offset,
-                MimeType = "application/zip",
-                Size = new FileInfo(archiveFile).Length - offset,
-                Location = server.FileUri
-            };
-            var result = new Implementation
-            {
-                ManifestDigest = digest,
-                RetrievalMethods = { archive }
-            };
-            return result;
-        }
-
         [Test]
         public void ShouldDownloadIntoStore()
         {
-            var package = PreparePackageBuilder();
-            package.GeneratePackageArchive("archive.zip");
-
+            var package = FetcherTesting.PreparePackageBuilder();
+            var localArchive = FetcherTesting.PrepareArchiveForPackage(package);
             MicroServer server;
-            Implementation implementation = SynthesizeImplementation("archive.zip", 0, PackageBuilderManifestExtension.ComputePackageDigest(package), out server);
+            var hostedArchive = FetcherTesting.HostArchiveOnMicroServer(localArchive, out server);
+            var implementation = FetcherTesting.PrepareImplementation(package, hostedArchive);
+
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation});
@@ -98,7 +166,7 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldRejectRemoteArchiveOfDifferentSize()
         {
-            var package = PreparePackageBuilder();
+            var package = FetcherTesting.PreparePackageBuilder();
             package.GeneratePackageArchive("archive.zip");
 
             MicroServer server;
@@ -116,7 +184,7 @@ namespace ZeroInstall.Fetchers
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
             const int archiveOffset = 0x1000;
-            var package = PreparePackageBuilder();
+            var package = FetcherTesting.PreparePackageBuilder();
             WritePackageToArchiveWithOffset(package, "archive.zip", archiveOffset);
 
             MicroServer server;
@@ -129,16 +197,6 @@ namespace ZeroInstall.Fetchers
             finally { server.Dispose(); }
 
             Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
-        }
-
-        private static PackageBuilder PreparePackageBuilder()
-        {
-            var builder = new PackageBuilder();
-
-            builder.AddFile("file1", @"AAAA").
-                AddFolder("folder1").AddFile("file2", @"dskf\nsdf\n").
-                AddFolder("folder2").AddFile("file3", new byte[] { 55, 55, 55 });
-            return builder;
         }
 
         private static void WritePackageToArchiveWithOffset(PackageBuilder package, string path, int offset)
@@ -267,7 +325,7 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldTryNextRetrievalMethodOnFailure()
         {
-            var package = PreparePackageBuilder();
+            var package = FetcherTesting.PreparePackageBuilder();
             package.GeneratePackageArchive("archive.zip");
 
             using (var server = new MicroServer(File.OpenRead("archive.zip")))
@@ -296,5 +354,91 @@ namespace ZeroInstall.Fetchers
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
+
+        private static Implementation SynthesizeImplementation(string archiveFile, int offset, ManifestDigest digest, out MicroServer server)
+        {
+            server = new MicroServer(File.OpenRead(archiveFile));
+
+            var archive = new Archive
+                          {
+                              StartOffset = offset,
+                              MimeType = "application/zip",
+                              Size = new FileInfo(archiveFile).Length - offset,
+                              Location = server.FileUri
+                          };
+            var result = new Implementation
+                         {
+                             ManifestDigest = digest,
+                             RetrievalMethods = { archive }
+                         };
+            return result;
+        }
+    }
+
+    [TestFixture]
+    public class ImplementationSelection
+    {
+        TemporaryDirectory _testFolder;
+        TemporaryDirectory _storeDir;
+        DirectoryStore _store;
+        string _oldWorkingDirectory;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _testFolder = new TemporaryDirectory("0install-unit-tests");
+            _storeDir = new TemporaryDirectory("0install-unit-tests");
+            _store = new DirectoryStore(_storeDir.Path);
+            _oldWorkingDirectory = Environment.CurrentDirectory;
+            Environment.CurrentDirectory = _testFolder.Path;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            Environment.CurrentDirectory = _oldWorkingDirectory;
+            _storeDir.Dispose();
+            _testFolder.Dispose();
+        }
+
+        // Test deactivated because feature isn't implemented yet
+        //[Test]
+        public void ShouldPreferArchiveOverRecipe()
+        {
+            var part1 = new PackageBuilder()
+                .AddFile("FILE1", "This file was in part1");
+            var part2 = new PackageBuilder()
+                .AddFile("FILE2", "This file was in part2");
+            var merged = new PackageBuilder()
+                .AddFile("FILE1", "This file was in part1")
+                .AddFile("FILE2", "This file was in part2");
+
+            var theRecipe = FetcherTesting.PrepareRecipeForPackages(new List<PackageBuilder> {part1, part2});
+            var theCompleteArchive = FetcherTesting.PrepareArchiveForPackage(merged);
+
+            var implementation = FetcherTesting.PrepareImplementation(merged, theRecipe, theCompleteArchive);
+            var request = new FetchRequest(new List<Implementation> { implementation });
+
+            Uri downloaded = null;
+
+            var fetcher = new MockFetcher(_store)
+            {
+                DownloadAction = (archive, target) =>
+                {
+                    downloaded = archive.Location;
+                    throw new MockException();
+                }
+            };
+            try
+            {
+                fetcher.RunSync(request);
+            }
+            catch (MockException)
+            {}
+            Assert.AreEqual(downloaded, theCompleteArchive.Location);
+        }
+
+        class MockException : Exception
+        { }
     }
 }

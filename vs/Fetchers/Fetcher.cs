@@ -32,7 +32,7 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// A Method Object that encapsulates fetching a single <see cref="Implementation"/>
     /// </summary>
-    internal class ImplementationFetch
+    public class ImplementationFetch
     {
         public Fetcher FetcherInstance;
         public Implementation ImplementationToFetch;
@@ -142,7 +142,7 @@ namespace ZeroInstall.Fetchers
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
 
-        private void DownloadArchive(Archive archive, string destination)
+        protected virtual void DownloadArchive(Archive archive, string destination)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
@@ -150,7 +150,12 @@ namespace ZeroInstall.Fetchers
             #endregion
 
             if (archive.StartOffset != 0)
-                WriteZerosIntoIgnoredPartOfFile(archive, destination);
+            {
+                // This is the only way to tell DownloadFile not to download a
+                // certain part of the remote archive.
+                // TODO: Make this behavior explicit
+                PadIgnoredPartOfFile(archive, destination);
+            }
 
             var downloadFile = new DownloadFile(archive.Location, destination, archive.Size + archive.StartOffset);
 
@@ -158,7 +163,7 @@ namespace ZeroInstall.Fetchers
             {
                 if (FetcherInstance.Handler != null) FetcherInstance.Handler.StartingDownload(downloadFile);
                 downloadFile.RunSync();
-                RejectRemoteFileOfDifferentSize(archive, downloadFile);
+                RejectLocalFileOfWrongSize(archive, destination);
             }
             catch (FetcherException)
             {
@@ -167,7 +172,7 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private static void WriteZerosIntoIgnoredPartOfFile(Archive archive, string destination)
+        private static void PadIgnoredPartOfFile(Archive archive, string destination)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
@@ -182,21 +187,19 @@ namespace ZeroInstall.Fetchers
         }
 
         /// <summary>
-        /// Checks if the size of a file downloaded by <paramref name="downloadFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
+        /// Checks if the size of <paramref name="localFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
         /// </summary>
-        /// <remarks>Does not perform any check if size isn't known yet.</remarks>
-        /// <exception cref="FetcherException">Thrown if the downloaded file has a different size than stated in <paramref name="archive"/>.
+        /// <exception cref="FetcherException">Thrown if the file has different size than stated in <paramref name="archive"/>.
         /// </exception>
-        private static void RejectRemoteFileOfDifferentSize(Archive archive, DownloadFile downloadFile)
+        private static void RejectLocalFileOfWrongSize(Archive archive, string localFile)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
-            if (downloadFile == null) throw new ArgumentNullException("downloadFile");
+            if (string.IsNullOrEmpty(localFile)) throw new ArgumentNullException("localFile");
             #endregion
 
-            long actualSize = new FileInfo(downloadFile.Target).Length;
-            if (actualSize != archive.Size + archive.StartOffset)
-                throw new FetcherException(string.Format(Resources.FileNotExpectedSize, archive.Location, archive.Size + archive.StartOffset, actualSize));
+            if (new FileInfo(localFile).Length != archive.Size + archive.StartOffset)
+                throw new FetcherException(string.Format(Resources.FileNotExpectedSize, archive.Location, archive.Size + archive.StartOffset, new FileInfo(localFile).Length));
         }
     }
 
@@ -246,6 +249,11 @@ namespace ZeroInstall.Fetchers
         
         //--------------------//
 
+        protected virtual ImplementationFetch CreateFetch(Implementation implementation)
+        {
+            return new ImplementationFetch(this, implementation);
+        }
+
         /// <summary>
         /// Execute a complete request and block until it is done.
         /// </summary>
@@ -263,7 +271,7 @@ namespace ZeroInstall.Fetchers
 
             foreach (var implementation in fetchRequest.Implementations)
             {
-                var fetchProcess = new ImplementationFetch(this, implementation);
+                var fetchProcess = CreateFetch(implementation);
                 fetchProcess.Perform();
                 if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
             }
