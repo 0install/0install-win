@@ -103,17 +103,15 @@ namespace Common
                     context = _listener.GetContext();
 
                     // Only return one specific file
-                    if (context.Request.RawUrl != "/file")
+                    if (context.Request.RawUrl == "/file")
                     {
-                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        continue;
+                        context.Response.ContentLength64 = _fileContent.Length;
+                        StreamUtils.Copy(_fileContent, context.Response.OutputStream);
+
+                        // Delay finishing the file transfer if Slow-mode is active
+                        if (Slow) Thread.Sleep(10000);
                     }
-
-                    context.Response.ContentLength64 = _fileContent.Length;
-                    StreamUtils.Copy(_fileContent, context.Response.OutputStream);
-
-                    // Delay finishing the file transfer if Slow-mode is active
-                    if (Slow) Thread.Sleep(10000);
+                    else context.Response.StatusCode = (int)HttpStatusCode.NotFound;
 
                     context.Response.OutputStream.Close();
                 }

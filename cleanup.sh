@@ -12,3 +12,6 @@ rm -f vs/*/.pidb
 
 # Remove MonoDevelop user preferences
 rm -f vs/*.userprefs
+
+# Remove NUnit logs
+rm -f *.VisualState.xml TestResult.xml

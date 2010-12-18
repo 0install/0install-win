@@ -125,7 +125,7 @@ namespace Common.Net
 
             // Start and then cancel the download
             downloadThread.Start();
-            while (download.State == ProgressState.Ready) Thread.Sleep(0);
+            Thread.Sleep(100);
             download.Cancel();
             downloadThread.Join();
 
