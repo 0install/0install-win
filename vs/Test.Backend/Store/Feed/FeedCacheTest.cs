@@ -101,6 +101,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Ensures that <see cref="FeedCache.Add"/> correctly adds new feeds and detects replay attacks.
         /// </summary>
+        // Test deactivated because feature isn't implemented yet
         //[Test]
         public void TestAdd()
         {

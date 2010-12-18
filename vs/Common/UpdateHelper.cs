@@ -31,7 +31,7 @@ namespace Common
     /// <summary>
     /// Generic delegate for getting an object without passing any parameters.
     /// </summary>
-    public delegate T SimpleResult<T>();
+    public delegate T SimpleResult<out T>();
     #endregion
 
     /// <summary>
