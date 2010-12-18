@@ -72,6 +72,10 @@ namespace Common.Controls
                 {
                     // Only hook up state event, progress tracking will be set up later
                     _task.StateChanged += StateChanged;
+
+                    // Reset the display from any previous tasks
+                    StateChanged(_task);
+                    ProgressChanged(_task);
                 }
             }
             get { return _task; }
@@ -114,7 +118,7 @@ namespace Common.Controls
                         break;
 
                     case ProgressState.Data:
-                        // Is the final size known?
+                        // Only track progress if the final size is known
                         if (sender.Progress >= 0)
                         {
                             _task.ProgressChanged += ProgressChanged;
