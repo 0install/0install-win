@@ -17,12 +17,17 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Utils;
 using NDesk.Options;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Launcher.Arguments;
+using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -83,8 +88,79 @@ namespace ZeroInstall.Launcher.WinForms
                             results.Feed = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
                             if (string.IsNullOrEmpty(results.Feed)) return;
                         }
-
-                        handler.Execute(results);
+                        
+                        handler.ShowAsync();
+                        try { Execute(results, handler); }
+                        #region Error hanlding
+                        catch (UserCancelException)
+                        {}
+                        catch (ArgumentException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (WebException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (SolverException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (FetcherException ex)
+                        {
+                            Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (DigestMismatchException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (ImplementationNotFoundException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (MissingMainException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (Win32Exception ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        catch (BadImageFormatException ex)
+                        {
+                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                            handler.CloseAsync();
+                            return;
+                        }
+                        #endregion
                         break;
 
                     case OperationMode.List:
@@ -183,6 +259,49 @@ namespace ZeroInstall.Launcher.WinForms
             // Return the now filled results structure
             results = parseResults;
             return mode;
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Execute
+        /// <summary>
+        /// Executes the commands specified by the command-line arguments.
+        /// </summary>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all depedencies.</exception>
+        /// <exception cref="FetcherException">Thrown if an <see cref="Implementation"/> could not be downloaded.</exception>
+        /// <exception cref="DigestMismatchException">Thrown uf an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        public static void Execute(ParseResults results, MainForm handler)
+        {
+            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
+
+            if (results.SelectionsFile == null) controller.Solve();
+            else controller.SetSelections(Selections.Load(results.SelectionsFile));
+
+            controller.DownloadUncachedImplementations();
+
+            handler.CloseAsync();
+
+            if (!results.DownloadOnly)
+            {
+                var executor = controller.GetExecutor();
+                executor.Main = results.Main;
+                executor.Wrapper = results.Wrapper;
+
+                var startInfo = executor.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
+                if (results.NoWait) ProcessUtils.RunDetached(startInfo);
+                else ProcessUtils.RunReplace(startInfo);
+            }
         }
         #endregion
     }

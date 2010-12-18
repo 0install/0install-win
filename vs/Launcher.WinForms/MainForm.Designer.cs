@@ -56,6 +56,7 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonCancel.Enabled = false;
             this.buttonCancel.Location = new System.Drawing.Point(222, 87);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
@@ -79,6 +80,7 @@
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Launching application";
+            this.Closing += new System.ComponentModel.CancelEventHandler(this.MainForm_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();
 
