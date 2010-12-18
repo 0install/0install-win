@@ -191,6 +191,7 @@ namespace Common.Cli
                 RedirectStandardInput = true,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
+                ErrorDialog = false
             };
 
             // Add bundled application directory to search path for locating DLLs

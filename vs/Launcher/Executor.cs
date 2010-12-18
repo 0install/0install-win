@@ -197,7 +197,7 @@ namespace ZeroInstall.Launcher
             // Prepare the new process to launch the implementation
             var startInfo = new ProcessStartInfo(main, arguments)
             {
-                ErrorDialog = true,
+                ErrorDialog = false,
                 // Use ShellExecute to open non-executable files
                 UseShellExecute = (WindowsUtils.IsWindows && !main.EndsWith(".exe")) || (MonoUtils.IsUnix && !FileUtils.IsExecutable(main))
             };
