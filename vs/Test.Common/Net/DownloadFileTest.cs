@@ -129,7 +129,7 @@ namespace Common.Net
             download.Cancel();
             downloadThread.Join();
 
-            Assert.IsTrue(exceptionThrown);
+            Assert.IsTrue(exceptionThrown, download.State.ToString());
         }
         
         /// <summary>

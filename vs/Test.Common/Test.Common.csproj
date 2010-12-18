@@ -54,10 +54,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MicroServer.cs" />
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Net\DownloadFileTest.cs" />
+    <Compile Include="Net\MicroServer.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
