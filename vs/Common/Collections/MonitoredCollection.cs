@@ -186,7 +186,7 @@ namespace Common.Collections
             if (collection == this) throw new ArgumentException(Resources.CannotAddCollectionToSelf, "collection");
             #endregion
 
-            // Create seperate collection to be able to dispatch events afterwards
+            // Create separate collection to be able to dispatch events afterwards
             var added = new LinkedList<T>();
 
             // Add all items without raising the events yet
@@ -225,7 +225,7 @@ namespace Common.Collections
             // Create backup of collection to be able to remove while enumerating
             var copy = new List<T>(this);
 
-            // Create seperate collection to be able to dispatch events afterwards
+            // Create separate collection to be able to dispatch events afterwards
             var removed = new LinkedList<T>();
 
             // Remove superflous items without raising the events yet

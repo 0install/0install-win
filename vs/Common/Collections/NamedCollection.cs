@@ -23,15 +23,27 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using Common.Properties;
 
 namespace Common.Collections
 {
     /// <summary>
-    /// A keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
+    /// A keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects. Elements are automatically maintained in an alphabetically sorted order. Suitable for XML serialization.
     /// </summary>
-    /// <remarks>The objects should be immutable for the indexing to work reliably.</remarks>
+    /// <remarks>Correct behavior with duplicate names or renaming without using the <see cref="Rename"/> method is not guaranteed!</remarks>
+    // ToDo: Reimplement without KeyedCollection to be able to use more efficent sorting
     public class NamedCollection<T> : KeyedCollection<string, T>, INamedCollection<T>, ICloneable where T : INamed
     {
+        #region Events
+        /// <inheritdoc/>
+        public event SimpleEventHandler CollectionChanged;
+
+        private void OnAfterChanged()
+        {
+            if (CollectionChanged != null) CollectionChanged();
+        }
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new case-insensitive named collection.
@@ -42,27 +54,66 @@ namespace Common.Collections
 
         //--------------------//
 
-        #region Access
+        #region Key access
         protected override string GetKeyForItem(T item)
         {
             return item.Name;
         }
         #endregion
 
+        #region Rename
+        /// <inheritdoc/>
+        public void Rename(T entry, string newName)
+        {
+            if (entry.Name == newName) return;
+            if (Contains(newName)) throw new InvalidOperationException(Resources.KeyAlreadyPresent);
+            
+            ChangeItemKey(entry, newName); 
+            entry.Name = newName;
+
+            Sort();
+
+            OnAfterChanged();
+        }
+        #endregion
+
         #region Sort
         /// <summary>
-        /// Sorts all entries alphabetically by their name.
+        /// Sorts all elements alphabetically by their <see cref="INamed.Name"/>.
         /// </summary>
-        public void Sort()
+        private void Sort()
         {
-            // Get list to sort
             var items = Items as List<T>;
-
-            // Apply and set the sort, if items to sort
             if (items != null)
-            {
                 items.Sort((x, y) => x.Name.CompareTo(y.Name));
-            }
+        }
+        #endregion
+
+        #region Hooks
+        protected override void InsertItem(int index, T item)
+        {
+            base.InsertItem(index, item);
+            Sort();
+            OnAfterChanged();
+        }
+
+        protected override void SetItem(int index, T item)
+        {
+            base.SetItem(index, item);
+            Sort();
+            OnAfterChanged();
+        }
+
+        protected override void RemoveItem(int index)
+        {
+            base.RemoveItem(index);
+            OnAfterChanged();
+        }
+
+        protected override void ClearItems()
+        {
+            base.ClearItems();
+            OnAfterChanged();
         }
         #endregion
 

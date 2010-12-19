@@ -26,10 +26,11 @@ using System.Collections.Generic;
 namespace Common.Collections
 {
     /// <summary>
-    /// A read-only access to a keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
+    /// An interface to a keyed collection (pseudo-dictionary) of <see cref="INamed"/> objects.
     /// </summary>
-    /// <typeparam name="T">The type of <see cref="INamed"/> objects to hold</typeparam>
-    public interface INamedCollection<T> : IEnumerable<T> where T : INamed
+    /// <typeparam name="T">The type of <see cref="INamed"/> objects to hold.</typeparam>
+    /// <remarks>Correct behavior with duplicate names or renaming without using the <see cref="Rename"/> method is not guaranteed!</remarks>
+    public interface INamedCollection<T> : ICollection<T> where T : INamed
     {
         /// <summary>
         /// Gets the element with the specified key.
@@ -47,5 +48,19 @@ namespace Common.Collections
         /// <returns><see langword="true"/> if the dictionary contains an element with the specified key; otherwise, <see langword="false"/>.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="name"/> is <see langword="null"/>.</exception>
         bool Contains(string name);
+
+        /// <summary>
+        /// Changes the <see cref="INamed.Name"/> of an entry.
+        /// </summary>
+        /// <param name="entry">The entry in the collection to be renamed.</param>
+        /// <param name="newName">The new name for the collection</param>
+        /// <exception cref="InvalidOperationException">Thrown if an entry with the name <paramref name="newName"/> is already contained within the collection.</exception>
+        /// <remarks>This method must be used instead of directly modifying the <see cref="INamed.Name"/> property to ensure the directory lookup structures stay in sync.</remarks>
+        void Rename(T entry, string newName);
+
+        /// <summary>
+        /// Is raised after the content of the collection has changed in any way (adding, removing, renaming, etc.).
+        /// </summary>
+        event SimpleEventHandler CollectionChanged;
     }
 }

@@ -73,9 +73,12 @@ namespace Common.Controls
                     // Only hook up state event, progress tracking will be set up later
                     _task.StateChanged += StateChanged;
 
-                    // Reset the display from any previous tasks
-                    StateChanged(_task);
-                    ProgressChanged(_task);
+                    if (IsHandleCreated)
+                    {
+                        // Reset the display from any previous tasks
+                        StateChanged(_task);
+                        ProgressChanged(_task);
+                    }
                 }
             }
             get { return _task; }

@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Store.Management.WinForms
@@ -27,7 +28,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return base.Name + "#" + _implementation; } }
+        public override string Name { get { return base.Name + "#" + _implementation; } set { throw new NotSupportedException(); } }
         #endregion
 
         #region Constructor

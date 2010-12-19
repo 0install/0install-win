@@ -32,9 +32,10 @@ namespace Common.Controls
 {
     /// <summary>
     /// Displays a list of <see cref="INamed"/>s objects in a <see cref="TreeView"/> with incremental search.
+    /// An automatic hierachy is generated based on a <see cref="Separator"/> character.
     /// </summary>
     /// <typeparam name="T">The type of <see cref="INamed"/> object to list.
-    /// Special support for types implementing <see cref="IHighlightColor"/> and/or <see cref="IContextMenu"/>,</typeparam>
+    /// Special support for types implementing <see cref="IHighlightColor"/> and/or <see cref="IContextMenu"/>.</typeparam>
     [Description("Displays a list of INamed in a TreeView with incremental search.")]
     public sealed partial class FilteredTreeView<T> : UserControl where T : class, INamed
     {
@@ -47,7 +48,7 @@ namespace Common.Controls
 
         private void OnSelectedEntryChanged()
         {
-            if (Visible && SelectedEntryChanged != null && !_supressEvents) SelectedEntryChanged(this, EventArgs.Empty);
+            if (!_supressEvents && Visible && SelectedEntryChanged != null) SelectedEntryChanged(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -59,7 +60,18 @@ namespace Common.Controls
         private void OnSelectionConfirmed()
         {
             // Only confirm if the user actually selected something
-            if (_selectedEntry != null && SelectionConfirmed != null) SelectionConfirmed(this, EventArgs.Empty);
+            if (!_supressEvents && Visible && SelectionConfirmed != null && _selectedEntry != null) SelectionConfirmed(this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Occurs whenever the content of <see cref="CheckedEntries"/> has changed.
+        /// </summary>
+        [Description("Occurs whenever the content of CheckedEntries has changed.")]
+        public event EventHandler CheckedEntriesChanged;
+
+        private void OnCheckedEntriesChanged()
+        {
+            if (!_supressEvents && Visible && CheckedEntriesChanged != null) CheckedEntriesChanged(this, EventArgs.Empty);
         }
         #endregion
 
@@ -88,7 +100,16 @@ namespace Common.Controls
         public INamedCollection<T> Entries
         {
             get { return _entries; }
-            set { _entries = value; UpdateList(); }
+            set
+            {
+                // Keep track of any changes within the collection
+                if (_entries != null) _entries.CollectionChanged -= UpdateList;
+                _entries = value;
+                if (_entries != null) _entries.CollectionChanged += UpdateList;
+                
+                _checkedEntries.Clear();
+                UpdateList();
+            }
         }
 
         private T _selectedEntry;
@@ -107,18 +128,45 @@ namespace Common.Controls
             }
         }
 
+        private readonly C5.HashSet<T> _checkedEntries = new C5.HashSet<T>();
+        private T[] _checkedEntriesArrayCache;
+        /// <summary>
+        /// Returns an array of all <see cref="INamed"/> objects currently marked with a check box.
+        /// </summary>
+        /// <see cref="CheckBoxes"/>
+        [SuppressMessage("Microsoft.Performance", "CA1819:PropertiesShouldNotReturnArrays", Justification = "Caching is employed to prevent constant array creation")]
+        public T[] CheckedEntries
+        {
+            get
+            {
+                // Use the array cache when possible
+                if (_checkedEntriesArrayCache == null) _checkedEntriesArrayCache = _checkedEntries.ToArray();
+                return _checkedEntriesArrayCache;
+            }
+        }
+
         private char _separator = '.';
         /// <summary>
         /// The character used to separate namespaces in the <see cref="INamed.Name"/>s. This controls how the tree structure is generated.
         /// </summary>
         [DefaultValue('.'), Description("The character used to separate namespaces in the Names. This controls how the tree structure is generated.")]
         public char Separator { get { return _separator; } set { _separator = value; UpdateList(); } }
+
+        /// <summary>
+        /// Controls whether check boxes are displayed for every entry.
+        /// </summary>
+        /// <see cref="CheckedEntries"/>
+        [DefaultValue(false), Description("Controls whether check boxes are displayed for every entry.")]
+        public bool CheckBoxes { get { return treeView.CheckBoxes; } set { treeView.CheckBoxes = value; } }
         #endregion
 
         #region Constructor
         public FilteredTreeView()
         {
             InitializeComponent();
+
+            // Ensure the checked entries cache gets flushed
+            _checkedEntries.CollectionChanged += delegate { _checkedEntriesArrayCache = null; };
         }
         #endregion
 
@@ -131,7 +179,7 @@ namespace Common.Controls
         }
         #endregion
 
-        #region ListView control
+        #region TreeView control
         private void treeView_DoubleClick(object sender, EventArgs e)
         {
             OnSelectionConfirmed();
@@ -144,15 +192,15 @@ namespace Common.Controls
 
         private void treeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            string className = treeView.SelectedNode.Name;
+            string name = treeView.SelectedNode.Name;
 
             // Don't use the property, to prevent a loop
-            _selectedEntry = _entries.Contains(className) ? _entries[className] : null;
+            _selectedEntry = _entries.Contains(name) ? _entries[name] : null;
             OnSelectedEntryChanged();
         }
 
         /// <summary>
-        /// Updates the filtered <see cref="ListView"/> representation of <see cref="Entries"/>
+        /// Updates the filtered <see cref="TreeView"/> representation of <see cref="Entries"/>
         /// </summary>
         private void UpdateList()
         {
@@ -162,25 +210,26 @@ namespace Common.Controls
             treeView.Nodes.Clear();
             if (_entries != null)
             {
-                foreach (T classEntry in _entries)
+                foreach (T entry in _entries)
                 {
-                    // The currently selected class is always visible
-                    if (_selectedEntry != null && classEntry.Name == _selectedEntry.Name) // Only compare name to handle cloned entries
+                    // The currently selected entry and checked entries are always visible
+                    // Note: Compare name to handle cloned entries
+                    if ((_selectedEntry != null && entry.Name == _selectedEntry.Name) || _checkedEntries.Contains(entry))
                     {
-                        _selectedEntry = classEntry; // Fix problems that might arrise from using clones
-                        treeView.SelectedNode = AddTreeNode(classEntry);
+                        _selectedEntry = entry; // Fix problems that might arrise from using clones
+                        treeView.SelectedNode = AddTreeNode(entry);
                     }
                     // List all nodes if there is no filter
                     else if (string.IsNullOrEmpty(textSearch.Text))
-                        AddTreeNode(classEntry);
+                        AddTreeNode(entry);
                     // Only list nodes that match the filter
-                    else if (StringUtils.Contains(classEntry.Name, textSearch.Text))
-                        AddTreeNode(classEntry);
+                    else if (StringUtils.Contains(entry.Name, textSearch.Text))
+                        AddTreeNode(entry);
                 }
 
                 // Automatically expand nodes based on the filtering
                 if (!string.IsNullOrEmpty(textSearch.Text))
-                    FilterNodes(treeView.Nodes, true);
+                    ExpandNodes(treeView.Nodes, true);
             }
 
             // Restore events at the end
@@ -188,7 +237,7 @@ namespace Common.Controls
         }
         #endregion
 
-        #region ListView node helper
+        #region TreeView node helper
         /// <summary>
         /// Adds a new node to <see cref="treeView"/>.
         /// </summary>
@@ -215,6 +264,7 @@ namespace Common.Controls
 
             // Create node storing full name, using last part as visible text
             TreeNode finalNode = subTree.Add(name, nameSplit[nameSplit.Length - 1]);
+            if (_checkedEntries.Contains(entry)) finalNode.Checked = true;
 
             #region Highlight color
             var highlightColorProvider = entry as IHighlightColor;
@@ -236,7 +286,7 @@ namespace Common.Controls
                     // Attach the context menu if one is set
                     finalNode.ContextMenu = contextMenu;
 
-                    // Automatically reflect any changes the context menu may have made
+                    // Automatically reflect any changes the context menu action may have made
                     foreach (MenuItem menuItem in finalNode.ContextMenu.MenuItems)
                     {
                         menuItem.Click += delegate { UpdateList(); };
@@ -249,29 +299,47 @@ namespace Common.Controls
         }
         #endregion
 
-        #region ListView filter node helper
+        #region TreeView expand node helper
         /// <summary>
         /// Automatically expand nodes based on the <see cref="textSearch"/> filtering
         /// </summary>
         /// <param name="subTree">The current <see cref="TreeNodeCollection"/> used in recursion</param>
         /// <param name="fullNameExpand">Shall a search in the full name of a tag allow it to be expanded?</param>
-        private void FilterNodes(TreeNodeCollection subTree, bool fullNameExpand)
+        private void ExpandNodes(TreeNodeCollection subTree, bool fullNameExpand)
         {
             foreach (TreeNode node in subTree)
             {
-                // Nodes with matches in the last part of their name (the displayed text) shall always be visible
-                if (StringUtils.Contains(node.Text, textSearch.Text)) node.EnsureVisible();
+                // Checked nodes and nodes with matches in the last part of their name (the displayed text) shall always be visible
+                if (node.Checked || StringUtils.Contains(node.Text, textSearch.Text)) node.EnsureVisible();
 
-                // Nodes with matches in their full name shall be expanded...
+                // Parent nodes with full name match shall be expanded
                 if (fullNameExpand && StringUtils.Contains(node.Name, textSearch.Text))
                 {
                     node.EnsureVisible();
                     node.Expand();
 
                     // ... but not beyond the first recursion level
-                    FilterNodes(node.Nodes, false);
+                    ExpandNodes(node.Nodes, false);
                 }
-                else FilterNodes(node.Nodes, fullNameExpand);
+                else ExpandNodes(node.Nodes, fullNameExpand);
+            }
+        }
+        #endregion
+
+        #region Checkbox control
+        private void treeView_AfterCheck(object sender, TreeViewEventArgs e)
+        {
+            // Checking a parent will check all its children
+            foreach (TreeNode node in e.Node.Nodes)
+                node.Checked = e.Node.Checked;
+
+            // Maintain a list of currently checked bottom-level entries
+            if (Entries.Contains(e.Node.Name))
+            {
+                T entry = Entries[e.Node.Name];
+                if (e.Node.Checked) _checkedEntries.Add(entry);
+                else _checkedEntries.Remove(entry);
+                OnCheckedEntriesChanged();
             }
         }
         #endregion

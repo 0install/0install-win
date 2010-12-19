@@ -38,7 +38,7 @@ namespace Common
     /// <summary>
     /// A background task that can report its progess via events and that can be cancelled.
     /// </summary>
-    public interface IProgress : INamed
+    public interface IProgress
     {
         #region Events
         /// <summary>
@@ -61,6 +61,12 @@ namespace Common
         #endregion
 
         #region Properties
+        /// <summary>
+        /// A name describing the task in human-readable form.
+        /// </summary>
+        [Description("A name describing the task in human-readable form.")]
+        string Name { get; }
+
         /// <summary>
         /// The current status of the task.
         /// </summary>

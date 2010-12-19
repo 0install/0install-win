@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Store.Management.WinForms
@@ -27,7 +28,11 @@ namespace ZeroInstall.Store.Management.WinForms
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return _feed.ToString(); } }
+        public override string Name { get { return _feed.ToString(); } set { throw new NotSupportedException(); } }
+
+        public string Title { get { return _feed.Name; } }
+
+        public Uri Uri { get { return _feed.Uri; } }
         #endregion
 
         #region Constructor

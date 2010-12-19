@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Net;
@@ -39,7 +40,8 @@ namespace Common.Controls
         /// Creates a new tracking progress dialog.
         /// </summary>
         /// <param name="task">The trackable task to execute and display.</param>
-        private TrackingProgressDialog(IProgress task)
+        /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
+        private TrackingProgressDialog(IProgress task, Icon icon)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -48,6 +50,7 @@ namespace Common.Controls
             InitializeComponent();
             buttonCancel.Text = Resources.Cancel;
             Text = task.Name;
+            Icon = icon;
 
             // Hook up event tracking
             trackingProgressBar.Task = task;
@@ -77,11 +80,12 @@ namespace Common.Controls
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
         /// <param name="task">The trackable task to execute and display.</param>
+        /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="IProgress.State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        public static void Run(IWin32Window owner, IProgress task)
+        public static void Run(IWin32Window owner, IProgress task, Icon icon)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -90,7 +94,7 @@ namespace Common.Controls
             if (task.State != ProgressState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
 
             // Show the dialog and run the task
-            using (var dialog = new TrackingProgressDialog(task))
+            using (var dialog = new TrackingProgressDialog(task, icon))
                 dialog.ShowDialog(owner);
 
             // Wait until the task has really finished and then check its state

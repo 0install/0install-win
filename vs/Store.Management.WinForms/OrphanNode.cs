@@ -15,6 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+
 namespace ZeroInstall.Store.Management.WinForms
 {
     public class OrphanNode : StoreNode
@@ -22,7 +24,7 @@ namespace ZeroInstall.Store.Management.WinForms
         #region Properties
         private readonly string _name;
         /// <inheritdoc/>
-        public override string Name { get { return _name; } }
+        public override string Name { get { return _name; } set { throw new NotSupportedException(); } }
         #endregion
 
         #region Constructor

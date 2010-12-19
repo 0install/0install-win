@@ -20,20 +20,21 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.ComponentModel;
 
 namespace Common
 {
     /// <summary>
-    /// An object with a unique name, suitable for identification in lists.
+    /// An object that has a unique human-readable name that can be used for identification in lists and sorting and that can be modified.
     /// </summary>
     /// <see cref="Collections.INamedCollection{T}"/>
-    public interface INamed
+    public interface INamed : IComparable
     {
         /// <summary>
-        /// A unique name for the object.
+        /// A unique human-readable name for the object.
         /// </summary>
         [Description("A unique name for the object.")]
-        string Name { get; }
+        string Name { get; set; }
     }
 }

@@ -15,18 +15,33 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.ComponentModel;
+using System.Windows.Forms;
 using Common;
 using Common.Controls;
-using System.Windows.Forms;
 
 namespace ZeroInstall.Store.Management.WinForms
 {
     public abstract class StoreNode : INamed, IContextMenu
     {
         /// <inheritdoc/>
-        public abstract string Name { get; }
+        [Browsable(false)]
+        public abstract string Name { get; set; }
 
         /// <inheritdoc/>
         public abstract ContextMenu GetContextMenu();
+
+        #region Comparison
+        public int CompareTo(object other)
+        {
+            string otherName;
+            var named = other as INamed;
+            if (named != null) otherName = named.Name;
+            else if (other != null) otherName = other.ToString();
+            else otherName = null;
+            return string.Compare(Name, otherName, StringComparison.OrdinalIgnoreCase);
+        }
+        #endregion
     }
 }

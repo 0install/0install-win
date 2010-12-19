@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 // ... and add the resulting digest to the return value
                 var generator = new ManifestGenerator(path, format);
-                TrackingProgressDialog.Run(owner, generator);
+                TrackingProgressDialog.Run(owner, generator, null);
                 ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
             }
 
