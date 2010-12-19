@@ -45,7 +45,7 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Constants
-        private const string FeedFileFilter = "ZeroInstall Feed (*.xml)|*.xml|All Files|*.*";
+        private const string FeedFileFilter = "Zero Install Feed (*.xml)|*.xml|All Files|*.*";
         private readonly ImageFormat[] _supportedImageFormats = new[] {ImageFormat.Png, ImageFormat.Icon};
         private readonly string[] _supportedInjectorVersions = new[] { string.Empty, "0.31", "0.32", "0.33", "0.34",
             "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43", "0.44", "0.45"};
@@ -95,8 +95,6 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Initializes the <see cref="openFileDialog"/> with a file filter for .xml files.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming",
-            "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall")]
         private void InitializeLoadFileDialog()
         {
             if (_feedEditing.Path != null) openFileDialog.InitialDirectory = _feedEditing.Path;
@@ -624,7 +622,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             bool wrongPassphrase = false;
 
-            if (toolStripComboBoxGpg.Text == string.Empty) return;
+            if (string.IsNullOrEmpty(toolStripComboBoxGpg.Text)) return;
             var key = (GnuPGSecretKey) toolStripComboBoxGpg.SelectedItem;
             do
             {

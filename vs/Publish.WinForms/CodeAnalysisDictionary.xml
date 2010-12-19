@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>ZeroInstall</Word>
+      <Word>GnuPG</Word>
+      <Word>Foo</Word>
+      <Word>filesystem</Word>
+    </Recognized>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>ZeroInstall</Acronym>
+      <Acronym>GnuPG</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

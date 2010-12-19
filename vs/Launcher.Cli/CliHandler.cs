@@ -56,6 +56,10 @@ namespace ZeroInstall.Launcher.Cli
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
+            #region Sanity checks
+            if (download == null) throw new ArgumentNullException("download");
+            #endregion
+
             if (Batch) return;
 
             Log.Info(download.Name + "...");
@@ -65,6 +69,10 @@ namespace ZeroInstall.Launcher.Cli
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
+            #region Sanity checks
+            if (extraction == null) throw new ArgumentNullException("extraction");
+            #endregion
+
             if (Batch) return;
 
             Log.Info(extraction.Name + "...");
@@ -74,6 +82,10 @@ namespace ZeroInstall.Launcher.Cli
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
         {
+            #region Sanity checks
+            if (manifest == null) throw new ArgumentNullException("manifest");
+            #endregion
+
             if (Batch) return;
 
             Log.Info(manifest.Name + "...");

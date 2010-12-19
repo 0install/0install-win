@@ -17,12 +17,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
 
 namespace ZeroInstall.Store.Management.WinForms
 {
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
     public abstract class StoreNode : INamed, IContextMenu
     {
         /// <inheritdoc/>
@@ -33,12 +35,12 @@ namespace ZeroInstall.Store.Management.WinForms
         public abstract ContextMenu GetContextMenu();
 
         #region Comparison
-        public int CompareTo(object other)
+        public int CompareTo(object obj)
         {
             string otherName;
-            var named = other as INamed;
+            var named = obj as INamed;
             if (named != null) otherName = named.Name;
-            else if (other != null) otherName = other.ToString();
+            else if (obj != null) otherName = obj.ToString();
             else otherName = null;
             return string.Compare(Name, otherName, StringComparison.OrdinalIgnoreCase);
         }

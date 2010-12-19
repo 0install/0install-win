@@ -283,6 +283,10 @@ namespace ZeroInstall.Launcher.WinForms
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         public static void Execute(ParseResults results, MainForm handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
             if (results.SelectionsFile == null) controller.Solve();

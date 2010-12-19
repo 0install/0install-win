@@ -76,10 +76,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void UpdateComboBoxLanguages()
         {
-            var selectedLanguage = GetSelectedLanguage();
-
-            C5.SortedArray<CultureInfo> settedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
-            C5.SortedArray<CultureInfo> notSettedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
+            var settedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
+            var notSettedLanguages = new C5.SortedArray<CultureInfo>(new CultureComparer());
 
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
             {

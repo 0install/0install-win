@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Serialization;
 using System.Security.Permissions;
 using Common.Collections;
@@ -27,6 +28,7 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// Represents errors that occured in <see cref="Fetcher"/>.
     /// </summary>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     public sealed class FetcherException : Exception
     {

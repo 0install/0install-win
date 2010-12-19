@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Dictionary>
+  <Words>
+    <Recognized>
+      <Word>ZeroInstall</Word>
+      <Word>optimise</Word>
+    </Recognized>
+  </Words>
+  <Acronyms>
+    <CasingExceptions>
+      <Acronym>ZeroInstall</Acronym>
+    </CasingExceptions>
+  </Acronyms>
+</Dictionary>

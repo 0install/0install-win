@@ -8,4 +8,6 @@
 // "In Project Suppression File".
 // You do not need to add suppressions to this file manually.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "ZeroInstall", Scope = "member", Target = "ZeroInstall.Publish.WinForms.MainForm.#InitializeSaveFileDialog()")]
+
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GnuPG", Scope = "member", Target = "ZeroInstall.Publish.WinForms.MainForm.#InitializeComponent()")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA2204:Literals should be spelled correctly", MessageId = "GnuPG", Scope = "member", Target = "ZeroInstall.Publish.WinForms.MainForm.#GetGnuPGSecretKeys()")]

@@ -221,6 +221,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
     <None Include="Resources\NewButton.png" />
     <None Include="Resources\OpenButton.png" />

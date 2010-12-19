@@ -166,7 +166,14 @@ namespace ZeroInstall.Launcher.Cli
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.List:
-                    List(results);
+                    try { List(results); }
+                    #region Error hanlding
+                    catch (ArgumentException ex)
+                    {
+                        Log.Error(ex.Message);
+                        return (int)ErrorLevel.IOError;
+                    }
+                    #endregion
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.Import:
@@ -291,7 +298,8 @@ namespace ZeroInstall.Launcher.Cli
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="results">The parser results to be executed.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
@@ -331,12 +339,17 @@ namespace ZeroInstall.Launcher.Cli
         #endregion
 
         #region List
+        /// <summary>
+        /// Prints a list of feeds in the cache to the console.
+        /// </summary>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="ArgumentException">Thrown if no filtering aruments were passed.</exception>
         public static void List(ParseResults results)
         {
-            if (results.AdditionalArgs.Count != 0) throw new ArgumentException();
+            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(Resources.MissingArguments);
 
-            var interfaces = results.Policy.FeedProvider.Cache.ListAll();
-            foreach (Uri entry in interfaces)
+            var feeds = results.Policy.FeedProvider.Cache.ListAll();
+            foreach (Uri entry in feeds)
             {
                 if (results.Feed == null || entry.ToString().Contains(results.Feed))
                     Console.WriteLine(entry);

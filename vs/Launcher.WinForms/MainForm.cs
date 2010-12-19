@@ -67,7 +67,6 @@ namespace ZeroInstall.Launcher.WinForms
             {
                 buttonCancel.Enabled = true;
                 Close();
-                Dispose();
             }));
         }
 
