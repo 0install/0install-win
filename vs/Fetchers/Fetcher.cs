@@ -26,33 +26,152 @@ using ZeroInstall.Fetchers.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Implementation.Archive;
+using System.Diagnostics;
 
 namespace ZeroInstall.Fetchers
 {
+    internal class RetrievalMethodRanker : IComparer<RetrievalMethod>
+    {
+        #region Declaration of Priorities
+        private enum Category : int
+        {
+            Null,
+            Format,
+            Simplicity
+        }
+
+        private enum Valuation : int
+        {
+            Recipe = 1 * Category.Simplicity,
+            Archive = 0 * Category.Simplicity,
+            ZipFormat = 0 * Category.Format,
+            GzFormat = 1 * Category.Format,
+            UnknownFormat = 2 * Category.Format
+        }
+        #endregion
+
+        private abstract class Ranking : IComparable<Ranking>
+        {
+            protected abstract int Value { get; }
+
+            public int CompareTo(Ranking other)
+            {
+                return Value - other.Value;
+            }
+        }
+
+        #region Archive Ranking
+        private class ArchiveRanking : Ranking
+        {
+            private readonly Archive _subject;
+
+            public ArchiveRanking(Archive subject)
+            {
+                _subject = subject;
+            }
+
+            protected override int Value
+            {
+                get
+                {
+                    int result = 0;
+                    result += (int)Valuation.Archive;
+
+                    if (_subject.MimeType == "application/zip")
+                        result += (int)Valuation.ZipFormat;
+                    else
+                        result += (int)Valuation.UnknownFormat;
+
+                    return result;
+                }
+            }
+        }
+        #endregion
+
+        #region Recipe Ranking
+        private class RecipeRanking : Ranking
+        {
+            private readonly Recipe _subject;
+
+            public RecipeRanking(Recipe subject)
+            {
+                _subject = subject;
+            }
+
+            protected override int Value
+            {
+                get
+                {
+                    int result = 0;
+                    result += (int)Valuation.Archive;
+
+                    return result;
+                }
+            }
+        }
+        #endregion
+
+        #region Dispatching Creation of Ranking objects
+        private static Ranking Rank(RetrievalMethod subject)
+        {
+            #region Sanity checks
+            if (subject == null) throw new ArgumentNullException("subject");
+            #endregion
+
+            Ranking result = null;
+
+            if (subject.GetType() == typeof(Archive))
+            {
+                result = new ArchiveRanking((Archive)subject);
+            }
+            else if (subject.GetType() == typeof(Recipe))
+            {
+                result = new RecipeRanking((Recipe)subject);
+            }
+            else
+            {
+                Debug.Fail("subject (RetrievalMethod) has unknown type");
+            }
+            return result;
+        }
+        #endregion
+
+        public int Compare(RetrievalMethod x, RetrievalMethod y)
+        {
+            var rankingX = Rank(x);
+            var rankingY = Rank(y);
+            return rankingX.CompareTo(rankingY);
+        }
+    }
+
     /// <summary>
     /// A Method Object that encapsulates fetching a single <see cref="Implementation"/>
     /// </summary>
     public class ImplementationFetch
     {
-        public Fetcher FetcherInstance;
-        public Implementation ImplementationToFetch;
-        public bool Completed = false;
-        public List<Exception> Problems = new List<Exception>();
+        private Fetcher FetcherInstance;
+        private readonly List<RetrievalMethod> RetrievalMethods;
+        private ManifestDigest Digest;
+        internal bool Completed = false;
+        internal List<Exception> Problems = new List<Exception>();
 
         public ImplementationFetch(Fetcher fetcher, Implementation implementation)
         {
             FetcherInstance = fetcher;
-            ImplementationToFetch = implementation;
+            RetrievalMethods = new List<RetrievalMethod>(implementation.RetrievalMethods.Count);
+            RetrievalMethods.AddRange(implementation.RetrievalMethods);
+            RetrievalMethods.Sort(new RetrievalMethodRanker());
+            Digest = implementation.ManifestDigest;
         }
 
-        public void Perform()
+        public void Execute()
         {
             TryRetrievalMethods();
         }
 
         private void TryRetrievalMethods()
         {
-            foreach (var method in ImplementationToFetch.RetrievalMethods)
+            foreach (var method in RetrievalMethods)
             {
                 Problems.Clear();
                 TryOneRetrievalMethodAndNoteProblems(method);
@@ -103,7 +222,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 FetcherInstance.Store.AddArchive(tempArchiveInfo,
-                    ImplementationToFetch.ManifestDigest,
+                    Digest,
                     FetcherInstance.Handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
@@ -136,7 +255,7 @@ namespace ZeroInstall.Fetchers
             }
             try
             {
-                FetcherInstance.Store.AddMultipleArchives(archives, ImplementationToFetch.ManifestDigest, FetcherInstance.Handler);
+                FetcherInstance.Store.AddMultipleArchives(archives, Digest, FetcherInstance.Handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
@@ -272,7 +391,7 @@ namespace ZeroInstall.Fetchers
             foreach (var implementation in fetchRequest.Implementations)
             {
                 var fetchProcess = CreateFetch(implementation);
-                fetchProcess.Perform();
+                fetchProcess.Execute();
                 if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
             }
         }

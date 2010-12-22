@@ -401,8 +401,7 @@ namespace ZeroInstall.Fetchers
             _testFolder.Dispose();
         }
 
-        // Test deactivated because feature isn't implemented yet
-        //[Test]
+        [Test]
         public void ShouldPreferArchiveOverRecipe()
         {
             var part1 = new PackageBuilder()
@@ -436,6 +435,43 @@ namespace ZeroInstall.Fetchers
             catch (MockException)
             {}
             Assert.AreEqual(downloaded, theCompleteArchive.Location);
+        }
+
+        [Test]
+        public void ShouldPreferZip()
+        {
+            var implementation = new Implementation
+                                 {
+                                     RetrievalMethods =
+                                         {
+                                             new Archive {MimeType = "application/zip"},
+                                             new Archive {MimeType = "application/x-compressed"}
+                                         }
+                                 };
+
+            var request = new FetchRequest(new List<Implementation> { implementation } );
+            string selectedType = null;
+
+            var fetcher = new MockFetcher(_store)
+                          {
+                              DownloadAction = (archive, target) =>
+                                               {
+                                                   selectedType = archive.MimeType;
+                                                   throw new MockException();
+                                               }
+                          };
+            try
+            {
+                fetcher.RunSync(request);
+            }
+            catch (MockException)
+            { }
+            catch (FetcherException)
+            {
+                Assert.Fail("Some error occurred, probably due to mocking.");
+            }
+
+            Assert.AreEqual("application/zip", selectedType);
         }
 
         class MockException : Exception
