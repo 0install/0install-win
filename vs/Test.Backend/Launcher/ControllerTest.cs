@@ -50,7 +50,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Ensures that <see cref="Controller.ListUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
         /// </summary>
-        // Test deactivated because it uses an external process and performs network IO
+        // Test deactivated because it uses an external process
         //[Test]
         public void TestListUncachedImplementations()
         {
@@ -71,7 +71,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Ensures <see cref="Controller.GetSelections"/> correctly provides results from a <see cref="ZeroInstall.Launcher.Solver"/>.
         /// </summary>
-        // Test deactivated because it uses an external process and performs network IO
+        // Test deactivated because it uses an external process
         //[Test]
         public void TestGetSelections()
         {
@@ -83,7 +83,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Ensures <see cref="Controller.GetExecutor"/> correctly provides an application that can be launched.
         /// </summary>
-        // Test deactivated because it uses an external process and performs network IO
+        // Test deactivated because it uses an external process
         //[Test]
         public void TestGetExecutor()
         {

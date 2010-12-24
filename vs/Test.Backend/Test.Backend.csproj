@@ -86,6 +86,7 @@
     <Compile Include="Launcher\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Launcher\Solver\PythonSolverTest.cs" />
     <Compile Include="Launcher\Solver\SelectionsTest.cs" />
+    <Compile Include="Launcher\Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
     <Compile Include="Model\CatalogTest.cs" />

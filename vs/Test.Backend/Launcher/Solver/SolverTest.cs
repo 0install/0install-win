@@ -15,26 +15,42 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+    /// Contains common test methods for <see cref="ISolver"/> implementations.
     /// </summary>
-    [TestFixture]
-    public class PythonSolverTest
+    public class SolverTest
     {
-        private readonly SolverTest _solverTest = new SolverTest(new PythonSolver());
+        public static Feed CreateTestFeed()
+        {
+            return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
+        }
+
+        private readonly ISolver _solver;
+
+        public SolverTest(ISolver solver)
+        {
+            _solver = solver;
+        }
 
         /// <summary>
         /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
         /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
         public void TestSolve()
         {
-            _solverTest.TestSolve();
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                CreateTestFeed().Save(tempFile.Path);
+
+                Selections selections = _solver.Solve(tempFile.Path, Policy.CreateDefault(new SilentHandler()));
+
+                Assert.AreEqual(tempFile.Path, selections.InterfaceID);
+            }
         }
     }
 }
