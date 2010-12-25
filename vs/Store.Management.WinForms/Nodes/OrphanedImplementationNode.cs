@@ -28,7 +28,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "Unknown#" + Digest; } set { throw new NotSupportedException(); } }
+        public override string Name
+        {
+            get { return "Unknown#" + Digest + (SuffixCounter == 0 ? "" : " " + SuffixCounter); }
+            set { throw new NotSupportedException(); }
+        }
         #endregion
 
         #region Constructor

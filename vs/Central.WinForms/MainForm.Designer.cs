@@ -39,6 +39,7 @@
             this.browserNewApps = new System.Windows.Forms.WebBrowser();
             this.buttonLaunchInterface = new System.Windows.Forms.Button();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
+            this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.tabControlApps.SuspendLayout();
@@ -99,7 +100,7 @@
             this.tabPageNewApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewApps.Size = new System.Drawing.Size(668, 305);
+            this.tabPageNewApps.Size = new System.Drawing.Size(748, 305);
             this.tabPageNewApps.TabIndex = 1;
             this.tabPageNewApps.Text = "New applications";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -110,7 +111,7 @@
             this.toolStripButtonBack});
             this.toolStripNewApps.Location = new System.Drawing.Point(3, 3);
             this.toolStripNewApps.Name = "toolStripNewApps";
-            this.toolStripNewApps.Size = new System.Drawing.Size(662, 25);
+            this.toolStripNewApps.Size = new System.Drawing.Size(742, 25);
             this.toolStripNewApps.TabIndex = 0;
             this.toolStripNewApps.Text = "toolStrip1";
             // 
@@ -155,6 +156,7 @@
             // 
             this.groupBoxTools.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTools.Controls.Add(this.buttonCacheManagement);
             this.groupBoxTools.Controls.Add(this.buttonLaunchInterface);
             this.groupBoxTools.Controls.Add(this.buttonHelp);
             this.groupBoxTools.Location = new System.Drawing.Point(14, 464);
@@ -165,6 +167,16 @@
             this.groupBoxTools.TabIndex = 1;
             this.groupBoxTools.TabStop = false;
             this.groupBoxTools.Text = "Tools";
+            // 
+            // buttonCacheManagement
+            // 
+            this.buttonCacheManagement.Location = new System.Drawing.Point(165, 29);
+            this.buttonCacheManagement.Name = "buttonCacheManagement";
+            this.buttonCacheManagement.Size = new System.Drawing.Size(167, 35);
+            this.buttonCacheManagement.TabIndex = 1;
+            this.buttonCacheManagement.Text = "&Cache management";
+            this.buttonCacheManagement.UseVisualStyleBackColor = true;
+            this.buttonCacheManagement.Click += new System.EventHandler(this.buttonCacheManagement_Click);
             // 
             // buttonHelp
             // 
@@ -222,6 +234,7 @@
         private System.Windows.Forms.ToolStrip toolStripNewApps;
         private System.Windows.Forms.ToolStripButton toolStripButtonBack;
         private System.Windows.Forms.Label labelNotAvailableYet;
+        private System.Windows.Forms.Button buttonCacheManagement;
 
     }
 }

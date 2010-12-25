@@ -73,7 +73,7 @@
             // 
             this.splitContainer.Panel2.Controls.Add(this.propertyGrid);
             this.splitContainer.Size = new System.Drawing.Size(472, 421);
-            this.splitContainer.SplitterDistance = 230;
+            this.splitContainer.SplitterDistance = 229;
             this.splitContainer.TabIndex = 0;
             // 
             // propertyGrid
@@ -82,7 +82,7 @@
             this.propertyGrid.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.propertyGrid.Size = new System.Drawing.Size(238, 421);
+            this.propertyGrid.Size = new System.Drawing.Size(239, 421);
             this.propertyGrid.TabIndex = 0;
             this.propertyGrid.ToolbarVisible = false;
             // 

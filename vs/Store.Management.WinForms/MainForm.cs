@@ -58,6 +58,7 @@ namespace ZeroInstall.Store.Management.WinForms
         private static INamedCollection<StoreNode> GetStoreNodes()
         {
             // ToDo: Add exception handling
+            // ToDo: Calculate sizes
 
             var nodes = new NamedCollection<StoreNode>();
 
@@ -67,7 +68,7 @@ namespace ZeroInstall.Store.Management.WinForms
             foreach (var feed in feeds)
             {
                 feed.Simplify();
-                nodes.Add(new InterfaceNode(cache, feed));
+                AddWithIncrement(nodes, new InterfaceNode(cache, feed));
             }
 
             var store = StoreProvider.Default;
@@ -79,18 +80,32 @@ namespace ZeroInstall.Store.Management.WinForms
                     var implementation = feed.GetImplementation(digest);
                     if (implementation != null)
                     {
-                        nodes.Add(new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation));
+                        AddWithIncrement(nodes, new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation));
                         parentFeedFound = true;
                         break;
                     }
                 }
 
-                if (!parentFeedFound) nodes.Add(new OrphanedImplementationNode(store, digest));
+                if (!parentFeedFound) AddWithIncrement(nodes, new OrphanedImplementationNode(store, digest));
             }
 
             return nodes;
         }
 
+        /// <summary>
+        /// Adds a <see cref="StoreNode"/> to a collection, incrementing <see cref="StoreNode.SuffixCounter"/> to prevent naming collisions.
+        /// </summary>
+        private static void AddWithIncrement(NamedCollection<StoreNode> collection, StoreNode entry)
+        {
+            while (collection.Contains(entry.Name))
+                entry.SuffixCounter++;
+
+            collection.Add(entry);
+        }
+
+        /// <summary>
+        /// Fills the <see cref="_treeView"/> with entries.
+        /// </summary>
         private void RefreshList()
         {
             _treeView.Entries = GetStoreNodes();

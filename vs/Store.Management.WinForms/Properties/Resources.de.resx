@@ -123,6 +123,9 @@
   <data name="NoKeep" xml:space="preserve">
     <value>Nein, behalten</value>
   </data>
+  <data name="OpenInFileManager" xml:space="preserve">
+    <value>Im Dateimanger &amp;öffnen</value>
+  </data>
   <data name="YesDelete" xml:space="preserve">
     <value>Ja, löschen</value>
   </data>

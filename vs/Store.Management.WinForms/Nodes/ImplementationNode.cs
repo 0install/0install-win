@@ -18,16 +18,20 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
+using Common.Controls;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.WinForms.Properties;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
     /// <summary>
     /// Models information about an implementation in an <see cref="IStore"/> for display in a GUI.
     /// </summary>
-    public abstract class ImplementationNode : StoreNode
+    public abstract class ImplementationNode : StoreNode, IContextMenu
     {
         #region Variables
         private readonly IStore _store;
@@ -71,6 +75,16 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 throw new KeyNotFoundException(ex.Message, ex);
             }
             #endregion
+        }
+        #endregion
+
+        #region Context menu
+        public ContextMenu GetContextMenu()
+        {
+            return new ContextMenu(new[]
+            {
+                new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(_store.GetPath(_digest)); })
+            });
         }
         #endregion
     }

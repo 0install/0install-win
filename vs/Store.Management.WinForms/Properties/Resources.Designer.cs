@@ -79,6 +79,15 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Open in file manager.
+        /// </summary>
+        internal static string OpenInFileManager {
+            get {
+                return ResourceManager.GetString("OpenInFileManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Yes, delete.
         /// </summary>
         internal static string YesDelete {

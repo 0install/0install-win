@@ -280,18 +280,9 @@ namespace Common.Controls
             var contextMenuProvider = entry as IContextMenu;
             if (contextMenuProvider != null)
             {
+                // Attach the context menu if one is set
                 var contextMenu = contextMenuProvider.GetContextMenu();
-                if (contextMenu != null)
-                {
-                    // Attach the context menu if one is set
-                    finalNode.ContextMenu = contextMenu;
-
-                    // Automatically reflect any changes the context menu action may have made
-                    foreach (MenuItem menuItem in finalNode.ContextMenu.MenuItems)
-                    {
-                        menuItem.Click += delegate { UpdateList(); };
-                    }
-                }
+                if (contextMenu != null) finalNode.ContextMenu = contextMenu;
             }
             #endregion
 

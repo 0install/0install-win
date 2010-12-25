@@ -34,6 +34,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <inheritdoc/>
         [Browsable(false)]
         public abstract string Name { get; set; }
+
+        /// <summary>
+        /// A counter that can be used to prevent naming collisions.
+        /// </summary>
+        /// <remarks>If this value is not zero it is appended to the <see cref="Name"/>.</remarks>
+        public int SuffixCounter;
         #endregion
 
         #region Delete

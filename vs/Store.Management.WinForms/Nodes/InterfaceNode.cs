@@ -35,7 +35,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return Title; } set { throw new NotSupportedException(); } }
+        public override string Name
+        {
+            get { return Title + (SuffixCounter == 0 ? "" : " " + SuffixCounter); }
+            set { throw new NotSupportedException(); }
+        }
 
         /// <summary>
         /// The URI indentifying this interface.

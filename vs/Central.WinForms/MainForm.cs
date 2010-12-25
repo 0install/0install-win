@@ -99,9 +99,15 @@ namespace ZeroInstall.Central.WinForms
             Program.LaunchHelperAssembly(this, "0launch-win", null);
         }
 
+        private void buttonCacheManagement_Click(object sender, EventArgs e)
+        {
+            Program.LaunchHelperAssembly(this, "0store-win", null);
+        }
+
         private void buttonHelp_Click(object sender, EventArgs e)
         {
-            // ToDo
+            // Use the system's default web browser to open the URL
+            Process.Start("http://0install.de/help/");
         }
         #endregion
     }
