@@ -543,6 +543,56 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="6f96e72d-5ce4-4a5c-b3ab-1105886e8bda" name="Remove" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="03b99644-395e-48b4-b7d4-2e89e1ea7b1e" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="8682afd4-86ad-4b08-846d-9048e1bd7532" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="d9bf44fc-dd4c-4307-a239-27faf4b3f87d">
+                          <propertyInstance Id="7c11cc6b-2637-4737-a72b-62f6de8e63d0" name="ClrAttributes">
+                            <elementDefinition Id="d4b6f34e-c3dd-422f-9a41-f9e77bbe7ef7" />
+                          </propertyInstance>
+                          <elementDefinition Id="86d4090a-ae4b-46ad-b6dc-055028f8553f" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="55ad0da5-b49d-48b2-95d3-ee4d85a62fa9">
+                          <propertyInstance Id="15004aeb-7bb2-4e98-a91e-373aadf59aca" name="IsPartial" value="false">
+                            <elementDefinition Id="8f45029e-9df0-4948-990e-f69e06c29c44" />
+                          </propertyInstance>
+                          <elementDefinition Id="78563054-5436-42d1-beac-756a756ac1c0" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="f4136a20-ddc2-4533-afa0-2bf44f702f1b">
+                          <propertyInstance Id="c3566d88-e3a5-452b-b992-55ec1a8a83ba" name="IsUnsafe" value="false">
+                            <elementDefinition Id="ec3a54bf-0b0e-4348-86fd-8c050955c738" />
+                          </propertyInstance>
+                          <elementDefinition Id="250c67ca-942f-46de-b060-06103df2eb6b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="32e5ffd0-c8b6-4601-888c-04f9eac656f2">
+                          <propertyInstance Id="c5014b29-baa0-4b2c-b8ce-39b581d50eaf" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="599c3547-ef0d-407f-964b-3cc5ed46ca04" />
+                          </propertyInstance>
+                          <elementDefinition Id="dce79c31-01c1-4bde-930b-3747e85df374" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8f106b57-161d-47a9-855b-2c4ac93b82b9">
+                          <propertyInstance Id="2efedf03-fce2-4f06-8aa3-aaf57c31dbfa" name="params" value="false">
+                            <elementDefinition Id="9e95c4e7-e3d1-4509-a3af-f3e184a6b2be" />
+                          </propertyInstance>
+                          <elementDefinition Id="a4c9f6f9-939b-433d-afcf-6731bacb0592" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="638e9f0a-02a0-447e-8dd4-716983fb5ab1" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="f1b4f68b-b651-413e-90eb-d6e7e4a742dc" name="feedUrl" direction="In" isUnique="false">
+                        <elementDefinition Id="7cc15bc1-4e61-4e5e-b3bb-5785a537b030" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="2d9242c3-0303-481c-8a29-3d489bc1db07" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -2078,43 +2128,6 @@
                 </dependency>
               </suppliersInternal>
               <targetEnds>
-                <association Id="eb04c031-c82d-4929-bd9b-be080e468718" isDerived="false" sourceEndRoleName="FeedProvider" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
-                  <interfaceMoniker Id="80d3b5a3-13f3-4a21-be97-74739729cd58" LastKnownName="IFeedHandler" />
-                  <description>Property Handler references type IFeedHandler.</description>
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="275f1567-055f-46a2-aeeb-ed4e5151e9c5" name="FeedProvider" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <lowerValueInternal>
-                          <literalString Id="1a3bcc02-9998-4c46-94ab-1cbfe57775a7" name="Lower" value="*">
-                            <elementDefinition Id="bd4f289c-7013-4e2b-b791-047ba4a613da" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="75331f62-f911-4838-9dfc-434ed6057f29" name="Upper" value="*">
-                            <elementDefinition Id="eeb7c78f-3e84-4dbd-841e-eb1f0a9bca5c" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="3953a278-f6a8-4a47-90df-3ef2bebbdfc0" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="011330f1-b112-4ab2-8045-5fc341f336bc" name="Handler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <lowerValueInternal>
-                          <literalString Id="57fceaa4-1cf4-4285-a600-1cf7cb34ee4a" name="Lower" value="1">
-                            <elementDefinition Id="f63710c4-8c56-476d-be1d-5dcbd88ae16e" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="6ad81ade-a58c-44f6-a8a6-4cff433b86e7" name="Upper" value="1">
-                            <elementDefinition Id="5bcfd70e-e05e-4984-98ed-560f24e75b36" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="10f04a32-2f0c-485d-8dd6-13bea09c9b8c" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="3726f73f-e4c7-4fa3-8885-5c05fda35671" />
-                </association>
                 <association Id="a3945a79-1165-4872-b713-745c5af7474f" isDerived="false" sourceEndRoleName="FeedProvider" targetEndRoleName="NetworkLevel" isLeaf="false" isAbstract="false">
                   <enumerationMoniker Id="624c2a8a-766c-4c2c-9c91-6e89daaba5a5" LastKnownName="NetworkLevel" />
                   <description>Property NetworkLevel references type NetworkLevel.</description>
@@ -2167,6 +2180,32 @@
                     </associationHasOwnedEnds>
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="6d323d0b-fcda-4e5a-b2aa-0fe184a9638d" />
+                </association>
+                <association Id="42d71b7b-76d4-4e38-8a48-c623d85d564f" isDerived="false" sourceEndRoleName="FeedProvider" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
+                  <interfaceMoniker Id="80d3b5a3-13f3-4a21-be97-74739729cd58" LastKnownName="IFeedHandler" />
+                  <relationshipOwnedElementsInternal>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="e73593c5-4b53-4438-a68a-92612e0b0048" name="FeedProvider" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="47f37d7f-867e-47bb-8bc4-f71b008536b0" name="Lower" value="*">
+                            <elementDefinition Id="5671a60b-791b-48e7-a8b1-c34fecf06be8" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="d4889e17-eca3-447a-82aa-d6c53ed0934f" name="Upper" value="*">
+                            <elementDefinition Id="ff67539e-4e5a-4eb2-a7cb-3245ff32d46c" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="e854d505-21d4-48c0-adaa-8e6dfe958592" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                    <associationHasOwnedEnds>
+                      <memberEnd Id="05751b8b-d985-4551-962d-d18bee0be6db" name="Handler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="915c6706-2165-4c65-b0d1-fe11159e9560" />
+                      </memberEnd>
+                    </associationHasOwnedEnds>
+                  </relationshipOwnedElementsInternal>
+                  <elementDefinition Id="3999a0a4-277b-469b-82e9-5de8e65950b8" />
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
@@ -3968,6 +4007,11 @@
     <packageHasNamedElement>
       <referencedType Id="8b24ed0d-9f97-4321-805f-7318b5665638" name="Cpu" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Cpu">
         <elementDefinition Id="169012b8-48c1-4586-b029-05bca9b1836e" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2d9242c3-0303-481c-8a29-3d489bc1db07" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

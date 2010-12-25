@@ -16,23 +16,35 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
-using System.Windows.Forms;
+using System.IO;
 using Common;
-using Common.Controls;
 
-namespace ZeroInstall.Store.Management.WinForms
+namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
+    /// <summary>
+    /// Models information about elements in a cache for display in a GUI.
+    /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class StoreNode : INamed, IContextMenu
+    public abstract class StoreNode : INamed
     {
+        #region Properties
         /// <inheritdoc/>
         [Browsable(false)]
         public abstract string Name { get; set; }
+        #endregion
 
-        /// <inheritdoc/>
-        public abstract ContextMenu GetContextMenu();
+        #region Delete
+        /// <summary>
+        /// Deletes this element from the cache it is stored in.
+        /// </summary>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching element could be found in the cache.</exception>
+        /// <exception cref="IOException">Thrown if the element could not be deleted because it was in use.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
+        public abstract void Delete();
+        #endregion
 
         #region Comparison
         public int CompareTo(object obj)

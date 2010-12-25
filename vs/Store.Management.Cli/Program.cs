@@ -152,8 +152,8 @@ namespace ZeroInstall.Store.Management.Cli
                     return (int)ErrorLevel.OK;
 
                 case "list":
-                    foreach (string implementation in StoreProvider.Default.ListAll())
-                        Console.WriteLine(implementation);
+                    foreach (ManifestDigest digest in StoreProvider.Default.ListAll())
+                        Console.WriteLine(digest.BestDigest);
                     return (int)ErrorLevel.OK;
 
                 case "manifest":

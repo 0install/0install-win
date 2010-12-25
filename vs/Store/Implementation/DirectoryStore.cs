@@ -84,27 +84,27 @@ namespace ZeroInstall.Store.Implementation
         /// Verifies the manifest digest of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
-        /// <param name="manifestDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="expectedDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="manifestDigest"/>.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> provides no hash methods.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest manifestDigest, IImplementationHandler handler)
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
+        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
             #endregion
 
             // Determine the digest method to use
-            string expectedDigest = manifestDigest.BestDigest;
-            if (string.IsNullOrEmpty(expectedDigest)) throw new ArgumentException(Resources.NoKnownDigestMethod, "manifestDigest");
+            string expectedDigestValue = expectedDigest.BestDigest;
+            if (string.IsNullOrEmpty(expectedDigestValue)) throw new ArgumentException(Resources.NoKnownDigestMethod, "expectedDigest");
 
             // Determine the source and target directories
             string source = Path.Combine(DirectoryPath, tempID);
-            string target = Path.Combine(DirectoryPath, expectedDigest);
+            string target = Path.Combine(DirectoryPath, expectedDigestValue);
 
-            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+            if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
 
             // Calculate the actual digest, compare it with the expected one and create a manifest file
             VerifyDirectory(source, expectedDigest, handler).Save(Path.Combine(source, ".manifest"));
@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
             try { Directory.Move(source, target); }
             catch (IOException)
             {
-                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+                if (Directory.Exists(target)) throw new ImplementationAlreadyInStoreException(expectedDigest);
                 throw;
             }
 
@@ -138,16 +138,17 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
-        public static Manifest VerifyDirectory(string directory, string expectedDigest, IImplementationHandler handler)
+        public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, IImplementationHandler handler)
         {
             Action<IProgress> startingManifest = null;
             if (handler != null) startingManifest = handler.StartingManifest;
 
-            var format = ManifestFormat.FromPrefix(StringUtils.GetLeftPartAtFirstOccurrence(expectedDigest, '='));
+            var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
             var manifest = Manifest.Generate(directory, format, startingManifest);
 
-            string actualDigest = Manifest.Generate(directory, format, startingManifest).CalculateDigest();
-            if (actualDigest != expectedDigest) throw new DigestMismatchException(expectedDigest, actualDigest, manifest);
+            string expectedDigestValue = expectedDigest.BestDigest;
+            string actualDigestValue = Manifest.Generate(directory, format, startingManifest).CalculateDigest();
+            if (actualDigestValue != expectedDigestValue) throw new DigestMismatchException(expectedDigestValue, actualDigestValue, manifest);
 
             return manifest;
         }
@@ -157,22 +158,23 @@ namespace ZeroInstall.Store.Implementation
 
         #region List all
         /// <inheritdoc />
-        public IEnumerable<string> ListAll()
+        public IEnumerable<ManifestDigest> ListAll()
         {
             // Find all directories whose names contain an equals sign
             string[] directories = Directory.GetDirectories(DirectoryPath, "*=*");
 
-            var result = new List<string>();
+            // Turn into a C-sorted list
+            Array.Sort(directories, StringComparer.Ordinal);
+
+            var result = new List<ManifestDigest>();
             for (int i = 0; i < directories.Length; i++)
             {
                 // Exclude (temporary) dot-directories
                 if (directories[i].StartsWith(".")) continue;
 
-                result.Add(Path.GetFileName(directories[i]));
+                result.Add(new ManifestDigest(Path.GetFileName(directories[i])));
             }
 
-            // Return as a C-sorted list
-            result.Sort(StringComparer.Ordinal);
             return result;
         }
         #endregion
@@ -334,12 +336,12 @@ namespace ZeroInstall.Store.Implementation
         public void Verify(IImplementationHandler handler)
         {
             // Iterate through all entries - their names are the expected digest values
-            foreach (string entry in ListAll())
+            foreach (ManifestDigest digest in ListAll())
             {
-                string directory = Path.Combine(DirectoryPath, entry);
+                string directory = Path.Combine(DirectoryPath, digest.BestDigest);
 
                 // Calculate the actual digest and compare it with the expected one
-                VerifyDirectory(directory, entry, handler);
+                VerifyDirectory(directory, digest, handler);
             }
         }
         #endregion

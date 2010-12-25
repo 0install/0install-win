@@ -63,10 +63,10 @@ namespace ZeroInstall.Store.Implementation
 
         #region List all
         /// <inheritdoc />
-        public IEnumerable<string> ListAll()
+        public IEnumerable<ManifestDigest> ListAll()
         {
             // Merge the lists from all contained stores, eliminating duplicates
-            var result = new C5.TreeSet<string>(StringComparer.Ordinal);
+            var result = new C5.TreeSet<ManifestDigest>();
             foreach (IStore store in Stores)
             {
                 try { result.AddSorted(store.ListAll()); }

@@ -78,11 +78,11 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldAllowToAddFolder()
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));
-
             var store = _store;
             store.AddDirectory(_packageDir, digest, null);
+
             Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
-            CollectionAssert.AreEqual(new[] { digest.BestDigest }, store.ListAll(), "After adding, Store must show the added package in the complete list");
+            CollectionAssert.AreEqual(new[] { digest }, store.ListAll(), "After adding, Store must show the added package in the complete list");
         }
 
         [Test]
@@ -116,6 +116,21 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldThrowWhenRequestedPathOfUncontainedPackage()
         {
             Assert.Throws(typeof(ImplementationNotFoundException), () => _store.GetPath(new ManifestDigest("sha256=123")));
+        }
+
+        [Test]
+        public void ShouldDetectDamagedImplementations()
+        {
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));
+            var store = _store;
+            store.AddDirectory(_packageDir, digest, null);
+
+            // After correctly adding a directory, the store should be valid
+            _store.Verify(null);
+
+            // A contaminated store should be detected
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256=abc"));
+            Assert.Throws<DigestMismatchException>(() => store.Verify(null));
         }
     }
 }

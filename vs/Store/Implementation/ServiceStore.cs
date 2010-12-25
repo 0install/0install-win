@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region List all
         /// <inheritdoc />
-        public IEnumerable<string> ListAll()
+        public IEnumerable<ManifestDigest> ListAll()
         {
             try { return _serviceProxy.ListAll(); }
             #region Error handling

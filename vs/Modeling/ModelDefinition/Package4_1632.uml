@@ -1838,6 +1838,74 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="638e9f0a-02a0-447e-8dd4-716983fb5ab1"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="8682afd4-86ad-4b08-846d-9048e1bd7532"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="86d4090a-ae4b-46ad-b6dc-055028f8553f">
+                    <propertyInstance
+                      Id="d4b6f34e-c3dd-422f-9a41-f9e77bbe7ef7"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="78563054-5436-42d1-beac-756a756ac1c0">
+                    <propertyInstance
+                      Id="8f45029e-9df0-4948-990e-f69e06c29c44"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="250c67ca-942f-46de-b060-06103df2eb6b">
+                    <propertyInstance
+                      Id="ec3a54bf-0b0e-4348-86fd-8c050955c738"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dce79c31-01c1-4bde-930b-3747e85df374">
+                    <propertyInstance
+                      Id="599c3547-ef0d-407f-964b-3cc5ed46ca04"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a4c9f6f9-939b-433d-afcf-6731bacb0592">
+                    <propertyInstance
+                      Id="9e95c4e7-e3d1-4509-a3af-f3e184a6b2be"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7cc15bc1-4e61-4e5e-b3bb-5785a537b030"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -2852,6 +2920,58 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="d6c97b02-b76c-4dba-a96d-887bae9e03b2"
+                  name="Handler"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="3999a0a4-277b-469b-82e9-5de8e65950b8"
+            isDerived="false"
+            sourceEndRoleName="FeedProvider"
+            targetEndRoleName="Handler"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+              LastKnownName="IFeedHandler"
+              LastKnownLocation="Package4_1632.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e854d505-21d4-48c0-adaa-8e6dfe958592"
+                  name="FeedProvider"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="5671a60b-791b-48e7-a8b1-c34fecf06be8"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ff67539e-4e5a-4eb2-a7cb-3245ff32d46c"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="915c6706-2165-4c65-b0d1-fe11159e9560"
                   name="Handler"
                   isLeaf="false"
                   isStatic="false"

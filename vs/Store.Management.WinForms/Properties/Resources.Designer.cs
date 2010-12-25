@@ -59,5 +59,32 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete the {0} checked element(s) from the cache?.
+        /// </summary>
+        internal static string DeleteCheckedEntries {
+            get {
+                return ResourceManager.GetString("DeleteCheckedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No, keep.
+        /// </summary>
+        internal static string NoKeep {
+            get {
+                return ResourceManager.GetString("NoKeep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes, delete.
+        /// </summary>
+        internal static string YesDelete {
+            get {
+                return ResourceManager.GetString("YesDelete", resourceCulture);
+            }
+        }
     }
 }

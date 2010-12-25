@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         /// <returns>A list of implementations formated as "algorithm=digest" (e.g. "sha256=123abc") in C-sorted order (ordinal comparison, increasing).</returns>
-        IEnumerable<string> ListAll();
+        IEnumerable<ManifestDigest> ListAll();
 
         /// <summary>
         /// Determines whether this store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
@@ -100,8 +100,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> be found in this store.</exception>
-        /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in this store.</exception>
+        /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         void Remove(ManifestDigest manifestDigest);
 

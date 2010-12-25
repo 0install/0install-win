@@ -42,7 +42,7 @@ namespace ZeroInstall.Store.Service
 
         #region List all
         /// <inheritdoc />
-        public IEnumerable<string> ListAll()
+        public IEnumerable<ManifestDigest> ListAll()
         {
             throw new NotImplementedException();
         }
