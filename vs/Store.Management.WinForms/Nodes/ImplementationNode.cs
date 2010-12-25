@@ -44,6 +44,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         [Description("The digest identifying the implementation in the store.")]
         public string Digest { get { return _digest.BestDigest; } }
+
+        /// <summary>
+        /// The total size of the implementation in bytes.
+        /// </summary>
+        [Description("The total size of the implementation in bytes.")]
+        public long Size { get; private set; }
         #endregion
 
         #region Constructor
@@ -56,6 +62,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             _store = store;
             _digest = digest;
+
+            // Determine the total size of an implementation via its manifest file
+            Size = Manifest.Load(Path.Combine(store.GetPath(digest), ".manifest"), ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
         }
         #endregion
 

@@ -32,10 +32,18 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.buttonRefresh = new System.Windows.Forms.Button();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
+            this.tableLayoutPanelSize = new System.Windows.Forms.TableLayoutPanel();
+            this.labelCurrentSize = new System.Windows.Forms.Label();
+            this.textTotalSize = new System.Windows.Forms.TextBox();
+            this.textCurrentSize = new System.Windows.Forms.TextBox();
+            this.textCheckedSize = new System.Windows.Forms.TextBox();
+            this.labelCheckedSize = new System.Windows.Forms.Label();
+            this.labelTotalSize = new System.Windows.Forms.Label();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.tableLayoutPanelSize.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonClose
@@ -71,18 +79,109 @@
             // 
             // splitContainer.Panel2
             // 
+            this.splitContainer.Panel2.Controls.Add(this.tableLayoutPanelSize);
             this.splitContainer.Panel2.Controls.Add(this.propertyGrid);
             this.splitContainer.Size = new System.Drawing.Size(472, 421);
             this.splitContainer.SplitterDistance = 229;
             this.splitContainer.TabIndex = 0;
             // 
+            // tableLayoutPanelSize
+            // 
+            this.tableLayoutPanelSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanelSize.ColumnCount = 2;
+            this.tableLayoutPanelSize.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelSize.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanelSize.Controls.Add(this.labelCurrentSize, 0, 0);
+            this.tableLayoutPanelSize.Controls.Add(this.textTotalSize, 1, 2);
+            this.tableLayoutPanelSize.Controls.Add(this.textCurrentSize, 1, 0);
+            this.tableLayoutPanelSize.Controls.Add(this.textCheckedSize, 1, 1);
+            this.tableLayoutPanelSize.Controls.Add(this.labelCheckedSize, 0, 1);
+            this.tableLayoutPanelSize.Controls.Add(this.labelTotalSize, 0, 2);
+            this.tableLayoutPanelSize.Location = new System.Drawing.Point(0, 343);
+            this.tableLayoutPanelSize.Name = "tableLayoutPanelSize";
+            this.tableLayoutPanelSize.RowCount = 3;
+            this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
+            this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
+            this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
+            this.tableLayoutPanelSize.Size = new System.Drawing.Size(239, 75);
+            this.tableLayoutPanelSize.TabIndex = 1;
+            // 
+            // labelCurrentSize
+            // 
+            this.labelCurrentSize.AutoSize = true;
+            this.labelCurrentSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCurrentSize.Location = new System.Drawing.Point(3, 0);
+            this.labelCurrentSize.Name = "labelCurrentSize";
+            this.labelCurrentSize.Size = new System.Drawing.Size(108, 24);
+            this.labelCurrentSize.TabIndex = 0;
+            this.labelCurrentSize.Text = "Current entry size:";
+            this.labelCurrentSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textTotalSize
+            // 
+            this.textTotalSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textTotalSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textTotalSize.Location = new System.Drawing.Point(117, 51);
+            this.textTotalSize.Name = "textTotalSize";
+            this.textTotalSize.ReadOnly = true;
+            this.textTotalSize.Size = new System.Drawing.Size(119, 13);
+            this.textTotalSize.TabIndex = 5;
+            this.textTotalSize.Text = "-";
+            // 
+            // textCurrentSize
+            // 
+            this.textCurrentSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textCurrentSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textCurrentSize.Location = new System.Drawing.Point(117, 3);
+            this.textCurrentSize.Name = "textCurrentSize";
+            this.textCurrentSize.ReadOnly = true;
+            this.textCurrentSize.Size = new System.Drawing.Size(119, 13);
+            this.textCurrentSize.TabIndex = 1;
+            this.textCurrentSize.Text = "-";
+            // 
+            // textCheckedSize
+            // 
+            this.textCheckedSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textCheckedSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textCheckedSize.Location = new System.Drawing.Point(117, 27);
+            this.textCheckedSize.Name = "textCheckedSize";
+            this.textCheckedSize.ReadOnly = true;
+            this.textCheckedSize.Size = new System.Drawing.Size(119, 13);
+            this.textCheckedSize.TabIndex = 3;
+            this.textCheckedSize.Text = "-";
+            // 
+            // labelCheckedSize
+            // 
+            this.labelCheckedSize.AutoSize = true;
+            this.labelCheckedSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelCheckedSize.Location = new System.Drawing.Point(3, 24);
+            this.labelCheckedSize.Name = "labelCheckedSize";
+            this.labelCheckedSize.Size = new System.Drawing.Size(108, 24);
+            this.labelCheckedSize.TabIndex = 2;
+            this.labelCheckedSize.Text = "Checked entries size:";
+            this.labelCheckedSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // labelTotalSize
+            // 
+            this.labelTotalSize.AutoSize = true;
+            this.labelTotalSize.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.labelTotalSize.Location = new System.Drawing.Point(3, 48);
+            this.labelTotalSize.Name = "labelTotalSize";
+            this.labelTotalSize.Size = new System.Drawing.Size(108, 27);
+            this.labelTotalSize.TabIndex = 4;
+            this.labelTotalSize.Text = "Total size:";
+            this.labelTotalSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
             // propertyGrid
             // 
-            this.propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.propertyGrid.Size = new System.Drawing.Size(239, 421);
+            this.propertyGrid.Size = new System.Drawing.Size(239, 337);
             this.propertyGrid.TabIndex = 0;
             this.propertyGrid.ToolbarVisible = false;
             // 
@@ -109,11 +208,13 @@
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(280, 155);
+            this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "MainForm";
             this.Text = "Zero Install: Cache management";
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
+            this.tableLayoutPanelSize.ResumeLayout(false);
+            this.tableLayoutPanelSize.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -125,6 +226,13 @@
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.PropertyGrid propertyGrid;
         private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSize;
+        private System.Windows.Forms.Label labelCurrentSize;
+        private System.Windows.Forms.TextBox textTotalSize;
+        private System.Windows.Forms.TextBox textCurrentSize;
+        private System.Windows.Forms.TextBox textCheckedSize;
+        private System.Windows.Forms.Label labelCheckedSize;
+        private System.Windows.Forms.Label labelTotalSize;
 
     }
 }

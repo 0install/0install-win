@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Store.Feed;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Nodes;
@@ -44,52 +45,82 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             InitializeComponent();
 
-            _treeView.Entries = GetStoreNodes();
+            _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
+            _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
             splitContainer.Panel1.Controls.Add(_treeView);
 
-            _treeView.SelectedEntryChanged += delegate { propertyGrid.SelectedObject = _treeView.SelectedEntry; };
-            _treeView.CheckedEntriesChanged += delegate { buttonDelete.Enabled = (_treeView.CheckedEntries.Length != 0); };
+            try { RefreshList(); }
+            #region Sanity checks
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
         #endregion
 
         //--------------------//
 
         #region Build tree list
-        private static INamedCollection<StoreNode> GetStoreNodes()
+        /// <summary>
+        /// Fills the <see cref="_treeView"/> with entries.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        private void RefreshList()
         {
-            // ToDo: Add exception handling
-            // ToDo: Calculate sizes
-
             var nodes = new NamedCollection<StoreNode>();
 
+            #region Interface node
             var cache = new FeedCache();
             var feeds = cache.GetAll();
-
             foreach (var feed in feeds)
             {
                 feed.Simplify();
                 AddWithIncrement(nodes, new InterfaceNode(cache, feed));
             }
+            #endregion
 
+            long totalSize = 0;
             var store = StoreProvider.Default;
             foreach (var digest in store.ListAll())
             {
-                bool parentFeedFound = false;
+                #region Owned implementation node
+                ImplementationNode implementationNode = null;
                 foreach (var feed in feeds)
                 {
                     var implementation = feed.GetImplementation(digest);
                     if (implementation != null)
                     {
-                        AddWithIncrement(nodes, new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation));
-                        parentFeedFound = true;
+                        implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation);
                         break;
                     }
                 }
+                #endregion
 
-                if (!parentFeedFound) AddWithIncrement(nodes, new OrphanedImplementationNode(store, digest));
+                #region Orphaned implementation node
+                if (implementationNode == null)
+                    implementationNode = new OrphanedImplementationNode(store, digest);
+                #endregion
+
+                totalSize += implementationNode.Size;
+                AddWithIncrement(nodes, implementationNode);
             }
 
-            return nodes;
+            _treeView.Entries = nodes;
+            _treeView.SelectedEntry = null;
+            buttonDelete.Enabled = false;
+
+            // Update total size
+            textTotalSize.Text = StringUtils.FormatBytes(totalSize);
         }
 
         /// <summary>
@@ -102,19 +133,40 @@ namespace ZeroInstall.Store.Management.WinForms
 
             collection.Add(entry);
         }
-
-        /// <summary>
-        /// Fills the <see cref="_treeView"/> with entries.
-        /// </summary>
-        private void RefreshList()
-        {
-            _treeView.Entries = GetStoreNodes();
-            _treeView.SelectedEntry = null;
-            buttonDelete.Enabled = false;
-        }
         #endregion
 
         #region Event handlers
+        private void OnSelectedEntryChanged(object sender, EventArgs e)
+        {
+            propertyGrid.SelectedObject = _treeView.SelectedEntry;
+
+            // Update current entry size
+            var implementationEntry = _treeView.SelectedEntry as ImplementationNode;
+            textCurrentSize.Text = (implementationEntry != null) ? StringUtils.FormatBytes(implementationEntry.Size) : "-";
+        }
+
+        private void OnCheckedEntriesChanged(object sender, EventArgs e)
+        {
+            if (_treeView.CheckedEntries.Length == 0)
+            {
+                buttonDelete.Enabled = false;
+                textCheckedSize.Text = "-";
+            }
+            else
+            {
+                buttonDelete.Enabled = true;
+
+                // Update selected entries size
+                long totalSize = 0;
+                foreach (var entry in _treeView.CheckedEntries)
+                {
+                    var implementationEntry = entry as ImplementationNode;
+                    if (implementationEntry != null) totalSize += implementationEntry.Size;
+                }
+                textCheckedSize.Text = StringUtils.FormatBytes(totalSize);
+            }
+        }
+
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             if (!Msg.Ask(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warning, Resources.YesDelete, Resources.NoKeep))
@@ -140,12 +192,40 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             #endregion
 
-            RefreshList();
+            try { RefreshList(); }
+            #region Sanity checks
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            RefreshList();
+            try { RefreshList(); }
+            #region Sanity checks
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+            }
+            #endregion
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
