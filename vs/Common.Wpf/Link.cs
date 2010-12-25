@@ -10,7 +10,6 @@
 using System;
 using System.Windows.Forms;
 using System.IO;
-using IWshRuntimeLibrary;
 
 namespace Common.Wpf
 {
@@ -88,10 +87,7 @@ namespace Common.Wpf
                 { 
                     // Create a shortcut in the special folder for the file
                     // Making use of the Windows Scripting Host
-                    WshShell shell = new WshShell();
-                    IWshShortcut link = (IWshShortcut)shell.CreateShortcut(LinkFile.FullName);
-                    link.TargetPath=targetPathName;
-                    link.Save();
+                    throw new NotImplementedException();
                 }
                 catch 
                 {
