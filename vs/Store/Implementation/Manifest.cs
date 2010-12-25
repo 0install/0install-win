@@ -46,6 +46,29 @@ namespace ZeroInstall.Store.Implementation
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
         public IList<ManifestNode> Nodes { get { return _nodes; } }
+
+        private long _totalSize = -1;
+        /// <summary>
+        /// The combined size of all files listed in the manifest in bytes.
+        /// </summary>
+        public long TotalSize
+        {
+            get
+            {
+                // Only calculate the total size if it hasn't been cached yet
+                if (_totalSize == -1)
+                {
+                    _totalSize = 0;
+                    foreach (var node in _nodes)
+                    {
+                        var fileNode = node as ManifestFileBase;
+                        if (fileNode != null) _totalSize += fileNode.Size;
+                    }
+                }
+
+                return _totalSize;
+            }
+        }
         #endregion
 
         #region Constructor

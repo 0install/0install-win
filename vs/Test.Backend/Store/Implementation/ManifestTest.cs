@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
@@ -226,10 +225,10 @@ namespace ZeroInstall.Store.Implementation
         public void SetUp()
         {
             var packageBuilder = new PackageBuilder()
-                .AddFile("file1", Guid.NewGuid().ToByteArray())
                 .AddFolder("someFolder")
                 .AddFolder("someOtherFolder")
-                .AddFile("nestedFile", "abc");
+                .AddFile("nestedFile1", "abc")
+                .AddFile("nestedFile2", "123");
 
             _sandbox = new TemporaryDirectory("0install-unit-tests");
             packageBuilder.WritePackageInto(_packageFolder);
@@ -341,6 +340,13 @@ namespace ZeroInstall.Store.Implementation
             _someGenerator.ProgressChanged += delegate { progressChanged = true; };
             _someGenerator.RunSync();
             Assert.IsTrue(progressChanged);
+        }
+
+        [Test]
+        public void ShouldCalculateCorrectTotalSize()
+        {
+            _someGenerator.RunSync();
+            Assert.AreEqual(6, _someGenerator.Result.TotalSize);
         }
     }
 }
