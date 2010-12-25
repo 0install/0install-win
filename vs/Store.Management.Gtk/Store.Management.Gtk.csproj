@@ -34,7 +34,6 @@
     <DebugType>none</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>..\..\build\Frontend\Release\</OutputPath>
-    <DocumentationFile>..\..\build\Frontend\Release\0store-gtk.xml</DocumentationFile>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
