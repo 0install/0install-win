@@ -18,7 +18,7 @@
 namespace ZeroInstall.Launcher.Arguments
 {
     /// <summary>
-    /// List of operational modes for an injector that can be selected via command-line arguments.
+    /// List of operational modes for a Launcher that can be selected via command-line arguments.
     /// </summary>
     public enum OperationMode
     {

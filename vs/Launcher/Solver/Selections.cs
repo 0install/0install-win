@@ -27,7 +27,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Represents a number of <see cref="ImplementationBase"/>s chosen for executing an <see cref="Model.Feed"/>.
+    /// Represents a set of <see cref="ImplementationBase"/>s chosen by an <see cref="ISolver"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("selections", Namespace = Feed.XmlNamespace)]

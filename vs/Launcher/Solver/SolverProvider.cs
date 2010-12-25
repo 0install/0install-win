@@ -18,7 +18,7 @@
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Provides access to <see cref="ISolver"/> implementations.
+    /// Creates instances of <see cref="ISolver"/> implementations.
     /// </summary>
     public static class SolverProvider
     {

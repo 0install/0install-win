@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Launcher.Arguments
 {
     /// <summary>
-    /// Structure for storing user-selected arguments for an injector operation.
+    /// Structure for storing user-selected arguments for a Launcher operation.
     /// </summary>
     public struct ParseResults
     {

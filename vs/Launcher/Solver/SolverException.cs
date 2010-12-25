@@ -22,7 +22,7 @@ using ZeroInstall.Launcher.Properties;
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Represents errors that occured in <see cref="ISolver"/> implementations.
+    /// Represents errors that occured in an <see cref="ISolver"/> implementation.
     /// </summary>
     [Serializable]
     public sealed class SolverException : Exception

@@ -29,7 +29,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Uses the Python script 0solve to solve dependencies.
+    /// Uses the Python script <code>0solve</code> to solve dependencies.
     /// </summary>
     /// <remarks>This class is immutable.</remarks>
     public sealed class PythonSolver : CliAppControl, ISolver
