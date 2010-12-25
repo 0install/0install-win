@@ -36,6 +36,11 @@ namespace ZeroInstall.Store.Implementation
         public string ExpectedHash { get; private set; }
 
         /// <summary>
+        /// The <see cref="Manifest"/> that resulted in the <see cref="ExpectedHash"/>.
+        /// </summary>
+        public Manifest ExpectedManifest { get; private set; }
+
+        /// <summary>
         /// The hash value that was actually calculated.
         /// </summary>
         public string ActualHash { get; private set; }
@@ -43,7 +48,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// The <see cref="Manifest"/> that resulted in the <see cref="ActualHash"/>.
         /// </summary>
-        public Manifest Manifest { get; private set; }
+        public Manifest ActualManifest { get; private set; }
         #endregion
 
         #region Constructor
@@ -51,14 +56,16 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new digest mismatch exception.
         /// </summary>
         /// <param name="expectedHash">The hash value the <see cref="Implementation"/> was supposed to have.</param>
+        /// <param name="expectedManifest">The <see cref="Manifest"/> that resulted in the <paramref name="expectedHash"/>.</param>
         /// <param name="actualHash">The hash value that was actually calculated.</param>
-        /// <param name="manifest">The <see cref="Manifest"/> that resulted in the<paramref name="actualHash"/>.</param>
-        public DigestMismatchException(string expectedHash, string actualHash, Manifest manifest)
+        /// <param name="actualManifest">The <see cref="Manifest"/> that resulted in the <paramref name="actualHash"/>.</param>
+        public DigestMismatchException(string expectedHash, Manifest expectedManifest, string actualHash, Manifest actualManifest)
             : base(string.Format(Resources.DigestMismatch, expectedHash, actualHash))
         {
             ExpectedHash = expectedHash;
             ActualHash = actualHash;
-            Manifest = manifest;
+            ExpectedManifest = expectedManifest;
+            ActualManifest = actualManifest;
         }
 
         public DigestMismatchException()
@@ -78,8 +85,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             ExpectedHash = info.GetString("ExpectedHash");
+            ExpectedManifest = (Manifest)info.GetValue("ExpectedManifest", typeof(Manifest));
             ActualHash = info.GetString("ActualHash");
-            Manifest = (Manifest)info.GetValue("Manifest", typeof(Manifest));
+            ActualManifest = (Manifest)info.GetValue("ActualManifest", typeof(Manifest));
         }
         #endregion
 
@@ -93,8 +101,9 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             info.AddValue("ExpectedHash", ExpectedHash);
+            info.AddValue("ExpectedManifest", ExpectedManifest);
             info.AddValue("ActualHash", ActualHash);
-            info.AddValue("Manifest", Manifest);
+            info.AddValue("ActualManifest", ActualManifest);
 
             base.GetObjectData(info, context);
         }

@@ -19,46 +19,42 @@ using System;
 using Common;
 using Common.Cli;
 
-namespace ZeroInstall.Launcher.Cli
+namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user of progress and ask questions.
+    /// Uses the stderr stream to inform the user of progress.
     /// </summary>
-    public class CliHandler : Store.Implementation.CliHandler, IHandler
+    public class CliHandler : MarshalByRefObject, IImplementationHandler
     {
-        /// <inheritdoc />
-        public bool AcceptNewKey(string information)
-        {
-            if (Batch) return false;
-
-            Log.Info(information);
-
-            // Loop until the user has made a valid choice
-            while (true)
-            {
-                switch ((InputUtils.ReadString("Trust [Y/N] ") ?? "n").ToLower())
-                {
-                    case "y":
-                    case "yes":
-                        return true;
-                    case "n":
-                    case "no":
-                        return false;
-                }
-            }
-        }
+        /// <summary>
+        /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".
+        /// </summary>
+        public bool Batch { get; set; }
 
         /// <inheritdoc />
-        public void StartingDownload(IProgress download)
+        public void StartingExtraction(IProgress extraction)
         {
             #region Sanity checks
-            if (download == null) throw new ArgumentNullException("download");
+            if (extraction == null) throw new ArgumentNullException("extraction");
             #endregion
 
             if (Batch) return;
 
-            Log.Info(download.Name + "...");
-            new TrackingProgressBar(download);
+            Log.Info(extraction.Name + "...");
+            new TrackingProgressBar(extraction);
+        }
+
+        /// <inheritdoc />
+        public void StartingManifest(IProgress manifest)
+        {
+            #region Sanity checks
+            if (manifest == null) throw new ArgumentNullException("manifest");
+            #endregion
+
+            if (Batch) return;
+
+            Log.Info(manifest.Name + "...");
+            new TrackingProgressBar(manifest);
         }
     }
 }

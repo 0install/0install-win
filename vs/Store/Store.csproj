@@ -75,6 +75,7 @@
     <Compile Include="Implementation\Archive\TarGzExtractor.cs" />
     <Compile Include="Implementation\Archive\TarLzmaExtractor.cs" />
     <Compile Include="Implementation\Archive\ZipExtractor.cs" />
+    <Compile Include="Implementation\CliHandler.cs" />
     <Compile Include="Implementation\IImplementationHandler.cs" />
     <Compile Include="Implementation\ImplementationAlreadyInStoreException.cs" />
     <Compile Include="Implementation\Archive\ArchiveFileInfo.cs" />

@@ -144,13 +144,23 @@ namespace ZeroInstall.Store.Implementation
             if (handler != null) startingManifest = handler.StartingManifest;
 
             var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
-            var manifest = Manifest.Generate(directory, format, startingManifest);
+            var actualManifest = Manifest.Generate(directory, format, startingManifest);
 
             string expectedDigestValue = expectedDigest.BestDigest;
-            string actualDigestValue = Manifest.Generate(directory, format, startingManifest).CalculateDigest();
-            if (actualDigestValue != expectedDigestValue) throw new DigestMismatchException(expectedDigestValue, actualDigestValue, manifest);
+            string actualDigestValue = actualManifest.CalculateDigest();
+            if (actualDigestValue != expectedDigestValue)
+            {
+                Manifest expectedManifest = null;
+                try { expectedManifest = Manifest.Load(Path.Combine(directory, ".manifest"), ManifestFormat.FromPrefix(expectedDigest.BestPrefix)); }
+                #region Error handling
+                catch (FormatException) {}
+                catch (IOException) {}
+                catch (UnauthorizedAccessException) {}
+                #endregion
+                throw new DigestMismatchException(expectedDigestValue, expectedManifest, actualDigestValue, actualManifest);
+            }
 
-            return manifest;
+            return actualManifest;
         }
         #endregion
 
