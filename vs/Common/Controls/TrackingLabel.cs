@@ -20,17 +20,18 @@
  * THE SOFTWARE.
  */
 
-using System;
 using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
+using Common.Properties;
 using Common.Utils;
 
 namespace Common.Controls
 {
     /// <summary>
-    /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
+    /// A label that automatically tracks the progress of an <see cref="IProgress"/> task.
     /// </summary>
-    public class TrackingProgressBar : ProgressBar
+    public class TrackingLabel : Label
     {
         #region Properties
         private IProgress _task;
@@ -70,104 +71,71 @@ namespace Common.Controls
             }
             get { return _task; }
         }
-
-        /// <summary>
-        /// Determines the handle of the <see cref="Form"/> containing this control.
-        /// </summary>
-        /// <returns>The handle of the parent <see cref="Form"/> or <see cref="IntPtr.Zero"/> if there is no parent.</returns>
-        private IntPtr ParentHandle
-        {
-            get
-            {
-                Form parent = FindForm();
-                return (parent == null ? IntPtr.Zero : parent.Handle);
-            }
-        }
-
-        /// <summary>
-        /// Show the progress in the Windows taskbar.
-        /// </summary>
-        /// <remarks>Use only once per window. Only works on Windows 7 or newer.</remarks>
-        [Description("Show the progress in the Windows taskbar."), DefaultValue(false)]
-        public bool UseTaskbar { set; get; }
         #endregion
 
         //--------------------//
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> and the taskbar based on the <see cref="ProgressState"/> of <see cref="_task"/>.
+        /// Changes the <see cref="Label.Text"/> based on the <see cref="ProgressState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void StateChanged(IProgress sender)
         {
             // Copy value so it can be safely accessed from another thread
             ProgressState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler) delegate
+            BeginInvoke((SimpleEventHandler)delegate
             {
-                IntPtr formHandle = ParentHandle;
                 switch (state)
                 {
                     case ProgressState.Ready:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
+                        ForeColor = SystemColors.ControlText;
+                        Text = Resources.StateReady;
                         break;
 
                     case ProgressState.Header:
-                        Style = ProgressBarStyle.Marquee;
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        ForeColor = SystemColors.ControlText;
+                        Text = Resources.StateHeader;
                         break;
 
                     case ProgressState.Data:
+                        ForeColor = SystemColors.ControlText;
+                        
                         // Only track progress if the final size is known
-                        if (sender.BytesTotal != -1)
-                        {
-                            _task.ProgressChanged += ProgressChanged;
-                            Style = ProgressBarStyle.Continuous;
-                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
-                        }
-                        break;
-
-                    case ProgressState.IOError:
-                    case ProgressState.WebError:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
-                        Style = ProgressBarStyle.Continuous;
-                        Value = 0;
+                        if (sender.BytesTotal != -1) _task.ProgressChanged += ProgressChanged;
+                        else Text = Resources.StateData;
                         break;
 
                     case ProgressState.Complete:
-                        if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
+                        Text = Resources.StateComplete;
+                        ForeColor = Color.Green;
+                        break;
 
-                        // When the status is complete the bar should always be full
-                        Value = 100;
+                    case ProgressState.WebError:
+                        ForeColor = Color.Red;
+                        Text = Resources.StateWebError;
+                        break;
+
+                    case ProgressState.IOError:
+                        ForeColor = Color.Red;
+                        Text = Resources.StateIOError;
                         break;
                 }
             });
         }
 
         /// <summary>
-        /// Changes the <see cref="ProgressBar.Value"/> and the taskbar depending on the already proccessed bytes.
+        /// Changes the <see cref="Label.Text"/> based on the already proccessed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
         private void ProgressChanged(IProgress sender)
         {
-            // Clamp the progress to values between 0 and 1
-            double progress = sender.Progress;
-            if (progress < 0) progress = 0;
-            else if (progress > 1) progress = 1;
-
-            // Copy value so it can be safely accessed from another thread
-            int currentValue = (int)(progress * 100);
-
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                Value = currentValue;
-                IntPtr formHandle = ParentHandle;
-                if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
+                Text = StringUtils.FormatBytes(sender.BytesProcessed) + @" / " + StringUtils.FormatBytes(sender.BytesTotal);
             });
         }
         #endregion

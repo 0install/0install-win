@@ -127,27 +127,27 @@ namespace Common.Cli
             {
                 case ProgressState.Header:
                     Console.ForegroundColor = ConsoleColor.Cyan;
-                    Console.Error.Write("Getting headers");
+                    Console.Error.Write(Resources.StateHeader);
                     break;
 
                 case ProgressState.Data:
                     Console.ForegroundColor = ConsoleColor.Blue;
-                    Console.Error.Write("Processing data");
+                    Console.Error.Write(Resources.StateData);
                     break;
 
                 case ProgressState.Complete:
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Error.Write("Complete");
+                    Console.Error.Write(Resources.StateComplete);
                     break;
 
                 case ProgressState.WebError:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Error.Write("Web error");
+                    Console.Error.Write(Resources.StateWebError);
                     break;
 
                 case ProgressState.IOError:
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Error.Write("IO error");
+                    Console.Error.Write(Resources.StateIOError);
                     break;
             }
             Console.ResetColor();

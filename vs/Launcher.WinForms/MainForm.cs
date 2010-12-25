@@ -110,35 +110,25 @@ namespace ZeroInstall.Launcher.WinForms
         /// <inheritdoc />
         public void StartingDownload(IProgress download)
         {
-            // Wait until the GUI is actually up and running
-            while (!IsHandleCreated) Thread.Sleep(0);
-
-            // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
-            {
-                labelOperation.Text = download.Name + @"...";
-                progressBar.Task = download;
-                buttonCancel.Enabled = true;
-            });
+            HookupTracking(download);
         }
 
         /// <inheritdoc />
         public void StartingExtraction(IProgress extraction)
         {
-            // Wait until the GUI is actually up and running
-            while (!IsHandleCreated) Thread.Sleep(0);
-
-            // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
-            {
-                labelOperation.Text = extraction.Name + @"...";
-                progressBar.Task = extraction;
-                buttonCancel.Enabled = true;
-            });
+            HookupTracking(extraction);
         }
 
         /// <inheritdoc />
         public void StartingManifest(IProgress manifest)
+        {
+            HookupTracking(manifest);
+        }
+
+        /// <summary>
+        /// Hooks up a new task with the GUI for tracking.
+        /// </summary>
+        private void HookupTracking(IProgress task)
         {
             // Wait until the GUI is actually up and running
             while (!IsHandleCreated) Thread.Sleep(0);
@@ -146,8 +136,9 @@ namespace ZeroInstall.Launcher.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
-                labelOperation.Text = manifest.Name + @"...";
-                progressBar.Task = manifest;
+                labelOperation.Text = task.Name + @"...";
+                progressBar.Task = task;
+                labelProgress.Task = task;
                 buttonCancel.Enabled = true;
             });
         }

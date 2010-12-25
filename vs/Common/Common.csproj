@@ -101,13 +101,13 @@
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\StreamUtils.cs" />
     <Compile Include="Utils\AppMutex.cs" />
-    <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\NanoGrid.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\WindowsUtils.cs" />
     <Compile Include="Utils\Windows7Structures.cs" />
+    <Compile Include="Utils\ImageUtils.cs" />
     <Compile Include="Utils\MonoUtils.cs" />
     <Compile Include="Storage\Locations.cs" />
     <Compile Include="Storage\BinaryStorage.cs" />
@@ -138,6 +138,12 @@
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\TrackingLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TrackingProgressBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\TrackingProgressDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,9 +155,6 @@
     </Compile>
     <Compile Include="Controls\AsyncWaitDialog.Designer.cs">
       <DependentUpon>AsyncWaitDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\TrackingProgressBar.cs">
-      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\InspectionForm.cs">
       <SubType>Form</SubType>

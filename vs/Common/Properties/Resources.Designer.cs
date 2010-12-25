@@ -376,11 +376,65 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        internal static string StateComplete {
+            get {
+                return ResourceManager.GetString("StateComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Processing data.
+        /// </summary>
+        internal static string StateData {
+            get {
+                return ResourceManager.GetString("StateData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Getting headers.
+        /// </summary>
+        internal static string StateHeader {
+            get {
+                return ResourceManager.GetString("StateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IO error.
+        /// </summary>
+        internal static string StateIOError {
+            get {
+                return ResourceManager.GetString("StateIOError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The state must be &quot;Ready&quot;..
         /// </summary>
         internal static string StateMustBeReady {
             get {
                 return ResourceManager.GetString("StateMustBeReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        internal static string StateReady {
+            get {
+                return ResourceManager.GetString("StateReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Web error.
+        /// </summary>
+        internal static string StateWebError {
+            get {
+                return ResourceManager.GetString("StateWebError", resourceCulture);
             }
         }
         

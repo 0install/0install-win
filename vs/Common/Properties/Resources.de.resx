@@ -254,4 +254,22 @@ Die Änderungen löschen</value>
   <data name="Downloading" xml:space="preserve">
     <value>Lade {0} runter</value>
   </data>
+  <data name="StateData" xml:space="preserve">
+    <value>Verarbeite Daten</value>
+  </data>
+  <data name="StateHeader" xml:space="preserve">
+    <value>Hole Header</value>
+  </data>
+  <data name="StateIOError" xml:space="preserve">
+    <value>IO Fehler</value>
+  </data>
+  <data name="StateReady" xml:space="preserve">
+    <value>Bereit</value>
+  </data>
+  <data name="StateWebError" xml:space="preserve">
+    <value>Web Fehler</value>
+  </data>
+  <data name="StateComplete" xml:space="preserve">
+    <value>Abgeschlossen</value>
+  </data>
 </root>

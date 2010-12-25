@@ -254,7 +254,7 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Paths
+        #region Files
         /// <summary>
         /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
         /// </summary>
@@ -267,6 +267,20 @@ namespace Common.Utils
             for (int i = 1; i < parts.Length; i++)
                 temp = Path.Combine(temp, parts[i]);
             return temp;
+        }
+
+        /// <summary>
+        /// Formats a byte number in human-readable form (KB, MB, GB).
+        /// </summary>
+        public static string FormatBytes(long value)
+        {
+            if (value >= 1073741824)
+                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1073741824f) + " GB";
+            if (value >= 1048576)
+                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1048576f) + " MB";
+            if (value >= 1024)
+                return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1024f) + " KB";
+            return value + " Bytes";
         }
         #endregion
     }

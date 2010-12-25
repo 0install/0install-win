@@ -261,4 +261,22 @@ Delete the changes</value>
   <data name="Downloading" xml:space="preserve">
     <value>Downloading {0}</value>
   </data>
+  <data name="StateReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="StateHeader" xml:space="preserve">
+    <value>Getting headers</value>
+  </data>
+  <data name="StateData" xml:space="preserve">
+    <value>Processing data</value>
+  </data>
+  <data name="StateWebError" xml:space="preserve">
+    <value>Web error</value>
+  </data>
+  <data name="StateIOError" xml:space="preserve">
+    <value>IO error</value>
+  </data>
+  <data name="StateComplete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
 </root>

@@ -22,7 +22,6 @@
 
 using System;
 using System.Drawing;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -54,6 +53,7 @@ namespace Common.Controls
 
             // Hook up event tracking
             trackingProgressBar.Task = task;
+            labelProgress.Task = task;
             Shown += delegate { task.Start(); };
             FormClosing += delegate { task.Cancel(); };
             task.StateChanged += delegate
@@ -62,13 +62,6 @@ namespace Common.Controls
                 {
                     // Handle events coming from a non-UI thread, don't block caller
                     BeginInvoke((SimpleEventHandler)Close);
-                }
-            };
-            task.ProgressChanged += delegate
-            {
-                if (task.BytesTotal > 1024)
-                {// Handle events coming from a non-UI thread, don't block caller
-                    labelBytes.BeginInvoke((SimpleEventHandler)(() => labelBytes.Text = string.Format(CultureInfo.CurrentCulture, "{0}k / {1}k", task.BytesProcessed / 1024, task.BytesTotal / 1024)));
                 }
             };
         }

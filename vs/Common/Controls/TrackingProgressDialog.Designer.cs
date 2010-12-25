@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.trackingProgressBar = new Common.Controls.TrackingProgressBar();
-            this.labelBytes = new System.Windows.Forms.Label();
+            this.labelProgress = new Common.Controls.TrackingLabel();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -42,13 +42,13 @@
             this.trackingProgressBar.TabIndex = 0;
             this.trackingProgressBar.UseTaskbar = true;
             // 
-            // labelBytes
+            // labelProgress
             // 
-            this.labelBytes.AutoSize = true;
-            this.labelBytes.Location = new System.Drawing.Point(12, 38);
-            this.labelBytes.Name = "labelBytes";
-            this.labelBytes.Size = new System.Drawing.Size(0, 13);
-            this.labelBytes.TabIndex = 1;
+            this.labelProgress.AutoSize = true;
+            this.labelProgress.Location = new System.Drawing.Point(12, 38);
+            this.labelProgress.Name = "labelProgress";
+            this.labelProgress.Size = new System.Drawing.Size(0, 13);
+            this.labelProgress.TabIndex = 1;
             // 
             // buttonCancel
             // 
@@ -66,7 +66,7 @@
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(294, 82);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.labelBytes);
+            this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.trackingProgressBar);
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(2048, 120);
@@ -83,7 +83,7 @@
         #endregion
 
         private TrackingProgressBar trackingProgressBar;
-        private System.Windows.Forms.Label labelBytes;
+        private Common.Controls.TrackingLabel labelProgress;
         private System.Windows.Forms.Button buttonCancel;
     }
 }
