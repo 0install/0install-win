@@ -30,10 +30,11 @@ namespace ZeroInstall.Model
     /// Stores digests of the .manifest file using various hashing algorithms.
     /// </summary>
     /// <remarks>A manifest digest is a means of uniquely identifying an <see cref="Implementation"/> and verifying its contents.</remarks>
+    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for string sorting in UI lists")]
     [TypeConverter(typeof(ManifestDigestConverter))]
     [Serializable]
     [XmlType("manifest-digest", Namespace = Feed.XmlNamespace)]
-    public struct ManifestDigest : IEquatable<ManifestDigest>
+    public struct ManifestDigest : IEquatable<ManifestDigest>, IComparable<ManifestDigest>
     {
         #region Constants
         /// <summary>The prefix used to identify the <see cref="Sha1Old"/> format.</summary>
@@ -98,6 +99,21 @@ namespace ZeroInstall.Model
                 if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix + "=" + Sha256;
                 if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix + "=" + Sha1New;
                 if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix + "=" + Sha1Old;
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Returns the prefix of the best (safest) contained manifest digest. <see langword="null"/> if none is set.
+        /// </summary>
+        [XmlIgnore]
+        public string BestPrefix
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(Sha256)) return Sha256Prefix;
+                if (!string.IsNullOrEmpty(Sha1New)) return Sha1NewPrefix;
+                if (!string.IsNullOrEmpty(Sha1Old)) return Sha1OldPrefix;
                 return null;
             }
         }
@@ -226,6 +242,21 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Sha256 != null ? Sha256.GetHashCode() : 0);
                 return result;
             }
+        }
+        #endregion
+
+        #region Comparison
+        public int CompareTo(ManifestDigest other)
+        {
+            if (Equals(other)) return 0;
+
+            // Sort based on the best digest algorithm available
+            int distance = BestDigest.CompareTo(other.BestDigest);
+            
+            // Only return 0 for true equality
+            if (distance == 0) distance = 1;
+
+            return distance;
         }
         #endregion
     }
