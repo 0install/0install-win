@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Store.Feed;
 
@@ -26,10 +25,5 @@ namespace ZeroInstall.Launcher
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IHandler : IFeedHandler, IFetchHandler
-    {
-        /// <summary>
-        /// Don't print messages to <see cref="Console"/> unless errors occur and don't block with questions or messages.
-        /// </summary>
-        bool Batch { get; set; }
-    }
+    {}
 }

@@ -151,62 +151,12 @@
                               <elementDefinition Id="3f14b17f-2947-4fce-8956-0200dc251a90" />
                             </interfaceRealization>
                           </suppliersInternal>
-                          <ownedAttributesInternal>
-                            <property Id="20d804c8-e563-4ba0-b8eb-49941b03b903" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                              <referencesInternal>
-                                <reference Id="4273ec69-c5f8-4a94-92c3-ab562c388323" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=Batch" tag="ViewCode">
-                                  <elementDefinition Id="399db069-3488-42e8-8e00-e27fa3782b52" />
-                                </reference>
-                              </referencesInternal>
-                              <appliedStereotypesInternal>
-                                <stereotypeInstance Id="624fd3c6-c1e4-41aa-8d64-d4eb5c667195" name="property" profile="CSharpProfile">
-                                  <elementDefinition Id="a5b8ef8a-5dc9-48c3-9ada-ec96869dbf57" />
-                                  <propertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="448fa048-dce0-43fc-966c-6a9cd72c1179">
-                                      <propertyInstance Id="3dbf9416-7b2a-4d99-9695-48d63d6c16b1" name="ClrAttributes">
-                                        <elementDefinition Id="ab75ba75-fa75-4220-b827-ea6e95bf5989" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="0668cf03-71b8-4e8f-9479-1499210929f3" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="6fb6f8e9-4c01-4406-85e2-63321936aadf">
-                                      <propertyInstance Id="9204a847-64b5-47dd-8f21-d6ece6bf4cc2" name="Get" value="public">
-                                        <elementDefinition Id="801b7183-9608-498b-b87e-b9f58fe6f918" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="27f2069e-6b20-48c4-b8d0-1722fd5d808b" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="694c53dd-3c8d-4212-bf61-683197b27e31">
-                                      <propertyInstance Id="f3c7c86a-53d3-44ac-a5d7-639faefcfdcd" name="HasBody" value="false">
-                                        <elementDefinition Id="2e1d0443-bc02-4bf8-a607-643458c6c012" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="32ca7356-ac83-4796-9690-280fa783137a" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="5d71d5e0-fd29-4dda-9c1b-7dafacac8697">
-                                      <propertyInstance Id="ebc481e4-d399-45ef-b5c3-e1eee46c1997" name="IsUnsafe" value="false">
-                                        <elementDefinition Id="0bd36d77-4fe0-4041-8c19-3fa3c7bf0e2a" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="0b5ae9b0-00f1-4d56-8eed-f69296d6d44c" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="e69b767d-40db-4160-93b3-355adf7313af">
-                                      <propertyInstance Id="43b58aeb-7594-4db9-902a-d19eed311f04" name="PackageVisibility" value="internal">
-                                        <elementDefinition Id="17e7c656-9ef7-4052-8b69-8cbaa5ee453a" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="1ce36524-830a-48de-88ea-b43a47deec9f" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="9aa8682f-ce36-403f-9d27-79f85c8412af">
-                                      <propertyInstance Id="9350933f-ff9c-4005-98d4-346f7274b92f" name="Set" value="public">
-                                        <elementDefinition Id="9107f74c-b768-4279-a9f0-f491fb9479d0" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="5cc482d5-6901-4288-9e50-b76b11c4e607" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                  </propertyInstances>
-                                </stereotypeInstance>
-                              </appliedStereotypesInternal>
-                              <elementDefinition Id="64b68185-03a2-4432-bfa8-bf7f291db945" />
-                              <type_NamedElement>
-                                <referencedTypeMoniker Id="e29026d8-1edf-4d34-ac1e-0a8c70313b23" LastKnownName="Boolean" />
-                              </type_NamedElement>
-                            </property>
-                          </ownedAttributesInternal>
+                          <generalsInternal>
+                            <generalization Id="d705d7ae-29d2-43b5-b4d1-01e143bea562" isSubstitutable="false">
+                              <classMoniker Id="055cf069-65d5-4974-9117-935ba75286b3" LastKnownName="CliHandler" />
+                              <elementDefinition Id="7b5c2f61-d872-42a2-9de6-72c791ce40df" />
+                            </generalization>
+                          </generalsInternal>
                           <ownedOperationsInternal>
                             <operation Id="9bb7c69c-e745-4ae5-9368-1ba4ccb384ac" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
@@ -329,126 +279,6 @@
                                       </reference>
                                     </referencesInternal>
                                     <elementDefinition Id="d545dae9-5889-44f0-a6f4-44be90ccfbb7" />
-                                    <type_NamedElement>
-                                      <referencedTypeMoniker Id="13be3d71-6a8d-46f6-95b0-b4d514a1b7e0" LastKnownName="IProgress" />
-                                    </type_NamedElement>
-                                  </parameter>
-                                </operationHasOwnedParameters>
-                              </ownedParameters>
-                            </operation>
-                            <operation Id="dcbfc198-d6bc-4656-a341-31194c792a38" name="StartingExtraction" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                              <referencesInternal>
-                                <reference Id="dd60f735-6271-42b4-a223-337da96e1d0d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
-                                  <elementDefinition Id="6d0bb439-b1b4-44c3-8ed9-87890661c2a1" />
-                                </reference>
-                              </referencesInternal>
-                              <appliedStereotypesInternal>
-                                <stereotypeInstance Id="caf475bb-f2e5-4d42-9663-4c2b2ece017c" name="method" profile="CSharpProfile">
-                                  <elementDefinition Id="0707353c-57da-4477-b25d-252f94883dee" />
-                                  <propertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="fa4ce024-a117-4cef-91ca-cbf205d396ef">
-                                      <propertyInstance Id="b3e5dc47-820e-4759-9ea7-908f01bbb73b" name="ClrAttributes">
-                                        <elementDefinition Id="acf319af-5757-4092-9836-372306caa6f9" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="4a3bf32c-d46f-43a3-9a68-db5cc8b946a9" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="baaa5320-1ce9-4267-8247-42842fc01a66">
-                                      <propertyInstance Id="94d1b03a-2f89-406a-a9fb-957d6b767684" name="IsPartial" value="false">
-                                        <elementDefinition Id="de91ebf0-d81c-45d9-9796-4f57db84f0fe" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="7df4a903-239f-4c1c-aa7e-cc768b1f4755" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="05d0fb51-216e-4335-a944-a0391cb7e10a">
-                                      <propertyInstance Id="137ddb18-43dd-47fd-88c1-c0b957af3bdc" name="IsUnsafe" value="false">
-                                        <elementDefinition Id="32474490-87f1-4af9-8ac3-7df63693cab9" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="9422008f-9324-4c99-b66a-186b85e4a353" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="46de5fb8-0105-47d1-a93c-3151985fae7a">
-                                      <propertyInstance Id="faf9e8e2-e3a3-4968-991b-ff1da4cd3265" name="PackageVisibility" value="internal">
-                                        <elementDefinition Id="b8480e22-ce0b-45f9-ab13-2d38101ea391" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="07b76ddf-dcbd-47f3-b946-64f16494df7e" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="61c13825-8a1a-44cb-b26e-a5a92cbda744">
-                                      <propertyInstance Id="f4e96c7e-0d56-42d5-a023-caef98bca80d" name="params" value="false">
-                                        <elementDefinition Id="c33e3109-983a-4c95-aee3-f61cdbce3b38" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="e9efb755-f336-4bbc-87f9-df92dbaf2122" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                  </propertyInstances>
-                                </stereotypeInstance>
-                              </appliedStereotypesInternal>
-                              <elementDefinition Id="51db5e32-9345-4ab6-be78-b705f80bcbd7" />
-                              <ownedParameters>
-                                <operationHasOwnedParameters>
-                                  <parameter Id="f4684ad0-166c-47c3-b842-656099b45153" name="extraction" direction="In">
-                                    <referencesInternal>
-                                      <reference Id="e647d8f7-382a-416a-a6e7-ea86681fd4f8" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=extraction" tag="ViewCode">
-                                        <elementDefinition Id="cb84e7de-460f-4701-88d3-4be56763815a" />
-                                      </reference>
-                                    </referencesInternal>
-                                    <elementDefinition Id="66c0589f-2354-4fa7-ae40-516e58569bf7" />
-                                    <type_NamedElement>
-                                      <referencedTypeMoniker Id="13be3d71-6a8d-46f6-95b0-b4d514a1b7e0" LastKnownName="IProgress" />
-                                    </type_NamedElement>
-                                  </parameter>
-                                </operationHasOwnedParameters>
-                              </ownedParameters>
-                            </operation>
-                            <operation Id="d803a9d8-e922-437e-8737-b22579ee73c3" name="StartingManifest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                              <referencesInternal>
-                                <reference Id="bf2a13d1-2b1f-4d3c-8aaa-c6becf48b3ba" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
-                                  <elementDefinition Id="33996e71-ec20-4b92-9443-807f1fbf49e1" />
-                                </reference>
-                              </referencesInternal>
-                              <appliedStereotypesInternal>
-                                <stereotypeInstance Id="171d7b11-08cc-475e-8fea-43cf997ca996" name="method" profile="CSharpProfile">
-                                  <elementDefinition Id="a71b3c2f-b3e4-49b5-ba37-f78dc6cf8abf" />
-                                  <propertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="7c164998-e5f6-485e-b265-709b13759799">
-                                      <propertyInstance Id="f29eea8a-2ad8-4535-bd37-281c03f53c47" name="ClrAttributes">
-                                        <elementDefinition Id="b0d7e0f8-c8f3-42b0-a5ab-dfc453469e57" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="f9466b05-12d8-418a-97d2-a8ef9db708f6" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="6a3ba50a-13b6-405b-b2ed-c42ce0037c38">
-                                      <propertyInstance Id="88f3b315-575d-4085-82fc-32b762339e03" name="IsPartial" value="false">
-                                        <elementDefinition Id="2c43690c-575c-4f8d-af07-ce94be06af7e" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="167c1751-d328-46d6-b011-489a5b864138" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="a7da2378-7ffc-4d1e-b3fa-031fa74b74ed">
-                                      <propertyInstance Id="f671f093-2bb6-4e7c-b6b6-87f675f16c6d" name="IsUnsafe" value="false">
-                                        <elementDefinition Id="4a9ec10c-2c0f-4207-82d4-90aca76f8217" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="83e56885-844e-4091-a2ed-1928c00f0100" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="ad1e06b9-0468-4b63-933a-5a360614e922">
-                                      <propertyInstance Id="a05f3c85-2913-48f3-b6b5-fbc8d6a77978" name="PackageVisibility" value="internal">
-                                        <elementDefinition Id="87e9941b-44c5-4201-a154-c73d7245893a" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="c35ce359-384a-4981-95e3-3bf09207def6" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                    <stereotypeInstanceHasPropertyInstances Id="6f0743b9-66de-42e1-af7f-3e45150daa94">
-                                      <propertyInstance Id="7466bd5d-f988-4ee8-849d-09c837a5ff84" name="params" value="false">
-                                        <elementDefinition Id="fedfbf68-071e-4aad-a83b-ff4228a95365" />
-                                      </propertyInstance>
-                                      <elementDefinition Id="2136c702-0fcb-45f3-abb8-6dd803b5c3ac" />
-                                    </stereotypeInstanceHasPropertyInstances>
-                                  </propertyInstances>
-                                </stereotypeInstance>
-                              </appliedStereotypesInternal>
-                              <elementDefinition Id="5ac03741-381a-4f07-a93d-8ee9075ad91f" />
-                              <ownedParameters>
-                                <operationHasOwnedParameters>
-                                  <parameter Id="d406370d-9e4e-4342-90dd-a8c809705495" name="manifest" direction="In">
-                                    <referencesInternal>
-                                      <reference Id="d566f118-8ead-41df-a7f9-7ec574777299" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=manifest" tag="ViewCode">
-                                        <elementDefinition Id="2a30f4a0-b9f2-49db-b539-d5bdefc1ea25" />
-                                      </reference>
-                                    </referencesInternal>
-                                    <elementDefinition Id="2e45e7fc-9368-4961-96ac-2ba760ca23df" />
                                     <type_NamedElement>
                                       <referencedTypeMoniker Id="13be3d71-6a8d-46f6-95b0-b4d514a1b7e0" LastKnownName="IProgress" />
                                     </type_NamedElement>
@@ -1189,51 +1019,6 @@
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="409cb161-07b2-446f-a15f-9bd48e884dba" name="SilentHandler" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                        <referencesInternal>
-                          <reference Id="7b7b9fb5-1a5a-46c2-8c5f-8b40ae4f0370" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=.ctor" tag="ViewCode">
-                            <elementDefinition Id="d5a54962-9a7c-43f5-a8d4-eb76dc506fa9" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="2a6abce5-48d6-4547-aa07-0d968056de31" name="method" profile="CSharpProfile">
-                            <elementDefinition Id="8bf31ecc-ae7f-49b3-afd1-5915a6eaca30" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="5a9a98c0-2992-47cc-9153-af67a646102e">
-                                <propertyInstance Id="cf6ccd84-b675-48ad-8019-5edcd6d3feff" name="ClrAttributes">
-                                  <elementDefinition Id="f01c5e11-d420-4cff-b97c-86768540119f" />
-                                </propertyInstance>
-                                <elementDefinition Id="25f6aea6-2513-4939-8e24-3f2dc4ef8fef" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="a55d5782-1a07-45a3-8c87-0ad9c1f98441">
-                                <propertyInstance Id="ff2d0a34-cb4e-4f77-b23a-efc1c4e45742" name="IsPartial" value="false">
-                                  <elementDefinition Id="7b083368-6acc-46ed-8dd4-7abc6e384896" />
-                                </propertyInstance>
-                                <elementDefinition Id="66981832-219d-4e21-986d-60322568dd5b" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="c6bf003a-abb9-40b2-a99d-b19c5530afdd">
-                                <propertyInstance Id="30afbb44-2714-44b3-a6c7-700adc5c59c9" name="IsUnsafe" value="false">
-                                  <elementDefinition Id="225e1b19-7bb9-4d22-a5ec-4aab91acaa8a" />
-                                </propertyInstance>
-                                <elementDefinition Id="2821ae24-dcbc-4380-9a1b-e3727ccf6397" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="e8c11760-cdf0-4b05-86b5-ca9dcd0f5b10">
-                                <propertyInstance Id="6c86c1e2-ebbd-497a-bc15-25d5d4390443" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="17fa994a-1bfb-4820-a784-a36dcdea4c18" />
-                                </propertyInstance>
-                                <elementDefinition Id="972ea759-82a8-44ac-9d1f-41701a3368d3" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="86c94ea7-43a5-46b6-b85b-adf2bcea294a">
-                                <propertyInstance Id="d0c8de53-f091-4c93-920e-7b0e4b9c7a93" name="params" value="false">
-                                  <elementDefinition Id="a6c47eb2-66ef-4c66-83d2-bb19d12bd69f" />
-                                </propertyInstance>
-                                <elementDefinition Id="b7cdf07c-d521-4b5f-a934-13ca2d844f4e" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="1bdaf8c7-0ec4-48dc-a953-445df3c8243f" />
-                      </operation>
                     </ownedOperationsInternal>
                   </class>
                 </packageHasNamedElement>
@@ -1286,62 +1071,6 @@
                         <elementDefinition Id="d2b27dc9-0715-44e3-9fae-2f3ad26c16ad" />
                       </generalization>
                     </generalsInternal>
-                    <ownedAttributes>
-                      <property Id="f0696c89-9a5e-4544-97b8-5b53dfa3a3f4" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <referencesInternal>
-                          <reference Id="6f9ebdf0-c00a-4a9a-9699-28f4b137ef53" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch" tag="ViewCode">
-                            <elementDefinition Id="aa898bd9-5e8d-44a4-9725-8d7b012d7a05" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="2de69bff-9b65-4bed-b0a7-231ef48b4f3c" name="property" profile="CSharpProfile">
-                            <elementDefinition Id="27e5ba48-e376-4cab-adbc-95cd550dbe66" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="856b7ff5-2dc0-4bf1-94de-0f379b4de0b6">
-                                <propertyInstance Id="bc537271-5f45-438e-b6d4-301727c31c8c" name="ClrAttributes">
-                                  <elementDefinition Id="3b6fce0d-2b90-4da4-99b7-e621c9290857" />
-                                </propertyInstance>
-                                <elementDefinition Id="a1d43805-7159-4454-9264-7daef2491ad0" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="bd706ba0-8d4b-481a-85fa-ee7c0574eec7">
-                                <propertyInstance Id="f366ff7a-bdab-4f1c-8710-b30c8403c2ea" name="Get" value="public">
-                                  <elementDefinition Id="c29129c4-54ad-479f-902a-f693b796c678" />
-                                </propertyInstance>
-                                <elementDefinition Id="4beb66bb-da20-4a60-9366-1610fa62a784" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="be3590c4-7c18-445d-a0c0-454218da5dec">
-                                <propertyInstance Id="64b790ac-df36-4a75-b9ad-2dfe5166ba6c" name="HasBody" value="false">
-                                  <elementDefinition Id="faec8d52-1030-4404-895f-7e4fca000281" />
-                                </propertyInstance>
-                                <elementDefinition Id="7d829183-3ca5-4b0f-9984-d7aa635aeb51" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="69969450-256a-4e26-85df-9c8983dad952">
-                                <propertyInstance Id="378328aa-4a81-4a21-a3aa-af2b39fd20a3" name="IsUnsafe" value="false">
-                                  <elementDefinition Id="ebef351c-be16-4c73-adc2-b01378fc23a9" />
-                                </propertyInstance>
-                                <elementDefinition Id="89324695-669c-44c2-b6c8-28b08d398606" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="e90bab2d-03c0-4be5-98e9-65a35425cf39">
-                                <propertyInstance Id="199b0c2c-18d9-45d8-89dc-d1301d6ccea0" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="75f0965b-431a-4c4c-8e2c-c59552b92cfb" />
-                                </propertyInstance>
-                                <elementDefinition Id="e4806f13-8c22-4f26-be0b-89a02f2067c4" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="8368fbdc-ff8e-4570-aaa1-f26fd88c65f9">
-                                <propertyInstance Id="3683387f-2ed2-442b-87e0-ed7fc0f328b8" name="Set" value="public">
-                                  <elementDefinition Id="8d72d9fd-bff7-4ea5-b3ac-96ea28d92f32" />
-                                </propertyInstance>
-                                <elementDefinition Id="ab498dc6-c5c7-4f0d-adf2-acbacabefca5" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="67eb9354-76ae-42b1-890e-ccd5ad5c6b8a" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="e29026d8-1edf-4d34-ac1e-0a8c70313b23" LastKnownName="Boolean" />
-                        </type_NamedElement>
-                      </property>
-                    </ownedAttributes>
                   </Interface>
                 </packageHasNamedElement>
               </packagedElements>
@@ -1845,6 +1574,62 @@
                             </stereotypeInstance>
                           </appliedStereotypesInternal>
                           <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
+                          <ownedAttributes>
+                            <property Id="cf22e791-7cb4-45c1-8b52-33b15cda3bc9" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                              <referencesInternal>
+                                <reference Id="d8fb0992-eee9-4ec9-8e73-95f2652ed1e7" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch" tag="ViewCode">
+                                  <elementDefinition Id="8016cd45-9764-41af-9577-476c0b28a326" />
+                                </reference>
+                              </referencesInternal>
+                              <appliedStereotypesInternal>
+                                <stereotypeInstance Id="2d1c4b36-d575-4f46-b7a4-f189e6a31dac" name="property" profile="CSharpProfile">
+                                  <elementDefinition Id="0e7a5fd2-fa00-4f89-b6dc-f67222d26fd9" />
+                                  <propertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="207c918b-82cb-47d2-a636-eb283347cd19">
+                                      <propertyInstance Id="ec5510f7-3b65-4923-b1be-89621a7fd1e3" name="ClrAttributes">
+                                        <elementDefinition Id="a1ced26a-9616-4042-8739-9ce6a7e9dece" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="92a95612-1f7b-417f-94c9-01b12f1cc510" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="078ebece-e2ba-4eca-ba6c-53ae5865315e">
+                                      <propertyInstance Id="b72001a3-2269-4a20-9a26-3045c3055c26" name="Get" value="public">
+                                        <elementDefinition Id="29bb0f2d-19c5-45d5-a745-1288dda56f83" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="f7765489-49bc-40f6-82e2-76818fe2852a" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="b0ea5387-52dc-4013-8546-89c7854984cd">
+                                      <propertyInstance Id="43ab13a5-f808-49e5-bf21-e9151c90e761" name="HasBody" value="false">
+                                        <elementDefinition Id="5df65d44-2d9b-4e70-9b85-29b2ae185b57" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="ae5b7d11-de90-4159-904a-57eebb79808c" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="82cfa3c0-7f80-44f4-a5fd-da9accfc2f15">
+                                      <propertyInstance Id="a51c3f61-7450-4b63-91fb-00ffe07db213" name="IsUnsafe" value="false">
+                                        <elementDefinition Id="b847db39-c8a0-4fe3-b4a5-cccd7d36619a" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="1949d0d0-0079-49af-88e0-c932520cb2d8" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="ba46012a-c5bb-4865-8ecb-66a561dc1dba">
+                                      <propertyInstance Id="e614eb1e-fae5-4148-816a-5c8123b6169a" name="PackageVisibility" value="internal">
+                                        <elementDefinition Id="507b3239-b453-41b8-aed5-96a801ca9be4" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="d6980c08-c7aa-4530-ba35-16acd57f3cdb" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="be8b7953-8e7f-44ce-bef4-0af5320a1187">
+                                      <propertyInstance Id="ef153f19-ddce-45d0-909c-5b0944395057" name="Set" value="public">
+                                        <elementDefinition Id="44fd295a-807f-44e7-9f41-a6ec78e77b0f" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="e7a013be-3511-4aef-9332-17bafd6547c5" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                  </propertyInstances>
+                                </stereotypeInstance>
+                              </appliedStereotypesInternal>
+                              <elementDefinition Id="e09aae02-7f1f-40f8-833b-af9be96a5419" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="f0d239e4-2304-4e62-be10-2db915207324" LastKnownName="Boolean" />
+                              </type_NamedElement>
+                            </property>
+                          </ownedAttributes>
                           <ownedOperations>
                             <operation Id="d45bf565-a26c-475b-a7cd-f3d350f63def" name="StartingExtraction" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
@@ -2549,6 +2334,237 @@
                           </ownedOperations>
                         </Interface>
                       </packageHasNamedElement>
+                      <packageHasNamedElement>
+                        <class Id="055cf069-65d5-4974-9117-935ba75286b3" name="CliHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
+                          <referencesInternal>
+                            <reference Id="8b5c6760-a7a9-433a-8883-9e5834d85cd8" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler" tag="ViewCode">
+                              <elementDefinition Id="b1d184d1-e034-42cf-af1b-6217a479a78e" />
+                            </reference>
+                          </referencesInternal>
+                          <appliedStereotypesInternal>
+                            <stereotypeInstance Id="68639e00-5382-4991-8adb-531d1ad19527" name="class" profile="CSharpProfile">
+                              <elementDefinition Id="32c0c304-5a04-4dca-9142-9596c2747f9d" />
+                              <propertyInstances>
+                                <stereotypeInstanceHasPropertyInstances Id="074d27a3-e162-4171-82c9-5081dd52ac27">
+                                  <propertyInstance Id="22dfa40d-383a-43f2-9307-5a9a57634846" name="ClrAttributes">
+                                    <elementDefinition Id="49375af4-2982-46d0-b44f-56e95ee223cf" />
+                                  </propertyInstance>
+                                  <elementDefinition Id="eb7f7bca-3efb-4f7f-afe8-629f8ac812f6" />
+                                </stereotypeInstanceHasPropertyInstances>
+                                <stereotypeInstanceHasPropertyInstances Id="3ed7495e-e447-42a1-ba65-119860a4f4a1">
+                                  <propertyInstance Id="6c6ed8e9-8cd0-4721-b136-132e8f0d0884" name="IsPartial" value="false">
+                                    <elementDefinition Id="24dc60da-81ab-48a5-acca-64884843d9c8" />
+                                  </propertyInstance>
+                                  <elementDefinition Id="5c6650ae-dd8c-464d-bdd2-e821b7177eff" />
+                                </stereotypeInstanceHasPropertyInstances>
+                                <stereotypeInstanceHasPropertyInstances Id="951b35a6-59d7-40ac-9ce7-4b24d51a112a">
+                                  <propertyInstance Id="166ae2f5-7540-4e54-8a13-0c2fdb171adf" name="IsStatic" value="False">
+                                    <elementDefinition Id="36c87751-c08c-4c30-9419-aa2fe738a7ba" />
+                                  </propertyInstance>
+                                  <elementDefinition Id="da4445a0-78e2-4bd4-bfdc-60c0ee943353" />
+                                </stereotypeInstanceHasPropertyInstances>
+                                <stereotypeInstanceHasPropertyInstances Id="ed4a8704-e80c-49a6-8bee-f06b5d18ab14">
+                                  <propertyInstance Id="32103e49-746e-4731-ab4d-acb94906091e" name="IsUnsafe" value="false">
+                                    <elementDefinition Id="f5d29236-a824-45cc-871c-2911893a0a2b" />
+                                  </propertyInstance>
+                                  <elementDefinition Id="846fdd43-5c81-41e9-a4e3-bddd3af5256f" />
+                                </stereotypeInstanceHasPropertyInstances>
+                                <stereotypeInstanceHasPropertyInstances Id="c7941198-8308-4efe-b131-d2456c6c391e">
+                                  <propertyInstance Id="6b8d08d2-c41b-4343-9be8-aea53b290a51" name="PackageVisibility" value="internal">
+                                    <elementDefinition Id="1f0a7f38-d3ca-4976-81ae-46e130013021" />
+                                  </propertyInstance>
+                                  <elementDefinition Id="b76960ed-d543-420d-95f1-5e65dc6ba3b9" />
+                                </stereotypeInstanceHasPropertyInstances>
+                              </propertyInstances>
+                            </stereotypeInstance>
+                          </appliedStereotypesInternal>
+                          <elementDefinition Id="90149d49-0f4e-4928-b8be-8fa64ecfbedb" />
+                          <suppliersInternal>
+                            <interfaceRealization Id="6f6fd2b0-6ebf-42fc-b161-ba715e7f3d40">
+                              <interfaceMoniker Id="8737765d-26aa-46b3-9cbd-4f3361fbf842" LastKnownName="IImplementationHandler" />
+                              <elementDefinition Id="71b5e07b-db70-4d9c-8540-fb876a6216f2" />
+                            </interfaceRealization>
+                          </suppliersInternal>
+                          <ownedAttributesInternal>
+                            <property Id="982d45ff-2c6c-4f4a-963d-f47209f4c4a3" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                              <referencesInternal>
+                                <reference Id="5a8bccde-6495-46ce-9c78-62b2202a3fa4" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=Batch" tag="ViewCode">
+                                  <elementDefinition Id="a8a85a2c-f32b-4665-b84c-48e87a73ff83" />
+                                </reference>
+                              </referencesInternal>
+                              <appliedStereotypesInternal>
+                                <stereotypeInstance Id="7078bd19-082d-42bc-9962-0b6dc78a9eed" name="property" profile="CSharpProfile">
+                                  <elementDefinition Id="ef23067d-4fc0-4b58-824b-1c61c97e8b65" />
+                                  <propertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="2abbc536-7363-4e6e-9085-ec9a70d049d2">
+                                      <propertyInstance Id="61ed9054-ece1-4f36-811d-9cc34eca78c1" name="ClrAttributes">
+                                        <elementDefinition Id="3669c1a2-b243-4cd5-b18b-37d0cc3c6c37" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="0b19ed1b-6aca-43f2-a455-498be775cacb" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="b4a5bcfb-fcf0-4475-aee4-f873fb469d54">
+                                      <propertyInstance Id="7a1566b3-38ef-480f-b5db-0cc0eeaefc67" name="Get" value="public">
+                                        <elementDefinition Id="82908a0d-cf15-4b9c-9c76-b6519feba769" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="5c3f9370-7db7-462e-b19a-0e576e6003c6" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="ce7d3a86-729b-41dc-bfaf-5f8f3d400cb6">
+                                      <propertyInstance Id="2a384738-85f3-4443-8ef7-faf089e6d64c" name="HasBody" value="false">
+                                        <elementDefinition Id="f617ba54-c507-4e49-8913-e76d307437a0" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="729efc35-69f8-407d-bfbf-883ed23eedca" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="aad13fae-657a-4177-a05c-8dd78cf77f7a">
+                                      <propertyInstance Id="06bdcc19-0915-42bb-be9c-0483628c58e4" name="IsUnsafe" value="false">
+                                        <elementDefinition Id="0dfc054c-34d1-4b12-8b69-85b16928ca51" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="1ec95d37-2dd5-4210-a85b-20af42d61e43" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="296335b3-707b-444b-9e75-5050eb1d886d">
+                                      <propertyInstance Id="2a6d87d7-1382-4822-a322-474027096127" name="PackageVisibility" value="internal">
+                                        <elementDefinition Id="f341e6c1-c279-4343-8594-041ab404a68b" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="3253ea65-7166-42ef-8231-85743f72f358" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="7ab4e58f-f079-4679-981b-1cf52e2599dc">
+                                      <propertyInstance Id="6f3fb51a-ea67-4192-96fb-818bdeaf574f" name="Set" value="public">
+                                        <elementDefinition Id="21094960-2ac0-45e6-b596-a0ec2bed4b64" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="f53f8ca8-0ba6-4194-bde3-b334b3fbce9f" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                  </propertyInstances>
+                                </stereotypeInstance>
+                              </appliedStereotypesInternal>
+                              <elementDefinition Id="7b662703-dcca-4124-8bb9-4ffad4f35718" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="e29026d8-1edf-4d34-ac1e-0a8c70313b23" LastKnownName="Boolean" />
+                              </type_NamedElement>
+                            </property>
+                          </ownedAttributesInternal>
+                          <ownedOperationsInternal>
+                            <operation Id="aa0983a5-4af3-4f0d-b09e-53a850ac0205" name="StartingExtraction" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                              <referencesInternal>
+                                <reference Id="357b912d-6f79-4cbb-aa2f-3606bd8a8a92" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
+                                  <elementDefinition Id="2092de7b-ba68-4d91-a016-7ede0148254d" />
+                                </reference>
+                              </referencesInternal>
+                              <appliedStereotypesInternal>
+                                <stereotypeInstance Id="71364eef-7054-45f4-9451-034c146ab9ae" name="method" profile="CSharpProfile">
+                                  <elementDefinition Id="b93b4ccf-8433-4048-b3b8-0bc442358001" />
+                                  <propertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="e856637e-8393-4328-a4f8-4b55294d98ce">
+                                      <propertyInstance Id="1adc4ff6-50ce-4fe2-9cef-314c18d133f7" name="ClrAttributes">
+                                        <elementDefinition Id="1332a656-1d4c-425f-a011-30940146827d" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="ac259b17-2dbb-4242-8348-0820aadc50f3" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="49e33ba4-ba89-4886-8a86-f2c6ea9bd9c5">
+                                      <propertyInstance Id="2e591f61-9417-4a80-9f07-ffaa654d4b58" name="IsPartial" value="false">
+                                        <elementDefinition Id="9c307c63-79d8-4611-b31f-6b14053c8bea" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="70136fd7-8c38-4927-9a60-397e8297f13d" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="0cb4b7e3-83d0-48f5-b0a2-2400399811df">
+                                      <propertyInstance Id="c4f9670c-2f61-434d-9cd4-95436e852480" name="IsUnsafe" value="false">
+                                        <elementDefinition Id="308961a6-e543-457a-b9e2-5bdc5b6fc1aa" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="bee3ccbc-d1ad-43c1-8c26-703984091ebd" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="7ca63bf5-4bc6-48f4-baee-1f791952ebe3">
+                                      <propertyInstance Id="c8cdc932-d33c-4162-aaa8-6b59ea561fb6" name="PackageVisibility" value="internal">
+                                        <elementDefinition Id="18da9541-ef55-4d45-8f0b-5ac0981db0c7" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="09a893d2-c006-43a0-9b0d-88c0838d2aad" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="4f444170-dcbb-46a5-9e5f-fd04e2966553">
+                                      <propertyInstance Id="34f3fcef-a86e-4e1f-9c20-0ac9c1d72437" name="params" value="false">
+                                        <elementDefinition Id="42c450a0-a0ac-4fa3-a876-ec936419e4db" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="ef3a368e-630e-46ea-af44-45c8471e61e9" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                  </propertyInstances>
+                                </stereotypeInstance>
+                              </appliedStereotypesInternal>
+                              <elementDefinition Id="00a25cf4-1929-4348-884e-05b3d2bfc0fc" />
+                              <ownedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="fa8795de-0d14-40d4-bb2f-5081890daae9" name="extraction" direction="In">
+                                    <referencesInternal>
+                                      <reference Id="c40557e9-1e85-4fde-87e2-a6008713f5c7" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=extraction" tag="ViewCode">
+                                        <elementDefinition Id="8706c7a4-4fc2-4b78-b827-06ae849ecb26" />
+                                      </reference>
+                                    </referencesInternal>
+                                    <elementDefinition Id="b2398496-e4d1-422b-ad1c-fd6f859ef206" />
+                                    <type_NamedElement>
+                                      <referencedTypeMoniker Id="13be3d71-6a8d-46f6-95b0-b4d514a1b7e0" LastKnownName="IProgress" />
+                                    </type_NamedElement>
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                              </ownedParameters>
+                            </operation>
+                            <operation Id="586864c8-81b6-4243-a809-2a56286b12a4" name="StartingManifest" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                              <referencesInternal>
+                                <reference Id="1d7fae73-fe15-469d-82f8-8b5a60a9d3d3" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])" tag="ViewCode">
+                                  <elementDefinition Id="6189a87f-0e9f-4cbc-901d-b01a24b71ab0" />
+                                </reference>
+                              </referencesInternal>
+                              <appliedStereotypesInternal>
+                                <stereotypeInstance Id="6fd2ecff-3fd6-418d-8815-8fb4ac5b9699" name="method" profile="CSharpProfile">
+                                  <elementDefinition Id="cad72d03-a1be-4897-8eb2-528e1fb0a9d6" />
+                                  <propertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="a43788f8-e3cf-4c9c-8ac3-4cf601c1984d">
+                                      <propertyInstance Id="b26514ce-6b1f-4618-a84a-97dd708cef71" name="ClrAttributes">
+                                        <elementDefinition Id="ae509af8-0930-4dcf-b03a-82964161c16f" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="fdf99efd-6524-432a-a083-bf950947ecc6" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="bd95d8a8-6eb2-45db-8f98-af31d25be89b">
+                                      <propertyInstance Id="4ea7abec-a012-4ac9-942c-636107cbd2d1" name="IsPartial" value="false">
+                                        <elementDefinition Id="8c17f2c5-f300-4752-9a8b-d3a8305d6714" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="47ebf5aa-d89f-4e17-b826-befa05c1a5d9" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="7de00c83-51f5-4016-ab45-b46a0071d1c2">
+                                      <propertyInstance Id="f671ce71-3f3f-4d18-8e18-38ee34ca0b73" name="IsUnsafe" value="false">
+                                        <elementDefinition Id="f05c4c5a-f122-4a33-ab1f-1d0444313458" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="a81279c1-7a0b-4ac1-9c73-01484456bfd7" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="ed4ace81-c9d2-47d3-bc18-cce44eb5879b">
+                                      <propertyInstance Id="2d4d4d7f-15b1-4593-9dca-80077dd2e417" name="PackageVisibility" value="internal">
+                                        <elementDefinition Id="f9ea497e-cf69-4a29-b9a2-cea0c2924c73" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="633c7db9-3276-4fe6-a369-16318623eb83" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                    <stereotypeInstanceHasPropertyInstances Id="ac6e9c89-3756-47c6-b3c4-94d21eeff76d">
+                                      <propertyInstance Id="1b9e05b1-2db4-4f8a-8486-a4553992f844" name="params" value="false">
+                                        <elementDefinition Id="3262f403-3dd3-4cbe-bd34-61abf42b466a" />
+                                      </propertyInstance>
+                                      <elementDefinition Id="7936eec3-7993-4aa8-ae44-6efabe0bbc6b" />
+                                    </stereotypeInstanceHasPropertyInstances>
+                                  </propertyInstances>
+                                </stereotypeInstance>
+                              </appliedStereotypesInternal>
+                              <elementDefinition Id="4314b643-81c9-4a8b-a958-3e0efe292a2f" />
+                              <ownedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="ca05339e-7807-41a1-ae3d-9cf571dc635b" name="manifest" direction="In">
+                                    <referencesInternal>
+                                      <reference Id="6fc326cc-e37e-4003-a4fe-0770922ea8d2" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=manifest" tag="ViewCode">
+                                        <elementDefinition Id="f6e2e713-da55-4713-b7b1-7751108f5dd9" />
+                                      </reference>
+                                    </referencesInternal>
+                                    <elementDefinition Id="1edd8729-9285-47f2-8207-cf1c73ff4a9f" />
+                                    <type_NamedElement>
+                                      <referencedTypeMoniker Id="13be3d71-6a8d-46f6-95b0-b4d514a1b7e0" LastKnownName="IProgress" />
+                                    </type_NamedElement>
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                              </ownedParameters>
+                            </operation>
+                          </ownedOperationsInternal>
+                        </class>
+                      </packageHasNamedElement>
                     </packagedElements>
                   </package>
                 </packageHasNamedElement>
@@ -3060,6 +3076,11 @@
     <packageHasNamedElement>
       <referencedType Id="be17c895-72d2-439c-bafd-20d155792977" name="ArchiveFileInfo" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::Archive::ArchiveFileInfo">
         <elementDefinition Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="f0d239e4-2304-4e62-be10-2db915207324" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

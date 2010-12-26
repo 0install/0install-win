@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Implementation
     {
         #region Properties
         /// <summary>
-        /// The format used for <see cref="Save(Stream)"/>, also specifies the algorithm used in <see cref="ManifestFileBase.Hash"/>.
+        /// The format of the manifest (which file details are listed, which hash method is used, etc.).
         /// </summary>
         public ManifestFormat Format { get; private set; }
 
@@ -204,7 +204,7 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a manifest for a directory in the filesystem.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest.</param>
+        /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
@@ -225,7 +225,7 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a manifest for a directory in the filesystem and writes the manifest to a file named ".manifest" in that directory.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="format">The format of the manifest.</param>
+        /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
         /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
         /// <returns>The manifest digest (format=hash).</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>

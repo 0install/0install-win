@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using Common;
 
 namespace ZeroInstall.Store.Implementation
@@ -25,6 +26,11 @@ namespace ZeroInstall.Store.Implementation
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IImplementationHandler
     {
+        /// <summary>
+        /// Don't print messages to <see cref="Console"/> unless errors occur and don't block with questions or messages.
+        /// </summary>
+        bool Batch { get; set; }
+
         /// <summary>
         /// Called when a new extraction task is about to be started.
         /// </summary>
