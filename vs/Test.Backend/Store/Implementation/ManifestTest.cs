@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher, Roland Leopold Walkling
+ * Copyright 2010 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -20,10 +20,7 @@ using System.Text.RegularExpressions;
 using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
-using Common;
-using System.Threading;
 using Common.Utils;
-using System.Diagnostics;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -195,6 +192,30 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
+        public void ShouldHandleSha1Old()
+        {
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
+            {
+                string innerPath = Path.Combine(package.Path, "inner");
+                Directory.CreateDirectory(innerPath);
+
+                string innerExePath = Path.Combine(innerPath, "inner.exe");
+                string xbitPath = Path.Combine(package.Path, ".xbit");
+                string manifestPath = Path.Combine(package.Path, ".manifest");
+                File.WriteAllText(innerExePath, @"xxxxxxx");
+                File.WriteAllText(xbitPath, @"/inner/inner.exe");
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha1Old, null);
+                using (var manifestFile = File.OpenText(manifestPath))
+                {
+                    string currentLine = manifestFile.ReadLine();
+                    Assert.True(Regex.IsMatch(currentLine, @"^D \w+ /inner$"), "Manifest didn't match expected format:\n" + currentLine);
+                    currentLine = manifestFile.ReadLine();
+                    Assert.True(Regex.IsMatch(currentLine, @"^X \w+ \w+ \d+ inner.exe$"), "Manifest didn't match expected format:\n" + currentLine);
+                }
+            }
+        }
+
+        [Test]
         public void ShouldCallProgressCallback()
         {
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
@@ -208,145 +229,6 @@ namespace ZeroInstall.Store.Implementation
             {
                 Directory.Delete(packageDir, true);
             }
-        }
-    }
-
-    [TestFixture]
-    public class ManifestGeneration
-    {
-        private ManifestGenerator _someGenerator;
-        private TemporaryDirectory _sandbox;
-        private string _packageFolder
-        {
-            get { return _sandbox.Path; }
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-            var packageBuilder = new PackageBuilder()
-                .AddFolder("someFolder")
-                .AddFolder("someOtherFolder")
-                .AddFile("nestedFile1", "abc")
-                .AddFile("nestedFile2", "123");
-
-            _sandbox = new TemporaryDirectory("0install-unit-tests");
-            packageBuilder.WritePackageInto(_packageFolder);
-
-            _someGenerator = new ManifestGenerator(_packageFolder, ManifestFormat.Sha256);
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _sandbox.Dispose();
-        }
-
-        [Test]
-        public void ShouldGenerateManifestWithAllFilesListed()
-        {
-            _someGenerator.RunSync();
-            Assert.IsNotNull(_someGenerator.Result);
-            ValidatePackage();
-        }
-
-        private void ValidatePackage()
-        {
-            var theManifest = _someGenerator.Result;
-
-            string currentSubdir = "";
-            foreach (var node in theManifest.Nodes)
-            {
-                if (node is ManifestDirectory)
-                {
-                    DirectoryMustExistInDirectory((ManifestDirectory)node, _packageFolder);
-                    currentSubdir = ((ManifestDirectory)node).FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1);
-                }
-                else if (node is ManifestFileBase)
-                {
-                    string directory = Path.Combine(_packageFolder, currentSubdir);
-                    FileMustExistInDirectory((ManifestFileBase)node, directory);
-                }
-                else Debug.Fail("Unknown manifest node found: " + node);
-            }
-        }
-
-        private static void DirectoryMustExistInDirectory(ManifestDirectory node, string packageRoot)
-        {
-            string fullPath = Path.Combine(packageRoot, node.FullPath.Replace('/', Path.DirectorySeparatorChar).Substring(1));
-            Assert.IsTrue(Directory.Exists(fullPath), "Directory " + fullPath + " does not exist.");
-        }
-
-        private static void FileMustExistInDirectory(ManifestFileBase node, string directory)
-        {
-            string fullPath = Path.Combine(directory, node.FileName);
-            Assert.IsTrue(File.Exists(fullPath), "File " + fullPath + " does not exist.");
-        }
-
-        [Test]
-        public void ShouldReportReadyStateAtBeginning()
-        {
-            Assert.AreEqual(ProgressState.Ready, _someGenerator.State);
-        }
-
-        [Test]
-        public void ShouldReportTransitionFromReadyToStarted()
-        {
-            bool changedToStarted = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Started) changedToStarted = true; };
-            _someGenerator.RunSync();
-            Assert.IsTrue(changedToStarted);
-        }
-
-        [Test]
-        public void ShouldReportTransitionToComplete()
-        {
-            bool changedToComplete = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
-            _someGenerator.RunSync();
-            Assert.AreEqual(ProgressState.Complete, _someGenerator.State);
-            Assert.IsTrue(changedToComplete);
-        }
-
-        [Test]
-        public void ShouldOfferJoin()
-        {
-            var completedLock = new ManualResetEvent(false);
-            _someGenerator.StateChanged += delegate(IProgress sender)
-            {
-                if (sender.State == ProgressState.Complete)
-                {
-                    completedLock.Set();
-                }
-            };
-            _someGenerator.Start();
-            _someGenerator.Join();
-            bool didTerminate = false;
-            try
-            {
-                Assert.AreEqual(ProgressState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
-            }
-            finally
-            {
-                didTerminate = completedLock.WaitOne(2000);
-            }
-            Assert.IsTrue(didTerminate, "ManifestGenerator did not terminate");
-        }
-
-        [Test]
-        public void ShouldReportChangedProgress()
-        {
-            bool progressChanged = false;
-            _someGenerator.ProgressChanged += delegate { progressChanged = true; };
-            _someGenerator.RunSync();
-            Assert.IsTrue(progressChanged);
-        }
-
-        [Test]
-        public void ShouldCalculateCorrectTotalSize()
-        {
-            _someGenerator.RunSync();
-            Assert.AreEqual(6, _someGenerator.Result.TotalSize);
         }
     }
 }

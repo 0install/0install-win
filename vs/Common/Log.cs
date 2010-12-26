@@ -178,7 +178,7 @@ namespace Common
                 catch (InvalidOperationException) {}
                 catch (IOException) {}
                 #endregion
-                Console.WriteLine(message);
+                Console.Error.WriteLine(message);
                 try { Console.ResetColor(); }
                 #region Error handling
                 catch (InvalidOperationException) {}

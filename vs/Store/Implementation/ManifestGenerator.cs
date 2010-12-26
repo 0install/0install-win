@@ -197,9 +197,10 @@ namespace ZeroInstall.Store.Implementation
             var externalXBits = new C5.HashSet<string>();
 
             // Start searching for the x.bit file in the target directory and then move upwards
-            string xBitDir = TargetPath;
+            string xBitDir = Path.GetFullPath(TargetPath);
             while (!File.Exists(Path.Combine(xBitDir, ".xbit")))
             {
+                // Go up one level in the directory hierachy
                 xBitDir = Path.GetDirectoryName(xBitDir);
 
                 // Cancel once the root dir has been reached

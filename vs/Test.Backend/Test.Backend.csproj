@@ -109,6 +109,7 @@
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
     <Compile Include="Store\Implementation\Archive\ZipExtractorTest.cs" />
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
+    <Compile Include="Store\Implementation\ManifestGeneratorTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
     <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />

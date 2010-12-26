@@ -50,6 +50,8 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Selects the correct <see cref="ManifestFormat"/> based on the digest prefix.
         /// </summary>
+        /// <param name="prefix">The prefix name of the algorithm without a trailing equals sign (e.g. sha256).</param>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="prefix"/> is no known algorithm prefix.</exception>
         public static ManifestFormat FromPrefix(string prefix)
         {
             switch (prefix)

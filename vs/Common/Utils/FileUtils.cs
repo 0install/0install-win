@@ -51,7 +51,7 @@ namespace Common.Utils
             if (algorithm == null) throw new ArgumentNullException("algorithm");
             #endregion
 
-            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read))
+            using (var stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return ComputeHash(stream, algorithm);
         }
 
