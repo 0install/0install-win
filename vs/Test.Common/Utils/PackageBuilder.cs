@@ -210,18 +210,17 @@ namespace Common.Utils
 
     class HierarchyToFolder : HierarchyVisitor
     {
-        readonly string folder;
+        readonly string _folder;
 
         public HierarchyToFolder(string targetFolder)
         {
             if (targetFolder.IndexOfAny(Path.GetInvalidPathChars()) != -1) throw new ArgumentException("Invalid path supplied.");
-            if (!Directory.Exists(targetFolder)) throw new InvalidOperationException("Folder " + Path.GetFullPath(targetFolder) + " does not exist.");
-            folder = targetFolder;
+            _folder = targetFolder;
         }
 
         public override void VisitFile(FileEntry entry)
         {
-            string combinedPath = Path.Combine(folder, entry.RelativePath);
+            string combinedPath = Path.Combine(_folder, entry.RelativePath);
             CheckWritePath(combinedPath);
             WriteFileEntryTo(entry, combinedPath);
         }
@@ -229,7 +228,7 @@ namespace Common.Utils
         private static void CheckWritePath(string combinedPath)
         {
             if (File.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing file.");
-            if (Directory.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing folder.");
+            if (Directory.Exists(combinedPath)) throw new InvalidOperationException("Can't overwrite existing _folder.");
         }
 
         private static void WriteFileEntryTo(FileEntry entry, string combinedPath)
@@ -238,9 +237,14 @@ namespace Common.Utils
             SetDestinationDate(combinedPath, entry);
         }
 
+        protected static void SetDestinationDate(string combinedPath, HierarchyEntry entry)
+        {
+            Directory.SetLastWriteTimeUtc(combinedPath, entry.LastWriteTime);
+        }
+
         public override void VisitFolder(FolderEntry entry)
         {
-            string combinedPath = Path.Combine(folder, entry.RelativePath);
+            string combinedPath = Path.Combine(_folder, entry.RelativePath);
             CheckAndPrepareWritePathForFolder(combinedPath);
             SetDestinationDate(combinedPath, entry);
             VisitChildren(entry);
@@ -248,26 +252,20 @@ namespace Common.Utils
 
         protected static void CheckAndPrepareWritePathForFolder(string thisFoldersPath)
         {
-            if (Directory.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing folder.");
+            if (Directory.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing _folder.");
             if (File.Exists(thisFoldersPath)) throw new InvalidOperationException("Can't overwrite existing file.");
             Directory.CreateDirectory(thisFoldersPath);
         }
 
-        protected static void SetDestinationDate(string combinedPath, HierarchyEntry entry)
-        {
-            Directory.SetLastWriteTimeUtc(combinedPath, entry.LastWriteTime);
-        }
-
         public override void VisitRoot(RootEntry entry)
         {
-            RejectNonEmptyFolder(folder);
-            SetDestinationDate(folder, entry);
-            VisitChildren(entry);
-        }
+            if (!Directory.Exists(_folder))
+            {
+                Directory.CreateDirectory(_folder);
+                SetDestinationDate(_folder, entry);
+            }
 
-        protected static void RejectNonEmptyFolder(string path)
-        {
-            if (Directory.GetFileSystemEntries(path).Length > 0) throw new InvalidOperationException("Can't write into non-empty folder.");
+            VisitChildren(entry);
         }
     }
 
@@ -275,21 +273,23 @@ namespace Common.Utils
     {
         public static readonly DateTime DefaultDate = new DateTime(2000, 1, 1);
 
-        private readonly EntryContainer _packageHierarchy;
+        private readonly EntryContainer _currentSubhierarchy;
+        private readonly RootEntry _packageRoot;
 
         public EntryContainer Hierarchy
         {
-            get { return _packageHierarchy; }
+            get { return _packageRoot; }
         }
 
         public PackageBuilder()
         {
-            _packageHierarchy = new RootEntry(DefaultDate);
+            _currentSubhierarchy = _packageRoot = new RootEntry(DefaultDate);
         }
 
-        internal PackageBuilder(EntryContainer folder)
+        private PackageBuilder(EntryContainer folder, RootEntry root)
         {
-            _packageHierarchy = folder;
+            _currentSubhierarchy = folder;
+            _packageRoot = root;
         }
 
         public PackageBuilder AddFolder(string name)
@@ -297,9 +297,9 @@ namespace Common.Utils
 
         public PackageBuilder AddFolder(string name, DateTime lastWrite)
         {
-            var item = new FolderEntry(name, _packageHierarchy, lastWrite);
-            _packageHierarchy.Add(item);
-            return new PackageBuilder(item);
+            var item = new FolderEntry(name, _currentSubhierarchy, lastWrite);
+            _currentSubhierarchy.Add(item);
+            return new PackageBuilder(item, _packageRoot);
         }
 
         public PackageBuilder AddFile(string name, byte[] content)
@@ -313,7 +313,7 @@ namespace Common.Utils
 
         public PackageBuilder AddFile(string name, byte[] content, DateTime lastWrite)
         {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, false, lastWrite));
+            _currentSubhierarchy.Add(new FileEntry(name, content, _currentSubhierarchy, false, lastWrite));
             return this;
         }
 
@@ -328,24 +328,20 @@ namespace Common.Utils
 
         public PackageBuilder AddExecutable(string name, byte[] content, DateTime lastWrite)
         {
-            _packageHierarchy.Add(new FileEntry(name, content, _packageHierarchy, true, lastWrite));
+            _currentSubhierarchy.Add(new FileEntry(name, content, _currentSubhierarchy, true, lastWrite));
             return this;
         }
 
         public void WritePackageInto(string packageDirectory)
         {
             var hierarchyExpander = new HierarchyToFolder(packageDirectory);
-            _packageHierarchy.AcceptVisitor(hierarchyExpander);
+            Hierarchy.AcceptVisitor(hierarchyExpander);
         }
 
         public void GeneratePackageArchive(string destination)
         {
-            using (var zip = new ZipOutputStream(File.Create(destination)))
-            {
-                zip.SetLevel(9);
-                var hierarchyToZip = new HierarchyToZip(zip);
-                _packageHierarchy.AcceptVisitor(hierarchyToZip);
-            }
+            using (var fileStream = File.Create(destination))
+                GeneratePackageArchive(fileStream);
         }
 
         public void GeneratePackageArchive(Stream output)
@@ -354,7 +350,7 @@ namespace Common.Utils
             {
                 zip.SetLevel(9);
                 var hierarchyToZip = new HierarchyToZip(zip);
-                _packageHierarchy.AcceptVisitor(hierarchyToZip);
+                Hierarchy.AcceptVisitor(hierarchyToZip);
             }
         }
     }
