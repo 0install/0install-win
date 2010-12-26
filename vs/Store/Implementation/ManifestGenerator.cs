@@ -128,7 +128,7 @@ namespace ZeroInstall.Store.Implementation
                     else
                     {
                         var directory = entry as DirectoryInfo;
-                        if (directory != null) nodes.Add(GetDirectoryNode(directory, TargetPath));
+                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Path.GetFullPath(TargetPath)));
                     }
 
                     if (_cancelRequest) return;

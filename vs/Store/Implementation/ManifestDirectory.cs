@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementation
         public long ModifiedTime { get; private set; }
 
         /// <summary>
-        /// The name of the symlink without the containing directory.
+        /// The complete path of this directory relative to the tree root as a Unix-Path beginning with a slash.
         /// </summary>
         public string FullPath { get; private set; }
         #endregion
