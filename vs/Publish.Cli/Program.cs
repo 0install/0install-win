@@ -161,7 +161,7 @@ namespace ZeroInstall.Publish.Cli
         /// <summary>
         /// Parses command-line arguments.
         /// </summary>
-        /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>

@@ -61,11 +61,11 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
+        ///   Looks up a localized string similar to Incorrect number of arguments. Try {0} --help.
         /// </summary>
-        internal static string MissingArguments {
+        internal static string IncorrectNoArguments {
             get {
-                return ResourceManager.GetString("MissingArguments", resourceCulture);
+                return ResourceManager.GetString("IncorrectNoArguments", resourceCulture);
             }
         }
         

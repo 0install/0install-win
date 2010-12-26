@@ -46,9 +46,9 @@ namespace ZeroInstall.Launcher.Cli
         NotSupported = 3,
         IOError = 10,
         WebError = 11,
-        ImplementationError = 12,
-        SolverError = 20,
-        DigestMismatch = 21
+        ImplementationError = 15,
+        DigestMismatch = 20,
+        SolverError = 21
     }
     #endregion
 
@@ -91,108 +91,68 @@ namespace ZeroInstall.Launcher.Cli
             }
             #endregion
 
-            switch (mode)
+            try { return ExecuteArgs(mode, results); }
+            #region Error hanlding
+            catch (UserCancelException)
             {
-                case OperationMode.Normal:
-                    if (string.IsNullOrEmpty(results.Feed))
-                    {
-                        Log.Error(string.Format(Resources.MissingArguments, "0launch"));
-                        return (int)ErrorLevel.InvalidArguments;
-                    }
-                    
-                    try { Execute(results); }
-                    #region Error hanlding
-                    catch (UserCancelException)
-                    {
-                        return (int)ErrorLevel.UserCanceled;
-                    }
-                    catch (ArgumentException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (WebException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.WebError;
-                    }
-                    catch (IOException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (SolverException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.SolverError;
-                    }
-                    catch (FetcherException ex)
-                    {
-                        Log.Error((ex.InnerException ?? ex).Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (DigestMismatchException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.DigestMismatch;
-                    }
-                    catch (ImplementationNotFoundException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.ImplementationError;
-                    }
-                    catch (MissingMainException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.ImplementationError;
-                    }
-                    catch (Win32Exception ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (BadImageFormatException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    #endregion
-
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.List:
-                    try { List(results); }
-                    #region Error hanlding
-                    catch (ArgumentException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    #endregion
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Import:
-                case OperationMode.Manage:
-                    // ToDo: Implement
-                    Log.Error("Not implemented yet!");
-                    return (int)ErrorLevel.NotSupported;
-
-                case OperationMode.Version:
-                    Console.WriteLine(@"Zero Install Launcher CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Help:
-                    return (int)ErrorLevel.OK;
-
-                default:
-                    Log.Error("Unknown operation mode");
-                    return (int)ErrorLevel.NotSupported;
+                return (int)ErrorLevel.UserCanceled;
             }
+            catch (ArgumentException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.InvalidArguments;
+            }
+            catch (WebException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.WebError;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (ImplementationNotFoundException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.ImplementationError;
+            }
+            catch (MissingMainException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.ImplementationError;
+            }
+            catch (DigestMismatchException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.DigestMismatch;
+            }
+            catch (SolverException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.SolverError;
+            }
+            catch (FetcherException ex)
+            {
+                Log.Error((ex.InnerException ?? ex).Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (Win32Exception ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (BadImageFormatException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            #endregion
         }
         #endregion
 
@@ -200,7 +160,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <summary>
         /// Parses command-line arguments.
         /// </summary>
-        /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
@@ -292,11 +252,65 @@ namespace ZeroInstall.Launcher.Cli
         }
         #endregion
 
-        //--------------------//
-
         #region Execute
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
+        /// </summary>
+        /// <param name="mode">The operation mode selected by the parsing process.</param>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <returns>The error code to end the process with.</returns>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all depedencies.</exception>
+        /// <exception cref="FetcherException">Thrown if an <see cref="Implementation"/> could not be downloaded.</exception>
+        /// <exception cref="DigestMismatchException">Thrown uf an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        private static int ExecuteArgs(OperationMode mode, ParseResults results)
+        {
+            switch (mode)
+            {
+                case OperationMode.Normal:
+                    if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.IncorrectNoArguments, "0launch"));
+                    Normal(results);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.List:
+                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.IncorrectNoArguments, "0launch"));
+                    List(results);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Import:
+                case OperationMode.Manage:
+                    // ToDo: Implement
+                    Log.Error("Not implemented yet!");
+                    return (int)ErrorLevel.NotSupported;
+
+                case OperationMode.Version:
+                    Console.WriteLine(@"Zero Install Launcher CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Help:
+                    // Help text was already printed
+                    return (int)ErrorLevel.OK;
+
+                default:
+                    Log.Error("Unknown operation mode");
+                    return (int)ErrorLevel.NotSupported;
+            }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Normal
+        /// <summary>
+        /// Launches the interface specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
@@ -311,7 +325,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        public static void Execute(ParseResults results)
+        private static void Normal(ParseResults results)
         {
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
@@ -343,11 +357,8 @@ namespace ZeroInstall.Launcher.Cli
         /// Prints a list of feeds in the cache to the console.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="ArgumentException">Thrown if no filtering aruments were passed.</exception>
-        public static void List(ParseResults results)
+        private static void List(ParseResults results)
         {
-            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(Resources.MissingArguments);
-
             var feeds = results.Policy.FeedProvider.Cache.ListAll();
             foreach (Uri entry in feeds)
             {

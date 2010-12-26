@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
@@ -79,105 +80,66 @@ namespace ZeroInstall.Launcher.WinForms
                 }
                 #endregion
 
-                switch (mode)
+                try { ExecuteArgs(handler, mode, results); }
+                #region Error hanlding
+                catch (UserCancelException)
+                {}
+                catch (ArgumentException ex)
                 {
-                    case OperationMode.Normal:
-                        // Ask for URI via GUI if none was specified on command-line
-                        if (string.IsNullOrEmpty(results.Feed))
-                        {
-                            results.Feed = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
-                            if (string.IsNullOrEmpty(results.Feed)) return;
-                        }
-                        
-                        handler.ShowAsync();
-                        try { Execute(results, handler); }
-                        #region Error hanlding
-                        catch (UserCancelException)
-                        {}
-                        catch (ArgumentException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (WebException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (IOException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (UnauthorizedAccessException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (SolverException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (FetcherException ex)
-                        {
-                            Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (DigestMismatchException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (ImplementationNotFoundException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (MissingMainException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (Win32Exception ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        catch (BadImageFormatException ex)
-                        {
-                            Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                            handler.CloseAsync();
-                            return;
-                        }
-                        #endregion
-                        break;
-
-                    case OperationMode.List:
-                    case OperationMode.Import:
-                    case OperationMode.Manage:
-                        Msg.Inform(null, "Not implemented yet!", MsgSeverity.Error);
-                        break;
-
-                    case OperationMode.Version:
-                        // ToDo: Read version number from assembly data
-                        Msg.Inform(null, "Zero Install for Windows Launcher v1.0", MsgSeverity.Information);
-                        break;
-
-                    default:
-                        Msg.Inform(null, "Unknown operation mode", MsgSeverity.Error);
-                        break;
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
                 }
+                catch (WebException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (SolverException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (FetcherException ex)
+                {
+                    Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (DigestMismatchException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (ImplementationNotFoundException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (MissingMainException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (BadImageFormatException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                #endregion
             });
         }
         #endregion
@@ -186,7 +148,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// <summary>
         /// Parses command-line arguments.
         /// </summary>
-        /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
@@ -194,15 +156,11 @@ namespace ZeroInstall.Launcher.WinForms
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
+        private static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
-            #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
-            #endregion
-
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
+            var parseResults = new ParseResults { Policy = Policy.CreateDefault(handler) };
 
             #region Define options
             var options = new OptionSet
@@ -262,14 +220,72 @@ namespace ZeroInstall.Launcher.WinForms
         }
         #endregion
 
-        //--------------------//
-
         #region Execute
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
+        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <param name="mode">The operation mode selected by the parsing process.</param>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all depedencies.</exception>
+        /// <exception cref="FetcherException">Thrown if an <see cref="Implementation"/> could not be downloaded.</exception>
+        /// <exception cref="DigestMismatchException">Thrown uf an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        private static void ExecuteArgs(MainForm handler, OperationMode mode, ParseResults results)
+        {
+            switch (mode)
+            {
+                case OperationMode.Normal:
+                    // Ask for URI via GUI if none was specified on command-line
+                    if (string.IsNullOrEmpty(results.Feed))
+                    {
+                        results.Feed = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
+                        if (string.IsNullOrEmpty(results.Feed)) return;
+                    }
+                        
+                    handler.ShowAsync();
+                    Normal(results, handler);
+                    break;
+
+                case OperationMode.List:
+                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException("Too many arguments");
+                    List(results);
+                    break;
+
+                case OperationMode.Import:
+                case OperationMode.Manage:
+                    // ToDo: Implement
+                    Msg.Inform(null, "Not implemented yet!", MsgSeverity.Error);
+                    break;
+
+                case OperationMode.Version:
+                    Msg.Inform(null, string.Format(@"Zero Install Launcher WinForms v{0}", Application.ProductVersion), MsgSeverity.Information);
+                    break;
+
+                default:
+                    Msg.Inform(null, "Unknown operation mode", MsgSeverity.Error);
+                    break;
+            }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Normal
+        /// <summary>
+        /// Launches the interface specified by the command-line arguments.
+        /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
@@ -281,12 +297,8 @@ namespace ZeroInstall.Launcher.WinForms
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        public static void Execute(ParseResults results, MainForm handler)
+        private static void Normal(ParseResults results, MainForm handler)
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
             if (results.SelectionsFile == null) controller.Solve();
@@ -306,6 +318,24 @@ namespace ZeroInstall.Launcher.WinForms
                 if (results.NoWait) ProcessUtils.RunDetached(startInfo);
                 else ProcessUtils.RunReplace(startInfo);
             }
+        }
+        #endregion
+
+        #region List
+        /// <summary>
+        /// Prints a list of feeds in the cache to a message box.
+        /// </summary>
+        /// <param name="results">The parser results to be executed.</param>
+        private static void List(ParseResults results)
+        {
+            var feeds = results.Policy.FeedProvider.Cache.ListAll();
+            var builder = new StringBuilder("Found interfaces:\n");
+            foreach (Uri entry in feeds)
+            {
+                if (results.Feed == null || entry.ToString().Contains(results.Feed))
+                    builder.AppendLine(entry.ToString());
+            }
+            Msg.Inform(null, builder.ToString(), MsgSeverity.Information);
         }
         #endregion
     }
