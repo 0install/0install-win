@@ -108,9 +108,9 @@ namespace ZeroInstall.Store.Service
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise()
+        public void Optimise(IImplementationHandler handler)
         {
-            throw new NotImplementedException();
+            // ToDo: Implemenet
         }
         #endregion
 
@@ -118,7 +118,7 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
         {
-            // Auditing should use direct access via a DirectoryStore instead
+            // ToDo: Implemenet
             return null;
         }
         #endregion

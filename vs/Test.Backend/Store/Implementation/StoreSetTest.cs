@@ -245,9 +245,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestOptimise()
         {
-            _mock1.ExpectAndThrow("Optimise", new UnauthorizedAccessException());
-            _mock2.Expect("Optimise");
-            GetStore().Optimise();
+            _mock1.ExpectAndThrow("Optimise", new UnauthorizedAccessException(), null);
+            _mock2.Expect("Optimise", null);
+            GetStore().Optimise(null);
         }
         #endregion
 

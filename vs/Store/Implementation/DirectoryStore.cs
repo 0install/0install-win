@@ -334,9 +334,9 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise()
+        public void Optimise(IImplementationHandler handler)
         {
-            throw new NotImplementedException();
+            // ToDo: Implemenet
         }
         #endregion
 

@@ -224,12 +224,12 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise()
+        public void Optimise(IImplementationHandler handler)
         {
             // Try to optimize all contained stores
             foreach (IStore store in Stores)
             {
-                try { store.Optimise(); }
+                try { store.Optimise(handler); }
                 catch (UnauthorizedAccessException)
                 {
                     // Ignore authorization errors, since optimisation is not a critical task

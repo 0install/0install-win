@@ -188,30 +188,28 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="DigestMismatchException">Thrown if the archive/directory content doesn't match the manifest digest.</exception>
         private static ErrorLevel ExecuteArgs(IList<string> args, IImplementationHandler handler)
         {
-            IStore store = StoreProvider.Default;
-
             switch (args[0])
             {
                 case "add":
-                    return Add(args, store, handler);
+                    return Add(args, handler);
 
                 case "audit":
-                    return Audit(args, store, handler);
+                    return Audit(args, handler);
 
                 case "copy":
-                    Copy(args, store, handler);
+                    Copy(args, handler);
                     return ErrorLevel.OK;
 
                 case "find":
-                    Find(args, store);
+                    Find(args);
                     return ErrorLevel.OK;
 
                 case "remove":
-                    Remove(args, store);
+                    Remove(args);
                     return ErrorLevel.OK;
 
                 case "list":
-                    List(args, store);
+                    List(args);
                     return ErrorLevel.OK;
 
                 case "manifest":
@@ -219,9 +217,8 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "optimise":
-                    // ToDo: Implement
-                    Log.Error("Not implemented yet");
-                    return ErrorLevel.NotSupported;
+                    Optimise(args, handler);
+                    return ErrorLevel.OK;
 
                 case "verify":
                     Verify(args, handler);
@@ -237,15 +234,15 @@ namespace ZeroInstall.Store.Management.Cli
         //--------------------//
 
         #region Execute helpers
-        private static ErrorLevel Add(IList<string> args, IStore store, IImplementationHandler handler)
+        private static ErrorLevel Add(IList<string> args, IImplementationHandler handler)
         {
             if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageAdd));
             var manifestDigest = new ManifestDigest(args[1]);
             string path = args[2];
             string subDir = (args.Count == 4) ? args[3] : null;
 
-            if (Directory.Exists(path)) store.AddDirectory(path, manifestDigest, handler);
-            else if (File.Exists(path)) store.AddArchive(new ArchiveFileInfo {Path = path, SubDir = subDir}, manifestDigest, handler);
+            if (Directory.Exists(path)) StoreProvider.Default.AddDirectory(path, manifestDigest, handler);
+            else if (File.Exists(path)) StoreProvider.Default.AddArchive(new ArchiveFileInfo { Path = path, SubDir = subDir }, manifestDigest, handler);
             else
             {
                 Log.Error("No such file or directory: " + path);
@@ -254,34 +251,48 @@ namespace ZeroInstall.Store.Management.Cli
             return ErrorLevel.OK;
         }
 
-        private static void Copy(IList<string> args, IStore store, IImplementationHandler handler)
+        private static void Copy(IList<string> args, IImplementationHandler handler)
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageCopy));
-            if (args.Count == 3) store = new DirectoryStore(args[2]);
+
+            IStore store = (args.Count == 3) ? new DirectoryStore(args[2]) : StoreProvider.Default;
             store.AddDirectory(args[1], new ManifestDigest(Path.GetFileName(args[1])), handler);
         }
 
-        private static void Find(IList<string> args, IStore store)
+        private static void Find(IList<string> args)
         {
             if (args.Count != 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageFind));
-            Console.WriteLine(store.GetPath(new ManifestDigest(args[1])));
+
+            Console.WriteLine(StoreProvider.Default.GetPath(new ManifestDigest(args[1])));
         }
 
-        private static void Remove(IList<string> args, IStore store)
+        private static void Remove(IList<string> args)
         {
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageRemove));
+
             for (int i = 1; i < args.Count; i++)
             {
-                store.Remove(new ManifestDigest(args[i]));
+                StoreProvider.Default.Remove(new ManifestDigest(args[i]));
                 Log.Info("Successfully removed " + args[i]);
             }
         }
 
-        private static void List(IList<string> args, IStore store)
+        private static void List(IList<string> args)
         {
             if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
-            foreach (ManifestDigest digest in store.ListAll())
+
+            foreach (ManifestDigest digest in StoreProvider.Default.ListAll())
                 Console.WriteLine(digest.BestDigest);
+        }
+
+        private static void Optimise(IList<string> args, IImplementationHandler handler)
+        {
+            if (args.Count == 1) StoreProvider.Default.Optimise(handler);
+            else
+            {
+                for (int i = 1; i < args.Count; i++)
+                    new DirectoryStore(args[i]).Optimise(handler);
+            }
         }
 
         private static void Verify(IList<string> args, IImplementationHandler handler)
@@ -289,17 +300,25 @@ namespace ZeroInstall.Store.Management.Cli
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageVerify));
             for (int i = 1; i < args.Count; i++)
             {
-                DirectoryStore.VerifyDirectory(args[i], new ManifestDigest(Path.GetFileName(args[i])), handler);
+                if (Directory.Exists(args[i]))
+                { // Verify an arbitrary directory
+                    DirectoryStore.VerifyDirectory(args[i], new ManifestDigest(Path.GetFileName(args[i])), handler);
+                }
+                else
+                { // Verify a directory inside the default store
+                    var digest = new ManifestDigest(args[i]);
+                    DirectoryStore.VerifyDirectory(StoreProvider.Default.GetPath(digest), digest, handler);
+                }
                 Console.WriteLine("OK");
             }
         }
         #endregion
 
         #region Audit
-        private static ErrorLevel Audit(IList<string> args, IStore store, IImplementationHandler handler)
+        private static ErrorLevel Audit(IList<string> args, IImplementationHandler handler)
         {
             ErrorLevel result = ErrorLevel.OK;
-            if (args.Count == 1) AuditStore(store, handler);
+            if (args.Count == 1) AuditStore(StoreProvider.Default, handler);
             else
             {
                 for (int i = 1; i < args.Count; i++)

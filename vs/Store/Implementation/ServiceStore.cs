@@ -179,15 +179,9 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise()
+        public void Optimise(IImplementationHandler handler)
         {
-            try { _serviceProxy.Optimise(); }
-            #region Error handling
-            catch (RemotingException ex)
-            {
-                throw new UnauthorizedAccessException(Resources.StoreServiceCommunicationProblem, ex);
-            }
-            #endregion
+            // Optimizing should use direct access via a DirectoryStore instead
         }
         #endregion
 
