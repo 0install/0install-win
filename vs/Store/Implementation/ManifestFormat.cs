@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementation
                 case ManifestDigest.Sha1OldPrefix: return Sha1Old;
                 case ManifestDigest.Sha1NewPrefix: return Sha1New;
                 case ManifestDigest.Sha256Prefix: return Sha256;
-                default: throw new ArgumentException(Resources.NoKnownDigestMethod, "prefix");
+                default: throw new ArgumentException(Resources.NoKnownDigestMethod);
             }
         }
         #endregion

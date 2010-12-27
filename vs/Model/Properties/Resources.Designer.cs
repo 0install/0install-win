@@ -70,6 +70,15 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Digest &apos;{0}&apos; is not in the form &apos;algorithm=value&apos;..
+        /// </summary>
+        internal static string InvalidDigest {
+            get {
+                return ResourceManager.GetString("InvalidDigest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The dot-separated list may only contain decimal numbers..
         /// </summary>
         internal static string MustBeDottedList {

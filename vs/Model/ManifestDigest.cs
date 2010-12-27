@@ -23,6 +23,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using Common.Utils;
 using ZeroInstall.Model.Design;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -160,6 +161,10 @@ namespace ZeroInstall.Model
         /// <param name="target">The <see cref="ManifestDigest"/> to store the values in.</param>
         public static void ParseID(string id, ref ManifestDigest target)
         {
+            #region Sanity checks
+            if (!id.Contains("=")) throw new ArgumentException(string.Format(Resources.InvalidDigest, id));
+            #endregion
+
             // Split the ID string
             string prefix = StringUtils.GetLeftPartAtFirstOccurrence(id, '=');
             string hash = StringUtils.GetRightPartAtFirstOccurrence(id, '=');

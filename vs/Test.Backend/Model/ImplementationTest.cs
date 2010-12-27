@@ -67,6 +67,13 @@ namespace ZeroInstall.Model
             var implementation = new Implementation { ID = "sha256=123" };
             implementation.Simplify();
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
+
+            implementation = new Implementation { ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct") };
+            implementation.Simplify();
+            Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
+
+            implementation = new Implementation { ID = "abc" };
+            implementation.Simplify();
         }
     }
 }

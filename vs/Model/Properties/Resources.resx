@@ -120,6 +120,9 @@
   <data name="ArchitectureStringFormat" xml:space="preserve">
     <value>The string must be in the form "os-cpu".</value>
   </data>
+  <data name="InvalidDigest" xml:space="preserve">
+    <value>Digest '{0}' is not in the form 'algorithm=value'.</value>
+  </data>
   <data name="MustBeDottedList" xml:space="preserve">
     <value>The dot-separated list may only contain decimal numbers.</value>
   </data>

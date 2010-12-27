@@ -79,7 +79,7 @@ namespace ZeroInstall.Model
 
             // Fill in values (only if missing) using legacy entries (indentified by prefixes)
             if (string.IsNullOrEmpty(LocalPath) && (ID.StartsWith(".") || ID.StartsWith("/"))) LocalPath = ID;
-            else ManifestDigest.ParseID(ID, ref _manifestDigest);
+            else if (ID.Contains("=")) ManifestDigest.ParseID(ID, ref _manifestDigest);
         }
         #endregion
 
