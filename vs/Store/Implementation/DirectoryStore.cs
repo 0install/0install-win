@@ -126,7 +126,7 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Verify manifest
+        #region Verify directory
         /// <summary>
         /// Verifies the manifest digest of a directory.
         /// </summary>
@@ -334,16 +334,9 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        #region Verify
-        /// <summary>
-        /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
-        /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an entry in the store has an incorrect digest.</exception>
-        /// <remarks>In order to completely sanitize a cache directory this method needs to be called repeatedly, <see cref="Remove"/>ing any entries reported by <see cref="DigestMismatchException"/>s until no more exceptions are thrown.</remarks>
-        public void Verify(IImplementationHandler handler)
+        #region Audit
+        /// <inheritdoc />
+        public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
         {
             // Iterate through all entries - their names are the expected digest values
             foreach (ManifestDigest digest in ListAll())
@@ -351,7 +344,13 @@ namespace ZeroInstall.Store.Implementation
                 string directory = Path.Combine(DirectoryPath, digest.BestDigest);
 
                 // Calculate the actual digest and compare it with the expected one
-                VerifyDirectory(directory, digest, handler);
+                DigestMismatchException problem = null;
+                try { VerifyDirectory(directory, digest, handler); }
+                catch (DigestMismatchException ex)
+                {
+                    problem = ex;
+                }
+                if (problem != null) yield return problem;
             }
         }
         #endregion

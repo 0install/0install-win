@@ -678,6 +678,56 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="efbd713c-c299-43ea-84ec-281be701c62a"
+            name="Audit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7c07e08c-1a96-4a1f-8dc4-674141a46ef3"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3bb1b10c-5281-4df8-8d5d-8ce19095d0e3"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d87903be-0180-4ae6-9c31-1fc60477dc14"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ed849bf5-9252-4c05-829c-03cc6322e145"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
+                      LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -1451,6 +1501,56 @@
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
                       LastKnownName="String"
                       LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="121d1631-9a16-4cf9-b25d-8bee89b36829"
+            name="Audit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4e24c6a9-f06e-47fe-973c-393b686f4ade"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2b440072-6599-4877-af79-89007d28391a"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ef65d8b6-9662-48cb-a1c3-83c7671a93e1"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="5a701cee-83f5-4545-a073-bf67d371b1c1"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
+                      LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4147,6 +4247,56 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="86fa5e13-c277-43d9-a7c3-d768684cdc11"
+            name="Audit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d1a45215-eceb-45f8-a91e-ef4653cdbb2f"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="485773f2-b25f-43b3-8d00-6df555237f63"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d2254963-475a-4557-89ab-41ff95e1899c"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="907dabb5-bbac-4766-98e2-7378c03267ba"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
+                      LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -4690,6 +4840,56 @@
                   name="String ipcPortName"
                   direction="In"
                   isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c4cef4ac-30ed-404d-bd16-5556ca0baff2"
+            name="Audit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="627da058-6d61-4d62-a737-8292c9b6d7b7"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7a448420-c2e1-427e-9e64-3a5c8bfd27dc"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="53a68ad6-7776-43eb-abbf-8d9f4836db6c"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="db7a9a5b-3121-479b-aec0-2cd082351911"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
+                      LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
@@ -9632,6 +9832,11 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
+        name="DigestMismatchException" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

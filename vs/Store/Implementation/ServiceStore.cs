@@ -190,5 +190,14 @@ namespace ZeroInstall.Store.Implementation
             #endregion
         }
         #endregion
+
+        #region Audit
+        /// <inheritdoc />
+        public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
+        {
+            // Auditing should use direct access via a DirectoryStore instead
+            return null;
+        }
+        #endregion
     }
 }

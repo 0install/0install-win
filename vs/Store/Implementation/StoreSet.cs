@@ -210,6 +210,7 @@ namespace ZeroInstall.Store.Implementation
         {
             foreach (IStore store in Stores)
             {
+                // Remove from every that contains the implementation
                 if (store.Contains(manifestDigest)) store.Remove(manifestDigest);
             }
         }
@@ -226,6 +227,24 @@ namespace ZeroInstall.Store.Implementation
                 catch (UnauthorizedAccessException)
                 {
                     // Ignore authorization errors, since optimisation is not a critical task
+                }
+            }
+        }
+        #endregion
+
+        #region Audit
+        /// <inheritdoc />
+        public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
+        {
+            // Try to audit all contained stores
+            foreach (IStore store in Stores)
+            {
+                var problems = store.Audit(handler);
+                if (problems != null)
+                {
+                    // Combine problems from all stores
+                    foreach (DigestMismatchException problem in problems)
+                        yield return problem;
                 }
             }
         }

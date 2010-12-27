@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using Common.Collections;
 using Common.Utils;
 using Common.Storage;
 using NUnit.Framework;
@@ -121,16 +122,18 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldDetectDamagedImplementations()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, null));
             var store = _store;
             store.AddDirectory(_packageDir, digest, null);
 
             // After correctly adding a directory, the store should be valid
-            _store.Verify(null);
+            _store.Audit(null);
 
             // A contaminated store should be detected
-            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha256=abc"));
-            Assert.Throws<DigestMismatchException>(() => store.Verify(null));
+            Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
+            DigestMismatchException problem = EnumUtils.GetFirst(store.Audit(null));
+            Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
+            Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }
     }
 }

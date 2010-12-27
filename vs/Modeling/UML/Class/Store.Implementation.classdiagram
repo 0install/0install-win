@@ -2155,6 +2155,37 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="846e4d8f-4510-4708-b639-8a4c7180fe67" name="Audit" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="121d1631-9a16-4cf9-b25d-8bee89b36829" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="e7e2eb09-656d-45aa-923a-04d3acaaf6cc" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="4e24c6a9-f06e-47fe-973c-393b686f4ade" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="7937ab45-c84f-40d6-9e52-e32acead9b95" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="44459bd5-864c-437c-a710-45b4fd62ec50" name="Lower" value="*">
+                            <elementDefinition Id="ef65d8b6-9662-48cb-a1c3-83c7671a93e1" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="07b2de23-026f-4724-8d30-877d10937225" name="Upper" value="*">
+                            <elementDefinition Id="5a701cee-83f5-4545-a073-bf67d371b1c1" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="2b440072-6599-4877-af79-89007d28391a" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="622108f5-54a0-44e9-85e1-a3c131680d70" LastKnownName="DigestMismatchException" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperations>
             </Interface>
           </packageHasNamedElement>
@@ -2608,6 +2639,37 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="86a5c3cd-e63c-436f-808a-df4d0cc271eb" name="Audit" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="efbd713c-c299-43ea-84ec-281be701c62a" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="2fc00cf2-c6e9-45b1-823f-58eea69c6488" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="7c07e08c-1a96-4a1f-8dc4-674141a46ef3" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="d1e2d340-51ea-41c5-9330-329c3ae5c7e3" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="581b64eb-9774-4e98-9a61-703a1d421060" name="Lower" value="*">
+                            <elementDefinition Id="d87903be-0180-4ae6-9c31-1fc60477dc14" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="f442c1d2-0228-4c89-ad77-ae6e5d08d968" name="Upper" value="*">
+                            <elementDefinition Id="ed849bf5-9252-4c05-829c-03cc6322e145" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="3bb1b10c-5281-4df8-8d5d-8ce19095d0e3" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="622108f5-54a0-44e9-85e1-a3c131680d70" LastKnownName="DigestMismatchException" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -2952,6 +3014,37 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="58c26404-4a5d-46f5-956a-132055f45cfb" name="Audit" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="c4cef4ac-30ed-404d-bd16-5556ca0baff2" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="02aa7d05-cfff-4b9f-86bc-6f5355941bfa" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="627da058-6d61-4d62-a737-8292c9b6d7b7" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="0db2fd04-d642-42d7-8134-b600db9abbd4" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="d7a29887-2192-412d-9860-b9d62ef61b00" name="Lower" value="*">
+                            <elementDefinition Id="53a68ad6-7776-43eb-abbf-8d9f4836db6c" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="404d453b-aceb-4f8c-9d40-dbd6f2f09e52" name="Upper" value="*">
+                            <elementDefinition Id="db7a9a5b-3121-479b-aec0-2cd082351911" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="7a448420-c2e1-427e-9e64-3a5c8bfd27dc" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="622108f5-54a0-44e9-85e1-a3c131680d70" LastKnownName="DigestMismatchException" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -3265,6 +3358,37 @@
                         <elementDefinition Id="bb483787-c3f8-4225-89e9-712819aa2181" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="525cae30-1c3d-4119-96c8-7632bbb9e5b4" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="963caf9f-e361-4206-bba4-86603cdf4541" name="Audit" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="86fa5e13-c277-43d9-a7c3-d768684cdc11" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3e0f9fe9-51f2-4c31-8dd4-62ec19068493" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="d1a45215-eceb-45f8-a91e-ef4653cdbb2f" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="33924469-6325-46ef-9834-49c06771a486" direction="Return" isUnique="false">
+                        <lowerValueInternal>
+                          <literalString Id="4365016f-7a55-4e79-9a32-4bb6025fdc42" name="Lower" value="*">
+                            <elementDefinition Id="d2254963-475a-4557-89ab-41ff95e1899c" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="eb7a72fa-8fa4-4166-adce-8031679da30c" name="Upper" value="*">
+                            <elementDefinition Id="907dabb5-bbac-4766-98e2-7378c03267ba" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="485773f2-b25f-43b3-8d00-6df555237f63" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="622108f5-54a0-44e9-85e1-a3c131680d70" LastKnownName="DigestMismatchException" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -8100,6 +8224,62 @@
                 </stereotypeInstance>
               </appliedStereotypesInternal>
               <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
+              <ownedAttributes>
+                <property Id="afde59e3-968d-4eb6-ac81-f24ddc59a058" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <referencesInternal>
+                    <reference Id="5bac8f1e-933c-4926-8b5d-ce253b81aef4" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch" tag="ViewCode">
+                      <elementDefinition Id="8016cd45-9764-41af-9577-476c0b28a326" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="5e3b9d57-8a28-46fa-a760-8e25f1b88f5f" name="property" profile="CSharpProfile">
+                      <elementDefinition Id="0e7a5fd2-fa00-4f89-b6dc-f67222d26fd9" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="0a8e50a1-bad3-48ab-bc2e-513e52e83408">
+                          <propertyInstance Id="7becd869-ab31-42ff-ba46-599278541252" name="ClrAttributes">
+                            <elementDefinition Id="a1ced26a-9616-4042-8739-9ce6a7e9dece" />
+                          </propertyInstance>
+                          <elementDefinition Id="92a95612-1f7b-417f-94c9-01b12f1cc510" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="8bbfb5a8-2cd5-48e8-a3bf-7d6f5c5f266a">
+                          <propertyInstance Id="ac790e9b-80d6-488c-a6e6-5a7d3a8e46bf" name="Get" value="public">
+                            <elementDefinition Id="29bb0f2d-19c5-45d5-a745-1288dda56f83" />
+                          </propertyInstance>
+                          <elementDefinition Id="f7765489-49bc-40f6-82e2-76818fe2852a" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="0f32b2fe-5794-4509-aaa2-413fa80f613c">
+                          <propertyInstance Id="9ddd8464-b655-4900-b91e-7160338adb48" name="HasBody" value="false">
+                            <elementDefinition Id="5df65d44-2d9b-4e70-9b85-29b2ae185b57" />
+                          </propertyInstance>
+                          <elementDefinition Id="ae5b7d11-de90-4159-904a-57eebb79808c" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="097326cb-65a4-4da9-b9c4-61c20a0a8873">
+                          <propertyInstance Id="6c03c62a-84da-4321-8a99-35f538575481" name="IsUnsafe" value="false">
+                            <elementDefinition Id="b847db39-c8a0-4fe3-b4a5-cccd7d36619a" />
+                          </propertyInstance>
+                          <elementDefinition Id="1949d0d0-0079-49af-88e0-c932520cb2d8" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="d3657432-2f44-4133-aea1-42c9fa758b44">
+                          <propertyInstance Id="21b988e3-fb01-4b48-b4fd-72c643ccefe4" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="507b3239-b453-41b8-aed5-96a801ca9be4" />
+                          </propertyInstance>
+                          <elementDefinition Id="d6980c08-c7aa-4530-ba35-16acd57f3cdb" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c464c835-9226-484e-8723-121d2acecdbd">
+                          <propertyInstance Id="ec581b66-8e31-4e8a-965f-310172f39a65" name="Set" value="public">
+                            <elementDefinition Id="44fd295a-807f-44e7-9f41-a6ec78e77b0f" />
+                          </propertyInstance>
+                          <elementDefinition Id="e7a013be-3511-4aef-9332-17bafd6547c5" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="e09aae02-7f1f-40f8-833b-af9be96a5419" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="0ca9c6fc-5fcb-4938-be0a-95a608daee77" LastKnownName="Boolean" />
+                  </type_NamedElement>
+                </property>
+              </ownedAttributes>
               <ownedOperations>
                 <operation Id="654a10dd-d7e3-4a90-aeb0-8faaf2710035" name="StartingExtraction" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
@@ -8350,6 +8530,16 @@
     <packageHasNamedElement>
       <referencedType Id="ecd3e659-a956-4ec5-b5b2-66f5c5ddde55" name="Manifest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::Manifest">
         <elementDefinition Id="a5a2eefb-307c-4237-9544-ba615afde7bc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
+        <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="622108f5-54a0-44e9-85e1-a3c131680d70" name="DigestMismatchException" isAbstract="false" isLeaf="false" cachedFullName="DigestMismatchException">
+        <elementDefinition Id="d0246047-16c2-48c1-8bc6-b9bf67159866" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
