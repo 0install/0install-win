@@ -61,14 +61,14 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Missing arguments. Try {0} --help.
+        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
-        internal static string MissingArguments {
+        internal static string OptionBatch {
             get {
-                return ResourceManager.GetString("MissingArguments", resourceCulture);
+                return ResourceManager.GetString("OptionBatch", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Show the built-in help text..
         /// </summary>
@@ -77,13 +77,23 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Display version information..
         /// </summary>
         internal static string OptionVersion {
             get {
                 return ResourceManager.GetString("OptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong number of arguments.
+        ///Usage: {0}.
+        /// </summary>
+        internal static string WrongNoArguments {
+            get {
+                return ResourceManager.GetString("WrongNoArguments", resourceCulture);
             }
         }
     }

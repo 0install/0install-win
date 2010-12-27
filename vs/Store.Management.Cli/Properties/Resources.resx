@@ -117,13 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MissingArguments" xml:space="preserve">
-    <value>Missing arguments. Try {0} --help</value>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Run in batch mode: don't display any progress reports to the user and silently answer all questions with "No".</value>
   </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
+  </data>
+  <data name="WrongNoArguments" xml:space="preserve">
+    <value>Wrong number of arguments.
+Usage: {0}</value>
   </data>
 </root>
