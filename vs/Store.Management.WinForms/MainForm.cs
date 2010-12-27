@@ -31,7 +31,7 @@ using ZeroInstall.Store.Management.WinForms.Properties;
 namespace ZeroInstall.Store.Management.WinForms
 {
     /// <summary>
-    /// Displays the content of caches (<see cref="FeedCache"/> and <see cref="IStore"/>) in a combined tree view.
+    /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
     public sealed partial class MainForm : Form
     {
@@ -80,7 +80,7 @@ namespace ZeroInstall.Store.Management.WinForms
             var nodes = new NamedCollection<StoreNode>();
 
             #region Interface node
-            var cache = new FeedCache();
+            var cache = FeedCacheProvider.Default;
             var feeds = cache.GetAll();
             foreach (var feed in feeds)
             {
