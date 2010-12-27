@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
   name="Launcher"
@@ -417,12 +417,12 @@
             Id="5b1bca8e-b358-47a9-afde-ba8353636637"
             isDerived="false"
             sourceEndRoleName="Policy"
-            targetEndRoleName="FeedProvider"
+            targetEndRoleName="FeedManager"
             isLeaf="false"
             isAbstract="false">
             <classMoniker
               Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8"
-              LastKnownName="FeedProvider"
+              LastKnownName="FeedManager"
               LastKnownLocation="Package4_1632.uml" />
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
@@ -454,7 +454,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="77ff430a-46ff-421e-9885-52ac436a9aa2"
-                  name="FeedProvider"
+                  name="FeedManager"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -684,12 +684,6 @@
                       handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Policy Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=Fetcher)]) ParameterIdentifier=interfaceCache"
                       tag="ViewCode" />
                   </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-                      LastKnownName="FeedCache"
-                      LastKnownLocation="Package4_1632.uml" />
-                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>

@@ -27,7 +27,7 @@ namespace ZeroInstall.Store.Feed
     /// <summary>
     /// Controls how liberally network access is attempted.
     /// </summary>
-    /// <see cref="FeedProvider.NetworkLevel"/>
+    /// <see cref="FeedManager.NetworkLevel"/>
     public enum NetworkLevel
     {
         /// <summary>Do not access network at all.</summary>
@@ -45,13 +45,13 @@ namespace ZeroInstall.Store.Feed
     /// Provides access to remote and local <see cref="Feed"/>s via interface URIs.
     /// Downloading, signature verification and caching are handled automatically.
     /// </summary>
-    public class FeedProvider
+    public class FeedManager
     {
         #region Properties
         /// <summary>
         /// The disk-based cache to store downloaded <see cref="Feed"/>s.
         /// </summary>
-        public FeedCache Cache { get; private set; }
+        public IFeedCache Cache { get; private set; }
 
         private NetworkLevel _networkLevel = NetworkLevel.Full;
         /// <summary>
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Feed
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public FeedProvider(FeedCache cache, IFeedHandler handler)
+        public FeedManager(IFeedCache cache, IFeedHandler handler)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");

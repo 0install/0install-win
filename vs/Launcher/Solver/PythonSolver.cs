@@ -74,7 +74,7 @@ namespace ZeroInstall.Launcher.Solver
             if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
             // Execute the external Python script
-            var errorParser = new PythonErrorParser(policy.FeedProvider.Handler);
+            var errorParser = new PythonErrorParser(policy.FeedManager.Handler);
             string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID;
             string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
 
@@ -103,8 +103,8 @@ namespace ZeroInstall.Launcher.Solver
         private static string GetSolverArguments(Policy policy)
         {
             string arguments = "";
-            if (policy.FeedProvider.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
-            if (policy.FeedProvider.Refresh) arguments += "--refresh ";
+            if (policy.FeedManager.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.FeedManager.Refresh) arguments += "--refresh ";
             if (policy.Constraint.BeforeVersion != null) arguments += "--before=" + policy.Constraint.BeforeVersion + " ";
             if (policy.Constraint.NotBeforeVersion != null) arguments += "--not-before=" + policy.Constraint.NotBeforeVersion + " ";
             if (policy.Architecture.Cpu == Cpu.Source) arguments += "--source ";

@@ -203,8 +203,8 @@ namespace ZeroInstall.Launcher.Cli
                 {"s|source", Resources.OptionSource, unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", Resources.OptionOS, os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", Resources.OptionCpu, cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", Resources.OptionOffline, unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.FeedProvider.Refresh = true},
+                {"o|offline", Resources.OptionOffline, unused =>  parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.FeedManager.Refresh = true},
                 {"with-store=", Resources.OptionWithStore, path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
@@ -372,7 +372,7 @@ namespace ZeroInstall.Launcher.Cli
         {
             if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
 
-            var feeds = results.Policy.FeedProvider.Cache.ListAll();
+            var feeds = results.Policy.FeedManager.Cache.ListAll();
             foreach (Uri entry in feeds)
             {
                 if (results.Feed == null || entry.ToString().Contains(results.Feed))

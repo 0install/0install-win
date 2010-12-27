@@ -23,13 +23,13 @@ using NUnit.Framework;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Contains test methods for <see cref="FeedCache"/>.
+    /// Contains test methods for <see cref="DiskFeedCache"/>.
     /// </summary>
     [TestFixture]
-    public class FeedCacheTest
+    public class DiskFeedCacheTest
     {
         private TemporaryDirectory _tempDir;
-        private FeedCache _cache;
+        private DiskFeedCache _cache;
         private Model.Feed _feed1, _feed2;
 
         [SetUp]
@@ -37,7 +37,7 @@ namespace ZeroInstall.Store.Feed
         {
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new FeedCache(_tempDir.Path);
+            _cache = new DiskFeedCache(_tempDir.Path);
 
             // Add some dummy feeds to the cache
             _feed1 = Model.FeedTest.CreateTestFeed();
@@ -56,7 +56,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures <see cref="FeedCache.Contains"/> correctly determines whether a feed is in the cache.
+        /// Ensures <see cref="DiskFeedCache.Contains"/> correctly determines whether a feed is in the cache.
         /// </summary>
         [Test]
         public void TestContains()
@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures that <see cref="FeedCache.ListAll"/> correctly distiguishes invalid entries in the cache.
+        /// Ensures that <see cref="DiskFeedCache.ListAll"/> correctly distiguishes invalid entries in the cache.
         /// </summary>
         [Test]
         public void TestListAll()
@@ -79,7 +79,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures <see cref="FeedCache.Get"/> correctly retreives <see cref="Feed"/>s from the cache.
+        /// Ensures <see cref="DiskFeedCache.Get"/> correctly retreives <see cref="Feed"/>s from the cache.
         /// </summary>
         [Test]
         public void TestGet()
@@ -89,7 +89,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures that <see cref="FeedCache.GetAll"/> correctly loads all cached feeds.
+        /// Ensures that <see cref="DiskFeedCache.GetAll"/> correctly loads all cached feeds.
         /// </summary>
         [Test]
         public void TestGetAll()
@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures that <see cref="FeedCache.Add"/> correctly adds new feeds and detects replay attacks.
+        /// Ensures that <see cref="DiskFeedCache.Add"/> correctly adds new feeds and detects replay attacks.
         /// </summary>
         // Test deactivated because feature isn't implemented yet
         //[Test]

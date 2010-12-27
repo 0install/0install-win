@@ -137,7 +137,7 @@ namespace ZeroInstall.Central.Wpf
             this.AppInfos = new ObservableCollection<AppInfo>();
 
             // Load App List
-            IEnumerable<Feed> interfaces = new FeedCache().GetAll();
+            IEnumerable<Feed> interfaces = FeedCacheProvider.Default.GetAll();
             DirectoryStore dirStore = new DirectoryStore();
 
             //String path = dirStore.GetPath(new ManifestDigest("sha1new=f989434c13d00773910976724af2a8b2906138cc"));

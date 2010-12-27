@@ -39,7 +39,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
-        public FeedProvider FeedProvider { get; private set; }
+        public FeedManager FeedManager { get; private set; }
 
         /// <summary>
         /// Used to download missing <see cref="Implementation"/>s.
@@ -88,23 +88,23 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Creates a new policy.
         /// </summary>
-        /// <param name="feedProvider">The source used to request <see cref="Feed"/>s.</param>
+        /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
-        public Policy(FeedProvider feedProvider, Fetcher fetcher)
+        public Policy(FeedManager feedManager, Fetcher fetcher)
         {
             #region Sanity checks
-            if (feedProvider == null) throw new ArgumentNullException("feedProvider");
+            if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             #endregion
 
-            FeedProvider = feedProvider;
+            FeedManager = feedManager;
             Fetcher = fetcher;
         }
         #endregion
 
         #region Factory methods
         /// <summary>
-        /// Creates a new policy using the default <see cref="FeedProvider"/> and <see cref="Fetchers.Fetcher"/>.
+        /// Creates a new policy using the default <see cref="FeedManager"/> and <see cref="Fetchers.Fetcher"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
@@ -116,7 +116,7 @@ namespace ZeroInstall.Launcher
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            return new Policy(new FeedProvider(new FeedCache(), handler), new Fetcher(handler));
+            return new Policy(new FeedManager(FeedCacheProvider.Default, handler), new Fetcher(handler));
         }
         #endregion
     }

@@ -63,8 +63,10 @@
     <Compile Include="Feed\Trust.cs" />
     <Compile Include="Feed\Domain.cs" />
     <Compile Include="Feed\Key.cs" />
-    <Compile Include="Feed\FeedCache.cs" />
-    <Compile Include="Feed\FeedProvider.cs" />
+    <Compile Include="Feed\IFeedCache.cs" />
+    <Compile Include="Feed\DiskFeedCache.cs" />
+    <Compile Include="Feed\FeedCacheProvider.cs" />
+    <Compile Include="Feed\FeedManager.cs" />
     <Compile Include="Feed\GnuPG.cs" />
     <Compile Include="Feed\GnuPGSecretKey.cs" />
     <Compile Include="Feed\WrongPassphraseException.cs" />
@@ -129,7 +131,7 @@
     <None Include="Implementation\Archive\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
     <None Include="Implementation\Store.cd" />
-    <None Include="Feed\FeedProvider.cd" />
+    <None Include="Feed\FeedManager.cd" />
     <None Include="Feed\Trust.cd" />
   </ItemGroup>
   <ItemGroup />

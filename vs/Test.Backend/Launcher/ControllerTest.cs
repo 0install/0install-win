@@ -58,7 +58,7 @@ namespace ZeroInstall.Launcher
             IEnumerable<Implementation> implementations;
             using (var temp = new TemporaryDirectory("0install-unit-tests"))
             {
-                var policy = new Policy(new FeedProvider(new FeedCache(), new SilentHandler()), new Fetcher(new SilentHandler(), new DirectoryStore(temp.Path)));
+                var policy = new Policy(new FeedManager(FeedCacheProvider.Default, new SilentHandler()), new Fetcher(new SilentHandler(), new DirectoryStore(temp.Path)));
                 var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy);
                 controller.Solve();
                 implementations = controller.ListUncachedImplementations();

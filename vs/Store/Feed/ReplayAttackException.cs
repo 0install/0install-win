@@ -23,7 +23,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Indicates a feed file that was supposed to be added to the <see cref="FeedCache"/> is older than a version already located in the cache.
+    /// Indicates a feed file that was supposed to be added to the <see cref="IFeedCache"/> is older than a version already located in the cache.
     /// </summary>
     /// <remarks>By adding a </remarks>
     [Serializable]

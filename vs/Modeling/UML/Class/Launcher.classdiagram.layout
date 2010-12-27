@@ -142,7 +142,7 @@
                   </nestedChildShapes>
                 </interfaceShape>
                 <classShape Id="721ed1a7-c4cd-44e8-90ad-b85c55c14ef7" isExpanded="false" absoluteBounds="11.125, 3.875, 1.375, 0.50533563931783043" hideQualifiedName="false" increaseHeight="0.18800345897674561" customColor="181, 193, 223">
-                  <classMoniker Id="1aea9c24-1a0d-42a6-b0c0-09f8e21caa85" LastKnownName="FeedProvider" />
+                  <classMoniker Id="1aea9c24-1a0d-42a6-b0c0-09f8e21caa85" LastKnownName="FeedManager" />
                   <nestedChildShapes>
                     <AttributeElementListCompartment Id="ed252f4d-103a-4e29-8db0-7e49e2264f1a" absoluteBounds="11.14, 4.39033563931783, 1.4700000000000002, 0.52148435761531176" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
                     <OperationElementListCompartment Id="dd655f71-88d6-45be-aa47-d2073a4ac674" absoluteBounds="11.14, 4.9218199969331424, 1.4700000000000002, 0.52148435761531187" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />

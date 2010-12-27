@@ -1206,7 +1206,7 @@
                         </Interface>
                       </packageHasNamedElement>
                       <packageHasNamedElement>
-                        <class Id="471d36f7-5279-497b-a725-47bdd2a16acd" name="FeedProvider" isAbstract="false" isLeaf="false" isActiveClass="false">
+                        <class Id="471d36f7-5279-497b-a725-47bdd2a16acd" name="FeedManager" isAbstract="false" isLeaf="false" isActiveClass="false">
                           <appliedStereotypesInternal>
                             <stereotypeInstance Id="c5782c57-0c5d-438a-92d7-67da6f565ae2" name="class" profile="CSharpProfile">
                               <elementDefinition Id="84c40bf8-8fe9-41e0-a236-9ff2c2cc3a27" />
@@ -1246,11 +1246,11 @@
                           </appliedStereotypesInternal>
                           <elementDefinition Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8" />
                           <targetEnds>
-                            <association Id="359a7e95-5c3b-4db7-b13d-b3f09bb9300a" isDerived="false" sourceEndRoleName="FeedProvider" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
+                            <association Id="359a7e95-5c3b-4db7-b13d-b3f09bb9300a" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
                               <interfaceMoniker Id="92e6a926-7384-41ea-8699-f88e3a2263eb" LastKnownName="IFeedHandler" />
                               <relationshipOwnedElementsInternal>
                                 <associationHasOwnedEnds>
-                                  <memberEnd Id="7cd0c589-ed52-4f18-8d2c-b806d69a152d" name="FeedProvider" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                                  <memberEnd Id="7cd0c589-ed52-4f18-8d2c-b806d69a152d" name="FeedManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                                     <lowerValueInternal>
                                       <literalString Id="0aebd054-195c-4485-8afc-ed3d23bd75cb" name="Lower" value="*">
                                         <elementDefinition Id="536fb40d-07b7-4ade-b733-6b0b182208c3" />
@@ -1457,7 +1457,7 @@
                                 </operationHasOwnedParameters>
                               </ownedParameters>
                             </operation>
-                            <operation Id="161e3430-ee84-4ec6-b49c-2ef5f7c48b9e" name="FeedProvider" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                            <operation Id="161e3430-ee84-4ec6-b49c-2ef5f7c48b9e" name="FeedManager" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
                                 <reference Id="0974f975-841f-460f-8139-26d3ddea5eb5" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedHandler),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                                   <elementDefinition Id="98801e59-fffa-497f-b723-ed6d58190d2c" />

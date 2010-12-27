@@ -155,7 +155,7 @@ namespace ZeroInstall.Launcher
 
                 // If not, get download information for the implementation by checking the original feed
                 string feedUrl = implementation.FromFeed ?? implementation.InterfaceID;
-                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : Policy.FeedProvider.Cache.Get(new Uri(feedUrl));
+                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : Policy.FeedManager.Cache.Get(new Uri(feedUrl));
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }
@@ -179,7 +179,7 @@ namespace ZeroInstall.Launcher
             if (_selections == null) throw new InvalidOperationException(Resources.NotSolved);
             #endregion
 
-            if (Policy.FeedProvider.NetworkLevel == NetworkLevel.Offline) return;
+            if (Policy.FeedManager.NetworkLevel == NetworkLevel.Offline) return;
 
             Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()));
         }

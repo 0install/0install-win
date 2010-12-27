@@ -23,7 +23,7 @@ namespace ZeroInstall.Launcher.Cli
             Assert.AreEqual(new ImplementationVersion("3.0"), results.Policy.Constraint.BeforeVersion);
             Assert.AreEqual(OS.Windows, results.Policy.Architecture.OS);
             Assert.AreEqual(Cpu.X64, results.Policy.Architecture.Cpu);
-            Assert.IsTrue(results.Policy.FeedProvider.Refresh);
+            Assert.IsTrue(results.Policy.FeedManager.Refresh);
             Assert.IsFalse(results.DownloadOnly);
             Assert.IsFalse(results.DryRun);
             Assert.IsFalse(results.GetSelections);
@@ -42,7 +42,7 @@ namespace ZeroInstall.Launcher.Cli
 
             ParseResults results;
             Assert.AreEqual(OperationMode.Normal, Program.ParseArgs(testArgs, new SilentHandler(), out results));
-            Assert.AreEqual(NetworkLevel.Offline, results.Policy.FeedProvider.NetworkLevel);
+            Assert.AreEqual(NetworkLevel.Offline, results.Policy.FeedManager.NetworkLevel);
             Assert.AreEqual(Cpu.Source, results.Policy.Architecture.Cpu);
             Assert.IsFalse(results.DownloadOnly);
             Assert.IsTrue(results.DryRun);

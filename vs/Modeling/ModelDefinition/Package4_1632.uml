@@ -1219,697 +1219,6 @@
       </enumeration>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <class
-        Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-        name="FeedCache"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <referencesInternal>
-          <reference
-            Id="843d61c2-2f61-460d-afee-5189aa722883"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="d8d18d6f-5e78-4046-a844-e372128999f0"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="3020ffb8-5182-4c9d-8bdc-ddb5863ddb1a">
-                <propertyInstance
-                  Id="08edb2a7-9d87-4146-a332-bcb169349cee"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="56904ed1-a633-47ea-8ea5-e60d622917e9">
-                <propertyInstance
-                  Id="b6e5f3f1-7f10-4077-81b2-bca50daaac8b"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="099222ef-bbe9-4e9a-bcf4-1db1fba14a23">
-                <propertyInstance
-                  Id="8dda4bfa-5915-49b5-8b12-828a86f8600c"
-                  name="IsStatic"
-                  value="False" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="cbbc5237-26fe-42ce-b6f8-afd0505963e9">
-                <propertyInstance
-                  Id="f15c121a-1b79-4100-a653-d114db6426f4"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="68c50926-a581-481b-bab2-c427025dd924">
-                <propertyInstance
-                  Id="dea452ea-4dea-4b65-bd80-8b240ade9207"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <ownedAttributesInternal>
-          <property
-            Id="b0845765-3a1a-4d34-82ac-395824bee025"
-            name="DirectoryPath"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="af5111a7-422b-47b3-ac54-864694bf2363"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=DirectoryPath"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="df80a0b0-a2bd-493a-87a3-5c818d78750c"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="28d5da4e-f60a-4854-97af-602b25236f66">
-                    <propertyInstance
-                      Id="37a35a28-8a1d-4de4-a68b-559017c07c94"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="8e4a6cb6-e4e7-45e1-ab5e-1876c9ff3790">
-                    <propertyInstance
-                      Id="4363a3af-99fd-415d-8223-87343da74241"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="28e747e6-72a0-428e-b2dc-765cce2e2e9b">
-                    <propertyInstance
-                      Id="6b63c8cc-429f-46e1-9fca-d013f916b16f"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="de44f2ed-459b-4e24-b17f-0d91cf738693">
-                    <propertyInstance
-                      Id="9ad223d2-434e-48e1-9b11-d9eac614c465"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cf7a8a8b-fc2b-4baa-bc05-2a2c72c3c361">
-                    <propertyInstance
-                      Id="aa6d9c86-ccdd-43c7-9df9-95fa30054137"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ba9df9b5-03cf-4ca8-85b2-795313346baf">
-                    <propertyInstance
-                      Id="8fabbd0a-a457-4b45-ac38-35e99a2eb799"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                LastKnownName="String"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="ff0a6e9c-9eb3-45c3-b07f-4a537d6c5786"
-            name="InterfaceCache"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="d2d02dbd-8de6-4eb6-99fc-83825fb1db7b"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedHandler),(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="574c0257-65f5-4226-9519-3d9c48fbcf12"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b2dcc738-83aa-42ed-9290-e970f16758d6">
-                    <propertyInstance
-                      Id="1e2361e2-97c4-4060-b4be-9d73af487fa7"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7c5624ca-fef3-4483-b08a-a8d2ea743119">
-                    <propertyInstance
-                      Id="add89d88-a3e3-4be4-aa66-8e9a8cb936c4"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f2b29da7-e3f0-464e-b95a-1946739cf51b">
-                    <propertyInstance
-                      Id="79e06c05-2a8a-4a4b-9285-ae2b015a6b45"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0d3813df-bb2d-4111-b871-deaf104b161c">
-                    <propertyInstance
-                      Id="b561137e-2853-4a33-801a-78d069184008"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="557f5ca8-7e98-4f5f-a851-57bfdc8c6a3f">
-                    <propertyInstance
-                      Id="a113f809-ba5e-4584-bc44-eb33ecfb0d3e"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="60390da0-9b47-41cb-8af7-72bd95cd6e37"
-                  name="path"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="7e958d14-b1ce-4ab6-9e25-f8b68936f49b"
-            name="InterfaceCache"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="bd8b4a9d-44dd-451a-af91-0a42d7f69c5e"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedHandler)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="3f43d854-5f84-47b9-98cf-7becd44f6af9"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ed4db234-877f-4f73-a648-f09942cfcb42">
-                    <propertyInstance
-                      Id="14aa0e51-d9f7-43a5-a0aa-28b456eebf66"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3921cd1f-3a57-4b24-8345-df712bf0efb6">
-                    <propertyInstance
-                      Id="dad2c5eb-458e-4543-a5bc-4268e4ccaf00"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="248922c8-136d-424d-8020-fc58c0c5c72c">
-                    <propertyInstance
-                      Id="8f00a28b-3825-46fc-9cd6-d8644e3431a4"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c062ed12-8eb8-4a75-a425-e9cf9b4f7f74">
-                    <propertyInstance
-                      Id="a8b1a7c6-6a43-4ea6-a64a-5caafd86a79b"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f784c5aa-359f-4f02-97d0-e8f082a41ae4">
-                    <propertyInstance
-                      Id="a549ee2e-e9ed-462a-b40e-c893fa34fba5"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-          </operation>
-          <operation
-            Id="f93bd067-ace8-45cf-b3e9-4660741dd912"
-            name="Get"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="979cbc2d-e0b1-4b86-baeb-0a2774f22126"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=(Name=GetFeed OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="1b5f2bc0-cbfa-4a91-8023-5781641baf2f"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="8121007b-e4d5-4800-bbd2-ad18b0893e73">
-                    <propertyInstance
-                      Id="aadc4d6f-be71-4a82-8e7b-efb22a9d4cca"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e1c355cd-c534-4461-a41b-adf421a9ef80">
-                    <propertyInstance
-                      Id="e055927a-9160-480c-8817-0aa01da22327"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="98d7e2c4-de48-4df2-95f9-5eb4f437e2f0">
-                    <propertyInstance
-                      Id="0cfec6eb-ccc2-4a45-a354-e3eaff0839bc"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="18befbe6-0bc9-479d-a9d3-69ad3868fcb0">
-                    <propertyInstance
-                      Id="acd4c3de-88f2-462e-b69e-4318cd49ef37"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a6be61bd-dc67-4c53-bfc0-af02e44fe81d">
-                    <propertyInstance
-                      Id="80bff916-6a5b-4ddd-acd5-0d397d5920f6"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="965b8159-ff18-426c-88ac-ddfdad9d9198"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
-                      LastKnownName="Feed"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="3bb99865-3b40-44ce-82ea-4ab63319923e"
-                  name="feedUrl"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="aeeb9aa5-a209-41be-b9ac-1afa930b3e7c"
-            name="ListAll"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="eb1bf26f-5ac6-453b-9bcf-b9cf2ce98ad2"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=InterfaceCache Member=ListAllInterfaces"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="90da79ca-b741-4519-be60-78c24bdd913c"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6b4d950c-7da7-4c38-ac5d-a2c91446c1b7">
-                    <propertyInstance
-                      Id="37f4b912-6581-4c4e-902d-000b4e48d6a5"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7dcd7b88-b2c8-4ded-a6d4-c9bc16737f53">
-                    <propertyInstance
-                      Id="4b7a0c51-754f-44c5-866b-abaa50090577"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7a466249-e14c-40d7-a804-8f250441dfa2">
-                    <propertyInstance
-                      Id="3a925912-7398-4d62-8da4-41aec86e5027"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7a677b16-31f3-47ca-b684-765fb254e0dc">
-                    <propertyInstance
-                      Id="9c80f9ae-0fed-4a02-9c9d-5480a3fa520b"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="41c45403-047e-41e1-816d-6615b551ff98">
-                    <propertyInstance
-                      Id="3a1ffe0a-a36e-4fa7-acba-169abbdc2415"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="b08244ca-320f-4d41-ab1b-db00e340175a"
-                  direction="Return"
-                  isOrdered="true">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="8aa38f73-b26e-4587-a047-8ce44add244b"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="1cd2a63f-a901-4892-a731-03e9d714aa0f"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="be5c269a-b148-41f2-82b1-2ac289d0bb09"
-            name="GetAll"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="61070c7e-2335-4d73-90a3-47e93a03b77a"
-                  direction="Return">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="d0effdd9-af05-4a61-be18-0337b5595854"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="ad3abcd8-83b7-4907-ba3a-0c9d55f01db9"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
-                      LastKnownName="Feed"
-                      LastKnownLocation="Package1_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="6e4223ae-a678-4baf-befa-d2d1cf467466"
-            name="Contains"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="509e1e31-e6cb-45c6-8dbc-41815ac9ee68"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="c6aa44e4-8ec9-429a-9965-d33a203e66e1">
-                    <propertyInstance
-                      Id="36320a76-35b7-4164-882e-7b7754b6ad19"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="56ae6400-58ec-4b5b-9091-c2ac010fc90f">
-                    <propertyInstance
-                      Id="e4a66d80-879b-45e2-b30d-5ae9f657356c"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="31324998-1316-4437-9fcd-d47d3321f974">
-                    <propertyInstance
-                      Id="34e8b878-2e55-4505-a0c4-b1a49efa5891"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5c9094c6-819f-4f8f-9067-4fc7db890ad6">
-                    <propertyInstance
-                      Id="6f645dce-e17e-4968-9347-44047607ecc5"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="61d8a690-8660-4779-87ba-fdd610546b03">
-                    <propertyInstance
-                      Id="a3e9701f-1dc1-47f7-aa9a-1edee3ad1070"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="00103a5f-2a46-4f77-8525-f76b316d41e3"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                      LastKnownName="Boolean"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="368c5c53-2746-473e-8dd1-6ad57846dfa6"
-                  name="feedUrl"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="376936b5-b903-4a14-b718-1a384512a0d3"
-            name="Add"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="00104e18-943d-488b-8186-5854c778fc4f"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="4608753f-b4c5-4260-b157-9f250a93b3a1">
-                    <propertyInstance
-                      Id="66b7916d-19a4-4cef-93f2-dc5a8ecadc4d"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a3841b50-60f7-40a7-8ce0-cf3e72b87661">
-                    <propertyInstance
-                      Id="ea4329f7-f829-4cee-826b-18099ff100ac"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6cfe859c-19c6-4f1d-b46d-64b0f90dbaa9">
-                    <propertyInstance
-                      Id="254a535c-3a87-4d8f-970c-876649ca3ce1"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="14ea0a0f-2358-43e6-b9c5-8ee1020470a8">
-                    <propertyInstance
-                      Id="ab1cfa4e-28e4-4d38-bc46-f3f58109e59d"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d202d1bf-99a5-4015-878c-6d73647a8e3e">
-                    <propertyInstance
-                      Id="38fb636b-0e4e-49f3-b67f-0ebd55ce4e13"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="c288cd7d-6035-4a47-9027-517974ae1faa"
-                  name="path"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="638e9f0a-02a0-447e-8dd4-716983fb5ab1"
-            name="Remove"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="8682afd4-86ad-4b08-846d-9048e1bd7532"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="86d4090a-ae4b-46ad-b6dc-055028f8553f">
-                    <propertyInstance
-                      Id="d4b6f34e-c3dd-422f-9a41-f9e77bbe7ef7"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="78563054-5436-42d1-beac-756a756ac1c0">
-                    <propertyInstance
-                      Id="8f45029e-9df0-4948-990e-f69e06c29c44"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="250c67ca-942f-46de-b060-06103df2eb6b">
-                    <propertyInstance
-                      Id="ec3a54bf-0b0e-4348-86fd-8c050955c738"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="dce79c31-01c1-4bde-930b-3747e85df374">
-                    <propertyInstance
-                      Id="599c3547-ef0d-407f-964b-3cc5ed46ca04"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a4c9f6f9-939b-433d-afcf-6731bacb0592">
-                    <propertyInstance
-                      Id="9e95c4e7-e3d1-4509-a3af-f3e184a6b2be"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="7cc15bc1-4e61-4e5e-b3bb-5785a537b030"
-                  name="feedUrl"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                      LastKnownName="String"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <enumeration
         Id="2eaf6860-c3fd-4ebb-b692-5c6be83f8766"
         name="NetworkLevel"
@@ -2703,7 +2012,7 @@
     <packageHasNamedElement>
       <class
         Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8"
-        name="FeedProvider"
+        name="FeedManager"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -2777,7 +2086,7 @@
           <association
             Id="d8469f51-bb66-4dc9-9e4d-fb3853e8393b"
             isDerived="false"
-            sourceEndRoleName="FeedProvider"
+            sourceEndRoleName="FeedManager"
             targetEndRoleName="NetworkLevel"
             isLeaf="false"
             isAbstract="false">
@@ -2790,7 +2099,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="040dee7d-f866-4872-aef3-9aa7c9524c4e"
-                  name="FeedProvider"
+                  name="FeedManager"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2841,48 +2150,9 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="6d323d0b-fcda-4e5a-b2aa-0fe184a9638d"
-            isDerived="false"
-            sourceEndRoleName="FeedProvider"
-            targetEndRoleName="Cache"
-            isLeaf="false"
-            isAbstract="false">
-            <classMoniker
-              Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-              LastKnownName="FeedCache"
-              LastKnownLocation="Package4_1632.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="b77007ff-4615-4fe0-8814-eabbb5c75aab"
-                  name="FeedProvider"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Composite"
-                  isComposite="false"
-                  isNavigableOwned="false" />
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="6616e736-6eaa-489b-b68a-d6a164e84278"
-                  name="Cache"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="true" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
             Id="4da0628a-f33f-49d0-be8c-0219cc4dc4d8"
             isDerived="false"
-            sourceEndRoleName="FeedProvider"
+            sourceEndRoleName="FeedManager"
             targetEndRoleName="Handler"
             isLeaf="false"
             isAbstract="false">
@@ -2894,7 +2164,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="8a5268b8-0b07-43b7-b20b-2cbff0149324"
-                  name="FeedProvider"
+                  name="FeedManager"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2934,7 +2204,7 @@
           <association
             Id="3999a0a4-277b-469b-82e9-5de8e65950b8"
             isDerived="false"
-            sourceEndRoleName="FeedProvider"
+            sourceEndRoleName="FeedManager"
             targetEndRoleName="Handler"
             isLeaf="false"
             isAbstract="false">
@@ -2946,7 +2216,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="e854d505-21d4-48c0-adaa-8e6dfe958592"
-                  name="FeedProvider"
+                  name="FeedManager"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -2973,6 +2243,45 @@
                 <memberEnd
                   Id="915c6706-2165-4c65-b0d1-fe11159e9560"
                   name="Handler"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="05923b90-feab-41b4-83b8-d01d6866f406"
+            isDerived="false"
+            sourceEndRoleName="FeedManager"
+            targetEndRoleName="FeedCache"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+              LastKnownName="IFeedCache"
+              LastKnownLocation="Package4_1632.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2b7d30f3-a4ca-46b1-8315-8472b10c07c2"
+                  name="FeedManager"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6bd00018-e9db-44de-8c27-22757ccccd07"
+                  name="FeedCache"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -3234,7 +2543,7 @@
           </operation>
           <operation
             Id="f6e704e2-a6b3-4d6c-94d6-c4871da7e00d"
-            name="FeedProvider"
+            name="FeedManager"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -3295,14 +2604,7 @@
                   Id="4e253ebd-3807-44aa-b27b-8bde56b48cb6"
                   name="cache"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="d553ebbb-6f8b-4054-9d11-21088f1c2b61"
-                      LastKnownName="FeedCache"
-                      LastKnownLocation="Package4_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -4712,6 +4014,1477 @@
             </ownedParameters>
           </operation>
         </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="aacd5413-997f-489f-beb5-09586ab18c55"
+        name="DiskFeedCache"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="95f46971-603a-42c1-b071-8d3a4fa2cd24"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="4f15a3a5-c0c6-4ecb-a481-92938daf61d6"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3c557202-a838-4c78-af81-e7848092dd34">
+                <propertyInstance
+                  Id="cd33fc73-29af-4578-9cce-fb771ed39000"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="62751146-2d23-40f4-ac15-4034cbd06207">
+                <propertyInstance
+                  Id="aa6a6491-f099-4947-ae7b-e4fe341c046b"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="01efe702-1da7-48ea-9884-58e3dc750109">
+                <propertyInstance
+                  Id="255ae320-3ee4-49a7-bebe-35de617be24f"
+                  name="IsStatic"
+                  value="False" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3141e880-0e5b-46bc-a04d-157f32ef3b9f">
+                <propertyInstance
+                  Id="b51cc71e-621e-4843-a58a-40bedf3e21d5"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="fb1ed408-f8ec-4f90-9b74-6f3fc64f6efc">
+                <propertyInstance
+                  Id="3c9b7fdb-cc3b-4c79-9bb8-f78af9a959b6"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <suppliersInternal>
+          <interfaceRealization
+            Id="aaba642c-7488-4c12-ad35-6351ddee797d">
+            <interfaceMoniker
+              Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+              LastKnownName="IFeedCache"
+              LastKnownLocation="Package4_1632.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property
+            Id="8f98d097-0be6-4561-af75-bec8973c111e"
+            name="DirectoryPath"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <referencesInternal>
+              <reference
+                Id="252ec268-ba9a-470f-b1c1-ba3d1d161650"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=DirectoryPath"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="5c7ad999-1e9f-44b4-a882-0d72b3b95a0d"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="270574a2-09ed-4270-8d11-e0372d4e91e9">
+                    <propertyInstance
+                      Id="ca7e8ea2-fb6e-4d3d-85a8-355e9a942b1a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="67b59bf4-1ffe-4a19-9221-b4b3fa93384d">
+                    <propertyInstance
+                      Id="3629e33b-39a4-4706-871d-e780f7395ecd"
+                      name="Get"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b0b85f99-00aa-4f02-b4b6-8f4fd7f712b7">
+                    <propertyInstance
+                      Id="5557ce90-67a5-4613-9d23-50427980d56f"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="56e9ac13-8d51-4dc5-8018-cf7753bb0a6a">
+                    <propertyInstance
+                      Id="724a45bf-b905-4caf-9efe-5771694656e0"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ca051356-dd03-4adc-ab56-322cb8122bd8">
+                    <propertyInstance
+                      Id="496b4688-5a0b-4e94-b689-4dec307e57c5"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="126c61a4-9071-4d4f-9d33-50fdee01165f">
+                    <propertyInstance
+                      Id="dcc02801-1606-4974-aea6-b20b624b151e"
+                      name="Set"
+                      value="public" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="688fe0f7-95af-44d3-a610-8af771e3cae9"
+            name="FeedCache"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="20e2cde9-cfc2-4563-89b0-4cde2cfc147f"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="e7b4240f-b88e-4ec1-a384-03d5446116ee"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e4fb4c7b-f841-44ba-be8b-ba12fbf24adc">
+                    <propertyInstance
+                      Id="3f62ee08-bc3a-48ea-87fb-e491f596d644"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a0368730-c33e-4222-8b29-59d0131f3f25">
+                    <propertyInstance
+                      Id="27cbead4-b64f-4b61-bb9b-744c54afff96"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="7fe4b5c0-7907-4577-b891-e797befe61ee">
+                    <propertyInstance
+                      Id="ff4d7173-18d7-40cf-808b-60078e2ac7a9"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="63a0f93d-413f-4250-a43b-4c2b2c1a7af7">
+                    <propertyInstance
+                      Id="645b9c2c-8a40-428c-a476-9d1c226e8a1c"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="aae43896-6b9f-452d-acc4-ea9b85ca2b39">
+                    <propertyInstance
+                      Id="95aa3484-3673-44e3-b786-4bc63b23a5c9"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="04265de9-7c70-4950-b54d-26ff904cb550"
+                  name="path"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="0a01c692-6abc-4044-9599-dd6999759e5b"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="118e3455-28e3-4b39-b2a3-5ac5b9fa67f2"
+            name="Add"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="6970cacf-8966-49ab-8575-577f89639722"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0c8e3edc-3928-48b2-9a3a-7645f703bf4e"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="769bd0c6-b910-4076-aadc-1684c504d11f">
+                    <propertyInstance
+                      Id="984657bb-131c-43a0-b516-d299fe977fdc"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="79a0d9a4-1828-406b-a491-104ee40423b4">
+                    <propertyInstance
+                      Id="6e9a8618-33fa-40ba-8d08-f2a9fbc801c6"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="93a191a1-1b14-47d1-ba76-39b2a69f3700">
+                    <propertyInstance
+                      Id="c00c66db-2e78-434e-8d25-694d413b4b92"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="33e99fde-de1f-4772-a0b8-f741a4308975">
+                    <propertyInstance
+                      Id="7b745d20-e1ad-4c90-a421-21698de0e093"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8de701d-af80-45f5-b0a3-43f027f5ecce">
+                    <propertyInstance
+                      Id="8e96840e-f633-44c7-a46b-de21cb493da4"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1caf81cc-c0c3-4bb5-98b6-e8e387b78b41"
+                  name="path"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="799ca06a-4744-4520-a96b-afadb9a91b02"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="6703145e-93fc-4fba-b9e3-57c331293a9c"
+            name="Contains"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="cb69fdc0-9e37-47c2-b9c4-a3c0bb30c55c"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Contains OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="58015790-0734-4ce7-84f5-184a4c7b71e6"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2ac65d58-6e4f-430c-8c16-9b2fd9abff3d">
+                    <propertyInstance
+                      Id="ab40ce9f-8974-42ec-962f-496b51da490e"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0ae277d-501a-444c-8e90-3ade5e5cb76d">
+                    <propertyInstance
+                      Id="62a64fb7-918b-421d-9df7-0b68ec6bab53"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4bcb391c-e266-49cf-a764-2943de317ded">
+                    <propertyInstance
+                      Id="07ba1c00-0b28-45aa-8b2a-1b0b0ed92cdb"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e511f726-6ea1-4390-82ff-b33a0ba2607a">
+                    <propertyInstance
+                      Id="c383df2c-24d2-44b5-9962-1317bfff636f"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b32c225f-521c-40e3-99cd-18f9c53a5285">
+                    <propertyInstance
+                      Id="03aecb82-9d7c-4a04-8db4-2c70941f1dff"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6a8ae01a-243e-4dd9-a718-3eb15e190916"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="134df56c-91f8-4278-98f6-1d36c061d38b"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <referencesInternal>
+                    <reference
+                      Id="04a689fc-0e0c-49db-932f-77e063d0a18c"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Contains OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)]) ParameterIdentifier=feedUrl"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="58715b8a-a456-4dfe-a747-6fac130222f9"
+            name="Get"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="10ee7043-9ca1-4f8c-a882-df1523587d4a"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Get OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="275530f2-59d2-4175-8092-9cabf2e69466"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d3f9ba0b-4c8d-421e-8887-9098093723d7">
+                    <propertyInstance
+                      Id="57a5c0b4-ba85-43b4-a1d5-d542ec442708"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e41d29ac-aed0-4b9d-b711-93dfc3fc375e">
+                    <propertyInstance
+                      Id="a85c682c-8143-4c46-a076-9a17e23397c5"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="53fb0309-2bc8-420a-8480-96de761889ea">
+                    <propertyInstance
+                      Id="9a4a4a4a-fca4-43a1-8f94-b0ab581e1327"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ea3bd25c-5d32-47c2-8424-c3b7344cb575">
+                    <propertyInstance
+                      Id="d2e6edb0-56ba-4c4b-b57f-da36020a2368"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="52030847-4c2d-41e6-8c2d-ec6b205b5f9e">
+                    <propertyInstance
+                      Id="9cf56fad-bbbd-4ef6-9a1a-917df201e9fd"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="569bc8e7-e9e9-48fd-9e8a-5d7fd49d89c3"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="69952117-c7df-4cf6-9ca0-c9c362b423af"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <referencesInternal>
+                    <reference
+                      Id="45cf25a4-58b4-496d-b0aa-a4cf89ef88ef"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Get OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)]) ParameterIdentifier=feedUrl"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="d4413d8e-ea5b-4f50-8c2b-92222725d3b5"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="8d765db3-7da9-4305-81fc-3ba2580e8140"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Remove OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="47602d57-f06f-44f1-b35c-5cc627d4ab19"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6242ebf0-4870-43a4-8e80-143070b8f3cc">
+                    <propertyInstance
+                      Id="dae655e4-9aed-4a23-886f-2a624f135543"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c4624ae9-3f2b-4802-b400-eff759da623f">
+                    <propertyInstance
+                      Id="4066a95d-2a8d-43c6-9bcd-5fbf1b311a3c"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="471fc0b4-c859-46fa-bd41-ac3b9b231acf">
+                    <propertyInstance
+                      Id="5891bc1a-7963-4719-8472-46b3f007473c"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="521edd8b-e6bd-4f0d-997a-1c4ce06e9b13">
+                    <propertyInstance
+                      Id="f04f17ed-d76b-4d29-a8f3-1796d64faad7"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="286adcf6-c114-4c06-89b3-b764e0c5b57d">
+                    <propertyInstance
+                      Id="642736da-b1e5-417f-abf3-91d3b436ad15"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="54589684-2945-4c67-b6d9-3518a6ca4852"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <referencesInternal>
+                    <reference
+                      Id="2f7d99d4-879e-4bba-98c9-101738e81162"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Remove OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)]) ParameterIdentifier=feedUrl"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="61751327-8328-46bc-8c50-fc877882294c"
+            name="FeedCache"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="7f36cf05-cb04-42c7-b4db-1137b8ff87f1"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=.ctor"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="034653fb-aa63-411d-8d77-e3a590cbb2bc"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0b726e65-84d5-4122-a058-e0ff6902aa26">
+                    <propertyInstance
+                      Id="e986343b-a9d9-4fcf-b936-068362681a2a"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="85255460-775a-4281-bfd3-e32d2780fb00">
+                    <propertyInstance
+                      Id="3c8eab95-e599-4b75-b0ab-b3f10d5851ce"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a9b2e2be-3dd4-4cab-8b5a-deadba78e848">
+                    <propertyInstance
+                      Id="98a85e4f-5a02-47bb-8470-d1079e3d8bf2"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d262f549-33c8-418f-ad35-cfecd1b91787">
+                    <propertyInstance
+                      Id="49bc4869-77ff-42dc-b769-b521bfbd0ef2"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="18ec8e65-14f1-44bc-bc9e-bd5cda9f5c70">
+                    <propertyInstance
+                      Id="fe229b5b-530b-4762-8571-6531a3b5938b"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+          </operation>
+          <operation
+            Id="5fede425-62df-4791-acec-425f5a2a8c00"
+            name="GetAll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="1a5b9815-a20e-4ffb-be2f-210b7766778f"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=GetAll"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3d1edaa3-67b4-498b-ab41-0099bfe2bacd"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="899d3cde-c94d-4cf0-93ca-1b0852dad537">
+                    <propertyInstance
+                      Id="48eefa6a-dc51-49e4-86ea-9cbbbdb21a54"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0fdbf816-46e0-4021-8d6d-c823a23d6a80">
+                    <propertyInstance
+                      Id="4992fd99-7f4e-4c5a-b6a1-d2ae71d0b75a"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="46525f33-eb73-494f-ab25-973b269b107a">
+                    <propertyInstance
+                      Id="c22368a0-6525-4a8f-ac37-84898696e96a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6445c078-cf72-4761-80b1-a247c2982049">
+                    <propertyInstance
+                      Id="bf3f7ccb-69ae-4060-b578-182ecd53cbe1"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="63cc8288-99da-4390-8152-f9e11dd0f985">
+                    <propertyInstance
+                      Id="fd9d2e98-6bdc-4570-9a33-05165266a081"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d93b3cd9-15c9-4a16-a0f8-a7258337874b"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="edc39d66-7eff-4e3d-a4e5-844346e42f6a"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="32a0d991-3529-43e4-952a-faa216e8b7b5"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="43e06d62-0294-4973-b534-4ca48ecb9d52"
+            name="ListAll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4a2dc73f-5585-4019-87bd-ed0c242b7e18"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=ListAll"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="59edf280-336b-4b55-bd9d-de95160fd793"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2be380b7-e82a-4b9a-9965-cdd3c1afde3c">
+                    <propertyInstance
+                      Id="5808c639-9958-4d22-8b63-ef0f0001a876"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2f96d2f1-c78d-4fa7-bfa6-c7d550c8a6e3">
+                    <propertyInstance
+                      Id="ea760a70-134b-437a-b804-02b967b3cfb4"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="9fef2b89-2ca0-421f-a4e9-1ba771b47d3b">
+                    <propertyInstance
+                      Id="c0352eb4-f8d9-4fda-82cc-4879195e5560"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="f0cb7d27-e84d-4992-b34e-d43e66e1ac20">
+                    <propertyInstance
+                      Id="17de680d-d935-4890-a466-525c10ab0004"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a9706b5b-d455-460b-9632-127e8746df45">
+                    <propertyInstance
+                      Id="c929b42d-798c-45ab-98ac-821cdab5bf50"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="fd72a00d-aa5c-47f9-8c92-c4ac9b2e6c6b"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="0c939e1e-8ed5-479b-abc8-643626fa917e"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="559475ef-0f96-4407-8bc6-f42f2b83f024"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+        name="IFeedCache"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="8646bbca-d9a4-44ed-bf58-c8b70d2020ea"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="be379acc-ad21-4ba4-90d8-dc6d49d09708"
+            name="interface"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="979c930e-f9d3-4f2a-839e-99d1d68cda51">
+                <propertyInstance
+                  Id="8d06adfc-6211-4c88-aec4-7160efd82518"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="c520bb2b-8320-4d61-b982-9fbcaeb85eda">
+                <propertyInstance
+                  Id="6cfb2115-b18d-4fe6-aab1-426b8c34d60f"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="7428fa95-36f8-4d3a-9ac0-e19197067f14">
+                <propertyInstance
+                  Id="d4ffa517-dd5f-483b-8388-9e4c0b105ede"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d333e9f7-17cf-44ee-9c2d-584d420e2ed0">
+                <propertyInstance
+                  Id="be18377a-e8a7-4d45-829f-287ee81d192d"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <ownedOperations>
+          <operation
+            Id="61828bb5-a1f0-4a33-aa4a-8ea9b37a9498"
+            name="Add"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="8f3d232e-c7bc-4d8c-ac4a-c22809d87f2e"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0edd9689-b484-40a1-834c-024cf82ec9e9"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8f0519a6-d928-425f-a88d-e14c4e8a1dab">
+                    <propertyInstance
+                      Id="acf8e179-aa36-4650-8890-d7f65db6aa93"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="dbab54f0-2dee-43b5-b5f7-80dac4bf0568">
+                    <propertyInstance
+                      Id="dff0a2bb-ea34-42f8-87fd-14b51869a293"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5d06a688-3dc3-452b-86aa-e51d9ac869a1">
+                    <propertyInstance
+                      Id="c6638d8d-f188-46e1-a1d2-8e0857db53d1"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d1d600ff-475f-4019-826f-aba565edfe54">
+                    <propertyInstance
+                      Id="76e1eba8-93da-4a60-8a98-e040c7c368e4"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ca8fd5f0-a9e4-4c3e-8c7d-8c4c2a84b4e0">
+                    <propertyInstance
+                      Id="2669e384-a405-40b1-8067-6d1f83eea6fa"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f68cb5ab-5235-47e6-8dbc-a3cce1796330"
+                  name="path"
+                  direction="In">
+                  <referencesInternal>
+                    <reference
+                      Id="5aaef48d-5612-4a2e-bb4f-a3243b9f0af0"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Add OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=path"
+                      tag="ViewCode" />
+                  </referencesInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="0cddef20-f4f7-48f1-b451-6d51dcf2bea0"
+            name="Contains"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="4eb77b03-7077-4f06-83e7-ce96389c262b"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Contains OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="8a812012-d4fe-4820-aac3-ec8dfa80b7f8"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b6a5d952-87ff-45bc-aeaf-01cd4fb0fab2">
+                    <propertyInstance
+                      Id="9bacbd91-1f58-4015-98f1-89ce5923eae6"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="70d3463e-7f5f-4528-9c6d-0e661476e5bb">
+                    <propertyInstance
+                      Id="33dc8679-5ac0-44ba-b08f-09b0e007bd8e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="2bf2dc9b-18d3-4b65-b276-b4d3e0703849">
+                    <propertyInstance
+                      Id="518e4b23-c238-4344-ad5f-f7d0a8322962"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b5d2c32b-7b81-4d92-8912-fa35eb6cc87a">
+                    <propertyInstance
+                      Id="bd3b0547-8582-48f5-9c4c-b5a3be4a1b98"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="663f1def-cab8-47c3-b4cd-891371711378">
+                    <propertyInstance
+                      Id="c7781746-36c1-4c16-b6c4-e5fb708b25ae"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="51610afe-0ccf-414c-9cfd-47110bac1eaa"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cd15196e-791a-4271-b8cc-fc22f7910d2d"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="11d8f592-128e-4b93-9ac4-6955782426f0"
+            name="Get"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="12aaef07-7a81-46e3-8b96-b77a16cbeec1"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Get OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="fcd7f48a-b96f-4d42-8943-bcb9d1b3247c"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="b75acfaa-e2fc-459e-bcf2-88a586e28833">
+                    <propertyInstance
+                      Id="f1bd5d39-03d2-4130-9c1d-88df4c221c87"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c4a3ca53-d87a-4607-8c83-764d42d824d9">
+                    <propertyInstance
+                      Id="f85d0857-a0d3-4ce2-9810-f3e1e4bf88fd"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c87966dd-c938-4d9b-a131-d1b2ecf8be8e">
+                    <propertyInstance
+                      Id="4d79349b-fe9c-4097-9f0d-103ede196c62"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d50c8048-3386-48d3-b1fe-de27f3bfcbf9">
+                    <propertyInstance
+                      Id="fe533ad7-4198-4fd7-80dd-e66cdf378149"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="719bae95-c4b9-48f0-a9d5-9779a99af382">
+                    <propertyInstance
+                      Id="441dbfea-896d-47ab-bd04-12bda260f5fa"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="298c0e11-e569-4646-826d-9c5586798ac3"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="cecfd216-0c65-40f8-aad4-f0a75b5a299b"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="512c39d9-4a88-4e9e-85d7-31a7708ce722"
+            name="Remove"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="24761deb-33ac-4591-8695-9941ec0e6f8c"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Remove OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="66ead8a9-cd47-41fd-8057-b55a4f5263ff"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="393ef130-62d9-409b-8b68-9272261e2ef9">
+                    <propertyInstance
+                      Id="94080ac2-0f9d-4683-a941-c349e77488c9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="17dfaab2-1646-454e-a7eb-3a9d127763cb">
+                    <propertyInstance
+                      Id="158063db-8150-4abe-b137-9735c5e19954"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d784d676-8d81-42b1-a937-558b62e305c3">
+                    <propertyInstance
+                      Id="cd14c6c9-b525-4068-9ed3-970d0d452e05"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="5d4d5703-dba5-4768-abe1-042d0a2a1ebd">
+                    <propertyInstance
+                      Id="a42b065e-486d-4df2-a4ee-d2e3383cf14b"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8acbdd16-433d-49b4-9c67-d16c83ce7155">
+                    <propertyInstance
+                      Id="80fba904-a77f-47f3-8f41-72e2704ff58a"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3fdcbc0c-5aa6-4b49-ac3c-77e978da575a"
+                  name="feedUrl"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="3ca33566-3616-4b09-b833-e47fc6ca9fab"
+            name="GetAll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="cfa00a41-d1d8-418b-b8e1-ded51d1790ca"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=GetAll"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="574e56ea-c9d1-4008-93b3-e1d587a55f7d"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="81ade97d-0f8f-458c-b3f0-1e568bd0b2ca">
+                    <propertyInstance
+                      Id="19acdbc0-985a-454b-a7d7-dcc30ee63dbb"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b9ba27f-4f74-44c7-aefe-f2c1cbe8670d">
+                    <propertyInstance
+                      Id="9f509872-65ef-48d5-b19d-f8228b99ef79"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e45f845a-25bd-46b0-bf38-4b8c72cc7886">
+                    <propertyInstance
+                      Id="637e0555-970f-4cfd-a5d6-676c3a509e47"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="c6512ef2-011b-4645-a3d1-058e8e2a4b09">
+                    <propertyInstance
+                      Id="2008e4ed-e547-4bac-8166-aeb70e46c298"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8f372e10-5935-401c-bed2-3905e23c52a5">
+                    <propertyInstance
+                      Id="0f83a037-d72a-4859-acf9-b953d03fd581"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7713c9d9-dbb7-4492-8e7e-52936913d879"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="dfc43032-9215-4b26-807f-7b4dd7c505d7"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="46ae5c24-bb02-4e23-ac73-2f2bf87a07a5"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="2bb8a006-8627-4d8a-bf6d-a0bb5fb1e891"
+            name="ListAll"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="ca2f93df-59e3-428d-a9ff-3234af407e06"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=ListAll"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="3ca6e1c7-5fec-4c01-bc6b-2cf69c29b451"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6b86537c-25ae-41eb-a4ba-f8d91d413a36">
+                    <propertyInstance
+                      Id="157be9f4-ecf9-4116-bb5f-591de66706e9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1d8c24ed-4c20-4f7f-84b8-e00258cf787a">
+                    <propertyInstance
+                      Id="fcc2826b-3fe7-4089-a940-1cc39c37cd1b"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="cec9946d-dc52-4182-81c6-2364004433e7">
+                    <propertyInstance
+                      Id="0346f907-f920-40c5-ad6d-0a95294db184"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="844c0488-f224-4c94-b531-fcc4793e2b98">
+                    <propertyInstance
+                      Id="2e126f3b-77fb-4d34-a85d-b1e940dec963"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e3013780-c508-4518-94c9-a151f4ff94e4">
+                    <propertyInstance
+                      Id="7fa01ae8-a68d-4a19-b519-d8318641e27f"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="157440ef-d579-4f56-855e-19d42cc10860"
+                  direction="Return"
+                  isUnique="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="10dddd99-4da1-4dcc-8f3a-7897e1f374b6"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="f4afc95a-d6da-433e-8ede-fb05d2a1721e"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <primitiveTypeMoniker
+                      Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                      LastKnownName="String"
+                      LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="670b807e-4ffb-4c3f-bf5e-968159dae548"
+        name="FeedCacheProvider"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="c93a0878-6dfe-45f4-974c-19fa2f48aca0"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCacheProvider"
+            tag="ViewCode" />
+        </referencesInternal>
+        <appliedStereotypesInternal>
+          <stereotypeInstance
+            Id="60bb7c51-7048-4746-9791-49751811e24b"
+            name="class"
+            profile="CSharpProfile">
+            <propertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="98e6828c-5524-4c8b-9d25-99e17893267b">
+                <propertyInstance
+                  Id="8d120862-bab6-4afb-a211-5d0f0e28f6c4"
+                  name="ClrAttributes" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="d2e21968-1349-4158-a5c9-cca4169c4761">
+                <propertyInstance
+                  Id="e46bd056-1972-4b6a-beaa-842d58a3aaef"
+                  name="IsPartial"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="39e6317a-d5fb-485f-bdc7-6b6844e5b7eb">
+                <propertyInstance
+                  Id="2fc7f185-991b-489a-99cd-c0a0fec6954a"
+                  name="IsStatic"
+                  value="True" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="3c4039c4-284f-4372-9f4e-6e13b76f233d">
+                <propertyInstance
+                  Id="828d4585-2200-4992-9dce-411a422a4a54"
+                  name="IsUnsafe"
+                  value="false" />
+              </stereotypeInstanceHasPropertyInstances>
+              <stereotypeInstanceHasPropertyInstances
+                Id="8d2bab7e-d6f9-4bfd-a12f-c4c79ca56134">
+                <propertyInstance
+                  Id="51b8ff05-da71-4edc-a14c-a14eb628b1e4"
+                  name="PackageVisibility"
+                  value="internal" />
+              </stereotypeInstanceHasPropertyInstances>
+            </propertyInstances>
+          </stereotypeInstance>
+        </appliedStereotypesInternal>
+        <targetEnds>
+          <association
+            Id="b65a40d3-d3f7-4b97-b41c-a6efd517e3a9"
+            isDerived="false"
+            sourceEndRoleName="FeedCacheProvider"
+            targetEndRoleName="Default"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+              LastKnownName="IFeedCache"
+              LastKnownLocation="Package4_1632.uml" />
+            <description>Property Default references type IFeedCache.</description>
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="65ab7fb2-432d-4e76-a3f9-0769574ae038"
+                  name="FeedCacheProvider"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="160da3e4-2b86-4320-a8f1-3a5337e519eb"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="ea4db408-af8f-489e-9a9c-4b4b5efa6a64"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="eb32d61e-d241-479c-8204-22fe39191eed"
+                  name="Default"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="4190af23-be2b-4e20-bea8-1c7cb33337a4"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="40263de8-1bfd-4ce4-ab42-987500d3a5db"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
       </class>
     </packageHasNamedElement>
   </packagedElements>

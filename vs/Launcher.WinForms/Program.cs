@@ -177,8 +177,8 @@ namespace ZeroInstall.Launcher.WinForms
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", unused => parseResults.Policy.FeedProvider.Refresh = true},
+                {"o|offline", unused =>  parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", unused => parseResults.Policy.FeedManager.Refresh = true},
                 {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
@@ -328,7 +328,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// <param name="results">The parser results to be executed.</param>
         private static void List(ParseResults results)
         {
-            var feeds = results.Policy.FeedProvider.Cache.ListAll();
+            var feeds = results.Policy.FeedManager.Cache.ListAll();
             var builder = new StringBuilder("Found interfaces:\n");
             foreach (Uri entry in feeds)
             {
