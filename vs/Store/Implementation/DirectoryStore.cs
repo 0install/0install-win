@@ -226,6 +226,8 @@ namespace ZeroInstall.Store.Implementation
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
+            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
+
             // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
             FileUtils.CopyDirectory(path, tempDir, false);
@@ -241,6 +243,8 @@ namespace ZeroInstall.Store.Implementation
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
             #endregion
+
+            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
@@ -274,6 +278,8 @@ namespace ZeroInstall.Store.Implementation
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
             #endregion
+
+            if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
             // Extract to temporary directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
