@@ -24,12 +24,12 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
     /// <summary>
-    /// Models information about a <see cref="Feed"/> / interface in the <see cref="FeedCache"/> for display in a GUI.
+    /// Models information about a <see cref="Feed"/> / interface in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
     public sealed class InterfaceNode : StoreNode
     {
         #region Variables
-        private readonly FeedCache _cache;
+        private readonly IFeedCache _cache;
         private readonly Model.Feed _feed;
         #endregion
 
@@ -58,9 +58,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Creates a new interface node.
         /// </summary>
-        /// <param name="cache">The <see cref="FeedCache"/> the <see cref="Feed"/> / interface is located in.</param>
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> / interface is located in.</param>
         /// <param name="feed">The <see cref="Feed"/> / interface to be represented by this node.</param>
-        public InterfaceNode(FeedCache cache, Model.Feed feed)
+        public InterfaceNode(IFeedCache cache, Model.Feed feed)
         {
             _cache = cache;
             _feed = feed;
@@ -69,9 +69,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Delete
         /// <summary>
-        /// Deletes this <see cref="Feed"/> / interface from the <see cref="FeedCache"/> it is located in.
+        /// Deletes this <see cref="Feed"/> / interface from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
-        /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="FeedCache"/>.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         public override void Delete()

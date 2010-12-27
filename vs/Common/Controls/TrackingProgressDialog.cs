@@ -32,6 +32,10 @@ namespace Common.Controls
     /// <summary>
     /// A dialog with a progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
     /// </summary>
+    /// <remarks>
+    /// This is not suitable to track tasks that are already running or get started by another thread.
+    /// The task must be started by this dialog.
+    /// </remarks>
     public sealed partial class TrackingProgressDialog : Form
     {
         #region Constructor
