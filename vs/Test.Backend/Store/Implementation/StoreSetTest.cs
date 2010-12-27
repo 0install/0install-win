@@ -43,7 +43,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Generates a new <see cref="StoreSet"/> composed of <see cref="_mock1"/> and <see cref="_mock2"/>.
         /// </summary>
-        private IStore GetStore()
+        private StoreSet GetStore()
         {
             return new StoreSet(new[] {(IStore)_mock1.MockInstance, (IStore)_mock2.MockInstance});
         }
@@ -211,13 +211,33 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         [Test]
-        public void TestRemove()
+        public void TestRemoveBoth()
+        {
+            _mock1.ExpectAndReturn("Contains", true, _digest1);
+            _mock1.Expect("Remove");
+            _mock2.ExpectAndReturn("Contains", true, _digest1);
+            _mock2.Expect("Remove");
+            GetStore().Remove(_digest1);
+        }
+
+        [Test]
+        public void TestRemoveSecond()
         {
             _mock1.ExpectAndReturn("Contains", false, _digest1);
             _mock1.ExpectNoCall("Remove");
             _mock2.ExpectAndReturn("Contains", true, _digest1);
             _mock2.Expect("Remove");
             GetStore().Remove(_digest1);
+        }
+
+        [Test]
+        public void TestRemoveFail()
+        {
+            _mock1.ExpectAndReturn("Contains", false, _digest1);
+            _mock1.ExpectNoCall("Remove");
+            _mock2.ExpectAndReturn("Contains", false, _digest1);
+            _mock2.ExpectNoCall("Remove");
+            Assert.Throws<ImplementationNotFoundException>(() => GetStore().Remove(_digest1), "Should report if none of the stores contained the implementation");
         }
         #endregion
 
@@ -241,8 +261,8 @@ namespace ZeroInstall.Store.Implementation
             _mock2.ExpectAndReturn("Audit", new[] {problem2}, null);
 
             // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>();
-            CollectionAssert.AreEquivalent(new[] {problem1, problem2}, GetStore().Audit(null), "Should combine results from all stores");
+            var problems = new List<DigestMismatchException>(GetStore().Audit(null));
+            CollectionAssert.AreEquivalent(new[] {problem1, problem2}, problems, "Should combine results from all stores");
         }
 
         [Test]

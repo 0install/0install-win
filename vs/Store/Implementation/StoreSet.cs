@@ -208,11 +208,17 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Remove(ManifestDigest manifestDigest)
         {
+            bool removed = false;
             foreach (IStore store in Stores)
             {
                 // Remove from every that contains the implementation
-                if (store.Contains(manifestDigest)) store.Remove(manifestDigest);
+                if (store.Contains(manifestDigest))
+                {
+                    store.Remove(manifestDigest);
+                    removed = true;
+                }
             }
+            if (!removed) throw new ImplementationNotFoundException(manifestDigest);
         }
         #endregion
 

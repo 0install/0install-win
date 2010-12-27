@@ -123,7 +123,6 @@ namespace ZeroInstall.Store.Implementation
         /// </returns>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an entry in the store has an incorrect digest.</exception>
         IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler);
     }
 }
