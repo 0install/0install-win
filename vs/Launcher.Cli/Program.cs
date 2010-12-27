@@ -285,12 +285,10 @@ namespace ZeroInstall.Launcher.Cli
             switch (mode)
             {
                 case OperationMode.Normal:
-                    if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageNormal));
                     Normal(results);
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.List:
-                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
                     List(results);
                     return (int)ErrorLevel.OK;
 
@@ -336,6 +334,8 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         private static void Normal(ParseResults results)
         {
+            if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageNormal));
+
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
 
             if (results.SelectionsFile == null) controller.Solve();
@@ -366,8 +366,12 @@ namespace ZeroInstall.Launcher.Cli
         /// Prints a list of feeds in the cache to the console.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         private static void List(ParseResults results)
         {
+            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
+
             var feeds = results.Policy.FeedProvider.Cache.ListAll();
             foreach (Uri entry in feeds)
             {

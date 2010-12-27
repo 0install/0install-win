@@ -184,7 +184,7 @@ namespace ZeroInstall.Store.Feed
 
             Model.Feed.Load(path);
 
-            // ToDo: Implement)
+            // ToDo: Implement
             throw new NotImplementedException();
         }
         #endregion
