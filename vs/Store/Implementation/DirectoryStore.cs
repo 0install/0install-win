@@ -45,6 +45,9 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new store based on the given path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
+        /// <exception cref="ArgumentException">Thrown if the <paramref name="path"/> is invalid.</exception>
+        /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem for <paramref name="path"/> can not store file-changed times accurate to the second.</exception>
         public DirectoryStore(string path)
         {
@@ -70,9 +73,9 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store using the default path (generally in the user-profile).
         /// </summary>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if the directory could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         public DirectoryStore() : this(Locations.GetCachePath("0install.net", "implementations"))
         {}
         #endregion
@@ -179,10 +182,12 @@ namespace ZeroInstall.Store.Implementation
             var result = new List<ManifestDigest>();
             for (int i = 0; i < directories.Length; i++)
             {
+                directories[i] = Path.GetFileName(directories[i]);
+
                 // Exclude (temporary) dot-directories
                 if (directories[i].StartsWith(".")) continue;
 
-                result.Add(new ManifestDigest(Path.GetFileName(directories[i])));
+                result.Add(new ManifestDigest(directories[i]));
             }
 
             return result;

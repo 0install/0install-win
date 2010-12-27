@@ -87,6 +87,20 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
+        public void ShouldHandleRelativePaths()
+        {
+            // Change the working directory
+            string workingDir = Environment.CurrentDirectory;
+            Environment.CurrentDirectory = _tempDir.Path;
+            _store = new DirectoryStore(".");
+
+            ShouldAllowToAddFolder();
+
+            // Restore the original working directory
+            Environment.CurrentDirectory = workingDir;
+        }
+
+        [Test]
         public void ShouldAllowToRemove()
         {
             var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));

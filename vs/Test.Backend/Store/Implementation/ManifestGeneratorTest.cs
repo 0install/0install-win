@@ -78,9 +78,7 @@ namespace ZeroInstall.Store.Implementation
             // Replace default generator with one using a relative path
             _someGenerator = new ManifestGenerator(".", ManifestFormat.Sha256);
 
-            _someGenerator.RunSync();
-            Assert.IsNotNull(_someGenerator.Result);
-            ValidatePackage();
+            ShouldGenerateManifestWithAllFilesListed();
 
             // Restore the original working directory
             Environment.CurrentDirectory = workingDir;
