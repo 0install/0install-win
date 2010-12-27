@@ -61,15 +61,6 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Incorrect number of arguments. Try {0} --help.
-        /// </summary>
-        internal static string IncorrectNoArguments {
-            get {
-                return ResourceManager.GetString("IncorrectNoArguments", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {
@@ -270,6 +261,16 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         internal static string OptionWrapper {
             get {
                 return ResourceManager.GetString("OptionWrapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong number of arguments.
+        ///Usage: {0}.
+        /// </summary>
+        internal static string WrongNoArguments {
+            get {
+                return ResourceManager.GetString("WrongNoArguments", resourceCulture);
             }
         }
     }

@@ -57,12 +57,22 @@ namespace ZeroInstall.Launcher.Cli
     /// </summary>
     public static class Program
     {
+        #region Text constants
+        private const string UsageNormal = "0launch [OPTIONS] INTERFACE [ARGS+]";
+        private const string UsageList = "0launch --list [SEARCH-TERM]";
+        private const string UsageImport = "0launch --import [SINGNED-INTERFACE-FILES+]";
+        private const string UsageFeed = "0launch --feed [INTERFACE]";
+        #endregion
+
         #region Startup
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         static int Main(string[] args)
         {
+            // Automatically show help for missing args
+            if (args.Length == 0) args = new[] {"--help"};
+
             var handler = new CliHandler();
             ParseResults results;
             OperationMode mode;
@@ -219,10 +229,9 @@ namespace ZeroInstall.Launcher.Cli
             {
                 mode = OperationMode.Help;
 
-                Console.WriteLine(@"Usage: 0launch [options] -- interface [args]
-       0launch --list [search-term]
-       0launch --import [signed-interface-files]
-       0launch --feed [interface]");
+                const string usage = "Usage:\t{0}\n\t{1}\n\t{2}\n\t{3}\n";
+                Console.WriteLine(usage, UsageNormal, UsageList, UsageImport, UsageFeed);
+                Console.WriteLine("Options:");
                 options.WriteOptionDescriptions(Console.Out);
             });
             #endregion
@@ -276,12 +285,12 @@ namespace ZeroInstall.Launcher.Cli
             switch (mode)
             {
                 case OperationMode.Normal:
-                    if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.IncorrectNoArguments, "0launch"));
+                    if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageNormal));
                     Normal(results);
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.List:
-                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.IncorrectNoArguments, "0launch"));
+                    if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
                     List(results);
                     return (int)ErrorLevel.OK;
 

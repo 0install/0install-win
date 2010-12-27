@@ -189,7 +189,8 @@ However, new downloads will not be written to this directory.</value>
   <data name="OptionWrapper" xml:space="preserve">
     <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on 0launch!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
   </data>
-  <data name="IncorrectNoArguments" xml:space="preserve">
-    <value>Incorrect number of arguments. Try {0} --help</value>
+  <data name="WrongNoArguments" xml:space="preserve">
+    <value>Wrong number of arguments.
+Usage: {0}</value>
   </data>
 </root>
