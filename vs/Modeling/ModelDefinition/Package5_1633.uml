@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
   dslVersion="1.0.0.0"
   Id="68c2789d-278f-46a6-8fcb-6dced1ad8c23"
   name="Implementation"
@@ -722,6 +722,45 @@
                     <undefinedTypeMoniker
                       Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
                       LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="4618c460-4324-434d-919b-af616b16d9a6"
+            name="Verify"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="907ac3a5-1b37-4c4b-bc2d-2254c25a72b9"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="26dd1003-0828-42ff-bb53-be462913de32"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1550,6 +1589,45 @@
                     <undefinedTypeMoniker
                       Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
                       LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="dc81dbc4-7e63-4037-a953-075ec149c5cf"
+            name="Verify"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3e93e806-8a8f-4574-943e-ab132c8bc6fa"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a143d3b2-9bbb-4caf-bf4f-3d187acd587d"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4297,6 +4375,45 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="b1028211-4adb-42b2-bc7a-120f6831c2b9"
+            name="Verify"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c5894e3f-b737-4cd2-b300-5c172f8e5372"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="7a75abc6-f4e3-467c-8b94-d456d94c3738"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -4887,6 +5004,45 @@
                     <undefinedTypeMoniker
                       Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
                       LastKnownName="DigestMismatchException"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="2205d6f9-ab12-4dd8-b050-5ba025e61632"
+            name="Verify"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="9e7792f3-77af-4a31-9bdc-d75ff3843734"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="f085d670-a7ea-49f7-b3cd-9af42aadac07"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IImplementationHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -9837,6 +9993,11 @@
       <undefinedType
         Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
         name="DigestMismatchException" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+        name="ManifestDigest" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

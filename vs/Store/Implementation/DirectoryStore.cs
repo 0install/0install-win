@@ -345,6 +345,14 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        #region Verify
+        /// <inheritdoc />
+        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        {
+            VerifyDirectory(Path.Combine(DirectoryPath, manifestDigest.BestDigest), manifestDigest, handler);
+        }
+        #endregion
+
         #region Audit
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
@@ -352,11 +360,9 @@ namespace ZeroInstall.Store.Implementation
             // Iterate through all entries - their names are the expected digest values
             foreach (ManifestDigest digest in ListAll())
             {
-                string directory = Path.Combine(DirectoryPath, digest.BestDigest);
-
                 // Calculate the actual digest and compare it with the expected one
                 DigestMismatchException problem = null;
-                try { VerifyDirectory(directory, digest, handler); }
+                try { Verify(digest, handler); }
                 catch (DigestMismatchException ex)
                 {
                     problem = ex;

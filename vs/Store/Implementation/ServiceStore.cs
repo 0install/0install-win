@@ -185,6 +185,14 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        #region Verify
+        /// <inheritdoc />
+        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        {
+            // Verification should use direct access via a DirectoryStore instead
+        }
+        #endregion
+
         #region Audit
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)

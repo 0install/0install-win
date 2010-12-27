@@ -306,8 +306,7 @@ namespace ZeroInstall.Store.Management.Cli
                 }
                 else
                 { // Verify a directory inside the default store
-                    var digest = new ManifestDigest(args[i]);
-                    DirectoryStore.VerifyDirectory(StoreProvider.Default.GetPath(digest), digest, handler);
+                    StoreProvider.Default.Verify(new ManifestDigest(args[i]), handler);
                 }
                 Console.WriteLine("OK");
             }

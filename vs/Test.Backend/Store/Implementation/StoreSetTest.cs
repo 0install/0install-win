@@ -251,6 +251,16 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
+        #region Verify
+        [Test]
+        public void TestVerify()
+        {
+            _mock1.Expect("Verify", _digest1, null);
+            _mock2.Expect("Verify", _digest1, null);
+            GetStore().Verify(_digest1, null);
+        }
+        #endregion
+
         #region Audit
         [Test]
         public void TestAuditBoth()

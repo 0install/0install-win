@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="04bba244-10df-432e-a048-d7233fa7274d" name="Store.Implementation" linkedPackageId="49bf0185-b887-4b7c-96f0-a0060c3e16ee" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="04bba244-10df-432e-a048-d7233fa7274d" name="Store.Implementation" linkedPackageId="49bf0185-b887-4b7c-96f0-a0060c3e16ee" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="2fb4f12d-4a17-4120-90f4-170eec3f82d2" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -2186,6 +2186,27 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="87d1d6fc-0223-4767-b615-82e59b52c1d7" name="Verify" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="dc81dbc4-7e63-4037-a953-075ec149c5cf" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="152273f7-65e4-47be-964b-e599fc3cc0bd" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="3e93e806-8a8f-4574-943e-ab132c8bc6fa" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="159d5248-732e-4401-8088-e5444f1b275c" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="a143d3b2-9bbb-4caf-bf4f-3d187acd587d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperations>
             </Interface>
           </packageHasNamedElement>
@@ -2670,6 +2691,27 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="5a734431-5023-4db1-9323-d2a821d11f93" name="Verify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="4618c460-4324-434d-919b-af616b16d9a6" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="c42bdf0e-8bf8-4c76-bcfd-7ac4007671f9" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="907ac3a5-1b37-4c4b-bc2d-2254c25a72b9" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="9d9576d4-de30-4981-b870-983be114e088" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="26dd1003-0828-42ff-bb53-be462913de32" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -3045,6 +3087,27 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="d42dd6a7-01d2-43b7-9d85-ed5af98ce22a" name="Verify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="2205d6f9-ab12-4dd8-b050-5ba025e61632" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="471e84cd-5c10-4a24-8eaa-7f14f8c6aa6d" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="9e7792f3-77af-4a31-9bdc-d75ff3843734" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="9bf2eff7-21dc-4ddd-9449-a1aaa95b0ddc" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="f085d670-a7ea-49f7-b3cd-9af42aadac07" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
@@ -3389,6 +3452,27 @@
                         <elementDefinition Id="485773f2-b25f-43b3-8d00-6df555237f63" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="622108f5-54a0-44e9-85e1-a3c131680d70" LastKnownName="DigestMismatchException" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+                <operation Id="64adf989-b0dc-48f7-88d2-f49cb8109370" name="Verify" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="b1028211-4adb-42b2-bc7a-120f6831c2b9" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="8efc9351-d95c-4ec2-b2cb-349a6b6b159c" name="manifestDigest" direction="In" isUnique="false">
+                        <elementDefinition Id="c5894e3f-b737-4cd2-b300-5c172f8e5372" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" LastKnownName="ManifestDigest" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="169429f7-2360-45e9-ab9c-a7d150573cfb" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="7a75abc6-f4e3-467c-8b94-d456d94c3738" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -8540,6 +8624,16 @@
     <packageHasNamedElement>
       <referencedType Id="622108f5-54a0-44e9-85e1-a3c131680d70" name="DigestMismatchException" isAbstract="false" isLeaf="false" cachedFullName="DigestMismatchException">
         <elementDefinition Id="d0246047-16c2-48c1-8bc6-b9bf67159866" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="15a2cba9-c78d-437b-a8f5-0dc29562c45e" name="ManifestDigest" isAbstract="false" isLeaf="false" cachedFullName="ManifestDigest">
+        <elementDefinition Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
+        <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

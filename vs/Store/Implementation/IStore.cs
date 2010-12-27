@@ -37,27 +37,27 @@ namespace ZeroInstall.Store.Implementation
         IEnumerable<ManifestDigest> ListAll();
 
         /// <summary>
-        /// Determines whether this store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
+        /// Determines whether the store contains a local copy of an implementation identified by a specific <see cref="Model.ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to check for.</param>
         /// <returns>
-        ///   <see langword="true"/> if the specified implementation is available in this store;
-        ///   <see langword="false"/> if the specified implementation is not available in this store or if read access to this store is not permitted.
+        ///   <see langword="true"/> if the specified implementation is available in the store;
+        ///   <see langword="false"/> if the specified implementation is not available in the store or if read access to the store is not permitted.
         /// </returns>
-        /// <remarks>If read access to this store is not permitted, no exception is thrown.</remarks>
+        /// <remarks>If read access to the store is not permitted, no exception is thrown.</remarks>
         bool Contains(ManifestDigest manifestDigest);
 
         /// <summary>
         /// Determines the local path of an implementation with a given <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="manifestDigest">The digest the implementation to look for.</param>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the requested implementation could not be found in this store.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the requested implementation could not be found in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
         /// <returns>A fully qualified path to the directory containing the implementation.</returns>
         string GetPath(ManifestDigest manifestDigest);
 
         /// <summary>
-        /// Copies a directory containing an implementation into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Copies a directory containing an implementation into the store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="path">The directory containing the implementation.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementation
         void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler);
 
         /// <summary>
-        /// Extracts an archive containing the files of an implementation into this store if it matches the provided <see cref="ManifestDigest"/>.
+        /// Extracts an archive containing the files of an implementation into the store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="archiveInfo">Parameter object providing the information to extract the archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be removed.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in this store.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         void Remove(ManifestDigest manifestDigest);
@@ -111,8 +111,18 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <exception cref="IOException">Thrown if two files could not be hard-linked together.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if a damaged implementation is encountered while optimizing.</exception>
         /// <remarks>If the store does not support optimising this method call may be silently ignored.</remarks>
         void Optimise(IImplementationHandler handler);
+
+        /// <summary>
+        /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries!
+        /// </summary>
+        /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <exception cref="DigestMismatchException">Thrown if entry is damaged.</exception>
+        /// <remarks>If the store does not support verification this method call may be silently ignored.</remarks>
+        void Verify(ManifestDigest manifestDigest, IImplementationHandler handler);
 
         /// <summary>
         /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!

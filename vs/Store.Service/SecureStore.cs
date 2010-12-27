@@ -114,6 +114,14 @@ namespace ZeroInstall.Store.Service
         }
         #endregion
 
+        #region Verify
+        /// <inheritdoc />
+        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        {
+            // ToDo: Implemenet
+        }
+        #endregion
+
         #region Audit
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)

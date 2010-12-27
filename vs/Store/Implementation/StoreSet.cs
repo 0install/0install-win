@@ -237,6 +237,16 @@ namespace ZeroInstall.Store.Implementation
             }
         }
         #endregion
+        
+        #region Verify
+        /// <inheritdoc />
+        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        {
+            // Verify in all contained stores
+            foreach (IStore store in Stores)
+                store.Verify(manifestDigest, handler);
+        }
+        #endregion
 
         #region Audit
         /// <inheritdoc />
