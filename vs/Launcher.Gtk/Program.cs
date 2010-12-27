@@ -40,6 +40,9 @@ namespace ZeroInstall.Launcher.Gtk
         [STAThread]
         static void Main(string[] args)
         {
+            // Automatically show help for missing args
+            if (args.Length == 0) args = new[] {"--help"};
+
             var handler = new MainWindow();
             ParseResults results;
             OperationMode mode;
@@ -47,6 +50,21 @@ namespace ZeroInstall.Launcher.Gtk
             try { mode = ParseArgs(args, handler, out results); }
             #region Error handling
             catch (ArgumentException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                return;
+            }
+            catch (InvalidOperationException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Warning);
                 return;
@@ -89,17 +107,16 @@ namespace ZeroInstall.Launcher.Gtk
         /// <summary>
         /// Parses command-line arguments.
         /// </summary>
-        /// <param name="args">The arguments to be parsed.</param>
+        /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
+        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        private static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
-            #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
-            #endregion
-
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
             var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
@@ -119,8 +136,8 @@ namespace ZeroInstall.Launcher.Gtk
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  parseResults.Policy.FeedProvider.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", unused => parseResults.Policy.FeedProvider.Refresh = true},
+                {"o|offline", unused => parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
+                {"r|refresh", unused => parseResults.Policy.FeedManager.Refresh = true},
                 {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
                 // Special operations
