@@ -237,7 +237,7 @@ namespace ZeroInstall.Launcher.Gtk
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static void ExecuteArgs(MainForm handler, OperationMode mode, ParseResults results)
+        private static void ExecuteArgs(MainWindow handler, OperationMode mode, ParseResults results)
         {
             // ToDo: Implement
         }

@@ -58,7 +58,7 @@ public partial class MainWindow : Window, IHandler
     }
 
     /// <inheritdoc />
-    public void RunDownload(IProgress task)
+    public void RunDownloadTask(ITask task)
     {
         //labelOperation.Text = task.Name + @"...";
         //progressBar.Task = task;
@@ -66,15 +66,7 @@ public partial class MainWindow : Window, IHandler
     }
 
     /// <inheritdoc />
-    public void RunExtraction(IProgress task)
-    {
-        //labelOperation.Text = task.Name + @"...";
-        //progressBar.Task = task;
-        task.RunSync();
-    }
-
-    /// <inheritdoc />
-    public void RunManifest(IProgress task)
+    public void RunIOTask(ITask task)
     {
         //labelOperation.Text = task.Name + @"...";
         //progressBar.Task = task;
