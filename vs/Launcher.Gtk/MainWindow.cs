@@ -49,6 +49,11 @@ public partial class MainWindow : Window, IHandler
     //--------------------//
 
     #region Handler
+    /// <summary>
+    /// Silently answer all questions with "No".
+    /// </summary>
+    public bool Batch { get; set; }
+
     /// <inheritdoc />
     public bool AcceptNewKey(string information)
     {
