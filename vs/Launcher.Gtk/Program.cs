@@ -86,57 +86,46 @@ namespace ZeroInstall.Launcher.Gtk
             catch (ArgumentException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (WebException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (IOException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (UnauthorizedAccessException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (SolverException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (FetcherException ex)
             {
                 Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (DigestMismatchException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (ImplementationNotFoundException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (MissingMainException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (Win32Exception ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             catch (BadImageFormatException ex)
             {
                 Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                handler.CloseAsync();
             }
             #endregion
         }
