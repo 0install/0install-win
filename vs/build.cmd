@@ -29,7 +29,7 @@ if "%config%"=="" set config=Release
 call "%VS_COMNTOOLS%vsvars32.bat"
 echo Compiling Visual Studio solution...
 if exist ..\build\%config% rd /s /q ..\build\%config%
-msbuild "%ProgSLN%" /t:Rebuild /p:Configuration=%config% /v:q /nologo
+msbuild "%ProgSLN%" /nologo /v:q /t:Rebuild /p:Configuration=%config%
 if errorlevel 1 pause
 goto end
 
