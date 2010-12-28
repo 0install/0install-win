@@ -203,7 +203,7 @@ namespace ZeroInstall.Launcher.Cli
                 {"s|source", Resources.OptionSource, unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", Resources.OptionOS, os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", Resources.OptionCpu, cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", Resources.OptionOffline, unused =>  parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
+                {"o|offline", Resources.OptionOffline, unused => parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
                 {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.FeedManager.Refresh = true},
                 {"with-store=", Resources.OptionWithStore, path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 

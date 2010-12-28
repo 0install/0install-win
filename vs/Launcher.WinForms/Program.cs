@@ -160,7 +160,7 @@ namespace ZeroInstall.Launcher.WinForms
         {
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults { Policy = Policy.CreateDefault(handler) };
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
 
             #region Define options
             var options = new OptionSet
@@ -177,7 +177,7 @@ namespace ZeroInstall.Launcher.WinForms
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
                 {"os=", os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
                 {"cpu=", cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", unused =>  parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
+                {"o|offline", unused => parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
                 {"r|refresh", unused => parseResults.Policy.FeedManager.Refresh = true},
                 {"with-store=", path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
 
