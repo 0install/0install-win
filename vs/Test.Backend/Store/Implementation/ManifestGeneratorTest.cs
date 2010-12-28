@@ -120,14 +120,14 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldReportReadyStateAtBeginning()
         {
-            Assert.AreEqual(ProgressState.Ready, _someGenerator.State);
+            Assert.AreEqual(TaskState.Ready, _someGenerator.State);
         }
 
         [Test]
         public void ShouldReportTransitionFromReadyToStarted()
         {
             bool changedToStarted = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Started) changedToStarted = true; };
+            _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Started) changedToStarted = true; };
             _someGenerator.RunSync();
             Assert.IsTrue(changedToStarted);
         }
@@ -136,9 +136,9 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldReportTransitionToComplete()
         {
             bool changedToComplete = false;
-            _someGenerator.StateChanged += sender => { if (sender.State == ProgressState.Complete) changedToComplete = true; };
+            _someGenerator.StateChanged += sender => { if (sender.State == TaskState.Complete) changedToComplete = true; };
             _someGenerator.RunSync();
-            Assert.AreEqual(ProgressState.Complete, _someGenerator.State);
+            Assert.AreEqual(TaskState.Complete, _someGenerator.State);
             Assert.IsTrue(changedToComplete);
         }
 
@@ -146,9 +146,9 @@ namespace ZeroInstall.Store.Implementation
         public void ShouldOfferJoin()
         {
             var completedLock = new ManualResetEvent(false);
-            _someGenerator.StateChanged += delegate(IProgress sender)
+            _someGenerator.StateChanged += delegate(ITask sender)
             {
-                if (sender.State == ProgressState.Complete)
+                if (sender.State == TaskState.Complete)
                 {
                     completedLock.Set();
                 }
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Implementation
             bool didTerminate;
             try
             {
-                Assert.AreEqual(ProgressState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
+                Assert.AreEqual(TaskState.Complete, _someGenerator.State, "After Join() the ManifestGenerator must be in Complete state.");
             }
             finally
             {

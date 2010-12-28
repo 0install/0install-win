@@ -17,12 +17,19 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
+using System.Net;
+using System.Text;
+using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Utils;
 using Gtk;
 using NDesk.Options;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Launcher.Arguments;
+using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feed;
@@ -72,35 +79,66 @@ namespace ZeroInstall.Launcher.Gtk
             }
             #endregion
 
-            switch (mode)
+            try { ExecuteArgs(handler, mode, results); }
+            #region Error hanlding
+            catch (UserCancelException)
+            {}
+            catch (ArgumentException ex)
             {
-                case OperationMode.Normal:
-                    // Ask for URI via GUI if none was specified on command-line
-                    if (string.IsNullOrEmpty(results.Feed))
-                    {
-                        new InputDialog {}.ShowNow();
-                        //results.Feed = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
-                        if (string.IsNullOrEmpty(results.Feed)) return;
-                    }
-
-                    handler.Execute(results);
-                    break;
-
-                case OperationMode.List:
-                case OperationMode.Import:
-                case OperationMode.Manage:
-                    Msg.Inform(null, "Not implemented yet!", MsgSeverity.Error);
-                    break;
-
-                case OperationMode.Version:
-                    // ToDo: Read version number from assembly data
-                    Msg.Inform(null, "Zero Install for Windows Launcher v1.0", MsgSeverity.Information);
-                    break;
-
-                default:
-                    Msg.Inform(null, "Unknown operation mode", MsgSeverity.Error);
-                    break;
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
             }
+            catch (WebException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (SolverException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (FetcherException ex)
+            {
+                Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (DigestMismatchException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (ImplementationNotFoundException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (MissingMainException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            catch (BadImageFormatException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                handler.CloseAsync();
+            }
+            #endregion
         }
         #endregion
 
@@ -177,6 +215,31 @@ namespace ZeroInstall.Launcher.Gtk
             // Return the now filled results structure
             results = parseResults;
             return mode;
+        }
+        #endregion
+
+        #region Execute
+        /// <summary>
+        /// Executes the commands specified by the command-line arguments.
+        /// </summary>
+        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <param name="mode">The operation mode selected by the parsing process.</param>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
+        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all depedencies.</exception>
+        /// <exception cref="FetcherException">Thrown if an <see cref="Implementation"/> could not be downloaded.</exception>
+        /// <exception cref="DigestMismatchException">Thrown uf an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
+        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
+        private static void ExecuteArgs(MainForm handler, OperationMode mode, ParseResults results)
+        {
+            // ToDo: Implement
         }
         #endregion
     }

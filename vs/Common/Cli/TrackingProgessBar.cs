@@ -25,20 +25,20 @@ using System;
 namespace Common.Cli
 {
     /// <summary>
-    /// A progress bar rendered on the <see cref="Console"/> that automatically tracks the progress of an <see cref="IProgress"/> object.
+    /// A progress bar rendered on the <see cref="Console"/> that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    public class TrackingProgressBar : ProgessBar
+    public sealed class TrackingProgressBar : ProgessBar, IDisposable
     {
         #region Variables
-        private readonly IProgress _task;
+        private readonly ITask _task;
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new progress bar that automatically tracks an <see cref="IProgress"/> object and draws itself whenever it changes.
+        /// Creates a new progress bar that automatically tracks an <see cref="ITask"/> and draws itself whenever it changes.
         /// </summary>
-        /// <param name="task">The <see cref="IProgress"/> object to track.</param>
-        public TrackingProgressBar(IProgress task)
+        /// <param name="task">The <see cref="ITask"/> to track.</param>
+        public TrackingProgressBar(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -55,30 +55,22 @@ namespace Common.Cli
 
         #region Event callbacks
         /// <summary>
-        /// Changes the look of the progress bar depending on the <see cref="ProgressState"/> of <see cref="_task"/>.
+        /// Changes the look of the progress bar depending on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void StateChanged(IProgress sender)
+        private void StateChanged(ITask sender)
         {
             State = sender.State;
 
             // When the status is complete the bar should always be full
-            if (State == ProgressState.Complete) Value = Maximum;
-
-            // Stop tracking when done
-            if (State == ProgressState.Complete || State == ProgressState.WebError || State == ProgressState.IOError)
-            {
-                _task.StateChanged -= StateChanged;
-                _task.ProgressChanged -= ProgressChanged;
-                Console.Error.WriteLine();
-            }
+            if (State == TaskState.Complete) Value = Maximum;
         }
 
         /// <summary>
         /// Changes the value of the progress bar depending on the already proccessed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void ProgressChanged(IProgress sender)
+        private void ProgressChanged(ITask sender)
         {
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;
@@ -86,6 +78,18 @@ namespace Common.Cli
             else if (progress > 1) progress = 1;
 
             Value = (int)(progress * Maximum);
+        }
+        #endregion
+
+        #region Dipose
+        public void Dispose()
+        {
+            // Stop tracking
+            _task.StateChanged -= StateChanged;
+            _task.ProgressChanged -= ProgressChanged;
+
+            // Stop writing into the same line
+            Console.Error.WriteLine();
         }
         #endregion
     }

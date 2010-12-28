@@ -32,29 +32,17 @@ namespace ZeroInstall.Store.Implementation
         public bool Batch { get; set; }
 
         /// <inheritdoc />
-        public void StartingExtraction(IProgress extraction)
+        public void RunIOTask(ITask task)
         {
             #region Sanity checks
-            if (extraction == null) throw new ArgumentNullException("extraction");
+            if (task == null) throw new ArgumentNullException("task");
             #endregion
 
             if (Batch) return;
 
-            Log.Info(extraction.Name + "...");
-            new TrackingProgressBar(extraction);
-        }
-
-        /// <inheritdoc />
-        public void StartingManifest(IProgress manifest)
-        {
-            #region Sanity checks
-            if (manifest == null) throw new ArgumentNullException("manifest");
-            #endregion
-
-            if (Batch) return;
-
-            Log.Info(manifest.Name + "...");
-            new TrackingProgressBar(manifest);
+            Log.Info(task.Name + "...");
+            using (new TrackingProgressBar(task))
+                task.RunSync();
         }
     }
 }

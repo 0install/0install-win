@@ -60,11 +60,17 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="digest">The digest identifying the implementation.</param>
         protected ImplementationNode(IStore store, ManifestDigest digest)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             _store = store;
             _digest = digest;
 
             // Determine the total size of an implementation via its manifest file
-            Size = Manifest.Load(Path.Combine(store.GetPath(digest), ".manifest"), ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
+            string manifestPath = Path.Combine(store.GetPath(digest), ".manifest");
+            if (File.Exists(manifestPath))
+                Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
         }
         #endregion
 
@@ -84,6 +90,14 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                 throw new KeyNotFoundException(ex.Message, ex);
             }
             #endregion
+        }
+        #endregion
+        
+        #region Verify
+        /// <inheritdoc/>
+        public override void Verify(IImplementationHandler handler)
+        {
+            _store.Verify(_digest, handler);
         }
         #endregion
 

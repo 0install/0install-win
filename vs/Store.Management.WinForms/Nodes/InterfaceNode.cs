@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
@@ -62,6 +63,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="feed">The <see cref="Feed"/> / interface to be represented by this node.</param>
         public InterfaceNode(IFeedCache cache, Model.Feed feed)
         {
+            #region Sanity checks
+            if (cache == null) throw new ArgumentNullException("cache");
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
             _cache = cache;
             _feed = feed;
         }
@@ -78,6 +84,14 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             _cache.Remove(_feed.Uri);
         }
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// Does nothing.
+        /// </summary>
+        public override void Verify(IImplementationHandler handler)
+        {}
         #endregion
     }
 }

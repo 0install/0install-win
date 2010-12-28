@@ -1,6 +1,6 @@
 ﻿namespace Common.Controls
 {
-    partial class TrackingProgressDialog
+    partial class TrackingDialog
     {
         /// <summary>
         /// Required designer variable.

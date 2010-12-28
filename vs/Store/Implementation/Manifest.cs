@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using Common;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
@@ -45,7 +44,9 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A list of all elements in the tree this manifest represents.
         /// </summary>
+// ReSharper disable ReturnTypeCanBeEnumerable.Global
         public IList<ManifestNode> Nodes { get { return _nodes; } }
+// ReSharper restore ReturnTypeCanBeEnumerable.Global
 
         private long _totalSize = -1;
         /// <summary>
@@ -205,10 +206,10 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
-        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        public static Manifest Generate(string path, ManifestFormat format, Action<IProgress> startingManifest)
+        public static Manifest Generate(string path, ManifestFormat format, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -216,8 +217,11 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             var generator = new ManifestGenerator(path, format);
-            if (startingManifest != null) startingManifest(generator);
-            generator.RunSync();
+
+            // Run task locally or defer to handler
+            if (handler == null) generator.RunSync();
+            else handler.RunIOTask(generator);
+
             return generator.Result;
         }
 
@@ -226,37 +230,37 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
-        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <returns>The manifest digest (format=hash).</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static string CreateDotFile(string path, ManifestFormat format, Action<IProgress> startingManifest)
+        public static string CreateDotFile(string path, ManifestFormat format, IImplementationHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            return Generate(path, format, startingManifest).Save(Path.Combine(path, ".manifest"));
+            return Generate(path, format, handler).Save(Path.Combine(path, ".manifest"));
         }
 
         /// <summary>
         /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all <see cref="ManifestFormat.Recommended"/>.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="startingManifest">Callback to be called when a new manifest generation task (hashing files) is about to be started; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <returns>The combined manifest digest structure.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        public static ManifestDigest CreateDigest(string path, Action<IProgress> startingManifest)
+        public static ManifestDigest CreateDigest(string path, IImplementationHandler handler)
         {
             var digest = new ManifestDigest();
 
             // Generate manifest for each available format...
             foreach (var format in ManifestFormat.Recommended)
                 // ... and add the resulting digest to the return value
-                ManifestDigest.ParseID(Generate(path, format, startingManifest).CalculateDigest(), ref digest);
+                ManifestDigest.ParseID(Generate(path, format, handler).CalculateDigest(), ref digest);
 
             return digest;
         }

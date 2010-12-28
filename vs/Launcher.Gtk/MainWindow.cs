@@ -38,13 +38,6 @@ public partial class MainWindow : Window, IHandler
         a.RetVal = true;
     }       
     #endregion
-
-    #region Properties
-    /// <summary>
-    /// Silently answer all questions with "No".
-    /// </summary>
-    public bool Batch { get; set; }
-    #endregion
     
     #region Constructor
     public MainWindow() : base(Gtk.WindowType.Toplevel)
@@ -54,153 +47,6 @@ public partial class MainWindow : Window, IHandler
     #endregion
 
     //--------------------//
-
-    #region Execute
-    /// <summary>
-    /// Executes the commands specified by the command-line arguments.
-    /// </summary>
-    /// <param name="results">The parser results to be executed.</param>
-    public void Execute(ParseResults results)
-    {
-        RunGuiAsync();
-
-        Controller controller;
-        try { controller = new Controller(results.Feed, SolverProvider.Default, results.Policy); }
-        #region Error hanlding
-        catch (ArgumentException ex)
-        {
-            ReportErrorSync(ex.Message);
-            return;
-        }
-        #endregion
-
-        if (results.SelectionsFile == null)
-        {
-            try { controller.Solve(); }
-            #region Error hanlding
-            catch (IOException ex)
-            {
-                ReportErrorSync(ex.Message);
-                return;
-            }
-            catch (SolverException ex)
-            {
-                ReportErrorSync(ex.Message);
-                return;
-            }
-            #endregion
-        }
-        else controller.SetSelections(Selections.Load(results.SelectionsFile));
-
-        try { controller.DownloadUncachedImplementations(); }
-        #region Error hanlding
-        catch (UserCancelException)
-        {
-            //progressBar.Task = null;
-            Application.Quit();
-            return;
-        }
-        catch (WebException ex)
-        {
-            ReportErrorSync(ex.Message);
-            return;
-        }
-        catch (IOException ex)
-        {
-            ReportErrorSync(ex.Message);
-            return;
-        }
-        catch (UnauthorizedAccessException ex)
-        {
-            ReportErrorSync(ex.Message);
-            return;
-        }
-        catch (DigestMismatchException ex)
-        {
-            ReportErrorSync(ex.Message);
-            return;
-        }
-        #endregion
-        
-        CloseSync();
-
-        if (!results.DownloadOnly)
-        {
-            var executor = controller.GetExecutor();
-            executor.Main = results.Main;
-            executor.Wrapper = results.Wrapper;
-
-            var startInfo = executor.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
-            try
-            {
-                if (results.NoWait) ProcessUtils.RunDetached(startInfo);
-                else ProcessUtils.RunReplace(startInfo);
-            }
-            #region Error hanlding
-            catch (ImplementationNotFoundException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (MissingMainException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (Win32Exception ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (BadImageFormatException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                return;
-            }
-            #endregion
-        }
-    }
-    #endregion
-
-    #region Helpers
-    /// <summary>
-    /// Runs the GUI in a separate thread.
-    /// </summary>
-    private void RunGuiAsync()
-    {
-        new Thread(delegate()
-        {
-            Application.Run();
-        }).Start();
-    }
-
-    /// <summary>
-    /// Safely closes the window running in the GUI thread.
-    /// </summary>
-    private void CloseSync()
-    {
-        //progressBar.Task = null;
-
-        this.Hide();
-    }
-
-    /// <summary>
-    /// Displays error messages in dialogs synchronous to the main UI.
-    /// </summary>
-    /// <param name="message">The error message to be displayed.</param>
-    private void ReportErrorSync(string message)
-    {
-        GtkMsg.Inform(this, message, MsgSeverity.Error);
-
-        //progressBar.Task = null;
-        Application.Quit();
-    }
-    #endregion
 
     #region Handler
     /// <inheritdoc />
@@ -212,24 +58,27 @@ public partial class MainWindow : Window, IHandler
     }
 
     /// <inheritdoc />
-    public void StartingDownload(IProgress download)
+    public void RunDownload(IProgress task)
     {
-        //labelOperation.Text = download.Name + @"...";
-        //progressBar.Task = download;
+        //labelOperation.Text = task.Name + @"...";
+        //progressBar.Task = task;
+        task.RunSync();
     }
 
     /// <inheritdoc />
-    public void StartingExtraction(IProgress extraction)
+    public void RunExtraction(IProgress task)
     {
-        //labelOperation.Text = extraction.Name + @"...";
-        //progressBar.Task = extraction;
+        //labelOperation.Text = task.Name + @"...";
+        //progressBar.Task = task;
+        task.RunSync();
     }
 
     /// <inheritdoc />
-    public void StartingManifest(IProgress manifest)
+    public void RunManifest(IProgress task)
     {
-        //labelOperation.Text = manifest.Name + @"...";
-        //progressBar.Task = manifest;
+        //labelOperation.Text = task.Name + @"...";
+        //progressBar.Task = task;
+        task.RunSync();
     }
     #endregion
 }

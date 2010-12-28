@@ -30,13 +30,9 @@ using Common.Properties;
 namespace Common.Controls
 {
     /// <summary>
-    /// A dialog with a progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
+    /// A dialog with a progress bar that tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    /// <remarks>
-    /// This is not suitable to track tasks that are already running or get started by another thread.
-    /// The task must be started by this dialog.
-    /// </remarks>
-    public sealed partial class TrackingProgressDialog : Form
+    public sealed partial class TrackingDialog : Form
     {
         #region Constructor
         /// <summary>
@@ -44,7 +40,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
-        private TrackingProgressDialog(IProgress task, Icon icon)
+        private TrackingDialog(ITask task, Icon icon)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
@@ -55,14 +51,16 @@ namespace Common.Controls
             Text = task.Name;
             Icon = icon;
 
+            // Start and stop the task with the dialog
+            Shown += delegate { task.Start(); };
+            FormClosing += delegate { task.Cancel(); };
+
             // Hook up event tracking
             trackingProgressBar.Task = task;
             labelProgress.Task = task;
-            Shown += delegate { task.Start(); };
-            FormClosing += delegate { task.Cancel(); };
             task.StateChanged += delegate
             {
-                if (task.State >= ProgressState.Complete)
+                if (task.State >= TaskState.Complete)
                 {
                     // Handle events coming from a non-UI thread, don't block caller
                     BeginInvoke((SimpleEventHandler)Close);
@@ -73,34 +71,34 @@ namespace Common.Controls
 
         #region Static access
         /// <summary>
-        /// Calls <see cref="IProgress.Start"/> on <paramref name="task"/>, displays the progress and returns after the task completes.
+        /// Runs the <paramref name="task"/>, displays the progress and returns after the task completes. Equivalent to calling <see cref="ITask.RunSync"/>.
         /// </summary>
         /// <param name="owner">The parent window the displayed window is modal to.</param>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="IProgress.State"/> is not <see cref="ProgressState.Ready"/>.</exception>
-        public static void Run(IWin32Window owner, IProgress task, Icon icon)
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
+        public static void Run(IWin32Window owner, ITask task, Icon icon)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");
             #endregion
 
-            if (task.State != ProgressState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
+            if (task.State != TaskState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
 
             // Show the dialog and run the task
-            using (var dialog = new TrackingProgressDialog(task, icon))
+            using (var dialog = new TrackingDialog(task, icon))
                 dialog.ShowDialog(owner);
 
             // Wait until the task has really finished and then check its state
             task.Join();
             switch (task.State)
             {
-                case ProgressState.Complete: return;
-                case ProgressState.WebError: throw new WebException(task.ErrorMessage);
-                case ProgressState.IOError: throw new IOException(task.ErrorMessage);
+                case TaskState.Complete: return;
+                case TaskState.WebError: throw new WebException(task.ErrorMessage);
+                case TaskState.IOError: throw new IOException(task.ErrorMessage);
                 default: throw new UserCancelException();
             }
         }

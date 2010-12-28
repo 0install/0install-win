@@ -72,9 +72,9 @@
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
-    <Compile Include="IProgress.cs" />
-    <Compile Include="ProgressState.cs" />
-    <Compile Include="ProgressBase.cs" />
+    <Compile Include="ITask.cs" />
+    <Compile Include="TaskState.cs" />
+    <Compile Include="TaskBase.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
     <Compile Include="Net\DownloadManager.cs" />
@@ -144,11 +144,11 @@
     <Compile Include="Controls\TrackingProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\TrackingProgressDialog.cs">
+    <Compile Include="Controls\TrackingDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Controls\TrackingProgressDialog.Designer.cs">
-      <DependentUpon>TrackingProgressDialog.cs</DependentUpon>
+    <Compile Include="Controls\TrackingDialog.Designer.cs">
+      <DependentUpon>TrackingDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\AsyncWaitDialog.cs">
       <SubType>Form</SubType>

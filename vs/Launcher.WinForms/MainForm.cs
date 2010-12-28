@@ -28,15 +28,6 @@ namespace ZeroInstall.Launcher.WinForms
     /// </summary>
     public partial class MainForm : Form, IHandler
     {
-        #region Properties
-        /// <summary>
-        /// Silently answer all questions with "No".
-        /// </summary>
-        public bool Batch { get; set; }
-        #endregion
-
-        //--------------------//
-
         #region Async control
         /// <summary>
         /// Starts the GUI in a separate thread.
@@ -69,28 +60,14 @@ namespace ZeroInstall.Launcher.WinForms
                 Close();
             }));
         }
-
-        /// <summary>
-        /// Displays an error messages in a dialog synchronous to the main GUI.
-        /// </summary>
-        /// <param name="message">The error message to be displayed.</param>
-        public void ReportErrorAsync(string message)
-        {
-            // Wait until the GUI is actually up and running
-            while (!IsHandleCreated) Thread.Sleep(0);
-
-            // Handle events coming from a non-UI thread, block caller until user has answered
-            Invoke((SimpleEventHandler)(delegate
-            {
-                Msg.Inform(this, message, MsgSeverity.Error);
-
-                buttonCancel.Enabled = true;
-                Close();
-            }));
-        }
         #endregion
 
         #region Handler
+        /// <summary>
+        /// Silently answer all questions with "No".
+        /// </summary>
+        public bool Batch { get; set; }
+
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -108,27 +85,21 @@ namespace ZeroInstall.Launcher.WinForms
         }
 
         /// <inheritdoc />
-        public void StartingDownload(IProgress download)
+        public void RunDownloadTask(ITask task)
         {
-            HookupTracking(download);
+            HookupTracking(task);
         }
 
         /// <inheritdoc />
-        public void StartingExtraction(IProgress extraction)
+        public void RunIOTask(ITask task)
         {
-            HookupTracking(extraction);
-        }
-
-        /// <inheritdoc />
-        public void StartingManifest(IProgress manifest)
-        {
-            HookupTracking(manifest);
+            HookupTracking(task);
         }
 
         /// <summary>
         /// Hooks up a new task with the GUI for tracking.
         /// </summary>
-        private void HookupTracking(IProgress task)
+        private void HookupTracking(ITask task)
         {
             // Wait until the GUI is actually up and running
             while (!IsHandleCreated) Thread.Sleep(0);
@@ -136,11 +107,14 @@ namespace ZeroInstall.Launcher.WinForms
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
+                //Thread.Sleep(1000);
                 labelOperation.Text = task.Name + @"...";
                 progressBar.Task = task;
                 labelProgress.Task = task;
                 buttonCancel.Enabled = true;
             });
+
+            task.RunSync();
         }
         #endregion
 

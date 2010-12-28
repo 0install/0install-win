@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
         
         #region Verify and add
         /// <summary>
-        /// Verifies the manifest digest of a directory temporarily stored inside the cache and moves it to the final location if it passes.
+        /// Verifies the <see cref="ManifestDigest"/> of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="expectedDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify directory
         /// <summary>
-        /// Verifies the manifest digest of a directory.
+        /// Verifies the <see cref="ManifestDigest"/> of a directory.
         /// </summary>
         /// <param name="directory">The directory to generate a <see cref="Manifest"/> for.</param>
         /// <param name="expectedDigest">The digest the <see cref="Manifest"/> of the <paramref name="directory"/> should have.</param>
@@ -143,11 +143,8 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
         public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, IImplementationHandler handler)
         {
-            Action<IProgress> startingManifest = null;
-            if (handler != null) startingManifest = handler.StartingManifest;
-
             var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
-            var actualManifest = Manifest.Generate(directory, format, startingManifest);
+            var actualManifest = Manifest.Generate(directory, format, handler);
 
             string expectedDigestValue = expectedDigest.BestDigest;
             string actualDigestValue = actualManifest.CalculateDigest();
@@ -257,12 +254,11 @@ namespace ZeroInstall.Store.Implementation
             {
                 extractor.SubDir = archiveInfo.SubDir;
 
-                // Set up progress reporting
-                if (handler != null) handler.StartingExtraction(extractor);
-
                 try
                 {
-                    extractor.RunSync();
+                    // Run task locally or defer to handler
+                    if (handler == null) extractor.RunSync();
+                    else handler.RunIOTask(extractor);
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
@@ -298,10 +294,9 @@ namespace ZeroInstall.Store.Implementation
                     {
                         extractor.SubDir = archiveInfo.SubDir;
 
-                        // Set up progress reporting
-                        if (handler != null) handler.StartingExtraction(extractor);
-
-                        extractor.RunSync();
+                        // Run task locally or defer to handler
+                        if (handler == null) extractor.RunSync();
+                        else handler.RunIOTask(extractor);
                     }
                 }
 

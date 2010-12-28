@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
     /// </summary>
-    public class ManifestGenerator : ProgressBase
+    public class ManifestGenerator : TaskBase
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be cancelled.</summary>
@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Implementation
         public ManifestFormat Format { get; private set; }
 
         /// <summary>
-        /// If <see cref="ProgressBase.State"/> is <see cref="ProgressState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
+        /// If <see cref="TaskBase.State"/> is <see cref="TaskState.Complete"/> this property contains the generated <see cref="Manifest"/>; otherwise it's <see langword="null"/>.
         /// </summary>
         public Manifest Result { get; private set; }
         #endregion
@@ -82,13 +82,13 @@ namespace ZeroInstall.Store.Implementation
         {
             lock (StateLock)
             {
-                if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
+                if (_cancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
 
                 _cancelRequest = true;
                 Thread.Join();
 
                 // Reset the state so the task can be started again
-                State = ProgressState.Ready;
+                State = TaskState.Ready;
                 _cancelRequest = true;
             }
         }
@@ -101,7 +101,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 if (_cancelRequest) return;
-                lock (StateLock) State = ProgressState.Header;
+                lock (StateLock) State = TaskState.Header;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
                 var entries = Format.GetSortedDirectoryEntries(TargetPath);
@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
                 var externalXBits = GetExternalXBits();
 
                 if (_cancelRequest) return;
-                lock (StateLock) State = ProgressState.Data;
+                lock (StateLock) State = TaskState.Data;
 
                 // Iterate through the directory listing to build a list of manifets entries
                 var nodes = new C5.ArrayList<ManifestNode>(entries.Length);
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementation
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementation
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
@@ -160,14 +160,14 @@ namespace ZeroInstall.Store.Implementation
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
             #endregion
 
             if (_cancelRequest) return;
-            lock (StateLock) State = ProgressState.Complete;
+            lock (StateLock) State = TaskState.Complete;
         }
 
         /// <summary>
@@ -247,8 +247,7 @@ namespace ZeroInstall.Store.Implementation
 
             if (externalXBits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
                 return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
-            else
-                return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+            return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Management.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class MainForm : Form
+    public sealed partial class MainForm : Form, IImplementationHandler
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
             _treeView.Entries = nodes;
             _treeView.SelectedEntry = null;
-            buttonDelete.Enabled = false;
+            buttonRemove.Enabled = false;
 
             // Update total size
             textTotalSize.Text = StringUtils.FormatBytes(totalSize);
@@ -149,12 +149,12 @@ namespace ZeroInstall.Store.Management.WinForms
         {
             if (_treeView.CheckedEntries.Length == 0)
             {
-                buttonDelete.Enabled = false;
-                textCheckedSize.Text = "-";
+                buttonVerify.Enabled = buttonRemove.Enabled = false;
+                textCheckedSize.Text = @"-";
             }
             else
             {
-                buttonDelete.Enabled = true;
+                buttonVerify.Enabled = buttonRemove.Enabled = true;
 
                 // Update selected entries size
                 long totalSize = 0;
@@ -167,7 +167,7 @@ namespace ZeroInstall.Store.Management.WinForms
             }
         }
 
-        private void buttonDelete_Click(object sender, EventArgs e)
+        private void buttonRemove_Click(object sender, EventArgs e)
         {
             if (!Msg.Ask(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warning, Resources.YesDelete, Resources.NoKeep))
                 return;
@@ -209,6 +209,40 @@ namespace ZeroInstall.Store.Management.WinForms
             #endregion
         }
 
+        private void buttonVerify_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                foreach (StoreNode entry in _treeView.CheckedEntries)
+                    entry.Verify(this);
+            }
+            #region Error handling
+            catch (UserCancelException)
+            {
+                return;
+            }
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warning);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Warning);
+                return;
+            }
+            catch (DigestMismatchException ex)
+            {
+                // ToDo: Display manifest diff
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                // ToDo: Provide option for deleting
+                return;
+            }
+            #endregion
+
+            Msg.Inform(this, "All checked implementations are fine.", MsgSeverity.Information);
+        }
+
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             try { RefreshList(); }
@@ -231,6 +265,19 @@ namespace ZeroInstall.Store.Management.WinForms
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region Handler
+        /// <summary>
+        /// Not used.
+        /// </summary>
+        public bool Batch { get; set; }
+
+        /// <inheritdoc/>
+        public void RunIOTask(ITask task)
+        {
+            TrackingDialog.Run(this, task, Icon);
         }
         #endregion
     }

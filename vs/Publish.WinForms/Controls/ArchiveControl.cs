@@ -244,7 +244,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             if (!SetArchiveMimeType(fileName)) return;
 
-            try { TrackingProgressDialog.Run(this, new DownloadFile(url, absoluteFilePath), null); }
+            try { TrackingDialog.Run(this, new DownloadFile(url, absoluteFilePath), null); }
             #region Error handling
             catch (UserCancelException)
             {
@@ -360,7 +360,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             #endregion
            
-            try { TrackingProgressDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath), null); }
+            try { TrackingDialog.Run(this, Extractor.CreateExtractor(comboBoxArchiveFormat.Text, archive, startOffset, extractedArchivePath), null); }
             #region Error handling
             catch (UserCancelException)
             {

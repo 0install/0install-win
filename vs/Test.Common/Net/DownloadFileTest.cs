@@ -56,7 +56,7 @@ namespace Common.Net
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="ProgressBase.RunSync"/>.
+        /// Downloads a small file using <see cref="TaskBase.RunSync"/>.
         /// </summary>
         [Test]
         public void TestRunSync()
@@ -69,12 +69,12 @@ namespace Common.Net
             string fileContent = File.ReadAllText(_tempFile.Path);
 
             // Ensure the download was successfull and the file is identical
-            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
+            Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
         /// <summary>
-        /// Downloads a small file using <see cref="ProgressBase.Start"/> and <see cref="ProgressBase.Join"/>.
+        /// Downloads a small file using <see cref="TaskBase.Start"/> and <see cref="TaskBase.Join"/>.
         /// </summary>
         [Test]
         public void TestThread()
@@ -88,12 +88,12 @@ namespace Common.Net
             string fileContent = File.ReadAllText(_tempFile.Path);
 
             // Ensure the download was successfull and the file is identical
-            Assert.AreEqual(ProgressState.Complete, download.State, download.ErrorMessage);
+            Assert.AreEqual(TaskState.Complete, download.State, download.ErrorMessage);
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
         /// <summary>
-        /// Starts downloading a small file using <see cref="ProgressBase.Start"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
+        /// Starts downloading a small file using <see cref="TaskBase.Start"/> and stops again right away using <see cref="TaskBase.Cancel"/>.
         /// </summary>
         [Test]
         public void TestCancelAsync()
@@ -104,11 +104,11 @@ namespace Common.Net
             download.Start();
             download.Cancel();
 
-            Assert.AreEqual(ProgressState.Ready, download.State);
+            Assert.AreEqual(TaskState.Ready, download.State);
         }
 
         /// <summary>
-        /// Starts downloading a small file using <see cref="ProgressBase.RunSync"/> and stops again right away using <see cref="ProgressBase.Cancel"/>.
+        /// Starts downloading a small file using <see cref="TaskBase.RunSync"/> and stops again right away using <see cref="TaskBase.Cancel"/>.
         /// </summary>
         [Test]
         public void TestCancelSync()

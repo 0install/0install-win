@@ -37,15 +37,15 @@ namespace ZeroInstall.Launcher
         }
 
         /// <inheritdoc />
-        public void StartingDownload(IProgress download)
-        {}
+        public void RunDownloadTask(ITask task)
+        {
+            task.RunSync();
+        }
 
         /// <inheritdoc />
-        public void StartingExtraction(IProgress extraction)
-        {}
-
-        /// <inheritdoc />
-        public void StartingManifest(IProgress manifest)
-        {}
+        public void RunIOTask(ITask task)
+        {
+            task.RunSync();
+        }
     }
 }

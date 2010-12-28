@@ -30,15 +30,15 @@ namespace Common
 {
     #region Delegates
     /// <summary>
-    /// Delegate for handling an event concerning a specific <see cref="IProgress"/> instance.
+    /// Delegate for handling an event concerning a specific <see cref="ITask"/> instance.
     /// </summary>
-    public delegate void ProgressEventHandler(IProgress sender);
+    public delegate void TaskEventHandler(ITask sender);
     #endregion
 
     /// <summary>
     /// A background task that can report its progess via events and that can be cancelled.
     /// </summary>
-    public interface IProgress
+    public interface ITask
     {
         #region Events
         /// <summary>
@@ -48,7 +48,7 @@ namespace Common
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
         ///   <para>The event handling blocks the thread, therefore observers should handle the event quickly.</para>
         /// </remarks>
-        event ProgressEventHandler StateChanged;
+        event TaskEventHandler StateChanged;
 
         /// <summary>
         /// Occurs whenever <see cref="Progress"/> changes.
@@ -57,7 +57,7 @@ namespace Common
         ///   <para>This event is raised from a background thread. Wrap via <see cref="Control.Invoke(System.Delegate)"/> to update UI elements.</para>
         ///   <para>The event handling blocks the thread, therefore observers should handle the event quickly.</para>
         /// </remarks>
-        event ProgressEventHandler ProgressChanged;
+        event TaskEventHandler ProgressChanged;
         #endregion
 
         #region Properties
@@ -71,10 +71,10 @@ namespace Common
         /// The current status of the task.
         /// </summary>
         [Description("The current status of the task.")]
-        ProgressState State { get; }
+        TaskState State { get; }
 
         /// <summary>
-        /// Contains an error description if <see cref="State"/> is set to <see cref="ProgressState.WebError"/> or <see cref="ProgressState.IOError"/>.
+        /// Contains an error description if <see cref="State"/> is set to <see cref="TaskState.WebError"/> or <see cref="TaskState.IOError"/>.
         /// </summary>
         [Description("Contains an error description if State is set to WebError or IOError.")]
         string ErrorMessage { get; }
@@ -88,7 +88,7 @@ namespace Common
         /// <summary>
         /// The total number of bytes that are to be processed; -1 for unknown.
         /// </summary>
-        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="ProgressState.Data"/> has been reached.</remarks>
+        /// <remarks>If this value is set to -1 in the constructor, the size be automatically set after <see cref="TaskState.Data"/> has been reached.</remarks>
         [Description("The total number of bytes that are to be processed; -1 for unknown.")]
         long BytesTotal { get; }
 
@@ -105,16 +105,16 @@ namespace Common
         /// <summary>
         /// Starts executing the task in a background thread.
         /// </summary>
-        /// <remarks>Calling this on a not <see cref="ProgressState.Ready"/> task will have no effect.</remarks>
+        /// <remarks>Calling this on a not <see cref="TaskState.Ready"/> task will have no effect.</remarks>
         void Start();
 
         /// <summary>
         /// Runs the task synchronously to the current thread.
         /// </summary>
         /// <exception cref="UserCancelException">Thrown if the task was cancelled from another thread.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
-        /// <exception cref="WebException">Thrown if the task ended with <see cref="ProgressState.WebError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="ProgressState.Ready"/>.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>Even though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
         void RunSync();
 

@@ -20,13 +20,13 @@
     <packageHasNamedElement>
       <Interface
         Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-        name="IProgress"
+        name="ITask"
         isAbstract="false"
         isLeaf="false">
         <referencesInternal>
           <reference
             Id="4ade628d-2023-4f0a-888b-3c73bc4a24c5"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -79,20 +79,20 @@
           <association
             Id="666a2a5f-e6c8-4e4b-b1da-584abdc13049"
             isDerived="false"
-            sourceEndRoleName="IProgress"
+            sourceEndRoleName="ITask"
             targetEndRoleName="State"
             isLeaf="false"
             isAbstract="false">
             <enumerationMoniker
               Id="7a7de8e8-5028-4455-9612-d495916bc50b"
-              LastKnownName="ProgressState"
+              LastKnownName="TaskState"
               LastKnownLocation="Package5_1629.uml" />
-            <description>Property State references type ProgressState.</description>
+            <description>Property State references type TaskState.</description>
             <relationshipOwnedElementsInternal>
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="f3ef47c4-6014-426a-b3c0-51c09a065d61"
-                  name="IProgress"
+                  name="ITask"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -157,7 +157,7 @@
             <referencesInternal>
               <reference
                 Id="f2d01505-ddba-449e-8a92-16d3dd2f1df5"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=ErrorMessage"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=ErrorMessage"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -230,7 +230,7 @@
             <referencesInternal>
               <reference
                 Id="0082a66d-1e2f-4a96-8e25-cb30540f209a"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=BytesProcessed"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=BytesProcessed"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -303,7 +303,7 @@
             <referencesInternal>
               <reference
                 Id="da123cca-fbac-41a0-8fad-72342731b223"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=BytesTotal"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=BytesTotal"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -376,7 +376,7 @@
             <referencesInternal>
               <reference
                 Id="73896f8a-ad77-4d89-a432-97494a4876af"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Progress"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Task"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -449,7 +449,7 @@
             <referencesInternal>
               <reference
                 Id="137436a2-4ab7-4bd1-9459-e00783881540"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=StateChanged"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=StateChanged"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -498,13 +498,13 @@
             <type_NamedElement>
               <classMoniker
                 Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558"
-                LastKnownName="ProgressEventHandler"
+                LastKnownName="TaskEventHandler"
                 LastKnownLocation="Package5_1629.uml" />
             </type_NamedElement>
           </property>
           <property
             Id="5a9f2d0a-63af-4bcb-bf73-8e949adf50f6"
-            name="ProgressChanged"
+            name="TaskChanged"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -515,7 +515,7 @@
             <referencesInternal>
               <reference
                 Id="2660222e-8080-4bbf-9366-d4aedaf98a61"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=ProgressChanged"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=TaskChanged"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -564,7 +564,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558"
-                LastKnownName="ProgressEventHandler"
+                LastKnownName="TaskEventHandler"
                 LastKnownLocation="Package5_1629.uml" />
             </type_NamedElement>
           </property>
@@ -581,7 +581,7 @@
             <referencesInternal>
               <reference
                 Id="584f0724-4ab6-4003-948c-08041dafee24"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Join"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Join"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -639,7 +639,7 @@
             <referencesInternal>
               <reference
                 Id="a325c2e1-b1f3-413c-a279-b64a55ec8ce1"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Cancel"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Cancel"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -796,14 +796,14 @@
     <packageHasNamedElement>
       <class
         Id="2d2a5820-718c-48b2-81b9-e205075cad07"
-        name="ProgressBase"
+        name="TaskBase"
         isAbstract="true"
         isLeaf="false"
         isActiveClass="false">
         <referencesInternal>
           <reference
             Id="64e470ae-638d-4a74-ab7a-504dc9e384aa"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -854,7 +854,7 @@
             Id="f0d2e33f-4161-49fc-a609-18d4cac1cf05">
             <interfaceMoniker
               Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-              LastKnownName="IProgress"
+              LastKnownName="ITask"
               LastKnownLocation="Package5_1629.uml" />
           </interfaceRealization>
         </suppliersInternal>
@@ -872,7 +872,7 @@
             <referencesInternal>
               <reference
                 Id="5af2bbf8-ae40-4625-a3ae-865dd3896299"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=Name"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=Name"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -945,7 +945,7 @@
             <referencesInternal>
               <reference
                 Id="be0d8c42-4bf0-40fb-be3d-45d43ab82d04"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=ErrorMessage"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=ErrorMessage"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1018,7 +1018,7 @@
             <referencesInternal>
               <reference
                 Id="da6bf32c-7f63-4243-9dbe-86c7e3190aa3"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=BytesProcessed"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=BytesProcessed"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1091,7 +1091,7 @@
             <referencesInternal>
               <reference
                 Id="df53bcd9-d383-4b48-857f-83671d99c5ba"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=BytesTotal"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=BytesTotal"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1164,7 +1164,7 @@
             <referencesInternal>
               <reference
                 Id="5d000edc-96bc-43e9-be6f-4d98c820fe64"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=Progress"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=Task"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1237,7 +1237,7 @@
             <referencesInternal>
               <reference
                 Id="731d753b-f613-4247-b131-7445f71e6930"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=StateChanged"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=StateChanged"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1286,13 +1286,13 @@
             <type_NamedElement>
               <classMoniker
                 Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558"
-                LastKnownName="ProgressEventHandler"
+                LastKnownName="TaskEventHandler"
                 LastKnownLocation="Package5_1629.uml" />
             </type_NamedElement>
           </property>
           <property
             Id="949d2e1c-4ce9-4a07-b5db-7554f8c8cda5"
-            name="ProgressChanged"
+            name="TaskChanged"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
@@ -1303,7 +1303,7 @@
             <referencesInternal>
               <reference
                 Id="75672a66-9fff-4f65-9e9c-ed15429af761"
-                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=ProgressChanged"
+                handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=TaskChanged"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1352,7 +1352,7 @@
             <type_NamedElement>
               <classMoniker
                 Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558"
-                LastKnownName="ProgressEventHandler"
+                LastKnownName="TaskEventHandler"
                 LastKnownLocation="Package5_1629.uml" />
             </type_NamedElement>
           </property>
@@ -1369,7 +1369,7 @@
             <referencesInternal>
               <reference
                 Id="4b972f21-de67-4495-8018-9b18a4e7f35f"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=Start"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=Start"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1427,7 +1427,7 @@
             <referencesInternal>
               <reference
                 Id="c6c0be38-08e8-435e-8f99-08013ce6fc14"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=RunSync"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=RunSync"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1485,7 +1485,7 @@
             <referencesInternal>
               <reference
                 Id="6569f3de-cbda-4e41-8e9d-05e8b053bfb9"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=Join"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=Join"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1543,7 +1543,7 @@
             <referencesInternal>
               <reference
                 Id="73dfcf1d-e7f0-4988-bad2-51c58dbd954d"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=Cancel"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=Cancel"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1602,7 +1602,7 @@
             <referencesInternal>
               <reference
                 Id="82abb45c-7111-4136-a4ae-42402152ad3d"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress Member=RunTask"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=RunTask"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1655,13 +1655,13 @@
     <packageHasNamedElement>
       <enumeration
         Id="7a7de8e8-5028-4455-9612-d495916bc50b"
-        name="ProgressState"
+        name="TaskState"
         isAbstract="false"
         isLeaf="false">
         <referencesInternal>
           <reference
             Id="2c9eb757-3f3d-4460-b903-9792ee50dd41"
-            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState"
+            handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1700,7 +1700,7 @@
             <referencesInternal>
               <reference
                 Id="0b326c3d-5224-4910-a9cc-fe6c0e5f5a11"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Ready"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Ready"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1710,7 +1710,7 @@
             <referencesInternal>
               <reference
                 Id="675d678c-37d9-42aa-bed4-2a1165f85ee2"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Started"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Started"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1720,7 +1720,7 @@
             <referencesInternal>
               <reference
                 Id="da6ca650-6cd6-451d-8d12-f62a0991f966"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Header"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Header"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1730,7 +1730,7 @@
             <referencesInternal>
               <reference
                 Id="f05b89e6-52ff-4720-a8c2-369ad938af86"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Data"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Data"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1740,7 +1740,7 @@
             <referencesInternal>
               <reference
                 Id="9eb819b0-d08e-4532-be8b-021294262899"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Complete"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Complete"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1750,7 +1750,7 @@
             <referencesInternal>
               <reference
                 Id="44c60155-3a65-49f2-9ee6-30da7e9507ca"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=WebError"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=WebError"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1760,7 +1760,7 @@
             <referencesInternal>
               <reference
                 Id="e20a9de6-99c2-4993-82d0-ad51b495679d"
-                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=IOError"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=IOError"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -1770,14 +1770,14 @@
     <packageHasNamedElement>
       <class
         Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558"
-        name="ProgressEventHandler"
+        name="TaskEventHandler"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
         <referencesInternal>
           <reference
             Id="cfaa69f1-c8d9-4ff8-a528-5e7a48731670"
-            handle="viewcode://./CodeSchema_Delegate?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressEventHandler"
+            handle="viewcode://./CodeSchema_Delegate?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskEventHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1821,7 +1821,7 @@
             <referencesInternal>
               <reference
                 Id="c3cb8255-6960-48c8-a01b-7cc870f3b220"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -1876,13 +1876,13 @@
                   <referencesInternal>
                     <reference
                       Id="e865f7fb-d6d8-46d5-99ec-595580a68867"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=sender"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskEventHandler Member=(Name=Invoke OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)]) ParameterIdentifier=sender"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
+                      LastKnownName="ITask"
                       LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>

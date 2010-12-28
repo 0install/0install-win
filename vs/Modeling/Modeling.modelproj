@@ -128,12 +128,12 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Store.Implementation.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Progress.classdiagram">
+    <Content Include="UML\Class\Task.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Progress.classdiagram.layout">
+    <Content Include="UML\Class\Task.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Progress.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Task.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Sequence\DirectoryStore_AddArchive.sequencediagram">
       <SubType>Content</SubType>

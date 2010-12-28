@@ -124,6 +124,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
             catch (DigestMismatchException ex)
             {
+                // ToDo: Display manifest diff
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.DigestMismatch;
             }
@@ -183,9 +184,9 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching the manifest digest could be found in this store.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified manifest digest in the store.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if the archive/directory content doesn't match the manifest digest.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching the <see cref="ManifestDigest"/> could be found in this store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <see cref="ManifestDigest"/> in the store.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the archive/directory content doesn't match the <see cref="ManifestDigest"/>.</exception>
         private static ErrorLevel ExecuteArgs(IList<string> args, IImplementationHandler handler)
         {
             switch (args[0])
@@ -396,7 +397,7 @@ namespace ZeroInstall.Store.Management.Cli
             string path = args[1];
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException("Directory not found: " + path);
 
-            var manifest = Manifest.Generate(path, format, handler.StartingManifest);
+            var manifest = Manifest.Generate(path, format, handler);
             Console.Write(manifest);
             Console.WriteLine(manifest.CalculateDigest());
         }

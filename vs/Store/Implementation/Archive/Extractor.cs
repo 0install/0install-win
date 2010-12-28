@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : ProgressBase, IDisposable
+    public abstract class Extractor : TaskBase, IDisposable
     {
         #region Variables
         /// <summary>
@@ -151,13 +151,13 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             lock (StateLock)
             {
-                if (State == ProgressState.Ready || State >= ProgressState.Complete) return;
+                if (State == TaskState.Ready || State >= TaskState.Complete) return;
 
                 Thread.Abort();
                 Thread.Join();
 
                 // Reset the state so the task can be started again
-                State = ProgressState.Ready;
+                State = TaskState.Ready;
             }
         }
         #endregion

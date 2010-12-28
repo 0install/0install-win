@@ -21,6 +21,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common;
+using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
@@ -50,6 +52,18 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="IOException">Thrown if the element could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         public abstract void Delete();
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// Verify this element is valid.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
+        /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match the <see cref="ManifestDigest"/>.</exception>
+        public abstract void Verify(IImplementationHandler handler);
         #endregion
 
         #region Comparison

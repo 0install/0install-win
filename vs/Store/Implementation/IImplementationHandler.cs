@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.IO;
 using Common;
 
 namespace ZeroInstall.Store.Implementation
@@ -32,17 +33,12 @@ namespace ZeroInstall.Store.Implementation
         bool Batch { get; set; }
 
         /// <summary>
-        /// Called when a new extraction task is about to be started.
+        /// Called when a new IO task (archive extraction, manifest generation, etc.) needs to be run. Returns once the task has been completed.
         /// </summary>
-        /// <param name="extraction">A reference to the extraction task. Can be used for tracking the progress.</param>
-        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/> and not <see cref="ProgressState.Started"/> yet.</remarks>
-        void StartingExtraction(IProgress extraction);
-
-        /// <summary>
-        /// Called when a new manifest is about to be generated.
-        /// </summary>
-        /// <param name="manifest">A reference to the manifest generation task. Can be used for tracking the progress.</param>
-        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/> and not <see cref="ProgressState.Started"/> yet.</remarks>
-        void StartingManifest(IProgress manifest);
+        /// <param name="task">The extraction task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
+        void RunIOTask(ITask task);
     }
 }

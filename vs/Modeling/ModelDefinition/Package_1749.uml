@@ -73,7 +73,7 @@
             isSubstitutable="false">
             <classMoniker
               Id="2d2a5820-718c-48b2-81b9-e205075cad07"
-              LastKnownName="ProgressBase"
+              LastKnownName="TaskBase"
               LastKnownLocation="Package5_1629.uml" />
           </generalization>
         </generalsInternal>

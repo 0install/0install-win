@@ -23,7 +23,6 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using Common.Utils;
 using Common.Properties;
 
 namespace Common.Cli
@@ -34,19 +33,19 @@ namespace Common.Cli
     public class ProgessBar
     {
         #region Properties
-        private ProgressState _state;
+        private TaskState _state;
         /// <summary>
         /// The current status of the task.
         /// </summary>
         [Description("The current status of the task.")]
-        public ProgressState State
+        public TaskState State
         {
             get { return _state; }
             set
             {
                 #region Sanity checks
-                if (!Enum.IsDefined(typeof(ProgressState), value))
-                    throw new InvalidEnumArgumentException("value", (int)value, typeof(ProgressState));
+                if (!Enum.IsDefined(typeof(TaskState), value))
+                    throw new InvalidEnumArgumentException("value", (int)value, typeof(TaskState));
                 #endregion
 
                 try { UpdateHelper.Do(ref _state, value, Draw); }
@@ -125,27 +124,27 @@ namespace Common.Cli
             Console.Error.Write(@" ");
             switch (State)
             {
-                case ProgressState.Header:
+                case TaskState.Header:
                     Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.Error.Write(Resources.StateHeader);
                     break;
 
-                case ProgressState.Data:
+                case TaskState.Data:
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.Error.Write(Resources.StateData);
                     break;
 
-                case ProgressState.Complete:
+                case TaskState.Complete:
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Error.Write(Resources.StateComplete);
                     break;
 
-                case ProgressState.WebError:
+                case TaskState.WebError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Error.Write(Resources.StateWebError);
                     break;
 
-                case ProgressState.IOError:
+                case TaskState.IOError:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Error.Write(Resources.StateIOError);
                     break;

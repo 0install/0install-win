@@ -15,6 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.IO;
+using System.Net;
 using Common;
 using ZeroInstall.Store.Implementation;
 
@@ -27,10 +30,13 @@ namespace ZeroInstall.Fetchers
     public interface IFetchHandler : IImplementationHandler
     {
         /// <summary>
-        /// Called when a new download is about to be started.
+        /// Called when a new download task needs to be run. Returns once the task has been completed.
         /// </summary>
-        /// <param name="download">A reference to the download. Can be used for tracking the progress.</param>
-        /// <remarks>The <see cref="IProgress.State"/> may still be <see cref="ProgressState.Ready"/> and not <see cref="ProgressState.Started"/> yet.</remarks>
-        void StartingDownload(IProgress download);
+        /// <param name="task">The download task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
+        void RunDownloadTask(ITask task);
     }
 }

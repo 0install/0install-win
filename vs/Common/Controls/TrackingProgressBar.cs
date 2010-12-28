@@ -28,21 +28,21 @@ using Common.Utils;
 namespace Common.Controls
 {
     /// <summary>
-    /// A progress bar that automatically tracks the progress of an <see cref="IProgress"/> task.
+    /// A progress bar that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
     public class TrackingProgressBar : ProgressBar
     {
         #region Properties
-        private IProgress _task;
+        private ITask _task;
         /// <summary>
-        /// The <see cref="IProgress"/> object to track.
+        /// The <see cref="ITask"/> to track.
         /// </summary>
         /// <remarks>
         /// Setting this property will hook up event handlers to monitor the task.
         /// Remember to set it back to <see langword="null"/> or to call <see cref="Dispose"/> when done, to remove the event handlers again.
         /// </remarks>
         [DefaultValue(null), Description("The IProgress object to track.")]
-        public IProgress Task
+        public ITask Task
         {
             set
             {
@@ -96,14 +96,14 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="ProgressBarStyle"/> and the taskbar based on the <see cref="ProgressState"/> of <see cref="_task"/>.
+        /// Changes the <see cref="ProgressBarStyle"/> and the taskbar based on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void StateChanged(IProgress sender)
+        private void StateChanged(ITask sender)
         {
             // Copy value so it can be safely accessed from another thread
-            ProgressState state = sender.State;
+            TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler) delegate
@@ -111,16 +111,16 @@ namespace Common.Controls
                 IntPtr formHandle = ParentHandle;
                 switch (state)
                 {
-                    case ProgressState.Ready:
+                    case TaskState.Ready:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
                         break;
 
-                    case ProgressState.Header:
+                    case TaskState.Header:
                         Style = ProgressBarStyle.Marquee;
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
                         break;
 
-                    case ProgressState.Data:
+                    case TaskState.Data:
                         // Only track progress if the final size is known
                         if (sender.BytesTotal != -1)
                         {
@@ -130,14 +130,14 @@ namespace Common.Controls
                         }
                         break;
 
-                    case ProgressState.IOError:
-                    case ProgressState.WebError:
+                    case TaskState.IOError:
+                    case TaskState.WebError:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
                         Style = ProgressBarStyle.Continuous;
                         Value = 0;
                         break;
 
-                    case ProgressState.Complete:
+                    case TaskState.Complete:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
 
                         // When the status is complete the bar should always be full
@@ -152,7 +152,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>
-        private void ProgressChanged(IProgress sender)
+        private void ProgressChanged(ITask sender)
         {
             // Clamp the progress to values between 0 and 1
             double progress = sender.Progress;

@@ -49,16 +49,17 @@ namespace ZeroInstall.Launcher.Cli
         }
 
         /// <inheritdoc />
-        public void StartingDownload(IProgress download)
+        public void RunDownloadTask(ITask task)
         {
             #region Sanity checks
-            if (download == null) throw new ArgumentNullException("download");
+            if (task == null) throw new ArgumentNullException("task");
             #endregion
 
             if (Batch) return;
 
-            Log.Info(download.Name + "...");
-            new TrackingProgressBar(download);
+            Log.Info(task.Name + "...");
+            using (new TrackingProgressBar(task))
+                task.RunSync();
         }
     }
 }

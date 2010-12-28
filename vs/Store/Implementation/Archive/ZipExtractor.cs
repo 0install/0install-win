@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <inheritdoc />
         protected override void RunTask()
         {
-            lock (StateLock) State = ProgressState.Data;
+            lock (StateLock) State = TaskState.Data;
 
             try
             {
@@ -94,7 +94,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 lock (StateLock)
                 {
                     ErrorMessage = Resources.ArchiveInvalid + "\n" + ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
@@ -103,7 +103,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
@@ -112,13 +112,13 @@ namespace ZeroInstall.Store.Implementation.Archive
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
             #endregion
 
-            lock (StateLock) State = ProgressState.Complete;
+            lock (StateLock) State = TaskState.Complete;
         }
 
         /// <summary>

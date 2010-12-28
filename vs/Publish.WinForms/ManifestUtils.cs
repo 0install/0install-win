@@ -34,9 +34,9 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="owner">The parent window any displayed progress windows are modal to.</param>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <returns>The combined manifest digest structure.</returns>
+        /// <returns>The combined <see cref="ManifestDigest"/> structure.</returns>
         /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="ProgressState.IOError"/>.</exception>
+        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         public static ManifestDigest CreateDigest(IWin32Window owner, string path)
         {
             var digest = new ManifestDigest();
@@ -46,7 +46,7 @@ namespace ZeroInstall.Publish.WinForms
             {
                 // ... and add the resulting digest to the return value
                 var generator = new ManifestGenerator(path, format);
-                TrackingProgressDialog.Run(owner, generator, null);
+                TrackingDialog.Run(owner, generator, null);
                 ManifestDigest.ParseID(generator.Result.CalculateDigest(), ref digest);
             }
 

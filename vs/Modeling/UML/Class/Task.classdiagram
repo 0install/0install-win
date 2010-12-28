@@ -97,9 +97,9 @@
         <elementDefinition Id="bdfc0818-2f15-49d6-87f4-2c319d7d65cc" />
         <packagedElements>
           <packageHasNamedElement>
-            <Interface Id="46818522-6c4a-4100-9127-a2b6ade5c6ae" name="IProgress" isAbstract="false" isLeaf="false">
+            <Interface Id="46818522-6c4a-4100-9127-a2b6ade5c6ae" name="ITask" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="aa360dd1-e1bb-4d4f-a61f-9abb415e4e5a" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress" tag="ViewCode">
+                <reference Id="aa360dd1-e1bb-4d4f-a61f-9abb415e4e5a" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask" tag="ViewCode">
                   <elementDefinition Id="4ade628d-2023-4f0a-888b-3c73bc4a24c5" />
                 </reference>
               </referencesInternal>
@@ -136,12 +136,12 @@
               </appliedStereotypesInternal>
               <elementDefinition Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f" />
               <targetEnds>
-                <association Id="ce679f3c-9aa6-447c-9ad7-f442378f9d6c" isDerived="false" sourceEndRoleName="IProgress" targetEndRoleName="State" isLeaf="false" isAbstract="false">
-                  <enumerationMoniker Id="0137899e-7581-4f1c-b4fe-85867d0e4c71" LastKnownName="ProgressState" />
-                  <description>Property State references type ProgressState.</description>
+                <association Id="ce679f3c-9aa6-447c-9ad7-f442378f9d6c" isDerived="false" sourceEndRoleName="ITask" targetEndRoleName="State" isLeaf="false" isAbstract="false">
+                  <enumerationMoniker Id="0137899e-7581-4f1c-b4fe-85867d0e4c71" LastKnownName="TaskState" />
+                  <description>Property State references type TaskState.</description>
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="4460474b-7a8a-4127-9d36-d31114f1280c" name="IProgress" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="4460474b-7a8a-4127-9d36-d31114f1280c" name="ITask" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
                         <lowerValueInternal>
                           <literalString Id="3a160772-6b1f-4814-9a34-99d9fe01e171" name="Lower" value="*">
                             <elementDefinition Id="0d0c1d24-33c2-4f1d-872c-0ce06b8c4e33" />
@@ -177,7 +177,7 @@
               <ownedAttributes>
                 <property Id="45000ca9-1eac-424a-b31f-ff71a5581f02" name="ErrorMessage" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="1c5cad68-231a-48fe-9e9b-0e4c084246da" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=ErrorMessage" tag="ViewCode">
+                    <reference Id="1c5cad68-231a-48fe-9e9b-0e4c084246da" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=ErrorMessage" tag="ViewCode">
                       <elementDefinition Id="f2d01505-ddba-449e-8a92-16d3dd2f1df5" />
                     </reference>
                   </referencesInternal>
@@ -231,7 +231,7 @@
                 </property>
                 <property Id="f370d7a3-2bb3-4fab-9fe1-9632ff307e54" name="BytesProcessed" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="8e138fec-3824-409d-a434-e4665eb4a770" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=BytesProcessed" tag="ViewCode">
+                    <reference Id="8e138fec-3824-409d-a434-e4665eb4a770" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=BytesProcessed" tag="ViewCode">
                       <elementDefinition Id="0082a66d-1e2f-4a96-8e25-cb30540f209a" />
                     </reference>
                   </referencesInternal>
@@ -285,7 +285,7 @@
                 </property>
                 <property Id="844e8671-b2c5-4869-9d76-644763c3e5f1" name="BytesTotal" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="87a15d45-38aa-4a90-9e51-7b64ded1a221" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=BytesTotal" tag="ViewCode">
+                    <reference Id="87a15d45-38aa-4a90-9e51-7b64ded1a221" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=BytesTotal" tag="ViewCode">
                       <elementDefinition Id="da123cca-fbac-41a0-8fad-72342731b223" />
                     </reference>
                   </referencesInternal>
@@ -339,7 +339,7 @@
                 </property>
                 <property Id="38148ca7-d80e-469b-be06-ea862d92c62d" name="Progress" isLeaf="false" isStatic="false" isReadOnly="true" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="e0fa7bdc-9cda-4568-bc46-e4ee0118fe85" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Progress" tag="ViewCode">
+                    <reference Id="e0fa7bdc-9cda-4568-bc46-e4ee0118fe85" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Progress" tag="ViewCode">
                       <elementDefinition Id="73896f8a-ad77-4d89-a432-97494a4876af" />
                     </reference>
                   </referencesInternal>
@@ -393,7 +393,7 @@
                 </property>
                 <property Id="632822a2-8bab-430c-918f-76d1ba758496" name="StateChanged" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="3ba2690a-3a0b-4df7-b2fb-c9e2e6766daa" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=StateChanged" tag="ViewCode">
+                    <reference Id="3ba2690a-3a0b-4df7-b2fb-c9e2e6766daa" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=StateChanged" tag="ViewCode">
                       <elementDefinition Id="137436a2-4ab7-4bd1-9459-e00783881540" />
                     </reference>
                   </referencesInternal>
@@ -436,12 +436,12 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="14efbee7-0124-4e2c-9da8-22955ce7ec4a" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="ProgressEventHandler" />
+                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="TaskEventHandler" />
                   </type_NamedElement>
                 </property>
                 <property Id="890fe4ec-5adc-4f52-b769-d6ed2f14d303" name="ProgressChanged" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="8bfcb4a2-7587-454c-ae31-ff34d838d628" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=ProgressChanged" tag="ViewCode">
+                    <reference Id="8bfcb4a2-7587-454c-ae31-ff34d838d628" handle="viewcode://./CodeSchema_Event?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=ProgressChanged" tag="ViewCode">
                       <elementDefinition Id="2660222e-8080-4bbf-9366-d4aedaf98a61" />
                     </reference>
                   </referencesInternal>
@@ -484,14 +484,14 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="5a9f2d0a-63af-4bcb-bf73-8e949adf50f6" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="ProgressEventHandler" />
+                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="TaskEventHandler" />
                   </type_NamedElement>
                 </property>
               </ownedAttributes>
               <ownedOperations>
                 <operation Id="44a91f4f-d18e-4e17-8c5b-edf6057fc725" name="Join" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="a39d3430-ecfe-44c3-b4d8-bd43cdba240c" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Join" tag="ViewCode">
+                    <reference Id="a39d3430-ecfe-44c3-b4d8-bd43cdba240c" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Join" tag="ViewCode">
                       <elementDefinition Id="584f0724-4ab6-4003-948c-08041dafee24" />
                     </reference>
                   </referencesInternal>
@@ -536,7 +536,7 @@
                 </operation>
                 <operation Id="a9ac5c0a-32a3-4b40-af6f-9655e6d459c8" name="Cancel" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="73e76574-881a-491b-8324-b7f98619fd2b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress Member=Cancel" tag="ViewCode">
+                    <reference Id="73e76574-881a-491b-8324-b7f98619fd2b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask Member=Cancel" tag="ViewCode">
                       <elementDefinition Id="a325c2e1-b1f3-413c-a279-b64a55ec8ce1" />
                     </reference>
                   </referencesInternal>
@@ -663,9 +663,9 @@
             </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <enumeration Id="0137899e-7581-4f1c-b4fe-85867d0e4c71" name="ProgressState" isAbstract="false" isLeaf="false">
+            <enumeration Id="0137899e-7581-4f1c-b4fe-85867d0e4c71" name="TaskState" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="cee8d43d-51c5-42b4-aef7-5406ec928615" handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState" tag="ViewCode">
+                <reference Id="cee8d43d-51c5-42b4-aef7-5406ec928615" handle="viewcode://./CodeSchema_Enum?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState" tag="ViewCode">
                   <elementDefinition Id="2c9eb757-3f3d-4460-b903-9792ee50dd41" />
                 </reference>
               </referencesInternal>
@@ -698,7 +698,7 @@
               <ownedLiterals>
                 <enumerationLiteral Id="5ccc278a-c224-48cb-ac22-c4fbc148e4f3" name="Ready">
                   <referencesInternal>
-                    <reference Id="67cff120-8e0c-4fe6-b1b5-0031022e67bc" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Ready" tag="ViewCode">
+                    <reference Id="67cff120-8e0c-4fe6-b1b5-0031022e67bc" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Ready" tag="ViewCode">
                       <elementDefinition Id="0b326c3d-5224-4910-a9cc-fe6c0e5f5a11" />
                     </reference>
                   </referencesInternal>
@@ -706,7 +706,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="6b079cd1-1646-4f80-8693-03b7bf204ee5" name="Started">
                   <referencesInternal>
-                    <reference Id="37491b00-604f-4431-a456-1717f2c5357b" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Started" tag="ViewCode">
+                    <reference Id="37491b00-604f-4431-a456-1717f2c5357b" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Started" tag="ViewCode">
                       <elementDefinition Id="675d678c-37d9-42aa-bed4-2a1165f85ee2" />
                     </reference>
                   </referencesInternal>
@@ -714,7 +714,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="1a60f8ea-3f17-4aee-815a-9bf21a3a92b4" name="Header">
                   <referencesInternal>
-                    <reference Id="669ebc7d-007d-4cdc-9f7d-4b5e6474a518" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Header" tag="ViewCode">
+                    <reference Id="669ebc7d-007d-4cdc-9f7d-4b5e6474a518" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Header" tag="ViewCode">
                       <elementDefinition Id="da6ca650-6cd6-451d-8d12-f62a0991f966" />
                     </reference>
                   </referencesInternal>
@@ -722,7 +722,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="38b6714c-5e08-4579-b463-e0a1a6eec6bf" name="Data">
                   <referencesInternal>
-                    <reference Id="b64e3b10-063e-4881-98d3-c84d41044416" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Data" tag="ViewCode">
+                    <reference Id="b64e3b10-063e-4881-98d3-c84d41044416" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Data" tag="ViewCode">
                       <elementDefinition Id="f05b89e6-52ff-4720-a8c2-369ad938af86" />
                     </reference>
                   </referencesInternal>
@@ -730,7 +730,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="8404f721-c59c-44b1-a49f-49e1671d439d" name="Complete">
                   <referencesInternal>
-                    <reference Id="5c406fca-863e-4898-9e3e-63eb739d7bbb" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=Complete" tag="ViewCode">
+                    <reference Id="5c406fca-863e-4898-9e3e-63eb739d7bbb" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=Complete" tag="ViewCode">
                       <elementDefinition Id="9eb819b0-d08e-4532-be8b-021294262899" />
                     </reference>
                   </referencesInternal>
@@ -738,7 +738,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="37f51b18-680e-4cf7-b355-1194ffec159f" name="WebError">
                   <referencesInternal>
-                    <reference Id="2cbab07c-392c-4d38-8f3c-ac48b2564cc3" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=WebError" tag="ViewCode">
+                    <reference Id="2cbab07c-392c-4d38-8f3c-ac48b2564cc3" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=WebError" tag="ViewCode">
                       <elementDefinition Id="44c60155-3a65-49f2-9ee6-30da7e9507ca" />
                     </reference>
                   </referencesInternal>
@@ -746,7 +746,7 @@
                 </enumerationLiteral>
                 <enumerationLiteral Id="44391b51-e572-4f69-8291-96add3cc5815" name="IOError">
                   <referencesInternal>
-                    <reference Id="0c8beaa5-2d48-49ef-a5c3-1ffea51f388f" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ProgressState Member=IOError" tag="ViewCode">
+                    <reference Id="0c8beaa5-2d48-49ef-a5c3-1ffea51f388f" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=TaskState Member=IOError" tag="ViewCode">
                       <elementDefinition Id="e20a9de6-99c2-4993-82d0-ad51b495679d" />
                     </reference>
                   </referencesInternal>
@@ -756,7 +756,7 @@
             </enumeration>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" name="ProgressBase" isAbstract="true" isLeaf="false" isActiveClass="false">
+            <class Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" name="TaskBase" isAbstract="true" isLeaf="false" isActiveClass="false">
               <referencesInternal>
                 <reference Id="18538b8f-4e6f-45e7-99c2-c44e538f3d5b" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOProgress" tag="ViewCode">
                   <elementDefinition Id="64e470ae-638d-4a74-ab7a-504dc9e384aa" />
@@ -802,7 +802,7 @@
               <elementDefinition Id="2d2a5820-718c-48b2-81b9-e205075cad07" />
               <suppliersInternal>
                 <interfaceRealization Id="32416af4-1736-4299-8987-368cade71f91">
-                  <interfaceMoniker Id="46818522-6c4a-4100-9127-a2b6ade5c6ae" LastKnownName="IProgress" />
+                  <interfaceMoniker Id="46818522-6c4a-4100-9127-a2b6ade5c6ae" LastKnownName="ITask" />
                   <elementDefinition Id="f0d2e33f-4161-49fc-a609-18d4cac1cf05" />
                 </interfaceRealization>
               </suppliersInternal>
@@ -1122,7 +1122,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="524241a0-1783-480b-9f30-6e41a0507b6b" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="ProgressEventHandler" />
+                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="TaskEventHandler" />
                   </type_NamedElement>
                 </property>
                 <property Id="7c552947-8a00-4342-b9b6-bf94231cb992" name="ProgressChanged" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -1170,7 +1170,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="949d2e1c-4ce9-4a07-b5db-7554f8c8cda5" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="ProgressEventHandler" />
+                    <referencedTypeMoniker Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" LastKnownName="TaskEventHandler" />
                   </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
@@ -1459,7 +1459,7 @@
                     <elementDefinition Id="7006f839-60f5-49ef-a500-00cfb8268342" />
                     <generalsInternal>
                       <generalization Id="003c0dda-02f3-4d7c-9f0d-5902aaa42602" isSubstitutable="false">
-                        <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="ProgressBase" />
+                        <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="TaskBase" />
                         <elementDefinition Id="77e30e20-78e6-4243-9c9f-e5831f9a62d4" />
                       </generalization>
                     </generalsInternal>
@@ -1806,7 +1806,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" name="ProgressEventHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::ProgressEventHandler">
+      <referencedType Id="a8f895f0-13ac-4d4d-8de1-c6f43ccd7b07" name="TaskEventHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::TaskEventHandler">
         <elementDefinition Id="167c9121-47a9-4e5f-8fbf-d44dc4cb0558" />
       </referencedType>
     </packageHasNamedElement>
@@ -1876,7 +1876,7 @@
               <elementDefinition Id="31eb0b09-a4f0-4b7e-8cac-3edf5e097f20" />
               <generalsInternal>
                 <generalization Id="6b0534ec-0e75-414f-8f80-ff6fb241db54" isSubstitutable="false">
-                  <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="ProgressBase" />
+                  <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="TaskBase" />
                   <elementDefinition Id="cfcd2c06-c1f3-4f0f-9723-5dd66c3e658b" />
                 </generalization>
               </generalsInternal>
@@ -2321,7 +2321,7 @@
                     <elementDefinition Id="6ecbce87-3787-46e4-94de-b1f11decb536" />
                     <generalsInternal>
                       <generalization Id="9df7de39-072e-4699-be2f-b634fc8992a0" isSubstitutable="false">
-                        <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="ProgressBase" />
+                        <classMoniker Id="d45abca1-55a1-4f43-b85e-b1a1ff005e2a" LastKnownName="TaskBase" />
                         <elementDefinition Id="7b5cb729-8880-465b-99f9-793493f1bb61" />
                       </generalization>
                     </generalsInternal>

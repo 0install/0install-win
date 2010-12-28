@@ -1,4 +1,6 @@
-﻿namespace ZeroInstall.Store.Management.WinForms
+﻿using ZeroInstall.Store.Implementation;
+
+namespace ZeroInstall.Store.Management.WinForms
 {
     partial class MainForm
     {
@@ -40,7 +42,8 @@
             this.labelCheckedSize = new System.Windows.Forms.Label();
             this.labelTotalSize = new System.Windows.Forms.Label();
             this.propertyGrid = new System.Windows.Forms.PropertyGrid();
-            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonVerify = new System.Windows.Forms.Button();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
             this.tableLayoutPanelSize.SuspendLayout();
@@ -185,17 +188,29 @@
             this.propertyGrid.TabIndex = 0;
             this.propertyGrid.ToolbarVisible = false;
             // 
-            // buttonDelete
+            // buttonRemove
             // 
-            this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonDelete.Enabled = false;
-            this.buttonDelete.Location = new System.Drawing.Point(12, 439);
-            this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
-            this.buttonDelete.TabIndex = 1;
-            this.buttonDelete.Text = "&Delete";
-            this.buttonDelete.UseVisualStyleBackColor = true;
-            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            this.buttonRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonRemove.Enabled = false;
+            this.buttonRemove.Location = new System.Drawing.Point(12, 439);
+            this.buttonRemove.Name = "buttonRemove";
+            this.buttonRemove.Size = new System.Drawing.Size(75, 23);
+            this.buttonRemove.TabIndex = 1;
+            this.buttonRemove.Text = "&Remove";
+            this.buttonRemove.UseVisualStyleBackColor = true;
+            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
+            // 
+            // buttonVerify
+            // 
+            this.buttonVerify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonVerify.Enabled = false;
+            this.buttonVerify.Location = new System.Drawing.Point(93, 439);
+            this.buttonVerify.Name = "buttonVerify";
+            this.buttonVerify.Size = new System.Drawing.Size(75, 23);
+            this.buttonVerify.TabIndex = 1;
+            this.buttonVerify.Text = "&Verify";
+            this.buttonVerify.UseVisualStyleBackColor = true;
+            this.buttonVerify.Click += new System.EventHandler(this.buttonVerify_Click);
             // 
             // MainForm
             // 
@@ -204,7 +219,8 @@
             this.CancelButton = this.buttonClose;
             this.ClientSize = new System.Drawing.Size(496, 474);
             this.Controls.Add(this.splitContainer);
-            this.Controls.Add(this.buttonDelete);
+            this.Controls.Add(this.buttonVerify);
+            this.Controls.Add(this.buttonRemove);
             this.Controls.Add(this.buttonRefresh);
             this.Controls.Add(this.buttonClose);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -225,7 +241,7 @@
         private System.Windows.Forms.Button buttonRefresh;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.PropertyGrid propertyGrid;
-        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanelSize;
         private System.Windows.Forms.Label labelCurrentSize;
         private System.Windows.Forms.TextBox textTotalSize;
@@ -233,6 +249,7 @@
         private System.Windows.Forms.TextBox textCheckedSize;
         private System.Windows.Forms.Label labelCheckedSize;
         private System.Windows.Forms.Label labelTotalSize;
+        private System.Windows.Forms.Button buttonVerify;
 
     }
 }

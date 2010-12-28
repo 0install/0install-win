@@ -32,7 +32,7 @@ namespace Common.Net
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    public class DownloadFile : ProgressBase
+    public class DownloadFile : TaskBase
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be cancelled.</summary>
@@ -46,20 +46,20 @@ namespace Common.Net
         /// <summary>
         /// The URL the file is to be downloaded from.
         /// </summary>
-        /// <remarks>This value may change once <see cref="ProgressState.Data"/> has been reached, based on HTTP redirections.</remarks>
+        /// <remarks>This value may change once <see cref="TaskState.Data"/> has been reached, based on HTTP redirections.</remarks>
         [Description("The URL the file is to be downloaded from.")]
         public Uri Source { get; private set; }
 
         /// <summary>
         /// The HTTP header data returned by the server for the download request. An empty collection in case of an FTP download.
         /// </summary>
-        /// <remarks>This value is always <see langword="null"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
+        /// <remarks>This value is always <see langword="null"/> until <see cref="TaskState.Data"/> has been reached.</remarks>
         public WebHeaderCollection Headers { get; private set; }
 
         /// <summary>
         /// Indicates whether this download can be resumed without having to start from the beginning again.
         /// </summary>
-        /// <remarks>This value is always <see langword="true"/> until <see cref="ProgressState.Data"/> has been reached.</remarks>
+        /// <remarks>This value is always <see langword="true"/> until <see cref="TaskState.Data"/> has been reached.</remarks>
         [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
         public bool SupportsResume { get; private set; }
 
@@ -107,13 +107,13 @@ namespace Common.Net
         {
             lock (StateLock)
             {
-                if (_cancelRequest || State == ProgressState.Ready || State >= ProgressState.Complete) return;
+                if (_cancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
 
                 _cancelRequest = true;
                 Thread.Join();
 
                 // Reset the state so the task can be started again
-                State = ProgressState.Ready;
+                State = TaskState.Ready;
                 _cancelRequest = false;
             }
         }
@@ -134,7 +134,7 @@ namespace Common.Net
                     if (fileStream.Length != 0) SetResumePoint(request, fileStream);
 
                     if (_cancelRequest) return;
-                    lock (StateLock) State = ProgressState.Header;
+                    lock (StateLock) State = TaskState.Header;
 
                     // Start the server request, allowing for cancellation
                     var responseRequest = request.BeginGetResponse(null, null);
@@ -167,7 +167,7 @@ namespace Common.Net
                                 }
                             }
 
-                            State = ProgressState.Data;
+                            State = TaskState.Data;
                         }
 
                         // Start writing data to the file
@@ -182,7 +182,7 @@ namespace Common.Net
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.WebError;
+                    State = TaskState.WebError;
                 }
                 return;
             }
@@ -191,7 +191,7 @@ namespace Common.Net
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
@@ -200,14 +200,14 @@ namespace Common.Net
                 lock (StateLock)
                 {
                     ErrorMessage = ex.Message;
-                    State = ProgressState.IOError;
+                    State = TaskState.IOError;
                 }
                 return;
             }
             #endregion
 
             if (_cancelRequest) return;
-            lock (StateLock) State = ProgressState.Complete;
+            lock (StateLock) State = TaskState.Complete;
         }
         #endregion
 
@@ -228,7 +228,7 @@ namespace Common.Net
             else if (BytesTotal != response.ContentLength)
             {
                 ErrorMessage = string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength);
-                State = ProgressState.WebError;
+                State = TaskState.WebError;
                 return false;
             }
 

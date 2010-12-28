@@ -29,21 +29,21 @@ using Common.Utils;
 namespace Common.Controls
 {
     /// <summary>
-    /// A label that automatically tracks the progress of an <see cref="IProgress"/> task.
+    /// A label that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
     public class TrackingLabel : Label
     {
         #region Properties
-        private IProgress _task;
+        private ITask _task;
         /// <summary>
-        /// The <see cref="IProgress"/> object to track.
+        /// The <see cref="ITask"/> to track.
         /// </summary>
         /// <remarks>
         /// Setting this property will hook up event handlers to monitor the task.
         /// Remember to set it back to <see langword="null"/> or to call <see cref="Dispose"/> when done, to remove the event handlers again.
         /// </remarks>
         [DefaultValue(null), Description("The IProgress object to track.")]
-        public IProgress Task
+        public ITask Task
         {
             set
             {
@@ -77,30 +77,30 @@ namespace Common.Controls
 
         #region Event callbacks
         /// <summary>
-        /// Changes the <see cref="Label.Text"/> based on the <see cref="ProgressState"/> of <see cref="_task"/>.
+        /// Changes the <see cref="Label.Text"/> based on the <see cref="TaskState"/> of <see cref="_task"/>.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void StateChanged(IProgress sender)
+        private void StateChanged(ITask sender)
         {
             // Copy value so it can be safely accessed from another thread
-            ProgressState state = sender.State;
+            TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate
             {
                 switch (state)
                 {
-                    case ProgressState.Ready:
+                    case TaskState.Ready:
                         ForeColor = SystemColors.ControlText;
                         Text = Resources.StateReady;
                         break;
 
-                    case ProgressState.Header:
+                    case TaskState.Header:
                         ForeColor = SystemColors.ControlText;
                         Text = Resources.StateHeader;
                         break;
 
-                    case ProgressState.Data:
+                    case TaskState.Data:
                         ForeColor = SystemColors.ControlText;
                         
                         // Only track progress if the final size is known
@@ -108,17 +108,17 @@ namespace Common.Controls
                         else Text = Resources.StateData;
                         break;
 
-                    case ProgressState.Complete:
+                    case TaskState.Complete:
                         Text = Resources.StateComplete;
                         ForeColor = Color.Green;
                         break;
 
-                    case ProgressState.WebError:
+                    case TaskState.WebError:
                         ForeColor = Color.Red;
                         Text = Resources.StateWebError;
                         break;
 
-                    case ProgressState.IOError:
+                    case TaskState.IOError:
                         ForeColor = Color.Red;
                         Text = Resources.StateIOError;
                         break;
@@ -130,7 +130,7 @@ namespace Common.Controls
         /// Changes the <see cref="Label.Text"/> based on the already proccessed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
-        private void ProgressChanged(IProgress sender)
+        private void ProgressChanged(ITask sender)
         {
             // Handle events coming from a non-UI thread, don't block caller
             BeginInvoke((SimpleEventHandler)delegate

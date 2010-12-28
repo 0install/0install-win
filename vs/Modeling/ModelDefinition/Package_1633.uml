@@ -815,7 +815,7 @@
         <ownedOperations>
           <operation
             Id="7ce4427a-6cef-4da2-90e4-16e5e3b7e7bd"
-            name="StartingDownload"
+            name="RunDownloadTask"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -824,7 +824,7 @@
             <referencesInternal>
               <reference
                 Id="7d3ae986-deb4-4c8a-9bb6-7c8a28cb9671"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -873,19 +873,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="e9361cb6-5394-4e98-bc1a-38a734b58ffe"
-                  name="download"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="119d3078-1a90-416c-94af-2b7b263fdf59"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=download"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  Id="1eb79943-5e3d-465e-a1bd-7e230f722180"
+                  name="task"
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
+                      LastKnownName="ITask"
                       LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>

@@ -33,14 +33,14 @@ namespace ZeroInstall.Fetchers
     internal class RetrievalMethodRanker : IComparer<RetrievalMethod>
     {
         #region Declaration of Priorities
-        private enum Category : int
+        private enum Category
         {
             Null,
             Format,
             Simplicity
         }
 
-        private enum Valuation : int
+        private enum Valuation
         {
             Recipe = 1 * Category.Simplicity,
             Archive = 0 * Category.Simplicity,
@@ -280,8 +280,10 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                if (FetcherInstance.Handler != null) FetcherInstance.Handler.StartingDownload(downloadFile);
-                downloadFile.RunSync();
+                // Run task locally or defer to handler
+                if (FetcherInstance.Handler == null) downloadFile.RunSync();
+                else FetcherInstance.Handler.RunDownloadTask(downloadFile);
+
                 RejectLocalFileOfWrongSize(archive, destination);
             }
             catch (FetcherException)

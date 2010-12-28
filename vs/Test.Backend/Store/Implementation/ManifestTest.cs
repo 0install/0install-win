@@ -19,6 +19,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Model;
 using Common.Utils;
 
@@ -221,9 +222,10 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                bool callbackCalled = false;
-                Manifest.Generate(packageDir, ManifestFormat.Sha256, delegate { callbackCalled = true; });
-                Assert.IsTrue(callbackCalled);
+                var handlerMock = new DynamicMock("MockHandler", typeof(IImplementationHandler));
+                handlerMock.Expect("RunIOTask");
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, (IImplementationHandler)handlerMock.MockInstance);
+                handlerMock.Verify();
             }
             finally
             {

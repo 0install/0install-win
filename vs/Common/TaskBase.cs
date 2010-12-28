@@ -29,28 +29,28 @@ using Common.Properties;
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that implement <see cref="IProgress"/>.
+    /// Abstract base class for background tasks that implement <see cref="ITask"/>.
     /// </summary>
-    public abstract class ProgressBase : MarshalByRefObject, IProgress
+    public abstract class TaskBase : MarshalByRefObject, ITask
     {
         #region Events
         /// <inheritdoc />
-        public event ProgressEventHandler StateChanged;
+        public event TaskEventHandler StateChanged;
 
         private void OnStateChanged()
         {
             // Copy to local variable to prevent threading issues
-            ProgressEventHandler stateChanged = StateChanged;
+            TaskEventHandler stateChanged = StateChanged;
             if (stateChanged != null) stateChanged(this);
         }
 
         /// <inheritdoc />
-        public event ProgressEventHandler ProgressChanged;
+        public event TaskEventHandler ProgressChanged;
 
         private void OnProgressChanged()
         {
             // Copy to local variable to prevent threading issues
-            ProgressEventHandler progressChanged = ProgressChanged;
+            TaskEventHandler progressChanged = ProgressChanged;
             if (progressChanged != null) progressChanged(this);
         }
         #endregion
@@ -69,9 +69,9 @@ namespace Common
         /// </summary>
         public abstract string Name { get; }
 
-        private ProgressState _state;
+        private TaskState _state;
         /// <inheritdoc />
-        public ProgressState State
+        public TaskState State
         {
             get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
         }
@@ -109,7 +109,7 @@ namespace Common
         #endregion
 
         #region Constructor
-        protected ProgressBase()
+        protected TaskBase()
         {
             // Prepare the background thread for later execution
             Thread = new Thread(RunTask);
@@ -124,9 +124,9 @@ namespace Common
         {
             lock (StateLock)
             {
-                if (State != ProgressState.Ready) return;
+                if (State != TaskState.Ready) return;
 
-                State = ProgressState.Started;
+                State = TaskState.Started;
                 Thread.Start();
             }
         }
@@ -137,9 +137,9 @@ namespace Common
             // Still use threads so cancel request from other threads will work
             lock (StateLock)
             {
-                if (State != ProgressState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
+                if (State != TaskState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
 
-                State = ProgressState.Started;
+                State = TaskState.Started;
                 Thread.Start();
             }
 
@@ -149,19 +149,19 @@ namespace Common
             {
                 switch (State)
                 {
-                    case ProgressState.Complete:
+                    case TaskState.Complete:
                         return;
 
-                    case ProgressState.WebError:
-                        State = ProgressState.Ready;
+                    case TaskState.WebError:
+                        State = TaskState.Ready;
                         throw new WebException(ErrorMessage);
 
-                    case ProgressState.IOError:
-                        State = ProgressState.Ready;
+                    case TaskState.IOError:
+                        State = TaskState.Ready;
                         throw new IOException(ErrorMessage);
 
                     default:
-                        State = ProgressState.Ready;
+                        State = TaskState.Ready;
                         throw new UserCancelException();
                 }
             }

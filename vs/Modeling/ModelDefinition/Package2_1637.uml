@@ -245,7 +245,7 @@
           </operation>
           <operation
             Id="763468d5-8773-4a5b-b651-0f2530d48997"
-            name="StartingDownload"
+            name="RunDownloadTask"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -254,7 +254,7 @@
             <referencesInternal>
               <reference
                 Id="4532ede7-21df-4466-b2d8-3d1f5238a0b3"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -303,19 +303,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="b1bd2288-168e-48ce-8179-03a6a7423b25"
-                  name="download"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="3e843049-c845-436e-bd5d-d749d83d50b6"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=download"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  Id="09cb48f6-cb31-464e-b25b-1bdb90472758"
+                  name="task"
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
+                      LastKnownName="ITask"
                       LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -324,7 +319,7 @@
           </operation>
           <operation
             Id="52b421fe-f5e7-4108-9cb5-76ca7c5049d0"
-            name="StartingExtraction"
+            name="RunIOTask"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -333,7 +328,7 @@
             <referencesInternal>
               <reference
                 Id="27c0a709-b598-40e9-8756-a107301438a4"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -382,98 +377,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="bdae3bd4-4044-43cf-85eb-e7f14c296887"
-                  name="extraction"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="5d7c7636-1856-4b0c-9b87-2009e07215bb"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=extraction"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  Id="b0c12f09-1580-4677-a621-d8c2473f27aa"
+                  name="task"
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
-                      LastKnownLocation="Package5_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-          <operation
-            Id="2093334e-8a7b-4381-85b4-46e522b32e97"
-            name="StartingManifest"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="254e0355-5ab8-4453-9b6d-bec74d1da396"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d031bde3-3094-4240-98df-580a223bf76e"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5b99d191-31ee-44c5-a560-595c4da73ac9">
-                    <propertyInstance
-                      Id="d997797a-08e0-4743-b343-e6eb12dc6a7f"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="508a636c-35a1-4352-be8d-cb75f76ad5c2">
-                    <propertyInstance
-                      Id="e0077a36-6860-4e69-a079-1327e9339052"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="016430d3-382c-4d9f-a1b2-e9f37e750fd2">
-                    <propertyInstance
-                      Id="ab1a695f-7cb1-4f14-abcc-063e24bc594b"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="29fde554-38e2-48c1-9cbd-89eaa0a8ebe5">
-                    <propertyInstance
-                      Id="a763d859-4111-40e2-9282-d649274358de"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3373070e-8034-4411-9ee1-3485862130cb">
-                    <propertyInstance
-                      Id="8f18f3cf-c971-4f66-9063-12f0e2a3d351"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="cc23e25b-5148-4951-8123-77191943cf7c"
-                  name="manifest"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="90d7d478-0ae7-4bb7-ac7a-5bc589df7f16"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingManifest OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IProgress)]) ParameterIdentifier=manifest"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="IProgress"
+                      LastKnownName="ITask"
                       LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>

@@ -74,45 +74,22 @@ namespace ZeroInstall.Central.Wpf
             this.Finished();
         }
 
-        public bool Batch
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public bool Batch { get; set; }
 
-        public void StartingDownload(IProgress download)
+        public void RunDownloadTask(ITask task)
         {
             //this.State = "Downloading";
             this.AppInfo.StateProgressColor = Color.FromArgb(255, 1, 211, 40);
-            download.ProgressChanged += new ProgressEventHandler(delegate(IProgress sender)
-            {
-                this.AppInfo.StateProgressPercent = Math.Max(0, download.Progress) * 100;
-            });
+            task.ProgressChanged += sender => AppInfo.StateProgressPercent = Math.Max(0, task.Progress) * 100;
+            task.RunSync();
         }
 
-        public void StartingExtraction(IProgress extraction)
+        public void RunIOTask(ITask task)
         {
             //this.State = "Extracting";
             this.AppInfo.StateProgressColor = Color.FromArgb(255, 255, 255, 0);
-            extraction.ProgressChanged += new ProgressEventHandler(delegate(IProgress sender)
-            {
-                this.AppInfo.StateProgressPercent = Math.Max(0, extraction.Progress) * 50;
-            });
-        }
-
-        public void StartingManifest(IProgress manifest)
-        {
-            //this.State = "Installing";
-            manifest.ProgressChanged += new ProgressEventHandler(delegate(IProgress sender)
-            {
-                this.AppInfo.StateProgressPercent = 50 + Math.Max(0, manifest.Progress) * 50;
-            });
+            task.ProgressChanged += sender => AppInfo.StateProgressPercent = Math.Max(0, task.Progress) * 50;
+            task.RunSync();
         }
 
         public bool AcceptNewKey(string information)
