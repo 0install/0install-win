@@ -197,6 +197,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>

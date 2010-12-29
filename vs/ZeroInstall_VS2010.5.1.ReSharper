@@ -105,6 +105,7 @@
       <Abbreviation Text="IO" />
       <Abbreviation Text="PG" />
       <Abbreviation Text="OK" />
+      <Abbreviation Text="RC" />
     </Naming2>
   </CodeStyleSettings>
 </Configuration>

@@ -149,18 +149,18 @@ namespace ZeroInstall.Fetchers
     /// </summary>
     public class ImplementationFetch
     {
-        private Fetcher FetcherInstance;
-        private readonly List<RetrievalMethod> RetrievalMethods;
-        private ManifestDigest Digest;
-        internal bool Completed = false;
-        internal List<Exception> Problems = new List<Exception>();
+        private readonly Fetcher _fetcherInstance;
+        private readonly List<RetrievalMethod> _retrievalMethods;
+        private readonly ManifestDigest Digest;
+        internal bool Completed;
+        internal readonly List<Exception> Problems = new List<Exception>();
 
         public ImplementationFetch(Fetcher fetcher, Implementation implementation)
         {
-            FetcherInstance = fetcher;
-            RetrievalMethods = new List<RetrievalMethod>(implementation.RetrievalMethods.Count);
-            RetrievalMethods.AddRange(implementation.RetrievalMethods);
-            RetrievalMethods.Sort(new RetrievalMethodRanker());
+            _fetcherInstance = fetcher;
+            _retrievalMethods = new List<RetrievalMethod>(implementation.RetrievalMethods.Count);
+            _retrievalMethods.AddRange(implementation.RetrievalMethods);
+            _retrievalMethods.Sort(new RetrievalMethodRanker());
             Digest = implementation.ManifestDigest;
         }
 
@@ -171,7 +171,7 @@ namespace ZeroInstall.Fetchers
 
         private void TryRetrievalMethods()
         {
-            foreach (var method in RetrievalMethods)
+            foreach (var method in _retrievalMethods)
             {
                 Problems.Clear();
                 TryOneRetrievalMethodAndNoteProblems(method);
@@ -221,9 +221,9 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                FetcherInstance.Store.AddArchive(tempArchiveInfo,
+                _fetcherInstance.Store.AddArchive(tempArchiveInfo,
                     Digest,
-                    FetcherInstance.Handler);
+                    _fetcherInstance.Handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
             finally { File.Delete(tempArchiveInfo.Path); }
@@ -255,7 +255,7 @@ namespace ZeroInstall.Fetchers
             }
             try
             {
-                FetcherInstance.Store.AddMultipleArchives(archives, Digest, FetcherInstance.Handler);
+                _fetcherInstance.Store.AddMultipleArchives(archives, Digest, _fetcherInstance.Handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
@@ -281,8 +281,8 @@ namespace ZeroInstall.Fetchers
             try
             {
                 // Run task locally or defer to handler
-                if (FetcherInstance.Handler == null) downloadFile.RunSync();
-                else FetcherInstance.Handler.RunDownloadTask(downloadFile);
+                if (_fetcherInstance.Handler == null) downloadFile.RunSync();
+                else _fetcherInstance.Handler.RunDownloadTask(downloadFile);
 
                 RejectLocalFileOfWrongSize(archive, destination);
             }

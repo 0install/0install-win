@@ -70,7 +70,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateFormControls()
         {
             ClearFormControls();
+#pragma warning disable 168
             IntPtr dummy = tabControlRecipe.Handle;
+#pragma warning restore 168
             if (_recipe.Steps.Count == 0)
             {
                 var archiveControl = CreateArchiveControl();

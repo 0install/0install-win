@@ -55,6 +55,9 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         static int Main(string[] args)
         {
+            // Automatically show help for missing args
+            if (args.Length == 0) args = new[] { "--help" };
+
             ParseResults results;
             OperationMode mode;
 

@@ -31,9 +31,7 @@ namespace Common.Utils
 {
     public abstract class HierarchyEntry
     {
-        public delegate void EntryHandler(HierarchyEntry entry);
-
-        private EntryContainer _parent;
+        private readonly EntryContainer _parent;
 
         public string Name { get; private set; }
         public DateTime LastWriteTime { get; private set; }
@@ -69,7 +67,7 @@ namespace Common.Utils
 
     public class FileEntry : HierarchyEntry
     {
-        private MemoryStream _content;
+        private readonly MemoryStream _content;
         private readonly bool _executable;
         public bool IsExecutable { get { return _executable; } }
 
@@ -99,7 +97,7 @@ namespace Common.Utils
 
     public abstract class EntryContainer : HierarchyEntry
     {
-        protected List<HierarchyEntry> entries = new List<HierarchyEntry>();
+        protected readonly List<HierarchyEntry> Entries = new List<HierarchyEntry>();
 
         protected EntryContainer(string name, EntryContainer parent, DateTime lastWrite)
             : base(name, parent, lastWrite)
@@ -107,13 +105,13 @@ namespace Common.Utils
 
         public void Add(HierarchyEntry newEntry)
         {
-            entries.Add(newEntry);
-            entries.Sort((HierarchyEntry left, HierarchyEntry right) => StringComparer.InvariantCulture.Compare(left.Name, right.Name));
+            Entries.Add(newEntry);
+            Entries.Sort((left, right) => StringComparer.InvariantCulture.Compare(left.Name, right.Name));
         }
 
         public IEnumerable<HierarchyEntry> Children
         {
-            get { return entries; }
+            get { return Entries; }
         }
     }
 
@@ -161,12 +159,12 @@ namespace Common.Utils
 
     class HierarchyToZip : HierarchyVisitor
     {
-        ZipOutputStream zip;
+        private readonly ZipOutputStream _zip;
 
         internal HierarchyToZip(ZipOutputStream zipOut)
         {
             Debug.Assert(zipOut != null);
-            zip = zipOut;
+            _zip = zipOut;
         }
 
         public override void VisitFile(FileEntry entry)
@@ -176,29 +174,27 @@ namespace Common.Utils
 
         private void WriteFileEntryToZip(FileEntry entry)
         {
-            zip.PutNextEntry(CreateZipEntry(entry));
-            var writer = new BinaryWriter(zip);
+            _zip.PutNextEntry(CreateZipEntry(entry));
+            var writer = new BinaryWriter(_zip);
             writer.Write(entry.Content);
             writer.Flush();
         }
 
         private static ZipEntry CreateZipEntry(HierarchyEntry entry)
         {
-            var zipEntry = new ZipEntry(entry.RelativePath);
-            zipEntry.DateTime = entry.LastWriteTime;
+            var zipEntry = new ZipEntry(entry.RelativePath) {DateTime = entry.LastWriteTime};
             return zipEntry;
         }
 
         public override void VisitFolder(FolderEntry entry)
         {
-            WriteFolderEntryToZip(zip, entry);
+            WriteFolderEntryToZip(_zip, entry);
             VisitChildren(entry);
         }
 
         private static void WriteFolderEntryToZip(ZipOutputStream zip, FolderEntry entry)
         {
-            var zipEntry = new ZipEntry(entry.RelativePath + "/");
-            zipEntry.DateTime = entry.LastWriteTime;
+            var zipEntry = new ZipEntry(entry.RelativePath + "/") {DateTime = entry.LastWriteTime};
             zip.PutNextEntry(zipEntry);
         }
 

@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// </summary>
     public static class TestData
     {
-        private static readonly Assembly testDataAssembly = Assembly.GetAssembly(typeof(TestData));
+        private static readonly Assembly _testDataAssembly = Assembly.GetAssembly(typeof(TestData));
 
         public static Stream GetSdlZipArchiveStream()
         {
@@ -64,7 +64,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
         private static Stream GetTestDataResourceStreamByName(string name)
         {
-            return testDataAssembly.GetManifestResourceStream(typeof(TestData), name);
+            return _testDataAssembly.GetManifestResourceStream(typeof(TestData), name);
         }
     }
 }

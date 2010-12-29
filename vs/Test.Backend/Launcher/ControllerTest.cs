@@ -37,7 +37,7 @@ namespace ZeroInstall.Launcher
     {
         #region Shared
         // Dummy data used by the tests
-        private const string testUri = "http://nothing";
+        private const string TestUri = "http://nothing";
 
         private DynamicMock _solverMock;
         private DynamicMock _cacheMock;
@@ -80,8 +80,8 @@ namespace ZeroInstall.Launcher
         {
             var policy = new Policy(new FeedManager(TestCache, new SilentHandler()), new Fetcher(null));
 
-            _solverMock.Expect("Solve", testUri, policy);
-            var controller = new Controller(testUri, TestSolver, policy);
+            _solverMock.Expect("Solve", TestUri, policy);
+            var controller = new Controller(TestUri, TestSolver, policy);
             controller.Solve();
         }
 
