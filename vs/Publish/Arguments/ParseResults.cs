@@ -31,10 +31,10 @@ namespace ZeroInstall.Publish.Arguments
 
         public bool XmlSign;
 
-        public string GnuPGUser;
+        public bool Unsign;
+
+        public string Key;
 
         public string GnuPGPassphrase;
-
-        public bool Unsign;
     }
 }
