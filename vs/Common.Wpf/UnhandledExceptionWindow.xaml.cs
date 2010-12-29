@@ -1,4 +1,26 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Dennis Keil
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+using System;
 using System.Windows;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
@@ -9,7 +31,7 @@ namespace Common.Wpf
     /// <summary>
     /// Interaktionslogik für UnhandledExceptionWindow.xaml
     /// </summary>
-    public partial class UnhandledExceptionWindow : Window
+    public partial class UnhandledExceptionWindow
     {
         #region Instance Members / Properties
 
@@ -28,30 +50,30 @@ namespace Common.Wpf
         {
             InitializeComponent();
 
-            this.UnhandledException = unhandledException;
+            UnhandledException = unhandledException;
 
-            this.UnhandledExceptionInformation = new ExceptionInformation(this.UnhandledException);
+            UnhandledExceptionInformation = new ExceptionInformation(UnhandledException);
 
             // A missing file as the root is more important than the secondary exceptions it causes
-            if (this.UnhandledException.InnerException != null && this.UnhandledException.InnerException is FileNotFoundException)
-                this.UnhandledException = this.UnhandledException.InnerException;
+            if (UnhandledException.InnerException != null && UnhandledException.InnerException is FileNotFoundException)
+                UnhandledException = UnhandledException.InnerException;
 
             // Make the message simpler for missing files
-            String technicalDetails = (this.UnhandledException is FileNotFoundException) ? this.UnhandledException.Message.Replace("\n", "\r\n") : this.UnhandledException.ToString();
+            string technicalDetails = (UnhandledException is FileNotFoundException) ? UnhandledException.Message.Replace("\n", "\r\n") : UnhandledException.ToString();
 
             // Append inner exceptions
-            if (this.UnhandledException.InnerException != null)
-                technicalDetails += "\r\n\r\n" + this.UnhandledException.InnerException;
+            if (UnhandledException.InnerException != null)
+                technicalDetails += "\r\n\r\n" + UnhandledException.InnerException;
 
-            this.tbTechnicalDetails.Text = technicalDetails;
+            tbTechnicalDetails.Text = technicalDetails;
         }
         #endregion
 
         #region Button: Report
-        private void bReport_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void bReport_Click(object sender, RoutedEventArgs e)
         {
         	// Create report file with error details and comments
-            String path = GenerateReportFile();
+            //string path = GenerateReportFile();
 
             // Upload report file
             //NanoGrid.Upload(path);
@@ -62,7 +84,7 @@ namespace Common.Wpf
         #endregion
 
         #region Button: Do not report
-        private void bDoNotReport_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void bDoNotReport_Click(object sender, RoutedEventArgs e)
         {
             // Restart application
             Restart();
@@ -74,7 +96,7 @@ namespace Common.Wpf
         {
             // TODO: Restart zero install.
 
-            this.Close();
+            Close();
         }
         #endregion
 
@@ -104,20 +126,20 @@ namespace Common.Wpf
 
                 // Store the exception information as TXT
                 zipStream.PutNextEntry(new ZipEntry("Exception.txt"));
-                writer.Write(this.tbTechnicalDetails.Text);
+                writer.Write(tbTechnicalDetails.Text);
                 writer.Flush();
                 zipStream.CloseEntry();
 
                 // Store the exception information as XML
                 zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
-                XmlStorage.Save(zipStream, this.UnhandledExceptionInformation);
+                XmlStorage.Save(zipStream, UnhandledExceptionInformation);
                 zipStream.CloseEntry();
 
-                if (!string.IsNullOrEmpty(this.tbComment.Text))
+                if (!string.IsNullOrEmpty(tbComment.Text))
                 {
                     // Store the user comment
                     zipStream.PutNextEntry(new ZipEntry("Comment.txt"));
-                    writer.Write(this.tbComment.Text);
+                    writer.Write(tbComment.Text);
                     zipStream.CloseEntry();
                 }
             }

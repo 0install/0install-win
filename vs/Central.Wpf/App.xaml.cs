@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Dennis Keil
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Windows;
 using System.Windows.Threading;
 using System.Diagnostics;
@@ -13,7 +30,7 @@ namespace ZeroInstall.Central.Wpf
     /// <summary>
     /// Interaktionslogik für "App.xaml"
     /// </summary>
-    public partial class App : Application
+    public partial class App
     {
         #region Unhandled Exceptions
         private void Application_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
@@ -21,7 +38,7 @@ namespace ZeroInstall.Central.Wpf
             (new UnhandledExceptionWindow(e.Exception)).ShowDialog();
             
             // Return exit code
-            this.Shutdown(-1);
+            Shutdown(-1);
 
             e.Handled = true;
         }
@@ -44,11 +61,11 @@ namespace ZeroInstall.Central.Wpf
             try { Process.Start(Path.Combine(Locations.PortableBase, appName), arguments); }
             catch (Win32Exception)
             {
-                Msg.Inform(new Wpf32Window(owner), string.Format(ZeroInstall.Central.Wpf.Properties.Resources.FailedToRun, appName), MsgSeverity.Error);
+                Msg.Inform(new Wpf32Window(owner), string.Format(Wpf.Properties.Resources.FailedToRun, appName), MsgSeverity.Error);
             }
             catch (FileNotFoundException)
             {
-                Msg.Inform(new Wpf32Window(owner), string.Format(ZeroInstall.Central.Wpf.Properties.Resources.FailedToRun, appName), MsgSeverity.Error);
+                Msg.Inform(new Wpf32Window(owner), string.Format(Wpf.Properties.Resources.FailedToRun, appName), MsgSeverity.Error);
             }
         }
 

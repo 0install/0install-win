@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Dennis Keil
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Linq;
 using Common.Wpf;
 using ZeroInstall.Model;
@@ -21,12 +38,12 @@ namespace ZeroInstall.Central.Wpf
         //{
         //    get
         //    {
-        //        return this.iconUrl;
+        //        return iconUrl;
         //    }
         //    set
         //    {
-        //        this.iconUrl = value;
-        //        this.NotifyPropertyChanged("IconUrl");
+        //        iconUrl = value;
+        //        NotifyPropertyChanged("IconUrl");
         //    }
         //}
 
@@ -35,12 +52,12 @@ namespace ZeroInstall.Central.Wpf
         //{
         //    get
         //    {
-        //        return this.iconUrl;
+        //        return iconUrl;
         //    }
         //    set
         //    {
-        //        this.iconUrl = value;
-        //        this.NotifyPropertyChanged("IconUrl");
+        //        iconUrl = value;
+        //        NotifyPropertyChanged("IconUrl");
         //    }
         //}
 
@@ -50,12 +67,12 @@ namespace ZeroInstall.Central.Wpf
         //{
         //    get
         //    {
-        //        return this.name;
+        //        return name;
         //    }
         //    set
         //    {
-        //        this.name = value;
-        //        this.NotifyPropertyChanged("Name");
+        //        name = value;
+        //        NotifyPropertyChanged("Name");
         //    }
         //}
 
@@ -64,12 +81,12 @@ namespace ZeroInstall.Central.Wpf
         //{
         //    get
         //    {
-        //        return this.version;
+        //        return version;
         //    }
         //    set
         //    {
-        //        this.version = value;
-        //        this.NotifyPropertyChanged("Version");
+        //        version = value;
+        //        NotifyPropertyChanged("Version");
         //    }
         //}
 
@@ -78,22 +95,22 @@ namespace ZeroInstall.Central.Wpf
         //{
         //    get
         //    {
-        //        return this.publisher;
+        //        return publisher;
         //    }
         //    set
         //    {
-        //        this.publisher = value;
-        //        this.NotifyPropertyChanged("Publisher");
+        //        publisher = value;
+        //        NotifyPropertyChanged("Publisher");
         //    }
         //}
 
         //public AppInfo(String name, String version, String publisher, String size, String iconUrl)
         //{
-        //    this.Name = name;
-        //    this.Version = version;
-        //    this.Publisher = publisher;
-        //    this.Size = size;
-        //    this.IconUrl = iconUrl;
+        //    Name = name;
+        //    Version = version;
+        //    Publisher = publisher;
+        //    Size = size;
+        //    IconUrl = iconUrl;
         //}
 
         #endregion
@@ -102,36 +119,36 @@ namespace ZeroInstall.Central.Wpf
         {
             get
             {
-                return this.StateAction.Length == 0;
+                return StateAction.Length == 0;
             }
         }
 
-        private Boolean stateVisible = false;
+        private Boolean _stateVisible;
         public Boolean StateVisible
         {
             get
             {
-                return this.stateVisible;
+                return _stateVisible;
             }
             set
             {
-                this.stateVisible = value;
-                this.NotifyPropertyChanged("StateVisible");
+                _stateVisible = value;
+                NotifyPropertyChanged("StateVisible");
             }
         }
 
-        private Color stateProgressColor = Color.FromArgb(255, 1, 211, 40);
+        private Color _stateProgressColor = Color.FromArgb(255, 1, 211, 40);
         public Color StateProgressColor
         {
             get
             {
-                return this.stateProgressColor;
+                return _stateProgressColor;
             }
             set
             {
-                this.stateProgressColor = value;
-                this.NotifyPropertyChanged("StateProgressColor");
-                this.NotifyPropertyChanged("StateProgressColorBrush");
+                _stateProgressColor = value;
+                NotifyPropertyChanged("StateProgressColor");
+                NotifyPropertyChanged("StateProgressColorBrush");
             }
         }
 
@@ -139,23 +156,23 @@ namespace ZeroInstall.Central.Wpf
         {
             get
             {
-                return new SolidColorBrush(this.StateProgressColor);
+                return new SolidColorBrush(StateProgressColor);
             }
         }
 
 
-        private double stateProgressPercent = 0;
+        private double _stateProgressPercent;
         public double StateProgressPercent
         {
             get
             {
-                return this.stateProgressPercent;
+                return _stateProgressPercent;
             }
             set
             {
-                this.stateProgressPercent = value;
-                this.NotifyPropertyChanged("StateProgressPercent");
-                this.NotifyPropertyChanged("StateProgressStr");
+                _stateProgressPercent = value;
+                NotifyPropertyChanged("StateProgressPercent");
+                NotifyPropertyChanged("StateProgressStr");
             }
         }
 
@@ -163,9 +180,9 @@ namespace ZeroInstall.Central.Wpf
         {
             get
             {
-                if (this.StateProgressPercent > 0)
+                if (StateProgressPercent > 0)
                 {
-                    return String.Format("{0:0}%", this.StateProgressPercent);
+                    return String.Format("{0:0}%", StateProgressPercent);
                 }
                 else
                 {
@@ -174,68 +191,68 @@ namespace ZeroInstall.Central.Wpf
             }
         }
 
-        private String stateAction = "";
+        private String _stateAction = "";
         public String StateAction
         {
             get
             {
-                return this.stateAction;
+                return _stateAction;
             }
             set
             {
-                this.stateAction = value;
-                this.NotifyPropertyChanged("StateAction");
-                this.NotifyPropertyChanged("IsStateIdle");
+                _stateAction = value;
+                NotifyPropertyChanged("StateAction");
+                NotifyPropertyChanged("IsStateIdle");
             }
         }
 
-        private String size = "";
+        private String _size = "";
         public String Size
         {
             get
             {
-                return this.size;
+                return _size;
             }
             set
             {
-                this.size = value;
-                this.NotifyPropertyChanged("Size");
+                _size = value;
+                NotifyPropertyChanged("Size");
             }
         }
 
-        private Feed feed;
+        private Feed _feed;
         public Feed Feed
         {
             get
             {
-                return this.feed;
+                return _feed;
             }
             set
             {
-                this.feed = value;
-                this.NotifyPropertyChanged("Feed");
+                _feed = value;
+                NotifyPropertyChanged("Feed");
             }
         }
 
-        private Implementation implementation;
+        private Implementation _implementation;
         public Implementation Implementation
         {
             get
             {
-                return this.implementation;
+                return _implementation;
             }
             set
             {
-                this.implementation = value;
-                this.NotifyPropertyChanged("Implementation");
+                _implementation = value;
+                NotifyPropertyChanged("Implementation");
             }
         }
 
 
-        private String FormatBytes(long bytes)
+        private static String FormatBytes(long bytes)
         {
             const int scale = 1024;
-            string[] orders = new string[] { "GB", "MB", "KB", "Bytes" };
+            var orders = new[] { "GB", "MB", "KB", "Bytes" };
             long max = (long)Math.Pow(scale, orders.Length - 1);
 
             foreach (string order in orders)
@@ -252,7 +269,7 @@ namespace ZeroInstall.Central.Wpf
         public ICommand ExecuteCommand { get; private set; }
         public ICommand UninstallCommand { get; private set; }
 
-        public bool CanExecuteCommand(object parameter)
+        public static bool CanExecuteCommand(object parameter)
         {
             return true;
         }
@@ -261,22 +278,22 @@ namespace ZeroInstall.Central.Wpf
         {
             try
             {
-                DirectoryStore dirStore = new DirectoryStore();
-                String path = dirStore.GetPath(this.Implementation.ManifestDigest);
+                var dirStore = new DirectoryStore();
+                String path = dirStore.GetPath(Implementation.ManifestDigest);
                 
-                Process.Start(new ProcessStartInfo(path + @"\" + this.implementation.Main));
+                Process.Start(new ProcessStartInfo(path + @"\" + _implementation.Main));
 
-                MainWindow.TaskbarIcon.ShowBalloonTip(this.Feed.Name, "Application is starting.", BalloonIcon.Info);
+                MainWindow.TaskbarIcon.ShowBalloonTip(Feed.Name, "Application is starting.", BalloonIcon.Info);
             }
             catch (Exception ex)
             { 
-                System.Windows.MessageBox.Show("Error executing " + this.Feed.Name + ". Details: " + ex.ToString());
+                System.Windows.MessageBox.Show("Error executing " + Feed.Name + ". Details: " + ex);
             }
 
-            //Launcher l = new Launcher(this.Implementation.ID, new Launcher.Solver.Selections()
+            //Launcher l = new Launcher(Implementation.ID, new Launcher.Solver.Selections()
         }
 
-        public bool CanUninstallCommand(object parameter)
+        public static bool CanUninstallCommand(object parameter)
         {
             return true;
         }
@@ -285,7 +302,7 @@ namespace ZeroInstall.Central.Wpf
         {
             if (!Msg.Ask(
                 App.NativeWnd,
-                "Do you really want to uninstall \"" + this.Feed.Name + "\"?",
+                "Do you really want to uninstall \"" + Feed.Name + "\"?",
                 MsgSeverity.Warning,
                 "Yes\nUninstall the application",
                 "No\nGo back to the list"
@@ -296,32 +313,32 @@ namespace ZeroInstall.Central.Wpf
 
             try
             {
-                DirectoryStore dirStore = new DirectoryStore();
-                String path = dirStore.GetPath(this.Implementation.ManifestDigest);
+                var dirStore = new DirectoryStore();
+                String path = dirStore.GetPath(Implementation.ManifestDigest);
 
                 Directory.Delete(path, true);
 
                 // Delete desktop link
-                String exePath = path + @"\" + this.Implementation.Main;
+                String exePath = path + @"\" + Implementation.Main;
 
-                Link.Update(Environment.SpecialFolder.Desktop, exePath, this.Feed.Name + ".lnk", false);
+                Link.Update(Environment.SpecialFolder.Desktop, exePath, Feed.Name + ".lnk", false);
 
 
                 MainWindow.Instance.UninstalledApp(this);
 
-                MainWindow.TaskbarIcon.ShowBalloonTip(this.Feed.Name, "Application has been uninstalled.", BalloonIcon.Info);
+                MainWindow.TaskbarIcon.ShowBalloonTip(Feed.Name, "Application has been uninstalled.", BalloonIcon.Info);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Error uninstalling " + this.Feed.Name + ". Details: " + ex.ToString());
+                System.Windows.MessageBox.Show("Error uninstalling " + Feed.Name + ". Details: " + ex);
             }
 
         }
 
         public AppInfo(Feed feed, Implementation implementation)
         {
-            this.Feed = feed;
-            this.Implementation = implementation;
+            Feed = feed;
+            Implementation = implementation;
 
             ExecuteCommand = new RelayCommand(PerformExecuteCommand, CanExecuteCommand);
             UninstallCommand = new RelayCommand(PerformUninstallCommand, CanUninstallCommand);
@@ -333,46 +350,42 @@ namespace ZeroInstall.Central.Wpf
         {
             try
             {
-                DirectoryStore dirStore = new DirectoryStore();
-                String path = dirStore.GetPath(this.Implementation.ManifestDigest);
-                DirectoryInfo dirInfo = new DirectoryInfo(path);
-                this.Size = this.FormatBytes(dirInfo.GetSize());
+                var dirStore = new DirectoryStore();
+                String path = dirStore.GetPath(Implementation.ManifestDigest);
+                var dirInfo = new DirectoryInfo(path);
+                Size = FormatBytes(dirInfo.GetSize());
             }
             catch (Exception)
-            { this.Size = "Unknown"; }
+            { Size = "Unknown"; }
         }
 
         public void RefreshImplementation()
         {
-            DirectoryStore dirStore = new DirectoryStore();
+            var dirStore = new DirectoryStore();
 
-            feed.Simplify();
+            _feed.Simplify();
 
             Implementation foundImplementation = null;
 
-            foreach (Element el in feed.Elements.ToList())
+            foreach (Implementation i in _feed.Elements.OfType<Implementation>())
             {
-                if (el is Implementation)
+                Console.WriteLine("looking for : " + _feed.UriString + "-" + i.ID);
+
+                String path = "NOT FOUND";
+                try
                 {
-                    Implementation i = (Implementation)el;
-                    Console.WriteLine("looking for : " + feed.UriString + "-" + i.ID);
-
-                    String path = "NOT FOUND";
-                    try
-                    {
-                        path = dirStore.GetPath(i.ManifestDigest);
-                        foundImplementation = i;
-                    }
-                    catch (Exception)
-                    {}
-
-                    Console.WriteLine("FOUND = " + path);
+                    path = dirStore.GetPath(i.ManifestDigest);
+                    foundImplementation = i;
                 }
+                catch (Exception)
+                {}
+
+                Console.WriteLine("FOUND = " + path);
             }
 
             if (foundImplementation != null)
             {
-                this.Implementation = foundImplementation;
+                Implementation = foundImplementation;
             }
 
             RefreshSize();

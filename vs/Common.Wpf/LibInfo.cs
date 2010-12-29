@@ -1,103 +1,122 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Dennis Keil
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 using System.Collections.Generic;
 
 namespace Common.Wpf
 {
     public class LibInfo : Model
     {
-
-        private String iconUrl = "";
-        public String IconUrl
+        private string _iconUrl = "";
+        public string IconUrl
         {
             get
             {
-                return this.iconUrl;
+                return _iconUrl;
             }
             set
             {
-                this.iconUrl = value;
-                this.NotifyPropertyChanged("IconUrl");
+                _iconUrl = value;
+                NotifyPropertyChanged("IconUrl");
             }
         }
 
-        private List<LibInfo> dependencies = new List<LibInfo>();
-
+        private List<LibInfo> _dependencies = new List<LibInfo>();
         public List<LibInfo> Dependencies
         {
             get
             {
-                return this.dependencies;
+                return _dependencies;
             }
             set
             {
-                this.dependencies = value;
-                this.NotifyPropertyChanged("Dependencies");
+                _dependencies = value;
+                NotifyPropertyChanged("Dependencies");
             }
         }
 
-        private String name = "";
-        public String Name
+        private string _name = "";
+        public string Name
         {
             get
             {
-                return this.name;
+                return _name;
             }
             set
             {
-                this.name = value;
-                this.NotifyPropertyChanged("Name");
+                _name = value;
+                NotifyPropertyChanged("Name");
             }
         }
 
-        private String version = "";
-        public String Version
+        private string version = "";
+        public string Version
         {
             get
             {
-                return this.version;
+                return version;
             }
             set
             {
-                this.version = value;
-                this.NotifyPropertyChanged("Version");
+                version = value;
+                NotifyPropertyChanged("Version");
             }
         }
 
-        private String publisher = "";
-        public String Publisher
+        private string _publisher = "";
+        public string Publisher
         {
             get
             {
-                return this.publisher;
+                return _publisher;
             }
             set
             {
-                this.publisher = value;
-                this.NotifyPropertyChanged("Publisher");
+                _publisher = value;
+                NotifyPropertyChanged("Publisher");
             }
         }
 
-        private String size = "";
-        public String Size
+        private string _size = "";
+        public string Size
         {
             get
             {
-                return this.size;
+                return _size;
             }
             set
             {
-                this.size = value;
-                this.NotifyPropertyChanged("Size");
+                _size = value;
+                NotifyPropertyChanged("Size");
             }
         }
 
-            public LibInfo(String name, String version, String publisher, String size, String iconUrl)
+        public LibInfo(string name, string version, string publisher, string size, string iconUrl)
         {
-            this.Name = name;
-            this.Version = version;
-            this.Publisher = publisher;
-            this.Size = size;
-            this.IconUrl = iconUrl;
+            Name = name;
+            Version = version;
+            Publisher = publisher;
+            Size = size;
+            IconUrl = iconUrl;
         }
     }
 }

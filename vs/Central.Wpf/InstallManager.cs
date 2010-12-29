@@ -1,16 +1,30 @@
-﻿using System;
+﻿/*
+ * Copyright 2010 Dennis Keil
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using Common.Collections;
-using Common.Storage;
-using Common.Utils;
 using Common.Wpf;
 using Common;
 using ZeroInstall.Launcher;
 using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Store.Implementation;
 using System.ComponentModel;
-using System.IO;
 using System.Windows.Media;
 using Hardcodet.Wpf.TaskbarNotification;
 
@@ -18,34 +32,34 @@ namespace ZeroInstall.Central.Wpf
 {
     public class InstallAction : Common.Wpf.Model, IHandler
     {
-        private AppInfo appInfo;
+        private AppInfo _appInfo;
         public AppInfo AppInfo
         {
             get
             {
-                return this.appInfo;
+                return _appInfo;
             }
             set
             {
-                this.appInfo = value;
-                this.NotifyPropertyChanged("AppInfo");
+                _appInfo = value;
+                NotifyPropertyChanged("AppInfo");
             }
         }
 
         public InstallAction(AppInfo appInfo)
         {
-            this.AppInfo = appInfo;
-            this.AppInfo.StateProgressPercent = -1;
-            this.AppInfo.StateVisible = true;
-            this.AppInfo.StateAction = "Installation";
+            AppInfo = appInfo;
+            AppInfo.StateProgressPercent = -1;
+            AppInfo.StateVisible = true;
+            AppInfo.StateAction = "Installation";
         }
 
         public event Action Finished;
         
         public void Start()
         {
-            //this.State = "Initialising...";
-            this.AppInfo.StateProgressPercent = 0;
+            //State = "Initialising...";
+            AppInfo.StateProgressPercent = 0;
 
             var backgroundWorker = new BackgroundWorker();
 
@@ -59,43 +73,43 @@ namespace ZeroInstall.Central.Wpf
 
         void b_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.AppInfo.StateAction = "";
-            this.AppInfo.StateVisible = false;
-            this.AppInfo.RefreshImplementation();
+            AppInfo.StateAction = "";
+            AppInfo.StateVisible = false;
+            AppInfo.RefreshImplementation();
 
             // Create desktop link
-            DirectoryStore dirStore = new DirectoryStore();
-            String path = dirStore.GetPath(this.AppInfo.Implementation.ManifestDigest);
+            var dirStore = new DirectoryStore();
+            String path = dirStore.GetPath(AppInfo.Implementation.ManifestDigest);
                 
-            String exePath = path + @"\" + this.AppInfo.Implementation.Main;
+            String exePath = path + @"\" + AppInfo.Implementation.Main;
 
-            Link.Update(Environment.SpecialFolder.Desktop, exePath, this.AppInfo.Feed.Name + ".lnk", true);
+            Link.Update(Environment.SpecialFolder.Desktop, exePath, AppInfo.Feed.Name + ".lnk", true);
 
-            this.Finished();
+            Finished();
         }
 
         public bool Batch { get; set; }
 
         public void RunDownloadTask(ITask task)
         {
-            //this.State = "Downloading";
-            this.AppInfo.StateProgressColor = Color.FromArgb(255, 1, 211, 40);
+            //State = "Downloading";
+            AppInfo.StateProgressColor = Color.FromArgb(255, 1, 211, 40);
             task.ProgressChanged += sender => AppInfo.StateProgressPercent = Math.Max(0, task.Progress) * 100;
             task.RunSync();
         }
 
         public void RunIOTask(ITask task)
         {
-            //this.State = "Extracting";
-            this.AppInfo.StateProgressColor = Color.FromArgb(255, 255, 255, 0);
+            //State = "Extracting";
+            AppInfo.StateProgressColor = Color.FromArgb(255, 255, 255, 0);
             task.ProgressChanged += sender => AppInfo.StateProgressPercent = Math.Max(0, task.Progress) * 50;
             task.RunSync();
         }
 
         public bool AcceptNewKey(string information)
         {
-            //this.AppInfo.StateProgressPercent = 10;
-            //this.State = "Ask key";
+            //AppInfo.StateProgressPercent = 10;
+            //State = "Ask key";
             return true;
         }
     }
@@ -112,40 +126,40 @@ namespace ZeroInstall.Central.Wpf
             DependencyProperty.Register("InstallActions", typeof(ObservableCollection<InstallAction>), typeof(InstallManager), new UIPropertyMetadata(null));
 
 
-        InstallAction currentInstallAction;
+        InstallAction _currentInstallAction;
 
 
         public InstallManager()
         {
-            this.InstallActions = new ObservableCollection<InstallAction>();
+            InstallActions = new ObservableCollection<InstallAction>();
         }
 
         public void Install(AppInfo appInfo)
         {
-            this.InstallActions.Add(new InstallAction(appInfo));
+            InstallActions.Add(new InstallAction(appInfo));
 
-            this.TryInstallNext();
+            TryInstallNext();
         }
 
         private void TryInstallNext()
         {
-            if(this.InstallActions.Count == 0) return;
-            if (this.currentInstallAction != null) return;
+            if(InstallActions.Count == 0) return;
+            if (_currentInstallAction != null) return;
 
-            this.currentInstallAction = EnumUtils.GetFirst(InstallActions);
+            _currentInstallAction = EnumUtils.GetFirst(InstallActions);
 
-            this.currentInstallAction.Finished += new Action(currentInstallAction_Finished);
-            this.currentInstallAction.Start();
+            _currentInstallAction.Finished += currentInstallAction_Finished;
+            _currentInstallAction.Start();
         }
 
         void currentInstallAction_Finished()
         {
-            MainWindow.TaskbarIcon.ShowBalloonTip(this.currentInstallAction.AppInfo.Feed.Name, "Application has been installed.", BalloonIcon.Info);
-            //Msg.Inform(App.NativeWnd, this.currentInstallAction.FeedUri + " has been installed.", MsgSeverity.Information);
+            MainWindow.TaskbarIcon.ShowBalloonTip(_currentInstallAction.AppInfo.Feed.Name, "Application has been installed.", BalloonIcon.Info);
+            //Msg.Inform(App.NativeWnd, currentInstallAction.FeedUri + " has been installed.", MsgSeverity.Information);
 
-            this.InstallActions.RemoveAt(0);
-            this.currentInstallAction = null;
-            this.TryInstallNext();
+            InstallActions.RemoveAt(0);
+            _currentInstallAction = null;
+            TryInstallNext();
         }
     }
 }
