@@ -179,7 +179,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="args">The command-line arguments that were not parsed as options.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>The error level to return when the process ends.</returns>
-        /// <exception cref="UserCancelException">Thrown if a extraction or manifest task was cancelled.</exception>
+        /// <exception cref="UserCancelException">Thrown if an IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in <paramref name="args"/> is incorrect.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>

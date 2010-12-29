@@ -51,7 +51,7 @@ namespace ZeroInstall.Fetchers
         internal Action<Archive, string> DownloadAction;
 
         internal MockFetcher(IStore store)
-            : base(new SilentHandler(), store)
+            : base(null, store)
         { }
 
         protected override ImplementationFetch CreateFetch(Implementation implementation)
@@ -131,7 +131,7 @@ namespace ZeroInstall.Fetchers
             _testFolder = new TemporaryDirectory("0install-unit-tests");
             _storeDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_storeDir.Path);
-            _fetcher = new Fetcher(new SilentHandler(), _store);
+            _fetcher = new Fetcher(null, _store);
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _testFolder.Path;
         }

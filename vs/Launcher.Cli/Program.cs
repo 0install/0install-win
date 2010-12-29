@@ -269,7 +269,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
@@ -321,7 +321,7 @@ namespace ZeroInstall.Launcher.Cli
         /// Launches the interface specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>

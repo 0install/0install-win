@@ -29,7 +29,7 @@ namespace ZeroInstall.Launcher.Solver
         /// <summary>
         /// Creates a <see cref="Selections"/> with a fictive test <see cref="ImplementationSelection"/>.
         /// </summary>
-        private static Selections CreateTestSelections()
+        public static Selections CreateTestSelections()
         {
             return new Selections
             {

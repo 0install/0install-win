@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using Common.Collections;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Model;
@@ -34,6 +35,33 @@ namespace ZeroInstall.Launcher
     [TestFixture]
     public class ControllerTest
     {
+        #region Shared
+        // Dummy data used by the tests
+        private const string testUri = "http://nothing";
+
+        private DynamicMock _solverMock;
+        private DynamicMock _cacheMock;
+
+        private ISolver TestSolver { get { return (ISolver)_solverMock.MockInstance; } }
+        private IFeedCache TestCache { get { return (IFeedCache)_cacheMock.MockInstance; } }
+        
+        [SetUp]
+        public void SetUp()
+        {
+            // Prepare mock objects that will be injected with methods in the tests
+            _solverMock = new DynamicMock("MockSolver", typeof(ISolver));
+            _cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            // Ensure no method calls were left out
+            _solverMock.Verify();
+            _cacheMock.Verify();
+        }
+        #endregion
+
         /// <summary>
         /// Ensures the <see cref="Controller"/> constructor, <see cref="Controller.GetSelections"/> and <see cref="Controller.GetExecutor"/> throw the correct exceptions.
         /// </summary>
@@ -45,6 +73,26 @@ namespace ZeroInstall.Launcher
             var controller = new Controller("http://nothing", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
             Assert.Throws<InvalidOperationException>(() => controller.GetSelections(), "GetSelections should depend on Solve being called first");
             Assert.Throws<InvalidOperationException>(() => controller.GetExecutor(), "GetRun should depend on Solve being called first");
+        }
+
+        [Test]
+        public void TestSolve()
+        {
+            var policy = new Policy(new FeedManager(TestCache, new SilentHandler()), new Fetcher(null));
+
+            _solverMock.Expect("Solve", testUri, policy);
+            var controller = new Controller(testUri, TestSolver, policy);
+            controller.Solve();
+        }
+
+        [Test]
+        public void TestGetSetSelections()
+        {
+            var controller = new Controller("http://nothing", TestSolver, Policy.CreateDefault(new SilentHandler()));
+            
+            var selections = SelectionsTest.CreateTestSelections();
+            controller.SetSelections(selections);
+            Assert.AreEqual(selections, controller.GetSelections());
         }
 
         /// <summary>
@@ -66,18 +114,6 @@ namespace ZeroInstall.Launcher
 
             // Check the first (and only) entry of the "missing list" is the correct implementation
             Assert.AreEqual("sha1new=91dba493cc1ff911df9860baebb6136be7341d38", EnumUtils.GetFirst(implementations).ManifestDigest.BestDigest, "The actual Implementation should have the same digest as the selection information.");
-        }
-
-        /// <summary>
-        /// Ensures <see cref="Controller.GetSelections"/> correctly provides results from a <see cref="ZeroInstall.Launcher.Solver"/>.
-        /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
-        public void TestGetSelections()
-        {
-            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
-            controller.Solve();
-            Assert.AreEqual(controller.GetSelections().InterfaceID, "http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml");
         }
 
         /// <summary>

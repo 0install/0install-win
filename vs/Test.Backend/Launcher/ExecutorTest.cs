@@ -16,7 +16,6 @@
  */
 
 using System;
-using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Store.Implementation;
@@ -37,27 +36,6 @@ namespace ZeroInstall.Launcher
         {
             Assert.Throws<ArgumentException>(() => new Executor("invalid", new Selections {Implementations = {new ImplementationSelection()}}, StoreProvider.Default), "Relative paths should be rejected");
             Assert.Throws<ArgumentException>(() => new Executor("http://nothin", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
-        }
-
-        /// <summary>
-        /// Ensures <see cref="Controller.GetExecutor"/> correctly provides an application that can be launched.
-        /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
-        public void TestGetExecutor()
-        {
-            using (var tempFile = new TemporaryFile("0install-unit-tests"))
-            {
-                SolverTest.CreateTestFeed().Save(tempFile.Path);
-
-                var controller = new Controller(tempFile.Path, SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
-                controller.Solve();
-                controller.DownloadUncachedImplementations();
-                var executor = controller.GetExecutor();
-                var startInfo = executor.GetStartInfo("--help");
-                StringAssert.EndsWith("test", startInfo.FileName);
-                Assert.AreEqual("--help", startInfo.Arguments);
-            }
         }
     }
 }
