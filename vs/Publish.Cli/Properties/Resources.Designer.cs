@@ -106,20 +106,29 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Uses the private key associated to the GnuPG ID {USER} for signing feeds..
-        /// </summary>
-        internal static string OptionGnuPGUser {
-            get {
-                return ResourceManager.GetString("OptionGnuPGUser", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show the built-in help text..
         /// </summary>
         internal static string OptionHelp {
             get {
                 return ResourceManager.GetString("OptionHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Key to use for signing (if you have more than one, or if you want to resign with a different key)..
+        /// </summary>
+        internal static string OptionKey {
+            get {
+                return ResourceManager.GetString("OptionKey", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove existing signature..
+        /// </summary>
+        internal static string OptionUnsign {
+            get {
+                return ResourceManager.GetString("OptionUnsign", resourceCulture);
             }
         }
         

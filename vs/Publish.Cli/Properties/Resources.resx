@@ -132,11 +132,14 @@
   <data name="OptionGnuPGPassphrase" xml:space="preserve">
     <value>Uses {PASS} to unlock the GnuPG private key.</value>
   </data>
-  <data name="OptionGnuPGUser" xml:space="preserve">
-    <value>Uses the private key associated to the GnuPG ID {USER} for signing feeds.</value>
-  </data>
   <data name="OptionHelp" xml:space="preserve">
     <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionKey" xml:space="preserve">
+    <value>Key to use for signing (if you have more than one, or if you want to resign with a different key).</value>
+  </data>
+  <data name="OptionUnsign" xml:space="preserve">
+    <value>Remove existing signature.</value>
   </data>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>

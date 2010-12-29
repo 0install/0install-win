@@ -67,93 +67,39 @@ namespace ZeroInstall.Publish.Cli
             }
             #endregion
 
-            switch (mode)
+            try { return Execute(mode, results); }
+            #region Error hanlding
+            catch (ArgumentException ex)
             {
-                case OperationMode.Normal:
-                    if (results.Feeds.Count == 0)
-                    {
-                        Log.Error(string.Format(Resources.MissingArguments, "0publish"));
-                        return (int)ErrorLevel.InvalidArguments;
-                    }
-
-                    try { Execute(results); }
-                    #region Error hanlding
-                    catch (InvalidOperationException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (FileNotFoundException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (IOException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (UnhandledErrorsException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    #endregion
-
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Catalog:
-                    // Default to using all XML files in the current directory
-                    if (results.Feeds.Count == 0)
-                        results.Feeds = ArgumentUtils.GetFiles(new[] {Environment.CurrentDirectory}, "*.xml");
-
-                    try { CreateCatalog(results); }
-                    #region Error hanlding
-                    catch (ArgumentException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (InvalidOperationException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (FileNotFoundException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (IOException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    catch (UnauthorizedAccessException ex)
-                    {
-                        Log.Error(ex.Message);
-                        return (int)ErrorLevel.IOError;
-                    }
-                    #endregion
-
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Version:
-                    Console.WriteLine(@"Zero Install Publish CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Help:
-                    return (int)ErrorLevel.OK;
-
-                default:
-                    Log.Error("Unknown operation mode");
-                    return (int)ErrorLevel.NotSupported;
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
             }
+            catch (InvalidOperationException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (FileNotFoundException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (UnhandledErrorsException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            #endregion
         }
         #endregion
 
@@ -184,7 +130,8 @@ namespace ZeroInstall.Publish.Cli
 
                 // Signatures
                 {"x|xmlsign", Resources.OptionXmlSign, unused => parseResults.XmlSign = true},
-                {"gpg-user=", Resources.OptionGnuPGUser, user => parseResults.GnuPGUser = user},
+                {"u|unsign", Resources.OptionXmlSign, unused => parseResults.Unsign = true},
+                {"k|key=", Resources.OptionKey, user => parseResults.Key = user},
                 {"gpg-passphrase=", Resources.OptionGnuPGPassphrase, user => parseResults.GnuPGPassphrase = user},
             };
             #endregion
@@ -209,9 +156,59 @@ namespace ZeroInstall.Publish.Cli
         }
         #endregion
 
+        #region Execute
+        /// <summary>
+        /// Executes the commands specified by the command-line arguments.
+        /// </summary>
+        /// <param name="mode">The operation mode selected by the parsing process.</param>
+        /// <param name="results">The parser results to be executed.</param>
+        /// <returns>The error code to end the process with.</returns>
+        /// <exception cref="ArgumentException">Throw if the specified feed file paths were invalid.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
+        /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        private static int Execute(OperationMode mode, ParseResults results)
+        {
+            switch (mode)
+            {
+                case OperationMode.Normal:
+                    if (results.Feeds.Count == 0)
+                    {
+                        Log.Error(string.Format(Resources.MissingArguments, "0publish"));
+                        return (int)ErrorLevel.InvalidArguments;
+                    }
+
+                    ModifyFeeds(results);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Catalog:
+                    // Default to using all XML files in the current directory
+                    if (results.Feeds.Count == 0)
+                        results.Feeds = ArgumentUtils.GetFiles(new[] { Environment.CurrentDirectory }, "*.xml");
+
+                    CreateCatalog(results);
+
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Version:
+                    Console.WriteLine(@"Zero Install Publish CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
+                    return (int)ErrorLevel.OK;
+
+                case OperationMode.Help:
+                    return (int)ErrorLevel.OK;
+
+                default:
+                    Log.Error("Unknown operation mode");
+                    return (int)ErrorLevel.NotSupported;
+            }
+        }
+        #endregion
+
         //--------------------//
 
-        #region Execute
+        #region Modify feeds
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
@@ -221,20 +218,28 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public static void Execute(ParseResults results)
+        public static void ModifyFeeds(ParseResults results)
         {
-            foreach (var feed in results.Feeds)
+            foreach (var file in results.Feeds)
             {
-                // Always start off by removing signatures since they will become invalid if anything is changed
-                FeedUtils.UnsignFeed(feed.FullName);
-                FeedUtils.AddStylesheet(feed.FullName);
+                bool wasSigned = false;
 
-                if (results.XmlSign)
+                var feed = Feed.Load(file.FullName);
+
+                // ToDo: Apply modifications
+
+                feed.Save(file.FullName);
+
+                // Always remove existing signatures since they will become invalid if anything is changed
+                FeedUtils.UnsignFeed(file.FullName);
+                FeedUtils.AddStylesheet(file.FullName);
+
+                if ((wasSigned && !results.Unsign) || results.XmlSign)
                 {
                     if (string.IsNullOrEmpty(results.GnuPGPassphrase))
                         results.GnuPGPassphrase = InputUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
-                    FeedUtils.SignFeed(feed.FullName, results.GnuPGUser, results.GnuPGPassphrase);
+                    FeedUtils.SignFeed(file.FullName, results.Key, results.GnuPGPassphrase);
                 }
             }
         }
@@ -246,8 +251,8 @@ namespace ZeroInstall.Publish.Cli
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
         /// <exception cref="ArgumentException">Throw if the specified feed file paths were invalid.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the feed file is damaged.</exception>
-        /// <exception cref="FileNotFoundException">Thrown if the feed files could not be found.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the a files could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
         public static void CreateCatalog(ParseResults results)
