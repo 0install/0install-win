@@ -81,11 +81,6 @@ namespace ZeroInstall.Store.Feed
         /// </summary>
         /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Feed.NetworkLevel.Offline"/>.</remarks>
         public bool Refresh { get; set; }
-
-        /// <summary>
-        /// A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).
-        /// </summary>
-        public IFeedHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
@@ -93,16 +88,13 @@ namespace ZeroInstall.Store.Feed
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public FeedManager(IFeedCache cache, IFeedHandler handler)
+        public FeedManager(IFeedCache cache)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
-            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             Cache = cache;
-            Handler = handler;
         }
         #endregion
 
@@ -113,6 +105,7 @@ namespace ZeroInstall.Store.Feed
         /// Returns a list of all <see cref="Feed"/>s applicapble to a specific intrface URI.
         /// </summary>
         /// <param name="interfaceUri">The URI used to identify the interface. May be an HTTP(S) URL or a local path.</param>
+        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
         /// <returns>The parsed <see cref="Feed"/> objects.</returns>
         /// <remarks>
         /// <paramref name="interfaceUri"/> is used to locate the primary <see cref="Feed"/> for the interface.
@@ -120,7 +113,7 @@ namespace ZeroInstall.Store.Feed
         /// </remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Allow for local paths aswell")]
-        public IEnumerable<Model.Feed> GetFeeds(string interfaceUri)
+        public IEnumerable<Model.Feed> GetFeeds(string interfaceUri, IFeedHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceUri)) throw new ArgumentNullException("interfaceUri");

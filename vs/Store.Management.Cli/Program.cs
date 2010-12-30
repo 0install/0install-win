@@ -72,7 +72,7 @@ namespace ZeroInstall.Store.Management.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] {"--help"};
 
-            IImplementationHandler handler = new CliHandler();
+            IIOHandler handler = new CliHandler();
 
             IList<string> restArgs;
             try { restArgs = ParseArgs(args, handler); }
@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>Any unparsed commands left over.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        private static IList<string> ParseArgs(IEnumerable<string> args, IImplementationHandler handler)
+        private static IList<string> ParseArgs(IEnumerable<string> args, IIOHandler handler)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching the <see cref="ManifestDigest"/> could be found in this store.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <see cref="ManifestDigest"/> in the store.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive/directory content doesn't match the <see cref="ManifestDigest"/>.</exception>
-        private static ErrorLevel ExecuteArgs(IList<string> args, IImplementationHandler handler)
+        private static ErrorLevel ExecuteArgs(IList<string> args, IIOHandler handler)
         {
             switch (args[0])
             {
@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Management.Cli
         //--------------------//
 
         #region Execute helpers
-        private static ErrorLevel Add(IList<string> args, IImplementationHandler handler)
+        private static ErrorLevel Add(IList<string> args, IIOHandler handler)
         {
             if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageAdd));
             var manifestDigest = new ManifestDigest(args[1]);
@@ -252,7 +252,7 @@ namespace ZeroInstall.Store.Management.Cli
             return ErrorLevel.OK;
         }
 
-        private static void Copy(IList<string> args, IImplementationHandler handler)
+        private static void Copy(IList<string> args, IIOHandler handler)
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageCopy));
 
@@ -286,7 +286,7 @@ namespace ZeroInstall.Store.Management.Cli
                 Console.WriteLine(digest.BestDigest);
         }
 
-        private static void Optimise(IList<string> args, IImplementationHandler handler)
+        private static void Optimise(IList<string> args, IIOHandler handler)
         {
             if (args.Count == 1) StoreProvider.Default.Optimise(handler);
             else
@@ -296,7 +296,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
         }
 
-        private static void Verify(IList<string> args, IImplementationHandler handler)
+        private static void Verify(IList<string> args, IIOHandler handler)
         {
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageVerify));
             for (int i = 1; i < args.Count; i++)
@@ -315,7 +315,7 @@ namespace ZeroInstall.Store.Management.Cli
         #endregion
 
         #region Audit
-        private static ErrorLevel Audit(IList<string> args, IImplementationHandler handler)
+        private static ErrorLevel Audit(IList<string> args, IIOHandler handler)
         {
             ErrorLevel result = ErrorLevel.OK;
             if (args.Count == 1) AuditStore(StoreProvider.Default, handler);
@@ -338,7 +338,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <returns>The error level to return when the process ends.</returns>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        private static ErrorLevel AuditStore(IStore store, IImplementationHandler handler)
+        private static ErrorLevel AuditStore(IStore store, IIOHandler handler)
         {
             var problems = store.Audit(handler);
             if (problems == null)
@@ -373,7 +373,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="args">The command-line arguments that were not parsed as options.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        private static void GenerateManifest(IList<string> args, IImplementationHandler handler)
+        private static void GenerateManifest(IList<string> args, IIOHandler handler)
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageManifest));
 

@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common;
 using Common.Net;
 using Common.Utils;
 using ZeroInstall.Fetchers.Properties;
@@ -151,7 +150,7 @@ namespace ZeroInstall.Fetchers
     {
         private readonly Fetcher _fetcherInstance;
         private readonly List<RetrievalMethod> _retrievalMethods;
-        private readonly ManifestDigest Digest;
+        private readonly ManifestDigest _digest;
         internal bool Completed;
         internal readonly List<Exception> Problems = new List<Exception>();
 
@@ -161,30 +160,30 @@ namespace ZeroInstall.Fetchers
             _retrievalMethods = new List<RetrievalMethod>(implementation.RetrievalMethods.Count);
             _retrievalMethods.AddRange(implementation.RetrievalMethods);
             _retrievalMethods.Sort(new RetrievalMethodRanker());
-            Digest = implementation.ManifestDigest;
+            _digest = implementation.ManifestDigest;
         }
 
-        public void Execute()
+        public void Execute(IFetchHandler handler)
         {
-            TryRetrievalMethods();
+            TryRetrievalMethods(handler);
         }
 
-        private void TryRetrievalMethods()
+        private void TryRetrievalMethods(IFetchHandler handler)
         {
             foreach (var method in _retrievalMethods)
             {
                 Problems.Clear();
-                TryOneRetrievalMethodAndNoteProblems(method);
+                TryOneRetrievalMethodAndNoteProblems(method, handler);
                 SetCompletedIfThereWereNoProblems();
                 if (Completed) break;
             }
         }
 
-        private void TryOneRetrievalMethodAndNoteProblems(RetrievalMethod method)
+        private void TryOneRetrievalMethodAndNoteProblems(RetrievalMethod method, IFetchHandler handler)
         {
             try
             {
-                PerformRetrievalMethodDispatchingOnType(method);
+                PerformRetrievalMethodDispatchingOnType(method, handler);
             }
             // ToDo: Catch more exceptions
             catch (WebException ex)
@@ -201,39 +200,37 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method)
+        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method, IFetchHandler handler)
         {
             var archive = method as Archive;
             var recipe = method as Recipe;
             if (archive != null)
             {
-                PerformArchiveStep(archive);
+                PerformArchiveStep(archive, handler);
             }
             else if (recipe != null)
             {
-                PerformRecipe(recipe);
+                PerformRecipe(recipe, handler);
             }
         }
 
-        private void PerformArchiveStep(Archive archive)
+        private void PerformArchiveStep(Archive archive, IFetchHandler handler)
         {
-            var tempArchiveInfo = DownloadAndPrepareArchive(archive);
+            var tempArchiveInfo = DownloadAndPrepareArchive(archive, handler);
 
             try
             {
-                _fetcherInstance.Store.AddArchive(tempArchiveInfo,
-                    Digest,
-                    _fetcherInstance.Handler);
+                _fetcherInstance.Store.AddArchive(tempArchiveInfo, _digest, handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
             finally { File.Delete(tempArchiveInfo.Path); }
         }
 
-        private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive)
+        private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive, IFetchHandler handler)
         {
             string tempArchive = FileUtils.GetTempFile("0install-fetcher");
 
-            DownloadArchive(archive, tempArchive);
+            DownloadArchive(archive, tempArchive, handler);
 
             return new ArchiveFileInfo
             {
@@ -243,7 +240,7 @@ namespace ZeroInstall.Fetchers
                 StartOffset = archive.StartOffset
             };
         }
-        private void PerformRecipe(Recipe recipe)
+        private void PerformRecipe(Recipe recipe, IFetchHandler handler)
         {
             var archives = new List<ArchiveFileInfo>();
             foreach (var currentStep in recipe.Steps)
@@ -251,17 +248,17 @@ namespace ZeroInstall.Fetchers
                 var currentArchive = currentStep as Archive;
                 if (currentArchive == null) throw new InvalidOperationException(Resources.UnknownRecipeStepType);
 
-                archives.Add(DownloadAndPrepareArchive(currentArchive));
+                archives.Add(DownloadAndPrepareArchive(currentArchive, handler));
             }
             try
             {
-                _fetcherInstance.Store.AddMultipleArchives(archives, Digest, _fetcherInstance.Handler);
+                _fetcherInstance.Store.AddMultipleArchives(archives, _digest, handler);
             }
             catch (ImplementationAlreadyInStoreException) {}
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
 
-        protected virtual void DownloadArchive(Archive archive, string destination)
+        protected virtual void DownloadArchive(Archive archive, string destination, IFetchHandler handler)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
@@ -280,9 +277,8 @@ namespace ZeroInstall.Fetchers
 
             try
             {
-                // Run task locally or defer to handler
-                if (_fetcherInstance.Handler == null) downloadFile.RunSync();
-                else _fetcherInstance.Handler.RunDownloadTask(downloadFile);
+                // Defer task to handler
+                handler.RunDownloadTask(downloadFile);
 
                 RejectLocalFileOfWrongSize(archive, destination);
             }
@@ -327,45 +323,26 @@ namespace ZeroInstall.Fetchers
     /// <summary>
     /// Manages one or more <see cref="FetchRequest"/>s and keeps clients informed of the progress. Files are downloaded and added to <see cref="Store"/> automatically.
     /// </summary>
-    public class Fetcher : MarshalByRefObject
+    public class Fetcher : MarshalByRefObject, IFetcher
     {
         #region Properties
-        /// <summary>
-        /// The location to store the downloaded and unpacked <see cref="Implementation"/>s in.
-        /// </summary>
+        /// <inheritdoc/>
         public IStore Store { get; private set; }
-
-        /// <summary>
-        /// A callback object used when the the user is to be informed about progress.
-        /// </summary>
-        public IFetchHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new download fetcher with a custom target <see cref="IStore"/>.
+        /// Creates a new download fetcher.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
         /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
-        public Fetcher(IFetchHandler handler, IStore store)
+        public Fetcher(IStore store)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
-            Handler = handler;
             Store = store;
         }
-
-        /// <summary>
-        /// Creates a new download fetcher with the default <see cref="IStore"/>.
-        /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public Fetcher(IFetchHandler handler) : this(handler, StoreProvider.Default)
-        {}
         #endregion
         
         //--------------------//
@@ -375,16 +352,8 @@ namespace ZeroInstall.Fetchers
             return new ImplementationFetch(this, implementation);
         }
 
-        /// <summary>
-        /// Execute a complete request and block until it is done.
-        /// </summary>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled from another thread.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Store"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="FetcherException"></exception>
-        public void RunSync(FetchRequest fetchRequest)
+        /// <inheritdoc/>
+        public void RunSync(FetchRequest fetchRequest, IFetchHandler handler)
         {
             #region Sanity checks
             if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
@@ -393,7 +362,7 @@ namespace ZeroInstall.Fetchers
             foreach (var implementation in fetchRequest.Implementations)
             {
                 var fetchProcess = CreateFetch(implementation);
-                fetchProcess.Execute();
+                fetchProcess.Execute(handler);
                 if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
             }
         }

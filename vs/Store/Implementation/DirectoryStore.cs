@@ -88,15 +88,16 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
         /// <param name="expectedDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, IImplementationHandler handler)
+        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Determine the digest method to use
@@ -135,14 +136,19 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="directory">The directory to generate a <see cref="Manifest"/> for.</param>
         /// <param name="expectedDigest">The digest the <see cref="Manifest"/> of the <paramref name="directory"/> should have.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The generated <see cref="Manifest"/>.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> indicates no known hash methods.</exception>
         /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
-        public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, IImplementationHandler handler)
+        public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
             var actualManifest = Manifest.Generate(directory, format, handler);
 
@@ -222,7 +228,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -240,10 +246,11 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
@@ -256,9 +263,8 @@ namespace ZeroInstall.Store.Implementation
 
                 try
                 {
-                    // Run task locally or defer to handler
-                    if (handler == null) extractor.RunSync();
-                    else handler.RunIOTask(extractor);
+                    // Defer task to handler
+                    handler.RunIOTask(extractor);
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
@@ -274,10 +280,11 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
@@ -294,9 +301,8 @@ namespace ZeroInstall.Store.Implementation
                     {
                         extractor.SubDir = archiveInfo.SubDir;
 
-                        // Run task locally or defer to handler
-                        if (handler == null) extractor.RunSync();
-                        else handler.RunIOTask(extractor);
+                        // Defer task to handler
+                        handler.RunIOTask(extractor);
                     }
                 }
 
@@ -334,7 +340,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(IImplementationHandler handler)
+        public void Optimise(IIOHandler handler)
         {
             // ToDo: Implemenet
         }
@@ -342,7 +348,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
         {
             VerifyDirectory(Path.Combine(DirectoryPath, manifestDigest.BestDigest), manifestDigest, handler);
         }
@@ -350,7 +356,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Audit
         /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
+        public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
         {
             // Iterate through all entries - their names are the expected digest values
             foreach (ManifestDigest digest in ListAll())

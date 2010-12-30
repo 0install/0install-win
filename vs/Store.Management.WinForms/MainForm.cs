@@ -33,7 +33,7 @@ namespace ZeroInstall.Store.Management.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class MainForm : Form, IImplementationHandler
+    public sealed partial class MainForm : Form, IIOHandler
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics

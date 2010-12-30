@@ -47,7 +47,7 @@ namespace ZeroInstall.Launcher.Solver
             {
                 CreateTestFeed().Save(tempFile.Path);
 
-                Selections selections = _solver.Solve(tempFile.Path, Policy.CreateDefault(new SilentHandler()));
+                Selections selections = _solver.Solve(tempFile.Path, Policy.CreateDefault(), new SilentHandler());
 
                 Assert.AreEqual(tempFile.Path, selections.InterfaceID);
             }

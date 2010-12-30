@@ -44,7 +44,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Used to download missing <see cref="Implementation"/>s.
         /// </summary>
-        public Fetcher Fetcher { get; private set; }
+        public IFetcher Fetcher { get; private set; }
 
         /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
@@ -90,7 +90,7 @@ namespace ZeroInstall.Launcher
         /// </summary>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
-        public Policy(FeedManager feedManager, Fetcher fetcher)
+        public Policy(FeedManager feedManager, IFetcher fetcher)
         {
             #region Sanity checks
             if (feedManager == null) throw new ArgumentNullException("feedManager");
@@ -102,21 +102,16 @@ namespace ZeroInstall.Launcher
         }
         #endregion
 
-        #region Factory methods
+        #region Factory method
         /// <summary>
-        /// Creates a new policy using the default <see cref="FeedManager"/> and <see cref="Fetchers.Fetcher"/>.
+        /// Creates a new policy using the default <see cref="FeedCacheProvider.Default"/> and <see cref="FetcherProvider.Default"/>.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static Policy CreateDefault(IHandler handler)
+        public static Policy CreateDefault()
         {
-            #region Sanity checks
-            if (handler == null) throw new ArgumentNullException("handler");
-            #endregion
-
-            return new Policy(new FeedManager(FeedCacheProvider.Default, handler), new Fetcher(handler));
+            return new Policy(new FeedManager(FeedCacheProvider.Default), FetcherProvider.Default);
         }
         #endregion
     }

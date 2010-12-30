@@ -86,12 +86,12 @@
     <Content Include="SolutionStructure.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Download.classdiagram">
+    <Content Include="UML\Class\Fetchers.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Download.classdiagram.layout">
+    <Content Include="UML\Class\Fetchers.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Download.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Fetchers.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Handler.classdiagram">
       <SubType>Content</SubType>

@@ -28,7 +28,7 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAggJEAAAAAAAAEiAAAAAAAAAgAAIAAAAAAAkAAAAA=</HashCode>
+      <HashCode>AAAggJEIAAAAAAAEqAAAAAAAAAgAAIAAAAAAAkAAAAA=</HashCode>
       <FileName>Implementation\Manifest.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -99,7 +99,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Implementation.ManifestFormat">
-    <Position X="2.25" Y="4" Width="2.25" />
+    <Position X="2.25" Y="4.5" Width="2.25" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>

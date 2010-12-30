@@ -113,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -179,7 +179,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(IImplementationHandler handler)
+        public void Optimise(IIOHandler handler)
         {
             // Optimizing should use direct access via a DirectoryStore instead
         }
@@ -187,7 +187,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, IImplementationHandler handler)
+        public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
         {
             // Verification should use direct access via a DirectoryStore instead
         }
@@ -195,7 +195,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Audit
         /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler)
+        public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
         {
             // Auditing should use direct access via a DirectoryStore instead
             return null;

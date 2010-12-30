@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="87bec6f2-283f-4c62-ba1c-b9c06f4abb24"
   name="Solver"
@@ -199,6 +199,19 @@
                       Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
                       LastKnownName="Policy"
                       LastKnownLocation="Package1_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8f917474-f1b9-4971-ae01-230a5395b9fc"
+                  name="handler"
+                  direction="In">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+                      LastKnownName="IFeedHandler"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1027,6 +1040,15 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="11b6e5c9-8d99-4c0b-9a66-8626a474ad96">
+            <interfaceMoniker
+              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+              LastKnownName="IFeedHandler"
+              LastKnownLocation="Package4_1632.uml" />
+          </dependency>
+        </suppliersInternal>
         <ownedOperations>
           <operation
             Id="70449db9-1cfa-47ee-8261-56092095c188"
@@ -1133,6 +1155,19 @@
                       Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
                       LastKnownName="Policy"
                       LastKnownLocation="Package1_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c95a67cd-afed-4c31-900f-8f5dfa855970"
+                  name="handler"
+                  direction="In">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+                      LastKnownName="IFeedHandler"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>

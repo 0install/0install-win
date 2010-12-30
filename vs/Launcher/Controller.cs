@@ -56,6 +56,11 @@ namespace ZeroInstall.Launcher
         /// The user settings controlling the solving process.
         /// </summary>
         public Policy Policy { get; private set; }
+
+        /// <summary>
+        /// The user settings controlling the solving process.
+        /// </summary>
+        public IHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
@@ -65,13 +70,15 @@ namespace ZeroInstall.Launcher
         /// <param name="interfaceID">The URI or local path (may be relative) to the feed to use.</param>
         /// <param name="solver">The solver to use for solving dependencies.</param>
         /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or an existing local file.</exception>
-        public Controller(string interfaceID, ISolver solver, Policy policy)
+        public Controller(string interfaceID, ISolver solver, Policy policy, IHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (solver == null) throw new ArgumentNullException("solver");
             if (policy == null) throw new ArgumentNullException("policy");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (interfaceID.StartsWith("http:")) InterfaceID = interfaceID;
@@ -82,6 +89,7 @@ namespace ZeroInstall.Launcher
             }
             Solver = solver;
             Policy = policy;
+            Handler = handler;
         }
         #endregion
         
@@ -98,7 +106,7 @@ namespace ZeroInstall.Launcher
         public void Solve()
         {
             // Run the solver algorithm
-            _selections = Solver.Solve(InterfaceID, Policy);
+            _selections = Solver.Solve(InterfaceID, Policy, Handler);
         }
 
         /// <summary>
@@ -181,7 +189,7 @@ namespace ZeroInstall.Launcher
 
             if (Policy.FeedManager.NetworkLevel == NetworkLevel.Offline) return;
 
-            Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()));
+            Policy.Fetcher.RunSync(new FetchRequest(ListUncachedImplementations()), Handler);
         }
         #endregion
 

@@ -21,6 +21,7 @@ using Common.Collections;
 using Common.Utils;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Launcher;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation
@@ -69,7 +70,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldTellIfItContainsAnImplementation()
         {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null);
+            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
 
             Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
             Assert.True(_store.Contains(new ManifestDigest(hash)));
@@ -78,9 +79,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToAddFolder()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
             var store = _store;
-            store.AddDirectory(_packageDir, digest, null);
+            store.AddDirectory(_packageDir, digest, new SilentHandler());
 
             Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
             CollectionAssert.AreEqual(new[] { digest }, store.ListAll(), "After adding, Store must show the added package in the complete list");
@@ -103,10 +104,10 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldAllowToRemove()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler()));
 
             var store = _store;
-            store.AddDirectory(_packageDir, digest, null);
+            store.AddDirectory(_packageDir, digest, new SilentHandler());
             Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
             store.Remove(digest);
             Assert.IsFalse(store.Contains(digest), "After remove, Store may no longer contain the added package");
@@ -115,13 +116,13 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldThrowOnAddWithEmptyDigest()
         {
-            Assert.Throws(typeof(ArgumentException), () => _store.AddDirectory(_packageDir, new ManifestDigest(), null));
+            Assert.Throws(typeof(ArgumentException), () => _store.AddDirectory(_packageDir, new ManifestDigest(), new SilentHandler()));
         }
 
         [Test]
         public void ShouldReturnCorrectPathOfPackageInCache()
         {
-            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, null);
+            string hash = Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha256, new SilentHandler());
 
             Directory.Move(_packageDir, Path.Combine(_store.DirectoryPath, hash));
             Assert.AreEqual(Path.Combine(_store.DirectoryPath, hash), _store.GetPath(new ManifestDigest(hash)), "Store must return the correct path for Implementations it contains");
@@ -136,16 +137,16 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void ShouldDetectDamagedImplementations()
         {
-            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, null));
+            var digest = new ManifestDigest(Manifest.CreateDotFile(_packageDir, ManifestFormat.Sha1New, new SilentHandler()));
             var store = _store;
-            store.AddDirectory(_packageDir, digest, null);
+            store.AddDirectory(_packageDir, digest, new SilentHandler());
 
             // After correctly adding a directory, the store should be valid
-            _store.Audit(null);
+            _store.Audit(new SilentHandler());
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
-            DigestMismatchException problem = EnumUtils.GetFirst(store.Audit(null));
+            DigestMismatchException problem = EnumUtils.GetFirst(store.Audit(new SilentHandler()));
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }

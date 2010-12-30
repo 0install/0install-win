@@ -79,7 +79,7 @@ namespace ZeroInstall.Launcher.Gtk
             }
             #endregion
 
-            try { ExecuteArgs(handler, mode, results); }
+            try { ExecuteArgs(mode, results, handler); }
             #region Error hanlding
             catch (UserCancelException)
             {}
@@ -147,7 +147,7 @@ namespace ZeroInstall.Launcher.Gtk
         {
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault()};
 
             #region Define options
             var options = new OptionSet
@@ -211,10 +211,10 @@ namespace ZeroInstall.Launcher.Gtk
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
         /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="UserCancelException">Thrown if a download, extraction or manifest task was cancelled.</exception>
+        /// <param name="handler">A callback object that controls the UI.</param>
+        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
@@ -226,7 +226,7 @@ namespace ZeroInstall.Launcher.Gtk
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static void ExecuteArgs(MainWindow handler, OperationMode mode, ParseResults results)
+        private static void ExecuteArgs(OperationMode mode, ParseResults results, MainWindow handler)
         {
             // ToDo: Implement
         }

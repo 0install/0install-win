@@ -58,12 +58,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Verify this element is valid.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match the <see cref="ManifestDigest"/>.</exception>
-        public abstract void Verify(IImplementationHandler handler);
+        public abstract void Verify(IIOHandler handler);
         #endregion
 
         #region Comparison

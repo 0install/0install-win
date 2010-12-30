@@ -1619,7 +1619,7 @@
                   <elementDefinition Id="1fa76f81-47ac-4ea3-b5a9-77bc520a9b7a" />
                 </dependency>
                 <dependency Id="3ebdc259-cda8-41ec-b7d5-d852c149b97a">
-                  <interfaceMoniker Id="54d87525-25e6-4d69-9fa6-c81667691cfb" LastKnownName="IImplementationHandler" />
+                  <interfaceMoniker Id="54d87525-25e6-4d69-9fa6-c81667691cfb" LastKnownName="IIOHandler" />
                   <elementDefinition Id="060b9953-26b7-4f4a-ba7a-c548353e8f1d" />
                 </dependency>
               </suppliersInternal>
@@ -1840,7 +1840,7 @@
                         </referencesInternal>
                         <elementDefinition Id="85feb73a-3b5a-433b-be84-f266c559a3dc" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1926,7 +1926,7 @@
                         </referencesInternal>
                         <elementDefinition Id="2c06f406-1cf0-4356-a1c1-9a5762597e3b" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2009,7 +2009,7 @@
                         </referencesInternal>
                         <elementDefinition Id="c5a84e1f-3f2a-4eca-b66e-9f7a662ff2b3" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2162,7 +2162,7 @@
                       <parameter Id="e7e2eb09-656d-45aa-923a-04d3acaaf6cc" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="4e24c6a9-f06e-47fe-973c-393b686f4ade" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2201,7 +2201,7 @@
                       <parameter Id="159d5248-732e-4401-8088-e5444f1b275c" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="a143d3b2-9bbb-4caf-bf4f-3d187acd587d" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2496,7 +2496,7 @@
                       <parameter Id="e5bea0df-8275-409f-9ebd-fe4ee8af9e96" name="handler" direction="In">
                         <elementDefinition Id="3cd11a5d-0d71-43b7-a5a1-14bb6749b1a9" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2525,7 +2525,7 @@
                       <parameter Id="417cad19-941f-4697-98c1-8042b54bbdba" name="handler" direction="In">
                         <elementDefinition Id="94ac596b-1dc2-4a4d-84c3-7ee229bd60e3" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2551,7 +2551,7 @@
                       <parameter Id="98c88cb0-0268-45ef-b41f-9305c14b210b" name="handler" direction="In">
                         <elementDefinition Id="6457ec81-cbc3-4ade-80fb-97e81be07c3b" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2646,7 +2646,7 @@
                       <parameter Id="952e8949-20c3-4d3d-8031-c41d5a0d0b10" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="b39e6144-d64b-4a95-a3e5-6ab18761f2f5" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2667,7 +2667,7 @@
                       <parameter Id="2fc00cf2-c6e9-45b1-823f-58eea69c6488" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="7c07e08c-1a96-4a1f-8dc4-674141a46ef3" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2706,7 +2706,7 @@
                       <parameter Id="9d9576d4-de30-4981-b870-983be114e088" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="26dd1003-0828-42ff-bb53-be462913de32" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2919,7 +2919,7 @@
                       <parameter Id="ba706088-6584-4b7b-af44-0f68da46f3a5" name="handler" direction="In">
                         <elementDefinition Id="35309a7c-5030-4d4e-8232-fc5dfb479a80" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2948,7 +2948,7 @@
                       <parameter Id="285c584d-74d4-42cd-af2d-13e4a2918b05" name="handler" direction="In">
                         <elementDefinition Id="3fcbc03e-f53f-434a-bf16-ac9ceadacebf" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2974,7 +2974,7 @@
                       <parameter Id="17d83b3f-ff17-49ff-860f-234245115075" name="handler" direction="In">
                         <elementDefinition Id="7c3630a5-c1f7-489f-8f7e-ed50fa1d6313" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3063,7 +3063,7 @@
                       <parameter Id="02aa7d05-cfff-4b9f-86bc-6f5355941bfa" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="627da058-6d61-4d62-a737-8292c9b6d7b7" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3102,7 +3102,7 @@
                       <parameter Id="9bf2eff7-21dc-4ddd-9449-a1aaa95b0ddc" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="f085d670-a7ea-49f7-b3cd-9af42aadac07" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3336,7 +3336,7 @@
                       <parameter Id="60fd247f-b65d-4930-8c61-2f1482cd3921" name="handler" direction="In">
                         <elementDefinition Id="37d540bd-fdf4-4014-82f5-b49f354df770" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3365,7 +3365,7 @@
                       <parameter Id="63235c2c-1879-4504-a7a5-8e60b08584af" name="handler" direction="In">
                         <elementDefinition Id="2e7f21bd-71fe-46b9-835c-59d535b877da" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3391,7 +3391,7 @@
                       <parameter Id="b60b6496-142d-4833-9224-19f8c9c9c99f" name="handler" direction="In">
                         <elementDefinition Id="33ea1cbb-3ace-4b8a-acc6-36bbe85d33d0" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3433,7 +3433,7 @@
                       <parameter Id="3e0f9fe9-51f2-4c31-8dd4-62ec19068493" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="d1a45215-eceb-45f8-a91e-ef4653cdbb2f" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -3472,7 +3472,7 @@
                       <parameter Id="169429f7-2360-45e9-ab9c-a7d150573cfb" name="handler" direction="In" isUnique="false">
                         <elementDefinition Id="7a75abc6-f4e3-467c-8b94-d456d94c3738" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IImplementationHandler" />
+                          <referencedTypeMoniker Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" LastKnownName="IIOHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -8270,9 +8270,9 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <Interface Id="54d87525-25e6-4d69-9fa6-c81667691cfb" name="IImplementationHandler" isAbstract="false" isLeaf="false">
+            <Interface Id="54d87525-25e6-4d69-9fa6-c81667691cfb" name="IIOHandler" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="7f1aaa0f-dca9-403c-9d1e-8ae7af7360a6" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler" tag="ViewCode">
+                <reference Id="7f1aaa0f-dca9-403c-9d1e-8ae7af7360a6" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler" tag="ViewCode">
                   <elementDefinition Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261" />
                 </reference>
               </referencesInternal>
@@ -8367,7 +8367,7 @@
               <ownedOperations>
                 <operation Id="654a10dd-d7e3-4a90-aeb0-8faaf2710035" name="RunIOTask" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
-                    <reference Id="ac4540f5-daff-409b-9d09-f77bbac68e19" handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                    <reference Id="ac4540f5-daff-409b-9d09-f77bbac68e19" handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                       <elementDefinition Id="c08cf5dc-0e34-44ce-b420-9ddda331894a" />
                     </reference>
                   </referencesInternal>
@@ -8532,7 +8532,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
+      <referencedType Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" name="IIOHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IIOHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>
@@ -8552,7 +8552,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
+      <referencedType Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" name="IIOHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IIOHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>
@@ -8567,7 +8567,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="IImplementationHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IImplementationHandler">
+      <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="IIOHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IIOHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>

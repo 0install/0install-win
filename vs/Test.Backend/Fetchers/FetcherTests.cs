@@ -19,11 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Common.Net;
+using ZeroInstall.Launcher;
 using ZeroInstall.Store.Implementation.Archive;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
-using ZeroInstall.Launcher;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Model;
 
@@ -42,7 +42,7 @@ namespace ZeroInstall.Fetchers
                 _outer = outer;
             }
 
-            protected override void DownloadArchive(Archive archive, string destination)
+            protected override void DownloadArchive(Archive archive, string destination, IFetchHandler handler)
             {
                 _outer.DownloadAction(archive, destination);
             }
@@ -51,7 +51,7 @@ namespace ZeroInstall.Fetchers
         internal Action<Archive, string> DownloadAction;
 
         internal MockFetcher(IStore store)
-            : base(null, store)
+            : base(store)
         { }
 
         protected override ImplementationFetch CreateFetch(Implementation implementation)
@@ -131,7 +131,7 @@ namespace ZeroInstall.Fetchers
             _testFolder = new TemporaryDirectory("0install-unit-tests");
             _storeDir = new TemporaryDirectory("0install-unit-tests");
             _store = new DirectoryStore(_storeDir.Path);
-            _fetcher = new Fetcher(null, _store);
+            _fetcher = new Fetcher(_store);
             _oldWorkingDirectory = Environment.CurrentDirectory;
             Environment.CurrentDirectory = _testFolder.Path;
         }
@@ -156,7 +156,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation});
-                _fetcher.RunSync(request);
+                _fetcher.RunSync(request, new SilentHandler());
             }
             finally { server.Dispose(); }
 
@@ -175,7 +175,7 @@ namespace ZeroInstall.Fetchers
             {
                 ((Archive)implementation.RetrievalMethods[0]).Size = 0;
                 var request = new FetchRequest(new List<Implementation> {implementation});
-                Assert.Throws<FetcherException>(() => _fetcher.RunSync(request));
+                Assert.Throws<FetcherException>(() => _fetcher.RunSync(request, new SilentHandler()));
             }
             finally { server.Dispose(); }
         }
@@ -192,7 +192,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation});
-                _fetcher.RunSync(request);
+                _fetcher.RunSync(request, new SilentHandler());
             }
             finally { server.Dispose(); }
 
@@ -244,7 +244,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 var request = new FetchRequest(new List<Implementation> {implementation});
-                _fetcher.RunSync(request);
+                _fetcher.RunSync(request, new SilentHandler());
             }
             finally { server.Dispose(); }
 
@@ -293,7 +293,7 @@ namespace ZeroInstall.Fetchers
                     RetrievalMethods = { recipe }
                 };
                 var request = new FetchRequest(new List<Implementation> { implementation });
-                Assert.DoesNotThrow(() => _fetcher.RunSync(request));
+                Assert.DoesNotThrow(() => _fetcher.RunSync(request, new SilentHandler()));
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -350,7 +350,7 @@ namespace ZeroInstall.Fetchers
                 };
 
                 var request = new FetchRequest(new List<Implementation> { implementation });
-                _fetcher.RunSync(request);
+                _fetcher.RunSync(request, new SilentHandler());
                 Assert.True(_store.Contains(implementation.ManifestDigest), "Fetcher must make the requested implementation available in its associated store");
             }
         }
@@ -430,7 +430,7 @@ namespace ZeroInstall.Fetchers
             };
             try
             {
-                fetcher.RunSync(request);
+                fetcher.RunSync(request, new SilentHandler());
             }
             catch (MockException)
             {}
@@ -462,7 +462,7 @@ namespace ZeroInstall.Fetchers
                           };
             try
             {
-                fetcher.RunSync(request);
+                fetcher.RunSync(request, new SilentHandler());
             }
             catch (MockException)
             { }

@@ -73,15 +73,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <suppliersInternal>
-          <dependency
-            Id="70824c16-47e5-4293-959d-54079cfa3a28">
-            <interfaceMoniker
-              Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
-              LastKnownName="IHandler"
-              LastKnownLocation="Package1_1632.uml" />
-          </dependency>
-        </suppliersInternal>
         <targetEnds>
           <association
             Id="80c1532b-a47e-4288-a512-c7000319b00b"
@@ -156,9 +147,9 @@
             targetEndRoleName="Fetcher"
             isLeaf="false"
             isAbstract="false">
-            <classMoniker
-              Id="e1fdf584-94c2-479f-b584-b911b0c7f877"
-              LastKnownName="Fetcher"
+            <interfaceMoniker
+              Id="b6c4a047-ee68-4275-8444-7bc0f2f0df8d"
+              LastKnownName="IFetcher"
               LastKnownLocation="Package_1633.uml" />
             <description>Property Fetcher references type Fetcher.</description>
             <relationshipOwnedElementsInternal>
@@ -768,30 +759,12 @@
               <operationHasOwnedParameters>
                 <parameter
                   Id="000a8c96-0bd3-4ee4-aaea-18e066c16130"
-                  direction="Return">
+                  direction="Return"
+                  isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
                       LastKnownName="Policy"
-                      LastKnownLocation="Package1_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="a9d0bf30-d396-473f-8433-986116a7e6ce"
-                  name="handler"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="3553f323-8355-46aa-b4a6-f7558da8d688"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Policy Member=(Name=CreateDefault OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler)]) ParameterIdentifier=handler"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
-                      LastKnownName="IHandler"
                       LastKnownLocation="Package1_1632.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1038,6 +1011,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="be08b7ee-8b4a-4ad9-8729-ac24682bafdd"
+            isDerived="false"
+            sourceEndRoleName="Controller"
+            targetEndRoleName="Handler"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
+              LastKnownName="IHandler"
+              LastKnownLocation="Package1_1632.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4f6c9c3a-3965-44de-9684-0d5781916434"
+                  name="Controller"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="7c0c48f2-a50d-4196-a7cc-f9a71fc3f4ec"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="fc8502f7-0632-44c4-a1b0-fe21d22dc05d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="03402a16-b1f9-4cad-9e67-3934511d945d"
+                  name="Handler"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property
@@ -1175,15 +1200,10 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="ae42b072-505e-4589-b269-0bee38f0cbec"
+                  Id="47380d53-f15e-48ad-b3af-579360ed5a73"
                   name="interfaceID"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="f9120e7c-8387-4b99-94b2-2252f38b86df"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher.Solver Type=ISolver),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Policy)]) ParameterIdentifier=interfaceID"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <primitiveTypeMoniker
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
@@ -1194,15 +1214,10 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="03f290fa-2a86-44d0-8f10-12e7772a8fbd"
+                  Id="8864faed-a18f-43c5-854e-449cc49eb43d"
                   name="solver"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="4a53c8bd-23e4-4779-bc46-6dcc6ef85a0f"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher.Solver Type=ISolver),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Policy)]) ParameterIdentifier=solver"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28"
@@ -1213,19 +1228,28 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="b66a5cb8-7998-4a26-ad43-8ddc9baff009"
+                  Id="ecee8e55-cac0-4d7b-a42c-1b981016726c"
                   name="policy"
-                  direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="ebe739e7-a403-4224-bb51-ec15d4e4a4da"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Controller Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher.Solver Type=ISolver),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Policy)]) ParameterIdentifier=policy"
-                      tag="ViewCode" />
-                  </referencesInternal>
+                  direction="In"
+                  isUnique="false">
                   <type_NamedElement>
                     <classMoniker
                       Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
                       LastKnownName="Policy"
+                      LastKnownLocation="Package1_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a4a0be89-9d8e-4e8f-8622-993d03580da8"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
+                      LastKnownName="IHandler"
                       LastKnownLocation="Package1_1632.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2244,6 +2268,15 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="d075a69d-cdcb-44fd-849b-390214152445">
+            <interfaceMoniker
+              Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
+              LastKnownName="ITask"
+              LastKnownLocation="Package5_1629.uml" />
+          </dependency>
+        </suppliersInternal>
         <generalsInternal>
           <generalization
             Id="508aea1a-a5e4-472f-a081-d34c6e06f64b"

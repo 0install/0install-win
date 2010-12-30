@@ -22,10 +22,10 @@ using Common;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Callback methods to be used when the the user is to be informed about extraction and manifest progress.
+    /// Callback methods to inform the user about IO tasks.
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
-    public interface IImplementationHandler
+    public interface IIOHandler
     {
         /// <summary>
         /// Don't print messages to <see cref="Console"/> unless errors occur and don't block with questions or messages.

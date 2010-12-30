@@ -65,7 +65,7 @@ namespace ZeroInstall.Central.Wpf
 
             backgroundWorker.DoWork += delegate
             {
-                new Controller(AppInfo.Feed.UriString, SolverProvider.Default, Policy.CreateDefault(this)).DownloadUncachedImplementations();
+                new Controller(AppInfo.Feed.UriString, SolverProvider.Default, Policy.CreateDefault(), this).DownloadUncachedImplementations();
             };
             backgroundWorker.RunWorkerCompleted += b_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();

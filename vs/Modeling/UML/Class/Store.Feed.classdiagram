@@ -1612,6 +1612,10 @@
                   <classMoniker Id="bd693706-e805-41b8-827b-3dceea6649cd" LastKnownName="InterfacePreferences" />
                   <elementDefinition Id="1a823fde-3220-4aca-8879-b2b7438a6a71" />
                 </dependency>
+                <dependency Id="4bc583de-1352-4f7a-97d0-801b80341835">
+                  <interfaceMoniker Id="80d3b5a3-13f3-4a21-be97-74739729cd58" LastKnownName="IFeedHandler" />
+                  <elementDefinition Id="31a93d03-0da6-45ef-be56-dd7cd84165c3" />
+                </dependency>
               </suppliersInternal>
               <targetEnds>
                 <association Id="a3945a79-1165-4872-b713-745c5af7474f" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="NetworkLevel" isLeaf="false" isAbstract="false">
@@ -1651,37 +1655,21 @@
                   </relationshipOwnedElementsInternal>
                   <elementDefinition Id="d8469f51-bb66-4dc9-9e4d-fb3853e8393b" />
                 </association>
-                <association Id="42d71b7b-76d4-4e38-8a48-c623d85d564f" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="Handler" isLeaf="false" isAbstract="false">
-                  <interfaceMoniker Id="80d3b5a3-13f3-4a21-be97-74739729cd58" LastKnownName="IFeedHandler" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="e73593c5-4b53-4438-a68a-92612e0b0048" name="FeedManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                        <lowerValueInternal>
-                          <literalString Id="47f37d7f-867e-47bb-8bc4-f71b008536b0" name="Lower" value="*">
-                            <elementDefinition Id="5671a60b-791b-48e7-a8b1-c34fecf06be8" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="d4889e17-eca3-447a-82aa-d6c53ed0934f" name="Upper" value="*">
-                            <elementDefinition Id="ff67539e-4e5a-4eb2-a7cb-3245ff32d46c" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="e854d505-21d4-48c0-adaa-8e6dfe958592" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="05751b8b-d985-4551-962d-d18bee0be6db" name="Handler" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="915c6706-2165-4c65-b0d1-fe11159e9560" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="3999a0a4-277b-469b-82e9-5de8e65950b8" />
-                </association>
                 <association Id="79f36b6e-b5b2-4947-8d4d-513e60103c53" isDerived="false" sourceEndRoleName="FeedManager" targetEndRoleName="FeedCache" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="bab69625-4810-4be9-9375-3a4a3674ef1b" LastKnownName="IFeedCache" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
                       <memberEnd Id="45427b5d-4a88-4b0e-9fb1-bf470fded5ec" name="FeedManager" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                        <lowerValueInternal>
+                          <literalString Id="eb167713-c9b6-4202-9896-67498ac84cd7" name="Lower" value="*">
+                            <elementDefinition Id="9a4c1d2b-f45f-4e64-88b3-1fbecfd9807a" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="743faf7f-7cf7-4d3b-9cd1-a54a93303b35" name="Upper" value="*">
+                            <elementDefinition Id="7419fe4d-ad5b-4c64-85dc-97d2c461d847" />
+                          </literalString>
+                        </upperValueInternal>
                         <elementDefinition Id="2b7d30f3-a4ca-46b1-8315-8472b10c07c2" />
                       </memberEnd>
                     </associationHasOwnedEnds>
@@ -1869,10 +1857,18 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="3a8a10f5-16c0-420d-bc5f-ed4623f8accf" name="interfaceUri" direction="In" isUnique="false">
-                        <elementDefinition Id="90266835-6aa3-4c4b-9f15-156cd0fbb329" />
+                      <parameter Id="28e0a61f-5cde-4520-88c5-083db7af3a2a" name="interfaceUri" direction="In" isUnique="false">
+                        <elementDefinition Id="1eb06cc1-6e95-4524-b0e3-a8b6d5eda3f5" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="4fcd43b5-e05a-41fc-ac77-e4981c18946f" LastKnownName="String" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="fee2c228-a12d-4702-aaa3-1cfd37c61221" name="handler" direction="In" isUnique="false">
+                        <elementDefinition Id="70270f63-7a6d-49d0-98a6-06af512fc964" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="b027ab49-7c07-42c8-871b-461218ecf574" LastKnownName="IFeedHandler" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1924,15 +1920,10 @@
                   <elementDefinition Id="f6e704e2-a6b3-4d6c-94d6-c4871da7e00d" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="c4098cc3-8a53-4fbb-b9ed-96293f0816f9" name="cache" direction="In" isUnique="false">
-                        <elementDefinition Id="4e253ebd-3807-44aa-b27b-8bde56b48cb6" />
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="c59edacb-a287-4b8a-bf5c-df4274cda1a1" name="handler" direction="In" isUnique="false">
-                        <elementDefinition Id="70263f03-d00a-4bf0-aabb-e8aeb54cf50d" />
+                      <parameter Id="e87d8189-b0cd-43cd-9689-1ffd2caf55f6" name="cache" direction="In" isUnique="false">
+                        <elementDefinition Id="a1e44209-95d5-4fea-b6d9-374ee2ff296d" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="0120b5f0-fff9-4b66-a1ea-bb11ee1df605" LastKnownName="IFeedHandler" />
+                          <referencedTypeMoniker Id="02214adf-400d-4c0c-bd4f-c29b48b1f7b7" LastKnownName="IFeedCache" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -2015,7 +2006,7 @@
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
-                <property Id="720bedf6-f2d1-491d-b85b-65225587c32d" name="LastChecked" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="720bedf6-f2d1-491d-b85b-65225587c32d" name="LastChecked" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
                     <reference Id="6f7ae74d-fb9e-401a-8611-5058101dbd1f" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedPreferences Member=LastChecked" tag="ViewCode">
                       <elementDefinition Id="4452098d-4e91-4f26-8775-0fb14c320452" />
@@ -2065,6 +2056,9 @@
                     </stereotypeInstance>
                   </appliedStereotypesInternal>
                   <elementDefinition Id="9a0470c9-5270-4367-b537-376752bd2780" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="6b5707e0-4da3-441b-b690-3ed2b2e0a552" LastKnownName="DateTime" />
+                  </type_NamedElement>
                 </property>
               </ownedAttributesInternal>
               <ownedOperationsInternal>
@@ -3972,11 +3966,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="0120b5f0-fff9-4b66-a1ea-bb11ee1df605" name="IFeedHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feed::IFeedHandler">
-        <elementDefinition Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="156ceac7-3a74-4a89-9da2-9d42c6c4c370" name="GnuPGSecretKey" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feed::GnuPGSecretKey">
         <elementDefinition Id="deb1bd9c-90d7-4201-ba8d-e7cf0cd4578c" />
       </referencedType>
@@ -4577,6 +4566,16 @@
     <packageHasNamedElement>
       <referencedType Id="ba02c981-a199-444e-a2d2-ff6ef53cf847" name="Feed" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Feed">
         <elementDefinition Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b027ab49-7c07-42c8-871b-461218ecf574" name="IFeedHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feed::IFeedHandler">
+        <elementDefinition Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="02214adf-400d-4c0c-bd4f-c29b48b1f7b7" name="IFeedCache" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feed::IFeedCache">
+        <elementDefinition Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

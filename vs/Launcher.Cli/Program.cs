@@ -101,7 +101,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             #endregion
 
-            try { return ExecuteArgs(mode, results); }
+            try { return ExecuteArgs(mode, results, handler); }
             #region Error hanlding
             catch (UserCancelException)
             {
@@ -187,7 +187,7 @@ namespace ZeroInstall.Launcher.Cli
 
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault()};
 
             #region Define options
             var options = new OptionSet
@@ -268,6 +268,7 @@ namespace ZeroInstall.Launcher.Cli
         /// </summary>
         /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
@@ -281,12 +282,12 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static int ExecuteArgs(OperationMode mode, ParseResults results)
+        private static int ExecuteArgs(OperationMode mode, ParseResults results, IHandler handler)
         {
             switch (mode)
             {
                 case OperationMode.Normal:
-                    Normal(results);
+                    Normal(results, handler);
                     return (int)ErrorLevel.OK;
 
                 case OperationMode.List:
@@ -321,6 +322,7 @@ namespace ZeroInstall.Launcher.Cli
         /// Launches the interface specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
@@ -333,11 +335,11 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static void Normal(ParseResults results)
+        private static void Normal(ParseResults results, IHandler handler)
         {
             if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageNormal));
 
-            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
+            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy, handler);
 
             if (results.SelectionsFile == null) controller.Solve();
             else controller.SetSelections(Selections.Load(results.SelectionsFile));

@@ -62,42 +62,42 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The directory containing the implementation.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="path"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddDirectory(string path, ManifestDigest manifestDigest, IImplementationHandler handler);
+        void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler);
 
         /// <summary>
         /// Extracts an archive containing the files of an implementation into the store if it matches the provided <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="archiveInfo">Parameter object providing the information to extract the archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IImplementationHandler handler);
+        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler);
         
         /// <summary>
         /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
         /// </summary>
         /// <param name="archiveInfos">Multiple parameter objects providing the information to extract each archive.</param>
         /// <param name="manifestDigest">The digest the implementation is supposed to match.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="IOException">Thrown if one of the archives cannot be extracted.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IImplementationHandler handler);
+        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler);
 
         /// <summary>
         /// Removes a specific implementation from the cache.
@@ -112,31 +112,31 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="IOException">Thrown if two files could not be hard-linked together.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if a damaged implementation is encountered while optimizing.</exception>
         /// <remarks>If the store does not support optimising this method call may be silently ignored.</remarks>
-        void Optimise(IImplementationHandler handler);
+        void Optimise(IIOHandler handler);
 
         /// <summary>
         /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries!
         /// </summary>
         /// <param name="manifestDigest">The digest of the implementation to be verified.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> indicates no known hash methods.</exception>
         /// <exception cref="IOException">Thrown if the entry's directory could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match <paramref name="manifestDigest"/>.</exception>
         /// <remarks>If the store does not support verification this method call may be silently ignored.</remarks>
-        void Verify(ManifestDigest manifestDigest, IImplementationHandler handler);
+        void Verify(ManifestDigest manifestDigest, IIOHandler handler);
 
         /// <summary>
         /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!
         /// </summary>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>
         /// A list of digest mismatch problems that were encountered. The comparisons are only performed on demand as the returned enumerator is probed.<br/>
         /// -or-<br/>
@@ -145,6 +145,6 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        IEnumerable<DigestMismatchException> Audit(IImplementationHandler handler);
+        IEnumerable<DigestMismatchException> Audit(IIOHandler handler);
     }
 }

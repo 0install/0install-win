@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Fetchers.Fetcher">
-    <Position X="0.5" Y="0.5" Width="2.5" />
+    <Position X="2.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAIAAAAAAAAAQAAAAAAEQAAAAAAEQAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAQAQAAA=</HashCode>
       <FileName>Fetcher.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Store" />
-      <Property Name="Handler" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Fetchers.FetchRequest">
-    <Position X="0.5" Y="4.75" Width="1.75" />
+    <Position X="1.75" Y="5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>FetchRequest.cs</FileName>
@@ -22,7 +22,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Model.Implementation">
-    <Position X="4" Y="4.75" Width="1.5" />
+    <Position X="5" Y="5" Width="1.75" />
     <Members>
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
@@ -30,16 +30,36 @@
     </Members>
     <TypeIdentifier />
   </Class>
-  <Interface Name="ZeroInstall.Fetchers.IFetchHandler">
-    <Position X="4" Y="0.5" Width="2" />
+  <Class Name="ZeroInstall.Fetchers.FetcherProvider" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>FetcherProvider.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Default" />
+    </ShowAsAssociation>
+  </Class>
+  <Interface Name="ZeroInstall.Fetchers.IFetchHandler">
+    <Position X="0.5" Y="2.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>IFetchHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Implementation.IStore">
-    <Position X="4" Y="2" Width="1.5" />
+    <Position X="5" Y="1.75" Width="1.75" />
     <TypeIdentifier />
+  </Interface>
+  <Interface Name="ZeroInstall.Fetchers.IFetcher">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAA=</HashCode>
+      <FileName>IFetcher.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Store" />
+    </ShowAsAssociation>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

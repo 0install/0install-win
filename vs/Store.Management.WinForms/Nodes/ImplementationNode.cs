@@ -95,8 +95,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         
         #region Verify
         /// <inheritdoc/>
-        public override void Verify(IImplementationHandler handler)
+        public override void Verify(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             _store.Verify(_digest, handler);
         }
         #endregion

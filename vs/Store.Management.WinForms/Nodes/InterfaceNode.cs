@@ -90,7 +90,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public override void Verify(IImplementationHandler handler)
+        public override void Verify(IIOHandler handler)
         {}
         #endregion
     }

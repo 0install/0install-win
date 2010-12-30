@@ -206,21 +206,21 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        public static Manifest Generate(string path, ManifestFormat format, IImplementationHandler handler)
+        public static Manifest Generate(string path, ManifestFormat format, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (format == null) throw new ArgumentNullException("format");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             var generator = new ManifestGenerator(path, format);
 
-            // Run task locally or defer to handler
-            if (handler == null) generator.RunSync();
-            else handler.RunIOTask(generator);
+            // Defer task to handler
+            handler.RunIOTask(generator);
 
             return generator.Result;
         }
@@ -230,13 +230,13 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The manifest digest (format=hash).</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <remarks>
         /// The exact format is specified here: http://0install.net/manifest-spec.html
         /// </remarks>
-        public static string CreateDotFile(string path, ManifestFormat format, IImplementationHandler handler)
+        public static string CreateDotFile(string path, ManifestFormat format, IIOHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -250,10 +250,10 @@ namespace ZeroInstall.Store.Implementation
         /// Generates a <see cref="ManifestDigest"/> object for a directory containing digests for all <see cref="ManifestFormat.Recommended"/>.
         /// </summary>
         /// <param name="path">The path of the directory to analyze.</param>
-        /// <param name="handler">A callback object used when the the user is to be informed about progress; may be <see langword="null"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <returns>The combined manifest digest structure.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
-        public static ManifestDigest CreateDigest(string path, IImplementationHandler handler)
+        public static ManifestDigest CreateDigest(string path, IIOHandler handler)
         {
             var digest = new ManifestDigest();
 

@@ -24,7 +24,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Uses the stderr stream to inform the user of progress.
     /// </summary>
-    public class CliHandler : MarshalByRefObject, IImplementationHandler
+    public class CliHandler : MarshalByRefObject, IIOHandler
     {
         /// <summary>
         /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".

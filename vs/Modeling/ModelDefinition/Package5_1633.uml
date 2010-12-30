@@ -418,7 +418,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -468,7 +468,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -511,7 +511,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -659,7 +659,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -696,7 +696,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -760,7 +760,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -830,7 +830,7 @@
             Id="060b9953-26b7-4f4a-ba7a-c548353e8f1d">
             <interfaceMoniker
               Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-              LastKnownName="IImplementationHandler"
+              LastKnownName="IIOHandler"
               LastKnownLocation="Package5_1633.uml" />
           </dependency>
         </suppliersInternal>
@@ -1127,7 +1127,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1244,7 +1244,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1355,7 +1355,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1563,7 +1563,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -1627,7 +1627,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4173,7 +4173,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4223,7 +4223,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4266,7 +4266,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4343,7 +4343,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4407,7 +4407,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4747,7 +4747,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4797,7 +4797,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4840,7 +4840,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -4978,7 +4978,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -5042,7 +5042,7 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IImplementationHandler"
+                      LastKnownName="IIOHandler"
                       LastKnownLocation="Package5_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -9405,13 +9405,13 @@
     <packageHasNamedElement>
       <Interface
         Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-        name="IImplementationHandler"
+        name="IIOHandler"
         isAbstract="false"
         isLeaf="false">
         <referencesInternal>
           <reference
             Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -9537,7 +9537,7 @@
             <referencesInternal>
               <reference
                 Id="c08cf5dc-0e34-44ce-b420-9ddda331894a"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IImplementationHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -9664,7 +9664,7 @@
             Id="71b5e07b-db70-4d9c-8540-fb876a6216f2">
             <interfaceMoniker
               Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-              LastKnownName="IImplementationHandler"
+              LastKnownName="IIOHandler"
               LastKnownLocation="Package5_1633.uml" />
           </interfaceRealization>
         </suppliersInternal>

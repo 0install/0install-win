@@ -41,9 +41,13 @@ namespace ZeroInstall.Launcher
 
         private DynamicMock _solverMock;
         private DynamicMock _cacheMock;
+        private DynamicMock _fetcherMock;
 
         private ISolver TestSolver { get { return (ISolver)_solverMock.MockInstance; } }
-        private IFeedCache TestCache { get { return (IFeedCache)_cacheMock.MockInstance; } }
+        private Policy CreateTestPolicy()
+        {
+            return new Policy(new FeedManager((IFeedCache)_cacheMock.MockInstance), (IFetcher)_fetcherMock.MockInstance);
+        }
         
         [SetUp]
         public void SetUp()
@@ -51,6 +55,7 @@ namespace ZeroInstall.Launcher
             // Prepare mock objects that will be injected with methods in the tests
             _solverMock = new DynamicMock("MockSolver", typeof(ISolver));
             _cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            _fetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
         }
 
         [TearDown]
@@ -59,6 +64,7 @@ namespace ZeroInstall.Launcher
             // Ensure no method calls were left out
             _solverMock.Verify();
             _cacheMock.Verify();
+            _fetcherMock.Verify();
         }
         #endregion
 
@@ -68,9 +74,9 @@ namespace ZeroInstall.Launcher
         [Test]
         public void TestExceptions()
         {
-            Assert.Throws<ArgumentException>(() => new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(new SilentHandler())), "Invalid paths should be detected");
+            Assert.Throws<ArgumentException>(() => new Controller("invalid", SolverProvider.Default, Policy.CreateDefault(), new SilentHandler()));
 
-            var controller = new Controller("http://nothing", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
+            var controller = new Controller("http://nothing", SolverProvider.Default, Policy.CreateDefault(), new SilentHandler());
             Assert.Throws<InvalidOperationException>(() => controller.GetSelections(), "GetSelections should depend on Solve being called first");
             Assert.Throws<InvalidOperationException>(() => controller.GetExecutor(), "GetRun should depend on Solve being called first");
         }
@@ -78,17 +84,18 @@ namespace ZeroInstall.Launcher
         [Test]
         public void TestSolve()
         {
-            var policy = new Policy(new FeedManager(TestCache, new SilentHandler()), new Fetcher(null));
+            var policy = CreateTestPolicy();
 
-            _solverMock.Expect("Solve", TestUri, policy);
-            var controller = new Controller(TestUri, TestSolver, policy);
+            var handler = new SilentHandler();
+            _solverMock.Expect("Solve", TestUri, policy, handler);
+            var controller = new Controller(TestUri, TestSolver, policy, handler);
             controller.Solve();
         }
 
         [Test]
         public void TestGetSetSelections()
         {
-            var controller = new Controller("http://nothing", TestSolver, Policy.CreateDefault(new SilentHandler()));
+            var controller = new Controller("http://nothing", TestSolver, CreateTestPolicy(), new SilentHandler());
             
             var selections = SelectionsTest.CreateTestSelections();
             controller.SetSelections(selections);
@@ -106,8 +113,8 @@ namespace ZeroInstall.Launcher
             IEnumerable<Implementation> implementations;
             using (var temp = new TemporaryDirectory("0install-unit-tests"))
             {
-                var policy = new Policy(new FeedManager(FeedCacheProvider.Default, new SilentHandler()), new Fetcher(new SilentHandler(), new DirectoryStore(temp.Path)));
-                var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy);
+                var policy = new Policy(new FeedManager(FeedCacheProvider.Default), FetcherProvider.Default);
+                var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy, new SilentHandler());
                 controller.Solve();
                 implementations = controller.ListUncachedImplementations();
             }
@@ -123,7 +130,7 @@ namespace ZeroInstall.Launcher
         //[Test]
         public void TestGetExecutor()
         {
-            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(new SilentHandler()));
+            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(), new SilentHandler());
             controller.Solve();
             controller.DownloadUncachedImplementations();
             var executor = controller.GetExecutor();

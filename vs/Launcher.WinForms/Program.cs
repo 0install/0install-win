@@ -80,7 +80,7 @@ namespace ZeroInstall.Launcher.WinForms
                 }
                 #endregion
 
-                try { ExecuteArgs(handler, mode, results); }
+                try { ExecuteArgs(mode, results, handler); }
                 #region Error hanlding
                 catch (UserCancelException)
                 {}
@@ -161,7 +161,7 @@ namespace ZeroInstall.Launcher.WinForms
         {
             // Prepare a structure for storing settings found in the arguments
             var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault(handler)};
+            var parseResults = new ParseResults {Policy = Policy.CreateDefault()};
 
             #region Define options
             var options = new OptionSet
@@ -225,9 +225,9 @@ namespace ZeroInstall.Launcher.WinForms
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
+        /// <param name="handler">A callback object that controls the UI.</param>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
@@ -240,7 +240,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="ImplementationBase"/>.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static void ExecuteArgs(MainForm handler, OperationMode mode, ParseResults results)
+        private static void ExecuteArgs(OperationMode mode, ParseResults results, MainForm handler)
         {
             switch (mode)
             {
@@ -285,7 +285,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// Launches the interface specified by the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <param name="handler">A callback object that controls the UI.</param>        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
+        /// <param name="handler">A callback object that controls the UI.</param>        
         /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
@@ -300,7 +300,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         private static void Normal(ParseResults results, MainForm handler)
         {
-            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy);
+            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy, handler);
 
             if (results.SelectionsFile == null) controller.Solve();
             else controller.SetSelections(Selections.Load(results.SelectionsFile));

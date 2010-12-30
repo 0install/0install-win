@@ -61,7 +61,7 @@ namespace ZeroInstall.Launcher.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(string interfaceID, Policy policy)
+        public Selections Solve(string interfaceID, Policy policy, IFeedHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
@@ -74,7 +74,7 @@ namespace ZeroInstall.Launcher.Solver
             if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
             // Execute the external Python script
-            var errorParser = new PythonErrorParser(policy.FeedManager.Handler);
+            var errorParser = new PythonErrorParser(handler);
             string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID;
             string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
 

@@ -1,29 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ZeroInstall.Store.Feed.FeedCache">
-    <Position X="8.5" Y="2" Width="2.25" />
+  <Class Name="ZeroInstall.Store.Feed.DiskFeedCache">
+    <Position X="8.75" Y="3.25" Width="2.25" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAABAAEAABAAAAAACAAAAAgAAAAAQAAA=</HashCode>
-      <FileName>Feed\FeedCache.cs</FileName>
+      <FileName>Feed\DiskFeedCache.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Store.Feed.FeedManager">
-    <Position X="6" Y="2.25" Width="1.5" />
+    <Position X="6.25" Y="2.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAgAABIAACAAAAAAAAAAAQAgAAAAEAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAgAABAAACAAAAAAAAAAAQAgAAAAEAAAAAAAAA=</HashCode>
       <FileName>Feed\FeedManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="NetworkLevel" />
-      <Property Name="Handler" />
+      <Property Name="Cache" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Feed.FeedPreferences">
-    <Position X="4" Y="1.5" Width="1.5" />
+    <Position X="4.25" Y="1.5" Width="1.5" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="CloneFeedPreferences" Hidden="true" />
@@ -45,7 +45,7 @@
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="ZeroInstall.Store.Feed.InterfacePreferences">
-    <Position X="3.75" Y="3.25" Width="1.75" />
+    <Position X="4" Y="3.25" Width="1.75" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="CloneInterfacePreferences" Hidden="true" />
@@ -97,7 +97,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Store.Feed.FeedCacheProvider" Collapsed="true">
-    <Position X="10.75" Y="1" Width="1.75" />
+    <Position X="11" Y="2.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Feed\FeedCacheProvider.cs</FileName>
@@ -107,21 +107,21 @@
     </ShowAsAssociation>
   </Class>
   <Interface Name="ZeroInstall.Store.Feed.IFeedHandler">
-    <Position X="6" Y="5" Width="1.5" />
+    <Position X="6.25" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Feed\IFeedHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Feed.IFeedCache" Collapsed="true">
-    <Position X="8.5" Y="1" Width="1.25" />
+    <Position X="8.75" Y="2.25" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAABAAEAABAAAAAAAAAAAAgAAAAAQAAA=</HashCode>
       <FileName>Feed\IFeedCache.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Enum Name="ZeroInstall.Store.Feed.NetworkLevel">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="6.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAABAAAAAAAAAAAgAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
       <FileName>Feed\FeedManager.cs</FileName>

@@ -2081,6 +2081,13 @@
               LastKnownName="InterfacePreferences"
               LastKnownLocation="Package4_1632.uml" />
           </dependency>
+          <dependency
+            Id="31a93d03-0da6-45ef-be56-dd7cd84165c3">
+            <interfaceMoniker
+              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+              LastKnownName="IFeedHandler"
+              LastKnownLocation="Package4_1632.uml" />
+          </dependency>
         </suppliersInternal>
         <targetEnds>
           <association
@@ -2150,110 +2157,6 @@
             </relationshipOwnedElementsInternal>
           </association>
           <association
-            Id="4da0628a-f33f-49d0-be8c-0219cc4dc4d8"
-            isDerived="false"
-            sourceEndRoleName="FeedManager"
-            targetEndRoleName="Handler"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-              LastKnownName="IFeedHandler"
-              LastKnownLocation="Package4_1632.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="8a5268b8-0b07-43b7-b20b-2cbff0149324"
-                  name="FeedManager"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="536fb40d-07b7-4ade-b733-6b0b182208c3"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="3c5f083a-ab7c-47f0-83b8-547b7ee2a7ba"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="d6c97b02-b76c-4dba-a96d-887bae9e03b2"
-                  name="Handler"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="3999a0a4-277b-469b-82e9-5de8e65950b8"
-            isDerived="false"
-            sourceEndRoleName="FeedManager"
-            targetEndRoleName="Handler"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-              LastKnownName="IFeedHandler"
-              LastKnownLocation="Package4_1632.uml" />
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="e854d505-21d4-48c0-adaa-8e6dfe958592"
-                  name="FeedManager"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="5671a60b-791b-48e7-a8b1-c34fecf06be8"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="ff67539e-4e5a-4eb2-a7cb-3245ff32d46c"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="915c6706-2165-4c65-b0d1-fe11159e9560"
-                  name="Handler"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false" />
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
             Id="05923b90-feab-41b4-83b8-d01d6866f406"
             isDerived="false"
             sourceEndRoleName="FeedManager"
@@ -2276,7 +2179,20 @@
                   isDerivedUnion="false"
                   aggregation="None"
                   isComposite="false"
-                  isNavigableOwned="false" />
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="9a4c1d2b-f45f-4e64-88b3-1fbecfd9807a"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="7419fe4d-ad5b-4c64-85dc-97d2c461d847"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
               </associationHasOwnedEnds>
               <associationHasOwnedEnds>
                 <memberEnd
@@ -2527,7 +2443,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="90266835-6aa3-4c4b-9f15-156cd0fbb329"
+                  Id="1eb06cc1-6e95-4524-b0e3-a8b6d5eda3f5"
                   name="interfaceUri"
                   direction="In"
                   isUnique="false">
@@ -2536,6 +2452,20 @@
                       Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
                       LastKnownName="String"
                       LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="70270f63-7a6d-49d0-98a6-06af512fc964"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
+                      LastKnownName="IFeedHandler"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -2601,21 +2531,14 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="4e253ebd-3807-44aa-b27b-8bde56b48cb6"
+                  Id="a1e44209-95d5-4fea-b6d9-374ee2ff296d"
                   name="cache"
-                  direction="In"
-                  isUnique="false" />
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="70263f03-d00a-4bf0-aabb-e8aeb54cf50d"
-                  name="handler"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
-                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-                      LastKnownName="IFeedHandler"
+                      Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+                      LastKnownName="IFeedCache"
                       LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -2968,6 +2891,7 @@
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
+            isUnique="false"
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
@@ -3028,6 +2952,12 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
+            <type_NamedElement>
+              <undefinedTypeMoniker
+                Id="1a83575b-d0b7-4cb3-b780-2734244d99a8"
+                LastKnownName="DateTime"
+                LastKnownLocation="Package1_1629.uml" />
+            </type_NamedElement>
           </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
