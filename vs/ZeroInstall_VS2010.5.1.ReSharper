@@ -100,12 +100,93 @@
       <PredefinedRule Inspect="True" Prefix="_" Suffix="" Style="aaBb" ElementKind="PrivateStaticReadonly" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="EnumMember" />
       <PredefinedRule Inspect="True" Prefix="" Suffix="" Style="AaBb" ElementKind="Other" />
+      <Abbreviation Text="AA" />
       <Abbreviation Text="ID" />
-      <Abbreviation Text="OS" />
       <Abbreviation Text="IO" />
-      <Abbreviation Text="PG" />
       <Abbreviation Text="OK" />
+      <Abbreviation Text="OS" />
+      <Abbreviation Text="PG" />
       <Abbreviation Text="RC" />
     </Naming2>
   </CodeStyleSettings>
+  <SharedSolutionTemplateManager>
+    <LiveTemplates>
+      <Template uid="f5d27162-0a0f-4dc5-b725-ed12fbbfcc5a" shortcut="ctorr" description="" text="#region Constructor&#xD;&#xA;/// &lt;summary&gt;&#xD;&#xA;/// $SUMMARY$&#xD;&#xA;/// &lt;/summary&gt;&#xD;&#xA;public $classname$($PARAMETERS$)&#xD;&#xA;{&#xD;&#xA;	$END$&#xD;&#xA;}&#xD;&#xA;#endregion" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="SUMMARY" expression="" initialRange="0" />
+          <Variable name="classname" expression="typeName()" initialRange="-1" />
+          <Variable name="PARAMETERS" expression="list()" initialRange="0" />
+        </Variables>
+        <CustomProperties />
+      </Template>
+    </LiveTemplates>
+    <Surrounds>
+      <Template uid="c6de0fa4-04f3-4712-8958-dc84926639c2" shortcut="" description="#region Sanity checks" text="#region Sanity checks&#xA;$SELECTION$$END$&#xA;#endregion" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="Statement" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+      <Template uid="6f809daa-7c8d-45e1-bb87-bf2191d8e052" shortcut="" description="#region Properties" text="#region Properties&#xA;$SELECTION$$END$&#xA;#endregion" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+      <Template uid="6cd7d9d1-43fb-47d5-afb4-c5fa51212a49" shortcut="" description="#region Variables" text="#region Variables&#xA;$SELECTION$$END$&#xA;#endregion" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <CSharpContext context="TypeMember" minimumLanguageVersion="2.0" />
+        </Context>
+        <Categories />
+        <Variables />
+        <CustomProperties />
+      </Template>
+    </Surrounds>
+    <FileTemplates>
+      <Template uid="6695aaa8-a6e8-47f7-b0e6-6fa36fefeb38" shortcut="" description="LGPL class" text="/*&#xD;&#xA; * Copyright $YEAR$ $NAME$&#xD;&#xA; *&#xD;&#xA; * This program is free software: you can redistribute it and/or modify&#xD;&#xA; * it under the terms of the GNU Lesser Public License as published by&#xD;&#xA; * the Free Software Foundation, either version 3 of the License, or&#xD;&#xA; * (at your option) any later version.&#xD;&#xA; *&#xD;&#xA; * This program is distributed in the hope that it will be useful,&#xD;&#xA; * but WITHOUT ANY WARRANTY; without even the implied warranty of&#xD;&#xA; * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#xD;&#xA; * GNU Lesser Public License for more details.&#xD;&#xA; * &#xD;&#xA; * You should have received a copy of the GNU Lesser Public License&#xD;&#xA; * along with this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.&#xD;&#xA; */&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	/// &lt;summary&gt;&#xD;&#xA;	/// $SUMMARY$&#xD;&#xA;	/// &lt;/summary&gt;&#xD;&#xA;	public class $CLASS$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <ProjectLanguageContext language="CSharp" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="YEAR" expression="getCurrentDate(&quot;yyyy&quot;)" initialRange="0" />
+          <Variable name="NAME" expression="getFullUserName()" initialRange="0" />
+          <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+          <Variable name="SUMMARY" expression="" initialRange="0" />
+          <Variable name="CLASS" expression="getFileNameWithoutExtension()" initialRange="-1" />
+        </Variables>
+        <CustomProperties>
+          <Property key="FileName" value="Class" />
+          <Property key="Extension" value="cs" />
+          <Property key="ValidateFileName" value="False" />
+        </CustomProperties>
+      </Template>
+      <Template uid="7877ea4a-dd3c-4c62-a1d0-077f330fa948" shortcut="" description="MIT Class" text="/*&#xD;&#xA; * Copyright $YEAR$ $NAME$&#xD;&#xA; *&#xD;&#xA; * Permission is hereby granted, free of charge, to any person obtaining a copy&#xD;&#xA; * of this software and associated documentation files (the &quot;Software&quot;), to deal&#xD;&#xA; * in the Software without restriction, including without limitation the rights&#xD;&#xA; * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell&#xD;&#xA; * copies of the Software, and to permit persons to whom the Software is&#xD;&#xA; * furnished to do so, subject to the following conditions:&#xD;&#xA; *&#xD;&#xA; * The above copyright notice and this permission notice shall be included in&#xD;&#xA; * all copies or substantial portions of the Software.&#xD;&#xA; *&#xD;&#xA; * THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR&#xD;&#xA; * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,&#xD;&#xA; * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE&#xD;&#xA; * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER&#xD;&#xA; * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,&#xD;&#xA; * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN&#xD;&#xA; * THE SOFTWARE.&#xD;&#xA; */&#xD;&#xA;&#xD;&#xA;namespace $NAMESPACE$&#xD;&#xA;{&#xD;&#xA;	/// &lt;summary&gt;&#xD;&#xA;	/// $SUMMARY$&#xD;&#xA;	/// &lt;/summary&gt;&#xD;&#xA;	public class $CLASS$&#xD;&#xA;	{&#xD;&#xA;		$END$&#xD;&#xA;	}&#xD;&#xA;}" reformat="True" shortenQualifiedReferences="True">
+        <Context>
+          <ProjectLanguageContext language="CSharp" />
+        </Context>
+        <Categories />
+        <Variables>
+          <Variable name="YEAR" expression="getCurrentDate(&quot;yyyy&quot;)" initialRange="0" />
+          <Variable name="NAME" expression="getFullUserName()" initialRange="0" />
+          <Variable name="NAMESPACE" expression="fileDefaultNamespace()" initialRange="-1" />
+          <Variable name="SUMMARY" expression="" initialRange="0" />
+          <Variable name="CLASS" expression="getFileNameWithoutExtension()" initialRange="-1" />
+        </Variables>
+        <CustomProperties>
+          <Property key="FileName" value="Class" />
+          <Property key="Extension" value="cs" />
+          <Property key="ValidateFileName" value="False" />
+        </CustomProperties>
+      </Template>
+    </FileTemplates>
+  </SharedSolutionTemplateManager>
 </Configuration>
