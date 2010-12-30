@@ -37,9 +37,9 @@ namespace Common
         Data,
         /// <summary>The task has been completed sucessfully.</summary>
         Complete,
-        /// <summary>An error occured during the task.</summary>
+        /// <summary>An error occurred during the task.</summary>
         WebError,
-        /// <summary>An error occured while writing the file.</summary>
+        /// <summary>An error occurred while writing the file.</summary>
         IOError
     }
 }

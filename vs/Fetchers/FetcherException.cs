@@ -26,7 +26,7 @@ using ZeroInstall.Fetchers.Properties;
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Represents errors that occured in <see cref="Fetcher"/>.
+    /// Represents errors that occurred in <see cref="Fetcher"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]

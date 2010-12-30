@@ -137,7 +137,7 @@ namespace Common.Storage
         /// <param name="stream">The XML file to be loaded.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(Stream stream, params MemberInfo[] ignoreMembers)
         {
@@ -155,9 +155,9 @@ namespace Common.Storage
         /// <param name="path">The XML file to be loaded.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T Load<T>(string path, params MemberInfo[] ignoreMembers)
         {
@@ -176,7 +176,7 @@ namespace Common.Storage
         /// <param name="data">The XML string to be parsed.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the XML data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromString<T>(string data, params MemberInfo[] ignoreMembers)
         {
@@ -233,7 +233,7 @@ namespace Common.Storage
         /// <param name="path">The XML file to be written.</param>
         /// <param name="data">The object to be stored.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
-        /// <exception cref="IOException">Thrown if a problem occured while writing the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public static void Save<T>(string path, T data, params MemberInfo[] ignoreMembers)
         {
@@ -316,8 +316,8 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the XML data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(Stream stream, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
@@ -372,10 +372,10 @@ namespace Common.Storage
         /// <param name="additionalFiles">Additional files stored alongside the XML file in the ZIP archive to be read; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
         /// <returns>The loaded object.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occured while deserializing the XML data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if a problem occurred while deserializing the XML data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter", Justification = "The type parameter is used to determine the type of returned object")]
         public static T FromZip<T>(string path, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
@@ -441,7 +441,7 @@ namespace Common.Storage
         /// <param name="password">The password to use for encryption; <see langword="null"/> for no encryption.</param>
         /// <param name="additionalFiles">Additional files to be stored alongside the XML file in the ZIP archive; may be <see langword="null"/>.</param>
         /// <param name="ignoreMembers">Fields to be ignored when serializing.</param>
-        /// <exception cref="IOException">Thrown if a problem occured while writing the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public static void ToZip<T>(string path, T data, string password, IEnumerable<EmbeddedFile> additionalFiles, params MemberInfo[] ignoreMembers)
         {
@@ -468,9 +468,9 @@ namespace Common.Storage
         /// <param name="password">The password to use for decryption; <see langword="null"/> for no encryption.</param>
         /// <param name="name">The name of the embedded file.</param>
         /// <returns>A stream containing the embedded file.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while reading the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="ZipException">Thrown if a problem occured while reading the ZIP data.</exception>
+        /// <exception cref="ZipException">Thrown if a problem occurred while reading the ZIP data.</exception>
         public static Stream GetEmbeddedFileStream(Stream stream, string password, string name)
         {
             using (var zipFile = new ZipFile(stream))

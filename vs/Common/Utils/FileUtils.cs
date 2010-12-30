@@ -121,7 +121,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="prefix">A short string the filename should start with.</param>
         /// <returns>The full path of the newly created temporary file.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a file in <see cref="Path.GetTempPath"/>.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a file in <see cref="Path.GetTempPath"/>.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a file in <see cref="Path.GetTempPath"/> is not permitted.</exception>
         /// <remarks>Use this method, because <see cref="Path.GetTempFileName"/> exhibits buggy behaviour in some Mono versions.</remarks>
         public static string GetTempFile(string prefix)
@@ -144,7 +144,7 @@ namespace Common.Utils
         /// </summary>
         /// <param name="prefix">A short string the filename should start with.</param>
         /// <returns>The full path of the newly created temporary directory.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory in <see cref="Path.GetTempPath"/>.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory in <see cref="Path.GetTempPath"/>.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory in <see cref="Path.GetTempPath"/> is not permitted.</exception>
         /// <remarks>Use this method, because <see cref="Path.GetTempFileName"/> exhibits buggy behaviour in some Mono versions.</remarks>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Delivers a new value on each call")]

@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementation
         /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IStore Default { get { return _default; } }
     }

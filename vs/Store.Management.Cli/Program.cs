@@ -181,7 +181,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <returns>The error level to return when the process ends.</returns>
         /// <exception cref="UserCancelException">Thrown if an IO task was cancelled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in <paramref name="args"/> is incorrect.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching the <see cref="ManifestDigest"/> could be found in this store.</exception>

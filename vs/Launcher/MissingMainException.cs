@@ -47,11 +47,16 @@ namespace ZeroInstall.Launcher
             InterfaceID = interfaceID;
         }
 
-        public MissingMainException()
-            : base(string.Format(Resources.MissingMain, "unknown"))
+        /// <summary>
+        /// Creates a new missing main exception.
+        /// </summary>
+        public MissingMainException() : base(string.Format(Resources.MissingMain, "unknown"))
         {}
-        
-        public MissingMainException(string message, Exception innerException) : base (message, innerException)
+
+        /// <summary>
+        /// Creates a new missing main exception.
+        /// </summary>
+        public MissingMainException(string message, Exception innerException) : base(message, innerException)
         {}
 
         private MissingMainException(SerializationInfo info, StreamingContext context) : base(info, context)

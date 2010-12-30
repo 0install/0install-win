@@ -222,7 +222,7 @@ namespace Common.Storage
         /// <param name="resource">The file or directory name of the resource to be stored.</param>
         /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
         /// <returns>A fully qualified path to use to store the resource.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
         public static string GetSaveConfigPath(string appName, string resource, bool isDirectory)
@@ -287,7 +287,7 @@ namespace Common.Storage
         /// <param name="resource">The file or directory name of the resource to be stored.</param>
         /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
         /// <returns>A fully qualified path to use to store the resource.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist. Files are not.</remarks>
         public static string GetSaveDataPath(string appName, string resource, bool isDirectory)
@@ -351,7 +351,7 @@ namespace Common.Storage
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
         /// <returns>A fully qualified path to use to store the resource.</returns>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist.</remarks>
         public static string GetCachePath(string appName, string resource)

@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Returns an implementation of <see cref="IFeedCache"/> that uses the default cache location.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static IFeedCache Default { get { return _default; } }
     }

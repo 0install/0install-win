@@ -107,7 +107,7 @@ namespace ZeroInstall.Launcher
         /// Creates a new policy using the default <see cref="FeedCacheProvider.Default"/> and <see cref="FetcherProvider.Default"/>.
         /// </summary>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault()
         {

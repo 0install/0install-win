@@ -35,7 +35,7 @@ namespace ZeroInstall.Launcher
         public void TestExceptions()
         {
             Assert.Throws<ArgumentException>(() => new Executor("invalid", new Selections {Implementations = {new ImplementationSelection()}}, StoreProvider.Default), "Relative paths should be rejected");
-            Assert.Throws<ArgumentException>(() => new Executor("http://nothin", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor("http://nothing", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
         }
     }
 }

@@ -232,7 +232,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
         /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
         /// <returns>The node for the list.</returns>
-        /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has linebreaks in the filename, etc.).</exception>
+        /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
         private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)

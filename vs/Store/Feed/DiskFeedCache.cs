@@ -60,7 +60,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Creates a new cache using the default path (generally in the user-profile).
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public DiskFeedCache() : this(Locations.GetCachePath("0install.net", "interfaces"))
         {}

@@ -155,7 +155,7 @@ namespace ZeroInstall.Launcher.WinForms
         /// <returns>The operation mode selected by the parsing process.</returns>
         /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occured while creating a directory.</exception>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         private static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
         {
