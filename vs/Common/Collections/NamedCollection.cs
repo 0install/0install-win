@@ -55,6 +55,7 @@ namespace Common.Collections
         //--------------------//
 
         #region Key access
+        /// <inheritdoc/>
         protected override string GetKeyForItem(T item)
         {
             return item.Name;
@@ -90,6 +91,7 @@ namespace Common.Collections
         #endregion
 
         #region Hooks
+        /// <inheritdoc/>
         protected override void InsertItem(int index, T item)
         {
             base.InsertItem(index, item);
@@ -97,6 +99,7 @@ namespace Common.Collections
             OnAfterChanged();
         }
 
+        /// <inheritdoc/>
         protected override void SetItem(int index, T item)
         {
             base.SetItem(index, item);
@@ -104,12 +107,14 @@ namespace Common.Collections
             OnAfterChanged();
         }
 
+        /// <inheritdoc/>
         protected override void RemoveItem(int index)
         {
             base.RemoveItem(index);
             OnAfterChanged();
         }
 
+        /// <inheritdoc/>
         protected override void ClearItems()
         {
             base.ClearItems();

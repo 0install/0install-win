@@ -35,6 +35,7 @@ namespace Common.Controls
     public class HintTextBox : TextBox
     {
         #region Events
+        /// <inheritdoc/>
         protected override void OnEnter(EventArgs e)
         {
             // Remove the hint when entering the TextBox
@@ -43,6 +44,7 @@ namespace Common.Controls
             base.OnGotFocus(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnLeave(EventArgs e)
         {
             // Restore hint when leaving the TextBox with an empty Text
@@ -51,6 +53,7 @@ namespace Common.Controls
             base.OnLeave(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnTextChanged(EventArgs e)
         {
             // Show clear button only if it is enabled and there is text that can be cleared
@@ -62,6 +65,7 @@ namespace Common.Controls
             base.OnTextChanged(e);
         }
 
+        /// <inheritdoc/>
         protected override void OnBackColorChanged(EventArgs e)
         {
             // Make sure the clear button has the same background as the TextBox
@@ -76,6 +80,9 @@ namespace Common.Controls
         [Description("Occurs when the clear button is clicked.")]
         public event EventHandler ClearButtonClicked;
 
+        /// <summary>
+        /// Raises the <see cref="ClearButtonClicked"/> event.
+        /// </summary>
         protected virtual void OnClearButtonClicked(EventArgs e)
         {
             if (ClearButtonClicked != null) ClearButtonClicked(this, e);
@@ -150,7 +157,7 @@ namespace Common.Controls
 
         private bool _showClearButton;
         /// <summary>
-        /// Controls whether the clear button is shown. Remains invisible when the HintText is visible.
+        /// Controls whether the clear button is shown. Remains invisible when the <see cref="HintText"/> is visible.
         /// </summary>
         [DefaultValue(false), Description("Controls whether the clear button is shown. Remains invisible when the HintText is visible."), Category("Appearance")]
         public bool ShowClearButton

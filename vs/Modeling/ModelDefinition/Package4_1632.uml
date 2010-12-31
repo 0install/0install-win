@@ -4340,7 +4340,7 @@
           </operation>
           <operation
             Id="58715b8a-a456-4dfe-a747-6fac130222f9"
-            name="Get"
+            name="GetFeed"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -4959,7 +4959,7 @@
           </operation>
           <operation
             Id="11d8f592-128e-4b93-9ac4-6955782426f0"
-            name="Get"
+            name="GetFeed"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -5030,7 +5030,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="cecfd216-0c65-40f8-aad4-f0a75b5a299b"
+                  Id="4ace539f-2231-4701-99d6-09a43c00e118"
                   name="feedUrl"
                   direction="In"
                   isUnique="false">

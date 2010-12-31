@@ -162,6 +162,7 @@ namespace ZeroInstall.Model
         public static void ParseID(string id, ref ManifestDigest target)
         {
             #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
             if (!id.Contains("=")) throw new ArgumentException(string.Format(Resources.InvalidDigest, id));
             #endregion
 
@@ -202,6 +203,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ManifestDigest other)
         {
             return other.Sha1Old == Sha1Old && other.Sha1New == Sha1New && other.Sha256 == Sha256;
@@ -222,22 +224,26 @@ namespace ZeroInstall.Model
             return (other.Sha1Old == Sha1Old) || (other.Sha1New == Sha1New) && (other.Sha256 == Sha256);
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(ManifestDigest left, ManifestDigest right)
         {
             return left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(ManifestDigest left, ManifestDigest right)
         {
             return !left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj.GetType() == typeof(ManifestDigest) && Equals((ManifestDigest)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked
@@ -251,7 +257,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Comparison
-        public int CompareTo(ManifestDigest other)
+        int IComparable<ManifestDigest>.CompareTo(ManifestDigest other)
         {
             if (Equals(other)) return 0;
 

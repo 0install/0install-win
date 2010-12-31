@@ -33,15 +33,23 @@ namespace Common
     public sealed class UserCancelException : Exception
     {
         #region Constructor
+        /// <summary>
+        /// Creates a new user cancel exception.
+        /// </summary>
         public UserCancelException() : base (Resources.UserCancel)
         {}
 
+        /// <inheritdoc />
         public UserCancelException(string message) : base(message) 
         {}
 
+        /// <inheritdoc />
         public UserCancelException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private UserCancelException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
         #endregion

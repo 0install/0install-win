@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A downloadable implementation of a <see cref="Feed"/>.
+    /// A implementation of a <see cref="Feed"/> that can be downloaded.
     /// </summary>
     /// <remarks>An implementation is a specific version of an application, e.g. Fire fox 3.6 for Windows.</remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -88,6 +88,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Implementation other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -97,6 +98,7 @@ namespace ZeroInstall.Model
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -105,6 +107,7 @@ namespace ZeroInstall.Model
             return Equals((Implementation)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

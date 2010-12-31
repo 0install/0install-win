@@ -50,7 +50,8 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public MissingMainException() : base(string.Format(Resources.MissingMain, "unknown"))
+        public MissingMainException()
+            : base(string.Format(Resources.MissingMain, "unknown"))
         {}
 
         /// <summary>
@@ -59,6 +60,9 @@ namespace ZeroInstall.Launcher
         public MissingMainException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private MissingMainException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

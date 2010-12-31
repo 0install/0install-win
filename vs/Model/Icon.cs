@@ -90,27 +90,32 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Icon other)
         {
             return other.LocationString == LocationString && other.MimeType == MimeType;
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(Icon left, Icon right)
         {
             return left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(Icon left, Icon right)
         {
             return !left.Equals(right);
         }
-        
+
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj.GetType() == typeof(Icon) && Equals((Icon)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

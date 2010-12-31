@@ -122,6 +122,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Archive other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -129,6 +130,7 @@ namespace ZeroInstall.Model
             return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -136,6 +138,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Archive) && Equals((Archive)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

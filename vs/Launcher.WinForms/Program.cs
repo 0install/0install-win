@@ -60,22 +60,22 @@ namespace ZeroInstall.Launcher.WinForms
                 #region Error handling
                 catch (ArgumentException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
                 catch (InvalidOperationException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
                 catch (IOException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
                 #endregion
@@ -268,7 +268,7 @@ namespace ZeroInstall.Launcher.WinForms
                     break;
 
                 case OperationMode.Version:
-                    Msg.Inform(null, string.Format(@"Zero Install Launcher WinForms v{0}", Application.ProductVersion), MsgSeverity.Information);
+                    Msg.Inform(null, string.Format(@"Zero Install Launcher WinForms v{0}", Application.ProductVersion), MsgSeverity.Info);
                     break;
 
                 default:
@@ -336,7 +336,7 @@ namespace ZeroInstall.Launcher.WinForms
                 if (results.Feed == null || entry.ToString().Contains(results.Feed))
                     builder.AppendLine(entry.ToString());
             }
-            Msg.Inform(null, builder.ToString(), MsgSeverity.Information);
+            Msg.Inform(null, builder.ToString(), MsgSeverity.Info);
         }
         #endregion
     }

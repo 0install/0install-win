@@ -106,6 +106,7 @@ namespace ZeroInstall.Launcher.Solver
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return base.ToString() + " (" + InterfaceID + ")";
@@ -135,6 +136,7 @@ namespace ZeroInstall.Launcher.Solver
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ImplementationSelection other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -142,6 +144,7 @@ namespace ZeroInstall.Launcher.Solver
             return base.Equals(other) && Equals(other.InterfaceID, InterfaceID) && Equals(other.FromFeed, FromFeed) && Equals(other.Package, Package);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -149,6 +152,7 @@ namespace ZeroInstall.Launcher.Solver
             return obj.GetType() == typeof(ImplementationSelection) && Equals((ImplementationSelection)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

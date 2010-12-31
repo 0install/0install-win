@@ -167,7 +167,7 @@ namespace ZeroInstall.Publish.WinForms
             catch (IOException)
             {
                 Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.",
-                           MsgSeverity.Warning);
+                           MsgSeverity.Warn);
                 return new GnuPGSecretKey[0];
             }
         }
@@ -570,7 +570,7 @@ namespace ZeroInstall.Publish.WinForms
         private bool AskSave()
         {
             switch (
-                Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Information, true,
+                Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Info, true,
                            "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
             {
                 case DialogResult.Yes:
@@ -1166,7 +1166,7 @@ namespace ZeroInstall.Publish.WinForms
                     {
                         Msg.Inform(this,
                                    "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.",
-                                   MsgSeverity.Warning);
+                                   MsgSeverity.Warn);
                         selectedNode.Tag = new Archive();
                         return;
                     }
@@ -1202,7 +1202,7 @@ namespace ZeroInstall.Publish.WinForms
                     {
                         Msg.Inform(this,
                                    "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.",
-                                   MsgSeverity.Warning);
+                                   MsgSeverity.Warn);
                         selectedNode.Tag = new Recipe {Steps = {new Archive()}};
                         return;
                     }

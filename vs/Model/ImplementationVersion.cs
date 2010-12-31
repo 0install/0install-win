@@ -95,6 +95,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ImplementationVersion other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -115,6 +116,7 @@ namespace ZeroInstall.Model
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -122,6 +124,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(ImplementationVersion) && Equals((ImplementationVersion)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked
@@ -133,11 +136,13 @@ namespace ZeroInstall.Model
             }
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(ImplementationVersion left, ImplementationVersion right)
         {
             return Equals(left, right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(ImplementationVersion left, ImplementationVersion right)
         {
             return !Equals(left, right);
@@ -145,6 +150,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Comparison
+        /// <inheritdoc/>
         public int CompareTo(ImplementationVersion other)
         {
             #region Sanity checks
@@ -166,6 +172,7 @@ namespace ZeroInstall.Model
             return 0;
         }
 
+        /// <inheritdoc/>
         public static bool operator <(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
@@ -176,6 +183,7 @@ namespace ZeroInstall.Model
             return left.CompareTo(right) < 0;
         }
 
+        /// <inheritdoc/>
         public static bool operator >(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
@@ -186,6 +194,7 @@ namespace ZeroInstall.Model
             return left.CompareTo(right) > 0;
         }
 
+        /// <inheritdoc/>
         public static bool operator <=(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks
@@ -196,6 +205,7 @@ namespace ZeroInstall.Model
             return left.CompareTo(right) <= 0;
         }
 
+        /// <inheritdoc/>
         public static bool operator >=(ImplementationVersion left, ImplementationVersion right)
         {
             #region Sanity checks

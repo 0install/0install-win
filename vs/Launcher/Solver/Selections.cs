@@ -165,6 +165,7 @@ namespace ZeroInstall.Launcher.Solver
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Selections other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -172,6 +173,7 @@ namespace ZeroInstall.Launcher.Solver
             return (InterfaceID == other.InterfaceID) && Implementations.SequencedEquals(other.Implementations);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -179,6 +181,7 @@ namespace ZeroInstall.Launcher.Solver
             return obj.GetType() == typeof(Selections) && Equals((Selections)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

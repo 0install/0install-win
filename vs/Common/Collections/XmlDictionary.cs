@@ -49,6 +49,7 @@ namespace Common.Collections
             Add(new XmlDictionaryEntry(key, value));
         }
 
+        /// <inheritdoc/>
         protected override void InsertItem(int index, XmlDictionaryEntry item)
         {
             #region Sanity checks
@@ -162,6 +163,10 @@ namespace Common.Collections
         #endregion
 
         #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="XmlDictionary"/> (elements are cloned).
+        /// </summary>
+        /// <returns>The cloned <see cref="XmlDictionary"/>.</returns>
         public virtual object Clone()
         {
             var newDict = new XmlDictionary();

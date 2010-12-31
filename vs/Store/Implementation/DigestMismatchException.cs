@@ -68,16 +68,22 @@ namespace ZeroInstall.Store.Implementation
             ActualManifest = actualManifest;
         }
 
+        /// <inheritdoc/>
         public DigestMismatchException()
             : base(string.Format(Resources.DigestMismatch, "unknown", "unknown"))
         {}
 
+        /// <inheritdoc/>
         public DigestMismatchException(string message) : base(message) 
         {}
 
+        /// <inheritdoc/>
         public DigestMismatchException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private DigestMismatchException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

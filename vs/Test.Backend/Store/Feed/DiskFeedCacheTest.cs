@@ -79,12 +79,12 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// Ensures <see cref="DiskFeedCache.Get"/> correctly retreives <see cref="Feed"/>s from the cache.
+        /// Ensures <see cref="DiskFeedCache.GetFeed"/> correctly retreives <see cref="Feed"/>s from the cache.
         /// </summary>
         [Test]
         public void TestGet()
         {
-            var feed = _cache.Get(_feed1.Uri);
+            var feed = _cache.GetFeed(_feed1.Uri);
             Assert.AreEqual(_feed1, feed);
         }
 

@@ -33,15 +33,26 @@ namespace Common.Cli
     public sealed class UnhandledErrorsException : Exception
     {
         #region Constructor
+        /// <summary>
+        /// Reports that an external applications launched by <see cref="CliAppControl"/> printed unexpected error messages.
+        /// </summary>
         public UnhandledErrorsException() : base(Resources.UnhandledCliErrors)
         {}
 
+        /// <summary>
+        /// Reports error messages from external applications launched by <see cref="CliAppControl"/>.
+        /// </summary>
+        /// <param name="message">The error messages from the external application.</param>
         public UnhandledErrorsException(string message) : base(message) 
         {}
 
-        public UnhandledErrorsException(string message, Exception innerException) : base (message, innerException)
+        /// <inheritdoc/>
+        public UnhandledErrorsException(string message, Exception innerException) : base(message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private UnhandledErrorsException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
         #endregion

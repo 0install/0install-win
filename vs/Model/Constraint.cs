@@ -114,6 +114,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Constraint other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -121,6 +122,7 @@ namespace ZeroInstall.Model
             return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -128,6 +130,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Constraint) && Equals((Constraint)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

@@ -43,6 +43,10 @@ namespace ZeroInstall.MyApps
         /// <returns>The new copy of the <see cref="Integration"/>.</returns>
         public abstract Integration CloneIntegration();
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Integration"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Integration"/>.</returns>
         public object Clone()
         {
             return CloneIntegration();

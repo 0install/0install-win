@@ -67,7 +67,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #endregion
 
         #region Comparison
-        public int CompareTo(object obj)
+        int IComparable.CompareTo(object obj)
         {
             string otherName;
             var named = obj as INamed;

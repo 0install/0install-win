@@ -101,6 +101,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(EnvironmentBinding other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -108,6 +109,7 @@ namespace ZeroInstall.Model
             return other.Name == Name || other.Value == Value || other.Mode == Mode || other.Default == Default;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -115,6 +117,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(EnvironmentBinding) && Equals((EnvironmentBinding)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

@@ -85,6 +85,7 @@ namespace Common.Collections
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return (Language == null) ? Value : Value + " (" + Language + ")";
@@ -92,6 +93,7 @@ namespace Common.Collections
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(LocalizableString other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -99,16 +101,19 @@ namespace Common.Collections
             return other.Value == Value && other.LanguageString == LanguageString;
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(LocalizableString left, LocalizableString right)
         {
             return Equals(left, right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(LocalizableString left, LocalizableString right)
         {
             return !Equals(left, right);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -116,6 +121,7 @@ namespace Common.Collections
             return obj.GetType() == typeof(LocalizableString) && Equals((LocalizableString)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

@@ -33,7 +33,12 @@ namespace Common
     /// </summary>
     public enum MsgSeverity
     {
-        Information, Warning, Error
+        /// <summary>A nice-to-know piece of information.</summary>
+        Info,
+        /// <summary>A warning that doesn't have to be acted upon immediately.</summary>
+        Warn,
+        /// <summary>A critical error that should be attended to.</summary>
+        Error
     }
     #endregion
 
@@ -58,7 +63,7 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -95,7 +100,7 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -127,7 +132,7 @@ namespace Common
                 }
 
                 // Only Infos should default to OK
-                if (severity >= MsgSeverity.Warning) taskDialog.DefaultButton = (int)DialogResult.Cancel;
+                if (severity >= MsgSeverity.Warn) taskDialog.DefaultButton = (int)DialogResult.Cancel;
 
                 try { return ShowTaskDialog(taskDialog, owner) == DialogResult.OK; }
                 catch (BadImageFormatException) { return ShowMesageBox(owner, text, severity, MessageBoxButtons.OKCancel) == DialogResult.OK; }
@@ -165,7 +170,7 @@ namespace Common
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -223,10 +228,10 @@ namespace Common
             MessageBoxIcon icon;
             switch (severity)
             {
-                case MsgSeverity.Warning: icon = MessageBoxIcon.Warning; break;
+                case MsgSeverity.Warn: icon = MessageBoxIcon.Warning; break;
                 case MsgSeverity.Error: icon = MessageBoxIcon.Error; break;
                 default:
-                case MsgSeverity.Information: icon = MessageBoxIcon.Information; break;
+                case MsgSeverity.Info: icon = MessageBoxIcon.Information; break;
             }
 
             // Display MessageDialog
@@ -251,7 +256,7 @@ namespace Common
             // Select icon based on message severity
             switch (severity)
             {
-                case MsgSeverity.Warning:
+                case MsgSeverity.Warn:
                     taskDialog.MainIcon = TaskDialogIcon.Warning;
                     taskDialog.AllowDialogCancellation = true;
                     break;
@@ -262,7 +267,7 @@ namespace Common
                     break;
 
                 default:
-                case MsgSeverity.Information:
+                case MsgSeverity.Info:
                     taskDialog.MainIcon = TaskDialogIcon.Information;
                     taskDialog.AllowDialogCancellation = true;
                     break;

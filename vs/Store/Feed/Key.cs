@@ -68,6 +68,10 @@ namespace ZeroInstall.Store.Feed
             return key;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Key"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Key"/>.</returns>
         public object Clone()
         {
             return CloneKey();
@@ -75,6 +79,7 @@ namespace ZeroInstall.Store.Feed
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Key other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -82,6 +87,7 @@ namespace ZeroInstall.Store.Feed
             return Fingerprint == other.Fingerprint && Domains.UnsequencedEquals(other.Domains);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -89,6 +95,7 @@ namespace ZeroInstall.Store.Feed
             return obj.GetType() == typeof(Key) && Equals((Key)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

@@ -36,12 +36,12 @@ namespace ZeroInstall.Store.Feed
         public Uri FeedUrl { get; private set; }
 
         /// <summary>
-        /// The last changed timestamp of the existing file in the cache.
+        /// The last changed time stamp of the existing file in the cache.
         /// </summary>
         public DateTime OldTime { get; private set; }
 
         /// <summary>
-        /// The last changed timestamp of the new file to be added.
+        /// The last changed time stamp of the new file to be added.
         /// </summary>
         public DateTime NewTime { get; private set; }
         #endregion
@@ -51,8 +51,8 @@ namespace ZeroInstall.Store.Feed
         /// Creates a new replay attack exception.
         /// </summary>
         /// <param name="feedUrl">The URL of the feed file to be added to the cache.</param>
-        /// <param name="oldTime">The last changed timestamp of the existing file in the cache.</param>
-        /// <param name="newTime">The last changed timestamp of the new file to be added.</param>
+        /// <param name="oldTime">The last changed time stamp of the existing file in the cache.</param>
+        /// <param name="newTime">The last changed time stamp of the new file to be added.</param>
         public ReplayAttackException(Uri feedUrl, DateTime oldTime, DateTime newTime)
             : base(string.Format(Resources.ReplayAttack, feedUrl, oldTime, newTime))
         {
@@ -61,16 +61,22 @@ namespace ZeroInstall.Store.Feed
             NewTime = newTime;
         }
 
+        /// <inheritdoc/>
         public ReplayAttackException()
             : base(string.Format(Resources.ReplayAttack, "unknown", "unknown", "unknown"))
         {}
 
+        /// <inheritdoc/>
         public ReplayAttackException(string message) : base(message) 
         {}
 
+        /// <inheritdoc/>
         public ReplayAttackException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private ReplayAttackException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

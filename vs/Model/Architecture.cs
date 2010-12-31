@@ -29,34 +29,65 @@ namespace ZeroInstall.Model
     /// </summary>
     public enum OS
     {
+        /// <summary>Supports all operating systems (e.g. developed with cross-platform language like Java).</summary>
         [XmlEnum("*")] All,
+
+        /// <summary>Supports only Linux operating systems.</summary>
         [XmlEnum("Linux")] Linux,
+
+        /// <summary>Supports only Solaris / OpenSolaris.</summary>
         [XmlEnum("Solaris")] Solaris,
+
+        /// <summary>Supports only MacOS X.</summary>
         [XmlEnum("MacOSX")] MacOsX,
+
+        /// <summary>Supports only Windows NT 5.0+ (Windows 2000, XP, 2003, Vista, 2008, 7, 2008 R2, ...).</summary>
         [XmlEnum("Windows")] Windows,
+
+        /// <summary>The supported operating system has not been set yet.</summary>
         [XmlEnum("unknown")] Unknown = 99,
     }
 
     /// <summary>
-    /// Describes a CPU-architecture.
+    /// Describes a CPU architecture.
     /// </summary>
     public enum Cpu
     {
+        /// <summary>Supports all CPU architectures (e.g. developed with cross-platform language like Java).</summary>
         [XmlEnum("*")] All,
+
+        /// <summary>Supports CPUs with the i386 architecture or newer (up to i686).</summary>
         [XmlEnum("i386")] I386,
+
+        /// <summary>Supports CPUs with the i486 architecture or newer (up to i686).</summary>
         [XmlEnum("i486")] I486,
+
+        /// <summary>Supports CPUs with the i586 architecture or newer (up to i686).</summary>
         [XmlEnum("i586")] I586,
+
+        /// <summary>Supports CPUs with the i686.</summary>
         [XmlEnum("i686")] I686,
+
+        /// <summary>Requires a x86-64 capable CPU.</summary>
         [XmlEnum("x86_64")] X64,
+
+        /// <summary>Supports CPUs with the PowerPC-architecture (used in older Macs).</summary>
         [XmlEnum("ppc")] Ppc,
+
+        /// <summary>Requires a 64-bit capable PowerPC CPU.</summary>
         [XmlEnum("ppc64")] Ppc64,
+
+        /// <summary>This is a source release and therefor architecture-independent.</summary>
         [XmlEnum("src")] Source,
-        [XmlEnum("unknown")] Unknown = 99
+
+        /// <summary>The supported CPU architecture has not been set yet.</summary>
+        [XmlEnum("unknown")]
+        Unknown = 99
     }
     #endregion
 
     /// <summary>
-    /// Describes a combination of an operating system and a CPU-architecture.
+    /// Describes a combination of an operating system and a CPU architecture.
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(ArchitectureConverter))]
@@ -80,7 +111,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Parses a string as an operating system identifier.
         /// </summary>
-        /// <param name="value">The case-sensisitive string to parse.</param>
+        /// <param name="value">The case-sensitive string to parse.</param>
         /// <returns>The identified operating system or <see cref="Model.OS.Unknown"/>.</returns>
         public static OS ParseOS(string value)
         {
@@ -104,7 +135,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// Parses a string as a CPU identifier.
         /// </summary>
-        /// <param name="value">The case-sensisitive string to parse.</param>
+        /// <param name="value">The case-sensitive string to parse.</param>
         /// <returns>The identified CPU or <see cref="Model.Cpu.Unknown"/>.</returns>
         public static Cpu ParseCpu(string value)
         {
@@ -239,27 +270,32 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Architecture other)
         {
             return other.OS == OS && other.Cpu == Cpu;
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(Architecture left, Architecture right)
         {
             return left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(Architecture left, Architecture right)
         {
             return !left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj.GetType() == typeof(Architecture) && Equals((Architecture)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

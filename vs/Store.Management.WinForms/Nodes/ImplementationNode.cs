@@ -106,6 +106,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         #endregion
 
         #region Context menu
+        /// <inheritdoc/>
         public ContextMenu GetContextMenu()
         {
             return new ContextMenu(new[]

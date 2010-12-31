@@ -376,6 +376,7 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(DirectoryStore other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -383,6 +384,7 @@ namespace ZeroInstall.Store.Implementation
             return DirectoryPath == other.DirectoryPath;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -390,6 +392,7 @@ namespace ZeroInstall.Store.Implementation
             return obj.GetType() == typeof(DirectoryStore) && Equals((DirectoryStore)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return (DirectoryPath != null ? DirectoryPath.GetHashCode() : 0);

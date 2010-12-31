@@ -47,16 +47,24 @@ namespace ZeroInstall.Store.Implementation
             ManifestDigest = manifestDigest;
         }
 
+        /// <summary>
+        /// Creates a new implementation not found exception without specifying the specific implementation ID.
+        /// </summary>
         public ImplementationNotFoundException()
             : base(string.Format(Resources.ImplementationNotFound, "unknown"))
         {}
 
+        /// <inheritdoc/>
         public ImplementationNotFoundException(string message) : base(message) 
         {}
 
+        /// <inheritdoc/>
         public ImplementationNotFoundException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private ImplementationNotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

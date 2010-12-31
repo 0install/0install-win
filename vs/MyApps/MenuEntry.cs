@@ -67,6 +67,7 @@ namespace ZeroInstall.MyApps
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(MenuEntry other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -74,6 +75,7 @@ namespace ZeroInstall.MyApps
             return other.Name == Name || other.Category == Category;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -81,6 +83,7 @@ namespace ZeroInstall.MyApps
             return obj.GetType() == typeof(MenuEntry) && Equals((MenuEntry)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

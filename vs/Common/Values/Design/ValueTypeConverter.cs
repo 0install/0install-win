@@ -42,22 +42,27 @@ namespace Common.Values.Design
     public abstract class ValueTypeConverter<T> : TypeConverter where T : struct
     {
         #region Capabilities
+        /// <inheritdoc />
         public override bool GetCreateInstanceSupported(ITypeDescriptorContext context)
         { return true; }
 
+        /// <inheritdoc />
         public override bool GetPropertiesSupported(ITypeDescriptorContext context)
         { return true; }
 
+        /// <inheritdoc />
         public override PropertyDescriptorCollection GetProperties(ITypeDescriptorContext context, object value, Attribute[] attributes)
         {
             return TypeDescriptor.GetProperties(value, attributes);
         }
 
+        /// <inheritdoc />
         public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
         {
             return (destinationType == typeof(InstanceDescriptor)) || base.CanConvertFrom(context, destinationType);
         }
 
+        /// <inheritdoc />
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
             return (sourceType == typeof(string)) || base.CanConvertFrom(context, sourceType);
@@ -65,12 +70,13 @@ namespace Common.Values.Design
         #endregion
 
         #region Convert to
+        /// <inheritdoc />
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             if (culture == null) throw new ArgumentNullException("culture");
 
             if (destinationType == typeof(InstanceDescriptor))
-                return new InstanceDescriptor(GetConstuctor(), GetArguments((T)value));
+                return new InstanceDescriptor(GetConstructor(), GetArguments((T)value));
 
             if (destinationType == typeof(string))
                 return string.Join(culture.TextInfo.ListSeparator + " ", GetValues((T)value, context, culture));
@@ -80,6 +86,7 @@ namespace Common.Values.Design
         #endregion
 
         #region Convert from
+        /// <inheritdoc />
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
             if (culture == null) throw new ArgumentNullException("culture");
@@ -97,6 +104,7 @@ namespace Common.Values.Design
         #endregion
 
         #region Create instance
+        /// <inheritdoc />
         public override object CreateInstance(ITypeDescriptorContext context, IDictionary propertyValues)
         {
             return GetObject(propertyValues);
@@ -111,7 +119,7 @@ namespace Common.Values.Design
 
         /// <returns>The constructor used to create new instances of <typeparamref name="T"/> (deserialization).</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        protected abstract ConstructorInfo GetConstuctor();
+        protected abstract ConstructorInfo GetConstructor();
 
         /// <returns>The unconverted arguments of <typeparamref name="T"/>.</returns>
         protected abstract object[] GetArguments(T value);

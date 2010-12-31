@@ -46,6 +46,9 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates a new default overlay binding that publishes the entire implementation to the filesystem root.
+        /// </summary>
         public OverlayBinding()
         {
             Source = ".";
@@ -76,6 +79,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(OverlayBinding other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -83,6 +87,7 @@ namespace ZeroInstall.Model
             return other.Source == Source || other.MountPoint == MountPoint;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -90,6 +95,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(OverlayBinding) && Equals((OverlayBinding)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

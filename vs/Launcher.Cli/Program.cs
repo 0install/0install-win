@@ -40,14 +40,31 @@ namespace ZeroInstall.Launcher.Cli
     /// </summary>
     public enum ErrorLevel
     {
+        ///<summary>Everything is OK.</summary>
         OK = 0,
-        UserCanceled = 1,
+
+        /// <summary>The user cancelled the operation.</summary>
+        UserCancelled = 1,
+
+        /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
+
+        /// <summary>A not supported feature was requested.</summary>
         NotSupported = 3,
+
+        /// <summary>An IO error occurred.</summary>
         IOError = 10,
+
+        /// <summary>An network error occurred.</summary>
         WebError = 11,
+        
+        /// <summary>A requested implementation could not be found or could not be launched.</summary>
         ImplementationError = 15,
+
+        /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
         DigestMismatch = 20,
+
+        /// <summary>A solver error occurred.</summary>
         SolverError = 21
     }
     #endregion
@@ -105,7 +122,7 @@ namespace ZeroInstall.Launcher.Cli
             #region Error hanlding
             catch (UserCancelException)
             {
-                return (int)ErrorLevel.UserCanceled;
+                return (int)ErrorLevel.UserCancelled;
             }
             catch (ArgumentException ex)
             {

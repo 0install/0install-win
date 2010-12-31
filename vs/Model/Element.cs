@@ -212,6 +212,10 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Element"/>.</returns>
         public abstract Element CloneElement();
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Element"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Element"/>.</returns>
         public object Clone()
         {
             return CloneElement();
@@ -241,6 +245,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         protected bool Equals(Element other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -250,6 +255,7 @@ namespace ZeroInstall.Model
                 Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

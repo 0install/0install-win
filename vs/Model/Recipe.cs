@@ -91,6 +91,7 @@ namespace ZeroInstall.Model
         #endregion
         
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Recipe other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -98,6 +99,7 @@ namespace ZeroInstall.Model
             return Steps.SequencedEquals(other.Steps);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -105,6 +107,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Recipe) && Equals((Recipe)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

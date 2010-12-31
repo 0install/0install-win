@@ -86,6 +86,7 @@ namespace Common.Collections
         //--------------------//
 
         #region Conversion
+        /// <inheritdoc/>
         public override string ToString()
         {
             return Key + ": " + Value;
@@ -93,6 +94,7 @@ namespace Common.Collections
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(XmlDictionaryEntry other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -100,16 +102,19 @@ namespace Common.Collections
             return other.Value == Value && other.Key == Key;
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(XmlDictionaryEntry left, XmlDictionaryEntry right)
         {
             return Equals(left, right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(XmlDictionaryEntry left, XmlDictionaryEntry right)
         {
             return !Equals(left, right);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -118,6 +123,7 @@ namespace Common.Collections
             return Equals((XmlDictionaryEntry)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

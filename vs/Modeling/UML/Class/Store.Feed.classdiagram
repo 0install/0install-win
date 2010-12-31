@@ -3141,7 +3141,7 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="31808141-4832-4ee2-99b5-6ccfedee4228" name="Get" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="31808141-4832-4ee2-99b5-6ccfedee4228" name="GetFeed" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="99cac77f-f69f-4c4e-83ae-be843ab85b02" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=FeedCache Member=(Name=Get OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])" tag="ViewCode">
                       <elementDefinition Id="10ee7043-9ca1-4f8c-a882-df1523587d4a" />
@@ -3696,7 +3696,7 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
-                <operation Id="fa836499-33cf-49af-9a9b-599ed8e925a3" name="Get" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                <operation Id="fa836499-33cf-49af-9a9b-599ed8e925a3" name="GetFeed" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="fb2cb16e-5cf9-422f-8575-844a15abf598" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Feed Type=IFeedCache Member=(Name=Get OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/System.dll Namespace=System Type=Uri)])" tag="ViewCode">
                       <elementDefinition Id="12aaef07-7a81-46e3-8b96-b77a16cbeec1" />
@@ -3750,8 +3750,8 @@
                       </parameter>
                     </operationHasOwnedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="b43274cc-6a7e-44fe-8772-a4da6af6ddca" name="feedUrl" direction="In" isUnique="false">
-                        <elementDefinition Id="cecfd216-0c65-40f8-aad4-f0a75b5a299b" />
+                      <parameter Id="e68e67ae-aece-435e-886c-4cb0d7272333" name="feedUrl" direction="In" isUnique="false">
+                        <elementDefinition Id="4ace539f-2231-4701-99d6-09a43c00e118" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="dae4265a-5cba-4f1c-a974-5f48afc04c7c" LastKnownName="String" />
                         </type_NamedElement>

@@ -26,9 +26,13 @@ namespace ZeroInstall.Store.Feed
     [SuppressMessage("Microsoft.Design", "CA1027:MarkEnumsWithFlags")]
     public enum GnuPGAlgorithm
     {
+        ///<summary>The algorithm used is unknown.</summary>
         Unknown = 0,
+        /// <summary>RSA crypto system</summary>
         Rsa = 1,
+        /// <summary>Elgamal crypto system</summary>
         Elgamal = 16,
+        /// <summary>DAS crypto system</summary>
         Dsa = 17
     }
     #endregion

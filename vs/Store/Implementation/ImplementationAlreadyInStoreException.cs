@@ -47,16 +47,22 @@ namespace ZeroInstall.Store.Implementation
             ManifestDigest = manifestDigest;
         }
 
+        /// <inheritdoc/>
         public ImplementationAlreadyInStoreException()
             : base(string.Format(Resources.ImplementationAlreadyInStore, "unknown"))
         {}
 
+        /// <inheritdoc/>
         public ImplementationAlreadyInStoreException(string message) : base(message) 
         {}
 
+        /// <inheritdoc/>
         public ImplementationAlreadyInStoreException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private ImplementationAlreadyInStoreException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

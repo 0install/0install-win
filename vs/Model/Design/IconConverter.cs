@@ -30,7 +30,7 @@ namespace ZeroInstall.Model.Design
         protected override int NoArguments { get { return 2; } }
 
         /// <returns>The constructor used to create new instances of <see cref="Icon"/> (deserialization).</returns>
-        protected override ConstructorInfo GetConstuctor()
+        protected override ConstructorInfo GetConstructor()
         {
             return typeof(Icon).GetConstructor(new[] { typeof(Uri), typeof(string) });
         }

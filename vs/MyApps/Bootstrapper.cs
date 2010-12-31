@@ -60,6 +60,7 @@ namespace ZeroInstall.MyApps
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Bootstrapper other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -67,6 +68,7 @@ namespace ZeroInstall.MyApps
             return other.Name == Name;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -74,6 +76,7 @@ namespace ZeroInstall.MyApps
             return obj.GetType() == typeof(Bootstrapper) && Equals((Bootstrapper)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

@@ -271,7 +271,7 @@ namespace ZeroInstall.Central.Wpf
                     string feedUri = e.Uri.AbsoluteUri.Replace(UrlPostfixFeed, "");
 
                     // ToDo: Display more details about the feed
-                    if (Msg.Ask(this.GetNativeWnd(), "Do you want to install this application?\n" + feedUri, MsgSeverity.Information, "Yes\nInstall the application", "No\nGo back to the list"))
+                    if (Msg.Ask(this.GetNativeWnd(), "Do you want to install this application?\n" + feedUri, MsgSeverity.Info, "Yes\nInstall the application", "No\nGo back to the list"))
                     {
                         InstallTest(feedUri);
 

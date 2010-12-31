@@ -102,6 +102,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ManifestSymlink other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -109,6 +110,7 @@ namespace ZeroInstall.Store.Implementation
             return Equals(other.Hash, Hash) && other.Size == Size && Equals(other.SymlinkName, SymlinkName);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -116,6 +118,7 @@ namespace ZeroInstall.Store.Implementation
             return obj.GetType() == typeof(ManifestSymlink) && Equals((ManifestSymlink)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

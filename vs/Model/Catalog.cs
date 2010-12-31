@@ -146,6 +146,10 @@ namespace ZeroInstall.Model
             return catalog;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Catalog"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Catalog"/>.</returns>
         public object Clone()
         {
             return CloneCatalog();
@@ -153,6 +157,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Catalog other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -160,6 +165,7 @@ namespace ZeroInstall.Model
             return Feeds.SequencedEquals(other.Feeds);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -167,6 +173,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Catalog) && Equals((Catalog)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return Feeds.GetSequencedHashCode();

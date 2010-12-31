@@ -27,11 +27,15 @@ using System.Windows.Forms;
 namespace Common.Controls
 {
     #region Delegates
-
+    /// <param name="sender">The <see cref="AddRemoveTabControl"/> instance that raised the event.</param>
+    /// <param name="createdTabPage">The new <see cref="TabPage"/> that was created.</param>
+    /// <seealso cref="AddRemoveTabControl.NewTabPageCreated"/>
     public delegate void NewTabPageEventHandler(TabControl sender, TabPage createdTabPage);
 
+    /// <param name="sender">The <see cref="AddRemoveTabControl"/> instance that raised the event.</param>
+    /// <param name="removeTabPage">The <see cref="TabPage"/> that was removed.</param>
+    /// <seealso cref="AddRemoveTabControl.TabPageRemoved"/>
     public delegate void RemovedTabPageEventHandler(TabControl sender, TabPage removeTabPage);
-
     #endregion
 
     /// <summary>
@@ -45,12 +49,12 @@ namespace Common.Controls
     {
         #region Events
         /// <summary>
-        /// Fired when a new <see cref="TabPage"/> was created by the user.
+        /// Raised when a new <see cref="TabPage"/> was created by the user.
         /// </summary>
         public event NewTabPageEventHandler NewTabPageCreated;
 
         /// <summary>
-        /// Fired when a new <see cref="TabPage"/> was removed by the user.
+        /// Raised when a new <see cref="TabPage"/> was removed by the user.
         /// </summary>
         public event RemovedTabPageEventHandler TabPageRemoved;
 

@@ -37,7 +37,7 @@ namespace Common
     /// <seealso cref="LogEntryEventHandler"/>
     public enum LogSeverity
     {
-        /// <summary>A message printed as-is (no timestamp, etc.). Usually used for <see cref="Console"/> output.</summary>
+        /// <summary>A message printed as-is (no time stamp, etc.). Usually used for <see cref="Console"/> output.</summary>
         Echo,
         /// <summary>A nice-to-know piece of information.</summary>
         Info,
@@ -211,7 +211,7 @@ namespace Common
 
         #region Access
         /// <summary>
-        /// Prints a message to the log as-is (no timestamp, etc.). Usually used for <see cref="Console"/> output.
+        /// Prints a message to the log as-is (no time stamp, etc.). Usually used for <see cref="Console"/> output.
         /// </summary>
         public static void Echo(string message)
         {

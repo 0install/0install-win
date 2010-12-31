@@ -28,15 +28,27 @@ namespace ZeroInstall.Launcher.Solver
     public sealed class SolverException : Exception
     {
         #region Constructor
+        /// <summary>
+        /// Indicates that the <see cref="ISolver"/> encountered an unknown problem.
+        /// </summary>
         public SolverException() : base(Resources.SolverProblem)
         {}
 
+        /// <summary>
+        /// Indicates that the <see cref="ISolver"/> encountered a specific problem.
+        /// </summary>
         public SolverException(string message) : base(message) 
         {}
 
+        /// <summary>
+        /// Indicates that there was a problem parsing the <see cref="ISolver"/>'s output.
+        /// </summary>
         public SolverException(string message, Exception innerException) : base (message, innerException)
         {}
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private SolverException(SerializationInfo info, StreamingContext context) : base(info, context)
         {}
         #endregion

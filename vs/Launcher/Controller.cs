@@ -163,7 +163,7 @@ namespace ZeroInstall.Launcher
 
                 // If not, get download information for the implementation by checking the original feed
                 string feedUrl = implementation.FromFeed ?? implementation.InterfaceID;
-                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : Policy.FeedManager.Cache.Get(new Uri(feedUrl));
+                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : Policy.FeedManager.Cache.GetFeed(new Uri(feedUrl));
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }

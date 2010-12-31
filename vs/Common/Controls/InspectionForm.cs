@@ -29,6 +29,10 @@ namespace Common.Controls
     /// </summary>
     public sealed partial class InspectionForm : Form
     {
+        ///<summary>
+        /// Creates a new inspection form.
+        ///</summary>
+        ///<param name="value">The object to be inspected.</param>
         public InspectionForm(object value)
         {
             InitializeComponent();
@@ -40,7 +44,6 @@ namespace Common.Controls
         /// Displays a property grid for manipulating the properties of an object.
         /// </summary>
         /// <param name="value">The object to be inspected.</param>
-        //[LuaGlobal(Description = "Displays a property grid for manipulating the properties of an object.")]
         public static void Inspect(object value)
         {
             new InspectionForm(value).Show();

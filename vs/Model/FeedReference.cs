@@ -76,6 +76,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(FeedReference other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -83,6 +84,7 @@ namespace ZeroInstall.Model
             return base.Equals(other) && other.Source == Source;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -90,6 +92,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(FeedReference) && Equals((FeedReference)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

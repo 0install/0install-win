@@ -168,7 +168,7 @@ namespace Common.Collections
 
         #region Set
         /// <summary>
-        /// Sets a new string with no associated language in the collection. Pre-existing entries with no associated language are removed.
+        /// Sets a new string with no associated language in the collection. Preexisting entries with no associated language are removed.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
         [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]
@@ -179,7 +179,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Adds a new string with an associated language to the collection. Pre-existing entries with the same language are removed.
+        /// Adds a new string with an associated language to the collection. Preexisting entries with the same language are removed.
         /// </summary>
         /// <param name="value">The actual string value to store; use <see cref="CultureInfo.InvariantCulture"/> for none.</param>
         /// <param name="language">The language of the <paramref name="value"/>.</param>
@@ -197,6 +197,10 @@ namespace Common.Collections
         //--------------------//
 
         #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="LocalizableStringCollection"/> (elements are cloned).
+        /// </summary>
+        /// <returns>The cloned <see cref="LocalizableStringCollection"/>.</returns>
         public override object Clone()
         {
             var newDict = new LocalizableStringCollection();

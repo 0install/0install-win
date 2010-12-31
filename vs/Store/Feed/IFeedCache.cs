@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ZeroInstall.Store.Feed
@@ -44,7 +45,7 @@ namespace ZeroInstall.Store.Feed
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedUrl"/> was not found in the cache.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        Model.Feed Get(Uri feedUrl);
+        Model.Feed GetFeed(Uri feedUrl);
 
         /// <summary>
         /// Loads all <see cref="Feed"/>s currently in this cache.
@@ -52,6 +53,7 @@ namespace ZeroInstall.Store.Feed
         /// <returns>A list of <see cref="Feed"/>s  in C-sorted order (ordinal comparison, increasing).</returns>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Performs disk IO")]
         IEnumerable<Model.Feed> GetAll();
 
         /// <summary>

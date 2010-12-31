@@ -124,6 +124,10 @@ namespace ZeroInstall.Store.Feed
             return feedPreferences;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="FeedPreferences"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FeedPreferences"/>.</returns>
         public object Clone()
         {
             return CloneFeedPreferences();
@@ -141,6 +145,7 @@ namespace ZeroInstall.Store.Feed
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(FeedPreferences other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -150,6 +155,7 @@ namespace ZeroInstall.Store.Feed
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -157,6 +163,7 @@ namespace ZeroInstall.Store.Feed
             return obj.GetType() == typeof(FeedPreferences) && Equals((FeedPreferences)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

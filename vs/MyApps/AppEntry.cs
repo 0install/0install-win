@@ -91,6 +91,10 @@ namespace ZeroInstall.MyApps
             return appList;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="AppEntry"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="AppEntry"/>.</returns>
         public object Clone()
         {
             return CloneEntry();
@@ -98,6 +102,7 @@ namespace ZeroInstall.MyApps
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(AppEntry other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -108,6 +113,7 @@ namespace ZeroInstall.MyApps
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -115,6 +121,7 @@ namespace ZeroInstall.MyApps
             return obj.GetType() == typeof(AppEntry) && Equals((AppEntry)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

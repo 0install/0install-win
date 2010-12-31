@@ -102,7 +102,7 @@ namespace ZeroInstall.Store.Feed
 
         #region Get feeds
         /// <summary>
-        /// Returns a list of all <see cref="Feed"/>s applicapble to a specific intrface URI.
+        /// Returns a list of all <see cref="Feed"/>s applicable to a specific interface URI.
         /// </summary>
         /// <param name="interfaceUri">The URI used to identify the interface. May be an HTTP(S) URL or a local path.</param>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
@@ -124,7 +124,7 @@ namespace ZeroInstall.Store.Feed
 
             // Try to load cached feed
             var url = new Uri(interfaceUri);
-            if (/*!Refresh &&*/ Cache.Contains(url)) return new[] {Cache.Get(url)};
+            if (/*!Refresh &&*/ Cache.Contains(url)) return new[] {Cache.GetFeed(url)};
 
             // ToDo: Download, verify and cache feed
             throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceUri), interfaceUri);

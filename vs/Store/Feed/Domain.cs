@@ -67,6 +67,10 @@ namespace ZeroInstall.Store.Feed
             return new Domain {Value = Value};
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Domain"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Domain"/>.</returns>
         public object Clone()
         {
             return CloneDomain();
@@ -74,27 +78,32 @@ namespace ZeroInstall.Store.Feed
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Domain other)
         {
             return other.Value == Value;
         }
 
+        /// <inheritdoc/>
         public static bool operator ==(Domain left, Domain right)
         {
             return left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public static bool operator !=(Domain left, Domain right)
         {
             return !left.Equals(right);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
             return obj.GetType() == typeof(Domain) && Equals((Domain)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return (Value ?? "").GetHashCode();

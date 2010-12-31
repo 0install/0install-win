@@ -26,7 +26,7 @@ using ZeroInstall.Fetchers.Properties;
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Represents errors that occurred in <see cref="Fetcher"/>.
+    /// Represents errors that occurred in an <see cref="IFetcher"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
@@ -35,18 +35,23 @@ namespace ZeroInstall.Fetchers
         #region Properties
         private readonly C5.ICollection<Exception> _problems;
         /// <summary>
-        /// A list of all problems the <see cref="Fetcher"/> encountered while tying to process a <see cref="FetchRequest"/>.
+        /// A list of all problems the <see cref="IFetcher"/> encountered while tying to process a <see cref="FetchRequest"/>.
         /// </summary>
         public IEnumerable<Exception> Problems { get { return _problems; } }
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Indicates that an unknown problem occurred in an <see cref="IFetcher"/>.
+        /// </summary>
         public FetcherException() : base(Resources.FetcherProblem)
         {}
 
+        /// <inheritdoc/>
         public FetcherException(string message) : base(message) 
         {}
 
+        /// <inheritdoc/>
         public FetcherException(string message, Exception innerException) : base(message, innerException)
         {}
         
@@ -65,6 +70,9 @@ namespace ZeroInstall.Fetchers
             _problems = new C5.GuardedList<Exception>(tempList);
         }
 
+        /// <summary>
+        /// Deserializes an exception.
+        /// </summary>
         private FetcherException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks

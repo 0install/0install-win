@@ -79,7 +79,7 @@ namespace ZeroInstall.Launcher.WinForms
             while (!IsHandleCreated) Thread.Sleep(0);
 
             // Handle events coming from a non-UI thread, block caller until user has answered
-            Invoke((SimpleEventHandler)(() => result = Msg.Ask(this, information, MsgSeverity.Information, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
+            Invoke((SimpleEventHandler)(() => result = Msg.Ask(this, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
 
             return result;
         }

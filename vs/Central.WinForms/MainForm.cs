@@ -70,7 +70,7 @@ namespace ZeroInstall.Central.WinForms
                     string feedUri = e.Url.AbsoluteUri.Replace(UrlPostfixFeed, "");
 
                     // ToDo: Display more details about the feed
-                    if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Information, "Yes\nLaunch the application", "No\nGo back to the list"))
+                    if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Info, "Yes\nLaunch the application", "No\nGo back to the list"))
                     {
                         Program.LaunchHelperAssembly(this, "0launch-win", "--no-wait " + feedUri);
                         Close();

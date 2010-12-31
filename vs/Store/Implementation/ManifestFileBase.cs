@@ -75,6 +75,7 @@ namespace ZeroInstall.Store.Implementation
         //--------------------//
 
         #region Equality
+        /// <inheritdoc/>
         protected bool Equals(ManifestFileBase other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -82,6 +83,7 @@ namespace ZeroInstall.Store.Implementation
             return other.Hash == Hash && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

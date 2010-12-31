@@ -87,6 +87,7 @@ namespace ZeroInstall.Model
         #endregion
         
         #region Equality
+        /// <inheritdoc/>
         protected bool Equals(TargetBase other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -94,6 +95,7 @@ namespace ZeroInstall.Model
             return _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

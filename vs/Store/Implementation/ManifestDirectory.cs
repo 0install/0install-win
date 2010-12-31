@@ -128,6 +128,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ManifestDirectory other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -136,6 +137,7 @@ namespace ZeroInstall.Store.Implementation
             return /*other.ModifiedTime == ModifiedTime &&*/ Equals(other.FullPath, FullPath);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -143,6 +145,7 @@ namespace ZeroInstall.Store.Implementation
             return obj.GetType() == typeof(ManifestDirectory) && Equals((ManifestDirectory)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

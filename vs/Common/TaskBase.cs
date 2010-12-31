@@ -76,6 +76,7 @@ namespace Common
             get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
         }
 
+        /// <inheritdoc />
         public string ErrorMessage { get; protected set; }
 
         private long _bytesReceived;
@@ -109,6 +110,9 @@ namespace Common
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Prepares a new background thread for executing a task.
+        /// </summary>
         protected TaskBase()
         {
             // Prepare the background thread for later execution

@@ -53,27 +53,18 @@ namespace ZeroInstall.Model
 
         //--------------------//
 
-        #region Clone
+        #region Conversion
         /// <summary>
-        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
+        /// Returns the interface reference in the form "InterfaceReference: Target". Not safe for parsing!
         /// </summary>
-        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public InterfaceReference CloneReference()
+        public override string ToString()
         {
-            return new InterfaceReference {Target = Target};
-        }
-
-        /// <summary>
-        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
-        /// </summary>
-        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
-        public object Clone()
-        {
-            return CloneReference();
+            return "InterfaceReference: " + Target;
         }
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(InterfaceReference other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -81,6 +72,7 @@ namespace ZeroInstall.Model
             return other.Target == Target;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -88,6 +80,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(InterfaceReference) && Equals((InterfaceReference)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked
@@ -97,13 +90,23 @@ namespace ZeroInstall.Model
         }
         #endregion
 
-        #region Conversion
+        #region Clone
         /// <summary>
-        /// Returns the interface reference in the form "InterfaceReference: Target". Not safe for parsing!
+        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
         /// </summary>
-        public override string ToString()
+        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
+        public InterfaceReference CloneReference()
         {
-            return "InterfaceReference: " + Target;
+            return new InterfaceReference { Target = Target };
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="InterfaceReference"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="InterfaceReference"/>.</returns>
+        public object Clone()
+        {
+            return CloneReference();
         }
         #endregion
     }

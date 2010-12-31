@@ -128,6 +128,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Group other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -137,6 +138,7 @@ namespace ZeroInstall.Model
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -144,6 +146,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Group) && Equals((Group)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

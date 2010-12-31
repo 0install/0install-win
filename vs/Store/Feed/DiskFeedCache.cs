@@ -111,7 +111,7 @@ namespace ZeroInstall.Store.Feed
 
         #region Get
         /// <inheritdoc/>
-        public Model.Feed Get(Uri feedUrl)
+        public Model.Feed GetFeed(Uri feedUrl)
         {
             #region Sanity checks
             if (feedUrl == null) throw new ArgumentNullException("feedUrl");
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Feed
         {
             ICollection<Model.Feed> feeds = new LinkedList<Model.Feed>();
             foreach (Uri url in ListAll())
-                feeds.Add(Get(url));
+                feeds.Add(GetFeed(url));
             return feeds;
         }
         #endregion

@@ -298,6 +298,7 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Manifest other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -313,6 +314,7 @@ namespace ZeroInstall.Store.Implementation
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -320,6 +322,7 @@ namespace ZeroInstall.Store.Implementation
             return obj.GetType() == typeof(Manifest) && Equals(obj as Manifest);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

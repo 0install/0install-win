@@ -42,6 +42,9 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Creates a new default working binding that switches to the implementation's root.
+        /// </summary>
         public WorkingDirBinding()
         {
             Source = ".";
@@ -72,6 +75,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(WorkingDirBinding other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -79,6 +83,7 @@ namespace ZeroInstall.Model
             return other.Source == Source;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -86,6 +91,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(WorkingDirBinding) && Equals((WorkingDirBinding)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return (Source ?? "").GetHashCode();

@@ -36,6 +36,7 @@ namespace Common.Controls
     public class UriTextBox : HintTextBox
     {
         #region Events
+        /// <inheritdoc/>
         protected override void OnValidating(CancelEventArgs e)
         {
             #region Sanity checks

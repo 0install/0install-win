@@ -82,6 +82,9 @@ namespace Common.Cli
         #endregion
 
         #region Dipose
+        /// <summary>
+        /// Stops tracking the <see cref="ITask"/> and writes a line break to the console.
+        /// </summary>
         public void Dispose()
         {
             // Stop tracking

@@ -37,7 +37,7 @@ namespace ZeroInstall.Model
     {
         #region Utility methods
         /// <summary>
-        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
         /// </summary>
         /// <param name="value">The URL to check for validity.</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
         /// </summary>
         /// <param name="value">The URL to check for validity.</param>
         /// <param name="result">The parsed URL. Only use this if the result was <see langword="true"/>!</param>
@@ -58,7 +58,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Determines wether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
         /// </summary>
         /// <param name="value">The URL to check for validity.</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
@@ -348,6 +348,10 @@ namespace ZeroInstall.Model
             return feed;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Feed"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Feed"/>.</returns>
         public object Clone()
         {
             return CloneFeed();
@@ -365,6 +369,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Feed other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -383,6 +388,7 @@ namespace ZeroInstall.Model
             return true;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -390,6 +396,7 @@ namespace ZeroInstall.Model
             return obj.GetType() == typeof(Feed) && Equals((Feed)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

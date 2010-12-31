@@ -36,6 +36,10 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Binding"/>.</returns>
         public abstract Binding CloneBinding();
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Binding"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Binding"/>.</returns>
         public object Clone()
         {
             return CloneBinding();

@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Feed
         /// Loads a <see cref="Trust"/> database from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
-        /// <returns>The loaded <see cref="Trust"/> databse.</returns>
+        /// <returns>The loaded <see cref="Trust"/> database.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
@@ -99,6 +99,10 @@ namespace ZeroInstall.Store.Feed
             return trust;
         }
 
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Trust"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Trust"/>.</returns>
         public object Clone()
         {
             return CloneTrust();
@@ -106,6 +110,7 @@ namespace ZeroInstall.Store.Feed
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(Trust other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -113,6 +118,7 @@ namespace ZeroInstall.Store.Feed
             return Keys.UnsequencedEquals(other.Keys);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -120,6 +126,7 @@ namespace ZeroInstall.Store.Feed
             return obj.GetType() == typeof(Trust) && Equals((Trust)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return Keys.GetUnsequencedHashCode();

@@ -78,11 +78,13 @@ namespace ZeroInstall.Store.Implementation
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         public bool Equals(ManifestExecutableFile other)
         {
             return base.Equals(other);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
             if (ReferenceEquals(null, obj)) return false;
@@ -90,6 +92,7 @@ namespace ZeroInstall.Store.Implementation
             return obj.GetType() == typeof(ManifestExecutableFile) && Equals((ManifestExecutableFile)obj);
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return base.GetHashCode();

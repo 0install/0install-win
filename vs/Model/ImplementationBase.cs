@@ -114,6 +114,7 @@ namespace ZeroInstall.Model
         #endregion
 
         #region Equality
+        /// <inheritdoc/>
         protected bool Equals(ImplementationBase other)
         {
             if (ReferenceEquals(null, other)) return false;
@@ -121,6 +122,7 @@ namespace ZeroInstall.Model
             return base.Equals(other) && other.ID == ID && other.LocalPath == LocalPath && other.ManifestDigest == ManifestDigest;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             unchecked

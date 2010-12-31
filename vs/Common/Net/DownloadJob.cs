@@ -62,7 +62,6 @@ namespace Common.Net
     /// Groups multiple <see cref="DownloadFile"/>s together for scheduling by <see cref="DownloadManager"/>.
     /// </summary>
     /// <remarks>Scheduling is internally handled by <see cref="DownloadManager"/>.</remarks>
-    [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "IComparable was implemented to allow priority sorting, not for use as a pseudo-mathematical object")]
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     public sealed class DownloadJob
     {

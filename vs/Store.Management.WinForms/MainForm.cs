@@ -41,6 +41,7 @@ namespace ZeroInstall.Store.Management.WinForms
         #endregion
 
         #region Constructor
+        /// <inheritdoc/>
         public MainForm()
         {
             InitializeComponent();
@@ -169,7 +170,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void buttonRemove_Click(object sender, EventArgs e)
         {
-            if (!Msg.Ask(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warning, Resources.YesDelete, Resources.NoKeep))
+            if (!Msg.Ask(this, string.Format(Resources.DeleteCheckedEntries, _treeView.CheckedEntries.Length), MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                 return;
 
             try
@@ -223,12 +224,12 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             catch (IOException ex)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Msg.Inform(this, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(this, ex.Message, MsgSeverity.Warn);
                 return;
             }
             catch (DigestMismatchException ex)
@@ -240,7 +241,7 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             #endregion
 
-            Msg.Inform(this, "All checked implementations are fine.", MsgSeverity.Information);
+            Msg.Inform(this, "All checked implementations are fine.", MsgSeverity.Info);
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)

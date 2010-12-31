@@ -362,11 +362,16 @@ namespace ZeroInstall.Store.Implementation.Archive
             Dispose(true);
         }
 
+        /// <inheritdoc/>
         ~Extractor()
         {
             Dispose(false);
         }
 
+        /// <summary>
+        /// To be called by <see cref="IDisposable.Dispose"/> and the object destructor.
+        /// </summary>
+        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)

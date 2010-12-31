@@ -39,12 +39,20 @@ namespace ZeroInstall.Launcher
         /// <inheritdoc />
         public void RunDownloadTask(ITask task)
         {
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            #endregion
+
             task.RunSync();
         }
 
         /// <inheritdoc />
         public void RunIOTask(ITask task)
         {
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            #endregion
+
             task.RunSync();
         }
     }

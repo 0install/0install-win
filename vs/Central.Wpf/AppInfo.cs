@@ -303,7 +303,7 @@ namespace ZeroInstall.Central.Wpf
             if (!Msg.Ask(
                 App.NativeWnd,
                 "Do you really want to uninstall \"" + Feed.Name + "\"?",
-                MsgSeverity.Warning,
+                MsgSeverity.Warn,
                 "Yes\nUninstall the application",
                 "No\nGo back to the list"
                 ))
