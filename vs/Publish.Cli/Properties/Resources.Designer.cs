@@ -124,6 +124,15 @@ namespace ZeroInstall.Publish.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options:.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remove existing signature..
         /// </summary>
         internal static string OptionUnsign {
@@ -156,6 +165,34 @@ namespace ZeroInstall.Publish.Cli.Properties {
         internal static string PleaseEnterGnuPGPassphrase {
             get {
                 return ResourceManager.GetString("PleaseEnterGnuPGPassphrase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown operation mode.
+        ///Try 0publish --help.
+        /// </summary>
+        internal static string UnknownMode {
+            get {
+                return ResourceManager.GetString("UnknownMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage:.
+        /// </summary>
+        internal static string Usage {
+            get {
+                return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0publish [OPTIONS] feed.xml.
+        /// </summary>
+        internal static string UsageFeed {
+            get {
+                return ResourceManager.GetString("UsageFeed", resourceCulture);
             }
         }
     }

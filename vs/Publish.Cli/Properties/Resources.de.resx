@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FileToSignNotFound" xml:space="preserve">
+    <value>Die Feed Datei die signiert werden soll konnte nicht gefunden werden.</value>
+  </data>
+  <data name="FileToVerifyNotFound" xml:space="preserve">
+    <value>Die Feed Datei die geprüft werden soll konnte nicht gefunden werden.</value>
+  </data>
 </root>

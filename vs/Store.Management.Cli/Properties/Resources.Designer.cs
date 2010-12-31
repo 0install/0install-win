@@ -61,6 +61,143 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To add a directory to the store (makes a copy):
+        ///0store add sha256=XXX directory
+        ///
+        ///To add an archive to the store:
+        ///0store add sha256=XXX archive.tgz
+        ///
+        ///To add a subdirectory of an archive to the store:
+        ///0store add sha256=XXX archive.tgz subdir
+        ///
+        ///The actual digest is calculated and compared to the given one. If they don&apos;t match, the operation is rejected..
+        /// </summary>
+        internal static string DetailsAdd {
+            get {
+                return ResourceManager.GetString("DetailsAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verifies  every  implementation in each of the given cache directories, or in all of the default cache directories if no arguments are given. This will detect any packages which have been tampered with since they were unpacked. If 0store itself could have been modified by an attacker, mount the suspect file-system on a known-good machine and run that machine&apos;s 0store on the mounted cache directory.
+        ///See the &quot;verify&quot; command for details of the verification performed on each package..
+        /// </summary>
+        internal static string DetailsAudit {
+            get {
+                return ResourceManager.GetString("DetailsAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To  copy an implementation (a directory with a name in the form &quot;algorithm=value&quot;), use the copy function. This is similar to performing a normal recursive directory copy followed by a 0store verify to check that the name matches the contents. E.g.:
+        ///0store copy ~someuser/.cache/0install.net/implementations/sha256=XXX /var/cache/0install.net/implementations/.
+        /// </summary>
+        internal static string DetailsCopy {
+            get {
+                return ResourceManager.GetString("DetailsCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To find the path of a stored item:
+        ///0store find sha256=XXX.
+        /// </summary>
+        internal static string DetailsFind {
+            get {
+                return ResourceManager.GetString("DetailsFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See the list of implementation caches currently configured:
+        ///0store list
+        ///
+        ///To add directories to this list, add them to your &apos;implementation-dirs&apos; configuration file..
+        /// </summary>
+        internal static string DetailsList {
+            get {
+                return ResourceManager.GetString("DetailsList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To generate the manifest for a directory structure:
+        ///0store manifest DIRECTORY [ALGORITHM]
+        ///
+        ///The manifest lists every file and directory in the tree, along with the digest of each file, thus uniquely identifying that particular set of files. After the manifest, the last line gives the digest of the manifest itself.
+        ///
+        ///This value is needed when creating feed files. However, the 0publish command will automatically calculate the required digest for you and add it to a feed file. See the packager&apos;s guide on th [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string DetailsManifest {
+            get {
+                return ResourceManager.GetString("DetailsManifest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To hard-link duplicate files together to save space:
+        ///0store optimise [CACHE]
+        ///
+        ///This reads in all the manifest files in the cache directory (~/.cache/0install.net/implementations by default) and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it (atomically) with a hard-link to the other.
+        ///
+        ///Implementations using the old &apos;sha1&apos; algorithm are not optimised..
+        /// </summary>
+        internal static string DetailsOptimise {
+            get {
+                return ResourceManager.GetString("DetailsOptimise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To remove an item from the store:
+        ///0store remove sha256=XXX.
+        /// </summary>
+        internal static string DetailsRemove {
+            get {
+                return ResourceManager.GetString("DetailsRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To check that an item is stored correctly:
+        ///0store verify /path/to/sha256=XXX
+        ///
+        ///This calculates the manifest of the directory and checks that its digest matches the directory&apos;s name. It also checks that it matches the digest of the .manifest file inside the directory. If the .manifest doesn&apos;t correspond to the current tree, it displays a list of the differences (in unified diff format)..
+        /// </summary>
+        internal static string DetailsVerify {
+            get {
+                return ResourceManager.GetString("DetailsVerify", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The director &apos;{0}&apos; was not found..
+        /// </summary>
+        internal static string DirectoryNotFound {
+            get {
+                return ResourceManager.GetString("DirectoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This store does not support auditing..
+        /// </summary>
+        internal static string NoAuditSupport {
+            get {
+                return ResourceManager.GetString("NoAuditSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No such file or directory: {0}.
+        /// </summary>
+        internal static string NoSuchFileOrDirectory {
+            get {
+                return ResourceManager.GetString("NoSuchFileOrDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {
@@ -79,11 +216,138 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Display more comprehensive documentation for the operation modes..
+        /// </summary>
+        internal static string OptionMan {
+            get {
+                return ResourceManager.GetString("OptionMan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options:.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display version information..
         /// </summary>
         internal static string OptionVersion {
             get {
                 return ResourceManager.GetString("OptionVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The store entry is OK..
+        /// </summary>
+        internal static string StoreEntryOK {
+            get {
+                return ResourceManager.GetString("StoreEntryOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown operation mode.
+        ///Try 0store --help.
+        /// </summary>
+        internal static string UnknownMode {
+            get {
+                return ResourceManager.GetString("UnknownMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage:.
+        /// </summary>
+        internal static string Usage {
+            get {
+                return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT])).
+        /// </summary>
+        internal static string UsageAdd {
+            get {
+                return ResourceManager.GetString("UsageAdd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store audit [CACHE+].
+        /// </summary>
+        internal static string UsageAudit {
+            get {
+                return ResourceManager.GetString("UsageAudit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store copy DIRECTORY [CACHE].
+        /// </summary>
+        internal static string UsageCopy {
+            get {
+                return ResourceManager.GetString("UsageCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store find DIGEST.
+        /// </summary>
+        internal static string UsageFind {
+            get {
+                return ResourceManager.GetString("UsageFind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store list.
+        /// </summary>
+        internal static string UsageList {
+            get {
+                return ResourceManager.GetString("UsageList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store manifest DIRECTORY [ALGORITHM].
+        /// </summary>
+        internal static string UsageManifest {
+            get {
+                return ResourceManager.GetString("UsageManifest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store optimise [CACHE+].
+        /// </summary>
+        internal static string UsageOptimize {
+            get {
+                return ResourceManager.GetString("UsageOptimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store remove DIGEST+.
+        /// </summary>
+        internal static string UsageRemove {
+            get {
+                return ResourceManager.GetString("UsageRemove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0store verify (DIGEST|DIRECTORY)+.
+        /// </summary>
+        internal static string UsageVerify {
+            get {
+                return ResourceManager.GetString("UsageVerify", resourceCulture);
             }
         }
         

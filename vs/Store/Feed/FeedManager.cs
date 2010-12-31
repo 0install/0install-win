@@ -112,7 +112,7 @@ namespace ZeroInstall.Store.Feed
         /// Aditional feed locations may be specified within the <see cref="Model.Feed"/> or by user preferences.
         /// </remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Allow for local paths aswell")]
+        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Allow for local paths as well")]
         public IEnumerable<Model.Feed> GetFeeds(string interfaceUri, IFeedHandler handler)
         {
             #region Sanity checks

@@ -49,7 +49,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
 
-        /// <summary>A not supported feature was requested.</summary>
+        /// <summary>An unknown or not supported feature was requested.</summary>
         NotSupported = 3,
 
         /// <summary>An IO error occurred.</summary>
@@ -74,13 +74,6 @@ namespace ZeroInstall.Launcher.Cli
     /// </summary>
     public static class Program
     {
-        #region Text constants
-        private const string UsageNormal = "0launch [OPTIONS] INTERFACE [ARGS+]";
-        private const string UsageList = "0launch --list [SEARCH-TERM]";
-        private const string UsageImport = "0launch --import [SINGNED-INTERFACE-FILES+]";
-        private const string UsageFeed = "0launch --feed [INTERFACE]";
-        #endregion
-
         #region Startup
         /// <summary>
         /// The main entry point for the application.
@@ -247,9 +240,8 @@ namespace ZeroInstall.Launcher.Cli
             {
                 mode = OperationMode.Help;
 
-                const string usage = "Usage:\t{0}\n\t{1}\n\t{2}\n\t{3}\n";
-                Console.WriteLine(usage, UsageNormal, UsageList, UsageImport, UsageFeed);
-                Console.WriteLine("Options:");
+                PrintUsage();
+                Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
             });
             #endregion
@@ -257,16 +249,16 @@ namespace ZeroInstall.Launcher.Cli
             #region Feed and arguments
             var targetArgs = new List<string>();
             parseResults.AdditionalArgs = targetArgs;
-            options.Add("<>", v =>
+            options.Add("<>", value =>
             {
                 if (parseResults.Feed == null)
                 {
-                    if (v.StartsWith("-")) throw new ArgumentException("Unknown options");
+                    if (value.StartsWith("-")) throw new ArgumentException(Resources.UnknownOption);
 
-                    parseResults.Feed = v;
+                    parseResults.Feed = value;
                     options.Clear();
                 }
-                else targetArgs.Add(v);
+                else targetArgs.Add(value);
             });
             #endregion
 
@@ -276,6 +268,14 @@ namespace ZeroInstall.Launcher.Cli
             // Return the now filled results structure
             results = parseResults;
             return mode;
+        }
+        #endregion
+
+        #region Help
+        private static void PrintUsage()
+        {
+            const string usage = "{0}\t{1}\n\t{2}\n\t{3}\n\t{4}\n";
+            Console.WriteLine(usage, Resources.Usage, Resources.UsageNormal, Resources.UsageList, Resources.UsageImport, Resources.UsageFeed);
         }
         #endregion
 
@@ -314,7 +314,7 @@ namespace ZeroInstall.Launcher.Cli
                 case OperationMode.Import:
                 case OperationMode.Manage:
                     // ToDo: Implement
-                    Log.Error("Not implemented yet!");
+                    Log.Error(Resources.NotImplemented);
                     return (int)ErrorLevel.NotSupported;
 
                 case OperationMode.Version:
@@ -326,7 +326,7 @@ namespace ZeroInstall.Launcher.Cli
                     return (int)ErrorLevel.OK;
 
                 default:
-                    Log.Error("Unknown operation mode");
+                    Log.Error(Resources.UnknownMode);
                     return (int)ErrorLevel.NotSupported;
             }
         }
@@ -354,7 +354,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         private static void Normal(ParseResults results, IHandler handler)
         {
-            if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageNormal));
+            if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageNormal));
 
             var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy, handler);
 
@@ -390,7 +390,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         private static void List(ParseResults results)
         {
-            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
+            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
 
             var feeds = results.Policy.FeedManager.Cache.ListAll();
             foreach (Uri entry in feeds)

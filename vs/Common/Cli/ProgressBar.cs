@@ -30,7 +30,7 @@ namespace Common.Cli
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
-    public class ProgessBar
+    public class ProgressBar
     {
         #region Properties
         private TaskState _state;
@@ -106,6 +106,8 @@ namespace Common.Cli
         /// <exception cref="IOException">Thrown if the progress bar could not be drawn to the <see cref="Console"/> (e.g. if it isn't a TTY).</exception>
         public void Draw()
         {
+            // ToDo: Detect non-console output and supress drawing
+
             // Draw start of progress bar
             Console.CursorLeft = 0;
             Console.Error.Write(@"[");

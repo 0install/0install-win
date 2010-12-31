@@ -27,7 +27,7 @@ namespace Common.Cli
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/> that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    public sealed class TrackingProgressBar : ProgessBar, IDisposable
+    public sealed class TrackingProgressBar : ProgressBar, IDisposable
     {
         #region Variables
         private readonly ITask _task;

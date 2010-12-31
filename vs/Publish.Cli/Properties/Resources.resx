@@ -150,4 +150,17 @@
   <data name="PleaseEnterGnuPGPassphrase" xml:space="preserve">
     <value>Please enter your GnuPG passphrase:</value>
   </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown operation mode.
+Try 0publish --help</value>
+  </data>
+  <data name="Usage">
+    <value xml:space="preserve">Usage:</value>
+  </data>
+  <data name="UsageFeed">
+    <value xml:space="preserve">0publish [OPTIONS] feed.xml</value>
+  </data>
+  <data name="Options">
+    <value xml:space="preserve">Options:</value>
+  </data>
 </root>

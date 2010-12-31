@@ -61,6 +61,15 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This feature is not implemented yet..
+        /// </summary>
+        internal static string NotImplemented {
+            get {
+                return ResourceManager.GetString("NotImplemented", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
         /// </summary>
         internal static string OptionBatch {
@@ -210,6 +219,15 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Options:.
+        /// </summary>
+        internal static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Download any required feeds and choose a set of implementations, but don&apos;t actually download them. If there are stale feeds, check for updates first (if we&apos;re not off-line)..
         /// </summary>
         internal static string OptionSelectOnly {
@@ -261,6 +279,71 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         internal static string OptionWrapper {
             get {
                 return ResourceManager.GetString("OptionWrapper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown operation mode.
+        ///Try 0launch --help.
+        /// </summary>
+        internal static string UnknownMode {
+            get {
+                return ResourceManager.GetString("UnknownMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown option.
+        ///Try 0launch --help.
+        /// </summary>
+        internal static string UnknownOption {
+            get {
+                return ResourceManager.GetString("UnknownOption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage:.
+        /// </summary>
+        internal static string Usage {
+            get {
+                return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0launch --feed [INTERFACE].
+        /// </summary>
+        internal static string UsageFeed {
+            get {
+                return ResourceManager.GetString("UsageFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0launch --import [SINGNED-INTERFACE-FILES+].
+        /// </summary>
+        internal static string UsageImport {
+            get {
+                return ResourceManager.GetString("UsageImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0launch --list [SEARCH-TERM].
+        /// </summary>
+        internal static string UsageList {
+            get {
+                return ResourceManager.GetString("UsageList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 0launch [OPTIONS] INTERFACE [ARGS+].
+        /// </summary>
+        internal static string UsageNormal {
+            get {
+                return ResourceManager.GetString("UsageNormal", resourceCulture);
             }
         }
         

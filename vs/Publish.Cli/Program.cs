@@ -35,12 +35,29 @@ namespace ZeroInstall.Publish.Cli
     /// </summary>
     public enum ErrorLevel
     {
+        ///<summary>Everything is OK.</summary>
         OK = 0,
-        UserCanceled = 1,
+
+        /// <summary>The user cancelled the operation.</summary>
+        UserCancelled = 1,
+
+        /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
+
+        /// <summary>An unknown or not supported feature was requested.</summary>
         NotSupported = 3,
+
+        /// <summary>An IO error occurred.</summary>
         IOError = 10,
+
+        /// <summary>An network error occurred.</summary>
         WebError = 11,
+
+        /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
+        DigestMismatch = 20,
+
+        /// <summary>A solver error occurred.</summary>
+        SolverError = 21
     }
     #endregion
 
@@ -144,18 +161,34 @@ namespace ZeroInstall.Publish.Cli
             {
                 mode = OperationMode.Help;
 
-                Console.WriteLine(@"Usage: 0publish [options] feed.xml");
+                PrintUsage();
+                Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
             });
             #endregion
 
             // Parse the arguments and call the hooked handlers
             var additionalArgs = options.Parse(args);
-            parseResults.Feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml");
+            try { parseResults.Feeds = ArgumentUtils.GetFiles(additionalArgs, "*.xml"); }
+            #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                // Report as an invalid command-line argument
+                throw new ArgumentException(ex.Message, ex);
+            }
+            #endregion
 
             // Return the now filled results structure
             results = parseResults;
             return mode;
+        }
+        #endregion
+
+        #region Help
+        private static void PrintUsage()
+        {
+            const string usage = "{0}\t{1}\n";
+            Console.WriteLine(usage, Resources.Usage, Resources.UsageFeed);
         }
         #endregion
 
@@ -203,7 +236,7 @@ namespace ZeroInstall.Publish.Cli
                     return (int)ErrorLevel.OK;
 
                 default:
-                    Log.Error("Unknown operation mode");
+                    Log.Error(Resources.UnknownMode);
                     return (int)ErrorLevel.NotSupported;
             }
         }

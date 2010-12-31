@@ -45,7 +45,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
 
-        /// <summary>A not supported feature was requested.</summary>
+        /// <summary>An unknown or not supported feature was requested.</summary>
         NotSupported = 3,
 
         /// <summary>An IO error occurred.</summary>
@@ -64,18 +64,6 @@ namespace ZeroInstall.Store.Management.Cli
     /// </summary>
     public static class Program
     {
-        #region Text constants
-        private const string UsageAdd = "0store add DIGEST (DIRECTORY | (ARCHIVE [EXTRACT]))";
-        private const string UsageAudit = "0store audit [CACHE+]";
-        private const string UsageCopy = "0store copy DIRECTORY [CACHE]";
-        private const string UsageFind = "0store find DIGEST";
-        private const string UsageRemove = "0store remove DIGEST+";
-        private const string UsageList = "0store list";
-        private const string UsageManifest = "0store manifest DIRECTORY [ALGORITHM]";
-        private const string UsageOptimize = "0store optimise [CACHE+]";
-        private const string UsageVerify = "0store verify (DIGEST|DIRECTORY)+";
-        #endregion
-
         #region Startup
         /// <summary>
         /// The main entry point for the application.
@@ -166,22 +154,47 @@ namespace ZeroInstall.Store.Management.Cli
                 {"batch", Resources.OptionBatch, unused => handler.Batch = true},
 
                 // Mode selection
-                {"V|version", Resources.OptionVersion, unused => Console.WriteLine(@"Zero Install Store management CLI v{0}", Assembly.GetEntryAssembly().GetName().Version)}
+                {"V|version", Resources.OptionVersion, unused => Console.WriteLine(@"Zero Install Store management CLI v{0}", Assembly.GetEntryAssembly().GetName().Version)},
+
+                // Documentation
+                {"man", Resources.OptionMan, unused => PrintManual()}
             };
             #endregion
 
             #region Help text
             options.Add("h|help|?", Resources.OptionHelp, unused =>
             {
-                const string usage = "Usage:\t{0}\n\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n";
-                Console.WriteLine(usage, UsageAdd, UsageAudit, UsageCopy, UsageFind, UsageRemove, UsageList, UsageManifest, UsageOptimize, UsageVerify);
-                Console.WriteLine("Options:");
+                PrintUsage();
+                Console.WriteLine(Resources.Options);
                 options.WriteOptionDescriptions(Console.Out);
             });
             #endregion
 
             // Parse the arguments and call the hooked handlers
             return options.Parse(args);
+        }
+        #endregion
+
+        #region Help
+        private static void PrintUsage()
+        {
+            const string usage = "{0}\t{1}\n\t{2}\n\t{3}\n\t{4}\n\t{5}\n\t{5}\n\t{6}\n\t{7}\n\t{8}\n\t{9}\n";
+            Console.WriteLine(usage, Resources.Usage, Resources.UsageAdd, Resources.UsageAudit, Resources.UsageCopy, Resources.UsageFind, Resources.UsageList, Resources.UsageManifest, Resources.UsageOptimize, Resources.UsageRemove, Resources.UsageVerify);
+        }
+
+        private static void PrintManual()
+        {
+            // ToDo: Add flow formatting for better readability on console
+            Console.WriteLine("\n");
+            Console.WriteLine("ADD\n\n" + Resources.DetailsAdd + "\n\n\n");
+            Console.WriteLine("AUDIT\n\n" + Resources.DetailsAudit + "\n\n\n");
+            Console.WriteLine("COPY\n\n" + Resources.DetailsCopy + "\n\n\n");
+            Console.WriteLine("FIND\n\n" + Resources.DetailsFind + "\n\n\n");
+            Console.WriteLine("LIST\n\n" + Resources.DetailsList + "\n\n\n");
+            Console.WriteLine("MANIFEST\n\n" + Resources.DetailsManifest + "\n\n\n");
+            Console.WriteLine("OPTMISE\n\n" + Resources.DetailsOptimise + "\n\n\n");
+            Console.WriteLine("REMOVE\n\n" + Resources.DetailsRemove + "\n\n\n");
+            Console.WriteLine("VERIFY\n\n" + Resources.DetailsVerify + "\n");
         }
         #endregion
 
@@ -239,7 +252,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 default:
-                    Log.Error("Unknown command");
+                    Log.Error(Resources.UnknownMode);
                     return ErrorLevel.NotSupported;
             }
         }
@@ -250,7 +263,7 @@ namespace ZeroInstall.Store.Management.Cli
         #region Execute helpers
         private static ErrorLevel Add(IList<string> args, IIOHandler handler)
         {
-            if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageAdd));
+            if (args.Count < 3 || args.Count > 4) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageAdd));
             var manifestDigest = new ManifestDigest(args[1]);
             string path = args[2];
             string subDir = (args.Count == 4) ? args[3] : null;
@@ -259,7 +272,7 @@ namespace ZeroInstall.Store.Management.Cli
             else if (File.Exists(path)) StoreProvider.Default.AddArchive(new ArchiveFileInfo { Path = path, SubDir = subDir }, manifestDigest, handler);
             else
             {
-                Log.Error("No such file or directory: " + path);
+                Log.Error(string.Format(Resources.NoSuchFileOrDirectory, path));
                 return ErrorLevel.IOError;
             }
             return ErrorLevel.OK;
@@ -267,7 +280,7 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static void Copy(IList<string> args, IIOHandler handler)
         {
-            if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageCopy));
+            if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageCopy));
 
             IStore store = (args.Count == 3) ? new DirectoryStore(args[2]) : StoreProvider.Default;
             store.AddDirectory(args[1], new ManifestDigest(Path.GetFileName(args[1])), handler);
@@ -275,14 +288,14 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static void Find(IList<string> args)
         {
-            if (args.Count != 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageFind));
+            if (args.Count != 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageFind));
 
             Console.WriteLine(StoreProvider.Default.GetPath(new ManifestDigest(args[1])));
         }
 
         private static void Remove(IList<string> args)
         {
-            if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageRemove));
+            if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageRemove));
 
             for (int i = 1; i < args.Count; i++)
             {
@@ -293,7 +306,7 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static void List(IList<string> args)
         {
-            if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageList));
+            if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
 
             foreach (ManifestDigest digest in StoreProvider.Default.ListAll())
                 Console.WriteLine(digest.BestDigest);
@@ -311,7 +324,7 @@ namespace ZeroInstall.Store.Management.Cli
 
         private static void Verify(IList<string> args, IIOHandler handler)
         {
-            if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageVerify));
+            if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageVerify));
             for (int i = 1; i < args.Count; i++)
             {
                 if (Directory.Exists(args[i]))
@@ -322,7 +335,7 @@ namespace ZeroInstall.Store.Management.Cli
                 { // Verify a directory inside the default store
                     StoreProvider.Default.Verify(new ManifestDigest(args[i]), handler);
                 }
-                Console.WriteLine("OK");
+                Console.WriteLine(Resources.StoreEntryOK);
             }
         }
         #endregion
@@ -356,7 +369,7 @@ namespace ZeroInstall.Store.Management.Cli
             var problems = store.Audit(handler);
             if (problems == null)
             {
-                Log.Error("This store does not support auditing.");
+                Log.Error(Resources.NoAuditSupport);
                 return ErrorLevel.InvalidArguments;
             }
 
@@ -388,7 +401,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         private static void GenerateManifest(IList<string> args, IIOHandler handler)
         {
-            if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, UsageManifest));
+            if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageManifest));
 
             // Determine manifest format
             ManifestFormat format;
@@ -408,7 +421,7 @@ namespace ZeroInstall.Store.Management.Cli
             }
 
             string path = args[1];
-            if (!Directory.Exists(path)) throw new DirectoryNotFoundException("Directory not found: " + path);
+            if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
 
             var manifest = Manifest.Generate(path, format, handler);
             Console.Write(manifest);

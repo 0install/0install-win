@@ -61,11 +61,20 @@ namespace ZeroInstall.Publish.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file to be signed could not be found..
+        ///   Looks up a localized string similar to The feed file to be signed could not be found..
         /// </summary>
         internal static string FileToSignNotFound {
             get {
                 return ResourceManager.GetString("FileToSignNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The feed file to be verified could not be found..
+        /// </summary>
+        internal static string FileToVerifyNotFound {
+            get {
+                return ResourceManager.GetString("FileToVerifyNotFound", resourceCulture);
             }
         }
     }

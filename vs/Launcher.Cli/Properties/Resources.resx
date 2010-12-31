@@ -193,4 +193,33 @@ However, new downloads will not be written to this directory.</value>
     <value>Wrong number of arguments.
 Usage: {0}</value>
   </data>
+  <data name="UsageFeed" xml:space="preserve">
+    <value>0launch --feed [INTERFACE]</value>
+  </data>
+  <data name="UsageImport" xml:space="preserve">
+    <value>0launch --import [SINGNED-INTERFACE-FILES+]</value>
+  </data>
+  <data name="UsageList" xml:space="preserve">
+    <value>0launch --list [SEARCH-TERM]</value>
+  </data>
+  <data name="UsageNormal" xml:space="preserve">
+    <value>0launch [OPTIONS] INTERFACE [ARGS+]</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="UnknownMode" xml:space="preserve">
+    <value>Unknown operation mode.
+Try 0launch --help</value>
+  </data>
+  <data name="NotImplemented" xml:space="preserve">
+    <value>This feature is not implemented yet.</value>
+  </data>
+  <data name="UnknownOption">
+    <value><![CDATA[Unknown option.
+Try 0launch --help]]></value>
+  </data>
+  <data name="Usage">
+    <value xml:space="preserve">Usage:</value>
+  </data>
 </root>
