@@ -25,7 +25,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
     /// <summary>
-    /// Models information about a <see cref="Feed"/> / interface in the <see cref="IFeedCache"/> for display in a GUI.
+    /// Models information about a <see cref="Model.Feed"/> / interface in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
     public sealed class InterfaceNode : StoreNode
     {
@@ -59,8 +59,8 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Creates a new interface node.
         /// </summary>
-        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Feed"/> / interface is located in.</param>
-        /// <param name="feed">The <see cref="Feed"/> / interface to be represented by this node.</param>
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> / interface is located in.</param>
+        /// <param name="feed">The <see cref="Model.Feed"/> / interface to be represented by this node.</param>
         public InterfaceNode(IFeedCache cache, Model.Feed feed)
         {
             #region Sanity checks
@@ -75,7 +75,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Delete
         /// <summary>
-        /// Deletes this <see cref="Feed"/> / interface from the <see cref="IFeedCache"/> it is located in.
+        /// Deletes this <see cref="Model.Feed"/> / interface from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
         /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted because it was in use.</exception>

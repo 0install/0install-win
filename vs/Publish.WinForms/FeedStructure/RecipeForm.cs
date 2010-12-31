@@ -13,17 +13,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
     public partial class RecipeForm : OKCancelDialog
     {
-        #region Attributes
-
+        #region Variables
         /// <summary>
-        /// <see cref="Recipe"/> to edit by this form.
+        /// <see cref="Recipe"/> to be edited by this form.
         /// </summary>
         private Recipe _recipe = new Recipe();
-
         #endregion
 
         #region Properties
-
         /// <summary>
         /// <see cref="Recipe"/> to edit by this form.
         /// </summary>
@@ -42,18 +39,18 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <see cref="ManifestDigest"/> of <see cref="RecipeForm.Recipe"/>.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
-
         #endregion
 
-        #region Initialization
-
+        #region Constructor
+        /// <inheritdoc/>
         public RecipeForm()
         {
             InitializeComponent();
             InsertArchiveTab(0);
         }
-
         #endregion
+
+        //--------------------//
 
         #region Control Management
 
@@ -66,13 +63,10 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "dummy")]
         private void UpdateFormControls()
         {
             ClearFormControls();
-#pragma warning disable 168
-            IntPtr dummy = tabControlRecipe.Handle;
-#pragma warning restore 168
+
             if (_recipe.Steps.Count == 0)
             {
                 var archiveControl = CreateArchiveControl();

@@ -21,7 +21,6 @@
  */
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows.Forms;
 
 namespace Common.Controls
@@ -110,17 +109,6 @@ namespace Common.Controls
                 if (_useAddTabPage) InsertAddTabPage();
                 else RemoveAddTabPage();
             }
-        }
-        #endregion
-        
-        #region Constructor
-        [SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "dummy")]
-        public AddRemoveTabControl()
-        {
-#pragma warning disable 168
-            // HACK: makes inserting tabs possible
-            IntPtr dummy = Handle;
-#pragma warning restore 168
         }
         #endregion
 

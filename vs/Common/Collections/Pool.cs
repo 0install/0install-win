@@ -44,8 +44,8 @@ namespace Common.Collections
     /// <summary>
     /// A highly efficient pseudo-collection (doesn't implement <see cref="IEnumerable{T}"/>) that supports fast adding at the beginning.
     /// </summary>
-    /// <remarks>An item can always only be in one <see cref="Pool{T}"/> at any given time.</remarks>
-    /// <typeparam name="T">The type of items to store in the <see cref="Pool{T}"/>.</typeparam>
+    /// <remarks>An item can always only be in one pool at any given time.</remarks>
+    /// <typeparam name="T">The type of items to store in the pool.</typeparam>
     public sealed class Pool<T> : IPoolable<T> where T : class, IPoolable<T>
     {
         #region Variables
@@ -95,7 +95,7 @@ namespace Common.Collections
         /// Adds an item to the beginning pool
         /// </summary>
         /// <param name="item">The object to add to the pool</param>
-        /// <exception cref="ArgumentException">Thrown if <paramref name="item"/> is already in a <see cref="Pool{T}"/></exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="item"/> is already in a pool</exception>
         public void Add(T item)
         {
             #region Sanity checks

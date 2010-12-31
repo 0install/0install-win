@@ -152,7 +152,7 @@ namespace Common.Collections
         /// <summary>
         /// Convert this <see cref="XmlDictionary"/> to a <see cref="Dictionary{TKey,TValue}"/> for better lookup-performance.
         /// </summary>
-        /// <returns>A <see cref="Dictionary{TKey,TValue}"/> containing the same data as this collection.</returns>
+        /// <returns>A dictionary containing the same data as this collection.</returns>
         public IDictionary<string, string> ToDictionary()
         {
             var dictionary = new Dictionary<string, string>();
