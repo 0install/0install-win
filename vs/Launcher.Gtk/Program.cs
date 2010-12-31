@@ -59,22 +59,22 @@ namespace ZeroInstall.Launcher.Gtk
             #region Error handling
             catch (ArgumentException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                 return;
             }
             catch (InvalidOperationException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                 return;
             }
             catch (IOException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                 return;
             }
             catch (UnauthorizedAccessException ex)
             {
-                Msg.Inform(null, ex.Message, MsgSeverity.Warning);
+                Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                 return;
             }
             #endregion

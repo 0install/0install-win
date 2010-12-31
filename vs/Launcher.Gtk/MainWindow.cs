@@ -59,7 +59,7 @@ public partial class MainWindow : Window, IHandler
     {
         if (Batch) return false;
 
-        return GtkMsg.Ask(this, information, MsgSeverity.Information);
+        return GtkMsg.Ask(this, information, MsgSeverity.Info);
     }
 
     /// <inheritdoc />

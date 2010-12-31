@@ -47,7 +47,7 @@ namespace Common.Gtk
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -74,7 +74,7 @@ namespace Common.Gtk
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -108,7 +108,7 @@ namespace Common.Gtk
             #region Logging
             switch (severity)
             {
-                case MsgSeverity.Warning: Log.Warn(text); break;
+                case MsgSeverity.Warn: Log.Warn(text); break;
                 case MsgSeverity.Error: Log.Error(text); break;
             }
             #endregion
@@ -131,10 +131,10 @@ namespace Common.Gtk
             MessageType type;
             switch (severity)
             {
-                case MsgSeverity.Warning: type = MessageType.Warning; break;
+                case MsgSeverity.Warn: type = MessageType.Warning; break;
                 case MsgSeverity.Error: type = MessageType.Error; break;
                 default:    
-                case MsgSeverity.Information:
+                case MsgSeverity.Info:
                     type = ((buttons & ButtonsType.YesNo) == ButtonsType.YesNo) ? MessageType.Question : MessageType.Info;
                     break;
             }

@@ -155,7 +155,7 @@ namespace ZeroInstall.Central.Wpf
         void currentInstallAction_Finished()
         {
             MainWindow.TaskbarIcon.ShowBalloonTip(_currentInstallAction.AppInfo.Feed.Name, "Application has been installed.", BalloonIcon.Info);
-            //Msg.Inform(App.NativeWnd, currentInstallAction.FeedUri + " has been installed.", MsgSeverity.Information);
+            //Msg.Inform(App.NativeWnd, currentInstallAction.FeedUri + " has been installed.", MsgSeverity.Info);
 
             InstallActions.RemoveAt(0);
             _currentInstallAction = null;
