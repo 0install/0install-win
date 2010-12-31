@@ -46,7 +46,7 @@ namespace Common.Undo
 
         #region Execute
         /// <summary>
-        /// Removes the <see cref="CollectionCommand{T}.Element"/> from the <see cref="CollectionCommand{T}.Collection"/>.
+        /// Removes the element from the collection.
         /// </summary>
         protected override void OnExecute()
         {
@@ -56,7 +56,7 @@ namespace Common.Undo
 
         #region Undo
         /// <summary>
-        /// Adds the <see cref="CollectionCommand{T}.Element"/> to the <see cref="CollectionCommand{T}.Collection"/>.
+        /// Adds the element to the collection.
         /// </summary>
         protected override void OnUndo()
         {

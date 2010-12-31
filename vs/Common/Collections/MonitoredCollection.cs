@@ -30,9 +30,9 @@ using Common.Properties;
 namespace Common.Collections
 {
     /// <summary>
-    /// A collection that can easily be monitored for changes via events
+    /// A collection that can easily be monitored for changes via events.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the collection</typeparam>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
     public class MonitoredCollection<T> : Collection<T>
     {
         #region Events
@@ -93,24 +93,22 @@ namespace Common.Collections
 
         #region Properties
         /// <summary>
-        /// The maximum number of elements / the maximum value for <see cref="Collection{T}.Count"/>.
-        /// 0 for no limit
+        /// The maximum number of elements; 0 for no limit.
         /// </summary>
         public int MaxElements { get; private set; }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new <see cref="MonitoredCollection{T}"/>
+        /// Creates a new monitored collection.
         /// </summary>
         public MonitoredCollection()
         {}
 
         /// <summary>
-        /// Creates a new <see cref="MonitoredCollection{T}"/> with an upper limit to the number of elements
+        /// Creates a new monitored collection with an upper limit to the number of elements.
         /// </summary>
-        /// <param name="maxElements">The maximum number of elements / the maximum value for <see cref="Collection{T}.Count"/>.
-        /// 0 for no limit</param>
+        /// <param name="maxElements">The maximum number of elements; 0 for no limit.</param>
         public MonitoredCollection(int maxElements)
         {
             MaxElements = maxElements;
@@ -252,13 +250,13 @@ namespace Common.Collections
     }
 
     /// <summary>
-    /// An event regarding an element of a <see cref="MonitoredCollection{T}"/>
+    /// An event regarding an element of a monitored collection.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the <see cref="MonitoredCollection{T}"/></typeparam>
+    /// <typeparam name="T">The type of elements in the monitored collection.</typeparam>
     public class MonitoringEventArgs<T> : EventArgs
     {
         /// <summary>
-        /// The element from the <see cref="MonitoredCollection{T}"/>
+        /// The element from the monitored collection.
         /// </summary>
         public T Item { get; private set; }
 

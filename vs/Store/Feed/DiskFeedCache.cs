@@ -25,7 +25,7 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Provides access to a disk-based cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
+    /// Provides access to a disk-based cache of <see cref="Model.Feed"/>s that were downloaded via HTTP(S).
     /// </summary>
     /// <remarks>
     ///   <para>Local feed files are not handled by this cache.</para>
@@ -35,7 +35,7 @@ namespace ZeroInstall.Store.Feed
     {
         #region Properties
         /// <summary>
-        /// The directory containing the cached <see cref="Feed"/>s.
+        /// The directory containing the cached <see cref="Model.Feed"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
         #endregion

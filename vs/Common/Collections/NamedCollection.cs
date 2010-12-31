@@ -126,9 +126,9 @@ namespace Common.Collections
 
         #region Clone
         /// <summary>
-        /// Creates a shallow copy of this <see cref="NamedCollection{T}"/> (elements are not cloned).
+        /// Creates a shallow copy of this collection (elements are not cloned).
         /// </summary>
-        /// <returns>The cloned <see cref="NamedCollection{T}"/>.</returns>
+        /// <returns>The cloned collection.</returns>
         public virtual object Clone()
         {
             var newCollection = new NamedCollection<T>();

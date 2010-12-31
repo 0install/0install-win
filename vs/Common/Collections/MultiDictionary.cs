@@ -45,7 +45,7 @@ namespace Common.Collections
 
         #region Properties
         /// <summary>
-        /// Gets an <see cref="C5.ICollectionValue{T}"/> containing the keys of the dictionary.
+        /// Gets a collection containing the keys of the dictionary.
         /// </summary>
         public C5.ICollectionValue<TKey> Keys
         {
@@ -53,7 +53,7 @@ namespace Common.Collections
         }
 
         /// <summary>
-        /// Gets an <see cref="ICollection{T}"/> containing the values in the dictionary.
+        /// Gets a collection containing the values in the dictionary.
         /// </summary>
         public ICollection<TValue> Values
         {
@@ -176,7 +176,7 @@ namespace Common.Collections
 
         #region Index accessor
         /// <summary>
-        /// Gets an <see cref="ICollection{T}"/> containing the values with the specified key.
+        /// Gets a collection containing the values with the specified key.
         /// </summary>
         /// <returns>A list of elements with the specified key.</returns>
         /// <param name="key">The key of the element to get.</param>

@@ -24,14 +24,14 @@ using ZeroInstall.Store.Properties;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Indicates an <see cref="Implementation"/> could not be found in a <see cref="IStore"/>.
+    /// Indicates an <see cref="Model.Implementation"/> could not be found in a <see cref="IStore"/>.
     /// </summary>
     [Serializable]
     public sealed class ImplementationNotFoundException : Exception
     {
         #region Properties
         /// <summary>
-        /// The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.
+        /// The <see cref="ManifestDigest"/> of the <see cref="Model.Implementation"/> to be found.
         /// </summary>
         public ManifestDigest ManifestDigest { get; private set; }
         #endregion
@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new implementation not found exception.
         /// </summary>
-        /// <param name="manifestDigest">The <see cref="ManifestDigest"/> of the <see cref="Implementation"/> to be found.</param>
+        /// <param name="manifestDigest">The <see cref="ManifestDigest"/> of the <see cref="Model.Implementation"/> to be found.</param>
         public ImplementationNotFoundException(ManifestDigest manifestDigest)
             : base(string.Format(Resources.ImplementationNotFound, manifestDigest))
         {

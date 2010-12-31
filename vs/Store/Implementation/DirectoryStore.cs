@@ -28,14 +28,14 @@ using ZeroInstall.Store.Implementation.Archive;
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Models a cache directory that stores <see cref="Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
+    /// Models a cache directory that stores <see cref="Model.Implementation"/>s, each in its own sub-directory named by its <see cref="ManifestDigest"/>.
     /// </summary>
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public class DirectoryStore : MarshalByRefObject, IStore, IEquatable<DirectoryStore>
     {
         #region Properties
         /// <summary>
-        /// The directory containing the cached <see cref="Implementation"/>s.
+        /// The directory containing the cached <see cref="Model.Implementation"/>s.
         /// </summary>
         public string DirectoryPath { get; private set; }
         #endregion
@@ -87,12 +87,12 @@ namespace ZeroInstall.Store.Implementation
         /// Verifies the <see cref="ManifestDigest"/> of a directory temporarily stored inside the cache and moves it to the final location if it passes.
         /// </summary>
         /// <param name="tempID">The temporary identifier of the directory inside the cache.</param>
-        /// <param name="expectedDigest">The digest the <see cref="Implementation"/> is supposed to match.</param>
+        /// <param name="expectedDigest">The digest the <see cref="Model.Implementation"/> is supposed to match.</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="expectedDigest"/> provides no hash methods.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
-        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
+        /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
         private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, IIOHandler handler)
         {
             #region Sanity checks

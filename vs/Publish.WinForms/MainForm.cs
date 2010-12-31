@@ -214,8 +214,8 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="UriTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
         private void SetupCommandHooks(UriTextBox textBox, SimpleResult<Uri> getValue, Action<Uri> setValue)
         {
             // Transfer data from the feed to the TextBox when refreshing
@@ -255,8 +255,8 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="HintTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
         private void SetupCommandHooks(HintTextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
         {
             SetupCommandHooks((TextBox)textBox, getValue, setValue);
@@ -269,8 +269,8 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="TextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
         private void SetupCommandHooks(TextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
         {
             // Transfer data from the feed to the TextBox when refreshing
@@ -301,8 +301,8 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="CheckBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="checkBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
         private void SetupCommandHooks(CheckBox checkBox, SimpleResult<bool> getValue, Action<bool> setValue)
         {
             // Transfer data from the feed to the CheckBox when refreshing
@@ -330,7 +330,7 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="CheckedListBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="checkedListBox">The <see cref="CheckedListBox"/> to track for input and to update.</param>
-        /// <param name="getCollection">A delegate that reads the coressponding value from the <see cref="ICollection{T}"/>.</param>
+        /// <param name="getCollection">A delegate that reads the corresponding value from the collection.</param>
         private void SetupCommandHooks(CheckedListBox checkedListBox, SimpleResult<ICollection<string>> getCollection)
         {
             ItemCheckEventHandler itemCheckEventHandler = (sender, e) =>
@@ -366,8 +366,8 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="ComboBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="comboBox">The <see cref="ComboBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the coressponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the coressponding value in the <see cref="Feed"/>.</param>
+        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
+        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
         private void SetupCommandHooks(ComboBox comboBox, SimpleResult<object> getValue, Action<object> setValue)
         {
             Populate += delegate

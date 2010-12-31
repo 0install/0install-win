@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Stores user-specific preferences for an <see cref="Implementation"/>.
+    /// Stores user-specific preferences for an <see cref="Model.Implementation"/>.
     /// </summary>
     [XmlType("implementation-preferences", Namespace = Model.Feed.XmlNamespace)]
     public sealed class ImplementationPreferences : XmlUnknown

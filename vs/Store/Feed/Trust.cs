@@ -20,12 +20,11 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// A database of trusted GPG signatures for <see cref="Feed"/>s.
+    /// A database of trusted GPG signatures for <see cref="Model.Feed"/>s.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("trusted-keys", Namespace = XmlNamespace)]

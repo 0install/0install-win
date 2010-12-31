@@ -27,7 +27,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Feed
 {
     /// <summary>
-    /// Stores user-specific preferences for a <see cref="Feed"/>.
+    /// Stores user-specific preferences for a <see cref="Model.Feed"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Model.Feed.XmlNamespace)]

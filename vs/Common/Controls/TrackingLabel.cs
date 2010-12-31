@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -40,7 +41,7 @@ namespace Common.Controls
         /// </summary>
         /// <remarks>
         /// Setting this property will hook up event handlers to monitor the task.
-        /// Remember to set it back to <see langword="null"/> or to call <see cref="Dispose"/> when done, to remove the event handlers again.
+        /// Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.
         /// </remarks>
         [DefaultValue(null), Description("The IProgress object to track.")]
         public ITask Task
@@ -142,10 +143,8 @@ namespace Common.Controls
 
         //--------------------//
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        #region Dispose
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -155,5 +154,6 @@ namespace Common.Controls
             }
             base.Dispose(disposing);
         }
+        #endregion
     }
 }

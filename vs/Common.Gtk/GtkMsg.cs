@@ -91,11 +91,11 @@ namespace Common.Gtk
         /// <param name="text">The message to be displayed; must not be <see langword="null"/>.</param>
         /// <param name="severity">How severe/important the message is.</param>
         /// <param name="allowCancel">Can the user also cancel / choose neither of the two?</param>
-        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.Yes"/> option; must not be <see langword="null"/>.</param>
-        /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="DialogResult.No"/> option; must not be <see langword="null"/>.</param>
-        /// <returns><see cref="DialogResult.Yes"/> if <paramref name="option1"/> was chosen,
-        /// <see cref="DialogResult.No"/> if <paramref name="option2"/> was chosen,
-        /// <see cref="DialogResult.Cancel"/> otherwise.</returns>
+        /// <param name="option1">The title and a short description (separated by a linebreak) of the <see cref="ResponseType.Yes"/> option; must not be <see langword="null"/>.</param>
+        /// <param name="option2">The title and a short description (separated by a linebreak) of the <see cref="ResponseType.No"/> option; must not be <see langword="null"/>.</param>
+        /// <returns><see cref="ResponseType.Yes"/> if <paramref name="option1"/> was chosen,
+        /// <see cref="ResponseType.No"/> if <paramref name="option2"/> was chosen,
+        /// <see cref="ResponseType.Cancel"/> otherwise.</returns>
         /// <remarks>If a <see cref="MessageDialog"/> is used, <paramref name="option1"/> and <paramref name="option2"/> are not display to the user, so don't rely on them!</remarks>
         public static ResponseType Choose(Window owner, string text, MsgSeverity severity, bool allowCancel, string option1, string option2)
         {

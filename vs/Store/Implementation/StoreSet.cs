@@ -28,8 +28,8 @@ namespace ZeroInstall.Store.Implementation
     /// Combines multiple <see cref="IStore"/>s as a composite.
     /// </summary>
     /// <remarks>
-    ///   <para>When adding new <see cref="Implementation"/>s the first child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
-    ///   <para>When when retreiving existing <see cref="Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
+    ///   <para>When adding new <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
+    ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class StoreSet : MarshalByRefObject, IStore
@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Implementation
         // Preserve order, duplicate entries are not allowed
         private readonly C5.IList<IStore> _stores = new C5.HashedLinkedList<IStore>();
         /// <summary>
-        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Implementation"/>s.
+        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Model.Implementation"/>s.
         /// </summary>
         public C5.ISequenced<IStore> Stores { get { return _stores; } }
         #endregion

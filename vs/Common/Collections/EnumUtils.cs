@@ -24,12 +24,12 @@ using System.Collections.Generic;
 namespace Common.Collections
 {
     /// <summary>
-    /// Provides helper methods for <see cref="IEnumerable{T}"/> collections.
+    /// Provides helper methods for enumerable collections.
     /// </summary>
     public static class EnumUtils
     {
         /// <summary>
-        /// Returns the first element of an <see cref="IEnumerable{T}"/> collection.
+        /// Returns the first element of an enumerable collection.
         /// </summary>
         /// <param name="collection">The collection to get the first element from; may be <see langword="null"/>.</param>
         /// <returns>The first element of <paramref name="collection"/> or <see langword="null"/> if <paramref name="collection"/> is empty or <see langword="null"/>.</returns>

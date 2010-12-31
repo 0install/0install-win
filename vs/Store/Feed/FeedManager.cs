@@ -42,14 +42,14 @@ namespace ZeroInstall.Store.Feed
     #endregion
 
     /// <summary>
-    /// Provides access to remote and local <see cref="Feed"/>s via interface URIs.
+    /// Provides access to remote and local <see cref="Model.Feed"/>s via interface URIs.
     /// Downloading, signature verification and caching are handled automatically.
     /// </summary>
     public class FeedManager
     {
         #region Properties
         /// <summary>
-        /// The disk-based cache to store downloaded <see cref="Feed"/>s.
+        /// The disk-based cache to store downloaded <see cref="Model.Feed"/>s.
         /// </summary>
         public IFeedCache Cache { get; private set; }
 
@@ -71,13 +71,13 @@ namespace ZeroInstall.Store.Feed
         }
 
         /// <summary>
-        /// The maximum age a cached <see cref="Feed"/> may have until it is considered stale (needs to be updated).
+        /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
         /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Store.Feed.NetworkLevel.Offline"/>.</remarks>
         public TimeSpan MaximumAge { get; set; }
 
         /// <summary>
-        /// Set to <see langword="true"/> to force all cached <see cref="Feed"/>s to be updated, event if <see cref="MaximumAge"/> hasn't been reached yet.
+        /// Set to <see langword="true"/> to force all cached <see cref="Model.Feed"/>s to be updated, event if <see cref="MaximumAge"/> hasn't been reached yet.
         /// </summary>
         /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Feed.NetworkLevel.Offline"/>.</remarks>
         public bool Refresh { get; set; }
@@ -87,7 +87,7 @@ namespace ZeroInstall.Store.Feed
         /// <summary>
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
-        /// <param name="cache">The disk-based cache to store downloaded <see cref="Feed"/>s.</param>
+        /// <param name="cache">The disk-based cache to store downloaded <see cref="Model.Feed"/>s.</param>
         public FeedManager(IFeedCache cache)
         {
             #region Sanity checks
@@ -102,14 +102,14 @@ namespace ZeroInstall.Store.Feed
 
         #region Get feeds
         /// <summary>
-        /// Returns a list of all <see cref="Feed"/>s applicable to a specific interface URI.
+        /// Returns a list of all <see cref="Model.Feed"/>s applicable to a specific interface URI.
         /// </summary>
         /// <param name="interfaceUri">The URI used to identify the interface. May be an HTTP(S) URL or a local path.</param>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        /// <returns>The parsed <see cref="Feed"/> objects.</returns>
+        /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
         /// <remarks>
-        /// <paramref name="interfaceUri"/> is used to locate the primary <see cref="Feed"/> for the interface.
-        /// Aditional feed locations may be specified within the <see cref="Feed"/> or by user preferences.
+        /// <paramref name="interfaceUri"/> is used to locate the primary <see cref="Model.Feed"/> for the interface.
+        /// Aditional feed locations may be specified within the <see cref="Model.Feed"/> or by user preferences.
         /// </remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Allow for local paths aswell")]
