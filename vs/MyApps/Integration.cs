@@ -29,7 +29,7 @@ namespace ZeroInstall.MyApps
     {
         #region Properties
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.
+        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.
         /// </summary>
         public string Main { get; set; }
         #endregion

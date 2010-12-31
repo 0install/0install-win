@@ -28,7 +28,7 @@ namespace ZeroInstall.Launcher.Solver
     /// <summary>
     /// An executable implementation of a <see cref="Feed"/> as a part of a <see cref="Selections"/>.
     /// </summary>
-    /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Implementation"/> instance.</remarks>
+    /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
     [XmlType("selection", Namespace = Feed.XmlNamespace)]
@@ -62,7 +62,7 @@ namespace ZeroInstall.Launcher.Solver
 
         /// <summary>
         /// The name of the package in the distribution-specific package manager.
-        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Implementation"/>.
+        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Model.Implementation"/>.
         /// </summary>
         [Category("Identity"), Description("The name of the package in the distribution-specific package manager. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
         [XmlAttribute("package")]
@@ -72,7 +72,7 @@ namespace ZeroInstall.Launcher.Solver
         private readonly C5.TreeSet<string> _distributions = new C5.TreeSet<string>();
         /// <summary>
         /// A list of distribution names where <see cref="Package"/> applies.
-        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Implementation"/>.
+        /// Only set for <see cref="PackageImplementation"/>s; <see langword="null"/> if this comes from a real Zero Instal <see cref="Model.Implementation"/>.
         /// </summary>
         [Category("Identity"), Description("A space-separated list of distribution names where the package name applies. Only set for PackageImplementation; null if this comes from a real Zero Instal implementation.")]
         [XmlIgnore]

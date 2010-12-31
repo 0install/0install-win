@@ -24,7 +24,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Lists one or more <see cref="Implementation"/>s that need to be downloaded and extracted into an <see cref="IStore"/>.
+    /// Lists one or more <see cref="Model.Implementation"/>s that need to be downloaded and extracted into an <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     public class FetchRequest
@@ -33,7 +33,7 @@ namespace ZeroInstall.Fetchers
         // Preserve order, duplicate entries are not allowed
         private readonly C5.ISequenced<Implementation> _implementations;
         /// <summary>
-        /// The <see cref="Implementation"/>s to be downloaded.
+        /// The <see cref="Model.Implementation"/>s to be downloaded.
         /// </summary>
         public IEnumerable<Implementation> Implementations { get { return _implementations; } }
         #endregion
@@ -42,7 +42,7 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// Creates a new download request.
         /// </summary>
-        /// <param name="implementations">The <see cref="Implementation"/>s to be downloaded.</param>
+        /// <param name="implementations">The <see cref="Model.Implementation"/>s to be downloaded.</param>
         public FetchRequest(IEnumerable<Implementation> implementations)
         {
             #region Sanity checks

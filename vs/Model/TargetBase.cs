@@ -35,7 +35,7 @@ namespace ZeroInstall.Model
         // Order is always alphabetical, duplicate entries are not allowed
         private readonly LanguageCollection _languages = new LanguageCollection();
         /// <summary>
-        /// The natural language(s) which an <see cref="Implementation"/> supports.
+        /// The natural language(s) which an <see cref="Model.Implementation"/> supports.
         /// </summary>
         /// <example>For example, the value "en_GB fr" would be used for a package supporting British English and French.</example>
         [Category("Release"), Description("The natural language(s) which an implementation supports.")]
@@ -49,7 +49,7 @@ namespace ZeroInstall.Model
         public string LanguagesString { get { return _languages.ToString(); } set { _languages.FromString(value); } }
 
         /// <summary>
-        /// For platform-specific binaries, the platform for which an <see cref="Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
+        /// For platform-specific binaries, the platform for which an <see cref="Model.Implementation"/> was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. 
         /// </summary>
         /// <remarks>The injector knows that certain platforms are backwards-compatible with others, so binaries with arch="Linux-i486"  will still be available on Linux-i686 machines, for example.</remarks>
         [Category("Release"), Description("For platform-specific binaries, the platform for which an implementation was compiled, in the form os-cpu. Either the os or cpu part may be *, which will make it available on any OS or CPU. ")]

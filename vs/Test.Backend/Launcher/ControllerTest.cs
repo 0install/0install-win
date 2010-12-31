@@ -103,7 +103,7 @@ namespace ZeroInstall.Launcher
         }
 
         /// <summary>
-        /// Ensures that <see cref="Controller.ListUncachedImplementations"/> correctly finds <see cref="Implementation"/>s not cached in a <see cref="IStore"/>.
+        /// Ensures that <see cref="Controller.ListUncachedImplementations"/> correctly finds <see cref="Model.Implementation"/>s not cached in a <see cref="IStore"/>.
         /// </summary>
         // Test deactivated because it uses an external process
         //[Test]

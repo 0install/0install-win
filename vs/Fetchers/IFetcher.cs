@@ -30,7 +30,7 @@ namespace ZeroInstall.Fetchers
     public interface IFetcher
     {
         /// <summary>
-        /// The location to store the downloaded and unpacked <see cref="Implementation"/>s in.
+        /// The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.
         /// </summary>
         IStore Store { get; }
 
@@ -43,7 +43,7 @@ namespace ZeroInstall.Fetchers
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Fetcher.Store"/> is not permitted.</exception>
-        /// <exception cref="DigestMismatchException">Thrown an <see cref="Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
+        /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="FetcherException"></exception>
         void RunSync(FetchRequest fetchRequest, IFetchHandler handler);
     }

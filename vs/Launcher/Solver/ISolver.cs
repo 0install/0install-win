@@ -24,7 +24,7 @@ using ZeroInstall.Store.Feed;
 namespace ZeroInstall.Launcher.Solver
 {
     /// <summary>
-    /// Chooses a set of <see cref="Implementation"/>s to satisfy the requirements of a program and its user. 
+    /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
     /// </summary>
     /// <remarks>This is an application of the strategy pattern. Implementations of this interface should be immutable.</remarks>
     public interface ISolver

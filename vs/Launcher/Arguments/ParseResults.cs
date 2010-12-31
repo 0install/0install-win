@@ -29,7 +29,7 @@ namespace ZeroInstall.Launcher.Arguments
         /// <summary>User settings controlling the dependency solving process.</summary>
         public Policy Policy;
 
-        /// <summary>An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.</summary>
+        /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
         public string Main;
 
         /// <summary>Instead of executing the selected program directly, pass it as an argument to this program. Useful for debuggers.</summary>
@@ -41,16 +41,16 @@ namespace ZeroInstall.Launcher.Arguments
         /// <summary>Arguments to pass to the launched programs, additional feeds to add, additional terms to search for, etc.</summary>
         public IList<string> AdditionalArgs;
 
-        /// <summary>Only download <see cref="Implementation"/>s but don't execute them.</summary>
+        /// <summary>Only download <see cref="Model.Implementation"/>s but don't execute them.</summary>
         public bool DownloadOnly;
 
         /// <summary>Load <see cref="Selections"/> from this file instead of using an <see cref="ISolver"/>.</summary>
         public string SelectionsFile;
 
-        /// <summary>Print the selected <see cref="Implementation"/>s to the console instead of executing them.</summary>
+        /// <summary>Print the selected <see cref="Model.Implementation"/>s to the console instead of executing them.</summary>
         public bool GetSelections;
 
-        /// <summary>Only download feeds and not <see cref="Implementation"/>s.</summary>
+        /// <summary>Only download feeds and not <see cref="Model.Implementation"/>s.</summary>
         public bool SelectOnly;
 
         /// <summary>Immediatley returns once the chosen program has been launched instead of waiting for it to finish executing.</summary>

@@ -23,7 +23,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Implementation"/> directory.
+    /// A recipe is a list of <see cref="RecipeStep"/>s used to create an <see cref="Model.Implementation"/> directory.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]

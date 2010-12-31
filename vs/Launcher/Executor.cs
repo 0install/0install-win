@@ -34,19 +34,19 @@ namespace ZeroInstall.Launcher
     public class Executor
     {
         #region Variables
-        /// <summary>The interface defining the <see cref="Implementation"/> to be launched.</summary>
+        /// <summary>The interface defining the <see cref="Model.Implementation"/> to be launched.</summary>
         private readonly string _interfaceID;
 
-        /// <summary>The specific <see cref="Implementation"/>s chosen for the <see cref="Dependency"/>s.</summary>
+        /// <summary>The specific <see cref="Model.Implementation"/>s chosen for the <see cref="Dependency"/>s.</summary>
         private readonly Selections _selections;
 
-        /// <summary>Used to locate the selected <see cref="Implementation"/>s.</summary>
+        /// <summary>Used to locate the selected <see cref="Model.Implementation"/>s.</summary>
         private readonly IStore _store;
         #endregion
 
         #region Properties
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Implementation"/> instead of <see cref="Element.Main"/>.
+        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.
         /// </summary>
         public string Main { get; set; }
 
@@ -60,9 +60,9 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Creates a new launcher from <see cref="Selections"/>.
         /// </summary>
-        /// <param name="interfaceID">The URI or local path (must be absolute) to the interface defining the <see cref="Implementation"/> to be launched.</param>
+        /// <param name="interfaceID">The URI or local path (must be absolute) to the interface defining the <see cref="Model.Implementation"/> to be launched.</param>
         /// <param name="selections">The specific <see cref="ImplementationSelection"/>s chosen for the <see cref="Dependency"/>s.</param>
-        /// <param name="store">Used to locate the selected <see cref="Implementation"/>s.</param>
+        /// <param name="store">Used to locate the selected <see cref="Model.Implementation"/>s.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="interfaceID"/> is not a valid URI or absolute local path or if <paramref name="selections"/> contains no <see cref="ImplementationSelection"/>s.</exception>
         public Executor(string interfaceID, Selections selections, IStore store)
         {
@@ -87,7 +87,7 @@ namespace ZeroInstall.Launcher
         /// Determines the actual executable file to be launched.
         /// </summary>
         /// <returns>A fully qualified path to the executable file.</returns>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specified for the main <see cref="Model.Implementation"/>.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if the startup implementation is not cached yet.</exception>
         private string GetStartupMain()
         {
@@ -105,7 +105,7 @@ namespace ZeroInstall.Launcher
         }
 
         /// <summary>
-        /// Locates an <see cref="ImplementationBase"/> on the disk (usually in a <see cref="Store"/>).
+        /// Locates an <see cref="ImplementationBase"/> on the disk (usually in an <see cref="IStore"/>).
         /// </summary>
         /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
         /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
@@ -188,8 +188,8 @@ namespace ZeroInstall.Launcher
         /// </summary>
         /// <param name="arguments">Arguments to be passed to the launched programs.</param>
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Implementation"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specifed for the main <see cref="Implementation"/>.</exception>
+        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
+        /// <exception cref="MissingMainException">Thrown if there is no main executable specified for the main <see cref="Model.Implementation"/>.</exception>
         public ProcessStartInfo GetStartInfo(string arguments)
         {
             string main = GetStartupMain();

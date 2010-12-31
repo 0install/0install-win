@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     /// An implementation of a <see cref="Feed"/> provided by a distribution-specific package manager.
     /// </summary>
     /// <remarks>
-    /// Unlike a normal <see cref="Implementation"/>, a distribution package does not resolve to a directory.
+    /// Unlike a normal <see cref="Model.Implementation"/>, a distribution package does not resolve to a directory.
     /// Any <see cref="Binding"/>s inside <see cref="Dependency"/>s for the <see cref="Feed"/> will be ignored; it is assumed that the requiring component knows how to use the packaged version without further help.
     /// Therefore, adding<see cref="PackageImplementation"/>s to your <see cref="Feed"/> considerably weakens the guarantees you are making about what the requestor may get. 
     /// </remarks>

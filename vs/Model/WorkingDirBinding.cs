@@ -22,11 +22,11 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
+    /// Make a chosen <see cref="Model.Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
     /// <remarks>
     /// <para>This is to support legacy programs which can't properly locate their installation directory.</para>
-    /// <para>Only the once instance of this binding type in a selection of <see cref="Implementation"/>s (the last one to be processed) is effective. All others are ignored.</para>
+    /// <para>Only the once instance of this binding type in a selection of <see cref="Model.Implementation"/>s (the last one to be processed) is effective. All others are ignored.</para>
     /// </remarks>
     [Serializable]
     [XmlType("working-dir", Namespace = Feed.XmlNamespace)]

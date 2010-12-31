@@ -42,7 +42,7 @@ namespace ZeroInstall.Launcher
         public FeedManager FeedManager { get; private set; }
 
         /// <summary>
-        /// Used to download missing <see cref="Implementation"/>s.
+        /// Used to download missing <see cref="Model.Implementation"/>s.
         /// </summary>
         public IFetcher Fetcher { get; private set; }
 
@@ -59,7 +59,7 @@ namespace ZeroInstall.Launcher
 
         private readonly Constraint _constraint = new Constraint();
         /// <summary>
-        /// Only choose <see cref="Implementation"/>s with certain version numbers.
+        /// Only choose <see cref="Model.Implementation"/>s with certain version numbers.
         /// </summary>
         public Constraint Constraint { get { return _constraint; } }
 
@@ -89,7 +89,7 @@ namespace ZeroInstall.Launcher
         /// Creates a new policy.
         /// </summary>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
-        /// <param name="fetcher">Used to download missing <see cref="Implementation"/>s.</param>
+        /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
         public Policy(FeedManager feedManager, IFetcher fetcher)
         {
             #region Sanity checks

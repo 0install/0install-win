@@ -22,7 +22,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Make a chosen <see cref="Implementation"/> available by overlaying it onto another part of the file-system.
+    /// Make a chosen <see cref="Model.Implementation"/> available by overlaying it onto another part of the file-system.
     /// </summary>
     /// <remarks>This is to support legacy programs which use hard-coded paths.</remarks>
     [Serializable]

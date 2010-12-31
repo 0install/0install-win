@@ -144,7 +144,7 @@ namespace ZeroInstall.Fetchers
     }
 
     /// <summary>
-    /// A Method Object that encapsulates fetching a single <see cref="Implementation"/>
+    /// A Method Object that encapsulates fetching a single <see cref="Model.Implementation"/>
     /// </summary>
     public class ImplementationFetch
     {
@@ -334,7 +334,7 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// Creates a new download fetcher.
         /// </summary>
-        /// <param name="store">The location to store the downloaded and unpacked <see cref="Implementation"/>s in.</param>
+        /// <param name="store">The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.</param>
         public Fetcher(IStore store)
         {
             #region Sanity checks

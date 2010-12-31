@@ -21,7 +21,7 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// A retrieval method is a way of getting an <see cref="Implementation"/>.
+    /// A retrieval method is a way of getting an <see cref="Model.Implementation"/>.
     /// </summary>
     [XmlType("retrieval-method", Namespace = Feed.XmlNamespace)]
     public abstract class RetrievalMethod : XmlUnknown, ISimplifyable, ICloneable
