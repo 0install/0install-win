@@ -36,7 +36,7 @@ namespace ZeroInstall.Launcher.Cli
             // Loop until the user has made a valid choice
             while (true)
             {
-                switch ((InputUtils.ReadString("Trust [Y/N] ") ?? "n").ToLower())
+                switch ((CliUtils.ReadString("Trust [Y/N] ") ?? "n").ToLower())
                 {
                     case "y":
                     case "yes":

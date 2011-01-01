@@ -128,7 +128,7 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Changes the <see cref="Label.Text"/> based on the already proccessed bytes.
+        /// Changes the <see cref="Label.Text"/> based on the already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(ITask sender)

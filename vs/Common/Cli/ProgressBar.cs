@@ -30,7 +30,7 @@ namespace Common.Cli
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/>.
     /// </summary>
-    public class ProgressBar
+    public class ProgressBar: IDisposable
     {
         #region Properties
         private TaskState _state;
@@ -106,7 +106,8 @@ namespace Common.Cli
         /// <exception cref="IOException">Thrown if the progress bar could not be drawn to the <see cref="Console"/> (e.g. if it isn't a TTY).</exception>
         public void Draw()
         {
-            // ToDo: Detect non-console output and supress drawing
+            // Don't draw to console if the stream has been redirected
+            if (CliUtils.StandardOutputRedirected || CliUtils.StandardErrorRedirected) return;
 
             // Draw start of progress bar
             Console.CursorLeft = 0;
@@ -156,6 +157,37 @@ namespace Common.Cli
             // Blanks at the end to overwrite any excess
             Console.Error.Write(@"          ");
             Console.CursorLeft -= 10;
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Dispose
+        /// <summary>
+        /// Writes a line break to the <see cref="Console"/>.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(true);
+        }
+
+        /// <inheritdoc/>
+        ~ProgressBar()
+        {
+            Dispose(false);
+        }
+
+        /// <summary>
+        /// To be called by <see cref="IDisposable.Dispose"/> and the object destructor.
+        /// </summary>
+        /// <param name="disposing"><see langword="true"/> if called manually and not by the garbage collector.</param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (!CliUtils.StandardOutputRedirected && !CliUtils.StandardErrorRedirected)
+                    Console.Error.WriteLine();
+            }
         }
         #endregion
     }

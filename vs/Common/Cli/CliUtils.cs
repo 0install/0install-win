@@ -21,14 +21,33 @@
  */
 
 using System;
+using System.Runtime.InteropServices;
+using System.Security;
+using Common.Utils;
 
 namespace Common.Cli
 {
     /// <summary>
-    /// Provides helper methods for asking the user for input on the <see cref="Console"/>.
+    /// Provides helper methods for communication with the user via the <see cref="Console"/>.
     /// </summary>
-    public static class InputUtils
+    public static class CliUtils
     {
+        [SuppressUnmanagedCodeSecurity]
+        private static class SafeNativeMethods
+        {
+            #region Stream redirect
+            public enum StdHandle { Stdin = -10, Stdout = -11, Stderr = -12 };
+            public enum FileType { Unknown = 0, Disk = 1, Char = 2, Pipe = 3 }
+
+            [DllImport("kernel32.dll")]
+            public static extern FileType GetFileType(IntPtr hdl);
+            
+            [DllImport("kernel32.dll")]
+            public static extern IntPtr GetStdHandle(StdHandle std);
+            #endregion
+        }
+
+        #region Read string
         /// <summary>
         /// Asks the user to input a string.
         /// </summary>
@@ -39,7 +58,9 @@ namespace Common.Cli
             Console.Error.Write(prompt + " ");
             return Console.ReadLine();
         }
+        #endregion
 
+        #region Read password
         /// <summary>
         /// Asks the user to input a password without echoing it.
         /// </summary>
@@ -67,5 +88,47 @@ namespace Common.Cli
 
             return password;
         }
+        #endregion
+
+        #region Stream redirect
+        /// <summary>
+        /// Indicates whether the stdout stream has been redirected.
+        /// </summary>
+        /// <remarks>This only works on Windows systems. On other operating systems it always returns <see langword="false"/>.</remarks>
+        public static bool StandardOutputRedirected
+        {
+            get
+            {
+                if (!WindowsUtils.IsWindows) return false;
+                return SafeNativeMethods.FileType.Char != SafeNativeMethods.GetFileType(SafeNativeMethods.GetStdHandle(SafeNativeMethods.StdHandle.Stdout));
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the stdout stream has been redirected.
+        /// </summary>
+        /// <remarks>This only works on Windows systems. On other operating systems it always returns <see langword="false"/>.</remarks>
+        public static bool StandardInputRedirected
+        {
+            get
+            {
+                if (!WindowsUtils.IsWindows) return false;
+                return SafeNativeMethods.FileType.Char != SafeNativeMethods.GetFileType(SafeNativeMethods.GetStdHandle(SafeNativeMethods.StdHandle.Stdin));
+            }
+        }
+
+        /// <summary>
+        /// Indicates whether the stdout stream has been redirected.
+        /// </summary>
+        /// <remarks>This only works on Windows systems. On other operating systems it always returns <see langword="false"/>.</remarks>
+        public static bool StandardErrorRedirected
+        {
+            get
+            {
+                if (!WindowsUtils.IsWindows) return false;
+                return SafeNativeMethods.FileType.Char != SafeNativeMethods.GetFileType(SafeNativeMethods.GetStdHandle(SafeNativeMethods.StdHandle.Stderr));
+            }
+        }
+        #endregion
     }
 }

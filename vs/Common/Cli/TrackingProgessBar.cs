@@ -27,7 +27,7 @@ namespace Common.Cli
     /// <summary>
     /// A progress bar rendered on the <see cref="Console"/> that automatically tracks the progress of an <see cref="ITask"/>.
     /// </summary>
-    public sealed class TrackingProgressBar : ProgressBar, IDisposable
+    public sealed class TrackingProgressBar : ProgressBar
     {
         #region Variables
         private readonly ITask _task;
@@ -67,7 +67,7 @@ namespace Common.Cli
         }
 
         /// <summary>
-        /// Changes the value of the progress bar depending on the already proccessed bytes.
+        /// Changes the value of the progress bar depending on the already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(ITask sender)
@@ -82,17 +82,16 @@ namespace Common.Cli
         #endregion
 
         #region Dipose
-        /// <summary>
-        /// Stops tracking the <see cref="ITask"/> and writes a line break to the console.
-        /// </summary>
-        public void Dispose()
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
         {
-            // Stop tracking
-            _task.StateChanged -= StateChanged;
-            _task.ProgressChanged -= ProgressChanged;
-
-            // Stop writing into the same line
-            Console.Error.WriteLine();
+            try
+            {
+                // Stop tracking
+                _task.StateChanged -= StateChanged;
+                _task.ProgressChanged -= ProgressChanged;
+            }
+            finally { base.Dispose(disposing); }
         }
         #endregion
     }

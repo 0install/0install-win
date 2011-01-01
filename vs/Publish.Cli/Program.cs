@@ -273,7 +273,7 @@ namespace ZeroInstall.Publish.Cli
                 if ((wasSigned && !results.Unsign) || results.XmlSign)
                 {
                     if (string.IsNullOrEmpty(results.GnuPGPassphrase))
-                        results.GnuPGPassphrase = InputUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
+                        results.GnuPGPassphrase = CliUtils.ReadPassword(Resources.PleaseEnterGnuPGPassphrase);
 
                     FeedUtils.SignFeed(file.FullName, results.Key, results.GnuPGPassphrase);
                 }

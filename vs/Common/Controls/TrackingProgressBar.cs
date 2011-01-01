@@ -148,7 +148,7 @@ namespace Common.Controls
         }
 
         /// <summary>
-        /// Changes the <see cref="ProgressBar.Value"/> and the taskbar depending on the already proccessed bytes.
+        /// Changes the <see cref="ProgressBar.Value"/> and the taskbar depending on the already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         /// <remarks>Taskbar only changes for Windows 7 or newer.</remarks>

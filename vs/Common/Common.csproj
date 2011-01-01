@@ -81,7 +81,7 @@
     <Compile Include="Net\DownloadJob.cs" />
     <Compile Include="Net\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
-    <Compile Include="Cli\InputUtils.cs" />
+    <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
     <Compile Include="Cli\TrackingProgessBar.cs" />
     <Compile Include="Cli\CliAppControl.cs" />
