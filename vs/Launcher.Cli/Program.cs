@@ -149,8 +149,8 @@ namespace ZeroInstall.Launcher.Cli
             }
             catch (DigestMismatchException ex)
             {
-                // ToDo: Display manifest diff
                 Log.Error(ex.Message);
+                Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return (int)ErrorLevel.DigestMismatch;
             }
             catch (SolverException ex)

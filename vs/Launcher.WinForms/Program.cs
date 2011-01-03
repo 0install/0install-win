@@ -116,7 +116,7 @@ namespace ZeroInstall.Launcher.WinForms
                 }
                 catch (DigestMismatchException ex)
                 {
-                    // ToDo: Display manifest diff
+                    // ToDo: Display generated manifest
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     handler.CloseAsync();
                 }
