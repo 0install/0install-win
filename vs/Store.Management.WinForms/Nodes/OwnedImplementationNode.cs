@@ -61,7 +61,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="iface">The node of the interface owning the implementation.</param>
         /// <param name="implementation">Information about the implementation from a <see cref="Model.Feed"/> file.</param>
-        public OwnedImplementationNode(IStore store, ManifestDigest digest, InterfaceNode iface, Model.Implementation implementation) : base(store, digest)
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        public OwnedImplementationNode(IStore store, ManifestDigest digest, InterfaceNode iface, Model.Implementation implementation, MainForm parent)
+            : base(store, digest, parent)
         {
             _iface = iface;
             _implementation = implementation;

@@ -41,7 +41,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
-        public OrphanedImplementationNode(IStore store, ManifestDigest digest) : base(store, digest)
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        public OrphanedImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
+            : base(store, digest, parent)
         {}        
         #endregion
     }

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -34,6 +35,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     public abstract class ImplementationNode : StoreNode, IContextMenu
     {
         #region Variables
+        private readonly MainForm _parent;
         private readonly IStore _store;
         private readonly ManifestDigest _digest;
         #endregion
@@ -58,13 +60,15 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
-        protected ImplementationNode(IStore store, ManifestDigest digest)
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        protected ImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
             #endregion
 
             _store = store;
+            _parent = parent;
             _digest = digest;
 
             // Determine the total size of an implementation via its manifest file
@@ -76,7 +80,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Delete
         /// <summary>
-        /// Deletes this implemenation from the <see cref="IStore"/> it is located in.
+        /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
         /// <exception cref="KeyNotFoundException">Thrown if no matching implementation could be found in the <see cref="IStore"/>.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
@@ -111,7 +115,60 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         {
             return new ContextMenu(new[]
             {
-                new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(_store.GetPath(_digest)); })
+                new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(_store.GetPath(_digest)); }),
+                new MenuItem("Verify", delegate
+                {
+                    try
+                    {
+                        Verify(_parent);
+                        Msg.Inform(_parent, "Implementation is fine.", MsgSeverity.Info);
+                    }
+                    #region Error handling
+                    catch (UserCancelException)
+                    {
+                        return;
+                    }
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(_parent, ex.Message, MsgSeverity.Warn);
+                        return;
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Msg.Inform(_parent, ex.Message, MsgSeverity.Warn);
+                        return;
+                    }
+                    catch (DigestMismatchException ex)
+                    {
+                        // ToDo: Display manifest diff
+                        Msg.Inform(_parent, ex.Message, MsgSeverity.Error);
+                        // ToDo: Provide option for deleting
+                        return;
+                    }
+                    #endregion
+                }),
+                new MenuItem("Remove", delegate
+                {
+                    if (Msg.Ask(_parent, "Delete entry", MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    {
+                        try { Delete(); }
+                        #region Error handling
+                        catch (KeyNotFoundException ex)
+                        {
+                            Msg.Inform(_parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(_parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(_parent, ex.Message, MsgSeverity.Error);
+                        }
+                        #endregion
+                        _parent.RefreshList();
+                    }
+                })
             });
         }
         #endregion

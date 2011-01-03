@@ -50,8 +50,66 @@ namespace ZeroInstall.Store.Management.WinForms
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
             splitContainer.Panel1.Controls.Add(_treeView);
 
-            try { RefreshList(); }
-            #region Sanity checks
+            RefreshList();
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Build tree list
+        /// <summary>
+        /// Fills the <see cref="_treeView"/> with entries.
+        /// </summary>
+        internal void RefreshList()
+        {
+            try
+            {
+                var nodes = new NamedCollection<StoreNode>();
+
+                #region Interface node
+                var cache = FeedCacheProvider.Default;
+                var feeds = cache.GetAll();
+                foreach (var feed in feeds)
+                {
+                    feed.Simplify();
+                    AddWithIncrement(nodes, new InterfaceNode(cache, feed));
+                }
+                #endregion
+
+                long totalSize = 0;
+                var store = StoreProvider.Default;
+                foreach (var digest in store.ListAll())
+                {
+                    #region Owned implementation node
+                    ImplementationNode implementationNode = null;
+                    foreach (var feed in feeds)
+                    {
+                        var implementation = feed.GetImplementation(digest);
+                        if (implementation != null)
+                        {
+                            implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation, this);
+                            break;
+                        }
+                    }
+                    #endregion
+
+                    #region Orphaned implementation node
+                    if (implementationNode == null)
+                        implementationNode = new OrphanedImplementationNode(store, digest, this);
+                    #endregion
+
+                    totalSize += implementationNode.Size;
+                    AddWithIncrement(nodes, implementationNode);
+                }
+
+                _treeView.Entries = nodes;
+                _treeView.SelectedEntry = null;
+                buttonRemove.Enabled = false;
+
+                // Update total size
+                textTotalSize.Text = StringUtils.FormatBytes(totalSize);
+            }
+                #region Sanity checks
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
@@ -65,63 +123,6 @@ namespace ZeroInstall.Store.Management.WinForms
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
             }
             #endregion
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Build tree list
-        /// <summary>
-        /// Fills the <see cref="_treeView"/> with entries.
-        /// </summary>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        private void RefreshList()
-        {
-            var nodes = new NamedCollection<StoreNode>();
-
-            #region Interface node
-            var cache = FeedCacheProvider.Default;
-            var feeds = cache.GetAll();
-            foreach (var feed in feeds)
-            {
-                feed.Simplify();
-                AddWithIncrement(nodes, new InterfaceNode(cache, feed));
-            }
-            #endregion
-
-            long totalSize = 0;
-            var store = StoreProvider.Default;
-            foreach (var digest in store.ListAll())
-            {
-                #region Owned implementation node
-                ImplementationNode implementationNode = null;
-                foreach (var feed in feeds)
-                {
-                    var implementation = feed.GetImplementation(digest);
-                    if (implementation != null)
-                    {
-                        implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation);
-                        break;
-                    }
-                }
-                #endregion
-
-                #region Orphaned implementation node
-                if (implementationNode == null)
-                    implementationNode = new OrphanedImplementationNode(store, digest);
-                #endregion
-
-                totalSize += implementationNode.Size;
-                AddWithIncrement(nodes, implementationNode);
-            }
-
-            _treeView.Entries = nodes;
-            _treeView.SelectedEntry = null;
-            buttonRemove.Enabled = false;
-
-            // Update total size
-            textTotalSize.Text = StringUtils.FormatBytes(totalSize);
         }
 
         /// <summary>
@@ -193,21 +194,7 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             #endregion
 
-            try { RefreshList(); }
-            #region Sanity checks
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            RefreshList();
         }
 
         private void buttonVerify_Click(object sender, EventArgs e)
@@ -246,21 +233,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
-            try { RefreshList(); }
-            #region Sanity checks
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            catch (InvalidOperationException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
-            }
-            #endregion
+            RefreshList();
         }
 
         private void buttonClose_Click(object sender, EventArgs e)
