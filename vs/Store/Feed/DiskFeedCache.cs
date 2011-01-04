@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Web;
 using Common.Storage;
 using ZeroInstall.Store.Properties;
 
@@ -118,7 +119,7 @@ namespace ZeroInstall.Store.Feed
             if (!Model.Feed.IsValidUrl(feedUrl)) throw new ArgumentException(Resources.InvalidUrl, "feedUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, Uri.EscapeDataString(feedUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, HttpUtility.HtmlEncode(feedUrl.ToString()));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl));
 

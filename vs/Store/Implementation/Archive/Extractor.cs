@@ -171,6 +171,8 @@ namespace ZeroInstall.Store.Implementation.Archive
         protected string GetSubEntryName(string entryName)
         {
             entryName = StringUtils.UnifySlashes(entryName);
+
+            // Remove leading slashes
             entryName = entryName.TrimStart(Path.DirectorySeparatorChar);
             if (entryName.StartsWith("." + Path.DirectorySeparatorChar)) entryName = entryName.Substring(2);
 
@@ -182,6 +184,9 @@ namespace ZeroInstall.Store.Implementation.Archive
                 // Only extract objects within the selected sub-directory
                 entryName = entryName.StartsWith(SubDir) ? entryName.Substring(SubDir.Length) : null;
             }
+
+            // Remove leading slashes left over after trimming away the SubDir
+            if (entryName != null) entryName = entryName.TrimStart(Path.DirectorySeparatorChar);
 
             return entryName;
         }
