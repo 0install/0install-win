@@ -255,6 +255,15 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to More verbose output. Use twice for even more verbose output..
+        /// </summary>
+        internal static string OptionsVerbose {
+            get {
+                return ResourceManager.GetString("OptionsVerbose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Display version information..
         /// </summary>
         internal static string OptionVersion {

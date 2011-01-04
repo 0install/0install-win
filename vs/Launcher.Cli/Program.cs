@@ -150,7 +150,7 @@ namespace ZeroInstall.Launcher.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex.Message);
-                Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                if (results.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return (int)ErrorLevel.DigestMismatch;
             }
             catch (SolverException ex)
@@ -207,6 +207,7 @@ namespace ZeroInstall.Launcher.Cli
                 {"l|list", Resources.OptionList, unused => mode = OperationMode.List},
                 {"f|feed", Resources.OptionFeed, unused => mode = OperationMode.Manage},
                 {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
+                {"v|verbose", Resources.OptionsVerbose, unused => parseResults.Verbosity++},
 
                 // Policy options
                 {"before=", version => parseResults.Policy.Constraint.BeforeVersion = new ImplementationVersion(version)},

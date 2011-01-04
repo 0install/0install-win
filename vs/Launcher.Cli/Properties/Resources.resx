@@ -182,6 +182,9 @@ Supported values: Linux, Solaris, MacOSX, Windows</value>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
+  <data name="OptionsVerbose">
+    <value xml:space="preserve">More verbose output. Use twice for even more verbose output.</value>
+  </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Add {DIR} to the list of implementation caches to search.
 However, new downloads will not be written to this directory.</value>
