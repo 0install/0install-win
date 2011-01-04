@@ -95,7 +95,7 @@ namespace ZeroInstall.Store.Feed
             for (int i = 0; i < files.Length; i++)
             {
                 // Take the file name itself and use URL encoding to get the original URL
-                files[i] = Uri.UnescapeDataString(Path.GetFileName(files[i]) ?? "");
+                files[i] = HttpUtility.UrlDecode(Path.GetFileName(files[i]) ?? "");
             }
 
             // Return as a C-sorted array
