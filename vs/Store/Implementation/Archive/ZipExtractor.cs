@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using Common;
-using Common.Utils;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
 
@@ -136,11 +135,13 @@ namespace ZeroInstall.Store.Implementation.Archive
                     // Parse unix data
                     var entryData = extraData.GetEntryData();
                     unixData.SetData(entryData, 0, entryData.Length);
-
                     DateTime dateTime = unixData.CreateTime;
-                    // Compensate for daylight saving time on Unix
-                    if (MonoUtils.IsUnix && dateTime.IsDaylightSavingTime()) dateTime += new TimeSpan(1, 0, 0);
-                    return dateTime;
+
+                    // HACK: Compensate for unintended local timezone shifting of the Unix epoch
+                    TimeSpan timeError = new DateTime(1970, 1, 1, 0, 0, 0) - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    dateTime = dateTime + timeError;
+
+                    return dateTime.ToUniversalTime();
                 }
             }
 
