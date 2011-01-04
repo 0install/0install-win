@@ -119,7 +119,7 @@ namespace ZeroInstall.Store.Feed
             if (!Model.Feed.IsValidUrl(feedUrl)) throw new ArgumentException(Resources.InvalidUrl, "feedUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, HttpUtility.HtmlEncode(feedUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedUrl.ToString()));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl));
 
