@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using System.Web;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -42,10 +43,10 @@ namespace ZeroInstall.Store.Feed
             // Add some dummy feeds to the cache
             _feed1 = Model.FeedTest.CreateTestFeed();
             _feed1.Uri = new Uri("http://0install.de/test/interface1.xml");
-            _feed1.Save(Path.Combine(_tempDir.Path, Uri.EscapeDataString(_feed1.UriString)));
+            _feed1.Save(Path.Combine(_tempDir.Path, HttpUtility.UrlEncode(_feed1.UriString)));
             _feed2 = Model.FeedTest.CreateTestFeed();
             _feed2.Uri = new Uri("http://0install.de/test/interface2.xml");
-            _feed2.Save(Path.Combine(_tempDir.Path, Uri.EscapeDataString(_feed2.UriString)));
+            _feed2.Save(Path.Combine(_tempDir.Path, HttpUtility.UrlEncode(_feed2.UriString)));
             File.WriteAllText(Path.Combine(_tempDir.Path, "http_invalid"), "");
         }
 

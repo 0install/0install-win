@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Feed
             if (!Model.Feed.IsValidUrl(feedUrl)) throw new ArgumentException(Resources.InvalidUrl, "feedUrl");
             #endregion
 
-            string escapedUrl = Uri.EscapeDataString(feedUrl.ToString());
+            string escapedUrl = HttpUtility.UrlEncode(feedUrl.ToString());
             string path = Path.Combine(DirectoryPath, escapedUrl);
 
             return File.Exists(path);
@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Feed
             if (!Model.Feed.IsValidUrl(feedUrl)) throw new ArgumentException(Resources.InvalidUrl, "feedUrl");
             #endregion
 
-            string path = Path.Combine(DirectoryPath, Uri.EscapeDataString(feedUrl.ToString()));
+            string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedUrl.ToString()));
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl));
             File.Delete(path);
         }
