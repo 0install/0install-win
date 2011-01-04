@@ -58,5 +58,8 @@ namespace ZeroInstall.Launcher.Arguments
 
         /// <summary>Only output what was supposed to be downloaded but don't actually use the network.</summary>
         public bool DryRun;
+
+        /// <summary>The detail level of messages printed to the console. 0 = normal, 1 = verbose, 2 = very verbose</summary>
+        public byte Verbosity { get; set; }
     }
 }
