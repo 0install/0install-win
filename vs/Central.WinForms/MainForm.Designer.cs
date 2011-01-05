@@ -135,7 +135,7 @@
             this.browserNewApps.Location = new System.Drawing.Point(0, 31);
             this.browserNewApps.Name = "browserNewApps";
             this.browserNewApps.ScriptErrorsSuppressed = true;
-            this.browserNewApps.Size = new System.Drawing.Size(665, 289);
+            this.browserNewApps.Size = new System.Drawing.Size(745, 268);
             this.browserNewApps.TabIndex = 1;
             this.browserNewApps.Url = new System.Uri("", System.UriKind.Relative);
             this.browserNewApps.WebBrowserShortcutsEnabled = false;

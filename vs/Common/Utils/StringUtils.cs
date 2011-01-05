@@ -252,6 +252,58 @@ namespace Common.Utils
             int index = sourceText.LastIndexOf(ch);
             return index == -1 ? sourceText : sourceText.Substring(index + 1);
         }
+
+        /// <summary>
+        /// Get everything to the left of the first occurrence of a string.
+        /// </summary>
+        public static string GetLeftPartAtFirstOccurrence(string sourceText, string str)
+        {
+            #region Sanity checks
+            if (sourceText == null) throw new ArgumentNullException("sourceText");
+            #endregion
+
+            int index = sourceText.IndexOf(str);
+            return index == -1 ? sourceText : sourceText.Substring(0, index);
+        }
+
+        /// <summary>
+        /// Get everything to the right of the first occurrence of a string.
+        /// </summary>
+        public static string GetRightPartAtFirstOccurrence(string sourceText, string str)
+        {
+            #region Sanity checks
+            if (sourceText == null) throw new ArgumentNullException("sourceText");
+            #endregion
+
+            int index = sourceText.IndexOf(str);
+            return index == -1 ? "" : sourceText.Substring(index + 1);
+        }
+
+        /// <summary>
+        /// Get everything to the left of the last occurrence of a string.
+        /// </summary>
+        public static string GetLeftPartAtLastOccurrence(string sourceText, string str)
+        {
+            #region Sanity checks
+            if (sourceText == null) throw new ArgumentNullException("sourceText");
+            #endregion
+
+            int index = sourceText.LastIndexOf(str);
+            return index == -1 ? sourceText : sourceText.Substring(0, index);
+        }
+
+        /// <summary>
+        /// Get everything to the right of the last occurrence of a string.
+        /// </summary>
+        public static string GetRightPartAtLastOccurrence(string sourceText, string str)
+        {
+            #region Sanity checks
+            if (sourceText == null) throw new ArgumentNullException("sourceText");
+            #endregion
+
+            int index = sourceText.LastIndexOf(str);
+            return index == -1 ? sourceText : sourceText.Substring(index + 1);
+        }
         #endregion
 
         #region Files
