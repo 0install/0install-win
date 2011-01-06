@@ -210,6 +210,7 @@ namespace ZeroInstall.Fetchers
             }
             else if (recipe != null)
             {
+                if (recipe.ContainsUnknownSteps) throw new FetcherException("Recipe contains unknown steps.");
                 PerformRecipe(recipe, handler);
             }
         }
