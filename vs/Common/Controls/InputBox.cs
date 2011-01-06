@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Collections;
 
 namespace Common.Controls
 {
@@ -84,6 +85,28 @@ namespace Common.Controls
         public static string Show(string prompt, string title)
         {
             return Show(prompt, title, "");
+        }
+        #endregion
+
+        #region Drag and drop handling
+        private void InputBox_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
+                textInput.Text = EnumUtils.GetFirst(files);
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                textInput.Text = (string)e.Data.GetData(DataFormats.Text);
+            }
+        }
+
+        private void InputBox_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
         }
         #endregion
     }

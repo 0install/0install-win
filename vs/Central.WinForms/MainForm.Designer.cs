@@ -53,10 +53,10 @@
             // 
             this.pictureBoxLogo.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.pictureBoxLogo.Image = global::ZeroInstall.Central.WinForms.Properties.Resources.Logo;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(209, 6);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(227, 15);
             this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(366, 95);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(327, 57);
             this.pictureBoxLogo.TabIndex = 1;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -67,10 +67,10 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlApps.Controls.Add(this.tabPageMyApps);
             this.tabControlApps.Controls.Add(this.tabPageNewApps);
-            this.tabControlApps.Location = new System.Drawing.Point(14, 109);
+            this.tabControlApps.Location = new System.Drawing.Point(14, 90);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
-            this.tabControlApps.Size = new System.Drawing.Size(756, 338);
+            this.tabControlApps.Size = new System.Drawing.Size(756, 357);
             this.tabControlApps.TabIndex = 0;
             // 
             // tabPageMyApps
@@ -79,7 +79,7 @@
             this.tabPageMyApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageMyApps.Name = "tabPageMyApps";
             this.tabPageMyApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMyApps.Size = new System.Drawing.Size(748, 305);
+            this.tabPageMyApps.Size = new System.Drawing.Size(748, 324);
             this.tabPageMyApps.TabIndex = 0;
             this.tabPageMyApps.Text = "My applications";
             this.tabPageMyApps.UseVisualStyleBackColor = true;
@@ -100,7 +100,7 @@
             this.tabPageNewApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewApps.Size = new System.Drawing.Size(748, 305);
+            this.tabPageNewApps.Size = new System.Drawing.Size(748, 324);
             this.tabPageNewApps.TabIndex = 1;
             this.tabPageNewApps.Text = "New applications";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -135,7 +135,7 @@
             this.browserNewApps.Location = new System.Drawing.Point(0, 31);
             this.browserNewApps.Name = "browserNewApps";
             this.browserNewApps.ScriptErrorsSuppressed = true;
-            this.browserNewApps.Size = new System.Drawing.Size(745, 268);
+            this.browserNewApps.Size = new System.Drawing.Size(745, 293);
             this.browserNewApps.TabIndex = 1;
             this.browserNewApps.Url = new System.Uri("", System.UriKind.Relative);
             this.browserNewApps.WebBrowserShortcutsEnabled = false;
@@ -191,6 +191,7 @@
             // 
             // MainForm
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
@@ -208,6 +209,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainForm_DragEnter);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.tabControlApps.ResumeLayout(false);
             this.tabPageMyApps.ResumeLayout(false);

@@ -63,6 +63,7 @@
             // InputBox
             // 
             this.AcceptButton = this.buttonOK;
+            this.AllowDrop = true;
             this.CancelButton = this.buttonCancel;
             resources.ApplyResources(this, "$this");
             this.ControlBox = false;
@@ -73,6 +74,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InputBox";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.InputBox_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.InputBox_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -71,24 +71,6 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Checks if a character is a space ' ' or any punctuation (. , : ; ' " ! ?).
-        /// </summary>
-        public static bool IsSpaceOrPunctuation(char letter)
-        {
-            return
-                letter == ' ' ||
-                letter == '.' ||
-                letter == ',' ||
-                letter == ':' ||
-                letter == ';' ||
-                letter == '\'' ||
-                letter == '\"' ||
-                letter == '!' ||
-                letter == '?' ||
-                letter == '*';
-        }
-
-        /// <summary>
         /// Use case-insensitive compare to check for a contained string.
         /// </summary>
         /// <param name="text">The string to search.</param>

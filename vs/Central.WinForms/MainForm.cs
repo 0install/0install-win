@@ -19,6 +19,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using Common;
+using Common.Collections;
 using ZeroInstall.Central.WinForms.Properties;
 
 namespace ZeroInstall.Central.WinForms
@@ -41,6 +42,21 @@ namespace ZeroInstall.Central.WinForms
             tabControlApps.SelectedTab = tabPageNewApps;
 
             browserNewApps.Navigate(Resources.AppstoreUri);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Launch feed
+        /// <summary>
+        /// Attempts to launch a feed and closes the main window.
+        /// </summary>
+        /// <param name="feedUri">The URI of the feed to be launched.</param>
+        private void LaunchFeed(string feedUri)
+        {
+            if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
+            Program.LaunchHelperAssembly(this, "0launch-win", "--no-wait " + feedUri);
+            Close();
         }
         #endregion
 
@@ -71,10 +87,7 @@ namespace ZeroInstall.Central.WinForms
 
                     // ToDo: Display more details about the feed
                     if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Info, "Yes\nLaunch the application", "No\nGo back to the list"))
-                    {
-                        Program.LaunchHelperAssembly(this, "0launch-win", "--no-wait " + feedUri);
-                        Close();
-                    }
+                        LaunchFeed(feedUri);
                     break;
 
                 case UrlPostfixBrowser:
@@ -108,6 +121,28 @@ namespace ZeroInstall.Central.WinForms
         {
             // Use the system's default web browser to open the URL
             Process.Start("http://0install.de/help/");
+        }
+        #endregion
+
+        #region Drag and drop handling
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = e.Data.GetData(DataFormats.FileDrop) as string[];
+                LaunchFeed(EnumUtils.GetFirst(files));
+            }
+            else if (e.Data.GetDataPresent(DataFormats.Text))
+            {
+                LaunchFeed((string)e.Data.GetData(DataFormats.Text));
+            }
+        }
+
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = (e.Data.GetDataPresent(DataFormats.Text) || e.Data.GetDataPresent(DataFormats.FileDrop))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
         }
         #endregion
     }
