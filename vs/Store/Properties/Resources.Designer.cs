@@ -117,7 +117,7 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache..
+        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache. Looked for file at: {1}.
         /// </summary>
         internal static string FeedNotInCache {
             get {

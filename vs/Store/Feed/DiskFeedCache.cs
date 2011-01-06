@@ -121,7 +121,7 @@ namespace ZeroInstall.Store.Feed
 
             string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedUrl.ToString()));
 
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl));
+            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl, path));
 
             return Model.Feed.Load(path);
         }
@@ -164,7 +164,7 @@ namespace ZeroInstall.Store.Feed
             #endregion
 
             string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedUrl.ToString()));
-            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl));
+            if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedUrl, path));
             File.Delete(path);
         }
         #endregion

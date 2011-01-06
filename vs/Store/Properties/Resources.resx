@@ -171,7 +171,7 @@ Actual value: {1}</value>
     <value>The file {0} is neither a symbolic link nor a regular file.</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
-    <value>The feed {0} could not be located in the interface cache.</value>
+    <value>The feed {0} could not be located in the interface cache. Looked for file at: {1}</value>
   </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>

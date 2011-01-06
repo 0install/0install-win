@@ -127,7 +127,7 @@ namespace ZeroInstall.Store.Feed
             if (/*!Refresh &&*/ Cache.Contains(url)) return new[] {Cache.GetFeed(url)};
 
             // ToDo: Download, verify and cache feed
-            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceUri), interfaceUri);
+            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceUri, "unknown"), interfaceUri);
         }
         #endregion
     }

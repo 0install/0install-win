@@ -138,7 +138,7 @@ Tatsächlicher Wert: {1}</value>
     <value>Entpacke Archiv ({0})</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
-    <value>Der Feed {0} konnte nicht im Interface-Cache gefunden werden.</value>
+    <value>Der Feed {0} konnte nicht im Interface-Cache gefunden werden. Nach folgender Datei gesucht: {1}</value>
   </data>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
