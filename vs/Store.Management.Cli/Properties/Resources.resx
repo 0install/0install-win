@@ -235,9 +235,9 @@ Implementations using the old 'sha1' algorithm are not optimised.</value>
 This calculates the manifest of the directory and checks that its digest matches the directory's name. It also checks that it matches the digest of the .manifest file inside the directory. If the .manifest doesn't correspond to the current tree, it displays a list of the differences (in unified diff format).</value>
   </data>
   <data name="Usage">
-    <value xml:space="preserve">Usage:</value>
+    <value>Usage:</value>
   </data>
   <data name="OptionMan">
-    <value xml:space="preserve">Display more comprehensive documentation for the operation modes.</value>
+    <value>Display more comprehensive documentation for the operation modes.</value>
   </data>
 </root>

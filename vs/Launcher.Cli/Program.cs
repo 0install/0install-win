@@ -142,7 +142,7 @@ namespace ZeroInstall.Launcher.Cli
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.ImplementationError;
             }
-            catch (MissingMainException ex)
+            catch (CommandException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.ImplementationError;
@@ -297,7 +297,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="FetcherException">Thrown if an <see cref="Model.Implementation"/> could not be downloaded.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specified for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         private static int ExecuteArgs(OperationMode mode, ParseResults results, IHandler handler)
@@ -350,7 +350,7 @@ namespace ZeroInstall.Launcher.Cli
         /// <exception cref="FetcherException">Thrown if an <see cref="Model.Implementation"/> could not be downloaded.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="MissingMainException">Thrown if there is no main executable specified for the main <see cref="ImplementationBase"/>.</exception>
+        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         private static void Normal(ParseResults results, IHandler handler)

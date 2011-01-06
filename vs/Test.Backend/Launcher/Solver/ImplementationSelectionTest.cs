@@ -31,15 +31,30 @@ namespace ZeroInstall.Launcher.Solver
         /// <summary>
         /// Creates a fictive test <see cref="ImplementationSelection"/>.
         /// </summary>
-        internal static ImplementationSelection CreateTestImplementation()
+        internal static ImplementationSelection CreateTestImplementation1()
         {
             return new ImplementationSelection
             {
-                InterfaceID = "http://0install.de/feeds/test.xml",
-                FromFeed = "http://0install.de/feeds/sub-feed.xml",
-                ID = "id", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                FromFeed = "http://0install.de/feeds/test/sub1.xml",
+                ID = "id1", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
-                Main = "executable", DocDir = "doc", Stability = Stability.Developer
+                DocDir = "doc", Stability = Stability.Developer
+            };
+        }
+        
+        /// <summary>
+        /// Creates a fictive test <see cref="ImplementationSelection"/>.
+        /// </summary>
+        internal static ImplementationSelection CreateTestImplementation2()
+        {
+            return new ImplementationSelection
+            {
+                InterfaceID = "http://0install.de/feeds/test/test2.xml",
+                FromFeed = "http://0install.de/feeds/test/sub2.xml",
+                ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc"), Version = new ImplementationVersion("1.0"),
+                Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
+                DocDir = "doc", Stability = Stability.Developer
             };
         }
         #endregion
@@ -50,7 +65,7 @@ namespace ZeroInstall.Launcher.Solver
         [Test]
         public void TestClone()
         {
-            var implementation1 = CreateTestImplementation();
+            var implementation1 = CreateTestImplementation1();
             var implementation2 = implementation1.CloneImplementation();
 
             // Ensure data stayed the same

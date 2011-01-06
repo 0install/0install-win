@@ -127,9 +127,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             btnAddGroup.Tag = new Group();
             btnAddDependency.Tag = new Dependency();
+            btnAddCommand.Tag = new Command();
             btnAddEnvironmentBinding.Tag = new EnvironmentBinding();
             btnAddOverlayBinding.Tag = new OverlayBinding();
-            btnAddWorkingDir.Tag = new WorkingDirBinding();
             btnAddPackageImplementation.Tag = new PackageImplementation();
             btnAddImplementation.Tag = new Implementation();
             buttonAddArchive.Tag = new Archive();
@@ -373,10 +373,7 @@ namespace ZeroInstall.Publish.WinForms
             Populate += delegate
             {
                 comboBox.CausesValidation = false;
-                if (getValue() == null)
-                    comboBox.SelectedItem = string.Empty;
-                else
-                    comboBox.SelectedItem = getValue();
+                comboBox.SelectedItem = getValue() ?? string.Empty;
                 comboBox.CausesValidation = true;
             };
 
@@ -394,15 +391,9 @@ namespace ZeroInstall.Publish.WinForms
         private void SetupCommandHooks(LocalizableTextControl localizableTextControl, SimpleResult<LocalizableStringCollection> getCollection)
         {
 
-            localizableTextControl.Values.ItemsAdded += (sender, itemCountEventArgs) =>
-            {
-                _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
-            };
+            localizableTextControl.Values.ItemsAdded += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
 
-            localizableTextControl.Values.ItemsRemoved += (sender, itemCountEventArgs) =>
-            {
-                _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
-            };
+            localizableTextControl.Values.ItemsRemoved += (sender, itemCountEventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<LocalizableString>(getCollection(), itemCountEventArgs.Item));
 
             Populate += delegate
             {
@@ -923,7 +914,7 @@ namespace ZeroInstall.Publish.WinForms
             else if (((Button) sender).Tag is Dependency) AddFeedStructureObject(new Dependency());
             else if (((Button) sender).Tag is EnvironmentBinding) AddFeedStructureObject(new EnvironmentBinding());
             else if (((Button) sender).Tag is OverlayBinding) AddFeedStructureObject(new OverlayBinding());
-            else if (((Button) sender).Tag is WorkingDirBinding) AddFeedStructureObject(new WorkingDirBinding());
+            else if (((Button) sender).Tag is WorkingDir) AddFeedStructureObject(new WorkingDir());
             else if (((Button) sender).Tag is PackageImplementation) AddFeedStructureObject(new PackageImplementation());
             else if (((Button) sender).Tag is Implementation) AddFeedStructureObject(new Implementation());
             else if (((Button) sender).Tag is Archive) AddFeedStructureObject(new Archive());
@@ -990,10 +981,6 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     group.Elements.Add((PackageImplementation) feedStructureObject);
                 }
-                else if ((feedStructureObject is WorkingDirBinding))
-                {
-                    group.Bindings.Add((WorkingDirBinding) feedStructureObject);
-                }
             }
             else if (selectedNode.Tag is Implementation)
             {
@@ -1019,10 +1006,6 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     implementation.Bindings.Add((OverlayBinding) feedStructureObject);
                 }
-                else if ((feedStructureObject is WorkingDirBinding))
-                {
-                    implementation.Bindings.Add((WorkingDirBinding) feedStructureObject);
-                }
             }
             else if (selectedNode.Tag is PackageImplementation)
             {
@@ -1039,10 +1022,6 @@ namespace ZeroInstall.Publish.WinForms
                 {
                     packageImplementation.Bindings.Add((OverlayBinding) feedStructureObject);
                 }
-                else if ((feedStructureObject is WorkingDirBinding))
-                {
-                    packageImplementation.Bindings.Add((WorkingDirBinding) feedStructureObject);
-                }
             }
             else if (selectedNode.Tag is Dependency)
             {
@@ -1054,10 +1033,6 @@ namespace ZeroInstall.Publish.WinForms
                 else if (feedStructureObject is OverlayBinding)
                 {
                     dependecy.Bindings.Add((OverlayBinding) feedStructureObject);
-                }
-                else if ((feedStructureObject is WorkingDirBinding))
-                {
-                    dependecy.Bindings.Add((WorkingDirBinding) feedStructureObject);
                 }
             }
 
@@ -1077,56 +1052,11 @@ namespace ZeroInstall.Publish.WinForms
         private void TreeViewFeedStructureAfterSelect(object sender, TreeViewEventArgs e)
         {
             var selectedNodeTag = treeViewFeedStructure.SelectedNode.Tag;
-
-            Button[] addButtons = {
-                                      btnAddGroup, btnAddImplementation, buttonAddArchive, buttonAddRecipe,
-                                      btnAddPackageImplementation, btnAddDependency, btnAddEnvironmentBinding,
-                                      btnAddOverlayBinding, btnAddWorkingDir
-                                  };
-            Button[] enableAddButtons = null;
-            // disable all addButtons
-            foreach (var button in addButtons) button.Enabled = false;
-
-            // mark the addButtons that can be selected
-            if (selectedNodeTag is Feed)
-            {
-                enableAddButtons = new[] {btnAddGroup, btnAddImplementation, btnAddPackageImplementation};
-            }
-            else if (selectedNodeTag is Group)
-            {
-                enableAddButtons = new[]
-                                       {
-                                           btnAddGroup, btnAddImplementation, btnAddPackageImplementation,
-                                           btnAddDependency
-                                           , btnAddEnvironmentBinding, btnAddOverlayBinding, btnAddWorkingDir
-                                       };
-            }
-            else if (selectedNodeTag is PackageImplementation)
-            {
-                enableAddButtons = new[]
-                                       {
-                                           btnAddDependency, btnAddEnvironmentBinding, btnAddOverlayBinding,
-                                           btnAddWorkingDir
-                                       };
-            }
-            else if (selectedNodeTag is Implementation)
-            {
-                enableAddButtons = new[]
-                                       {
-                                           buttonAddArchive, buttonAddRecipe, btnAddDependency, btnAddEnvironmentBinding
-                                           ,
-                                           btnAddOverlayBinding, btnAddWorkingDir
-                                       };
-            }
-            else if (selectedNodeTag is Dependency)
-            {
-                enableAddButtons = new[] {btnAddEnvironmentBinding, btnAddOverlayBinding, btnAddWorkingDir};
-            }
-
-            // enable marked buttons
-            if (enableAddButtons == null) return;
-            for (int i = 0; i < enableAddButtons.Length; i++)
-                enableAddButtons[i].Enabled = true;
+            btnAddGroup.Enabled = btnAddImplementation.Enabled = btnAddPackageImplementation.Enabled = (selectedNodeTag is IElementContainer);
+            btnAddEnvironmentBinding.Enabled = btnAddOverlayBinding.Enabled = (selectedNodeTag is IBindingContainer);
+            btnAddDependency.Enabled = (selectedNodeTag is IDependencyContainer);
+            btnAddCommand.Enabled = (selectedNodeTag is Element);
+            buttonAddArchive.Enabled = buttonAddRecipe.Enabled = (selectedNodeTag is Implementation);
         }
 
         /// <summary>
@@ -1225,9 +1155,6 @@ namespace ZeroInstall.Publish.WinForms
                     ShowDialog();
             else if (selectedNode.Tag is ManifestDigest)
                 (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
-            else if (selectedNode.Tag is WorkingDirBinding)
-                (new WorkingDirBindingForm()
-                     {WorkingDirBinding = (WorkingDirBinding) selectedNode.Tag}).ShowDialog();
             else throw new InvalidOperationException("Not an object to change.");
             FillFeedTab();
         }

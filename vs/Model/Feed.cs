@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -115,7 +115,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Short one-line descriptions for different languages; the first word should not be upper-case unless it is a proper noun (e.g. \"cures all ills\").")]
         [XmlElement("summary")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Summaries { get { return _summaries; } }
 
         private readonly LocalizableStringCollection _descriptions = new LocalizableStringCollection();
@@ -124,7 +124,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Full descriptions for different languages, which can be several paragraphs long.")]
         [XmlElement("description")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public LocalizableStringCollection Descriptions { get { return _descriptions; } }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Zero or more icons to use for the program.")]
         [XmlElement("icon")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Icon> Icons { get { return _icons; } }
         
         // Preserve order, duplicate string entries are not allowed
@@ -160,7 +160,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Interface"), Description("Zero or more categories as defined by the freedesktop.org menu specification.")]
         [XmlElement("category")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.HashedArrayList<string> Categories { get { return _categories; } }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Feed"), Description("Zero ore more additional feeds containing implementations of this interface.")]
         [XmlElement("feed")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<FeedReference> Feeds { get { return _feeds; } }
 
         // Preserve order
@@ -196,7 +196,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Feed"), Description("The implementations in this feed are implementations of the given interface. This is used when adding a third-party feed.")]
         [XmlElement("feed-for")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<InterfaceReference> FeedFor { get { return _feedFor; } }
 
         // Preserve order
@@ -206,7 +206,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this interface.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Element> Elements { get { return _elements; } }
         #endregion
 

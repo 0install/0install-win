@@ -114,11 +114,11 @@
     <Compile Include="FeedStructure\ImplementationForm.Designer.cs">
       <DependentUpon>ImplementationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FeedStructure\WorkingDirBindingForm.cs">
+    <Compile Include="FeedStructure\WorkingDirForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FeedStructure\WorkingDirBindingForm.Designer.cs">
-      <DependentUpon>WorkingDirBindingForm.cs</DependentUpon>
+    <Compile Include="FeedStructure\WorkingDirForm.Designer.cs">
+      <DependentUpon>WorkingDirForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="MainForm.cs">
@@ -183,8 +183,8 @@
     <EmbeddedResource Include="FeedStructure\ImplementationForm.resx">
       <DependentUpon>ImplementationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FeedStructure\WorkingDirBindingForm.resx">
-      <DependentUpon>WorkingDirBindingForm.cs</DependentUpon>
+    <EmbeddedResource Include="FeedStructure\WorkingDirForm.resx">
+      <DependentUpon>WorkingDirForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

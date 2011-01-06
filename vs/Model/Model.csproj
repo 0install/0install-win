@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Architecture.cs" />
+    <Compile Include="Command.cs" />
     <Compile Include="Design\ArchitectureConverter.cs" />
     <Compile Include="Archive.cs" />
     <Compile Include="Binding.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="Group.cs" />
     <Compile Include="IBindingContainer.cs" />
     <Compile Include="Design\IconConverter.cs" />
+    <Compile Include="IDependencyContainer.cs" />
     <Compile Include="ImplementationBase.cs" />
     <Compile Include="IElementContainer.cs" />
     <Compile Include="Implementation.cs" />
@@ -87,7 +89,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="ImplementationVersion.cs" />
-    <Compile Include="WorkingDirBinding.cs" />
+    <Compile Include="WorkingDir.cs" />
     <Compile Include="XmlUnknown.cs" />
   </ItemGroup>
   <ItemGroup>

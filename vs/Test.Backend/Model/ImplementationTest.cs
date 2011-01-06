@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -62,18 +62,30 @@ namespace ZeroInstall.Model
         /// Ensures that <see cref="Implementation.Simplify"/> correctly identifies manifest digests in the ID tag.
         /// </summary>
         [Test]
-        public void TestSimplify()
+        public void TestSimplifyID()
         {
-            var implementation = new Implementation { ID = "sha256=123" };
+            var implementation = new Implementation {ID = "sha256=123"};
             implementation.Simplify();
             Assert.AreEqual("123", implementation.ManifestDigest.Sha256);
 
-            implementation = new Implementation { ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct") };
+            implementation = new Implementation {ID = "sha256=wrong", ManifestDigest = new ManifestDigest("sha256=correct")};
             implementation.Simplify();
             Assert.AreEqual("correct", implementation.ManifestDigest.Sha256);
 
-            implementation = new Implementation { ID = "abc" };
+            implementation = new Implementation {ID = "abc"};
             implementation.Simplify();
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Implementation.Simplify"/> correctly converts <see cref="Element.Main"/> and <see cref="Element.SelfTest"/> to <see cref="Command"/>s.
+        /// </summary>
+        [Test]
+        public void TestSimplifyCommand()
+        {
+            var implementation = new Implementation {Main = "main", SelfTest = "test"};
+            implementation.Simplify();
+            Assert.AreEqual("main", implementation.GetCommand(Command.NameRun).Path);
+            Assert.AreEqual("test", implementation.GetCommand(Command.NameTest).Path);
         }
     }
 }

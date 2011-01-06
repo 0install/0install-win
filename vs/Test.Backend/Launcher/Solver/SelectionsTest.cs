@@ -16,6 +16,7 @@
  */
 
 using NUnit.Framework;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Launcher.Solver
 {
@@ -33,8 +34,9 @@ namespace ZeroInstall.Launcher.Solver
         {
             return new Selections
             {
-                InterfaceID = "http://0install.de/feeds/test.xml",
-                Implementations = { ImplementationSelectionTest.CreateTestImplementation() }
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                Implementations = {ImplementationSelectionTest.CreateTestImplementation1(), ImplementationSelectionTest.CreateTestImplementation2()},
+                Commands = {CommandTest.CreateTestCommand1(), CommandTest.CreateTestCommand2()}
             };
         }
         #endregion

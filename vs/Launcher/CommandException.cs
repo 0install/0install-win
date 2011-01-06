@@ -24,10 +24,10 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Launcher
 {
     /// <summary>
-    /// Indicates an <see cref="ImplementationBase"/> that was supposed to be launched did not specify a main executable.
+    /// Indicates <see cref="Launcher"/> had a problem locating or processing a <see cref="Command"/>.
     /// </summary>
     [Serializable]
-    public sealed class MissingMainException : Exception
+    public sealed class CommandException : Exception
     {
         #region Properties
         /// <summary>
@@ -41,7 +41,7 @@ namespace ZeroInstall.Launcher
         /// Creates a new missing main exception.
         /// </summary>
         /// <param name="interfaceID">The ID (URI or file path) of the interface that is missing a main executable.</param>
-        public MissingMainException(string interfaceID)
+        public CommandException(string interfaceID)
             : base(string.Format(Resources.MissingMain, interfaceID))
         {
             InterfaceID = interfaceID;
@@ -50,20 +50,20 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public MissingMainException()
+        public CommandException()
             : base(string.Format(Resources.MissingMain, "unknown"))
         {}
 
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public MissingMainException(string message, Exception innerException) : base(message, innerException)
+        public CommandException(string message, Exception innerException) : base(message, innerException)
         {}
 
         /// <summary>
         /// Deserializes an exception.
         /// </summary>
-        private MissingMainException(SerializationInfo info, StreamingContext context) : base(info, context)
+        private CommandException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
             #region Sanity checks
             if (info == null) throw new ArgumentNullException("info");

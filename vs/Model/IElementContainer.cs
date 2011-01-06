@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -30,7 +30,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Implementation"), Description("A list of groups and implementations contained within this element.")]
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         C5.ArrayList<Element> Elements { get; }
     }
 }

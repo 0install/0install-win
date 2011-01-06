@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -52,7 +52,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("A list of version constraints that must be fulfilled.")]
         [XmlElement("version")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Constraint> Constraints { get { return _constraints; } }
 
         // Preserve order
@@ -61,8 +61,8 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
-        [XmlElement(typeof(WorkingDirBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion
 

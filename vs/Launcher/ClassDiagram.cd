@@ -50,7 +50,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AACAQAAIAAAgAgQCAAIAAAAgAAAAAAAAAAEABAAAIAA=</HashCode>
+      <HashCode>AACAQAAIAAAgAgQCAAIAAAAgAAAAAAAAAAAABAAAIAA=</HashCode>
       <FileName>Executor.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -81,11 +81,12 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AQAAgIgCAAAQAAAAkAAAAQAAAAEAAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AQAAgogCAAAQAAAAkAAAAQAAAAEAAIAAAAAAABAAABA=</HashCode>
       <FileName>Solver\Selections.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Implementations" />
+      <Property Name="Commands" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -155,6 +156,14 @@
   <Class Name="ZeroInstall.Store.Feed.FeedManager" Collapsed="true">
     <Position X="9.25" Y="0.75" Width="1.5" />
     <TypeIdentifier />
+  </Class>
+  <Class Name="ZeroInstall.Model.Command">
+    <Position X="6.25" Y="9" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
   </Class>
   <Struct Name="ZeroInstall.Model.Architecture" Collapsed="true">
     <Position X="2.75" Y="0.75" Width="1.5" />

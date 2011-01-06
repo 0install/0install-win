@@ -27,7 +27,7 @@ namespace ZeroInstall.Fetchers
     /// Lists one or more <see cref="Model.Implementation"/>s that need to be downloaded and extracted into an <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class FetchRequest
+    public class FetchRequest : IEquatable<FetchRequest>
     {
         #region Properties
         // Preserve order, duplicate entries are not allowed
@@ -55,6 +55,38 @@ namespace ZeroInstall.Fetchers
 
             // Make the collections immutable
             _implementations = new C5.GuardedList<Implementation>(tempList);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(FetchRequest other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            if (!_implementations.SequencedEquals(other._implementations)) return false;
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(FetchRequest) && Equals((FetchRequest)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = base.GetHashCode();
+                result = (result * 397) ^ _implementations.GetSequencedHashCode();
+                return result;
+            }
         }
         #endregion
     }

@@ -176,6 +176,9 @@ Actual value: {1}</value>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
   </data>
+  <data name="ArchiveInvalidPath">
+    <value>The archive contains invalid paths (potentially a security risk).</value>
+  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>

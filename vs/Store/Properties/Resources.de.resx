@@ -120,13 +120,16 @@
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>Die Archivdatei ist ungültig oder beschädigt.</value>
   </data>
+  <data name="ArchiveInvalidPath">
+    <value>Das Archiv enthält ungültige Pfade (möglicherweise ein Sicherheitsrisiko).</value>
+  </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Der Manifest-Hash einer Implementierung entspricht nicht dem erwarteten Wert!
 Erwarteter Wert: {0}
 Tatsächlicher Wert: {1}</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The directory "{0}" could not be found.</value>
+    <value>Das Verzeichnis "{0}" konnte nicht gefunden werden.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Entpacke Archiv ({0})</value>

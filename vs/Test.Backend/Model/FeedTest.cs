@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -36,15 +36,15 @@ namespace ZeroInstall.Model
         {
             return new Feed
             {
-                Uri = new Uri("http://somedomain/someapp.xml"),
+                Uri = new Uri("http://0install.de/feeds/test/test1.xml"),
                 Name = "MyApp",
                 Categories = {"Category"},
-                Homepage = new Uri("http://somedomain/"),
-                Feeds = {new FeedReference {Source = "http://somedomain/feed.xml"}},
-                FeedFor = {new InterfaceReference {Target = new Uri("http://somedomain/interface.xml")}},
+                Homepage = new Uri("http://0install.de/"),
+                Feeds = {new FeedReference {Source = "hhttp://0install.de/feeds/test/sub1.xml"}},
+                FeedFor = {new InterfaceReference {Target = new Uri("http://0install.de/feeds/test/super1.xml")}},
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
-                Icons = {new Icon(new Uri("http://somedomain/icon.png"), "image/png")},
+                Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), "image/png")},
                 Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()}
             };
         }
@@ -56,21 +56,21 @@ namespace ZeroInstall.Model
         {
             return new Implementation
             {
-                ID = "id",
+                ID = "id1",
                 ManifestDigest = new ManifestDigest("sha256=123"),
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {new CultureInfo("en-US")},
-                Main = "executable",
+                Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
                 Dependencies = { new Dependency
                 {
-                    Interface = "http://somedomain/interface.xml",
+                    Interface = "http://0install.de/feeds/test/test1.xml",
                     Constraints = {new Constraint(new ImplementationVersion("1.0"), null), new Constraint(null, new ImplementationVersion("2.0"))},
-                    Bindings = {WorkingDirBindingTest.CreateTestBinding(), EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
+                    Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}
                 } },
-                RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://somedomain/archive.zip"), Size = 1024}}}}
+                RetrievalMethods = {new Recipe {Steps = {new Archive {Location = new Uri("http://0install.de/files/test/test.zip"), Size = 1024}}}}
             };
         }
 
@@ -86,10 +86,10 @@ namespace ZeroInstall.Model
                 Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = {new CultureInfo("en-US")},
-                Main = "executable",
+                Commands = {CommandTest.CreateTestCommand1()},
                 DocDir = "doc",
                 Stability = Stability.Developer,
-                Dependencies = {new Dependency {Interface = "http://somedomain/interface.xml", Bindings = {WorkingDirBindingTest.CreateTestBinding(), EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}}}
+                Dependencies = {new Dependency {Interface = "http://0install.de/feeds/test/test2.xml", Bindings = {EnvironmentBindingTest.CreateTestBinding(), OverlayBindingTest.CreateTestBinding()}}}
             };
         }
 
@@ -106,8 +106,8 @@ namespace ZeroInstall.Model
                 Stability = Stability.Developer,
                 Elements =
                 {
-                    new Implementation {Main = "main1"},
-                    new Group {Elements = {new Implementation {Main = "main2"}}},
+                    new Implementation {Commands = {new Command{Name = "run", Path = "main1"}}},
+                    new Group {Elements = {new Implementation {Commands = {new Command{Name = "run", Path = "main2"}}}}},
                 }
             };
         }
@@ -163,14 +163,14 @@ namespace ZeroInstall.Model
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main1", implementation.Main);
+            Assert.AreEqual("main1", implementation.GetCommand(Command.NameRun).Path);
 
             implementation = feed.Elements[1];
             Assert.AreEqual(new Architecture(OS.Solaris, Cpu.I586), implementation.Architecture);
             Assert.AreEqual("de", implementation.Languages.ToString());
             Assert.AreEqual("GPL", implementation.License);
             Assert.AreEqual(Stability.Developer, implementation.Stability);
-            Assert.AreEqual("main2", implementation.Main);
+            Assert.AreEqual("main2", implementation.GetCommand(Command.NameRun).Path);
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace ZeroInstall.Model
         {
             var feed = CreateTestFeed();
 
-            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation("id"));
+            Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation("id1"));
             Assert.IsNull(feed.GetImplementation("invalid"));
         }
 

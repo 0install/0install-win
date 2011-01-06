@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Globalization;
 using NUnit.Framework;
 
@@ -35,7 +34,7 @@ namespace ZeroInstall.Model
         {
             var reference1 = new FeedReference
             {
-                Source = "http://0install.de/feeds/test.xml",
+                Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")}
             };
             var reference2 = reference1.CloneFeedPreferences();
@@ -54,13 +53,13 @@ namespace ZeroInstall.Model
         {
             var reference1 = new FeedReference
             {
-                Source = "http://0install.de/feeds/test.xml",
+                Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = { new CultureInfo("en-US") }
             };
             var reference2 = new FeedReference
             {
-                Source = "http://0install.de/feeds/test.xml",
+                Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = { new CultureInfo("en-US") }
             };
@@ -68,7 +67,7 @@ namespace ZeroInstall.Model
 
             reference2 = new FeedReference
             {
-                Source = "http://0install.de/feeds/test.xml",
+                Source = "http://0install.de/feeds/test/test1.xml",
                 Architecture = new Architecture(OS.Windows, Cpu.I586),
                 Languages = { new CultureInfo("de-DE") }
             };
@@ -76,7 +75,7 @@ namespace ZeroInstall.Model
 
             reference2 = new FeedReference
             {
-                Source = "http://0install.de/feeds/test.xml",
+                Source = "http://0install.de/feeds/test/test1.xml",
                 Languages = { new CultureInfo("en-US") }
             };
             Assert.AreNotEqual(reference1, reference2);

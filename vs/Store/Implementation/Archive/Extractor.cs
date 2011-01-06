@@ -266,7 +266,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalid);
+            if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalidPath);
 
             return Path.Combine(target, relativePath);
         }

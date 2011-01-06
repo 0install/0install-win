@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Feed"/>s contained within this catalog.
         /// </summary>
         [XmlElement("interface", typeof(Feed), Namespace = Feed.XmlNamespace)]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Feed> Feeds { get { return _feeds; } }
         #endregion
 

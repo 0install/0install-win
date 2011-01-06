@@ -15,18 +15,23 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.ComponentModel;
+using System.Xml.Serialization;
+using C5;
+
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// ...
+    /// An object that contains <see cref="Dependency"/>s.
     /// </summary>
-    public interface ISimplifyable
+    public interface IDependencyContainer
     {
         /// <summary>
-        /// Sets missing default values, flattens the inheritance structure, etc.
+        /// A list of interfaces this implementation depends upon.
         /// </summary>
-        /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
-        void Simplify();
+        [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
+        [XmlElement("requires")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        ArrayList<Dependency> Dependencies { get; }
     }
 }

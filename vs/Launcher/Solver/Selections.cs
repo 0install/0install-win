@@ -51,6 +51,16 @@ namespace ZeroInstall.Launcher.Solver
         [XmlElement("selection")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.HashedArrayList<ImplementationSelection> Implementations { get { return _implementations; } }
+
+        // Preserve order
+        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
+        /// <summary>
+        /// A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.
+        /// </summary>
+        [Category("Execution"), Description("A set of commands required to execute the selection. The first is for the program, the second is the program's runner, and so on.")]
+        [XmlElement("command")]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<Command> Commands { get { return _commands; } }
         #endregion
 
         //--------------------//
@@ -147,10 +157,8 @@ namespace ZeroInstall.Launcher.Solver
         public Selections CloneSelections()
         {
             var newSelections = new Selections {InterfaceID = InterfaceID};
-            foreach (var implementation in Implementations)
-            {
-                newSelections.Implementations.Add(implementation.CloneImplementation());
-            }
+            foreach (var implementation in Implementations) newSelections.Implementations.Add(implementation.CloneImplementation());
+            foreach (var command in Commands) newSelections.Commands.Add(command.CloneCommand());
             return newSelections;
         }
 
@@ -170,7 +178,8 @@ namespace ZeroInstall.Launcher.Solver
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return (InterfaceID == other.InterfaceID) && Implementations.SequencedEquals(other.Implementations);
+            return (InterfaceID == other.InterfaceID) &&
+                Implementations.SequencedEquals(other.Implementations) && Commands.SequencedEquals(other.Commands);
         }
 
         /// <inheritdoc/>
@@ -188,6 +197,7 @@ namespace ZeroInstall.Launcher.Solver
             {
                 int result = (InterfaceID != null ? InterfaceID.GetHashCode() : 0);
                 result = (result * 397) ^ Implementations.GetSequencedHashCode();
+                result = (result * 397) ^ Commands.GetSequencedHashCode();
                 return result;
             }
         }

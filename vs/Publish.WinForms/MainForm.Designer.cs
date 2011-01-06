@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Interface");
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -77,7 +77,6 @@ namespace ZeroInstall.Publish.WinForms
             this.labelProgramName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
-            this.btnAddWorkingDir = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.buttonClearList = new System.Windows.Forms.Button();
             this.buttonAddArchive = new System.Windows.Forms.Button();
@@ -86,6 +85,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnRemoveFeedStructureObject = new System.Windows.Forms.Button();
             this.btnAddEnvironmentBinding = new System.Windows.Forms.Button();
             this.btnAddGroup = new System.Windows.Forms.Button();
+            this.btnAddCommand = new System.Windows.Forms.Button();
             this.btnAddDependency = new System.Windows.Forms.Button();
             this.btnAddPackageImplementation = new System.Windows.Forms.Button();
             this.btnAddImplementation = new System.Windows.Forms.Button();
@@ -182,7 +182,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(63, 22);
+            this.toolStripLabel1.Size = new System.Drawing.Size(68, 22);
             this.toolStripLabel1.Text = "GnuPG key:";
             // 
             // toolStripButtonSaveAs
@@ -190,7 +190,7 @@ namespace ZeroInstall.Publish.WinForms
             this.toolStripButtonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripButtonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonSaveAs.Name = "toolStripButtonSaveAs";
-            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(61, 22);
+            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(58, 22);
             this.toolStripButtonSaveAs.Text = "Save as...";
             this.toolStripButtonSaveAs.Click += new System.EventHandler(this.toolStripButtonSaveAs_Click);
             // 
@@ -201,7 +201,7 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
             this.buttonUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonUndo.Name = "buttonUndo";
-            this.buttonUndo.Size = new System.Drawing.Size(35, 22);
+            this.buttonUndo.Size = new System.Drawing.Size(39, 22);
             this.buttonUndo.Text = "undo";
             this.buttonUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
@@ -213,7 +213,7 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonRedo.Image = ((System.Drawing.Image)(resources.GetObject("buttonRedo.Image")));
             this.buttonRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonRedo.Name = "buttonRedo";
-            this.buttonRedo.Size = new System.Drawing.Size(33, 22);
+            this.buttonRedo.Size = new System.Drawing.Size(35, 22);
             this.buttonRedo.Text = "redo";
             this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
             // 
@@ -542,7 +542,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxFeedStructure.Controls.Add(this.btnAddWorkingDir);
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddRecipe);
             this.groupBoxFeedStructure.Controls.Add(this.buttonClearList);
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddArchive);
@@ -551,6 +550,7 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Controls.Add(this.btnRemoveFeedStructureObject);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddEnvironmentBinding);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddGroup);
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddCommand);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddDependency);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddPackageImplementation);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddImplementation);
@@ -560,18 +560,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.TabIndex = 0;
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
-            // 
-            // btnAddWorkingDir
-            // 
-            this.btnAddWorkingDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddWorkingDir.Enabled = false;
-            this.btnAddWorkingDir.Location = new System.Drawing.Point(401, 135);
-            this.btnAddWorkingDir.Name = "btnAddWorkingDir";
-            this.btnAddWorkingDir.Size = new System.Drawing.Size(131, 23);
-            this.btnAddWorkingDir.TabIndex = 11;
-            this.btnAddWorkingDir.Text = "Working dir";
-            this.btnAddWorkingDir.UseVisualStyleBackColor = true;
-            this.btnAddWorkingDir.Click += new System.EventHandler(this.AddFeedStructureElementButtonClick);
             // 
             // buttonAddRecipe
             // 
@@ -612,7 +600,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddOverlayBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddOverlayBinding.Enabled = false;
-            this.btnAddOverlayBinding.Location = new System.Drawing.Point(401, 106);
+            this.btnAddOverlayBinding.Location = new System.Drawing.Point(401, 135);
             this.btnAddOverlayBinding.Name = "btnAddOverlayBinding";
             this.btnAddOverlayBinding.Size = new System.Drawing.Size(132, 23);
             this.btnAddOverlayBinding.TabIndex = 8;
@@ -628,11 +616,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode1.Name = "interface";
-            treeNode1.Tag = "";
-            treeNode1.Text = "Interface";
+            treeNode2.Name = "interface";
+            treeNode2.Tag = "";
+            treeNode2.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode2});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -655,7 +643,7 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.btnAddEnvironmentBinding.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddEnvironmentBinding.Enabled = false;
-            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(401, 77);
+            this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(401, 106);
             this.btnAddEnvironmentBinding.Name = "btnAddEnvironmentBinding";
             this.btnAddEnvironmentBinding.Size = new System.Drawing.Size(132, 23);
             this.btnAddEnvironmentBinding.TabIndex = 7;
@@ -673,6 +661,18 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddGroup.Text = "Group";
             this.btnAddGroup.UseVisualStyleBackColor = true;
             this.btnAddGroup.Click += new System.EventHandler(this.AddFeedStructureElementButtonClick);
+            // 
+            // btnAddCommand
+            // 
+            this.btnAddCommand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddCommand.Enabled = false;
+            this.btnAddCommand.Location = new System.Drawing.Point(401, 77);
+            this.btnAddCommand.Name = "btnAddCommand";
+            this.btnAddCommand.Size = new System.Drawing.Size(132, 23);
+            this.btnAddCommand.TabIndex = 6;
+            this.btnAddCommand.Text = "Command";
+            this.btnAddCommand.UseVisualStyleBackColor = true;
+            this.btnAddCommand.Click += new System.EventHandler(this.AddFeedStructureElementButtonClick);
             // 
             // btnAddDependency
             // 
@@ -992,12 +992,12 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxGpg;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private FeedReferenceControl feedReferenceControl;
-        private System.Windows.Forms.Button btnAddWorkingDir;
         private LocalizableTextControl summariesControl;
         private LocalizableTextControl descriptionControl;
         private System.Windows.Forms.ToolStripButton buttonUndo;
         private System.Windows.Forms.ToolStripButton buttonRedo;
         private System.Windows.Forms.ToolStripButton toolStripButtonSaveAs;
+        private System.Windows.Forms.Button btnAddCommand;
     }
 }
 

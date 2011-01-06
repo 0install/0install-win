@@ -3179,54 +3179,6 @@
                           <referencedTypeMoniker Id="997eb726-0302-4c56-ae5c-059019db3366" LastKnownName="String" />
                         </type_NamedElement>
                       </property>
-                      <property Id="75acbf99-4ff8-46b4-a9d5-a8a0158c7935" name="_interfaceID" visibility="Private" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <referencesInternal>
-                          <reference Id="8d6c11d3-1554-4599-a6ac-b06619212b63" handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=Launcher Member=_interfaceID" tag="ViewCode">
-                            <elementDefinition Id="42a7a294-007b-4cde-a559-5e8ea348f699" />
-                          </reference>
-                        </referencesInternal>
-                        <appliedStereotypesInternal>
-                          <stereotypeInstance Id="7d8d61c0-e4f6-4fd2-85a3-453b381957cc" name="field" profile="CSharpProfile">
-                            <elementDefinition Id="a91adaf3-6e06-4041-bb06-d0d7cbe8d176" />
-                            <propertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="4fb7f351-12bc-4ea3-8d7c-72dfa688633e">
-                                <propertyInstance Id="47821fab-2f5b-4d44-ba47-448cd50e4f92" name="ClrAttributes">
-                                  <elementDefinition Id="0075a2c0-20c1-4705-a448-3885848e6460" />
-                                </propertyInstance>
-                                <elementDefinition Id="523d954e-c54a-49fc-9578-124b1afced84" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="f5c68da3-ebf3-4d04-aa68-fe9600f46b43">
-                                <propertyInstance Id="21e17aa2-d4d7-4cda-a2b2-6fc7d40e381c" name="IsConst" value="false">
-                                  <elementDefinition Id="ab3e124a-edac-442c-affa-c7d133fa7955" />
-                                </propertyInstance>
-                                <elementDefinition Id="365a43cc-fdce-4dc6-853b-1861a79cc2cb" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="54c8d336-8501-4c78-9d53-af3174a751e3">
-                                <propertyInstance Id="99c465ee-0a74-4080-9f7b-99c0975a09d1" name="IsNullable" value="false">
-                                  <elementDefinition Id="845c795e-7f14-40c6-bd33-d6019e8c1ccd" />
-                                </propertyInstance>
-                                <elementDefinition Id="f5cec009-5c73-44c6-a270-a388fbfbb232" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="5e29e001-851c-4bb7-a91e-021cb97b78f3">
-                                <propertyInstance Id="b42c1b2b-92d8-4494-857b-5cdc5a56544e" name="IsVolatile" value="false">
-                                  <elementDefinition Id="23587e43-b06a-4805-a0b8-9bc82a5dbe51" />
-                                </propertyInstance>
-                                <elementDefinition Id="5202a86d-cb83-4940-bbcb-59016f5325af" />
-                              </stereotypeInstanceHasPropertyInstances>
-                              <stereotypeInstanceHasPropertyInstances Id="c4d583a5-f04d-492e-a21b-8689619b4af9">
-                                <propertyInstance Id="adc49179-0d3f-41d1-8a6f-87729db61ea0" name="PackageVisibility" value="internal">
-                                  <elementDefinition Id="d52cf82f-7d25-4dbd-8789-24575c0f023b" />
-                                </propertyInstance>
-                                <elementDefinition Id="dd186516-6e01-456a-8da8-b9bed3930bab" />
-                              </stereotypeInstanceHasPropertyInstances>
-                            </propertyInstances>
-                          </stereotypeInstance>
-                        </appliedStereotypesInternal>
-                        <elementDefinition Id="4b3feb92-50ec-40be-9f98-0cc8928bd532" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="997eb726-0302-4c56-ae5c-059019db3366" LastKnownName="String" />
-                        </type_NamedElement>
-                      </property>
                     </ownedAttributesInternal>
                     <ownedOperationsInternal>
                       <operation Id="cc5d50ad-d515-4042-bc5d-9797d42d2b51" name="Launcher" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -32,7 +32,7 @@ namespace ZeroInstall.Model
         /// </summary>
         internal static Archive CreateTestArchive()
         {
-            return new Archive {Location = new Uri("http://0install.de/download/test.exe"), Size = 128};
+            return new Archive {Location = new Uri("http://0install.de/files/test/test.exe"), Size = 128};
         }
         #endregion
 

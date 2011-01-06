@@ -16,9 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using Common.Collections;
-using Common.Storage;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Fetchers;
@@ -37,10 +34,11 @@ namespace ZeroInstall.Launcher
     {
         #region Shared
         // Dummy data used by the tests
-        private const string TestUri = "http://nothing";
+        private const string TestUri = "http://0install.de/feeds/test/test1.xml";
 
         private DynamicMock _solverMock;
         private DynamicMock _cacheMock;
+        private DynamicMock _storeMock;
         private DynamicMock _fetcherMock;
 
         private ISolver TestSolver { get { return (ISolver)_solverMock.MockInstance; } }
@@ -55,7 +53,9 @@ namespace ZeroInstall.Launcher
             // Prepare mock objects that will be injected with methods in the tests
             _solverMock = new DynamicMock("MockSolver", typeof(ISolver));
             _cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            _storeMock = new DynamicMock("StoreCache", typeof(IStore));
             _fetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
+            _fetcherMock.SetReturnValue("get_Store", _storeMock.MockInstance);
         }
 
         [TearDown]
@@ -64,6 +64,7 @@ namespace ZeroInstall.Launcher
             // Ensure no method calls were left out
             _solverMock.Verify();
             _cacheMock.Verify();
+            _storeMock.Verify();
             _fetcherMock.Verify();
         }
         #endregion
@@ -87,7 +88,7 @@ namespace ZeroInstall.Launcher
             var policy = CreateTestPolicy();
 
             var handler = new SilentHandler();
-            _solverMock.Expect("Solve", TestUri, policy, handler);
+            _solverMock.ExpectAndReturn("Solve", SelectionsTest.CreateTestSelections(), TestUri, policy, handler);
             var controller = new Controller(TestUri, TestSolver, policy, handler);
             controller.Solve();
         }
@@ -103,39 +104,50 @@ namespace ZeroInstall.Launcher
         }
 
         /// <summary>
-        /// Ensures that <see cref="Controller.ListUncachedImplementations"/> correctly finds <see cref="Model.Implementation"/>s not cached in a <see cref="IStore"/>.
+        /// Ensures that <see cref="Controller.ListUncachedImplementations"/> correctly finds <see cref="Model.Implementation"/>s not cached in an <see cref="IStore"/>.
         /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
+        [Test]
         public void TestListUncachedImplementations()
         {
-            // Look inside a temporary (empty) store
-            IEnumerable<Implementation> implementations;
-            using (var temp = new TemporaryDirectory("0install-unit-tests"))
-            {
-                var policy = new Policy(new FeedManager(FeedCacheProvider.Default), FetcherProvider.Default);
-                var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, policy, new SilentHandler());
-                controller.Solve();
-                implementations = controller.ListUncachedImplementations();
-            }
+            var feed = FeedTest.CreateTestFeed();
+            var selections = SelectionsTest.CreateTestSelections();
 
-            // Check the first (and only) entry of the "missing list" is the correct implementation
-            Assert.AreEqual("sha1new=91dba493cc1ff911df9860baebb6136be7341d38", EnumUtils.GetFirst(implementations).ManifestDigest.BestDigest, "The actual Implementation should have the same digest as the selection information.");
+            _cacheMock.ExpectAndReturn("GetFeed", feed, new Uri("http://0install.de/feeds/test/sub1.xml"));
+
+            // Pretend the first implementation isn't cached but the second is
+            _storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
+
+            var controller = new Controller(TestUri, TestSolver, CreateTestPolicy(), new SilentHandler());
+            controller.SetSelections(selections);
+
+            // Only the first implementation should be listed as uncached
+            CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, controller.ListUncachedImplementations());
         }
 
         /// <summary>
-        /// Ensures <see cref="Controller.GetExecutor"/> correctly provides an application that can be launched.
+        /// Ensures that <see cref="Controller.DownloadUncachedImplementations"/> correctly tries to download <see cref="Model.Implementation"/>s not cached in an <see cref="IStore"/>.
         /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
-        public void TestGetExecutor()
+        [Test]
+        public void TestDownloadUncachedImplementations()
         {
-            var controller = new Controller("http://afb.users.sourceforge.net/zero-install/interfaces/seamonkey2.xml", SolverProvider.Default, Policy.CreateDefault(), new SilentHandler());
-            controller.Solve();
+            var feed = FeedTest.CreateTestFeed();
+            var selections = SelectionsTest.CreateTestSelections();
+            var handler = new SilentHandler();
+
+            _cacheMock.ExpectAndReturn("GetFeed", feed, new Uri("http://0install.de/feeds/test/sub1.xml"));
+
+            // Pretend the first implementation isn't cached but the second is
+            _storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
+
+            _fetcherMock.Expect("RunSync", new FetchRequest(new[] {(Implementation)feed.Elements[0]}), handler);
+
+            var controller = new Controller(TestUri, TestSolver, CreateTestPolicy(), handler);
+            controller.SetSelections(selections);
+
+            // Only the first implementation should be "downloaded"
             controller.DownloadUncachedImplementations();
-            var executor = controller.GetExecutor();
-            var startInfo = executor.GetStartInfo("--help");
-            Assert.AreEqual("--help", startInfo.Arguments);
         }
     }
 }

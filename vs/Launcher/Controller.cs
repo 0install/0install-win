@@ -207,7 +207,7 @@ namespace ZeroInstall.Launcher
             #endregion
 
             // Read to run the application
-            return new Executor(InterfaceID, _selections, Policy.SearchStore);
+            return new Executor(_selections, Policy.SearchStore);
         }
         #endregion
     }

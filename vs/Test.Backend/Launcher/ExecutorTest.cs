@@ -16,8 +16,12 @@
  */
 
 using System;
+using System.IO;
+using Common.Utils;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Launcher.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Launcher
@@ -28,14 +32,111 @@ namespace ZeroInstall.Launcher
     [TestFixture]
     public class ExecutorTest
     {
+        #region Shared
+        private DynamicMock _storeMock;
+
+        private IStore TestStore
+        {
+            get { return (IStore)_storeMock.MockInstance; }
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            // Prepare mock objects that will be injected with methods in the tests
+            _storeMock = new DynamicMock("MockStore", typeof(IStore));
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            // Ensure no method calls were left out
+            //_storeMock.Verify();
+        }
+        #endregion
+
         /// <summary>
         /// Ensures the <see cref="Executor"/> constructor throws the correct exceptions.
         /// </summary>
         [Test]
         public void TestExceptions()
         {
-            Assert.Throws<ArgumentException>(() => new Executor("invalid", new Selections {Implementations = {new ImplementationSelection()}}, StoreProvider.Default), "Relative paths should be rejected");
-            Assert.Throws<ArgumentException>(() => new Executor("http://nothing", new Selections(), StoreProvider.Default), "Empty selections should be rejected");
+            Assert.Throws<ArgumentException>(() => new Executor(new Selections(), TestStore), "Empty selections should be rejected");
+
+            var executor = new Executor(new Selections
+            {
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                Implementations = {ImplementationSelectionTest.CreateTestImplementation1()}, Commands = {new Command {Path = "../../outside"}}
+            }, TestStore);
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(""), "Commands pointing out of the implementation should be rejected");
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/>.
+        /// </summary>
+        [Test]
+        public void TestGetStartInfo()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+
+            _storeMock.ExpectAndReturn("GetPath", "123", selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "abc", selections.Implementations[1].ManifestDigest);
+
+            var executor = new Executor(selections, TestStore);
+            var startInfo = executor.GetStartInfo("--custom");
+            Assert.AreEqual(Path.Combine("abc", StringUtils.UnifySlashes(selections.Commands[1].Path)), startInfo.FileName);
+            Assert.AreEqual("--test2 \"" + Path.Combine("123", StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" --test1 --custom", startInfo.Arguments);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Wrapper"/>.
+        /// </summary>
+        [Test]
+        public void TestGetStartInfoWrapper()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+
+            _storeMock.ExpectAndReturn("GetPath", "123", selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "abc", selections.Implementations[1].ManifestDigest);
+
+            var executor = new Executor(selections, TestStore) {Wrapper = "wrapper --wrapper"};
+            var startInfo = executor.GetStartInfo("--custom");
+            Assert.AreEqual("wrapper", startInfo.FileName);
+            Assert.AreEqual("--wrapper \"" + Path.Combine("abc", StringUtils.UnifySlashes(selections.Commands[1].Path)) + "\" --test2 \"" + Path.Combine("123", StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" --test1 --custom", startInfo.Arguments);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with relative paths.
+        /// </summary>
+        [Test]
+        public void TestGetStartInfoMainRelative()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+
+            _storeMock.ExpectAndReturn("GetPath", "123", selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "abc", selections.Implementations[1].ManifestDigest);
+
+            var executor = new Executor(selections, TestStore) {Main = "main"};
+            var startInfo = executor.GetStartInfo("--custom");
+            Assert.AreEqual(Path.Combine("abc", StringUtils.UnifySlashes(selections.Commands[1].Path)), startInfo.FileName);
+            Assert.AreEqual("--test2 \"" + StringUtils.PathCombine("123", "dir 1", "main") + "\" --custom", startInfo.Arguments);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> handles complex <see cref="Selections"/> and <see cref="Executor.Main"/> with absolute paths.
+        /// </summary>
+        [Test]
+        public void TestGetStartInfoMainAbsolute()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+
+            _storeMock.ExpectAndReturn("GetPath", "123", selections.Implementations[0].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "abc", selections.Implementations[1].ManifestDigest);
+
+            var executor = new Executor(selections, TestStore) {Main = "/main"};
+            var startInfo = executor.GetStartInfo("--custom");
+            Assert.AreEqual(StringUtils.PathCombine("123", "main"), startInfo.FileName);
+            Assert.AreEqual("--custom", startInfo.Arguments);
         }
     }
 }

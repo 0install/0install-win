@@ -183,7 +183,7 @@ Supported values: Linux, Solaris, MacOSX, Windows</value>
     <value>Display version information.</value>
   </data>
   <data name="OptionsVerbose">
-    <value xml:space="preserve">More verbose output. Use twice for even more verbose output.</value>
+    <value>More verbose output. Use twice for even more verbose output.</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
     <value>Add {DIR} to the list of implementation caches to search.
@@ -223,6 +223,6 @@ Try 0launch --help</value>
 Try 0launch --help]]></value>
   </data>
   <data name="Usage">
-    <value xml:space="preserve">Usage:</value>
+    <value>Usage:</value>
   </data>
 </root>

@@ -4,34 +4,34 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class WorkingDirBindingForm : OKCancelDialog
+    public partial class WorkingDirForm : OKCancelDialog
     {
         #region Properties
 
         /// <summary>
-        /// The <see cref="WorkingDirBinding"/> to shown and edited by this form.
+        /// The <see cref="WorkingDir"/> to shown and edited by this form.
         /// </summary>
-        private WorkingDirBinding _workingDirBinding = new WorkingDirBinding();
+        private WorkingDir _workingDir = new WorkingDir();
 
         /// <summary>
-        /// The <see cref="WorkingDirBinding"/> to show and edit by this form.
+        /// The <see cref="WorkingDir"/> to show and edit by this form.
         /// </summary>
-        public WorkingDirBinding WorkingDirBinding
+        public WorkingDir WorkingDir
         {
             get
             {
-                return _workingDirBinding;
+                return _workingDir;
             }
             set
             {
-                _workingDirBinding =  value ?? new WorkingDirBinding();
+                _workingDir =  value ?? new WorkingDir();
                 UpdateControl();
             }
         }
         #endregion
 
         #region Initialization
-        public WorkingDirBindingForm()
+        public WorkingDirForm()
         {
             InitializeComponent();
         }
@@ -47,27 +47,27 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
 
         /// <summary>
-        /// Clear all controls in this form and set their values from <see cref="WorkingDirBinding"/>.
+        /// Clear all controls in this form and set their values from <see cref="WorkingDir"/>.
         /// </summary>
         private void UpdateControl()
         {
             ClearControl();
 
-            hintTextBoxSource.Text = WorkingDirBinding.Source;
+            hintTextBoxSource.Text = WorkingDir.Source;
         }
 
         #endregion
 
         #region Dialog buttons
         /// <summary>
-        /// Saves the values from the filled controls to <see cref="WorkingDirBinding"/> and closes the window.
+        /// Saves the values from the filled controls to <see cref="WorkingDir"/> and closes the window.
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            string workingDirBinding = hintTextBoxSource.Text;
-            WorkingDirBinding.Source = string.IsNullOrEmpty(workingDirBinding) ? "." : workingDirBinding;
+            string workingDir = hintTextBoxSource.Text;
+            WorkingDir.Source = string.IsNullOrEmpty(workingDir) ? "." : workingDir;
         }
         #endregion
     }

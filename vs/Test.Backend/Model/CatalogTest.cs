@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
         {
             var catalog = CreateTestCatalog();
 
-            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(new Uri("http://somedomain/someapp.xml")));
+            Assert.AreEqual(FeedTest.CreateTestFeed(), catalog.GetFeed(new Uri("http://0install.de/feeds/test/test1.xml")));
             Assert.Throws<KeyNotFoundException>(() => catalog.GetFeed(new Uri("http://invalid")));
         }
 

@@ -70,6 +70,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The archive contains invalid paths (potentially a security risk)..
+        /// </summary>
+        internal static string ArchiveInvalidPath {
+            get {
+                return ResourceManager.GetString("ArchiveInvalidPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An implementation&apos;s manifest hash doesn&apos;t match the expected value!
         ///Expected value: {0}
         ///Actual value: {1}.

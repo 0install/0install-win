@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -61,7 +61,7 @@ namespace ZeroInstall.Model
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlType("element", Namespace = Feed.XmlNamespace)]
-    public abstract class Element : TargetBase, IBindingContainer, ISimplifyable, ICloneable
+    public abstract class Element : TargetBase, IBindingContainer, IDependencyContainer, ISimplifyable, ICloneable
     {
         #region Constants
         /// <summary>
@@ -128,6 +128,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.
         /// </summary>
+        /// <remarks>This will be deprecated in favor of <see cref="Commands"/>.</remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that should be executed by default when the interface is run. If an implementation has no main setting, then it cannot be executed without specifying one manually. This typically means that the interface is for a library.")]
         [XmlAttribute("main"), DefaultValue("")]
         public string Main { get; set; }
@@ -135,6 +136,7 @@ namespace ZeroInstall.Model
         /// <summary>
         /// The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.
         /// </summary>
+        /// <remarks>This will be deprecated in favor of <see cref="Commands"/>.</remarks>
         [Category("Execution"), Description("The relative path of an executable inside the implementation that can be executed to test the program. The program must be non-interactive (e.g. it can't open any windows or prompt for input). It should return with an exit status of zero if the tests pass. Any other status indicates failure.")]
         [XmlAttribute("self-test"), DefaultValue("")]
         public string SelfTest { get; set; }
@@ -147,13 +149,24 @@ namespace ZeroInstall.Model
         public string DocDir { get; set; }
 
         // Preserve order
+        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
+        /// <summary>
+        /// A list of commands that can be used to launch this implementation.
+        /// </summary>
+        /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
+        [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
+        [XmlElement("command")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.ArrayList<Command> Commands { get { return _commands; } }
+
+        // Preserve order
         private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
         /// <summary>
-        /// A list of <see cref="Feed"/>s this implementation depends upon.
+        /// A list of interfaces this implementation depends upon.
         /// </summary>
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Dependency> Dependencies { get { return _dependencies; } }
 
         // Preserve order
@@ -162,8 +175,8 @@ namespace ZeroInstall.Model
         /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
         /// </summary>
         [Description("A list of bindings for implementations to locate dependencies.")]
-        [XmlElement(typeof(WorkingDirBinding)), XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
         #endregion
 
@@ -171,12 +184,19 @@ namespace ZeroInstall.Model
 
         #region Simplify
         /// <summary>
-        /// Hook to set missing default values, removes inheritance structures, etc.
+        /// Sets missing default values and handles legacy elements.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
-        /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
+        /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
         public virtual void Simplify()
-        {}
+        {
+            // Convert legacy launch commands
+            if (Commands.IsEmpty)
+            {
+                if (!string.IsNullOrEmpty(Main)) Commands.Add(new Command {Name = Command.NameRun, Path = Main});
+                if (!string.IsNullOrEmpty(SelfTest)) Commands.Add(new Command {Name = Command.NameTest, Path = SelfTest});
+            }
+        }
 
         /// <summary>
         /// Transfers attributes from another <see cref="Element"/> object to this one.
@@ -185,7 +205,7 @@ namespace ZeroInstall.Model
         /// <param name="parent">The object to take the attributes from.</param>
         internal void InheritFrom(Element parent)
         {
-            // Check if values are unset and need inheritance
+            // Check if values are unset and need inheritance)
             if (Version == null) Version = parent.Version;
             if (VersionModifier == null) VersionModifier = parent.VersionModifier;
             if (Released == default(DateTime)) Released = parent.Released;
@@ -198,8 +218,27 @@ namespace ZeroInstall.Model
             if (Architecture == default(Architecture)) Architecture = parent.Architecture;
 
             // Accumulate list entries
+            foreach (var command in parent.Commands) Commands.Add(command);
             foreach (var dependency in parent.Dependencies) Dependencies.Add(dependency);
             foreach (var bindings in parent.Bindings) Bindings.Add(bindings);
+        }
+        #endregion
+
+        #region Query
+        /// <summary>
+        /// Returns the <see cref="Command"/> with a specific name.
+        /// </summary>
+        /// <param name="name">The <see cref="Command.Name"/> to look for. Well-known names are <see cref="Command.NameRun"/>, <see cref="Command.NameTest"/> and <see cref="Command.NameCompile"/>.</param>
+        /// <returns>The identified <see cref="Command"/> or <see langword="null"/> no matching one was found.</returns>
+        /// <remarks>Should only be called after <see cref="Simplify"/> has been called, otherwise nested <see cref="Implementation"/>s will be missed.</remarks>
+        public Command GetCommand(string name)
+        {
+            foreach (var command in Commands)
+            {
+                if (command != null && command.Name == name) return command;
+            }
+
+            return null;
         }
         #endregion
 
@@ -239,6 +278,7 @@ namespace ZeroInstall.Model
             to.Main = from.Main;
             to.SelfTest = from.SelfTest;
             to.DocDir = from.DocDir;
+            foreach (var command in from.Commands) to.Commands.Add(command.CloneCommand());
             foreach (var dependency in from.Dependencies) to.Dependencies.Add(dependency.CloneDependency());
             foreach (var binding in from.Bindings) to.Bindings.Add(binding.CloneBinding());
         }
@@ -252,7 +292,7 @@ namespace ZeroInstall.Model
 
             return base.Equals(other) &&
                 Equals(other.Version, Version) && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&
-                Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
+                Commands.SequencedEquals(other.Commands) && Dependencies.SequencedEquals(other.Dependencies) && Bindings.SequencedEquals(other.Bindings);
         }
 
         /// <inheritdoc/>
@@ -268,6 +308,7 @@ namespace ZeroInstall.Model
                 result = (result * 397) ^ (Main ?? "").GetHashCode();
                 result = (result * 397) ^ (SelfTest ?? "").GetHashCode();
                 result = (result * 397) ^ (DocDir ?? "").GetHashCode();
+                result = (result * 397) ^ Commands.GetSequencedHashCode();
                 result = (result * 397) ^ Dependencies.GetSequencedHashCode();
                 result = (result * 397) ^ Bindings.GetSequencedHashCode();
                 return result;

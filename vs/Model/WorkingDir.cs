@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -22,15 +22,12 @@ using System.Xml.Serialization;
 namespace ZeroInstall.Model
 {
     /// <summary>
-    /// Make a chosen <see cref="Model.Implementation"/> available by overlaying it onto another part of the file-system.
+    /// Switches the working directory of a process on startup to a location within an <see cref="Model.Implementation"/>.
     /// </summary>
-    /// <remarks>
-    /// <para>This is to support legacy programs which can't properly locate their installation directory.</para>
-    /// <para>Only the once instance of this binding type in a selection of <see cref="Model.Implementation"/>s (the last one to be processed) is effective. All others are ignored.</para>
-    /// </remarks>
+    /// <remarks>This is to support legacy programs which can't properly locate their installation directory.</remarks>
     [Serializable]
     [XmlType("working-dir", Namespace = Feed.XmlNamespace)]
-    public sealed class WorkingDirBinding : Binding, IEquatable<WorkingDirBinding>
+    public sealed class WorkingDir : XmlUnknown, ICloneable, IEquatable<WorkingDir>
     {
         #region Properties
         /// <summary>
@@ -41,42 +38,41 @@ namespace ZeroInstall.Model
         public string Source { get; set; }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Creates a new default working binding that switches to the implementation's root.
-        /// </summary>
-        public WorkingDirBinding()
-        {
-            Source = ".";
-        }
-        #endregion
-
         //--------------------//
 
         #region Conversion
         /// <summary>
-        /// Returns the binding in the form "WorkingDirBinding: Source". Not safe for parsing!
+        /// Returns the binding in the form "WorkingDir: Source". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return string.Format("WorkingDirBinding: {0}", Source);
+            return string.Format("WorkingDir: {0}", Source);
         }
         #endregion
 
         #region Clone
         /// <summary>
-        /// Creates a deep copy of this <see cref="WorkingDirBinding"/> instance.
+        /// Creates a deep copy of this <see cref="WorkingDir"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="WorkingDirBinding"/>.</returns>
-        public override Binding CloneBinding()
+        /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
+        public WorkingDir CloneWorkingDir()
         {
-            return new WorkingDirBinding { Source = Source };
+            return new WorkingDir {Source = Source};
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="WorkingDir"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="WorkingDir"/>.</returns>
+        public object Clone()
+        {
+            return CloneWorkingDir();
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(WorkingDirBinding other)
+        public bool Equals(WorkingDir other)
         {
             if (ReferenceEquals(null, other)) return false;
 
@@ -88,7 +84,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(WorkingDirBinding) && Equals((WorkingDirBinding)obj);
+            return obj.GetType() == typeof(WorkingDir) && Equals((WorkingDir)obj);
         }
 
         /// <inheritdoc/>

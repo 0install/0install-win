@@ -329,6 +329,45 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="bb7fb6f4-f12c-45a3-b97a-12a2854b6b88"
+            isDerived="false"
+            sourceEndRoleName="Selections"
+            targetEndRoleName="Command"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c99083f6-0046-4c6a-8548-56b35e89739d"
+              LastKnownName="Command"
+              LastKnownLocation="Package1_1629.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="977be1fc-e711-4cfc-a5d5-879df421833e"
+                  name="Selections"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="bd627538-2b99-4a4e-96c5-634a4a73b037"
+                  name="Command"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedAttributesInternal>
           <property

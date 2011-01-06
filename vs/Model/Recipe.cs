@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -38,7 +38,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Description("An ordered list of archives to extract.")]
         [XmlElement("archive", typeof(Archive))] // Note: explicit naming of XML tag can be removed once other RecipeStep types have been added
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<RecipeStep> Steps { get { return _steps; } }
 
         /// <summary>

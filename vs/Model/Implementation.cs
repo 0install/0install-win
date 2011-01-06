@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
         /// </summary>
         [Category("Retrieval"), Description("A list of archives as retrieval methods.")]
         [XmlElement(typeof(Archive)), XmlElement(typeof(Recipe))]
-        // Note: Can not use ICollection<T> interface with XML Serialization
+        // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<RetrievalMethod> RetrievalMethods { get { return _retrievalMethods; } }
         #endregion
 
@@ -47,7 +47,7 @@ namespace ZeroInstall.Model
 
         #region Simplify
         /// <summary>
-        /// Sets missing default values.
+        /// Sets missing default values and handles legacy elements.
         /// </summary>
         /// <remarks>This should be called to prepare an interface for launch.
         /// It should not be called if you plan on serializing the interface again since it will may some of its structure.</remarks>
