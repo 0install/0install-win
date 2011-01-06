@@ -74,10 +74,10 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string" />
       <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
-      <xs:element minOccurs="0" maxOccurs="1" name="runner" type="tns:dependency" />
+      <xs:element minOccurs="0" maxOccurs="1" name="runner" type="tns:runner" />
     </xs:sequence>
     <xs:attribute name="name" type="xs:string" use="optional" />
-    <xs:attribute name="path" type="xs:string" use="required" />
+    <xs:attribute name="path" type="xs:string" use="optional" />
   </xs:complexType>
   <xs:complexType name="working-dir">
     <xs:attribute name="src" type="xs:string" use="optional" />
@@ -92,6 +92,15 @@
     </xs:sequence>
     <xs:attribute name="interface" type="xs:string" use="required" />
     <xs:attribute name="use" type="xs:string" use="optional" />
+  </xs:complexType>
+  <xs:complexType name="runner">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:dependency">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="constraint">
     <xs:attribute name="not-before" type="xs:string" use="optional" />

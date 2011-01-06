@@ -28,7 +28,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("depedency", Namespace = Feed.XmlNamespace)]
-    public sealed class Dependency : XmlUnknown, IBindingContainer, ICloneable
+    public class Dependency : XmlUnknown, IBindingContainer, ICloneable
     {
         #region Properties
         /// <summary>
@@ -85,7 +85,7 @@ namespace ZeroInstall.Model
         /// Creates a deep copy of this <see cref="Dependency"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Dependency"/>.</returns>
-        public Dependency CloneDependency()
+        public virtual Dependency CloneDependency()
         {
             var dependency = new Dependency {Interface = Interface, Use = Use};
             foreach (var binding in Bindings) dependency.Bindings.Add(binding.CloneBinding());

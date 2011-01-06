@@ -60,6 +60,7 @@
     <Compile Include="EnvironmentBinding.cs" />
     <Compile Include="FeedReference.cs" />
     <Compile Include="Group.cs" />
+    <Compile Include="IArgsContainer.cs" />
     <Compile Include="IBindingContainer.cs" />
     <Compile Include="Design\IconConverter.cs" />
     <Compile Include="IDependencyContainer.cs" />
@@ -68,6 +69,7 @@
     <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Element.cs" />
+    <Compile Include="Runner.cs" />
     <Compile Include="VersionPart.cs" />
     <Compile Include="Feed.cs" />
     <Compile Include="Icon.cs" />

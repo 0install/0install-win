@@ -28,7 +28,7 @@ namespace ZeroInstall.Launcher.Solver
     {
         #region Helpers
         /// <summary>
-        /// Creates a <see cref="Selections"/> with a fictive test <see cref="ImplementationSelection"/>.
+        /// Creates a <see cref="Selections"/> with two implementations, one using the other as a runner.
         /// </summary>
         public static Selections CreateTestSelections()
         {

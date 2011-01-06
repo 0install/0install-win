@@ -61,7 +61,7 @@ namespace ZeroInstall.Launcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The archive contains invalid paths (potentially a security risk)..
+        ///   Looks up a localized string similar to The command has an invalid path (potentially a security risk)..
         /// </summary>
         internal static string CommandInvalidPath {
             get {
@@ -75,15 +75,6 @@ namespace ZeroInstall.Launcher.Properties {
         internal static string InvalidInterfaceID {
             get {
                 return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The following interface needs a main executable to be launched but none was specified: {0}.
-        /// </summary>
-        internal static string MissingMain {
-            get {
-                return ResourceManager.GetString("MissingMain", resourceCulture);
             }
         }
         

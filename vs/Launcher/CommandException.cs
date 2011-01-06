@@ -17,8 +17,6 @@
 
 using System;
 using System.Runtime.Serialization;
-using System.Security.Permissions;
-using ZeroInstall.Launcher.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Launcher
@@ -29,29 +27,17 @@ namespace ZeroInstall.Launcher
     [Serializable]
     public sealed class CommandException : Exception
     {
-        #region Properties
-        /// <summary>
-        /// The ID (URI or file path) of the interface that is missing a main executable.
-        /// </summary>
-        public string InterfaceID { get; private set; }
-        #endregion
-
         #region Constructor
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        /// <param name="interfaceID">The ID (URI or file path) of the interface that is missing a main executable.</param>
-        public CommandException(string interfaceID)
-            : base(string.Format(Resources.MissingMain, interfaceID))
-        {
-            InterfaceID = interfaceID;
-        }
+        public CommandException()
+        {}
 
         /// <summary>
         /// Creates a new missing main exception.
         /// </summary>
-        public CommandException()
-            : base(string.Format(Resources.MissingMain, "unknown"))
+        public CommandException(string message) : base(message)
         {}
 
         /// <summary>
@@ -64,28 +50,7 @@ namespace ZeroInstall.Launcher
         /// Deserializes an exception.
         /// </summary>
         private CommandException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-            #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
-            #endregion
-
-            InterfaceID = info.GetString("InterfaceID");
-        }
-        #endregion
-
-        #region Serialization
-        /// <inheritdoc/>
-        [SecurityPermission(SecurityAction.Demand, SerializationFormatter = true)]
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            #region Sanity checks
-            if (info == null) throw new ArgumentNullException("info");
-            #endregion
-
-            info.AddValue("InterfaceID", InterfaceID);
-
-            base.GetObjectData(info, context);
-        }
+        {}
         #endregion
     }
 }

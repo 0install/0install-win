@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("command", Namespace = Feed.XmlNamespace)]
-    public sealed class Command : XmlUnknown, IDependencyContainer, ICloneable, IEquatable<Command>
+    public sealed class Command : XmlUnknown, IArgsContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
         /// <summary>
@@ -66,9 +66,9 @@ namespace ZeroInstall.Model
         // Preserve order
         private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
         /// <summary>
-        /// A list of arguments to be passed to the executable.
+        /// A list of command-line arguments to be passed to the executable.
         /// </summary>
-        [Description("A list of arguments to be passed to the executable.")]
+        [Description("A list of command-line arguments to be passed to the executable.")]
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<string> Arguments { get { return _arguments; } }
@@ -96,7 +96,7 @@ namespace ZeroInstall.Model
         /// <remarks>Usefull for launching things like Java JARs or Python scripts.</remarks>
         [Description("An interface that needs be used as a runner for this command. Path is passed to that interface as an argument.")]
         [XmlElement("runner")]
-        public Dependency Runner { get; set; }
+        public Runner Runner { get; set; }
         #endregion
 
         //--------------------//
@@ -122,7 +122,7 @@ namespace ZeroInstall.Model
             foreach (var argument in Arguments) newCommand.Arguments.Add(argument);
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.CloneWorkingDir();
             foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.CloneDependency());
-            if (Runner != null) newCommand.Runner = Runner.CloneDependency();
+            if (Runner != null) newCommand.Runner = Runner.CloneRunner();
 
             return newCommand;
         }

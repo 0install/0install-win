@@ -115,21 +115,17 @@ namespace ZeroInstall.Launcher
             if (!string.IsNullOrEmpty(Main))
             {
                 string mainPath = StringUtils.UnifySlashes(Main);
-                if (mainPath[0] == Path.DirectorySeparatorChar)
-                { // Relative to implementation root
-                    mainPath = mainPath.TrimStart(Path.DirectorySeparatorChar);
+                mainPath = (mainPath[0] == Path.DirectorySeparatorChar)
+                    // Relative to implementation root
+                    ? mainPath.TrimStart(Path.DirectorySeparatorChar)
+                    // Relative to original command
+                    : Path.Combine(Path.GetDirectoryName(_selections.Commands[0].Path) ?? "", mainPath);
 
-                    // Replace list and keep only one command
-                    // TODO: Sure about this?
-                    commands = new C5.ArrayList<Command> {new Command {Path = mainPath}};
-                }
-                else
-                { // Relative to original command
-                    // Clone the list because it needs to be modified (don't want to change original selections)
-                    commands = (C5.ArrayList<Command>)commands.Clone();
+                // Clone the list because it needs to be modified (don't want to change original selections)
+                commands = (C5.ArrayList<Command>)commands.Clone();
 
-                    commands[0] = new Command {Path = Path.Combine(Path.GetDirectoryName(_selections.Commands[0].Path) ?? "", mainPath), Runner = _selections.Commands[0].Runner};
-                }
+                // Keep the original runner
+                commands[0] = new Command {Path = mainPath, Runner = _selections.Commands[0].Runner};
             }
 
             return commands;
@@ -149,14 +145,35 @@ namespace ZeroInstall.Launcher
 
             foreach (Command command in commands)
             {
-                string commandString = GetPath(_selections.GetImplementation(currentRunnerInterface), command);
-                if (command.Arguments.Count != 0) commandString += " " + StringUtils.Concatenate(command.Arguments, " ");
+                string commandString;
+                if (string.IsNullOrEmpty(command.Path))
+                { // If the command has no path it can only control its runner using arguments (see below)
+                    commandString = "";
+                }
+                else
+                { // The command's path (relative to the interface) and its arguments are combined
+                    commandString = GetPath(_selections.GetImplementation(currentRunnerInterface), command);
+                    if (!command.Arguments.IsEmpty) commandString += " " + StringUtils.Concatenate(command.Arguments, " ");
+                }
+
+                var runner = command.Runner;
+                if (runner != null)
+                {
+                    // Pass additional commands on to runner
+                    if (!runner.Arguments.IsEmpty)
+                    {
+                        // Only prepend whitespace if there is already something there
+                        if (!string.IsNullOrEmpty(commandString)) commandString = " " + commandString;
+                        
+                        commandString = StringUtils.Concatenate(runner.Arguments, " ") + commandString;
+                    }
+
+                    // Determine the interface the next command will refer to
+                    currentRunnerInterface = runner.Interface;
+                }
 
                 // Prepend the string to the command-line
                 commandLine = commandString + " " + commandLine;
-
-                // Determine the interface the next command will refer to
-                if (command.Runner != null) currentRunnerInterface = command.Runner.Interface;
             }
 
             return commandLine;
@@ -208,7 +225,7 @@ namespace ZeroInstall.Launcher
         {
             string path = StringUtils.UnifySlashes(command.Path);
 
-            if (string.IsNullOrEmpty(path) || Path.IsPathRooted(path) || path.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.CommandInvalidPath);
+            if (Path.IsPathRooted(path) || path.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.CommandInvalidPath);
 
             return "\"" + Path.Combine(GetImplementationPath(implementation), path) + "\"";
         }
@@ -274,22 +291,25 @@ namespace ZeroInstall.Launcher
         private static void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
         {
             var environmentVariables = startInfo.EnvironmentVariables;
-            string environmentValue = Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Value));
+            string environmentValue = Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Value ?? ""));
 
             if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
+            string newValue;
             switch (binding.Mode)
             {
+                default:
                 case EnvironmentMode.Prepend:
-                    environmentVariables[binding.Name] = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
+                    newValue = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
                     break;
                 case EnvironmentMode.Append:
-                    environmentVariables[binding.Name] += Path.PathSeparator + environmentValue;
+                    newValue = environmentVariables[binding.Name] + Path.PathSeparator + environmentValue;
                     break;
                 case EnvironmentMode.Replace:
-                    environmentVariables[binding.Name] = environmentValue;
+                    newValue = environmentValue;
                     break;
             }
+            environmentVariables[binding.Name] = newValue.Trim(Path.PathSeparator);
         }
         #endregion
     }
