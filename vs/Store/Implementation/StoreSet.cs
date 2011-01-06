@@ -40,7 +40,7 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Model.Implementation"/>s.
         /// </summary>
-        public C5.ISequenced<IStore> Stores { get { return _stores; } }
+        public IEnumerable<IStore> Stores { get { return _stores; } }
         #endregion
 
         #region Constructor
@@ -116,6 +116,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
@@ -148,6 +149,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
@@ -178,6 +180,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Find the first store the implementation can be added to (some might be write-protected)
@@ -206,15 +209,19 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest)
+        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             bool removed = false;
             foreach (IStore store in Stores)
             {
                 // Remove from every that contains the implementation
                 if (store.Contains(manifestDigest))
                 {
-                    store.Remove(manifestDigest);
+                    store.Remove(manifestDigest, handler);
                     removed = true;
                 }
             }
@@ -226,6 +233,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Optimise(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Try to optimize all contained stores
             foreach (IStore store in Stores)
             {
@@ -242,6 +253,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Verify in all contained stores
             foreach (IStore store in Stores)
                 store.Verify(manifestDigest, handler);
@@ -252,6 +267,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Try to audit all contained stores
             foreach (IStore store in Stores)
             {

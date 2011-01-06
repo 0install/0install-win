@@ -30,16 +30,6 @@ namespace ZeroInstall.Store.Service
     /// <remarks>The represented store data is mutable but the class itself is immutable.</remarks>
     public sealed class SecureStore : MarshalByRefObject, IStore
     {
-        #region Constructor
-        /// <summary>
-        /// Creates a new secure store.
-        /// </summary>
-        public SecureStore()
-        {}
-        #endregion
-
-        //--------------------//
-
         #region List all
         /// <inheritdoc />
         public IEnumerable<ManifestDigest> ListAll()
@@ -70,6 +60,7 @@ namespace ZeroInstall.Store.Service
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             throw new NotImplementedException();
@@ -82,6 +73,7 @@ namespace ZeroInstall.Store.Service
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             throw new NotImplementedException();
@@ -92,6 +84,7 @@ namespace ZeroInstall.Store.Service
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             throw new NotImplementedException();
@@ -100,8 +93,12 @@ namespace ZeroInstall.Store.Service
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest)
+        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             throw new NotImplementedException();
         }
         #endregion
@@ -110,6 +107,10 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         public void Optimise(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implemenet
         }
         #endregion
@@ -118,6 +119,10 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implemenet
         }
         #endregion
@@ -126,6 +131,10 @@ namespace ZeroInstall.Store.Service
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implemenet
             return null;
         }

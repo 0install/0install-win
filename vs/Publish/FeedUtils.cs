@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish
         }
         #endregion
 
-        #region Signature
+        #region Sign
         /// <summary>
         /// Adds a Base64 signature to a feed file and exports the appropriate public key file in the same directory.
         /// </summary>
@@ -62,7 +62,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed aswell. Old feed signatures are not removed.</remarks>
+        /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed as well. Old feed signatures are not removed.</remarks>
         public static void SignFeed(string path, string name, string passphrase)
         {
             #region Sanity checks
@@ -113,6 +113,24 @@ namespace ZeroInstall.Publish
         {
             // ToDo: Implement without reparsing
             Feed.Load(path).Save(path);
+        }
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        /// <param name="path">The feed file to verify.</param>
+        public static void VerifyFeed(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToVerifyNotFound, path);
+            #endregion
+
+            var gnuPG = new GnuPG();
+
+            // ToDo: Implement
         }
         #endregion
     }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2011 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ namespace Common
     #endregion
 
     /// <summary>
-    /// A background task that can report its progess via events and that can be cancelled.
+    /// A background task that can report its progess via events.
     /// </summary>
     public interface ITask
     {
@@ -66,6 +66,12 @@ namespace Common
         /// </summary>
         [Description("A name describing the task in human-readable form.")]
         string Name { get; }
+
+        /// <summary>
+        /// Indicates whether this task can be cancelled once it has been started.
+        /// </summary>
+        [Description("Indicates whether this task can be cancelled once it has been started.")]
+        bool CanCancel { get; }
 
         /// <summary>
         /// The current status of the task.

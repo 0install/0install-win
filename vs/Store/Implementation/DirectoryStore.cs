@@ -232,6 +232,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
@@ -321,8 +322,12 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest)
+        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             string path = GetPath(manifestDigest);
 
             // Remove write protection
@@ -333,8 +338,10 @@ namespace ZeroInstall.Store.Implementation
             // Move the directory to be deleted to a temporary directory to ensure the removal operation is atomic
             Directory.Move(path, tempDir);
 
-            // Actually delete the files
-            Directory.Delete(tempDir, true);
+            // Defer deleting to handler
+            handler.RunIOTask(new SimpleTask(
+                string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
+                () => Directory.Delete(tempDir, true)));
         }
         #endregion
 
@@ -342,6 +349,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Optimise(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // ToDo: Implemenet
         }
         #endregion
@@ -350,6 +361,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             VerifyDirectory(Path.Combine(DirectoryPath, manifestDigest.BestDigest), manifestDigest, handler);
         }
         #endregion
@@ -358,6 +373,10 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
         {
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
             // Iterate through all entries - their names are the expected digest values
             foreach (ManifestDigest digest in ListAll())
             {

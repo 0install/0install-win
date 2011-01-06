@@ -61,11 +61,38 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All checked implementations are fine..
+        /// </summary>
+        internal static string AllImplementationsOK {
+            get {
+                return ResourceManager.GetString("AllImplementationsOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete the {0} checked element(s) from the cache?.
         /// </summary>
         internal static string DeleteCheckedEntries {
             get {
                 return ResourceManager.GetString("DeleteCheckedEntries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete his entry from the cache?.
+        /// </summary>
+        internal static string DeleteEntry {
+            get {
+                return ResourceManager.GetString("DeleteEntry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implementation is fine..
+        /// </summary>
+        internal static string ImplementationOK {
+            get {
+                return ResourceManager.GetString("ImplementationOK", resourceCulture);
             }
         }
         
@@ -84,6 +111,24 @@ namespace ZeroInstall.Store.Management.WinForms.Properties {
         internal static string OpenInFileManager {
             get {
                 return ResourceManager.GetString("OpenInFileManager", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string Remove {
+            get {
+                return ResourceManager.GetString("Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Verify.
+        /// </summary>
+        internal static string Verify {
+            get {
+                return ResourceManager.GetString("Verify", resourceCulture);
             }
         }
         

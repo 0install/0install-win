@@ -117,6 +117,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             try { _serviceProxy.AddDirectory(path, manifestDigest, handler); }
@@ -135,6 +136,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             try { _serviceProxy.AddArchive(archiveInfo, manifestDigest, handler); }
@@ -151,6 +153,7 @@ namespace ZeroInstall.Store.Implementation
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             try { _serviceProxy.AddMultipleArchives(archiveInfos, manifestDigest, handler); }
@@ -165,9 +168,13 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest)
+        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
         {
-            try { _serviceProxy.Remove(manifestDigest); }
+            #region Sanity checks
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            try { _serviceProxy.Remove(manifestDigest, handler); }
             #region Error handling
             catch (RemotingException ex)
             {

@@ -75,6 +75,7 @@
     <Compile Include="ITask.cs" />
     <Compile Include="TaskState.cs" />
     <Compile Include="TaskBase.cs" />
+    <Compile Include="SimpleTask.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaInputStream.cs" />
     <Compile Include="Net\DownloadManager.cs" />

@@ -120,8 +120,11 @@
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>Die Archivdatei ist ungültig oder beschädigt.</value>
   </data>
-  <data name="ArchiveInvalidPath">
+  <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>Das Archiv enthält ungültige Pfade (möglicherweise ein Sicherheitsrisiko).</value>
+  </data>
+  <data name="DeletingImplementation" xml:space="preserve">
+    <value>Lösche Implementierung {0}</value>
   </data>
   <data name="DigestMismatch" xml:space="preserve">
     <value>Der Manifest-Hash einer Implementierung entspricht nicht dem erwarteten Wert!

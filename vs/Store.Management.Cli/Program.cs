@@ -232,7 +232,7 @@ namespace ZeroInstall.Store.Management.Cli
                     return ErrorLevel.OK;
 
                 case "remove":
-                    Remove(args);
+                    Remove(args, handler);
                     return ErrorLevel.OK;
 
                 case "list":
@@ -293,13 +293,13 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine(StoreProvider.Default.GetPath(new ManifestDigest(args[1])));
         }
 
-        private static void Remove(IList<string> args)
+        private static void Remove(IList<string> args, IIOHandler handler)
         {
             if (args.Count < 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageRemove));
 
             for (int i = 1; i < args.Count; i++)
             {
-                StoreProvider.Default.Remove(new ManifestDigest(args[i]));
+                StoreProvider.Default.Remove(new ManifestDigest(args[i]), handler);
                 Log.Info("Successfully removed " + args[i]);
             }
         }

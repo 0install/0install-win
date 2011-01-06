@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NanoByte")]
 [assembly: AssemblyProduct("Helper functions")]
-[assembly: AssemblyCopyright("Copyright 2006-2010 Bastian Eicher")]
+[assembly: AssemblyCopyright("Copyright 2006-2011 Bastian Eicher")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Always default version

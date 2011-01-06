@@ -176,7 +176,7 @@ Actual value: {1}</value>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
   </data>
-  <data name="ArchiveInvalidPath">
+  <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>The archive contains invalid paths (potentially a security risk).</value>
   </data>
   <data name="UnknownMimeType" xml:space="preserve">
@@ -205,5 +205,8 @@ Actual value: {1}</value>
 Feed URL: {0}
 Old time: {1}
 New time: {2}</value>
+  </data>
+  <data name="DeletingImplementation" xml:space="preserve">
+    <value>Deleting implementation {0}</value>
   </data>
 </root>

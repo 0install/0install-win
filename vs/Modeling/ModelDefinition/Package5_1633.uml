@@ -520,12 +520,43 @@
           </operation>
           <operation
             Id="06558b03-76ee-41b6-98e1-6d11c950c9c3"
-            name="Remove(manifestDigest : ManifestDigest"
+            name="Remove"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1f259810-91f8-43b1-a6f7-d9197eddcd4d"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="d276b016-3dc4-4498-814c-7e14e1fc04f1"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IIOHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="a6278523-b9ed-4817-9e21-5282f97704cb"
             name="Optimise"
@@ -1364,7 +1395,7 @@
           </operation>
           <operation
             Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada"
-            name="Remove(manifestDigest : ManifestDigest"
+            name="Remove"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -1413,6 +1444,36 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="036fae3f-7a91-4c11-8d6f-2e5330c40401"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IIOHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
           </operation>
           <operation
             Id="f89e7976-1c66-46e5-bc6e-a1f87cbd85bb"
@@ -4275,12 +4336,43 @@
           </operation>
           <operation
             Id="1b0acd48-a64d-493a-a201-2e7072c9246f"
-            name="Remove(manifestDigest : ManifestDigest"
+            name="Remove"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4e4ee3ca-1874-429b-8d6d-637da005f6c8"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="155eadc7-7026-43ef-9c57-2bda4490e326"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IIOHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="4d66945c-521e-4450-a5a8-bb8bec772715"
             name="Optimise"
@@ -4849,12 +4941,43 @@
           </operation>
           <operation
             Id="e7b4be6e-445d-4064-ac6e-ceb41c56e4f6"
-            name="Remove(manifestDigest : ManifestDigest"
+            name="Remove"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
             concurrency="Sequential"
-            isQuery="false" />
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="1834614e-9c05-4f88-b4af-d15312ea49ce"
+                  name="manifestDigest"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <undefinedTypeMoniker
+                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
+                      LastKnownName="ManifestDigest"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="ba848a3c-254d-4135-8b16-6e065e460c39"
+                  name="handler"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="IIOHandler"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
           <operation
             Id="cb40f131-d9f5-4097-b4ff-c22de385042d"
             name="Optimise"

@@ -24,14 +24,13 @@ using System;
 using System.IO;
 using System.Net;
 using System.Threading;
-using Common.Properties;
 
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that implement <see cref="ITask"/> and can be cancelled.
+    /// A delegate-driven task that cannot be cancelled. Only completion is reported, no intermediate progress.
     /// </summary>
-    public abstract class TaskBase : MarshalByRefObject, ITask
+    public sealed class SimpleTask : MarshalByRefObject, ITask
     {
         #region Events
         /// <inheritdoc />
@@ -45,79 +44,64 @@ namespace Common
         }
 
         /// <inheritdoc />
-        public event TaskEventHandler ProgressChanged;
-
-        private void OnProgressChanged()
-        {
-            // Copy to local variable to prevent threading issues
-            TaskEventHandler progressChanged = ProgressChanged;
-            if (progressChanged != null) progressChanged(this);
-        }
+        public event TaskEventHandler ProgressChanged { add {} remove {} }
         #endregion
 
         #region Variables
         /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switching.</summary>
-        protected readonly object StateLock = new object();
+        private readonly object _stateLock = new object();
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
-        protected readonly Thread Thread;
+        private readonly Thread _thread;
+
+        private readonly SimpleEventHandler _task;
         #endregion
 
         #region Properties
         /// <inheritdoc />
-        public abstract string Name { get; }
+        public string Name { get; private set; }
 
         /// <inheritdoc />
-        public bool CanCancel { get { return true; } }
+        public bool CanCancel { get { return false; } }
 
         private TaskState _state;
         /// <inheritdoc />
         public TaskState State
         {
-            get { return _state; } protected set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
+            get { return _state; } private set { UpdateHelper.Do(ref _state, value, OnStateChanged); }
         }
 
         /// <inheritdoc />
-        public string ErrorMessage { get; protected set; }
-
-        private long _bytesReceived;
-        /// <inheritdoc />
-        public long BytesProcessed
-        {
-            get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); }
-        }
-
-        private long _bytesTotal;
-        /// <inheritdoc />
-        public long BytesTotal
-        {
-            get { return _bytesTotal; }
-            protected set { UpdateHelper.Do(ref _bytesTotal, value, OnProgressChanged); }
-        }
+        public string ErrorMessage { get; private set; }
 
         /// <inheritdoc />
-        public double Progress
-        {
-            get
-            {
-                switch (BytesTotal)
-                {
-                    case -1: return -1;
-                    case 0: return 1;
-                    default: return BytesProcessed / (double)BytesTotal;
-                }
-            }
-        }
+        public long BytesProcessed { get { return -1; } }
+
+        /// <inheritdoc />
+        public long BytesTotal { get { return -1; } }
+
+        /// <inheritdoc />
+        public double Progress { get { return -1; } }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Prepares a new background thread for executing a task.
+        /// Creates a new simple task.
         /// </summary>
-        protected TaskBase()
+        /// <param name="name">A name describing the task in human-readable form.</param>
+        /// <param name="task">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
+        public SimpleTask(string name, SimpleEventHandler task)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (task == null) throw new ArgumentNullException("task");
+            #endregion
+
+            Name = name;
+            _task = task;
+
             // Prepare the background thread for later execution
-            Thread = new Thread(RunTask);
+            _thread = new Thread(RunTask);
         }
         #endregion
 
@@ -127,71 +111,89 @@ namespace Common
         /// <inheritdoc/>
         public void Start()
         {
-            lock (StateLock)
+            lock (_stateLock)
             {
                 if (State != TaskState.Ready) return;
 
                 State = TaskState.Started;
-                Thread.Start();
+                _thread.Start();
             }
         }
 
         /// <inheritdoc/>
         public void RunSync()
         {
-            // Still use threads so cancel request from other threads will work
-            lock (StateLock)
+            try { _task(); }
+            #region Error handling
+            catch (WebException ex)
             {
-                if (State != TaskState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
-
-                State = TaskState.Started;
-                Thread.Start();
+                State = TaskState.WebError;
+                ErrorMessage = ex.Message;
+                throw;
             }
-
-            Thread.Join();
-
-            lock (StateLock)
+            catch (IOException ex)
             {
-                switch (State)
-                {
-                    case TaskState.Complete:
-                        return;
-
-                    case TaskState.WebError:
-                        State = TaskState.Ready;
-                        throw new WebException(ErrorMessage);
-
-                    case TaskState.IOError:
-                        State = TaskState.Ready;
-                        throw new IOException(ErrorMessage);
-
-                    default:
-                        State = TaskState.Ready;
-                        throw new UserCancelException();
-                }
+                State = TaskState.WebError;
+                ErrorMessage = ex.Message;
+                throw;
             }
+            catch (UserCancelException)
+            {
+                State = TaskState.Ready;
+                throw;
+            }
+            #endregion
         }
 
         /// <inheritdoc />
         public void Join()
         {
-            lock (StateLock)
+            lock (_stateLock)
             {
-                if (Thread == null || !Thread.IsAlive) return;
+                if (_thread == null || !_thread.IsAlive) return;
             }
 
-            Thread.Join();
+            _thread.Join();
         }
 
         /// <inheritdoc />
-        public abstract void Cancel();
+        public void Cancel()
+        {
+            throw new NotSupportedException("Task can not be cancelled.");
+        }
         #endregion
 
         #region Thread code
         /// <summary>
         /// The actual code to be executed by a background thread.
         /// </summary>
-        protected abstract void RunTask();
+        private void RunTask()
+        {
+            lock(_stateLock) State = TaskState.Header;
+
+            try { _task(); }
+            #region Error handling
+            catch (WebException ex)
+            {
+                State = TaskState.WebError;
+                ErrorMessage = ex.Message;
+                return;
+            }
+            catch (IOException ex)
+            {
+                State = TaskState.WebError;
+                ErrorMessage = ex.Message;
+                return;
+            }
+            catch (UserCancelException)
+            {
+                State = TaskState.Ready;
+                return;
+            }
+            #endregion
+            
+            lock (_stateLock) State = TaskState.Complete;
+        }
         #endregion
     }
 }

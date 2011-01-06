@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using NUnit.Mocks;
+using ZeroInstall.Launcher;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 
@@ -37,6 +38,7 @@ namespace ZeroInstall.Store.Implementation
         private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo { Path = "path1" };
         private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo { Path = "path2" };
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] { _archive1, _archive2 };
+        private static readonly IIOHandler _handler = new SilentHandler();
 
         private DynamicMock _mock1, _mock2;
 
@@ -137,25 +139,25 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddDirectoryFirst()
         {
-            _mock1.Expect("AddDirectory", "path", _digest1, null);
+            _mock1.Expect("AddDirectory", "path", _digest1, _handler);
             _mock2.ExpectNoCall("AddDirectory"); // Only add once
-            TestStore.AddDirectory("path", _digest1, null);
+            TestStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectorySecond()
         {
-            _mock1.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, null);
-            _mock2.Expect("AddDirectory", "path", _digest1, null);
-            TestStore.AddDirectory("path", _digest1, null);
+            _mock1.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
+            _mock2.Expect("AddDirectory", "path", _digest1, _handler);
+            TestStore.AddDirectory("path", _digest1, _handler);
         }
 
         [Test]
         public void TestAddDirectoryFail()
         {
-            _mock1.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, null);
-            _mock2.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, null);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddDirectory("path", _digest1, null), "Should pass through fatal exceptions");
+            _mock1.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
+            _mock2.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
+            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -163,49 +165,49 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddArchiveFirst()
         {
-            _mock1.Expect("AddArchive", _archive1, _digest1, null);
+            _mock1.Expect("AddArchive", _archive1, _digest1, _handler);
             _mock2.ExpectNoCall("AddArchive"); // Only add once
-            TestStore.AddArchive(_archive1, _digest1, null);
+            TestStore.AddArchive(_archive1, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchiveSecond()
         {
-            _mock1.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, null);
-            _mock2.Expect("AddArchive", _archive1, _digest1, null);
-            TestStore.AddArchive(_archive1, _digest1, null);
+            _mock1.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
+            _mock2.Expect("AddArchive", _archive1, _digest1, _handler);
+            TestStore.AddArchive(_archive1, _digest1, _handler);
         }
 
         [Test]
         public void TestAddArchiveFail()
         {
-            _mock1.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, null);
-            _mock2.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, null);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddArchive(_archive1, _digest1, null), "Should pass through fatal exceptions");
+            _mock1.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
+            _mock2.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
+            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddArchive(_archive1, _digest1, _handler), "Should pass through fatal exceptions");
         }
 
         [Test]
         public void TestAddMultipleArchivesFirst()
         {
-            _mock1.Expect("AddMultipleArchives", _archives, _digest1, null);
+            _mock1.Expect("AddMultipleArchives", _archives, _digest1, _handler);
             _mock2.ExpectNoCall("AddMultipleArchives"); // Only add once
-            TestStore.AddMultipleArchives(_archives, _digest1, null);
+            TestStore.AddMultipleArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddMultipleArchivesSecond()
         {
-            _mock1.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, null);
-            _mock2.Expect("AddMultipleArchives", _archives, _digest1, null);
-            TestStore.AddMultipleArchives(_archives, _digest1, null);
+            _mock1.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
+            _mock2.Expect("AddMultipleArchives", _archives, _digest1, _handler);
+            TestStore.AddMultipleArchives(_archives, _digest1, _handler);
         }
 
         [Test]
         public void TestAddMultipleArchivesFail()
         {
-            _mock1.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, null);
-            _mock2.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, null);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddMultipleArchives(_archives, _digest1, null), "Should pass through fatal exceptions");
+            _mock1.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
+            _mock2.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
+            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddMultipleArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -217,7 +219,7 @@ namespace ZeroInstall.Store.Implementation
             _mock1.Expect("Remove");
             _mock2.ExpectAndReturn("Contains", true, _digest1);
             _mock2.Expect("Remove");
-            TestStore.Remove(_digest1);
+            TestStore.Remove(_digest1, _handler);
         }
 
         [Test]
@@ -227,7 +229,7 @@ namespace ZeroInstall.Store.Implementation
             _mock1.ExpectNoCall("Remove");
             _mock2.ExpectAndReturn("Contains", true, _digest1);
             _mock2.Expect("Remove");
-            TestStore.Remove(_digest1);
+            TestStore.Remove(_digest1, _handler);
         }
 
         [Test]
@@ -237,7 +239,7 @@ namespace ZeroInstall.Store.Implementation
             _mock1.ExpectNoCall("Remove");
             _mock2.ExpectAndReturn("Contains", false, _digest1);
             _mock2.ExpectNoCall("Remove");
-            Assert.Throws<ImplementationNotFoundException>(() => TestStore.Remove(_digest1), "Should report if none of the stores contained the implementation");
+            Assert.Throws<ImplementationNotFoundException>(() => TestStore.Remove(_digest1, _handler), "Should report if none of the stores contained the implementation");
         }
         #endregion
 
@@ -245,9 +247,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestOptimise()
         {
-            _mock1.ExpectAndThrow("Optimise", new UnauthorizedAccessException(), null);
-            _mock2.Expect("Optimise", null);
-            TestStore.Optimise(null);
+            _mock1.ExpectAndThrow("Optimise", new UnauthorizedAccessException(), _handler);
+            _mock2.Expect("Optimise", _handler);
+            TestStore.Optimise(_handler);
         }
         #endregion
 
@@ -255,9 +257,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestVerify()
         {
-            _mock1.Expect("Verify", _digest1, null);
-            _mock2.Expect("Verify", _digest1, null);
-            TestStore.Verify(_digest1, null);
+            _mock1.Expect("Verify", _digest1, _handler);
+            _mock2.Expect("Verify", _digest1, _handler);
+            TestStore.Verify(_digest1, _handler);
         }
         #endregion
 
@@ -267,11 +269,11 @@ namespace ZeroInstall.Store.Implementation
         {
             var problem1 = new DigestMismatchException("Problem 1");
             var problem2 = new DigestMismatchException("Problem 2");
-            _mock1.ExpectAndReturn("Audit", new[] {problem1}, null);
-            _mock2.ExpectAndReturn("Audit", new[] {problem2}, null);
+            _mock1.ExpectAndReturn("Audit", new[] {problem1}, _handler);
+            _mock2.ExpectAndReturn("Audit", new[] {problem2}, _handler);
 
             // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(TestStore.Audit(null));
+            var problems = new List<DigestMismatchException>(TestStore.Audit(_handler));
             CollectionAssert.AreEquivalent(new[] {problem1, problem2}, problems, "Should combine results from all stores");
         }
 
@@ -279,11 +281,11 @@ namespace ZeroInstall.Store.Implementation
         public void TestAuditPartial()
         {
             var problem = new DigestMismatchException("Problem 1");
-            _mock1.ExpectAndReturn("Audit", null, null);
-            _mock2.ExpectAndReturn("Audit", new[] {problem}, null);
+            _mock1.ExpectAndReturn("Audit", null, _handler);
+            _mock2.ExpectAndReturn("Audit", new[] {problem}, _handler);
 
             // Copy the result into a list to force the enumerator to run through
-            var problems = new List<DigestMismatchException>(TestStore.Audit(null));
+            var problems = new List<DigestMismatchException>(TestStore.Audit(_handler));
             CollectionAssert.AreEquivalent(new[] {problem}, problems, "Should combine results from all stores");
         }
         #endregion

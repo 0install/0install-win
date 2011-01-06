@@ -82,12 +82,13 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Deletes this implementation from the <see cref="IStore"/> it is located in.
         /// </summary>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching implementation could be found in the <see cref="IStore"/>.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        public override void Delete()
+        public override void Delete(IIOHandler handler)
         {
-            try { _store.Remove(_digest); }
+            try { _store.Remove(_digest, handler); }
             #region Error handling
             catch (ImplementationNotFoundException ex)
             {
@@ -116,12 +117,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             return new ContextMenu(new[]
             {
                 new MenuItem(Resources.OpenInFileManager, delegate { Process.Start(_store.GetPath(_digest)); }),
-                new MenuItem("Verify", delegate
+                new MenuItem(Resources.Verify, delegate
                 {
                     try
                     {
                         Verify(_parent);
-                        Msg.Inform(_parent, "Implementation is fine.", MsgSeverity.Info);
+                        Msg.Inform(_parent, Resources.ImplementationOK, MsgSeverity.Info);
                     }
                     #region Error handling
                     catch (UserCancelException)
@@ -147,11 +148,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
                     }
                     #endregion
                 }),
-                new MenuItem("Remove", delegate
+                new MenuItem(Resources.Remove, delegate
                 {
-                    if (Msg.Ask(_parent, "Delete entry", MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    if (Msg.Ask(_parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
                     {
-                        try { Delete(); }
+                        try { Delete(_parent); }
                         #region Error handling
                         catch (KeyNotFoundException ex)
                         {

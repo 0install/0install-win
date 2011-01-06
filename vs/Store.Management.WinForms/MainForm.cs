@@ -177,7 +177,7 @@ namespace ZeroInstall.Store.Management.WinForms
             try
             {
                 foreach (StoreNode entry in _treeView.CheckedEntries)
-                    entry.Delete();
+                    entry.Delete(this);
             }
             #region Error handling
             catch (KeyNotFoundException ex)
@@ -228,7 +228,7 @@ namespace ZeroInstall.Store.Management.WinForms
             }
             #endregion
 
-            Msg.Inform(this, "All checked implementations are fine.", MsgSeverity.Info);
+            Msg.Inform(this, Resources.AllImplementationsOK, MsgSeverity.Info);
         }
 
         private void buttonRefresh_Click(object sender, EventArgs e)

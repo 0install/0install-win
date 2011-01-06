@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2011 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -48,12 +48,20 @@ namespace Common.Controls
 
             InitializeComponent();
             buttonCancel.Text = Resources.Cancel;
+            buttonCancel.Visible = task.CanCancel;
             Text = task.Name;
             Icon = icon;
 
             // Start and stop the task with the dialog
             Shown += delegate { task.Start(); };
-            FormClosing += delegate { task.Cancel(); };
+            FormClosing += delegate(object sender, FormClosingEventArgs e)
+            {
+                if (task.State < TaskState.Complete)
+                {
+                    if (task.CanCancel) task.Cancel(); 
+                    else e.Cancel = true;
+                }
+            };
 
             // Hook up event tracking
             trackingProgressBar.Task = task;

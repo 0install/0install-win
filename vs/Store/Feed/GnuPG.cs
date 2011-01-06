@@ -19,8 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
-using Common;
 using Common.Cli;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -121,6 +121,30 @@ namespace ZeroInstall.Store.Feed
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
             Execute(arguments, passphrase, ErrorHandler);
+        }
+        #endregion
+
+        #region Verify
+        /// <summary>
+        /// ToDo
+        /// </summary>
+        /// <param name="signature"></param>
+        /// <param name="data"></param>
+        public void Verify(string signature, string data)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(signature)) throw new ArgumentNullException("signature");
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
+            string result;
+            using (var signatureFile = new TemporaryFile("0install-sig"))
+            {
+                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
+                result = Execute(arguments, data, ErrorHandler);
+            }
+
+            // ToDo: Implement
         }
         #endregion
 

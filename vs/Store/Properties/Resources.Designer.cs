@@ -79,6 +79,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting implementation {0}.
+        /// </summary>
+        internal static string DeletingImplementation {
+            get {
+                return ResourceManager.GetString("DeletingImplementation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An implementation&apos;s manifest hash doesn&apos;t match the expected value!
         ///Expected value: {0}
         ///Actual value: {1}.

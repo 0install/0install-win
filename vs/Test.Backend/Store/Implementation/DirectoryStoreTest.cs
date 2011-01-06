@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementation
             var store = _store;
             store.AddDirectory(_packageDir, digest, new SilentHandler());
             Assert.IsTrue(store.Contains(digest), "After adding, Store must contain the added package");
-            store.Remove(digest);
+            store.Remove(digest, new SilentHandler());
             Assert.IsFalse(store.Contains(digest), "After remove, Store may no longer contain the added package");
         }
 
