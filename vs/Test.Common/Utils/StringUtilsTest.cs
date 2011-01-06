@@ -76,14 +76,24 @@ namespace Common.Utils
             Assert.AreEqual("line1\r\nline2", StringUtils.Concatenate(new[] { "line1", "line2" }, "\r\n"));
         }
 
-        /// <summary>
-        /// Ensures <see cref="StringUtils.GetLeftPartAtLastOccurrence"/> works correctly.
-        /// </summary>
         [Test]
-        public void TestGetLeftPartAtLastOccurrence()
+        public void TestGetLeftRightPartChar()
         {
-            Assert.AreEqual("This is a sentence", StringUtils.GetLeftPartAtLastOccurrence("This is a sentence. And another once", '.'));
-            Assert.AreEqual("some words", StringUtils.GetLeftPartAtLastOccurrence("some words", '.'));
+            const string testString = "text1 text2 text3";
+            Assert.AreEqual("text1", StringUtils.GetLeftPartAtFirstOccurrence(testString, ' '));
+            Assert.AreEqual("text2 text3", StringUtils.GetRightPartAtFirstOccurrence(testString, ' '));
+            Assert.AreEqual("text1 text2", StringUtils.GetLeftPartAtLastOccurrence(testString, ' '));
+            Assert.AreEqual("text3", StringUtils.GetRightPartAtLastOccurrence(testString, ' '));
+        }
+
+        [Test]
+        public void TestGetLeftRightPartString()
+        {
+            const string testString = "text1 - text2 - text3";
+            Assert.AreEqual("text1", StringUtils.GetLeftPartAtFirstOccurrence(testString, " - "));
+            Assert.AreEqual("text2 - text3", StringUtils.GetRightPartAtFirstOccurrence(testString, " - "));
+            Assert.AreEqual("text1 - text2", StringUtils.GetLeftPartAtLastOccurrence(testString, " - "));
+            Assert.AreEqual("text3", StringUtils.GetRightPartAtLastOccurrence(testString, " - "));
         }
     }
 }

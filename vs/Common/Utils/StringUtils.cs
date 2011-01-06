@@ -260,6 +260,7 @@ namespace Common.Utils
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
+            if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
             int index = sourceText.IndexOf(str);
@@ -273,10 +274,11 @@ namespace Common.Utils
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
+            if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
             int index = sourceText.IndexOf(str);
-            return index == -1 ? "" : sourceText.Substring(index + 1);
+            return index == -1 ? "" : sourceText.Substring(index + str.Length);
         }
 
         /// <summary>
@@ -286,6 +288,7 @@ namespace Common.Utils
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
+            if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
             int index = sourceText.LastIndexOf(str);
@@ -299,10 +302,11 @@ namespace Common.Utils
         {
             #region Sanity checks
             if (sourceText == null) throw new ArgumentNullException("sourceText");
+            if (string.IsNullOrEmpty(str)) throw new ArgumentNullException("str");
             #endregion
 
             int index = sourceText.LastIndexOf(str);
-            return index == -1 ? sourceText : sourceText.Substring(index + 1);
+            return index == -1 ? sourceText : sourceText.Substring(index + str.Length);
         }
         #endregion
 
