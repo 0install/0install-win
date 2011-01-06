@@ -585,7 +585,7 @@ namespace ZeroInstall.Publish.WinForms
             saveFileDialog.FileName = _feedEditing.Path;
             if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
             {
-                SaveFeed(_feedEditing.Path);
+                SaveFeed(saveFileDialog.FileName);
                 return true;
             }
             return false;
