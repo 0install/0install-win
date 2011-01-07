@@ -62,13 +62,6 @@ namespace ZeroInstall.Launcher
         public void TestExceptions()
         {
             Assert.Throws<ArgumentException>(() => new Executor(new Selections(), TestStore), "Empty selections should be rejected");
-
-            var executor = new Executor(new Selections
-            {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml",
-                Implementations = {ImplementationSelectionTest.CreateTestImplementation1()}, Commands = {new Command {Path = "../../outside"}}
-            }, TestStore);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(""), "Commands pointing out of the implementation should be rejected");
         }
 
         /// <summary>
