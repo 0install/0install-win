@@ -47,6 +47,11 @@ namespace ZeroInstall.Launcher
         public IFetcher Fetcher { get; private set; }
 
         /// <summary>
+        /// The name of the command in the implementation to execute. Will default to <see cref="Command.NameRun"/> if unset.
+        /// </summary>
+        public string CommandName { get; set; }
+
+        /// <summary>
         /// The architecture to find executables for. Find for the current system if left at default value.
         /// </summary>
         public Architecture Architecture { get; set; }

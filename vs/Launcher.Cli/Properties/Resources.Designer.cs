@@ -88,6 +88,15 @@ namespace ZeroInstall.Launcher.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program&apos;s interface..
+        /// </summary>
+        internal static string OptionCommand {
+            get {
+                return ResourceManager.GetString("OptionCommand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forces the solver to target the CPU {CPU}.
         ///Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64.
         /// </summary>

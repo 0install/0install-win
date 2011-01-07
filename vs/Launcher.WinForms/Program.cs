@@ -173,6 +173,7 @@ namespace ZeroInstall.Launcher.WinForms
                 {"V|version", unused => mode = OperationMode.Version},
 
                 // Policy options
+                {"command=", command => parseResults.Policy.CommandName = command},
                 {"before=", version => parseResults.Policy.Constraint.BeforeVersion = new ImplementationVersion(version)},
                 {"not-before=", version => parseResults.Policy.Constraint.NotBeforeVersion = new ImplementationVersion(version)},
                 {"s|source", unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},

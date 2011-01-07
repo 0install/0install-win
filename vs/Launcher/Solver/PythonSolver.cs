@@ -105,6 +105,7 @@ namespace ZeroInstall.Launcher.Solver
             string arguments = "";
             if (policy.FeedManager.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.FeedManager.Refresh) arguments += "--refresh ";
+            if (policy.CommandName != null) arguments += "--command=\"" + policy.CommandName + "\" ";
             if (policy.Constraint.BeforeVersion != null) arguments += "--before=" + policy.Constraint.BeforeVersion + " ";
             if (policy.Constraint.NotBeforeVersion != null) arguments += "--not-before=" + policy.Constraint.NotBeforeVersion + " ";
             if (policy.Architecture.Cpu == Cpu.Source) arguments += "--source ";

@@ -182,7 +182,7 @@ Supported values: Linux, Solaris, MacOSX, Windows</value>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
-  <data name="OptionsVerbose">
+  <data name="OptionsVerbose" xml:space="preserve">
     <value>More verbose output. Use twice for even more verbose output.</value>
   </data>
   <data name="OptionWithStore" xml:space="preserve">
@@ -218,11 +218,14 @@ Try 0launch --help</value>
   <data name="NotImplemented" xml:space="preserve">
     <value>This feature is not implemented yet.</value>
   </data>
-  <data name="UnknownOption">
-    <value><![CDATA[Unknown option.
-Try 0launch --help]]></value>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Unknown option.
+Try 0launch --help</value>
   </data>
-  <data name="Usage">
+  <data name="Usage" xml:space="preserve">
     <value>Usage:</value>
+  </data>
+  <data name="OptionCommand" xml:space="preserve">
+    <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.</value>
   </data>
 </root>
