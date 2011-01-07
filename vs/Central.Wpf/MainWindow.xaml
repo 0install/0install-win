@@ -85,7 +85,7 @@
 			<Grid x:Name="gConHelp" Margin="-3,0,0,0" Visibility="Visible" d:IsHidden="True">
 				<Image HorizontalAlignment="Left" Height="95" Margin="21,22,0,0" Source="Resources/Icon.png" Stretch="Fill" VerticalAlignment="Top" Width="96"/>
 				<TextBlock HorizontalAlignment="Left" Margin="136,34,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="21.333"><Run Language="de-de" Text="Zero Install"/></TextBlock>
-				<TextBlock HorizontalAlignment="Left" Margin="136,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Foreground="#FF505050"><Run Language="de-de" Text="0.51.1"/></TextBlock>
+				<TextBlock HorizontalAlignment="Left" Margin="136,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="14.667" Foreground="#FF505050"><Run Language="de-de" Text="0.51.2"/></TextBlock>
 			</Grid>
 			<Grid x:Name="gConApplications" Margin="-3,0,0,-1">
 				<DataGrid x:Name="dgApplications" Grid.Row="1" SelectionMode="Single" AlternationCount="2" ItemsSource="{Binding AppInfosFiltered}" HorizontalGridLinesBrush="{x:Null}" VerticalGridLinesBrush="{x:Null}" AutoGenerateColumns="False" RowStyle="{DynamicResource DataGridRowStyle1}" Background="#FFE4E4E4" BorderBrush="{x:Null}" BorderThickness="0" GridLinesVisibility="None" IsReadOnly="True" HorizontalScrollBarVisibility="Disabled">

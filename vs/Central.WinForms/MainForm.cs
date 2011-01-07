@@ -42,6 +42,8 @@ namespace ZeroInstall.Central.WinForms
             tabControlApps.SelectedTab = tabPageNewApps;
 
             browserNewApps.Navigate(Resources.AppstoreUri);
+
+            labelVersion.Text = "v" + Application.ProductVersion;
         }
         #endregion
 

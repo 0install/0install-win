@@ -41,6 +41,7 @@
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
+            this.labelVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.tabControlApps.SuspendLayout();
             this.tabPageMyApps.SuspendLayout();
@@ -70,7 +71,7 @@
             this.tabControlApps.Location = new System.Drawing.Point(14, 90);
             this.tabControlApps.Name = "tabControlApps";
             this.tabControlApps.SelectedIndex = 0;
-            this.tabControlApps.Size = new System.Drawing.Size(756, 357);
+            this.tabControlApps.Size = new System.Drawing.Size(756, 347);
             this.tabControlApps.TabIndex = 0;
             // 
             // tabPageMyApps
@@ -79,7 +80,7 @@
             this.tabPageMyApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageMyApps.Name = "tabPageMyApps";
             this.tabPageMyApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMyApps.Size = new System.Drawing.Size(748, 324);
+            this.tabPageMyApps.Size = new System.Drawing.Size(748, 314);
             this.tabPageMyApps.TabIndex = 0;
             this.tabPageMyApps.Text = "My applications";
             this.tabPageMyApps.UseVisualStyleBackColor = true;
@@ -159,7 +160,7 @@
             this.groupBoxTools.Controls.Add(this.buttonCacheManagement);
             this.groupBoxTools.Controls.Add(this.buttonLaunchInterface);
             this.groupBoxTools.Controls.Add(this.buttonHelp);
-            this.groupBoxTools.Location = new System.Drawing.Point(14, 464);
+            this.groupBoxTools.Location = new System.Drawing.Point(14, 445);
             this.groupBoxTools.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.groupBoxTools.Name = "groupBoxTools";
             this.groupBoxTools.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
@@ -189,6 +190,16 @@
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
             // 
+            // labelVersion
+            // 
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.AutoSize = true;
+            this.labelVersion.Location = new System.Drawing.Point(714, 533);
+            this.labelVersion.Name = "labelVersion";
+            this.labelVersion.Size = new System.Drawing.Size(56, 20);
+            this.labelVersion.TabIndex = 2;
+            this.labelVersion.Text = "vX.Y.Z";
+            // 
             // MainForm
             // 
             this.AllowDrop = true;
@@ -196,6 +207,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(784, 562);
+            this.Controls.Add(this.labelVersion);
             this.Controls.Add(this.groupBoxTools);
             this.Controls.Add(this.tabControlApps);
             this.Controls.Add(this.pictureBoxLogo);
@@ -221,6 +233,7 @@
             this.toolStripNewApps.PerformLayout();
             this.groupBoxTools.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -238,6 +251,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonBack;
         private System.Windows.Forms.Label labelNotAvailableYet;
         private System.Windows.Forms.Button buttonCacheManagement;
+        private System.Windows.Forms.Label labelVersion;
 
     }
 }
