@@ -604,6 +604,54 @@
                 LastKnownLocation="Package1_1629.uml" />
             </type_NamedElement>
           </property>
+          <property
+            Id="c96a6fa4-ad5a-414a-94e8-4fa6f147b8d4"
+            name="Languages"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <lowerValueInternal>
+              <literalString
+                Id="9940d226-8737-4cbc-805a-023e6394f618"
+                name="Lower"
+                value="*'" />
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString
+                Id="fe250238-fca4-4677-8925-897c382b8cc0"
+                name="Upper"
+                value="*'" />
+            </upperValueInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="72c0e744-8aca-45e3-9467-38045690f9ec"
+            name="CommandName"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
         </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation

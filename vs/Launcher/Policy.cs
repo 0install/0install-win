@@ -47,8 +47,9 @@ namespace ZeroInstall.Launcher
         public IFetcher Fetcher { get; private set; }
 
         /// <summary>
-        /// The name of the command in the implementation to execute. Will default to <see cref="Command.NameRun"/> if unset.
+        /// The name of the command in the implementation to execute.
         /// </summary>
+        /// <remarks>Will default to <see cref="Command.NameRun"/> if <see langword="null"/>. Will remove all commands if set to <see cref="string.Empty"/>.</remarks>
         public string CommandName { get; set; }
 
         /// <summary>

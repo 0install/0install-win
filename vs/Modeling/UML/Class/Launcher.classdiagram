@@ -1330,7 +1330,7 @@
                                 </operationHasOwnedParameters>
                               </ownedParameters>
                             </operation>
-                            <operation Id="6286b83a-c19e-4248-b145-7c3a639c1af0" name="Remove(manifestDigest : ManifestDigest" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                            <operation Id="6286b83a-c19e-4248-b145-7c3a639c1af0" name="Remove" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                               <appliedStereotypesInternal>
                                 <stereotypeInstance Id="b606d375-40cf-459e-95e9-1646637e593b" name="method" profile="CSharpProfile">
                                   <elementDefinition Id="5f92339c-2b03-4913-af3f-af5ebcf10165" />
@@ -1369,6 +1369,24 @@
                                 </stereotypeInstance>
                               </appliedStereotypesInternal>
                               <elementDefinition Id="a65aa020-a7f1-44a3-aec1-e21bd73bfada" />
+                              <ownedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="45fc7fc5-e509-481a-b124-0d6445373eb1" name="manifestDigest" direction="In" isUnique="false">
+                                    <elementDefinition Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9" />
+                                    <type_NamedElement>
+                                      <referencedTypeMoniker Id="5ea654ca-2358-4a61-bf6a-9ad823492c31" LastKnownName="ManifestDigest" />
+                                    </type_NamedElement>
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                                <operationHasOwnedParameters>
+                                  <parameter Id="7e824d3f-bd5c-4b2d-9ec5-6478a129a4ea" name="handler" direction="In" isUnique="false">
+                                    <elementDefinition Id="036fae3f-7a91-4c11-8d6f-2e5330c40401" />
+                                    <type_NamedElement>
+                                      <referencedTypeMoniker Id="8f7cd397-2978-4fe6-9000-c96e396343ac" LastKnownName="IIOHandler" />
+                                    </type_NamedElement>
+                                  </parameter>
+                                </operationHasOwnedParameters>
+                              </ownedParameters>
                             </operation>
                             <operation Id="bfb61cc9-6794-41c7-8c79-ed71f764c18e" name="Optimise" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                               <appliedStereotypesInternal>
@@ -3626,6 +3644,28 @@
                         <elementDefinition Id="c1b00f34-0a48-42a4-a783-480a8e8135be" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="a6407e95-bc31-4390-ad34-fd32ec99dd12" LastKnownName="Constraint" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="9ee2f599-de3f-420a-b296-04508d07fe19" name="Languages" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <lowerValueInternal>
+                          <literalString Id="a575fad0-eb3b-45d2-87e3-965b1b2e6e33" name="Lower" value="*'">
+                            <elementDefinition Id="9940d226-8737-4cbc-805a-023e6394f618" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="11fede02-2775-43b4-8676-6fbf378f652b" name="Upper" value="*'">
+                            <elementDefinition Id="fe250238-fca4-4677-8925-897c382b8cc0" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="c96a6fa4-ad5a-414a-94e8-4fa6f147b8d4" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="997eb726-0302-4c56-ae5c-059019db3366" LastKnownName="String" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="6b5b947b-a995-4e82-9be1-0d20456cec12" name="CommandName" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="72c0e744-8aca-45e3-9467-38045690f9ec" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="997eb726-0302-4c56-ae5c-059019db3366" LastKnownName="String" />
                         </type_NamedElement>
                       </property>
                     </ownedAttributesInternal>
