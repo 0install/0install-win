@@ -99,6 +99,9 @@ namespace ZeroInstall.Launcher
 
             ApplyBindings(startInfo);
 
+            if (!MonoUtils.IsUnix)
+                startInfo.Arguments = StringUtils.ExpandUnixVariables(startInfo.Arguments, startInfo.EnvironmentVariables);
+
             return startInfo;
         }
         #endregion
@@ -153,7 +156,7 @@ namespace ZeroInstall.Launcher
                 else
                 { // The command's path (relative to the interface) and its arguments are combined
                     commandString = GetPath(_selections.GetImplementation(currentRunnerInterface), command);
-                    if (!command.Arguments.IsEmpty) commandString += " " + StringUtils.Concatenate(command.Arguments, " ");
+                    if (!command.Arguments.IsEmpty) commandString += " " + StringUtils.Concatenate(command.Arguments, " ", '"');
                 }
 
                 var runner = command.Runner;
@@ -164,8 +167,8 @@ namespace ZeroInstall.Launcher
                     {
                         // Only prepend whitespace if there is already something there
                         if (!string.IsNullOrEmpty(commandString)) commandString = " " + commandString;
-                        
-                        commandString = StringUtils.Concatenate(runner.Arguments, " ") + commandString;
+
+                        commandString = StringUtils.Concatenate(runner.Arguments, " ", '"') + commandString;
                     }
 
                     // Determine the interface the next command will refer to
@@ -225,7 +228,8 @@ namespace ZeroInstall.Launcher
         {
             string path = StringUtils.UnifySlashes(command.Path);
 
-            if (Path.IsPathRooted(path) || path.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.CommandInvalidPath);
+            // Fully qualified paths are used by package/native implementatinos
+            if (Path.IsPathRooted(path)) return "\"" + path + "\"";
 
             return "\"" + Path.Combine(GetImplementationPath(implementation), path) + "\"";
         }

@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("runner", Namespace = Feed.XmlNamespace)]
-    public class Runner : Dependency, IArgsContainer
+    public class Runner : Dependency, IArgsContainer, IEquatable<Runner>
     {
         #region Properties
         // Preserve order

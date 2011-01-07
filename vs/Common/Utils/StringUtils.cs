@@ -22,6 +22,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Text;
@@ -184,6 +185,33 @@ namespace Common.Utils
         }
 
         /// <summary>
+        /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="parts"/>.
+        /// </summary>
+        /// <param name="parts">The strings to be combines.</param>
+        /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
+        /// <param name="escapeEnclosure">A character to place around parts that contain <paramref name="separator"/>.</param>
+        public static string Concatenate(IEnumerable<string> parts, string separator, char escapeEnclosure)
+        {
+            #region Sanity checks
+            if (parts == null) throw new ArgumentNullException("parts");
+            #endregion
+
+            var output = new StringBuilder();
+            bool first = true;
+            foreach (var part in parts)
+            {
+                // No separator before first or after last line
+                if (first) first = false;
+                else output.Append(separator);
+
+                if (part.Contains(separator)) output.Append("\"" + part + "\"");
+                else output.Append(part);
+            }
+
+            return output.ToString();
+        }
+
+        /// <summary>
         /// Get everything to the left of the first occurrence of a character.
         /// </summary>
         public static string GetLeftPartAtFirstOccurrence(string sourceText, char ch)
@@ -319,6 +347,54 @@ namespace Common.Utils
             if (value >= 1024)
                 return string.Format(CultureInfo.CurrentCulture, "{0:0.00}", value / 1024f) + " KB";
             return value + " Bytes";
+        }
+        #endregion
+
+        #region Unix paths
+        /// <summary>
+        /// Expands/substitutes any Unix-style environment variables in the string.
+        /// </summary>
+        /// <param name="value">The string containing variables to be expanded.</param>
+        /// <param name="variables">The list of variables available for expansion.</param>
+        public static string ExpandUnixVariables(string value, StringDictionary variables)
+        {
+            var expandedArguments = new StringBuilder();
+            StringBuilder currentVarName = null;
+            for (int i = 0; i < value.Length; i++)
+            {
+                if (value[i] == '$')
+                {
+                    if (currentVarName != null) expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables));
+                    currentVarName = new StringBuilder();
+                }
+                else
+                {
+                    if (currentVarName == null) expandedArguments.Append(value[i]);
+                    else
+                    {
+                        if (value[i] == ' ' || value[i] == '\t' || value[i] == '/')
+                        {
+                            expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables) + value[i]);
+                            currentVarName = null;
+                        }
+                        else currentVarName.Append(value[i]);
+                    }
+                }
+            }
+            if (currentVarName != null) expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables));
+
+            return expandedArguments.ToString();
+        }
+
+        /// <summary>
+        /// Helper method for <see cref="ExpandUnixVariables"/>.
+        /// </summary>
+        private static string ExpandVariable(string name, StringDictionary variables)
+        {
+            if (!variables.ContainsKey(name)) return "$" + name;
+            string expanded = variables[name];
+            if (expanded.Contains(" ")) expanded = "\"" + expanded + "\"";
+            return expanded;
         }
         #endregion
     }

@@ -61,15 +61,6 @@ namespace ZeroInstall.Launcher.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The command has an invalid path (potentially a security risk)..
-        /// </summary>
-        internal static string CommandInvalidPath {
-            get {
-                return ResourceManager.GetString("CommandInvalidPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http:&apos; and isn&apos;t a an absolute local path either..
         /// </summary>
         internal static string InvalidInterfaceID {

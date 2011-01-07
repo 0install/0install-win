@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.Collections.Specialized;
 using NUnit.Framework;
 
 namespace Common.Utils
@@ -66,14 +67,12 @@ namespace Common.Utils
             Assert.AreEqual("words", StringUtils.GetLastWord("some words"));
         }
 
-        /// <summary>
-        /// Ensures <see cref="StringUtils.Concatenate"/> works correctly.
-        /// </summary>
         [Test]
-        public void TestBuildStringFromLines()
+        public void TestConcatenate()
         {
-            Assert.AreEqual("line1", StringUtils.Concatenate(new[] { "line1" }, "\r\n"));
-            Assert.AreEqual("line1\r\nline2", StringUtils.Concatenate(new[] { "line1", "line2" }, "\r\n"));
+            Assert.AreEqual("part1", StringUtils.Concatenate(new[] { "part1" }, " "));
+            Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] { "part1", "part2" }, " "));
+            Assert.AreEqual("\"part1 part2\" part3", StringUtils.Concatenate(new[] { "part1 part2", "part3" }, " ", '"'));
         }
 
         [Test]
@@ -94,6 +93,18 @@ namespace Common.Utils
             Assert.AreEqual("text2 - text3", StringUtils.GetRightPartAtFirstOccurrence(testString, " - "));
             Assert.AreEqual("text1 - text2", StringUtils.GetLeftPartAtLastOccurrence(testString, " - "));
             Assert.AreEqual("text3", StringUtils.GetRightPartAtLastOccurrence(testString, " - "));
+        }
+
+        [Test]
+        public void TestExpandUnixVariables()
+        {
+            var variables = new StringDictionary
+            {
+                {"key1", "value1"},
+                {"key2", "value2"}
+            };
+
+            Assert.AreEqual("value1value2/value1 value2", StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2", variables));
         }
     }
 }
