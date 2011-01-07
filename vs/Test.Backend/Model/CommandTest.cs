@@ -39,7 +39,7 @@ namespace ZeroInstall.Model
                 {
                     Interface = "http://0install.de/feeds/test/test2.xml", Arguments = { "--runner" }
                 },
-                WorkingDir = new WorkingDir()
+                WorkingDir = new WorkingDir {Source = "bin"}
             };
         }
         

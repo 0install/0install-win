@@ -138,4 +138,10 @@
   <data name="SolverProblem" xml:space="preserve">
     <value>The solver encountered an unexpected problem.</value>
   </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>The working directory contains an invalid paths (potentially a security risk).</value>
+  </data>
+  <data name="WokringDirDuplicate" xml:space="preserve">
+    <value>The working directory has already been changed by a previous command.</value>
+  </data>
 </root>

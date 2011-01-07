@@ -138,4 +138,10 @@
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>
   </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>Das Arbeitsverzeichnis enthält einen ungültigen Pfad (möglicherweise ein Sicherheitsrisiko).</value>
+  </data>
+  <data name="WokringDirDuplicate" xml:space="preserve">
+    <value>Das Arbeitsverzeichnis wurde bereits von einem vorangehenden Command geändert.</value>
+  </data>
 </root>

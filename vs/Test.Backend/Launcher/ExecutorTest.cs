@@ -62,6 +62,12 @@ namespace ZeroInstall.Launcher
         public void TestExceptions()
         {
             Assert.Throws<ArgumentException>(() => new Executor(new Selections(), TestStore), "Empty selections should be rejected");
+
+            var selections = SelectionsTest.CreateTestSelections();
+            selections.Commands[1].WorkingDir = new WorkingDir();
+            _storeMock.SetReturnValue("GetPath", "test path");
+            var executor = new Executor(selections, TestStore);
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(""), "Multiple WorkingDir changes should be rejected");
         }
 
         /// <summary>
@@ -76,6 +82,7 @@ namespace ZeroInstall.Launcher
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
 
             var executor = new Executor(selections, TestStore);
             var startInfo = executor.GetStartInfo("--custom");
@@ -85,6 +92,7 @@ namespace ZeroInstall.Launcher
             Assert.AreEqual(
                 selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + Path.Combine("test1 path", StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments);
+            Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
         }
@@ -101,6 +109,7 @@ namespace ZeroInstall.Launcher
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
 
             var executor = new Executor(selections, TestStore);
             var startInfo = executor.GetStartInfo("--custom");
@@ -110,6 +119,7 @@ namespace ZeroInstall.Launcher
             Assert.AreEqual(
                 selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " --custom",
                 startInfo.Arguments);
+            Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
         }
@@ -126,6 +136,7 @@ namespace ZeroInstall.Launcher
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
 
             var executor = new Executor(selections, TestStore) {Wrapper = "wrapper --wrapper"};
             var startInfo = executor.GetStartInfo("--custom");
@@ -133,6 +144,7 @@ namespace ZeroInstall.Launcher
             Assert.AreEqual(
                 "--wrapper \"" + Path.Combine("test2 path", StringUtils.UnifySlashes(selections.Commands[1].Path)) + "\" " + selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + Path.Combine("test1 path", StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments);
+            Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
         }
@@ -149,11 +161,13 @@ namespace ZeroInstall.Launcher
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
 
             var executor = new Executor(selections, TestStore) {Main = "main"};
             var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(Path.Combine("test2 path", StringUtils.UnifySlashes(selections.Commands[1].Path)), startInfo.FileName);
             Assert.AreEqual(selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + StringUtils.PathCombine("test1 path", "dir 1", "main") + "\" --custom", startInfo.Arguments);
+            Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
         }
@@ -170,6 +184,7 @@ namespace ZeroInstall.Launcher
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
             _storeMock.ExpectAndReturn("GetPath", "test2 path", selections.Implementations[1].ManifestDigest);
+            _storeMock.ExpectAndReturn("GetPath", "test1 path", selections.Implementations[0].ManifestDigest);
 
             var executor = new Executor(selections, TestStore) {Main = "/main"};
             var startInfo = executor.GetStartInfo("--custom");
@@ -179,6 +194,7 @@ namespace ZeroInstall.Launcher
             Assert.AreEqual(
                 selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + StringUtils.PathCombine("test1 path", "main") + "\" --custom",
                 startInfo.Arguments);
+            Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
         }

@@ -143,7 +143,7 @@ namespace ZeroInstall.Launcher
         {
             string commandLine = "";
 
-            // The firts command alaways refers to the actual interface to be launched
+            // The firts command always refers to the actual interface to be launched
             string currentRunnerInterface = _selections.InterfaceID;
 
             foreach (Command command in commands)
@@ -239,7 +239,7 @@ namespace ZeroInstall.Launcher
         /// <summary>
         /// Applies <see cref="Binding"/>s allowing the launched program to locate <see cref="ImplementationSelection"/>s.
         /// </summary>
-        /// <param name="startInfo">The programs environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The program environment to apply the  <see cref="Binding"/>s to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Model.Implementation"/> is not cached yet.</exception>
         private void ApplyBindings(ProcessStartInfo startInfo)
         {
@@ -250,28 +250,39 @@ namespace ZeroInstall.Launcher
 
                 // Apply bindings implementations use to find their dependencies
                 foreach (var dependency in implementation.Dependencies)
-                    ApplyBindings(startInfo, dependency, _selections.GetImplementation(dependency.Interface));
+                    ApplyBindings(startInfo, _selections.GetImplementation(dependency.Interface), dependency);
             }
+
+            // The firts command always refers to the actual interface to be launched
+            string currentRunnerInterface = _selections.InterfaceID;
 
             foreach (var command in _selections.Commands)
             {
                 // Apply bindings commands use to find their dependencies
                 foreach (var dependency in command.Dependencies)
-                    ApplyBindings(startInfo, dependency, _selections.GetImplementation(dependency.Interface));
+                    ApplyBindings(startInfo, _selections.GetImplementation(dependency.Interface), dependency);
 
+                // Apply bindings commands use to find their runners
                 if (command.Runner != null)
-                    ApplyBindings(startInfo, command.Runner, _selections.GetImplementation(command.Runner.Interface));
+                    ApplyBindings(startInfo, _selections.GetImplementation(command.Runner.Interface), command.Runner);
+
+                if (command.WorkingDir != null)
+                    ApplyWorkingDir(startInfo, _selections.GetImplementation(currentRunnerInterface), command.WorkingDir);
+
+                // Determine the interface the next command will refer to
+                var runner = command.Runner;
+                if (runner != null) currentRunnerInterface = runner.Interface;
             }
         }
 
         /// <summary>
         /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
         /// </summary>
-        /// <param name="startInfo">The programs environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The program environment to apply the <see cref="Binding"/>s to.</param>
+        /// <param name="implementation">The implementation to be made available via the <see cref="Binding"/>s.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
-        /// <param name="implementation">The <see cref="ImplementationSelection"/> to be made locatable via the <see cref="Binding"/>s.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        private void ApplyBindings(ProcessStartInfo startInfo, IBindingContainer bindingContainer, ImplementationSelection implementation)
+        private void ApplyBindings(ProcessStartInfo startInfo, ImplementationSelection implementation, IBindingContainer bindingContainer)
         {
             if (bindingContainer.Bindings.IsEmpty) return;
 
@@ -292,6 +303,12 @@ namespace ZeroInstall.Launcher
             }
         }
 
+        /// <summary>
+        /// Applies an <see cref="EnvironmentBinding"/> to the <see cref="ProcessStartInfo"/>.
+        /// </summary>
+        /// <param name="startInfo">The program environment to apply the <see cref="Binding"/> to.</param>
+        /// <param name="implementationDirectory">The implementation to be made available via the <see cref="EnvironmentBinding"/>.</param>
+        /// <param name="binding">The binding to apply.</param>
         private static void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
         {
             var environmentVariables = startInfo.EnvironmentVariables;
@@ -314,6 +331,26 @@ namespace ZeroInstall.Launcher
                     break;
             }
             environmentVariables[binding.Name] = newValue.Trim(Path.PathSeparator);
+        }
+
+        /// <summary>
+        /// Applies a <see cref="WorkingDir"/> change to the <see cref="ProcessStartInfo"/>.
+        /// </summary>
+        /// <param name="startInfo">The program environment to apply the <see cref="WorkingDir"/> change to.</param>
+        /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
+        /// <param name="workingDir">The <see cref="WorkingDir"/> to apply.</param>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
+        /// <exception cref="CommandException">Thrown if the <paramref name="workingDir"/> has an invalid path or another working directory has already been set.</exception>
+        /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo"/>.</remarks>
+        private void ApplyWorkingDir(ProcessStartInfo startInfo, ImplementationSelection implementation, WorkingDir workingDir)
+        {
+            string source = StringUtils.UnifySlashes(workingDir.Source) ?? "";
+            if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.WorkingDirInvalidPath);
+
+            // Only allow working directory to be changed once
+            if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new CommandException(Resources.WokringDirDuplicate);
+
+            startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
         }
         #endregion
     }

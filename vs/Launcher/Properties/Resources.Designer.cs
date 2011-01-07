@@ -122,5 +122,23 @@ namespace ZeroInstall.Launcher.Properties {
                 return ResourceManager.GetString("SolverProblem", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The working directory has already been changed by a previous command..
+        /// </summary>
+        internal static string WokringDirDuplicate {
+            get {
+                return ResourceManager.GetString("WokringDirDuplicate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The working directory contains an invalid paths (potentially a security risk)..
+        /// </summary>
+        internal static string WorkingDirInvalidPath {
+            get {
+                return ResourceManager.GetString("WorkingDirInvalidPath", resourceCulture);
+            }
+        }
     }
 }
