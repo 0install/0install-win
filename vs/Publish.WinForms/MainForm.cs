@@ -509,19 +509,10 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="toPath">Path to save.</param>
         private void SaveFeed(string toPath)
         {
-            SaveFeedTab();
             SaveAdvancedTab();
 
             _feedEditing.Save(toPath);
             SignFeed(toPath);
-        }
-
-        /// <summary>
-        /// Saves the values from <see cref="tabPageFeed"/>.
-        /// </summary>
-        private static void SaveFeedTab()
-        {
-            // the feed structure objects will be saved directly into _feedEditing.Feed => no extra saving needed.
         }
 
         /// <summary>
