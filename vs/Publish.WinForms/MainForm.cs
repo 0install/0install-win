@@ -25,13 +25,11 @@ using Common.Controls;
 using Common.Undo;
 using Common.Utils;
 using ZeroInstall.Model;
-using System.Drawing;
-using System.Net;
-using System.Drawing.Imaging;
 using ZeroInstall.Publish.WinForms.FeedStructure;
 using ZeroInstall.Store.Feed;
 using Binding = ZeroInstall.Model.Binding;
 using ZeroInstall.Publish.WinForms.Controls;
+using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -46,7 +44,6 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Constants
         private const string FeedFileFilter = "Zero Install Feed (*.xml)|*.xml|All Files|*.*";
-        private readonly ImageFormat[] _supportedImageFormats = new[] {ImageFormat.Png, ImageFormat.Icon};
         private readonly string[] _supportedInjectorVersions = new[] { string.Empty, "0.31", "0.32", "0.33", "0.34",
             "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43", "0.44", "0.45"};
         #endregion
@@ -75,7 +72,6 @@ namespace ZeroInstall.Publish.WinForms
         {
             InitializeSaveFileDialog();
             InitializeLoadFileDialog();
-            InitializeComboBoxIconType();
             InitializeTreeViewFeedStructure();
             InitializeFeedStructureButtons();
             InitializeComboBoxMinInjectorVersion();
@@ -100,14 +96,6 @@ namespace ZeroInstall.Publish.WinForms
             if (_feedEditing.Path != null) openFileDialog.InitialDirectory = _feedEditing.Path;
             openFileDialog.DefaultExt = ".xml";
             openFileDialog.Filter = FeedFileFilter;
-        }
-
-        /// <summary>
-        /// Adds the supported <see cref="ImageFormat"/>s to <see cref="comboBoxIconType"/>.
-        /// </summary>
-        private void InitializeComboBoxIconType()
-        {
-            comboBoxIconType.Items.AddRange(_supportedImageFormats);
         }
 
         /// <summary>
@@ -184,7 +172,7 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(summariesControl, () => _feedEditing.Feed.Summaries);
             SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Descriptions);
             SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
-            
+            SetupCommandHooks(iconManagementControl, () => _feedEditing.Feed.Icons);
             SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersion, value => _feedEditing.Feed.MinInjectorVersion = (value == null ? null : value.ToString()));
         }
 
@@ -400,6 +388,18 @@ namespace ZeroInstall.Publish.WinForms
                 localizableTextControl.Values = getCollection();
             };
         }
+
+        private void SetupCommandHooks(IconManagementControl iconManagementControl, SimpleResult<C5.ArrayList<Icon>> getCollection)
+        {
+            iconManagementControl.IconUrls.ItemInserted +=(sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
+            
+            iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
+
+            Populate += delegate
+                            {
+                                iconManagementControl.IconUrls = getCollection();
+                            };
+        }
         #endregion
 
         #region Toolbar
@@ -509,21 +509,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="toPath">Path to save.</param>
         private void SaveFeed(string toPath)
         {
-            SaveGeneralTab();
             SaveFeedTab();
             SaveAdvancedTab();
 
             _feedEditing.Save(toPath);
             SignFeed(toPath);
-        }
-
-        /// <summary>
-        /// Saves the values from <see cref="tabPageGeneral"/>.
-        /// </summary>
-        private void SaveGeneralTab()
-        {
-            _feedEditing.Feed.Icons.Clear();
-            foreach (Model.Icon icon in listBoxIconsUrls.Items) _feedEditing.Feed.Icons.Add(icon);
         }
 
         /// <summary>
@@ -647,21 +637,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             ResetFormControls();
 
-            FillGeneralTab();
             FillFeedTab();
             FillAdvancedTab();
-        }
-
-        /// <summary>
-        /// Fills the <see cref="tabPageGeneral"/> with the values from a <see cref="ZeroInstall.Model.Feed"/>.
-        /// </summary>
-        private void FillGeneralTab()
-        {
-            // fill icons list box
-            listBoxIconsUrls.BeginUpdate();
-            listBoxIconsUrls.Items.Clear();
-            foreach (var icon in _feedEditing.Feed.Icons) listBoxIconsUrls.Items.Add(icon);
-            listBoxIconsUrls.EndUpdate();
         }
 
         /// <summary>
@@ -696,21 +673,8 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void ResetFormControls()
         {
-            ResetGeneralTabControls();
             ResetFeedTabControls();
             ResetAdvancedTabControls();
-        }
-
-        /// <summary>
-        /// Sets all controls on <see cref="tabPageGeneral"/> to default values.
-        /// </summary>
-        private void ResetGeneralTabControls()
-        {
-            hintTextBoxIconUrl.ResetText();
-            comboBoxIconType.SelectedIndex = 0;
-            pictureBoxIconPreview.Image = null;
-            listBoxIconsUrls.Items.Clear();
-            lblIconUrlError.ResetText();
         }
 
         /// <summary>
@@ -735,169 +699,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Tabs
-
-        #region General Tab
-
-        #region Icon Group
-
-        /// <summary>
-        /// Tries to download the image with the url from <see cref="hintTextBoxIconUrl"/> and shows it in <see cref="pictureBoxIconPreview"/>.
-        /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxIconType"/>.
-        /// Error messages will be shown in <see cref="lblIconUrlError"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnIconPreviewClick(object sender, EventArgs e)
-        {
-            Uri iconUrl;
-            Image icon;
-            lblIconUrlError.Text = "Downloading image for preview...";
-            lblIconUrlError.ForeColor = Color.Black;
-            // check url
-            if (!Feed.IsValidUrl(hintTextBoxIconUrl.Text, out iconUrl)) return;
-
-            // try downloading image
-            try
-            {
-                icon = GetImageFromUrl(iconUrl);
-            }
-            catch (WebException ex)
-            {
-                lblIconUrlError.ForeColor = Color.Red;
-                switch (ex.Status)
-                {
-                    case WebExceptionStatus.ConnectFailure:
-                        lblIconUrlError.Text = "File not found on the web server.";
-                        break;
-                    default:
-                        lblIconUrlError.Text = "Couldn't download image.";
-                        break;
-                }
-                return;
-            }
-            catch (ArgumentException)
-            {
-                lblIconUrlError.ForeColor = Color.Red;
-                lblIconUrlError.Text = "URL does not describe an image.";
-                return;
-            }
-
-            if (!IsIconFormatSupported(icon.RawFormat))
-            {
-                lblIconUrlError.ForeColor = Color.Red;
-                lblIconUrlError.Text = "Image format not supported by 0install.";
-                return;
-            }
-
-            lblIconUrlError.Text = "Image downloaded.";
-            comboBoxIconType.SelectedItem = icon.RawFormat;
-            pictureBoxIconPreview.Image = icon;
-        }
-
-        private static Image GetImageFromUrl(Uri url)
-        {
-            var fileRequest = (HttpWebRequest) WebRequest.Create(url);
-            var fileReponse = (HttpWebResponse) fileRequest.GetResponse();
-            Stream stream = fileReponse.GetResponseStream();
-            return Image.FromStream(stream);
-        }
-
-        /// <summary>
-        /// Checks if the <see cref="ImageFormat"/> is supported by 0install.
-        /// </summary>
-        /// <param name="toCheck"><see cref="ImageFormat"/> to check.</param>
-        /// <returns>true, if supported, else false.</returns>
-        private static bool IsIconFormatSupported(ImageFormat toCheck)
-        {
-            var supportedImageFormats = new C5.HashSet<ImageFormat>() {ImageFormat.Png, ImageFormat.Icon};
-            return supportedImageFormats.Contains(toCheck);
-        }
-
-        /// <summary>
-        /// Adds the url from <see cref="hintTextBoxIconUrl"/> and the chosen mime type in <see cref="comboBoxIconType"/>
-        /// to <see cref="listBoxIconsUrls"/> if the url is a valid url.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnIconListAddClick(object sender, EventArgs e)
-        {
-            Uri uri;
-            if (!Feed.IsValidUrl(hintTextBoxIconUrl.Text, out uri)) return;
-            var icon = new Model.Icon {Location = uri};
-
-            var imageMimeTypes = new C5.HashDictionary<Guid, string>
-                                     {
-                                         {ImageFormat.Png.Guid, "image/png"},
-                                         {ImageFormat.Icon.Guid, "image/vnd-microsoft-icon"}
-                                     };
-            icon.MimeType = imageMimeTypes[((ImageFormat) comboBoxIconType.SelectedItem).Guid];
-
-            if (!listBoxIconsUrls.Items.Contains(icon)) listBoxIconsUrls.Items.Add(icon);
-        }
-
-        /// <summary>
-        /// Removes chosen image url in <see cref="listBoxIconsUrls"/> from the list.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnIconListRemoveClick(object sender, EventArgs e)
-        {
-            var icon = listBoxIconsUrls.SelectedItem;
-            if (listBoxIconsUrls.SelectedItem == null) return;
-            listBoxIconsUrls.Items.Remove(icon);
-        }
-
-        /// <summary>
-        /// Replaces the text and the icon type of <see cref="hintTextBoxIconUrl"/> and <see cref="comboBoxIconType"/> with the text and the icon type from the chosen entry.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ListIconsUrlsSelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxIconsUrls.SelectedItem == null) return;
-
-            var icon = (Model.Icon) listBoxIconsUrls.SelectedItem;
-            hintTextBoxIconUrl.Text = icon.LocationString;
-
-            switch (icon.MimeType)
-            {
-                case null:
-                    comboBoxIconType.Text = String.Empty;
-                    break;
-                case "image/png":
-                    comboBoxIconType.SelectedItem = ImageFormat.Png;
-                    break;
-                case "image/vnd-microsoft-icon":
-                    comboBoxIconType.SelectedItem = ImageFormat.Icon;
-                    break;
-                default:
-                    comboBoxIconType.SelectedText = "unsupported";
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Checks if the text in <see cref="hintTextBoxIconUrl"/> is a valid url and enables the <see cref="buttonIconPreview"/> if true and disables it if false.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void TextIconUrlTextChanged(object sender, EventArgs e)
-        {
-            if (Feed.IsValidUrl(hintTextBoxIconUrl.Text))
-            {
-                hintTextBoxIconUrl.ForeColor = Color.Green;
-                buttonIconPreview.Enabled = true;
-            }
-            else
-            {
-                hintTextBoxIconUrl.ForeColor = Color.Red;
-                buttonIconPreview.Enabled = false;
-            }
-        }
-
-        #endregion
-
-        #endregion
 
         #region Feed Tab
 

@@ -62,16 +62,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textHomepage = new Common.Controls.UriTextBox();
             this.labelHomepage = new System.Windows.Forms.Label();
             this.groupBoxIcon = new System.Windows.Forms.GroupBox();
-            this.labelIconUrl = new System.Windows.Forms.Label();
-            this.comboBoxIconType = new System.Windows.Forms.ComboBox();
-            this.hintTextBoxIconUrl = new Common.Controls.HintTextBox();
-            this.lblIconUrlError = new System.Windows.Forms.Label();
-            this.labelIconMimeType = new System.Windows.Forms.Label();
-            this.buttonIconPreview = new System.Windows.Forms.Button();
-            this.buttonIconRemove = new System.Windows.Forms.Button();
-            this.pictureBoxIconPreview = new System.Windows.Forms.PictureBox();
-            this.buttonIconAdd = new System.Windows.Forms.Button();
-            this.listBoxIconsUrls = new System.Windows.Forms.ListBox();
             this.labelCategories = new System.Windows.Forms.Label();
             this.textName = new Common.Controls.HintTextBox();
             this.labelProgramName = new System.Windows.Forms.Label();
@@ -105,11 +95,11 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
+            this.iconManagementControl = new IconManagementControl();
             this.toolStrip.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).BeginInit();
             this.tabPageFeed.SuspendLayout();
             this.groupBoxFeedStructure.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
@@ -371,129 +361,13 @@ namespace ZeroInstall.Publish.WinForms
             // 
             this.groupBoxIcon.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxIcon.Controls.Add(this.labelIconUrl);
-            this.groupBoxIcon.Controls.Add(this.comboBoxIconType);
-            this.groupBoxIcon.Controls.Add(this.hintTextBoxIconUrl);
-            this.groupBoxIcon.Controls.Add(this.lblIconUrlError);
-            this.groupBoxIcon.Controls.Add(this.labelIconMimeType);
-            this.groupBoxIcon.Controls.Add(this.buttonIconPreview);
-            this.groupBoxIcon.Controls.Add(this.buttonIconRemove);
-            this.groupBoxIcon.Controls.Add(this.pictureBoxIconPreview);
-            this.groupBoxIcon.Controls.Add(this.buttonIconAdd);
-            this.groupBoxIcon.Controls.Add(this.listBoxIconsUrls);
+            this.groupBoxIcon.Controls.Add(this.iconManagementControl);
             this.groupBoxIcon.Location = new System.Drawing.Point(9, 225);
             this.groupBoxIcon.Name = "groupBoxIcon";
             this.groupBoxIcon.Size = new System.Drawing.Size(536, 171);
             this.groupBoxIcon.TabIndex = 10;
             this.groupBoxIcon.TabStop = false;
             this.groupBoxIcon.Text = "Icon";
-            // 
-            // labelIconUrl
-            // 
-            this.labelIconUrl.AutoSize = true;
-            this.labelIconUrl.Location = new System.Drawing.Point(6, 16);
-            this.labelIconUrl.Name = "labelIconUrl";
-            this.labelIconUrl.Size = new System.Drawing.Size(53, 13);
-            this.labelIconUrl.TabIndex = 0;
-            this.labelIconUrl.Text = "Icon URL";
-            // 
-            // comboBoxIconType
-            // 
-            this.comboBoxIconType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxIconType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxIconType.FormattingEnabled = true;
-            this.comboBoxIconType.Location = new System.Drawing.Point(324, 31);
-            this.comboBoxIconType.Name = "comboBoxIconType";
-            this.comboBoxIconType.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxIconType.TabIndex = 3;
-            // 
-            // hintTextBoxIconUrl
-            // 
-            this.hintTextBoxIconUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxIconUrl.HintText = "";
-            this.hintTextBoxIconUrl.Location = new System.Drawing.Point(9, 32);
-            this.hintTextBoxIconUrl.Name = "hintTextBoxIconUrl";
-            this.hintTextBoxIconUrl.ShowClearButton = true;
-            this.hintTextBoxIconUrl.Size = new System.Drawing.Size(309, 20);
-            this.hintTextBoxIconUrl.TabIndex = 1;
-            this.hintTextBoxIconUrl.TextChanged += new System.EventHandler(this.TextIconUrlTextChanged);
-            // 
-            // lblIconUrlError
-            // 
-            this.lblIconUrlError.AutoSize = true;
-            this.lblIconUrlError.ForeColor = System.Drawing.Color.Red;
-            this.lblIconUrlError.Location = new System.Drawing.Point(6, 144);
-            this.lblIconUrlError.Name = "lblIconUrlError";
-            this.lblIconUrlError.Size = new System.Drawing.Size(0, 13);
-            this.lblIconUrlError.TabIndex = 5;
-            // 
-            // labelIconMimeType
-            // 
-            this.labelIconMimeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelIconMimeType.AutoSize = true;
-            this.labelIconMimeType.Location = new System.Drawing.Point(321, 16);
-            this.labelIconMimeType.Name = "labelIconMimeType";
-            this.labelIconMimeType.Size = new System.Drawing.Size(55, 13);
-            this.labelIconMimeType.TabIndex = 2;
-            this.labelIconMimeType.Text = "Icon Type";
-            // 
-            // buttonIconPreview
-            // 
-            this.buttonIconPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIconPreview.Enabled = false;
-            this.buttonIconPreview.Location = new System.Drawing.Point(324, 58);
-            this.buttonIconPreview.Name = "buttonIconPreview";
-            this.buttonIconPreview.Size = new System.Drawing.Size(80, 23);
-            this.buttonIconPreview.TabIndex = 6;
-            this.buttonIconPreview.Text = "Preview";
-            this.buttonIconPreview.UseVisualStyleBackColor = true;
-            this.buttonIconPreview.Click += new System.EventHandler(this.BtnIconPreviewClick);
-            // 
-            // buttonIconRemove
-            // 
-            this.buttonIconRemove.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIconRemove.Location = new System.Drawing.Point(324, 116);
-            this.buttonIconRemove.Name = "buttonIconRemove";
-            this.buttonIconRemove.Size = new System.Drawing.Size(80, 23);
-            this.buttonIconRemove.TabIndex = 8;
-            this.buttonIconRemove.Text = "Remove";
-            this.buttonIconRemove.UseVisualStyleBackColor = true;
-            this.buttonIconRemove.Click += new System.EventHandler(this.BtnIconListRemoveClick);
-            // 
-            // pictureBoxIconPreview
-            // 
-            this.pictureBoxIconPreview.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxIconPreview.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxIconPreview.Location = new System.Drawing.Point(410, 19);
-            this.pictureBoxIconPreview.Name = "pictureBoxIconPreview";
-            this.pictureBoxIconPreview.Size = new System.Drawing.Size(120, 120);
-            this.pictureBoxIconPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxIconPreview.TabIndex = 9;
-            this.pictureBoxIconPreview.TabStop = false;
-            // 
-            // buttonIconAdd
-            // 
-            this.buttonIconAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonIconAdd.Location = new System.Drawing.Point(324, 87);
-            this.buttonIconAdd.Name = "buttonIconAdd";
-            this.buttonIconAdd.Size = new System.Drawing.Size(80, 23);
-            this.buttonIconAdd.TabIndex = 7;
-            this.buttonIconAdd.Text = "Add";
-            this.buttonIconAdd.UseVisualStyleBackColor = true;
-            this.buttonIconAdd.Click += new System.EventHandler(this.BtnIconListAddClick);
-            // 
-            // listBoxIconsUrls
-            // 
-            this.listBoxIconsUrls.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxIconsUrls.FormattingEnabled = true;
-            this.listBoxIconsUrls.HorizontalScrollbar = true;
-            this.listBoxIconsUrls.Location = new System.Drawing.Point(9, 59);
-            this.listBoxIconsUrls.Name = "listBoxIconsUrls";
-            this.listBoxIconsUrls.Size = new System.Drawing.Size(309, 82);
-            this.listBoxIconsUrls.TabIndex = 4;
-            this.listBoxIconsUrls.SelectedIndexChanged += new System.EventHandler(this.ListIconsUrlsSelectedIndexChanged);
             // 
             // labelCategories
             // 
@@ -893,6 +767,13 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
+            // iconManagementControl1
+            // 
+            this.iconManagementControl.Location = new System.Drawing.Point(7, 20);
+            this.iconManagementControl.Name = "iconManagementControl1";
+            this.iconManagementControl.Size = new System.Drawing.Size(521, 143);
+            this.iconManagementControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -914,8 +795,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
             this.groupBoxIcon.ResumeLayout(false);
-            this.groupBoxIcon.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxIconPreview)).EndInit();
             this.tabPageFeed.ResumeLayout(false);
             this.groupBoxFeedStructure.ResumeLayout(false);
             this.tabPageAdvanced.ResumeLayout(false);
@@ -942,17 +821,7 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.TabPage tabPageFeed;
         private System.Windows.Forms.Label labelProgramName;
         private Common.Controls.HintTextBox textName;
-        private Common.Controls.HintTextBox hintTextBoxIconUrl;
-        private System.Windows.Forms.Label labelIconUrl;
         private System.Windows.Forms.Label labelCategories;
-        private System.Windows.Forms.Button buttonIconPreview;
-        private System.Windows.Forms.PictureBox pictureBoxIconPreview;
-        private System.Windows.Forms.Label lblIconUrlError;
-        private System.Windows.Forms.Button buttonIconRemove;
-        private System.Windows.Forms.Button buttonIconAdd;
-        private System.Windows.Forms.ListBox listBoxIconsUrls;
-        private System.Windows.Forms.Label labelIconMimeType;
-        private System.Windows.Forms.ComboBox comboBoxIconType;
         private System.Windows.Forms.GroupBox groupBoxIcon;
         private UriTextBox textHomepage;
         private System.Windows.Forms.Label labelHomepage;
@@ -998,6 +867,7 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.ToolStripButton buttonRedo;
         private System.Windows.Forms.ToolStripButton toolStripButtonSaveAs;
         private System.Windows.Forms.Button btnAddCommand;
+        private IconManagementControl iconManagementControl;
     }
 }
 
