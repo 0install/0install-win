@@ -99,6 +99,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string" />
         </xs:sequence>
+        <xs:attribute name="command" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>

@@ -102,6 +102,7 @@
     <Compile Include="Model\ManifestDigestTest.cs" />
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
+    <Compile Include="Model\RunnerTest.cs" />
     <Compile Include="MyApps\AppListTest.cs" />
     <Compile Include="Store\Feed\DiskFeedCacheTest.cs" />
     <Compile Include="Store\Feed\FeedPreferencesTest.cs" />

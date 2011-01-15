@@ -25,13 +25,20 @@ namespace ZeroInstall.Model
     /// <summary>
     /// A reference to a <see cref="Feed"/> that is required by an <see cref="Command"/> as a runner.
     /// </summary>
-    /// <seealso cref="Command.Runner"/>
+    /// <seealso cref="Model.Command.Runner"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("runner", Namespace = Feed.XmlNamespace)]
     public class Runner : Dependency, IArgsContainer, IEquatable<Runner>
     {
         #region Properties
+        /// <summary>
+        /// The name of the command in the <see cref="Dependency.Interface"/> to use.
+        /// </summary>
+        [Description("The name of the command in the interface to use.")]
+        [XmlAttribute("command")]
+        public string Command { get; set; }
+
         // Preserve order
         private readonly C5.ArrayList<string> _arguments = new C5.ArrayList<string>();
         /// <summary>
@@ -47,12 +54,12 @@ namespace ZeroInstall.Model
 
         #region Conversion
         /// <summary>
-        /// Returns the runner in the form "Runner: Interface (Use)". Not safe for parsing!
+        /// Returns the runner in the form "Runner: Interface (Command)". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
             string result = "Runner: " + Interface;
-            if (!string.IsNullOrEmpty(Use)) result += " (" + Use + ")";
+            if (!string.IsNullOrEmpty(Command)) result += " (" + Command + ")";
             return result;
         }
         #endregion
@@ -64,7 +71,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="Runner"/>.</returns>
         public Runner CloneRunner()
         {
-            var runner = new Runner { Interface = Interface, Use = Use };
+            var runner = new Runner {Interface = Interface, Use = Use, Command = Command};
             foreach (var binding in Bindings) runner.Bindings.Add(binding.CloneBinding());
             foreach (var constraint in Constraints) runner.Constraints.Add(constraint.CloneConstraint());
             foreach (var argument in Arguments) runner.Arguments.Add(argument);
