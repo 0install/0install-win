@@ -55,6 +55,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #region Constants
 
         private readonly HashSet<ImageFormat> _supportedImageFormats = new HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
+
+        private readonly HashDictionary<ImageFormat, String> _mimeTypeTranslator =
+            new HashDictionary<ImageFormat, String> { { ImageFormat.Png, "image/png" }, { ImageFormat.Icon, "image/vnd.microsoft.icon" } };
         #endregion
 
         #region Attributes
@@ -191,9 +194,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // get the icon mime type (guess or use selected)
             var mimeType = (comboBoxIconType.Text == Resources.AutoDetect
                                 ? ImageUtils.GuessImageFormat(uriTextBoxIconUrl.Uri.ToString())
-                                : comboBoxIconType.SelectedItem);
+                                : (ImageFormat) comboBoxIconType.SelectedItem);
             var icon = new Icon { Location = uriTextBoxIconUrl.Uri };
-            if (mimeType != null) icon.MimeType = mimeType.ToString();
+            if (mimeType != null) icon.MimeType = _mimeTypeTranslator[mimeType];
 
             // if nothing is selected add to the end of the list, else insert behind the selected item.
             _iconUrls.Add(icon);
@@ -225,7 +228,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             foreach (var supportedImageFormat in _supportedImageFormats)
             {
-                if (icon.MimeType != supportedImageFormat.ToString()) continue;
+                if (icon.MimeType != _mimeTypeTranslator[supportedImageFormat]) continue;
                 comboBoxIconType.SelectedItem = supportedImageFormat;
                 break;
             }
