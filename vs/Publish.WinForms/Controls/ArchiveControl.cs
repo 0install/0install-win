@@ -183,7 +183,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             comboBoxArchiveFormat.SelectedIndex = 0;
             hintTextBoxStartOffset.Text = String.Empty;
-            hintTextBoxArchiveUrl.Text = String.Empty;
+            uriTextBoxArchiveUrl.Text = String.Empty;
             hintTextBoxLocalArchive.Text = String.Empty;
             treeViewSubDirectory.Nodes[0].Nodes.Clear();
         }
@@ -206,7 +206,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             }
             // set other hintTextBoxes
             if (_archive.StartOffset != default(long)) hintTextBoxStartOffset.Text = _archive.StartOffset.ToString();
-            if (!String.IsNullOrEmpty(_archive.LocationString)) hintTextBoxArchiveUrl.Text = _archive.LocationString;
+            if (!String.IsNullOrEmpty(_archive.LocationString)) uriTextBoxArchiveUrl.Text = _archive.LocationString;
 
             // build treeViewSubDirectory
             if (String.IsNullOrEmpty(_archive.Extract)) return;
@@ -228,14 +228,16 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         /// <summary>
         /// Opens a dialog to ask the user where to download the archive from
-        /// <see cref="hintTextBoxArchiveUrl"/>.Text, downloads the archive and sets
+        /// <see cref="uriTextBoxArchiveUrl"/>.Text, downloads the archive and sets
         /// <see cref="hintTextBoxLocalArchive"/> with the chosen path.<br/>
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
         private void ButtonDownloadClick(object sender, EventArgs e)
         {
-            var url = new Uri(hintTextBoxArchiveUrl.Text);
+            var url = uriTextBoxArchiveUrl.Uri;
+
+            if (url == null) return;
 
             // show dialog to choose download folder
             if (folderBrowserDialogDownloadPath.ShowDialog() == DialogResult.Cancel) return;
@@ -432,7 +434,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (startOffset >= 0) _archive.StartOffset = startOffset;
             if (comboBoxArchiveFormat.SelectedIndex != 0) _archive.MimeType = comboBoxArchiveFormat.Text;
             Uri uri;
-            if (Uri.TryCreate(hintTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri)) _archive.Location = uri;
+            if (Uri.TryCreate(uriTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri)) _archive.Location = uri;
             _archive.Size = new FileInfo(hintTextBoxLocalArchive.Text).Length;
         }
 
@@ -442,26 +444,20 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Checks if the text of <see cref="hintTextBoxArchiveUrl"/> is a valid internet url.
-        /// If the url is valid, the forecolor of the text will be changed to
-        /// <see cref="Color.Green"/> and <see cref="buttonDownload"/> will be ENABLED.
-        /// If the url is NOT valid, the forecolor of the text will be changed to
-        /// <see cref="Color.Red"/> and the <see cref="buttonDownload"/> will be DISABLED.
+        /// Checks whether the the text of <see cref="uriTextBoxArchiveUrl"/> is empty.
+        /// If yes, the control will be set to the "start state", elst to the "archive chose state".
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void HintTextBoxArchiveUrlTextChanged(object sender, EventArgs e)
+        private void UriTextBoxArchiveUrlValidated(object sender, EventArgs e)
         {
-            Uri uri;
-            if (Uri.TryCreate(hintTextBoxArchiveUrl.Text, UriKind.RelativeOrAbsolute, out uri))
+            if (uriTextBoxArchiveUrl == null)
             {
-                hintTextBoxArchiveUrl.ForeColor = Color.Green;
-                SetArchiveUrlChosenState();
+                SetStartState();
             }
             else
             {
-                hintTextBoxArchiveUrl.ForeColor = Color.Red;
-                SetStartState();
+                SetArchiveUrlChosenState();
             }
         }
 
@@ -522,7 +518,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private void SetStartState()
         {
-            Button[] toDisable = { buttonDownload, buttonLocalArchive, buttonExtractArchive };
+            Button[] toDisable = { buttonLocalArchive, buttonExtractArchive };
             foreach (var button in toDisable) button.Enabled = false;
             ExtractedArchivePath = null;
             ManifestDigest = new ManifestDigest();

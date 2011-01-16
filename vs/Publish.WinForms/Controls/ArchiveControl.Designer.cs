@@ -44,11 +44,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelSubDirectory = new System.Windows.Forms.Label();
             this.treeViewSubDirectory = new System.Windows.Forms.TreeView();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
-            this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
-            this.hintTextBoxArchiveUrl = new Common.Controls.HintTextBox();
-            this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
             this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLocalArchive = new System.Windows.Forms.OpenFileDialog();
+            this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
+            this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
+            this.uriTextBoxArchiveUrl = new Common.Controls.UriTextBox();
             this.SuspendLayout();
             // 
             // labelArchiveFormat
@@ -169,6 +169,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
             this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
             // 
+            // folderBrowserDialogDownloadPath
+            // 
+            this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
+            this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.Desktop;
+            // 
+            // openFileDialogLocalArchive
+            // 
+            this.openFileDialogLocalArchive.Title = "Choose local archive";
+            // 
             // hintTextBoxLocalArchive
             // 
             this.hintTextBoxLocalArchive.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -179,17 +188,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.hintTextBoxLocalArchive.ReadOnly = true;
             this.hintTextBoxLocalArchive.Size = new System.Drawing.Size(254, 20);
             this.hintTextBoxLocalArchive.TabIndex = 110;
-            // 
-            // hintTextBoxArchiveUrl
-            // 
-            this.hintTextBoxArchiveUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.hintTextBoxArchiveUrl.HintText = "";
-            this.hintTextBoxArchiveUrl.Location = new System.Drawing.Point(3, 95);
-            this.hintTextBoxArchiveUrl.Name = "hintTextBoxArchiveUrl";
-            this.hintTextBoxArchiveUrl.Size = new System.Drawing.Size(254, 20);
-            this.hintTextBoxArchiveUrl.TabIndex = 60;
-            this.hintTextBoxArchiveUrl.TextChanged += new System.EventHandler(this.HintTextBoxArchiveUrlTextChanged);
             // 
             // hintTextBoxStartOffset
             // 
@@ -202,19 +200,22 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.hintTextBoxStartOffset.TabIndex = 30;
             this.hintTextBoxStartOffset.TextChanged += new System.EventHandler(this.HintTextBoxStartOffsetTextChanged);
             // 
-            // folderBrowserDialogDownloadPath
+            // uriTextBoxArchiveUrl
             // 
-            this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
-            this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.MyComputer;
-            // 
-            // openFileDialogLocalArchive
-            // 
-            this.openFileDialogLocalArchive.Title = "Choose local archive";
+            this.uriTextBoxArchiveUrl.ForeColor = System.Drawing.Color.Red;
+            this.uriTextBoxArchiveUrl.HintText = "";
+            this.uriTextBoxArchiveUrl.HttpOnly = true;
+            this.uriTextBoxArchiveUrl.Location = new System.Drawing.Point(3, 96);
+            this.uriTextBoxArchiveUrl.Name = "uriTextBoxArchiveUrl";
+            this.uriTextBoxArchiveUrl.Size = new System.Drawing.Size(251, 20);
+            this.uriTextBoxArchiveUrl.TabIndex = 151;
+            this.uriTextBoxArchiveUrl.Validated += new System.EventHandler(this.UriTextBoxArchiveUrlValidated);
             // 
             // ArchiveControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.uriTextBoxArchiveUrl);
             this.Controls.Add(this.buttonExtractArchive);
             this.Controls.Add(this.treeViewSubDirectory);
             this.Controls.Add(this.labelSubDirectory);
@@ -222,7 +223,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.Controls.Add(this.hintTextBoxLocalArchive);
             this.Controls.Add(this.labelLocalArchive);
             this.Controls.Add(this.buttonDownload);
-            this.Controls.Add(this.hintTextBoxArchiveUrl);
             this.Controls.Add(this.labelArchiveUrl);
             this.Controls.Add(this.hintTextBoxStartOffset);
             this.Controls.Add(this.labelStartOffsetBytes);
@@ -244,7 +244,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private System.Windows.Forms.Label labelStartOffsetBytes;
         private Common.Controls.HintTextBox hintTextBoxStartOffset;
         private System.Windows.Forms.Label labelArchiveUrl;
-        private Common.Controls.HintTextBox hintTextBoxArchiveUrl;
         private System.Windows.Forms.Button buttonDownload;
         private System.Windows.Forms.Label labelLocalArchive;
         private Common.Controls.HintTextBox hintTextBoxLocalArchive;
@@ -254,5 +253,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private System.Windows.Forms.Button buttonExtractArchive;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogLocalArchive;
+        private Common.Controls.UriTextBox uriTextBoxArchiveUrl;
     }
 }
