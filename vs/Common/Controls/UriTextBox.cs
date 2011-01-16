@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2011 Bastian Eicher
+ * Copyright 2006-2011 Bastian Eicher, Simon E. Silva Lauinger
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -23,8 +23,8 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
+using Common.Collections;
 
 namespace Common.Controls
 {
@@ -43,9 +43,27 @@ namespace Common.Controls
             if (e == null) throw new ArgumentNullException("e");
             #endregion
 
-            e.Cancel = !ValidateUri();
+            e.Cancel = !ValidateUri(Text);
 
             base.OnValidating(e);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDragEnter(DragEventArgs drgevent)
+        {
+            drgevent.Effect = ValidateUri(GetDropText(drgevent))
+                ? DragDropEffects.Copy
+                : DragDropEffects.None;
+
+            base.OnDragEnter(drgevent);
+        }
+
+        /// <inheritdoc/>
+        protected override void OnDragDrop(DragEventArgs drgevent)
+        {
+            Text = GetDropText(drgevent);
+
+            base.OnDragDrop(drgevent);
         }
         #endregion
 
@@ -73,7 +91,8 @@ namespace Common.Controls
         public UriTextBox()
         {
             // Use event instead of method override to ensure special handling of HintText works
-            TextChanged += delegate { ForeColor = ValidateUri() ? Color.Green : Color.Red; };
+            TextChanged += delegate { ForeColor = ValidateUri(Text) ? Color.Green : Color.Red; };
+            AllowDrop = true;
         }
         #endregion
 
@@ -81,22 +100,44 @@ namespace Common.Controls
 
         #region Helpers
         /// <summary>
-        /// Checks if <see cref="TextBox.Text"/> currently represents a valid <see cref="Uri"/>.
+        /// Checks if a text represents a valid <see cref="Uri"/>.
         /// </summary>
-        protected virtual bool ValidateUri()
+        /// <param name="text">Text to check.</param>
+        protected virtual bool ValidateUri(string text)
         {
             // Allow empty input
-            if (string.IsNullOrEmpty(Text)) return true;
+            if (string.IsNullOrEmpty(text)) return true;
 
             Uri temp;
             // Check URI is well-formed
-            if (!Uri.TryCreate(Text, UriKind.Absolute, out temp)) return false;
+            if (!Uri.TryCreate(text, UriKind.Absolute, out temp)) return false;
 
             // Check URI is HTTP(S) if that was requested
-            if (HttpOnly) return Text.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || Text.StartsWith("https:", StringComparison.OrdinalIgnoreCase);
+            if (HttpOnly) return text.StartsWith("http:", StringComparison.OrdinalIgnoreCase) || text.StartsWith("https:", StringComparison.OrdinalIgnoreCase);
 
             return true;
         }
+
+        /// <summary>
+        /// Returns the text dropped on a control.
+        /// </summary>
+        /// <param name="dragEventArgs">Argument of a dragging operation.</param>
+        /// <returns>The dropped text.</returns>
+        private static string GetDropText(DragEventArgs dragEventArgs)
+        {
+            if (dragEventArgs.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                var files = dragEventArgs.Data.GetData(DataFormats.FileDrop) as string[];
+                return EnumUtils.GetFirst(files);
+            }
+            if (dragEventArgs.Data.GetDataPresent(DataFormats.Text))
+            {
+                return (string)dragEventArgs.Data.GetData(DataFormats.Text);
+            }
+
+            return null;
+        }
+
         #endregion
     }
 }
