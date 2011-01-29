@@ -6,11 +6,11 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Central WinForms GUI")]
-[assembly: AssemblyDescription("A WinForms-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
+[assembly: AssemblyDescription("The main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
+[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

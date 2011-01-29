@@ -96,6 +96,10 @@
     <None Include="Properties\app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Command.Gtk\Command.Gtk.csproj">
+      <Project>{DD118018-2B93-11E0-8896-FBD0DFD72085}</Project>
+      <Name>Command.Gtk</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>

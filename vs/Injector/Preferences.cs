@@ -66,7 +66,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// The maximum age a cached <see cref="Model.Feed"/> may have until it is considered stale (needs to be updated).
         /// </summary>
-        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Launcher.NetworkLevel.Offline"/>.</remarks>
+        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="Injector.NetworkLevel.Offline"/>.</remarks>
         public TimeSpan Freshness { get; set; }
 
         /// <summary>

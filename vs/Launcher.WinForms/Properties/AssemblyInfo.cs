@@ -6,11 +6,11 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Launcher WinForms GUI")]
-[assembly: AssemblyDescription("Launches Zero Install implementations and displays a WinForms GUI.")]
+[assembly: AssemblyDescription("A WinForms-based GUI for Zero Install, for launching applications. A speced down version of 0install-win.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
+[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

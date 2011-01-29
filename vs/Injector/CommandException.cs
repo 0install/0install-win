@@ -22,7 +22,7 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Indicates <see cref="Launcher"/> had a problem locating or processing a <see cref="Command"/>.
+    /// Indicates <see cref="Executor"/> had a problem locating or processing a <see cref="Command"/>.
     /// </summary>
     [Serializable]
     public sealed class CommandException : Exception

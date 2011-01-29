@@ -20,9 +20,6 @@
     <Content Include="ModelDefinition\Package_0100.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_0153.uml">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="NamespaceOverview.dgml">
       <SubType>Content</SubType>
     </Content>
@@ -33,9 +30,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package2_1632.uml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ModelDefinition\Package2_1637.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package4_1632.uml">
@@ -62,28 +56,19 @@
     <Content Include="ModelDefinition\Package_1634.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ModelDefinition\Package_1637.uml">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="ModelDefinition\Package_1638.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package_1749.uml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\Central.dgml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ProjectReferences\Launcher.dgml">
+    <Content Include="ProjectReferences\Command.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ProjectReferences\Overview.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ProjectReferences\OverviewSimple.dgml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ProjectReferences\Store.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="SolutionStructure.dgml">

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 using System.Security.Permissions;
 
 // Assembly info
-[assembly: AssemblyTitle("Zero Install Central CLI")]
-[assembly: AssemblyDescription("A command-line interface for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.")]
+[assembly: AssemblyTitle("Zero Install Command CLI")]
+[assembly: AssemblyDescription("A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
+[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

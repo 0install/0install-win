@@ -6,11 +6,11 @@ using System.Security.Permissions;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Launcher CLI")]
-[assembly: AssemblyDescription("Launches Zero Install implementations and displays a command-line interface.")]
+[assembly: AssemblyDescription("A command-line interface for Zero Install, for launching applications. A speced down version of 0install.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.net")]
 [assembly: AssemblyProduct("Zero Install")]
-[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010")]
+[assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information

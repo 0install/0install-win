@@ -35,11 +35,5 @@
         LastKnownName="Fetchers"
         LastKnownLocation="Package_1633.uml" />
     </packageHasNamedElement>
-    <packageHasNamedElement>
-      <packageMoniker
-        Id="6e7491e4-7aa9-4137-843d-ff7c83bf5bb1"
-        LastKnownName="Launcher"
-        LastKnownLocation="Package_0153.uml" />
-    </packageHasNamedElement>
   </packagedElements>
 </package>
