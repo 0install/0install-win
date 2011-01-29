@@ -128,9 +128,8 @@ namespace ZeroInstall.Publish
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToVerifyNotFound, path);
             #endregion
 
-            var gnuPG = new GnuPG();
-
             // ToDo: Implement
+            //var gnuPG = new GnuPG();
         }
         #endregion
     }

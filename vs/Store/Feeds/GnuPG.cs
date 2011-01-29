@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Cli;
-using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -137,14 +136,13 @@ namespace ZeroInstall.Store.Feeds
             if (data == null) throw new ArgumentNullException("data");
             #endregion
 
-            string result;
-            using (var signatureFile = new TemporaryFile("0install-sig"))
-            {
-                string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
-                //result = Execute(arguments, data, ErrorHandler);
-            }
-
             // ToDo: Implement
+            //string result;
+            //using (var signatureFile = new TemporaryFile("0install-sig"))
+            //{
+            //    string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
+            //    result = Execute(arguments, data, ErrorHandler);
+            //}
         }
         #endregion
 
