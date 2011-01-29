@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command.Cli", "Command.Cli\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command.WinForms", "Command.WinForms\Command.WinForms.csproj", "{7A7F9AC4-5C3A-42D7-B3C3-0577300CA797}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command.Gtk", "Command.Wpf\Command.Gtk.csproj", "{DD118018-2B93-11E0-8896-FBD0DFD72085}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command.Gtk", "Command.Gtk\Command.Gtk.csproj", "{DD118018-2B93-11E0-8896-FBD0DFD72085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher.Cli", "Launcher.Cli\Launcher.Cli.csproj", "{B56D8478-0900-47C2-9113-1DC086A2D129}"
 EndProject
