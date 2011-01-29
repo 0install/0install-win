@@ -25,9 +25,6 @@ using Common;
 using Common.Gtk;
 using Common.Utils;
 using ZeroInstall.Launcher;
-using ZeroInstall.Launcher.Arguments;
-using ZeroInstall.Launcher.Solver;
-using ZeroInstall.Store.Implementation;
 
 public partial class MainWindow : Window, IHandler
 {
