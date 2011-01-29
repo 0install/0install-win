@@ -1,9 +1,9 @@
 @echo off
-::Creates an Inno Setup installer. Assumes "..\vs\build.cmd Release" has already been executed.
+::Creates an Inno Setup installer. Assumes "..\src\build.cmd Release" has already been executed.
 cd /d "%~dp0"
 
 rem Project settings
-set BuildDir=..\build\Setup
+set TargetDir=%~dp0..\build\Publish
 set SetupEXE=0install.exe
 set SetupUpdateEXE=0install_upd.exe
 
@@ -18,18 +18,50 @@ path %ProgramFiles%\Inno Setup 5;%path%
 
 
 
+:: Purge old files
+if exist "%TargetDir%" rd /s /q "%TargetDir%"
+mkdir "%TargetDir%"
+
+
+
 echo Building Inno Setup...
 iscc /Q setup.iss
 if errorlevel 1 pause
-if not "%PublishDir%"=="" copy "%BuildDir%\%SetupEXE%" "%PublishDir%\%SetupEXE%" > NUL
 
-if "%1"=="+run" "%BuildDir%\%SetupEXE%" /silent
-if "%2"=="+run" "%BuildDir%\%SetupEXE%" /silent
-if "%3"=="+run" "%BuildDir%\%SetupEXE%" /silent
+if "%1"=="+run" "%TargetDir%\%SetupEXE%" /silent
+if "%2"=="+run" "%TargetDir%\%SetupEXE%" /silent
+if "%3"=="+run" "%TargetDir%\%SetupEXE%" /silent
+if "%4"=="+run" "%TargetDir%\%SetupEXE%" /silent
 
 echo Building Inno Setup Update...
 iscc /Q update.iss
 if errorlevel 1 pause
-if not "%PublishDir%"=="" copy "%BuildDir%\%SetupUpdateEXE%" "%PublishDir%\%SetupUpdateEXE%" > NUL
+
+
+
+echo Building Backend archive...
+cd "%~dp0..\build\Backend\Release"
+zip -r -9 "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+if errorlevel 1 pause
+
+echo Building Frontend archive...
+cd "%~dp0..\build\Frontend\Release"
+zip -r -9 "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+if errorlevel 1 pause
+
+echo Building Tools archive...
+cd "%~dp0..\build\Tools\Release"
+zip -r -9 "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+if errorlevel 1 pause
+
+echo Building Bundled archive...
+cd "%~dp0..\build\Bundled"
+zip -r -9 "%TargetDir%\bundled.zip" . > NUL
+
+::Bundled content also needs to be copied into the other archive
+zip -r -9 "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+zip -r -9 "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+zip -r -9 "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+if errorlevel 1 pause
 
 :end

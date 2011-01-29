@@ -30,13 +30,13 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\vs\Central.WinForms\Central.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Command.Cli\Command.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Command.WinForms\Command.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Launcher.Cli\Launcher.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Store.Service\Store.Service.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Store.Management.Cli\Store.Management.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Store.Management.WinForms\Store.Management.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Central.WinForms\Central.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Command.Cli\Command.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Command.WinForms\Command.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Launcher.Cli\Launcher.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Store.Service\Store.Service.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Store.Management.Cli\Store.Management.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Store.Management.WinForms\Store.Management.WinForms.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Frontend implementations.</ProjectSummary>
     <NamespaceSummaries>

@@ -24,10 +24,10 @@ goto err_no_vs
 
 :compile
 set config=%1
-if "%config%"=="" set config=Release
+if "%config%"=="" set config=Debug
 
 call "%VS_COMNTOOLS%vsvars32.bat"
-echo Compiling Visual Studio solution...
+echo Compiling Visual Studio solution (%config%)...
 if exist ..\build\%config% rd /s /q ..\build\%config%
 msbuild "%ProgSLN%" /nologo /v:q /t:Rebuild /p:Configuration=%config%
 if errorlevel 1 pause

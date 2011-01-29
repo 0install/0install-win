@@ -12,6 +12,7 @@ http://www.codeproject.com/KB/install/dotnetfx_innosetup_instal.aspx
 
 The "build.cmd" script will build the Setup using Inno Setup 5. It assumes Inno Setup 5 with Preprocessor support has been installed to its default directory.
 Download: Inno Setup QuickStart Pack from http://www.jrsoftware.org/isdl.php#qsp
+Additionally portable ZIP archives are created and placed along-side the setup. An Info-ZIP compatible "zip" implementation needs to available in the system PATH for this to work.
 
 To perform an unattended installed launch the Setup with the following arguments:
 /silent /suppressmsgboxes /norestart

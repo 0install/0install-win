@@ -35,7 +35,7 @@ en.DeleteCache=Do you want to delete the Zero Install cache (installed applicati
 de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) löschen? Diese Dateien können erneut heruntergeladen werden.
 
 [Setup]
-OutputDir=..\build\Setup
+OutputDir=..\build\Publish
 #ifndef Update
 OutputBaseFilename=0install
 #endif
@@ -95,7 +95,7 @@ Name: {app}\Interop.IWshRuntimeLibrary.dll; Type: files
 [Files]
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.vshost.exe,Test.*,nunit.*,Mono.*,*.Wpf.*,*-wpf.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,Mono.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
 Source: ..\build\Bundled\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs

@@ -3,15 +3,15 @@
 cd `dirname $0`
 
 # Clear binaries (leave Documentation and Portable intact)
-rm -rf build/Backend build/Frontend build/Tools build/Setup
+rm -rf build/Backend build/Frontend build/Tools build/Publish
 
 # Clear object caches
-rm -f vs/*.cache
-rm -rf vs/*/obj
-rm -f vs/*/.pidb
+rm -f src/*.cache
+rm -rf src/*/obj
+rm -f src/*/.pidb
 
 # Remove MonoDevelop user preferences
-rm -f vs/*.userprefs
+rm -f src/*.userprefs
 
 # Remove NUnit logs
 rm -f *.VisualState.xml TestResult.xml

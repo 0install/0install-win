@@ -2,4 +2,4 @@
 #Compiles the source code.
 cd `dirname $0`
 
-vs/build.sh
+src/build.sh

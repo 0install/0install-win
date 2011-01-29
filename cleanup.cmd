@@ -5,55 +5,55 @@ rem Clear binaries (leave Documentation and Bundled intact)
 rd /s /q build\Backend > NUL 2>&1
 rd /s /q build\Frontend > NUL 2>&1
 rd /s /q build\Tools > NUL 2>&1
-rd /s /q build\Setup > NUL 2>&1
+rd /s /q build\Publish > NUL 2>&1
 
 rem Clear ReSharper's cache
-rd /s /q vs\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
-copy "vs\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.1.ReSharper.user" > NUL
+rd /s /q src\_ReSharper.ZeroInstall_VS2010 > NUL 2>&1
+copy "src\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "src\ZeroInstall_VS2010.5.1.ReSharper.user" > NUL
 
 rem Clear object caches
-del vs\*.cache > NUL 2>&1
-rd /s /q vs\Central.WinForms\obj > NUL 2>&1
-rd /s /q vs\Central.Gtk\obj > NUL 2>&1
-rd /s /q vs\Command.Cli\obj > NUL 2>&1
-rd /s /q vs\Command.WinForms\obj > NUL 2>&1
-rd /s /q vs\Command.Gtk\obj > NUL 2>&1
-rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
-rd /s /q vs\Store.Service\obj > NUL 2>&1
-rd /s /q vs\Store.Management.Cli\obj > NUL 2>&1
-rd /s /q vs\Store.Management.WinForms\obj > NUL 2>&1
-rd /s /q vs\Common\obj > NUL 2>&1
-rd /s /q vs\Common.Gtk\obj > NUL 2>&1
-rd /s /q vs\Fetchers\obj > NUL 2>&1
-rd /s /q vs\Injector\obj > NUL 2>&1
-rd /s /q vs\Model\obj > NUL 2>&1
-rd /s /q vs\MyApps\obj > NUL 2>&1
-rd /s /q vs\Store\obj > NUL 2>&1
-rd /s /q vs\Test.Common\obj > NUL 2>&1
-rd /s /q vs\Test.Backend\obj > NUL 2>&1
-rd /s /q vs\Test.Frontend\obj > NUL 2>&1
-rd /s /q vs\Test.Tools\obj > NUL 2>&1
-rd /s /q vs\Publish\obj > NUL 2>&1
-rd /s /q vs\Publish.Cli\obj > NUL 2>&1
-rd /s /q vs\Publish.WinForms\obj > NUL 2>&1
-rd /s /q vs\Modeling\obj > NUL 2>&1
+del src\*.cache > NUL 2>&1
+rd /s /q src\Central.WinForms\obj > NUL 2>&1
+rd /s /q src\Central.Gtk\obj > NUL 2>&1
+rd /s /q src\Command.Cli\obj > NUL 2>&1
+rd /s /q src\Command.WinForms\obj > NUL 2>&1
+rd /s /q src\Command.Gtk\obj > NUL 2>&1
+rd /s /q src\Launcher.Cli\obj > NUL 2>&1
+rd /s /q src\Store.Service\obj > NUL 2>&1
+rd /s /q src\Store.Management.Cli\obj > NUL 2>&1
+rd /s /q src\Store.Management.WinForms\obj > NUL 2>&1
+rd /s /q src\Common\obj > NUL 2>&1
+rd /s /q src\Common.Gtk\obj > NUL 2>&1
+rd /s /q src\Fetchers\obj > NUL 2>&1
+rd /s /q src\Injector\obj > NUL 2>&1
+rd /s /q src\Model\obj > NUL 2>&1
+rd /s /q src\MyApps\obj > NUL 2>&1
+rd /s /q src\Store\obj > NUL 2>&1
+rd /s /q src\Test.Common\obj > NUL 2>&1
+rd /s /q src\Test.Backend\obj > NUL 2>&1
+rd /s /q src\Test.Frontend\obj > NUL 2>&1
+rd /s /q src\Test.Tools\obj > NUL 2>&1
+rd /s /q src\Publish\obj > NUL 2>&1
+rd /s /q src\Publish.Cli\obj > NUL 2>&1
+rd /s /q src\Publish.WinForms\obj > NUL 2>&1
+rd /s /q src\Modeling\obj > NUL 2>&1
 
 rem Restore VS2010 solution user options (temporarily unhide for copying)
-attrib -h "vs\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
-attrib -h "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
-copy "vs\ZeroInstall_VS2010.suo.Backup" "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VS2010.suo" > NUL 2>&1
+attrib -h "src\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
+attrib -h "src\ZeroInstall_VS2010.suo" > NUL 2>&1
+copy "src\ZeroInstall_VS2010.suo.Backup" "src\ZeroInstall_VS2010.suo" > NUL 2>&1
+attrib +h "src\ZeroInstall_VS2010.suo.Backup" > NUL 2>&1
+attrib +h "src\ZeroInstall_VS2010.suo" > NUL 2>&1
 
 rem Restore VCE2010 solution user options (temporarily unhide for copying)
-attrib -h "vs\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
-attrib -h "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
-copy "vs\ZeroInstall_VCE2010.suo.Backup" "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
-attrib +h "vs\ZeroInstall_VCE2010.suo" > NUL 2>&1
+attrib -h "src\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
+attrib -h "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
+copy "src\ZeroInstall_VCE2010.suo.Backup" "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
+attrib +h "src\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
+attrib +h "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
 
 rem Remove MonoDevelop user preferences
-del "vs\*.userprefs"
+del "src\*.userprefs"
 
 rem Remove NUnit logs
 del *.VisualState.xml > NUL 2>&1

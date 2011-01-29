@@ -30,12 +30,12 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\vs\Common\Common.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Model\Model.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Store\Store.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\MyApps\MyApps.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Injector\Injector.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Fetchers\Fetchers.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Model\Model.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Store\Store.csproj" />
+      <DocumentationSource sourceFile="..\..\src\MyApps\MyApps.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Injector\Injector.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Fetchers\Fetchers.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
     <NamespaceSummaries>
