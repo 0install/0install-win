@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -31,7 +31,7 @@ namespace ZeroInstall.Launcher.Solver
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    [XmlType("selection", Namespace = Feed.XmlNamespace)]
+    [XmlType("selection", Namespace = Model.Feed.XmlNamespace)]
     public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {
         #region Constants

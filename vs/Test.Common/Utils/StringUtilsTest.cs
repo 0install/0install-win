@@ -58,6 +58,18 @@ namespace Common.Utils
         }
         
         /// <summary>
+        /// Ensures <see cref="StringUtils.CountOccurences"/> works correctly.
+        /// </summary>
+        [Test]
+        public void TestCountOccurences()
+        {
+            Assert.AreEqual(0, StringUtils.CountOccurences(null, '/'));
+            Assert.AreEqual(0, StringUtils.CountOccurences("abc", '/'));
+            Assert.AreEqual(1, StringUtils.CountOccurences("ab/c", '/'));
+            Assert.AreEqual(2, StringUtils.CountOccurences("ab/c/", '/'));
+        }
+        
+        /// <summary>
         /// Ensures <see cref="StringUtils.GetLastWord"/> works correctly.
         /// </summary>
         [Test]

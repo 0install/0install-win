@@ -85,6 +85,22 @@ namespace Common.Utils
 
             return text.ToUpperInvariant().Contains(value.ToUpperInvariant());
         }
+
+        /// <summary>
+        /// Counts how many times a character occurs within a string.
+        /// </summary>
+        /// <param name="value">The string to search within.</param>
+        /// <param name="token">The character to search for.</param>
+        /// <returns>The number of occurences of <paramref name="token"/> wihin <paramref name="value"/>.</returns>
+        public static int CountOccurences(string value, char token)
+        {
+            if (string.IsNullOrEmpty(value)) return 0;
+
+            int result = 0;
+            for (int i = 0; i < value.Length; i++)
+                if (value[i] == token) result++;
+            return result;
+        }
         #endregion
 
         #region Extraction
