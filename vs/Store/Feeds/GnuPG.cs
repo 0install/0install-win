@@ -141,7 +141,7 @@ namespace ZeroInstall.Store.Feeds
             using (var signatureFile = new TemporaryFile("0install-sig"))
             {
                 string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
-                result = Execute(arguments, data, ErrorHandler);
+                //result = Execute(arguments, data, ErrorHandler);
             }
 
             // ToDo: Implement

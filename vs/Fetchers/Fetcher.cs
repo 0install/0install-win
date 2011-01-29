@@ -90,11 +90,11 @@ namespace ZeroInstall.Fetchers
         #region Recipe Ranking
         private class RecipeRanking : Ranking
         {
-            private readonly Recipe _subject;
+            public readonly Recipe Subject;
 
             public RecipeRanking(Recipe subject)
             {
-                _subject = subject;
+                Subject = subject;
             }
 
             protected override int Value
