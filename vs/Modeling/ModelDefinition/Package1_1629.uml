@@ -873,12 +873,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="c7d51a8c-340a-4ae0-a5a8-c4e0649089f4"
@@ -6610,12 +6604,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="0680226f-e895-473c-8ee4-82da494ac995"
@@ -6926,12 +6914,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="836070d1-594c-47ad-a260-46296e055b9c"
@@ -7901,12 +7883,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="8779a707-a1fa-441e-a82b-cfdf717fc1c3"
@@ -8260,12 +8236,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
         </ownedAttributesInternal>
       </class>
@@ -12456,18 +12426,8 @@
     </packageHasNamedElement>
     <packageHasNamedElement>
       <undefinedType
-        Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-        name="Uri" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <undefinedType
         Id="1a83575b-d0b7-4cb3-b780-2734244d99a8"
         name="DateTime" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <undefinedType
-        Id="82980ba2-9630-4f02-baf7-ac39b675d7c7"
-        name="LocalizableString" />
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class

@@ -118,7 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidInterfaceID" xml:space="preserve">
-    <value>The interface '{0}' doesn't start with 'http:' and isn't a an absolute local path either.</value>
+    <value>The interface '{0}' doesn't start with 'http(s):' and isn't a an absolute local path either.</value>
+  </data>
+  <data name="MissingSlashInUri" xml:space="preserve">
+    <value>Missing / after hostname in URI '{0}'.</value>
+  </data>
+  <data name="NotParsed" xml:space="preserve">
+    <value>Parse hasn't been called yet.</value>
   </data>
   <data name="NoCommands" xml:space="preserve">
     <value>No commands in the selection.</value>
@@ -128,9 +134,6 @@
   </data>
   <data name="NotInterfaceID" xml:space="preserve">
     <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
-  </data>
-  <data name="NotSolved" xml:space="preserve">
-    <value>Solve or SetSelections must be called first.</value>
   </data>
   <data name="PythonSolverOutputErrror" xml:space="preserve">
     <value>The output of the Python solver could not be processed.</value>
@@ -143,5 +146,71 @@
   </data>
   <data name="WokringDirDuplicate" xml:space="preserve">
     <value>The working directory has already been changed by a previous command.</value>
+  </data>
+  <data name="OptionBefore" xml:space="preserve">
+    <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
+  </data>
+  <data name="OptionCommand" xml:space="preserve">
+    <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.</value>
+  </data>
+  <data name="OptionCpu" xml:space="preserve">
+    <value>Forces the solver to target the CPU {CPU}.
+Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
+  </data>
+  <data name="OptionMain" xml:space="preserve">
+    <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>
+  </data>
+  <data name="OptionNotBefore" xml:space="preserve">
+    <value>Chosen implementation's version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
+  </data>
+  <data name="OptionNoWait" xml:space="preserve">
+    <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
+  </data>
+  <data name="OptionOffline" xml:space="preserve">
+    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
+  </data>
+  <data name="OptionOS" xml:space="preserve">
+    <value>Forces the solver to target the operating system {OS}.
+Supported values: Linux, Solaris, MacOSX, Windows</value>
+  </data>
+  <data name="OptionRefresh" xml:space="preserve">
+    <value>Fetch a fresh copy of all used interfaces.</value>
+  </data>
+  <data name="OptionSource" xml:space="preserve">
+    <value>The implementation of the main (root) interface must have an architecture of the form '*-src' (normally a literal "*", but could be a compatible OS). Dependencies are normal implementations, not source ones. See 0compile for details.</value>
+  </data>
+  <data name="OptionWithStore" xml:space="preserve">
+    <value>Add {DIR} to the list of implementation caches to search.
+However, new downloads will not be written to this directory.</value>
+  </data>
+  <data name="OptionWrapper" xml:space="preserve">
+    <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
+  </data>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Run in batch mode: don't display any progress reports to the user and silently answer all questions with "No".</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Unknown option.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage:</value>
+  </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>The feed {0} could not be located in the interface cache. Looked for file at: {1}</value>
+  </data>
+  <data name="NotValidDomain" xml:space="preserve">
+    <value>The value is not a valid domain name.</value>
+  </data>
+  <data name="OptionVerbose" xml:space="preserve">
+    <value>More verbose output. Use twice for even more verbose output.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
   </data>
 </root>

@@ -120,6 +120,12 @@
   <data name="InvalidInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch kein absoluter lokaler Pfad.</value>
   </data>
+  <data name="MissingSlashInUri" xml:space="preserve">
+    <value>Fehlendes / nach dem Hostnamen in der URI '{0}'.</value>
+  </data>
+  <data name="NotParsed" xml:space="preserve">
+    <value>Parse wurde noch nicht aufgerufen.</value>
+  </data>
   <data name="NoCommands" xml:space="preserve">
     <value>Keine Commands in der Auswahl.</value>
   </data>
@@ -128,9 +134,6 @@
   </data>
   <data name="NotInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
-  </data>
-  <data name="NotSolved" xml:space="preserve">
-    <value>Solve oderr SetSelections müssen zuerst aufgerufen werden.</value>
   </data>
   <data name="PythonSolverOutputErrror" xml:space="preserve">
     <value>Die Ausgabe des Python-Solvers konnte nicht verarbeitet werden.</value>
@@ -143,5 +146,11 @@
   </data>
   <data name="WokringDirDuplicate" xml:space="preserve">
     <value>Das Arbeitsverzeichnis wurde bereits von einem vorangehenden Command geändert.</value>
+  </data>
+  <data name="FeedNotInCache" xml:space="preserve">
+    <value>Der Feed {0} konnte nicht im Interface-Cache gefunden werden. Nach folgender Datei gesucht: {1}</value>
+  </data>
+  <data name="NotValidDomain" xml:space="preserve">
+    <value>Der Wert ist kein gültiger Domainname.</value>
   </data>
 </root>

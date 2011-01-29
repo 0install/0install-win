@@ -48,6 +48,24 @@ public partial class MainWindow : Window, IHandler
 
     //--------------------//
 
+    #region Async control
+    /// <summary>
+    /// Starts the GUI in a separate thread.
+    /// </summary>
+    public void ShowAsync()
+    {
+        // ToDo
+    }
+
+    /// <summary>
+    /// Begins closing the window running in the GUI thread. Does not wait for the window to finish closing.
+    /// </summary>
+    public void CloseAsync()
+    {
+        // ToDo
+    }
+    #endregion
+
     #region Handler
     /// <summary>
     /// Silently answer all questions with "No".

@@ -54,22 +54,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feed\ReplayAttackException.cs" />
-    <Compile Include="Feed\FeedPreferences.cs" />
-    <Compile Include="Feed\IFeedHandler.cs" />
-    <Compile Include="Feed\Icon.cs" />
-    <Compile Include="Feed\ImplementationPreferences.cs" />
-    <Compile Include="Feed\InterfacePreferences.cs" />
-    <Compile Include="Feed\Trust.cs" />
-    <Compile Include="Feed\Domain.cs" />
-    <Compile Include="Feed\Key.cs" />
-    <Compile Include="Feed\IFeedCache.cs" />
-    <Compile Include="Feed\DiskFeedCache.cs" />
-    <Compile Include="Feed\FeedCacheProvider.cs" />
-    <Compile Include="Feed\FeedManager.cs" />
-    <Compile Include="Feed\GnuPG.cs" />
-    <Compile Include="Feed\GnuPGSecretKey.cs" />
-    <Compile Include="Feed\WrongPassphraseException.cs" />
+    <Compile Include="Feeds\ReplayAttackException.cs" />
+    <Compile Include="Feeds\IFeedCache.cs" />
+    <Compile Include="Feeds\DiskFeedCache.cs" />
+    <Compile Include="Feeds\FeedCacheProvider.cs" />
+    <Compile Include="Feeds\GnuPG.cs" />
+    <Compile Include="Feeds\GnuPGSecretKey.cs" />
+    <Compile Include="Feeds\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />
     <Compile Include="Implementation\Archive\TarBz2Extractor.cs" />
@@ -125,14 +116,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Feed\Trust.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Implementation\Archive\ClassDiagram.cd" />
     <None Include="Implementation\Manifest.cd" />
     <None Include="Implementation\Store.cd" />
-    <None Include="Feed\FeedManager.cd" />
-    <None Include="Feed\Trust.cd" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

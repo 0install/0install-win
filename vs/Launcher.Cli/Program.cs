@@ -16,21 +16,14 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
-using System.Reflection;
 using Common;
-using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Fetchers;
-using ZeroInstall.Launcher.Arguments;
-using ZeroInstall.Launcher.Cli.Properties;
-using ZeroInstall.Model;
+using ZeroInstall.Launcher.Commands;
 using ZeroInstall.Launcher.Solver;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Launcher.Cli
 {
@@ -57,7 +50,7 @@ namespace ZeroInstall.Launcher.Cli
 
         /// <summary>An network error occurred.</summary>
         WebError = 11,
-        
+
         /// <summary>A requested implementation could not be found or could not be launched.</summary>
         ImplementationError = 15,
 
@@ -74,7 +67,6 @@ namespace ZeroInstall.Launcher.Cli
     /// </summary>
     public static class Program
     {
-        #region Startup
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -83,11 +75,9 @@ namespace ZeroInstall.Launcher.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] {"--help"};
 
-            var handler = new CliHandler();
-            ParseResults results;
-            OperationMode mode;
-
-            try { mode = ParseArgs(args, handler, out results); }
+            var command = new Run(new CliHandler());
+            
+            try { command.Parse(args); }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -111,7 +101,7 @@ namespace ZeroInstall.Launcher.Cli
             }
             #endregion
 
-            try { return ExecuteArgs(mode, results, handler); }
+            try { command.Execute(); }
             #region Error hanlding
             catch (UserCancelException)
             {
@@ -150,7 +140,7 @@ namespace ZeroInstall.Launcher.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex.Message);
-                if (results.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return (int)ErrorLevel.DigestMismatch;
             }
             catch (SolverException ex)
@@ -174,233 +164,8 @@ namespace ZeroInstall.Launcher.Cli
                 return (int)ErrorLevel.IOError;
             }
             #endregion
+
+            return (int)ErrorLevel.OK;
         }
-        #endregion
-
-        #region Parse
-        /// <summary>
-        /// Parses command-line arguments.
-        /// </summary>
-        /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
-        /// <param name="results">The options detected by the parsing process.</param>
-        /// <returns>The operation mode selected by the parsing process.</returns>
-        /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static OperationMode ParseArgs(IEnumerable<string> args, IHandler handler, out ParseResults results)
-        {
-            #region Sanity checks
-            if (args == null) throw new ArgumentNullException("args");
-            #endregion
-
-            // Prepare a structure for storing settings found in the arguments
-            var mode = OperationMode.Normal;
-            var parseResults = new ParseResults {Policy = Policy.CreateDefault()};
-
-            #region Define options
-            var options = new OptionSet
-            {
-                // Mode selection
-                {"i|import", Resources.OptionImport, unused => mode = OperationMode.Import},
-                {"l|list", Resources.OptionList, unused => mode = OperationMode.List},
-                {"f|feed", Resources.OptionFeed, unused => mode = OperationMode.Manage},
-                {"V|version", Resources.OptionVersion, unused => mode = OperationMode.Version},
-                {"v|verbose", Resources.OptionsVerbose, unused => parseResults.Verbosity++},
-
-                // Policy options
-                {"command=", Resources.OptionCommand, command => parseResults.Policy.CommandName = command},
-                {"before=", Resources.OptionBefore, version => parseResults.Policy.Constraint.BeforeVersion = new ImplementationVersion(version)},
-                {"not-before=", Resources.OptionNotBefore, version => parseResults.Policy.Constraint.NotBeforeVersion = new ImplementationVersion(version)},
-                {"s|source", Resources.OptionSource, unused => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Cpu.Source)},
-                {"os=", Resources.OptionOS, os => parseResults.Policy.Architecture = new Architecture(Architecture.ParseOS(os), parseResults.Policy.Architecture.Cpu)},
-                {"cpu=", Resources.OptionCpu, cpu => parseResults.Policy.Architecture = new Architecture(parseResults.Policy.Architecture.OS, Architecture.ParseCpu(cpu))},
-                {"o|offline", Resources.OptionOffline, unused => parseResults.Policy.FeedManager.NetworkLevel = NetworkLevel.Offline},
-                {"r|refresh", Resources.OptionRefresh, unused => parseResults.Policy.FeedManager.Refresh = true},
-                {"with-store=", Resources.OptionWithStore, path => parseResults.Policy.AdditionalStore = new DirectoryStore(path)},
-
-                // Special operations
-                {"d|download-only", Resources.OptionDownloadOnly, unused => parseResults.DownloadOnly = true},
-                {"set-selections=", Resources.OptionSetSelections, file => parseResults.SelectionsFile = file},
-                {"get-selections", Resources.OptionGetSelections, unused => parseResults.GetSelections = true},
-                {"select-only", Resources.OptionSelectOnly, unused => parseResults.SelectOnly = true},
-                {"batch", Resources.OptionBatch, unused => handler.Batch = true},
-
-                // Launcher options
-                {"m|main=", Resources.OptionMain, newMain => parseResults.Main = newMain},
-                {"w|wrapper=", Resources.OptionWrapper, newWrapper => parseResults.Wrapper = newWrapper},
-
-                // Operation modifiers
-                {"no-wait", Resources.OptionNoWait, unused => parseResults.NoWait = true},
-                {"D|dry-run", Resources.OptionDryRun, unused => parseResults.DryRun = true},
-            };
-            #endregion
-
-            #region Help text
-            options.Add("h|help|?", Resources.OptionHelp, unused =>
-            {
-                mode = OperationMode.Help;
-
-                PrintUsage();
-                Console.WriteLine(Resources.Options);
-                options.WriteOptionDescriptions(Console.Out);
-            });
-            #endregion
-
-            #region Feed and arguments
-            var targetArgs = new List<string>();
-            parseResults.AdditionalArgs = targetArgs;
-            options.Add("<>", value =>
-            {
-                if (parseResults.Feed == null)
-                {
-                    if (value.StartsWith("-")) throw new ArgumentException(Resources.UnknownOption);
-
-                    parseResults.Feed = value;
-                    options.Clear();
-                }
-                else targetArgs.Add(value);
-            });
-            #endregion
-
-            // Parse the arguments and call the hooked handlers
-            options.Parse(args);
-
-            // Return the now filled results structure
-            results = parseResults;
-            return mode;
-        }
-        #endregion
-
-        #region Help
-        private static void PrintUsage()
-        {
-            const string usage = "{0}\t{1}\n\t{2}\n\t{3}\n\t{4}\n";
-            Console.WriteLine(usage, Resources.Usage, Resources.UsageNormal, Resources.UsageList, Resources.UsageImport, Resources.UsageFeed);
-        }
-        #endregion
-
-        #region Execute
-        /// <summary>
-        /// Executes the commands specified by the command-line arguments.
-        /// </summary>
-        /// <param name="mode">The operation mode selected by the parsing process.</param>
-        /// <param name="results">The parser results to be executed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
-        /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
-        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
-        /// <exception cref="FetcherException">Thrown if an <see cref="Model.Implementation"/> could not be downloaded.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static int ExecuteArgs(OperationMode mode, ParseResults results, IHandler handler)
-        {
-            switch (mode)
-            {
-                case OperationMode.Normal:
-                    Normal(results, handler);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.List:
-                    List(results);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Import:
-                case OperationMode.Manage:
-                    // ToDo: Implement
-                    Log.Error(Resources.NotImplemented);
-                    return (int)ErrorLevel.NotSupported;
-
-                case OperationMode.Version:
-                    Console.WriteLine(@"Zero Install Launcher CLI v{0}", Assembly.GetEntryAssembly().GetName().Version);
-                    return (int)ErrorLevel.OK;
-
-                case OperationMode.Help:
-                    // Help text was already printed
-                    return (int)ErrorLevel.OK;
-
-                default:
-                    Log.Error(Resources.UnknownMode);
-                    return (int)ErrorLevel.NotSupported;
-            }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Normal
-        /// <summary>
-        /// Launches the interface specified by the command-line arguments.
-        /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled.</exception>
-        /// <exception cref="ArgumentException">Thrown if <see cref="ParseResults.Feed"/> is not a valid URI or an existing local file.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
-        /// <exception cref="FetcherException">Thrown if an <see cref="Model.Implementation"/> could not be downloaded.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        private static void Normal(ParseResults results, IHandler handler)
-        {
-            if (string.IsNullOrEmpty(results.Feed)) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageNormal));
-
-            var controller = new Controller(results.Feed, SolverProvider.Default, results.Policy, handler);
-
-            if (results.SelectionsFile == null) controller.Solve();
-            else controller.SetSelections(Selections.Load(results.SelectionsFile));
-
-            if (!results.SelectOnly)
-                controller.DownloadUncachedImplementations();
-
-            if (results.GetSelections)
-            {
-                Console.Write(controller.GetSelections().WriteToString());
-            }
-            else if (!results.DownloadOnly && !results.SelectOnly)
-            {
-                var executor = controller.GetExecutor();
-                executor.Main = results.Main;
-                executor.Wrapper = results.Wrapper;
-
-                var startInfo = executor.GetStartInfo(StringUtils.Concatenate(results.AdditionalArgs, " "));
-                if (results.NoWait) ProcessUtils.RunDetached(startInfo);
-                else ProcessUtils.RunReplace(startInfo);
-            }
-        }
-        #endregion
-
-        #region List
-        /// <summary>
-        /// Prints a list of feeds in the cache to the console.
-        /// </summary>
-        /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        private static void List(ParseResults results)
-        {
-            if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
-
-            var feeds = results.Policy.FeedManager.Cache.ListAll();
-            foreach (Uri entry in feeds)
-            {
-                if (results.Feed == null || entry.ToString().Contains(results.Feed))
-                    Console.WriteLine(entry);
-            }
-        }
-        #endregion
     }
 }

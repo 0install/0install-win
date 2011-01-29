@@ -61,6 +61,15 @@ namespace ZeroInstall.Store.Service.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy..
+        /// </summary>
+        internal static string InsufficientFSTimeAccuracy {
+            get {
+                return ResourceManager.GetString("InsufficientFSTimeAccuracy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No path specified..
         /// </summary>
         internal static string MissingPath {

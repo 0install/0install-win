@@ -17,6 +17,12 @@
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
   <ItemGroup>
+    <Content Include="ModelDefinition\Package_0100.uml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Package_0153.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="NamespaceOverview.dgml">
       <SubType>Content</SubType>
     </Content>
@@ -24,9 +30,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package1_1632.uml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ModelDefinition\Package1_1637.uml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="ModelDefinition\Package2_1632.uml">
@@ -100,12 +103,12 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Handler.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Launcher.classdiagram">
+    <Content Include="UML\Class\Solver.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Launcher.classdiagram.layout">
+    <Content Include="UML\Class\Solver.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Launcher.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Solver.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Model.classdiagram">
       <SubType>Content</SubType>
@@ -114,12 +117,12 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Model.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Store.Feed.classdiagram">
+    <Content Include="UML\Class\Feeds.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Store.Feed.classdiagram.layout">
+    <Content Include="UML\Class\Feeds.Feed.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Store.Feed.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Feeds.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Store.Implementation.classdiagram">
       <SubType>Content</SubType>

@@ -61,5 +61,11 @@ namespace ZeroInstall.Launcher.Cli
             using (new TrackingProgressBar(task))
                 task.RunSync();
         }
+
+        /// <inheritdoc/>
+        public void CloseAsync()
+        {
+            // No GUI, so nothing to do
+        }
     }
 }

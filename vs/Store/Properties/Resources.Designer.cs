@@ -234,15 +234,6 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The value is not a valid domain name..
-        /// </summary>
-        internal static string NotValidDomain {
-            get {
-                return ResourceManager.GetString("NotValidDomain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The number value is too large..
         /// </summary>
         internal static string NumberTooLarge {

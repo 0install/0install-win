@@ -217,12 +217,6 @@
                 </propertyInstances>
               </stereotypeInstance>
             </appliedStereotypesInternal>
-            <type_NamedElement>
-              <undefinedTypeMoniker
-                Id="ef03dc8c-ba2f-4dfd-a2e4-ab0039ed3189"
-                LastKnownName="Uri"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
           </property>
           <property
             Id="ba4d7154-38ee-4e37-b564-d364e2c55129"

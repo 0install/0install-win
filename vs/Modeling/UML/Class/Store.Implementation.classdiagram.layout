@@ -389,7 +389,7 @@
       <generalizationMoniker Id="55cab528-59e7-4508-87fd-bf4f39595e19" />
       <relativeChildShapes />
       <moveableDecoratorHostShapes>
-        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="10.888888880610466, 5.5, 0.125, 0.1341145783662796" shapeFieldName="Stereotype" />
+        <moveableDecoratorHostShape manuallyPlaced="true" absoluteBounds="10.895833324640989, 5.5, 0.125, 0.1341145783662796" shapeFieldName="Stereotype" />
       </moveableDecoratorHostShapes>
       <nodes>
         <classShapeMoniker Id="b928b782-d859-4939-8e74-903157a3648e" />

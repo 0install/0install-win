@@ -10,3 +10,4 @@
 
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "ppc", Scope = "resource", Target = "ZeroInstall.Launcher.Properties.Resources.resources")]
 [assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1703:ResourceStringsShouldBeSpelledCorrectly", MessageId = "src", Scope = "resource", Target = "ZeroInstall.Launcher.Properties.Resources.resources")]
+[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1701:ResourceStringCompoundWordsShouldBeCasedCorrectly", MessageId = "hostname", Scope = "resource", Target = "ZeroInstall.Launcher.Properties.Resources.resources")]

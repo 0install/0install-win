@@ -23,7 +23,7 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Nodes;
 using ZeroInstall.Store.Management.WinForms.Properties;

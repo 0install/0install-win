@@ -14,7 +14,7 @@
     <Node Id="(Namespace=ZeroInstall.Publish.Arguments)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Arguments" />
     <Node Id="(Namespace=ZeroInstall.Publish.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Cli" />
     <Node Id="(Namespace=ZeroInstall.Publish.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.WinForms" />
-    <Node Id="(Namespace=ZeroInstall.Store.Feed)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Feed" />
+    <Node Id="(Namespace=ZeroInstall.Store.Feeds)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Feeds" />
     <Node Id="(Namespace=ZeroInstall.Store.Implementation)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Implementation" />
     <Node Id="(Namespace=ZeroInstall.Store.Management.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.Cli" />
     <Node Id="(Namespace=ZeroInstall.Store.Management.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.WinForms" />
@@ -36,7 +36,7 @@
     <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.Arguments)" Category="Contains" />
     <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.Cli)" Category="Contains" />
     <Link Source="@3" Target="(Namespace=ZeroInstall.Publish.WinForms)" Category="Contains" />
-    <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Feed)" Category="Contains" />
+    <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Feeds)" Category="Contains" />
     <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Implementation)" Category="Contains" />
     <Link Source="@4" Target="(Namespace=ZeroInstall.Store.Service)" Category="Contains" />
     <Link Source="@4" Target="@5" Category="Contains" />

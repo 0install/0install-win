@@ -211,7 +211,7 @@
                     <interfaceMoniker
                       Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
                       LastKnownName="IFeedHandler"
-                      LastKnownLocation="Package4_1632.uml" />
+                      LastKnownLocation="Package_0100.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1085,7 +1085,7 @@
             <interfaceMoniker
               Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
               LastKnownName="IFeedHandler"
-              LastKnownLocation="Package4_1632.uml" />
+              LastKnownLocation="Package_0100.uml" />
           </dependency>
         </suppliersInternal>
         <ownedOperations>
@@ -1206,7 +1206,7 @@
                     <interfaceMoniker
                       Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
                       LastKnownName="IFeedHandler"
-                      LastKnownLocation="Package4_1632.uml" />
+                      LastKnownLocation="Package_0100.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>

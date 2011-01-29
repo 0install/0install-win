@@ -15,8 +15,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NUnit.Framework;
+using NUnit.Mocks;
+using ZeroInstall.Fetchers;
+using ZeroInstall.Launcher.Feeds;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Launcher.Solver
 {
@@ -72,6 +78,30 @@ namespace ZeroInstall.Launcher.Solver
             Assert.AreEqual(selections1, selections2, "Cloned objects should be equal.");
             Assert.AreEqual(selections1.GetHashCode(), selections2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(selections1, selections2), "Cloning should not return the same reference.");
+        }
+
+        /// <summary>
+        /// Ensures that <see cref="Selections.ListUncachedImplementations"/> correctly finds <see cref="Model.Implementation"/>s not cached in an <see cref="IStore"/>.
+        /// </summary>
+        [Test]
+        public void TestListUncachedImplementations()
+        {
+            var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            var storeMock = new DynamicMock("StoreCache", typeof(IStore));
+            
+            var feed = FeedTest.CreateTestFeed();
+            var selections = CreateTestSelections();
+
+            // Pretend the first implementation isn't cached but the second is
+            cacheMock.ExpectAndReturn("GetFeed", feed, new Uri("http://0install.de/feeds/test/sub1.xml"));
+            storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
+            storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
+
+            var policy = new Policy(new Preferences(), new FeedManager((IFeedCache)cacheMock.MockInstance), new Fetcher((IStore)storeMock.MockInstance));
+            var implementations = selections.ListUncachedImplementations(policy);
+
+            // Only the first implementation should be listed as uncached
+            CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, implementations);
         }
     }
 }

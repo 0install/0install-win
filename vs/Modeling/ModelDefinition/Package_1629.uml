@@ -20,7 +20,7 @@
     <packageHasNamedElement>
       <packageMoniker
         Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
-        LastKnownName="Launcher"
+        LastKnownName="Injector"
         LastKnownLocation="Package1_1632.uml" />
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -34,6 +34,12 @@
         Id="0efbe23b-beab-4ef8-87dd-efc6e7aeca20"
         LastKnownName="Fetchers"
         LastKnownLocation="Package_1633.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="6e7491e4-7aa9-4137-843d-ff7c83bf5bb1"
+        LastKnownName="Launcher"
+        LastKnownLocation="Package_0153.uml" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

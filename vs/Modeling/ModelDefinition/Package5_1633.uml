@@ -532,14 +532,7 @@
                   Id="1f259810-91f8-43b1-a6f7-d9197eddcd4d"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -749,12 +742,6 @@
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
-                      LastKnownName="DigestMismatchException"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -773,14 +760,7 @@
                   Id="907ac3a5-1b37-4c4b-bc2d-2254c25a72b9"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -1450,14 +1430,7 @@
                   Id="ebb55ce0-1e30-4c9a-b03d-e6ffb64e40f9"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -1646,12 +1619,6 @@
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
-                      LastKnownName="DigestMismatchException"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -1670,14 +1637,7 @@
                   Id="3e93e806-8a8f-4574-943e-ab132c8bc6fa"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -4348,14 +4308,7 @@
                   Id="4e4ee3ca-1874-429b-8d6d-637da005f6c8"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -4457,12 +4410,6 @@
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
-                      LastKnownName="DigestMismatchException"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -4481,14 +4428,7 @@
                   Id="c5894e3f-b737-4cd2-b300-5c172f8e5372"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -4953,14 +4893,7 @@
                   Id="1834614e-9c05-4f88-b4af-d15312ea49ce"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -5123,12 +5056,6 @@
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
-                      LastKnownName="DigestMismatchException"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
@@ -5147,14 +5074,7 @@
                   Id="9e7792f3-77af-4a31-9bdc-d75ff3843734"
                   name="manifestDigest"
                   direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <undefinedTypeMoniker
-                      Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-                      LastKnownName="ManifestDigest"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
+                  isUnique="false" />
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
@@ -9943,16 +9863,6 @@
           </operation>
         </ownedOperationsInternal>
       </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <undefinedType
-        Id="d0246047-16c2-48c1-8bc6-b9bf67159866"
-        name="DigestMismatchException" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <undefinedType
-        Id="10a01c3c-15d0-4f70-94eb-1f9af82f7e91"
-        name="ManifestDigest" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

@@ -22,7 +22,7 @@ using Common.Cli;
 using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish
 {

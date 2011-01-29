@@ -13,7 +13,7 @@ using Common.Wpf;
 using System.Diagnostics;
 using Common;
 using System.Collections.ObjectModel;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using System.Net;

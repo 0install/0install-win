@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,7 +16,7 @@
  */
 
 using ZeroInstall.Fetchers;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Launcher.Feeds;
 
 namespace ZeroInstall.Launcher
 {
@@ -25,5 +25,10 @@ namespace ZeroInstall.Launcher
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IHandler : IFeedHandler, IFetchHandler
-    {}
+    {
+        /// <summary>
+        /// Close any asynchronous GUI threads to make room for a newly launched application.
+        /// </summary>
+        void CloseAsync();
+    }
 }

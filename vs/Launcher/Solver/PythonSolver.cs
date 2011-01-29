@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -21,10 +21,10 @@ using System.IO;
 using System.Xml;
 using Common.Cli;
 using Common.Utils;
+using ZeroInstall.Launcher.Feeds;
 using ZeroInstall.Launcher.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using ZeroInstall.Store.Feed;
 
 namespace ZeroInstall.Launcher.Solver
 {
@@ -61,21 +61,21 @@ namespace ZeroInstall.Launcher.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(string interfaceID, Policy policy, IFeedHandler handler)
+        public Selections Solve(Requirements requirements, Policy policy, IFeedHandler handler)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (requirements == null) throw new ArgumentNullException("requirements");
             if (policy == null) throw new ArgumentNullException("policy");
-            if (!interfaceID.StartsWith("http:") && !Path.IsPathRooted(interfaceID)) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, interfaceID));
+            if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentNullException("requirements");
             #endregion
 
             // Sanitize interface ID (support both URIs and local paths)
-            interfaceID = interfaceID.Replace("\"", "");
+            string interfaceID = requirements.InterfaceID.Replace("\"", "");
             if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
             // Execute the external Python script
             var errorParser = new PythonErrorParser(handler);
-            string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(policy) + interfaceID;
+            string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(requirements, policy) + interfaceID;
             string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
 
             // Handle any left-over error messages
@@ -98,21 +98,22 @@ namespace ZeroInstall.Launcher.Solver
         /// <summary>
         /// Generates a list of arguments to be passed on to the solver script.
         /// </summary>
-        /// <param name="policy">The user settings controlling the solving process.</param>
+        /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
+        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
         /// <returns>An empty string or a list of arguments terminated by a space.</returns>
-        private static string GetSolverArguments(Policy policy)
+        private static string GetSolverArguments(Requirements requirements, Policy policy)
         {
             string arguments = "";
-            if (policy.FeedManager.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.Preferences.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.FeedManager.Refresh) arguments += "--refresh ";
-            if (policy.CommandName != null) arguments += "--command=\"" + policy.CommandName + "\" ";
-            if (policy.Constraint.BeforeVersion != null) arguments += "--before=" + policy.Constraint.BeforeVersion + " ";
-            if (policy.Constraint.NotBeforeVersion != null) arguments += "--not-before=" + policy.Constraint.NotBeforeVersion + " ";
-            if (policy.Architecture.Cpu == Cpu.Source) arguments += "--source ";
+            if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
+            if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";
+            if (requirements.NotBeforeVersion != null) arguments += "--not-before=" + requirements.NotBeforeVersion + " ";
+            if (requirements.Architecture.Cpu == Cpu.Source) arguments += "--source ";
             else
             {
-                if (policy.Architecture.OS != OS.All) arguments += "--os=" + policy.Architecture.OS + " ";
-                if (policy.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + policy.Architecture.Cpu + " ";
+                if (requirements.Architecture.OS != OS.All) arguments += "--os=" + requirements.Architecture.OS + " ";
+                if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.Cpu + " ";
             }
             var additionalStore = policy.AdditionalStore as DirectoryStore;
             if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";

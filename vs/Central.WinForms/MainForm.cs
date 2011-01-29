@@ -21,6 +21,9 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Fetchers;
+using ZeroInstall.Launcher;
+using ZeroInstall.Launcher.Solver;
 
 namespace ZeroInstall.Central.WinForms
 {
@@ -59,6 +62,18 @@ namespace ZeroInstall.Central.WinForms
             if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
             Program.LaunchHelperAssembly(this, "0launch-win", "--no-wait " + feedUri);
             Close();
+        }
+        #endregion
+
+        #region Update
+        private static void BackgroundUpdate(string interfaceID)
+        {
+            var handler = new SilentHandler();
+            var policy = Policy.CreateDefault();
+            policy.FeedManager.Refresh = true;
+
+            var selections = SolverProvider.Default.Solve(new Requirements {InterfaceID = interfaceID}, policy, handler);
+            policy.Fetcher.RunSync(new FetchRequest(selections.ListUncachedImplementations(policy)), handler);
         }
         #endregion
 

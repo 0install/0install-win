@@ -48,14 +48,34 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arguments\ParseResults.cs" />
+    <Compile Include="Commands\AddFeed.cs" />
+    <Compile Include="Commands\Config.cs" />
+    <Compile Include="Commands\Download.cs" />
+    <Compile Include="Commands\Cmd.cs" />
+    <Compile Include="Commands\Import.cs" />
+    <Compile Include="Commands\List.cs" />
+    <Compile Include="Commands\ManageFeeds.cs" />
+    <Compile Include="Commands\RemoveFeed.cs" />
+    <Compile Include="Commands\Run.cs" />
+    <Compile Include="Commands\Selection.cs" />
+    <Compile Include="Commands\Update.cs" />
+    <Compile Include="Preferences.cs" />
+    <Compile Include="Feeds\Domain.cs" />
+    <Compile Include="Feeds\FeedManager.cs" />
+    <Compile Include="Feeds\FeedPreferences.cs" />
+    <Compile Include="Feeds\IFeedHandler.cs" />
+    <Compile Include="Feeds\ImplementationPreferences.cs" />
+    <Compile Include="Feeds\InterfacePreferences.cs" />
+    <Compile Include="Feeds\Key.cs" />
+    <Compile Include="Feeds\Trust.cs" />
     <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Controller.cs" />
     <Compile Include="IHandler.cs" />
     <Compile Include="Executor.cs" />
-    <Compile Include="Arguments\OperationMode.cs" />
     <Compile Include="CommandException.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -64,6 +84,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Requirements.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
@@ -103,6 +124,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="Commands\ClassDiagram.cd" />
+    <None Include="Feeds\ClassDiagram.cd" />
+    <None Include="Feeds\Trust.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

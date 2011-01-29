@@ -22,7 +22,7 @@ using Common.Collections;
 using Common.Wpf;
 using Common;
 using ZeroInstall.Launcher;
-using ZeroInstall.Launcher.Solver;
+using ZeroInstall.Launcher.Commands;
 using ZeroInstall.Store.Implementation;
 using System.ComponentModel;
 using System.Windows.Media;
@@ -65,7 +65,9 @@ namespace ZeroInstall.Central.Wpf
 
             backgroundWorker.DoWork += delegate
             {
-                new Controller(AppInfo.Feed.UriString, SolverProvider.Default, Policy.CreateDefault(), this).DownloadUncachedImplementations();
+                Cmd command = new Download(this);
+                command.Parse(new[] {AppInfo.Feed.UriString});
+                command.Execute();
             };
             backgroundWorker.RunWorkerCompleted += b_RunWorkerCompleted;
             backgroundWorker.RunWorkerAsync();
@@ -112,6 +114,10 @@ namespace ZeroInstall.Central.Wpf
             //State = "Ask key";
             return true;
         }
+
+        /// <inheritdoc/>
+        public void CloseAsync()
+        {}
     }
 
     public class InstallManager : DependencyObject

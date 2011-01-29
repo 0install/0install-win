@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -23,6 +23,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Launcher.Solver
 {
@@ -79,6 +80,44 @@ namespace ZeroInstall.Launcher.Solver
                 if (implementation.InterfaceID == interfaceID) return implementation;
             }
             throw new KeyNotFoundException();
+        }
+        #endregion
+
+        #region Implementations
+        /// <summary>
+        /// Returns a list of any selected <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
+        /// </summary>
+        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
+        /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
+        public IEnumerable<Implementation> ListUncachedImplementations(Policy policy)
+        {
+            #region Sanity checks
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            ICollection<Implementation> notCached = new LinkedList<Implementation>();
+
+            foreach (var implementation in Implementations)
+            {
+                // Local paths are considered to be always available
+                if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
+
+                // Don't try to download PackageImplementations
+                // ToDo: PackageKit integration
+                if (!string.IsNullOrEmpty(implementation.Package)) continue;
+
+                // Check if an implementation with a matching digest is available in the cache
+                if (policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
+
+                // If not, get download information for the implementation by checking the original feed
+                string feedUrl = implementation.FromFeed ?? implementation.InterfaceID;
+                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : policy.FeedManager.Cache.GetFeed(new Uri(feedUrl));
+                feed.Simplify();
+                notCached.Add(feed.GetImplementation(implementation.ID));
+            }
+
+            return notCached;
         }
         #endregion
 

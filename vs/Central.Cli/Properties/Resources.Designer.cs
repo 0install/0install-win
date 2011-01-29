@@ -39,7 +39,7 @@ namespace ZeroInstall.Central.Cli.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ZeroInstall.Store.Management.Cli.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ZeroInstall.Central.Cli.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,16 @@ namespace ZeroInstall.Central.Cli.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong number of arguments.
+        ///Usage: {0}.
+        /// </summary>
+        internal static string WrongNoArguments {
+            get {
+                return ResourceManager.GetString("WrongNoArguments", resourceCulture);
             }
         }
     }

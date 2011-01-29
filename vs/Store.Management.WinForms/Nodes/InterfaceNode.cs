@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes

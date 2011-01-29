@@ -84,7 +84,6 @@
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
-    <Compile Include="Launcher\ControllerTest.cs" />
     <Compile Include="Launcher\ExecutorTest.cs" />
     <Compile Include="Launcher\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Launcher\Solver\PythonSolverTest.cs" />
@@ -104,10 +103,10 @@
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
     <Compile Include="MyApps\AppListTest.cs" />
-    <Compile Include="Store\Feed\DiskFeedCacheTest.cs" />
-    <Compile Include="Store\Feed\FeedPreferencesTest.cs" />
-    <Compile Include="Store\Feed\InterfacePreferencesTest.cs" />
-    <Compile Include="Store\Feed\TrustTest.cs" />
+    <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />
+    <Compile Include="Launcher\Feeds\FeedPreferencesTest.cs" />
+    <Compile Include="Launcher\Feeds\InterfacePreferencesTest.cs" />
+    <Compile Include="Launcher\Feeds\TrustTest.cs" />
     <Compile Include="Store\Implementation\Archive\ExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />

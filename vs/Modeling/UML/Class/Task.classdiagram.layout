@@ -46,7 +46,7 @@
         </packageShape>
       </nestedChildShapes>
     </packageShape>
-    <associationConnector edgePoints="[(3.875 : 2.37513452087839); (4.75 : 2.37513452087839)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="*" targetMultiplicity="1">
+    <associationConnector edgePoints="[(3.875 : 2.37513452087839); (4.75 : 2.37513452087839)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="*" targetMultiplicity="1">
       <associationMoniker Id="ce679f3c-9aa6-447c-9ad7-f442378f9d6c" />
       <relativeChildShapes />
       <nodes>
@@ -62,7 +62,7 @@
         <interfaceShapeMoniker Id="098e99c2-108c-401b-925c-c08345869f5c" />
       </nodes>
     </realizationConnector>
-    <generalizationConnector edgePoints="[(5.125 : 5.57438654482365); (4.875 : 5.57438654482365)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110">
+    <generalizationConnector edgePoints="[(5.125 : 5.57438654482365); (4.875 : 5.57438654482365)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
       <generalizationMoniker Id="003c0dda-02f3-4d7c-9f0d-5902aaa42602" />
       <relativeChildShapes />
       <nodes>

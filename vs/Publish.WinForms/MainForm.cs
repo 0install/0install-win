@@ -26,7 +26,7 @@ using Common.Undo;
 using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.FeedStructure;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Store.Feeds;
 using Binding = ZeroInstall.Model.Binding;
 using ZeroInstall.Publish.WinForms.Controls;
 using Icon = ZeroInstall.Model.Icon;
@@ -395,10 +395,7 @@ namespace ZeroInstall.Publish.WinForms
             
             iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
 
-            Populate += delegate
-                            {
-                                iconManagementControl.IconUrls = getCollection();
-                            };
+            Populate += () => iconManagementControl.IconUrls = getCollection();
         }
         #endregion
 

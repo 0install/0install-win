@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -54,6 +54,12 @@ namespace ZeroInstall.Launcher
             #endregion
 
             task.RunSync();
+        }
+
+        /// <inheritdoc/>
+        public void CloseAsync()
+        {
+            // No GUI, so nothing to do
         }
     }
 }

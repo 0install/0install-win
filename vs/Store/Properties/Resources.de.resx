@@ -176,9 +176,6 @@ Tatsächlicher Wert: {1}</value>
   <data name="NoKnownDigestMethod" xml:space="preserve">
     <value>Es wurde keine bekannte Digest-Methode definiert.</value>
   </data>
-  <data name="NotValidDomain" xml:space="preserve">
-    <value>Der Wert ist kein gültiger Domainname.</value>
-  </data>
   <data name="NumberTooLarge" xml:space="preserve">
     <value>Der Zahlenwert ist zu groß.</value>
   </data>

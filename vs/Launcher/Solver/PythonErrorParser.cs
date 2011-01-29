@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -20,7 +20,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
-using ZeroInstall.Store.Feed;
+using ZeroInstall.Launcher.Feeds;
 
 namespace ZeroInstall.Launcher.Solver
 {
