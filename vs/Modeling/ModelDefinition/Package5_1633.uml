@@ -9656,7 +9656,7 @@
         <referencesInternal>
           <reference
             Id="b1d184d1-e034-42cf-af1b-6217a479a78e"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=CliHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
