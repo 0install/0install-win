@@ -79,6 +79,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No interface was specified..
+        /// </summary>
+        internal static string MissingInterfaceID {
+            get {
+                return ResourceManager.GetString("MissingInterfaceID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing / after hostname in URI &apos;{0}&apos;..
         /// </summary>
         internal static string MissingSlashInUri {

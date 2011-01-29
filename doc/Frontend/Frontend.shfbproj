@@ -34,7 +34,6 @@
       <DocumentationSource sourceFile="..\..\vs\Command.Cli\Command.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Command.WinForms\Command.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Launcher.Cli\Launcher.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Launcher.WinForms\Launcher.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Service\Store.Service.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Management.Cli\Store.Management.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Management.WinForms\Store.Management.WinForms.csproj" />
@@ -45,7 +44,6 @@
 	  <NamespaceSummaryItem name="ZeroInstall.Command.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
 	  <NamespaceSummaryItem name="ZeroInstall.Command.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">A command-line interface for Zero Install, for launching applications. A speced down version of &lt;see cref="ZeroInstall.Command.Cli" /&gt;.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.WinForms" isDocumented="True" xmlns="">A WinForms-based GUI for Zero Install, for launching applications. A speced down version of &lt;see cref="ZeroInstall.Command.WinForms" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">A Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>

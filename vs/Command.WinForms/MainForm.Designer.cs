@@ -1,4 +1,4 @@
-﻿namespace ZeroInstall.Launcher.WinForms
+﻿namespace ZeroInstall.Command.WinForms
 {
     partial class MainForm
     {

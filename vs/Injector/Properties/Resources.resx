@@ -213,4 +213,7 @@ However, new downloads will not be written to this directory.</value>
   <data name="OptionVersion" xml:space="preserve">
     <value>Display version information.</value>
   </data>
+  <data name="MissingInterfaceID" xml:space="preserve">
+    <value>No interface was specified.</value>
+  </data>
 </root>

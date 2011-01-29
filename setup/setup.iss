@@ -84,6 +84,7 @@ ChangesEnvironment=yes
 ;Remove obsolete files from previous versions
 Name: {app}\ZeroInstall.Launcher.*; Type: files
 Name: {app}\ZeroInstall.DownloadBroker.*; Type: files
+Name: {app}\0launch-win.*; Type: files
 Name: {app}\0launchw.*; Type: files
 Name: {app}\0storew.*; Type: files
 Name: {app}\de\*.resources.dll; Type: files

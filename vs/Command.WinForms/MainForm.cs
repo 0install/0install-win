@@ -22,7 +22,7 @@ using System.Windows.Forms;
 using Common;
 using ZeroInstall.Injector;
 
-namespace ZeroInstall.Launcher.WinForms
+namespace ZeroInstall.Command.WinForms
 {
     /// <summary>
     /// Uses GUI message boxes to ask the user questions.

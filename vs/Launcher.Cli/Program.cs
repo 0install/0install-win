@@ -25,6 +25,7 @@ using ZeroInstall.Injector;
 using ZeroInstall.Injector.Commands;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
+using CliHandler = ZeroInstall.Injector.CliHandler;
 
 namespace ZeroInstall.Launcher.Cli
 {
@@ -64,7 +65,7 @@ namespace ZeroInstall.Launcher.Cli
     #endregion
 
     /// <summary>
-    /// Launches Zero Install implementations and displays a command-line interface.
+    /// A command-line interface for Zero Install, for launching applications.
     /// </summary>
     public static class Program
     {

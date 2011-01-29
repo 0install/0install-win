@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CliHandler.cs" />
     <Compile Include="Commands\AddFeed.cs" />
     <Compile Include="Commands\Config.cs" />
     <Compile Include="Commands\Download.cs" />

@@ -153,4 +153,7 @@
   <data name="NotValidDomain" xml:space="preserve">
     <value>Der Wert ist kein gültiger Domainname.</value>
   </data>
+  <data name="MissingInterfaceID" xml:space="preserve">
+    <value>Es wurde kein Interface angegeben.</value>
+  </data>
 </root>

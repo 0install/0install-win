@@ -59,15 +59,5 @@ namespace ZeroInstall.Command.Cli.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrong number of arguments.
-        ///Usage: {0}.
-        /// </summary>
-        internal static string WrongNoArguments {
-            get {
-                return ResourceManager.GetString("WrongNoArguments", resourceCulture);
-            }
-        }
     }
 }

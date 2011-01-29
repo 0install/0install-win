@@ -19,12 +19,9 @@ rd /s /q vs\Command.Cli\obj > NUL 2>&1
 rd /s /q vs\Command.WinForms\obj > NUL 2>&1
 rd /s /q vs\Command.Gtk\obj > NUL 2>&1
 rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
-rd /s /q vs\Launcher.WinForms\obj > NUL 2>&1
-rd /s /q vs\Launcher.Gtk\obj > NUL 2>&1
 rd /s /q vs\Store.Service\obj > NUL 2>&1
 rd /s /q vs\Store.Management.Cli\obj > NUL 2>&1
 rd /s /q vs\Store.Management.WinForms\obj > NUL 2>&1
-rd /s /q vs\Store.Management.Gtk\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
 rd /s /q vs\Common.Gtk\obj > NUL 2>&1
 rd /s /q vs\Fetchers\obj > NUL 2>&1

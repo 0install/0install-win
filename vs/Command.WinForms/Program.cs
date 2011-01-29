@@ -16,13 +16,23 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.IO;
+using System.Net;
 using System.Windows.Forms;
+using Common;
 using Common.Controls;
+using ZeroInstall.Fetchers;
+using ZeroInstall.Injector;
+using ZeroInstall.Injector.Commands;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Command.WinForms
 {
     /// <summary>
-    /// Launches Zero Install implementations and displays a WinForms GUI.
+    /// A WinForms-based GUI for Zero Install, for installing and launching applications, managing caches, etc.
     /// </summary>
     public static class Program
     {
@@ -37,7 +47,110 @@ namespace ZeroInstall.Command.WinForms
 
             ErrorReportForm.RunAppMonitored(delegate
             {
-                // ToDo
+                var handler = new MainForm();
+
+                // ToDo: Proper parsing
+                var arguments = new LinkedList<String>(args);
+                if (arguments.Contains("run")) arguments.Remove("run"); else return;
+
+                var command = new Run(handler);
+
+                try
+                {
+                    command.Parse(arguments);
+
+                    // Ask user to specifiy interface URI if it is missing
+                    if (string.IsNullOrEmpty(command.Requirements.InterfaceID))
+                    {
+                        command.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
+                        if (string.IsNullOrEmpty(command.Requirements.InterfaceID)) return;
+                    }
+                }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                catch (InvalidOperationException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
+                #endregion
+
+                handler.ShowAsync();
+                try { command.Execute(); }
+                #region Error hanlding
+                catch (UserCancelException)
+                { }
+                catch (ArgumentException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (WebException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (IOException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (SolverException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (FetcherException ex)
+                {
+                    Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (DigestMismatchException ex)
+                {
+                    // ToDo: Display generated manifest
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (ImplementationNotFoundException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (CommandException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (BadImageFormatException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                #endregion
             });
         }
     }

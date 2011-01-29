@@ -60,7 +60,7 @@ namespace ZeroInstall.Central.WinForms
         private void LaunchFeed(string feedUri)
         {
             if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
-            Program.LaunchHelperAssembly(this, "0launch-win", "--no-wait " + feedUri);
+            Program.LaunchHelperAssembly(this, "0install-win", "run --no-wait " + feedUri);
             Close();
         }
         #endregion
@@ -126,7 +126,7 @@ namespace ZeroInstall.Central.WinForms
         #region Tools
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperAssembly(this, "0launch-win", null);
+            Program.LaunchHelperAssembly(this, "0install-win", "run");
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)

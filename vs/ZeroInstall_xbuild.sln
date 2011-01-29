@@ -31,15 +31,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Command.Gtk", "Command.Gtk\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher.Cli", "Launcher.Cli\Launcher.Cli.csproj", "{B56D8478-0900-47C2-9113-1DC086A2D129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher.WinForms", "Launcher.WinForms\Launcher.WinForms.csproj", "{D9719D11-B12D-4D51-919C-73C606BA9E47}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Launcher.Gtk", "Launcher.Gtk\Launcher.Gtk.csproj", "{505541D3-61DB-4725-9753-10E3DF2434F5}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Cli", "Store.Management.Cli\Store.Management.Cli.csproj", "{05E49C84-D6AB-418A-9978-8200CB76DD39}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.WinForms", "Store.Management.WinForms\Store.Management.WinForms.csproj", "{77A13B71-EF52-41C1-BB96-5337E37C4C65}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Management.Gtk", "Store.Management.Gtk\Store.Management.Gtk.csproj", "{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Frontend", "Test.Frontend\Test.Frontend.csproj", "{0C8BA41E-1DF8-4B99-A867-E1A10660ECF6}"
 EndProject
@@ -117,14 +111,6 @@ Global
 		{B56D8478-0900-47C2-9113-1DC086A2D129}.Debug|x86.Build.0 = Debug|Any CPU
 		{B56D8478-0900-47C2-9113-1DC086A2D129}.Release|x86.ActiveCfg = Release|Any CPU
 		{B56D8478-0900-47C2-9113-1DC086A2D129}.Release|x86.Build.0 = Release|Any CPU
-		{D9719D11-B12D-4D51-919C-73C606BA9E47}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{D9719D11-B12D-4D51-919C-73C606BA9E47}.Debug|x86.Build.0 = Debug|Any CPU
-		{D9719D11-B12D-4D51-919C-73C606BA9E47}.Release|x86.ActiveCfg = Release|Any CPU
-		{D9719D11-B12D-4D51-919C-73C606BA9E47}.Release|x86.Build.0 = Release|Any CPU
-		{505541D3-61DB-4725-9753-10E3DF2434F5}.Debug|x86.ActiveCfg = Debug|x86
-		{505541D3-61DB-4725-9753-10E3DF2434F5}.Debug|x86.Build.0 = Debug|x86
-		{505541D3-61DB-4725-9753-10E3DF2434F5}.Release|x86.ActiveCfg = Release|x86
-		{505541D3-61DB-4725-9753-10E3DF2434F5}.Release|x86.Build.0 = Release|x86
 		{05E49C84-D6AB-418A-9978-8200CB76DD39}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{05E49C84-D6AB-418A-9978-8200CB76DD39}.Debug|x86.Build.0 = Debug|Any CPU
 		{05E49C84-D6AB-418A-9978-8200CB76DD39}.Release|x86.ActiveCfg = Release|Any CPU
@@ -133,10 +119,6 @@ Global
 		{77A13B71-EF52-41C1-BB96-5337E37C4C65}.Debug|x86.Build.0 = Debug|Any CPU
 		{77A13B71-EF52-41C1-BB96-5337E37C4C65}.Release|x86.ActiveCfg = Release|Any CPU
 		{77A13B71-EF52-41C1-BB96-5337E37C4C65}.Release|x86.Build.0 = Release|Any CPU
-		{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}.Debug|x86.ActiveCfg = Debug|x86
-		{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}.Debug|x86.Build.0 = Debug|x86
-		{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}.Release|x86.ActiveCfg = Release|x86
-		{EF3F2310-DBC2-11DF-A9EB-3290DFD72085}.Release|x86.Build.0 = Release|x86
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Debug|x86.Build.0 = Debug|Any CPU
 		{7334A4AA-B517-4102-8D4D-9B4B3A94C5FA}.Release|x86.ActiveCfg = Release|Any CPU

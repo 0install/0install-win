@@ -66,7 +66,8 @@ namespace ZeroInstall.Injector.Solver
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
             if (policy == null) throw new ArgumentNullException("policy");
-            if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentNullException("requirements");
+            if (handler == null) throw new ArgumentNullException("handler");
+            if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
             // Sanitize interface ID (support both URIs and local paths)

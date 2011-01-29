@@ -18,9 +18,8 @@
 using System;
 using Common;
 using Common.Cli;
-using ZeroInstall.Injector;
 
-namespace ZeroInstall.Launcher.Cli
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Uses the stderr stream to inform the user of progress and ask questions.

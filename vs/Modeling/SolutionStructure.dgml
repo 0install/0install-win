@@ -8,7 +8,6 @@
     <Node Id="(Namespace=ZeroInstall.Fetchers)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Fetchers" />
     <Node Id="(Namespace=ZeroInstall.Injector)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector" />
     <Node Id="(Namespace=ZeroInstall.Launcher.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher.Cli" />
-    <Node Id="(Namespace=ZeroInstall.Launcher.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Launcher.WinForms" />
     <Node Id="(Namespace=ZeroInstall.Model)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Model" />
     <Node Id="(Namespace=ZeroInstall.MyApps)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.MyApps" />
     <Node Id="(Namespace=ZeroInstall.Publish.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Publish.Cli" />
@@ -60,19 +59,16 @@
     <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.WinForms">
+    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@4" Category="SolutionFolder" IsDragSource="True" Label="Frontend">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
-    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
-      <Category Ref="CodeSchema_SourceFile" />
-    </Node>
-    <Node Id="@44" Category="SolutionFolder" IsDragSource="True" Label="Tools">
+    <Node Id="@42" Category="SolutionFolder" IsDragSource="True" Label="Tools">
       <Category Ref="CodeSchema_SourceFile" />
     </Node>
     <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Backend">
@@ -95,7 +91,6 @@
     <Node Id="NewGroup20" Category="ExeFile" Group="Expanded" Label="0install.exe" />
     <Node Id="NewGroup23" Category="DllFile" Group="Expanded" Label="ZeroInstall.Fetchers.dll" />
     <Node Id="NewGroup3" Category="ExeFile" Group="Expanded" Label="0launch.exe" />
-    <Node Id="NewGroup4" Category="ExeFile" Group="Expanded" Label="0launch-win.exe" />
     <Node Id="NewGroup6" Category="ExeFile" Group="Expanded" Label="ZeroInstall.exe" />
     <Node Id="NewGroup7" Category="ExeFile" Group="Expanded" Label="StoreService.exe" />
     <Node Id="NewGroup8" Category="DllFile" Group="Expanded" Label="ZeroInstall.Model.dll" />
@@ -107,24 +102,23 @@
     <Link Source="@2" Target="@24" Category="Contains" />
     <Link Source="@2" Target="@26" Category="Contains" />
     <Link Source="@2" Target="@28" Category="Contains" />
+    <Link Source="@2" Target="@38" Category="Contains" />
     <Link Source="@2" Target="@40" Category="Contains" />
-    <Link Source="@2" Target="@42" Category="Contains" />
     <Link Source="@2" Target="@6" Category="Contains" />
     <Link Source="@4" Target="@10" Category="Contains" />
     <Link Source="@4" Target="@16" Category="Contains" />
     <Link Source="@4" Target="@20" Category="Contains" />
     <Link Source="@4" Target="@32" Category="Contains" />
     <Link Source="@4" Target="@36" Category="Contains" />
-    <Link Source="@4" Target="@38" Category="Contains" />
     <Link Source="@4" Target="@8" Category="Contains" />
-    <Link Source="@44" Target="@14" Category="Contains" />
-    <Link Source="@44" Target="@18" Category="Contains" />
-    <Link Source="@44" Target="@30" Category="Contains" />
-    <Link Source="@44" Target="@34" Category="Contains" />
+    <Link Source="@42" Target="@14" Category="Contains" />
+    <Link Source="@42" Target="@18" Category="Contains" />
+    <Link Source="@42" Target="@30" Category="Contains" />
+    <Link Source="@42" Target="@34" Category="Contains" />
     <Link Source="NewGroup1" Target="(Namespace=ZeroInstall.Command.WinForms)" Category="Contains" />
     <Link Source="NewGroup1" Target="@32" Category="Contains" />
     <Link Source="NewGroup10" Target="(Namespace=ZeroInstall.MyApps)" Category="Contains" />
-    <Link Source="NewGroup10" Target="@40" Category="Contains" />
+    <Link Source="NewGroup10" Target="@38" Category="Contains" />
     <Link Source="NewGroup11" Target="(Namespace=ZeroInstall.Store)" Category="Contains" />
     <Link Source="NewGroup11" Target="@12" Category="Contains" />
     <Link Source="NewGroup12" Target="(Namespace=ZeroInstall.Injector)" Category="Contains" />
@@ -141,11 +135,9 @@
     <Link Source="NewGroup20" Target="(Namespace=ZeroInstall.Command.Cli)" Category="Contains" />
     <Link Source="NewGroup20" Target="@16" Category="Contains" />
     <Link Source="NewGroup23" Target="(Namespace=ZeroInstall.Fetchers)" Category="Contains" />
-    <Link Source="NewGroup23" Target="@42" Category="Contains" />
+    <Link Source="NewGroup23" Target="@40" Category="Contains" />
     <Link Source="NewGroup3" Target="(Namespace=ZeroInstall.Launcher.Cli)" Category="Contains" />
     <Link Source="NewGroup3" Target="@20" Category="Contains" />
-    <Link Source="NewGroup4" Target="(Namespace=ZeroInstall.Launcher.WinForms)" Category="Contains" />
-    <Link Source="NewGroup4" Target="@38" Category="Contains" />
     <Link Source="NewGroup6" Target="(Namespace=ZeroInstall.Central.WinForms)" Category="Contains" />
     <Link Source="NewGroup6" Target="@36" Category="Contains" />
     <Link Source="NewGroup7" Target="(Namespace=ZeroInstall.Store.Service)" Category="Contains" />
@@ -256,14 +248,12 @@
     <Alias n="34" Id="(@33)" />
     <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="36" Id="(@35)" />
-    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/Launcher.WinForms/Launcher.WinForms.csproj" />
+    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="38" Id="(@37)" />
-    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
     <Alias n="40" Id="(@39)" />
-    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Tools" />
     <Alias n="42" Id="(@41)" />
-    <Alias n="43" Uri="Assembly=$(VsSolutionUri)/Tools" />
-    <Alias n="44" Id="(@43)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="adba7a08-3121-4f27-8893-6cd7093743b2.OutputPath" Value="..\..\build\Frontend\Debug\ZeroInstall.exe" />
