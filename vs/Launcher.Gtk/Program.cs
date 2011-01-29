@@ -28,8 +28,9 @@ using Common.Utils;
 using Gtk;
 using NDesk.Options;
 using ZeroInstall.Fetchers;
-using ZeroInstall.Launcher.Commands;
-using ZeroInstall.Launcher.Solver;
+using ZeroInstall.Injector;
+using ZeroInstall.Injector.Commands;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Launcher.Gtk

@@ -34,7 +34,7 @@
       <DocumentationSource sourceFile="..\..\vs\Model\Model.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store\Store.csproj" />
       <DocumentationSource sourceFile="..\..\vs\MyApps\MyApps.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Launcher\Launcher.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Injector\Injector.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Fetchers\Fetchers.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected aspects of the Zero Install Backend API.</ProjectSummary>
@@ -57,10 +57,10 @@
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementation" isDocumented="True">Contains classes for managing the implementation stores/caches and manifest generation.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Implementation.Archive" isDocumented="True">Contains classes for safely extracting different kinds of archives.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Fetchers" isDocumented="True">Manages &lt;see cref="ZeroInstall.Model.Implementation" /&gt; download requests for the launcher.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.Commands" isDocumented="True">Contains helper classes for applications that wish to support default command-line arguments.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.Feeds" isDocumented="True">Contains classes for managing the feed retreival.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Launcher.Solver" isDocumented="True">Contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector" isDocumented="True">Contains code for solving dependencies, launching implementations and injecting the selected dependencies.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Commands" isDocumented="True">Contains helper classes for applications that wish to support default command-line arguments.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Feeds" isDocumented="True">Contains classes for managing the feed retreival.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Injector.Solver" isDocumented="True">Contains dependency solvers and structures to store selected implementations.</NamespaceSummaryItem>
     </NamespaceSummaries>
   </PropertyGroup>
   <ItemGroup>

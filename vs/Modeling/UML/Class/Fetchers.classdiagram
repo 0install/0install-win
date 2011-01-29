@@ -1683,7 +1683,7 @@
               <ownedAttributes>
                 <property Id="495c341d-f0f7-44c8-864c-b0b9492391cc" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
-                    <reference Id="ae4dffe7-da77-4342-b3c3-389a1ec96769" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch" tag="ViewCode">
+                    <reference Id="ae4dffe7-da77-4342-b3c3-389a1ec96769" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler Member=Batch" tag="ViewCode">
                       <elementDefinition Id="8016cd45-9764-41af-9577-476c0b28a326" />
                     </reference>
                   </referencesInternal>

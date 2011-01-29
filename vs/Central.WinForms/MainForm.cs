@@ -22,8 +22,8 @@ using Common;
 using Common.Collections;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Fetchers;
-using ZeroInstall.Launcher;
-using ZeroInstall.Launcher.Solver;
+using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Central.WinForms
 {

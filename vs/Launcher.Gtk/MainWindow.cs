@@ -24,7 +24,7 @@ using Gtk;
 using Common;
 using Common.Gtk;
 using Common.Utils;
-using ZeroInstall.Launcher;
+using ZeroInstall.Injector;
 
 public partial class MainWindow : Window, IHandler
 {

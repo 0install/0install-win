@@ -7,7 +7,7 @@
   <referencesInternal>
     <reference
       Id="446b98ab-15d3-4030-aaac-a8b2a6ec645e"
-      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher.Cli"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.Cli"
       tag="ViewCode" />
   </referencesInternal>
   <packagedElements>
@@ -21,7 +21,7 @@
         <referencesInternal>
           <reference
             Id="3cdb0760-3ab3-4cc7-855c-348a947f48c6"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -98,7 +98,7 @@
             <referencesInternal>
               <reference
                 Id="39257055-dd47-45d1-92ca-7d2f1c99d5c5"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -165,7 +165,7 @@
                   <referencesInternal>
                     <reference
                       Id="a261e356-25da-4551-a3e5-18493aab3188"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information"
+                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information"
                       tag="ViewCode" />
                   </referencesInternal>
                   <type_NamedElement>
@@ -189,7 +189,7 @@
             <referencesInternal>
               <reference
                 Id="72f45e4d-d27f-431a-914a-b74d19ff288e"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>

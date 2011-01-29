@@ -19,7 +19,7 @@ using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Launcher.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains common test methods for <see cref="ISolver"/> implementations.

@@ -19,12 +19,12 @@ using System;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Fetchers;
-using ZeroInstall.Launcher.Feeds;
+using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Launcher.Solver
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// Contains test methods for <see cref="Selections"/>.

@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ZeroInstall.Central.WinForms</RootNamespace>
-    <AssemblyName>0install-win</AssemblyName>
+    <AssemblyName>ZeroInstall</AssemblyName>
     <SignAssembly>true</SignAssembly>
     <DelaySign>false</DelaySign>
     <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Frontend\Debug\</OutputPath>
-    <DocumentationFile>..\..\build\Frontend\Debug\0install-win.xml</DocumentationFile>
+    <DocumentationFile>..\..\build\Frontend\Debug\ZeroInstall.xml</DocumentationFile>
     <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -106,9 +106,9 @@
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>Fetchers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Launcher\Launcher.csproj">
+    <ProjectReference Include="..\Injector\Injector.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
-      <Name>Launcher</Name>
+      <Name>Injector</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>

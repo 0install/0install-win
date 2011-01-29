@@ -20,7 +20,7 @@ using System.Text.RegularExpressions;
 using Common.Storage;
 using NUnit.Framework;
 using NUnit.Mocks;
-using ZeroInstall.Launcher;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Implementation

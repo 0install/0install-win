@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZeroInstall.Injector</RootNamespace>
+    <AssemblyName>ZeroInstall.Injector</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\build\Backend\Debug\</OutputPath>
+    <DocumentationFile>..\..\build\Backend\Debug\ZeroInstall.Injector.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\build\Backend\Release\</OutputPath>
+    <DocumentationFile>..\..\build\Backend\Release\ZeroInstall.Injector.xml</DocumentationFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
+    <DebugSymbols>false</DebugSymbols>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="C5">
+      <HintPath>..\..\lib\C5.dll</HintPath>
+    </Reference>
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\AddFeed.cs" />
+    <Compile Include="Commands\Config.cs" />
+    <Compile Include="Commands\Download.cs" />
+    <Compile Include="Commands\Cmd.cs" />
+    <Compile Include="Commands\Import.cs" />
+    <Compile Include="Commands\List.cs" />
+    <Compile Include="Commands\ManageFeeds.cs" />
+    <Compile Include="Commands\RemoveFeed.cs" />
+    <Compile Include="Commands\Run.cs" />
+    <Compile Include="Commands\Selection.cs" />
+    <Compile Include="Commands\Update.cs" />
+    <Compile Include="Preferences.cs" />
+    <Compile Include="Feeds\Domain.cs" />
+    <Compile Include="Feeds\FeedManager.cs" />
+    <Compile Include="Feeds\FeedPreferences.cs" />
+    <Compile Include="Feeds\IFeedHandler.cs" />
+    <Compile Include="Feeds\ImplementationPreferences.cs" />
+    <Compile Include="Feeds\InterfacePreferences.cs" />
+    <Compile Include="Feeds\Key.cs" />
+    <Compile Include="Feeds\Trust.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="IHandler.cs" />
+    <Compile Include="Executor.cs" />
+    <Compile Include="CommandException.cs" />
+    <Compile Include="Policy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Requirements.cs" />
+    <Compile Include="SilentHandler.cs" />
+    <Compile Include="Solver\ImplementationSelection.cs" />
+    <Compile Include="Solver\ISolver.cs" />
+    <Compile Include="Solver\PythonErrorParser.cs" />
+    <Compile Include="Solver\SolverException.cs" />
+    <Compile Include="Solver\SolverProvider.cs" />
+    <Compile Include="Solver\PythonSolver.cs" />
+    <Compile Include="Solver\Selections.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fetchers\Fetchers.csproj">
+      <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
+      <Name>Fetchers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store\Store.csproj">
+      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
+      <Name>Store</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
+    <None Include="Commands\ClassDiagram.cd" />
+    <None Include="Feeds\ClassDiagram.cd" />
+    <None Include="Feeds\Trust.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -20,11 +20,11 @@ using System.IO;
 using Common.Utils;
 using NUnit.Framework;
 using NUnit.Mocks;
-using ZeroInstall.Launcher.Solver;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
-namespace ZeroInstall.Launcher
+namespace ZeroInstall.Injector
 {
     /// <summary>
     /// Contains test methods for <see cref="Executor"/>.

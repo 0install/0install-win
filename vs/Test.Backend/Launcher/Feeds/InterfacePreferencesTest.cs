@@ -20,7 +20,7 @@ using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Launcher.Feeds
+namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
     /// Contains test methods for <see cref="InterfacePreferences"/>.

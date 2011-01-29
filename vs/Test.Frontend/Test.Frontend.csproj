@@ -50,10 +50,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Central.Cli\Central.Cli.csproj">
-      <Project>{F52544A4-EC24-11DF-8FA3-0F04E0D72085}</Project>
-      <Name>Central.Cli</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Central.WinForms\Central.WinForms.csproj">
       <Project>{9519DC06-0A9F-4179-B9BC-B4E901A0DA30}</Project>
       <Name>Central.WinForms</Name>
@@ -66,9 +62,9 @@
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>Fetchers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Launcher\Launcher.csproj">
+    <ProjectReference Include="..\Injector\Injector.csproj">
       <Project>{33DF4C92-AC4A-4A36-89A2-DB334BE3D229}</Project>
-      <Name>Launcher</Name>
+      <Name>Injector</Name>
     </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
@@ -96,7 +92,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Central\Cli\" />
     <Folder Include="Central\WinForms\" />
   </ItemGroup>
   <ItemGroup>

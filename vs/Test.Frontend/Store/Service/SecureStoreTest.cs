@@ -21,7 +21,7 @@ using Common.Collections;
 using Common.Utils;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Launcher;
+using ZeroInstall.Injector;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 

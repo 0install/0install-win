@@ -85,7 +85,7 @@
           <packageHasNamedElement>
             <package Id="4c0cf256-91a1-4eec-b32d-ad33f00a6b7b" name="Injector" visibility="Private">
               <referencesInternal>
-                <reference Id="aa85892f-0216-4043-8e2c-4fa1b3323c9d" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher" tag="ViewCode">
+                <reference Id="aa85892f-0216-4043-8e2c-4fa1b3323c9d" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector" tag="ViewCode">
                   <elementDefinition Id="4b7bea81-2223-4877-bf52-acb2498d6210" />
                 </reference>
               </referencesInternal>
@@ -94,7 +94,7 @@
                 <packageHasNamedElement>
                   <class Id="32b24705-8917-4c11-9f18-daf71aab5baa" name="SilentHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
                     <referencesInternal>
-                      <reference Id="b53a676b-36bd-42ed-93c5-7ec0103ddd58" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler" tag="ViewCode">
+                      <reference Id="b53a676b-36bd-42ed-93c5-7ec0103ddd58" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler" tag="ViewCode">
                         <elementDefinition Id="b5499955-2a30-4c28-9c67-d502ceba9359" />
                       </reference>
                     </referencesInternal>
@@ -145,7 +145,7 @@
                     <ownedAttributesInternal>
                       <property Id="1de1a9ff-f054-4c52-8fc0-d969ea31b382" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
-                          <reference Id="1211dbc4-d56c-423b-a545-f197fc22108e" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=Batch" tag="ViewCode">
+                          <reference Id="1211dbc4-d56c-423b-a545-f197fc22108e" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=Batch" tag="ViewCode">
                             <elementDefinition Id="78cc070b-543b-478d-8bfd-b95be6c237f1" />
                           </reference>
                         </referencesInternal>
@@ -201,7 +201,7 @@
                     <ownedOperationsInternal>
                       <operation Id="bf93afa4-ed83-439a-9026-21095d86efd4" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="41a1618e-8466-40f7-8b04-95683652670b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
+                          <reference Id="41a1618e-8466-40f7-8b04-95683652670b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                             <elementDefinition Id="cf369d3f-d964-42a9-9883-32f1b95e3762" />
                           </reference>
                         </referencesInternal>
@@ -255,7 +255,7 @@
                           <operationHasOwnedParameters>
                             <parameter Id="72ac6539-63c1-45ca-8fdf-bc7289c05ce6" name="information" direction="In">
                               <referencesInternal>
-                                <reference Id="d4b0f98a-b28a-473d-92a4-acafd1d057e8" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
+                                <reference Id="d4b0f98a-b28a-473d-92a4-acafd1d057e8" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
                                   <elementDefinition Id="697757e0-ad6c-4c3f-8dc6-5c6858ad2067" />
                                 </reference>
                               </referencesInternal>
@@ -269,7 +269,7 @@
                       </operation>
                       <operation Id="60582773-1fea-4581-a0d9-2075ca901577" name="RunDownloadTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="b8d20884-a5aa-41c4-bfbb-e04fabf575fa" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                          <reference Id="b8d20884-a5aa-41c4-bfbb-e04fabf575fa" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                             <elementDefinition Id="3fca6cab-a8cb-476e-9549-7566b7fa4031" />
                           </reference>
                         </referencesInternal>
@@ -324,7 +324,7 @@
                       </operation>
                       <operation Id="6c759697-e16c-4c83-a0c7-085731ffa8c6" name="RunIOTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <referencesInternal>
-                          <reference Id="e58caacc-a04e-4ea3-9e47-0c5aa99f306e" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=SilentHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                          <reference Id="e58caacc-a04e-4ea3-9e47-0c5aa99f306e" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=SilentHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                             <elementDefinition Id="4122247f-2509-4509-bf53-b74c7c3585a8" />
                           </reference>
                         </referencesInternal>
@@ -423,7 +423,7 @@
                 <packageHasNamedElement>
                   <Interface Id="a72d060c-9953-45d7-864b-f154504821d0" name="IHandler" isAbstract="false" isLeaf="false">
                     <referencesInternal>
-                      <reference Id="2e54d165-9662-4311-9df3-db4c999efe19" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler" tag="ViewCode">
+                      <reference Id="2e54d165-9662-4311-9df3-db4c999efe19" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler" tag="ViewCode">
                         <elementDefinition Id="72c43863-7cea-44f8-9250-37e426f8f856" />
                       </reference>
                     </referencesInternal>
@@ -582,7 +582,7 @@
                           <ownedAttributes>
                             <property Id="cf22e791-7cb4-45c1-8b52-33b15cda3bc9" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                               <referencesInternal>
-                                <reference Id="d8fb0992-eee9-4ec9-8e73-95f2652ed1e7" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch" tag="ViewCode">
+                                <reference Id="d8fb0992-eee9-4ec9-8e73-95f2652ed1e7" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler Member=Batch" tag="ViewCode">
                                   <elementDefinition Id="8016cd45-9764-41af-9577-476c0b28a326" />
                                 </reference>
                               </referencesInternal>
@@ -1347,7 +1347,7 @@
                       <packageHasNamedElement>
                         <class Id="055cf069-65d5-4974-9117-935ba75286b3" name="CliHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
                           <referencesInternal>
-                            <reference Id="8b5c6760-a7a9-433a-8883-9e5834d85cd8" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler" tag="ViewCode">
+                            <reference Id="8b5c6760-a7a9-433a-8883-9e5834d85cd8" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler" tag="ViewCode">
                               <elementDefinition Id="b1d184d1-e034-42cf-af1b-6217a479a78e" />
                             </reference>
                           </referencesInternal>
@@ -1398,7 +1398,7 @@
                           <ownedAttributesInternal>
                             <property Id="982d45ff-2c6c-4f4a-963d-f47209f4c4a3" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                               <referencesInternal>
-                                <reference Id="5a8bccde-6495-46ce-9c78-62b2202a3fa4" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=Batch" tag="ViewCode">
+                                <reference Id="5a8bccde-6495-46ce-9c78-62b2202a3fa4" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=Batch" tag="ViewCode">
                                   <elementDefinition Id="a8a85a2c-f32b-4665-b84c-48e87a73ff83" />
                                 </reference>
                               </referencesInternal>
@@ -1454,7 +1454,7 @@
                           <ownedOperationsInternal>
                             <operation Id="aa0983a5-4af3-4f0d-b09e-53a850ac0205" name="RunIOTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="357b912d-6f79-4cbb-aa2f-3606bd8a8a92" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                                <reference Id="357b912d-6f79-4cbb-aa2f-3606bd8a8a92" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                                   <elementDefinition Id="2092de7b-ba68-4d91-a016-7ede0148254d" />
                                 </reference>
                               </referencesInternal>
@@ -1825,7 +1825,7 @@
           <packageHasNamedElement>
             <package Id="843b8d96-b5e8-4dd2-a893-60a6056416b7" name="Injector" visibility="Private">
               <referencesInternal>
-                <reference Id="d96146da-3a37-48b7-b64c-fb6c17b5f4d4" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher" tag="ViewCode">
+                <reference Id="d96146da-3a37-48b7-b64c-fb6c17b5f4d4" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector" tag="ViewCode">
                   <elementDefinition Id="4b7bea81-2223-4877-bf52-acb2498d6210" />
                 </reference>
               </referencesInternal>
@@ -2201,7 +2201,7 @@
                 <packageHasNamedElement>
                   <package Id="c18b2b8b-a5c7-42de-8333-32b34f173e36" name="WinForms" visibility="Private">
                     <referencesInternal>
-                      <reference Id="8c9e98a8-9162-472a-84ae-1639388344b1" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher.WinForms" tag="ViewCode">
+                      <reference Id="8c9e98a8-9162-472a-84ae-1639388344b1" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.WinForms" tag="ViewCode">
                         <elementDefinition Id="b433f98e-23f3-40ac-aa2c-6e516f8f5657" />
                       </reference>
                     </referencesInternal>
@@ -2210,7 +2210,7 @@
                       <packageHasNamedElement>
                         <class Id="c07a9e00-a0f8-41b5-b78f-b4a89cb29588" name="GuiHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
                           <referencesInternal>
-                            <reference Id="33281c2f-eb13-41ea-8d88-2d2df960b257" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm" tag="ViewCode">
+                            <reference Id="33281c2f-eb13-41ea-8d88-2d2df960b257" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm" tag="ViewCode">
                               <elementDefinition Id="776822fd-8665-48ea-9cb5-b97ba8ce4bc1" />
                             </reference>
                           </referencesInternal>
@@ -2261,7 +2261,7 @@
                           <ownedAttributesInternal>
                             <property Id="31b94df7-0ee5-4cc9-b4c4-39ea3dbc53a9" name="Batch" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                               <referencesInternal>
-                                <reference Id="f0f229ff-a912-4526-8372-3da7c7233953" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=Batch" tag="ViewCode">
+                                <reference Id="f0f229ff-a912-4526-8372-3da7c7233953" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm Member=Batch" tag="ViewCode">
                                   <elementDefinition Id="6f261fb5-c145-4b86-875f-2d552a82b094" />
                                 </reference>
                               </referencesInternal>
@@ -2317,7 +2317,7 @@
                           <ownedOperationsInternal>
                             <operation Id="acc7032f-02b6-4f26-986e-5c1d43912b92" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="9fa33249-590e-41ad-92c1-62969483898d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
+                                <reference Id="9fa33249-590e-41ad-92c1-62969483898d" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                                   <elementDefinition Id="97343c8f-48ce-4628-9692-6a554ce48245" />
                                 </reference>
                               </referencesInternal>
@@ -2371,7 +2371,7 @@
                                 <operationHasOwnedParameters>
                                   <parameter Id="77df6ef4-47ff-4ecd-a51f-b3234b0f3ca4" name="information" direction="In">
                                     <referencesInternal>
-                                      <reference Id="a3957af4-47aa-40ed-943b-ed1c0e116c31" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
+                                      <reference Id="a3957af4-47aa-40ed-943b-ed1c0e116c31" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
                                         <elementDefinition Id="ec39d94d-061d-48c1-ab56-46d932600f98" />
                                       </reference>
                                     </referencesInternal>
@@ -2385,7 +2385,7 @@
                             </operation>
                             <operation Id="199f05a5-9f48-42eb-8871-346cb617e9be" name="RunDownloadTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="6b81bd8d-a53c-4868-8e23-70f4e20c7895" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                                <reference Id="6b81bd8d-a53c-4868-8e23-70f4e20c7895" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                                   <elementDefinition Id="4532ede7-21df-4466-b2d8-3d1f5238a0b3" />
                                 </reference>
                               </referencesInternal>
@@ -2440,7 +2440,7 @@
                             </operation>
                             <operation Id="ae7be986-7437-41b9-9098-84f96b1bf4d8" name="RunIOTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="1831982d-f63c-4e64-9a2b-85276025269b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Launcher.WinForms Type=MainForm Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                                <reference Id="1831982d-f63c-4e64-9a2b-85276025269b" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launchw.exe Namespace=ZeroInstall.Injector.WinForms Type=MainForm Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                                   <elementDefinition Id="27c0a709-b598-40e9-8756-a107301438a4" />
                                 </reference>
                               </referencesInternal>
@@ -2542,7 +2542,7 @@
                 <packageHasNamedElement>
                   <package Id="cac85efe-487e-4701-a49b-a9c048c7009f" name="Cli" visibility="Private">
                     <referencesInternal>
-                      <reference Id="4b10d1c0-0160-4f41-87ad-5fe3615b52e2" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Launcher.Cli" tag="ViewCode">
+                      <reference Id="4b10d1c0-0160-4f41-87ad-5fe3615b52e2" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.Cli" tag="ViewCode">
                         <elementDefinition Id="446b98ab-15d3-4030-aaac-a8b2a6ec645e" />
                       </reference>
                     </referencesInternal>
@@ -2551,7 +2551,7 @@
                       <packageHasNamedElement>
                         <class Id="7e28eda6-9c1e-4425-aa0f-6167dd6a9043" name="CliHandler" isAbstract="false" isLeaf="false" isActiveClass="false">
                           <referencesInternal>
-                            <reference Id="834cc48a-177f-4b0d-8076-7c725f3ca0a7" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler" tag="ViewCode">
+                            <reference Id="834cc48a-177f-4b0d-8076-7c725f3ca0a7" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler" tag="ViewCode">
                               <elementDefinition Id="3cdb0760-3ab3-4cc7-855c-348a947f48c6" />
                             </reference>
                           </referencesInternal>
@@ -2608,7 +2608,7 @@
                           <ownedOperationsInternal>
                             <operation Id="9bb7c69c-e745-4ae5-9368-1ba4ccb384ac" name="AcceptNewKey" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="a8294797-a181-45c4-aec6-9a131bbf6915" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
+                                <reference Id="a8294797-a181-45c4-aec6-9a131bbf6915" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)])" tag="ViewCode">
                                   <elementDefinition Id="39257055-dd47-45d1-92ca-7d2f1c99d5c5" />
                                 </reference>
                               </referencesInternal>
@@ -2662,7 +2662,7 @@
                                 <operationHasOwnedParameters>
                                   <parameter Id="bd302094-9e05-4669-b11b-5bc906e19635" name="information" direction="In">
                                     <referencesInternal>
-                                      <reference Id="f6a3993a-4e1c-4972-809a-10dc223d6f3e" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
+                                      <reference Id="f6a3993a-4e1c-4972-809a-10dc223d6f3e" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=AcceptNewKey OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String)]) ParameterIdentifier=information" tag="ViewCode">
                                         <elementDefinition Id="a261e356-25da-4551-a3e5-18493aab3188" />
                                       </reference>
                                     </referencesInternal>
@@ -2676,7 +2676,7 @@
                             </operation>
                             <operation Id="e1d11f52-fdd9-4fd0-abc1-208b01afdd93" name="RunDownloadTask" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                               <referencesInternal>
-                                <reference Id="2330f196-6fad-47a5-a71c-e8eb2468d225" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
+                                <reference Id="2330f196-6fad-47a5-a71c-e8eb2468d225" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])" tag="ViewCode">
                                   <elementDefinition Id="72f45e4d-d27f-431a-914a-b74d19ff288e" />
                                 </reference>
                               </referencesInternal>

@@ -13,9 +13,8 @@ copy "vs\ZeroInstall_VS2010.5.1.ReSharper.user.Backup" "vs\ZeroInstall_VS2010.5.
 
 rem Clear object caches
 del vs\*.cache > NUL 2>&1
-rd /s /q vs\Central.Cli\obj > NUL 2>&1
+rd /s /q vs\Command.Cli\obj > NUL 2>&1
 rd /s /q vs\Central.WinForms\obj > NUL 2>&1
-rd /s /q vs\Central.Wpf\obj > NUL 2>&1
 rd /s /q vs\Central.Gtk\obj > NUL 2>&1
 rd /s /q vs\Launcher.Cli\obj > NUL 2>&1
 rd /s /q vs\Launcher.WinForms\obj > NUL 2>&1
@@ -25,10 +24,9 @@ rd /s /q vs\Store.Management.Cli\obj > NUL 2>&1
 rd /s /q vs\Store.Management.WinForms\obj > NUL 2>&1
 rd /s /q vs\Store.Management.Gtk\obj > NUL 2>&1
 rd /s /q vs\Common\obj > NUL 2>&1
-rd /s /q vs\Common.Wpf\obj > NUL 2>&1
 rd /s /q vs\Common.Gtk\obj > NUL 2>&1
 rd /s /q vs\Fetchers\obj > NUL 2>&1
-rd /s /q vs\Launcher\obj > NUL 2>&1
+rd /s /q vs\Injector\obj > NUL 2>&1
 rd /s /q vs\Model\obj > NUL 2>&1
 rd /s /q vs\MyApps\obj > NUL 2>&1
 rd /s /q vs\Store\obj > NUL 2>&1

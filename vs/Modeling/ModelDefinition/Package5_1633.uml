@@ -9507,7 +9507,7 @@
             <referencesInternal>
               <reference
                 Id="8016cd45-9764-41af-9577-476c0b28a326"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Launcher.dll Namespace=ZeroInstall.Launcher Type=IHandler Member=Batch"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler Member=Batch"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -9656,7 +9656,7 @@
         <referencesInternal>
           <reference
             Id="b1d184d1-e034-42cf-af1b-6217a479a78e"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -9725,7 +9725,7 @@
             <referencesInternal>
               <reference
                 Id="a8a85a2c-f32b-4665-b84c-48e87a73ff83"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=Batch"
+                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=Batch"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
@@ -9798,7 +9798,7 @@
             <referencesInternal>
               <reference
                 Id="2092de7b-ba68-4d91-a016-7ede0148254d"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Launcher.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>

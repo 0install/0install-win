@@ -30,10 +30,10 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\vs\Central.WinForms\Central.WinForms.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Central.Wpf\Central.Wpf.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Injector.Cli\Injector.Cli.csproj" />
-      <DocumentationSource sourceFile="..\..\vs\Injector.WinForms\Injector.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Command.WinForms\Central.WinForms.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Command.Cli\Command.Clie.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Launcher.Cli\Launcher.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\vs\Launcher.WinForms\Launcher.WinForms.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Service\Store.Service.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Management.Cli\Store.Management.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\vs\Store.Management.WinForms\Store.Management.WinForms.csproj" />
@@ -41,9 +41,9 @@
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Frontend implementations.</ProjectSummary>
     <NamespaceSummaries>
       <NamespaceSummaryItem name="ZeroInstall.Central.WinForms" isDocumented="True" xmlns="">Provides the main GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
-	  <NamespaceSummaryItem name="ZeroInstall.Central.Wpf" isDocumented="True" xmlns="">Provides a WPF-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.Cli" isDocumented="True" xmlns="">Launches Zero Install implementations and displays a CLI.</NamespaceSummaryItem>
-      <NamespaceSummaryItem name="ZeroInstall.Injector.WinForms" isDocumented="True" xmlns="">Launches Zero Install implementations and displays a &lt;see cref="System.Windows.Forms" /&gt; GUI.</NamespaceSummaryItem>
+	  <NamespaceSummaryItem name="ZeroInstall.Command.Cli" isDocumented="True" xmlns="">Provides a WPF-based GUI for Zero Install, for discovering and installing new applications, managing and launching installed applications, etc.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.Cli" isDocumented="True" xmlns="">Launches Zero Install implementations and displays a CLI.</NamespaceSummaryItem>
+      <NamespaceSummaryItem name="ZeroInstall.Launcher.WinForms" isDocumented="True" xmlns="">Launches Zero Install implementations and displays a &lt;see cref="System.Windows.Forms" /&gt; GUI.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Service" isDocumented="True" xmlns="">A Windows service for managing the &lt;see cref="ZeroInstall.Store.Implementation.ServiceStore" /&gt;.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Management.Cli" isDocumented="True" xmlns="">Manages &lt;see cref="ZeroInstall.Store.Implementation.IStore" /&gt;s from the command-line.</NamespaceSummaryItem>
       <NamespaceSummaryItem name="ZeroInstall.Store.Management.WinForms" isDocumented="True" xmlns="">Manages &lt;see cref="ZeroInstall.Store.Implementation.IStore" /&gt;s via a &lt;see cref="System.Windows.Forms" /&gt; GUI.</NamespaceSummaryItem>

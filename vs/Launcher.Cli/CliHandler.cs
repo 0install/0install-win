@@ -18,6 +18,7 @@
 using System;
 using Common;
 using Common.Cli;
+using ZeroInstall.Injector;
 
 namespace ZeroInstall.Launcher.Cli
 {
