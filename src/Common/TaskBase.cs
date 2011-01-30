@@ -29,7 +29,7 @@ using Common.Properties;
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that implement <see cref="ITask"/> and can be cancelled.
+    /// Abstract base class for background tasks that implement <see cref="ITask"/> and can be canceled.
     /// </summary>
     public abstract class TaskBase : MarshalByRefObject, ITask
     {

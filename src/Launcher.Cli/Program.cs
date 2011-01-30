@@ -22,7 +22,7 @@ using System.Net;
 using Common;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Commands;
+using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Implementation;
 using CliHandler = ZeroInstall.Injector.CliHandler;
@@ -38,8 +38,8 @@ namespace ZeroInstall.Launcher.Cli
         ///<summary>Everything is OK.</summary>
         OK = 0,
 
-        /// <summary>The user cancelled the operation.</summary>
-        UserCancelled = 1,
+        /// <summary>The user canceled the operation.</summary>
+        UserCanceled = 1,
 
         /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
@@ -107,7 +107,7 @@ namespace ZeroInstall.Launcher.Cli
             #region Error hanlding
             catch (UserCancelException)
             {
-                return (int)ErrorLevel.UserCancelled;
+                return (int)ErrorLevel.UserCanceled;
             }
             catch (ArgumentException ex)
             {

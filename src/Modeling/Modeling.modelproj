@@ -62,6 +62,9 @@
     <Content Include="ModelDefinition\Package_1749.uml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ProjectReferences\Central.dgml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ProjectReferences\Command.dgml">
       <SubType>Content</SubType>
     </Content>
@@ -69,6 +72,9 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="ProjectReferences\OverviewSimple.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjectReferences\Publish.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="SolutionStructure.dgml">

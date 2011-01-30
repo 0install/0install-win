@@ -220,7 +220,7 @@ namespace Common.Utils
                 if (first) first = false;
                 else output.Append(separator);
 
-                if (part.Contains(separator)) output.Append("\"" + part + "\"");
+                if (part.Contains(separator)) output.Append(escapeEnclosure + part + escapeEnclosure);
                 else output.Append(part);
             }
 
@@ -374,6 +374,11 @@ namespace Common.Utils
         /// <param name="variables">The list of variables available for expansion.</param>
         public static string ExpandUnixVariables(string value, StringDictionary variables)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            if (variables == null) throw new ArgumentNullException("variables");
+            #endregion
+
             var expandedArguments = new StringBuilder();
             StringBuilder currentVarName = null;
             for (int i = 0; i < value.Length; i++)

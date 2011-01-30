@@ -123,9 +123,6 @@
   <data name="MissingSlashInUri" xml:space="preserve">
     <value>Fehlendes / nach dem Hostnamen in der URI '{0}'.</value>
   </data>
-  <data name="NotParsed" xml:space="preserve">
-    <value>Parse wurde noch nicht aufgerufen.</value>
-  </data>
   <data name="NoCommands" xml:space="preserve">
     <value>Keine Commands in der Auswahl.</value>
   </data>

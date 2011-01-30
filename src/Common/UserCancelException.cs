@@ -27,7 +27,7 @@ using Common.Properties;
 namespace Common
 {
     /// <summary>
-    /// To be thrown when an action was cancelled because the user wished it to be.
+    /// To be thrown when an action was canceled because the user wished it to be.
     /// </summary>
     [Serializable]
     public sealed class UserCancelException : Exception

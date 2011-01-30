@@ -28,7 +28,7 @@ using System.Threading;
 namespace Common
 {
     /// <summary>
-    /// A delegate-driven task that cannot be cancelled. Only completion is reported, no intermediate progress.
+    /// A delegate-driven task that cannot be canceled. Only completion is reported, no intermediate progress.
     /// </summary>
     public sealed class SimpleTask : MarshalByRefObject, ITask
     {
@@ -159,7 +159,7 @@ namespace Common
         /// <inheritdoc />
         public void Cancel()
         {
-            throw new NotSupportedException("Task can not be cancelled.");
+            throw new NotSupportedException("Task can not be canceled.");
         }
         #endregion
 

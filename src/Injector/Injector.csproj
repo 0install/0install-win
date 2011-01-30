@@ -48,23 +48,9 @@
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
-    <Reference Include="NDesk.Options">
-      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CliHandler.cs" />
-    <Compile Include="Commands\AddFeed.cs" />
-    <Compile Include="Commands\Config.cs" />
-    <Compile Include="Commands\Download.cs" />
-    <Compile Include="Commands\Cmd.cs" />
-    <Compile Include="Commands\Import.cs" />
-    <Compile Include="Commands\List.cs" />
-    <Compile Include="Commands\ManageFeeds.cs" />
-    <Compile Include="Commands\RemoveFeed.cs" />
-    <Compile Include="Commands\Run.cs" />
-    <Compile Include="Commands\Selection.cs" />
-    <Compile Include="Commands\Update.cs" />
     <Compile Include="Preferences.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
@@ -125,7 +111,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
-    <None Include="Commands\ClassDiagram.cd" />
     <None Include="Feeds\ClassDiagram.cd" />
     <None Include="Feeds\Trust.xsd">
       <SubType>Designer</SubType>

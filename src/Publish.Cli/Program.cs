@@ -38,8 +38,8 @@ namespace ZeroInstall.Publish.Cli
         ///<summary>Everything is OK.</summary>
         OK = 0,
 
-        /// <summary>The user cancelled the operation.</summary>
-        UserCancelled = 1,
+        /// <summary>The user canceled the operation.</summary>
+        UserCanceled = 1,
 
         /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,

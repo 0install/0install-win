@@ -55,6 +55,10 @@ namespace ZeroInstall.Fetchers
 
             public int CompareTo(Ranking other)
             {
+                #region Sanity checks
+                if (other == null) throw new ArgumentNullException("other");
+                #endregion
+
                 return Value - other.Value;
             }
         }
@@ -156,6 +160,11 @@ namespace ZeroInstall.Fetchers
 
         public ImplementationFetch(Fetcher fetcher, Implementation implementation)
         {
+            #region Sanity checks
+            if (fetcher == null) throw new ArgumentNullException("fetcher");
+            if (implementation == null) throw new ArgumentNullException("implementation");
+            #endregion
+
             _fetcherInstance = fetcher;
             _retrievalMethods = new List<RetrievalMethod>(implementation.RetrievalMethods.Count);
             _retrievalMethods.AddRange(implementation.RetrievalMethods);
@@ -264,6 +273,7 @@ namespace ZeroInstall.Fetchers
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
             if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             if (archive.StartOffset != 0)

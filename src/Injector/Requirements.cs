@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Common.Utils;
-using NDesk.Options;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
@@ -32,7 +31,6 @@ namespace ZeroInstall.Injector
     [Serializable]
     public class Requirements
     {
-        #region Properties
         private string _interfaceID;
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
@@ -79,27 +77,5 @@ namespace ZeroInstall.Injector
         /// This version and all later versions of the implementation are unsuitable.
         /// </summary>
         public ImplementationVersion BeforeVersion { get; set; }
-        #endregion
-
-        //--------------------//
-
-        #region Parsing
-        /// <summary>
-        /// Setus up an <see cref="OptionSet"/> to parse requirements listed in command-line arguments in the default format.
-        /// </summary>
-        internal void HookUpOptionParsing(OptionSet options)
-        {
-            #region Sanity checks
-            if (options == null) throw new ArgumentNullException("options");
-            #endregion
-
-            options.Add("command=", Resources.OptionCommand, command => CommandName = command);
-            options.Add("before=", Resources.OptionBefore, version => BeforeVersion = new ImplementationVersion(version));
-            options.Add("not-before=", Resources.OptionNotBefore, version => NotBeforeVersion = new ImplementationVersion(version));
-            options.Add("s|source", Resources.OptionSource, unused => Architecture = new Architecture(Architecture.OS, Cpu.Source));
-            options.Add("os=", Resources.OptionOS, os => Architecture = new Architecture(Architecture.ParseOS(os), Architecture.Cpu));
-            options.Add("cpu=", Resources.OptionCpu, cpu => Architecture = new Architecture(Architecture.OS, Architecture.ParseCpu(cpu)));
-        }
-        #endregion
     }
 }

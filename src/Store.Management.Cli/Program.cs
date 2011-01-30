@@ -39,8 +39,8 @@ namespace ZeroInstall.Store.Management.Cli
         ///<summary>Everything is OK.</summary>
         OK = 0,
 
-        /// <summary>The user cancelled the operation.</summary>
-        UserCancelled = 1,
+        /// <summary>The user canceled the operation.</summary>
+        UserCanceled = 1,
 
         /// <summary>The arguments passed on the command-line were not valid.</summary>
         InvalidArguments = 2,
@@ -91,7 +91,7 @@ namespace ZeroInstall.Store.Management.Cli
             #region Error handling
             catch (UserCancelException)
             {
-                return (int)ErrorLevel.UserCancelled;
+                return (int)ErrorLevel.UserCanceled;
             }
             catch (ArgumentException ex)
             {
@@ -205,7 +205,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="args">The command-line arguments that were not parsed as options.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>The error level to return when the process ends.</returns>
-        /// <exception cref="UserCancelException">Thrown if an IO task was cancelled.</exception>
+        /// <exception cref="UserCancelException">Thrown if an IO task was canceled.</exception>
         /// <exception cref="ArgumentException">Thrown if the number of arguments passed in <paramref name="args"/> is incorrect.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>

@@ -32,7 +32,7 @@ namespace ZeroInstall.Store.Implementation
     public class ManifestGenerator : TaskBase
     {
         #region Variables
-        /// <summary>Flag that indicates the current process should be cancelled.</summary>
+        /// <summary>Flag that indicates the current process should be canceled.</summary>
         private volatile bool _cancelRequest;
         #endregion
 

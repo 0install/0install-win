@@ -91,11 +91,12 @@ Name: {app}\de\*.resources.dll; Type: files
 Name: {app}\*.Wpf.*; Type: files
 Name: {app}\*-wpf.*; Type: files
 Name: {app}\Interop.IWshRuntimeLibrary.dll; Type: files
+Name: {app}\*.xml; Type: files
 
 [Files]
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,Mono.*; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,Mono.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
 ;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
 Source: ..\build\Bundled\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs

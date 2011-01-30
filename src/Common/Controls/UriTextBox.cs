@@ -49,21 +49,25 @@ namespace Common.Controls
         }
 
         /// <inheritdoc/>
-        protected override void OnDragEnter(DragEventArgs drgevent)
+        protected override void OnDragEnter(DragEventArgs e)
         {
-            drgevent.Effect = ValidateUri(GetDropText(drgevent))
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
+            e.Effect = ValidateUri(GetDropText(e))
                 ? DragDropEffects.Copy
                 : DragDropEffects.None;
 
-            base.OnDragEnter(drgevent);
+            base.OnDragEnter(e);
         }
 
         /// <inheritdoc/>
-        protected override void OnDragDrop(DragEventArgs drgevent)
+        protected override void OnDragDrop(DragEventArgs e)
         {
-            Text = GetDropText(drgevent);
+            Text = GetDropText(e);
 
-            base.OnDragDrop(drgevent);
+            base.OnDragDrop(e);
         }
         #endregion
 

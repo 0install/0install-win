@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PythonSolverOutputErrror" xml:space="preserve">
+    <value>The output of the Python solver could not be processed.</value>
+  </data>
+  <data name="SolverProblem" xml:space="preserve">
+    <value>The solver encountered an unexpected problem.</value>
+  </data>
+  <data name="WorkingDirInvalidPath" xml:space="preserve">
+    <value>The working directory contains an invalid paths (potentially a security risk).</value>
+  </data>
+  <data name="WokringDirDuplicate" xml:space="preserve">
+    <value>The working directory has already been changed by a previous command.</value>
+  </data>
+  <data name="OptionBefore" xml:space="preserve">
+    <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
+  </data>
+  <data name="OptionCommand" xml:space="preserve">
+    <value>Instead of executing the default command, use {COMMAND} instead. Possible command names are defined in the program's interface.</value>
+  </data>
+  <data name="OptionCpu" xml:space="preserve">
+    <value>Forces the solver to target the CPU {CPU}.
+Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
+  </data>
+  <data name="OptionMain" xml:space="preserve">
+    <value>Run the specified executable {MAIN} instead of the default. If it starts with '/' or '\' then the path is relative to the implementation's top-level directory, whereas otherwise it is relative to the directory containing the default main program.</value>
+  </data>
+  <data name="OptionNotBefore" xml:space="preserve">
+    <value>Chosen implementation's version number must not be earlier than {VERSION}. E.g., if you want to run version 2.0 or later, use --not-before=2.0.</value>
+  </data>
+  <data name="OptionNoWait" xml:space="preserve">
+    <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
+  </data>
+  <data name="OptionOffline" xml:space="preserve">
+    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
+  </data>
+  <data name="OptionOS" xml:space="preserve">
+    <value>Forces the solver to target the operating system {OS}.
+Supported values: Linux, Solaris, MacOSX, Windows</value>
+  </data>
+  <data name="OptionRefresh" xml:space="preserve">
+    <value>Fetch a fresh copy of all used interfaces.</value>
+  </data>
+  <data name="OptionSource" xml:space="preserve">
+    <value>The implementation of the main (root) interface must have an architecture of the form '*-src' (normally a literal "*", but could be a compatible OS). Dependencies are normal implementations, not source ones. See 0compile for details.</value>
+  </data>
+  <data name="OptionWithStore" xml:space="preserve">
+    <value>Add {DIR} to the list of implementation caches to search.
+However, new downloads will not be written to this directory.</value>
+  </data>
+  <data name="OptionWrapper" xml:space="preserve">
+    <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
+  </data>
+  <data name="OptionBatch" xml:space="preserve">
+    <value>Run in batch mode: don't display any progress reports to the user and silently answer all questions with "No".</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options:</value>
+  </data>
+  <data name="UnknownOption" xml:space="preserve">
+    <value>Unknown option.</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>Usage:</value>
+  </data>
+  <data name="OptionVerbose" xml:space="preserve">
+    <value>More verbose output. Use twice for even more verbose output.</value>
+  </data>
+  <data name="OptionHelp" xml:space="preserve">
+    <value>Show the built-in help text.</value>
+  </data>
+  <data name="OptionVersion" xml:space="preserve">
+    <value>Display version information.</value>
+  </data>
+  <data name="NotParsed" xml:space="preserve">
+    <value>Parse hasn't been called yet.</value>
+  </data>
+</root>

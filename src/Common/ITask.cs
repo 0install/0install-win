@@ -68,9 +68,9 @@ namespace Common
         string Name { get; }
 
         /// <summary>
-        /// Indicates whether this task can be cancelled once it has been started.
+        /// Indicates whether this task can be canceled once it has been started.
         /// </summary>
-        [Description("Indicates whether this task can be cancelled once it has been started.")]
+        [Description("Indicates whether this task can be canceled once it has been started.")]
         bool CanCancel { get; }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Common
         /// <summary>
         /// Runs the task synchronously to the current thread.
         /// </summary>
-        /// <exception cref="UserCancelException">Thrown if the task was cancelled from another thread.</exception>
+        /// <exception cref="UserCancelException">Thrown if the task was canceled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>

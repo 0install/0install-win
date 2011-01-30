@@ -16,8 +16,6 @@
  */
 
 using System;
-using NDesk.Options;
-using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector
 {
@@ -85,20 +83,6 @@ namespace ZeroInstall.Injector
         {
             // ToDo
             return new Preferences();
-        }
-        #endregion
-
-        #region Parsing
-        /// <summary>
-        /// Setus up an <see cref="OptionSet"/> to parse requirements listed in command-line arguments in the default format.
-        /// </summary>
-        internal void HookUpOptionParsing(OptionSet options)
-        {
-            #region Sanity checks
-            if (options == null) throw new ArgumentNullException("options");
-            #endregion
-
-            options.Add("o|offline", Resources.OptionOffline, unused => NetworkLevel = NetworkLevel.Offline);
         }
         #endregion
     }

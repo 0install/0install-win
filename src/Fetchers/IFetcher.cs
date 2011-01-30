@@ -39,7 +39,7 @@ namespace ZeroInstall.Fetchers
         /// </summary>
         /// <param name="fetchRequest">The download request to be executed.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was cancelled from another thread.</exception>
+        /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled from another thread.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Fetcher.Store"/> is not permitted.</exception>

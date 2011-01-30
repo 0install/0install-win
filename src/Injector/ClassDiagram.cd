@@ -1,18 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Injector.Policy">
-    <Position X="6" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <Members>
       <Method Name="Policy" Hidden="true" />
     </Members>
     <AssociationLine Name="AdditionalStore" Type="ZeroInstall.Store.Implementation.IStore" FixedFromPoint="true">
       <Path>
-        <Point X="7.5" Y="0.937" />
-        <Point X="9.25" Y="0.937" />
+        <Point X="2" Y="0.937" />
+        <Point X="3.5" Y="0.937" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>CAAIQAAAAgAAAAAAAAAAAAAIAAQAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>CAAAQAAAAAAAAAAAAAAAAAAIAAQAAAAAAgAAAAAAAEA=</HashCode>
       <FileName>Policy.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,7 +21,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Injector.Executor">
-    <Position X="2.75" Y="5" Width="2.25" />
+    <Position X="7.5" Y="0.5" Width="2.25" />
     <AssociationLine Name="_selections" Type="ZeroInstall.Injector.Solver.Selections">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.128" Y="0.069" />
@@ -36,7 +36,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Fetchers.Fetcher" Collapsed="true">
-    <Position X="9.25" Y="2" Width="1.5" />
+    <Position X="3.5" Y="2" Width="1.5" />
     <AssociationLine Name="Store" Type="ZeroInstall.Store.Implementation.IStore">
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.614" Y="0.268" />
@@ -49,7 +49,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.Selections">
-    <Position X="6.25" Y="4.25" Width="2" />
+    <Position X="11" Y="0.5" Width="2" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
@@ -69,7 +69,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.ImplementationSelection" BaseTypeListCollapsed="true">
-    <Position X="9.75" Y="4.75" Width="2" />
+    <Position X="14.5" Y="0.5" Width="2" />
     <Members>
       <Field Name="_distributions" Hidden="true" />
       <Property Name="DistributionsString" Hidden="true" />
@@ -84,7 +84,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="10.5" Y="3.25" Width="1.25" />
+    <Position X="4.75" Y="3.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>ACAAAAAIAAAAAIAAACABAAQIAAQAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\PythonSolver.cs</FileName>
@@ -92,7 +92,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Injector.Solver.SolverProvider">
-    <Position X="8.75" Y="3.25" Width="1.5" />
+    <Position X="3" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\SolverProvider.cs</FileName>
@@ -102,74 +102,44 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="ZeroInstall.Model.Command">
-    <Position X="6.25" Y="7.75" Width="1.5" />
+    <Position X="11" Y="4" Width="1.5" />
     <Compartments>
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Injector.Commands.Cmd" Collapsed="true">
-    <Position X="2.75" Y="1.5" Width="1.5" />
+  <Class Name="ZeroInstall.Injector.Requirements">
+    <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAIAAQAAAIAAAQEAAAAAAAAAgAAAABEAAA=</HashCode>
-      <FileName>Commands\Cmd.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="Policy" />
-      <Field Name="Handler" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="ZeroInstall.Injector.Commands.Selection" Collapsed="true">
-    <Position X="2.75" Y="2.75" Width="1.5" />
-    <AssociationLine Name="Selections" Type="ZeroInstall.Injector.Solver.Selections" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="4.25" Y="3.063" />
-        <Point X="5.25" Y="3.063" />
-        <Point X="5.25" Y="4.961" />
-        <Point X="6.25" Y="4.961" />
-      </Path>
-    </AssociationLine>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAACQAABIAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Commands\Selection.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="Selections" />
-      <Property Name="Requirements" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="ZeroInstall.Injector.Requirements" Collapsed="true">
-    <Position X="2.75" Y="4" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAACCAIAAAwABAAAQAAQAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <HashCode>AAAAAAACCAIAAAwABAAAQAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
       <FileName>Requirements.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="ZeroInstall.Injector.Solver.ISolver" Collapsed="true">
-    <Position X="6" Y="3.25" Width="1.5" />
+    <Position X="0.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Solver\ISolver.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Store.Implementation.IStore" Collapsed="true">
-    <Position X="9.25" Y="0.75" Width="1.5" />
+    <Position X="3.5" Y="0.75" Width="1.5" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Injector.IHandler" Collapsed="true">
-    <Position X="0.5" Y="1.5" Width="1.25" />
+    <Position X="3" Y="4.75" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAA=</HashCode>
       <FileName>IHandler.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Interface Name="ZeroInstall.Fetchers.IFetchHandler" Collapsed="true">
-    <Position X="0.5" Y="2.75" Width="1.25" />
+    <Position X="4.75" Y="4.75" Width="1.25" />
     <TypeIdentifier />
   </Interface>
   <Interface Name="ZeroInstall.Injector.Feeds.IFeedHandler" Collapsed="true">
-    <Position X="0.5" Y="0.5" Width="1.25" />
+    <Position X="1.25" Y="4.75" Width="1.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
       <FileName>Feeds\IFeedHandler.cs</FileName>

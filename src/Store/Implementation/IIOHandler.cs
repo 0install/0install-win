@@ -36,7 +36,7 @@ namespace ZeroInstall.Store.Implementation
         /// Called when a new IO task (archive extraction, manifest generation, etc.) needs to be run. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The extraction task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
         void RunIOTask(ITask task);

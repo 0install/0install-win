@@ -33,7 +33,7 @@ namespace ZeroInstall.Fetchers
         /// Called when a new download task needs to be run. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The download task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user cancelled the task.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
