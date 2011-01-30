@@ -18,7 +18,7 @@ path %ProgramFiles%\Inno Setup 5;%path%
 
 
 
-:: Purge old files
+rem Purge old files
 if exist "%TargetDir%" rd /s /q "%TargetDir%"
 mkdir "%TargetDir%"
 
@@ -58,7 +58,7 @@ echo Building Bundled archive...
 cd "%~dp0..\build\Bundled"
 zip -r -9 "%TargetDir%\bundled.zip" . > NUL
 
-::Bundled content also needs to be copied into the other archive
+rem Bundled content also needs to be copied into the other archive
 zip -r -9 "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
 zip -r -9 "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
 zip -r -9 "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
