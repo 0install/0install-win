@@ -375,7 +375,7 @@ namespace Common.Utils
         public static string ExpandUnixVariables(string value, StringDictionary variables)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            if (value == null) throw new ArgumentNullException("value");
             if (variables == null) throw new ArgumentNullException("variables");
             #endregion
 

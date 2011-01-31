@@ -117,6 +117,8 @@ namespace Common.Utils
             };
 
             Assert.AreEqual("value1value2/value1 value2", StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2", variables));
+
+            Assert.AreEqual("", StringUtils.ExpandUnixVariables("", variables));
         }
     }
 }
