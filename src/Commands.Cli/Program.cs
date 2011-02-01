@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using Common;
+using NDesk.Options;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -85,9 +86,10 @@ namespace ZeroInstall.Commands.Cli
 
             try { command.Parse(arguments); }
             #region Error handling
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
+                // ToDo: Display usage info
                 return (int)ErrorLevel.InvalidArguments;
             }
             catch (InvalidOperationException ex)
@@ -113,9 +115,10 @@ namespace ZeroInstall.Commands.Cli
             {
                 return (int)ErrorLevel.UserCanceled;
             }
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
+                // ToDo: Display usage info
                 return (int)ErrorLevel.InvalidArguments;
             }
             catch (WebException ex)

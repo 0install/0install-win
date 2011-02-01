@@ -223,7 +223,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Gets the fully qualified path of a command inside an implementation.
         /// </summary>
-        /// <exception cref="CommandException">Throw if <paramref name="command"/>'s path is empty, not relative or tries to point outside the implementation directory.</exception>
+        /// <exception cref="CommandException">Thrown if <paramref name="command"/>'s path is empty, not relative or tries to point outside the implementation directory.</exception>
         private string GetPath(ImplementationSelection implementation, Command command)
         {
             string path = StringUtils.UnifySlashes(command.Path);

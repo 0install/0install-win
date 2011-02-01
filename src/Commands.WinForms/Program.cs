@@ -23,6 +23,7 @@ using System.Net;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using NDesk.Options;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -66,9 +67,10 @@ namespace ZeroInstall.Commands.WinForms
                     }
                 }
                 #region Error handling
-                catch (ArgumentException ex)
+                catch (OptionException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    // ToDo: Display usage info
                     return;
                 }
                 catch (InvalidOperationException ex)
@@ -92,10 +94,11 @@ namespace ZeroInstall.Commands.WinForms
                 try { command.Execute(); }
                 #region Error hanlding
                 catch (UserCancelException)
-                { }
-                catch (ArgumentException ex)
+                {}
+                catch (OptionException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    // ToDo: Display usage info
                     handler.CloseAsync();
                 }
                 catch (WebException ex)

@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <returns>The options detected by the parsing process.</returns>
-        /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
@@ -105,7 +105,7 @@ namespace ZeroInstall.Commands
         /// </summary>
         /// <returns>The error code to end the process with.</returns>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
-        /// <exception cref="ArgumentException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
+        /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>

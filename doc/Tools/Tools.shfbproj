@@ -30,8 +30,8 @@
     <MissingTags>AutoDocumentCtors, AutoDocumentDispose</MissingTags>
     <VisibleItems>InheritedMembers, Internals, Protected, SealedProtected</VisibleItems>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\..\src\Publish.WinForms\Publish.csproj" />
-      <DocumentationSource sourceFile="..\..\src\Publish.WinForms\Publish.Cli.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Publish\Publish.csproj" />
+      <DocumentationSource sourceFile="..\..\src\Publish.Cli\Publish.Cli.csproj" />
       <DocumentationSource sourceFile="..\..\src\Publish.WinForms\Publish.WinForms.csproj" />
     </DocumentationSources>
     <ProjectSummary>This chapter describes the public and protected and internal aspects of the Zero Install Tools implementations.</ProjectSummary>

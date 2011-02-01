@@ -137,7 +137,7 @@ namespace Common.Collections
         /// </summary>
         /// <param name="key">The key to look for.</param>
         /// <returns>The value associated to <paramref name="key"/>.</returns>
-        /// <exception cref="KeyNotFoundException">Throw if <paramref name="key"/> was not found in the collection.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if <paramref name="key"/> was not found in the collection.</exception>
         public string GetValue(string key)
         {
             foreach (XmlDictionaryEntry pair in this)

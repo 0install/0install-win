@@ -17,6 +17,7 @@
 
 using System;
 using System.IO;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -69,7 +70,7 @@ namespace ZeroInstall.Commands
                 { // First unknown argument
                     // Must not be an option
                     // Note: Windows-style arguments beginning with a slash are interpreted as Unix paths here instead
-                    if (value.StartsWith("-")) throw new ArgumentException(Resources.UnknownOption);
+                    if (value.StartsWith("-")) throw new OptionException(Resources.UnknownOption, Name);
 
                     Requirements.InterfaceID = (File.Exists(value) ? Path.GetFullPath(value) : value);
 
@@ -92,7 +93,7 @@ namespace ZeroInstall.Commands
         {
             base.Execute();
 
-            if (AdditionalArgs.Count != 0) throw new ArgumentException(Resources.UnknownOption);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.UnknownOption, Name);
 
             // ToDo: Detect Selections documents
 

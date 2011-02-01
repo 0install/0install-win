@@ -130,7 +130,7 @@ namespace ZeroInstall.Publish.Cli
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="results">The options detected by the parsing process.</param>
         /// <returns>The operation mode selected by the parsing process.</returns>
-        /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         public static OperationMode ParseArgs(IEnumerable<string> args, out ParseResults results)
         {
             #region Sanity checks
@@ -199,7 +199,7 @@ namespace ZeroInstall.Publish.Cli
         /// <param name="mode">The operation mode selected by the parsing process.</param>
         /// <param name="results">The parser results to be executed.</param>
         /// <returns>The error code to end the process with.</returns>
-        /// <exception cref="ArgumentException">Throw if the specified feed file paths were invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
@@ -286,7 +286,7 @@ namespace ZeroInstall.Publish.Cli
         /// Creates a <see cref="Catalog"/> from the <see cref="Feed"/>s specified in the command-line arguments.
         /// </summary>
         /// <param name="results">The parser results to be executed.</param>
-        /// <exception cref="ArgumentException">Throw if the specified feed file paths were invalid.</exception>
+        /// <exception cref="ArgumentException">Thrown if the specified feed file paths were invalid.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a feed file is damaged.</exception>
         /// <exception cref="FileNotFoundException">Thrown if the a files could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written.</exception>

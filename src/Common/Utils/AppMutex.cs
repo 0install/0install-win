@@ -45,7 +45,7 @@ namespace Common.Utils
         /// <param name="appName">The name of the application (used as a Mutex identifier).</param>
         /// <returns><see langword="true"/> if the Mutex was acquired successfully, <see langword="false"/> if another instance is already running.</returns>
         /// <remarks>Before <see langword="false"/> is returned this method already has displayed a MessageBox.</remarks>
-        /// <exception cref="InvalidOperationException">Throw if this method is called more than once without a <see cref="Release"/> in between.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if this method is called more than once without a <see cref="Release"/> in between.</exception>
         public static bool Acquire(string appName)
         {
 #if !DEBUG

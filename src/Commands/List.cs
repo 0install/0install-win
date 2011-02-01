@@ -16,6 +16,8 @@
  */
 
 using System;
+using NDesk.Options;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -46,7 +48,7 @@ namespace ZeroInstall.Commands
         {
             base.Execute();
 
-            //if (results.AdditionalArgs.Count != 0) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.UnknownOption, Name);
 
             //var feeds = results.Policy.FeedManager.Cache.ListAll();
             //foreach (Uri entry in feeds)

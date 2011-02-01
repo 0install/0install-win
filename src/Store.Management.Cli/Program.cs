@@ -140,7 +140,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>Any unparsed commands left over.</returns>
-        /// <exception cref="ArgumentException">Throw if <paramref name="args"/> contains unknown options.</exception>
+        /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
         private static IList<string> ParseArgs(IEnumerable<string> args, IIOHandler handler)
         {
             #region Sanity checks
