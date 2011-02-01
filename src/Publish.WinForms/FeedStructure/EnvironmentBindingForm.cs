@@ -86,7 +86,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             ClearControl();
             if (!String.IsNullOrEmpty(_environmentBinding.Name)) comboBoxName.Text = _environmentBinding.Name;
-            if (!String.IsNullOrEmpty(_environmentBinding.Value)) hintTextBoxInsert.Text = _environmentBinding.Value;
+            if (!String.IsNullOrEmpty(_environmentBinding.Insert)) hintTextBoxInsert.Text = _environmentBinding.Insert;
             comboBoxMode.SelectedItem = _environmentBinding.Mode;
             if (!String.IsNullOrEmpty(_environmentBinding.Default)) hintTextBoxDefault.Text = _environmentBinding.Default;
         }
@@ -102,7 +102,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         /// <param name="e">Not used.</param>
         private void ButtonOkClick(object sender, EventArgs e)
         {
-            _environmentBinding.Value = (!String.IsNullOrEmpty(hintTextBoxInsert.Text)) ? hintTextBoxInsert.Text : null;
+            _environmentBinding.Insert = (!String.IsNullOrEmpty(hintTextBoxInsert.Text)) ? hintTextBoxInsert.Text : null;
             _environmentBinding.Mode = (EnvironmentMode)comboBoxMode.SelectedItem;
             _environmentBinding.Default = (!String.IsNullOrEmpty(hintTextBoxDefault.Text)) ? hintTextBoxDefault.Text : null;
             _environmentBinding.Name = (!String.IsNullOrEmpty(comboBoxName.Text)) ? comboBoxName.Text : null;

@@ -111,7 +111,8 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:binding">
         <xs:attribute name="name" type="xs:string" use="required" />
-        <xs:attribute name="insert" type="xs:string" use="required" />
+        <xs:attribute name="value" type="xs:string" use="optional" />
+        <xs:attribute name="insert" type="xs:string" use="optional" />
         <xs:attribute default="prepend" name="mode" type="tns:environment-mode" use="optional" />
         <xs:attribute name="default" type="xs:string" use="optional" />
       </xs:extension>

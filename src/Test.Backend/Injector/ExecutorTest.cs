@@ -94,7 +94,9 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments);
             Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
+            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
+            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"]);
         }
 
         /// <summary>
@@ -121,7 +123,9 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments);
             Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
+            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
+            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"]);
         }
 
         /// <summary>
@@ -146,7 +150,9 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments);
             Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
+            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
+            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"]);
         }
 
         /// <summary>
@@ -169,7 +175,9 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + StringUtils.PathCombine("test1 path", "dir 1", "main") + "\" --custom", startInfo.Arguments);
             Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
+            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
+            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"]);
         }
 
         /// <summary>
@@ -196,7 +204,9 @@ namespace ZeroInstall.Injector
                 startInfo.Arguments);
             Assert.AreEqual(Path.Combine("test1 path", "bin"), startInfo.WorkingDirectory);
             Assert.AreEqual("test1 path", startInfo.EnvironmentVariables["TEST1_PATH"]);
+            Assert.AreEqual("test1", startInfo.EnvironmentVariables["TEST1_VALUE"]);
             Assert.AreEqual("test2 path", startInfo.EnvironmentVariables["TEST2_PATH"]);
+            Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"]);
         }
     }
 }

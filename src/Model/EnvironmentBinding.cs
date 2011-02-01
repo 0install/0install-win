@@ -23,7 +23,7 @@ namespace ZeroInstall.Model
 {
     #region Enumerations
     /// <summary>
-    /// Controls how a <see cref="EnvironmentBinding.Value"/> is added to the variable.
+    /// Controls how a <see cref="EnvironmentBinding.Insert"/> is added to the variable.
     /// </summary>
     public enum EnvironmentMode
     {
@@ -54,14 +54,23 @@ namespace ZeroInstall.Model
         public string Name { get; set; }
 
         /// <summary>
-        /// The relative path of the item within the implementation to insert into the variable's value. Use <code>.</code> to publish the root directory.
+        /// A static value to set the variable to.
         /// </summary>
-        [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory")]
-        [XmlAttribute("insert")]
+        /// <remarks>If this is set <see cref="Insert"/> must be <see langword="null"/>.</remarks>
+        [Description("A static value to set the variable to.")]
+        [XmlAttribute("value")]
         public string Value { get; set; }
 
         /// <summary>
-        /// Controls how the <see cref="Value"/> is added to the variable.
+        /// The relative path of the item within the implementation to insert into the variable's value. Use <code>.</code> to publish the root directory.
+        /// </summary>
+        /// <remarks>If this is set <see cref="Value"/> must be <see langword="null"/>.</remarks>
+        [Description("The relative path of the item within the implementation to insert into the variable's value. Use \".\" to publish the root directory.")]
+        [XmlAttribute("insert")]
+        public string Insert { get; set; }
+
+        /// <summary>
+        /// Controls how the <see cref="Insert"/> is added to the variable.
         /// </summary>
         [Description("Controls how the value is added to the variable.")]
         [XmlAttribute("mode"), DefaultValue(typeof(EnvironmentMode), "Prepend")]
@@ -84,8 +93,8 @@ namespace ZeroInstall.Model
         public override string ToString()
         {
             return (Mode == EnvironmentMode.Replace)
-                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Value, Mode)
-                : string.Format("EnvironmentBinding: {0} = {1} ({2}, {3})", Name, Value, Mode, Default);
+                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Insert, Mode)
+                : string.Format("EnvironmentBinding: {0} = {1} ({2}, {3})", Name, Insert, Mode, Default);
         }
         #endregion
 
@@ -96,7 +105,7 @@ namespace ZeroInstall.Model
         /// <returns>The new copy of the <see cref="EnvironmentBinding"/>.</returns>
         public override Binding CloneBinding()
         {
-            return new EnvironmentBinding { Name = Name, Value = Value, Mode = Mode, Default = Default };
+            return new EnvironmentBinding { Name = Name, Value = Value, Insert = Insert, Mode = Mode, Default = Default };
         }
         #endregion
 
@@ -106,7 +115,7 @@ namespace ZeroInstall.Model
         {
             if (ReferenceEquals(null, other)) return false;
 
-            return other.Name == Name || other.Value == Value || other.Mode == Mode || other.Default == Default;
+            return other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Default == Default;
         }
 
         /// <inheritdoc/>
@@ -124,6 +133,7 @@ namespace ZeroInstall.Model
             {
                 int result = (Name != null ? Name.GetHashCode() : 0);
                 result = (result * 397) ^ (Value ?? "").GetHashCode();
+                result = (result * 397) ^ (Insert ?? "").GetHashCode();
                 result = (result * 397) ^ Mode.GetHashCode();
                 result = (result * 397) ^ (Default ?? "").GetHashCode();
                 return result;
