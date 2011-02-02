@@ -128,9 +128,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void ButtonPreviewClick(object sender, EventArgs e)
         {
+            if (uriTextBoxIconUrl.Uri == null) return;
+
             Image icon;
 
-            ChangeTextOfMessageLabel("Downloading image for preview...", SystemColors.ControlText);
+            ChangeTextOfMessageLabel(Resources.Downloading_image_for_preview, SystemColors.ControlText);
 
             // try downloading image
             try
@@ -209,8 +211,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void ButtonRemoveClick(object sender, EventArgs e)
         {
-            var icon = (Icon) listBoxIconsUrls.SelectedItem;
             if (listBoxIconsUrls.SelectedItem == null) return;
+            var icon = (Icon) listBoxIconsUrls.SelectedItem;
             _iconUrls.Remove(icon);
         }
 

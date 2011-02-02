@@ -133,4 +133,7 @@
 	<data name="ImageFormatNotSupported">
 		<value xml:space="preserve">The image format is not supported by ZeroInstall.</value>
 	</data>
+	<data name="Downloading_image_for_preview">
+		<value xml:space="preserve">Downloading image for preview...</value>
+	</data>
 </root>

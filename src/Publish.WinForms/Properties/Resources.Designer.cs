@@ -70,6 +70,15 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading image for preview....
+        /// </summary>
+        internal static string Downloading_image_for_preview {
+            get {
+                return ResourceManager.GetString("Downloading_image_for_preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The image format is not supported by ZeroInstall..
         /// </summary>
         internal static string ImageFormatNotSupported {

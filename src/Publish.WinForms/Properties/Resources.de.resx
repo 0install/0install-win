@@ -120,6 +120,9 @@
   <data name="AutoDetect" xml:space="preserve">
     <value>(automatisch)</value>
   </data>
+  <data name="Downloading_image_for_preview" xml:space="preserve">
+    <value>Das Bild wird zur Vorschau heruntergeladen...</value>
+  </data>
   <data name="ImageFormatNotSupported" xml:space="preserve">
     <value>Das Bildformat wird von ZeroInstall nicht unterstützt.</value>
   </data>

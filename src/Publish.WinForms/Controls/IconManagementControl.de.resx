@@ -124,13 +124,13 @@
   <data name="labelIconMimeType.Text" xml:space="preserve">
     <value>Icontyp</value>
   </data>
-  <data name="buttonIconPreview.Text" xml:space="preserve">
+  <data name="buttonPreview.Text" xml:space="preserve">
     <value>Vorschau</value>
   </data>
-  <data name="buttonIconRemove.Text" xml:space="preserve">
+  <data name="buttonRemove.Text" xml:space="preserve">
     <value>Entfernen</value>
   </data>
-  <data name="buttonIconAdd.Text" xml:space="preserve">
+  <data name="buttonAdd.Text" xml:space="preserve">
     <value>Hinzufügen</value>
   </data>
 </root>

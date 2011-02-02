@@ -102,8 +102,9 @@
             // 
             // uriTextBoxIconUrl
             // 
-            this.uriTextBoxIconUrl.ForeColor = System.Drawing.Color.Red;
             resources.ApplyResources(this.uriTextBoxIconUrl, "uriTextBoxIconUrl");
+            this.uriTextBoxIconUrl.AllowDrop = true;
+            this.uriTextBoxIconUrl.ForeColor = System.Drawing.Color.Red;
             this.uriTextBoxIconUrl.Name = "uriTextBoxIconUrl";
             // 
             // IconManagementControl
