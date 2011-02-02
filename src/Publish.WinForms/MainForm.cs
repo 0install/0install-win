@@ -27,8 +27,8 @@ using Common.Utils;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.FeedStructure;
 using ZeroInstall.Store.Feeds;
-using Binding = ZeroInstall.Model.Binding;
 using ZeroInstall.Publish.WinForms.Controls;
+using Binding = ZeroInstall.Model.Binding;
 using Icon = ZeroInstall.Model.Icon;
 
 namespace ZeroInstall.Publish.WinForms
@@ -39,6 +39,9 @@ namespace ZeroInstall.Publish.WinForms
 
         /// <summary>To be called when the controls on the form need to filled with content from the feed.</summary>
         private event SimpleEventHandler Populate;
+
+        /// <summary>To be called when the <see cref="treeViewFeedStructure"/> on the form need to filled with content from the feed.</summary>
+        private event SimpleEventHandler UpdateTreeView;
 
         #endregion
 
@@ -113,15 +116,48 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeFeedStructureButtons()
         {
-            btnAddGroup.Tag = new Group();
-            btnAddDependency.Tag = new Dependency();
-            btnAddCommand.Tag = new Command();
-            btnAddEnvironmentBinding.Tag = new EnvironmentBinding();
-            btnAddOverlayBinding.Tag = new OverlayBinding();
-            btnAddPackageImplementation.Tag = new PackageImplementation();
-            btnAddImplementation.Tag = new Implementation();
-            buttonAddArchive.Tag = new Archive();
-            buttonAddRecipe.Tag = new Recipe();
+            HookUpFeedStructureButton<IElementContainer, Implementation>(btnAddImplementation, (container, element) => container.Elements.Add(element));
+            HookUpFeedStructureButton<IElementContainer, PackageImplementation>(btnAddPackageImplementation, (container, element) => container.Elements.Add(element));
+            HookUpFeedStructureButton<IElementContainer, Group>(btnAddGroup, (container, element) => container.Elements.Add(element));
+
+            HookUpFeedStructureButton<IBindingContainer, EnvironmentBinding>(btnAddEnvironmentBinding, (container, bindings) => container.Bindings.Add(bindings));
+            HookUpFeedStructureButton<IBindingContainer, OverlayBinding>(btnAddOverlayBinding, (container, bindings) => container.Bindings.Add(bindings));
+
+            HookUpFeedStructureButton<IDependencyContainer, Dependency>(btnAddDependency, (container, dependency) => container.Dependencies.Add(dependency));
+
+            HookUpFeedStructureButton<Element, Command>(btnAddDependency, (element, command) => element.Commands.Add(command));
+
+            HookUpFeedStructureButton<Implementation, Archive>(buttonAddArchive, (implementation, retrievalMethod) => implementation.RetrievalMethods.Add(retrievalMethod));
+            HookUpFeedStructureButton<Implementation, Recipe>(buttonAddRecipe, (implementation, retrievalMethod) => implementation.RetrievalMethods.Add(retrievalMethod));
+        }
+
+        /// <summary>
+        /// A delegate describing how to add <typeparamref name="TEntry"/> to <see cref="TContainer"/>s.
+        /// </summary>
+        private delegate void ContainerAddAction<TContainer, TEntry>(TContainer container, TEntry entry);
+
+        /// <summary>
+        /// Configures event handlers to make a button add new elements to <see cref="treeViewFeedStructure"/>.
+        /// </summary>
+        /// <typeparam name="TContainer">The type of element in the <see cref="treeViewFeedStructure"/> that this button can can add sub-elements to.</typeparam>
+        /// <typeparam name="TEntry">The type of element this button adds.</typeparam>
+        /// <param name="button">The button to hook up.</param>
+        /// <param name="addAction">A delegate describing how to add <typeparamref name="TEntry"/> to <see cref="TContainer"/>s.</param>
+        private void HookUpFeedStructureButton<TContainer, TEntry>(Button button, ContainerAddAction<TContainer, TEntry> addAction)
+            where TContainer : class
+            where TEntry : new()
+        {
+            button.Click += delegate
+            {
+                if (treeViewFeedStructure.SelectedNode == null) return;
+                var container = treeViewFeedStructure.SelectedNode.Tag as TContainer;
+                if (container != null)
+                {
+                    addAction(container, new TEntry());
+                    FillFeedTab();
+                }
+            };
+            UpdateTreeView += () => button.Enabled = treeViewFeedStructure.SelectedNode.Tag is TContainer;
         }
 
         private void InitializeComboBoxMinInjectorVersion()
@@ -690,146 +726,6 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Feed Tab
 
-        #region Add buttons clicked
-
-        /// <summary>
-        /// Detects the feed structure button which was clicked and adds the accordent feed structure elemtent to <see cref="treeViewFeedStructure"/>.
-        /// </summary>
-        /// <param name="sender"><see cref="Button"/> which was clicked.</param>
-        /// <param name="e">Not used.</param>
-        private void AddFeedStructureElementButtonClick(object sender, EventArgs e)
-        {
-            if (((Button) sender).Tag is Group) AddFeedStructureObject(new Group());
-            else if (((Button) sender).Tag is Dependency) AddFeedStructureObject(new Dependency());
-            else if (((Button) sender).Tag is EnvironmentBinding) AddFeedStructureObject(new EnvironmentBinding());
-            else if (((Button) sender).Tag is OverlayBinding) AddFeedStructureObject(new OverlayBinding());
-            else if (((Button) sender).Tag is WorkingDir) AddFeedStructureObject(new WorkingDir());
-            else if (((Button) sender).Tag is PackageImplementation) AddFeedStructureObject(new PackageImplementation());
-            else if (((Button) sender).Tag is Implementation) AddFeedStructureObject(new Implementation());
-            else if (((Button) sender).Tag is Archive) AddFeedStructureObject(new Archive());
-            else if (((Button) sender).Tag is Recipe) AddFeedStructureObject(new Recipe());
-        }
-
-        /// <summary>
-        /// Gets the selected <see cref="TreeNode"/> from <see cref="treeViewFeedStructure"/> and adds (if allowed) <paramref name="feedStructureObject"/> to the container stored
-        /// in the Tag of the selected <see cref="TreeNode"/>. Then <see cref="treeViewFeedStructure"/> will be rebuild from <see cref="Feed"/>.
-        /// </summary>
-        /// <remarks>
-        /// It is allowed if <paramref name="feedStructureObject"/> can be added to the selected container (e.g. a <see cref="Implementation"/> can be added to a
-        /// <see cref="Group"/>).
-        /// See http://0install.net/interface-spec.html for more information.
-        /// </remarks>
-        /// <param name="feedStructureObject"></param>
-        private void AddFeedStructureObject(object feedStructureObject)
-        {
-            var firstFeedStructureNode = treeViewFeedStructure.Nodes[0];
-            var selectedNode = treeViewFeedStructure.SelectedNode ?? firstFeedStructureNode;
-
-            if (selectedNode.Tag is Feed)
-            {
-                var feed = (Feed) selectedNode.Tag;
-
-                if (feedStructureObject is Group)
-                {
-                    feed.Elements.Add((Group) feedStructureObject);
-                }
-                else if (feedStructureObject is Implementation)
-                {
-                    feed.Elements.Add((Implementation) feedStructureObject);
-                }
-                else if (feedStructureObject is PackageImplementation)
-                {
-                    feed.Elements.Add((PackageImplementation) feedStructureObject);
-                }
-            }
-            else if (selectedNode.Tag is Group)
-            {
-                var group = (Group) selectedNode.Tag;
-
-                if (feedStructureObject is Dependency)
-                {
-                    group.Dependencies.Add((Dependency) feedStructureObject);
-                }
-                else if (feedStructureObject is EnvironmentBinding)
-                {
-                    group.Bindings.Add((EnvironmentBinding) feedStructureObject);
-                }
-                else if (feedStructureObject is Group)
-                {
-                    group.Elements.Add((Group) feedStructureObject);
-                }
-                else if (feedStructureObject is Implementation)
-                {
-                    group.Elements.Add((Implementation) feedStructureObject);
-                }
-                else if (feedStructureObject is OverlayBinding)
-                {
-                    group.Bindings.Add((OverlayBinding) feedStructureObject);
-                }
-                else if (feedStructureObject is PackageImplementation)
-                {
-                    group.Elements.Add((PackageImplementation) feedStructureObject);
-                }
-            }
-            else if (selectedNode.Tag is Implementation)
-            {
-                var implementation = (Implementation) selectedNode.Tag;
-
-                if (feedStructureObject is Archive)
-                {
-                    implementation.RetrievalMethods.Add((Archive) feedStructureObject);
-                }
-                else if (feedStructureObject is Recipe)
-                {
-                    implementation.RetrievalMethods.Add((Recipe) feedStructureObject);
-                }
-                else if (feedStructureObject is Dependency)
-                {
-                    implementation.Dependencies.Add((Dependency) feedStructureObject);
-                }
-                else if (feedStructureObject is EnvironmentBinding)
-                {
-                    implementation.Bindings.Add((EnvironmentBinding) feedStructureObject);
-                }
-                else if (feedStructureObject is OverlayBinding)
-                {
-                    implementation.Bindings.Add((OverlayBinding) feedStructureObject);
-                }
-            }
-            else if (selectedNode.Tag is PackageImplementation)
-            {
-                var packageImplementation = (PackageImplementation) selectedNode.Tag;
-                if (feedStructureObject is Dependency)
-                {
-                    packageImplementation.Dependencies.Add((Dependency) feedStructureObject);
-                }
-                else if (feedStructureObject is EnvironmentBinding)
-                {
-                    packageImplementation.Bindings.Add((EnvironmentBinding) feedStructureObject);
-                }
-                else if (feedStructureObject is OverlayBinding)
-                {
-                    packageImplementation.Bindings.Add((OverlayBinding) feedStructureObject);
-                }
-            }
-            else if (selectedNode.Tag is Dependency)
-            {
-                var dependecy = (Dependency) selectedNode.Tag;
-                if (feedStructureObject is EnvironmentBinding)
-                {
-                    dependecy.Bindings.Add((EnvironmentBinding) feedStructureObject);
-                }
-                else if (feedStructureObject is OverlayBinding)
-                {
-                    dependecy.Bindings.Add((OverlayBinding) feedStructureObject);
-                }
-            }
-
-            FillFeedTab();
-        }
-
-        #endregion
-
         #region treeviewFeedStructure methods
 
         /// <summary>
@@ -840,12 +736,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void TreeViewFeedStructureAfterSelect(object sender, TreeViewEventArgs e)
         {
-            var selectedNodeTag = treeViewFeedStructure.SelectedNode.Tag;
-            btnAddGroup.Enabled = btnAddImplementation.Enabled = btnAddPackageImplementation.Enabled = (selectedNodeTag is IElementContainer);
-            btnAddEnvironmentBinding.Enabled = btnAddOverlayBinding.Enabled = (selectedNodeTag is IBindingContainer);
-            btnAddDependency.Enabled = (selectedNodeTag is IDependencyContainer);
-            btnAddCommand.Enabled = (selectedNodeTag is Element);
-            buttonAddArchive.Enabled = buttonAddRecipe.Enabled = (selectedNodeTag is Implementation);
+            if (UpdateTreeView != null) UpdateTreeView();
         }
 
         /// <summary>
@@ -973,7 +864,7 @@ namespace ZeroInstall.Publish.WinForms
             RemoveObjectFromFeedStructure(selectedNode.Parent.Tag, selectedNode.Tag);
             FillFeedTab();
             treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
-            TreeViewFeedStructureAfterSelect(null, null);
+            if (UpdateTreeView != null) UpdateTreeView();
         }
 
         /// <summary>
@@ -1009,7 +900,7 @@ namespace ZeroInstall.Publish.WinForms
             _feedEditing.Feed.Elements.Clear();
             FillFeedTab();
             treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
-            TreeViewFeedStructureAfterSelect(null, null);
+            if (UpdateTreeView != null) UpdateTreeView();
         }
 
         private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
