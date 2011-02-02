@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Net;
 using Common;
+using NDesk.Options;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
@@ -81,7 +82,7 @@ namespace ZeroInstall.Launcher.Cli
             
             try { command.Parse(args); }
             #region Error handling
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
@@ -109,7 +110,7 @@ namespace ZeroInstall.Launcher.Cli
             {
                 return (int)ErrorLevel.UserCanceled;
             }
-            catch (ArgumentException ex)
+            catch (OptionException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.InvalidArguments;
