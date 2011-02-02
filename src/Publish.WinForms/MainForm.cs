@@ -142,7 +142,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <typeparam name="TContainer">The type of element in the <see cref="treeViewFeedStructure"/> that this button can can add sub-elements to.</typeparam>
         /// <typeparam name="TEntry">The type of element this button adds.</typeparam>
         /// <param name="button">The button to hook up.</param>
-        /// <param name="addAction">A delegate describing how to add <typeparamref name="TEntry"/> to <see cref="TContainer"/>s.</param>
+        /// <param name="addAction">A delegate describing how to add <typeparamref name="TEntry"/> to <typeparamref cref="TContainer"/>s.</param>
         private void HookUpFeedStructureButton<TContainer, TEntry>(Button button, ContainerAddAction<TContainer, TEntry> addAction)
             where TContainer : class
             where TEntry : new()
