@@ -42,7 +42,7 @@ namespace ZeroInstall.Model
         public string NotBeforeVersionString
         {
             get { return (NotBeforeVersion == null ? null : NotBeforeVersion.ToString()); }
-            set { NotBeforeVersion = new ImplementationVersion(value); }
+            set { NotBeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace ZeroInstall.Model
         public string BeforeVersionString
         {
             get { return (BeforeVersion == null ? null : BeforeVersion.ToString()); }
-            set { BeforeVersion = new ImplementationVersion(value); }
+            set { BeforeVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
         }
         #endregion
 

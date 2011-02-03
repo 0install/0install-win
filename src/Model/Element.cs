@@ -84,7 +84,7 @@ namespace ZeroInstall.Model
         public string VersionString
         {
             get { return (Version == null ? null : Version.ToString()); }
-            set { Version = new ImplementationVersion(value); }
+            set { Version = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
         }
 
         /// <summary>

@@ -313,31 +313,39 @@ namespace ZeroInstall.Injector
         {
             var environmentVariables = startInfo.EnvironmentVariables;
 
-            if (string.IsNullOrEmpty(binding.Value))
-            { // Set a path inside the implementation
-                string environmentValue = Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Insert ?? ""));
+            string newValue = string.IsNullOrEmpty(binding.Value)
+                // A path inside the implementation
+                ? Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Insert ?? ""))
+                // A static value
+                : binding.Value;
+            
+            // Set the default value if the variable is not already set on the system
+            if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
 
-                if (!environmentVariables.ContainsKey(binding.Name)) environmentVariables.Add(binding.Name, binding.Default);
+            string previousValue = environmentVariables[binding.Name];
+            switch (binding.Mode)
+            {
+                default:
+                case EnvironmentMode.Prepend: 
+                    environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
+                        // Prepend new value to existing one seperated by path separator
+                        ? newValue + Path.PathSeparator + environmentVariables[binding.Name]
+                        // No exisiting value, just set new one
+                        : newValue;
+                    break;
 
-                string newValue;
-                switch (binding.Mode)
-                {
-                    default:
-                    case EnvironmentMode.Prepend:
-                        newValue = environmentValue + Path.PathSeparator + environmentVariables[binding.Name];
-                        break;
-                    case EnvironmentMode.Append:
-                        newValue = environmentVariables[binding.Name] + Path.PathSeparator + environmentValue;
-                        break;
-                    case EnvironmentMode.Replace:
-                        newValue = environmentValue;
-                        break;
-                }
-                environmentVariables[binding.Name] = newValue.Trim(Path.PathSeparator);
-            }
-            else
-            { // Set a static value
-                environmentVariables[binding.Name] = binding.Value;
+                case EnvironmentMode.Append:
+                    environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
+                        // Append new value to existing one seperated by path separator
+                        ? environmentVariables[binding.Name] + Path.PathSeparator + newValue
+                        // No exisiting value, just set new one
+                        : newValue;
+                    break;
+
+                case EnvironmentMode.Replace:
+                    // Overwrite any existing value
+                    environmentVariables[binding.Name] = newValue;
+                    break;
             }
         }
 

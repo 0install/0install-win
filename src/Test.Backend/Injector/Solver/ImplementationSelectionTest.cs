@@ -40,7 +40,11 @@ namespace ZeroInstall.Injector.Solver
                 ID = "id1", ManifestDigest = new ManifestDigest("sha256=123"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
-                Bindings = {new EnvironmentBinding {Name = "TEST1_PATH"}, new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1"}}
+                Bindings =
+                {
+                    new EnvironmentBinding {Name = "TEST1_PATH", Default = "default", Mode = EnvironmentMode.Append},
+                    new EnvironmentBinding {Name = "TEST1_VALUE", Value = "test1", Mode = EnvironmentMode.Replace}
+                }
             };
         }
         
@@ -56,7 +60,11 @@ namespace ZeroInstall.Injector.Solver
                 ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc"), Version = new ImplementationVersion("1.0"),
                 Architecture = new Architecture(OS.Windows, Cpu.I586), Languages = {new CultureInfo("en-US")},
                 DocDir = "doc", Stability = Stability.Developer,
-                Bindings = {new EnvironmentBinding {Name = "TEST2_PATH"}, new EnvironmentBinding {Name = "TEST2_VALUE", Value = "test2"}}
+                Bindings =
+                {
+                    new EnvironmentBinding {Name = "TEST2_PATH", Default = "default", Mode = EnvironmentMode.Prepend},
+                    new EnvironmentBinding {Name = "TEST2_VALUE", Value = "test2", Mode = EnvironmentMode.Replace}
+                }
             };
         }
         #endregion

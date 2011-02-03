@@ -92,9 +92,9 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return (Mode == EnvironmentMode.Replace)
-                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Insert, Mode)
-                : string.Format("EnvironmentBinding: {0} = {1} ({2}, {3})", Name, Insert, Mode, Default);
+            return (string.IsNullOrEmpty(Insert))
+                ? string.Format("EnvironmentBinding: {0} = {1} ({2})", Name, Value, Mode)
+                : string.Format("EnvironmentBinding: {0} = Impl+{1} ({2})", Name, Insert, Mode);
         }
         #endregion
 
