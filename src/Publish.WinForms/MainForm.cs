@@ -36,23 +36,35 @@ namespace ZeroInstall.Publish.WinForms
     public partial class MainForm : Form
     {
         #region Events
-
         /// <summary>To be called when the controls on the form need to filled with content from the feed.</summary>
         private event SimpleEventHandler Populate;
 
         /// <summary>To be called when the <see cref="treeViewFeedStructure"/> on the form need to filled with content from the feed.</summary>
-        private event SimpleEventHandler UpdateTreeView;
-
+        private event SimpleEventHandler UpdateStructureButtons;
         #endregion
 
         #region Constants
         private const string FeedFileFilter = "Zero Install Feed (*.xml)|*.xml|All Files|*.*";
-        private readonly string[] _supportedInjectorVersions = new[] { string.Empty, "0.31", "0.32", "0.33", "0.34",
+        private readonly string[] _supportedInjectorVersions = new[] { "", "0.31", "0.32", "0.33", "0.34",
             "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43", "0.44", "0.45"};
         #endregion
 
         #region Variables
         private FeedEditing _feedEditing = new FeedEditing();
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// Returns part of the <see cref="Feed"/> currently selected in the <see cref="treeViewFeedStructure"/>.
+        /// </summary>
+        private object SelectedFeedStructureElement
+        {
+            get
+            {
+                // Default to the top-level of the feed if nothing is selected
+                return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed : treeViewFeedStructure.SelectedNode.Tag);
+            }
+        }
         #endregion
 
         #region Initialization
@@ -110,31 +122,29 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         /// <summary>
-        /// Sets the Tag of the feed structure buttons with a object they shall add to <see cref="treeViewFeedStructure"/>.
-        /// E.g. the button <see cref="btnAddGroup"/> gets a <see cref="Group"/> object.
-        /// Used to identify the buttons.
+        /// Configures buttons to add and remove entries from the <see cref="treeViewFeedStructure"/> and the coressponding backend model.
         /// </summary>
         private void InitializeFeedStructureButtons()
         {
-            HookUpFeedStructureButton<IElementContainer, Implementation>(btnAddImplementation, (container, element) => container.Elements.Add(element));
-            HookUpFeedStructureButton<IElementContainer, PackageImplementation>(btnAddPackageImplementation, (container, element) => container.Elements.Add(element));
-            HookUpFeedStructureButton<IElementContainer, Group>(btnAddGroup, (container, element) => container.Elements.Add(element));
+            SetupFeedStructureHooks<IElementContainer, Element>(btnAddImplementation, container => container.Elements, () => new Implementation());
+            SetupFeedStructureHooks<IElementContainer, Element>(btnAddPackageImplementation, container => container.Elements, () => new PackageImplementation());
+            SetupFeedStructureHooks<IElementContainer, Element>(btnAddGroup, container => container.Elements, () => new Group());
 
-            HookUpFeedStructureButton<IBindingContainer, EnvironmentBinding>(btnAddEnvironmentBinding, (container, bindings) => container.Bindings.Add(bindings));
-            HookUpFeedStructureButton<IBindingContainer, OverlayBinding>(btnAddOverlayBinding, (container, bindings) => container.Bindings.Add(bindings));
+            SetupFeedStructureHooks<IBindingContainer, Binding>(btnAddEnvironmentBinding, container => container.Bindings, () => new EnvironmentBinding());
+            SetupFeedStructureHooks<IBindingContainer, Binding>(btnAddOverlayBinding, container => container.Bindings, () => new OverlayBinding());
 
-            HookUpFeedStructureButton<IDependencyContainer, Dependency>(btnAddDependency, (container, dependency) => container.Dependencies.Add(dependency));
+            SetupFeedStructureHooks<IDependencyContainer, Dependency>(btnAddDependency, container => container.Dependencies, () => new Dependency());
 
-            HookUpFeedStructureButton<Element, Command>(btnAddDependency, (element, command) => element.Commands.Add(command));
+            SetupFeedStructureHooks<Element, Command>(btnAddCommand, element => element.Commands, () => new Command());
 
-            HookUpFeedStructureButton<Implementation, Archive>(buttonAddArchive, (implementation, retrievalMethod) => implementation.RetrievalMethods.Add(retrievalMethod));
-            HookUpFeedStructureButton<Implementation, Recipe>(buttonAddRecipe, (implementation, retrievalMethod) => implementation.RetrievalMethods.Add(retrievalMethod));
+            SetupFeedStructureHooks<Implementation, RetrievalMethod>(buttonAddArchive, implementation => implementation.RetrievalMethods, () => new Archive());
+            SetupFeedStructureHooks<Implementation, RetrievalMethod>(buttonAddRecipe, implementation => implementation.RetrievalMethods, () => new Recipe());
         }
 
         /// <summary>
-        /// A delegate describing how to add <typeparamref name="TEntry"/> to <see cref="TContainer"/>s.
+        /// A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <see cref="TContainer"/>.
         /// </summary>
-        private delegate void ContainerAddAction<TContainer, TEntry>(TContainer container, TEntry entry);
+        private delegate ICollection<TEntry> ContainerCollectionRetreival<TContainer, TEntry>(TContainer container);
 
         /// <summary>
         /// Configures event handlers to make a button add new elements to <see cref="treeViewFeedStructure"/>.
@@ -142,22 +152,22 @@ namespace ZeroInstall.Publish.WinForms
         /// <typeparam name="TContainer">The type of element in the <see cref="treeViewFeedStructure"/> that this button can can add sub-elements to.</typeparam>
         /// <typeparam name="TEntry">The type of element this button adds.</typeparam>
         /// <param name="button">The button to hook up.</param>
-        /// <param name="addAction">A delegate describing how to add <typeparamref name="TEntry"/> to <typeparamref cref="TContainer"/>s.</param>
-        private void HookUpFeedStructureButton<TContainer, TEntry>(Button button, ContainerAddAction<TContainer, TEntry> addAction)
+        /// <param name="getCollection">A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <see cref="TContainer"/>.</param>
+        /// <param name="newEntry"></param>
+        private void SetupFeedStructureHooks<TContainer, TEntry>(Button button, ContainerCollectionRetreival<TContainer, TEntry> getCollection, SimpleResult<TEntry> newEntry)
             where TContainer : class
-            where TEntry : new()
         {
             button.Click += delegate
             {
                 if (treeViewFeedStructure.SelectedNode == null) return;
-                var container = treeViewFeedStructure.SelectedNode.Tag as TContainer;
+                var container = SelectedFeedStructureElement as TContainer;
                 if (container != null)
                 {
-                    addAction(container, new TEntry());
+                    _feedEditing.ExecuteCommand(new AddToCollection<TEntry>(getCollection(container), newEntry()));
                     FillFeedTab();
                 }
             };
-            UpdateTreeView += () => button.Enabled = treeViewFeedStructure.SelectedNode.Tag is TContainer;
+            UpdateStructureButtons += () => button.Enabled = SelectedFeedStructureElement is TContainer;
         }
 
         private void InitializeComboBoxMinInjectorVersion()
@@ -209,7 +219,7 @@ namespace ZeroInstall.Publish.WinForms
             SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Descriptions);
             SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
             SetupCommandHooks(iconManagementControl, () => _feedEditing.Feed.Icons);
-            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersion, value => _feedEditing.Feed.MinInjectorVersion = (value == null ? null : value.ToString()));
+            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersionString, value => _feedEditing.Feed.MinInjectorVersionString = value);
         }
 
         /// <summary>
@@ -392,7 +402,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="comboBox">The <see cref="ComboBox"/> to track for input and to update.</param>
         /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
         /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(ComboBox comboBox, SimpleResult<object> getValue, Action<object> setValue)
+        private void SetupCommandHooks(ComboBox comboBox, SimpleResult<string> getValue, Action<string> setValue)
         {
             Populate += delegate
             {
@@ -405,9 +415,13 @@ namespace ZeroInstall.Publish.WinForms
             {
                 if (e.Cancel) return;
 
-                if (comboBox.SelectedItem == getValue()) return;
+                // Normalize unselected or default entry to null
+                string selectedValue = (comboBox.SelectedItem ?? "").ToString();
+                if (selectedValue == "") selectedValue = null;
 
-                _feedEditing.ExecuteCommand(new SetValueCommand<object>(comboBox.SelectedItem, getValue, setValue));
+                if (selectedValue == getValue()) return;
+
+                _feedEditing.ExecuteCommand(new SetValueCommand<string>(selectedValue, getValue, setValue));
             };
 
         }
@@ -677,6 +691,8 @@ namespace ZeroInstall.Publish.WinForms
             treeViewFeedStructure.EndUpdate();
 
             treeViewFeedStructure.ExpandAll();
+
+            if (UpdateStructureButtons != null) UpdateStructureButtons();
         }
 
         /// <summary>
@@ -736,7 +752,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="e">Not used.</param>
         private void TreeViewFeedStructureAfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (UpdateTreeView != null) UpdateTreeView();
+            if (UpdateStructureButtons != null) UpdateStructureButtons();
         }
 
         /// <summary>
@@ -864,7 +880,6 @@ namespace ZeroInstall.Publish.WinForms
             RemoveObjectFromFeedStructure(selectedNode.Parent.Tag, selectedNode.Tag);
             FillFeedTab();
             treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
-            if (UpdateTreeView != null) UpdateTreeView();
         }
 
         /// <summary>
@@ -888,19 +903,6 @@ namespace ZeroInstall.Publish.WinForms
                         implementationContainer.ID = String.Empty;
                 }
             }
-        }
-
-        /// <summary>
-        /// Removes all feed structure objects from <see cref="Feed"/> and rebuilds <see cref="treeViewFeedStructure"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ButtonClearListClick(object sender, EventArgs e)
-        {
-            _feedEditing.Feed.Elements.Clear();
-            FillFeedTab();
-            treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
-            if (UpdateTreeView != null) UpdateTreeView();
         }
 
         private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)

@@ -82,8 +82,17 @@ namespace ZeroInstall.Model
         /// This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.
         /// </summary>
         [Category("Feed"), Description("This attribute gives the oldest version of the injector that can read this file. Older versions will tell the user to upgrade if they are asked to read the file. Versions prior to 0.20 do not perform this check, however. If the attribute is not present, the file can be read by all versions.")]
-        [XmlAttribute("min-injector-version"), DefaultValue("")]
-        public string MinInjectorVersion { get; set; }
+        [XmlIgnore]
+        public ImplementationVersion MinInjectorVersion { get; set; }
+
+        /// <summary>Used for XML serialization.</summary>
+        /// <seealso cref="MinInjectorVersion"/>
+        [XmlAttribute("min-injector-version"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        public string MinInjectorVersionString
+        {
+            get { return (MinInjectorVersion == null ? null : MinInjectorVersion.ToString()); }
+            set { MinInjectorVersion = string.IsNullOrEmpty(value) ? null : new ImplementationVersion(value); }
+        }
 
         /// <summary>
         /// This attribute is only needed for remote feeds (fetched via HTTP). The value must exactly match the expected URL, to prevent an attacker replacing one correctly-signed feed with another (e.g., returning a feed for the shred program when the user asked for the backup program).
@@ -401,7 +410,7 @@ namespace ZeroInstall.Model
         {
             unchecked
             {
-                int result = (MinInjectorVersion ?? "").GetHashCode();
+                int result = (MinInjectorVersion ?? new ImplementationVersion("0.1")).GetHashCode();
                 result = (result * 397) ^ (UriString ?? "").GetHashCode();
                 result = (result * 397) ^ (Name ?? "").GetHashCode();
                 result = (result * 397) ^ Summaries.GetUnsequencedHashCode();

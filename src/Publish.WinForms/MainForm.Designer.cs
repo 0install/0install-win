@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Interface");
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -69,7 +69,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
-            this.buttonClearList = new System.Windows.Forms.Button();
             this.buttonAddArchive = new System.Windows.Forms.Button();
             this.btnAddOverlayBinding = new System.Windows.Forms.Button();
             this.treeViewFeedStructure = new System.Windows.Forms.TreeView();
@@ -426,7 +425,6 @@ namespace ZeroInstall.Publish.WinForms
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddRecipe);
-            this.groupBoxFeedStructure.Controls.Add(this.buttonClearList);
             this.groupBoxFeedStructure.Controls.Add(this.buttonAddArchive);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddOverlayBinding);
             this.groupBoxFeedStructure.Controls.Add(this.treeViewFeedStructure);
@@ -454,17 +452,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddRecipe.TabIndex = 4;
             this.buttonAddRecipe.Text = "Recipe";
             this.buttonAddRecipe.UseVisualStyleBackColor = true;
-            // 
-            // buttonClearList
-            // 
-            this.buttonClearList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClearList.Location = new System.Drawing.Point(401, 439);
-            this.buttonClearList.Name = "buttonClearList";
-            this.buttonClearList.Size = new System.Drawing.Size(131, 23);
-            this.buttonClearList.TabIndex = 9;
-            this.buttonClearList.Text = "Clear feed structure";
-            this.buttonClearList.UseVisualStyleBackColor = true;
-            this.buttonClearList.Click += new System.EventHandler(this.ButtonClearListClick);
             // 
             // buttonAddArchive
             // 
@@ -496,11 +483,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode1.Name = "interface";
-            treeNode1.Tag = "";
-            treeNode1.Text = "Interface";
+            treeNode3.Name = "interface";
+            treeNode3.Tag = "";
+            treeNode3.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1});
+            treeNode3});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -848,7 +835,6 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.GroupBox groupBoxFeedStructure;
         private System.Windows.Forms.Button btnAddOverlayBinding;
         private System.Windows.Forms.Button buttonUpdateExternalFeed;
-        private System.Windows.Forms.Button buttonClearList;
         private System.Windows.Forms.Button buttonAddArchive;
         private System.Windows.Forms.Button buttonAddRecipe;
         private System.Windows.Forms.TreeView treeViewFeedStructure;

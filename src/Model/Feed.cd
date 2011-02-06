@@ -1,44 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.Model.Feed">
-    <Position X="3.75" Y="0.5" Width="1.75" />
+    <Position X="3.5" Y="0.5" Width="1.75" />
     <Members>
       <Method Name="Clone" Hidden="true" />
       <Method Name="Equals" Hidden="true" />
       <Method Name="GetHashCode" Hidden="true" />
       <Property Name="HomepageString" Hidden="true" />
+      <Property Name="MinInjectorVersionString" Hidden="true" />
       <Property Name="NeedsTerminalString" Hidden="true" />
       <Property Name="UriString" Hidden="true" />
     </Members>
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
+    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="4.844" Y="4.559" />
+        <Point X="4.844" Y="4.875" />
+        <Point X="6.25" Y="4.875" />
+      </Path>
+      <MemberNameLabel ManuallyPlaced="true">
+        <Position X="0.185" Y="0.037" />
+      </MemberNameLabel>
+    </AssociationLine>
     <AssociationLine Name="Descriptions" Type="Common.Collections.LocalizableString" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="4.859" Y="4.175" />
-        <Point X="4.859" Y="4.938" />
-        <Point X="8" Y="4.938" />
+        <Point X="4.5" Y="4.559" />
+        <Point X="4.5" Y="5.188" />
+        <Point X="6.25" Y="5.188" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="0.329" Y="0.06" />
       </MemberNameLabel>
     </AssociationLine>
-    <AssociationLine Name="Summaries" Type="Common.Collections.LocalizableString">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="0.185" Y="0.037" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAohIAABCAgQGkAhABQAAQAAAUAEICASAgAAAAAADI=</HashCode>
+      <HashCode>AAAohIAQBCAgQGkEhABQAAQAAIUAEIGASAgAAAAAADI=</HashCode>
       <FileName>Feed.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
+      <Property Name="Summaries" />
+      <Property Name="Descriptions" />
       <Property Name="Icons" />
       <Property Name="Feeds" />
       <Property Name="FeedFor" />
       <Property Name="Elements" />
-      <Property Name="Descriptions" />
-      <Property Name="Summaries" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
@@ -62,40 +68,40 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAgAAAAAEgAAAAAAAAAAAAIAAAAAEAAAAABA=</HashCode>
+      <HashCode>AAQAAAAAAgAAAAAEgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>FeedReference.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Element" Collapsed="true">
-    <Position X="7" Y="0.5" Width="1.5" />
+    <Position X="6.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAAIIAACACAgABAIABQABDAEIEASEAABAAACDA=</HashCode>
+      <HashCode>IAAAAgAAIIAACACAgABAIABQABDAEIEASEAABBBACDA=</HashCode>
       <FileName>Element.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="ZeroInstall.Model.Implementation" Collapsed="true">
-    <Position X="8" Y="3" Width="1.5" />
+    <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAgAACAAAAARAAAIAAAAABAAAAACA=</HashCode>
       <FileName>Implementation.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Model.ImplementationBase" Collapsed="true">
-    <Position X="8" Y="2" Width="1.5" />
+    <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAgAAEgABAAAAAACAAAIAAAAAAAAAAACE=</HashCode>
       <FileName>ImplementationBase.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Model.Group" Collapsed="true">
-    <Position X="6" Y="2" Width="1.5" />
+    <Position X="5.5" Y="2" Width="1.5" />
     <AssociationLine Name="Elements" Type="ZeroInstall.Model.Element" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="6.438" Y="2" />
-        <Point X="6.438" Y="1" />
-        <Point X="7" Y="1" />
+        <Point X="5.938" Y="2" />
+        <Point X="5.938" Y="1" />
+        <Point X="6.5" Y="1" />
       </Path>
       <MemberNameLabel ManuallyPlaced="true">
         <Position X="-0.286" Y="-0.44" />
@@ -111,7 +117,7 @@
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Class Name="Common.Collections.LocalizableString" Collapsed="true">
-    <Position X="8" Y="4.5" Width="1.5" />
+    <Position X="6.25" Y="4.75" Width="1.5" />
     <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
