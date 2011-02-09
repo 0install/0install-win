@@ -27,6 +27,12 @@ namespace ZeroInstall.Injector
     public class CliHandler : Store.Implementation.CliHandler, IHandler
     {
         /// <inheritdoc />
+        public void Inform(string information)
+        {
+            Console.WriteLine(information);
+        }
+
+        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
             if (Batch) return false;

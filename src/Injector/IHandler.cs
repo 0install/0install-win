@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 
@@ -30,5 +31,15 @@ namespace ZeroInstall.Injector
         /// Close any asynchronous GUI threads to make room for a newly launched application.
         /// </summary>
         void CloseAsync();
+
+        /// <summary>
+        /// Display an information text to the user.
+        /// </summary>
+        /// <param name="information">The information to display.</param>
+        /// <remarks>
+        /// This will never bel called during an interactive or long-running operation.
+        /// <see cref="IFeedHandler.AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
+        /// </remarks>
+        void Inform(string information);
     }
 }

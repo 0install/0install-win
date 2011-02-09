@@ -31,6 +31,10 @@ namespace ZeroInstall.Injector
         public bool Batch { get { return true; } set {} }
 
         /// <inheritdoc />
+        public void Inform(string information)
+        {}
+
+        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
             return false;

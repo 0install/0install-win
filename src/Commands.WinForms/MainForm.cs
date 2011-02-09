@@ -30,11 +30,16 @@ namespace ZeroInstall.Commands.WinForms
     public partial class MainForm : Form, IHandler
     {
         #region Async control
+        /// <summary>Indicates that <see cref="ShowAsync"/> has been called even before <see cref="Control.IsHandleCreated"/> becomes <see langword="true"/>.</summary>
+        private volatile bool _showCalled;
+
         /// <summary>
         /// Starts the GUI in a separate thread.
         /// </summary>
         public void ShowAsync()
         {
+            _showCalled = true;
+
             // Initialize GUI with a low priority but restore normal priority as soon as it becomes visible
             new Thread(delegate()
             {
@@ -49,7 +54,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public void CloseAsync()
         {
-            if (IsDisposed) return;
+            if (IsDisposed || !_showCalled) return;
 
             // Wait until the GUI is actually up and running
             while (!IsHandleCreated) Thread.Sleep(0);
@@ -68,6 +73,15 @@ namespace ZeroInstall.Commands.WinForms
         /// Silently answer all questions with "No".
         /// </summary>
         public bool Batch { get; set; }
+
+        /// <inheritdoc />
+        public void Inform(string information)
+        {
+            // Close any windows that may still be open
+            CloseAsync();
+
+            Msg.Inform(this, information, MsgSeverity.Info);
+        }
 
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
