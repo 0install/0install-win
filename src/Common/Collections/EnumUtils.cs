@@ -40,5 +40,19 @@ namespace Common.Collections
             using (var enumerator = collection.GetEnumerator())
                 return enumerator.MoveNext() ? enumerator.Current : null;
         }
+
+
+        /// <summary>
+        /// Checkes whether an enumerable collection contains any elements.
+        /// </summary>
+        /// <param name="collection">The collection to check for elements; may be <see langword="null"/>.</param>
+        /// <returns><see langword="true"/> if <paramref name="collection"/> is empty or <see langword="null"/>; <see langword="false"/> otherwise.</returns>
+        public static bool IsEmpty<T>(IEnumerable<T> collection)
+        {
+            if (collection == null) return true;
+
+            using (var enumerator = collection.GetEnumerator())
+                return !enumerator.MoveNext();
+        }
     }
 }
