@@ -71,7 +71,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Requirements.cs" />
+    <Compile Include="Solver\Requirements.cs" />
     <Compile Include="SilentHandler.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />

@@ -23,7 +23,7 @@ using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the implementation selection process.
