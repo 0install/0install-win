@@ -136,20 +136,6 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Sequence\DirectoryStore_AddArchive.sequencediagram</DependentUpon>
     </Content>
-    <Content Include="UML\Sequence\Fetcher_FetchArchive.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\Fetcher_FetchArchive.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\Fetcher_FetchArchive.sequencediagram</DependentUpon>
-    </Content>
-    <Content Include="UML\Sequence\LaunchImplementation.sequencediagram">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="UML\Sequence\LaunchImplementation.sequencediagram.layout">
-      <SubType>Content</SubType>
-      <DependentUpon>UML\Sequence\LaunchImplementation.sequencediagram</DependentUpon>
-    </Content>
     <Content Include="UML\Sequence\ManifestGenerator_RunTask.sequencediagram">
       <SubType>Content</SubType>
     </Content>
