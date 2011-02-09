@@ -375,7 +375,7 @@
                 </association>
               </targetEnds>
               <ownedAttributesInternal>
-                <property Id="d4e62b41-c1f7-46cf-888c-0a20d4101bc2" name="MinInjectorVersion" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                <property Id="d4e62b41-c1f7-46cf-888c-0a20d4101bc2" name="MinInjectorVersion" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                   <referencesInternal>
                     <reference Id="5dd75a27-efab-4bc6-9250-94e272b2b889" handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed Member=MinInjectorVersion" tag="ViewCode">
                       <elementDefinition Id="7f938e68-84a7-484d-92ef-2d7d087b4f91" />
@@ -426,7 +426,7 @@
                   </appliedStereotypesInternal>
                   <elementDefinition Id="cede1501-ae09-41c6-827f-c0bcf143bbee" />
                   <type_NamedElement>
-                    <referencedTypeMoniker Id="46d7f6ee-f07c-42fd-be63-55e72b91d839" LastKnownName="String" />
+                    <referencedTypeMoniker Id="6dbefa41-9a68-4f77-902f-b5ec218955c1" LastKnownName="ImplementationVersion" />
                   </type_NamedElement>
                 </property>
                 <property Id="88e4cb43-dba3-4150-b421-9f66421ccaae" name="Uri" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
@@ -7267,6 +7267,11 @@
     <packageHasNamedElement>
       <referencedType Id="dc2bdf3c-cafc-49c2-8306-3a00f6048837" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
         <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6dbefa41-9a68-4f77-902f-b5ec218955c1" name="ImplementationVersion" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::ImplementationVersion">
+        <elementDefinition Id="74330332-e30f-4be1-86c4-cf7ca8de8cc8" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

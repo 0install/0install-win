@@ -579,6 +579,12 @@
         name="IFetcher"
         isAbstract="false"
         isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="e9714bfd-c284-40ff-ae61-9a39d4dacd11"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetcher"
+            tag="ViewCode" />
+        </referencesInternal>
         <appliedStereotypesInternal>
           <stereotypeInstance
             Id="d052ed15-9c0b-4b22-ae38-bbc065147e2d"

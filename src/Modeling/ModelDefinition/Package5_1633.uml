@@ -790,7 +790,7 @@
         <referencesInternal>
           <reference
             Id="5fd0dd9e-59e3-4ccb-9ef3-470606009835"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>

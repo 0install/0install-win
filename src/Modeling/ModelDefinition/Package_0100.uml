@@ -2,7 +2,14 @@
 <package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="40228fa2-90d3-423f-ab17-6211360804e6"
-  name="Feeds" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  name="Feeds"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="02b637b7-9a43-4430-83ea-e7e77eac20fb"
+      handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.Feeds"
+      tag="ViewCode" />
+  </referencesInternal>
   <packagedElements>
     <packageHasNamedElement>
       <class
@@ -1970,6 +1977,12 @@
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
+        <referencesInternal>
+          <reference
+            Id="4b302f97-bfeb-4ff2-ba03-2d76fa731e0e"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Feeds Type=FeedManager"
+            tag="ViewCode" />
+        </referencesInternal>
         <appliedStereotypesInternal>
           <stereotypeInstance
             Id="84c40bf8-8fe9-41e0-a236-9ff2c2cc3a27"
@@ -1994,7 +2007,7 @@
                 <propertyInstance
                   Id="62af138e-895a-4214-8c21-c8abff820f4d"
                   name="IsStatic"
-                  value="false" />
+                  value="False" />
               </stereotypeInstanceHasPropertyInstances>
               <stereotypeInstanceHasPropertyInstances
                 Id="4f3d46ee-bcb2-4e1a-8ce7-1682743f816b">
@@ -2041,6 +2054,13 @@
               Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
               LastKnownName="IFeedHandler"
               LastKnownLocation="Package_0100.uml" />
+          </dependency>
+          <dependency
+            Id="203133c6-f7c7-452a-90c0-41827cb5f29f">
+            <classMoniker
+              Id="840af007-1933-4a55-a020-8e1191964184"
+              LastKnownName="Preferences"
+              LastKnownLocation="Package1_1632.uml" />
           </dependency>
         </suppliersInternal>
         <targetEnds>

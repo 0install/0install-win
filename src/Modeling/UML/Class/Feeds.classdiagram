@@ -2277,7 +2277,12 @@
       </referencedType>
     </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
-      <package Id="edc70fb3-632f-436f-a077-1217d5f203f3" name="Feeds">
+      <package Id="edc70fb3-632f-436f-a077-1217d5f203f3" name="Feeds" visibility="Private">
+        <referencesInternal>
+          <reference Id="83e9e2e2-fc66-4198-b26a-ac898f72b49c" handle="viewcode://./CodeSchema_Namespace?Namespace=ZeroInstall.Injector.Feeds" tag="ViewCode">
+            <elementDefinition Id="02b637b7-9a43-4430-83ea-e7e77eac20fb" />
+          </reference>
+        </referencesInternal>
         <elementDefinition Id="40228fa2-90d3-423f-ab17-6211360804e6" />
         <packagedElements>
           <packageHasNamedElement>
@@ -3606,6 +3611,11 @@
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="bc6b1d41-ae13-4489-ad43-506b163e0516" name="FeedManager" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <referencesInternal>
+                <reference Id="3640d1da-6e92-4be6-86ab-2bb427b3f6bd" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Feeds Type=FeedManager" tag="ViewCode">
+                  <elementDefinition Id="4b302f97-bfeb-4ff2-ba03-2d76fa731e0e" />
+                </reference>
+              </referencesInternal>
               <appliedStereotypesInternal>
                 <stereotypeInstance Id="fc446a9d-268a-40de-b7dd-81abaa17dd1c" name="class" profile="CSharpProfile">
                   <elementDefinition Id="84c40bf8-8fe9-41e0-a236-9ff2c2cc3a27" />
@@ -3623,7 +3633,7 @@
                       <elementDefinition Id="8cec9492-2484-476e-906a-8c6ca60e4d3f" />
                     </stereotypeInstanceHasPropertyInstances>
                     <stereotypeInstanceHasPropertyInstances Id="a8c1a5d4-2743-48f9-ada7-40f7b330d2e2">
-                      <propertyInstance Id="e9b20550-41de-4f81-b48a-3e01fc719299" name="IsStatic" value="false">
+                      <propertyInstance Id="e9b20550-41de-4f81-b48a-3e01fc719299" name="IsStatic" value="False">
                         <elementDefinition Id="62af138e-895a-4214-8c21-c8abff820f4d" />
                       </propertyInstance>
                       <elementDefinition Id="0307dc30-6a4b-4ed8-8528-3ef32161b7a7" />

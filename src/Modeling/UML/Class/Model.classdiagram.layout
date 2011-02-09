@@ -460,7 +460,7 @@
         <classShapeMoniker Id="0b0be221-f78f-4446-a561-3353adc331c9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(16.25 : 5.79330435454845); (16.25 : 6.375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="1" targetMultiplicity="1">
+    <associationConnector edgePoints="[(16.25 : 5.79330435454845); (16.25 : 6.375)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110" sourceMultiplicity="1" targetMultiplicity="1">
       <associationMoniker Id="98b81825-7389-4e05-8144-b6417f04d222" />
       <relativeChildShapes />
       <nodes>

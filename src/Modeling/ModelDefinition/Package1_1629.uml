@@ -21,7 +21,7 @@
         <referencesInternal>
           <reference
             Id="f891fae2-beb0-4093-bd82-83ec8546d272"
-            handle="viewcode://./CodeSchema_Struct?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture"
+            handle="viewcode://./CodeSchema_Struct?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -1718,7 +1718,7 @@
         <referencesInternal>
           <reference
             Id="3707aea6-1c5e-4874-b7ff-fed80bb21b16"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationVersion"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationVersion"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -3465,7 +3465,7 @@
         <referencesInternal>
           <reference
             Id="9dc493cd-2415-4a55-851c-3df95909f213"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=IBindingContainer"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=IBindingContainer"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -5802,7 +5802,7 @@
         <referencesInternal>
           <reference
             Id="893f1630-0b71-469a-b14e-292bc8de6ea2"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=EnvironmentBinding"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=EnvironmentBinding"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -6540,6 +6540,7 @@
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
+            isUnique="false"
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
@@ -6601,10 +6602,10 @@
               </stereotypeInstance>
             </appliedStereotypesInternal>
             <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
-                LastKnownName="String"
-                LastKnownLocation="Architecture.uml" />
+              <classMoniker
+                Id="74330332-e30f-4be1-86c4-cf7ca8de8cc8"
+                LastKnownName="ImplementationVersion"
+                LastKnownLocation="Package1_1629.uml" />
             </type_NamedElement>
           </property>
           <property
@@ -8696,7 +8697,7 @@
         <referencesInternal>
           <reference
             Id="42b0aa58-d764-4e42-84d7-46e5d04c552a"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationBase"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationBase"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -12566,7 +12567,7 @@
         <referencesInternal>
           <reference
             Id="4008756a-e93e-4e92-817b-ad5f9e3e3142"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Command"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Command"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -13070,7 +13071,7 @@
         <referencesInternal>
           <reference
             Id="b5ca12d6-25f0-494d-a2cd-94de26df0e1a"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=WorkingDir"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=WorkingDir"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
