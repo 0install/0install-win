@@ -133,7 +133,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         }
         #endregion
 
-        #region Dialog buttons 
+        #region Buttons
+        private void ButtonShowManifestDigestClick(object sender, EventArgs e)
+        {
+            new ManifestDigestForm(_implementation.ManifestDigest).ShowDialog();
+        }
+        #endregion
+
+        #region Dialog buttons
 
         /// <summary>
         /// Saves the values from the filled controls to <see cref="_implementation"/> and closes the window.

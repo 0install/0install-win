@@ -50,16 +50,17 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.hintTextBoxID = new Common.Controls.HintTextBox();
             this.labelID = new System.Windows.Forms.Label();
             this.checkBoxSettingDateEnable = new System.Windows.Forms.CheckBox();
+            this.buttonShowManifestDigest = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(362, 326);
+            this.buttonOK.Location = new System.Drawing.Point(362, 372);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(443, 326);
+            this.buttonCancel.Location = new System.Drawing.Point(443, 372);
             // 
             // labelStability
             // 
@@ -299,11 +300,22 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.checkBoxSettingDateEnable.UseVisualStyleBackColor = true;
             this.checkBoxSettingDateEnable.CheckedChanged += new System.EventHandler(this.CheckBoxSettingDateEnableCheckedChanged);
             // 
+            // buttonShowManifestDigest
+            // 
+            this.buttonShowManifestDigest.Location = new System.Drawing.Point(16, 326);
+            this.buttonShowManifestDigest.Name = "buttonShowManifestDigest";
+            this.buttonShowManifestDigest.Size = new System.Drawing.Size(122, 23);
+            this.buttonShowManifestDigest.TabIndex = 1005;
+            this.buttonShowManifestDigest.Text = "show Manifest Digests";
+            this.buttonShowManifestDigest.UseVisualStyleBackColor = true;
+            this.buttonShowManifestDigest.Click += new System.EventHandler(this.ButtonShowManifestDigestClick);
+            // 
             // ImplementationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 361);
+            this.ClientSize = new System.Drawing.Size(530, 407);
+            this.Controls.Add(this.buttonShowManifestDigest);
             this.Controls.Add(this.checkBoxSettingDateEnable);
             this.Controls.Add(this.labelID);
             this.Controls.Add(this.hintTextBoxID);
@@ -349,6 +361,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             this.Controls.SetChildIndex(this.hintTextBoxID, 0);
             this.Controls.SetChildIndex(this.labelID, 0);
             this.Controls.SetChildIndex(this.checkBoxSettingDateEnable, 0);
+            this.Controls.SetChildIndex(this.buttonShowManifestDigest, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -376,5 +389,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private Common.Controls.HintTextBox hintTextBoxID;
         private System.Windows.Forms.Label labelID;
         private System.Windows.Forms.CheckBox checkBoxSettingDateEnable;
+        private System.Windows.Forms.Button buttonShowManifestDigest;
     }
 }
