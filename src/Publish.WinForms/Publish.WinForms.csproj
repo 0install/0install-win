@@ -48,6 +48,9 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0publish-win, Version=0.51.2.0, Culture=neutral, PublicKeyToken=3090a828a7702cec, processorArchitecture=MSIL">
+      <ExecutableExtension>.exe</ExecutableExtension>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -70,6 +73,12 @@
     <Compile Include="Controls\ArchiveControl.Designer.cs">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ArgumentsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ArgumentsControl.Designer.cs">
+      <DependentUpon>ArgumentsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -81,6 +90,12 @@
     </Compile>
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FeedStructure\CommandForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\CommandForm.Designer.cs">
+      <DependentUpon>CommandForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FeedStructure\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
@@ -169,6 +184,9 @@
     <EmbeddedResource Include="Controls\ArchiveControl.resx">
       <DependentUpon>ArchiveControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ArgumentsControl.resx">
+      <DependentUpon>ArgumentsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconManagementControl.de.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -180,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ArchiveForm.resx">
       <DependentUpon>ArchiveForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\CommandForm.resx">
+      <DependentUpon>CommandForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\DependencyForm.resx">
       <DependentUpon>DependencyForm.cs</DependentUpon>

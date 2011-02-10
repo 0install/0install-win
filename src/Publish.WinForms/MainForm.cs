@@ -147,7 +147,7 @@ namespace ZeroInstall.Publish.WinForms
             SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 
             // ToDo: Add Command dialog
-            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, null, element => element.Commands);
+            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, command => new CommandForm {Command = command}, element => element.Commands);
 
             SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
             SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
@@ -840,7 +840,7 @@ namespace ZeroInstall.Publish.WinForms
             if (elements == null) throw new ArgumentNullException("elements");
 
             #endregion
-
+            
             foreach (var element in elements)
             {
                 var group = element as Group;
@@ -849,6 +849,7 @@ namespace ZeroInstall.Publish.WinForms
                     var groupNode = new TreeNode(group.ToString()) {Tag = group};
                     parentNode.Nodes.Add(groupNode);
                     BuildElementsTreeNodes(group.Elements, groupNode);
+                    BuildCommandsTreeNodes(group.Commands, groupNode);
                     BuildDependencyTreeNodes(group.Dependencies, groupNode);
                     BuildBindingTreeNodes(group.Bindings, groupNode);
                 }
@@ -859,6 +860,7 @@ namespace ZeroInstall.Publish.WinForms
                     {
                         var implementationNode = new TreeNode(implementation.ToString()) {Tag = implementation};
                         parentNode.Nodes.Add(implementationNode);
+                        BuildCommandsTreeNodes(implementation.Commands, implementationNode);
                         BuildRetrievalMethodsTreeNodes(implementation.RetrievalMethods, implementationNode);
                         BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
                         BuildBindingTreeNodes(implementation.Bindings, implementationNode);
@@ -871,11 +873,28 @@ namespace ZeroInstall.Publish.WinForms
                             var packageImplementationNode = new TreeNode(packageImplementation.ToString())
                                                                 {Tag = packageImplementation};
                             parentNode.Nodes.Add(packageImplementationNode);
+                            BuildCommandsTreeNodes(packageImplementation.Commands, packageImplementationNode);
                             BuildDependencyTreeNodes(packageImplementation.Dependencies, packageImplementationNode);
                             BuildBindingTreeNodes(packageImplementation.Bindings, packageImplementationNode);
                         }
                     }
                 }
+            }
+        }
+
+        private static void BuildCommandsTreeNodes(IEnumerable<Command> commands, TreeNode parentNode)
+        {
+            #region Sanity checks
+
+            if (commands == null) throw new ArgumentNullException("commands");
+
+            #endregion
+
+            foreach (var command in commands)
+            {
+                var commandNode = new TreeNode(command.ToString()) {Tag = command};
+                parentNode.Nodes.Add(commandNode);
+                BuildDependencyTreeNodes(command.Dependencies, commandNode);
             }
         }
 
