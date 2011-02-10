@@ -123,9 +123,10 @@
             this.Controls.Add(this.hintTextBoxSha1Old);
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MinimizeBox = false;
             this.Name = "ManifestDigestForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Show manifest digest";
+            this.Text = "Show Manifest Digest";
             this.ResumeLayout(false);
             this.PerformLayout();
 

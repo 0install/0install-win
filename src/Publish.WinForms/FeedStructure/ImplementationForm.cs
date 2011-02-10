@@ -17,7 +17,6 @@
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -138,7 +137,6 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             using(var dialog = new ManifestDigestForm(_implementation.ManifestDigest))
             {
-                dialog.MaximizeBox = false;
                 dialog.ShowDialog();
             }}
         #endregion
