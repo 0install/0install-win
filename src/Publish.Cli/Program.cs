@@ -24,7 +24,7 @@ using Common.Cli;
 using Common.Storage;
 using NDesk.Options;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.Arguments;
+using ZeroInstall.Publish.Cli.Arguments;
 using ZeroInstall.Publish.Cli.Properties;
 
 namespace ZeroInstall.Publish.Cli

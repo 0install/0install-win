@@ -15,26 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System.Collections.Generic;
-using System.IO;
+using ZeroInstall.Model;
 
-namespace ZeroInstall.Publish.Arguments
+namespace ZeroInstall.Publish.Cli.Arguments
 {
     /// <summary>
-    /// Structure for storing user-selected arguments for a feed editor operation.
+    /// List of operational modes for a feed editor that can be selected via command-line arguments.
     /// </summary>
-    public struct ParseResults
+    public enum OperationMode
     {
-        public ICollection<FileInfo> Feeds;
-
-        public string CatalogFile;
-
-        public bool XmlSign;
-
-        public bool Unsign;
-
-        public string Key;
-
-        public string GnuPGPassphrase;
+        /// <summary>Modify an existing <see cref="Feed"/> or create a new one.</summary>
+        Normal,
+        /// <summary>Combine all specified <see cref="Feed"/>s into a single <see cref="Catalog"/> file.</summary>
+        Catalog,
+        /// <summary>Display version information.</summary>
+        Version,
+        /// <summary>Help text has already been displayed.</summary>
+        Help
     }
 }
