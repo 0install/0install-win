@@ -54,14 +54,13 @@ namespace Common.Controls
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
             #endregion
 
-            var inputBox = new InputBox
+            using (var inputBox = new InputBox
             {
                 Text = title,
                 labelPrompt = { Text = prompt },
                 textInput = { Text = defaultText, UseSystemPasswordChar = password }
-            };
-
-            return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
+            })
+                return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
         }
 
         /// <summary>

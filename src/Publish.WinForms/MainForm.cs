@@ -192,31 +192,33 @@ namespace ZeroInstall.Publish.WinForms
                         // Clone entry for undoable modification
                         var clonedEntry = (TSpecialEntry)entry.Clone();
 
-                        var dialog = getEditDialog(clonedEntry);
-                        if (dialog.ShowDialog() == DialogResult.OK)
+                        using (var dialog = getEditDialog(clonedEntry))
                         {
-                            var commandList = new List<IUndoCommand>(3)
+                            if (dialog.ShowDialog() == DialogResult.OK)
                             {
-                                // Replace original entry with cloned and modified one
-                                new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
-                            };
+                                var commandList = new List<IUndoCommand>(3)
+                                {
+                                    // Replace original entry with cloned and modified one
+                                    new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
+                                };
 
-                            // Update manifest digest
-                            var digestProvider = dialog as IDigestProvider;
-                            var digestContainer = parent as ImplementationBase;
-                            if (digestProvider != null && digestContainer != null)
-                            {
-                                // ToDo: Warn when changing an existing digest
+                                // Update manifest digest
+                                var digestProvider = dialog as IDigestProvider;
+                                var digestContainer = parent as ImplementationBase;
+                                if (digestProvider != null && digestContainer != null)
+                                {
+                                    // ToDo: Warn when changing an existing digest
 
-                                commandList.Add(new SetValueCommand<ManifestDigest>(digestProvider.ManifestDigest, () => digestContainer.ManifestDigest, newDigest => digestContainer.ManifestDigest = newDigest));
-                                if (string.IsNullOrEmpty(digestContainer.ID))
-                                    commandList.Add(new SetValueCommand<string>("sha1new=" + digestProvider.ManifestDigest.Sha1New, () => digestContainer.ID, newID => digestContainer.ID = newID));
+                                    commandList.Add(new SetValueCommand<ManifestDigest>(digestProvider.ManifestDigest, () => digestContainer.ManifestDigest, newDigest => digestContainer.ManifestDigest = newDigest));
+                                    if (string.IsNullOrEmpty(digestContainer.ID))
+                                        commandList.Add(new SetValueCommand<string>("sha1new=" + digestProvider.ManifestDigest.Sha1New, () => digestContainer.ID, newID => digestContainer.ID = newID));
+                                }
+
+                                // Execute all commands in a single transaction
+                                _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+
+                                FillFeedTab();
                             }
-
-                            // Execute all commands in a single transaction
-                            _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
-
-                            FillFeedTab();
                         }
                     }
                 };
