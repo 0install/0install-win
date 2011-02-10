@@ -136,8 +136,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #region Buttons
         private void ButtonShowManifestDigestClick(object sender, EventArgs e)
         {
-            new ManifestDigestForm(_implementation.ManifestDigest).ShowDialog();
-        }
+            using(var dialog = new ManifestDigestForm(_implementation.ManifestDigest))
+            {
+                dialog.MaximizeBox = false;
+                dialog.ShowDialog();
+            }}
         #endregion
 
         #region Dialog buttons

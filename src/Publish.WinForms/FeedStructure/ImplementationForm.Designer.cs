@@ -55,12 +55,12 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(362, 372);
+            this.buttonOK.Location = new System.Drawing.Point(362, 341);
             this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(443, 372);
+            this.buttonCancel.Location = new System.Drawing.Point(443, 341);
             // 
             // labelStability
             // 
@@ -302,11 +302,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             // buttonShowManifestDigest
             // 
-            this.buttonShowManifestDigest.Location = new System.Drawing.Point(16, 326);
+            this.buttonShowManifestDigest.Location = new System.Drawing.Point(16, 302);
             this.buttonShowManifestDigest.Name = "buttonShowManifestDigest";
-            this.buttonShowManifestDigest.Size = new System.Drawing.Size(122, 23);
+            this.buttonShowManifestDigest.Size = new System.Drawing.Size(128, 23);
             this.buttonShowManifestDigest.TabIndex = 1005;
-            this.buttonShowManifestDigest.Text = "show Manifest Digests";
+            this.buttonShowManifestDigest.Text = "Show Manifest Digests";
             this.buttonShowManifestDigest.UseVisualStyleBackColor = true;
             this.buttonShowManifestDigest.Click += new System.EventHandler(this.ButtonShowManifestDigestClick);
             // 
@@ -314,7 +314,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(530, 407);
+            this.ClientSize = new System.Drawing.Size(530, 376);
             this.Controls.Add(this.buttonShowManifestDigest);
             this.Controls.Add(this.checkBoxSettingDateEnable);
             this.Controls.Add(this.labelID);
