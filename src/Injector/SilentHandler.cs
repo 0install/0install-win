@@ -31,7 +31,7 @@ namespace ZeroInstall.Injector
         public bool Batch { get { return true; } set {} }
 
         /// <inheritdoc />
-        public void Inform(string information)
+        public void Inform(string title, string information)
         {}
 
         /// <inheritdoc />

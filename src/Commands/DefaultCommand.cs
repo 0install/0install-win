@@ -16,30 +16,42 @@
  */
 
 using System;
+using System.Text;
+using NDesk.Options;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Un-register a feed, reversing the effect of <see cref="AddFeed"/>.
+    /// The default command used when no command is explicitly specified.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class RemoveFeed : ManageFeeds
+    public sealed class DefaultCommand : CommandBase
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "remove-feed"; } }
+        public override string Name { get { return ""; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "FEED"; } }
+        public override string Description
+        {
+            get
+            {
+                var builder = new StringBuilder("Try --help with one of these:\n\n");
+                foreach (var command in CommandSwitch.GetAvailableCommands(Handler))
+                    builder.AppendLine("0install " + command.Name);
+                return builder.ToString();
+            }
+        }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Un-register a feed, reversing the effect of 'add-feed'. "; } }
+        protected override string Usage { get { return "COMMAND"; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
-        public RemoveFeed(IHandler handler) : base(handler)
+        public DefaultCommand(IHandler handler) : base(handler)
         {}
         #endregion
 
@@ -49,12 +61,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+
             ExecuteHelper();
-
-            // ToDo: Implement
-
-            Handler.Inform("Not implemented", "This feature is not implemented yet.");
-            return 1;
+            return 0;
         }
         #endregion
     }

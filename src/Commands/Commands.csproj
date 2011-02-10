@@ -53,12 +53,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddFeed.cs" />
-    <Compile Include="Cmd.cs" />
+    <Compile Include="CommandBase.cs" />
+    <Compile Include="CommandSwitch.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="DefaultCommand.cs" />
     <Compile Include="Download.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Import.cs" />
     <Compile Include="List.cs" />
+    <Compile Include="ListFeeds.cs" />
     <Compile Include="ManageFeeds.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

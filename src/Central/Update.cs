@@ -30,6 +30,7 @@ namespace ZeroInstall.Central
         /// Silently updates an application in the background.
         /// </summary>
         /// <param name="interfaceID">The interface to check for updates.</param>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="interfaceID"/> is not a valid interface ID.</exception>
         public static void BackgroundUpdate(string interfaceID)
         {
             var handler = new SilentHandler();

@@ -30,6 +30,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "download"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "This behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise."; } }
         #endregion
 
         #region Constructor
@@ -44,11 +47,13 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        protected override void ExecuteHelper()
         {
-            base.Execute();
+            base.ExecuteHelper();
 
             if (Policy.Preferences.NetworkLevel == NetworkLevel.Offline) return;
+
+            // ToDo: Output if --show is set
 
             Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
         }

@@ -29,6 +29,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "update"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found."; } }
         #endregion
 
         #region Constructor
@@ -41,11 +44,13 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        protected override void ExecuteHelper()
         {
             Policy.FeedManager.Refresh = true;
 
-            base.Execute();
+            // ToDo: Output information about changes
+
+            base.ExecuteHelper();
         }
         #endregion
     }

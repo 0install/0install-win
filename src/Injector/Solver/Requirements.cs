@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// The URI or local path (must be absolute) to the interface to solve the dependencies for.
         /// </summary>
-        /// <exception cref="ArgumentException">Thrown when trying to set an invalid interface ID.</exception>
+        /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public string InterfaceID
         {
             get { return _interfaceID; }
@@ -43,8 +43,8 @@ namespace ZeroInstall.Injector.Solver
             {
                 if (!string.IsNullOrEmpty(value) && !Path.IsPathRooted(value))
                 {
-                    if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new ArgumentException(string.Format(Resources.InvalidInterfaceID, value));
-                    if (StringUtils.CountOccurences(value, '/') < 3) throw new ArgumentException(string.Format(Resources.MissingSlashInUri, value));
+                    if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
+                    if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
                 }
 
                 _interfaceID = value;

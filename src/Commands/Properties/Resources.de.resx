@@ -120,4 +120,13 @@
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>
+	<data name="NoInterfaceSpecified" xml:space="preserve">
+		<value>Es wurde keine Interface ID (Feed URI oder Dateipfad) angegeben.</value>
+	</data>
+	<data name="CommandLineArguments" xml:space="preserve">
+		<value>Befehlszeilenargumente</value>
+	</data>
+	<data name="FoundFeeds" xml:space="preserve">
+		<value>Gefundene feeds:</value>
+	</data>
 </root>

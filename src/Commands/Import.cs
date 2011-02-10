@@ -25,11 +25,17 @@ namespace ZeroInstall.Commands
     /// </summary>
     /// <remarks>This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network.</remarks>
     [CLSCompliant(false)]
-    public sealed class Import : ManageFeeds
+    public sealed class Import : CommandBase
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "import"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network."; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "FEED-FILE"; } }
         #endregion
 
         #region Constructor
@@ -42,11 +48,14 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        public override int Execute()
         {
-            base.Execute();
+            ExecuteHelper();
 
-            throw new NotImplementedException();
+            // ToDo: Implement
+
+            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            return 1;
         }
         #endregion
     }

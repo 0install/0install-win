@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6dbe0af5-6cd3-4012-bd14-83617f34c590" name="Handler" linkedPackageId="c0eb0f11-7bb6-4f7e-ac90-d4047ee81fd3" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="6dbe0af5-6cd3-4012-bd14-83617f34c590" name="Handler" linkedPackageId="c0eb0f11-7bb6-4f7e-ac90-d4047ee81fd3" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="849c668b-1938-4730-be11-53673058e1fd" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -465,6 +465,14 @@
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="251d2948-b76c-439c-99fc-b541bad4d569" name="information" direction="In" isUnique="false">
+                              <elementDefinition Id="e854bc9e-8b9d-48d4-a19f-55a20ec622ce" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
                     </ownedOperationsInternal>
@@ -607,8 +615,16 @@
                         <elementDefinition Id="0acf9183-8e82-4ae3-8187-26dcb7340a5b" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="b408524f-31dc-49ba-aa62-34e594792c87" name="information" direction="In" isUnique="false">
-                              <elementDefinition Id="8ca6e88e-ed00-4624-b9c4-b2b49c15814f" />
+                            <parameter Id="0818c770-ee65-4b43-81ff-e5b81e84021c" name="title" direction="In" isUnique="false">
+                              <elementDefinition Id="acfb4a7d-bec8-4442-8e75-487a26b88b00" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="5bbbfd99-fce7-4046-a8d6-b357433c1613" name="information" direction="In" isUnique="false">
+                              <elementDefinition Id="510de903-cded-4e9e-a968-c4894158cf27" />
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                               </type_NamedElement>
@@ -951,6 +967,14 @@
                           <operationHasOwnedParameters>
                             <parameter Id="da371fc6-1f7b-4a05-afe5-0a44e27bf40d" name="information" direction="In" isUnique="false">
                               <elementDefinition Id="d8acd8dd-4975-4241-812e-24b80267480c" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="7ddc3f5b-7b63-4971-8631-0202e77346da" name="information" direction="In" isUnique="false">
+                              <elementDefinition Id="1d8c1fc2-9ddf-4ac0-a057-22dd8d02d8c1" />
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                               </type_NamedElement>

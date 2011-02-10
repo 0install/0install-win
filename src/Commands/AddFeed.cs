@@ -24,11 +24,17 @@ namespace ZeroInstall.Commands
     /// Register an additional source of implementations (versions) of a program. 
     /// </summary>
     [CLSCompliant(false)]
-    public class AddFeed : ManageFeeds
+    public sealed class AddFeed : ManageFeeds
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "add-feed"; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "NEW-FEED"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "Register an additional source of implementations (versions) of a program."; } }
         #endregion
 
         #region Constructor
@@ -41,11 +47,14 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        public override int Execute()
         {
-            base.Execute();
+            ExecuteHelper();
 
-            throw new NotImplementedException();
+            // ToDo: Implement
+
+            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            return 1;
         }
         #endregion
     }

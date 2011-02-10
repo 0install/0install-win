@@ -59,5 +59,14 @@ namespace ZeroInstall.Commands.Cli.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try 0install --help.
+        /// </summary>
+        internal static string TryHelp {
+            get {
+                return ResourceManager.GetString("TryHelp", resourceCulture);
+            }
+        }
     }
 }

@@ -24,11 +24,17 @@ namespace ZeroInstall.Commands
     /// View or change <see cref="Preferences"/>.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Config : Cmd
+    public sealed class Config : CommandBase
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "config"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value."; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "[NAME [VALUE]]"; } }
         #endregion
 
         #region Constructor
@@ -41,11 +47,14 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        public override int Execute()
         {
-            base.Execute();
+            ExecuteHelper();
 
-            throw new NotImplementedException();
+            // ToDo: Implement
+
+            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            return 1;
         }
         #endregion
     }

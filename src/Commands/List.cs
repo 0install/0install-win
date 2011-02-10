@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Text;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -27,11 +28,17 @@ namespace ZeroInstall.Commands
     /// </summary>
     /// <remarks>If a search term is given, only URIs containing that string are shown (case insensitive).</remarks>
     [CLSCompliant(false)]
-    public sealed class List : ManageFeeds
+    public sealed class List : CommandBase
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "list"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)."; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "[PATTERN]"; } }
         #endregion
 
         #region Constructor
@@ -44,20 +51,29 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        public override int Execute()
         {
-            base.Execute();
+            string pattern;
+            switch (AdditionalArgs.Count)
+            {
+                case 0: pattern = null; break;
+                case 1: pattern = AdditionalArgs.First; break;
+                default: throw new OptionException(Resources.TooManyArguments, Name);
+            }
 
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.UnknownOption, Name);
+            ExecuteHelper();
 
-            //var feeds = results.Policy.FeedManager.Cache.ListAll();
-            //foreach (Uri entry in feeds)
-            //{
-            //    if (results.Feed == null || entry.ToString().Contains(results.Feed))
-            //        Console.WriteLine(entry);
-            //}
+            var builder = new StringBuilder();
+	        var feeds = Policy.FeedManager.Cache.ListAll();
+	        foreach (Uri entry in feeds)
+	        {
+                if (pattern == null || entry.ToString().Contains(pattern))
+                    builder.AppendLine(entry.ToString());
+	        }
+            builder.Remove(builder.Length - 1, 1); // Remove trailing line-break
+            Handler.Inform(Resources.FoundFeeds, builder.ToString());
 
-            throw new NotImplementedException();
+            return 0;
         }
         #endregion
     }

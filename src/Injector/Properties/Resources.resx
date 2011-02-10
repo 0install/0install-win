@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="InvalidInterfaceID" xml:space="preserve">
-    <value>The interface '{0}' doesn't start with 'http(s):' and isn't a an absolute local path either.</value>
+    <value>The interface '{0}' doesn't start with 'http(s):' and isn't a valid local path either.</value>
   </data>
   <data name="MissingSlashInUri" xml:space="preserve">
     <value>Missing / after hostname in URI '{0}'.</value>

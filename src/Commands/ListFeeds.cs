@@ -21,15 +21,41 @@ using ZeroInstall.Injector;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// Manages registration of additional feeds for an interface.
+    /// List all known feed URIs for a specific interface.
     /// </summary>
     [CLSCompliant(false)]
-    public abstract class ManageFeeds : CommandBase
+    public sealed class ListFeeds : ManageFeeds
     {
+        #region Properties
+        /// <inheritdoc/>
+        public override string Name { get { return "list-feeds"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "List all extra feeds added to URI using '0install add-feed'."; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "URI"; } }
+        #endregion
+
         #region Constructor
         /// <inheritdoc/>
-        protected ManageFeeds(IHandler handler) : base(handler)
-        {}
+        public ListFeeds(IHandler handler) : base(handler)
+        { }
+        #endregion
+
+        //--------------------//
+
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            ExecuteHelper();
+
+            // ToDo: Implement
+
+            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            return 1;
+        }
         #endregion
     }
 }

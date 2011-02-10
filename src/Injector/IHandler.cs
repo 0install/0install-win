@@ -35,11 +35,12 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Display an information text to the user.
         /// </summary>
+        /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
         /// <remarks>
         /// This will never bel called during an interactive or long-running operation.
         /// <see cref="IFeedHandler.AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
         /// </remarks>
-        void Inform(string information);
+        void Inform(string title, string information);
     }
 }

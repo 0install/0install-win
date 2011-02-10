@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Net;
@@ -24,6 +23,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using NDesk.Options;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
@@ -45,32 +45,18 @@ namespace ZeroInstall.Commands.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Automatically show help for missing args
+            if (args.Length == 0) args = new[] {"--help"};
+
             ErrorReportForm.RunAppMonitored(delegate
             {
                 var handler = new MainForm();
-
-                // ToDo: Proper parsing
-                var arguments = new LinkedList<String>(args);
-                if (arguments.Contains("run")) arguments.Remove("run"); else return;
-
-                var command = new Run(handler);
-
-                try
-                {
-                    command.Parse(arguments);
-
-                    // Ask user to specifiy interface URI if it is missing
-                    if (string.IsNullOrEmpty(command.Requirements.InterfaceID))
-                    {
-                        command.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
-                        if (string.IsNullOrEmpty(command.Requirements.InterfaceID)) return;
-                    }
-                }
+                CommandBase command;
+                try { command = CommandSwitch.CreateAndParse(args, handler); }
                 #region Error handling
                 catch (OptionException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    // ToDo: Display usage info
+                    Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Warn);
                     return;
                 }
                 catch (InvalidOperationException ex)
@@ -88,17 +74,36 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
+                catch (InvalidInterfaceIDException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
                 #endregion
 
-                handler.ShowAsync();
+                if (command == null || command.InfoShown) return;
+
+                var selection = command as Selection;
+                if (selection != null)
+                {
+                    // Ask user to specifiy interface ID if it is missing
+                    if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
+                    {
+                        selection.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
+                        if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
+                    }
+
+                    // Start warming up the GUI - selection commands are often long-running
+                    handler.ShowAsync();
+                }
+
                 try { command.Execute(); }
                 #region Error hanlding
                 catch (UserCancelException)
-                {}
+                { }
                 catch (OptionException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    // ToDo: Display usage info
+                    Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
                     handler.CloseAsync();
                 }
                 catch (WebException ex)
@@ -115,6 +120,11 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     handler.CloseAsync();
+                }
+                catch (InvalidInterfaceIDException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
                 }
                 catch (SolverException ex)
                 {
@@ -153,6 +163,11 @@ namespace ZeroInstall.Commands.WinForms
                     handler.CloseAsync();
                 }
                 #endregion
+                finally
+                {
+                    // Close any windows that may still be open
+                    handler.CloseAsync();
+                }
             });
         }
     }

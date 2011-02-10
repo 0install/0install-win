@@ -70,7 +70,7 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http(s):&apos; and isn&apos;t a an absolute local path either..
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http(s):&apos; and isn&apos;t a valid local path either..
         /// </summary>
         internal static string InvalidInterfaceID {
             get {

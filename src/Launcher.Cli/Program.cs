@@ -25,46 +25,12 @@ using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Launcher.Cli.Properties;
 using ZeroInstall.Store.Implementation;
 using CliHandler = ZeroInstall.Injector.CliHandler;
 
 namespace ZeroInstall.Launcher.Cli
 {
-    #region Enumerations
-    /// <summary>
-    /// An errorlevel is returned to the original caller after the application terminates, to indicate success or the reason for failure.
-    /// </summary>
-    public enum ErrorLevel
-    {
-        ///<summary>Everything is OK.</summary>
-        OK = 0,
-
-        /// <summary>The user canceled the operation.</summary>
-        UserCanceled = 1,
-
-        /// <summary>The arguments passed on the command-line were not valid.</summary>
-        InvalidArguments = 2,
-
-        /// <summary>An unknown or not supported feature was requested.</summary>
-        NotSupported = 3,
-
-        /// <summary>An IO error occurred.</summary>
-        IOError = 10,
-
-        /// <summary>An network error occurred.</summary>
-        WebError = 11,
-
-        /// <summary>A requested implementation could not be found or could not be launched.</summary>
-        ImplementationError = 15,
-
-        /// <summary>A manifest digest for an implementation did not match the expected value.</summary>
-        DigestMismatch = 20,
-
-        /// <summary>A solver error occurred.</summary>
-        SolverError = 21
-    }
-    #endregion
-
     /// <summary>
     /// A command-line interface for Zero Install, for launching applications.
     /// </summary>
@@ -76,99 +42,115 @@ namespace ZeroInstall.Launcher.Cli
         static int Main(string[] args)
         {
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] {"--help"};
+            if (args.Length == 0) args = new[] { "--help" };
 
-            var command = new Run(new CliHandler());
+            var handler = new CliHandler();
+            var command = new Run(handler);
             
             try { command.Parse(args); }
             #region Error handling
             catch (OptionException ex)
             {
-                Log.Error(ex.Message);
-                return (int)ErrorLevel.InvalidArguments;
+                Log.Error(ex.Message + "\n" + Resources.TryHelp);
+                return 1;
             }
             catch (InvalidOperationException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
             catch (IOException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
+            }
+            catch (InvalidInterfaceIDException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
             }
             #endregion
 
-            try { command.Execute(); }
+            if (command.InfoShown) return 0;
+
+            try { return command.Execute(); }
             #region Error hanlding
             catch (UserCancelException)
             {
-                return (int)ErrorLevel.UserCanceled;
+                return 1;
             }
             catch (OptionException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.InvalidArguments;
+                return 1;
             }
             catch (WebException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.WebError;
+                return 1;
             }
             catch (IOException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
-            catch (ImplementationNotFoundException ex)
+            catch (InvalidInterfaceIDException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.ImplementationError;
+                return 1;
             }
-            catch (CommandException ex)
+            catch (SolverException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.ImplementationError;
+                return 1;
+            }
+            catch (FetcherException ex)
+            {
+                Log.Error((ex.InnerException ?? ex).Message);
+                return 1;
             }
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex.Message);
                 //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
-                return (int)ErrorLevel.DigestMismatch;
+                return 1;
             }
-            catch (SolverException ex)
+            catch (ImplementationNotFoundException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.SolverError;
+                return 1;
             }
-            catch (FetcherException ex)
+            catch (CommandException ex)
             {
-                Log.Error((ex.InnerException ?? ex).Message);
-                return (int)ErrorLevel.IOError;
+                Log.Error(ex.Message);
+                return 1;
             }
             catch (Win32Exception ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
             catch (BadImageFormatException ex)
             {
                 Log.Error(ex.Message);
-                return (int)ErrorLevel.IOError;
+                return 1;
             }
             #endregion
-
-            return (int)ErrorLevel.OK;
+            finally
+            {
+                // Close any windows that may still be open
+                handler.CloseAsync();
+            }
         }
     }
 }

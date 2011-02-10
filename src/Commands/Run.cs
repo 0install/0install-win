@@ -43,6 +43,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "run"; } }
+
+        /// <inheritdoc/>
+        public override string Description { get { return "This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run."; } }
         #endregion
 
         #region Constructor
@@ -59,16 +62,21 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        public override int Execute()
         {
-            base.Execute();
+            ExecuteHelper();
 
+            // Close any windows that may still be open
             Handler.CloseAsync();
 
-            var executor = new Executor(Selections, Policy.SearchStore) {Main = _main, Wrapper = _wrapper};
+            var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
             var startInfo = executor.GetStartInfo(StringUtils.Concatenate(AdditionalArgs, " "));
-            if (_noWait) ProcessUtils.RunDetached(startInfo);
-            else ProcessUtils.RunReplace(startInfo);
+            if (_noWait)
+            {
+                ProcessUtils.RunDetached(startInfo);
+                return 0;
+            }
+            return ProcessUtils.RunReplace(startInfo);
         }
         #endregion
     }

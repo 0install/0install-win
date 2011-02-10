@@ -29,7 +29,7 @@ namespace ZeroInstall.Commands
     /// Select a version of the program identified by URI, and compatible versions of all of its dependencies.
     /// </summary>
     [CLSCompliant(false)]
-    public class Selection : Cmd
+    public class Selection : CommandBase
     {
         #region Variables
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
@@ -39,7 +39,13 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "select"; } }
-        
+
+        /// <inheritdoc/>
+        public override string Description { get { return "Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set."; } }
+
+        /// <inheritdoc/>
+        protected override string Usage { get { return "[OPTIONS] URI"; } }
+
         private readonly Requirements _requirements = new Requirements();
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.
@@ -89,15 +95,27 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        public override void Execute()
+        protected override void ExecuteHelper()
         {
-            base.Execute();
+            base.ExecuteHelper();
 
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.UnknownOption, Name);
+            if (Requirements.InterfaceID == null) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // ToDo: Detect Selections documents
 
             Selections = SolverProvider.Default.Solve(_requirements, Policy, Handler);
+        }
+        
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+
+            ExecuteHelper();
+
+            // ToDo: Output selections
+
+            return 0;
         }
         #endregion
     }

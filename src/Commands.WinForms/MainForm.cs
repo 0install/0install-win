@@ -75,12 +75,12 @@ namespace ZeroInstall.Commands.WinForms
         public bool Batch { get; set; }
 
         /// <inheritdoc />
-        public void Inform(string information)
+        public void Inform(string title, string information)
         {
             // Close any windows that may still be open
             CloseAsync();
 
-            Msg.Inform(this, information, MsgSeverity.Info);
+            Msg.Inform(this, title + "\n" + information, MsgSeverity.Info);
         }
 
         /// <inheritdoc />

@@ -61,6 +61,42 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Command-line arguments:.
+        /// </summary>
+        internal static string CommandLineArguments {
+            get {
+                return ResourceManager.GetString("CommandLineArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found feeds:.
+        /// </summary>
+        internal static string FoundFeeds {
+            get {
+                return ResourceManager.GetString("FoundFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing arguments..
+        /// </summary>
+        internal static string MissingArguments {
+            get {
+                return ResourceManager.GetString("MissingArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No interface ID (feed URI or file path) was specified..
+        /// </summary>
+        internal static string NoInterfaceSpecified {
+            get {
+                return ResourceManager.GetString("NoInterfaceSpecified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {
@@ -180,7 +216,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The implementation of the main (root) interface must have an architecture of the form &apos;*-src&apos; (normally a literal &quot;*&quot;, but could be a compatible OS). Dependencies are normal implementations, not source ones. See 0compile for details..
+        ///   Looks up a localized string similar to Select source code rather than a binary. This is used internally by &apos;0compile&apos;..
         /// </summary>
         internal static string OptionSource {
             get {
@@ -240,6 +276,24 @@ namespace ZeroInstall.Commands.Properties {
         internal static string SolverProblem {
             get {
                 return ResourceManager.GetString("SolverProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too many arguments..
+        /// </summary>
+        internal static string TooManyArguments {
+            get {
+                return ResourceManager.GetString("TooManyArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown command..
+        /// </summary>
+        internal static string UnknownCommand {
+            get {
+                return ResourceManager.GetString("UnknownCommand", resourceCulture);
             }
         }
         
