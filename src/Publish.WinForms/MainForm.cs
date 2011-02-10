@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Simon E. Silva Lauinger, Bastian Eicher
+ * Copyright 2010-2011 Simon E. Silva Lauinger, Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -55,14 +55,25 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Properties
         /// <summary>
-        /// Returns part of the <see cref="Feed"/> currently selected in the <see cref="treeViewFeedStructure"/>.
+        /// Returns part of the <see cref="Feed"/> currently selected in the <see cref="treeViewFeedStructure"/> or the <see cref="Feed"/> itself if nothing is selected.
         /// </summary>
         private object SelectedFeedStructureElement
         {
             get
             {
-                // Default to the top-level of the feed if nothing is selected
                 return (treeViewFeedStructure.SelectedNode == null ? _feedEditing.Feed : treeViewFeedStructure.SelectedNode.Tag);
+            }
+        }
+
+        /// <summary>
+        /// Returns parent of <see cref="SelectedFeedStructureElement"/> or <see langword="null"/> if there is no parent.
+        /// </summary>
+        private object SelectedFeedStructureElementParent
+        {
+            get
+            {
+                var selectedNode = treeViewFeedStructure.SelectedNode;
+                return (selectedNode == null || selectedNode.Parent == null ? null : treeViewFeedStructure.SelectedNode.Parent.Tag);
             }
         }
         #endregion
@@ -138,51 +149,87 @@ namespace ZeroInstall.Publish.WinForms
             // ToDo: Add Command dialog
             SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, element => element.Commands, null);
 
-            // ToDo: Add special case handling
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, implementation => implementation.RetrievalMethods, null);
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, implementation => implementation.RetrievalMethods, null);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, implementation => implementation.RetrievalMethods, archive => new ArchiveForm {Archive = archive});
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, implementation => implementation.RetrievalMethods, recipe => new RecipeForm {Recipe = recipe});
         }
 
         /// <summary>
-        /// A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <typeparamref cref="TContainer"/>.
+        /// Configures event handlers to add, remove and modify elements visualized in <see cref="treeViewFeedStructure"/>.
         /// </summary>
-        private delegate ICollection<TEntry> ContainerCollectionRetreival<TContainer, TEntry>(TContainer container);
-
-        // ToDo: Move to Common
-        private delegate TResult TempDeleg<TResult, TInput>(TInput input);
-
-        /// <summary>
-        /// Configures event handlers to make a button add new elements to <see cref="treeViewFeedStructure"/>.
-        /// </summary>
-        /// <typeparam name="TContainer">The type of element in the <see cref="treeViewFeedStructure"/> that this button can can add sub-elements to.</typeparam>
-        /// <typeparam name="TGeneralEntry">ToDo</typeparam>
-        /// <typeparam name="TSpecialEntry">ToDo</typeparam>
-        /// <param name="button">The button to hook up.</param>
-        /// <param name="getCollection">A delegate describing how to get the collection of <typeparamref name="TSpecialEntry"/>s in a <typeparamref cref="TContainer"/>.</param>
-        /// <param name="getEditDialog">ToDo</param>
-        private void SetupFeedStructureHooks<TContainer, TGeneralEntry, TSpecialEntry>(Button button, ContainerCollectionRetreival<TContainer, TGeneralEntry> getCollection, TempDeleg<Form, TSpecialEntry> getEditDialog)
+        /// <typeparam name="TContainer">A type that contains <typeparamref name="TAbstractEntry"/> child elements.</typeparam>
+        /// <typeparam name="TAbstractEntry">The abstract super-type of <typeparamref name="TSpecialEntry"/>.</typeparam>
+        /// <typeparam name="TSpecialEntry">The specific entry type to hook up for handling</typeparam>
+        /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
+        /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s in a <typeparamref name="TContainer"/>.</param>
+        /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TContainer, IList<TAbstractEntry>> getList, MapAction<TSpecialEntry, Form> getEditDialog)
             where TContainer : class
-            where TSpecialEntry : class, TGeneralEntry, new()
+            where TAbstractEntry : ICloneable
+            where TSpecialEntry : class, TAbstractEntry, new()
         {
-            button.Click += delegate
+            // Hook up creation buttons
+            addButton.Click += delegate
             {
                 if (treeViewFeedStructure.SelectedNode == null) return;
                 var container = SelectedFeedStructureElement as TContainer;
                 if (container != null)
                 {
-                    _feedEditing.ExecuteCommand(new AddToCollection<TGeneralEntry>(getCollection(container), new TSpecialEntry()));
+                    _feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
                     FillFeedTab();
                 }
             };
-            UpdateStructureButtons += () => button.Enabled = SelectedFeedStructureElement is TContainer;
+            UpdateStructureButtons += () => addButton.Enabled = SelectedFeedStructureElement is TContainer;
 
             // Hook up edit dialogs to TreeView
-            treeViewFeedStructure.DoubleClick += delegate
+            if (getEditDialog != null)
+            {
+                treeViewFeedStructure.DoubleClick += delegate
+                {
+                    var entry = SelectedFeedStructureElement as TSpecialEntry;
+                    var parent = SelectedFeedStructureElementParent as TContainer;
+                    if (entry != null && parent != null)
+                    {
+                        // Clone entry for undoable modification
+                        var clonedEntry = (TSpecialEntry)entry.Clone();
+
+                        var dialog = getEditDialog(clonedEntry);
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            var commandList = new List<IUndoCommand>(3)
+                            {
+                                // Replace original entry with cloned and modified one
+                                new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
+                            };
+
+                            // Update manifest digest
+                            var digestProvider = dialog as IDigestProvider;
+                            var digestContainer = parent as ImplementationBase;
+                            if (digestProvider != null && digestContainer != null)
+                            {
+                                // ToDo: Warn when changing an existing digest
+
+                                commandList.Add(new SetValueCommand<ManifestDigest>(digestProvider.ManifestDigest, () => digestContainer.ManifestDigest, newDigest => digestContainer.ManifestDigest = newDigest));
+                                if (string.IsNullOrEmpty(digestContainer.ID))
+                                    commandList.Add(new SetValueCommand<string>("sha1new=" + digestProvider.ManifestDigest.Sha1New, () => digestContainer.ID, newID => digestContainer.ID = newID));
+                            }
+
+                            // Execute all commands in a single transaction
+                            _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+
+                            FillFeedTab();
+                        }
+                    }
+                };
+            }
+
+            // Hook up remove button
+            btnRemoveFeedStructureObject.Click += delegate
             {
                 var entry = SelectedFeedStructureElement as TSpecialEntry;
-                if (entry != null)
+                var parent = SelectedFeedStructureElementParent as TContainer;
+                if (entry != null && parent != null)
                 {
-                    getEditDialog(entry).ShowDialog();
+                    _feedEditing.ExecuteCommand(new RemoveFromCollection<TAbstractEntry>(getList(parent), entry));
                     FillFeedTab();
                 }
             };
@@ -781,130 +828,9 @@ namespace ZeroInstall.Publish.WinForms
         private void TreeViewFeedStructureNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode == null || selectedNode == treeViewFeedStructure.Nodes[0]) return;
-
-            selectedNode.Toggle();
-
-            // show a dialog to change the selected object
-            if (selectedNode.Tag is Archive)
-            {
-                var archiveForm = new ArchiveForm {Archive = (Archive) selectedNode.Tag};
-                if (archiveForm.ShowDialog() != DialogResult.OK) return;
-
-                var manifestDigestFromArchive = archiveForm.ManifestDigest;
-                var implementationNode = selectedNode.Parent;
-
-                if (implementationNode.FirstNode.Tag is ManifestDigest)
-                {
-                    var existingManifestDigest = (ManifestDigest) implementationNode.FirstNode.Tag;
-                    if (ControlHelpers.IsEmpty(existingManifestDigest))
-                    {
-                        implementationNode.FirstNode.Tag = manifestDigestFromArchive;
-                        ((Implementation) implementationNode.Tag).ManifestDigest = manifestDigestFromArchive;
-                    }
-                    else if (
-                        !ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromArchive))
-                    {
-                        Msg.Inform(this,
-                                   "The manifest digest of this archive is not the same as the manifest digest of the other archives. The archive was discarded.",
-                                   MsgSeverity.Warn);
-                        selectedNode.Tag = new Archive();
-                        return;
-                    }
-                }
-                else
-                {
-                    InsertManifestDigestNode(implementationNode, manifestDigestFromArchive);
-                }
-                var implementation = (Implementation) implementationNode.Tag;
-
-                if (String.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1new="))
-                {
-                    implementation.ID = "sha1new=" + manifestDigestFromArchive.Sha1New;
-                }
-            }
-            else if (selectedNode.Tag is Recipe)
-            {
-                var recipeForm = new RecipeForm {Recipe = (Recipe) selectedNode.Tag};
-                if (recipeForm.ShowDialog() != DialogResult.OK) return;
-
-                var manifestDigestFromRecipe = recipeForm.ManifestDigest;
-                var implementationNode = selectedNode.Parent;
-
-                if (implementationNode.FirstNode.Tag is ManifestDigest)
-                {
-                    var existingManifestDigest = (ManifestDigest) implementationNode.FirstNode.Tag;
-                    if (ControlHelpers.IsEmpty(existingManifestDigest))
-                    {
-                        implementationNode.FirstNode.Tag = manifestDigestFromRecipe;
-                        ((Implementation) implementationNode.Tag).ManifestDigest = manifestDigestFromRecipe;
-                    }
-                    else if (!ControlHelpers.CompareManifestDigests(existingManifestDigest, manifestDigestFromRecipe))
-                    {
-                        Msg.Inform(this,
-                                   "The manifest digest of this recipe is not the same as the manifest digest of the other retrieval methods. The recipe was discarded.",
-                                   MsgSeverity.Warn);
-                        selectedNode.Tag = new Recipe {Steps = {new Archive()}};
-                        return;
-                    }
-                }
-                else
-                {
-                    InsertManifestDigestNode(selectedNode.Parent, manifestDigestFromRecipe);
-                }
-            }
+            if (selectedNode != null) selectedNode.Toggle();
         }
-
-        /// <summary>
-        /// Inserts a new <see cref="TreeNode"/> to the first position of <paramref name="insertInto"/>.
-        /// Adds <paramref name="toAddToTag"/> to the Tag of this <see cref="TreeNode"/>.
-        /// </summary>
-        /// <param name="insertInto">New <see cref="TreeNode"/> will be inserted to this <see cref="TreeNode"/>s first position.</param>
-        /// <param name="toAddToTag"><see cref="ManifestDigest"/> to add to the Tag of the new <see cref="TreeNode"/>.</param>
-        private static void InsertManifestDigestNode(TreeNode insertInto, ManifestDigest toAddToTag)
-        {
-            var manifestDigestNode = new TreeNode("Manifest digest") {Tag = toAddToTag};
-            ((Implementation) insertInto.Tag).ManifestDigest = toAddToTag;
-            insertInto.Nodes.Insert(0, manifestDigestNode);
-        }
-
-        /// <summary>
-        /// Removes the Tag of the selected <see cref="TreeNode"/> from <see cref="Feed"/> and rebuilds <see cref="treeViewFeedStructure"/>.
-        /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void BtnRemoveFeedStructureObjectClick(object sender, EventArgs e)
-        {
-            var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode == null || selectedNode == treeViewFeedStructure.Nodes[0]) return;
-            RemoveObjectFromFeedStructure(selectedNode.Parent.Tag, selectedNode.Tag);
-            FillFeedTab();
-            treeViewFeedStructure.SelectedNode = treeViewFeedStructure.Nodes[0];
-        }
-
-        /// <summary>
-        /// Removes an feed structure object from <see cref="Feed"/>.
-        /// </summary>
-        /// <param name="container">Not used.</param>
-        /// <param name="toRemove">Not used.</param>
-        private static void RemoveObjectFromFeedStructure(object container, object toRemove)
-        {
-            if (toRemove is Element) ((IElementContainer) container).Elements.Remove((Element) toRemove);
-            else if (toRemove is Dependency) ((Element) container).Dependencies.Remove((Dependency) toRemove);
-            else if (toRemove is Binding) ((IBindingContainer) container).Bindings.Remove((Binding) toRemove);
-            else if (toRemove is RetrievalMethod)
-            {
-                var implementationContainer = (Implementation) container;
-                implementationContainer.RetrievalMethods.Remove((RetrievalMethod) toRemove);
-                if (implementationContainer.RetrievalMethods.Count == 0)
-                {
-                    implementationContainer.ManifestDigest = default(ManifestDigest);
-                    if (implementationContainer.ID != null && implementationContainer.ID.StartsWith("sha1new="))
-                        implementationContainer.ID = String.Empty;
-                }
-            }
-        }
-
+        
         private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
         {
             #region Sanity checks
@@ -931,7 +857,6 @@ namespace ZeroInstall.Publish.WinForms
                     {
                         var implementationNode = new TreeNode(implementation.ToString()) {Tag = implementation};
                         parentNode.Nodes.Add(implementationNode);
-                        BuildManifestDigestTreeNode(implementation.ManifestDigest, implementationNode);
                         BuildRetrievalMethodsTreeNodes(implementation.RetrievalMethods, implementationNode);
                         BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
                         BuildBindingTreeNodes(implementation.Bindings, implementationNode);
@@ -965,13 +890,6 @@ namespace ZeroInstall.Publish.WinForms
                 var bindingNode = new TreeNode(binding.ToString()) {Tag = binding};
                 parentNode.Nodes.Add(bindingNode);
             }
-        }
-
-        private static void BuildManifestDigestTreeNode(ManifestDigest manifestDigest, TreeNode parentNode)
-        {
-            if (ControlHelpers.IsEmpty(manifestDigest)) return;
-            var manifestDigestNode = new TreeNode("Manifest digest") {Tag = manifestDigest};
-            parentNode.Nodes.Insert(0, manifestDigestNode);
         }
 
         private static void BuildDependencyTreeNodes(IEnumerable<Dependency> dependencies, TreeNode parentNode)

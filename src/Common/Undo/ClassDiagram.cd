@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Common.Undo.AddToCollection&lt;T&gt;">
+    <Position X="3.25" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\AddToCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.SimpleCommand">
+    <Position X="4.75" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAARAQAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\SimpleCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Common.Undo.CollectionCommand&lt;T&gt;">
+    <Position X="4.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\CollectionCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.CompositeCommand">
+    <Position X="8.5" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Undo\CompositeCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="_commands" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Common.Undo.FirstExecuteCommand">
+    <Position X="12.25" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAARAQAAAAAAEAAAgEAAAAAAAAAAAABAAA=</HashCode>
+      <FileName>Undo\FirstExecuteCommand.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Common.Undo.MultiPropertyChangedCommand">
+    <Position X="13.25" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAECAAEAAAgAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Undo\MultiPropertyChangedCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.PreExecutedCommand">
+    <Position X="12.25" Y="4.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\PreExecutedCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.PropertyChangedCommand">
+    <Position X="10.5" Y="6.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAACAAEAAQgAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Undo\PropertyChangedCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.RemoveFromCollection&lt;T&gt;">
+    <Position X="5.75" Y="7" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\RemoveFromCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.SetInList&lt;T&gt;">
+    <Position X="6.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAACAAAAAAAAAAAAAAAgAAAAACQAAAAAAAAAA=</HashCode>
+      <FileName>Undo\SetInList.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.SetLocalizableString">
+    <Position X="2.75" Y="3.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAgAAAAAEAAAAAAAAABAgAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\SetLocalizableString.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Common.Undo.SetValueCommand&lt;T&gt;">
+    <Position X="0.5" Y="3.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAIAAgAAIAAAAAAAAACAAAAAAgAAAAAAAAAAAAIAAAA=</HashCode>
+      <FileName>Undo\SetValueCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Common.Undo.IUndoCommand">
+    <Position X="9" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAQAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Undo\IUndoCommand.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

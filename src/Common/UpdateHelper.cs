@@ -32,6 +32,14 @@ namespace Common
     /// Generic delegate for getting an object without passing any parameters.
     /// </summary>
     public delegate T SimpleResult<T>();
+
+    /// <summary>
+    /// Generic delegate for "mapping" one type of object on to another.
+    /// </summary>
+    /// <typeparam name="TInput">The type passed in as a parameter.</typeparam>
+    /// <typeparam name="TResult">The type passed out as a result</typeparam>
+    /// <remarks>This does not have to mean mapping in the strictest sense. An object of one type is associated to an object of another type.</remarks>
+    public delegate TResult MapAction<TInput, TResult>(TInput input);
     #endregion
 
     /// <summary>

@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Interface");
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
@@ -483,11 +483,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode3.Name = "interface";
-            treeNode3.Tag = "";
-            treeNode3.Text = "Interface";
+            treeNode2.Name = "interface";
+            treeNode2.Tag = "";
+            treeNode2.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3});
+            treeNode2});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 472);
@@ -504,7 +504,6 @@ namespace ZeroInstall.Publish.WinForms
             this.btnRemoveFeedStructureObject.TabIndex = 10;
             this.btnRemoveFeedStructureObject.Text = "Remove item";
             this.btnRemoveFeedStructureObject.UseVisualStyleBackColor = true;
-            this.btnRemoveFeedStructureObject.Click += new System.EventHandler(this.BtnRemoveFeedStructureObjectClick);
             // 
             // btnAddEnvironmentBinding
             // 

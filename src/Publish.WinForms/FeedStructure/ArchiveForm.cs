@@ -15,8 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -27,7 +25,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     /// The OK button is only enabled if the user set all controls of this form with right
     /// values.
     /// </summary>
-    public partial class ArchiveForm : OKCancelDialog
+    public partial class ArchiveForm : OKCancelDialog, IDigestProvider
     {
         #region Properties
 

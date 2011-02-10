@@ -82,6 +82,7 @@
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedStructure\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
     <Compile Include="FeedStructure\ArchiveForm.cs">
       <SubType>Form</SubType>

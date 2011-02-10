@@ -11,7 +11,7 @@ using ZeroInstall.Publish.WinForms.Controls;
 
 namespace ZeroInstall.Publish.WinForms.FeedStructure
 {
-    public partial class RecipeForm : OKCancelDialog
+    public partial class RecipeForm : OKCancelDialog, IDigestProvider
     {
         #region Variables
         /// <summary>

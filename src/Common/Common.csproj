@@ -125,8 +125,10 @@
     <Compile Include="Undo\SetValueCommand.cs" />
     <Compile Include="Undo\AddToCollection.cs" />
     <Compile Include="Undo\CollectionCommand.cs" />
+    <Compile Include="Undo\SetInList.cs" />
     <Compile Include="Undo\RemoveFromCollection.cs" />
     <Compile Include="Undo\SetLocalizableString.cs" />
+    <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
@@ -231,6 +233,7 @@
     <None Include="Net\Download.cd" />
     <Content Include="Resources\ClearButton.png" />
     <Content Include="Resources\Warning.png" />
+    <None Include="Undo\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ExceptionInformation.xsd">
