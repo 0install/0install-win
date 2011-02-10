@@ -33,15 +33,23 @@
             this.labelPath = new System.Windows.Forms.Label();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.argumentsControl1 = new ZeroInstall.Publish.WinForms.Controls.ArgumentsControl();
+            this.groupBoxArguments = new System.Windows.Forms.GroupBox();
+            this.groupBoxWorkingDir = new System.Windows.Forms.GroupBox();
+            this.checkBoxWorkingDir = new System.Windows.Forms.CheckBox();
+            this.labelSource = new System.Windows.Forms.Label();
+            this.hintTextBoxSource = new Common.Controls.HintTextBox();
+            this.groupBoxArguments.SuspendLayout();
+            this.groupBoxWorkingDir.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(241, 245);
+            this.buttonOK.Location = new System.Drawing.Point(241, 328);
+            this.buttonOK.Click += new System.EventHandler(this.ButtonOkClick);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(322, 245);
+            this.buttonCancel.Location = new System.Drawing.Point(322, 328);
             // 
             // textBoxName
             // 
@@ -84,30 +92,89 @@
             this.argumentsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.argumentsControl1.Location = new System.Drawing.Point(15, 90);
+            this.argumentsControl1.Location = new System.Drawing.Point(6, 19);
             this.argumentsControl1.Name = "argumentsControl1";
-            this.argumentsControl1.Size = new System.Drawing.Size(382, 130);
+            this.argumentsControl1.Size = new System.Drawing.Size(370, 133);
             this.argumentsControl1.TabIndex = 1006;
+            // 
+            // groupBoxArguments
+            // 
+            this.groupBoxArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxArguments.Controls.Add(this.argumentsControl1);
+            this.groupBoxArguments.Location = new System.Drawing.Point(15, 90);
+            this.groupBoxArguments.Name = "groupBoxArguments";
+            this.groupBoxArguments.Size = new System.Drawing.Size(382, 154);
+            this.groupBoxArguments.TabIndex = 1009;
+            this.groupBoxArguments.TabStop = false;
+            this.groupBoxArguments.Text = "Arguments";
+            // 
+            // groupBoxWorkingDir
+            // 
+            this.groupBoxWorkingDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxWorkingDir.Controls.Add(this.checkBoxWorkingDir);
+            this.groupBoxWorkingDir.Controls.Add(this.labelSource);
+            this.groupBoxWorkingDir.Controls.Add(this.hintTextBoxSource);
+            this.groupBoxWorkingDir.Location = new System.Drawing.Point(15, 248);
+            this.groupBoxWorkingDir.Name = "groupBoxWorkingDir";
+            this.groupBoxWorkingDir.Size = new System.Drawing.Size(382, 59);
+            this.groupBoxWorkingDir.TabIndex = 1010;
+            this.groupBoxWorkingDir.TabStop = false;
+            this.groupBoxWorkingDir.Text = "Working Directory";
+            // 
+            // checkBoxWorkingDir
+            // 
+            this.checkBoxWorkingDir.AutoSize = true;
+            this.checkBoxWorkingDir.Location = new System.Drawing.Point(9, 35);
+            this.checkBoxWorkingDir.Name = "checkBoxWorkingDir";
+            this.checkBoxWorkingDir.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxWorkingDir.TabIndex = 1011;
+            this.checkBoxWorkingDir.UseVisualStyleBackColor = true;
+            this.checkBoxWorkingDir.CheckedChanged += new System.EventHandler(this.CheckBoxWorkingDirCheckedChanged);
+            // 
+            // labelSource
+            // 
+            this.labelSource.AutoSize = true;
+            this.labelSource.Location = new System.Drawing.Point(6, 16);
+            this.labelSource.Name = "labelSource";
+            this.labelSource.Size = new System.Drawing.Size(41, 13);
+            this.labelSource.TabIndex = 1009;
+            this.labelSource.Text = "Source";
+            // 
+            // hintTextBoxSource
+            // 
+            this.hintTextBoxSource.HintText = "The relative path to the dir in the implementation.";
+            this.hintTextBoxSource.Location = new System.Drawing.Point(30, 32);
+            this.hintTextBoxSource.Name = "hintTextBoxSource";
+            this.hintTextBoxSource.Size = new System.Drawing.Size(346, 20);
+            this.hintTextBoxSource.TabIndex = 1010;
             // 
             // CommandForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(409, 280);
+            this.ClientSize = new System.Drawing.Size(409, 363);
+            this.Controls.Add(this.groupBoxWorkingDir);
+            this.Controls.Add(this.groupBoxArguments);
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
-            this.Controls.Add(this.argumentsControl1);
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.labelPath);
             this.Name = "CommandForm";
             this.Text = "Command";
             this.Controls.SetChildIndex(this.labelPath, 0);
             this.Controls.SetChildIndex(this.textBoxPath, 0);
-            this.Controls.SetChildIndex(this.argumentsControl1, 0);
             this.Controls.SetChildIndex(this.textBoxName, 0);
             this.Controls.SetChildIndex(this.labelName, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
+            this.Controls.SetChildIndex(this.groupBoxArguments, 0);
+            this.Controls.SetChildIndex(this.groupBoxWorkingDir, 0);
+            this.groupBoxArguments.ResumeLayout(false);
+            this.groupBoxWorkingDir.ResumeLayout(false);
+            this.groupBoxWorkingDir.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,5 +187,10 @@
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.TextBox textBoxPath;
         private Controls.ArgumentsControl argumentsControl1;
+        private System.Windows.Forms.GroupBox groupBoxArguments;
+        private System.Windows.Forms.GroupBox groupBoxWorkingDir;
+        private System.Windows.Forms.Label labelSource;
+        private Common.Controls.HintTextBox hintTextBoxSource;
+        private System.Windows.Forms.CheckBox checkBoxWorkingDir;
     }
 }

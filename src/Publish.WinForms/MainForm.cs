@@ -830,7 +830,7 @@ namespace ZeroInstall.Publish.WinForms
         private void TreeViewFeedStructureNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             var selectedNode = treeViewFeedStructure.SelectedNode;
-            if (selectedNode != null) selectedNode.Toggle();
+            if (selectedNode != null && selectedNode != treeViewFeedStructure.Nodes[0]) selectedNode.Toggle();
         }
         
         private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
