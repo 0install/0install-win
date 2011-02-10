@@ -126,36 +126,43 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeFeedStructureButtons()
         {
-            SetupFeedStructureHooks<IElementContainer, Element>(btnAddImplementation, container => container.Elements, () => new Implementation());
-            SetupFeedStructureHooks<IElementContainer, Element>(btnAddPackageImplementation, container => container.Elements, () => new PackageImplementation());
-            SetupFeedStructureHooks<IElementContainer, Element>(btnAddGroup, container => container.Elements, () => new Group());
+            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(btnAddImplementation, container => container.Elements, implementation => new ImplementationForm {Implementation = implementation});
+            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(btnAddPackageImplementation, container => container.Elements, implementation => new PackageImplementationForm {PackageImplementation = implementation});
+            SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, container => container.Elements, group => new GroupForm {Group = group});
 
-            SetupFeedStructureHooks<IBindingContainer, Binding>(btnAddEnvironmentBinding, container => container.Bindings, () => new EnvironmentBinding());
-            SetupFeedStructureHooks<IBindingContainer, Binding>(btnAddOverlayBinding, container => container.Bindings, () => new OverlayBinding());
+            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, container => container.Bindings, binding => new EnvironmentBindingForm {EnvironmentBinding = binding});
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, container => container.Bindings, binding => new OverlayBindingForm {OverlayBinding = binding});
 
-            SetupFeedStructureHooks<IDependencyContainer, Dependency>(btnAddDependency, container => container.Dependencies, () => new Dependency());
+            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, container => container.Dependencies, dependency => new DependencyForm {Dependency = dependency});
 
-            SetupFeedStructureHooks<Element, Command>(btnAddCommand, element => element.Commands, () => new Command());
+            // ToDo: Add Command dialog
+            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, element => element.Commands, null);
 
-            SetupFeedStructureHooks<Implementation, RetrievalMethod>(buttonAddArchive, implementation => implementation.RetrievalMethods, () => new Archive());
-            SetupFeedStructureHooks<Implementation, RetrievalMethod>(buttonAddRecipe, implementation => implementation.RetrievalMethods, () => new Recipe());
+            // ToDo: Add special case handling
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, implementation => implementation.RetrievalMethods, null);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, implementation => implementation.RetrievalMethods, null);
         }
 
         /// <summary>
-        /// A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <see cref="TContainer"/>.
+        /// A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <typeparamref cref="TContainer"/>.
         /// </summary>
         private delegate ICollection<TEntry> ContainerCollectionRetreival<TContainer, TEntry>(TContainer container);
+
+        // ToDo: Move to Common
+        private delegate TResult TempDeleg<TResult, TInput>(TInput input);
 
         /// <summary>
         /// Configures event handlers to make a button add new elements to <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <typeparam name="TContainer">The type of element in the <see cref="treeViewFeedStructure"/> that this button can can add sub-elements to.</typeparam>
-        /// <typeparam name="TEntry">The type of element this button adds.</typeparam>
+        /// <typeparam name="TGeneralEntry">ToDo</typeparam>
+        /// <typeparam name="TSpecialEntry">ToDo</typeparam>
         /// <param name="button">The button to hook up.</param>
-        /// <param name="getCollection">A delegate describing how to get the collection of <typeparamref name="TEntry"/>s in a <see cref="TContainer"/>.</param>
-        /// <param name="newEntry"></param>
-        private void SetupFeedStructureHooks<TContainer, TEntry>(Button button, ContainerCollectionRetreival<TContainer, TEntry> getCollection, SimpleResult<TEntry> newEntry)
+        /// <param name="getCollection">A delegate describing how to get the collection of <typeparamref name="TSpecialEntry"/>s in a <typeparamref cref="TContainer"/>.</param>
+        /// <param name="getEditDialog">ToDo</param>
+        private void SetupFeedStructureHooks<TContainer, TGeneralEntry, TSpecialEntry>(Button button, ContainerCollectionRetreival<TContainer, TGeneralEntry> getCollection, TempDeleg<Form, TSpecialEntry> getEditDialog)
             where TContainer : class
+            where TSpecialEntry : class, TGeneralEntry, new()
         {
             button.Click += delegate
             {
@@ -163,11 +170,22 @@ namespace ZeroInstall.Publish.WinForms
                 var container = SelectedFeedStructureElement as TContainer;
                 if (container != null)
                 {
-                    _feedEditing.ExecuteCommand(new AddToCollection<TEntry>(getCollection(container), newEntry()));
+                    _feedEditing.ExecuteCommand(new AddToCollection<TGeneralEntry>(getCollection(container), new TSpecialEntry()));
                     FillFeedTab();
                 }
             };
             UpdateStructureButtons += () => button.Enabled = SelectedFeedStructureElement is TContainer;
+
+            // Hook up edit dialogs to TreeView
+            treeViewFeedStructure.DoubleClick += delegate
+            {
+                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                if (entry != null)
+                {
+                    getEditDialog(entry).ShowDialog();
+                    FillFeedTab();
+                }
+            };
         }
 
         private void InitializeComboBoxMinInjectorVersion()
@@ -768,10 +786,7 @@ namespace ZeroInstall.Publish.WinForms
             selectedNode.Toggle();
 
             // show a dialog to change the selected object
-            if (selectedNode.Tag is Group) (new GroupForm {Group = (Group) selectedNode.Tag}).ShowDialog();
-            else if (selectedNode.Tag is Implementation)
-                (new ImplementationForm {Implementation = (Implementation) selectedNode.Tag}).ShowDialog();
-            else if (selectedNode.Tag is Archive)
+            if (selectedNode.Tag is Archive)
             {
                 var archiveForm = new ArchiveForm {Archive = (Archive) selectedNode.Tag};
                 if (archiveForm.ShowDialog() != DialogResult.OK) return;
@@ -838,21 +853,6 @@ namespace ZeroInstall.Publish.WinForms
                     InsertManifestDigestNode(selectedNode.Parent, manifestDigestFromRecipe);
                 }
             }
-            else if (selectedNode.Tag is PackageImplementation)
-                (new PackageImplementationForm
-                     {PackageImplementation = (PackageImplementation) selectedNode.Tag}).ShowDialog();
-            else if (selectedNode.Tag is Dependency)
-                (new DependencyForm {Dependency = (Dependency) selectedNode.Tag}).ShowDialog();
-            else if (selectedNode.Tag is EnvironmentBinding)
-                (new EnvironmentBindingForm {EnvironmentBinding = (EnvironmentBinding) selectedNode.Tag})
-                    .ShowDialog();
-            else if (selectedNode.Tag is OverlayBinding)
-                (new OverlayBindingForm {OverlayBinding = (OverlayBinding) selectedNode.Tag}).
-                    ShowDialog();
-            else if (selectedNode.Tag is ManifestDigest)
-                (new ManifestDigestForm((ManifestDigest) selectedNode.Tag)).ShowDialog();
-            else throw new InvalidOperationException("Not an object to change.");
-            FillFeedTab();
         }
 
         /// <summary>
