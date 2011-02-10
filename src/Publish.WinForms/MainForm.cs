@@ -137,20 +137,20 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeFeedStructureButtons()
         {
-            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(btnAddImplementation, container => container.Elements, implementation => new ImplementationForm {Implementation = implementation});
-            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(btnAddPackageImplementation, container => container.Elements, implementation => new PackageImplementationForm {PackageImplementation = implementation});
-            SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, container => container.Elements, group => new GroupForm {Group = group});
+            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(btnAddImplementation, implementation => new ImplementationForm {Implementation = implementation}, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(btnAddPackageImplementation, implementation => new PackageImplementationForm {PackageImplementation = implementation}, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, Group>(btnAddGroup, group => new GroupForm {Group = group}, container => container.Elements);
 
-            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, container => container.Bindings, binding => new EnvironmentBindingForm {EnvironmentBinding = binding});
-            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, container => container.Bindings, binding => new OverlayBindingForm {OverlayBinding = binding});
+            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(btnAddEnvironmentBinding, binding => new EnvironmentBindingForm {EnvironmentBinding = binding}, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(btnAddOverlayBinding, binding => new OverlayBindingForm {OverlayBinding = binding}, container => container.Bindings);
 
-            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, container => container.Dependencies, dependency => new DependencyForm {Dependency = dependency});
+            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 
             // ToDo: Add Command dialog
-            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, element => element.Commands, null);
+            SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, null, element => element.Commands);
 
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, implementation => implementation.RetrievalMethods, archive => new ArchiveForm {Archive = archive});
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, implementation => implementation.RetrievalMethods, recipe => new RecipeForm {Recipe = recipe});
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         /// <summary>
@@ -160,9 +160,9 @@ namespace ZeroInstall.Publish.WinForms
         /// <typeparam name="TAbstractEntry">The abstract super-type of <typeparamref name="TSpecialEntry"/>.</typeparam>
         /// <typeparam name="TSpecialEntry">The specific entry type to hook up for handling</typeparam>
         /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
-        /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s in a <typeparamref name="TContainer"/>.</param>
         /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TContainer, IList<TAbstractEntry>> getList, MapAction<TSpecialEntry, Form> getEditDialog)
+        /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s in a <typeparamref name="TContainer"/>.</param>
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -197,10 +197,10 @@ namespace ZeroInstall.Publish.WinForms
                             if (dialog.ShowDialog() == DialogResult.OK)
                             {
                                 var commandList = new List<IUndoCommand>(3)
-                                {
-                                    // Replace original entry with cloned and modified one
-                                    new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
-                                };
+                            {
+                                // Replace original entry with cloned and modified one
+                                new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
+                            };
 
                                 // Update manifest digest
                                 var digestProvider = dialog as IDigestProvider;
