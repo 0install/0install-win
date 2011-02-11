@@ -48,7 +48,7 @@
             this.btnLanguageClear.TabIndex = 4;
             this.btnLanguageClear.Text = "Clear list";
             this.btnLanguageClear.UseVisualStyleBackColor = true;
-            this.btnLanguageClear.Click += new System.EventHandler(this.btnLanguageClear_Click);
+            this.btnLanguageClear.Click += new System.EventHandler(this.BtnLanguageClearClick);
             // 
             // comboBoxLanguage
             // 
@@ -71,7 +71,7 @@
             this.listBoxLanguages.Name = "listBoxLanguages";
             this.listBoxLanguages.Size = new System.Drawing.Size(330, 82);
             this.listBoxLanguages.TabIndex = 5;
-            this.listBoxLanguages.Enter += new System.EventHandler(this.listBoxLanguages_Enter);
+            this.listBoxLanguages.Enter += new System.EventHandler(this.ListBoxLanguagesEnter);
             // 
             // btnLanguageRemove
             // 
@@ -81,7 +81,7 @@
             this.btnLanguageRemove.TabIndex = 3;
             this.btnLanguageRemove.Text = "Remove";
             this.btnLanguageRemove.UseVisualStyleBackColor = true;
-            this.btnLanguageRemove.Click += new System.EventHandler(this.btnLanguageRemove_Click);
+            this.btnLanguageRemove.Click += new System.EventHandler(this.BtnLanguageRemoveClick);
             // 
             // lblLanguage
             // 
@@ -100,7 +100,7 @@
             this.btnLanguageAdd.TabIndex = 2;
             this.btnLanguageAdd.Text = "Add";
             this.btnLanguageAdd.UseVisualStyleBackColor = true;
-            this.btnLanguageAdd.Click += new System.EventHandler(this.btnLanguageAdd_Click);
+            this.btnLanguageAdd.Click += new System.EventHandler(this.BtnLanguageAddClick);
             // 
             // lblCPU
             // 

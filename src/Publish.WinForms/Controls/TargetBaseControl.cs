@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             InitializeComponent();
             InitializeComboBoxLanguage();
-            InitializeOS();
+            InitializeOs();
             InitializeCpu();
         }
 
@@ -62,6 +62,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxLanguage()
         {
             // load the possible languages in listBoxLanguages
+            comboBoxLanguage.Items.Add(CultureInfo.InvariantCulture);
             foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
                 comboBoxLanguage.Items.Add(language);
             comboBoxLanguage.SelectedItem = CultureInfo.CurrentCulture;
@@ -70,7 +71,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Load the possible <see cref="OS" />s in "comboBoxOS".
         /// </summary>
-        private void InitializeOS()
+        private void InitializeOs()
         {
             foreach (var os in Enum.GetValues(typeof(OS)))
                 comboBoxOS.Items.Add(os);
@@ -134,7 +135,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void listBoxLanguages_Enter(object sender, EventArgs e)
+        private void ListBoxLanguagesEnter(object sender, EventArgs e)
         {
             UpdateLanguages();
         }
@@ -145,7 +146,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <remarks>Updates <see cref="_targetBase"/> .</remarks>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnLanguageAdd_Click(object sender, EventArgs e)
+        private void BtnLanguageAddClick(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
             var selectedCulture = (CultureInfo)comboBoxLanguage.SelectedItem;
@@ -159,7 +160,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <remarks>Updates <see cref="_targetBase"/>.</remarks>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnLanguageRemove_Click(object sender, EventArgs e)
+        private void BtnLanguageRemoveClick(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
             var selectedCulture = (CultureInfo)listBoxLanguages.SelectedItem;
@@ -174,7 +175,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <remarks>Updates <see cref="_targetBase"/>.</remarks>
         /// <param name="sender">Not used.</param>
         /// <param name="e">Not used.</param>
-        private void btnLanguageClear_Click(object sender, EventArgs e)
+        private void BtnLanguageClearClick(object sender, EventArgs e)
         {
             if (_targetBase == null) return;
             _targetBase.Languages.Clear();
