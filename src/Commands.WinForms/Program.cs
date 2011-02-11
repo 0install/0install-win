@@ -52,7 +52,26 @@ namespace ZeroInstall.Commands.WinForms
             {
                 var handler = new MainForm();
                 CommandBase command;
-                try { command = CommandSwitch.CreateAndParse(args, handler); }
+                try
+                {
+                    command = CommandSwitch.CreateAndParse(args, handler);
+
+                    if (command == null || command.InfoShown) return;
+
+                    var selection = command as Selection;
+                    if (selection != null)
+                    {
+                        // Ask user to specifiy interface ID if it is missing
+                        if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
+                        {
+                            selection.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
+                            if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
+                        }
+
+                        // Start warming up the GUI - selection commands are often long-running
+                        handler.ShowAsync();
+                    }
+                }
                 #region Error handling
                 catch (OptionException ex)
                 {
@@ -80,22 +99,6 @@ namespace ZeroInstall.Commands.WinForms
                     return;
                 }
                 #endregion
-
-                if (command == null || command.InfoShown) return;
-
-                var selection = command as Selection;
-                if (selection != null)
-                {
-                    // Ask user to specifiy interface ID if it is missing
-                    if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
-                    {
-                        selection.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
-                        if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
-                    }
-
-                    // Start warming up the GUI - selection commands are often long-running
-                    handler.ShowAsync();
-                }
 
                 try { command.Execute(); }
                 #region Error hanlding

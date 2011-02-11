@@ -47,19 +47,19 @@ namespace Common.Streams
         /// </summary>
         public long Offset { get { return _offset; } }
 
-        /// <summary>Returns <see langword="true"/> to indicate this stream can bread.</summary>
+        /// <inheritdoc/>
         public override bool CanRead { get { return _baseStream.CanRead; } }
 
-        /// <summary>Returns <see langword="false"/> to indicate this stream is read-only.</summary>
+        /// <inheritdoc/>
         public override bool CanWrite { get { return _baseStream.CanWrite; } }
 
-        /// <summary>Returns <see langword="false"/> to indicate this stream cannot seak.</summary>
+        /// <inheritdoc/>
         public override bool CanSeek { get { return true; } }
 
-        /// <summary>Not supported.</summary>
+        /// <inheritdoc/>
         public override long Position { get { return _baseStream.Position - _offset; } set { _baseStream.Position = value + _offset; } }
 
-        /// <summary>Not supported.</summary>
+        /// <inheritdoc/>
         public override long Length { get { return _baseStream.Length - _offset; } }
         #endregion
 
