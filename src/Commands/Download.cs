@@ -16,6 +16,9 @@
  */
 
 using System;
+using System.Text;
+using NDesk.Options;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 
@@ -27,19 +30,24 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public class Download : Selection
     {
+        #region Variables
+        /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
+        private bool _show;
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "download"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "This behaves similarly to '0install select', except that it also downloads the selected versions if they are not already cached. Unlike 'select', it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise."; } }
+        public override string Description { get { return Resources.DescriptionDownload; } }
         #endregion
 
         #region Constructor
         /// <inheritdoc/>
         public Download(IHandler handler) : base(handler)
         {
-            // ToDo: Add --show
+            Options.Add("show", Resources.OptionShow, unused => _show = true);
         }
         #endregion
 
@@ -53,9 +61,27 @@ namespace ZeroInstall.Commands
 
             if (Policy.Preferences.NetworkLevel == NetworkLevel.Offline) return;
 
-            // ToDo: Output if --show is set
-
             Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
+        }
+
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            ExecuteHelper();
+
+            if (_show)
+            {
+                // Build a list of all implementation paths
+                var builder = new StringBuilder();
+                foreach (var implementation in Selections.Implementations)
+                    builder.AppendLine(Policy.SearchStore.GetPath(implementation.ManifestDigest));
+                builder.Remove(builder.Length - 1, 1); // Remove trailing line-break
+                Handler.Inform(Resources.SelectedComponents, builder.ToString());
+            }
+            else Handler.Inform(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+
+            return 0;
         }
         #endregion
     }

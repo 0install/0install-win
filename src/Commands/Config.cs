@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -31,7 +32,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "config"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value."; } }
+        public override string Description { get { return Resources.DescriptionConfig; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[NAME [VALUE]]"; } }

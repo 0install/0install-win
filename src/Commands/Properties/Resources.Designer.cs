@@ -61,11 +61,119 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to All required components have been downloaded..
+        /// </summary>
+        internal static string AllComponentsDownloaded {
+            get {
+                return ResourceManager.GetString("AllComponentsDownloaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command-line arguments:.
         /// </summary>
         internal static string CommandLineArguments {
             get {
                 return ResourceManager.GetString("CommandLineArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register an additional source of implementations (versions) of a program..
+        /// </summary>
+        internal static string DescriptionAddFeed {
+            get {
+                return ResourceManager.GetString("DescriptionAddFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View or change configuration settings. With no arguments, &apos;0install config&apos; displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value..
+        /// </summary>
+        internal static string DescriptionConfig {
+            get {
+                return ResourceManager.GetString("DescriptionConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behaves similarly to &apos;0install select&apos;, except that it also downloads the selected versions if they are not already cached. Unlike &apos;select&apos;, it does not print the selected versions by default. Returns an exit status of zero if it selected a suitable set of versions and they are now all downloaded and in the cache; returns a status of 1 otherwise..
+        /// </summary>
+        internal static string DescriptionDownload {
+            get {
+                return ResourceManager.GetString("DescriptionDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network..
+        /// </summary>
+        internal static string DescriptionImport {
+            get {
+                return ResourceManager.GetString("DescriptionImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)..
+        /// </summary>
+        internal static string DescriptionList {
+            get {
+                return ResourceManager.GetString("DescriptionList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List all extra feeds added to URI using &apos;0install add-feed&apos;..
+        /// </summary>
+        internal static string DescriptionListFeeds {
+            get {
+                return ResourceManager.GetString("DescriptionListFeeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Un-register a feed, reversing the effect of &apos;add-feed&apos;. .
+        /// </summary>
+        internal static string DescriptionRemoveFeed {
+            get {
+                return ResourceManager.GetString("DescriptionRemoveFeed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This behaves similarly to &apos;0install download&apos;, except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run..
+        /// </summary>
+        internal static string DescriptionRun {
+            get {
+                return ResourceManager.GetString("DescriptionRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set..
+        /// </summary>
+        internal static string DescriptionSelect {
+            get {
+                return ResourceManager.GetString("DescriptionSelect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check for updates to the program and download them if found. This is similar to &apos;0install download --refresh&apos;, except that it prints information about whether any changes were found..
+        /// </summary>
+        internal static string DescriptionUpdate {
+            get {
+                return ResourceManager.GetString("DescriptionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download complete.
+        /// </summary>
+        internal static string DownloadComplete {
+            get {
+                return ResourceManager.GetString("DownloadComplete", resourceCulture);
             }
         }
         
@@ -216,6 +324,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show were the selected components are stored on the disk..
+        /// </summary>
+        internal static string OptionShow {
+            get {
+                return ResourceManager.GetString("OptionShow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select source code rather than a binary. This is used internally by &apos;0compile&apos;..
         /// </summary>
         internal static string OptionSource {
@@ -262,20 +379,20 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The output of the Python solver could not be processed..
+        ///   Looks up a localized string similar to Write selected versions to console as machine-readable XML..
         /// </summary>
-        internal static string PythonSolverOutputErrror {
+        internal static string OptionXml {
             get {
-                return ResourceManager.GetString("PythonSolverOutputErrror", resourceCulture);
+                return ResourceManager.GetString("OptionXml", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The solver encountered an unexpected problem..
+        ///   Looks up a localized string similar to Selected components:.
         /// </summary>
-        internal static string SolverProblem {
+        internal static string SelectedComponents {
             get {
-                return ResourceManager.GetString("SolverProblem", resourceCulture);
+                return ResourceManager.GetString("SelectedComponents", resourceCulture);
             }
         }
         
@@ -312,24 +429,6 @@ namespace ZeroInstall.Commands.Properties {
         internal static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The working directory has already been changed by a previous command..
-        /// </summary>
-        internal static string WokringDirDuplicate {
-            get {
-                return ResourceManager.GetString("WokringDirDuplicate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The working directory contains an invalid paths (potentially a security risk)..
-        /// </summary>
-        internal static string WorkingDirInvalidPath {
-            get {
-                return ResourceManager.GetString("WorkingDirInvalidPath", resourceCulture);
             }
         }
     }

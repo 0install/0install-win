@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -34,7 +35,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "FEED"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Un-register a feed, reversing the effect of 'add-feed'. "; } }
+        public override string Description { get { return Resources.DescriptionRemoveFeed; } }
         #endregion
 
         #region Constructor

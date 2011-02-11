@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "list"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "List all known interface (program) URIs. If a search term is given, only URIs containing that string are shown (case insensitive)."; } }
+        public override string Description { get { return Resources.DescriptionList; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[PATTERN]"; } }
@@ -53,6 +53,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            // Allow 0 or 1 arguments
             string pattern;
             switch (AdditionalArgs.Count)
             {
@@ -63,6 +64,7 @@ namespace ZeroInstall.Commands
 
             ExecuteHelper();
 
+            // Build a list of all feed cache entries
             var builder = new StringBuilder();
 	        var feeds = Policy.FeedManager.Cache.ListAll();
 	        foreach (Uri entry in feeds)

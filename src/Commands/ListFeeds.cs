@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -31,7 +32,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "list-feeds"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "List all extra feeds added to URI using '0install add-feed'."; } }
+        public override string Description { get { return Resources.DescriptionListFeeds; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "URI"; } }

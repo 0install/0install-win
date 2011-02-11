@@ -16,6 +16,9 @@
  */
 
 using System;
+using NDesk.Options;
+using ZeroInstall.Commands.Properties;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -24,14 +27,14 @@ namespace ZeroInstall.Commands
     /// Check for updates to the program and download them if found.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Update : Download
+    public sealed class Update : Selection
     {
         #region Properties
         /// <inheritdoc/>
         public override string Name { get { return "update"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Check for updates to the program and download them if found. This is similar to '0install download --refresh', except that it prints information about whether any changes were found."; } }
+        public override string Description { get { return Resources.DescriptionUpdate; } }
         #endregion
 
         #region Constructor
@@ -46,11 +49,24 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override void ExecuteHelper()
         {
+            if (Policy.Preferences.NetworkLevel == NetworkLevel.Offline) return;
             Policy.FeedManager.Refresh = true;
 
-            // ToDo: Output information about changes
+            // ToDo: Store information about changes
+
+            Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
 
             base.ExecuteHelper();
+        }
+
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            ExecuteHelper();
+
+            // ToDo: Output information about changes
+            return 0;
         }
         #endregion
     }

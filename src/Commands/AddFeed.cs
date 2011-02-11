@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -34,7 +35,7 @@ namespace ZeroInstall.Commands
         protected override string Usage { get { return "NEW-FEED"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Register an additional source of implementations (versions) of a program."; } }
+        public override string Description { get { return Resources.DescriptionAddFeed; } }
         #endregion
 
         #region Constructor

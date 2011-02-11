@@ -129,4 +129,13 @@
 	<data name="FoundFeeds" xml:space="preserve">
 		<value>Gefundene feeds:</value>
 	</data>
+	<data name="SelectedComponents" xml:space="preserve">
+		<value>Ausgewählte Komponenten:</value>
+	</data>
+	<data name="DownloadComplete" xml:space="preserve">
+		<value>Download abgeschlossen</value>
+	</data>
+	<data name="AllComponentsDownloaded" xml:space="preserve">
+		<value>Alle benötigten Komponenten wurden runtergeladen.</value>
+	</data>
 </root>

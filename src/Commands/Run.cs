@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "run"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "This behaves similarly to '0install download', except that it also runs the program after ensuring it is in the cache. Returns an exit status of 1 if the download step failed. Otherwise, the exit status will be the exit status of the program being run."; } }
+        public override string Description { get { return Resources.DescriptionRun; } }
         #endregion
 
         #region Constructor
@@ -55,6 +55,15 @@ namespace ZeroInstall.Commands
             Options.Add("m|main=", Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
             Options.Add("no-wait", Resources.OptionNoWait, unused => _noWait = true);
+
+            // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
+            Options.Add("<>", value =>
+            {
+                AdditionalArgs.Add(value);
+
+                // Stop using options parser, treat everything from here on as unknown
+                Options.Clear();
+            });
         }
         #endregion
 

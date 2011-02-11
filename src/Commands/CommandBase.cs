@@ -137,7 +137,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
-        public void Parse(IEnumerable<string> args)
+        public virtual void Parse(IEnumerable<string> args)
         {
             _parsed = true;
 
@@ -163,6 +163,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="InvalidOperationException">Thron if this method is called before calling <see cref="Parse"/>.</exception>
+        /// <remarks>When inheriting this method is usually extended.</remarks>
         protected virtual void ExecuteHelper()
         {
             if (!_parsed) throw new InvalidOperationException(Resources.NotParsed);
@@ -186,6 +187,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
         /// <exception cref="InvalidOperationException">Thron if this method is called before calling <see cref="Parse"/>.</exception>
+        /// <remarks>When inheriting this method is usually replaced.</remarks>
         public abstract int Execute();
         #endregion
     }

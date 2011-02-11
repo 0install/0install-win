@@ -34,6 +34,9 @@ namespace ZeroInstall.Commands
         #region Variables
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
+
+        /// <summary>Indicates the user wants a machine-readable output.</summary>
+        private bool _xml;
         #endregion
 
         #region Properties
@@ -41,7 +44,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "select"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Select a version of the program identified by URI, and compatible versions of all of its dependencies. Returns an exit status of zero if it selected a set of versions, and a status of 1 if it could not find a consistent set."; } }
+        public override string Description { get { return Resources.DescriptionSelect; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] URI"; } }
@@ -67,31 +70,46 @@ namespace ZeroInstall.Commands
             Options.Add("os=", Resources.OptionOS, os => _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu));
             Options.Add("cpu=", Resources.OptionCpu, cpu => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)));
 
-            // ToDo: Add --xml
-
-            // Work-around to disable interspersed arguments (needed for passing arguments through to sub-processes)
-            Options.Add("<>", value =>
-            {
-                if (string.IsNullOrEmpty(Requirements.InterfaceID))
-                { // First unknown argument
-                    // Must not be an option
-                    // Note: Windows-style arguments beginning with a slash are interpreted as Unix paths here instead
-                    if (value.StartsWith("-")) throw new OptionException(Resources.UnknownOption, Name);
-
-                    Requirements.InterfaceID = (File.Exists(value) ? Path.GetFullPath(value) : value);
-
-                    // Stop using options parser, treat everything from here on as unknown
-                    Options.Clear();
-                }
-                else
-                { // All other unknown arguments
-                    AdditionalArgs.Add(value);
-                }
-            });
+            Options.Add("xml", Resources.OptionXml, unused => _xml = true);
         }
         #endregion
 
         //--------------------//
+
+        #region Parse
+        /// <inheritdoc/>
+        public override void Parse(System.Collections.Generic.IEnumerable<string> args)
+        {
+            base.Parse(args);
+
+            if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
+
+            // The first argument is the interface ID
+            var feedID = AdditionalArgs.First;
+            AdditionalArgs.RemoveFirst();
+
+            if (feedID.StartsWith("alias:"))
+            {
+                // ToDo: Handle alias lookup
+            }
+            else if (File.Exists(feedID))
+            {
+                try
+                { // Try to parse as selection document
+                    Selections = Selections.Load(feedID);
+                    Requirements.InterfaceID = Selections.InterfaceID;
+                }
+                catch(Exception)
+                { // If that fails assume it is an interface
+                    Requirements.InterfaceID = Path.GetFullPath(feedID);
+                }
+            }
+            else
+            { // Assume a normal URI
+                Requirements.InterfaceID = feedID;
+            }
+        }
+        #endregion
 
         #region Execute
         /// <inheritdoc/>
@@ -99,22 +117,24 @@ namespace ZeroInstall.Commands
         {
             base.ExecuteHelper();
 
-            if (Requirements.InterfaceID == null) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
-
-            // ToDo: Detect Selections documents
-
-            Selections = SolverProvider.Default.Solve(_requirements, Policy, Handler);
+            if (Selections == null)
+                Selections = SolverProvider.Default.Solve(_requirements, Policy, Handler);
         }
         
         /// <inheritdoc/>
         public override int Execute()
         {
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
-
             ExecuteHelper();
 
-            // ToDo: Output selections
-
+            if (_xml)
+            {
+                Handler.Inform("Selections:", Selections.WriteToString());
+            }
+            else
+            {
+                // ToDo: Human readable output
+            }
             return 0;
         }
         #endregion

@@ -16,6 +16,7 @@
  */
 
 using System;
+using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands
@@ -32,7 +33,7 @@ namespace ZeroInstall.Commands
         public override string Name { get { return "import"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return "Import a feed from a local file, as if it had been downloaded from the network. This is useful when testing a feed file, to avoid uploading it to a remote server in order to download it again. The file must have a trusted digital signature, as when fetching from the network."; } }
+        public override string Description { get { return Resources.DescriptionImport; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "FEED-FILE"; } }
