@@ -25,54 +25,79 @@ namespace ZeroInstall.Publish.WinForms.Controls
     {
         #region Properties
 
-        private ArrayList<String> _arguments;
+        /// <summary>
+        /// The list for the arguments in <see cref="listBoxArguments"/>.
+        /// </summary>
+        private readonly ArrayList<String> _arguments = new ArrayList<string>();
 
+        /// <summary>
+        /// Returns the entered Arguments. Changing this List means changing the list box with the arguments.
+        /// </summary>
         public ArrayList<String> Arguments
         {
             get
             {
+                _arguments.CollectionChanged -= CollectionChanged;
                 _arguments.Clear();
                 foreach (string argument in listBoxArguments.Items)
                 {
                     _arguments.Add(argument);
                 }
+                _arguments.CollectionChanged += CollectionChanged;
                 return _arguments;
-            }
-            set
-            {
-                _arguments = value ?? new ArrayList<string>();
-                UpdateControls();
             }
         }
 
         #endregion
 
         #region Initialization
+        /// <summary>
+        /// Initializes the control.
+        /// </summary>
         public ArgumentsControl()
         {
             InitializeComponent();
+            InitializePropertyArguments();
             InitializeListButtons();
             InitializeListBoxArguments();
         }
 
+        /// <summary>
+        /// Sets the <see cref="CollectionChanged"/> event.
+        /// </summary>
+        private void InitializePropertyArguments()
+        {
+            _arguments.CollectionChanged += CollectionChanged;
+        }
+
+        /// <summary>
+        /// Sets the clicking delegates of the buttons <see cref="buttonAddArgument"/>, <see cref="buttonRemoveArgument"/> and <see cref="buttonClearArguments"/>.
+        /// </summary>
         private void InitializeListButtons()
         {
+            // adds item of the textBox to the listBox
             buttonAddArgument.Click += (sender, eventArgs) =>
                                            {
                                                if (string.IsNullOrEmpty(textBoxArgument.Text)) return;
                                                listBoxArguments.Items.Add(textBoxArgument.Text);
                                                textBoxArgument.Text = string.Empty;
                                            };
+            // removes selected item from listBox
             buttonRemoveArgument.Click += (sender, eventArgs) =>
                                               {
                                                   if (listBoxArguments.SelectedItem == null) return;
                                                   listBoxArguments.Items.Remove(listBoxArguments.SelectedItem);
                                               };
-            buttonClearArguments.Click += (sender, eventArgs) => listBoxArguments.Items.Clear();
+            // clears textBox and listBox
+            buttonClearArguments.Click += (sender, eventArgs) => ClearControl();
         }
 
+        /// <summary>
+        /// Sets the clicking delegate for <see cref="listBoxArguments"/>.
+        /// </summary>
         private void InitializeListBoxArguments()
         {
+            // Copies the clicked text to the textBox
             listBoxArguments.Click += (sender, eventArgs) =>
                                           {
                                               if(listBoxArguments.SelectedItem != null)
@@ -82,16 +107,29 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Control Management
-        private void UpdateControls()
+        /// <summary>
+        /// Clears <see cref="textBoxArgument"/> and <see cref="listBoxArguments"/>.
+        /// </summary>
+        private void ClearControl()
         {
-            ClearControls();
-            listBoxArguments.Items.AddRange(_arguments.ToArray());
-        }
-
-        private void ClearControls()
-        {
+            textBoxArgument.Text = string.Empty;
             listBoxArguments.Items.Clear();
         }
+        
+        private void UpdateControl()
+        {
+            listBoxArguments.Items.Clear();
+            listBoxArguments.Items.AddRange(_arguments.ToArray());
+        }
         #endregion
+
+        /// <summary>
+        /// Updates the control when invoked.
+        /// </summary>
+        /// <param name="value">Not used.</param>
+        private void CollectionChanged(object value)
+        {
+            UpdateControl();
+        }
     }
 }

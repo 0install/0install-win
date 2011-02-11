@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using C5;
 using Common.Controls;
 using ZeroInstall.Model;
 
@@ -24,8 +23,14 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
     public partial class CommandForm : OKCancelDialog
     {
         #region Properties
+        /// <summary>
+        /// The <see cref="Command"/> to edit by this form.
+        /// </summary>
         private Command _command = new Command();
 
+        /// <summary>
+        /// The <see cref="Command"/> to edit by this form.
+        /// </summary>
         public Command Command
         {
             get { return _command; }
@@ -38,6 +43,9 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Initialization
+        /// <summary>
+        /// Initializes the form.
+        /// </summary>
         public CommandForm()
         {
             InitializeComponent();
@@ -45,23 +53,29 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         #endregion
 
         #region Control management
+        /// <summary>
+        /// Clears all controls on the form.
+        /// </summary>
         private void ClearFormControls()
         {
             textBoxName.Text = string.Empty;
             textBoxPath.Text = string.Empty;
-            argumentsControl1.Arguments = null;
+            argumentsControl1.Arguments.Clear();
             checkBoxWorkingDir.Checked = false;
             hintTextBoxSource.Enabled = false;
             hintTextBoxSource.Text = string.Empty;
         }
 
+        /// <summary>
+        /// Enters the values of <see cref="_command"/> into the form controls. Controls for not setted values will be cleared.
+        /// </summary>
         private void UpdateControlForms()
         {
             ClearFormControls();
 
             textBoxName.Text = _command.Name;
             textBoxPath.Text = _command.Path;
-            argumentsControl1.Arguments = (ArrayList<string>) _command.Arguments.Clone();
+            argumentsControl1.Arguments.AddAll(_command.Arguments);
             if (_command.WorkingDir != null)
             {
                 checkBoxWorkingDir.Checked = true;
@@ -82,7 +96,12 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
         #endregion
 
-        #region
+        #region Dialog Buttons
+        /// <summary>
+        /// Saves the values from the controls to <see cref="_command"/>.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonOkClick(object sender, System.EventArgs e)
         {
             _command.Name = textBoxName.Text;
