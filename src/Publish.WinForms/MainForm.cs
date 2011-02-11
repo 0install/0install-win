@@ -146,15 +146,94 @@ namespace ZeroInstall.Publish.WinForms
 
             SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 
-            // ToDo: Add Command dialog
             SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, command => new CommandForm {Command = command}, element => element.Commands);
+            //SetupFeedStructureHooks<Command, Runner, Runner>(btnAddRunner, runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
             SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
             SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         /// <summary>
-        /// Configures event handlers to add, remove and modify elements visualized in <see cref="treeViewFeedStructure"/>.
+        /// Configures event handlers to add, remove and modify property elements visualized in <see cref="treeViewFeedStructure"/>.
+        /// </summary>
+        /// <typeparam name="TContainer">A type that contains <typeparamref name="TAbstractEntry"/> child elements.</typeparam>
+        /// <typeparam name="TAbstractEntry">The abstract super-type of <typeparamref name="TSpecialEntry"/>.</typeparam>
+        /// <typeparam name="TSpecialEntry">The specific entry type to hook up for handling</typeparam>
+        /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
+        /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
+        /// <param name="getPointer">A delegate describing how to get a pointer to read/write the value to be modified.</param>
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+            where TContainer : class
+            where TAbstractEntry : class, ICloneable
+            where TSpecialEntry : class, TAbstractEntry, new()
+        {
+            #region Sanity checks
+            if (addButton == null) throw new ArgumentNullException("addButton");
+            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
+            if (getPointer == null) throw new ArgumentNullException("getPointer");
+            #endregion
+
+            #region Add button
+            addButton.Click += delegate
+            {
+                var container = SelectedFeedStructureElement as TContainer;
+                if (container != null)
+                {
+                    // Set the value in the container
+                    _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
+                    FillFeedTab();
+                }
+            };
+
+            UpdateStructureButtons += delegate
+            {
+                var container = SelectedFeedStructureElement as TContainer;
+
+                // Only enable add button if correct parent type is selected and there isn't already an element in place
+                addButton.Enabled = (container != null && getPointer(container).Value == null);
+            };
+            #endregion
+
+            #region Edit dialog
+            treeViewFeedStructure.DoubleClick += delegate
+            {
+                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                var parent = SelectedFeedStructureElementParent as TContainer;
+                if (entry != null && parent != null)
+                {
+                    // Clone entry for undoable modification
+                    var clonedEntry = (TSpecialEntry)entry.Clone();
+
+                    using (var dialog = getEditDialog(clonedEntry))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), clonedEntry));
+
+                            FillFeedTab();
+                        }
+                    }
+                }
+            };
+            #endregion
+
+            #region Remove button
+            btnRemoveFeedStructureObject.Click += delegate
+            {
+                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                var parent = SelectedFeedStructureElementParent as TContainer;
+                if (entry != null && parent != null)
+                {
+                    // Remove by setting value to null
+                    _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), null));
+                    FillFeedTab();
+                }
+            };
+            #endregion
+        }
+
+        /// <summary>
+        /// Configures event handlers to add, remove and modify collection elements visualized in <see cref="treeViewFeedStructure"/>.
         /// </summary>
         /// <typeparam name="TContainer">A type that contains <typeparamref name="TAbstractEntry"/> child elements.</typeparam>
         /// <typeparam name="TAbstractEntry">The abstract super-type of <typeparamref name="TSpecialEntry"/>.</typeparam>
@@ -164,67 +243,85 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s in a <typeparamref name="TContainer"/>.</param>
         private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
-            where TAbstractEntry : ICloneable
+            where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
         {
-            // Hook up creation buttons
+            #region Sanity checks
+            if (addButton == null) throw new ArgumentNullException("addButton");
+            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
+            if (getList == null) throw new ArgumentNullException("getList");
+            #endregion
+
+            #region Add button
             addButton.Click += delegate
             {
-                if (treeViewFeedStructure.SelectedNode == null) return;
                 var container = SelectedFeedStructureElement as TContainer;
                 if (container != null)
                 {
+                    // Add a new entry to the container
                     _feedEditing.ExecuteCommand(new AddToCollection<TAbstractEntry>(getList(container), new TSpecialEntry()));
                     FillFeedTab();
                 }
             };
+
+            // Only enable add button if correct parent type is selected
             UpdateStructureButtons += () => addButton.Enabled = SelectedFeedStructureElement is TContainer;
+            #endregion
 
-            // Hook up edit dialogs to TreeView
-            if (getEditDialog != null)
+            #region Edit dialog
+            treeViewFeedStructure.DoubleClick += delegate
             {
-                treeViewFeedStructure.DoubleClick += delegate
+                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                var parent = SelectedFeedStructureElementParent as TContainer;
+                if (entry != null && parent != null)
                 {
-                    var entry = SelectedFeedStructureElement as TSpecialEntry;
-                    var parent = SelectedFeedStructureElementParent as TContainer;
-                    if (entry != null && parent != null)
-                    {
-                        // Clone entry for undoable modification
-                        var clonedEntry = (TSpecialEntry)entry.Clone();
+                    // Clone entry for undoable modification
+                    var clonedEntry = (TSpecialEntry)entry.Clone();
 
-                        using (var dialog = getEditDialog(clonedEntry))
+                    using (var dialog = getEditDialog(clonedEntry))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
                         {
-                            if (dialog.ShowDialog() == DialogResult.OK)
-                            {
-                                var commandList = new List<IUndoCommand>(3)
+                            // Prepare a list of 1 to 3 commands to be executed as a single transaction
+                            var commandList = new List<IUndoCommand>(3)
                             {
                                 // Replace original entry with cloned and modified one
                                 new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
                             };
 
-                                // Update manifest digest
-                                var digestProvider = dialog as IDigestProvider;
-                                var digestContainer = parent as ImplementationBase;
-                                if (digestProvider != null && digestContainer != null)
+                            #region Update manifest digest
+                            var digestProvider = dialog as IDigestProvider;
+                            var implementation = parent as ImplementationBase;
+                            if (digestProvider != null && implementation != null)
+                            {
+                                // ToDo: Warn when changing an existing digest
+
+                                // Set the ManifestDigest entry
+                                commandList.Add(new SetValueCommand<ManifestDigest>(
+                                    new PropertyPointer<ManifestDigest>(() => implementation.ManifestDigest, newValue => implementation.ManifestDigest = newValue),
+                                    digestProvider.ManifestDigest));
+
+                                // Set the implementation ID unless its already something custom
+                                if (string.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1=new"))
                                 {
-                                    // ToDo: Warn when changing an existing digest
-
-                                    commandList.Add(new SetValueCommand<ManifestDigest>(digestProvider.ManifestDigest, () => digestContainer.ManifestDigest, newDigest => digestContainer.ManifestDigest = newDigest));
-                                    if (string.IsNullOrEmpty(digestContainer.ID))
-                                        commandList.Add(new SetValueCommand<string>("sha1new=" + digestProvider.ManifestDigest.Sha1New, () => digestContainer.ID, newID => digestContainer.ID = newID));
+                                    commandList.Add(new SetValueCommand<string>(
+                                        new PropertyPointer<string>(() => implementation.ID, newValue => implementation.ID = newValue),
+                                        "sha1new=" + digestProvider.ManifestDigest.Sha1New));
                                 }
-
-                                // Execute all commands in a single transaction
-                                _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
-
-                                FillFeedTab();
                             }
+                            #endregion
+
+                            // Execute the transaction
+                            _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+
+                            FillFeedTab();
                         }
                     }
-                };
-            }
+                }
+            };
+            #endregion
 
-            // Hook up remove button
+            #region Remove button
             btnRemoveFeedStructureObject.Click += delegate
             {
                 var entry = SelectedFeedStructureElement as TSpecialEntry;
@@ -235,6 +332,7 @@ namespace ZeroInstall.Publish.WinForms
                     FillFeedTab();
                 }
             };
+            #endregion
         }
 
         private void InitializeComboBoxMinInjectorVersion()
@@ -278,15 +376,15 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeCommandHooks()
         {
-            SetupCommandHooks(textName, () => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value);
+            SetupCommandHooks(textName, new PropertyPointer<string>(() => _feedEditing.Feed.Name, value => _feedEditing.Feed.Name = value));
             SetupCommandHooks(checkedListBoxCategories, () => _feedEditing.Feed.Categories);
-            SetupCommandHooks(textInterfaceUri, () => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value);
-            SetupCommandHooks(textHomepage, () => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value);
+            SetupCommandHooks(textInterfaceUri, new PropertyPointer<Uri>(() => _feedEditing.Feed.Uri, value => _feedEditing.Feed.Uri = value));
+            SetupCommandHooks(textHomepage, new PropertyPointer<Uri>(() => _feedEditing.Feed.Homepage, value => _feedEditing.Feed.Homepage = value));
             SetupCommandHooks(summariesControl, () => _feedEditing.Feed.Summaries);
             SetupCommandHooks(descriptionControl, () => _feedEditing.Feed.Descriptions);
-            SetupCommandHooks(checkBoxNeedsTerminal, () => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value);
+            SetupCommandHooks(checkBoxNeedsTerminal, new PropertyPointer<bool>(() => _feedEditing.Feed.NeedsTerminal, value => _feedEditing.Feed.NeedsTerminal = value));
             SetupCommandHooks(iconManagementControl, () => _feedEditing.Feed.Icons);
-            SetupCommandHooks(comboBoxMinInjectorVersion, () => _feedEditing.Feed.MinInjectorVersionString, value => _feedEditing.Feed.MinInjectorVersionString = value);
+            SetupCommandHooks(comboBoxMinInjectorVersion, new PropertyPointer<string>(() => _feedEditing.Feed.MinInjectorVersionString, value => _feedEditing.Feed.MinInjectorVersionString = value));
         }
 
         /// <summary>
@@ -315,15 +413,14 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="UriTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(UriTextBox textBox, SimpleResult<Uri> getValue, Action<Uri> setValue)
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
+        private void SetupCommandHooks(UriTextBox textBox, PropertyPointer<Uri> pointer)
         {
             // Transfer data from the feed to the TextBox when refreshing
             Populate += delegate
             {
                 textBox.CausesValidation = false;
-                textBox.Uri = getValue();
+                textBox.Uri = pointer.Value;
                 textBox.CausesValidation = true;
             };
 
@@ -334,20 +431,20 @@ namespace ZeroInstall.Publish.WinForms
                 if (e.Cancel) return;
 
                 // Ignore irrelevant changes
-                if (textBox.Uri == getValue()) return;
+                if (textBox.Uri == pointer.Value) return;
 
-                _feedEditing.ExecuteCommand(new SetValueCommand<Uri>(textBox.Uri, getValue, setValue));
+                _feedEditing.ExecuteCommand(new SetValueCommand<Uri>(pointer, textBox.Uri));
             };
 
             // Enable the undo button even before the command has been created
             textBox.KeyPress += delegate
             {
-                try { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); }
+                try { _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value); }
                 catch (UriFormatException) {}
             };
             textBox.ClearButtonClicked += delegate
             {
-                try { _feedEditing.UpdateButtonStatus(textBox.Uri != getValue()); }
+                try { _feedEditing.UpdateButtonStatus(textBox.Uri != pointer.Value); }
                 catch (UriFormatException) {}
             };
         }
@@ -356,29 +453,27 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="HintTextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(HintTextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
+        private void SetupCommandHooks(HintTextBox textBox, PropertyPointer<string> pointer)
         {
-            SetupCommandHooks((TextBox)textBox, getValue, setValue);
+            SetupCommandHooks((TextBox)textBox, pointer);
 
             // Enable the undo button even before the command has been created
-            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, getValue())); };
+            textBox.ClearButtonClicked += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)); };
         }
 
         /// <summary>
         /// Hooks up a <see cref="TextBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="textBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(TextBox textBox, SimpleResult<string> getValue, Action<string> setValue)
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
+        private void SetupCommandHooks(TextBox textBox, PropertyPointer<string> pointer)
         {
             // Transfer data from the feed to the TextBox when refreshing
             Populate += delegate
             {
                 textBox.CausesValidation = false;
-                textBox.Text = getValue();
+                textBox.Text = pointer.Value;
                 textBox.CausesValidation = true;
             };
 
@@ -389,28 +484,27 @@ namespace ZeroInstall.Publish.WinForms
                 if (e.Cancel) return;
 
                 // Ignore irrelevant changes
-                if (StringUtils.CompareEmptyNull(textBox.Text, getValue())) return;
+                if (StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)) return;
 
-                _feedEditing.ExecuteCommand(new SetValueCommand<string>(textBox.Text, getValue, setValue));
+                _feedEditing.ExecuteCommand(new SetValueCommand<string>(pointer, textBox.Text));
             };
 
             // Enable the undo button even before the command has been created
-            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, getValue())); };
+            textBox.KeyPress += delegate { _feedEditing.UpdateButtonStatus(StringUtils.CompareEmptyNull(textBox.Text, pointer.Value)); };
         }
 
         /// <summary>
         /// Hooks up a <see cref="CheckBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="checkBox">The <see cref="TextBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(CheckBox checkBox, SimpleResult<bool> getValue, Action<bool> setValue)
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
+        private void SetupCommandHooks(CheckBox checkBox, PropertyPointer<bool> pointer)
         {
             // Transfer data from the feed to the CheckBox when refreshing
             Populate += delegate
             {
                 checkBox.CausesValidation = false;
-                checkBox.Checked = getValue();
+                checkBox.Checked = pointer.Value;
                 checkBox.CausesValidation = true;
             };
 
@@ -421,9 +515,9 @@ namespace ZeroInstall.Publish.WinForms
                 if (e.Cancel) return;
 
                 // Ignore irrelevant changes
-                if (checkBox.Checked == getValue()) return;
+                if (checkBox.Checked == pointer.Value) return;
 
-                _feedEditing.ExecuteCommand(new SetValueCommand<bool>(checkBox.Checked, getValue, setValue));
+                _feedEditing.ExecuteCommand(new SetValueCommand<bool>(pointer, checkBox.Checked));
             };
         }
 
@@ -467,14 +561,13 @@ namespace ZeroInstall.Publish.WinForms
         /// Hooks up a <see cref="ComboBox"/> for automatic synchronization with the <see cref="Feed"/> via command objects.
         /// </summary>
         /// <param name="comboBox">The <see cref="ComboBox"/> to track for input and to update.</param>
-        /// <param name="getValue">A delegate that reads the corresponding value from the <see cref="Feed"/>.</param>
-        /// <param name="setValue">A delegate that sets the corresponding value in the <see cref="Feed"/>.</param>
-        private void SetupCommandHooks(ComboBox comboBox, SimpleResult<string> getValue, Action<string> setValue)
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
+        private void SetupCommandHooks(ComboBox comboBox, PropertyPointer<string> pointer)
         {
             Populate += delegate
             {
                 comboBox.CausesValidation = false;
-                comboBox.SelectedItem = getValue() ?? string.Empty;
+                comboBox.SelectedItem = pointer.Value ?? string.Empty;
                 comboBox.CausesValidation = true;
             };
 
@@ -486,9 +579,9 @@ namespace ZeroInstall.Publish.WinForms
                 string selectedValue = (comboBox.SelectedItem ?? "").ToString();
                 if (selectedValue == "") selectedValue = null;
 
-                if (selectedValue == getValue()) return;
+                if (selectedValue == pointer.Value) return;
 
-                _feedEditing.ExecuteCommand(new SetValueCommand<string>(selectedValue, getValue, setValue));
+                _feedEditing.ExecuteCommand(new SetValueCommand<string>(pointer, selectedValue));
             };
 
         }

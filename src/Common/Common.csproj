@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ExceptionInformation.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="PropertyPointer.cs" />
     <Compile Include="TimedLogEvent.cs" />
     <Compile Include="Msg.cs" />
     <Compile Include="UpdateHelper.cs" />

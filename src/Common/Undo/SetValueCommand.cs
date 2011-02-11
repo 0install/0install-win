@@ -31,29 +31,25 @@ namespace Common.Undo
     public class SetValueCommand<T> : SimpleCommand
     {
         #region Variables
+        private readonly PropertyPointer<T> _pointer;
         private readonly T _newValue;
         private T _oldValue;
-        private readonly SimpleResult<T> _getValue;
-        private readonly Action<T> _setValue;
         #endregion
 
         #region Constructor
         /// <summary>
         /// Creates a new value-setting command.
         /// </summary>
+        /// <param name="pointer">The object controlling how to read/write the value to be modified.</param>
         /// <param name="newValue">The new value to be set</param>
-        /// <param name="getValue">A delegate that returns the current value from the model.</param>
-        /// <param name="setValue">A delegate that changes the value in the model.</param>
-        public SetValueCommand(T newValue, SimpleResult<T> getValue, Action<T> setValue)
+        public SetValueCommand(PropertyPointer<T> pointer, T newValue)
         {
             #region Sanity checks
-            if (getValue == null) throw new ArgumentNullException("getValue");
-            if (setValue == null) throw new ArgumentNullException("setValue");
+            if (pointer == null) throw new ArgumentNullException("pointer");
             #endregion
 
             _newValue = newValue;
-            _getValue = getValue;
-            _setValue = setValue;
+            _pointer = pointer;
         }
         #endregion
 
@@ -65,8 +61,8 @@ namespace Common.Undo
         /// </summary>
         protected override void OnExecute()
         {
-            _oldValue = _getValue();
-            _setValue(_newValue);
+            _oldValue = _pointer.Value;
+            _pointer.Value = _newValue;
         }
 
         /// <summary>
@@ -74,7 +70,7 @@ namespace Common.Undo
         /// </summary>
         protected override void OnUndo()
         {
-            _setValue(_oldValue);
+            _pointer.Value = _oldValue;
         }
         #endregion
     }
