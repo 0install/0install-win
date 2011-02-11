@@ -546,10 +546,7 @@ namespace ZeroInstall.Publish.WinForms
                 checkedListBox.ItemCheck -= itemCheckEventHandler;
                 for(int i = 0; i < checkedListBox.Items.Count; i++)
                 {
-                    if(getCollection().Contains(checkedListBox.Items[i].ToString()))
-                    {
-                        checkedListBox.SetItemChecked(i, true);
-                    }
+                    checkedListBox.SetItemChecked(i, getCollection().Contains(checkedListBox.Items[i].ToString()));
                 }
                 checkedListBox.ItemCheck += itemCheckEventHandler;
             };
