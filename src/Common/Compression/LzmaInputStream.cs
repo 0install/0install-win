@@ -78,7 +78,7 @@ namespace Common.Compression
 
             _baseStream = baseStream;
 
-             var decoder = new Decoder();
+            var decoder = new Decoder();
 
             // Read LZMA header
             if (baseStream.CanSeek) baseStream.Position = 0;

@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands.WinForms
             // Close any windows that may still be open
             CloseAsync();
 
-            Msg.Inform(this, title + "\n" + information, MsgSeverity.Info);
+            Msg.Inform(null, title + "\n" + information, MsgSeverity.Info);
         }
 
         /// <inheritdoc />

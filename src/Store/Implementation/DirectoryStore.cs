@@ -353,7 +353,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // ToDo: Implemenet
+            // ToDo: Implement
         }
         #endregion
 

@@ -46,7 +46,7 @@ namespace ZeroInstall.Model
         {
             get
             {
-                // ToDo: Get from OS
+                // ToDo: PackageKit integration
                 return null;
             }
             set {}
@@ -60,7 +60,7 @@ namespace ZeroInstall.Model
         {
             get
             {
-                // ToDo: Get from OS
+                // ToDo: PackageKit integration
                 return new DateTime();
             }
             set {}
