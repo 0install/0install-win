@@ -44,11 +44,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.labelSubDirectory = new System.Windows.Forms.Label();
             this.treeViewSubDirectory = new System.Windows.Forms.TreeView();
             this.buttonExtractArchive = new System.Windows.Forms.Button();
-            this.folderBrowserDialogDownloadPath = new System.Windows.Forms.FolderBrowserDialog();
             this.openFileDialogLocalArchive = new System.Windows.Forms.OpenFileDialog();
             this.hintTextBoxLocalArchive = new Common.Controls.HintTextBox();
             this.hintTextBoxStartOffset = new Common.Controls.HintTextBox();
             this.uriTextBoxArchiveUrl = new Common.Controls.UriTextBox();
+            this.saveFileDialogDownloadFile = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // labelArchiveFormat
@@ -169,11 +169,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.buttonExtractArchive.UseVisualStyleBackColor = true;
             this.buttonExtractArchive.Click += new System.EventHandler(this.ButtonExtractArchiveClick);
             // 
-            // folderBrowserDialogDownloadPath
-            // 
-            this.folderBrowserDialogDownloadPath.Description = "Select directory to download the archive into";
-            this.folderBrowserDialogDownloadPath.RootFolder = System.Environment.SpecialFolder.Desktop;
-            // 
             // openFileDialogLocalArchive
             // 
             this.openFileDialogLocalArchive.Title = "Choose local archive";
@@ -202,6 +197,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // 
             // uriTextBoxArchiveUrl
             // 
+            this.uriTextBoxArchiveUrl.AllowDrop = true;
             this.uriTextBoxArchiveUrl.ForeColor = System.Drawing.Color.Red;
             this.uriTextBoxArchiveUrl.HintText = "";
             this.uriTextBoxArchiveUrl.HttpOnly = true;
@@ -251,8 +247,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private System.Windows.Forms.Label labelSubDirectory;
         private System.Windows.Forms.TreeView treeViewSubDirectory;
         private System.Windows.Forms.Button buttonExtractArchive;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialogDownloadPath;
         private System.Windows.Forms.OpenFileDialog openFileDialogLocalArchive;
         private Common.Controls.UriTextBox uriTextBoxArchiveUrl;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogDownloadFile;
     }
 }

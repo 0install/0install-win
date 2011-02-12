@@ -236,32 +236,32 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void ButtonDownloadClick(object sender, EventArgs e)
         {
             var url = uriTextBoxArchiveUrl.Uri;
-
             if (url == null) return;
 
             // show dialog to choose download folder
-            if (folderBrowserDialogDownloadPath.ShowDialog() == DialogResult.Cancel) return;
-            string fileName = url.Segments[url.Segments.Length - 1];
-            string absoluteFilePath = Path.Combine(folderBrowserDialogDownloadPath.SelectedPath, fileName);
+            string absoluteFilePath = ShowSaveFileDialog(url.Segments[url.Segments.Length - 1]);
+            if (absoluteFilePath == null) return;
 
-            if (!SetArchiveMimeType(fileName)) return;
+            if (!SetArchiveMimeType(absoluteFilePath)) return;
 
             try { TrackingDialog.Run(this, new DownloadFile(url, absoluteFilePath), null); }
             #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                SetArchiveUrlChosenState();
+                return;
+            }
             catch (UserCancelException)
             {
+                File.Delete(absoluteFilePath);
                 SetArchiveUrlChosenState();
                 return;
             }
             catch (WebException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);
-                SetArchiveUrlChosenState();
-                return;
-            }
-            catch (IOException ex)
-            {
-                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                File.Delete(absoluteFilePath);
                 SetArchiveUrlChosenState();
                 return;
             }
@@ -269,6 +269,30 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             hintTextBoxLocalArchive.Text = absoluteFilePath;
             SetArchiveDownloadedState();
+        }
+
+        /// <summary>
+        /// Shows the <see cref="saveFileDialogDownloadFile"/> with <paramref name="fileName"/> as presetted file name.
+        /// If the file allready exists it will be removed.
+        /// </summary>
+        /// <param name="fileName">The presetted file name.</param>
+        /// <returns>The chosen file path or null when the user cancels the dialog.</returns>
+        private string ShowSaveFileDialog(string fileName)
+        {
+            saveFileDialogDownloadFile.FileName = fileName;
+            if (saveFileDialogDownloadFile.ShowDialog() == DialogResult.Cancel) return null;
+            string chosenFilePath = saveFileDialogDownloadFile.FileName;
+            try
+            {
+                if (File.Exists(chosenFilePath))
+                    File.Delete(chosenFilePath);
+            }
+            catch (IOException exception)
+            {
+                Msg.Inform(this, exception.Message, MsgSeverity.Error);
+                return null;
+            }
+            return chosenFilePath;
         }
 
         /// <summary>
