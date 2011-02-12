@@ -70,6 +70,7 @@
     <Compile Include="Utils\PackageBuilder.cs" />
     <Compile Include="Streams\StreamUtilsTest.cs" />
     <Compile Include="Streams\OffsetStreamTest.cs" />
+    <Compile Include="Streams\CircularBufferStreamTest.cs" />
     <Compile Include="Storage\XmlStorageTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

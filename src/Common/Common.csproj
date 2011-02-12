@@ -78,7 +78,7 @@
     <Compile Include="TaskBase.cs" />
     <Compile Include="SimpleTask.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
-    <Compile Include="Compression\LzmaInputStream.cs" />
+    <Compile Include="Compression\LzmaUtils.cs" />
     <Compile Include="Net\DownloadManager.cs" />
     <Compile Include="Net\DownloadJob.cs" />
     <Compile Include="Net\DownloadFile.cs" />
@@ -100,8 +100,9 @@
     <Compile Include="Collections\XmlDictionaryEntry.cs" />
     <Compile Include="Collections\LocalizableStringCollection.cs" />
     <Compile Include="Collections\LocalizableString.cs" />
-    <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\StreamUtils.cs" />
+    <Compile Include="Streams\OffsetStream.cs" />
+    <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Utils\AppMutex.cs" />
     <Compile Include="Utils\NanoGrid.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
