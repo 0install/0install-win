@@ -36,6 +36,9 @@ namespace Common.Streams
         /// <summary>The byte array used as a circular buffer storage.</summary>
         private readonly byte[] _buffer;
 
+        /// <summary>Synchronization object used to synchronize access to <see cref="_buffer"/>.</summary>
+        private readonly object _bufferLock = new object();
+
         /// <summary>The index of the first byte currently store in the <see cref="_buffer"/>.</summary>
         private volatile int _dataStart;
         
@@ -45,7 +48,10 @@ namespace Common.Streams
         /// <summary>Indicates that the producer end has finished and no new data will be added.</summary>
         private volatile bool _doneWriting;
 
+        /// <summary>A barrier that blocks threads until new data is available in the <see cref="_buffer"/>.</summary>
         private readonly EventWaitHandle _dataAvailable = new EventWaitHandle(false, EventResetMode.ManualReset);
+
+        /// <summary>A barrier that blocks threads until empty space is available in the <see cref="_buffer"/>.</summary>
         private readonly EventWaitHandle _spaceAvailable = new EventWaitHandle(true, EventResetMode.ManualReset);
         #endregion
 
@@ -122,7 +128,7 @@ namespace Common.Streams
                 // Block while buffer is empty
                 _dataAvailable.WaitOne();
 
-                lock (_buffer)
+                lock (_bufferLock)
                 {
                     // The index of the last byte currently stored in the buffer plus one
                     int dataEnd = (_dataStart + _dataLength) % _buffer.Length;
@@ -180,7 +186,7 @@ namespace Common.Streams
                 // Block while buffer is full
                 _spaceAvailable.WaitOne();
                 
-                lock (_buffer)
+                lock (_bufferLock)
                 {
                     // The index of the last byte currently stored in the buffer plus one
                     int dataEnd = (_dataStart + _dataLength) % _buffer.Length;
@@ -255,8 +261,16 @@ namespace Common.Streams
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            IsDisposed = true;
-            base.Dispose(disposing);
+            try
+            {
+                _dataAvailable.Close();
+                _spaceAvailable.Close();
+            }
+            finally
+            {
+                IsDisposed = true;
+                base.Dispose(disposing);
+            }
         }
         #endregion
     }
