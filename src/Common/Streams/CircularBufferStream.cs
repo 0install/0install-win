@@ -78,13 +78,13 @@ namespace Common.Streams
 
         private long _positionWrite;
         /// <summary>
-        /// The estimated number of bytes that will run through this buffer in total; -1 for unknown.
+        /// Indicates how many bytes have been written to this buffer so far in total.
         /// </summary>
         public long PositionWrite { get { return _positionWrite; } }
 
         private long _length = -1;
         /// <summary>
-        /// The maximum number of bytes that can be <see cref="Read"/> from this stream in total; -1 for no limit.
+        /// The estimated number of bytes that will run through this buffer in total; -1 for unknown.
         /// </summary>
         public override long Length { get { return _length; } }
 
