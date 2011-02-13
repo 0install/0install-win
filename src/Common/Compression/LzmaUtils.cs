@@ -80,6 +80,7 @@ namespace Common.Compression
                     uncompressedLength |= ((long)(byte)v) << (8 * i);
                 }
             }
+            bufferStream.SetLength(uncompressedLength);
 
             // Initialize the producer thread that will deliver uncompressed data
             var thread = new Thread(delegate()

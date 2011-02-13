@@ -67,7 +67,7 @@ namespace Common.Cli
         }
 
         /// <summary>
-        /// Changes the value of the progress bar depending on the already processed bytes.
+        /// Changes the value of the progress bar depending on the number of already processed bytes.
         /// </summary>
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(ITask sender)

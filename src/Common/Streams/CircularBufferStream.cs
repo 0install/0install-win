@@ -30,11 +30,6 @@ namespace Common.Streams
     /// <summary>
     /// A circular buffer represented as a thread-safe stream that producers can write to and consumers can read from simultaneously.
     /// </summary>
-    /// <remarks>
-    /// Invariants:
-    /// <see cref="Length"/> smaller or equal <see cref="BufferSize"/>,
-    /// <see cref="PositionWrite"/> - <see cref="Position"/> equals <see cref="Length"/>
-    /// </remarks>
     public sealed class CircularBufferStream : Stream
     {
         #region Variables
@@ -45,7 +40,7 @@ namespace Common.Streams
         private volatile int _dataStart;
         
         /// <summary>The number of bytes currently stored in the <see cref="_buffer"/>.</summary>
-        private volatile int _dataLength;
+        private volatile int _dataLength; // Invariant: _positionWrite - _positionRead <= _dataLength <= _buffer.Length
 
         /// <summary>Indicates that the producer end has finished and no new data will be added.</summary>
         private volatile bool _doneWriting;
@@ -71,23 +66,24 @@ namespace Common.Streams
 
         private long _positionRead;
         /// <summary>
-        /// Indicates how many bytes have been read from this buffer so far.
+        /// Indicates how many bytes have been read from this buffer so far in total.
         /// </summary>
         public override long Position { get { return _positionRead; } set { throw new NotSupportedException(); } }
 
         private long _positionWrite;
         /// <summary>
-        /// Indicates how many bytes have been read from this buffer so far.
+        /// The estimated number of bytes that will run through this buffer in total; -1 for unknown.
         /// </summary>
         public long PositionWrite { get { return _positionWrite; } }
 
+        private long _length = -1;
         /// <summary>
-        /// Returns the number of bytes currently stored in the buffer.
+        /// The maximum number of bytes that can be <see cref="Read"/> from this stream in total; -1 for no limit.
         /// </summary>
-        public override long Length { get { return _dataLength; } }
+        public override long Length { get { return _length; } }
 
         /// <summary>
-        /// Indicates that this stream has been <see cref="Stream.Dispose"/>d or <see cref="Stream.Close"/>d.
+        /// Indicates that this stream has been closed.
         /// </summary>
         public bool IsDisposed { get; private set; }
         #endregion
@@ -231,15 +227,19 @@ namespace Common.Streams
         }
         #endregion
 
+        #region Set length
+        /// <summary>
+        /// Sets the estimated number of bytes that will run through this buffer in total; -1 for unknown.
+        /// </summary>
+        public override void SetLength(long value)
+        {
+            _length = value;
+        }
+        #endregion
+
         #region Unsupported operations
         /// <inheritdoc/>
         public override long Seek(long offset, SeekOrigin origin)
-        {
-            throw new NotSupportedException();
-        }
-
-        /// <inheritdoc/>
-        public override void SetLength(long value)
         {
             throw new NotSupportedException();
         }
