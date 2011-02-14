@@ -20,8 +20,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
 using System.Xml.Serialization;
 using Common.Storage;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -66,12 +68,31 @@ namespace ZeroInstall.Injector.Solver
 
         //--------------------//
 
+        #region Human readable
+        /// <summary>
+        /// Generates a human-readable representation of the implementation selection hierachy.
+        /// </summary>
+        /// <param name="store">The store to search for implementations.</param>
+        public string GetHumanReadable(IStore store)
+        {
+            var builder = new StringBuilder();
+
+            // ToDo: Use recursion to handle nesting
+            for (int i = Implementations.Count - 1; i >= 0; i--)
+            {
+                builder.AppendLine(string.Format("- URI: {0}\n  Version: {1}\n  Path: {2}",
+                    Implementations[i].InterfaceID, Implementations[i].Version, Implementations[i].GetPath(store) ?? Resources.NotCached));
+            }
+            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
+        }
+        #endregion
+
         #region Query
         /// <summary>
         /// Returns the <see cref="ImplementationSelection"/> for a specific interface.
         /// </summary>
         /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
-        /// <returns>The identified <see cref="ImplementationBase"/>.</returns>
+        /// <returns>The identified <see cref="ImplementationSelection"/>.</returns>
         /// <exception cref="KeyNotFoundException">Thrown if no <see cref="ImplementationSelection"/> matching <paramref name="interfaceID"/> was found in <see cref="Implementations"/>.</exception>
         public ImplementationSelection GetImplementation(string interfaceID)
         {
@@ -81,11 +102,25 @@ namespace ZeroInstall.Injector.Solver
             }
             throw new KeyNotFoundException();
         }
+
+        /// <summary>
+        /// Determines whether an <see cref="ImplementationSelection"/> for a specific interface is listed in the selection.
+        /// </summary>
+        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <returns><see langword="true"/> if an implementation was found; <see langword="false"/> otherwise.</returns>
+        public bool ContainsImplementation(string interfaceID)
+        {
+            foreach (var implementation in _implementations)
+            {
+                if (implementation.InterfaceID == interfaceID) return true;
+            }
+            return false;
+        }
         #endregion
 
         #region Implementations
         /// <summary>
-        /// Returns a list of any selected <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
+        /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
         /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>

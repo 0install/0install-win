@@ -231,9 +231,12 @@ However, new downloads will not be written to this directory.</value>
 	<data name="CommandLineArguments" xml:space="preserve">
 		<value>Command-line arguments:</value>
 	</data>
-  <data name="SelectedComponents" xml:space="preserve">
-		<value>Selected components:</value>
-	</data>
+  <data name="VersionInformation" xml:space="preserve">
+    <value>Version information:</value>
+  </data>
+  <data name="SelectedImplementations"  xml:space="preserve">
+    <value>Selected implementations:</value>
+  </data>
 	<data name="FoundFeeds" xml:space="preserve">
 		<value>Found feeds:</value>
 	</data>
@@ -242,5 +245,18 @@ However, new downloads will not be written to this directory.</value>
 	</data>
 	<data name="AllComponentsDownloaded" xml:space="preserve">
 		<value>All required components have been downloaded.</value>
+	</data>
+  <data name="ChangesFound" xml:space="preserve">
+    <value>Changes found:</value>
+  </data>
+  <data name="NoLongerUsed" xml:space="preserve">
+    <value>No longer used: </value>
+  </data>
+  <data name="NoUpdatesFound" xml:space="preserve">
+    <value>No updates found</value>
+  </data>
+	<data name="LicenseInfo">
+		<value><![CDATA[This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of this program under the terms of the GNU Lesser General Public License.]]></value>
 	</data>
 </root>

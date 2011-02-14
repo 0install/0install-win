@@ -118,6 +118,11 @@ namespace ZeroInstall.Commands
                 handler.Inform(Resources.CommandLineArguments, HelpText);
                 InfoShown = true;
             });
+            Options.Add("V|version", Resources.OptionVersion, unused =>
+            {
+                handler.Inform(Resources.VersionInformation, ApplicationInfo.Name + " " + ApplicationInfo.Version + "\n" + ApplicationInfo.Copyright + "\n" + Resources.LicenseInfo);
+                InfoShown = true;
+            });
 
             Options.Add("with-store=", Resources.OptionWithStore, path => Policy.AdditionalStore = new DirectoryStore(path));
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Preferences.NetworkLevel = NetworkLevel.Offline);

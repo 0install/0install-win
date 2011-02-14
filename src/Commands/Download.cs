@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.Text;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
@@ -70,17 +69,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
             ExecuteHelper();
 
-            if (_show)
-            {
-                // Build a list of all implementation paths
-                var builder = new StringBuilder();
-                foreach (var implementation in Selections.Implementations)
-                    builder.AppendLine(Policy.SearchStore.GetPath(implementation.ManifestDigest));
-                builder.Remove(builder.Length - 1, 1); // Remove trailing line-break
-                Handler.Inform(Resources.SelectedComponents, builder.ToString());
-            }
+            if (_show) Handler.Inform(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
             else Handler.Inform(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
-
             return 0;
         }
         #endregion

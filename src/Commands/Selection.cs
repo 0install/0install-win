@@ -99,7 +99,7 @@ namespace ZeroInstall.Commands
                     Selections = Selections.Load(feedID);
                     Requirements.InterfaceID = Selections.InterfaceID;
                 }
-                catch(Exception)
+                catch (InvalidOperationException)
                 { // If that fails assume it is an interface
                     Requirements.InterfaceID = Path.GetFullPath(feedID);
                 }
@@ -127,14 +127,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
             ExecuteHelper();
 
-            if (_xml)
-            {
-                Handler.Inform("Selections:", Selections.WriteToString());
-            }
-            else
-            {
-                // ToDo: Human readable output
-            }
+            if (_xml) Handler.Inform("Selections XML:", Selections.WriteToString());
+            else Handler.Inform(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
             return 0;
         }
         #endregion

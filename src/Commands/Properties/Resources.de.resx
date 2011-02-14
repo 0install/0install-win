@@ -126,16 +126,28 @@
 	<data name="CommandLineArguments" xml:space="preserve">
 		<value>Befehlszeilenargumente</value>
 	</data>
+  <data name="VersionInformation" xml:space="preserve">
+    <value>Versionsinformationen:</value>
+  </data>
 	<data name="FoundFeeds" xml:space="preserve">
 		<value>Gefundene feeds:</value>
 	</data>
-	<data name="SelectedComponents" xml:space="preserve">
-		<value>Ausgewählte Komponenten:</value>
-	</data>
+  <data name="SelectedImplementations"  xml:space="preserve">
+    <value>Ausgewählte Implementierungen:</value>
+  </data>
 	<data name="DownloadComplete" xml:space="preserve">
 		<value>Download abgeschlossen</value>
 	</data>
 	<data name="AllComponentsDownloaded" xml:space="preserve">
 		<value>Alle benötigten Komponenten wurden runtergeladen.</value>
 	</data>
+	<data name="ChangesFound" xml:space="preserve">
+    <value>Gefundene Änderungen:</value>
+  </data>
+  <data name="NoLongerUsed" xml:space="preserve">
+    <value>Nicht mehr verwendet: </value>
+  </data>
+  <data name="NoUpdatesFound" xml:space="preserve">
+    <value>Keine Updates gefunden</value>
+  </data>
 </root>

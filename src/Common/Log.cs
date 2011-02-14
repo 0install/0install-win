@@ -24,7 +24,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using Common.Utils;
 
@@ -94,14 +93,6 @@ namespace Common
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Any kind of problems writing the log file should be ignored")]
         static Log()
         {
-            var assmebly = Assembly.GetEntryAssembly();
-            if (assmebly == null) return; // Don't log to disk when assembly is unknown
-            var assemblyInfo = assmebly.GetName();
-
-            // Try to determine assembly title, fall back to assembly name on failure
-            var assemblyTitleAttributes = Assembly.GetEntryAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-            string assemblyTitle = (assemblyTitleAttributes.Length > 0 ? ((AssemblyTitleAttribute)assemblyTitleAttributes[0]).Title : assemblyInfo.Name);
-            
             string filePath;
             switch (Environment.OSVersion.Platform)
             {
@@ -112,7 +103,7 @@ namespace Common
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(assemblyInfo.Name) + " Log.txt");
+                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(ApplicationInfo.Name) + " Log.txt");
                     break;
             }
 
@@ -138,7 +129,7 @@ namespace Common
 
             // Add session identification block to the file
             _fileWriter.WriteLine("");
-            _fileWriter.WriteLine("/// " + assemblyTitle + " v" + assemblyInfo.Version);
+            _fileWriter.WriteLine("/// " + ApplicationInfo.Name + " v" + ApplicationInfo.Version);
             _fileWriter.WriteLine("/// Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             _fileWriter.WriteLine("");
         }

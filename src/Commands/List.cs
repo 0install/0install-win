@@ -64,18 +64,25 @@ namespace ZeroInstall.Commands
 
             ExecuteHelper();
 
-            // Build a list of all feed cache entries
+            Handler.Inform(Resources.FoundFeeds, GetList(pattern));
+            return 0;
+        }
+
+        /// <summary>
+        /// Build a list of all feed cache entries.
+        /// </summary>
+        /// <param name="pattern">Only return feeds that contain this substring; <see langword="null"/> to return all.</param>
+        private string GetList(string pattern)
+        {
+
             var builder = new StringBuilder();
-	        var feeds = Policy.FeedManager.Cache.ListAll();
-	        foreach (Uri entry in feeds)
-	        {
+            var feeds = Policy.FeedManager.Cache.ListAll();
+            foreach (Uri entry in feeds)
+            {
                 if (pattern == null || entry.ToString().Contains(pattern))
                     builder.AppendLine(entry.ToString());
-	        }
-            builder.Remove(builder.Length - 1, 1); // Remove trailing line-break
-            Handler.Inform(Resources.FoundFeeds, builder.ToString());
-
-            return 0;
+            }
+            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
         }
         #endregion
     }

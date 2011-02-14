@@ -153,4 +153,7 @@
   <data name="MissingInterfaceID" xml:space="preserve">
     <value>Es wurde kein Interface angegeben.</value>
   </data>
+	<data name="NotCached" xml:space="preserve">
+		<value>(nicht gecached)</value>
+	</data>
 </root>

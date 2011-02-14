@@ -22,6 +22,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Xml.Serialization;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -31,7 +32,7 @@ namespace ZeroInstall.Injector.Solver
     /// <remarks>This class does not contain information on how to download the implementation in case it is not in cache. That must be obtained from a <see cref="Model.Implementation"/> instance.</remarks>
     /// <seealso cref="Selections.Implementations"/>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 types only need to be disposed when using snapshots")]
-    [XmlType("selection", Namespace = Model.Feed.XmlNamespace)]
+    [XmlType("selection", Namespace = Feed.XmlNamespace)]
     public sealed class ImplementationSelection : ImplementationBase, IEquatable<ImplementationSelection>
     {
         #region Constants
@@ -99,6 +100,28 @@ namespace ZeroInstall.Injector.Solver
 
                 // Replace list by parsing input string split by spaces
                 foreach (string distribution in value.Split(' ')) _distributions.Add(distribution);
+            }
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Store
+        /// <summary>
+        /// Tries to locate the implementation in an <see cref="IStore"/>.
+        /// </summary>
+        /// <param name="store">The store to search for the implementation.</param>
+        /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <see langword="null"/> if the implementation is not cached yet.</returns>
+        public string GetPath(IStore store)
+        {
+            if (ID.StartsWith("package:")) return "(" + ID + ")";
+            else
+            {
+                try { return store.GetPath(ManifestDigest); }
+                catch (ImplementationNotFoundException)
+                {
+                    return null;
+                }
             }
         }
         #endregion

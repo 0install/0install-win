@@ -153,4 +153,7 @@
   <data name="NoCommands" xml:space="preserve">
     <value>No commands in the selection.</value>
   </data>
+	<data name="NotCached" xml:space="preserve">
+		<value>(not cached)</value>
+	</data>
 </root>

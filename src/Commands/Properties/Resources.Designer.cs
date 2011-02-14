@@ -70,6 +70,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes found:.
+        /// </summary>
+        internal static string ChangesFound {
+            get {
+                return ResourceManager.GetString("ChangesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Command-line arguments:.
         /// </summary>
         internal static string CommandLineArguments {
@@ -187,6 +196,16 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+        ///You may redistribute copies of this program under the terms of the GNU Lesser General Public License..
+        /// </summary>
+        internal static string LicenseInfo {
+            get {
+                return ResourceManager.GetString("LicenseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Missing arguments..
         /// </summary>
         internal static string MissingArguments {
@@ -205,11 +224,29 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No longer used: .
+        /// </summary>
+        internal static string NoLongerUsed {
+            get {
+                return ResourceManager.GetString("NoLongerUsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {
             get {
                 return ResourceManager.GetString("NotParsed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No updates found.
+        /// </summary>
+        internal static string NoUpdatesFound {
+            get {
+                return ResourceManager.GetString("NoUpdatesFound", resourceCulture);
             }
         }
         
@@ -388,11 +425,11 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected components:.
+        ///   Looks up a localized string similar to Selected implementations:.
         /// </summary>
-        internal static string SelectedComponents {
+        internal static string SelectedImplementations {
             get {
-                return ResourceManager.GetString("SelectedComponents", resourceCulture);
+                return ResourceManager.GetString("SelectedImplementations", resourceCulture);
             }
         }
         
@@ -429,6 +466,15 @@ namespace ZeroInstall.Commands.Properties {
         internal static string Usage {
             get {
                 return ResourceManager.GetString("Usage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version information:.
+        /// </summary>
+        internal static string VersionInformation {
+            get {
+                return ResourceManager.GetString("VersionInformation", resourceCulture);
             }
         }
     }
