@@ -100,7 +100,7 @@ namespace ZeroInstall.Commands
                         changes = true;
                     }
                 }
-                catch(KeyNotFoundException)
+                catch (KeyNotFoundException)
                 { // Implementation removed
                     builder.AppendLine(Resources.NoLongerUsed + interfaceID);
                 }

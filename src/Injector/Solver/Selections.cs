@@ -69,21 +69,63 @@ namespace ZeroInstall.Injector.Solver
         //--------------------//
 
         #region Human readable
+        private const int NoCommand = -1;
+
         /// <summary>
         /// Generates a human-readable representation of the implementation selection hierachy.
         /// </summary>
-        /// <param name="store">The store to search for implementations.</param>
+        /// <param name="store">A store to search for implementation storage locations.</param>
         public string GetHumanReadable(IStore store)
         {
             var builder = new StringBuilder();
-
-            // ToDo: Use recursion to handle nesting
-            for (int i = Implementations.Count - 1; i >= 0; i--)
-            {
-                builder.AppendLine(string.Format("- URI: {0}\n  Version: {1}\n  Path: {2}",
-                    Implementations[i].InterfaceID, Implementations[i].Version, Implementations[i].GetPath(store) ?? Resources.NotCached));
-            }
+            PrintNode(builder, new C5.HashSet<string>(), store, "", InterfaceID, Commands.IsEmpty ? NoCommand : 0);
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
+        }
+
+        
+        /// <summary>
+        /// Helper method for <see cref="GetHumanReadable"/> that recursivley writes information about <see cref="ImplementationSelection"/>s to a <see cref="StringBuilder"/>.
+        /// </summary>
+        /// <param name="builder">The string builder to write the output to.</param>
+        /// <param name="handled">A list of interface IDs that have already been handled; used to detect</param>
+        /// <param name="store">A store to search for implementation storage locations.</param>
+        /// <param name="indent">An indention prefix for the current recursion level (to create a visual hierachy).</param>
+        /// <param name="interfaceID">The <see cref="ImplementationSelection.InterfaceID"/> to look for.</param>
+        /// <param name="command">The index in <see cref="Commands"/> associated with the current implementation.</param>
+        private void PrintNode(StringBuilder builder, C5.HashSet<string> handled, IStore store, string indent, string interfaceID, int command)
+        {
+            if (handled.Contains(interfaceID)) return;
+            handled.Add(interfaceID);
+            builder.AppendLine(indent + "- URI: " + interfaceID);
+            try
+            {
+                var implementation = GetImplementation(interfaceID);
+                builder.AppendLine(indent + "  Version: " + implementation.Version);
+                builder.AppendLine(indent + "  Path: " + implementation.GetPath(store) ?? Resources.NotCached);
+
+                indent += "    ";
+
+                // Recurse into regular dependencies
+                foreach (var dependency in implementation.Dependencies)
+                    PrintNode(builder, handled, store, indent, dependency.Interface, NoCommand);
+
+                if (command != NoCommand)
+                {
+                    var runner = Commands[command].Runner;
+
+                    // Recurse into runner dependency
+                    if (runner != null)
+                        PrintNode(builder, handled, store, indent, runner.Interface, command + 1);
+
+                    // Recurse into command dependencies
+                    foreach (var dependency in Commands[command].Dependencies)
+                        PrintNode(builder, handled, store, indent, dependency.Interface, NoCommand);
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                builder.AppendLine(indent + "  " + Resources.NoSelectedVersion);
+            }
         }
         #endregion
 
@@ -131,7 +173,7 @@ namespace ZeroInstall.Injector.Solver
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            ICollection<Implementation> notCached = new LinkedList<Implementation>();
+            System.Collections.Generic.ICollection<Implementation> notCached = new System.Collections.Generic.LinkedList<Implementation>();
 
             foreach (var implementation in Implementations)
             {

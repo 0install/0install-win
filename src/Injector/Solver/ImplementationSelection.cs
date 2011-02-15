@@ -110,7 +110,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Tries to locate the implementation in an <see cref="IStore"/>.
         /// </summary>
-        /// <param name="store">The store to search for the implementation.</param>
+        /// <param name="store">The store to search for the implementation storage location.</param>
         /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <see langword="null"/> if the implementation is not cached yet.</returns>
         public string GetPath(IStore store)
         {

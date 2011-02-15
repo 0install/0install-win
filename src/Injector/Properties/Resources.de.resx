@@ -156,4 +156,7 @@
 	<data name="NotCached" xml:space="preserve">
 		<value>(nicht gecached)</value>
 	</data>
+	<data name="NoSelectedVersion" xml:space="preserve">
+		<value>No selected version</value>
+	</data>
 </root>

@@ -115,6 +115,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keine ausgewählte Version.
+        /// </summary>
+        internal static string NoSelectedVersion {
+            get {
+                return ResourceManager.GetString("NoSelectedVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (not cached).
         /// </summary>
         internal static string NotCached {
