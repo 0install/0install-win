@@ -64,6 +64,7 @@
     <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
+    <Compile Include="Undo\CompositeCommandTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />
     <Compile Include="Utils\FileUtilsTest.cs" />
     <Compile Include="Utils\StringUtilsTest.cs" />

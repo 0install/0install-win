@@ -33,7 +33,7 @@ namespace Common.Undo
     public class CompositeCommand : SimpleCommand
     {
         #region Variables
-        private readonly C5.ISequenced<IUndoCommand> _commands = new C5.LinkedList<IUndoCommand>();
+        private readonly C5.ArrayList<IUndoCommand> _commands = new C5.ArrayList<IUndoCommand>();
         #endregion
 
         #region Constructor
@@ -60,8 +60,18 @@ namespace Common.Undo
         /// </summary>
         protected override void OnExecute()
         {
-            foreach (var command in _commands)
-                command.Execute();
+            int countExecute = 0;
+            try
+            { // Try to execute all commands
+                for (countExecute = 0; countExecute < _commands.Count; countExecute++)
+                    _commands[countExecute].Execute();
+            }
+            catch (Exception)
+            { // Rollback before reporting exception
+                for (int countUndo = countExecute - 1; countUndo >= 0; countUndo--)
+                    _commands[countUndo].Undo();   
+                throw;
+            }
         }
 
         /// <summary>
@@ -69,8 +79,18 @@ namespace Common.Undo
         /// </summary>
         protected override void OnUndo()
         {
-            foreach (var command in _commands.Backwards())
-                command.Undo();
+            int countUndo = 0;
+            try
+            { // Try to undo all commands
+                for (countUndo = _commands.Count - 1; countUndo >= 0; countUndo--)
+                    _commands[countUndo].Undo();
+            }
+            catch (Exception)
+            { // Rollback before reporting exception
+                for (int countExecute = countUndo + 1; countExecute < _commands.Count; countExecute++)
+                    _commands[countExecute].Execute();
+                throw;
+            }
         }
         #endregion
     }
