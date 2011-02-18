@@ -29,7 +29,7 @@ namespace ZeroInstall.Injector.Solver
     /// A set of requirements/restrictions imposed by the user on the implementation selection process.
     /// </summary>
     [Serializable]
-    public class Requirements
+    public class Requirements : IEquatable<Requirements>
     {
         private string _interfaceID;
         /// <summary>
@@ -62,7 +62,7 @@ namespace ZeroInstall.Injector.Solver
         /// </summary>
         public Architecture Architecture { get; set; }
 
-        private readonly List<CultureInfo> _languages = new List<CultureInfo>();
+        private readonly C5.LinkedList<CultureInfo> _languages = new C5.LinkedList<CultureInfo>();
         /// <summary>
         /// The preferred languages for implementations in decreasing order. Use system locale if empty.
         /// </summary>
@@ -77,5 +77,80 @@ namespace ZeroInstall.Injector.Solver
         /// This version and all later versions of the implementation are unsuitable.
         /// </summary>
         public ImplementationVersion BeforeVersion { get; set; }
+
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Requirements"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
+        public Requirements CloneRequirements()
+        {
+            var requirements = new Requirements {InterfaceID = InterfaceID, CommandName = CommandName, Architecture = Architecture, NotBeforeVersion = NotBeforeVersion, BeforeVersion = BeforeVersion};
+            requirements._languages.AddAll(_languages);
+
+            return requirements;
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Requirements"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Requirements"/>.</returns>
+        public object Clone()
+        {
+            return CloneRequirements();
+        }
+        #endregion
+
+        #region Conversion
+        /// <summary>
+        /// Returns the requirements in the form "InterfaceID (CommandName)". Not safe for parsing!
+        /// </summary>
+        public override string ToString()
+        {
+            if (NotBeforeVersion == null && BeforeVersion == null) return string.Format("{0} ({1})", InterfaceID, CommandName);
+            else return string.Format("{0} ({1}): {2} <= Version < {3}", InterfaceID, CommandName, NotBeforeVersion, BeforeVersion);
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(Requirements other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+
+            if (InterfaceID != other.InterfaceID) return false;
+            if (CommandName != other.CommandName) return false;
+            if (Architecture != other.Architecture) return false;
+            if (!_languages.SequencedEquals(other._languages)) return false;
+            if (NotBeforeVersion != other.NotBeforeVersion) return false;
+            if (BeforeVersion != other.BeforeVersion) return false;
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Requirements) && Equals((Requirements)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (_interfaceID != null ? _interfaceID.GetHashCode() : 0);
+                result = (result * 397) ^ (CommandName != null ? CommandName.GetHashCode() : 0);
+                result = (result * 397) ^ Architecture.GetHashCode();
+                result = (result * 397) ^ _languages.GetSequencedHashCode();
+                result = (result * 397) ^ (NotBeforeVersion != null ? NotBeforeVersion.GetHashCode() : 0);
+                result = (result * 397) ^ (BeforeVersion != null ? BeforeVersion.GetHashCode() : 0);
+                return result;
+            }
+        }
+        #endregion
     }
 }
