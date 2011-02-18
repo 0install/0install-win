@@ -133,7 +133,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // labelSubDirectory
             // 
             this.labelSubDirectory.AutoSize = true;
-            this.labelSubDirectory.Location = new System.Drawing.Point(0, 215);
+            this.labelSubDirectory.Location = new System.Drawing.Point(0, 246);
             this.labelSubDirectory.Name = "labelSubDirectory";
             this.labelSubDirectory.Size = new System.Drawing.Size(66, 13);
             this.labelSubDirectory.TabIndex = 130;
@@ -144,7 +144,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             this.treeViewSubDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeViewSubDirectory.Location = new System.Drawing.Point(3, 231);
+            this.treeViewSubDirectory.Location = new System.Drawing.Point(3, 262);
             this.treeViewSubDirectory.Name = "treeViewSubDirectory";
             treeNode1.Name = "rootNode";
             treeNode1.Text = "Top folder";
@@ -161,7 +161,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             // 
             this.buttonExtractArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonExtractArchive.Enabled = false;
-            this.buttonExtractArchive.Location = new System.Drawing.Point(162, 370);
+            this.buttonExtractArchive.Location = new System.Drawing.Point(162, 233);
             this.buttonExtractArchive.Name = "buttonExtractArchive";
             this.buttonExtractArchive.Size = new System.Drawing.Size(95, 23);
             this.buttonExtractArchive.TabIndex = 150;
