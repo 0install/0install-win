@@ -17,7 +17,6 @@
 
 using System;
 using System.Windows.Forms;
-using C5;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
@@ -28,12 +27,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The list for the arguments in <see cref="listBoxArguments"/>.
         /// </summary>
-        private readonly ArrayList<String> _arguments = new ArrayList<string>();
+        private readonly C5.ArrayList<String> _arguments = new C5.ArrayList<string>();
 
         /// <summary>
         /// Returns the entered Arguments. Changing this List means changing the list box with the arguments.
         /// </summary>
-        public ArrayList<String> Arguments
+        public C5.ArrayList<String> Arguments
         {
             get
             {

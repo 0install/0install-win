@@ -79,7 +79,7 @@ namespace ZeroInstall.Injector.Solver
         {
             var builder = new StringBuilder();
             PrintNode(builder, new C5.HashSet<string>(), store, "", InterfaceID, Commands.IsEmpty ? NoCommand : 0);
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
+            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
 
         
@@ -173,7 +173,7 @@ namespace ZeroInstall.Injector.Solver
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
-            System.Collections.Generic.ICollection<Implementation> notCached = new System.Collections.Generic.LinkedList<Implementation>();
+            ICollection<Implementation> notCached = new LinkedList<Implementation>();
 
             foreach (var implementation in Implementations)
             {

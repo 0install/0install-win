@@ -17,7 +17,6 @@
 
 using System.ComponentModel;
 using System.Xml.Serialization;
-using C5;
 
 namespace ZeroInstall.Model
 {
@@ -32,6 +31,6 @@ namespace ZeroInstall.Model
         [Category("Execution"), Description("A list of interfaces this implementation depends upon.")]
         [XmlElement("requires")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
-        ArrayList<Dependency> Dependencies { get; }
+        C5.ArrayList<Dependency> Dependencies { get; }
     }
 }
