@@ -381,7 +381,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Feed other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (MinInjectorVersion != other.MinInjectorVersion) return false;
             if (Uri != other.Uri) return false;

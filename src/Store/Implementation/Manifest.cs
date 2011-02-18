@@ -301,7 +301,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc/>
         public bool Equals(Manifest other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (_nodes.Count != other._nodes.Count) return false;
             for (int i = 0; i < _nodes.Count; i++)

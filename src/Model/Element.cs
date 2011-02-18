@@ -288,7 +288,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         protected bool Equals(Element other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return base.Equals(other) &&
                 Equals(other.Version, Version) && other.VersionModifier == VersionModifier && other.Released == Released && other.License == License && other.Main == Main && other.SelfTest == SelfTest && other.DocDir == DocDir &&

@@ -70,7 +70,7 @@ namespace ZeroInstall.MyApps
         /// <inheritdoc/>
         public bool Equals(MenuEntry other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Name == Name || other.Category == Category;
         }

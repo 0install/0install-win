@@ -398,7 +398,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc/>
         public bool Equals(DirectoryStore other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return DirectoryPath == other.DirectoryPath;
         }

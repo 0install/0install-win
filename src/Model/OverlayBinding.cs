@@ -82,7 +82,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(OverlayBinding other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Source == Source || other.MountPoint == MountPoint;
         }

@@ -120,7 +120,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         protected bool Equals(ImplementationBase other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return base.Equals(other) && other.ID == ID && other.LocalPath == LocalPath && other.ManifestDigest == ManifestDigest;
         }

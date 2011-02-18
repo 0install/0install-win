@@ -93,7 +93,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Runner other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (Interface != other.Interface) return false;
             if (Use != other.Use) return false;

@@ -292,7 +292,7 @@ namespace ZeroInstall.Injector.Solver
         /// <inheritdoc/>
         public bool Equals(Selections other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return (InterfaceID == other.InterfaceID) &&
                 Implementations.SequencedEquals(other.Implementations) && Commands.SequencedEquals(other.Commands);

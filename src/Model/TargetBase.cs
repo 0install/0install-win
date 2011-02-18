@@ -90,7 +90,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         protected bool Equals(TargetBase other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return _languages.UnsequencedEquals(other._languages) && other.Architecture == Architecture;
         }

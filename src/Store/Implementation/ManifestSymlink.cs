@@ -105,7 +105,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc/>
         public bool Equals(ManifestSymlink other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return Equals(other.Hash, Hash) && other.Size == Size && Equals(other.SymlinkName, SymlinkName);
         }

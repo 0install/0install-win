@@ -33,7 +33,7 @@ namespace ZeroInstall.Injector
     /// <remarks>This object primarily serves as a working environment used by <see cref="ISolver"/>s.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     [Serializable]
-    public class Policy
+    public class Policy : IEquatable<Policy>, ICloneable
     {
         #region Properties
         /// <summary>
@@ -52,12 +52,13 @@ namespace ZeroInstall.Injector
         public IFetcher Fetcher { get; private set; }
 
         /// <summary>
-        /// A location to search for cached <see cref="ImplementationBase"/>s in addition to <see cref="Fetchers.Fetcher.Store"/>; may be <see langword="null"/>.
+        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="Fetchers.Fetcher.Store"/>; may be <see langword="null"/>.
         /// </summary>
+        /// <remarks>This location searched for <see cref="Implementation"/>s but new ones are not added here.</remarks>
         public IStore AdditionalStore { get; set; }
 
         /// <summary>
-        /// The locations to search for cached <see cref="ImplementationBase"/>s.
+        /// The locations to search for cached <see cref="Implementation"/>s.
         /// </summary>
         public IStore SearchStore
         {
@@ -103,6 +104,62 @@ namespace ZeroInstall.Injector
         public static Policy CreateDefault()
         {
             return new Policy(Preferences.LoadDefault(), new FeedManager(FeedCacheProvider.Default), FetcherProvider.Default);
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Policy"/>.</returns>
+        /// <remarks><see cref="Preferences"/> are cloned, other properties are copied.</remarks>
+        public Policy ClonePolicy()
+        {
+            return new Policy(Preferences.ClonePreferences(), FeedManager, Fetcher) {AdditionalStore = AdditionalStore};
+        }
+
+        /// <summary>
+        /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Policy"/>.</returns>
+        /// <remarks><see cref="Preferences"/> are cloned, other properties are copied.</remarks>
+        public object Clone()
+        {
+            return ClonePolicy();
+        }
+        #endregion
+        
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(Policy other)
+        {
+            if (other == null) return false;
+
+            return Equals(other.Preferences, Preferences) && Equals(other.AdditionalStore, AdditionalStore) &&
+                other.FeedManager == FeedManager && other.Fetcher == Fetcher;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Policy) && Equals((Policy)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = (Preferences != null ? Preferences.GetHashCode() : 0);
+                result = (result * 397) ^ (FeedManager != null ? FeedManager.GetHashCode() : 0);
+                result = (result * 397) ^ (Fetcher != null ? Fetcher.GetHashCode() : 0);
+                result = (result * 397) ^ (AdditionalStore != null ? AdditionalStore.GetHashCode() : 0);
+                return result;
+            }
         }
         #endregion
     }

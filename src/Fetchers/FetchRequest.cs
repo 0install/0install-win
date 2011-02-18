@@ -64,7 +64,7 @@ namespace ZeroInstall.Fetchers
         /// <inheritdoc/>
         public bool Equals(FetchRequest other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (!_implementations.SequencedEquals(other._implementations)) return false;
             return true;

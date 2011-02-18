@@ -156,7 +156,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(InterfacePreferences other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (Uri != other.Uri) return false;
             if (StabilityPolicy != other.StabilityPolicy) return false;

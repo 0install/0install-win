@@ -41,7 +41,7 @@ namespace ZeroInstall.Injector
     /// User-preferences controlling network behaviour, etc.
     /// </summary>
     [Serializable]
-    public sealed class Preferences
+    public sealed class Preferences : IEquatable<Preferences>, ICloneable
     {
         #region Properties
         private NetworkLevel _networkLevel = NetworkLevel.Full;
@@ -83,6 +83,58 @@ namespace ZeroInstall.Injector
         {
             // ToDo
             return new Preferences();
+        }
+        #endregion
+
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Preferences"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Preferences"/>.</returns>
+        public Preferences ClonePreferences()
+        {
+            return new Preferences {NetworkLevel = NetworkLevel, Freshness = Freshness, HelpWithTesting = HelpWithTesting};
+        }
+
+        /// <summary>
+        /// Creates a deep copy of this <see cref="Preferences"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="Preferences"/>.</returns>
+        public object Clone()
+        {
+            return ClonePreferences();
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(Preferences other)
+        {
+            if (other == null) return false;
+
+            return other.NetworkLevel == NetworkLevel && other.Freshness == Freshness && other.HelpWithTesting == HelpWithTesting;
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(Preferences) && Equals((Preferences)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int result = NetworkLevel.GetHashCode();
+                result = (result * 397) ^ Freshness.GetHashCode();
+                result = (result * 397) ^ HelpWithTesting.GetHashCode();
+                return result;
+            }
         }
         #endregion
     }

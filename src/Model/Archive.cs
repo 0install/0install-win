@@ -125,7 +125,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Archive other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Location == Location && other.Size == Size && other.Extract == Extract && other.MimeType == MimeType && other.StartOffset == StartOffset;
         }

@@ -112,7 +112,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(Trust other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return Keys.UnsequencedEquals(other.Keys);
         }

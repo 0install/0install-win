@@ -117,7 +117,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Constraint other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.NotBeforeVersion == NotBeforeVersion && other.BeforeVersion == BeforeVersion;
         }

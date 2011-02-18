@@ -131,7 +131,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Group other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (!base.Equals(other)) return false;
             if (!Elements.SequencedEquals(other.Elements)) return false;

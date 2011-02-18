@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(WorkingDir other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Source == Source;
         }

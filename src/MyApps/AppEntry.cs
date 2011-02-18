@@ -105,7 +105,7 @@ namespace ZeroInstall.MyApps
         /// <inheritdoc/>
         public bool Equals(AppEntry other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (Name != other.Name) return false;
             if (Interface != other.Interface) return false;

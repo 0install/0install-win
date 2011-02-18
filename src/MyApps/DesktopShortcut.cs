@@ -63,7 +63,7 @@ namespace ZeroInstall.MyApps
         /// <inheritdoc/>
         public bool Equals(DesktopShortcut other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Name == Name;
         }

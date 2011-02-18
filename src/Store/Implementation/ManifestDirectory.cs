@@ -131,7 +131,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc/>
         public bool Equals(ManifestDirectory other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             // Directory ModifiedTime is ignored in the new manifest format
             return /*other.ModifiedTime == ModifiedTime &&*/ Equals(other.FullPath, FullPath);

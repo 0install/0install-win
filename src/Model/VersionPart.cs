@@ -104,7 +104,7 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(VersionPart other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return Equals(other.Modifier, Modifier) && Equals(other.DottedList, DottedList);
         }
@@ -131,7 +131,7 @@ namespace ZeroInstall.Model
         public int CompareTo(VersionPart other)
         {
             #region Sanity checks
-            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException("other");
             #endregion
 
             var modifierComparison = Modifier.CompareTo(other.Modifier);

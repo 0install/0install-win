@@ -79,7 +79,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(FeedReference other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return base.Equals(other) && other.Source == Source;
         }

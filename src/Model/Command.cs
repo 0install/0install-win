@@ -141,7 +141,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(Command other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (Name != other.Name) return false;
             if (Path != other.Path) return false;

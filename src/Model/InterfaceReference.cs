@@ -67,7 +67,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(InterfaceReference other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Target == Target;
         }

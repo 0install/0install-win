@@ -82,7 +82,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(Key other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return Fingerprint == other.Fingerprint && Domains.UnsequencedEquals(other.Domains);
         }

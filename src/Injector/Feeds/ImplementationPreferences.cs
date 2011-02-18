@@ -75,7 +75,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(ImplementationPreferences other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return UserStability == other.UserStability;
         }

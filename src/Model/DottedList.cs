@@ -74,7 +74,7 @@ namespace ZeroInstall.Model
         #region Equality
         public bool Equals(DottedList other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             // Cancel if the the number of decimal blocks don't match
             if (_decimals.Length != other._decimals.Length)
@@ -114,7 +114,7 @@ namespace ZeroInstall.Model
         public int CompareTo(DottedList other)
         {
             #region Sanity checks
-            if (ReferenceEquals(null, other)) throw new ArgumentNullException("other");
+            if (other == null) throw new ArgumentNullException("other");
             #endregion
 
             int upperBound = Math.Max(_decimals.Length, other._decimals.Length);

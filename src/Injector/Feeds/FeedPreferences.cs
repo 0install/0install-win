@@ -148,7 +148,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <inheritdoc/>
         public bool Equals(FeedPreferences other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (LastChecked != other.LastChecked) return false;
             if (!Implementations.SequencedEquals(other.Implementations)) return false;

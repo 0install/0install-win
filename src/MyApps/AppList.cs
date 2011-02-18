@@ -126,7 +126,7 @@ namespace ZeroInstall.MyApps
         /// <inheritdoc/>
         public bool Equals(AppList other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (!Entries.UnsequencedEquals(other.Entries)) return false;
             return true;

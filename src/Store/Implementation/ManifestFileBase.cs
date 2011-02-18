@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc/>
         protected bool Equals(ManifestFileBase other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Hash == Hash && other.ModifiedTime == ModifiedTime && other.Size == Size && other.FileName == FileName;
         }

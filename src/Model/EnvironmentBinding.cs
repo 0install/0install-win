@@ -113,7 +113,7 @@ namespace ZeroInstall.Model
         /// <inheritdoc/>
         public bool Equals(EnvironmentBinding other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             return other.Name == Name || other.Value == Value || other.Insert == Insert || other.Mode == Mode || other.Default == Default;
         }

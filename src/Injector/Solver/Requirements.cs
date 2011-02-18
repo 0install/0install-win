@@ -118,7 +118,7 @@ namespace ZeroInstall.Injector.Solver
         /// <inheritdoc/>
         public bool Equals(Requirements other)
         {
-            if (ReferenceEquals(null, other)) return false;
+            if (other == null) return false;
 
             if (InterfaceID != other.InterfaceID) return false;
             if (CommandName != other.CommandName) return false;
