@@ -217,7 +217,7 @@ However, new downloads will not be written to this directory.</value>
     <value>Missing arguments.</value>
   </data>
   <data name="TooManyArguments" xml:space="preserve">
-    <value>Too many arguments.</value>
+    <value>Too many arguments or unknown otions.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>

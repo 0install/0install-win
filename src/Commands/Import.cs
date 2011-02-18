@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Import(IHandler handler) : base(handler)
+        public Import(IHandler handler, Policy policy) : base(handler, policy)
         {}
         #endregion
 

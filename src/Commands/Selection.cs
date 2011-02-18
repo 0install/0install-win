@@ -32,6 +32,9 @@ namespace ZeroInstall.Commands
     public class Selection : CommandBase
     {
         #region Variables
+        /// <summary>The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</summary>
+        protected readonly ISolver Solver;
+
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
@@ -57,9 +60,16 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Constructor
-        /// <inheritdoc/>
-        public Selection(IHandler handler) : base(handler)
+        /// <summary>
+        /// Creates a new command.
+        /// </summary>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
+        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="solver">The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</param>
+        public Selection(IHandler handler, Policy policy, ISolver solver) : base(handler, policy)
         {
+            Solver = solver;
+
             Options.Add("batch", Resources.OptionBatch, unused => handler.Batch = true);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
             
@@ -118,13 +128,13 @@ namespace ZeroInstall.Commands
             base.ExecuteHelper();
 
             if (Selections == null)
-                Selections = SolverProvider.Default.Solve(_requirements, Policy, Handler);
+                Selections = Solver.Solve(_requirements, Policy, Handler);
         }
         
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
             ExecuteHelper();
 
             if (_xml) Handler.Inform("Selections XML:", Selections.WriteToString());

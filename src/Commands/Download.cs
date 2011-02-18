@@ -20,6 +20,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Commands
 {
@@ -44,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Download(IHandler handler) : base(handler)
+        public Download(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
         {
             Options.Add("show", Resources.OptionShow, unused => _show = true);
         }
@@ -66,7 +67,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
             ExecuteHelper();
 
             if (_show) Handler.Inform(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));

@@ -40,7 +40,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public ListFeeds(IHandler handler) : base(handler)
+        public ListFeeds(IHandler handler, Policy policy) : base(handler, policy)
         { }
         #endregion
 

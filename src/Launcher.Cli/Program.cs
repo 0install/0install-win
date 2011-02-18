@@ -45,7 +45,7 @@ namespace ZeroInstall.Launcher.Cli
             if (args.Length == 0) args = new[] { "--help" };
 
             var handler = new CliHandler();
-            var command = new Run(handler);
+            var command = new Run(handler, Policy.CreateDefault(), SolverProvider.Default);
             
             try { command.Parse(args); }
             #region Error handling

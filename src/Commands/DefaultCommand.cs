@@ -39,7 +39,7 @@ namespace ZeroInstall.Commands
             get
             {
                 var builder = new StringBuilder("Try --help with one of these:\n\n");
-                foreach (var command in CommandSwitch.GetAvailableCommands(Handler))
+                foreach (var command in CommandSwitch.GetAvailableCommands(Handler, Policy))
                     builder.AppendLine("0install " + command.Name);
                 return builder.ToString();
             }
@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public DefaultCommand(IHandler handler) : base(handler)
+        public DefaultCommand(IHandler handler, Policy policy) : base(handler, policy)
         {}
         #endregion
 
@@ -61,7 +61,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
             ExecuteHelper();
 
             return 0;

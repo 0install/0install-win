@@ -43,7 +43,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public List(IHandler handler) : base(handler)
+        public List(IHandler handler, Policy policy) : base(handler, policy)
         {}
         #endregion
 
@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
             {
                 case 0: pattern = null; break;
                 case 1: pattern = AdditionalArgs.First; break;
-                default: throw new OptionException(Resources.TooManyArguments, Name);
+                default: throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
             }
 
             ExecuteHelper();
@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
                 if (pattern == null || entry.ToString().Contains(pattern))
                     builder.AppendLine(entry.ToString());
             }
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
+            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
         #endregion
     }

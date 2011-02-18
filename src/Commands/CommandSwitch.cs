@@ -36,9 +36,12 @@ namespace ZeroInstall.Commands
         /// Creates a set of all available commands.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
-        internal static IEnumerable<CommandBase> GetAvailableCommands(IHandler handler)
+        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        internal static IEnumerable<CommandBase> GetAvailableCommands(IHandler handler, Policy policy)
         {
-            return new CommandBase[] { new Selection(handler), new Download(handler), new Update(handler), new Run(handler), new Import(handler), new List(handler), new Config(handler), new AddFeed(handler), new RemoveFeed(handler), new ListFeeds(handler) };
+            // ToDo: Replace this with something reflection-based
+            var solver = SolverProvider.Default;
+            return new CommandBase[] { new Selection(handler, policy, solver), new Download(handler, policy, solver), new Update(handler, policy, solver), new Run(handler, policy, solver), new Import(handler, policy), new List(handler, policy), new Config(handler, policy), new AddFeed(handler, policy), new RemoveFeed(handler, policy), new ListFeeds(handler, policy) };
         }
 
         /// <summary>
@@ -50,10 +53,12 @@ namespace ZeroInstall.Commands
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         private static CommandBase GetCommand(string commandName, IHandler handler)
         {
-            if (commandName == null) return new DefaultCommand(handler);
+            var policy = Policy.CreateDefault();
+
+            if (commandName == null) return new DefaultCommand(handler, policy);
 
             CommandBase command = null;
-            foreach (var possibleCommand in GetAvailableCommands(handler))
+            foreach (var possibleCommand in GetAvailableCommands(handler, policy))
             {
                 if (StringUtils.Compare(possibleCommand.Name, commandName))
                 {

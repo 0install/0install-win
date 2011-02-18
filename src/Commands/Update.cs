@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Update(IHandler handler) : base(handler)
+        public Update(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
         {}
         #endregion
 
@@ -60,7 +60,7 @@ namespace ZeroInstall.Commands
             var offlinePolicy = Policy.CreateDefault();
             offlinePolicy.AdditionalStore = Policy.AdditionalStore;
             offlinePolicy.Preferences.NetworkLevel = NetworkLevel.Offline;
-            _oldSelections = SolverProvider.Default.Solve(Requirements, offlinePolicy, Handler);
+            _oldSelections = Solver.Solve(Requirements, offlinePolicy, Handler);
 
             // Run solver in online refresh mode to get the new values
             Policy.FeedManager.Refresh = true;
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
             ExecuteHelper();
 
             Handler.Inform(Resources.ChangesFound, GetUpdateInformation());
@@ -117,7 +117,7 @@ namespace ZeroInstall.Commands
             }
             if (!changes) builder.AppendLine(Resources.NoUpdatesFound);
 
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - 1)); // Remove trailing line-break
+            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
         #endregion
     }

@@ -48,11 +48,11 @@ namespace ZeroInstall.Commands
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
 
-        /// <summary>Combines configuration and resources used to solve dependencies and download implementations.</summary>
-        protected readonly Policy Policy = Policy.CreateDefault();
-
         /// <summary>A callback object used when the the user needs to be asked questions or is to be informed about progress.</summary>
         protected readonly IHandler Handler;
+
+        /// <summary>Combines configuration and resources used to solve dependencies and download implementations.</summary>
+        protected readonly Policy Policy;
 
         /// <summary>The detail level of messages printed to the console. 0 = normal, 1 = verbose, 2 = very verbose</summary>
         protected int Verbosity;
@@ -109,9 +109,11 @@ namespace ZeroInstall.Commands
         /// Creates a new command.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
-        protected CommandBase(IHandler handler)
+        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        protected CommandBase(IHandler handler, Policy policy)
         {
             Handler = handler;
+            Policy = policy;
 
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
@@ -177,7 +179,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
-        /// <returns>The error code to end the process with. 0 means OK, 1 means generic error.</returns>
+        /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>

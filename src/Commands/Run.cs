@@ -19,6 +19,7 @@ using System;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -50,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Run(IHandler handler) : base(handler)
+        public Run(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
         {
             Options.Add("m|main=", Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
