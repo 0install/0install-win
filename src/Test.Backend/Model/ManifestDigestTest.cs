@@ -75,6 +75,10 @@ namespace ZeroInstall.Model
             digest1 = new ManifestDigest("test1", null, null);
             digest2 = new ManifestDigest(null, "test2", null);
             Assert.IsFalse(digest1.PartialEquals(digest2));
+
+            digest1 = new ManifestDigest(null, "test1", null);
+            digest2 = new ManifestDigest(null, null, "test2");
+            Assert.IsFalse(digest1.PartialEquals(digest2));
         }
     }
 }

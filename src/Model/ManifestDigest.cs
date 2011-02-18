@@ -215,13 +215,30 @@ namespace ZeroInstall.Model
         /// <remarks>Two digests are considered partially equal if at least one digest format matches and no values are contradictory.</remarks>
         public bool PartialEquals(ManifestDigest other)
         {
-            // Find contradictions
-            if ((other.Sha1Old != Sha1Old && !string.IsNullOrEmpty(other.Sha1Old) && !string.IsNullOrEmpty(Sha1Old)) ||
-                (other.Sha1New != Sha1New && !string.IsNullOrEmpty(other.Sha1New) && !string.IsNullOrEmpty(Sha1New)) ||
-                (other.Sha256 != Sha256 && !string.IsNullOrEmpty(other.Sha256) && !string.IsNullOrEmpty(Sha256)))
-                return false;
+            int matchCounter = 0;
+            return
+                PartialEqualsHelper(ref matchCounter, Sha1Old, other.Sha1Old) &&
+                PartialEqualsHelper(ref matchCounter, Sha1New, other.Sha1New) &&
+                PartialEqualsHelper(ref matchCounter, Sha256, other.Sha256) &&
+                (matchCounter > 0);
+        }
 
-            return (other.Sha1Old == Sha1Old) || (other.Sha1New == Sha1New) && (other.Sha256 == Sha256);
+        /// <summary>
+        /// Compares to values as a helper method for <see cref="PartialEquals"/>.
+        /// </summary>
+        /// <param name="matchCounter">This value is incremented by one of the values match and are not <see langword="null"/>.</param>
+        /// <param name="left">The first value to be compared.</param>
+        /// <param name="right">The second value to be compared.</param>
+        /// <returns><see langword="true"/> if the values either match or one of them is <see langword="null"/>.</returns>
+        private static bool PartialEqualsHelper(ref int matchCounter, string left, string right)
+        {
+            if (string.IsNullOrEmpty(left) || string.IsNullOrEmpty(right)) return true;
+            if (left == right)
+            {
+                matchCounter++;
+                return true;
+            }
+            else return false;
         }
 
         /// <inheritdoc/>
