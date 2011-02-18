@@ -22,25 +22,26 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains common test methods for <see cref="ISolver"/> implementations.
+    /// Contains common code for testing specific <see cref="ISolver"/> implementations.
     /// </summary>
-    public class SolverTest
+    public abstract class SolverTest
     {
-        public static Feed CreateTestFeed()
-        {
-            return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
-        }
-
         private readonly ISolver _solver;
 
-        public SolverTest(ISolver solver)
+        protected SolverTest(ISolver solver)
         {
             _solver = solver;
         }
 
+        private static Feed CreateTestFeed()
+        {
+            return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
+        }
+
         /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
+        /// Ensures <see cref="ISolver.Solve"/> correctly solves the dependencies for a specific feed URI.
         /// </summary>
+        [Test]
         public void TestSolve()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

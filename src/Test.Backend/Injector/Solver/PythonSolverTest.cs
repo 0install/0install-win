@@ -22,19 +22,10 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains test methods for <see cref="PythonSolver"/>.
     /// </summary>
-    [TestFixture]
-    public class PythonSolverTest
+    //[TestFixture]
+    public class PythonSolverTest : SolverTest
     {
-        private readonly SolverTest _solverTest = new SolverTest(new PythonSolver());
-
-        /// <summary>
-        /// Ensures <see cref="PythonSolver.Solve"/> correctly solves the dependencies for a specific feed URI.
-        /// </summary>
-        // Test deactivated because it uses an external process
-        //[Test]
-        public void TestSolve()
-        {
-            _solverTest.TestSolve();
-        }
+        public PythonSolverTest() : base(new PythonSolver())
+        {}
     }
 }
