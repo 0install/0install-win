@@ -19,13 +19,13 @@ using NUnit.Framework;
 
 namespace ZeroInstall.Injector.Solver
 {
-    /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
-    /// </summary>
+    ///// <summary>
+    ///// Contains test methods for <see cref="PythonSolver"/>.
+    ///// </summary>
     //[TestFixture]
-    public class PythonSolverTest : SolverTest
-    {
-        public PythonSolverTest() : base(new PythonSolver())
-        {}
-    }
+    //public class PythonSolverTest : SolverTest
+    //{
+    //    public PythonSolverTest() : base(new PythonSolver())
+    //    {}
+    //}
 }
