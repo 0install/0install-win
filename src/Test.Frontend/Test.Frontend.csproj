@@ -48,6 +48,9 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\..\lib\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Central\Central.csproj">
@@ -97,9 +100,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Central\" />
-    <Folder Include="Commands\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CommandBaseTest.cs" />
+    <Compile Include="Commands\DownloadTest.cs" />
+    <Compile Include="Commands\ListTest.cs" />
+    <Compile Include="Commands\SelectionTest.cs" />
+    <Compile Include="Commands\UpdateTest.cs" />
     <Compile Include="Store\Service\SecureStoreTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
