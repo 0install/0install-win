@@ -28,12 +28,14 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Import : CommandBase
     {
+        #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "import";
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "import"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionImport; } }
+        protected override string Description { get { return Resources.DescriptionImport; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "FEED-FILE"; } }
@@ -55,7 +57,7 @@ namespace ZeroInstall.Commands
 
             // ToDo: Implement
 
-            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;
         }
         #endregion

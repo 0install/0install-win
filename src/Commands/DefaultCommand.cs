@@ -31,16 +31,13 @@ namespace ZeroInstall.Commands
     {
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return ""; } }
-
-        /// <inheritdoc/>
-        public override string Description
+        protected override string Description
         {
             get
             {
                 var builder = new StringBuilder("Try --help with one of these:\n\n");
-                foreach (var command in CommandSwitch.GetAvailableCommands(Handler, Policy))
-                    builder.AppendLine("0install " + command.Name);
+                foreach (var possibleCommand in CommandFactory.ValidCommandNames)
+                    builder.AppendLine("0install " + possibleCommand);
                 return builder.ToString();
             }
         }
@@ -61,7 +58,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
             return 0;

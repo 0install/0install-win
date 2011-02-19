@@ -16,7 +16,7 @@
       <Method Name="Update" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAABAAAgAAQAAAAAAAQAAABAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Update.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -36,7 +36,7 @@
       <Method Name="Download" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAQBAAAAAAgAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAABAAAAAAgAAQAAAAAAAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Download.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -56,7 +56,7 @@
       <Method Name="List" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAI=</HashCode>
       <FileName>List.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -94,7 +94,7 @@
       <Method Name="Selection" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgQAAAAAAgAAQAAAAAAKQEABIAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAgAAAAAAAgAAQAAAAAAKQMABIAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Selection.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -104,7 +104,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAIgAAAAAAgoAAQAAAIAAAQEAAAAAAAAAgAAAABEAAE=</HashCode>
+      <HashCode>AAAgAAAAAAgoAAQAAAIAAAAEAAAAAAAAAgAAAABEAAE=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -124,15 +124,15 @@
       <Method Name="DefaultCommand" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAgAAQAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DefaultCommand.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ZeroInstall.Commands.CommandSwitch">
-    <Position X="0.5" Y="0.5" Width="2" />
+  <Class Name="ZeroInstall.Commands.CommandFactory">
+    <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAIQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
-      <FileName>CommandSwitch.cs</FileName>
+      <HashCode>AAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABABAA=</HashCode>
+      <FileName>CommandFactory.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

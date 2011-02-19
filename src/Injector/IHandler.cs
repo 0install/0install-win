@@ -33,7 +33,7 @@ namespace ZeroInstall.Injector
         void CloseAsync();
 
         /// <summary>
-        /// Display an information text to the user.
+        /// Display multi-line text to the user.
         /// </summary>
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
@@ -41,6 +41,6 @@ namespace ZeroInstall.Injector
         /// This will never bel called during an interactive or long-running operation.
         /// <see cref="IFeedHandler.AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
         /// </remarks>
-        void Inform(string title, string information);
+        void Output(string title, string information);
     }
 }

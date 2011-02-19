@@ -27,12 +27,14 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class Config : CommandBase
     {
+        #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "config";
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "config"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionConfig; } }
+        protected override string Description { get { return Resources.DescriptionConfig; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[NAME [VALUE]]"; } }
@@ -54,7 +56,7 @@ namespace ZeroInstall.Commands
 
             // ToDo: Implement
 
-            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;
         }
         #endregion

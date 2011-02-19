@@ -27,15 +27,17 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class RemoveFeed : ManageFeeds
     {
-        #region Properties
-        /// <inheritdoc/>
-        public override string Name { get { return "remove-feed"; } }
+        #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "remove-feed";
+        #endregion
 
+        #region Properties
         /// <inheritdoc/>
         protected override string Usage { get { return "FEED"; } }
 
         /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionRemoveFeed; } }
+        protected override string Description { get { return Resources.DescriptionRemoveFeed; } }
         #endregion
 
         #region Constructor
@@ -54,7 +56,7 @@ namespace ZeroInstall.Commands
 
             // ToDo: Implement
 
-            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;
         }
         #endregion

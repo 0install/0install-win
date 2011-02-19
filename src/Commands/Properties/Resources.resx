@@ -211,13 +211,13 @@ However, new downloads will not be written to this directory.</value>
     <value>Unknown option.</value>
   </data>
   <data name="UnknownCommand" xml:space="preserve">
-    <value>Unknown command.</value>
+    <value>Unknown command '{0}'.</value>
   </data>
   <data name="MissingArguments" xml:space="preserve">
     <value>Missing arguments.</value>
   </data>
   <data name="TooManyArguments" xml:space="preserve">
-    <value>Too many arguments or unknown otions.</value>
+    <value>Too many arguments or unknown options.</value>
   </data>
   <data name="Usage" xml:space="preserve">
     <value>Usage:</value>

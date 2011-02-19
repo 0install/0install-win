@@ -45,8 +45,13 @@ namespace ZeroInstall.Commands.Cli
 
             var handler = new CliHandler();
             CommandBase command;
-            try { command = CommandSwitch.CreateAndParse(args, handler); }
+            try { command = CommandFactory.CreateAndParse(args, handler); }
             #region Error handling
+            catch (UserCancelException)
+            {
+                // This is reached if --help, --version or similar was used
+                return 0;
+            }
             catch (OptionException ex)
             {
                 Log.Error(ex.Message + "\n" + Resources.TryHelp);
@@ -73,8 +78,6 @@ namespace ZeroInstall.Commands.Cli
                 return 1;
             }
             #endregion
-
-            if (command == null || command.InfoShown) return 1;
 
             try { return command.Execute(); }
             #region Error hanlding

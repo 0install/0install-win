@@ -434,7 +434,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Too many arguments or unknown otions..
+        ///   Looks up a localized string similar to Too many arguments or unknown options..
         /// </summary>
         internal static string TooManyArguments {
             get {
@@ -443,7 +443,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unknown command..
+        ///   Looks up a localized string similar to Unknown command &apos;{0}&apos;..
         /// </summary>
         internal static string UnknownCommand {
             get {

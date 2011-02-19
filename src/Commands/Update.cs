@@ -33,15 +33,15 @@ namespace ZeroInstall.Commands
     public sealed class Update : Selection
     {
         #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public new const string Name = "update";
+
         private Selections _oldSelections;
         #endregion
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "update"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionUpdate; } }
+        protected override string Description { get { return Resources.DescriptionUpdate; } }
         #endregion
 
         #region Constructor
@@ -57,8 +57,7 @@ namespace ZeroInstall.Commands
         protected override void ExecuteHelper()
         {
             // Run solver in offline mode to get the old values
-            var offlinePolicy = Policy.CreateDefault();
-            offlinePolicy.AdditionalStore = Policy.AdditionalStore;
+            var offlinePolicy = Policy.ClonePolicy();
             offlinePolicy.Preferences.NetworkLevel = NetworkLevel.Offline;
             _oldSelections = Solver.Solve(Requirements, offlinePolicy, Handler);
 
@@ -70,11 +69,10 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
-            Handler.Inform(Resources.ChangesFound, GetUpdateInformation());
-
+            Handler.Output(Resources.ChangesFound, GetUpdateInformation());
             Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
             return 0;
         }

@@ -31,6 +31,9 @@ namespace ZeroInstall.Commands
     public sealed class Run : Download
     {
         #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public new const string Name = "run";
+
         /// <summary>An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.</summary>
         private string _main;
 
@@ -43,10 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "run"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionRun; } }
+        protected override string Description { get { return Resources.DescriptionRun; } }
         #endregion
 
         #region Constructor

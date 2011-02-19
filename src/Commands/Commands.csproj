@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="AddFeed.cs" />
     <Compile Include="CommandBase.cs" />
-    <Compile Include="CommandSwitch.cs" />
+    <Compile Include="CommandFactory.cs" />
     <Compile Include="Config.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="Download.cs" />

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="6dbe0af5-6cd3-4012-bd14-83617f34c590" name="Handler" linkedPackageId="c0eb0f11-7bb6-4f7e-ac90-d4047ee81fd3" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="6dbe0af5-6cd3-4012-bd14-83617f34c590" name="Handler" linkedPackageId="c0eb0f11-7bb6-4f7e-ac90-d4047ee81fd3" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="849c668b-1938-4730-be11-53673058e1fd" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -417,7 +417,7 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="cfc6968c-c478-438e-854c-fc5fd55aa4a0" />
                       </operation>
-                      <operation Id="a7730d93-bee7-47b4-81b7-2a66c74a55c1" name="Inform" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                      <operation Id="a7730d93-bee7-47b4-81b7-2a66c74a55c1" name="Output" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <appliedStereotypesInternal>
                           <stereotypeInstance Id="a40fc8b7-b543-4253-bc45-34d96323fd0f" name="method" profile="CSharpProfile">
                             <elementDefinition Id="a2761053-efef-425a-9bf5-01d8b876f236" />
@@ -574,7 +574,7 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="1e5c2f3f-0179-4354-a341-b61cebe78535" />
                       </operation>
-                      <operation Id="669d4929-3418-4995-81f9-89693a57b885" name="Inform" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                      <operation Id="669d4929-3418-4995-81f9-89693a57b885" name="Output" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
                         <appliedStereotypesInternal>
                           <stereotypeInstance Id="eb9dc3b0-fa5a-49a7-8b01-bbd78d21d280" name="method" profile="CSharpProfile">
                             <elementDefinition Id="09978643-6272-4cc4-b786-f25c3ff843b7" />
@@ -615,16 +615,16 @@
                         <elementDefinition Id="0acf9183-8e82-4ae3-8187-26dcb7340a5b" />
                         <ownedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="0818c770-ee65-4b43-81ff-e5b81e84021c" name="title" direction="In" isUnique="false">
-                              <elementDefinition Id="acfb4a7d-bec8-4442-8e75-487a26b88b00" />
+                            <parameter Id="1f801352-b9c3-41b9-a588-67a6bf33b26a" name="title" direction="In" isUnique="false">
+                              <elementDefinition Id="9d8c41d1-0d55-41d9-901f-ede2697e36f6" />
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
                           <operationHasOwnedParameters>
-                            <parameter Id="5bbbfd99-fce7-4046-a8d6-b357433c1613" name="information" direction="In" isUnique="false">
-                              <elementDefinition Id="510de903-cded-4e9e-a968-c4894158cf27" />
+                            <parameter Id="9266c59c-6f03-4203-9e78-9833ca9016cd" name="information" direction="In" isUnique="false">
+                              <elementDefinition Id="d0331064-1c02-44ce-8174-6bfc488ec393" />
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="94d56911-3854-40ad-bccc-203bcab701dc" LastKnownName="String" />
                               </type_NamedElement>
@@ -924,7 +924,7 @@
                           </operationHasOwnedParameters>
                         </ownedParameters>
                       </operation>
-                      <operation Id="5f9d6c79-7be6-4a13-b2ee-fe299922fff0" name="Inform" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                      <operation Id="5f9d6c79-7be6-4a13-b2ee-fe299922fff0" name="Output" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                         <appliedStereotypesInternal>
                           <stereotypeInstance Id="e389db0c-1513-4e54-baca-e5a7ea64245e" name="method" profile="CSharpProfile">
                             <elementDefinition Id="7913524f-2071-4293-83d2-bb7f7fdb4ee5" />

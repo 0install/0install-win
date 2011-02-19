@@ -30,12 +30,14 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class List : CommandBase
     {
+        #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "list";
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "list"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionList; } }
+        protected override string Description { get { return Resources.DescriptionList; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[PATTERN]"; } }
@@ -59,12 +61,12 @@ namespace ZeroInstall.Commands
             {
                 case 0: pattern = null; break;
                 case 1: pattern = AdditionalArgs.First; break;
-                default: throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
+                default: throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             }
 
             ExecuteHelper();
 
-            Handler.Inform(Resources.FoundFeeds, GetList(pattern));
+            Handler.Output(Resources.FoundFeeds, GetList(pattern));
             return 0;
         }
 

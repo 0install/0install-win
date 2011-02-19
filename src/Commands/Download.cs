@@ -31,16 +31,16 @@ namespace ZeroInstall.Commands
     public class Download : Selection
     {
         #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public new const string Name = "download";
+        
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
         #endregion
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "download"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionDownload; } }
+        protected override string Description { get { return Resources.DescriptionDownload; } }
         #endregion
 
         #region Constructor
@@ -67,11 +67,15 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
-            if (_show) Handler.Inform(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
-            else Handler.Inform(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            if (_show)
+            {
+                if (ShowXml) Handler.Output("Selections XML:", Selections.WriteToString());
+                else Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+            }
+            else Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             return 0;
         }
         #endregion

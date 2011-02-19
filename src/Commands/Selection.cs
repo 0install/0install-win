@@ -32,6 +32,9 @@ namespace ZeroInstall.Commands
     public class Selection : CommandBase
     {
         #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "select";
+
         /// <summary>The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</summary>
         protected readonly ISolver Solver;
 
@@ -39,15 +42,12 @@ namespace ZeroInstall.Commands
         protected Selections Selections;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
-        private bool _xml;
+        protected bool ShowXml;
         #endregion
 
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "select"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionSelect; } }
+        protected override string Description { get { return Resources.DescriptionSelect; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] URI"; } }
@@ -80,7 +80,7 @@ namespace ZeroInstall.Commands
             Options.Add("os=", Resources.OptionOS, os => _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu));
             Options.Add("cpu=", Resources.OptionCpu, cpu => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)));
 
-            Options.Add("xml", Resources.OptionXml, unused => _xml = true);
+            Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }
         #endregion
 
@@ -134,11 +134,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, Name);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
-            if (_xml) Handler.Inform("Selections XML:", Selections.WriteToString());
-            else Handler.Inform(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+            if (ShowXml) Handler.Output("Selections XML:", Selections.WriteToString());
+            else Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
             return 0;
         }
         #endregion

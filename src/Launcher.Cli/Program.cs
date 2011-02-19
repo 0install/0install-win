@@ -49,6 +49,11 @@ namespace ZeroInstall.Launcher.Cli
             
             try { command.Parse(args); }
             #region Error handling
+            catch (UserCancelException)
+            {
+                // This is reached if --help, --version or similar was used
+                return 0;
+            }
             catch (OptionException ex)
             {
                 Log.Error(ex.Message + "\n" + Resources.TryHelp);
@@ -75,8 +80,6 @@ namespace ZeroInstall.Launcher.Cli
                 return 1;
             }
             #endregion
-
-            if (command.InfoShown) return 0;
 
             try { return command.Execute(); }
             #region Error hanlding

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
   dslVersion="1.0.0.0"
   Id="c2ca15a1-edba-444e-b0b3-566e1cd782d0"
   name="Injector"
@@ -1461,7 +1461,7 @@
           </operation>
           <operation
             Id="0acf9183-8e82-4ae3-8187-26dcb7340a5b"
-            name="Inform"
+            name="Output"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -1513,7 +1513,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="acfb4a7d-bec8-4442-8e75-487a26b88b00"
+                  Id="9d8c41d1-0d55-41d9-901f-ede2697e36f6"
                   name="title"
                   direction="In"
                   isUnique="false">
@@ -1527,7 +1527,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="510de903-cded-4e9e-a968-c4894158cf27"
+                  Id="d0331064-1c02-44ce-8174-6bfc488ec393"
                   name="information"
                   direction="In"
                   isUnique="false">
@@ -1978,7 +1978,7 @@
           </operation>
           <operation
             Id="ec92419e-af91-4efe-9e2d-0d5f81a0d5b9"
-            name="Inform"
+            name="Output"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -2531,7 +2531,7 @@
           </operation>
           <operation
             Id="32fb23a7-447f-40e8-b45c-6a0e3d110ab9"
-            name="Inform"
+            name="Output"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"

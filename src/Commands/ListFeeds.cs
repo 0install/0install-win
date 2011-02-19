@@ -27,12 +27,14 @@ namespace ZeroInstall.Commands
     [CLSCompliant(false)]
     public sealed class ListFeeds : ManageFeeds
     {
+        #region Variables
+        /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
+        public const string Name = "list-feeds";
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
-        public override string Name { get { return "list-feeds"; } }
-
-        /// <inheritdoc/>
-        public override string Description { get { return Resources.DescriptionListFeeds; } }
+        protected override string Description { get { return Resources.DescriptionListFeeds; } }
 
         /// <inheritdoc/>
         protected override string Usage { get { return "URI"; } }
@@ -54,7 +56,7 @@ namespace ZeroInstall.Commands
 
             // ToDo: Implement
 
-            Handler.Inform("Not implemented", "This feature is not implemented yet.");
+            Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;
         }
         #endregion

@@ -54,9 +54,7 @@ namespace ZeroInstall.Commands.WinForms
                 CommandBase command;
                 try
                 {
-                    command = CommandSwitch.CreateAndParse(args, handler);
-
-                    if (command == null || command.InfoShown) return;
+                    command = CommandFactory.CreateAndParse(args, handler);
 
                     var selection = command as Selection;
                     if (selection != null)
@@ -73,6 +71,11 @@ namespace ZeroInstall.Commands.WinForms
                     }
                 }
                 #region Error handling
+                catch (UserCancelException)
+                {
+                    // This is reached if --help, --version or similar was used
+                    return;
+                }
                 catch (OptionException ex)
                 {
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Warn);

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Net;
+using System.Reflection;
 using Common;
 using Common.Streams;
 using NDesk.Options;
@@ -63,19 +64,9 @@ namespace ZeroInstall.Commands
 
         #region Properties
         /// <summary>
-        /// Indicates whether the help text or version information was displayed and therefor no other operations should be performed.
-        /// </summary>
-        public bool InfoShown { get; private set; }
-
-        /// <summary>
-        /// The name of the command as used in command-line arguments in lower-case.
-        /// </summary>
-        public abstract string Name { get; }
-
-        /// <summary>
         /// A short description of what this command does.
         /// </summary>
-        public abstract string Description { get; }
+        protected abstract string Description { get; }
 
         /// <summary>
         /// The additional arguments to be displayed after the command name in the help text.
@@ -96,11 +87,22 @@ namespace ZeroInstall.Commands
                     writer.Flush();
 
                     // ToDo: Add flow formatting for better readability on console
-                    return Resources.Usage + " 0install " + Name + " " + Usage + "\n\n" +
+                    return Resources.Usage + " 0install " + GetName() + " " + Usage + "\n\n" +
                            Description + "\n\n" +
                            Resources.Options + "\n" + StreamUtils.ReadToString(buffer);
                 }
             }
+        }
+        
+        /// <summary>
+        /// Uses reflection
+        /// </summary>
+        private string GetName()
+        {
+            var field = GetType().GetField("Name", BindingFlags.Public | BindingFlags.Static);
+// ReSharper disable AssignNullToNotNullAttribute
+            return (field == null) ? null : field.GetValue(null).ToString();
+// ReSharper restore AssignNullToNotNullAttribute
         }
         #endregion
 
@@ -117,13 +119,13 @@ namespace ZeroInstall.Commands
 
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
-                handler.Inform(Resources.CommandLineArguments, HelpText);
-                InfoShown = true;
+                handler.Output(Resources.CommandLineArguments, HelpText);
+                throw new UserCancelException(); // Don't handle any of the other arguments
             });
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                handler.Inform(Resources.VersionInformation, ApplicationInfo.Name + " " + ApplicationInfo.Version + "\n" + ApplicationInfo.Copyright + "\n" + Resources.LicenseInfo);
-                InfoShown = true;
+                handler.Output(Resources.VersionInformation, ApplicationInfo.Name + " " + ApplicationInfo.Version + "\n" + ApplicationInfo.Copyright + "\n" + Resources.LicenseInfo);
+                throw new UserCancelException(); // Don't handle any of the other arguments
             });
 
             Options.Add("with-store=", Resources.OptionWithStore, path => Policy.AdditionalStore = new DirectoryStore(path));
