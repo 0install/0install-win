@@ -328,7 +328,7 @@ namespace Common.Storage
             bool xmlFound = false;
             T output = default(T);
 
-            using (var zipFile = new ZipFile(stream))
+            using (var zipFile = new ZipFile(stream) {IsStreamOwner = false})
             {
                 zipFile.Password = password;
 
@@ -404,7 +404,7 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            using (var zipStream = new ZipOutputStream(stream))
+            using (var zipStream = new ZipOutputStream(stream) {IsStreamOwner = false})
             {
                 zipStream.Password = password;
 

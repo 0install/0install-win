@@ -148,7 +148,7 @@ namespace Common.Utils
 
         #region Splitting
         /// <summary>
-        /// Splits a multi line string to several strings and returns the result as a string array.
+        /// Splits a multiline string to several strings and returns the result as a string array.
         /// </summary>
         public static string[] SplitMultilineText(string value)
         {
