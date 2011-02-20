@@ -292,7 +292,7 @@ namespace ZeroInstall.Store.Implementation
             // Use the same format as the file
             var output = new StringBuilder();
             foreach (ManifestNode node in _nodes)
-                output.AppendLine(Format.GenerateEntryForNode(node));
+                output.Append(Format.GenerateEntryForNode(node) + "\n");
             return output.ToString();
         }
         #endregion
