@@ -161,6 +161,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
@@ -185,6 +186,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
+        /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>

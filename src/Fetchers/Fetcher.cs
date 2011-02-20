@@ -250,6 +250,7 @@ namespace ZeroInstall.Fetchers
                 StartOffset = archive.StartOffset
             };
         }
+
         private void PerformRecipe(Recipe recipe, IFetchHandler handler)
         {
             var archives = new List<ArchiveFileInfo>();

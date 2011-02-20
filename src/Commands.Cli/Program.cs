@@ -95,6 +95,11 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
+            catch (NotSupportedException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
             catch (IOException ex)
             {
                 Log.Error(ex.Message);

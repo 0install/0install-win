@@ -79,6 +79,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="NotSupportedException">Thrown if the archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if the archive cannot be extracted.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
@@ -93,6 +94,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
+        /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if one of the archives cannot be extracted.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>

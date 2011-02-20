@@ -117,6 +117,11 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     handler.CloseAsync();
                 }
+                catch (NotSupportedException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
                 catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
