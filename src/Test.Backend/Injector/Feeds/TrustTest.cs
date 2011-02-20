@@ -39,10 +39,7 @@ namespace ZeroInstall.Injector.Feeds
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             Trust trust1, trust2;
@@ -60,10 +57,7 @@ namespace ZeroInstall.Injector.Feeds
             Assert.IsFalse(ReferenceEquals(trust1, trust2), "Serialized objects should not return the same reference.");
         }
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var trust1 = CreateTestTrust();

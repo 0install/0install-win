@@ -45,10 +45,7 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that <see cref="ManifestFormat.GetSortedDirectoryEntries"/> correctly sorts and lists filesystem entries.
-        /// </summary>
-        [Test]
+        [Test(Description = " Ensures that GetSortedDirectoryEntries() correctly sorts and lists filesystem entries.")]
         public void TestGetSortedDirectoryEntries()
         {
             // Create a test directory to analyze

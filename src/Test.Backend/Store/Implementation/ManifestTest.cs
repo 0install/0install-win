@@ -52,10 +52,7 @@ namespace ZeroInstall.Store.Implementation
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that <see cref="Manifest"/> is correctly generated, serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that Manifest is correctly generated, serialized and deserialized.")]
         public void TestSaveLoad()
         {
             Manifest manifest1, manifest2;
@@ -71,9 +68,6 @@ namespace ZeroInstall.Store.Implementation
             Assert.AreEqual(manifest1, manifest2);
         }
 
-        /// <summary>
-        /// Ensures that <see cref="Manifest.CalculateDigest"/> returns the same value as <see cref="Manifest.CreateDotFile"/>.
-        /// </summary>
         [Test]
         public void TestCalculateHash()
         {
@@ -90,9 +84,6 @@ namespace ZeroInstall.Store.Implementation
             }
         }
 
-        /// <summary>
-        /// Ensures that <see cref="Manifest.CreateDigest"/> correctly generates a <see cref="ManifestDigest"/> with multiple <see cref="ManifestFormat"/>s.
-        /// </summary>
         [Test]
         public void TestCreateDigest()
         {
@@ -106,6 +97,21 @@ namespace ZeroInstall.Store.Implementation
 
                 ManifestDigest digest2 = Manifest.CreateDigest(packageDir, new SilentHandler());
                 Assert.AreEqual(digest1, digest2);
+            }
+            finally
+            {
+                Directory.Delete(packageDir, true);
+            }
+        }
+
+        [Test(Description = "Ensures that ToString() correctly outputs a serialized form of the manifest.")]
+        public void TestToString()
+        {
+            string packageDir = DirectoryStoreTest.CreateArtificialPackage();
+            try
+            {
+                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler());
+                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString());
             }
             finally
             {

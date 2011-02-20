@@ -31,9 +31,9 @@ namespace Common.Compression
     public class ArchiveUtilsTest
     {
         /// <summary>
-        /// Ensures <see cref="ArchiveUtils.GuessMimeType"/> correctly guesses the MIME types for different file names.
+        /// 
         /// </summary>
-        [Test]
+        [Test(Description = "Ensures ArchiveUtils.GuessMimeType correctly guesses the MIME types for different file names.")]
         public void TestGuessMimeType()
         {
             Assert.AreEqual("application/zip", ArchiveUtils.GuessMimeType("test.zip"));

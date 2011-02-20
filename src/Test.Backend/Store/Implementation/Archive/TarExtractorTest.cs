@@ -48,7 +48,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestGzCompressed()
         {
             using (var archive = TestData.GetSdlTarGzArchiveStream())
-            using (var extractor = new TarGzExtractor(archive, _sandbox.Path))
+            using (var extractor = Extractor.CreateExtractor("application/x-compressed-tar", archive,  _sandbox.Path))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("SDL.dll"));
@@ -59,7 +59,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestBz2Compressed()
         {
             using (var archive = TestData.GetSdlTarBz2ArchiveStream())
-            using (var extractor = new TarBz2Extractor(archive, _sandbox.Path))
+            using (var extractor = Extractor.CreateExtractor("application/x-bzip-compressed-tar", archive, _sandbox.Path))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("SDL.dll"));
@@ -70,7 +70,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         public void TestLzmaCompressed()
         {
             using (var archive = TestData.GetSdlTarLzmaArchiveStream())
-            using (var extractor = new TarLzmaExtractor(archive, _sandbox.Path))
+            using (var extractor = Extractor.CreateExtractor("application/x-lzma-compressed-tar", archive, _sandbox.Path))
                 extractor.RunSync();
 
             Assert.IsTrue(File.Exists("SDL.dll"));

@@ -28,10 +28,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     [TestFixture]
     public class ExtractorTest
     {
-        /// <summary>
-        /// Ensures <see cref="Extractor.CreateExtractor(string,string,long,string)"/> correctly creates a <see cref="ZipExtractor"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures Extractor.CreateExtractor() correctly creates a ZipExtractor.")]
         public void TestCreateExtractor()
         {
             using (var tempDir = new TemporaryDirectory("0install-unit-tests"))

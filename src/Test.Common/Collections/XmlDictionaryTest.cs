@@ -32,10 +32,7 @@ namespace Common.Collections
     [TestFixture]
     public class XmlDictionaryTest
     {
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             var dictionary1 = new XmlDictionary

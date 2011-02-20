@@ -31,9 +31,6 @@ namespace Common.Utils
     [TestFixture]
     public class StringUtilsTest
     {
-        /// <summary>
-        /// Ensures <see cref="StringUtils.Compare"/> works correctly.
-        /// </summary>
         [Test]
         public void TestCompare()
         {
@@ -44,9 +41,6 @@ namespace Common.Utils
             Assert.IsFalse(StringUtils.Compare("abc", "abc "));
         }
 
-        /// <summary>
-        /// Ensures <see cref="StringUtils.Contains"/> works correctly.
-        /// </summary>
         [Test]
         public void TestContains()
         {
@@ -57,9 +51,6 @@ namespace Common.Utils
             Assert.IsFalse(StringUtils.Contains("test", "This is a test."));
         }
         
-        /// <summary>
-        /// Ensures <see cref="StringUtils.CountOccurences"/> works correctly.
-        /// </summary>
         [Test]
         public void TestCountOccurences()
         {
@@ -69,14 +60,19 @@ namespace Common.Utils
             Assert.AreEqual(2, StringUtils.CountOccurences("ab/c/", '/'));
         }
         
-        /// <summary>
-        /// Ensures <see cref="StringUtils.GetLastWord"/> works correctly.
-        /// </summary>
         [Test]
         public void TestGetLastWord()
         {
             Assert.AreEqual("sentence", StringUtils.GetLastWord("This is a sentence."));
             Assert.AreEqual("words", StringUtils.GetLastWord("some words"));
+        }
+
+        [Test]
+        public void TestSplitMultilineText()
+        {
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\nabc"), "Should split Linux-stlye linebreaks");
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\rabc"), "Should split old Mac-stlye linebreaks");
+            CollectionAssert.AreEqual(new[] {"123", "abc"}, StringUtils.SplitMultilineText("123\r\nabc"), "Should split Windows-stlye linebreaks");
         }
 
         [Test]

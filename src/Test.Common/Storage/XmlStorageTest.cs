@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System.IO;
 using NUnit.Framework;
 
 namespace Common.Storage
@@ -48,9 +49,29 @@ namespace Common.Storage
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
                 // Write and read file
-                testData1 = new TestData { Data = "Hello" };
+                testData1 = new TestData {Data = "Hello"};
                 XmlStorage.Save(tempFile.Path, testData1);
                 testData2 = XmlStorage.Load<TestData>(tempFile.Path);
+            }
+
+            // Ensure data stayed the same
+            Assert.AreEqual(testData1.Data, testData2.Data);
+        }
+
+        /// <summary>
+        /// Ensures <see cref="XmlStorage.ToZip{T}(Stream,T,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> and <see cref="XmlStorage.FromZip{T}(Stream,string,System.Collections.Generic.IEnumerable{Common.Storage.EmbeddedFile},System.Reflection.MemberInfo[])"/> work correctly.
+        /// </summary>
+        [Test]
+        public void TestZip()
+        {
+            TestData testData1, testData2;
+            using (var tempStream = new MemoryStream())
+            {
+                // Write and read file
+                testData1 = new TestData {Data = "Hello"};
+                XmlStorage.ToZip(tempStream, testData1, null, new EmbeddedFile[0]);
+                tempStream.Seek(0, SeekOrigin.Begin);
+                testData2 = XmlStorage.FromZip<TestData>(tempStream, null, new EmbeddedFile[0]);
             }
 
             // Ensure data stayed the same

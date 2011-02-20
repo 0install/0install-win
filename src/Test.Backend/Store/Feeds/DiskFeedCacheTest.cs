@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web;
 using Common.Storage;
@@ -57,9 +58,6 @@ namespace ZeroInstall.Store.Feeds
             _tempDir.Dispose();
         }
 
-        /// <summary>
-        /// Ensures <see cref="DiskFeedCache.Contains"/> correctly determines whether a feed is in the cache.
-        /// </summary>
         [Test]
         public void TestContains()
         {
@@ -68,9 +66,6 @@ namespace ZeroInstall.Store.Feeds
             Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/test/test3.xml")));
         }
 
-        /// <summary>
-        /// Ensures that <see cref="DiskFeedCache.ListAll"/> correctly distiguishes invalid entries in the cache.
-        /// </summary>
         [Test]
         public void TestListAll()
         {
@@ -80,9 +75,6 @@ namespace ZeroInstall.Store.Feeds
                 feeds);
         }
 
-        /// <summary>
-        /// Ensures <see cref="DiskFeedCache.GetFeed"/> correctly retreives <see cref="Feed"/>s from the cache.
-        /// </summary>
         [Test]
         public void TestGet()
         {
@@ -90,9 +82,6 @@ namespace ZeroInstall.Store.Feeds
             Assert.AreEqual(_feed1, feed);
         }
 
-        /// <summary>
-        /// Ensures that <see cref="DiskFeedCache.GetAll"/> correctly loads all cached feeds.
-        /// </summary>
         [Test]
         public void TestGetAll()
         {
@@ -100,14 +89,20 @@ namespace ZeroInstall.Store.Feeds
             CollectionAssert.AreEqual(new[] { _feed1, _feed2 }, feeds);
         }
 
-        /// <summary>
-        /// Ensures that <see cref="DiskFeedCache.Add"/> correctly adds new feeds and detects replay attacks.
-        /// </summary>
         // Test deactivated because feature isn't implemented yet
-        //[Test]
+        //[Test(Description = "Ensures that Add() correctly adds new feeds and detects replay attacks.")]
         public void TestAdd()
         {
             // ToDo: Implement
+        }
+
+        [Test]
+        public void TestRemove()
+        {
+            _cache.Remove(new Uri("http://0install.de/feeds/test/test1.xml"));
+            Assert.Throws<KeyNotFoundException>(() => _cache.Remove(new Uri("http://0install.de/feeds/test/test1.xml")));
+            Assert.IsFalse(_cache.Contains(new Uri("http://0install.de/feeds/test/test1.xml")));
+            Assert.IsTrue(_cache.Contains(new Uri("http://0install.de/feeds/test/test2.xml")));
         }
     }
 }

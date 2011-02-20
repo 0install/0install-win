@@ -41,10 +41,7 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that setting <see cref="Requirements.InterfaceID"/> produces the correct exceptions.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that setting Requirements.InterfaceID produces the correct exceptions.")]
         public void TestInterfaceID()
         {
             var requirements = new Requirements();
@@ -57,10 +54,7 @@ namespace ZeroInstall.Injector.Solver
             Assert.DoesNotThrow(() => requirements.InterfaceID = "/feeds/test.xml", "Should absolute paths");
         }
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var requirements1 = CreateTestRequirements();

@@ -55,10 +55,7 @@ namespace Common.Net
             _tempFile.Dispose();
         }
 
-        /// <summary>
-        /// Downloads a small file using <see cref="TaskBase.RunSync"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = " Downloads a small file using RunSync().")]
         public void TestRunSync()
         {
             // Download the file
@@ -73,10 +70,7 @@ namespace Common.Net
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
-        /// <summary>
-        /// Downloads a small file using <see cref="TaskBase.Start"/> and <see cref="TaskBase.Join"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = "Downloads a small file using Start() and Join().")]
         public void TestThread()
         {
             // Start a background download of the file and then wait
@@ -92,10 +86,7 @@ namespace Common.Net
             Assert.AreEqual(TestFileContent, fileContent, "Downloaded file doesn't match original");
         }
 
-        /// <summary>
-        /// Starts downloading a small file using <see cref="TaskBase.Start"/> and stops again right away using <see cref="TaskBase.Cancel"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = "Starts downloading a small file using Start() and stops again right away using Cancel().")]
         public void TestCancelAsync()
         {
             // Start a very slow download of the file and then cancel it right away again
@@ -107,10 +98,7 @@ namespace Common.Net
             Assert.AreEqual(TaskState.Ready, download.State);
         }
 
-        /// <summary>
-        /// Starts downloading a small file using <see cref="TaskBase.RunSync"/> and stops again right away using <see cref="TaskBase.Cancel"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = "Starts downloading a small file using RunSync() and stops again right away using Cancel().")]
         public void TestCancelSync()
         {
             // Prepare a very slow download of the file and monitor for a cancellation exception
@@ -132,10 +120,7 @@ namespace Common.Net
             Assert.IsTrue(exceptionThrown, download.State.ToString());
         }
         
-        /// <summary>
-        /// Ensure files with an incorrect size are rejected.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensure files with an incorrect size are rejected.")]
         public void TestIncorrectSize()
         {
             var download = new DownloadFile(_server.FileUri, _tempFile.Path, 1024);

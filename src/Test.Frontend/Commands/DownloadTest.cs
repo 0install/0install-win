@@ -17,6 +17,7 @@
 
 using System;
 using NUnit.Framework;
+using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
@@ -34,20 +35,24 @@ namespace ZeroInstall.Commands
             return new Download(Handler, Policy, Solver);
         }
 
-        /// <inheritdoc/>
-        [Test]
+        [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
+            var testFeed1 = FeedTest.CreateTestFeed();
+            var testFeed2 = FeedTest.CreateTestFeed();
+            var testImplementation1 = testFeed1.GetImplementation(selections.Implementations[0].ID);
+            var testImplementation2 = testFeed1.GetImplementation(selections.Implementations[1].ID);
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             Command.Parse(args);
 
             SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler);
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml"));
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
-            FetcherMock.Expect("RunSync");
+            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml"));
+            CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
+            FetcherMock.Expect("RunSync", new FetchRequest(new[] {testImplementation1, testImplementation2}), Handler);
+
             Assert.AreEqual(0, Command.Execute());
         }
     }

@@ -53,10 +53,7 @@ namespace Common.Undo
             }
         }
 
-        /// <summary>
-        /// Makes sure executing and undoing a <see cref="CompositeCommand"/> correctly executes and undos the contained child commands.
-        /// </summary>
-        [Test]
+        [Test(Description = "Makes sure executing and undoing a CompositeCommand correctly executes and undos the contained child commands.")]
         public void TestExecuteUndo()
         {
             var executeCalls = new List<int>(3);
@@ -75,10 +72,7 @@ namespace Common.Undo
             CollectionAssert.AreEqual(new[] {2, 1, 0}, undoCalls, "Child commands should be undone in descending order");
         }
 
-        /// <summary>
-        /// Makes sure exceptions while executing cause rollbacks to occur.
-        /// </summary>
-        [Test]
+        [Test(Description = "Makes sure exceptions while executing cause rollbacks to occur.")]
         public void TestExecuteRollback()
         {
             var executeCalls = new List<int>(3);
@@ -95,10 +89,7 @@ namespace Common.Undo
             CollectionAssert.AreEqual(new[] {1, 0}, undoCalls, "After an exception all successful executions should be undone");
         }
 
-        /// <summary>
-        /// Makes sure exceptions while undoing cause rollbacks to occur.
-        /// </summary>
-        [Test]
+        [Test(Description = "Makes sure exceptions while undoing cause rollbacks to occur.")]
         public void TestUndoRollback()
         {
             var executeCalls = new List<int>(3);
@@ -119,10 +110,7 @@ namespace Common.Undo
             CollectionAssert.AreEqual(new[] {1, 2}, executeCalls, "After an exception all successful undoes should be re-executed");
         }
 
-        /// <summary>
-        /// Makes sure a correct order of calling <see cref="IUndoCommand.Execute"/> and <see cref="IUndoCommand.Undo"/> is enforced.
-        /// </summary>
-        [Test]
+        [Test(Description = "Makes sure a correct order of calling Execute() and Undo() is enforced.")]
         public void TestWrongOrder()
         {
             var command = new CompositeCommand(new IUndoCommand[0]);

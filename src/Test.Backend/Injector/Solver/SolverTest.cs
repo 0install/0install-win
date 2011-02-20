@@ -38,10 +38,7 @@ namespace ZeroInstall.Injector.Solver
             return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
         }
 
-        /// <summary>
-        /// Ensures <see cref="ISolver.Solve"/> correctly solves the dependencies for a specific feed URI.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures ISolver.Solve() correctly solves the dependencies for a specific feed URI.")]
         public void TestSolve()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))

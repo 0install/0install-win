@@ -53,10 +53,7 @@ namespace ZeroInstall.MyApps
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             AppList appList1, appList2;
@@ -74,10 +71,7 @@ namespace ZeroInstall.MyApps
             Assert.IsFalse(ReferenceEquals(appList1, appList2), "Serialized objects should not return the same reference.");
         }
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var archive1 = CreateTestAppList();

@@ -43,6 +43,7 @@ namespace ZeroInstall.Store.Implementation
             string subDir = Path.Combine(packageDir, "subdir");
             Directory.CreateDirectory(subDir);
             File.WriteAllText(Path.Combine(subDir, "file.txt"), @"AAA");
+            File.SetLastWriteTimeUtc(Path.Combine(subDir, "file.txt"), new DateTime(2000, 1, 1));
 
             return packageDir;
         }

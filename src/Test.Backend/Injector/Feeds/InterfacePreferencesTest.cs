@@ -43,10 +43,7 @@ namespace ZeroInstall.Injector.Feeds
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             InterfacePreferences preferences1, preferences2;
@@ -65,10 +62,7 @@ namespace ZeroInstall.Injector.Feeds
             Assert.IsFalse(ReferenceEquals(preferences1, preferences2), "Serialized objects should not return the same reference.");
         }
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var preferences1 = CreateTestInterfacePreferences();

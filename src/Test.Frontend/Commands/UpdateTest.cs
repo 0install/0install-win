@@ -35,14 +35,14 @@ namespace ZeroInstall.Commands
             return new Update(Handler, Policy, Solver);
         }
 
-        /// <inheritdoc/>
-        [Test]
+        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public override void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
             var selectionsOld = SelectionsTest.CreateTestSelections();
             var selectionsNew = SelectionsTest.CreateTestSelections();
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
+            selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
 
             var offlinePolicy = Policy.ClonePolicy();
             offlinePolicy.Preferences.NetworkLevel = NetworkLevel.Offline;
@@ -51,10 +51,11 @@ namespace ZeroInstall.Commands
             SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, Policy, Handler);
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
+            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub3.xml"));
             FetcherMock.Expect("RunSync");
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
-            AssertParseExecuteResult(args, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0", 0);
+            AssertParseExecuteResult(args, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0);
         }
     }
 }

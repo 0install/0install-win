@@ -36,10 +36,7 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var preferences1 = CreateTestPreferences();

@@ -52,33 +52,30 @@ namespace ZeroInstall.Commands
             base.TearDown();
         }
 
-        /// <summary>
-        /// Ensures all options are parsed and handled correctly.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures all options are parsed and handled correctly.")]
         public virtual void TestNormal()
         {
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
 
             SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler);
-            var args = new[] { "--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
+            var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selections.WriteToString(), 0);
         }
 
-        /// <summary>
-        /// Ensures calling with no arguments raises an exception.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        public void TestImportSelections()
+        {
+            // ToDo
+        }
+
+        [Test(Description = "Ensures calling with no arguments raises an exception.")]
         public void TestNoArgs()
         {
             Assert.Throws<InvalidInterfaceIDException>(() => Command.Parse(new string[0]), "Should reject empty argument list");
         }
 
-        /// <summary>
-        /// Ensures calling with too many arguments raises an exception.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures calling with too many arguments raises an exception.")]
         public void TestTooManyArgs()
         {
             Command.Parse(new[] { "http://0install.de/feeds/test/test1.xml", "arg1" });

@@ -31,9 +31,6 @@ namespace Common.Undo
     [TestFixture]
     public class CollectionTest
     {
-        /// <summary>
-        /// Makes sure <see cref="AddToCollection{T}"/> correctly performs executions and undos.
-        /// </summary>
         [Test]
         public void TestAddToCollection()
         {
@@ -47,9 +44,6 @@ namespace Common.Undo
             CollectionAssert.DoesNotContain(collection, "d");
         }
 
-        /// <summary>
-        /// Makes sure <see cref="RemoveFromCollection{T}"/> correctly performs executions and undos.
-        /// </summary>
         [Test]
         public void TestRemoveFromCollection()
         {

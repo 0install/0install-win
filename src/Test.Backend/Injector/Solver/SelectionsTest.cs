@@ -48,9 +48,9 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
+        /// 
         /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             var selections1 = CreateTestSelections();
@@ -65,10 +65,7 @@ namespace ZeroInstall.Injector.Solver
             Assert.IsFalse(ReferenceEquals(selections1, selections2), "Serialized objects should not return the same reference.");
         }
 
-        /// <summary>
-        /// Ensures that the class can be correctly cloned.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class can be correctly cloned.")]
         public void TestClone()
         {
             var selections1 = CreateTestSelections();
@@ -80,10 +77,7 @@ namespace ZeroInstall.Injector.Solver
             Assert.IsFalse(ReferenceEquals(selections1, selections2), "Cloning should not return the same reference.");
         }
 
-        /// <summary>
-        /// Ensures that <see cref="Selections.ListUncachedImplementations"/> correctly finds <see cref="Model.Implementation"/>s not cached in an <see cref="IStore"/>.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that Selections.ListUncachedImplementations() correctly finds Implementations not cached in a store")]
         public void TestListUncachedImplementations()
         {
             var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));

@@ -33,10 +33,7 @@ namespace Common.Collections
     [TestFixture]
     public class LocalizableStringCollectionTest
     {
-        /// <summary>
-        /// Ensures that the class is correctly serialized and deserialized.
-        /// </summary>
-        [Test]
+        [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
             var collection1 = new LocalizableStringCollection
