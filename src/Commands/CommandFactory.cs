@@ -46,6 +46,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         private static CommandBase GetCommand(string commandName, IHandler handler)
         {
+            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler, Policy.CreateDefault());
             switch (commandName.ToLowerInvariant())
             {
                 case Selection.Name: return new Selection(handler, Policy.CreateDefault(), SolverProvider.Default);
@@ -58,7 +59,6 @@ namespace ZeroInstall.Commands
                 case AddFeed.Name: return new AddFeed(handler, Policy.CreateDefault());
                 case RemoveFeed.Name: return new RemoveFeed(handler, Policy.CreateDefault());
                 case ListFeeds.Name: return new ListFeeds(handler, Policy.CreateDefault());
-                case null: return new DefaultCommand(handler, Policy.CreateDefault());
                 default: throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }
         }
