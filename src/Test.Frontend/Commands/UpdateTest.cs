@@ -17,7 +17,6 @@
 
 using System;
 using NUnit.Framework;
-using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
@@ -45,7 +44,9 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
 
             var offlinePolicy = Policy.ClonePolicy();
-            offlinePolicy.Preferences.NetworkLevel = NetworkLevel.Offline;
+            offlinePolicy.FeedManager.Offline = true;
+
+            Policy.Preferences.Freshness = new TimeSpan(0); // Refresh feeds in cache
 
             SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, offlinePolicy, Handler);
             SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, Policy, Handler);

@@ -71,7 +71,7 @@ namespace ZeroInstall.Commands
             Solver = solver;
 
             Options.Add("batch", Resources.OptionBatch, unused => handler.Batch = true);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
+            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.Preferences.Freshness = new TimeSpan(0));
             
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
             Options.Add("before=", Resources.OptionBefore, version => _requirements.BeforeVersion = new ImplementationVersion(version));

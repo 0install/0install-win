@@ -58,11 +58,11 @@ namespace ZeroInstall.Commands
         {
             // Run solver in offline mode to get the old values
             var offlinePolicy = Policy.ClonePolicy();
-            offlinePolicy.Preferences.NetworkLevel = NetworkLevel.Offline;
+            offlinePolicy.FeedManager.Offline = true;
             _oldSelections = Solver.Solve(Requirements, offlinePolicy, Handler);
 
-            // Run solver in online refresh mode to get the new values
-            Policy.FeedManager.Refresh = true;
+            // Run solver in online mode to get the new values
+            Policy.Preferences.Freshness = new TimeSpan(0); // Refresh feeds in cache
             base.ExecuteHelper();
         }
 

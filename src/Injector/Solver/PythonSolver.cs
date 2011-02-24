@@ -106,7 +106,7 @@ namespace ZeroInstall.Injector.Solver
         {
             string arguments = "";
             if (policy.Preferences.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
-            if (policy.FeedManager.Refresh) arguments += "--refresh ";
+            if (policy.Preferences.Freshness == new TimeSpan(0)) arguments += "--refresh ";
             if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
             if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";
             if (requirements.NotBeforeVersion != null) arguments += "--not-before=" + requirements.NotBeforeVersion + " ";

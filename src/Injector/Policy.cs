@@ -114,10 +114,10 @@ namespace ZeroInstall.Injector
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Preferences"/> are cloned, other properties are copied.</remarks>
+        /// <remarks><see cref="Preferences"/> and the <see cref="FeedManager"/> are cloned, the <see cref="Fetcher"/> is not.</remarks>
         public Policy ClonePolicy()
         {
-            return new Policy(Preferences.ClonePreferences(), FeedManager, Fetcher) {AdditionalStore = AdditionalStore};
+            return new Policy(Preferences.ClonePreferences(), FeedManager.CloneFeedManager(), Fetcher) {AdditionalStore = AdditionalStore};
         }
 
         /// <summary>
@@ -137,8 +137,8 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return Equals(other.Preferences, Preferences) && Equals(other.AdditionalStore, AdditionalStore) &&
-                other.FeedManager == FeedManager && other.Fetcher == Fetcher;
+            return Equals(other.Preferences, Preferences) && Equals(other.FeedManager, FeedManager) &&
+                Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore);
         }
 
         /// <inheritdoc/>

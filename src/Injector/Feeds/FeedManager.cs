@@ -28,7 +28,7 @@ namespace ZeroInstall.Injector.Feeds
     /// Provides access to remote and local <see cref="Model.Feed"/>s via interface URIs.
     /// Downloading, signature verification and caching are handled automatically.
     /// </summary>
-    public class FeedManager
+    public class FeedManager : ICloneable, IEquatable<FeedManager>
     {
         #region Properties
         /// <summary>
@@ -37,10 +37,9 @@ namespace ZeroInstall.Injector.Feeds
         public IFeedCache Cache { get; private set; }
 
         /// <summary>
-        /// Set to <see langword="true"/> to force all cached <see cref="Model.Feed"/>s to be updated, even if <see cref="Preferences.Freshness"/> hasn't been reached yet.
+        /// Set to <see langword="true"/> to prevent any new <see cref="Model.Feed"/>s from being downloaded, even if <see cref="Preferences.Freshness"/> has been exceeded.
         /// </summary>
-        /// <remarks>This will be ignored if <see cref="NetworkLevel"/> is set to <see cref="NetworkLevel.Offline"/>.</remarks>
-        public bool Refresh { get; set; }
+        public bool Offline { get; set; }
         #endregion
 
         #region Constructor
@@ -91,6 +90,55 @@ namespace ZeroInstall.Injector.Feeds
 
             // ToDo: Download, verify and cache feed
             throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceUri, "unknown"), interfaceUri);
+        }
+        #endregion
+        
+        //--------------------//
+
+        #region Clone
+        /// <summary>
+        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
+        public FeedManager CloneFeedManager()
+        {
+            return new FeedManager(Cache) {Offline = Offline};
+        }
+        
+        /// <summary>
+        /// Creates a shallow copy of this <see cref="FeedManager"/> instance.
+        /// </summary>
+        /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
+        public object Clone()
+        {
+            return CloneFeedManager();
+        }
+        #endregion
+
+        #region Equality
+        /// <inheritdoc/>
+        public bool Equals(FeedManager other)
+        {
+            if (other == null) return false;
+
+            return Offline == other.Offline && Equals(other.Cache, Cache);
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            return obj.GetType() == typeof(FeedManager) && Equals((FeedManager)obj);
+        }
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return ((Cache != null ? Cache.GetHashCode() : 0) * 397) ^ Offline.GetHashCode();
+            }
         }
         #endregion
     }
