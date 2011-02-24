@@ -163,6 +163,8 @@ namespace Common.Collections
 
             // Raise the events afterwards en bloc
             foreach (var item in oldItems) OnRemoved(item);
+
+            OnChanged();
         }
         #endregion
 

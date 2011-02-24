@@ -151,7 +151,7 @@ namespace Common.Net
                         {
                             if (!ReadHeader(response)) return;
 
-                            // If  a partial file exists locally...
+                            // If a partial file exists locally...
                             if (fileStream.Length != 0)
                             {
                                 // ... make sure resuming worked on the server side
@@ -247,7 +247,7 @@ namespace Common.Net
             var httpWebRequest = request as HttpWebRequest;
             if (httpWebRequest != null)
             {
-                // Handle reuming of verly large files by simply trimming part of the content
+                // Handle resuming of verly large files by simply trimming part of the content
                 if (fileStream.Length > int.MaxValue) fileStream.SetLength(int.MaxValue);
 
                 httpWebRequest.AddRange((int)fileStream.Length);

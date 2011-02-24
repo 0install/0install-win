@@ -41,7 +41,6 @@ namespace Common.Collections
                 return enumerator.MoveNext() ? enumerator.Current : null;
         }
 
-
         /// <summary>
         /// Checkes whether an enumerable collection contains any elements.
         /// </summary>
