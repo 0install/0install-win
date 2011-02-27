@@ -28,7 +28,7 @@ namespace ZeroInstall.Commands
     {
         #region Constructor
         /// <inheritdoc/>
-        protected ManageFeeds(IHandler handler, Policy policy) : base(handler, policy)
+        protected ManageFeeds(Policy policy) : base(policy)
         {}
         #endregion
     }

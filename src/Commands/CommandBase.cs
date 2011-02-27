@@ -49,10 +49,7 @@ namespace ZeroInstall.Commands
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
 
-        /// <summary>A callback object used when the the user needs to be asked questions or is to be informed about progress.</summary>
-        protected readonly IHandler Handler;
-
-        /// <summary>Combines configuration and resources used to solve dependencies and download implementations.</summary>
+        /// <summary>Combines UI access, preferences and resources used to solve dependencies and download implementations.</summary>
         protected readonly Policy Policy;
 
         /// <summary>The detail level of messages printed to the console. 0 = normal, 1 = verbose, 2 = very verbose</summary>
@@ -110,21 +107,19 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
-        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
-        protected CommandBase(IHandler handler, Policy policy)
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        protected CommandBase(Policy policy)
         {
-            Handler = handler;
             Policy = policy;
 
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
-                handler.Output(Resources.CommandLineArguments, HelpText);
+                Policy.Handler.Output(Resources.CommandLineArguments, HelpText);
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                handler.Output(Resources.VersionInformation, ApplicationInfo.Name + " " + ApplicationInfo.Version + "\n" + ApplicationInfo.Copyright + "\n" + Resources.LicenseInfo);
+                Policy.Handler.Output(Resources.VersionInformation, ApplicationInfo.Name + " " + ApplicationInfo.Version + "\n" + ApplicationInfo.Copyright + "\n" + Resources.LicenseInfo);
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
 

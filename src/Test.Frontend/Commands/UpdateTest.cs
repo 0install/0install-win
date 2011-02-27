@@ -31,7 +31,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
-            return new Update(Handler, Policy, Solver);
+            return new Update(Policy, Solver);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
@@ -46,8 +46,8 @@ namespace ZeroInstall.Commands
             var refreshPolicy = Policy.ClonePolicy();
             refreshPolicy.FeedManager.Refresh = true;
 
-            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, Policy, Handler, false);
-            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, refreshPolicy, Handler, false);
+            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, Policy, false);
+            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, refreshPolicy, false);
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub3.xml"));

@@ -42,7 +42,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Config(IHandler handler, Policy policy) : base(handler, policy)
+        public Config(Policy policy) : base(policy)
         {}
         #endregion
 
@@ -56,7 +56,7 @@ namespace ZeroInstall.Commands
 
             // ToDo: Implement
 
-            Handler.Output("Not implemented", "This feature is not implemented yet.");
+            Policy.Handler.Output("Not implemented", "This feature is not implemented yet.");
             return 1;
         }
         #endregion

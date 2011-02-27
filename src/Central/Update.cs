@@ -34,13 +34,12 @@ namespace ZeroInstall.Central
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="interfaceID"/> is not a valid interface ID.</exception>
         public static void BackgroundUpdate(string interfaceID)
         {
-            var handler = new SilentHandler();
-            var policy = Policy.CreateDefault();
+            var policy = Policy.CreateDefault(new SilentHandler());
             policy.FeedManager.Refresh = true;
 
             bool staleFeeds;
-            var selections = SolverProvider.Default.Solve(new Requirements {InterfaceID = interfaceID}, policy, handler, out staleFeeds);
-            policy.Fetcher.RunSync(new FetchRequest(selections.ListUncachedImplementations(policy)), handler);
+            var selections = SolverProvider.Default.Solve(new Requirements {InterfaceID = interfaceID}, policy, out staleFeeds);
+            policy.Fetcher.RunSync(new FetchRequest(selections.ListUncachedImplementations(policy)), policy.Handler);
         }
     }
 }

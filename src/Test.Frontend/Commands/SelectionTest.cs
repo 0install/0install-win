@@ -35,7 +35,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
-            return new Selection(Handler, Policy, Solver);
+            return new Selection(Policy, Solver);
         }
 
         [SetUp]
@@ -59,7 +59,7 @@ namespace ZeroInstall.Commands
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
 
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler, false);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false);
             var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selections.WriteToString(), 0);
         }

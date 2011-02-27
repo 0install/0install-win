@@ -32,8 +32,7 @@ namespace ZeroInstall.Injector.Solver
         /// Solves the dependencies for a specific feed.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
-        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <param name="staleFeeds">Indicates that one or more of the <see cref="Model.Feed"/>s used by the solver should be updated.</param>
         /// <returns>The <see cref="ImplementationSelection"/>s chosen for the feed.</returns>
         /// <remarks>Feed files may be downloaded, signature validation is performed, implementations are not downloaded.</remarks>
@@ -41,6 +40,6 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        Selections Solve(Requirements requirements, Policy policy, IHandler handler, out bool staleFeeds);
+        Selections Solve(Requirements requirements, Policy policy, out bool staleFeeds);
     }
 }

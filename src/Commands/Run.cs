@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Run(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
+        public Run(Policy policy, ISolver solver) : base(policy, solver)
         {
             Options.Add("m|main=", Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
@@ -82,7 +82,7 @@ namespace ZeroInstall.Commands
             }
 
             // Close any windows that may still be open
-            Handler.CloseAsync();
+            Policy.Handler.CloseAsync();
 
             var executor = new Executor(Selections, Policy.SearchStore) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(StringUtils.Concatenate(AdditionalArgs, " "));

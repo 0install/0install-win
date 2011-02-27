@@ -46,7 +46,7 @@ namespace ZeroInstall.Injector.Solver
                 CreateTestFeed().Save(tempFile.Path);
 
                 bool staleFeeds;
-                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, Policy.CreateDefault(), new SilentHandler(), out staleFeeds);
+                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, Policy.CreateDefault(new SilentHandler()), out staleFeeds);
                 Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
 
                 Assert.AreEqual(tempFile.Path, selections.InterfaceID);

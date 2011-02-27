@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public List(IHandler handler, Policy policy) : base(handler, policy)
+        public List(Policy policy) : base(policy)
         {}
         #endregion
 
@@ -66,7 +66,7 @@ namespace ZeroInstall.Commands
 
             ExecuteHelper();
 
-            Handler.Output(Resources.FoundFeeds, GetList(pattern));
+            Policy.Handler.Output(Resources.FoundFeeds, GetList(pattern));
             return 0;
         }
 

@@ -164,7 +164,7 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
-        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
         public IEnumerable<Implementation> ListUncachedImplementations(Policy policy)

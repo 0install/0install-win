@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Download(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
+        public Download(Policy policy, ISolver solver) : base(policy, solver)
         {
             Options.Add("show", Resources.OptionShow, unused => _show = true);
         }
@@ -67,10 +67,10 @@ namespace ZeroInstall.Commands
                 { // ... and another solver run is possible...
                     // ... rerun solver in refresh mode to get up-to-date feeds
                     Policy.FeedManager.Refresh = true;
-                    Selections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
+                    Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
                 }
 
-                Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Handler);
+                Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Policy.Handler);
             }
         }
 
@@ -82,10 +82,10 @@ namespace ZeroInstall.Commands
 
             if (_show)
             {
-                if (ShowXml) Handler.Output("Selections XML:", Selections.WriteToString());
-                else Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+                if (ShowXml) Policy.Handler.Output("Selections XML:", Selections.WriteToString());
+                else Policy.Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
             }
-            else Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            else Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             return 0;
         }
         #endregion

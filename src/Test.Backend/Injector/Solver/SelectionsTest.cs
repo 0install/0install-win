@@ -47,9 +47,6 @@ namespace ZeroInstall.Injector.Solver
         }
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
@@ -91,7 +88,7 @@ namespace ZeroInstall.Injector.Solver
             storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
             storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
 
-            var policy = new Policy(new Preferences(), new FeedManager((IFeedCache)cacheMock.MockInstance), new Fetcher((IStore)storeMock.MockInstance));
+            var policy = new Policy(new Preferences(), new FeedManager((IFeedCache)cacheMock.MockInstance), new Fetcher((IStore)storeMock.MockInstance), new SilentHandler());
             var implementations = selections.ListUncachedImplementations(policy);
 
             // Only the first implementation should be listed as uncached

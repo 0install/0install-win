@@ -70,14 +70,13 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Creates a new command.
         /// </summary>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
-        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <param name="solver">The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</param>
-        public Selection(IHandler handler, Policy policy, ISolver solver) : base(handler, policy)
+        public Selection(Policy policy, ISolver solver) : base(policy)
         {
             Solver = solver;
 
-            Options.Add("batch", Resources.OptionBatch, unused => handler.Batch = true);
+            Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
             
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
@@ -137,7 +136,7 @@ namespace ZeroInstall.Commands
             base.ExecuteHelper();
 
             // Run the solver unless the user provided a selections document
-            if (!PreSelected) Selections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
+            if (!PreSelected) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
         }
         
         /// <inheritdoc/>
@@ -146,8 +145,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
-            if (ShowXml) Handler.Output("Selections XML:", Selections.WriteToString());
-            else Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+            if (ShowXml) Policy.Handler.Output("Selections XML:", Selections.WriteToString());
+            else Policy.Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
             return 0;
         }
         #endregion

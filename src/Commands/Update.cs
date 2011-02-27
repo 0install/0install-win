@@ -46,7 +46,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Update(IHandler handler, Policy policy, ISolver solver) : base(handler, policy, solver)
+        public Update(Policy policy, ISolver solver) : base(policy, solver)
         {}
         #endregion
 
@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands
             if (!PreSelected)
             {
                 Policy.FeedManager.Refresh = true;
-                _newSelections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
+                _newSelections = Solver.Solve(Requirements, Policy, out StaleFeeds);
             }
         }
 
@@ -73,8 +73,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             ExecuteHelper();
 
-            Handler.Output(Resources.ChangesFound, GetUpdateInformation());
-            Policy.Fetcher.RunSync(new FetchRequest(_newSelections.ListUncachedImplementations(Policy)), Handler);
+            Policy.Handler.Output(Resources.ChangesFound, GetUpdateInformation());
+            Policy.Fetcher.RunSync(new FetchRequest(_newSelections.ListUncachedImplementations(Policy)), Policy.Handler);
             return 0;
         }
 

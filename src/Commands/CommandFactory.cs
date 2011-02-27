@@ -42,24 +42,24 @@ namespace ZeroInstall.Commands
         /// Creates a nw <see cref="CommandBase"/> based on a name.
         /// </summary>
         /// <param name="commandName">The command name to look for; case-insensitive; may be <see langword="null"/>.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <returns>The requested <see cref="CommandBase"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         private static CommandBase GetCommand(string commandName, IHandler handler)
         {
-            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(handler, Policy.CreateDefault());
+            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(Policy.CreateDefault(handler));
             switch (commandName.ToLowerInvariant())
             {
-                case Selection.Name: return new Selection(handler, Policy.CreateDefault(), SolverProvider.Default);
-                case Download.Name: return new Download(handler, Policy.CreateDefault(), SolverProvider.Default);
-                case Update.Name: return new Update(handler, Policy.CreateDefault(), SolverProvider.Default);
-                case Run.Name: return new Run(handler, Policy.CreateDefault(), SolverProvider.Default);
-                case Import.Name: return new Import(handler, Policy.CreateDefault());
-                case List.Name: return new List(handler, Policy.CreateDefault());
-                case Config.Name: return new Config(handler, Policy.CreateDefault());
-                case AddFeed.Name: return new AddFeed(handler, Policy.CreateDefault());
-                case RemoveFeed.Name: return new RemoveFeed(handler, Policy.CreateDefault());
-                case ListFeeds.Name: return new ListFeeds(handler, Policy.CreateDefault());
+                case Selection.Name: return new Selection(Policy.CreateDefault(handler), SolverProvider.Default);
+                case Download.Name: return new Download(Policy.CreateDefault(handler), SolverProvider.Default);
+                case Update.Name: return new Update(Policy.CreateDefault(handler), SolverProvider.Default);
+                case Run.Name: return new Run(Policy.CreateDefault(handler), SolverProvider.Default);
+                case Import.Name: return new Import(Policy.CreateDefault(handler));
+                case List.Name: return new List(Policy.CreateDefault(handler));
+                case Config.Name: return new Config(Policy.CreateDefault(handler));
+                case AddFeed.Name: return new AddFeed(Policy.CreateDefault(handler));
+                case RemoveFeed.Name: return new RemoveFeed(Policy.CreateDefault(handler));
+                case ListFeeds.Name: return new ListFeeds(Policy.CreateDefault(handler));
                 default: throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }
         }
@@ -70,7 +70,7 @@ namespace ZeroInstall.Commands
         /// Parses command-line arguments, automatically creating an appropriate <see cref="CommandBase"/>.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be informed about progress.</param>
+        /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <returns>The newly created <see cref="CommandBase"/> after <see cref="CommandBase.Parse"/> has been called.</returns>
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options or specified an unknown command.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>

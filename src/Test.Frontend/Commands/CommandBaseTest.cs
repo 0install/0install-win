@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        protected IHandler Handler { get; private set; }
+        private IHandler Handler;
 
         /// <summary>The content of the last <see cref="MockHandler.Output"/> call.</summary>
         private string _result;
@@ -86,7 +86,7 @@ namespace ZeroInstall.Commands
             FetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
             FetcherMock.SetReturnValue("get_Store", StoreMock.MockInstance);
 
-            Policy = new Policy(new Preferences(), new FeedManager((IFeedCache)CacheMock.MockInstance), (IFetcher)FetcherMock.MockInstance);
+            Policy = new Policy(new Preferences(), new FeedManager((IFeedCache)CacheMock.MockInstance), (IFetcher)FetcherMock.MockInstance, Handler);
 
             Command = GetCommand();
         }

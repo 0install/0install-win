@@ -62,18 +62,16 @@ namespace ZeroInstall.Injector.Feeds
         /// Returns a list of all <see cref="Model.Feed"/>s applicable to a specific interface URI.
         /// </summary>
         /// <param name="interfaceID">The ID used to identify the interface (and primary feed; additional ones may be registered). May be an HTTP(S) URL or an absolute local path.</param>
-        /// <param name="preferences">User-preferences controlling network behaviour, etc.</param>
-        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <param name="staleFeeds">Indicates that one or more of the selected <see cref="Model.Feed"/>s should be updated.</param>
         /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
         /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Preferences preferences, IHandler handler, out bool staleFeeds)
+        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Policy policy, out bool staleFeeds)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
-            if (preferences == null) throw new ArgumentNullException("preferences");
-            if (handler == null) throw new ArgumentNullException("handler");
+            if (policy == null) throw new ArgumentNullException("policy");
             #endregion
 
             // ToDo: Get other registered feeds as well
@@ -92,7 +90,7 @@ namespace ZeroInstall.Injector.Feeds
                 return new[] {Cache.GetFeed(interfaceID)};
             }
 
-            if (preferences.NetworkLevel == NetworkLevel.Offline)
+            if (policy.Preferences.NetworkLevel == NetworkLevel.Offline)
                 throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceID), interfaceID);
 
             // ToDo: Download, verify and cache feed

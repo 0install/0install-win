@@ -21,7 +21,6 @@ using System.IO;
 using System.Xml;
 using Common.Cli;
 using Common.Utils;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -61,12 +60,11 @@ namespace ZeroInstall.Injector.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(Requirements requirements, Policy policy, IHandler handler, out bool staleFeeds)
+        public Selections Solve(Requirements requirements, Policy policy, out bool staleFeeds)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
             if (policy == null) throw new ArgumentNullException("policy");
-            if (handler == null) throw new ArgumentNullException("handler");
             if (string.IsNullOrEmpty(requirements.InterfaceID)) throw new ArgumentException(Resources.MissingInterfaceID, "requirements");
             #endregion
 
@@ -75,7 +73,7 @@ namespace ZeroInstall.Injector.Solver
             if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
             // Execute the external Python script
-            var errorParser = new PythonErrorParser(handler);
+            var errorParser = new PythonErrorParser(policy.Handler);
             string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(requirements, policy) + interfaceID;
             string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
 
@@ -103,7 +101,7 @@ namespace ZeroInstall.Injector.Solver
         /// Generates a list of arguments to be passed on to the solver script.
         /// </summary>
         /// <param name="requirements">A set of requirements/restrictions imposed by the user on the implementation selection process.</param>
-        /// <param name="policy">Combines configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         /// <returns>An empty string or a list of arguments terminated by a space.</returns>
         private static string GetSolverArguments(Requirements requirements, Policy policy)
         {
