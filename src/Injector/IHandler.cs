@@ -17,7 +17,6 @@
 
 using Common;
 using ZeroInstall.Fetchers;
-using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall.Injector
 {
@@ -25,8 +24,15 @@ namespace ZeroInstall.Injector
     /// Callback methods to ask the user questions and inform the user about download and IO tasks.
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
-    public interface IHandler : IFeedHandler, IFetchHandler
+    public interface IHandler : IFetchHandler
     {
+        /// <summary>
+        /// Called to ask the user whether he wishes to trust a new GPG key.
+        /// </summary>
+        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
+        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if he rejected it.</returns>
+        bool AcceptNewKey(string information);
+
         /// <summary>
         /// Close any asynchronous GUI threads to make room for a newly launched application.
         /// </summary>

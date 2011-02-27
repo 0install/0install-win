@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(Requirements requirements, Policy policy, IFeedHandler handler, out bool staleFeeds)
+        public Selections Solve(Requirements requirements, Policy policy, IHandler handler, out bool staleFeeds)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");

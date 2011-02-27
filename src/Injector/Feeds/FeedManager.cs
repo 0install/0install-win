@@ -68,7 +68,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
         /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Preferences preferences, IFeedHandler handler, out bool staleFeeds)
+        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Preferences preferences, IHandler handler, out bool staleFeeds)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");

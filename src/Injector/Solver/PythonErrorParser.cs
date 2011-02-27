@@ -37,7 +37,7 @@ namespace ZeroInstall.Injector.Solver
         #endregion
 
         #region Variables
-        private readonly IFeedHandler _handler;
+        private readonly IHandler _handler;
 
         private StringBuilder _cache;
         private ErrorMode _currentErrorMode;
@@ -48,7 +48,7 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a new error parser.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public PythonErrorParser(IFeedHandler handler)
+        public PythonErrorParser(IHandler handler)
         {
             _handler = handler;
         }

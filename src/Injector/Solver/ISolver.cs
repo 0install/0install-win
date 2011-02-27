@@ -41,6 +41,6 @@ namespace ZeroInstall.Injector.Solver
         /// <exception cref="ArgumentException">Thrown if <paramref name="requirements"/> is incomplete.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
-        Selections Solve(Requirements requirements, Policy policy, IFeedHandler handler, out bool staleFeeds);
+        Selections Solve(Requirements requirements, Policy policy, IHandler handler, out bool staleFeeds);
     }
 }
