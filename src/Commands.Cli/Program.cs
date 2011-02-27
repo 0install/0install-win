@@ -25,6 +25,8 @@ using ZeroInstall.Commands.Cli.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+//using ZeroInstall.Model;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using CliHandler = ZeroInstall.Injector.CliHandler;
 

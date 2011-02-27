@@ -43,13 +43,11 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
 
-            var offlinePolicy = Policy.ClonePolicy();
-            offlinePolicy.FeedManager.Offline = true;
+            var refreshPolicy = Policy.ClonePolicy();
+            refreshPolicy.FeedManager.Refresh = true;
 
-            Policy.Preferences.Freshness = new TimeSpan(0); // Refresh feeds in cache
-
-            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, offlinePolicy, Handler);
-            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, Policy, Handler);
+            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, Policy, Handler, false);
+            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, refreshPolicy, Handler, false);
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub3.xml"));

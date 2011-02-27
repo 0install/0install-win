@@ -11,12 +11,12 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Update">
-    <Position X="1.25" Y="9" Width="1.5" />
+    <Position X="1.25" Y="9.25" Width="1.5" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAAAAABAAAgAAQAAAAAAAQAAABAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAAAAABAAAgAAQAAAAAQAQAAAAAAAAAAAAAAAAAAAE=</HashCode>
       <FileName>Update.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -31,7 +31,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Download">
-    <Position X="3.25" Y="9" Width="1.5" />
+    <Position X="3.25" Y="9.25" Width="1.5" />
     <Members>
       <Method Name="Download" Hidden="true" />
     </Members>
@@ -94,7 +94,7 @@
       <Method Name="Selection" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAgAAQAAAAAAKQMABIAAAAAAAAAAAAAAAE=</HashCode>
+      <HashCode>AAAgAAAAAAAgAAQAAABAACQMABIAAAAAAIAAAAAAAAE=</HashCode>
       <FileName>Selection.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -104,7 +104,7 @@
       <Method Name="CommandBase" Hidden="true" />
     </Members>
     <TypeIdentifier>
-      <HashCode>AAAgAAAAAAgoAAQAAAIAAAAEAAAAAAAAAgAAAABEAAE=</HashCode>
+      <HashCode>AAAgAAAAAAgoAAQAAAIAAAAEAAAAAAAAAgAAAABEBAE=</HashCode>
       <FileName>CommandBase.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -131,7 +131,7 @@
   <Class Name="ZeroInstall.Commands.CommandFactory">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAQEAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABABAA=</HashCode>
+      <HashCode>AAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
       <FileName>CommandFactory.cs</FileName>
     </TypeIdentifier>
   </Class>

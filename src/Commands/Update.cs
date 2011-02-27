@@ -36,7 +36,7 @@ namespace ZeroInstall.Commands
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update";
 
-        private Selections _oldSelections;
+        private Selections _newSelections;
         #endregion
 
         #region Properties
@@ -56,14 +56,15 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override void ExecuteHelper()
         {
-            // Run solver in offline mode to get the old values
-            var offlinePolicy = Policy.ClonePolicy();
-            offlinePolicy.FeedManager.Offline = true;
-            _oldSelections = Solver.Solve(Requirements, offlinePolicy, Handler);
-
-            // Run solver in online mode to get the new values
-            Policy.Preferences.Freshness = new TimeSpan(0); // Refresh feeds in cache
+            // Run solver in normal mode to get the old values
             base.ExecuteHelper();
+
+            // Rerun solver in refresh mode to get the new values
+            if (!PreSelected)
+            {
+                Policy.FeedManager.Refresh = true;
+                _newSelections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
+            }
         }
 
         /// <inheritdoc/>
@@ -73,7 +74,7 @@ namespace ZeroInstall.Commands
             ExecuteHelper();
 
             Handler.Output(Resources.ChangesFound, GetUpdateInformation());
-            Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
+            Policy.Fetcher.RunSync(new FetchRequest(_newSelections.ListUncachedImplementations(Policy)), Handler);
             return 0;
         }
 
@@ -85,13 +86,12 @@ namespace ZeroInstall.Commands
             bool changes = false;
 
             var builder = new StringBuilder();
-            // ToDo: Output information about changes
-            foreach (var oldImplementation in _oldSelections.Implementations)
+            foreach (var oldImplementation in Selections.Implementations)
             {
                 string interfaceID = oldImplementation.InterfaceID;
                 try
                 {
-                    var newImplementation = Selections.GetImplementation(interfaceID);
+                    var newImplementation = _newSelections.GetImplementation(interfaceID);
                     if (oldImplementation.Version != newImplementation.Version)
                     { // Implementation updated
                         builder.AppendLine(interfaceID + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
@@ -104,10 +104,10 @@ namespace ZeroInstall.Commands
                 }
             }
 
-            foreach (var newImplementation in Selections.Implementations)
+            foreach (var newImplementation in _newSelections.Implementations)
             {
                 string interfaceID = newImplementation.InterfaceID;
-                if (!_oldSelections.ContainsImplementation(interfaceID))
+                if (!Selections.ContainsImplementation(interfaceID))
                 { // Implementation added
                     builder.AppendLine(interfaceID + ": new -> " + newImplementation.Version);
                     changes = true;

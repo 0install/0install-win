@@ -17,7 +17,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
@@ -25,21 +24,20 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Injector.Feeds
 {
     /// <summary>
-    /// Provides access to remote and local <see cref="Model.Feed"/>s via interface URIs.
-    /// Downloading, signature verification and caching are handled automatically.
+    /// Provides access to remote and local <see cref="Model.Feed"/>s via interface IDs. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : ICloneable, IEquatable<FeedManager>
+    public class FeedManager : IEquatable<FeedManager>
     {
         #region Properties
         /// <summary>
-        /// The disk-based cache to store downloaded <see cref="Model.Feed"/>s.
+        /// The cache to retreive from <see cref="Model.Feed"/>s to and store downloaded <see cref="Model.Feed"/>s to.
         /// </summary>
         public IFeedCache Cache { get; private set; }
 
         /// <summary>
-        /// Set to <see langword="true"/> to prevent any new <see cref="Model.Feed"/>s from being downloaded, even if <see cref="Preferences.Freshness"/> has been exceeded.
+        /// Set to <see langword="true"/> to update already cached <see cref="Model.Feed"/>s. 
         /// </summary>
-        public bool Offline { get; set; }
+        public bool Refresh { get; set; }
         #endregion
 
         #region Constructor
@@ -63,33 +61,42 @@ namespace ZeroInstall.Injector.Feeds
         /// <summary>
         /// Returns a list of all <see cref="Model.Feed"/>s applicable to a specific interface URI.
         /// </summary>
-        /// <param name="interfaceUri">The URI used to identify the interface. May be an HTTP(S) URL or a local path.</param>
+        /// <param name="interfaceID">The ID used to identify the interface (and primary feed; additional ones may be registered). May be an HTTP(S) URL or an absolute local path.</param>
         /// <param name="preferences">User-preferences controlling network behaviour, etc.</param>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        /// <param name="staleFeeds">Indicates that one or more of the selected <see cref="Model.Feed"/>s should be updated.</param>
         /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
-        /// <remarks>
-        /// <paramref name="interfaceUri"/> is used to locate the primary <see cref="Model.Feed"/> for the interface.
-        /// Aditional feed locations may be specified within the <see cref="Model.Feed"/> or by user preferences.
-        /// </remarks>
+        /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings", Justification = "Allow for local paths as well")]
-        public IEnumerable<Model.Feed> GetFeeds(string interfaceUri, Preferences preferences, IFeedHandler handler)
+        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Preferences preferences, IFeedHandler handler, out bool staleFeeds)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceUri)) throw new ArgumentNullException("interfaceUri");
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
             if (preferences == null) throw new ArgumentNullException("preferences");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Try to load local file
-            if (File.Exists(interfaceUri)) return new[] {Model.Feed.Load(interfaceUri)};
+            // ToDo: Get other registered feeds as well
+
+            if (Refresh)
+            {
+                // ToDo: Download, verify and cache feed
+            }
 
             // Try to load cached feed
-            var url = new Uri(interfaceUri);
-            if (/*!Refresh &&*/ Cache.Contains(url)) return new[] {Cache.GetFeed(url)};
+            if (Cache.Contains(interfaceID))
+            {
+                // ToDo: Detect when feeds get out-of-date
+                staleFeeds = false;
+
+                return new[] {Cache.GetFeed(interfaceID)};
+            }
+
+            if (preferences.NetworkLevel == NetworkLevel.Offline)
+                throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceID), interfaceID);
 
             // ToDo: Download, verify and cache feed
-            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceUri, "unknown"), interfaceUri);
+            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceID), interfaceID);
         }
         #endregion
         
@@ -102,7 +109,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
         public FeedManager CloneFeedManager()
         {
-            return new FeedManager(Cache) {Offline = Offline};
+            return new FeedManager(Cache) {Refresh = Refresh};
         }
         
         /// <summary>
@@ -121,7 +128,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             if (other == null) return false;
 
-            return Offline == other.Offline && Equals(other.Cache, Cache);
+            return Refresh == other.Refresh && Equals(other.Cache, Cache);
         }
 
         /// <inheritdoc/>
@@ -137,7 +144,7 @@ namespace ZeroInstall.Injector.Feeds
         {
             unchecked
             {
-                return ((Cache != null ? Cache.GetHashCode() : 0) * 397) ^ Offline.GetHashCode();
+                return ((Cache != null ? Cache.GetHashCode() : 0) * 397) ^ Refresh.GetHashCode();
             }
         }
         #endregion

@@ -114,6 +114,10 @@ namespace ZeroInstall.Injector.Solver
         /// <returns>A fully qualified path to the directory containing the implementation, a native package name prefixed with <code>package:</code> or <see langword="null"/> if the implementation is not cached yet.</returns>
         public string GetPath(IStore store)
         {
+            #region Sanity checks
+            if (store == null) throw new ArgumentNullException("store");
+            #endregion
+
             if (ID.StartsWith("package:")) return "(" + ID + ")";
             else
             {

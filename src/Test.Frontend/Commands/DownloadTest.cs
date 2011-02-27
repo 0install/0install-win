@@ -45,10 +45,14 @@ namespace ZeroInstall.Commands
             var testImplementation1 = testFeed1.GetImplementation(selections.Implementations[0].ID);
             var testImplementation2 = testFeed1.GetImplementation(selections.Implementations[1].ID);
 
+            var refreshPolicy = Policy.ClonePolicy();
+            refreshPolicy.FeedManager.Refresh = true;
+
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             Command.Parse(args);
 
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler, false);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, refreshPolicy, Handler, false);
             CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml"));
             CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
             FetcherMock.Expect("RunSync", new FetchRequest(new[] {testImplementation1, testImplementation2}), Handler);

@@ -26,21 +26,23 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Contains test methods for <see cref="DiskFeedCache"/>.
+    /// Contains test methods for <see cref="MemoryFeedCache"/>.
     /// </summary>
     [TestFixture]
-    public class DiskFeedCacheTest
+    public class MemoryFeedCacheTest
     {
         private TemporaryDirectory _tempDir;
-        private DiskFeedCache _cache;
+        private MemoryFeedCache _cache;
         private Feed _feed1, _feed2;
 
         [SetUp]
         public void SetUp()
         {
+            // ToDo: Replace underlying cache with a mock
+
             // Create a temporary cache
             _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new DiskFeedCache(_tempDir.Path);
+            _cache = new MemoryFeedCache(new DiskFeedCache(_tempDir.Path));
 
             // Add some dummy feeds to the cache
             _feed1 = FeedTest.CreateTestFeed();
@@ -71,7 +73,7 @@ namespace ZeroInstall.Store.Feeds
         {
             var feeds = _cache.ListAll();
             CollectionAssert.AreEqual(
-                new[] {new Uri("http://0install.de/feeds/test/test1.xml"), new Uri("http://0install.de/feeds/test/test2.xml")},
+                new[] { new Uri("http://0install.de/feeds/test/test1.xml"), new Uri("http://0install.de/feeds/test/test2.xml") },
                 feeds);
         }
 
@@ -85,20 +87,7 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestAdd()
         {
-            var feed = FeedTest.CreateTestFeed();
-            feed.Uri = new Uri("http://0install.de/feeds/test/test3.xml");
-
-            using (var tempFile = new TemporaryFile("0install-unit-tests"))
-            {
-                feed.Save(tempFile.Path);
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(2000, 1, 1));
-
-                _cache.Add(feed.Uri.ToString(), tempFile.Path);
-                Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
-
-                File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(1998, 1, 1));
-                Assert.Throws<ReplayAttackException>(() => _cache.Add(feed.Uri.ToString(), tempFile.Path), "Should reject overwriting newer files with older ones");
-            }
+            // ToDo: Implement
         }
 
         [Test]

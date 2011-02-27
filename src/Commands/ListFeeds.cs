@@ -22,7 +22,7 @@ using ZeroInstall.Injector;
 namespace ZeroInstall.Commands
 {
     /// <summary>
-    /// List all known feed URIs for a specific interface.
+    /// List all known feed IDs for a specific interface.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class ListFeeds : ManageFeeds

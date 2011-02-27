@@ -22,6 +22,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {

@@ -32,6 +32,8 @@ namespace Common.Net
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
+    // ToDo: Fix resuming of downloads
+    // ToDo: Set local last-changed time
     public class DownloadFile : TaskBase
     {
         #region Variables

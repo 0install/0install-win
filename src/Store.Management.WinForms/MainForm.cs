@@ -23,6 +23,7 @@ using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Management.WinForms.Nodes;
@@ -68,10 +69,12 @@ namespace ZeroInstall.Store.Management.WinForms
 
                 #region Interface node
                 var cache = FeedCacheProvider.Default;
-                var feeds = cache.GetAll();
-                foreach (var feed in feeds)
+                var feeds = new LinkedList<Feed>();
+                foreach (string id in cache.ListAll())
                 {
+                    Feed feed = cache.GetFeed(id);
                     feed.Simplify();
+                    feeds.AddLast(feed);
                     AddWithIncrement(nodes, new InterfaceNode(cache, feed));
                 }
                 #endregion

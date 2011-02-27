@@ -69,6 +69,7 @@
     <Compile Include="Implementation.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Element.cs" />
+    <Compile Include="InvalidInterfaceIDException.cs" />
     <Compile Include="Runner.cs" />
     <Compile Include="VersionPart.cs" />
     <Compile Include="Feed.cs" />

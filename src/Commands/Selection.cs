@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -41,8 +42,14 @@ namespace ZeroInstall.Commands
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
+        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Solver"/>.</summary>
+        protected bool PreSelected;
+
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
+
+        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Solver"/> should be updated.</summary>
+        protected bool StaleFeeds;
         #endregion
 
         #region Properties
@@ -71,7 +78,7 @@ namespace ZeroInstall.Commands
             Solver = solver;
 
             Options.Add("batch", Resources.OptionBatch, unused => handler.Batch = true);
-            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.Preferences.Freshness = new TimeSpan(0));
+            Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
             
             Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
             Options.Add("before=", Resources.OptionBefore, version => _requirements.BeforeVersion = new ImplementationVersion(version));
@@ -88,7 +95,7 @@ namespace ZeroInstall.Commands
 
         #region Parse
         /// <inheritdoc/>
-        public override void Parse(System.Collections.Generic.IEnumerable<string> args)
+        public override void Parse(IEnumerable<string> args)
         {
             base.Parse(args);
 
@@ -105,13 +112,15 @@ namespace ZeroInstall.Commands
             else if (File.Exists(feedID))
             {
                 try
-                { // Try to parse as selection document
+                { // Try to parse as selections document
                     Selections = Selections.Load(feedID);
                     Requirements.InterfaceID = Selections.InterfaceID;
+                    PreSelected = true;
                 }
                 catch (InvalidOperationException)
                 { // If that fails assume it is an interface
                     Requirements.InterfaceID = Path.GetFullPath(feedID);
+                    PreSelected = false;
                 }
             }
             else
@@ -127,8 +136,8 @@ namespace ZeroInstall.Commands
         {
             base.ExecuteHelper();
 
-            if (Selections == null)
-                Selections = Solver.Solve(_requirements, Policy, Handler);
+            // Run the solver unless the user provided a selections document
+            if (!PreSelected) Selections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
         }
         
         /// <inheritdoc/>

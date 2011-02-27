@@ -22,6 +22,8 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Collections;
 using Common.Storage;
+using Common.Utils;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -37,36 +39,47 @@ namespace ZeroInstall.Model
     {
         #region Utility methods
         /// <summary>
-        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Determines whether an URI is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
         /// </summary>
-        /// <param name="value">The URL to check for validity.</param>
+        /// <param name="value">The URI to check for validity.</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
-        public static bool IsValidUrl(Uri value)
+        public static bool IsValidUri(Uri value)
         {
             return value != null && value.IsAbsoluteUri && (value.Scheme == Uri.UriSchemeHttp || value.Scheme == Uri.UriSchemeHttps);
         }
 
         /// <summary>
-        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Parses an URI as a feed reference. Must be absolute and use the HTTP(S) protocol.
         /// </summary>
-        /// <param name="value">The URL to check for validity.</param>
-        /// <param name="result">The parsed URL. Only use this if the result was <see langword="true"/>!</param>
+        /// <param name="value">The URI to check for validity.</param>
+        /// <param name="result">The parsed URI. Only use this if the result was <see langword="true"/>!</param>
         /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
-        public static bool IsValidUrl(string value, out Uri result)
+        public static bool TryParseUri(string value, out Uri result)
         {
-            return Uri.TryCreate(value, UriKind.Absolute, out result) && IsValidUrl(result);
+            return Uri.TryCreate(value, UriKind.Absolute, out result) && IsValidUri(result);
         }
 
         /// <summary>
-        /// Determines whether an URL is a valid feed reference. Must be absolute and use the HTTP(S) protocol.
+        /// Ensures that an interface ID is valid.
         /// </summary>
-        /// <param name="value">The URL to check for validity.</param>
-        /// <returns><see langword="true"/> if <paramref name="value"/> is valid; <see langword="false"/> otherwise.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1057:StringUriOverloadsCallSystemUriOverloads")]
-        public static bool IsValidUrl(string value)
+        /// <param name="value">The interface ID to check for validity.</param>
+        /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="value"/> is an invalid interface ID.</exception>
+        public static void ValidateInterfaceID(string value)
         {
-            Uri url;
-            return IsValidUrl(value, out url);
+            #region Sanity checks
+            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
+            #endregion
+            
+            // Local paths are always ok
+            if (Path.IsPathRooted(value)) return;
+
+            // URIs must be HTTP(S) and have a slash after the host name
+            if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
+            if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
+
+            // Perform more in-depth URI validation
+            Uri temp;
+            if (!TryParseUri(value, out temp)) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
         }
         #endregion
 

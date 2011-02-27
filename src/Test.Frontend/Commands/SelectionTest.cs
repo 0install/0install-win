@@ -19,6 +19,7 @@ using NDesk.Options;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -58,13 +59,25 @@ namespace ZeroInstall.Commands
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
 
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, Handler, false);
             var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selections.WriteToString(), 0);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
         public void TestImportSelections()
+        {
+            // ToDo
+        }
+
+        [Test(Description = "Ensures invalid feed IDs are correctly detected and handled.")]
+        public void TestInvalidFeedID()
+        {
+            // ToDo
+        }
+
+        [Test(Description = "Ensures invalid feeds are correctly detected and handled.")]
+        public void TestInvalidFeed()
         {
             // ToDo
         }

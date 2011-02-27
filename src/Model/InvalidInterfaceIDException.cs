@@ -17,9 +17,9 @@
 
 using System;
 using System.Runtime.Serialization;
-using ZeroInstall.Injector.Properties;
+using ZeroInstall.Model.Properties;
 
-namespace ZeroInstall.Injector.Solver
+namespace ZeroInstall.Model
 {
     /// <summary>
     /// Indicates an interface ID was not valid. Needs to be an HTTP(S) URI or an absolute path.

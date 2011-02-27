@@ -27,6 +27,7 @@ using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Commands.WinForms

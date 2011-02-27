@@ -38,14 +38,16 @@ namespace ZeroInstall.Injector.Solver
             return new Feed { Name = "Test", Summaries = { "Test" }, Elements = { new Implementation { ID = "test", Version = new ImplementationVersion("1.0"), LocalPath = ".", Main = "test" } } };
         }
 
-        [Test(Description = "Ensures ISolver.Solve() correctly solves the dependencies for a specific feed URI.")]
+        [Test(Description = "Ensures ISolver.Solve() correctly solves the dependencies for a specific feed ID.")]
         public void TestSolve()
         {
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 CreateTestFeed().Save(tempFile.Path);
 
-                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, Policy.CreateDefault(), new SilentHandler());
+                bool staleFeeds;
+                Selections selections = _solver.Solve(new Requirements {InterfaceID = tempFile.Path}, Policy.CreateDefault(), new SilentHandler(), out staleFeeds);
+                Assert.IsFalse(staleFeeds, "Local feed files should never be considered stale");
 
                 Assert.AreEqual(tempFile.Path, selections.InterfaceID);
             }

@@ -188,8 +188,7 @@ namespace ZeroInstall.Injector.Solver
                 if (policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
-                string feedUrl = implementation.FromFeed ?? implementation.InterfaceID;
-                Feed feed = File.Exists(feedUrl) ? Feed.Load(feedUrl) : policy.FeedManager.Cache.GetFeed(new Uri(feedUrl));
+                Feed feed = policy.FeedManager.Cache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }

@@ -105,6 +105,7 @@
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
     <Compile Include="MyApps\AppListTest.cs" />
+    <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />
     <Compile Include="Injector\Feeds\FeedPreferencesTest.cs" />
     <Compile Include="Injector\Feeds\InterfacePreferencesTest.cs" />

@@ -17,10 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.IO;
-using Common.Utils;
-using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
@@ -28,8 +26,8 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// A set of requirements/restrictions imposed by the user on the implementation selection process.
     /// </summary>
-    [Serializable]
-    public class Requirements : IEquatable<Requirements>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    public class Requirements : ICloneable, IEquatable<Requirements>
     {
         private string _interfaceID;
         /// <summary>
@@ -41,12 +39,7 @@ namespace ZeroInstall.Injector.Solver
             get { return _interfaceID; }
             set
             {
-                if (!string.IsNullOrEmpty(value) && !Path.IsPathRooted(value))
-                {
-                    if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
-                    if (StringUtils.CountOccurences(value, '/') < 3) throw new InvalidInterfaceIDException(string.Format(Resources.MissingSlashInUri, value));
-                }
-
+                Feed.ValidateInterfaceID(value);
                 _interfaceID = value;
             }
         }

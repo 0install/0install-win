@@ -244,7 +244,7 @@ namespace ZeroInstall.Store.Properties {
         
         /// <summary>
         ///   Looks up a localized string similar to New feed&apos;s modification time is before old version!
-        ///Feed URL: {0}
+        ///Feed ID: {0}
         ///Old time: {1}
         ///New time: {2}.
         /// </summary>

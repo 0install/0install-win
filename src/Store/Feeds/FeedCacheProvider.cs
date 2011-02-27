@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -25,7 +25,7 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public static class FeedCacheProvider
     {
-        private static readonly IFeedCache _default = new DiskFeedCache();
+        private static readonly IFeedCache _default = new MemoryFeedCache(new DiskFeedCache());
         /// <summary>
         /// Returns an implementation of <see cref="IFeedCache"/> that uses the default cache location.
         /// </summary>

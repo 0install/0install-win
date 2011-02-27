@@ -199,7 +199,7 @@ Actual value: {1}</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>New feed's modification time is before old version!
-Feed URL: {0}
+Feed ID: {0}
 Old time: {1}
 New time: {2}</value>
   </data>

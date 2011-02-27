@@ -54,6 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Feeds\MemoryFeedCache.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />

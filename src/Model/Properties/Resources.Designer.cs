@@ -79,6 +79,24 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The interface &apos;{0}&apos; is not a valid &apos;http(s):&apos; URI and is not a valid local path either..
+        /// </summary>
+        internal static string InvalidInterfaceID {
+            get {
+                return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing / after hostname in URI &apos;{0}&apos;..
+        /// </summary>
+        internal static string MissingSlashInUri {
+            get {
+                return ResourceManager.GetString("MissingSlashInUri", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The dot-separated list may only contain decimal numbers..
         /// </summary>
         internal static string MustBeDottedList {

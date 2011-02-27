@@ -61,20 +61,11 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache. Looked for file at: {1}.
+        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache..
         /// </summary>
         internal static string FeedNotInCache {
             get {
                 return ResourceManager.GetString("FeedNotInCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The interface &apos;{0}&apos; doesn&apos;t start with &apos;http(s):&apos; and isn&apos;t a valid local path either..
-        /// </summary>
-        internal static string InvalidInterfaceID {
-            get {
-                return ResourceManager.GetString("InvalidInterfaceID", resourceCulture);
             }
         }
         
@@ -84,15 +75,6 @@ namespace ZeroInstall.Injector.Properties {
         internal static string MissingInterfaceID {
             get {
                 return ResourceManager.GetString("MissingInterfaceID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Missing / after hostname in URI &apos;{0}&apos;..
-        /// </summary>
-        internal static string MissingSlashInUri {
-            get {
-                return ResourceManager.GetString("MissingSlashInUri", resourceCulture);
             }
         }
         
@@ -115,7 +97,7 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Keine ausgewählte Version.
+        ///   Looks up a localized string similar to No selected version.
         /// </summary>
         internal static string NoSelectedVersion {
             get {

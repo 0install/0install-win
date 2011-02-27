@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Collections;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
@@ -59,9 +60,18 @@ namespace ZeroInstall.Commands
         {
             base.ExecuteHelper();
 
-            if (Policy.Preferences.NetworkLevel == NetworkLevel.Offline) return;
+            var uncachedImplementations = Selections.ListUncachedImplementations(Policy);
+            if (StaleFeeds || !EnumUtils.IsEmpty(uncachedImplementations))
+            { // If any of the feeds are getting old or any implementations need to be downloaded...
+                if (!PreSelected)
+                { // ... and another solver run is possible...
+                    // ... rerun solver in refresh mode to get up-to-date feeds
+                    Policy.FeedManager.Refresh = true;
+                    Selections = Solver.Solve(Requirements, Policy, Handler, out StaleFeeds);
+                }
 
-            Policy.Fetcher.RunSync(new FetchRequest(Selections.ListUncachedImplementations(Policy)), Handler);
+                Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Handler);
+            }
         }
 
         /// <inheritdoc/>

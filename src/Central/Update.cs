@@ -15,10 +15,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Central
 {
@@ -36,9 +36,10 @@ namespace ZeroInstall.Central
         {
             var handler = new SilentHandler();
             var policy = Policy.CreateDefault();
-            policy.Preferences.Freshness = new TimeSpan(0); // Refresh feeds in cache
+            policy.FeedManager.Refresh = true;
 
-            var selections = SolverProvider.Default.Solve(new Requirements { InterfaceID = interfaceID }, policy, handler);
+            bool staleFeeds;
+            var selections = SolverProvider.Default.Solve(new Requirements {InterfaceID = interfaceID}, policy, handler, out staleFeeds);
             policy.Fetcher.RunSync(new FetchRequest(selections.ListUncachedImplementations(policy)), handler);
         }
     }

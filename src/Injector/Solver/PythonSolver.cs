@@ -61,7 +61,7 @@ namespace ZeroInstall.Injector.Solver
 
         #region Solve
         /// <inheritdoc />
-        public Selections Solve(Requirements requirements, Policy policy, IFeedHandler handler)
+        public Selections Solve(Requirements requirements, Policy policy, IFeedHandler handler, out bool staleFeeds)
         {
             #region Sanity checks
             if (requirements == null) throw new ArgumentNullException("requirements");
@@ -81,6 +81,9 @@ namespace ZeroInstall.Injector.Solver
 
             // Handle any left-over error messages
             errorParser.Flush();
+
+            // ToDo: Detect when feeds get out-of-date
+            staleFeeds = false;
 
             // Parse StandardOutput data as XML
             try { return Selections.LoadFromString(result); }
@@ -106,7 +109,7 @@ namespace ZeroInstall.Injector.Solver
         {
             string arguments = "";
             if (policy.Preferences.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
-            if (policy.Preferences.Freshness == new TimeSpan(0)) arguments += "--refresh ";
+            if (policy.FeedManager.Refresh) arguments += "--refresh ";
             if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
             if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";
             if (requirements.NotBeforeVersion != null) arguments += "--not-before=" + requirements.NotBeforeVersion + " ";

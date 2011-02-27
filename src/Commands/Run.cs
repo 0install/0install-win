@@ -76,10 +76,15 @@ namespace ZeroInstall.Commands
         {
             ExecuteHelper();
 
+            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
+            {
+                // ToDo: Start background update
+            }
+
             // Close any windows that may still be open
             Handler.CloseAsync();
 
-            var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
+            var executor = new Executor(Selections, Policy.SearchStore) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(StringUtils.Concatenate(AdditionalArgs, " "));
             if (_noWait)
             {

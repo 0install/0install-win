@@ -76,13 +76,12 @@ namespace ZeroInstall.Commands
         /// <param name="pattern">Only return feeds that contain this substring; <see langword="null"/> to return all.</param>
         private string GetList(string pattern)
         {
-
             var builder = new StringBuilder();
             var feeds = Policy.FeedManager.Cache.ListAll();
-            foreach (Uri entry in feeds)
+            foreach (string entry in feeds)
             {
-                if (pattern == null || entry.ToString().Contains(pattern))
-                    builder.AppendLine(entry.ToString());
+                if (pattern == null || entry.Contains(pattern))
+                    builder.AppendLine(entry);
             }
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
         }
