@@ -72,12 +72,11 @@
   <ItemGroup>
     <None Include="index.aml" />
     <None Include="user\index.aml" />
-    <None Include="user\assemblies.aml" />
     <None Include="user\getting_started.aml" />
-    <None Include="user\progress_tracking.aml" />
+    <None Include="user\task_tracking.aml" />
     <None Include="depolyment.aml" />
     <None Include="design\index.aml" />
-    <None Include="design\progress_tracking.aml" />
+    <None Include="design\task_tracking.aml" />
     <None Include="design\solver.aml" />
     <None Include="design\solver_python.aml" />
     <None Include="design\unit_tests.aml" />

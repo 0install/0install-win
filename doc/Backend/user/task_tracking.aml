@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="user_progress_tracking" revisionNumber="1">
+<topic id="user_task_tracking" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Progress tracking</title>
+    <title>Task tracking</title>
 
     <introduction>
       <para>
@@ -12,13 +12,13 @@
       </para>
     </introduction>
 
-    <section address="progress">
-      <title>IProgress interface</title>
+    <section address="task">
+      <title>ITask interface</title>
       <content>
         <para>
           A single task that is to be performed is represented by an instance of
           a class that implements the
-          <codeEntityReference>T:Common.IProgress</codeEntityReference> interface.
+          <codeEntityReference>T:Common.ITask</codeEntityReference> interface.
         </para>
         <para>
           The interface defines events and properties for tracking the progress
@@ -33,12 +33,16 @@
       <content>
         <para>
           Any object that implements the
-          <codeEntityReference>T:Common.IProgress</codeEntityReference> interface can
+          <codeEntityReference>T:Common.ITask</codeEntityReference> interface can
           be visually tracked by assigning it to a
           <codeEntityReference>T:Common.Controls.TrackingProgressBar</codeEntityReference>'s
           <codeEntityReference>P:Common.Controls.TrackingProgressBar.Task</codeEntityReference> property.
           The progress bar will automatically hook into the events and update
           itself as the task progresses.
+        </para>
+        <para>
+          An similar class that renders to the console / command-line interface (CLI) is
+          <codeEntityReference>T:Common.Cli.TrackingProgressBar</codeEntityReference>.
         </para>
       </content>
     </section>
@@ -51,16 +55,20 @@
           started you need to take the following steps:
 		  <list class="bullet">
   			<listItem>Run the user interface on a sperate thread so it won't block the task's execution.</listItem>
-              <listItem>Implement the <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference> interface.</listItem>
-              <listItem>Pass the <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference> implementation to
-                <codeEntityReference qualifyHint="true">M:ZeroInstall.Launcher.Controller._ctor</codeEntityReference>.</listItem>
+              <listItem>Implement the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> interface.</listItem>
+              <listItem>Pass the <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference> implementation to
+                <codeEntityReference>T:ZeroInstall.Injector.Policy</codeEntityReference>.</listItem>
 		  </list>
         </para>
         <para>
-          The <codeEntityReference>T:ZeroInstall.Launcher.IHandler</codeEntityReference>
-          interface specifies a number of methods that will be called when a new
-          <codeEntityReference>T:Common.IProgress</codeEntityReference> has been
-          started. Since these methods will be called from a thread other than
+          The <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference>
+          interface specifies a number of methods that will be called when new
+          <codeEntityReference>T:Common.ITask</codeEntityReference>s are to be
+          started. You can set up any tracking you wish here. Then you
+          <legacyBold>must</legacyBold> start the task's execution.
+        </para>
+        <para>
+          Since these callback methods will be called from a thread other than
           the one the UI is running on you need to take care of appropriate
           cross-thread marshalling.
         </para>
@@ -71,15 +79,27 @@
       <title>Code sample</title>
       <content>
         <para>
+          Code sample for tracking new downloads on the console:
+<code language="C#">
+public void RunDownloadTask(ITask task)
+{
+    // CLI has no multi-threading issues
+    using (new Common.Cli.TrackingProgressBar(task))
+        task.RunSync();
+}
+</code>
+        </para>
+        <para>
           Code sample for tracking new downloads with WinForms:
 <code language="C#">
-public void StartingDownload(IProgress download)
+public void RunDownloadTask(ITask task)
 {
-    // Handle events coming from a non-UI thread, don't block caller
+    // Handle events coming from a non-UI thread
     BeginInvoke((SimpleEventHandler)delegate
     {
-        progressBar.Task = download;
+        trackingProgressBar.Task = task;
     });
+    task.RunSync();
 }
 </code>
         </para>
@@ -87,7 +107,7 @@ public void StartingDownload(IProgress download)
     </section>
 
     <relatedTopics>
-      <link xlink:href="design_progress_tracking">Internal design of progress tracking</link>
+      <link xlink:href="design_task_tracking">Internal design of task tracking</link>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>

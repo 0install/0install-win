@@ -2,13 +2,12 @@
 <Topics>
   <Topic id="intro" visible="True" isDefault="true" title="Zero Install Backend" />
   <Topic id="user" visible="True" title="Backend User Guide">
-    <Topic id="user_assemblies" visible="True" title="Assemblies" />
     <Topic id="user_getting_started" visible="True" title="Getting started" />
-    <Topic id="user_progress_tracking" visible="True" title="Progress tracking" />
+    <Topic id="user_task_tracking" visible="True" title="Task tracking" />
   </Topic>
   <Topic id="deployment" visible="True" title="Deployment Guide" />
   <Topic id="design" visible="True" title="Internal Design Guide">
-    <Topic id="design_progress_tracking" visible="True" title="Progress tracking" />
+    <Topic id="design_task_tracking" visible="True" title="Task tracking" />
     <Topic id="design_solver" visible="True" title="Solvers">
       <Topic id="design_solver_python" visible="True" title="Python integration" />
     </Topic>

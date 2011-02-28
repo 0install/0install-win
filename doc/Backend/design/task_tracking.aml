@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="design_progress_tracking" revisionNumber="1">
+<topic id="design_task_tracking" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Progress tracking</title>
+    <title>Task tracking</title>
 
     <introduction>
       <para>
@@ -30,7 +30,7 @@
     </section>
 
     <relatedTopics>
-      <link xlink:href="user_progress_tracking">User guide for progress tracking</link>
+      <link xlink:href="user_task_tracking">User guide for task tracking</link>
     </relatedTopics>
   </developerConceptualDocument>
 </topic>
