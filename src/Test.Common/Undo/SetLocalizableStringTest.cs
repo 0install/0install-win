@@ -48,10 +48,10 @@ namespace Common.Undo
             var americanCommand = new SetLocalizableString(collection, new LocalizableString("americaValue2", new CultureInfo("en-US")));
 
             neutralCommand.Execute();
-            Assert.AreEqual("neutralValue2", collection.GetExactLanguage(CultureInfo.InvariantCulture));
+            Assert.AreEqual("neutralValue2", collection.GetExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
 
             neutralCommand.Undo();
-            Assert.AreEqual("neutralValue1", collection.GetExactLanguage(CultureInfo.InvariantCulture));
+            Assert.AreEqual("neutralValue1", collection.GetExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
 
             americanCommand.Execute();
             Assert.AreEqual("americaValue2", collection.GetExactLanguage(new CultureInfo("en-US")));
