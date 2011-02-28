@@ -601,7 +601,7 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedFor.Controls.Add(this.hintTextBoxFeedFor);
             this.groupBoxFeedFor.Location = new System.Drawing.Point(6, 316);
             this.groupBoxFeedFor.Name = "groupBoxFeedFor";
-            this.groupBoxFeedFor.Size = new System.Drawing.Size(542, 111);
+            this.groupBoxFeedFor.Size = new System.Drawing.Size(539, 111);
             this.groupBoxFeedFor.TabIndex = 1;
             this.groupBoxFeedFor.TabStop = false;
             this.groupBoxFeedFor.Text = "Feed For Interface";
@@ -609,7 +609,7 @@ namespace ZeroInstall.Publish.WinForms
             // buttonClearFeedFor
             // 
             this.buttonClearFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonClearFeedFor.Location = new System.Drawing.Point(461, 79);
+            this.buttonClearFeedFor.Location = new System.Drawing.Point(458, 79);
             this.buttonClearFeedFor.Name = "buttonClearFeedFor";
             this.buttonClearFeedFor.Size = new System.Drawing.Size(75, 23);
             this.buttonClearFeedFor.TabIndex = 6;
@@ -620,7 +620,7 @@ namespace ZeroInstall.Publish.WinForms
             // buttonAddFeedFor
             // 
             this.buttonAddFeedFor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddFeedFor.Location = new System.Drawing.Point(461, 21);
+            this.buttonAddFeedFor.Location = new System.Drawing.Point(458, 21);
             this.buttonAddFeedFor.Name = "buttonAddFeedFor";
             this.buttonAddFeedFor.Size = new System.Drawing.Size(75, 23);
             this.buttonAddFeedFor.TabIndex = 4;
@@ -631,7 +631,7 @@ namespace ZeroInstall.Publish.WinForms
             // buttonRemoveExternalFeed
             // 
             this.buttonRemoveExternalFeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRemoveExternalFeed.Location = new System.Drawing.Point(461, 50);
+            this.buttonRemoveExternalFeed.Location = new System.Drawing.Point(458, 50);
             this.buttonRemoveExternalFeed.Name = "buttonRemoveExternalFeed";
             this.buttonRemoveExternalFeed.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveExternalFeed.TabIndex = 3;
@@ -647,7 +647,7 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxFeedFor.FormattingEnabled = true;
             this.listBoxFeedFor.Location = new System.Drawing.Point(7, 46);
             this.listBoxFeedFor.Name = "listBoxFeedFor";
-            this.listBoxFeedFor.Size = new System.Drawing.Size(448, 56);
+            this.listBoxFeedFor.Size = new System.Drawing.Size(445, 56);
             this.listBoxFeedFor.TabIndex = 3;
             // 
             // hintTextBoxFeedFor
@@ -658,7 +658,7 @@ namespace ZeroInstall.Publish.WinForms
             this.hintTextBoxFeedFor.Location = new System.Drawing.Point(6, 19);
             this.hintTextBoxFeedFor.Name = "hintTextBoxFeedFor";
             this.hintTextBoxFeedFor.ShowClearButton = true;
-            this.hintTextBoxFeedFor.Size = new System.Drawing.Size(530, 20);
+            this.hintTextBoxFeedFor.Size = new System.Drawing.Size(446, 20);
             this.hintTextBoxFeedFor.TabIndex = 2;
             // 
             // comboBoxMinInjectorVersion
