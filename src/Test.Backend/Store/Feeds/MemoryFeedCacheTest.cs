@@ -16,11 +16,9 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Web;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Store.Feeds
@@ -31,38 +29,34 @@ namespace ZeroInstall.Store.Feeds
     [TestFixture]
     public class MemoryFeedCacheTest
     {
-        private TemporaryDirectory _tempDir;
+        private DynamicMock _cacheMock;
         private MemoryFeedCache _cache;
-        private Feed _feed1, _feed2;
+        private Feed _feed;
 
         [SetUp]
         public void SetUp()
         {
-            // ToDo: Replace underlying cache with a mock
+            _cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            _cache = new MemoryFeedCache((IFeedCache)_cacheMock.MockInstance);
 
-            // Create a temporary cache
-            _tempDir = new TemporaryDirectory("0install-unit-tests");
-            _cache = new MemoryFeedCache(new DiskFeedCache(_tempDir.Path));
-
-            // Add some dummy feeds to the cache
-            _feed1 = FeedTest.CreateTestFeed();
-            _feed1.Uri = new Uri("http://0install.de/feeds/test/test1.xml");
-            _feed1.Save(Path.Combine(_tempDir.Path, HttpUtility.UrlEncode(_feed1.UriString)));
-            _feed2 = FeedTest.CreateTestFeed();
-            _feed2.Uri = new Uri("http://0install.de/feeds/test/test2.xml");
-            _feed2.Save(Path.Combine(_tempDir.Path, HttpUtility.UrlEncode(_feed2.UriString)));
-            File.WriteAllText(Path.Combine(_tempDir.Path, "http_invalid"), "");
+            // Create a dummy feed
+            _feed = FeedTest.CreateTestFeed();
+            _feed.Uri = new Uri("http://0install.de/feeds/test/test1.xml");
         }
 
         [TearDown]
         public void TearDown()
         {
-            _tempDir.Dispose();
+            _cacheMock.Verify();
         }
 
         [Test]
         public void TestContains()
         {
+            // Expect simple pass-through
+            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test1.xml");
+            _cacheMock.ExpectAndReturn("Contains", true, "http://0install.de/feeds/test/test2.xml");
+            _cacheMock.ExpectAndReturn("Contains", false, "http://0install.de/feeds/test/test3.xml");
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
             Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test3.xml"));
@@ -71,32 +65,74 @@ namespace ZeroInstall.Store.Feeds
         [Test]
         public void TestListAll()
         {
-            var feeds = _cache.ListAll();
-            CollectionAssert.AreEqual(
-                new[] { new Uri("http://0install.de/feeds/test/test1.xml"), new Uri("http://0install.de/feeds/test/test2.xml") },
-                feeds);
+            // Expect simple pass-through
+            var feeds = new[] {"http://0install.de/feeds/test/test1.xml", "http://0install.de/feeds/test/test2.xml"};
+            _cacheMock.ExpectAndReturn("ListAll", feeds);
+            CollectionAssert.AreEqual(feeds, _cache.ListAll());
         }
 
         [Test]
-        public void TestGet()
+        public void TestGetFeed()
         {
-            var feed = _cache.GetFeed(_feed1.Uri.ToString());
-            Assert.AreEqual(_feed1, feed);
+            // Expect pass-through on first access
+            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
+            Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreEqual(_feed, firstAccess);
+
+            // Expect  in-memory cache on second access
+            Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreSame(firstAccess, secondAccess);
         }
 
         [Test]
         public void TestAdd()
         {
-            // ToDo: Implement
+            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            {
+                // Expect pass-through on adding
+                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _feed.Save(feedFile.Path);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+            }
+
+            // Expect in-memory cache on get
+            Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreEqual(_feed, firstAccess);
+            Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreSame(firstAccess, secondAccess, "Cache should return identical reference on multiple GetFeed() calls");
+
+            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            {
+                // Expect pass-through on adding
+                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _feed.Save(feedFile.Path);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+            }
+
+            Assert.AreNotSame(firstAccess, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"), "Adding again should overwrite cache entry");
         }
 
         [Test]
         public void TestRemove()
         {
+            using (var feedFile = new TemporaryFile("0install-unit-tests"))
+            {
+                // Expect pass-through on adding
+                _cacheMock.ExpectAndReturn("Add", null, "http://0install.de/feeds/test/test1.xml", feedFile.Path);
+                _feed.Save(feedFile.Path);
+                _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
+            }
+
+            // Expect in-memory cache on get
+            Assert.AreEqual(_feed, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
+
+            // Expect pass-through on remove
+            _cacheMock.Expect("Remove", "http://0install.de/feeds/test/test1.xml");
             _cache.Remove("http://0install.de/feeds/test/test1.xml");
-            Assert.Throws<KeyNotFoundException>(() => _cache.Remove("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
-            Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
+
+            // Expect pass-through after remove
+            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
+            Assert.AreEqual(_feed, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
         }
     }
 }

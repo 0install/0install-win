@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Feeds
         }
 
         [Test]
-        public void TestGet()
+        public void TestGetFeed()
         {
             var feed = _cache.GetFeed(_feed1.Uri.ToString());
             Assert.AreEqual(_feed1, feed);
