@@ -56,7 +56,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override void ExecuteHelper()
         {
-            // Run solver in normal mode to get the old values
+            // Run solver in normal mode (force refresh off) to get the old values
+            Policy.FeedManager.Refresh = false;
             base.ExecuteHelper();
 
             // Rerun solver in refresh mode to get the new values
