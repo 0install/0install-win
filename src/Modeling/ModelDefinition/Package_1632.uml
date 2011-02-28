@@ -202,13 +202,12 @@
                 <parameter
                   Id="8f917474-f1b9-4971-ae01-230a5395b9fc"
                   name="handler"
-                  direction="In"
-                  isUnique="false">
+                  direction="Out">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-                      LastKnownName="IFeedHandler"
-                      LastKnownLocation="Package_0100.uml" />
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1078,13 +1077,6 @@
         </appliedStereotypesInternal>
         <suppliersInternal>
           <dependency
-            Id="11b6e5c9-8d99-4c0b-9a66-8626a474ad96">
-            <interfaceMoniker
-              Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-              LastKnownName="IFeedHandler"
-              LastKnownLocation="Package_0100.uml" />
-          </dependency>
-          <dependency
             Id="90d78f98-f5f5-4c0d-9162-ff987c19f27d">
             <classMoniker
               Id="13bffb72-ca5a-4e63-9ea2-704b3dcdd8d8"
@@ -1104,6 +1096,13 @@
               Id="3b503424-463f-4897-b3c2-704f182bc98c"
               LastKnownName="Selections"
               LastKnownLocation="Package_1632.uml" />
+          </dependency>
+          <dependency
+            Id="8b501c99-2f17-4913-97d4-fc051bfe0e87">
+            <classMoniker
+              Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8"
+              LastKnownName="FeedManager"
+              LastKnownLocation="Package_0100.uml" />
           </dependency>
         </suppliersInternal>
         <ownedOperations>
@@ -1180,7 +1179,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="a90132ce-0bb0-46f3-a37f-986610ff80d0"
+                  Id="efea968e-565a-4145-aedf-1eba8f01f599"
                   name="requirements"
                   direction="In"
                   isUnique="false">
@@ -1194,7 +1193,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="799595d8-c045-488f-b003-c6b1d3ece5fe"
+                  Id="2425ddbd-bb22-41b8-8fd5-9a035131a420"
                   name="policy"
                   direction="In"
                   isUnique="false">
@@ -1208,15 +1207,15 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="474b3f6c-b5e4-4f70-8483-db7fb5736877"
-                  name="handler"
-                  direction="In"
+                  Id="44c4924f-1621-4110-a953-f4792874f335"
+                  name="staleFeeds"
+                  direction="Out"
                   isUnique="false">
                   <type_NamedElement>
-                    <interfaceMoniker
-                      Id="62eaf3e0-1b9a-42a0-b265-8249c876a22b"
-                      LastKnownName="IFeedHandler"
-                      LastKnownLocation="Package_0100.uml" />
+                    <primitiveTypeMoniker
+                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                      LastKnownName="Boolean"
+                      LastKnownLocation="Architecture.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>

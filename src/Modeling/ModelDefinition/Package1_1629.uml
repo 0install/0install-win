@@ -6303,7 +6303,7 @@
         <referencesInternal>
           <reference
             Id="78e51a78-4031-446c-983a-2ca795d0f645"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed"
+            handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
