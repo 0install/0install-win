@@ -114,10 +114,10 @@ namespace Common.Collections
         {
             var dictionary = new LocalizableStringCollection
             {
-                {"americaValue", new CultureInfo("en-US")},
-                {"gbValue", new CultureInfo("en-GB")},
                 {"germanValue", new CultureInfo("de")},
                 {"germanyValue", new CultureInfo("de-DE")},
+                {"americaValue", new CultureInfo("en-US")},
+                {"gbValue", new CultureInfo("en-GB")},
                 "neutralValue"
             };
 
@@ -129,6 +129,12 @@ namespace Common.Collections
             Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE")), "No exact match, should fall back to German generic");
             Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT")), "No exact match, should fall back to German generic");
             Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No match, should fall back to English generic");
+
+            dictionary.RemoveAll(new CultureInfo("en"));
+            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No English generic, should fall back to English US");
+
+            dictionary.RemoveAll(new CultureInfo("en-US"));
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No English US, should fall back to first entry in collection");
         }
     }
 }

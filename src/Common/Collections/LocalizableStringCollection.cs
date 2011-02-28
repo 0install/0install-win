@@ -126,6 +126,7 @@ namespace Common.Collections
         /// 2. same language with neutral culture<br/>
         /// 3. en<br/>
         /// 4. en-US<br/>
+        /// 5. first entry in collection
         /// </remarks>
         public string GetBestLanguage(CultureInfo language)
         {
