@@ -86,6 +86,7 @@ namespace ZeroInstall.Injector
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
+        /// <seealso cref="CreateDefault"/>
         public Policy(Preferences preferences, FeedManager feedManager, IFetcher fetcher, IHandler handler)
         {
             #region Sanity checks
