@@ -64,7 +64,7 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            Assert.IsTrue(dictionary.ContainsExactLanguage(CultureInfo.InvariantCulture));
+            Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
             Assert.IsTrue(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de")));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-AT")));
@@ -82,8 +82,8 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            dictionary.RemoveAll(CultureInfo.InvariantCulture);
-            Assert.IsFalse(dictionary.ContainsExactLanguage(CultureInfo.InvariantCulture));
+            dictionary.RemoveAll(new CultureInfo("en"));
+            Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
             dictionary.RemoveAll(new CultureInfo("de-DE"));
             Assert.IsFalse(dictionary.ContainsExactLanguage(new CultureInfo("de-DE")));
         }
@@ -100,7 +100,7 @@ namespace Common.Collections
                 {"germanyValue", new CultureInfo("de-DE")}
             };
 
-            Assert.AreEqual("neutralValue", dictionary.GetExactLanguage(CultureInfo.InvariantCulture));
+            Assert.AreEqual("neutralValue", dictionary.GetExactLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
             Assert.AreEqual("americaValue", dictionary.GetExactLanguage(new CultureInfo("en-US")));
             Assert.Throws<KeyNotFoundException>(() => dictionary.GetExactLanguage(new CultureInfo("en-CA")));
             Assert.AreEqual("gbValue", dictionary.GetExactLanguage(new CultureInfo("en-GB")));
@@ -121,14 +121,14 @@ namespace Common.Collections
                 "neutralValue"
             };
 
-            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(CultureInfo.InvariantCulture));
-            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US"))); // Exact match
-            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en-CA"))); // No English generic, fall back to neutral
-            Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB"))); // Exact match
-            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de"))); // Exact match
-            Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE"))); // Fall back to German generic
-            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT"))); // Fall back to German generic
-            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("es-ES"))); // No match, fall back to neutral
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en")), "Unspecified language should default to English generic");
+            Assert.AreEqual("americaValue", dictionary.GetBestLanguage(new CultureInfo("en-US")));
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("en-CA")), "No exact match, should fall back to English generic");
+            Assert.AreEqual("gbValue", dictionary.GetBestLanguage(new CultureInfo("en-GB")));
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de")));
+            Assert.AreEqual("germanyValue", dictionary.GetBestLanguage(new CultureInfo("de-DE")), "No exact match, should fall back to German generic");
+            Assert.AreEqual("germanValue", dictionary.GetBestLanguage(new CultureInfo("de-AT")), "No exact match, should fall back to German generic");
+            Assert.AreEqual("neutralValue", dictionary.GetBestLanguage(new CultureInfo("es-ES")), "No match, should fall back to English generic");
         }
     }
 }

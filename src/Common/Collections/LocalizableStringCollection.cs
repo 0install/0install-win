@@ -35,7 +35,7 @@ namespace Common.Collections
     {
         #region Add
         /// <summary>
-        /// Adds a new string with no associated language to the collection.
+        /// Adds a new <code>en</code> string to the collection.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
         [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]
@@ -124,10 +124,8 @@ namespace Common.Collections
         /// Language preferences in decreasing order:<br/>
         /// 1. exact match<br/>
         /// 2. same language with neutral culture<br/>
-        /// 3. neutral language (no language specified)<br/>
+        /// 3. en<br/>
         /// 4. en-US<br/>
-        /// 5. en<br/>
-        /// 6. first entry in collection
         /// </remarks>
         public string GetBestLanguage(CultureInfo language)
         {
@@ -146,20 +144,13 @@ namespace Common.Collections
                 if (language.TwoLetterISOLanguageName == entry.Language.TwoLetterISOLanguageName && entry.Language.IsNeutralCulture) return entry.Value;
             }
 
-            // Try to find neutral language
+            // Try to find "en"
             foreach (LocalizableString entry in this)
-            {
-                if (entry.Language == null) continue;
-                if (entry.Language.Equals(CultureInfo.InvariantCulture)) return entry.Value;
-            }
+                if (Equals(entry.Language, new CultureInfo("en"))) return entry.Value;
 
             // Try to find "en-US"
             foreach (LocalizableString entry in this)
                 if (Equals(entry.Language, new CultureInfo("en-US"))) return entry.Value;
-
-            // Try to find "en"
-            foreach (LocalizableString entry in this)
-                if (Equals(entry.Language, new CultureInfo("en"))) return entry.Value;
 
             // Try to find first entry in collection
             return IsEmpty ? null : First.Value;
@@ -168,7 +159,7 @@ namespace Common.Collections
 
         #region Set
         /// <summary>
-        /// Sets a new string with no associated language in the collection. Preexisting entries with no associated language are removed.
+        /// Sets a new <code>en</code> string in the collection. Preexisting <code>en</code> entries are removed.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
         [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo")]

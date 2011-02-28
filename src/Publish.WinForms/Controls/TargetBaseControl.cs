@@ -62,8 +62,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         private void InitializeComboBoxLanguage()
         {
             // load the possible languages in listBoxLanguages
-            comboBoxLanguage.Items.Add(CultureInfo.InvariantCulture);
-            foreach (var language in CultureInfo.GetCultures(CultureTypes.SpecificCultures | CultureTypes.NeutralCultures))
+            foreach (var language in CultureInfo.GetCultures(CultureTypes.FrameworkCultures))
                 comboBoxLanguage.Items.Add(language);
             comboBoxLanguage.SelectedItem = CultureInfo.CurrentCulture;
         }

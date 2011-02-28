@@ -39,19 +39,38 @@ namespace Common.Collections
         [XmlText]
         public string Value { get; set; }
 
+        private CultureInfo _language;
         /// <summary>
-        /// The language of the <see cref="Value"/>; use <see cref="CultureInfo.InvariantCulture"/> for none.
+        /// The language of the <see cref="Value"/>; must not be <see langword="null"/>.
         /// </summary>
         [XmlIgnore]
-        public CultureInfo Language { get; set; }
+        public CultureInfo Language
+        {
+            get { return _language; }
+            set
+            {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
+                _language = value;
+            }
+        }
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Language"/>
         [XmlAttribute("lang", Namespace="http://www.w3.org/XML/1998/namespace", DataType = "language")] // Will be serialized as xml:lang, must be done this way for Mono
         public string LanguageString
         {
-            get { return (Language == null || string.IsNullOrEmpty(Language.ToString())) ? null : Language.ToString(); }
-            set { Language = string.IsNullOrEmpty(value) ? CultureInfo.InvariantCulture : new CultureInfo(value); }
+            get { return Language.ToString(); }
+            set
+            {
+                Language = string.IsNullOrEmpty(value)
+                    // Default to English language
+                    ? new CultureInfo("en")
+                    // Handle Unix-style language codes (even though they are not actually valid in XML)
+                    : new CultureInfo(value.Replace("_", "-"));
+            }
         }
         #endregion
 
@@ -60,22 +79,26 @@ namespace Common.Collections
         /// Creates a new string with an associated language.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
-        /// <param name="language">The language of the <paramref name="value"/>.</param>
+        /// <param name="language">The language of the <paramref name="value"/>; must not be <see langword="null"/>.</param>
         public LocalizableString(string value, CultureInfo language)
         {
+            #region Sanity checks
+            if (language == null) throw new ArgumentNullException("language");
+            #endregion
+
             Value = value;
             Language = language;
         }
 
         /// <summary>
-        /// Creates a new string with no associated language.
+        /// Creates a new <code>en</code> string.
         /// </summary>
         /// <param name="value">The actual string value to store.</param>
-        public LocalizableString(string value) : this(value, CultureInfo.InvariantCulture)
+        public LocalizableString(string value) : this(value, new CultureInfo("en"))
         {}
 
         /// <summary>
-        /// Creates an empty string with no associated language.
+        /// Creates an empty <code>en</code> string.
         /// </summary>
         [SuppressMessage("Microsoft.Globalization", "CA1304:SpecifyCultureInfo", Justification = "In this case the language is part of the data to be stored and not used for localizing the output formatting")]
         public LocalizableString() : this(null)

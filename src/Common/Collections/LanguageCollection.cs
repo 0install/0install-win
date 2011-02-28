@@ -26,8 +26,9 @@ using System.Text;
 namespace Common.Collections
 {
     /// <summary>
-    /// A collection of languages that can be serialized as a simple space-separated list of ISO language codes with an underscore (_) separator.
+    /// A collection of languages that can be serialized as a simple space-separated list of ISO language codes.
     /// </summary>
+    /// <remarks>Uses Unix-style language codes with an underscore (_) separator.</remarks>
     public sealed class LanguageCollection : C5.TreeSet<CultureInfo>
     {
         #region Constructor
@@ -56,7 +57,7 @@ namespace Common.Collections
 
         #region Conversion
         /// <summary>
-        /// Serializes the list as a space-separated list of languages codes (in the same format as used by the $LANG environment variable).
+        /// Serializes the list as a space-separated list of languages codes.
         /// </summary>
         public override string ToString()
         {
@@ -64,7 +65,7 @@ namespace Common.Collections
             var output = new StringBuilder();
             foreach (var language in this)
             {
-                // .NET uses a hypen while Zero Install uses an underscore as a seperator
+                // .NET uses a hypen while Unix uses an underscore as a seperator
                 output.Append(language.ToString().Replace('-', '_') + ' ');
             }
 
@@ -84,7 +85,7 @@ namespace Common.Collections
             // Replace list by parsing input string split by spaces
             foreach (string language in value.Split(' '))
             {
-                // .NET uses a hypen while Zero Install uses an underscore as a seperator
+                // .NET uses a hypen while Unix uses an underscore as a seperator
                 Add(new CultureInfo(language.Replace('_', '-')));
             }
         }
