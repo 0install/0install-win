@@ -55,6 +55,8 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+
             // Allow 0 or 1 arguments
             string pattern;
             switch (AdditionalArgs.Count)
@@ -63,8 +65,6 @@ namespace ZeroInstall.Commands
                 case 1: pattern = AdditionalArgs.First; break;
                 default: throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             }
-
-            ExecuteHelper();
 
             Policy.Handler.Output(Resources.FoundFeeds, GetList(pattern));
             return 0;

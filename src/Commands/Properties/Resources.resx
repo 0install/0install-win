@@ -255,8 +255,13 @@ However, new downloads will not be written to this directory.</value>
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>No updates found</value>
   </data>
-	<data name="LicenseInfo">
-		<value><![CDATA[This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
-You may redistribute copies of this program under the terms of the GNU Lesser General Public License.]]></value>
-	</data>
+  <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
+    <value>Can only update with Feed IDs, not with selections documents.</value>
+  </data>
+  <data name="LicenseInfo">
+    <value>
+      <![CDATA[This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of this program under the terms of the GNU Lesser General Public License.]]>
+    </value>
+  </data>
 </root>

@@ -44,8 +44,8 @@ namespace ZeroInstall.Injector
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
         /// <remarks>
-        /// This will never bel called during an interactive or long-running operation.
-        /// <see cref="IFeedHandler.AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
+        /// This will never be called during an interactive or long-running operation.
+        /// <see cref="AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
         /// </remarks>
         void Output(string title, string information);
     }

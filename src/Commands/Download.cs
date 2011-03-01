@@ -54,37 +54,52 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Execute
-        /// <inheritdoc/>
-        protected override void ExecuteHelper()
+        #region Helpers
+        /// <summary>
+        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="Policy.SearchStore"/>.
+        /// </summary>
+        /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
+        protected void DownloadUncachedImplementations()
         {
-            base.ExecuteHelper();
-
             var uncachedImplementations = Selections.ListUncachedImplementations(Policy);
-            if (StaleFeeds || !EnumUtils.IsEmpty(uncachedImplementations))
-            { // If any of the feeds are getting old or any implementations need to be downloaded...
-                if (!PreSelected)
-                { // ... and another solver run is possible...
-                    // ... rerun solver in refresh mode to get up-to-date feeds
-                    Policy.FeedManager.Refresh = true;
-                    Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
-                }
+            if (EnumUtils.IsEmpty(uncachedImplementations)) return;
 
-                Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Policy.Handler);
+            // If feeds weren't just refreshed anyway...
+            if (!Policy.FeedManager.Refresh)
+            {
+                // ... rerun solver in refresh mode...
+                Policy.FeedManager.Refresh = true;
+                Solve();
+
+                // ... and then get an updated download list
+                uncachedImplementations = Selections.ListUncachedImplementations(Policy);
             }
-        }
 
+            Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Policy.Handler);
+        }
+        #endregion
+
+        #region Execute
         /// <inheritdoc/>
         public override int Execute()
         {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            ExecuteHelper();
+            #endregion
 
-            if (_show)
+            Solve();
+
+            // If any of the feeds are getting old rerun solver in refresh mode
+            if (StaleFeeds)
             {
-                if (ShowXml) Policy.Handler.Output("Selections XML:", Selections.WriteToString());
-                else Policy.Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+                Policy.FeedManager.Refresh = true;
+                Solve();
             }
+
+            DownloadUncachedImplementations();
+
+            if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             return 0;
         }

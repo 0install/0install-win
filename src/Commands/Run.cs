@@ -70,21 +70,17 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
+        #region Helpers
+        /// <summary>
+        /// Closes any remaining GUI windows and launches the selected implementation.
+        /// </summary>
+        /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
+        private int LaunchImplementation()
         {
-            ExecuteHelper();
-
-            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
-            {
-                // ToDo: Start background update
-            }
-
             // Close any windows that may still be open
             Policy.Handler.CloseAsync();
 
-            var executor = new Executor(Selections, Policy.SearchStore) {Main = _main, Wrapper = _wrapper};
+            var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
             var startInfo = executor.GetStartInfo(StringUtils.Concatenate(AdditionalArgs, " "));
             if (_noWait)
             {
@@ -92,6 +88,36 @@ namespace ZeroInstall.Commands
                 return 0;
             }
             return ProcessUtils.RunReplace(startInfo);
+        }
+        #endregion
+
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            #endregion
+
+            Solve();
+
+            // ToDo: Remove once background update is in place
+            // If any of the feeds are getting old rerun solver in refresh mode
+            if (StaleFeeds)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+
+            DownloadUncachedImplementations();
+
+            // If any of the feeds are getting old spawn background update process
+            if (StaleFeeds)
+            {
+                // ToDo: Implement
+            }
+
+            return LaunchImplementation();
         }
         #endregion
     }

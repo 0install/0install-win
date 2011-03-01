@@ -233,6 +233,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can only update with Feed IDs, not with selections documents..
+        /// </summary>
+        internal static string NoSelectionsDocumentUpdate {
+            get {
+                return ResourceManager.GetString("NoSelectionsDocumentUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Parse hasn&apos;t been called yet..
         /// </summary>
         internal static string NotParsed {

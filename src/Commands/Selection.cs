@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -43,7 +44,7 @@ namespace ZeroInstall.Commands
         protected Selections Selections;
 
         /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Solver"/>.</summary>
-        protected bool PreSelected;
+        protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
@@ -92,6 +93,26 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
+        #region Helpers
+        /// <summary>
+        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
+        /// </summary>
+        protected void Solve()
+        {
+            // Run the solver unless the user provided a selections document
+            if (!SelectionsDocument) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
+        }
+
+        /// <summary>
+        /// Returns the content of <see cref="Selections"/> formated as the user requested it.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        protected string GetSelectionsOutput()
+        {
+            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.SearchStore);
+        }
+        #endregion
+
         #region Parse
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
@@ -114,12 +135,12 @@ namespace ZeroInstall.Commands
                 { // Try to parse as selections document
                     Selections = Selections.Load(feedID);
                     Requirements.InterfaceID = Selections.InterfaceID;
-                    PreSelected = true;
+                    SelectionsDocument = true;
                 }
                 catch (InvalidOperationException)
                 { // If that fails assume it is an interface
                     Requirements.InterfaceID = Path.GetFullPath(feedID);
-                    PreSelected = false;
+                    SelectionsDocument = false;
                 }
             }
             else
@@ -131,22 +152,23 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <inheritdoc/>
-        protected override void ExecuteHelper()
-        {
-            base.ExecuteHelper();
-
-            // Run the solver unless the user provided a selections document
-            if (!PreSelected) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
-        }
-        
-        /// <inheritdoc/>
         public override int Execute()
         {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            ExecuteHelper();
+            #endregion
 
-            if (ShowXml) Policy.Handler.Output("Selections XML:", Selections.WriteToString());
-            else Policy.Handler.Output(Resources.SelectedImplementations, Selections.GetHumanReadable(Policy.SearchStore));
+            Solve();
+
+            // If any of the feeds are getting old rerun solver in refresh mode
+            if (StaleFeeds)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+
+            Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }
         #endregion

@@ -59,7 +59,6 @@ namespace ZeroInstall.Commands
         public override int Execute()
         {
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            ExecuteHelper();
 
             return 0;
         }

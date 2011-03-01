@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Text;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 
@@ -30,13 +29,13 @@ namespace ZeroInstall.Commands
     /// Check for updates to the program and download them if found.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class Update : Selection
+    public sealed class Update : Download
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public new const string Name = "update";
 
-        private Selections _newSelections;
+        private Selections _oldSelections;
         #endregion
 
         #region Properties
@@ -52,47 +51,21 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Execute
-        /// <inheritdoc/>
-        protected override void ExecuteHelper()
-        {
-            // Run solver in normal mode (force refresh off) to get the old values
-            Policy.FeedManager.Refresh = false;
-            base.ExecuteHelper();
-
-            // Rerun solver in refresh mode to get the new values
-            if (!PreSelected)
-            {
-                Policy.FeedManager.Refresh = true;
-                _newSelections = Solver.Solve(Requirements, Policy, out StaleFeeds);
-            }
-        }
-
-        /// <inheritdoc/>
-        public override int Execute()
-        {
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            ExecuteHelper();
-
-            Policy.Handler.Output(Resources.ChangesFound, GetUpdateInformation());
-            Policy.Fetcher.RunSync(new FetchRequest(_newSelections.ListUncachedImplementations(Policy)), Policy.Handler);
-            return 0;
-        }
-
+        #region Helpers
         /// <summary>
         /// Returns a list of changes found by the update process.
         /// </summary>
-        private string GetUpdateInformation()
+        private string GetUpdateOutput()
         {
             bool changes = false;
 
             var builder = new StringBuilder();
-            foreach (var oldImplementation in Selections.Implementations)
+            foreach (var oldImplementation in _oldSelections.Implementations)
             {
                 string interfaceID = oldImplementation.InterfaceID;
                 try
                 {
-                    var newImplementation = _newSelections.GetImplementation(interfaceID);
+                    var newImplementation = Selections.GetImplementation(interfaceID);
                     if (oldImplementation.Version != newImplementation.Version)
                     { // Implementation updated
                         builder.AppendLine(interfaceID + ": " + oldImplementation.Version + " -> " + newImplementation.Version);
@@ -105,10 +78,10 @@ namespace ZeroInstall.Commands
                 }
             }
 
-            foreach (var newImplementation in _newSelections.Implementations)
+            foreach (var newImplementation in Selections.Implementations)
             {
                 string interfaceID = newImplementation.InterfaceID;
-                if (!Selections.ContainsImplementation(interfaceID))
+                if (!_oldSelections.ContainsImplementation(interfaceID))
                 { // Implementation added
                     builder.AppendLine(interfaceID + ": new -> " + newImplementation.Version);
                     changes = true;
@@ -117,6 +90,32 @@ namespace ZeroInstall.Commands
             if (!changes) builder.AppendLine(Resources.NoUpdatesFound);
 
             return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
+        }
+        #endregion
+
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+            if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
+            #endregion
+
+            // Run solver with refresh forced off to get the old values
+            var noRefreshPolicy = Policy.ClonePolicy();
+            noRefreshPolicy.FeedManager.Refresh = false;
+            _oldSelections = Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+
+            // Rerun solver in refresh mode to get the new values
+            Policy.FeedManager.Refresh = true;
+            Solve();
+
+            DownloadUncachedImplementations();
+
+            Policy.Handler.Output(Resources.ChangesFound, GetUpdateOutput());
+            return 0;
         }
         #endregion
     }

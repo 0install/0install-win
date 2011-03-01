@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
 using NUnit.Mocks;
@@ -59,15 +60,21 @@ namespace ZeroInstall.Commands
             var requirements = RequirementsTest.CreateTestRequirements();
             var selections = SelectionsTest.CreateTestSelections();
 
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false); // First and only Solve()
             var args = new[] {"--xml", "http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, selections.WriteToString(), 0);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
-        public void TestImportSelections()
+        public virtual void TestImportSelections()
         {
-            // ToDo
+            var selections = SelectionsTest.CreateTestSelections();
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                selections.Save(tempFile.Path);
+                var args = new[] {"--xml", tempFile.Path};
+                AssertParseExecuteResult(args, selections.WriteToString(), 0);
+            }
         }
 
         [Test(Description = "Ensures invalid feed IDs are correctly detected and handled.")]

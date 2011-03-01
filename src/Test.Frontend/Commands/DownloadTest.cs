@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
@@ -51,13 +52,36 @@ namespace ZeroInstall.Commands
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             Command.Parse(args);
 
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false);
-            SolverMock.ExpectAndReturn("Solve", selections, requirements, refreshPolicy, false);
-            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml"));
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, Policy, false); // First Solve()
+            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml")); // Get feeds from cache to determine uncached implementations
             CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
-            FetcherMock.Expect("RunSync", new FetchRequest(new[] {testImplementation1, testImplementation2}), Policy.Handler);
+            SolverMock.ExpectAndReturn("Solve", selections, requirements, refreshPolicy, false); // Refresh Solve() because there are uncached implementations
+            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml")); // Redetermine uncached implementations after refresh Solve()
+            CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
+            FetcherMock.Expect("RunSync", new FetchRequest(new[] {testImplementation1, testImplementation2}), Policy.Handler); // Download uncached implementations
 
             Assert.AreEqual(0, Command.Execute());
+        }
+
+        [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]
+        public override void TestImportSelections()
+        {
+            var testFeed1 = FeedTest.CreateTestFeed();
+            var testFeed2 = FeedTest.CreateTestFeed();
+            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml")); // Get feeds from cache to determine uncached implementations
+            CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
+            CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml")); // Redetermine uncached implementations even though Solve() doesn't do anything for selections documents
+            CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
+
+            var selections = SelectionsTest.CreateTestSelections();
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                selections.Save(tempFile.Path);
+                var args = new[] {tempFile.Path};
+
+                Command.Parse(args);
+                Assert.AreEqual(0, Command.Execute());
+            }
         }
     }
 }

@@ -52,7 +52,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
-            ExecuteHelper();
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
 
             // ToDo: Implement
 

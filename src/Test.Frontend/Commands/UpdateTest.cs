@@ -16,6 +16,7 @@
  */
 
 using System;
+using Common.Storage;
 using NUnit.Framework;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -43,18 +44,32 @@ namespace ZeroInstall.Commands
             selectionsNew.Implementations[1].Version = new ImplementationVersion("2.0");
             selectionsNew.Implementations.Add(new ImplementationSelection {InterfaceID = "http://0install.de/feeds/test/sub3.xml", Version = new ImplementationVersion("0.1")});
 
-            var refreshPolicy = Policy.ClonePolicy();
-            refreshPolicy.FeedManager.Refresh = true;
+            var noRefreshPolicy = Policy.ClonePolicy();
+            noRefreshPolicy.FeedManager.Refresh = false;
 
-            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, Policy, false);
-            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, refreshPolicy, false);
-            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml"));
+            Policy.FeedManager.Refresh = true;
+
+            SolverMock.ExpectAndReturn("Solve", selectionsOld, requirements, noRefreshPolicy, false); // No refresh Solve()
+            SolverMock.ExpectAndReturn("Solve", selectionsNew, requirements, Policy, false); // Refresh Solve()
+            CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub1.xml")); // Get feeds from cache to determine uncached implementations
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub2.xml"));
             CacheMock.ExpectAndReturn("GetFeed", FeedTest.CreateTestFeed(), new Uri("http://0install.de/feeds/test/sub3.xml"));
-            FetcherMock.Expect("RunSync");
+            FetcherMock.Expect("RunSync"); // Download uncached implementations
 
             var args = new[] {"http://0install.de/feeds/test/test1.xml", "--command=command", "--os=Windows", "--cpu=i586", "--not-before=1.0", "--before=2.0"};
             AssertParseExecuteResult(args, "http://0install.de/feeds/test/test2.xml: 1.0 -> 2.0" + Environment.NewLine + "http://0install.de/feeds/test/sub3.xml: new -> 0.1", 0);
+        }
+        
+        [Test(Description = "Ensures local Selections XMLs are rejected.")]
+        public override void TestImportSelections()
+        {
+            var selections = SelectionsTest.CreateTestSelections();
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                selections.Save(tempFile.Path);
+                Command.Parse(new[] {tempFile.Path});
+                Assert.Throws<NotSupportedException>(() => Command.Execute());
+            }
         }
     }
 }

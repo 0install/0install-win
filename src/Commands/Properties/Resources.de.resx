@@ -150,4 +150,7 @@
   <data name="NoUpdatesFound" xml:space="preserve">
     <value>Keine Updates gefunden</value>
   </data>
+  <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
+    <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
+  </data>
 </root>

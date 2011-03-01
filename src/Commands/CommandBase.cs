@@ -44,7 +44,7 @@ namespace ZeroInstall.Commands
     {
         #region Variables
         /// <summary>Indicates whether <see cref="Parse"/> has already been called.</summary>
-        private bool _parsed;
+        protected bool IsParsed;
 
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
@@ -143,7 +143,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public virtual void Parse(IEnumerable<string> args)
         {
-            _parsed = true;
+            IsParsed = true;
 
             AdditionalArgs.AddAll(Options.Parse(args));
         }
@@ -151,37 +151,13 @@ namespace ZeroInstall.Commands
 
         #region Execute
         /// <summary>
-        /// Performs the actual steps to be executed without creating the user output.
-        /// </summary>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
-        /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
-        /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
-        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
-        /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
-        /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
-        /// <exception cref="FetcherException">Thrown if an <see cref="Model.Implementation"/> could not be downloaded.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
-        /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        /// <exception cref="Win32Exception">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the main executable could not be launched.</exception>
-        /// <exception cref="InvalidOperationException">Thron if this method is called before calling <see cref="Parse"/>.</exception>
-        /// <remarks>When inheriting this method is usually extended.</remarks>
-        protected virtual void ExecuteHelper()
-        {
-            if (!_parsed) throw new InvalidOperationException(Resources.NotParsed);
-        }
-
-        /// <summary>
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
         /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">Thrown if an archive type is unknown or not supported.</exception>
+        /// <exception cref="NotSupportedException">Thrown if a file format is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
