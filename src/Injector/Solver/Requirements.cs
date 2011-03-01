@@ -19,6 +19,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Text;
+using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Solver
@@ -104,6 +106,22 @@ namespace ZeroInstall.Injector.Solver
         {
             if (NotBeforeVersion == null && BeforeVersion == null) return string.Format("{0} ({1})", InterfaceID, CommandName);
             else return string.Format("{0} ({1}): {2} <= Version < {3}", InterfaceID, CommandName, NotBeforeVersion, BeforeVersion);
+        }
+
+        /// <summary>
+        /// Transforms the requirements into a command-line argument string.
+        /// </summary>
+        public string ToCommandLineArgs()
+        {
+            var builder = new StringBuilder();
+            if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.Escape(CommandName) + " ");
+            if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSToString() + " ");
+            if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuToString() + " ");
+            // ToDo: Add Languages support
+            if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
+            if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");
+            builder.Append(StringUtils.Escape(InterfaceID));
+            return builder.ToString();
         }
         #endregion
 

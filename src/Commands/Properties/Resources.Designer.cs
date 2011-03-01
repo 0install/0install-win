@@ -260,7 +260,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
+        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display progress reports to the user and silently answer all questions with &quot;No&quot;. Use a tray icon when in GUI mode..
         /// </summary>
         internal static string OptionBatch {
             get {
@@ -333,7 +333,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh)..
+        ///   Looks up a localized string similar to Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won&apos;t be downloaded even if the injector already knows about them (e.g. from a previous refresh). If a required file is missing it will still be downloaded..
         /// </summary>
         internal static string OptionOffline {
             get {

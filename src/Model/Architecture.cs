@@ -239,18 +239,15 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            string os, cpu;
+            return OSToString() + "-" + CpuToString();
+        }
 
-            // Convert enumeration to string
-            switch (OS)
-            {
-                case OS.All: os = "*"; break;
-                case OS.Linux: os = "Linux"; break;
-                case OS.Solaris: os = "Solaris"; break;
-                case OS.MacOsX: os = "MacOSX"; break;
-                case OS.Windows: os = "Windows"; break;
-                default: os = "unknown"; break;
-            }
+        /// <summary>
+        /// Returns a string representation of <see cref="Cpu"/>.
+        /// </summary>
+        public string CpuToString()
+        {
+            string cpu;
             switch (Cpu)
             {
                 case Cpu.All: cpu = "*"; break;
@@ -264,8 +261,25 @@ namespace ZeroInstall.Model
                 case Cpu.Source: cpu = "src"; break;
                 default: cpu = "unknown"; break;
             }
+            return cpu;
+        }
 
-            return os + "-" + cpu;
+        /// <summary>
+        /// Returns a string representation of <see cref="OS"/>.
+        /// </summary>
+        public string OSToString()
+        {
+            string os;
+            switch (OS)
+            {
+                case OS.All: os = "*"; break;
+                case OS.Linux: os = "Linux"; break;
+                case OS.Solaris: os = "Solaris"; break;
+                case OS.MacOsX: os = "MacOSX"; break;
+                case OS.Windows: os = "Windows"; break;
+                default: os = "unknown"; break;
+            }
+            return os;
         }
         #endregion
 

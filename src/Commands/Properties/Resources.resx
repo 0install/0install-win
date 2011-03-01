@@ -170,7 +170,7 @@ Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
     <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
-    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
+    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh). If a required file is missing it will still be downloaded.</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Forces the solver to target the operating system {OS}.
@@ -190,7 +190,7 @@ However, new downloads will not be written to this directory.</value>
     <value>Instead of executing the chosen program directly, run {COMMAND} PROGRAM ARGS. This is useful for running debuggers and tracing tools on the program (rather than on Zero Install!). Note that the wrapper is executed in the environment selected by the program; hence, this mechanism cannot be used for sandboxing.</value>
   </data>
   <data name="OptionBatch" xml:space="preserve">
-    <value>Run in batch mode: don't display any progress reports to the user and silently answer all questions with "No".</value>
+    <value>Run in batch mode: don't display progress reports to the user and silently answer all questions with "No". Use a tray icon when in GUI mode.</value>
   </data>
   <data name="OptionVerbose" xml:space="preserve">
     <value>More verbose output. Use twice for even more verbose output.</value>

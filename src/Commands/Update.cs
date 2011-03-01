@@ -46,7 +46,14 @@ namespace ZeroInstall.Commands
         #region Constructor
         /// <inheritdoc/>
         public Update(Policy policy, ISolver solver) : base(policy, solver)
-        {}
+        {
+            //Options.Remove("o|offline");
+
+            //Options.Remove("r|refresh");
+
+            //Options.Remove("xml");
+            //Options.Remove("show");
+        }
         #endregion
 
         //--------------------//

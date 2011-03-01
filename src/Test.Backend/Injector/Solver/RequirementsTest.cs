@@ -35,7 +35,7 @@ namespace ZeroInstall.Injector.Solver
         {
             return new Requirements
             {
-                InterfaceID = "http://0install.de/feeds/test/test1.xml", CommandName = "command", Architecture = new Architecture(OS.Windows, Cpu.I586),
+                InterfaceID = "http://0install.de/feeds/test/test1.xml", CommandName = "command name", Architecture = new Architecture(OS.Windows, Cpu.I586),
                 NotBeforeVersion = new ImplementationVersion("1.0"), BeforeVersion = new ImplementationVersion("2.0")
             };
         }
@@ -66,6 +66,12 @@ namespace ZeroInstall.Injector.Solver
             Assert.AreEqual(requirements1, requirements2, "Cloned objects should be equal.");
             Assert.AreEqual(requirements1.GetHashCode(), requirements2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(requirements1, requirements2), "Cloning should not return the same reference.");
+        }
+
+        [Test(Description = "Ensures that the class can be serialized to a command-line argument string")]
+        public void TestToCommandLineArgs()
+        {
+            Assert.AreEqual("--command=\"command name\" --os=Windows --cpu=i586 --not-before=1.0 --before=2.0 http://0install.de/feeds/test/test1.xml", CreateTestRequirements().ToCommandLineArgs());
         }
     }
 }

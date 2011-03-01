@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -79,8 +80,8 @@ namespace ZeroInstall.Commands
 
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
-            
-            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = command);
+
+            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.Unescape(command));
             Options.Add("before=", Resources.OptionBefore, version => _requirements.BeforeVersion = new ImplementationVersion(version));
             Options.Add("not-before=", Resources.OptionNotBefore, version => _requirements.NotBeforeVersion = new ImplementationVersion(version));
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
@@ -93,26 +94,6 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
-        #region Helpers
-        /// <summary>
-        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
-        /// </summary>
-        protected void Solve()
-        {
-            // Run the solver unless the user provided a selections document
-            if (!SelectionsDocument) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
-        }
-
-        /// <summary>
-        /// Returns the content of <see cref="Selections"/> formated as the user requested it.
-        /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        protected string GetSelectionsOutput()
-        {
-            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.SearchStore);
-        }
-        #endregion
-
         #region Parse
         /// <inheritdoc/>
         public override void Parse(IEnumerable<string> args)
@@ -122,7 +103,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            var feedID = AdditionalArgs.First;
+            var feedID = StringUtils.Unescape(AdditionalArgs.First);
             AdditionalArgs.RemoveFirst();
 
             if (feedID.StartsWith("alias:"))
@@ -150,6 +131,26 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
+        #region Helpers
+        /// <summary>
+        /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
+        /// </summary>
+        protected void Solve()
+        {
+            // Run the solver unless the user provided a selections document
+            if (!SelectionsDocument) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
+        }
+
+        /// <summary>
+        /// Returns the content of <see cref="Selections"/> formated as the user requested it.
+        /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        protected string GetSelectionsOutput()
+        {
+            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.SearchStore);
+        }
+        #endregion
+
         #region Execute
         /// <inheritdoc/>
         public override int Execute()
@@ -162,7 +163,7 @@ namespace ZeroInstall.Commands
             Solve();
 
             // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds)
+            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();

@@ -104,6 +104,24 @@ namespace Common.Utils
         }
 
         [Test]
+        public void TestEscape()
+        {
+            Assert.AreEqual("test", StringUtils.Escape("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("\"test1 test2\"", StringUtils.Escape("test1 test2"), "Strings with whitespaces should be encapsulated");
+            Assert.AreEqual("test1\\\"test2\\\\", StringUtils.Escape("test1\"test2\\"), "Slashes and quotation marks should be escaped");
+            Assert.AreEqual("\"test1 \\\"test2\\\\\"", StringUtils.Escape("test1 \"test2\\"), "Slashes and quotation marks should be escaped");
+        }
+
+        [Test]
+        public void TestUnescape()
+        {
+            Assert.AreEqual("test", StringUtils.Unescape("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("test1 test2", StringUtils.Unescape("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
+            Assert.AreEqual("test1\"test2\\", StringUtils.Unescape("test1\\\"test2\\\\"), "Slashes and quotation marks should be unescaped");
+            Assert.AreEqual("test1 \"test2\\", StringUtils.Unescape("\"test1 \\\"test2\\\\\""), "Slashes and quotation marks should be unescaped");
+        }
+
+        [Test]
         public void TestExpandUnixVariables()
         {
             var variables = new StringDictionary

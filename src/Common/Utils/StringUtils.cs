@@ -87,6 +87,18 @@ namespace Common.Utils
         }
 
         /// <summary>
+        /// Checks whether a string contains any whitespace characters
+        /// </summary>
+        public static bool ContainsWhitespace(string text)
+        {
+            #region Sanity checks
+            if (text == null) throw new ArgumentNullException("text");
+            #endregion
+
+            return text.Contains(" ") || text.Contains("\t") || text.Contains("\n") || text.Contains("\r");
+        }
+
+        /// <summary>
         /// Counts how many times a character occurs within a string.
         /// </summary>
         /// <param name="value">The string to search within.</param>
@@ -333,6 +345,36 @@ namespace Common.Utils
 
             int index = sourceText.LastIndexOf(str);
             return index == -1 ? sourceText : sourceText.Substring(index + str.Length);
+        }
+        #endregion
+
+        #region Escaping
+        /// <summary>
+        /// Escapes a string, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
+        /// </summary>
+        public static string Escape(string value)
+        {
+            if (value == null) return null;
+
+            value = value.Replace(@"\", @"\\").Replace("\"", "\\\"");
+            if (ContainsWhitespace(value)) value = "\"" + value + "\"";
+            return value;
+        }
+
+        /// <summary>
+        /// Unescapes a string, reverses the effect of <see cref="Escape"/>.
+        /// </summary>
+        public static string Unescape(string value)
+        {
+            if (value == null) return null;
+
+            if (ContainsWhitespace(value) && value.StartsWith("\"") && value.EndsWith("\""))
+            {
+                value = value.Remove(0, 1);
+                value = value.Remove(value.Length - 1, 1);
+            }
+            value = value.Replace("\\\"", "\"").Replace(@"\\", @"\");
+            return value;
         }
         #endregion
 

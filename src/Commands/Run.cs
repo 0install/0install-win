@@ -53,6 +53,9 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public Run(Policy policy, ISolver solver) : base(policy, solver)
         {
+            //Options.Remove("xml");
+            //Options.Remove("show");
+
             Options.Add("m|main=", Resources.OptionMain, newMain => _main = newMain);
             Options.Add("w|wrapper=", Resources.OptionWrapper, newWrapper => _wrapper = newWrapper);
             Options.Add("no-wait", Resources.OptionNoWait, unused => _noWait = true);
@@ -101,20 +104,13 @@ namespace ZeroInstall.Commands
 
             Solve();
 
-            // ToDo: Remove once background update is in place
-            // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds)
-            {
-                Policy.FeedManager.Refresh = true;
-                Solve();
-            }
-
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds)
+            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
             {
-                // ToDo: Implement
+                // ToDo: Automatically switch to GTK# on Linux
+                ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
             return LaunchImplementation();
