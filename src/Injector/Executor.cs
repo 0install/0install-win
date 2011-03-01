@@ -328,18 +328,18 @@ namespace ZeroInstall.Injector
                 default:
                 case EnvironmentMode.Prepend: 
                     environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
-                        // Prepend new value to existing one seperated by path separator
-                        ? newValue + Path.PathSeparator + environmentVariables[binding.Name]
                         // No exisiting value, just set new one
-                        : newValue;
+                        ? newValue
+                        // Prepend new value to existing one seperated by path separator
+                        : newValue + Path.PathSeparator + environmentVariables[binding.Name];
                     break;
 
                 case EnvironmentMode.Append:
                     environmentVariables[binding.Name] = string.IsNullOrEmpty(previousValue)
-                        // Append new value to existing one seperated by path separator
-                        ? environmentVariables[binding.Name] + Path.PathSeparator + newValue
                         // No exisiting value, just set new one
-                        : newValue;
+                        ? newValue
+                        // Append new value to existing one seperated by path separator
+                        : environmentVariables[binding.Name] + Path.PathSeparator + newValue;
                     break;
 
                 case EnvironmentMode.Replace:

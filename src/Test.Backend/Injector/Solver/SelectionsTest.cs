@@ -34,7 +34,7 @@ namespace ZeroInstall.Injector.Solver
     {
         #region Helpers
         /// <summary>
-        /// Creates a <see cref="Selections"/> with two implementations, one using the other as a runner.
+        /// Creates a <see cref="Selections"/> with two implementations, one using the other as a runner plus a number of bindings.
         /// </summary>
         public static Selections CreateTestSelections()
         {
