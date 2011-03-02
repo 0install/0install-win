@@ -17,7 +17,6 @@
 
 using System;
 using System.Drawing;
-using System.Windows.Forms;
 using Common.Controls;
 using ZeroInstall.Model;
 using System.IO;
