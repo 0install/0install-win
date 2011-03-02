@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     /// <summary>
     /// Provides methods for extracting an archive (optionally as a background task).
     /// </summary>
-    public abstract class Extractor : TaskBase, IDisposable
+    public abstract class Extractor : ThreadTaskBase, IDisposable
     {
         #region Variables
         /// <summary>

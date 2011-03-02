@@ -34,7 +34,7 @@ namespace Common.Net
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
     // ToDo: Fix resuming of downloads
     // ToDo: Set local last-changed time
-    public class DownloadFile : TaskBase
+    public class DownloadFile : ThreadTaskBase
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be canceled.</summary>

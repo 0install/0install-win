@@ -77,6 +77,7 @@
     <Compile Include="ITask.cs" />
     <Compile Include="TaskState.cs" />
     <Compile Include="TaskBase.cs" />
+    <Compile Include="ThreadTaskBase.cs" />
     <Compile Include="SimpleTask.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaUtils.cs" />

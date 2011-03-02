@@ -72,8 +72,8 @@
             Id="77e30e20-78e6-4243-9c9f-e5831f9a62d4"
             isSubstitutable="false">
             <classMoniker
-              Id="2d2a5820-718c-48b2-81b9-e205075cad07"
-              LastKnownName="TaskBase"
+              Id="aac91736-0152-4877-b9d7-1b8711346683"
+              LastKnownName="ThreadTaskBase"
               LastKnownLocation="Package5_1629.uml" />
           </generalization>
         </generalsInternal>
@@ -434,8 +434,9 @@
         </ownedAttributesInternal>
         <ownedOperationsInternal>
           <operation
-            Id="1236c015-9005-4058-8758-b9fb7057bedc"
-            name="Cancel"
+            Id="e4a66fa4-3f1a-4843-aa96-aea42bb811b6"
+            name="RunTask"
+            visibility="Protected"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -443,47 +444,47 @@
             isQuery="false">
             <referencesInternal>
               <reference
-                Id="8a1d8a77-505b-422b-8436-598f8930f839"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common.Net Type=DownloadFile Member=Cancel"
+                Id="0437daaf-56b6-40c9-8d1d-16fa1064c8e2"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=IOTask Member=RunTask"
                 tag="ViewCode" />
             </referencesInternal>
             <appliedStereotypesInternal>
               <stereotypeInstance
-                Id="83fd397a-0713-4c28-bf54-8e83146e0e0c"
+                Id="8cbf57f3-9a59-42f6-beb7-b891add01686"
                 name="method"
                 profile="CSharpProfile">
                 <propertyInstances>
                   <stereotypeInstanceHasPropertyInstances
-                    Id="04e1ab77-296d-4d13-9e88-35b536a81f21">
+                    Id="f4b9aa3e-2037-4668-9808-3e93d5fc0944">
                     <propertyInstance
-                      Id="60c1d693-2635-435e-9cb1-80a65eb94944"
+                      Id="b4d9e0bb-65fb-4431-9351-69e3f60b05fd"
                       name="ClrAttributes" />
                   </stereotypeInstanceHasPropertyInstances>
                   <stereotypeInstanceHasPropertyInstances
-                    Id="b4ca2e4e-dbee-4f8c-8a79-353802340513">
+                    Id="6298981a-024d-4213-90d6-88eb5a86ecf0">
                     <propertyInstance
-                      Id="2edd3db4-8e7e-4241-9a4c-077d38406854"
+                      Id="c03ba6f4-1320-43d8-8811-a7e628e2df3d"
                       name="IsPartial"
                       value="false" />
                   </stereotypeInstanceHasPropertyInstances>
                   <stereotypeInstanceHasPropertyInstances
-                    Id="91709d32-8f5b-4c84-815b-6ce73166dd73">
+                    Id="b3210210-010a-4e60-8a24-ea2c8f583f5f">
                     <propertyInstance
-                      Id="189dceca-13e8-4565-ae0e-42370d2a7cf0"
+                      Id="2b7a7d0c-69b2-4d3f-910c-63fd203fe3fe"
                       name="IsUnsafe"
                       value="false" />
                   </stereotypeInstanceHasPropertyInstances>
                   <stereotypeInstanceHasPropertyInstances
-                    Id="1a523c93-019a-42b7-8991-8b5807f7867c">
+                    Id="2aa03e8d-1b90-460c-b8ea-4fa966fd22f7">
                     <propertyInstance
-                      Id="a8c85c22-6dc4-45ab-b958-afd939ce5dc1"
+                      Id="d8a29ccf-d970-4bf9-94ed-82256021ae2f"
                       name="PackageVisibility"
                       value="internal" />
                   </stereotypeInstanceHasPropertyInstances>
                   <stereotypeInstanceHasPropertyInstances
-                    Id="59bf492a-ea8a-4e53-811d-4be98d1a79ba">
+                    Id="da5e2aa5-7931-4cc5-a332-262be59ced7b">
                     <propertyInstance
-                      Id="bd8c057a-164d-470f-80e3-5986e8712ad6"
+                      Id="36b1425f-d3a5-4c44-81f9-48a809216b2a"
                       name="params"
                       value="false" />
                   </stereotypeInstanceHasPropertyInstances>
@@ -491,15 +492,6 @@
               </stereotypeInstance>
             </appliedStereotypesInternal>
           </operation>
-          <operation
-            Id="d029336c-1552-4490-b7b6-126e03b0a08e"
-            name="RunTask"
-            visibility="Protected"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false" />
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>

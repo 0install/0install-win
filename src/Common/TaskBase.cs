@@ -21,15 +21,11 @@
  */
 
 using System;
-using System.IO;
-using System.Net;
-using System.Threading;
-using Common.Properties;
 
 namespace Common
 {
     /// <summary>
-    /// Abstract base class for background tasks that implement <see cref="ITask"/> and can be canceled.
+    /// Abstract base class for background tasks that implement <see cref="ITask"/>.
     /// </summary>
     public abstract class TaskBase : MarshalByRefObject, ITask
     {
@@ -55,20 +51,12 @@ namespace Common
         }
         #endregion
 
-        #region Variables
-        /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switching.</summary>
-        protected readonly object StateLock = new object();
-
-        /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
-        protected readonly Thread Thread;
-        #endregion
-
         #region Properties
         /// <inheritdoc />
         public abstract string Name { get; }
 
         /// <inheritdoc />
-        public bool CanCancel { get { return true; } }
+        public abstract bool CanCancel { get; }
 
         private TaskState _state;
         /// <inheritdoc />
@@ -110,88 +98,20 @@ namespace Common
         }
         #endregion
 
-        #region Constructor
-        /// <summary>
-        /// Prepares a new background thread for executing a task.
-        /// </summary>
-        protected TaskBase()
-        {
-            // Prepare the background thread for later execution
-            Thread = new Thread(RunTask);
-        }
-        #endregion
-
         //--------------------//
 
         #region Control
-        /// <inheritdoc/>
-        public void Start()
-        {
-            lock (StateLock)
-            {
-                if (State != TaskState.Ready) return;
-
-                State = TaskState.Started;
-                Thread.Start();
-            }
-        }
-
-        /// <inheritdoc/>
-        public void RunSync()
-        {
-            // Still use threads so cancel request from other threads will work
-            lock (StateLock)
-            {
-                if (State != TaskState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
-
-                State = TaskState.Started;
-                Thread.Start();
-            }
-
-            Thread.Join();
-
-            lock (StateLock)
-            {
-                switch (State)
-                {
-                    case TaskState.Complete:
-                        return;
-
-                    case TaskState.WebError:
-                        State = TaskState.Ready;
-                        throw new WebException(ErrorMessage);
-
-                    case TaskState.IOError:
-                        State = TaskState.Ready;
-                        throw new IOException(ErrorMessage);
-
-                    default:
-                        State = TaskState.Ready;
-                        throw new UserCancelException();
-                }
-            }
-        }
+        /// <inheritdoc />
+        public abstract void Start();
 
         /// <inheritdoc />
-        public void Join()
-        {
-            lock (StateLock)
-            {
-                if (Thread == null || !Thread.IsAlive) return;
-            }
+        public abstract void RunSync();
 
-            Thread.Join();
-        }
+        /// <inheritdoc />
+        public abstract void Join();
 
         /// <inheritdoc />
         public abstract void Cancel();
-        #endregion
-
-        #region Thread code
-        /// <summary>
-        /// The actual code to be executed by a background thread.
-        /// </summary>
-        protected abstract void RunTask();
         #endregion
     }
 }

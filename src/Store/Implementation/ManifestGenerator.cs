@@ -29,7 +29,7 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Generates a <see cref="Manifest"/> for a directory in the filesystem as a background task.
     /// </summary>
-    public class ManifestGenerator : TaskBase
+    public class ManifestGenerator : ThreadTaskBase
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be canceled.</summary>
