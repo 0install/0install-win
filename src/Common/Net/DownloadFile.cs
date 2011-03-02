@@ -32,7 +32,6 @@ namespace Common.Net
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    // ToDo: Fix resuming of downloads
     // ToDo: Set local last-changed time
     public class DownloadFile : ThreadTaskBase
     {
@@ -59,10 +58,10 @@ namespace Common.Net
         public WebHeaderCollection Headers { get; private set; }
 
         /// <summary>
-        /// Indicates whether this download can be resumed without having to start from the beginning again.
+        /// Indicates whether the server supports resuming downloads without starting over from the beginning.
         /// </summary>
-        /// <remarks>This value is always <see langword="true"/> until <see cref="TaskState.Data"/> has been reached.</remarks>
-        [Description("Indicates whether this download can be resumed without having to start from the beginning again.")]
+        /// <remarks>This value is always <see langword="false"/> until <see cref="TaskState.Data"/> has been reached.</remarks>
+        [Description("Indicates whether the server supports resuming downloads without starting over from the beginning.")]
         public bool SupportsResume { get; private set; }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace Common.Net
         /// Creates a new download task with a predefined file size.
         /// </summary>
         /// <param name="source">The URL the file is to be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
+        /// <param name="target">The local path to save the file to. A preexisting file will be overwritten.</param>
         /// <param name="bytesTotal">The number of bytes the file to be downloaded is long. The file will be rejected if it does not have this length.</param>
         /// <exception cref="NotSupportedException">Thrown if <paramref name="source"/> contains an unsupported protocol (usually should be HTTP or FTP).</exception>
         public DownloadFile(Uri source, string target, long bytesTotal)
@@ -96,7 +95,7 @@ namespace Common.Net
         /// Creates a new download task with no fixed file size.
         /// </summary>
         /// <param name="source">The URL the file is to be downloaded from.</param>
-        /// <param name="target">The local path to save the file to. A preexisting file is treated as partial download and attempted to be resumed.</param>
+        /// <param name="target">The local path to save the file to. A preexisting file will be overwritten.</param>
         public DownloadFile(Uri source, string target) : this(source, target, -1)
         {}
         #endregion
@@ -132,8 +131,7 @@ namespace Common.Net
                 // Open the target file for writing
                 using (FileStream fileStream = File.Open(Target, FileMode.OpenOrCreate, FileAccess.Write))
                 {
-                    // Configure the request to continue the file transfer where the file ends
-                    if (fileStream.Length != 0) SetResumePoint(request, fileStream);
+                    // ToDo: SetResumePoint()
 
                     if (_cancelRequest) return;
                     lock (StateLock) State = TaskState.Header;
@@ -153,21 +151,7 @@ namespace Common.Net
                         {
                             if (!ReadHeader(response)) return;
 
-                            // If a partial file exists locally...
-                            if (fileStream.Length != 0)
-                            {
-                                // ... make sure resuming worked on the server side
-                                if (EnsureResumePoint(response))
-                                {
-                                    // Update the download progress to reflect preexisting data and move the file pointer to the end
-                                    BytesProcessed = fileStream.Position = fileStream.Length;
-                                }
-                                else
-                                {
-                                    // Delete the preexisiting content and start over
-                                    fileStream.SetLength(0);
-                                }
-                            }
+                            // ToDo: VerifyResumePoint()
 
                             State = TaskState.Data;
                         }
@@ -240,45 +224,20 @@ namespace Common.Net
         }
 
         /// <summary>
-        /// Configures the <paramref name="request"/> t start downloading at the of a <paramref name="fileStream"/>.
+        /// Configures the <paramref name="request"/> to start downloading at <paramref name="position"/>.
         /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol (usually should be HTTP or FTP).</exception>
-        private static void SetResumePoint(WebRequest request, Stream fileStream)
+        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol.</exception>
+        private static void SetResumePoint(WebRequest request, int position)
         {
             // Use Range header for HTTP resuming
             var httpWebRequest = request as HttpWebRequest;
-            if (httpWebRequest != null)
-            {
-                // Handle resuming of verly large files by simply trimming part of the content
-                if (fileStream.Length > int.MaxValue) fileStream.SetLength(int.MaxValue);
-
-                httpWebRequest.AddRange((int)fileStream.Length);
-            }
+            if (httpWebRequest != null) httpWebRequest.AddRange(position);
             else
             {
                 var ftpWebRequest = request as FtpWebRequest;
-                if (ftpWebRequest != null) ftpWebRequest.ContentOffset = fileStream.Position;
+                if (ftpWebRequest != null) ftpWebRequest.ContentOffset = position;
                 else throw new NotSupportedException(Resources.HttpAndFtpOnly);
             }
-        }
-
-        /// <summary>
-        /// Ensures a <paramref name="response"/> is actually using a resume point set by <see cref="SetResumePoint"/>.
-        /// </summary>
-        /// <exception cref="NotSupportedException">Thrown if the request use an unsupported protocol (usually should be HTTP or FTP).</exception>
-        private static bool EnsureResumePoint(WebResponse response)
-        {
-            var httpWebResponse = response as HttpWebResponse;
-            if (httpWebResponse != null)
-            {
-                // Check whether an HTTP server ignored a range header
-                return (httpWebResponse.StatusCode == HttpStatusCode.PartialContent);
-            }
-
-            // Assume FTP resuming always works
-            if (response is FtpWebResponse) return true;
-
-            throw new NotSupportedException(Resources.HttpAndFtpOnly);
         }
 
         /// <summary>
