@@ -32,12 +32,14 @@ namespace Common.Net
     /// Downloads a file from a specific internet address to a local file (optionally as a background task).
     /// </summary>
     /// <remarks>Can be used stand-alone or as a part of a <see cref="DownloadJob"/>.</remarks>
-    // ToDo: Set local last-changed time
     public class DownloadFile : ThreadTaskBase
     {
         #region Variables
         /// <summary>Flag that indicates the current process should be canceled.</summary>
         private volatile bool _cancelRequest;
+
+        /// <summary>The date and time that the file on the server was last modified.</summary>
+        private DateTime _lastModifed;
         #endregion
 
         #region Properties
@@ -192,7 +194,7 @@ namespace Common.Net
             }
             #endregion
 
-            if (_cancelRequest) return;
+            File.SetLastWriteTimeUtc(Target, _lastModifed);
             lock (StateLock) State = TaskState.Complete;
         }
         #endregion
@@ -216,6 +218,14 @@ namespace Common.Net
                 ErrorMessage = string.Format(Resources.FileNotExpectedSize, Source, BytesTotal, response.ContentLength);
                 State = TaskState.WebError;
                 return false;
+            }
+
+            var httpHeader = response as HttpWebResponse;
+            if (httpHeader != null) _lastModifed = httpHeader.LastModified;
+            else
+            {
+                var ftpRespose = response as FtpWebResponse;
+                if (ftpRespose != null) _lastModifed = ftpRespose.LastModified;
             }
 
             // HTTP servers with range-support and FTP servers support resuming downloads
