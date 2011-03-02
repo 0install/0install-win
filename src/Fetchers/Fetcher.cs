@@ -277,14 +277,6 @@ namespace ZeroInstall.Fetchers
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            if (archive.StartOffset != 0)
-            {
-                // This is the only way to tell DownloadFile not to download a
-                // certain part of the remote archive.
-                // TODO: Make this behavior explicit
-                PadIgnoredPartOfFile(archive, destination);
-            }
-
             var downloadFile = new DownloadFile(archive.Location, destination, archive.Size + archive.StartOffset);
 
             try
@@ -298,20 +290,6 @@ namespace ZeroInstall.Fetchers
             {
                 File.Delete(destination);
                 throw;
-            }
-        }
-
-        private static void PadIgnoredPartOfFile(Archive archive, string destination)
-        {
-            #region Sanity checks
-            if (archive == null) throw new ArgumentNullException("archive");
-            if (string.IsNullOrEmpty(destination)) throw new ArgumentNullException("destination");
-            #endregion
-
-            using (var tempArchiveStream = File.Create(destination))
-            {
-                tempArchiveStream.Seek(archive.StartOffset - 1, SeekOrigin.Begin);
-                tempArchiveStream.WriteByte(0);
             }
         }
 
