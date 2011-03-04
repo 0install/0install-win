@@ -26,24 +26,28 @@ using System.IO;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Callback methods to inform the user about the starting of tasks.
+    /// Callback methods to inform the user about tasks being run.
     /// </summary>
-    /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
+    /// <remarks>The methods may be called from a background thread. Apply appropriate thread-synchronization to update UI elements.</remarks>
     public interface ITaskHandler
     {
         /// <summary>
-        /// Don't print messages to <see cref="Console"/> unless errors occur and don't block with questions or messages.
+        /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
         /// </summary>
         bool Batch { get; set; }
 
         /// <summary>
-        /// Called when a new task needs to be run. Returns once the task has been completed.
+        /// Runs (and potentially tracks) an <see cref="ITask"/>. Returns once the task has been completed.
         /// </summary>
-        /// <param name="task">The extraction task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
-        /// <param name="tag">An object that can be used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
+        /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>
+        /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
+        /// <remarks>
+        /// This may be called multiple times concurrently but the concurrent calls must not depend on each other! The specific implementation of this method may chose whether to actually run the tasks concurrently or in sequence.
+        /// There should not be more than one <see cref="ITask"/> running with a specific <paramref name="tag"/> at any given time.
+        /// </remarks>
         void RunTask(ITask task, object tag);
     }
 }

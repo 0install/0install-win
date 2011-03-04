@@ -208,7 +208,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
-        /// <param name="tag">An object that can be used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
+        /// <param name="tag">An object used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
         public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler, object tag)

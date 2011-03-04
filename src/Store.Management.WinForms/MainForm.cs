@@ -255,7 +255,8 @@ namespace ZeroInstall.Store.Management.WinForms
         /// <inheritdoc/>
         public void RunTask(ITask task, object tag)
         {
-            TrackingDialog.Run(this, task, Icon);
+            // Handle events coming from a non-UI thread, block caller
+            Invoke((SimpleEventHandler)(() => TrackingDialog.Run(this, task, Icon)));
         }
         #endregion
     }

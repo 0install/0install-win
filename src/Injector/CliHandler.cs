@@ -55,20 +55,6 @@ namespace ZeroInstall.Injector
             }
         }
 
-        /// <inheritdoc />
-        public void RunDownloadTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            if (Batch) return;
-
-            Log.Info(task.Name + "...");
-            using (new TrackingProgressBar(task))
-                task.RunSync();
-        }
-
         /// <inheritdoc/>
         public void CloseAsync()
         {

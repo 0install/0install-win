@@ -77,9 +77,7 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Handler
-        /// <summary>
-        /// Silently answer all questions with "No".
-        /// </summary>
+        /// <inheritdoc />
         public bool Batch { get; set; }
 
         /// <inheritdoc />

@@ -30,10 +30,11 @@ namespace Common.Tasks
     /// </summary>
     public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        /// <summary>
-        /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".
-        /// </summary>
+        /// <inheritdoc />
         public bool Batch { get; set; }
+
+        /// <summary>Synchronization object used to prevent multiple concurrent <see cref="ITask"/>s.</summary>
+        private readonly object _taskLock = new object();
 
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
@@ -44,9 +45,12 @@ namespace Common.Tasks
 
             if (Batch) return;
 
-            Log.Info(task.Name + "...");
-            using (new TrackingProgressBar(task))
-                task.RunSync();
+            lock (_taskLock) // Prevent multiple concurrent tasks
+            {
+                Log.Info(task.Name + "...");
+                using (new TrackingProgressBar(task))
+                    task.RunSync();
+            }
         }
     }
 }

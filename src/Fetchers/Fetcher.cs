@@ -325,7 +325,7 @@ namespace ZeroInstall.Fetchers
             return new ImplementationFetch(this, implementation);
         }
 
-        /// <inheritdoc/
+        /// <inheritdoc/>
         public void Run(FetchRequest fetchRequest)
         {
             #region Sanity checks

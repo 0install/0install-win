@@ -21,32 +21,29 @@ using Common.Tasks;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Callback methods to inform the user about the starting of tasks and ask the user questions.
+    /// Callback methods to inform the user about tasks being run and ask the user questions.
     /// </summary>
-    /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
+    /// <remarks>The methods may be called from a background thread. Apply appropriate thread-synchronization to update UI elements.</remarks>
     public interface IHandler : ITaskHandler
     {
         /// <summary>
-        /// Called to ask the user whether he wishes to trust a new GPG key.
+        /// Asks the whether to trust a new GPG key.
         /// </summary>
         /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
-        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if he rejected it.</returns>
+        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if it was rejected.</returns>
         bool AcceptNewKey(string information);
 
         /// <summary>
-        /// Close any asynchronous GUI threads to make room for a newly launched application.
-        /// </summary>
-        void CloseAsync();
-
-        /// <summary>
-        /// Display multi-line text to the user.
+        /// Displays multi-line text to the user.
         /// </summary>
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
-        /// <remarks>
-        /// This will never be called during an interactive or long-running operation.
-        /// <see cref="AcceptNewKey"/>, <see cref="Log"/> and exceptions are used for that.
-        /// </remarks>
+        /// <remarks>Never call this during an interactive or long-running operation. Use <see cref="AcceptNewKey"/>, <see cref="Log"/> or exceptions for that.</remarks>
         void Output(string title, string information);
+
+        /// <summary>
+        /// Closes any asynchronous GUI threads to make room for a newly launched application.
+        /// </summary>
+        void CloseAsync();
     }
 }
