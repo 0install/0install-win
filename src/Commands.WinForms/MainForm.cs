@@ -30,7 +30,7 @@ namespace ZeroInstall.Commands.WinForms
     public partial class MainForm : Form, IHandler
     {
         #region Async control
-        /// <summary>Indicates that <see cref="ShowAsync"/> has been called even before <see cref="Control.IsHandleCreated"/> becomes <see langword="true"/>.</summary>
+        /// <summary>Indicates that <see cref="ShowAsync"/> has been called, even before <see cref="Control.IsHandleCreated"/> becomes <see langword="true"/>.</summary>
         private volatile bool _showCalled;
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc />
-        public void RunIOTask(ITask task)
+        public void RunTask(ITask task)
         {
             HookupTracking(task);
         }
