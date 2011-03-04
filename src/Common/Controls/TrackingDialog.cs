@@ -82,7 +82,7 @@ namespace Common.Controls
         /// <summary>
         /// Runs the <paramref name="task"/>, displays the progress and returns after the task completes. Equivalent to calling <see cref="ITask.RunSync"/>.
         /// </summary>
-        /// <param name="owner">The parent window the displayed window is modal to.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>

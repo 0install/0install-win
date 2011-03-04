@@ -143,6 +143,12 @@
     <Compile Include="Controls\InputBox.Designer.cs">
       <DependentUpon>InputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\OutputBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\OutputBox.Designer.cs">
+      <DependentUpon>OutputBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>Component</SubType>
     </Compile>

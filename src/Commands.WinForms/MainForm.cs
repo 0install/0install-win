@@ -20,13 +20,14 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands.WinForms
 {
     /// <summary>
-    /// Uses GUI message boxes to ask the user questions.
+    /// Displays the progress of a <see cref="CommandBase"/>, asks questions, reports problems, etc.
     /// </summary>
     public partial class MainForm : Form, IHandler
     {
@@ -86,7 +87,7 @@ namespace ZeroInstall.Commands.WinForms
             // Close any windows that may still be open
             CloseAsync();
 
-            Msg.Inform(null, title + "\n" + information, MsgSeverity.Info);
+            OutputBox.Show(null, title, information);
         }
 
         /// <inheritdoc />

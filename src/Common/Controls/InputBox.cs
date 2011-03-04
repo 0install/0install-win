@@ -42,48 +42,51 @@ namespace Common.Controls
         /// <summary>
         /// Displays an input box asking the the user to input some text.
         /// </summary>
-        /// <param name="prompt">The prompt to display.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="title">The window title to use.</param>
+        /// <param name="prompt">The prompt to display.</param>
         /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
         /// <param name="password">Shall the input characters be hidden as a password?</param>
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(string prompt, string title, string defaultText, bool password)
+        public static string Show(IWin32Window owner, string title, string prompt, string defaultText, bool password)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
             if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
+            if (string.IsNullOrEmpty(prompt)) throw new ArgumentNullException("prompt");
             #endregion
 
             using (var inputBox = new InputBox
             {
                 Text = title,
-                labelPrompt = { Text = prompt },
+                labelPrompt = { Text = prompt.Replace("\n", Environment.NewLine) },
                 textInput = { Text = defaultText, UseSystemPasswordChar = password }
             })
-                return (inputBox.ShowDialog() == DialogResult.OK) ? inputBox.textInput.Text : null;
+                return (inputBox.ShowDialog(owner) == DialogResult.OK) ? inputBox.textInput.Text : null;
         }
 
         /// <summary>
         /// Displays an input box asking the the user to input some text.
         /// </summary>
-        /// <param name="prompt">The prompt to display.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="title">The window title to use.</param>
+        /// <param name="prompt">The prompt to display.</param>
         /// <param name="defaultText">The default text to show pre-entered in the input field.</param>
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(string prompt, string title, string defaultText)
+        public static string Show(IWin32Window owner, string title, string prompt, string defaultText)
         {
-            return Show(prompt, title, defaultText, false);
+            return Show(owner, title, prompt, defaultText, false);
         }
 
         /// <summary>
         /// Displays an input box asking the the user to input some text.
         /// </summary>
-        /// <param name="prompt">The prompt to display.</param>
+        /// <param name="owner">The parent window the displayed window is modal to; may be <see langword="null"/>.</param>
         /// <param name="title">The window title to use.</param>
+        /// <param name="prompt">The prompt to display.</param>
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static string Show(string prompt, string title)
+        public static string Show(IWin32Window owner, string title, string prompt)
         {
-            return Show(prompt, title, "");
+            return Show(owner, title, prompt, "");
         }
         #endregion
 

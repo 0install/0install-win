@@ -802,7 +802,7 @@ namespace ZeroInstall.Publish.WinForms
             var key = (GnuPGSecretKey) toolStripComboBoxGpg.SelectedItem;
             do
             {
-                string passphrase = InputBox.Show(
+                string passphrase = InputBox.Show(this,
                     (wrongPassphrase
                          ? "Wrong passphrase entered.\nPlease retry entering the GnuPG passphrase for "
                          : "Please enter the GnuPG passphrase for ") + key.UserID,

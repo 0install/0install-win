@@ -63,7 +63,7 @@ namespace ZeroInstall.Commands.WinForms
                         // Ask user to specifiy interface ID if it is missing
                         if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
                         {
-                            selection.Requirements.InterfaceID = InputBox.Show("Please enter the URI of a Zero Install interface here:", "Zero Install");
+                            selection.Requirements.InterfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
                             if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
                         }
 
@@ -102,7 +102,7 @@ namespace ZeroInstall.Commands.WinForms
                 try { command.Execute(); }
                 #region Error hanlding
                 catch (UserCancelException)
-                { }
+                {}
                 catch (OptionException ex)
                 {
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);

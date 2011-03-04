@@ -81,7 +81,7 @@ namespace ZeroInstall.Injector.Solver
 
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Version"/>
-        [XmlAttribute("distributions"), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [XmlAttribute("distributions"), DefaultValue(""), Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string DistributionsString
         {
             get
