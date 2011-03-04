@@ -418,8 +418,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -468,8 +468,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -511,8 +511,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -543,8 +543,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -683,8 +683,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -720,8 +720,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -771,8 +771,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -841,8 +841,8 @@
             Id="060b9953-26b7-4f4a-ba7a-c548353e8f1d">
             <interfaceMoniker
               Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-              LastKnownName="IIOHandler"
-              LastKnownLocation="Package5_1633.uml" />
+              LastKnownName="ITaskHandler"
+              LastKnownLocation="Package5_1629.uml" />
           </dependency>
         </suppliersInternal>
         <ownedOperations>
@@ -1138,8 +1138,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1255,8 +1255,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1366,8 +1366,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1441,8 +1441,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1597,8 +1597,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1648,8 +1648,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4194,8 +4194,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4244,8 +4244,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4287,8 +4287,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4319,8 +4319,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4388,8 +4388,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4439,8 +4439,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4779,8 +4779,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4829,8 +4829,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4872,8 +4872,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4904,8 +4904,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5034,8 +5034,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5085,8 +5085,8 @@
                   <type_NamedElement>
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-                      LastKnownName="IIOHandler"
-                      LastKnownLocation="Package5_1633.uml" />
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package5_1629.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -9444,425 +9444,6 @@
         Id="4f00b828-d2c8-4be2-b753-6b581e880434"
         LastKnownName="Archive"
         LastKnownLocation="Package_1634.uml" />
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-        name="IIOHandler"
-        isAbstract="false"
-        isLeaf="false">
-        <referencesInternal>
-          <reference
-            Id="3afef0de-c6a3-44f6-a4bd-a67e0bba5261"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="01508c19-f8c8-47eb-b78e-c1528e859c02"
-            name="interface"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="cecf83c7-b0ef-4eed-8896-bdebc6acfc84">
-                <propertyInstance
-                  Id="9952ecff-fee9-424d-a8ca-d4b04a11dcdd"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="df661d39-7422-4fa8-91be-6b8b80a3d9af">
-                <propertyInstance
-                  Id="d7df10e9-ec9e-4185-8893-a65a85fead7a"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="97e25de1-47f9-4dd0-9179-8635b690d3db">
-                <propertyInstance
-                  Id="6773cf64-516d-40c2-ba79-c2100c40ce4d"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="37bdcb68-a35e-4f53-97ec-be8ca91b7ea0">
-                <propertyInstance
-                  Id="15e205c6-0671-4b39-9c83-1a25b05db14d"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <ownedAttributes>
-          <property
-            Id="e09aae02-7f1f-40f8-833b-af9be96a5419"
-            name="Batch"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="8016cd45-9764-41af-9577-476c0b28a326"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=IHandler Member=Batch"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="0e7a5fd2-fa00-4f89-b6dc-f67222d26fd9"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="92a95612-1f7b-417f-94c9-01b12f1cc510">
-                    <propertyInstance
-                      Id="a1ced26a-9616-4042-8739-9ce6a7e9dece"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f7765489-49bc-40f6-82e2-76818fe2852a">
-                    <propertyInstance
-                      Id="29bb0f2d-19c5-45d5-a745-1288dda56f83"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ae5b7d11-de90-4159-904a-57eebb79808c">
-                    <propertyInstance
-                      Id="5df65d44-2d9b-4e70-9b85-29b2ae185b57"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1949d0d0-0079-49af-88e0-c932520cb2d8">
-                    <propertyInstance
-                      Id="b847db39-c8a0-4fe3-b4a5-cccd7d36619a"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d6980c08-c7aa-4530-ba35-16acd57f3cdb">
-                    <propertyInstance
-                      Id="507b3239-b453-41b8-aed5-96a801ca9be4"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e7a013be-3511-4aef-9332-17bafd6547c5">
-                    <propertyInstance
-                      Id="44fd295a-807f-44e7-9f41-a6ec78e77b0f"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                LastKnownName="Boolean"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributes>
-        <ownedOperations>
-          <operation
-            Id="dc2e7d27-280d-41da-aad9-67143ddcd887"
-            name="RunIOTask"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="c08cf5dc-0e34-44ce-b420-9ddda331894a"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IIOHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="44e9f3a1-3e36-4e1e-8471-86715d3764f5"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="495fdf79-a693-4385-b5fa-6abfd6b6d5aa">
-                    <propertyInstance
-                      Id="2fba6dcf-17f6-495b-9fc5-db02e101a245"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="99005cfb-61fb-4784-9804-bbe9d26dae35">
-                    <propertyInstance
-                      Id="ad167eed-1988-4656-873d-db2f11944b03"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="346dada4-0f42-409a-acf4-73f72b85709e">
-                    <propertyInstance
-                      Id="70cc24b8-06d2-44fe-8414-78eee45018fe"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="6549e63c-6ee5-42a1-b4cd-11b4beb476d4">
-                    <propertyInstance
-                      Id="d0491df0-e800-402f-95e3-1240bb202540"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b73efa67-2ab0-40b1-ab48-c7ca4a73ed2b">
-                    <propertyInstance
-                      Id="e7ecbf97-59d0-421b-a142-12dd17d2e63f"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="96712652-c133-4aa4-a748-3159f1abc13f"
-                  name="task"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="ITask"
-                      LastKnownLocation="Package5_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperations>
-      </Interface>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
-        Id="90149d49-0f4e-4928-b8be-8fa64ecfbedb"
-        name="CliHandler"
-        isAbstract="false"
-        isLeaf="false"
-        isActiveClass="false">
-        <referencesInternal>
-          <reference
-            Id="b1d184d1-e034-42cf-af1b-6217a479a78e"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=CliHandler"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="32c0c304-5a04-4dca-9142-9596c2747f9d"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="eb7f7bca-3efb-4f7f-afe8-629f8ac812f6">
-                <propertyInstance
-                  Id="49375af4-2982-46d0-b44f-56e95ee223cf"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="5c6650ae-dd8c-464d-bdd2-e821b7177eff">
-                <propertyInstance
-                  Id="24dc60da-81ab-48a5-acca-64884843d9c8"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="da4445a0-78e2-4bd4-bfdc-60c0ee943353">
-                <propertyInstance
-                  Id="36c87751-c08c-4c30-9419-aa2fe738a7ba"
-                  name="IsStatic"
-                  value="False" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="846fdd43-5c81-41e9-a4e3-bddd3af5256f">
-                <propertyInstance
-                  Id="f5d29236-a824-45cc-871c-2911893a0a2b"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="b76960ed-d543-420d-95f1-5e65dc6ba3b9">
-                <propertyInstance
-                  Id="1f0a7f38-d3ca-4976-81ae-46e130013021"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <suppliersInternal>
-          <interfaceRealization
-            Id="71b5e07b-db70-4d9c-8540-fb876a6216f2">
-            <interfaceMoniker
-              Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-              LastKnownName="IIOHandler"
-              LastKnownLocation="Package5_1633.uml" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <ownedAttributesInternal>
-          <property
-            Id="7b662703-dcca-4124-8bb9-4ffad4f35718"
-            name="Batch"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="a8a85a2c-f32b-4665-b84c-48e87a73ff83"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=Batch"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="ef23067d-4fc0-4b58-824b-1c61c97e8b65"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="0b19ed1b-6aca-43f2-a455-498be775cacb">
-                    <propertyInstance
-                      Id="3669c1a2-b243-4cd5-b18b-37d0cc3c6c37"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5c3f9370-7db7-462e-b19a-0e576e6003c6">
-                    <propertyInstance
-                      Id="82908a0d-cf15-4b9c-9c76-b6519feba769"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="729efc35-69f8-407d-bfbf-883ed23eedca">
-                    <propertyInstance
-                      Id="f617ba54-c507-4e49-8913-e76d307437a0"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1ec95d37-2dd5-4210-a85b-20af42d61e43">
-                    <propertyInstance
-                      Id="0dfc054c-34d1-4b12-8b69-85b16928ca51"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="3253ea65-7166-42ef-8231-85743f72f358">
-                    <propertyInstance
-                      Id="f341e6c1-c279-4343-8594-041ab404a68b"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f53f8ca8-0ba6-4194-bde3-b334b3fbce9f">
-                    <propertyInstance
-                      Id="21094960-2ac0-45e6-b596-a0ec2bed4b64"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <primitiveTypeMoniker
-                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                LastKnownName="Boolean"
-                LastKnownLocation="Architecture.uml" />
-            </type_NamedElement>
-          </property>
-        </ownedAttributesInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="00a25cf4-1929-4348-884e-05b3d2bfc0fc"
-            name="RunIOTask"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="2092de7b-ba68-4d91-a016-7ede0148254d"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Frontend/Debug/0launch.exe Namespace=ZeroInstall.Injector.Cli Type=CliHandler Member=(Name=StartingExtraction OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="b93b4ccf-8433-4048-b3b8-0bc442358001"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ac259b17-2dbb-4242-8348-0820aadc50f3">
-                    <propertyInstance
-                      Id="1332a656-1d4c-425f-a011-30940146827d"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="70136fd7-8c38-4927-9a60-397e8297f13d">
-                    <propertyInstance
-                      Id="9c307c63-79d8-4611-b31f-6b14053c8bea"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bee3ccbc-d1ad-43c1-8c26-703984091ebd">
-                    <propertyInstance
-                      Id="308961a6-e543-457a-b9e2-5bdc5b6fc1aa"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="09a893d2-c006-43a0-9b0d-88c0838d2aad">
-                    <propertyInstance
-                      Id="18da9541-ef55-4d45-8f0b-5ac0981db0c7"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ef3a368e-630e-46ea-af44-45c8471e61e9">
-                    <propertyInstance
-                      Id="42c450a0-a0ac-4fa3-a876-ec936419e4db"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="9b128f88-8ecf-4e24-add0-a970ff32e804"
-                  name="task"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="ITask"
-                      LastKnownLocation="Package5_1629.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
     </packageHasNamedElement>
   </packagedElements>
 </package>

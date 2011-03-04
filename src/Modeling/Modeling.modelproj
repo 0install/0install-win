@@ -20,6 +20,9 @@
     <Content Include="ModelDefinition\Package_0100.uml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ModelDefinition\Package_0657.uml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="NamespaceOverview.dgml">
       <SubType>Content</SubType>
     </Content>
@@ -94,12 +97,12 @@
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Handler.classdiagram</DependentUpon>
     </Content>
-    <Content Include="UML\Class\Injector.classdiagram">
+    <Content Include="UML\Class\Solver.classdiagram">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="UML\Class\Injector.classdiagram.layout">
+    <Content Include="UML\Class\Solver.classdiagram.layout">
       <SubType>Content</SubType>
-      <DependentUpon>UML\Class\Injector.classdiagram</DependentUpon>
+      <DependentUpon>UML\Class\Solver.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Model.classdiagram">
       <SubType>Content</SubType>
@@ -114,6 +117,13 @@
     <Content Include="UML\Class\Feeds.Feed.classdiagram.layout">
       <SubType>Content</SubType>
       <DependentUpon>UML\Class\Feeds.classdiagram</DependentUpon>
+    </Content>
+    <Content Include="UML\Class\Policy.classdiagram">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="UML\Class\Policy.classdiagram.layout">
+      <SubType>Content</SubType>
+      <DependentUpon>UML\Class\Policy.classdiagram</DependentUpon>
     </Content>
     <Content Include="UML\Class\Store.Implementation.classdiagram">
       <SubType>Content</SubType>

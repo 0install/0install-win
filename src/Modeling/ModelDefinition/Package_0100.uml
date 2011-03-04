@@ -2040,17 +2040,24 @@
               LastKnownLocation="Package_0100.uml" />
           </dependency>
           <dependency
-            Id="203133c6-f7c7-452a-90c0-41827cb5f29f">
+            Id="48fdef59-9cfa-4224-94a6-f699117b5755">
+            <classMoniker
+              Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
+              LastKnownName="Policy"
+              LastKnownLocation="Package1_1632.uml" />
+          </dependency>
+          <dependency
+            Id="ac9cbc8b-932b-45a4-b293-4e90cfb9394d">
             <classMoniker
               Id="840af007-1933-4a55-a020-8e1191964184"
               LastKnownName="Preferences"
               LastKnownLocation="Package1_1632.uml" />
           </dependency>
           <dependency
-            Id="48fdef59-9cfa-4224-94a6-f699117b5755">
-            <classMoniker
-              Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
-              LastKnownName="Policy"
+            Id="3fc91c56-e2ac-4ed0-8db0-d4b6a160f905">
+            <interfaceMoniker
+              Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
+              LastKnownName="IHandler"
               LastKnownLocation="Package1_1632.uml" />
           </dependency>
         </suppliersInternal>

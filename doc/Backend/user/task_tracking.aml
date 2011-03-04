@@ -18,7 +18,7 @@
         <para>
           A single task that is to be performed is represented by an instance of
           a class that implements the
-          <codeEntityReference>T:Common.ITask</codeEntityReference> interface.
+          <codeEntityReference>T:Common.Tasks.ITask</codeEntityReference> interface.
         </para>
         <para>
           The interface defines events and properties for tracking the progress
@@ -33,7 +33,7 @@
       <content>
         <para>
           Any object that implements the
-          <codeEntityReference>T:Common.ITask</codeEntityReference> interface can
+          <codeEntityReference>T:Common.Tasks.ITask</codeEntityReference> interface can
           be visually tracked by assigning it to a
           <codeEntityReference>T:Common.Controls.TrackingProgressBar</codeEntityReference>'s
           <codeEntityReference>P:Common.Controls.TrackingProgressBar.Task</codeEntityReference> property.
@@ -63,7 +63,7 @@
         <para>
           The <codeEntityReference>T:ZeroInstall.Injector.IHandler</codeEntityReference>
           interface specifies a number of methods that will be called when new
-          <codeEntityReference>T:Common.ITask</codeEntityReference>s are to be
+          <codeEntityReference>T:Common.Tasks.ITask</codeEntityReference>s are to be
           started. You can set up any tracking you wish here. Then you
           <legacyBold>must</legacyBold> start the task's execution.
         </para>
@@ -81,7 +81,7 @@
         <para>
           Code sample for tracking new downloads on the console:
 <code language="C#">
-public void RunDownloadTask(ITask task)
+public void RunDownloadTask(ITask task, object tag)
 {
     // CLI has no multi-threading issues
     using (new Common.Cli.TrackingProgressBar(task))
@@ -92,7 +92,7 @@ public void RunDownloadTask(ITask task)
         <para>
           Code sample for tracking new downloads with WinForms:
 <code language="C#">
-public void RunDownloadTask(ITask task)
+public void RunDownloadTask(ITask task, object tag)
 {
     // Handle events coming from a non-UI thread
     BeginInvoke((SimpleEventHandler)delegate

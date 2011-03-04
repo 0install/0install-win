@@ -25,7 +25,7 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Manages one or more <see cref="FetchRequest"/>s and keeps clients informed of the progress. Files are downloaded and added to <see cref="Store"/> automatically.
+    /// Downloads <see cref="Implementation"/>s, extracts them and adds them to the <see cref="Store"/>.
     /// </summary>
     public interface IFetcher
     {

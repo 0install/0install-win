@@ -85,15 +85,8 @@
           <dependency
             Id="d887f7d3-a6f5-4b34-86e3-bc729dbac2de">
             <classMoniker
-              Id="ee1d6c8f-3974-44ea-9b62-b9a44f2d0439"
-              LastKnownName="DownloadJob"
-              LastKnownLocation="Package_1749.uml" />
-          </dependency>
-          <dependency
-            Id="d0a5093d-fae7-4cc2-a79a-6a9ec94dc7ce">
-            <classMoniker
-              Id="0bb6dd2e-7215-44b3-9dae-5a482a798e41"
-              LastKnownName="DownloadManager"
+              Id="7006f839-60f5-49ef-a500-00cfb8268342"
+              LastKnownName="DownloadFile"
               LastKnownLocation="Package_1749.uml" />
           </dependency>
         </suppliersInternal>
@@ -179,7 +172,7 @@
           </operation>
           <operation
             Id="7736ef5c-e8b6-406d-a1f9-71225c825511"
-            name="RunSync"
+            name="Run"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -188,7 +181,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="aadd8cee-4184-46d6-9fd3-87008985fff2"
+                  Id="e03049d4-750a-49d6-923b-53b689059eaf"
                   name="fetchRequest"
                   direction="In"
                   isUnique="false">
@@ -196,20 +189,6 @@
                     <classMoniker
                       Id="dbe9d5b9-b47d-49f8-a1ba-069762b38164"
                       LastKnownName="FetchRequest"
-                      LastKnownLocation="Package_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="7af4f121-79fa-4ffb-ac98-d4c0cd79bcb0"
-                  name="handler"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="166eabcb-bbf3-4726-865d-258cf0b1022d"
-                      LastKnownName="IFetchHandler"
                       LastKnownLocation="Package_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -341,6 +320,58 @@
               </associationHasOwnedEnds>
             </relationshipOwnedElementsInternal>
           </association>
+          <association
+            Id="4a5c40e1-57a5-4a6f-9479-c27fc60989bd"
+            isDerived="false"
+            sourceEndRoleName="FetchRequest"
+            targetEndRoleName="Handler"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+              LastKnownName="ITaskHandler"
+              LastKnownLocation="Package_0657.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6f5c575c-1ff3-45f8-aba1-60808e3daf95"
+                  name="FetchRequest"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="00bea0dc-2d32-4c8d-b4e1-63f6b2c16ebd"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="193c7160-a28f-41c5-b447-8c5b06d349bd"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0427cea7-f4b5-406a-9aa6-04d5b7270117"
+                  name="Handler"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
         </targetEnds>
         <ownedOperationsInternal>
           <operation
@@ -403,24 +434,18 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="f23d0619-c3e0-43c2-b570-53d3af3dc9ae"
+                  Id="8b501bbd-5960-4a3b-8159-1c4267ff9ac9"
                   name="implementations"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="9e170b53-2763-4c90-9a59-35d9e1157b7f"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetchRequest Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Implementation)]))]) ParameterIdentifier=implementations"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <lowerValueInternal>
                     <literalString
-                      Id="8952fea4-bc68-4386-93f1-a32b2267b73e"
+                      Id="8e19bc61-e167-4c9f-86c2-9f38ccd424d5"
                       name="Lower"
                       value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="c952b5b9-8716-4639-b1d3-2b380d9a4f37"
+                      Id="9de57937-547b-4422-903f-c9a28140d923"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -432,146 +457,24 @@
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <Interface
-        Id="166eabcb-bbf3-4726-865d-258cf0b1022d"
-        name="IFetchHandler"
-        isAbstract="false"
-        isLeaf="false">
-        <referencesInternal>
-          <reference
-            Id="26c49e4a-c135-4f39-9536-f12148ffdf52"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="961cf9e2-dbe5-492c-ab1a-7db624b99660"
-            name="interface"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="cf9e1af8-210b-4c73-be47-a2c0cdedf7b2">
-                <propertyInstance
-                  Id="251f8b34-07d8-4c8e-b402-a8b9a2d68db8"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="ac993d5c-5ea6-414b-aa20-351effda0e8c">
-                <propertyInstance
-                  Id="d35cdd64-951c-4d5a-90c7-bbbccf39f5f7"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="c691d634-55c4-4b0e-ba5a-57cd1b1f674f">
-                <propertyInstance
-                  Id="447ec16d-032e-4467-b67a-d5591fef6aa9"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="da73b993-ebd4-4115-ad1f-4f5b6d1fd288">
-                <propertyInstance
-                  Id="62736b36-a97d-4258-9d55-cef3fecf4eef"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <generalsInternal>
-          <generalization
-            Id="8b5c3b0e-aa84-48de-8198-dbd18241aa9c"
-            isSubstitutable="false">
-            <interfaceMoniker
-              Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
-              LastKnownName="IIOHandler"
-              LastKnownLocation="Package5_1633.uml" />
-          </generalization>
-        </generalsInternal>
-        <ownedOperations>
-          <operation
-            Id="7ce4427a-6cef-4da2-90e4-16e5e3b7e7bd"
-            name="RunDownloadTask"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="true"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="7d3ae986-deb4-4c8a-9bb6-7c8a28cb9671"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetchHandler Member=(Name=StartingDownload OverloadingParameters=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/Common.dll Namespace=Common Type=ITask)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="29b022c4-0328-48fe-8891-f8e15e32ff89"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="820a2d43-d3fd-461b-a597-1341037474aa">
-                    <propertyInstance
-                      Id="6232ef25-35ea-4f8e-b18a-4b09e1933312"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="57a3a91f-8bae-4530-b0cf-1ba00e1e76dd">
-                    <propertyInstance
-                      Id="d927cdb6-592b-4539-b514-e3c6dfa702b2"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f2da5b82-1d25-44b6-b32d-0c74ff2b1cfe">
-                    <propertyInstance
-                      Id="dd16b163-9926-459a-a7c5-2d4b3c322cd6"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="88d0bd10-8bdd-4ef1-924d-a5036e6941c8">
-                    <propertyInstance
-                      Id="2d9dae60-f6ed-4e8f-9ff4-574433efa0e5"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="ebbdfa22-b72f-4a92-bb2f-d34c4d7bb36b">
-                    <propertyInstance
-                      Id="1abc6a19-a665-4e0d-a7d4-851cc757c014"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="1eb79943-5e3d-465e-a1bd-7e230f722180"
-                  name="task"
+                  Id="f47f1fd6-f84b-416f-bef8-4156adcc3192"
+                  name="handler"
                   direction="In"
                   isUnique="false">
                   <type_NamedElement>
                     <interfaceMoniker
-                      Id="cc34658a-f6be-4b34-a090-4fd82e8b6a6f"
-                      LastKnownName="ITask"
-                      LastKnownLocation="Package5_1629.uml" />
+                      Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
+                      LastKnownName="ITaskHandler"
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
-        </ownedOperations>
-      </Interface>
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <Interface
@@ -621,15 +524,6 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <suppliersInternal>
-          <dependency
-            Id="5f4d04b0-fefe-4bc8-89c9-ead19b98cd93">
-            <interfaceMoniker
-              Id="166eabcb-bbf3-4726-865d-258cf0b1022d"
-              LastKnownName="IFetchHandler"
-              LastKnownLocation="Package_1633.uml" />
-          </dependency>
-        </suppliersInternal>
         <targetEnds>
           <association
             Id="33652cfe-b90d-4a42-853c-405960b86823"
@@ -761,7 +655,7 @@
           </operation>
           <operation
             Id="8a753665-9be2-471b-b18a-b5d4934a34aa"
-            name="RunSync"
+            name="Run"
             isLeaf="false"
             isStatic="false"
             isAbstract="true"
@@ -819,7 +713,7 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="31e95e90-6796-49ae-9770-7619f16fa486"
+                  Id="ee1d017d-33a4-452f-a45f-b4fd581c7534"
                   name="fetchRequest"
                   direction="In"
                   isUnique="false">
@@ -827,20 +721,6 @@
                     <classMoniker
                       Id="dbe9d5b9-b47d-49f8-a1ba-069762b38164"
                       LastKnownName="FetchRequest"
-                      LastKnownLocation="Package_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="73b7711b-a03f-4bd5-ba0a-7be4f65448b3"
-                  name="handler"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="166eabcb-bbf3-4726-865d-258cf0b1022d"
-                      LastKnownName="IFetchHandler"
                       LastKnownLocation="Package_1633.uml" />
                   </type_NamedElement>
                 </parameter>
@@ -942,6 +822,21 @@
           </association>
         </targetEnds>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="76711762-8722-4d49-902d-5e4385b8cebc"
+        name="Architecture::ZeroInstall::Fetchers::IFetchHandler" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="dec9198c-17d3-40cd-a81a-510b8fe17cac"
+        name="Architecture::Common::Tasks::ITaskHandler(" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <undefinedType
+        Id="842208dc-00c4-42ba-bab3-43c393247b1f"
+        name="Architecture::Common::Tasks::ITaskHandler" />
     </packageHasNamedElement>
   </packagedElements>
 </package>

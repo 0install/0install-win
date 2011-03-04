@@ -1024,6 +1024,112 @@
               </operationHasOwnedParameters>
             </ownedParameters>
           </operation>
+          <operation
+            Id="998bc09b-a5f0-490a-b88e-2e451d4be678"
+            name="ListUncachedImplementations"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="1676facc-bb0d-4147-ac98-fce99e9bce87"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="4e1a20a6-d31f-4503-ab25-7a5f345bd0ee">
+                    <propertyInstance
+                      Id="0662af80-3969-4040-80ca-3cb3e6945f47"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="74febe75-b363-4277-9acb-af07a64378b3">
+                    <propertyInstance
+                      Id="dd9100f4-4f34-46dc-9398-4cc957392e3e"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1462eef3-dd33-4896-a662-43f30d933b5e">
+                    <propertyInstance
+                      Id="8331f0d3-c963-40eb-8500-95883d320268"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="00329d5f-3a37-4246-8118-f53a6c1f440b">
+                    <propertyInstance
+                      Id="04eea5f7-7fe8-470a-a6fd-75db1f97bb98"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="0685f0e5-f83d-4517-be47-596f50e49bd7">
+                    <propertyInstance
+                      Id="8ea069b2-5fd7-468a-9f72-896f77007354"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="c67ca192-2e34-44b9-905d-2f4109d2861c"
+                  name="searchStore"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
+                      LastKnownName="IStore"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="21c3c7bc-4e63-46e8-996b-8ad8032aec25"
+                  name="feedCache"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+                      LastKnownName="IFeedCache"
+                      LastKnownLocation="Package4_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2df4a5e7-bbac-47d1-8d18-7e0db7a08d7d"
+                  direction="Return">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="e3355d4e-05f9-496b-8b17-fc67e713dfed"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="97a4fb7e-6b08-43e0-9b6c-ff8a07decd10"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
+                      LastKnownName="Feed"
+                      LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
         </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
@@ -1098,7 +1204,21 @@
               LastKnownLocation="Package_1632.uml" />
           </dependency>
           <dependency
-            Id="8b501c99-2f17-4913-97d4-fc051bfe0e87">
+            Id="1f65a47a-de80-4f80-bb06-0738558e7de5">
+            <interfaceMoniker
+              Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
+              LastKnownName="IStore"
+              LastKnownLocation="Package5_1633.uml" />
+          </dependency>
+          <dependency
+            Id="e7b0ee88-93c8-47a8-aa9e-eed783b0642e">
+            <classMoniker
+              Id="840af007-1933-4a55-a020-8e1191964184"
+              LastKnownName="Preferences"
+              LastKnownLocation="Package1_1632.uml" />
+          </dependency>
+          <dependency
+            Id="a0ac7988-9a05-40e8-8db2-61d5b898bb83">
             <classMoniker
               Id="3fccbb6a-71d8-4a09-8665-76195c6e02f8"
               LastKnownName="FeedManager"
