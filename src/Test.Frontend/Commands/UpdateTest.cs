@@ -32,7 +32,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
-            return new Update(Policy, Solver);
+            return new Update(Policy);
         }
 
         [Test(Description = "Ensures local Selections XMLs are correctly detected and parsed.")]

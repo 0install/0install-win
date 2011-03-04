@@ -45,7 +45,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Update(Policy policy, ISolver solver) : base(policy, solver)
+        public Update(Policy policy) : base(policy)
         {
             //Options.Remove("o|offline");
 
@@ -113,7 +113,7 @@ namespace ZeroInstall.Commands
             // Run solver with refresh forced off to get the old values
             var noRefreshPolicy = Policy.ClonePolicy();
             noRefreshPolicy.FeedManager.Refresh = false;
-            _oldSelections = Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+            _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
 
             // Rerun solver in refresh mode to get the new values
             Policy.FeedManager.Refresh = true;

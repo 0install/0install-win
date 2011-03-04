@@ -30,7 +30,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
     /// </summary>
-    /// <remarks>This object primarily serves as a working environment used by <see cref="ISolver"/>s.</remarks>
+    /// <remarks>This class primarily serves to simplify the initialization process and to reduce the number of arguments that need to be passed into methods.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
     [Serializable]
     public class Policy : IEquatable<Policy>, ICloneable
@@ -45,6 +45,11 @@ namespace ZeroInstall.Injector
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
         /// </summary>
         public FeedManager FeedManager { get; private set; }
+
+        /// <summary>
+        /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
+        /// </summary>
+        public ISolver Solver { get; private set; }
 
         /// <summary>
         /// Used to download missing <see cref="Model.Implementation"/>s.
@@ -84,20 +89,23 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="preferences">User-preferences controlling network behaviour, etc.</param>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
+        /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <seealso cref="CreateDefault"/>
-        public Policy(Preferences preferences, FeedManager feedManager, IFetcher fetcher, IHandler handler)
+        public Policy(Preferences preferences, FeedManager feedManager, ISolver solver, IFetcher fetcher, IHandler handler)
         {
             #region Sanity checks
             if (preferences == null) throw new ArgumentNullException("preferences");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
+            if (solver == null) throw new ArgumentNullException("solver");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             Preferences = preferences;
             FeedManager = feedManager;
+            Solver = solver;
             Fetcher = fetcher;
             Handler = handler;
         }
@@ -105,7 +113,7 @@ namespace ZeroInstall.Injector
 
         #region Factory method
         /// <summary>
-        /// Creates a new policy using the default <see cref="Preferences"/>, <see cref="FeedCacheProvider"/> and <see cref="FetcherProvider"/>.
+        /// Creates a new policy using the default <see cref="Preferences"/>, <see cref="FeedCacheProvider"/>, <see cref="SolverProvider"/> and <see cref="FetcherProvider"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
@@ -113,7 +121,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            return new Policy(Preferences.LoadDefault(), new FeedManager(FeedCacheProvider.Default), FetcherProvider.Default, handler);
+            return new Policy(Preferences.LoadDefault(), new FeedManager(FeedCacheProvider.Default), SolverProvider.Default, FetcherProvider.Default, handler);
         }
         #endregion
 
@@ -124,10 +132,10 @@ namespace ZeroInstall.Injector
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Preferences"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
+        /// <remarks><see cref="Preferences"/> and <see cref="FeedManager"/> are cloned, <see cref="Solver"/>, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
         public Policy ClonePolicy()
         {
-            return new Policy(Preferences.ClonePreferences(), FeedManager.CloneFeedManager(), Fetcher, Handler) {AdditionalStore = AdditionalStore};
+            return new Policy(Preferences.ClonePreferences(), FeedManager.CloneFeedManager(), Solver, Fetcher, Handler) {AdditionalStore = AdditionalStore};
         }
 
         /// <summary>
@@ -147,7 +155,7 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return Equals(other.Preferences, Preferences) && Equals(other.FeedManager, FeedManager) && Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore) && Equals(other.Handler, Handler);
+            return Equals(other.Preferences, Preferences) && Equals(other.FeedManager, FeedManager) && Equals(other.Solver, Solver) && Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore) && Equals(other.Handler, Handler);
         }
 
         /// <inheritdoc/>
@@ -165,6 +173,7 @@ namespace ZeroInstall.Injector
             {
                 int result = Preferences.GetHashCode();
                 result = (result * 397) ^ FeedManager.GetHashCode();
+                result = (result * 397) ^ Solver.GetHashCode();
                 result = (result * 397) ^ Fetcher.GetHashCode();
                 result = (result * 397) ^ (AdditionalStore != null ? AdditionalStore.GetHashCode() : 0);
                 result = (result * 397) ^ Handler.GetHashCode();

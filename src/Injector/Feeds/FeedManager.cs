@@ -30,7 +30,7 @@ namespace ZeroInstall.Injector.Feeds
     {
         #region Properties
         /// <summary>
-        /// The cache to retreive from <see cref="Model.Feed"/>s to and store downloaded <see cref="Model.Feed"/>s to.
+        /// The cache to retreive <see cref="Model.Feed"/>s from and store downloaded <see cref="Model.Feed"/>s to.
         /// </summary>
         public IFeedCache Cache { get; private set; }
 

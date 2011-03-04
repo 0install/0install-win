@@ -38,19 +38,16 @@ namespace ZeroInstall.Commands
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "select";
 
-        /// <summary>The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</summary>
-        protected readonly ISolver Solver;
-
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
-        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Solver"/>.</summary>
+        /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Policy.Solver"/>.</summary>
         protected bool SelectionsDocument;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
 
-        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Solver"/> should be updated.</summary>
+        /// <summary>Indicates that one or more of the <see cref="Model.Feed"/>s used by the <see cref="Policy.Solver"/> should be updated.</summary>
         protected bool StaleFeeds;
         #endregion
 
@@ -73,11 +70,8 @@ namespace ZeroInstall.Commands
         /// Creates a new command.
         /// </summary>
         /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
-        /// <param name="solver">The solver to use get <see cref="Selections"/> based on the <see cref="Requirements"/>.</param>
-        public Selection(Policy policy, ISolver solver) : base(policy)
+        public Selection(Policy policy) : base(policy)
         {
-            Solver = solver;
-
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
@@ -138,7 +132,7 @@ namespace ZeroInstall.Commands
         protected void Solve()
         {
             // Run the solver unless the user provided a selections document
-            if (!SelectionsDocument) Selections = Solver.Solve(Requirements, Policy, out StaleFeeds);
+            if (!SelectionsDocument) Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
         }
 
         /// <summary>

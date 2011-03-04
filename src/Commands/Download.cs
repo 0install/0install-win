@@ -16,12 +16,14 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Common.Collections;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -46,7 +48,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Download(Policy policy, ISolver solver) : base(policy, solver)
+        public Download(Policy policy) : base(policy)
         {
             Options.Add("show", Resources.OptionShow, unused => _show = true);
         }
@@ -61,7 +63,7 @@ namespace ZeroInstall.Commands
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            var uncachedImplementations = Selections.ListUncachedImplementations(Policy);
+            var uncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
             if (EnumUtils.IsEmpty(uncachedImplementations)) return;
 
             // If feeds weren't just refreshed anyway...
@@ -72,7 +74,7 @@ namespace ZeroInstall.Commands
                 Solve();
 
                 // ... and then get an updated download list
-                uncachedImplementations = Selections.ListUncachedImplementations(Policy);
+                uncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
             }
 
             Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Policy.Handler);

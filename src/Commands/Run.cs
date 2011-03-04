@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands
 
         #region Constructor
         /// <inheritdoc/>
-        public Run(Policy policy, ISolver solver) : base(policy, solver)
+        public Run(Policy policy) : base(policy)
         {
             //Options.Remove("xml");
             //Options.Remove("show");

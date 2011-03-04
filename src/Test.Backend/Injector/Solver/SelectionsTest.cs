@@ -18,8 +18,6 @@
 using System;
 using NUnit.Framework;
 using NUnit.Mocks;
-using ZeroInstall.Fetchers;
-using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
@@ -79,7 +77,7 @@ namespace ZeroInstall.Injector.Solver
         {
             var cacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
             var storeMock = new DynamicMock("StoreCache", typeof(IStore));
-            
+
             var feed = FeedTest.CreateTestFeed();
             var selections = CreateTestSelections();
 
@@ -88,8 +86,7 @@ namespace ZeroInstall.Injector.Solver
             storeMock.ExpectAndReturn("Contains", false, selections.Implementations[0].ManifestDigest);
             storeMock.ExpectAndReturn("Contains", true, selections.Implementations[1].ManifestDigest);
 
-            var policy = new Policy(new Preferences(), new FeedManager((IFeedCache)cacheMock.MockInstance), new Fetcher((IStore)storeMock.MockInstance), new SilentHandler());
-            var implementations = selections.ListUncachedImplementations(policy);
+            var implementations = selections.ListUncachedImplementations((IStore)storeMock.MockInstance, (IFeedCache)cacheMock.MockInstance);
 
             // Only the first implementation should be listed as uncached
             CollectionAssert.AreEquivalent(new[] {feed.Elements[0]}, implementations);

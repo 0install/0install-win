@@ -33,7 +33,7 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
-            return new Download(Policy, Solver);
+            return new Download(Policy);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]

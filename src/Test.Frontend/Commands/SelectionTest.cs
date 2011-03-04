@@ -18,7 +18,6 @@
 using Common.Storage;
 using NDesk.Options;
 using NUnit.Framework;
-using NUnit.Mocks;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
@@ -30,28 +29,10 @@ namespace ZeroInstall.Commands
     [TestFixture]
     public class SelectionTest : CommandBaseTest
     {
-        protected DynamicMock SolverMock;
-        protected ISolver Solver;
-
         /// <inheritdoc/>
         protected override CommandBase GetCommand()
         {
-            return new Selection(Policy, Solver);
-        }
-
-        [SetUp]
-        public override void SetUp()
-        {
-            SolverMock = new DynamicMock("MockSolver", typeof(ISolver));
-            Solver = (ISolver)SolverMock.MockInstance;
-            base.SetUp();
-        }
-
-        [TearDown]
-        public override void TearDown()
-        {
-            SolverMock.Verify();
-            base.TearDown();
+            return new Selection(Policy);
         }
 
         [Test(Description = "Ensures all options are parsed and handled correctly.")]

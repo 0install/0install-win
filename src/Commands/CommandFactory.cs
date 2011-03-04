@@ -21,7 +21,6 @@ using System.IO;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -47,19 +46,20 @@ namespace ZeroInstall.Commands
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
         private static CommandBase GetCommand(string commandName, IHandler handler)
         {
-            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(Policy.CreateDefault(handler));
+            var policy = Policy.CreateDefault(handler);
+            if (string.IsNullOrEmpty(commandName)) return new DefaultCommand(policy);
             switch (commandName.ToLowerInvariant())
             {
-                case Selection.Name: return new Selection(Policy.CreateDefault(handler), SolverProvider.Default);
-                case Download.Name: return new Download(Policy.CreateDefault(handler), SolverProvider.Default);
-                case Update.Name: return new Update(Policy.CreateDefault(handler), SolverProvider.Default);
-                case Run.Name: return new Run(Policy.CreateDefault(handler), SolverProvider.Default);
-                case Import.Name: return new Import(Policy.CreateDefault(handler));
-                case List.Name: return new List(Policy.CreateDefault(handler));
-                case Config.Name: return new Config(Policy.CreateDefault(handler));
-                case AddFeed.Name: return new AddFeed(Policy.CreateDefault(handler));
-                case RemoveFeed.Name: return new RemoveFeed(Policy.CreateDefault(handler));
-                case ListFeeds.Name: return new ListFeeds(Policy.CreateDefault(handler));
+                case Selection.Name: return new Selection(policy);
+                case Download.Name: return new Download(policy);
+                case Update.Name: return new Update(policy);
+                case Run.Name: return new Run(policy);
+                case Import.Name: return new Import(policy);
+                case List.Name: return new List(policy);
+                case Config.Name: return new Config(policy);
+                case AddFeed.Name: return new AddFeed(policy);
+                case RemoveFeed.Name: return new RemoveFeed(policy);
+                case ListFeeds.Name: return new ListFeeds(policy);
                 default: throw new OptionException(string.Format(Resources.UnknownCommand, commandName), null);
             }
         }

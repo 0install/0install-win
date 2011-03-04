@@ -22,6 +22,7 @@ using NUnit.Mocks;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
@@ -58,12 +59,13 @@ namespace ZeroInstall.Commands
         #endregion
 
         #region Properties
-        private IHandler Handler;
+        private IHandler _handler;
 
         /// <summary>The content of the last <see cref="MockHandler.Output"/> call.</summary>
         private string _result;
 
         protected DynamicMock CacheMock { get; private set; }
+        protected DynamicMock SolverMock { get; private set; }
         protected DynamicMock StoreMock { get; private set; }
         protected DynamicMock FetcherMock { get; private set; }
         protected Policy Policy { get; private set; }
@@ -72,21 +74,22 @@ namespace ZeroInstall.Commands
         protected CommandBase Command { get; private set; }
         #endregion
 
-        /// <summary>Creates an instance of the command type to be tested using <see cref="Handler"/> and <see cref="Policy"/>.</summary>
+        /// <summary>Creates an instance of the command type to be tested using <see cref="_handler"/> and <see cref="Policy"/>.</summary>
         protected abstract CommandBase GetCommand();
 
         [SetUp]
         public virtual void SetUp()
         {
             _result = null;
-            Handler = new MockHandler(message => _result = message);
+            _handler = new MockHandler(message => _result = message);
 
             CacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            SolverMock = new DynamicMock("SolverMock", typeof(ISolver));
             StoreMock = new DynamicMock("MockStore", typeof(IStore));
             FetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
             FetcherMock.SetReturnValue("get_Store", StoreMock.MockInstance);
 
-            Policy = new Policy(new Preferences(), new FeedManager((IFeedCache)CacheMock.MockInstance), (IFetcher)FetcherMock.MockInstance, Handler);
+            Policy = new Policy(new Preferences(), new FeedManager((IFeedCache)CacheMock.MockInstance), (ISolver)SolverMock.MockInstance, (IFetcher)FetcherMock.MockInstance, _handler);
 
             Command = GetCommand();
         }
@@ -95,6 +98,7 @@ namespace ZeroInstall.Commands
         public virtual void TearDown()
         {
             CacheMock.Verify();
+            SolverMock.Verify();
             StoreMock.Verify();
             FetcherMock.Verify();
         }

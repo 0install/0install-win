@@ -25,6 +25,7 @@ using System.Xml.Serialization;
 using Common.Storage;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
+using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
@@ -164,17 +165,18 @@ namespace ZeroInstall.Injector.Solver
         /// <summary>
         /// Returns a list of any selected downloadable <see cref="ImplementationBase"/>s that are missing from an <see cref="IStore"/>.
         /// </summary>
-        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <param name="searchStore">The locations to search for cached <see cref="Implementation"/>s.</param>
+        /// <param name="feedCache">The cache to retreive <see cref="Model.Feed"/>s from.</param>
         /// <returns>An object that allows the main <see cref="ImplementationBase"/> to be executed with all its <see cref="Dependency"/>s injected.</returns>
         /// <remarks>Feed files may be downloaded, no implementations are downloaded.</remarks>
-        public IEnumerable<Implementation> ListUncachedImplementations(Policy policy)
+        public IEnumerable<Implementation> ListUncachedImplementations(IStore searchStore, IFeedCache feedCache)
         {
             #region Sanity checks
-            if (policy == null) throw new ArgumentNullException("policy");
+            if (searchStore == null) throw new ArgumentNullException("searchStore");
+            if (feedCache == null) throw new ArgumentNullException("feedCache");
             #endregion
 
             ICollection<Implementation> notCached = new LinkedList<Implementation>();
-
             foreach (var implementation in Implementations)
             {
                 // Local paths are considered to be always available
@@ -185,10 +187,10 @@ namespace ZeroInstall.Injector.Solver
                 if (!string.IsNullOrEmpty(implementation.Package)) continue;
 
                 // Check if an implementation with a matching digest is available in the cache
-                if (policy.SearchStore.Contains(implementation.ManifestDigest)) continue;
+                if (searchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
-                Feed feed = policy.FeedManager.Cache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
+                Feed feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
                 feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }

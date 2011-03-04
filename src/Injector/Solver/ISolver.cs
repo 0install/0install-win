@@ -18,7 +18,6 @@
 using System;
 using System.IO;
 using Common;
-using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {
