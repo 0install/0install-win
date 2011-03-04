@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to <paramref name="path"/> or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if <paramref name="path"/> doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler);
+        void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
         /// Extracts an archive containing the files of an implementation into the store if it matches the provided <see cref="ManifestDigest"/>.
@@ -84,7 +84,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the archive or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler);
+        void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler);
         
         /// <summary>
         /// Extracts multiple archives, that together contain the files of an implementation, into the same folder, compares that folder's manifest to <paramref name="manifestDigest"/> and adds it to the store.
@@ -99,7 +99,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="manifestDigest"/> in the store.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to one of the archives or write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archives content doesn't match the <paramref name="manifestDigest"/>.</exception>
-        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler);
+        void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
         /// Removes a specific implementation from the cache.
@@ -110,7 +110,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        void Remove(ManifestDigest manifestDigest, IIOHandler handler);
+        void Remove(ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
         /// Reads in all the manifest files in the store and looks for duplicates (files with the same permissions, modification time and digest). When it finds a pair, it deletes one and replaces it with a hard-link to the other.
@@ -121,7 +121,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if a damaged implementation is encountered while optimizing.</exception>
         /// <remarks>If the store does not support optimising this method call may be silently ignored.</remarks>
-        void Optimise(IIOHandler handler);
+        void Optimise(ITaskHandler handler);
 
         /// <summary>
         /// Recalculates the digests for an entry in the store and ensures it is correct. Will not delete any defective entries!
@@ -134,7 +134,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the entry's directory is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the entry's directory doesn't match <paramref name="manifestDigest"/>.</exception>
         /// <remarks>If the store does not support verification this method call may be silently ignored.</remarks>
-        void Verify(ManifestDigest manifestDigest, IIOHandler handler);
+        void Verify(ManifestDigest manifestDigest, ITaskHandler handler);
 
         /// <summary>
         /// Recalculates the digests for all entries in the store and ensures they are correct. Will not delete any defective entries!
@@ -148,6 +148,6 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if a directory in the store could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the store is not permitted.</exception>
-        IEnumerable<DigestMismatchException> Audit(IIOHandler handler);
+        IEnumerable<DigestMismatchException> Audit(ITaskHandler handler);
     }
 }

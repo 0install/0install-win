@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="DigestMismatchException">Thrown if the temporary directory doesn't match the <paramref name="expectedDigest"/>.</exception>
         /// <exception cref="IOException">Thrown if <paramref name="tempID"/> cannot be moved or the digest cannot be calculated.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <paramref name="expectedDigest"/> in the store.</exception>
-        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, IIOHandler handler)
+        private void VerifyAndAdd(string tempID, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(tempID)) throw new ArgumentNullException("tempID");
@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Implementation
         /// <exception cref="IOException">Thrown if the <paramref name="directory"/> could not be processed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the <paramref name="directory"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the <paramref name="directory"/> doesn't match the <paramref name="expectedDigest"/>.</exception>
-        public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, IIOHandler handler)
+        public static Manifest VerifyDirectory(string directory, ManifestDigest expectedDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(directory)) throw new ArgumentNullException("directory");
@@ -228,7 +228,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -247,7 +247,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -265,7 +265,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Defer task to handler
-                    handler.RunIOTask(extractor);
+                    handler.RunTask(extractor);
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
@@ -281,7 +281,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -303,7 +303,7 @@ namespace ZeroInstall.Store.Implementation
                         extractor.SubDir = archiveInfo.SubDir;
 
                         // Defer task to handler
-                        handler.RunIOTask(extractor);
+                        handler.RunTask(extractor);
                     }
                 }
 
@@ -322,7 +322,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
+        public void Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -339,7 +339,7 @@ namespace ZeroInstall.Store.Implementation
             Directory.Move(path, tempDir);
 
             // Defer deleting to handler
-            handler.RunIOTask(new SimpleTask(
+            handler.RunTask(new SimpleTask(
                 string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
                 () => Directory.Delete(tempDir, true)));
         }
@@ -347,7 +347,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(IIOHandler handler)
+        public void Optimise(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -359,7 +359,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
+        public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -371,7 +371,7 @@ namespace ZeroInstall.Store.Implementation
 
         #region Audit
         /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
+        public IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

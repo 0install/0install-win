@@ -227,9 +227,9 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                var handlerMock = new DynamicMock("MockHandler", typeof(IIOHandler));
-                handlerMock.Expect("RunIOTask");
-                Manifest.Generate(packageDir, ManifestFormat.Sha256, (IIOHandler)handlerMock.MockInstance);
+                var handlerMock = new DynamicMock("MockHandler", typeof(ITaskHandler));
+                handlerMock.Expect("RunTask");
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, (ITaskHandler)handlerMock.MockInstance);
                 handlerMock.Verify();
             }
             finally

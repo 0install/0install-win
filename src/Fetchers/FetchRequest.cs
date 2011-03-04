@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -27,6 +28,7 @@ namespace ZeroInstall.Fetchers
     /// Lists one or more <see cref="Model.Implementation"/>s that need to be downloaded and extracted into an <see cref="IStore"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
+    [Serializable]
     public class FetchRequest : IEquatable<FetchRequest>
     {
         #region Properties
@@ -36,6 +38,11 @@ namespace ZeroInstall.Fetchers
         /// The <see cref="Model.Implementation"/>s to be downloaded.
         /// </summary>
         public IEnumerable<Implementation> Implementations { get { return _implementations; } }
+
+        /// <summary>
+        /// A callback object used when the the user needs to be informed about progress.
+        /// </summary>
+        public ITaskHandler Handler { get; private set; }
         #endregion
 
         #region Constructor
@@ -43,10 +50,12 @@ namespace ZeroInstall.Fetchers
         /// Creates a new download request.
         /// </summary>
         /// <param name="implementations">The <see cref="Model.Implementation"/>s to be downloaded.</param>
-        public FetchRequest(IEnumerable<Implementation> implementations)
+        /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
+        public FetchRequest(IEnumerable<Implementation> implementations, ITaskHandler handler)
         {
             #region Sanity checks
             if (implementations == null) throw new ArgumentNullException("implementations");
+            if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
             // Defensive copy
@@ -55,6 +64,8 @@ namespace ZeroInstall.Fetchers
 
             // Make the collections immutable
             _implementations = new C5.GuardedList<Implementation>(tempList);
+
+            Handler = handler;
         }
         #endregion
 
@@ -67,7 +78,7 @@ namespace ZeroInstall.Fetchers
             if (other == null) return false;
 
             if (!_implementations.SequencedEquals(other._implementations)) return false;
-            return true;
+            return other.Handler == Handler;
         }
 
         /// <inheritdoc/>
@@ -83,8 +94,8 @@ namespace ZeroInstall.Fetchers
         {
             unchecked
             {
-                int result = base.GetHashCode();
-                result = (result * 397) ^ _implementations.GetSequencedHashCode();
+                int result = _implementations.GetSequencedHashCode();
+                result = (result * 397) ^ Handler.GetHashCode();
                 return result;
             }
         }

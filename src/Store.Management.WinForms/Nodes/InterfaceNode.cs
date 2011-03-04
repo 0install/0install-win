@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>
         /// <exception cref="IOException">Thrown if the feed could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
-        public override void Delete(IIOHandler handler)
+        public override void Delete(ITaskHandler handler)
         {
             _cache.Remove(_feed.Uri.ToString());
         }
@@ -92,7 +92,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <summary>
         /// Does nothing.
         /// </summary>
-        public override void Verify(IIOHandler handler)
+        public override void Verify(ITaskHandler handler)
         {}
         #endregion
     }

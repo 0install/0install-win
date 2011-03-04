@@ -25,9 +25,9 @@ using System;
 namespace Common.Cli
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user about the progress of IO tasks.
+    /// Uses the stderr stream to inform the user about the progress of tasks.
     /// </summary>
-    public class CliIOHandler : MarshalByRefObject, IIOHandler
+    public class CliTaskHandler : MarshalByRefObject, ITaskHandler
     {
         /// <summary>
         /// Don't print messages to <see cref="Console"/> unless errors occur and silently answer all questions with "No".
@@ -35,7 +35,7 @@ namespace Common.Cli
         public bool Batch { get; set; }
 
         /// <inheritdoc />
-        public void RunIOTask(ITask task)
+        public void RunTask(ITask task)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");

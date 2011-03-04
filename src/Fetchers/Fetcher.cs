@@ -173,12 +173,12 @@ namespace ZeroInstall.Fetchers
             _digest = implementation.ManifestDigest;
         }
 
-        public void Execute(IIOHandler handler)
+        public void Execute(ITaskHandler handler)
         {
             TryRetrievalMethods(handler);
         }
 
-        private void TryRetrievalMethods(IIOHandler handler)
+        private void TryRetrievalMethods(ITaskHandler handler)
         {
             foreach (var method in _retrievalMethods)
             {
@@ -189,7 +189,7 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private void TryOneRetrievalMethodAndNoteProblems(RetrievalMethod method, IIOHandler handler)
+        private void TryOneRetrievalMethodAndNoteProblems(RetrievalMethod method, ITaskHandler handler)
         {
             try
             {
@@ -210,7 +210,7 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method, IIOHandler handler)
+        private void PerformRetrievalMethodDispatchingOnType(RetrievalMethod method, ITaskHandler handler)
         {
             var archive = method as Archive;
             var recipe = method as Recipe;
@@ -225,7 +225,7 @@ namespace ZeroInstall.Fetchers
             }
         }
 
-        private void PerformArchiveStep(Archive archive, IIOHandler handler)
+        private void PerformArchiveStep(Archive archive, ITaskHandler handler)
         {
             var tempArchiveInfo = DownloadAndPrepareArchive(archive, handler);
 
@@ -237,7 +237,7 @@ namespace ZeroInstall.Fetchers
             finally { File.Delete(tempArchiveInfo.Path); }
         }
 
-        private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive, IIOHandler handler)
+        private ArchiveFileInfo DownloadAndPrepareArchive(Archive archive, ITaskHandler handler)
         {
             string tempArchive = FileUtils.GetTempFile("0install-fetcher");
 
@@ -252,7 +252,7 @@ namespace ZeroInstall.Fetchers
             };
         }
 
-        private void PerformRecipe(Recipe recipe, IIOHandler handler)
+        private void PerformRecipe(Recipe recipe, ITaskHandler handler)
         {
             var archives = new List<ArchiveFileInfo>();
             foreach (var currentStep in recipe.Steps)
@@ -270,7 +270,7 @@ namespace ZeroInstall.Fetchers
             finally { foreach (var archive in archives) File.Delete(archive.Path); }
         }
 
-        protected virtual void DownloadArchive(Archive archive, string destination, IIOHandler handler)
+        protected virtual void DownloadArchive(Archive archive, string destination, ITaskHandler handler)
         {
             #region Sanity checks
             if (archive == null) throw new ArgumentNullException("archive");
@@ -283,7 +283,7 @@ namespace ZeroInstall.Fetchers
             try
             {
                 // Defer task to handler
-                handler.RunIOTask(downloadFile);
+                handler.RunTask(downloadFile);
 
                 RejectLocalFileOfWrongSize(archive, destination);
             }
@@ -344,7 +344,7 @@ namespace ZeroInstall.Fetchers
         }
 
         /// <inheritdoc/>
-        public void RunSync(FetchRequest fetchRequest, IIOHandler handler)
+        public void Run(FetchRequest fetchRequest)
         {
             #region Sanity checks
             if (fetchRequest == null) throw new ArgumentNullException("fetchRequest");
@@ -353,7 +353,7 @@ namespace ZeroInstall.Fetchers
             foreach (var implementation in fetchRequest.Implementations)
             {
                 var fetchProcess = CreateFetch(implementation);
-                fetchProcess.Execute(handler);
+                fetchProcess.Execute(fetchRequest.Handler);
                 if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
             }
         }

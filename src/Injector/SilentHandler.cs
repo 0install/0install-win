@@ -22,7 +22,7 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
-    public class SilentHandler : SilentIOHandler, IHandler
+    public class SilentHandler : SilentTaskHandler, IHandler
     {
         /// <inheritdoc />
         public virtual void Output(string title, string information)

@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <exception cref="KeyNotFoundException">Thrown if no matching implementation could be found in the <see cref="IStore"/>.</exception>
         /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
-        public override void Delete(IIOHandler handler)
+        public override void Delete(ITaskHandler handler)
         {
             try { _store.Remove(_digest, handler); }
             #region Error handling
@@ -100,7 +100,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         
         #region Verify
         /// <inheritdoc/>
-        public override void Verify(IIOHandler handler)
+        public override void Verify(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

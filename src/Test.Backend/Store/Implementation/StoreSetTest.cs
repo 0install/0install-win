@@ -39,7 +39,7 @@ namespace ZeroInstall.Store.Implementation
         private static readonly ArchiveFileInfo _archive1 = new ArchiveFileInfo { Path = "path1" };
         private static readonly ArchiveFileInfo _archive2 = new ArchiveFileInfo { Path = "path2" };
         private static readonly IEnumerable<ArchiveFileInfo> _archives = new[] { _archive1, _archive2 };
-        private static readonly IIOHandler _handler = new SilentHandler();
+        private static readonly ITaskHandler _handler = new SilentHandler();
 
         private DynamicMock _mock1, _mock2;
 

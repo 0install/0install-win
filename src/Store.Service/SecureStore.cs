@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Service
 
         #region Add directory
         /// <inheritdoc />
-        public void AddDirectory(string path, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddDirectory(string path, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Service
 
         #region Add archive
         /// <inheritdoc />
-        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddArchive(ArchiveFileInfo archiveInfo, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(archiveInfo.Path)) throw new ArgumentException(Resources.MissingPath, "archiveInfo");
@@ -133,7 +133,7 @@ namespace ZeroInstall.Store.Service
         }
 
         /// <inheritdoc />
-        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, IIOHandler handler)
+        public void AddMultipleArchives(IEnumerable<ArchiveFileInfo> archiveInfos, ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (archiveInfos == null) throw new ArgumentNullException("archiveInfos");
@@ -146,7 +146,7 @@ namespace ZeroInstall.Store.Service
 
         #region Remove
         /// <inheritdoc />
-        public void Remove(ManifestDigest manifestDigest, IIOHandler handler)
+        public void Remove(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -158,7 +158,7 @@ namespace ZeroInstall.Store.Service
 
         #region Optimise
         /// <inheritdoc />
-        public void Optimise(IIOHandler handler)
+        public void Optimise(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -170,7 +170,7 @@ namespace ZeroInstall.Store.Service
 
         #region Verify
         /// <inheritdoc />
-        public void Verify(ManifestDigest manifestDigest, IIOHandler handler)
+        public void Verify(ManifestDigest manifestDigest, ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");
@@ -182,7 +182,7 @@ namespace ZeroInstall.Store.Service
 
         #region Audit
         /// <inheritdoc />
-        public IEnumerable<DigestMismatchException> Audit(IIOHandler handler)
+        public IEnumerable<DigestMismatchException> Audit(ITaskHandler handler)
         {
             #region Sanity checks
             if (handler == null) throw new ArgumentNullException("handler");

@@ -77,7 +77,7 @@ namespace ZeroInstall.Commands
                 uncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
             }
 
-            Policy.Fetcher.RunSync(new FetchRequest(uncachedImplementations), Policy.Handler);
+            Policy.Fetcher.Run(new FetchRequest(uncachedImplementations, Policy.Handler));
         }
         #endregion
 

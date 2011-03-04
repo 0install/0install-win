@@ -34,7 +34,7 @@ namespace ZeroInstall.Store.Management.WinForms
     /// <summary>
     /// Displays the content of caches (<see cref="IFeedCache"/> and <see cref="IStore"/>) in a combined tree view.
     /// </summary>
-    public sealed partial class MainForm : Form, IIOHandler
+    public sealed partial class MainForm : Form, ITaskHandler
     {
         #region Variables
         // Don't use WinForms designer for this, since it doesn't understand generics
@@ -252,7 +252,7 @@ namespace ZeroInstall.Store.Management.WinForms
         public bool Batch { get; set; }
 
         /// <inheritdoc/>
-        public void RunIOTask(ITask task)
+        public void RunTask(ITask task)
         {
             TrackingDialog.Run(this, task, Icon);
         }

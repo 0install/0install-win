@@ -58,7 +58,7 @@ namespace ZeroInstall.Commands
             SolverMock.ExpectAndReturn("Solve", selections, requirements, refreshPolicy, false); // Refresh Solve() because there are uncached implementations
             CacheMock.ExpectAndReturn("GetFeed", testFeed1, new Uri("http://0install.de/feeds/test/sub1.xml")); // Redetermine uncached implementations after refresh Solve()
             CacheMock.ExpectAndReturn("GetFeed", testFeed2, new Uri("http://0install.de/feeds/test/sub2.xml"));
-            FetcherMock.Expect("RunSync", new FetchRequest(new[] {testImplementation1, testImplementation2}), Policy.Handler); // Download uncached implementations
+            FetcherMock.Expect("Run", new FetchRequest(new[] {testImplementation1, testImplementation2}, Policy.Handler)); // Download uncached implementations
 
             Assert.AreEqual(0, Command.Execute());
         }
