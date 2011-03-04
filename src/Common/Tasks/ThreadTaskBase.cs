@@ -22,7 +22,7 @@
 
 using System.Threading;
 
-namespace Common
+namespace Common.Tasks
 {
     /// <summary>
     /// Abstract base class for background tasks that implement <see cref="ITask"/> using an explicit background thread.

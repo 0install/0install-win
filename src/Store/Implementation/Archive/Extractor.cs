@@ -23,6 +23,7 @@ using System.Text;
 using Common;
 using Common.Compression;
 using Common.Streams;
+using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 

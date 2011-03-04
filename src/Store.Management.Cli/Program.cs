@@ -22,6 +22,7 @@ using System.Reflection;
 using Common;
 using Common.Cli;
 using Common.Collections;
+using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Model;

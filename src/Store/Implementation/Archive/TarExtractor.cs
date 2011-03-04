@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using Common;
+using Common.Tasks;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Tar;
 using ZeroInstall.Store.Properties;

@@ -21,6 +21,7 @@
  */
 
 using System;
+using Common.Tasks;
 
 namespace Common.Cli
 {

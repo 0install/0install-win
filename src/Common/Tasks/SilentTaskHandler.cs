@@ -21,28 +21,27 @@
  */
 
 using System;
-using System.IO;
 
-namespace Common
+namespace Common.Tasks
 {
     /// <summary>
-    /// Callback methods to inform the user about the progress of tasks.
+    /// Ignores progress reports.
     /// </summary>
-    /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
-    public interface ITaskHandler
+    public class SilentTaskHandler : MarshalByRefObject, ITaskHandler
     {
         /// <summary>
-        /// Don't print messages to <see cref="Console"/> unless errors occur and don't block with questions or messages.
+        /// Always returns <see langword="true"/>.
         /// </summary>
-        bool Batch { get; set; }
+        public bool Batch { get { return true; } set {} }
+        
+        /// <inheritdoc />
+        public void RunTask(ITask task)
+        {
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            #endregion
 
-        /// <summary>
-        /// Called when a new task needs to be run. Returns once the task has been completed.
-        /// </summary>
-        /// <param name="task">The extraction task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
-        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
-        /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
-        void RunTask(ITask task);
+            task.RunSync();
+        }
     }
 }

@@ -25,6 +25,7 @@ using System.Net;
 using System.Threading;
 using Common.Storage;
 using Common.Streams;
+using Common.Tasks;
 using NUnit.Framework;
 
 namespace Common.Net

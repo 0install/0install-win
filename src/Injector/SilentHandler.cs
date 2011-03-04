@@ -16,6 +16,7 @@
  */
 
 using Common;
+using Common.Tasks;
 
 namespace ZeroInstall.Injector
 {

@@ -21,6 +21,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using Common;
+using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 

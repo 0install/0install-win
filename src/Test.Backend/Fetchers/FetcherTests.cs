@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using Common;
 using Common.Net;
+using Common.Tasks;
 using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation.Archive;
 using Common.Storage;

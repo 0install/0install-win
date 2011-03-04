@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2006-2010 Bastian Eicher
+ * Copyright 2006-2011 Bastian Eicher
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -19,29 +19,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-
-using System;
-
-namespace Common
+namespace Common.Tasks
 {
     /// <summary>
-    /// Ignores progress reports.
+    /// Represents different states a (usually Web- or IO-related) task can be in.
     /// </summary>
-    public class SilentTaskHandler : MarshalByRefObject, ITaskHandler
+    /// <seealso cref="ITask.State"/>
+    public enum TaskState
     {
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public bool Batch { get { return true; } set {} }
-        
-        /// <inheritdoc />
-        public void RunTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            task.RunSync();
-        }
+        /// <summary>The task is ready to begin.</summary>
+        Ready,
+        /// <summary>The thread has just been started.</summary>
+        Started,
+        /// <summary>Handling the header.</summary>
+        Header,
+        /// <summary>Handling the actual data.</summary>
+        Data,
+        /// <summary>The task has been completed sucessfully.</summary>
+        Complete,
+        /// <summary>An error occurred during the task.</summary>
+        WebError,
+        /// <summary>An error occurred while writing the file.</summary>
+        IOError
     }
 }

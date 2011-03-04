@@ -24,6 +24,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using Common.Properties;
+using Common.Tasks;
 
 namespace Common.Cli
 {

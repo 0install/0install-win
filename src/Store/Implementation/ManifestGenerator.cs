@@ -21,6 +21,7 @@ using System.IO;
 using System.Security.Cryptography;
 using Common;
 using Common.Streams;
+using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 

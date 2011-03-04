@@ -19,6 +19,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using Common;
 using Common.Storage;
+using Common.Tasks;
 using NUnit.Framework;
 using NUnit.Mocks;
 using ZeroInstall.Injector;

@@ -67,8 +67,6 @@
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
     <Compile Include="ExceptionInformation.cs" />
-    <Compile Include="ITaskHandler.cs" />
-    <Compile Include="SilentTaskHandler.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
     <Compile Include="TimedLogEvent.cs" />
@@ -76,16 +74,18 @@
     <Compile Include="UpdateHelper.cs" />
     <Compile Include="UserCancelException.cs" />
     <Compile Include="INamed.cs" />
-    <Compile Include="ITask.cs" />
-    <Compile Include="TaskState.cs" />
-    <Compile Include="TaskBase.cs" />
-    <Compile Include="ThreadTaskBase.cs" />
-    <Compile Include="SimpleTask.cs" />
+    <Compile Include="Tasks\TaskState.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\SimpleTask.cs" />
+    <Compile Include="Tasks\TaskBase.cs" />
+    <Compile Include="Tasks\ThreadTaskBase.cs" />
+    <Compile Include="Tasks\ITaskHandler.cs" />
+    <Compile Include="Tasks\SilentTaskHandler.cs" />
+    <Compile Include="Tasks\CliTaskHandler.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaUtils.cs" />
     <Compile Include="Net\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
-    <Compile Include="Cli\CliTaskHandler.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
     <Compile Include="Cli\TrackingProgessBar.cs" />

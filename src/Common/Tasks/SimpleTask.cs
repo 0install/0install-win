@@ -25,7 +25,7 @@ using System.IO;
 using System.Net;
 using System.Threading;
 
-namespace Common
+namespace Common.Tasks
 {
     /// <summary>
     /// A delegate-driven task that cannot be canceled. Only completion is reported, no intermediate progress.
