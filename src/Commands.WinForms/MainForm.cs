@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
+using Common.Tasks;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands.WinForms
