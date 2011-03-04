@@ -47,9 +47,8 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
         /// <exception cref="ArgumentException">Thrown if the <paramref name="path"/> is invalid.</exception>
-        /// <exception cref="IOException">Thrown if the directory <paramref name="path"/> could not be created.</exception>
+        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem for <paramref name="path"/> can not store file-changed times accurate to the second.</exception>
         public DirectoryStore(string path)
         {
             #region Sanity checks
@@ -63,7 +62,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 if (FileUtils.DetermineTimeAccuracy(path) > 0)
-                    throw new InvalidOperationException(Resources.InsufficientFSTimeAccuracy);
+                    throw new IOException(Resources.InsufficientFSTimeAccuracy);
             }
             catch (UnauthorizedAccessException)
             {
@@ -74,9 +73,8 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates a new store using the default path (generally in the user-profile).
         /// </summary>
-        /// <exception cref="IOException">Thrown if the directory could not be created.</exception>
+        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         public DirectoryStore() : this(Locations.GetCachePath("0install.net", "implementations"))
         {}
         #endregion
@@ -151,7 +149,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             var format = ManifestFormat.FromPrefix(expectedDigest.BestPrefix);
-            var actualManifest = Manifest.Generate(directory, format, handler);
+            var actualManifest = Manifest.Generate(directory, format, handler, expectedDigest);
 
             string expectedDigestValue = expectedDigest.BestDigest;
             string actualDigestValue = actualManifest.CalculateDigest();
@@ -266,7 +264,7 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Defer task to handler
-                    handler.RunTask(extractor);
+                    handler.RunTask(extractor, manifestDigest);
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
@@ -304,7 +302,7 @@ namespace ZeroInstall.Store.Implementation
                         extractor.SubDir = archiveInfo.SubDir;
 
                         // Defer task to handler
-                        handler.RunTask(extractor);
+                        handler.RunTask(extractor, manifestDigest);
                     }
                 }
 
@@ -340,9 +338,9 @@ namespace ZeroInstall.Store.Implementation
             Directory.Move(path, tempDir);
 
             // Defer deleting to handler
-            handler.RunTask(new SimpleTask(
-                string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
-                () => Directory.Delete(tempDir, true)));
+            handler.RunTask(
+                new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest), () => Directory.Delete(tempDir, true)),
+                manifestDigest);
         }
         #endregion
 

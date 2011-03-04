@@ -36,7 +36,7 @@ namespace Common.Tasks
         public bool Batch { get; set; }
 
         /// <inheritdoc />
-        public void RunTask(ITask task)
+        public void RunTask(ITask task, object tag)
         {
             #region Sanity checks
             if (task == null) throw new ArgumentNullException("task");

@@ -165,22 +165,6 @@ namespace ZeroInstall.Fetchers
         }
 
         [Test]
-        public void ShouldRejectRemoteArchiveOfDifferentSize()
-        {
-            var package = FetcherTesting.PreparePackageBuilder();
-            package.GeneratePackageArchive("archive.zip");
-
-            MicroServer server;
-            Implementation implementation = SynthesizeImplementation("archive.zip", 0, PackageBuilderManifestExtension.ComputePackageDigest(package), out server);
-            try
-            {
-                ((Archive)implementation.RetrievalMethods[0]).Size = 0;
-                Assert.Throws<FetcherException>(() => _fetcher.Run(new FetchRequest(new List<Implementation> {implementation}, new SilentHandler())));
-            }
-            finally { server.Dispose(); }
-        }
-
-        [Test]
         public void ShouldCorrectlyExtractSelfExtractingArchives()
         {
             const int archiveOffset = 0x1000;
@@ -459,11 +443,7 @@ namespace ZeroInstall.Fetchers
                 fetcher.Run(new FetchRequest(new List<Implementation> {implementation}, new SilentHandler()));
             }
             catch (MockException)
-            { }
-            catch (FetcherException)
-            {
-                Assert.Fail("Some error occurred, probably due to mocking.");
-            }
+            {}
 
             Assert.AreEqual("application/zip", selectedType);
         }

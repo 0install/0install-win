@@ -60,11 +60,6 @@ namespace ZeroInstall.Launcher.Cli
                 Log.Error(ex.Message + "\n" + Resources.TryHelp);
                 return 1;
             }
-            catch (InvalidOperationException ex)
-            {
-                Log.Error(ex.Message);
-                return 1;
-            }
             catch (IOException ex)
             {
                 Log.Error(ex.Message);
@@ -113,6 +108,17 @@ namespace ZeroInstall.Launcher.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
+            catch (DigestMismatchException ex)
+            {
+                Log.Error(ex.Message);
+                //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                return 1;
+            }
+            catch (FetcherException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
             catch (InvalidInterfaceIDException ex)
             {
                 Log.Error(ex.Message);
@@ -121,17 +127,6 @@ namespace ZeroInstall.Launcher.Cli
             catch (SolverException ex)
             {
                 Log.Error(ex.Message);
-                return 1;
-            }
-            catch (FetcherException ex)
-            {
-                Log.Error((ex.InnerException ?? ex).Message);
-                return 1;
-            }
-            catch (DigestMismatchException ex)
-            {
-                Log.Error(ex.Message);
-                //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (ImplementationNotFoundException ex)

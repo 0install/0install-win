@@ -41,13 +41,16 @@ namespace ZeroInstall.Commands.WinForms
         {
             _showCalled = true;
 
-            // Initialize GUI with a low priority but restore normal priority as soon as it becomes visible
-            new Thread(delegate()
-            {
-                InitializeComponent();
-                Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
-                Application.Run(this);
-            }) {Priority = ThreadPriority.Lowest}.Start();
+            // Initialize GUI with a low priority
+            new Thread(StartupThread) {Priority = ThreadPriority.Lowest}.Start();
+        }
+
+        private void StartupThread()
+        {
+            InitializeComponent();
+            // Restore normal priority as soon as the GUI becomes visible
+            Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
+            Application.Run(this);
         }
 
         /// <summary>
@@ -55,10 +58,14 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public void CloseAsync()
         {
-            if (IsDisposed || !_showCalled) return;
+            if (!_showCalled) return;
 
             // Wait until the GUI is actually up and running
-            while (!IsHandleCreated) Thread.Sleep(0);
+            while (!IsHandleCreated)
+            {
+                if (IsDisposed) return;
+                Thread.Sleep(0);
+            }
             
             // Handle events coming from a non-UI thread, block caller until user has answered
             Invoke((SimpleEventHandler)(delegate
@@ -101,22 +108,10 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc />
-        public void RunDownloadTask(ITask task)
+        public void RunTask(ITask task, object tag)
         {
-            HookupTracking(task);
-        }
+            // ToDo: Use tag
 
-        /// <inheritdoc />
-        public void RunTask(ITask task)
-        {
-            HookupTracking(task);
-        }
-
-        /// <summary>
-        /// Hooks up a new task with the GUI for tracking.
-        /// </summary>
-        private void HookupTracking(ITask task)
-        {
             // Wait until the GUI is actually up and running
             while (!IsHandleCreated) Thread.Sleep(0);
 

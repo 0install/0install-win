@@ -17,7 +17,6 @@
 
 using System.IO;
 using System.Text.RegularExpressions;
-using Common;
 using Common.Storage;
 using Common.Tasks;
 using NUnit.Framework;
@@ -45,7 +44,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Generate manifest, write it to a file and read the file again
-                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old, new SilentHandler());
+                return Manifest.Generate(tempDir, ManifestFormat.Sha1Old, new SilentHandler(), null);
             }
             finally
             { // Clean up
@@ -76,7 +75,7 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler()).CalculateDigest();
+                string inMemoryHash = Manifest.Generate(packageDir, ManifestFormat.Sha256, new SilentHandler(), null).CalculateDigest();
                 string diskHash = Manifest.CreateDotFile(packageDir, ManifestFormat.Sha256, new SilentHandler());
                 Assert.AreEqual(diskHash, inMemoryHash);
             }
@@ -112,7 +111,7 @@ namespace ZeroInstall.Store.Implementation
             string packageDir = DirectoryStoreTest.CreateArtificialPackage();
             try
             {
-                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler());
+                var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler(), null);
                 Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString());
             }
             finally
@@ -230,7 +229,7 @@ namespace ZeroInstall.Store.Implementation
             {
                 var handlerMock = new DynamicMock("MockHandler", typeof(ITaskHandler));
                 handlerMock.Expect("RunTask");
-                Manifest.Generate(packageDir, ManifestFormat.Sha256, (ITaskHandler)handlerMock.MockInstance);
+                Manifest.Generate(packageDir, ManifestFormat.Sha256, (ITaskHandler)handlerMock.MockInstance, null);
                 handlerMock.Verify();
             }
             finally

@@ -21,7 +21,7 @@ using Common.Tasks;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Callback methods to inform the user about the progress of tasks and ask the user questions.
+    /// Callback methods to inform the user about the starting of tasks and ask the user questions.
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IHandler : ITaskHandler

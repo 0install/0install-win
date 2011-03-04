@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
-using Common;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -209,9 +208,10 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="path">The path of the directory to analyze.</param>
         /// <param name="format">The format of the manifest (which file details are listed, which hash method is used, etc.).</param>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <param name="tag">An object that can be used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <returns>A manifest for the directory.</returns>
         /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
-        public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler)
+        public static Manifest Generate(string path, ManifestFormat format, ITaskHandler handler, object tag)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
@@ -222,7 +222,7 @@ namespace ZeroInstall.Store.Implementation
             var generator = new ManifestGenerator(path, format);
 
             // Defer task to handler
-            handler.RunTask(generator);
+            handler.RunTask(generator, tag);
 
             return generator.Result;
         }
@@ -245,7 +245,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            return Generate(path, format, handler).Save(Path.Combine(path, ".manifest"));
+            return Generate(path, format, handler, null).Save(Path.Combine(path, ".manifest"));
         }
 
         /// <summary>
@@ -262,7 +262,7 @@ namespace ZeroInstall.Store.Implementation
             // Generate manifest for each available format...
             foreach (var format in ManifestFormat.Recommended)
                 // ... and add the resulting digest to the return value
-                ManifestDigest.ParseID(Generate(path, format, handler).CalculateDigest(), ref digest);
+                ManifestDigest.ParseID(Generate(path, format, handler, null).CalculateDigest(), ref digest);
 
             return digest;
         }

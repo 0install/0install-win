@@ -253,7 +253,7 @@ namespace ZeroInstall.Store.Management.WinForms
         public bool Batch { get; set; }
 
         /// <inheritdoc/>
-        public void RunTask(ITask task)
+        public void RunTask(ITask task, object tag)
         {
             TrackingDialog.Run(this, task, Icon);
         }

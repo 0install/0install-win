@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Common;
-using Common.Cli;
 using Common.Collections;
 using Common.Tasks;
 using Common.Utils;
@@ -212,7 +211,6 @@ namespace ZeroInstall.Store.Management.Cli
         /// <exception cref="NotSupportedException">Thrown if the archive type is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching the <see cref="ManifestDigest"/> could be found in this store.</exception>
         /// <exception cref="ImplementationAlreadyInStoreException">Thrown if there is already an <see cref="Model.Implementation"/> with the specified <see cref="ManifestDigest"/> in the store.</exception>
         /// <exception cref="DigestMismatchException">Thrown if the archive/directory content doesn't match the <see cref="ManifestDigest"/>.</exception>
@@ -426,7 +424,7 @@ namespace ZeroInstall.Store.Management.Cli
             string path = args[1];
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException(string.Format(Resources.DirectoryNotFound, path));
 
-            var manifest = Manifest.Generate(path, format, handler);
+            var manifest = Manifest.Generate(path, format, handler, path);
             Console.Write(manifest);
             Console.WriteLine(manifest.CalculateDigest());
         }

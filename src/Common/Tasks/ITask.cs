@@ -110,6 +110,7 @@ namespace Common.Tasks
         #region Control
         /// <summary>
         /// Runs the task synchronously to the current thread.
+        /// Similar to calling <see cref="Start"/>, <see cref="Join"/> and then checking <see cref="State"/> and <see cref="ErrorMessage"/>.
         /// </summary>
         /// <exception cref="UserCancelException">Thrown if the task was canceled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>

@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using Common;
 using Common.Net;
 using Common.Tasks;
 using Common.Utils;
@@ -158,7 +157,7 @@ namespace ZeroInstall.Fetchers
         private readonly List<RetrievalMethod> _retrievalMethods;
         private readonly ManifestDigest _digest;
         internal bool Completed;
-        internal readonly List<Exception> Problems = new List<Exception>();
+        internal readonly C5.IList<Exception> Problems = new C5.LinkedList<Exception>();
 
         public ImplementationFetch(Fetcher fetcher, Implementation implementation)
         {
@@ -284,31 +283,13 @@ namespace ZeroInstall.Fetchers
             try
             {
                 // Defer task to handler
-                handler.RunTask(downloadFile);
-
-                RejectLocalFileOfWrongSize(archive, destination);
+                handler.RunTask(downloadFile, _digest);
             }
-            catch (FetcherException)
+            catch
             {
                 File.Delete(destination);
                 throw;
             }
-        }
-
-        /// <summary>
-        /// Checks if the size of <paramref name="localFile"/> matches the <paramref name="archive"/>'s size and offset, otherwise throws a <see cref="FetcherException"/>.
-        /// </summary>
-        /// <exception cref="FetcherException">Thrown if the file has different size than stated in <paramref name="archive"/>.
-        /// </exception>
-        private static void RejectLocalFileOfWrongSize(Archive archive, string localFile)
-        {
-            #region Sanity checks
-            if (archive == null) throw new ArgumentNullException("archive");
-            if (string.IsNullOrEmpty(localFile)) throw new ArgumentNullException("localFile");
-            #endregion
-
-            if (new FileInfo(localFile).Length != archive.Size + archive.StartOffset)
-                throw new FetcherException(string.Format(Resources.FileNotExpectedSize, archive.Location, archive.Size + archive.StartOffset, new FileInfo(localFile).Length));
         }
     }
 
@@ -344,7 +325,7 @@ namespace ZeroInstall.Fetchers
             return new ImplementationFetch(this, implementation);
         }
 
-        /// <inheritdoc/>
+        /// <inheritdoc/
         public void Run(FetchRequest fetchRequest)
         {
             #region Sanity checks
@@ -355,7 +336,7 @@ namespace ZeroInstall.Fetchers
             {
                 var fetchProcess = CreateFetch(implementation);
                 fetchProcess.Execute(fetchRequest.Handler);
-                if (!fetchProcess.Completed) throw new FetcherException("Request not completely fulfilled", fetchProcess.Problems);
+                if (!fetchProcess.Completed) throw fetchProcess.Problems.Last;
             }
         }
     }

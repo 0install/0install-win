@@ -82,11 +82,6 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Warn);
                     return;
                 }
-                catch (InvalidOperationException ex)
-                {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
-                }
                 catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
@@ -133,6 +128,17 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     handler.CloseAsync();
                 }
+                catch (DigestMismatchException ex)
+                {
+                    // ToDo: Display generated manifest
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
+                catch (FetcherException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseAsync();
+                }
                 catch (InvalidInterfaceIDException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
@@ -140,17 +146,6 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (SolverException ex)
                 {
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
-                }
-                catch (FetcherException ex)
-                {
-                    Msg.Inform(null, (ex.InnerException ?? ex).Message, MsgSeverity.Error);
-                    handler.CloseAsync();
-                }
-                catch (DigestMismatchException ex)
-                {
-                    // ToDo: Display generated manifest
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                     handler.CloseAsync();
                 }

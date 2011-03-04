@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
@@ -77,7 +76,6 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         /// <exception cref="IOException">Thrown if the directory could not be created.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         public SecureStore() : this(Locations.GetCachePath("0install.net", "implementations"))
         {}
         #endregion

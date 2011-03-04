@@ -26,7 +26,7 @@ using System.IO;
 namespace Common.Tasks
 {
     /// <summary>
-    /// Callback methods to inform the user about the progress of tasks.
+    /// Callback methods to inform the user about the starting of tasks.
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface ITaskHandler
@@ -40,9 +40,10 @@ namespace Common.Tasks
         /// Called when a new task needs to be run. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The extraction task. Call <see cref="ITask.RunSync"/> or equivalent on it. Can be used for tracking the progress.</param>
+        /// <param name="tag">An object that can be used to associate a <see cref="ITask"/> with a specific process; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
-        void RunTask(ITask task);
+        void RunTask(ITask task, object tag);
     }
 }
