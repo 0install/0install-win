@@ -17,6 +17,7 @@
 
 using System.IO;
 using System.Text.RegularExpressions;
+using Common;
 using Common.Storage;
 using NUnit.Framework;
 using NUnit.Mocks;

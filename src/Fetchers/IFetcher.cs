@@ -46,6 +46,6 @@ namespace ZeroInstall.Fetchers
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to <see cref="Fetcher.Store"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="FetcherException"></exception>
-        void RunSync(FetchRequest fetchRequest, IFetchHandler handler);
+        void RunSync(FetchRequest fetchRequest, IIOHandler handler);
     }
 }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common;
 using Common.Net;
 using ZeroInstall.Injector;
 using ZeroInstall.Store.Implementation.Archive;
@@ -42,7 +43,7 @@ namespace ZeroInstall.Fetchers
                 _outer = outer;
             }
 
-            protected override void DownloadArchive(Archive archive, string destination, IFetchHandler handler)
+            protected override void DownloadArchive(Archive archive, string destination, IIOHandler handler)
             {
                 _outer.DownloadAction(archive, destination);
             }

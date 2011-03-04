@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using Common;
+using Common.Cli;
 using Common.Collections;
 using Common.Utils;
 using NDesk.Options;
@@ -73,7 +74,7 @@ namespace ZeroInstall.Store.Management.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] {"--help"};
 
-            IIOHandler handler = new CliHandler();
+            IIOHandler handler = new CliIOHandler();
 
             IList<string> restArgs;
             try { restArgs = ParseArgs(args, handler); }

@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;

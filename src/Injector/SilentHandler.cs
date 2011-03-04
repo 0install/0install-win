@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using Common;
 
 namespace ZeroInstall.Injector
@@ -23,13 +22,8 @@ namespace ZeroInstall.Injector
     /// <summary>
     /// Ignores progress reports and silently answer all questions with "No".
     /// </summary>
-    public class SilentHandler : MarshalByRefObject, IHandler
+    public class SilentHandler : SilentIOHandler, IHandler
     {
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public bool Batch { get { return true; } set {} }
-
         /// <inheritdoc />
         public virtual void Output(string title, string information)
         {}
@@ -38,26 +32,6 @@ namespace ZeroInstall.Injector
         public bool AcceptNewKey(string information)
         {
             return false;
-        }
-
-        /// <inheritdoc />
-        public void RunDownloadTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            task.RunSync();
-        }
-
-        /// <inheritdoc />
-        public void RunIOTask(ITask task)
-        {
-            #region Sanity checks
-            if (task == null) throw new ArgumentNullException("task");
-            #endregion
-
-            task.RunSync();
         }
 
         /// <inheritdoc/>

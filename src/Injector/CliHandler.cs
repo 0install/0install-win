@@ -22,9 +22,9 @@ using Common.Cli;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user of progress and ask questions.
+    /// Uses the stderr stream to inform the user about the progress of IO tasks and ask the user questions.
     /// </summary>
-    public class CliHandler : Store.Implementation.CliHandler, IHandler
+    public class CliHandler : CliIOHandler, IHandler
     {
         /// <inheritdoc />
         public void Output(string title, string information)

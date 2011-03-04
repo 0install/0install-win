@@ -109,20 +109,20 @@ namespace Common
 
         #region Control
         /// <summary>
-        /// Starts executing the task in a background thread.
-        /// </summary>
-        /// <remarks>Calling this on a not <see cref="TaskState.Ready"/> task will have no effect.</remarks>
-        void Start();
-
-        /// <summary>
         /// Runs the task synchronously to the current thread.
         /// </summary>
         /// <exception cref="UserCancelException">Thrown if the task was canceled from another thread.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
         /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="State"/> is not <see cref="TaskState.Ready"/>.</exception>
-        /// <remarks>Even though the task runs synchronously it is still executed on a separate thread so it can be canceled from other threads.</remarks>
+        /// <remarks>Even though the task runs synchronously it may be still executed on a separate thread so it can be canceled from other threads.</remarks>
         void RunSync();
+        
+        /// <summary>
+        /// Starts executing the task in a background thread.
+        /// </summary>
+        /// <remarks>Calling this on a not <see cref="TaskState.Ready"/> task will have no effect.</remarks>
+        void Start();
 
         /// <summary>
         /// Blocks until the task is completed or terminated.

@@ -20,11 +20,7 @@
  * THE SOFTWARE.
  */
 
-using System;
-using System.IO;
-using System.Net;
 using System.Threading;
-using Common.Properties;
 
 namespace Common
 {
@@ -69,42 +65,6 @@ namespace Common
 
                 State = TaskState.Started;
                 Thread.Start();
-            }
-        }
-
-        /// <inheritdoc/>
-        public override void RunSync()
-        {
-            // Still use threads so cancel request from other threads will work
-            lock (StateLock)
-            {
-                if (State != TaskState.Ready) throw new InvalidOperationException(Resources.StateMustBeReady);
-
-                State = TaskState.Started;
-                Thread.Start();
-            }
-
-            Thread.Join();
-
-            lock (StateLock)
-            {
-                switch (State)
-                {
-                    case TaskState.Complete:
-                        return;
-
-                    case TaskState.WebError:
-                        State = TaskState.Ready;
-                        throw new WebException(ErrorMessage);
-
-                    case TaskState.IOError:
-                        State = TaskState.Ready;
-                        throw new IOException(ErrorMessage);
-
-                    default:
-                        State = TaskState.Ready;
-                        throw new UserCancelException();
-                }
             }
         }
 

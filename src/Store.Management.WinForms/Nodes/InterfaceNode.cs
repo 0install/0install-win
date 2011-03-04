@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using Common;
 using ZeroInstall.Store.Feeds;
 using ZeroInstall.Store.Implementation;
 

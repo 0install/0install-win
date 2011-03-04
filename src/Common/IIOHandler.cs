@@ -17,12 +17,11 @@
 
 using System;
 using System.IO;
-using Common;
 
-namespace ZeroInstall.Store.Implementation
+namespace Common
 {
     /// <summary>
-    /// Callback methods to inform the user about IO tasks.
+    /// Callback methods to inform the user about the progress of IO tasks.
     /// </summary>
     /// <remarks>The callbacks may be called from a background thread. Apply thread-synchronization to update UI elements.</remarks>
     public interface IIOHandler

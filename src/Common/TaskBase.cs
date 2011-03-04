@@ -21,6 +21,8 @@
  */
 
 using System;
+using System.IO;
+using System.Net;
 
 namespace Common
 {
@@ -101,11 +103,33 @@ namespace Common
         //--------------------//
 
         #region Control
-        /// <inheritdoc />
-        public abstract void Start();
+        /// <inheritdoc/>
+        public void RunSync()
+        {
+            Start();
+            Join();
+
+            switch (State)
+            {
+                case TaskState.Complete:
+                    return;
+
+                case TaskState.WebError:
+                    State = TaskState.Ready;
+                    throw new WebException(ErrorMessage);
+
+                case TaskState.IOError:
+                    State = TaskState.Ready;
+                    throw new IOException(ErrorMessage);
+
+                default:
+                    State = TaskState.Ready;
+                    throw new UserCancelException();
+            }
+        }
 
         /// <inheritdoc />
-        public abstract void RunSync();
+        public abstract void Start();
 
         /// <inheritdoc />
         public abstract void Join();

@@ -67,6 +67,8 @@
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
     <Compile Include="ExceptionInformation.cs" />
+    <Compile Include="IIOHandler.cs" />
+    <Compile Include="SilentIOHandler.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
     <Compile Include="TimedLogEvent.cs" />
@@ -85,6 +87,7 @@
     <Compile Include="Net\DownloadJob.cs" />
     <Compile Include="Net\DownloadFile.cs" />
     <Compile Include="Cli\ArgumentUtils.cs" />
+    <Compile Include="Cli\CliIOHandler.cs" />
     <Compile Include="Cli\CliUtils.cs" />
     <Compile Include="Cli\ProgressBar.cs" />
     <Compile Include="Cli\TrackingProgessBar.cs" />
