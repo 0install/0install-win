@@ -14,7 +14,7 @@ SharpZipLib 0.86.0
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
 GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
 Source unmodified
-Pre-compiled managed DLL: lib/ICSharpCode.SharpZipLib.dll
+Self-compiled managed DLL: lib/ICSharpCode.SharpZipLib.dll
 
 LZMA SDK 4.65
 http://www.7-zip.org/sdk.html
