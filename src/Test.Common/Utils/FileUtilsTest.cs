@@ -34,6 +34,7 @@ namespace Common.Utils
     [TestFixture]
     public class FileUtilsTest
     {
+        #region Hash
         private const string Sha1ForEmptyString = "da39a3ee5e6b4b0d3255bfef95601890afd80709";
 
         /// <summary>
@@ -55,7 +56,31 @@ namespace Common.Utils
         {
             Assert.AreEqual(Sha1ForEmptyString, FileUtils.ComputeHash(new MemoryStream(), SHA1.Create()));
         }
+        #endregion
 
+        #region Time
+        /// <summary>
+        /// Ensures <see cref="FileUtils.ToUnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
+        /// </summary>
+        [Test]
+        public void TestToUnixTime()
+        {
+            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
+            Assert.AreEqual(1095292800, FileUtils.ToUnixTime(new DateTime(2004, 09, 16)));
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileUtils.FromUnixTime"/> correctly converts a Unix epoch value to a <see cref="DateTime"/> value.
+        /// </summary>
+        [Test]
+        public void TestFromUnixTime()
+        {
+            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
+            Assert.AreEqual(new DateTime(2004, 09, 16), FileUtils.FromUnixTime(1095292800));
+        }
+        #endregion
+
+        #region Temp
         /// <summary>
         /// Creates a temporary fileusing <see cref="FileUtils.GetTempFile"/>, ensures it is empty and deletes it again.
         /// </summary>
@@ -81,27 +106,9 @@ namespace Common.Utils
             Assert.IsEmpty(Directory.GetFileSystemEntries(path));
             Directory.Delete(path);
         }
+        #endregion
 
-        /// <summary>
-        /// Ensures <see cref="FileUtils.ToUnixTime"/> correctly converts a <see cref="DateTime"/> value to a Unix epoch value.
-        /// </summary>
-        [Test]
-        public void TestToUnixTime()
-        {
-            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
-            Assert.AreEqual(1095292800, FileUtils.ToUnixTime(new DateTime(2004, 09, 16)));
-        }
-
-        /// <summary>
-        /// Ensures <see cref="FileUtils.FromUnixTime"/> correctly converts a Unix epoch value to a <see cref="DateTime"/> value.
-        /// </summary>
-        [Test]
-        public void TestFromUnixTime()
-        {
-            // 12677 days = 12677 x 86400 seconds = 1095292800 seconds
-            Assert.AreEqual(new DateTime(2004, 09, 16), FileUtils.FromUnixTime(1095292800));
-        }
-
+        #region Copy
         /// <summary>
         /// Ensures <see cref="FileUtils.CopyDirectory"/> correctly copies a directories from one location to another and detects usage errors.
         /// </summary>
@@ -171,14 +178,14 @@ namespace Common.Utils
                 Directory.Delete(temp2, true);
             }
         }
+        #endregion
 
+        #region Unix
         [Test]
         public void TestIsRegularFile()
         {
             using (var tempFile = new TemporaryFile("unit-tests"))
-                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "Regular file was not detected as such");
-
-            // ToDo: Check for opposite on Unix-like systems
+                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "Regular file should be detected as such");
         }
 
         [Test]
@@ -187,12 +194,56 @@ namespace Common.Utils
             using (var tempFile = new TemporaryFile("unit-tests"))
             {
                 string contents;
-                long length;
-                Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents, out length), "File was incorrectly identified as symlink");
-                // ToDo: Check for opposite on Unix-like systems
+                Assert.IsFalse(FileUtils.IsSymlink(tempFile.Path, out contents), "File was incorrectly identified as symlink");
                 Assert.IsNull(contents);
-                Assert.AreEqual(0, length);
             }
         }
+
+        [Test]
+        public void TestCreateSymlink()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test symlinks on non-Unix-like system");
+
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string symlinkPath = Path.Combine(tempDir.Path, "symlink");
+
+                // Create an empty file and symlink to it using a relative path
+                File.WriteAllText(Path.Combine(tempDir.Path, "target"), "");
+                MonoUtils.CreateSymlink(symlinkPath, "target");
+                
+                string contents;
+                Assert.IsTrue(FileUtils.IsSymlink(symlinkPath, out contents), "Should detect symlink as such");
+                Assert.AreEqual(contents, "target", "Should get relative link target");
+
+                Assert.IsFalse(FileUtils.IsRegularFile(symlinkPath), "Should not detect symlink as regular file");
+            }
+        }
+        
+        [Test]
+        public void TestIsExecutable()
+        {
+            using (var tempFile = new TemporaryFile("unit-tests"))
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File was incorrectly identified as executable");
+        }
+
+        [Test]
+        public void TestSetExecutable()
+        {
+            if (!MonoUtils.IsUnix) throw new InconclusiveException("Unable to test executable bit on non-Unix-like system");
+
+            using (var tempFile = new TemporaryFile("unit-tests"))
+            {
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should not be executable yet");
+
+                FileUtils.SetExecutable(tempFile.Path, true);
+                Assert.IsTrue(FileUtils.IsExecutable(tempFile.Path), "File should now be executable");
+                Assert.IsTrue(FileUtils.IsRegularFile(tempFile.Path), "File should still be considered a regular file");
+
+                FileUtils.SetExecutable(tempFile.Path, false);
+                Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should no longer be executable");
+            }
+        }
+        #endregion
     }
 }

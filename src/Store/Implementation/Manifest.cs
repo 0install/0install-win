@@ -287,14 +287,14 @@ namespace ZeroInstall.Store.Implementation
 
         #region Conversion
         /// <summary>
-        /// Returns the manifest in the same text representation format used by <see cref="Save(System.IO.Stream)"/>.
+        /// Returns the manifest in the same text representation format used by <see cref="Save(System.IO.Stream)"/> except for using native linebreaks.
         /// </summary>
         public override string ToString()
         {
             // Use the same format as the file
             var output = new StringBuilder();
             foreach (ManifestNode node in _nodes)
-                output.Append(Format.GenerateEntryForNode(node) + "\n");
+                output.AppendLine(Format.GenerateEntryForNode(node));
             return output.ToString();
         }
         #endregion

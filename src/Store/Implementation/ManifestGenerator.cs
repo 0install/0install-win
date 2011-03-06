@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Security.Cryptography;
-using Common;
 using Common.Streams;
 using Common.Tasks;
 using Common.Utils;
@@ -108,7 +107,8 @@ namespace ZeroInstall.Store.Implementation
                 var entries = Format.GetSortedDirectoryEntries(TargetPath);
                 BytesTotal = TotalFileSize(entries);
 
-                var externalXBits = GetExternalXBits();
+                var externalXbits = GetExternalFlags("xbit");
+                var externalSymlinks = GetExternalFlags("symlink");
 
                 if (_cancelRequest) return;
                 lock (StateLock) State = TaskState.Data;
@@ -123,7 +123,7 @@ namespace ZeroInstall.Store.Implementation
                         // Don't include manifest management files in manifest
                         if (file.Name == ".manifest" || file.Name == ".xbit") continue;
 
-                        nodes.Add(GetFileNode(file, Format.HashAlgorithm, externalXBits));
+                        nodes.Add(GetFileNode(file, Format.HashAlgorithm, externalXbits, externalSymlinks));
                         BytesProcessed += file.Length;
                     }
                     else
@@ -187,43 +187,44 @@ namespace ZeroInstall.Store.Implementation
         }
 
         /// <summary>
-        /// Executable bits must be stored in an external file (named <code>.xbit</code>) on some platforms (e.g. Windows) because the filesystem attributes can't.
+        /// Some flags (executable, symlink, etc.) must be stored in an external file on some platforms (e.g. Windows) because the filesystem attributes do not provide the appropriate fields.
         /// </summary>
-        /// <returns>A list of fully qualified paths of files that are named in an <code>.xbit</code> file.</returns>
-        /// <remarks>This method searches for the <code>.xbit</code> file starting in the <see cref="TargetPath"/> and moving upwards until it finds it or until it reaches the root directory.</remarks>
+        /// <param name="flagName">The name of the flag type to search for without a leading dot (<code>xbit</code> or <code>symlink</code>).</param>
+        /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
+        /// <remarks>This method searches for the flag file starting in the <see cref="TargetPath"/> and moving upwards until it finds it or until it reaches the root directory.</remarks>
         /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
-        private ICollection<string> GetExternalXBits()
+        private ICollection<string> GetExternalFlags(string flagName)
         {
-            var externalXBits = new C5.HashSet<string>();
+            var externalFlags = new C5.HashSet<string>();
 
-            // Start searching for the x.bit file in the target directory and then move upwards
-            string xBitDir = Path.GetFullPath(TargetPath);
-            while (!File.Exists(Path.Combine(xBitDir, ".xbit")))
+            // Start searching for the flag file in the target directory and then move upwards
+            string flagDir = Path.GetFullPath(TargetPath);
+            while (!File.Exists(Path.Combine(flagDir, "." + flagName)))
             {
                 // Go up one level in the directory hierachy
-                xBitDir = Path.GetDirectoryName(xBitDir);
+                flagDir = Path.GetDirectoryName(flagDir);
 
                 // Cancel once the root dir has been reached
-                if (xBitDir == null) return externalXBits;
+                if (flagDir == null) return externalFlags;
             }
-            
-            using (StreamReader xbitFile = File.OpenText(Path.Combine(xBitDir, ".xbit")))
+
+            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, "." + flagName)))
             {
                 // Each line in the file signals an executable file
-                while (!xbitFile.EndOfStream)
+                while (!flagFile.EndOfStream)
                 {
-                    string currentLine = xbitFile.ReadLine();
+                    string currentLine = flagFile.ReadLine();
                     if (currentLine != null && currentLine.StartsWith("/"))
                     {
                         // Trim away the first slash and then replace Unix-style slashes
                         string relativePath = StringUtils.UnifySlashes(currentLine.Substring(1));
-                        externalXBits.Add(Path.Combine(xBitDir, relativePath));
+                        externalFlags.Add(Path.Combine(flagDir, relativePath));
                     }
                 }
             }
 
-            return externalXBits;
+            return externalFlags;
         }
 
         /// <summary>
@@ -231,23 +232,32 @@ namespace ZeroInstall.Store.Implementation
         /// </summary>
         /// <param name="file">The file object to create a node for.</param>
         /// <param name="hashAlgorithm">The algorithm to use to calculate the hash of the file's content.</param>
-        /// <param name="externalXBits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
+        /// <param name="externalXbits">A list of fully qualified paths of files that are named in the <code>.xbit</code> file.</param>
+        /// <param name="externalSymlinks">A list of fully qualified paths of files that are named in the <code>.symlink</code> file.</param>
         /// <returns>The node for the list.</returns>
         /// <exception cref="NotSupportedException">Thrown if the <paramref name="file"/> has illegal properties (e.g. is a device file, has line breaks in the filename, etc.).</exception>
         /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
-        private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXBits)
+        private static ManifestNode GetFileNode(FileInfo file, HashAlgorithm hashAlgorithm, ICollection<string> externalXbits, ICollection<string> externalSymlinks)
         {
+            // Real symlinks
             string symlinkContents;
-            long symlinkLength;
-            if (FileUtils.IsSymlink(file.FullName, out symlinkContents, out symlinkLength))
-                return new ManifestSymlink(FileUtils.ComputeHash(StreamUtils.CreateFromString(symlinkContents), hashAlgorithm), symlinkLength, file.Name);
+            if (FileUtils.IsSymlink(file.FullName, out symlinkContents))
+                return new ManifestSymlink(FileUtils.ComputeHash(StreamUtils.CreateFromString(symlinkContents), hashAlgorithm), symlinkContents.Length, file.Name);
 
+            // External symlinks
+            if (externalSymlinks.Contains(file.FullName))
+                return new ManifestSymlink(FileUtils.ComputeHash(file.FullName, hashAlgorithm), file.Length, file.Name);
+
+            // Invalid file types
             if (!FileUtils.IsRegularFile(file.FullName))
                 throw new NotSupportedException(string.Format(Resources.IllegalFileType, file.FullName));
 
-            if (externalXBits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
+            // Executable files
+            if (externalXbits.Contains(file.FullName) || FileUtils.IsExecutable(file.FullName))
                 return new ManifestExecutableFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
+
+            // Regular files
             return new ManifestNormalFile(FileUtils.ComputeHash(file.FullName, hashAlgorithm), FileUtils.ToUnixTime(file.LastWriteTimeUtc), file.Length, file.Name);
         }
 

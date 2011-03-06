@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
@@ -112,7 +113,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 var manifest = Manifest.Generate(packageDir, ManifestFormat.Sha1New, new SilentHandler(), null);
-                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString());
+                Assert.AreEqual("D /subdir\nF 606ec6e9bd8a8ff2ad14e5fade3f264471e82251 946684800 3 file.txt\n", manifest.ToString().Replace(Environment.NewLine, "\n"));
             }
             finally
             {

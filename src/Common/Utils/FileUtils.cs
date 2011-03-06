@@ -247,6 +247,10 @@ namespace Common.Utils
                     {
                         throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
                     }
+                    catch (IOException ex)
+                    {
+                        throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    }
                     #endregion
 
                 case PlatformID.Win32Windows:
@@ -293,6 +297,10 @@ namespace Common.Utils
                 {
                     throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
                 }
+                catch (IOException ex)
+                {
+                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                }
                 #endregion
             }
 
@@ -302,16 +310,22 @@ namespace Common.Utils
         /// <summary>
         /// Checks whether a file is a Unix symbolic link.
         /// </summary>
+        /// <param name="path">The path of the file to check.</param>
+        /// <param name="target">Returns the target the symbolic link points to if it exists.</param>
         /// <return><see lang="true"/> if <paramref name="path"/> points to a symbolic link; <see lang="false"/> otherwise.</return>
         /// <remarks>Will return <see langword="false"/> for non-existing files. Will always return <see langword="false"/> on non-Unix-like systems.</remarks>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to query the file's properties.</exception>
-        public static bool IsSymlink(string path, out string contents, out long length)
+        public static bool IsSymlink(string path, out string target)
         {
             if (File.Exists(path) && MonoUtils.IsUnix)
             {
-                try { return MonoUtils.IsSymlink(path, out contents, out length); }
+                try { return MonoUtils.IsSymlink(path, out target); }
                 #region Error handling
                 catch (InvalidOperationException ex)
+                {
+                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                }
+                catch (IOException ex)
                 {
                     throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
                 }
@@ -319,9 +333,36 @@ namespace Common.Utils
             }
 
             // Return default values
-            contents = null;
-            length = 0;
+            target = null;
             return false;
+        }
+        
+        /// <summary>
+        /// Creates a new Unix symbolic link. Only works on Unix-like systems!
+        /// </summary>
+        /// <param name="path">The path of the file to create.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="path"/>.</param>
+        /// <exception cref="PlatformNotSupportedException">Thrown if this method is called on a non-Unix-like system.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to create the symbolic link.</exception>
+        public static void CreateSymlink(string path, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            if (!MonoUtils.IsUnix) throw new PlatformNotSupportedException();
+
+            try { MonoUtils.CreateSymlink(path, target); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
         }
 
         /// <summary>
@@ -337,6 +378,10 @@ namespace Common.Utils
             try { return MonoUtils.IsExecutable(path); }
             #region Error handling
             catch (InvalidOperationException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
             {
                 throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
             }
@@ -361,6 +406,10 @@ namespace Common.Utils
             try { MonoUtils.SetExecutable(path, executable); }
             #region Error handling
             catch (InvalidOperationException ex)
+            {
+                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
             {
                 throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
             }
