@@ -18,11 +18,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common;
 using Common.Net;
 using Common.Tasks;
 using ZeroInstall.Injector;
-using ZeroInstall.Store.Implementation.Archive;
 using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
@@ -202,24 +200,24 @@ namespace ZeroInstall.Fetchers
         [Test]
         public void ShouldHandleExecutables()
         {
-            using (var sdlArchive = TestData.GetSdlZipArchiveStream())
+            using (var testArchive = TestData.GetTestZipArchiveStream())
             {
-                var reader = new BinaryReader(sdlArchive);
-                File.WriteAllBytes("archive.zip", reader.ReadBytes((int)sdlArchive.Length));
+                var reader = new BinaryReader(testArchive);
+                File.WriteAllBytes("archive.zip", reader.ReadBytes((int)testArchive.Length));
 
-                sdlArchive.Seek(0, SeekOrigin.Begin);
+                testArchive.Seek(0, SeekOrigin.Begin);
             }
 
             var builder = new PackageBuilder();
-            using (var readme = TestData.GetSdlReadmeStream())
+            using (var regular = TestData.GetTestRegularStream())
             {
-                var reader = new BinaryReader(readme);
-                builder.AddFile("README-SDL.txt", reader.ReadBytes((int)readme.Length), new DateTime(2007, 7, 20, 7, 25, 30));
+                var reader = new BinaryReader(regular);
+                builder.AddFile("regular", reader.ReadBytes((int)regular.Length), new DateTime(2000, 1, 1, 11, 0, 0));
             }
-            using (var sdlDll = TestData.GetSdlDllStream())
+            using (var executable = TestData.GetTestExecutableStream())
             {
-                var reader = new BinaryReader(sdlDll);
-                builder.AddExecutable("SDL.dll", reader.ReadBytes((int)sdlDll.Length), new DateTime(2009, 10, 17, 19, 17, 0));
+                var reader = new BinaryReader(executable);
+                builder.AddExecutable("executable", reader.ReadBytes((int)executable.Length), new DateTime(2000, 1, 1, 11, 0, 0));
             }
 
             MicroServer server;

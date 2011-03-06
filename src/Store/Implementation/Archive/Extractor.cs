@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
-using Common;
 using Common.Compression;
 using Common.Streams;
 using Common.Tasks;
@@ -218,7 +217,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <param name="dateTime">The last write time to set.</param>
         /// <param name="stream">The stream containing the file data to be written.</param>
         /// <param name="length">The length of the zip entries uncompressed data, needed because stream's Length property is always 0.</param>
-        /// <param name="executable"><see langword="true"/> if the file's executable bit was set; <see langword="false"/> otherwise.</param>
+        /// <param name="executable"><see langword="true"/> if the file's executable bit is set; <see langword="false"/> otherwise.</param>
         protected void WriteFile(string relativePath, DateTime dateTime, Stream stream, long length, bool executable)
         {
             #region Sanity checks
@@ -228,9 +227,9 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             string filePath = CombinePath(Target, relativePath);
             string directoryPath = Path.GetDirectoryName(filePath);
+            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
             bool alreadyExists = File.Exists(filePath);
-            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
             using (var fileStream = File.Create(filePath))
                 if (length != 0) StreamToFile(stream, fileStream);
@@ -242,6 +241,49 @@ namespace ZeroInstall.Store.Implementation.Archive
             File.SetLastWriteTimeUtc(filePath, dateTime);
         }
 
+        /// <summary>
+        /// Creates a symbolic link in the filesystem if possible; stores it in a .symlink file otherwise.
+        /// </summary>
+        /// <param name="relativePath">A path relative to the archive's root.</param>
+        /// <param name="target">The target the symbolic link shall point to relative to <paramref name="relativePath"/>.</param>
+        protected void CreateSymlink(string relativePath, string target)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
+            #endregion
+
+            string filePath = CombinePath(Target, relativePath);
+            string directoryPath = Path.GetDirectoryName(filePath);
+            if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    FileUtils.CreateSymlink(filePath, target);
+                    break;
+
+                case PlatformID.Win32Windows:
+                case PlatformID.Win32NT:
+                default:
+                    // Write as a normal file
+                    File.WriteAllText(filePath, target);
+
+                    // Non-Unix-like OSes (e.g. Windows) can't store the symlink flag directly in the filesystem
+                    // Remember in a text-file instead
+                    string symlinkFilePath = Path.Combine(Target, ".symlink");
+
+                    // Use default encoding: UTF-8 without BOM
+                    using (var symlinkWriter = File.AppendText(symlinkFilePath))
+                    {
+                        symlinkWriter.NewLine = "\n";
+                        symlinkWriter.WriteLine("/" + relativePath.Replace(Path.DirectorySeparatorChar, '/'));
+                    }
+                    break;
+            }
+        }
+
+        #region Helpers
         /// <summary>
         /// Helper method for <see cref="WriteFile"/>.
         /// </summary>
@@ -287,29 +329,30 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
         #endregion
 
+        #endregion
+
         #region Executable flag
         /// <summary>
-        /// Marks a file as executable using the file-system if possible, an .xbit file otherwise.
+        /// Marks a file as executable using the filesystem if possible, an .xbit file otherwise.
         /// </summary>
-        /// <param name="path">A path relative to the archive's root.</param>
-        private void SetExecutableBit(string path)
+        /// <param name="relativePath">A path relative to the archive's root.</param>
+        private void SetExecutableBit(string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(Target, path), true);
+                    FileUtils.SetExecutable(Path.Combine(Target, relativePath), true);
                     break;
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                {
-                    // Non-Unixoid OSes (e.g. Windows) can't store the executable bit in the filesystem directly
+                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem
                     // Remember in a text-file instead
                     string xbitFilePath = Path.Combine(Target, ".xbit");
 
@@ -317,40 +360,39 @@ namespace ZeroInstall.Store.Implementation.Archive
                     using (var xbitWriter = File.AppendText(xbitFilePath))
                     {
                         xbitWriter.NewLine = "\n";
-                        xbitWriter.WriteLine("/" + path.Replace(Path.DirectorySeparatorChar, '/'));
+                        xbitWriter.WriteLine("/" + relativePath.Replace(Path.DirectorySeparatorChar, '/'));
                     }
                     break;
-                }
             }
         }
 
         /// <summary>
-        /// Marks a file as no longer executable using the file-system if possible, an .xbit file otherwise. 
+        /// Marks a file as no longer executable using the filesystem if possible, an .xbit file otherwise. 
         /// </summary>
-        /// <param name="path">A path relative to the archive's root.</param>
-        private void RemoveExecutableBit(string path)
+        /// <param name="relativePath">A path relative to the archive's root.</param>
+        private void RemoveExecutableBit(string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(Target, path), false);
+                    FileUtils.SetExecutable(Path.Combine(Target, relativePath), false);
                     break;
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Non-Unixoid OSes (e.g. Windows) can't store the executable bit in the filesystem directly
+                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem
                     // Remember in a text-file instead
                     string xbitFilePath = Path.Combine(Target, ".xbit");
                     if (!File.Exists(xbitFilePath)) return;
 
                     string xbitFileContent = File.ReadAllText(xbitFilePath);
-                    xbitFileContent = xbitFileContent.Replace("/" + path + "\n", "");
+                    xbitFileContent = xbitFileContent.Replace("/" + relativePath + "\n", "");
                     File.WriteAllText(xbitFilePath, xbitFileContent, new UTF8Encoding(false));
                     break;
             }

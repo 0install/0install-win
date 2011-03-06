@@ -19,7 +19,7 @@ using System.Reflection;
 using System.IO;
 using Common.Streams;
 
-namespace ZeroInstall.Store.Implementation.Archive
+namespace ZeroInstall.Fetchers
 {
     /// <summary>
     /// Utility class that provides access to the test data contained in the assembly as resources.
@@ -31,26 +31,6 @@ namespace ZeroInstall.Store.Implementation.Archive
         public static Stream GetTestZipArchiveStream()
         {
             return GetTestDataResourceStreamByName("testArchive.zip");
-        }
-
-        public static Stream GetTestTarArchiveStream()
-        {
-            return GetTestDataResourceStreamByName("testArchive.tar");
-        }
-
-        public static Stream GetTestTarGzArchiveStream()
-        {
-            return GetTestDataResourceStreamByName("testArchive.tar.gz");
-        }
-
-        public static Stream GetTestTarBz2ArchiveStream()
-        {
-            return GetTestDataResourceStreamByName("testArchive.tar.bz2");
-        }
-
-        public static Stream GetTestTarLzmaArchiveStream()
-        {
-            return GetTestDataResourceStreamByName("testArchive.tar.lzma");
         }
         
         public static Stream GetTestRegularStream()

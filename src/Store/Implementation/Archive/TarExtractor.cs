@@ -17,7 +17,6 @@
 
 using System;
 using System.IO;
-using Common;
 using Common.Tasks;
 using ICSharpCode.SharpZipLib;
 using ICSharpCode.SharpZipLib.Tar;
@@ -79,7 +78,8 @@ namespace ZeroInstall.Store.Implementation.Archive
                     if (string.IsNullOrEmpty(entryName)) continue;
 
                     if (entry.IsDirectory) CreateDirectory(entryName, entry.TarHeader.ModTime);
-                    else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsXbitSet(entry));
+                    else if (IsSymlink(entry)) CreateSymlink(entryName, entry.TarHeader.LinkName);
+                    else WriteFile(entryName, entry.TarHeader.ModTime, _tar, entry.Size, IsExecutable(entry));
 
                     BytesProcessed = _tar.Position;
                 }
@@ -120,12 +120,20 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         /// <summary>
-        /// Determines whether an <see cref="TarEntry"/> was packed on a Unix-system with the executable flag set to true.
+        /// Determines whether a <see cref="TarEntry"/> was created with the symlink flag set.
         /// </summary>
-        private static bool IsXbitSet(TarEntry entry)
+        private static bool IsSymlink(TarEntry entry)
         {
-            const int executeFlags = 1 + 8 + 8 * 8; // Octal: 111
-            return ((entry.TarHeader.Mode & executeFlags) != 0);
+            return (entry.TarHeader.TypeFlag & TarHeader.LF_SYMLINK) == TarHeader.LF_SYMLINK;
+        }
+
+        /// <summary>
+        /// Determines whether a <see cref="TarEntry"/> was created with the executable flag set.
+        /// </summary>
+        private static bool IsExecutable(TarEntry entry)
+        {
+            const int executeFlags = 1 + 8 + 64; // Octal: 111
+            return (entry.TarHeader.Mode & executeFlags) > 0; // Check if anybody is allowed to execute
         }
 
         /// <summary>

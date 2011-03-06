@@ -45,36 +45,43 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         [Test]
+        public void TestPlain()
+        {
+            using (var archive = TestData.GetTestTarArchiveStream())
+                TestExtract("application/x-tar", archive);
+        }
+
+        [Test]
         public void TestGzCompressed()
         {
-            using (var archive = TestData.GetSdlTarGzArchiveStream())
-            using (var extractor = Extractor.CreateExtractor("application/x-compressed-tar", archive,  _sandbox.Path))
-                extractor.RunSync();
-
-            Assert.IsTrue(File.Exists("SDL.dll"));
-            Assert.IsTrue(File.Exists("README-SDL.txt"));
+            using (var archive = TestData.GetTestTarGzArchiveStream())
+                TestExtract("application/x-compressed-tar", archive);
         }
 
         [Test]
         public void TestBz2Compressed()
         {
-            using (var archive = TestData.GetSdlTarBz2ArchiveStream())
-            using (var extractor = Extractor.CreateExtractor("application/x-bzip-compressed-tar", archive, _sandbox.Path))
-                extractor.RunSync();
-
-            Assert.IsTrue(File.Exists("SDL.dll"));
-            Assert.IsTrue(File.Exists("README-SDL.txt"));
+            using (var archive = TestData.GetTestTarBz2ArchiveStream())
+                TestExtract("application/x-bzip-compressed-tar", archive);
         }
 
         [Test]
         public void TestLzmaCompressed()
         {
-            using (var archive = TestData.GetSdlTarLzmaArchiveStream())
-            using (var extractor = Extractor.CreateExtractor("application/x-lzma-compressed-tar", archive, _sandbox.Path))
+            using (var archive = TestData.GetTestTarLzmaArchiveStream())
+                TestExtract("application/x-lzma-compressed-tar", archive);
+        }
+        
+        private void TestExtract(string mimeType, Stream archive)
+        {
+            using (var extractor = Extractor.CreateExtractor(mimeType, archive, _sandbox.Path))
                 extractor.RunSync();
 
-            Assert.IsTrue(File.Exists("SDL.dll"));
-            Assert.IsTrue(File.Exists("README-SDL.txt"));
+            Assert.IsTrue(File.Exists("subdir1/regular"), "Should extract file 'regular'");
+            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir1/regular"), "Correct last write time for file 'regular' should be set");
+
+            Assert.IsTrue(File.Exists("subdir2/executable"), "Should extract file 'executable'");
+            Assert.AreEqual(new DateTime(2000, 1, 1, 12, 0, 0), File.GetLastWriteTimeUtc("subdir2/executable"), "Correct last write time for file 'executable' should be set");
         }
     }
 
@@ -101,19 +108,41 @@ namespace ZeroInstall.Store.Implementation.Archive
         [Test]
         public void TestExtractUnixArchiveWithExecutable()
         {
-            using (var archive = TestData.GetSdlTarArchiveStream())
+            using (var archive = TestData.GetTestTarArchiveStream())
             using (var extractor = new TarExtractor(archive, _sandbox.Path))
                 extractor.RunSync();
 
             if (MonoUtils.IsUnix)
             {
-                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "SDL.dll")));
+                Assert.IsTrue(FileUtils.IsExecutable(Path.Combine(_sandbox.Path, "subdir2/executable")), "File 'executable' should be marked as exectuable");
             }
             else
             {
                 string xbitFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".xbit")).Trim();
-                Assert.AreEqual("/SDL.dll", xbitFileContent);
+                Assert.AreEqual("/subdir2/executable", xbitFileContent);
             }
+        }
+
+        /// <summary>
+        /// Tests whether the extractor generates a correct .symlink file for a sample TAR archive containing a symbolic link.
+        /// </summary>
+        [Test]
+        public void TestExtractUnixArchiveWithSymlink()
+        {
+            using (var archive = TestData.GetTestTarArchiveStream())
+            using (var extractor = new TarExtractor(archive, _sandbox.Path))
+                extractor.RunSync();
+
+            string target;
+            if (MonoUtils.IsUnix)
+                Assert.IsTrue(FileUtils.IsSymlink(Path.Combine(_sandbox.Path, "symlink"), out target));
+            else
+            {
+                string symlinkFileContent = File.ReadAllText(Path.Combine(_sandbox.Path, ".symlink")).Trim();
+                Assert.AreEqual("/symlink", symlinkFileContent);
+                target = File.ReadAllText(Path.Combine(_sandbox.Path, "symlink"));
+            }
+            Assert.AreEqual("subdir1/regular", target, "Symlink should point to 'regular'");
         }
     }
 }

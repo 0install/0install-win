@@ -84,6 +84,7 @@
     <Compile Include="Fetchers\FetcherStoreInteraction.cs" />
     <Compile Include="Fetchers\FetcherTests.cs" />
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
+    <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\PreferencesTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
@@ -120,27 +121,15 @@
     <Compile Include="Store\Implementation\StoreSetTest.cs" />
     <Compile Include="Store\Implementation\DirectoryStoreTest.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\README-SDL.txt" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.bz2" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.gz" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.tar.lzma" />
+    <EmbeddedResource Include="Store\Implementation\Archive\testArchive.zip" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\SDL.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.bz2" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.gz" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.tar.lzma" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Store\Implementation\Archive\sdlArchive.zip" />
+    <EmbeddedResource Include="Fetchers\testArchive.zip" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

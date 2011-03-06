@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using Common;
+using Common.Streams;
 using Common.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using ZeroInstall.Store.Properties;
@@ -81,7 +81,10 @@ namespace ZeroInstall.Store.Implementation.Archive
                     else if (entry.IsFile)
                     {
                         using (var stream = _zip.GetInputStream(entry))
-                            WriteFile(entryName, modTime, stream, entry.Size, IsXbitSet(entry));
+                        {
+                            if (IsSymlink(entry)) CreateSymlink(entryName, StreamUtils.ReadToString(stream));
+                            else WriteFile(entryName, modTime, stream, entry.Size, IsExecutable(entry));
+                        }
                     }
 
                     BytesProcessed += entry.CompressedSize;
@@ -133,7 +136,7 @@ namespace ZeroInstall.Store.Implementation.Archive
                 var extraData = new ZipExtraData(entry.ExtraData);
                 if (extraData.Find(unixData.TagID))
                 {
-                    // Parse unix data
+                    // Parse Unix data
                     var entryData = extraData.GetEntryData();
                     unixData.SetData(entryData, 0, entryData.Length);
                     DateTime dateTime = unixData.CreateTime;
@@ -151,13 +154,25 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         /// <summary>
-        /// Determines whether an <see cref="ZipEntry"/> was packed on a Unix-system with the executable flag set to true.
+        /// Determines whether a <see cref="ZipEntry"/> was created on a Unix-system with the symlink flag set.
         /// </summary>
-        private static bool IsXbitSet(ZipEntry entry)
+        private static bool IsSymlink(ZipEntry entry)
         {
             if (entry.HostSystem != (int)HostSystemID.Unix) return false;
-            const int userExecuteFlag = 0x0040 << 16;
-            return ((entry.ExternalFileAttributes & userExecuteFlag) == userExecuteFlag);
+
+            const int symlinkFlag = (1 << 13) << 16;
+            return (entry.ExternalFileAttributes & symlinkFlag) == symlinkFlag;
+        }
+
+        /// <summary>
+        /// Determines whether a <see cref="ZipEntry"/> was created on a Unix-system with the executable flag set.
+        /// </summary>
+        private static bool IsExecutable(ZipEntry entry)
+        {
+            if (entry.HostSystem != (int)HostSystemID.Unix) return false;
+
+            const int executeFlags = (1 + 8 + 64) << 16; // Octal: 111
+            return (entry.ExternalFileAttributes & executeFlags) > 0; // Check if anybody is allowed to execute
         }
         #endregion
     }
