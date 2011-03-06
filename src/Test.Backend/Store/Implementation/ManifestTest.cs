@@ -122,7 +122,7 @@ namespace ZeroInstall.Store.Implementation
         }
 
         [Test]
-        public void ShouldListExecutableWithFlagF()
+        public void ShouldListNormalWindowsExeWithFlagF()
         {
             using (var package = new TemporaryDirectory("0install-unit-tests"))
             {
@@ -135,7 +135,7 @@ namespace ZeroInstall.Store.Implementation
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
-                    Assert.True(Regex.IsMatch(firstLine, @"^F \w+ \w+ \d+ test.exe$"), "Manifest didn't match expected format");
+                    Assert.True(Regex.IsMatch(firstLine, @"^F \w+ \d+ \d+ test.exe$"), "Manifest didn't match expected format");
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Implementation
                 string exePath = Path.Combine(package.Path, "test.exe");
                 string xbitPath = Path.Combine(package.Path, ".xbit");
                 string manifestPath = Path.Combine(package.Path, ".manifest");
-                
+
                 File.WriteAllText(exePath, "");
                 File.WriteAllText(xbitPath, @"/test.exe");
                 Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
@@ -156,7 +156,28 @@ namespace ZeroInstall.Store.Implementation
                 using (var manifest = File.OpenText(manifestPath))
                 {
                     string firstLine = manifest.ReadLine();
-                    Assert.True(Regex.IsMatch(firstLine, @"^X \w+ \w+ \d+ test.exe$"), "Manifest didn't match expected format");
+                    Assert.True(Regex.IsMatch(firstLine, @"^X \w+ \d+ \d+ test.exe$"), "Manifest didn't match expected format");
+                }
+            }
+        }
+
+        [Test]
+        public void ShouldListFilesInSymlinkWithFlagS()
+        {
+            using (var package = new TemporaryDirectory("0install-unit-tests"))
+            {
+                string exePath = Path.Combine(package.Path, "test");
+                string xbitPath = Path.Combine(package.Path, ".symlink");
+                string manifestPath = Path.Combine(package.Path, ".manifest");
+
+                File.WriteAllText(exePath, "");
+                File.WriteAllText(xbitPath, @"/test");
+                Manifest.CreateDotFile(package.Path, ManifestFormat.Sha256, new SilentHandler());
+
+                using (var manifest = File.OpenText(manifestPath))
+                {
+                    string firstLine = manifest.ReadLine();
+                    Assert.True(Regex.IsMatch(firstLine, @"^S \w+ \d+ test$"), "Manifest didn't match expected format");
                 }
             }
         }
