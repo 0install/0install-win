@@ -24,7 +24,7 @@ using Common.Utils;
 namespace ZeroInstall.Store.Implementation.Archive
 {
     [TestFixture]
-    public class ZipTestBasicFunctionality
+    public class ZipExtractorTestBasicFunctionality
     {
         #region Helpers
         private PackageBuilder BuildSamplePackageHierarchy()
@@ -151,7 +151,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    class TestZipCornerCases
+    class ZipExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 

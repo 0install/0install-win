@@ -170,6 +170,9 @@ Tatsächlicher Wert: {1}</value>
   <data name="MissingPath" xml:space="preserve">
     <value>Kein Pfad angegeben.</value>
   </data>
+  <data name="PathNotRelative" xml:space="preserve">
+    <value>Der Pfad sollte relativ sein.</value>
+  </data>
   <data name="NewlineInName" xml:space="preserve">
     <value>Der Datei- oder Verzeichnisname darf keinen Zeilenumbruch enthalten.</value>
   </data>

@@ -38,12 +38,12 @@ namespace ZeroInstall.Store.Implementation
 
         #region Properties
         /// <inheritdoc />
-        public override string Name { get { return string.Format(Resources.GeneratingManifest, Path.GetFileName(TargetPath)); } }
+        public override string Name { get { return string.Format(Resources.GeneratingManifest, Path.GetFileName(TargetDir)); } }
 
         /// <summary>
         /// The path of the directory to analyze.
         /// </summary>
-        public string TargetPath { get; private set;  }
+        public string TargetDir { get; private set;  }
 
         /// <summary>
         /// The format of the manifest to generate.
@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation
             if (format == null) throw new ArgumentNullException("format");
             #endregion
 
-            TargetPath = path;
+            TargetDir = path;
             Format = format;
         }
         #endregion
@@ -104,11 +104,11 @@ namespace ZeroInstall.Store.Implementation
                 lock (StateLock) State = TaskState.Header;
 
                 // Get the complete (recursive) content of the directory sorted according to the format specification
-                var entries = Format.GetSortedDirectoryEntries(TargetPath);
+                var entries = Format.GetSortedDirectoryEntries(TargetDir);
                 BytesTotal = TotalFileSize(entries);
 
-                var externalXbits = GetExternalFlags("xbit");
-                var externalSymlinks = GetExternalFlags("symlink");
+                var externalXbits = FlagUtils.GetExternalFlags(".xbit", TargetDir);
+                var externalSymlinks = FlagUtils.GetExternalFlags(".symlink", TargetDir);
 
                 if (_cancelRequest) return;
                 lock (StateLock) State = TaskState.Data;
@@ -129,7 +129,7 @@ namespace ZeroInstall.Store.Implementation
                     else
                     {
                         var directory = entry as DirectoryInfo;
-                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Path.GetFullPath(TargetPath)));
+                        if (directory != null) nodes.Add(GetDirectoryNode(directory, Path.GetFullPath(TargetDir)));
                     }
 
                     if (_cancelRequest) return;
@@ -184,47 +184,6 @@ namespace ZeroInstall.Store.Implementation
                 if (file != null) size += file.Length;
             }
             return size;
-        }
-
-        /// <summary>
-        /// Some flags (executable, symlink, etc.) must be stored in an external file on some platforms (e.g. Windows) because the filesystem attributes do not provide the appropriate fields.
-        /// </summary>
-        /// <param name="flagName">The name of the flag type to search for without a leading dot (<code>xbit</code> or <code>symlink</code>).</param>
-        /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
-        /// <remarks>This method searches for the flag file starting in the <see cref="TargetPath"/> and moving upwards until it finds it or until it reaches the root directory.</remarks>
-        /// <exception cref="IOException">Thrown if there was an error reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the file.</exception>
-        private ICollection<string> GetExternalFlags(string flagName)
-        {
-            var externalFlags = new C5.HashSet<string>();
-
-            // Start searching for the flag file in the target directory and then move upwards
-            string flagDir = Path.GetFullPath(TargetPath);
-            while (!File.Exists(Path.Combine(flagDir, "." + flagName)))
-            {
-                // Go up one level in the directory hierachy
-                flagDir = Path.GetDirectoryName(flagDir);
-
-                // Cancel once the root dir has been reached
-                if (flagDir == null) return externalFlags;
-            }
-
-            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, "." + flagName)))
-            {
-                // Each line in the file signals an executable file
-                while (!flagFile.EndOfStream)
-                {
-                    string currentLine = flagFile.ReadLine();
-                    if (currentLine != null && currentLine.StartsWith("/"))
-                    {
-                        // Trim away the first slash and then replace Unix-style slashes
-                        string relativePath = StringUtils.UnifySlashes(currentLine.Substring(1));
-                        externalFlags.Add(Path.Combine(flagDir, relativePath));
-                    }
-                }
-            }
-
-            return externalFlags;
         }
 
         /// <summary>

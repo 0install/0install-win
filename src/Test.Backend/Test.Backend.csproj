@@ -115,6 +115,7 @@
     <Compile Include="Store\Implementation\Archive\TarExtractorTest.cs" />
     <Compile Include="Store\Implementation\Archive\TestData.cs" />
     <Compile Include="Store\Implementation\Archive\ZipExtractorTest.cs" />
+    <Compile Include="Store\Implementation\FlagUtilsTest.cs" />
     <Compile Include="Store\Implementation\ManifestFormatTest.cs" />
     <Compile Include="Store\Implementation\ManifestGeneratorTest.cs" />
     <Compile Include="Store\Implementation\ManifestTest.cs" />

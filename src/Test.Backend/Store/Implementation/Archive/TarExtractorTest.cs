@@ -24,7 +24,7 @@ using Common.Storage;
 namespace ZeroInstall.Store.Implementation.Archive
 {
     [TestFixture]
-    public class TarTestBasicFunctionality
+    public class TarExtractorTestBasicFunctionality
     {
         TemporaryDirectory _sandbox;
         string _oldWorkingDirectory;
@@ -86,7 +86,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     }
 
     [TestFixture]
-    class TarTestCornerCases
+    class TarExtractorTestCornerCases
     {
         private TemporaryDirectory _sandbox;
 

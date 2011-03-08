@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             try
             {
-                if (!Directory.Exists(Target)) Directory.CreateDirectory(Target);
+                if (!Directory.Exists(TargetDir)) Directory.CreateDirectory(TargetDir);
 
                 TarEntry entry;
                 while ((entry = _tar.GetNextEntry()) != null)

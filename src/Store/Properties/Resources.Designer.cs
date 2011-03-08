@@ -243,6 +243,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Path should be relative..
+        /// </summary>
+        internal static string PathNotRelative {
+            get {
+                return ResourceManager.GetString("PathNotRelative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New feed&apos;s modification time is before old version!
         ///Feed ID: {0}
         ///Old time: {1}

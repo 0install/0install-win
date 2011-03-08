@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Text;
 using Common.Compression;
 using Common.Streams;
 using Common.Tasks;
@@ -60,7 +59,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// The path to the directory to extract into.
         /// </summary>
         [Description("The path to the directory to extract into.")]
-        public string Target { get; protected set; }
+        public string TargetDir { get; protected set; }
         #endregion
 
         #region Constructor
@@ -77,7 +76,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             #endregion
 
             Stream = stream;
-            Target = target;
+            TargetDir = target;
 
             BytesTotal = stream.Length;
         }
@@ -204,7 +203,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            string directoryPath = CombinePath(Target, relativePath);
+            string directoryPath = CombinePath(TargetDir, relativePath);
 
             Directory.CreateDirectory(directoryPath);
             _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(directoryPath, dateTime));
@@ -225,7 +224,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            string filePath = CombinePath(Target, relativePath);
+            string filePath = CombinePath(TargetDir, relativePath);
             string directoryPath = Path.GetDirectoryName(filePath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
@@ -252,7 +251,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            string filePath = CombinePath(Target, relativePath);
+            string filePath = CombinePath(TargetDir, relativePath);
             string directoryPath = Path.GetDirectoryName(filePath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
@@ -266,19 +265,11 @@ namespace ZeroInstall.Store.Implementation.Archive
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Write as a normal file
+                    // Write link data as a normal file
                     File.WriteAllText(filePath, target);
 
-                    // Non-Unix-like OSes (e.g. Windows) can't store the symlink flag directly in the filesystem
-                    // Remember in a text-file instead
-                    string symlinkFilePath = Path.Combine(Target, ".symlink");
-
-                    // Use default encoding: UTF-8 without BOM
-                    using (var symlinkWriter = File.AppendText(symlinkFilePath))
-                    {
-                        symlinkWriter.NewLine = "\n";
-                        symlinkWriter.WriteLine("/" + relativePath.Replace(Path.DirectorySeparatorChar, '/'));
-                    }
+                    // Non-Unix-like OSes (e.g. Windows) can't store the symlink flag directly in the filesystem; remember in a text-file instead
+                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".symlink"), relativePath);
                     break;
             }
         }
@@ -346,22 +337,14 @@ namespace ZeroInstall.Store.Implementation.Archive
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(Target, relativePath), true);
+                    FileUtils.SetExecutable(Path.Combine(TargetDir, relativePath), true);
                     break;
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem
-                    // Remember in a text-file instead
-                    string xbitFilePath = Path.Combine(Target, ".xbit");
-
-                    // Use default encoding: UTF-8 without BOM
-                    using (var xbitWriter = File.AppendText(xbitFilePath))
-                    {
-                        xbitWriter.NewLine = "\n";
-                        xbitWriter.WriteLine("/" + relativePath.Replace(Path.DirectorySeparatorChar, '/'));
-                    }
+                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                    FlagUtils.SetExternalFlag(Path.Combine(TargetDir, ".xbit"), relativePath);
                     break;
             }
         }
@@ -380,20 +363,14 @@ namespace ZeroInstall.Store.Implementation.Archive
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    FileUtils.SetExecutable(Path.Combine(Target, relativePath), false);
+                    FileUtils.SetExecutable(Path.Combine(TargetDir, relativePath), false);
                     break;
 
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem
-                    // Remember in a text-file instead
-                    string xbitFilePath = Path.Combine(Target, ".xbit");
-                    if (!File.Exists(xbitFilePath)) return;
-
-                    string xbitFileContent = File.ReadAllText(xbitFilePath);
-                    xbitFileContent = xbitFileContent.Replace("/" + relativePath + "\n", "");
-                    File.WriteAllText(xbitFilePath, xbitFileContent, new UTF8Encoding(false));
+                    // Non-Unix-like OSes (e.g. Windows) can't store the executable flag directly in the filesystem; remember in a text-file instead
+                    FlagUtils.RemoveExternalFlag(Path.Combine(TargetDir, ".xbit"), relativePath);
                     break;
             }
         }
