@@ -189,17 +189,16 @@ namespace ZeroInstall.Injector
         /// </summary>
         private static ProcessStartInfo GetStartInfoHelper(string commandLine)
         {
-            // HACK: Split command-line into file name and arguments part for Windows
             string fileName;
             string arguments;
             if (commandLine.StartsWith("\""))
-            {
-                string temp = commandLine.Trim('"');
-                fileName = StringUtils.GetLeftPartAtFirstOccurrence(temp, "\" ");
-                arguments = StringUtils.GetRightPartAtFirstOccurrence(temp, "\" ");
+            { // File name and arguments separated by first space after closing quotation mark
+                string temp = commandLine.Substring(1); // Trim away starting quotation mark
+                fileName = StringUtils.GetLeftPartAtFirstOccurrence(temp, "\"");
+                arguments = StringUtils.GetRightPartAtFirstOccurrence(temp, "\"").TrimStart();
             }
             else
-            {
+            { // File name and arguments separated by first space
                 fileName = StringUtils.GetLeftPartAtFirstOccurrence(commandLine, ' ');
                 arguments = StringUtils.GetRightPartAtFirstOccurrence(commandLine, ' ');
             }
