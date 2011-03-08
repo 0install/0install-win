@@ -117,6 +117,18 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActionSelection" xml:space="preserve">
+		<value>Wähle Implementierungen aus</value>
+	</data>
+  <data name="ActionDownload" xml:space="preserve">
+		<value>Lade Anwendung runter</value>
+	</data>
+  <data name="ActionUpdate" xml:space="preserve">
+		<value>Suche nach Updates</value>
+	</data>
+  <data name="ActionRun">
+    <value>Bereite Anwendungsstart vor</value>
+  </data>
   <data name="NotParsed" xml:space="preserve">
     <value>Parse wurde noch nicht aufgerufen.</value>
   </data>

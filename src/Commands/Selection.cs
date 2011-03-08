@@ -58,6 +58,11 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         protected override string Usage { get { return "[OPTIONS] URI"; } }
 
+        /// <summary>
+        /// A short title describing what this command does.
+        /// </summary>
+        public virtual string ActionTitle { get { return Resources.ActionSelection; } }
+
         private readonly Requirements _requirements = new Requirements();
         /// <summary>
         /// A set of requirements/restrictions imposed by the user on the implementation selection process as parsed from the command-line arguments.

@@ -164,40 +164,5 @@ namespace Common.Utils
             else fileInfo.FileAccessPermissions &= ~AllExecutePermission; // Unset all execution rights
         }
         #endregion
-
-        #region Execute
-        /// <summary>
-        /// Replaces the currently executing process with a new one.
-        /// </summary>
-        /// <param name="path">The file containing the executable image for the new process.</param>
-        /// <param name="arguments">Command-line arguments to pass to the new process.</param>
-        /// <param name="environment">The environment variable values the new process should start off with.</param>
-        /// <exception cref="InvalidOperationException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        /// <exception cref="IOException">Thrown if the underlying Unix subsystem failed to process the request (e.g. because of insufficient rights).</exception>
-        /// <remarks>This method does not return on success. Warning: Any concurrent threads will be terminated!</remarks>
-        public static void ProcessReplace(string path, string arguments, StringDictionary environment)
-        {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (arguments == null) throw new ArgumentNullException("arguments");
-            if (environment == null) throw new ArgumentNullException("environment");
-            #endregion
-
-            if (Syscall.execve(path, arguments.Split(' '), GetEnv(environment)) == -1)
-                throw new IOException(string.Format(Resources.FailedToLaunch, path));
-        }
-
-        /// <summary>
-        /// Turns a string dictionary into a flat "name=value" array.
-        /// </summary>
-        private static string[] GetEnv(StringDictionary environment)
-        {
-            var env = new string[environment.Count];
-            int i = 0;
-            foreach (DictionaryEntry variable in environment)
-                env[i++] = variable.Key.ToString().Replace("=", "\\=") + "=" + variable.Value;
-            return env;
-        }
-        #endregion
     }
 }

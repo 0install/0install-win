@@ -87,30 +87,6 @@ namespace Common.Utils
 
             RunAsync(startInfo);
         }
-
-        /// <summary>
-        /// On Windows runs the specified program and waits for it to exit. On Unix-like systems replaces the currently executing process with a new one.
-        /// </summary>
-        /// <param name="startInfo">Details about the program to be launched.</param>
-        /// <returns>The exit code of the process.</returns>
-        /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
-        /// <exception cref="IOException">Thrown if the process could not be replaced.</exception>
-        /// <remarks>This method may not return on success. Warning: Any concurrent threads may be terminated!</remarks>
-        public static int RunReplace(ProcessStartInfo startInfo)
-        {
-            #region Sanity checks
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            #endregion
-
-            if (MonoUtils.IsUnix && !startInfo.UseShellExecute)
-            {
-                if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) Environment.CurrentDirectory = startInfo.WorkingDirectory;
-                MonoUtils.ProcessReplace(startInfo.FileName, startInfo.Arguments, startInfo.EnvironmentVariables);
-                return 0; // Should never reach this
-            }
-            return RunSync(startInfo);
-        }
         #endregion
 
         #region Helper applications

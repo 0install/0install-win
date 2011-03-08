@@ -147,6 +147,18 @@
   <data name="DescriptionConfig">
     <value><![CDATA[View or change configuration settings. With no arguments, '0install config' displays all configuration settings. With one argument, it displays the current value of the named setting. With two arguments, it sets the setting to the given value.]]></value>
   </data>
+  <data name="ActionSelection" xml:space="preserve">
+		<value>Selecting implementations</value>
+	</data>
+  <data name="ActionDownload" xml:space="preserve">
+		<value>Downloading application</value>
+	</data>
+  <data name="ActionUpdate" xml:space="preserve">
+		<value>Checking for updates</value>
+	</data>
+  <data name="ActionRun">
+    <value>Preparing to launch application</value>
+  </data>
   <data name="OptionBefore" xml:space="preserve">
     <value>Chosen implementation's version number must be earlier than {VERSION}. i.e., force the use of an old version the program.</value>
   </data>

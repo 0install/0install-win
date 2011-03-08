@@ -19,7 +19,6 @@ using System;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
-using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -47,6 +46,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionRun; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionRun; } }
         #endregion
 
         #region Constructor
@@ -90,7 +92,7 @@ namespace ZeroInstall.Commands
                 ProcessUtils.RunDetached(startInfo);
                 return 0;
             }
-            return ProcessUtils.RunReplace(startInfo);
+            return ProcessUtils.RunSync(startInfo);
         }
         #endregion
 

@@ -44,6 +44,9 @@ namespace ZeroInstall.Commands
         #region Properties
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionDownload; } }
+
+        /// <inheritdoc/>
+        public override string ActionTitle { get { return Resources.ActionDownload; } }
         #endregion
 
         #region Constructor

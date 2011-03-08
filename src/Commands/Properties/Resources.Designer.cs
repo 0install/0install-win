@@ -61,6 +61,42 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Downloading application.
+        /// </summary>
+        internal static string ActionDownload {
+            get {
+                return ResourceManager.GetString("ActionDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preparing to launch application.
+        /// </summary>
+        internal static string ActionRun {
+            get {
+                return ResourceManager.GetString("ActionRun", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selecting implementations.
+        /// </summary>
+        internal static string ActionSelection {
+            get {
+                return ResourceManager.GetString("ActionSelection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Checking for updates.
+        /// </summary>
+        internal static string ActionUpdate {
+            get {
+                return ResourceManager.GetString("ActionUpdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All required components have been downloaded..
         /// </summary>
         internal static string AllComponentsDownloaded {
