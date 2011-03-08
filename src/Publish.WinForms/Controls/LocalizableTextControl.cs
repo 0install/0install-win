@@ -84,11 +84,11 @@ namespace ZeroInstall.Publish.WinForms.Controls
             ClearControl();
 
             UpdateComboBoxLanguages();
-            comboBoxLanguages.SelectedIndex = 0;
+            if (comboBoxLanguages.Items.Count != 0) comboBoxLanguages.SelectedIndex = 0;
             var selectedLanguage = GetSelectedLanguage();
             hintTextBoxSummary.Text = _values.ContainsExactLanguage(selectedLanguage)
-                                          ? _values.GetExactLanguage(selectedLanguage)
-                                          : string.Empty;
+                ? _values.GetExactLanguage(selectedLanguage)
+                : string.Empty;
         }
 
         private void UpdateComboBoxLanguages()

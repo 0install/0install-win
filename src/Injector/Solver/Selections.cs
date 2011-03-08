@@ -102,7 +102,7 @@ namespace ZeroInstall.Injector.Solver
             {
                 var implementation = GetImplementation(interfaceID);
                 builder.AppendLine(indent + "  Version: " + implementation.Version);
-                builder.AppendLine(indent + "  Path: " + implementation.GetPath(store) ?? Resources.NotCached);
+                builder.AppendLine(indent + "  Path: " + (implementation.GetPath(store) ?? Resources.NotCached));
 
                 indent += "    ";
 

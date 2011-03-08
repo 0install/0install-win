@@ -25,7 +25,6 @@ using ZeroInstall.Commands.Cli.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
-//using ZeroInstall.Model;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 using CliHandler = ZeroInstall.Injector.CliHandler;
@@ -110,7 +109,7 @@ namespace ZeroInstall.Commands.Cli
             catch (DigestMismatchException ex)
             {
                 Log.Error(ex.Message);
-                //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (FetcherException ex)
