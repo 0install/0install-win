@@ -78,6 +78,7 @@ namespace ZeroInstall.Store.Feeds
             Feed.ValidateInterfaceID(feedID);
             #endregion
 
+            // Local files are passed through directly
             return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID)));
         }
         #endregion
@@ -114,7 +115,8 @@ namespace ZeroInstall.Store.Feeds
             Feed.ValidateInterfaceID(feedID);
             #endregion
 
-            string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID));
+            // Local files are passed through directly
+            string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             return Feed.Load(path);

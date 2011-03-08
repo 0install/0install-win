@@ -64,6 +64,15 @@ namespace ZeroInstall.Store.Feeds
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test1.xml"));
             Assert.IsTrue(_cache.Contains("http://0install.de/feeds/test/test2.xml"));
             Assert.IsFalse(_cache.Contains("http://0install.de/feeds/test/test3.xml"));
+
+            using (var localFeed = new TemporaryFile("0install-unit-tests"))
+            {
+                _feed1.Save(localFeed.Path);
+                Assert.IsTrue(_cache.Contains(localFeed.Path), "Should detect local feed files without them actually being in the cache");
+            }
+
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+                Assert.IsFalse(_cache.Contains(Path.Combine(tempDir.Path, "feed.xml")), "Should not detect phantom local feed files");
         }
 
         [Test]
@@ -80,6 +89,12 @@ namespace ZeroInstall.Store.Feeds
         {
             var feed = _cache.GetFeed(_feed1.Uri.ToString());
             Assert.AreEqual(_feed1, feed);
+
+            using (var localFeed = new TemporaryFile("0install-unit-tests"))
+            {
+                _feed1.Save(localFeed.Path);
+                Assert.AreEqual(_feed1, _cache.GetFeed(localFeed.Path), "Should provide local feed files without them actually being in the cache");
+            }
         }
 
         [Test]
