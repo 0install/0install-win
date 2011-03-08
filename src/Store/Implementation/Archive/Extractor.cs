@@ -203,7 +203,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            string directoryPath = CombinePath(TargetDir, relativePath);
+            string directoryPath = CombinePath(relativePath);
 
             Directory.CreateDirectory(directoryPath);
             _directoryWriteTimes.Add(new KeyValuePair<string, DateTime>(directoryPath, dateTime));
@@ -224,7 +224,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            string filePath = CombinePath(TargetDir, relativePath);
+            string filePath = CombinePath(relativePath);
             string directoryPath = Path.GetDirectoryName(filePath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
@@ -251,7 +251,7 @@ namespace ZeroInstall.Store.Implementation.Archive
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
-            string filePath = CombinePath(TargetDir, relativePath);
+            string filePath = CombinePath(relativePath);
             string directoryPath = Path.GetDirectoryName(filePath);
             if (directoryPath != null && !Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
 
@@ -287,22 +287,26 @@ namespace ZeroInstall.Store.Implementation.Archive
         }
 
         /// <summary>
-        /// Combines the extraction target path with the relative path inside the archive.
+        /// Combines the extraction <see cref="TargetDir"/> path with the relative path inside the archive (ensuring only valid paths are returned).
         /// </summary>
-        /// <param name="target">The path to the directory to extract into.</param>
         /// <param name="relativePath">A path relative to the archive's root.</param>
         /// <returns>The combined path.</returns>
-        /// <exception cref="IOException">Thrown if <paramref name="relativePath"/> is absolute or points outside the archive's root.</exception>
-        private static string CombinePath(string target, string relativePath)
+        /// <exception cref="IOException">Thrown if <paramref name="relativePath"/> is invalid (e.g. is absolute, points outside the archive's root, contains invalid characters).</exception>
+        private string CombinePath(string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             #endregion
 
             if (Path.IsPathRooted(relativePath) || relativePath.Contains(".." + Path.DirectorySeparatorChar)) throw new IOException(Resources.ArchiveInvalidPath);
 
-            return Path.Combine(target, relativePath);
+            try { return Path.Combine(TargetDir, relativePath); }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                throw new IOException(Resources.ArchiveInvalidPath, ex);
+            }
+            #endregion
         }
 
         /// <summary>
