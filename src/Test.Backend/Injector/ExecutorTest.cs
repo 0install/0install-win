@@ -72,7 +72,7 @@ namespace ZeroInstall.Injector
             selections.Commands[1].WorkingDir = new WorkingDir();
             _storeMock.SetReturnValue("GetPath", "test path");
             var executor = new Executor(selections, TestStore);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(""), "Multiple WorkingDir changes should be rejected");
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(new string[0]), "Multiple WorkingDir changes should be rejected");
         }
 
         private void PrepareStoreMock(Selections selections)
@@ -110,13 +110,13 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore);
-            var startInfo = executor.GetStartInfo("--custom");
+            var startInfo = executor.GetStartInfo(new[] {"--custom"});
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + Path.Combine(Test1Path, StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
+                selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + Path.Combine(Test1Path, StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command path and arguments");
             
@@ -134,10 +134,10 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Wrapper = "wrapper --wrapper"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var startInfo = executor.GetStartInfo(new[] {"--custom"});
             Assert.AreEqual("wrapper", startInfo.FileName);
             Assert.AreEqual(
-                "--wrapper \"" + Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)) + "\" " + selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + Path.Combine(Test1Path, StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
+                "--wrapper \"" + Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)) + "\" " + selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + Path.Combine(Test1Path, StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
                 startInfo.Arguments,
                 "Should combine wrapper arguments, runner and application");
             
@@ -155,13 +155,13 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Main = "main"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var startInfo = executor.GetStartInfo(new[] {"--custom"});
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + StringUtils.PathCombine(Test1Path, "dir 1", "main") + "\" --custom",
+                selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + StringUtils.PathCombine(Test1Path, "dir 1", "main") + "\" --custom",
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory, command directory and main binary override");
             
@@ -179,13 +179,13 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Main = "/main"};
-            var startInfo = executor.GetStartInfo("--custom");
+            var startInfo = executor.GetStartInfo(new[] {"--custom"});
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
                 "Should combine runner implementation directory with runner command path");
             Assert.AreEqual(
-                selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " \"" + StringUtils.PathCombine(Test1Path, "main") + "\" --custom",
+                selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + StringUtils.PathCombine(Test1Path, "main") + "\" --custom",
                 startInfo.Arguments,
                 "Should combine core and additional runner arguments with application implementation directory and main binary override");
 
@@ -210,12 +210,12 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Working dir for first/inner command
 
             var executor = new Executor(selections, TestStore);
-            var startInfo = executor.GetStartInfo("--custom");
+            var startInfo = executor.GetStartInfo(new[] {"--custom"});
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName);
             Assert.AreEqual(
-                selections.Commands[1].Arguments[0] + " " + selections.Commands[0].Runner.Arguments[0] + " --custom",
+                selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" --custom",
                 startInfo.Arguments);
 
             CheckEnvironment(startInfo);

@@ -41,7 +41,7 @@ namespace ZeroInstall.Model
                 }},
                 Runner = new Runner
                 {
-                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"--runner"}, Bindings = { new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"} }
+                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = { new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"} }
                 },
                 WorkingDir = new WorkingDir {Source = "bin"}
             };

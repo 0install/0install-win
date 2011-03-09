@@ -213,12 +213,10 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Combines multiple strings into one, placing a <paramref name="separator"/> between the <paramref name="parts"/>.
+        /// Combines multiple strings into one using <see cref="Escape"/>.
         /// </summary>
         /// <param name="parts">The strings to be combines.</param>
-        /// <param name="separator">The separator characters to place between the <paramref name="parts"/>.</param>
-        /// <param name="escapeEnclosure">A character to place around parts that contain <paramref name="separator"/>.</param>
-        public static string Concatenate(IEnumerable<string> parts, string separator, char escapeEnclosure)
+        public static string ConcatenateEscape(IEnumerable<string> parts)
         {
             #region Sanity checks
             if (parts == null) throw new ArgumentNullException("parts");
@@ -230,10 +228,9 @@ namespace Common.Utils
             {
                 // No separator before first or after last line
                 if (first) first = false;
-                else output.Append(separator);
+                else output.Append(' ');
 
-                if (part.Contains(separator)) output.Append(escapeEnclosure + part + escapeEnclosure);
-                else output.Append(part);
+                output.Append(Escape(part));
             }
 
             return output.ToString();
@@ -356,7 +353,7 @@ namespace Common.Utils
         {
             if (value == null) return null;
 
-            value = value.Replace(@"\", @"\\").Replace("\"", "\\\"");
+            value = value.Replace("\"", "\\\"");
             if (ContainsWhitespace(value)) value = "\"" + value + "\"";
             return value;
         }
@@ -373,8 +370,7 @@ namespace Common.Utils
                 value = value.Remove(0, 1);
                 value = value.Remove(value.Length - 1, 1);
             }
-            value = value.Replace("\\\"", "\"").Replace(@"\\", @"\");
-            return value;
+            return value.Replace("\\\"", "\"");
         }
         #endregion
 

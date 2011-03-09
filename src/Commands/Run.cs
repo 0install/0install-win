@@ -86,7 +86,7 @@ namespace ZeroInstall.Commands
             Policy.Handler.CloseAsync();
 
             var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
-            var startInfo = executor.GetStartInfo(StringUtils.Concatenate(AdditionalArgs, " "));
+            var startInfo = executor.GetStartInfo(AdditionalArgs);
             if (_noWait)
             {
                 ProcessUtils.RunDetached(startInfo);

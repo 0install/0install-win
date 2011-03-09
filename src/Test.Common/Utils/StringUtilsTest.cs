@@ -80,7 +80,15 @@ namespace Common.Utils
         {
             Assert.AreEqual("part1", StringUtils.Concatenate(new[] { "part1" }, " "));
             Assert.AreEqual("part1 part2", StringUtils.Concatenate(new[] { "part1", "part2" }, " "));
-            Assert.AreEqual("\"part1 part2\" part3", StringUtils.Concatenate(new[] { "part1 part2", "part3" }, " ", '"'));
+            Assert.AreEqual("\"part1 part2\" part3", StringUtils.ConcatenateEscape(new[] { "part1 part2", "part3" }));
+        }
+
+        [Test]
+        public void TestConcatenateEscape()
+        {
+            Assert.AreEqual("part1", StringUtils.ConcatenateEscape(new[] {"part1"}));
+            Assert.AreEqual("part1 part2", StringUtils.ConcatenateEscape(new[] {"part1", "part2"}));
+            Assert.AreEqual("\"part1 \\\" part2\" part3", StringUtils.ConcatenateEscape(new[] {"part1 \" part2", "part3"}));
         }
 
         [Test]
@@ -108,8 +116,7 @@ namespace Common.Utils
         {
             Assert.AreEqual("test", StringUtils.Escape("test"), "Simple strings shouldn't be modified");
             Assert.AreEqual("\"test1 test2\"", StringUtils.Escape("test1 test2"), "Strings with whitespaces should be encapsulated");
-            Assert.AreEqual("test1\\\"test2\\\\", StringUtils.Escape("test1\"test2\\"), "Slashes and quotation marks should be escaped");
-            Assert.AreEqual("\"test1 \\\"test2\\\\\"", StringUtils.Escape("test1 \"test2\\"), "Slashes and quotation marks should be escaped");
+            Assert.AreEqual("test1\\\"test2", StringUtils.Escape("test1\"test2"), "Quotation marks should be escaped");
         }
 
         [Test]
@@ -117,8 +124,7 @@ namespace Common.Utils
         {
             Assert.AreEqual("test", StringUtils.Unescape("test"), "Simple strings shouldn't be modified");
             Assert.AreEqual("test1 test2", StringUtils.Unescape("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
-            Assert.AreEqual("test1\"test2\\", StringUtils.Unescape("test1\\\"test2\\\\"), "Slashes and quotation marks should be unescaped");
-            Assert.AreEqual("test1 \"test2\\", StringUtils.Unescape("\"test1 \\\"test2\\\\\""), "Slashes and quotation marks should be unescaped");
+            Assert.AreEqual("test1\"test2", StringUtils.Unescape("test1\\\"test2"), "Quotation marks should be unescaped");
         }
 
         [Test]

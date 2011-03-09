@@ -83,25 +83,20 @@ namespace ZeroInstall.Injector
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        public ProcessStartInfo GetStartInfo(string arguments)
+        public ProcessStartInfo GetStartInfo(IEnumerable<string> arguments)
         {
             #region Sanity checks
             if (_selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
             #endregion
 
-            var commands = GetCommands();
-
             // Build command line and add custom wrapper and arguments
-            string commandLine = (Wrapper + " " + BuildCommandLine(commands) + arguments).Trim();
+            var commandLine = BuildCommandLine(GetCommands());
+            if (!string.IsNullOrEmpty(Wrapper)) commandLine.InsertAll(0, Wrapper.Split(' '));
+            commandLine.AddAll(arguments);
 
             // Prepare the new process to launch the implementation
             ProcessStartInfo startInfo = GetStartInfoHelper(commandLine);
-
             ApplyBindings(startInfo);
-
-            if (!MonoUtils.IsUnix)
-                startInfo.Arguments = StringUtils.ExpandUnixVariables(startInfo.Arguments, startInfo.EnvironmentVariables);
-
             return startInfo;
         }
         #endregion
@@ -139,44 +134,34 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Builds a complete command-line to execute from a list of commands.
         /// </summary>
-        private string BuildCommandLine(IEnumerable<Command> commands)
+        private C5.IList<string> BuildCommandLine(IEnumerable<Command> commands)
         {
-            string commandLine = "";
+            var commandLine = new C5.LinkedList<string>();
 
             // The firts command always refers to the actual interface to be launched
             string currentRunnerInterface = _selections.InterfaceID;
 
             foreach (Command command in commands)
             {
-                string commandString;
-                if (string.IsNullOrEmpty(command.Path))
-                { // If the command has no path it can only control its runner using arguments (see below)
-                    commandString = "";
-                }
-                else
+                var commandString = new C5.LinkedList<string>();
+                if (!string.IsNullOrEmpty(command.Path))
                 { // The command's path (relative to the interface) and its arguments are combined
-                    commandString = GetPath(_selections.GetImplementation(currentRunnerInterface), command);
-                    if (!command.Arguments.IsEmpty) commandString += " " + StringUtils.Concatenate(command.Arguments, " ", '"');
+                    commandString.Add(GetPath(_selections.GetImplementation(currentRunnerInterface), command));
+                    if (!command.Arguments.IsEmpty) commandString.AddAll(command.Arguments);
                 }
 
                 var runner = command.Runner;
                 if (runner != null)
                 {
                     // Pass additional commands on to runner
-                    if (!runner.Arguments.IsEmpty)
-                    {
-                        // Only prepend whitespace if there is already something there
-                        if (!string.IsNullOrEmpty(commandString)) commandString = " " + commandString;
-
-                        commandString = StringUtils.Concatenate(runner.Arguments, " ", '"') + commandString;
-                    }
+                    commandString.InsertAll(0, runner.Arguments);
 
                     // Determine the interface the next command will refer to
                     currentRunnerInterface = runner.Interface;
                 }
 
                 // Prepend the string to the command-line
-                commandLine = commandString + " " + commandLine;
+                commandLine.InsertAll(0, commandString);
             }
 
             return commandLine;
@@ -187,50 +172,12 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a <see cref="ProcessStartInfo"/> from a command-line.
         /// </summary>
-        private static ProcessStartInfo GetStartInfoHelper(string commandLine)
+        private static ProcessStartInfo GetStartInfoHelper(C5.IList<string> commandLine)
         {
-            string fileName;
-            string arguments;
-            if (commandLine.StartsWith("\""))
-            { // File name and arguments separated by first space after closing quotation mark
-                string temp = commandLine.Substring(1); // Trim away starting quotation mark
-                fileName = StringUtils.GetLeftPartAtFirstOccurrence(temp, "\"");
-                arguments = StringUtils.GetRightPartAtFirstOccurrence(temp, "\"").TrimStart();
-            }
-            else
-            { // File name and arguments separated by first space
-                fileName = StringUtils.GetLeftPartAtFirstOccurrence(commandLine, ' ');
-                arguments = StringUtils.GetRightPartAtFirstOccurrence(commandLine, ' ');
-            }
-
-            return new ProcessStartInfo(fileName, arguments) {ErrorDialog = false, UseShellExecute = false};
-        }
-        #endregion
-
-        #region Path helpers
-        /// <summary>
-        /// Locates an <see cref="ImplementationBase"/> on the disk (usually in an <see cref="IStore"/>).
-        /// </summary>
-        /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
-        /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
-        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
-        private string GetImplementationPath(ImplementationBase implementation)
-        {
-            return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
-        }
-
-        /// <summary>
-        /// Gets the fully qualified path of a command inside an implementation.
-        /// </summary>
-        /// <exception cref="CommandException">Thrown if <paramref name="command"/>'s path is empty, not relative or tries to point outside the implementation directory.</exception>
-        private string GetPath(ImplementationSelection implementation, Command command)
-        {
-            string path = StringUtils.UnifySlashes(command.Path);
-
-            // Fully qualified paths are used by package/native implementatinos
-            if (Path.IsPathRooted(path)) return "\"" + path + "\"";
-
-            return "\"" + Path.Combine(GetImplementationPath(implementation), path) + "\"";
+            return new ProcessStartInfo(
+                commandLine.First, // Executable
+                StringUtils.ConcatenateEscape(commandLine.View(1, commandLine.Count - 1))) // Arguments
+            { ErrorDialog = false, UseShellExecute = false };
         }
         #endregion
 
@@ -272,6 +219,9 @@ namespace ZeroInstall.Injector
                 var runner = command.Runner;
                 if (runner != null) currentRunnerInterface = runner.Interface;
             }
+
+            // Expand any environment variables in the arguments since the OS might not do so itself
+            startInfo.Arguments = StringUtils.ExpandUnixVariables(startInfo.Arguments, startInfo.EnvironmentVariables);
         }
 
         /// <summary>
@@ -366,6 +316,33 @@ namespace ZeroInstall.Injector
             if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new CommandException(Resources.WokringDirDuplicate);
 
             startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
+        }
+        #endregion
+
+        #region Path helpers
+        /// <summary>
+        /// Locates an <see cref="ImplementationBase"/> on the disk (usually in an <see cref="IStore"/>).
+        /// </summary>
+        /// <param name="implementation">The <see cref="ImplementationBase"/> to be located.</param>
+        /// <returns>A fully qualified path pointing to the implementation's location on the local disk.</returns>
+        /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
+        private string GetImplementationPath(ImplementationBase implementation)
+        {
+            return (string.IsNullOrEmpty(implementation.LocalPath) ? _store.GetPath(implementation.ManifestDigest) : implementation.LocalPath);
+        }
+
+        /// <summary>
+        /// Gets the fully qualified path of a command inside an implementation.
+        /// </summary>
+        /// <exception cref="CommandException">Thrown if <paramref name="command"/>'s path is empty, not relative or tries to point outside the implementation directory.</exception>
+        private string GetPath(ImplementationSelection implementation, Command command)
+        {
+            string path = StringUtils.UnifySlashes(command.Path);
+
+            // Fully qualified paths are used by package/native implementatinos
+            if (Path.IsPathRooted(path)) return path;
+
+            return Path.Combine(GetImplementationPath(implementation), path);
         }
         #endregion
     }
