@@ -70,8 +70,9 @@ namespace ZeroInstall.Model
             if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
             #endregion
             
-            // Local paths are always ok
-            if (Path.IsPathRooted(value)) return;
+            // Valid local paths are always ok
+            try { if (Path.IsPathRooted(value)) return; }
+            catch(ArgumentException) { return; }
 
             // URIs must be HTTP(S) and have a slash after the host name
             if (!value.StartsWith("http:") && !value.StartsWith("https:")) throw new InvalidInterfaceIDException(string.Format(Resources.InvalidInterfaceID, value));
