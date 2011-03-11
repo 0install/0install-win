@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     public class ZipExtractor : Extractor
     {
         #region Variables
-        private ZipFile _zip;
+        private readonly ZipFile _zip;
         #endregion
 
         #region Constructor
@@ -141,9 +141,9 @@ namespace ZeroInstall.Store.Implementation.Archive
                     unixData.SetData(entryData, 0, entryData.Length);
                     DateTime dateTime = unixData.CreateTime;
 
-                    // HACK: Compensate for unintended local timezone shifting of the Unix epoch
-                    TimeSpan timeError = new DateTime(1970, 1, 1, 0, 0, 0) - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
-                    dateTime = dateTime + timeError;
+                    // HACK: Compensate for unintended local timezone shifting of the Unix epoch in official SharpZipLib release
+                    //TimeSpan timeError = new DateTime(1970, 1, 1, 0, 0, 0) - new DateTime(1970, 1, 1, 0, 0, 0).ToUniversalTime();
+                    //dateTime = dateTime + timeError;
 
                     return dateTime.ToUniversalTime();
                 }

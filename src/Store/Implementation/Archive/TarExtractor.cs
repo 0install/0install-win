@@ -30,7 +30,7 @@ namespace ZeroInstall.Store.Implementation.Archive
     public class TarExtractor : Extractor
     {
         #region Variables
-        private TarInputStream _tar;
+        private readonly TarInputStream _tar;
         #endregion
 
         #region Constructor
