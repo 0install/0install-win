@@ -7,14 +7,17 @@ set TargetDir=%~dp0..\build\Publish
 set SetupEXE=0install.exe
 set SetupUpdateEXE=0install_upd.exe
 
+rem Handle WOW
+if %PROCESSOR_ARCHITECTURE%==x86 set ProgramFiles_temp=%ProgramFiles%
+if not %PROCESSOR_ARCHITECTURE%==x86 set ProgramFiles_temp=%ProgramFiles(x86)%
+
 rem Check for Inno Setup 5 installation (32-bit)
-if %PROCESSOR_ARCHITECTURE%==AMD64 set ProgramFiles=%ProgramFiles(x86)%
-if not exist "%ProgramFiles%\Inno Setup 5" (
+if not exist "%ProgramFiles_temp%\Inno Setup 5" (
   echo ERROR: No Inno Setup 5 installation found. >&2
   pause
   goto end
 )
-path %ProgramFiles%\Inno Setup 5;%path%
+path %ProgramFiles_temp%\Inno Setup 5;%path%
 
 
 
