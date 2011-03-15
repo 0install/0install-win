@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -19,12 +19,12 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.MyApps
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Lists an application as an entry in the desktop environment's main menu (freedesktop.org, Windows start menu, etc.).
     /// </summary>
-    [XmlType("menu-entry", Namespace = AppList.XmlNamespace)]
+    [XmlType("menu-entry", Namespace = XmlNamespace)]
     public class MenuEntry : Integration, IEquatable<MenuEntry>
     {
         #region Properties

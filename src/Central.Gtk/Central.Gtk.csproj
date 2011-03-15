@@ -108,6 +108,10 @@
       <Project>{D602F86B-EF33-4DB3-8FD5-18DFBB98C306}</Project>
       <Name>Common.Gtk</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Fetchers\Fetchers.csproj">
       <Project>{37C09DC0-86FA-422C-B7EA-6970BF348ED0}</Project>
       <Name>Fetchers</Name>

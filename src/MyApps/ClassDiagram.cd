@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="ZeroInstall.MyApps.AppList" Collapsed="true">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+    <Position X="0.5" Y="0.5" Width="1.5" />
     <AssociationLine Name="Entries" Type="ZeroInstall.MyApps.AppEntry">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.7" Y="0.152" />
+        <Position X="-0.71" Y="0.225" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAgIAAABAAACEAgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AAAAgIAQABAAACEAgAAAAAAAAAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>AppList.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
@@ -16,52 +16,8 @@
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.MyApps.Bootstrapper">
-    <Position X="4.5" Y="5.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAQAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>Bootstrapper.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.MyApps.DesktopShortcut">
-    <Position X="2.5" Y="5.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAQAAAQAAAAAAIAAAAAAAAAAAAA=</HashCode>
-      <FileName>DesktopShortcut.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.MyApps.Integration">
-    <Position X="2.5" Y="3.75" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAABAAAABA=</HashCode>
-      <FileName>Integration.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ZeroInstall.MyApps.MenuEntry">
-    <Position X="0.5" Y="5.5" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEgAQAAAQAAAAAAIAAAAAAAAAACAA=</HashCode>
-      <FileName>MenuEntry.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
   <Class Name="ZeroInstall.MyApps.AppEntry">
-    <Position X="2.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="1.75" Width="1.5" />
     <Members>
       <Property Name="InterfaceString" Hidden="true" />
     </Members>
@@ -69,9 +25,9 @@
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Integrations" Type="ZeroInstall.MyApps.Integration">
+    <AssociationLine Name="Integrations" Type="ZeroInstall.DesktopIntegration.Integration">
       <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-1.005" Y="0.154" />
+        <Position X="-0.992" Y="0.183" />
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
@@ -81,6 +37,11 @@
     <ShowAsCollectionAssociation>
       <Property Name="Integrations" />
     </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.Integration" Collapsed="true">
+    <Position X="0.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier />
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
   <Font Name="Segoe UI" Size="9" />

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -17,23 +17,21 @@
 
 using System;
 using System.Xml.Serialization;
-using ZeroInstall.Model;
-
-namespace ZeroInstall.MyApps
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Integrations describe how an application is made available to user in the operating system's environment.
     /// </summary>
-    [XmlType("integration", Namespace = AppList.XmlNamespace)]
+    [XmlType("integration", Namespace = XmlNamespace)]
     public abstract class Integration : ICloneable
     {
-        #region Properties
+        #region Constants
         /// <summary>
-        /// An alternative executable to to run from the main <see cref="Model.Implementation"/> instead of <see cref="Element.Main"/>.
+        /// The XML namespace used for storing application list data.
         /// </summary>
-        public string Main { get; set; }
+        public const string XmlNamespace = "http://0install.de/schema/my-apps/app-list";
         #endregion
-
+        
         //--------------------//
 
         #region Clone

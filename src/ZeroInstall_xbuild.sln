@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fetchers", "Fetchers\Fetche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApps", "MyApps\MyApps.csproj", "{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesktopIntegration", "DesktopIntegration\DesktopIntegration.csproj", "{F48937E1-3763-465F-9F12-6CBBBFF61784}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Common", "Test.Common\Test.Common.csproj", "{CA9D6092-4365-4385-9700-9570A98EF09D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Backend", "Test.Backend\Test.Backend.csproj", "{06237727-AEA0-4E42-85C0-C0886F425352}"
@@ -85,6 +87,10 @@ Global
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Debug|x86.Build.0 = Debug|Any CPU
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}.Release|x86.Build.0 = Release|Any CPU
+		{F48937E1-3763-465F-9F12-6CBBBFF61784}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F48937E1-3763-465F-9F12-6CBBBFF61784}.Debug|x86.Build.0 = Debug|Any CPU
+		{F48937E1-3763-465F-9F12-6CBBBFF61784}.Release|x86.ActiveCfg = Release|Any CPU
+		{F48937E1-3763-465F-9F12-6CBBBFF61784}.Release|x86.Build.0 = Release|Any CPU
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Debug|x86.Build.0 = Debug|Any CPU
 		{CA9D6092-4365-4385-9700-9570A98EF09D}.Release|x86.ActiveCfg = Release|Any CPU

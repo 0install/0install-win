@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -19,19 +19,19 @@ using System;
 using System.ComponentModel;
 using System.Xml.Serialization;
 
-namespace ZeroInstall.MyApps
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Creates a desktop shortcut for launching the application.
+    /// Creates a bootstrapper executable for launching the application.
     /// </summary>
-    [XmlType("desktop-shortcut", Namespace = AppList.XmlNamespace)]
-    public class DesktopShortcut : Integration, IEquatable<DesktopShortcut>
+    [XmlType("bootstrapper", Namespace = XmlNamespace)]
+    public class Bootstrapper : Integration, IEquatable<Bootstrapper>
     {
         #region Properties
         /// <summary>
-        /// The name of the desktop shortcut.
+        /// The name of the command-line alias.
         /// </summary>
-        [Description("The name of the desktop shortcut.")]
+        [Description("The name of the command-line alias.")]
         [XmlAttribute("name")]
         public string Name { get; set; }
         #endregion
@@ -40,28 +40,28 @@ namespace ZeroInstall.MyApps
 
         #region Conversion
         /// <summary>
-        /// Returns the integration in the form "DesktopShortcut: Name". Not safe for parsing!
+        /// Returns the integration in the form "Alias: Name". Not safe for parsing!
         /// </summary>
         public override string ToString()
         {
-            return "DesktopShortcut: " + Name;
+            return "Alias: " + Name;
         }
         #endregion
 
         #region Clone
         /// <summary>
-        /// Creates a deep copy of this <see cref="DesktopShortcut"/> instance.
+        /// Creates a deep copy of this <see cref="Bootstrapper"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="DesktopShortcut"/>.</returns>
+        /// <returns>The new copy of the <see cref="Bootstrapper"/>.</returns>
         public override Integration CloneIntegration()
         {
-            return new DesktopShortcut {Name = Name};
+            return new Bootstrapper {Name = Name};
         }
         #endregion
 
         #region Equality
         /// <inheritdoc/>
-        public bool Equals(DesktopShortcut other)
+        public bool Equals(Bootstrapper other)
         {
             if (other == null) return false;
 
@@ -73,7 +73,7 @@ namespace ZeroInstall.MyApps
         {
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == typeof(DesktopShortcut) && Equals((DesktopShortcut)obj);
+            return obj.GetType() == typeof(Bootstrapper) && Equals((Bootstrapper)obj);
         }
 
         /// <inheritdoc/>

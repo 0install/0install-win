@@ -18,6 +18,7 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.MyApps
 {

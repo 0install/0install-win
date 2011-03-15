@@ -17,7 +17,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="DesktopIntegration">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
@@ -25,27 +25,31 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
-    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Commands">
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
-      <Category Ref="CodeSchema_SourceFile" />
-      <Category Ref="ExeFile" />
-    </Node>
-    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
-      <Category Ref="CodeSchema_SourceFile" />
-      <Category Ref="ExeFile" />
-    </Node>
-    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.WinForms">
-      <Category Ref="CodeSchema_SourceFile" />
-      <Category Ref="ExeFile" />
-    </Node>
-    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Commands">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
-    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
+    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
@@ -64,51 +68,60 @@
   </Nodes>
   <Links>
     <Link Source="@10" Target="@16" Category="References" />
-    <Link Source="@10" Target="@18" Category="References" />
     <Link Source="@10" Target="@20" Category="References" />
-    <Link Source="@10" Target="@30" Category="References" />
+    <Link Source="@10" Target="@22" Category="References" />
+    <Link Source="@10" Target="@32" Category="References" />
     <Link Source="@10" Target="@4" Category="References" />
     <Link Source="@12" Target="@16" Category="References" />
     <Link Source="@12" Target="@18" Category="References" />
     <Link Source="@12" Target="@20" Category="References" />
-    <Link Source="@12" Target="@28" Category="References" />
+    <Link Source="@12" Target="@22" Category="References" />
     <Link Source="@12" Target="@30" Category="References" />
+    <Link Source="@12" Target="@32" Category="References" />
     <Link Source="@12" Target="@4" Category="References" />
     <Link Source="@14" Target="@16" Category="References" />
     <Link Source="@14" Target="@18" Category="References" />
-    <Link Source="@14" Target="@28" Category="References" />
+    <Link Source="@14" Target="@20" Category="References" />
     <Link Source="@14" Target="@30" Category="References" />
+    <Link Source="@14" Target="@32" Category="References" />
     <Link Source="@14" Target="@4" Category="References" />
-    <Link Source="@18" Target="@16" Category="References" />
-    <Link Source="@18" Target="@30" Category="References" />
-    <Link Source="@18" Target="@4" Category="References" />
+    <Link Source="@16" Target="@18" Category="References" />
     <Link Source="@2" Target="@16" Category="References" />
     <Link Source="@2" Target="@4" Category="References" />
     <Link Source="@20" Target="@16" Category="References" />
     <Link Source="@20" Target="@18" Category="References" />
-    <Link Source="@20" Target="@30" Category="References" />
+    <Link Source="@20" Target="@32" Category="References" />
     <Link Source="@20" Target="@4" Category="References" />
     <Link Source="@22" Target="@16" Category="References" />
     <Link Source="@22" Target="@18" Category="References" />
+    <Link Source="@22" Target="@20" Category="References" />
+    <Link Source="@22" Target="@30" Category="References" />
+    <Link Source="@22" Target="@32" Category="References" />
     <Link Source="@22" Target="@4" Category="References" />
-    <Link Source="@22" Target="@6" Category="References" />
-    <Link Source="@24" Target="@14" Category="References" />
     <Link Source="@24" Target="@16" Category="References" />
-    <Link Source="@24" Target="@18" Category="References" />
-    <Link Source="@24" Target="@28" Category="References" />
-    <Link Source="@24" Target="@30" Category="References" />
+    <Link Source="@24" Target="@20" Category="References" />
     <Link Source="@24" Target="@4" Category="References" />
+    <Link Source="@24" Target="@6" Category="References" />
+    <Link Source="@26" Target="@14" Category="References" />
     <Link Source="@26" Target="@16" Category="References" />
     <Link Source="@26" Target="@18" Category="References" />
     <Link Source="@26" Target="@20" Category="References" />
-    <Link Source="@26" Target="@28" Category="References" />
     <Link Source="@26" Target="@30" Category="References" />
+    <Link Source="@26" Target="@32" Category="References" />
     <Link Source="@26" Target="@4" Category="References" />
     <Link Source="@28" Target="@16" Category="References" />
     <Link Source="@28" Target="@18" Category="References" />
+    <Link Source="@28" Target="@20" Category="References" />
+    <Link Source="@28" Target="@22" Category="References" />
+    <Link Source="@28" Target="@30" Category="References" />
+    <Link Source="@28" Target="@32" Category="References" />
     <Link Source="@28" Target="@4" Category="References" />
     <Link Source="@30" Target="@16" Category="References" />
+    <Link Source="@30" Target="@18" Category="References" />
+    <Link Source="@30" Target="@20" Category="References" />
     <Link Source="@30" Target="@4" Category="References" />
+    <Link Source="@32" Target="@16" Category="References" />
+    <Link Source="@32" Target="@4" Category="References" />
     <Link Source="@4" Target="@16" Category="References" />
     <Link Source="@6" Target="@16" Category="References" />
     <Link Source="@6" Target="@4" Category="References" />
@@ -172,20 +185,22 @@
     <Alias n="14" Id="(@13)" />
     <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
     <Alias n="16" Id="(@15)" />
-    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/DesktopIntegration/DesktopIntegration.csproj" />
     <Alias n="18" Id="(@17)" />
-    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Commands/Commands.csproj" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
     <Alias n="20" Id="(@19)" />
-    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Commands/Commands.csproj" />
     <Alias n="22" Id="(@21)" />
-    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
     <Alias n="24" Id="(@23)" />
-    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Commands.WinForms/Commands.WinForms.csproj" />
+    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="26" Id="(@25)" />
-    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/Commands.WinForms/Commands.WinForms.csproj" />
     <Alias n="28" Id="(@27)" />
-    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
+    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
     <Alias n="30" Id="(@29)" />
+    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
+    <Alias n="32" Id="(@31)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="VsSolution" Value="..\.." />
