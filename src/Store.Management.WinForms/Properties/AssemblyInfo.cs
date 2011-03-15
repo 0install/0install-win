@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Store Management WinForms GUI")]
 [assembly: AssemblyDescription("Manages caches of Zero Install implementations via a WinForms GUI.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.net")]
+[assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]

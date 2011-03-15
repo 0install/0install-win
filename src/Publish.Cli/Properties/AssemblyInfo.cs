@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Publish")]
 [assembly: AssemblyDescription("Command-line tool for editing Zero Install feed XMLs.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.net")]
+[assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Simon E. Silva Lauinger, Bastian Eicher 2010")]
 [assembly: NeutralResourcesLanguage("en")]

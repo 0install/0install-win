@@ -198,15 +198,6 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run in batch mode: don&apos;t display any progress reports to the user and silently answer all questions with &quot;No&quot;..
-        /// </summary>
-        internal static string OptionBatch {
-            get {
-                return ResourceManager.GetString("OptionBatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Show the built-in help text..
         /// </summary>
         internal static string OptionHelp {

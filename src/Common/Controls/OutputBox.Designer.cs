@@ -38,7 +38,7 @@
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonOK.Location = new System.Drawing.Point(217, 106);
+            this.buttonOK.Location = new System.Drawing.Point(267, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(88, 24);
             this.buttonOK.TabIndex = 2;
@@ -67,7 +67,7 @@
             this.textMessage.Name = "textMessage";
             this.textMessage.ReadOnly = true;
             this.textMessage.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textMessage.Size = new System.Drawing.Size(306, 64);
+            this.textMessage.Size = new System.Drawing.Size(356, 184);
             this.textMessage.TabIndex = 3;
             this.textMessage.Text = "(Message)";
             // 
@@ -76,7 +76,7 @@
             this.AcceptButton = this.buttonOK;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.CancelButton = this.buttonOK;
-            this.ClientSize = new System.Drawing.Size(334, 142);
+            this.ClientSize = new System.Drawing.Size(384, 262);
             this.ControlBox = false;
             this.Controls.Add(this.textMessage);
             this.Controls.Add(this.labelTitle);

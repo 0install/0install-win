@@ -107,6 +107,7 @@
       <Abbreviation Text="OS" />
       <Abbreviation Text="PG" />
       <Abbreviation Text="RC" />
+      <Abbreviation Text="UI" />
     </Naming2>
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>

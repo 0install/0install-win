@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Zero Install Launcher Library")]
 [assembly: AssemblyDescription("Code for solving dependencies, launching implementations and injecting the selected dependencies.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.net")]
+[assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]

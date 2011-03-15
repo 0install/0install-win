@@ -8,7 +8,7 @@ using System.Security.Permissions;
 [assembly: AssemblyTitle("Zero Install Launcher CLI")]
 [assembly: AssemblyDescription("A command-line interface for Zero Install, for launching applications. A speced down version of 0install.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("0install.net")]
+[assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
 [assembly: AssemblyCopyright("Copyright © Bastian Eicher 2010-2011")]
 [assembly: NeutralResourcesLanguage("en")]

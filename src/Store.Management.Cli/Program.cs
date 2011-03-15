@@ -74,10 +74,8 @@ namespace ZeroInstall.Store.Management.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] {"--help"};
 
-            ITaskHandler handler = new CliTaskHandler();
-
             IList<string> restArgs;
-            try { restArgs = ParseArgs(args, handler); }
+            try { restArgs = ParseArgs(args); }
             #region Error handling
             catch (ArgumentException ex)
             {
@@ -88,7 +86,7 @@ namespace ZeroInstall.Store.Management.Cli
 
             if (restArgs.Count == 0) return (int)ErrorLevel.OK;
 
-            try { return (int)ExecuteArgs(restArgs, handler); }
+            try { return (int)ExecuteArgs(restArgs, new CliTaskHandler()); }
             #region Error handling
             catch (UserCancelException)
             {
@@ -139,10 +137,9 @@ namespace ZeroInstall.Store.Management.Cli
         /// Parses command-line arguments.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
-        /// <param name="handler">A callback object used when the the user needs to be asked any questions or informed about progress.</param>
         /// <returns>Any unparsed commands left over.</returns>
         /// <exception cref="ArgumentException">Thrown if <paramref name="args"/> contains unknown options.</exception>
-        private static IList<string> ParseArgs(IEnumerable<string> args, ITaskHandler handler)
+        private static IList<string> ParseArgs(IEnumerable<string> args)
         {
             #region Sanity checks
             if (args == null) throw new ArgumentNullException("args");
@@ -151,9 +148,6 @@ namespace ZeroInstall.Store.Management.Cli
             #region Define options
             var options = new OptionSet
             {
-                // Special operations
-                {"batch", Resources.OptionBatch, unused => handler.Batch = true},
-
                 // Mode selection
                 {"V|version", Resources.OptionVersion, unused => Console.WriteLine(@"Zero Install Store management CLI v{0}", Assembly.GetEntryAssembly().GetName().Version)},
 
