@@ -89,7 +89,7 @@ namespace ZeroInstall.Commands
             var startInfo = executor.GetStartInfo(AdditionalArgs);
             if (_noWait)
             {
-                ProcessUtils.RunDetached(startInfo);
+                ProcessUtils.RunAsync(startInfo);
                 return 0;
             }
             return ProcessUtils.RunSync(startInfo);

@@ -37,7 +37,7 @@ namespace Common.Utils
     {
         #region Run
         /// <summary>
-        /// Runs the specified program and waits for it to exit. Terminating this process (the parent) may also terminate the new process (the child).
+        /// Runs the specified program and waits for it to exit.
         /// </summary>
         /// <param name="startInfo">Details about the program to be launched.</param>
         /// <returns>The exit code of the process.</returns>
@@ -55,7 +55,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Starts the specified program and immediately returns. Terminating this process (the parent) may also terminate the new process (the child).
+        /// Starts the specified program and immediately returns.
         /// </summary>
         /// <param name="startInfo">Details about the program to be launched.</param>
         /// <returns>A handle to the newly launched process.</returns>
@@ -68,24 +68,6 @@ namespace Common.Utils
             #endregion
 
             return Process.Start(startInfo);
-        }
-
-        /// <summary>
-        /// Starts the specified program and immediately returns. Terminating this process (the parent) will not affect the new process (the child).
-        /// </summary>
-        /// <param name="startInfo">Details about the program to be launched.</param>
-        /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
-        public static void RunDetached(ProcessStartInfo startInfo)
-        {
-            #region Sanity checks
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            #endregion
-
-            // On Unix-like systems using an external launch helper is required to detach the child process from the parent
-            if (MonoUtils.IsUnix) startInfo.UseShellExecute = true;
-
-            RunAsync(startInfo);
         }
         #endregion
 
@@ -107,7 +89,7 @@ namespace Common.Utils
             if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono
-            RunDetached(WindowsUtils.IsWindows
+            RunAsync(WindowsUtils.IsWindows
                 ? new ProcessStartInfo(appPath, arguments)
                 : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
         }
