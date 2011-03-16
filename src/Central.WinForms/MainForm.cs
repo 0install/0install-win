@@ -20,6 +20,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
+using Common.Controls;
+using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 
 namespace ZeroInstall.Central.WinForms
@@ -111,7 +113,10 @@ namespace ZeroInstall.Central.WinForms
         #region Tools
         private void buttonLaunchInterface_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperAssembly(this, "0install-win", "run");
+            string interfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
+            if (string.IsNullOrEmpty(interfaceID)) return;
+
+            Program.LaunchHelperAssembly(this, "0install-win", "run " + StringUtils.Escape(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
