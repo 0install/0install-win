@@ -60,6 +60,13 @@ namespace ZeroInstall.Commands.WinForms.Properties {
             }
         }
         
+        internal static System.Drawing.Icon TrayIcon {
+            get {
+                object obj = ResourceManager.GetObject("TrayIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Try 0install-win --help.
         /// </summary>

@@ -21,7 +21,9 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
+#if !DEBUG
 using Common.Controls;
+#endif
 using NDesk.Options;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Fetchers;
@@ -49,26 +51,19 @@ namespace ZeroInstall.Commands.WinForms
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] {"--help"};
 
+#if !DEBUG
             ErrorReportForm.RunAppMonitored(delegate
             {
+#endif
                 var handler = new GuiHandler();
                 CommandBase command;
                 try
                 {
                     command = CommandFactory.CreateAndParse(args, handler);
 
+                    // Inform the handler about the name of the action being performed
                     var selection = command as Selection;
-                    if (selection != null)
-                    {
-                        handler.ActionTitle = selection.ActionTitle;
-
-                        // Ask user to specifiy interface ID if it is missing
-                        if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
-                        {
-                            selection.Requirements.InterfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
-                            if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
-                        }
-                    }
+                    if (selection != null) handler.ActionTitle = selection.ActionTitle;
                 }
                 #region Error handling
                 catch (UserCancelException)
@@ -162,7 +157,9 @@ namespace ZeroInstall.Commands.WinForms
                     // Close any UI that may still be open
                     handler.CloseProgressUI();
                 }
+#if !DEBUG
             });
+#endif
         }
     }
 }

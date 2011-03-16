@@ -63,9 +63,9 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Returns a list of changes found by the update process.
+        /// Shows a list of changes found by the update process.
         /// </summary>
-        private string GetUpdateOutput()
+        private void ShowUpdateOutput()
         {
             bool changes = false;
 
@@ -97,9 +97,18 @@ namespace ZeroInstall.Commands
                     changes = true;
                 }
             }
-            if (!changes) builder.AppendLine(Resources.NoUpdatesFound);
 
-            return (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
+            if (changes)
+            {
+                // Display the list of changes
+                string message = (builder.Length == 0 ? "" : builder.ToString(0, builder.Length - Environment.NewLine.Length)); // Remove trailing line-break
+                Policy.Handler.Output(Resources.ChangesFound, message);
+            }
+            else
+            {
+                // Show a "nothing changed" message (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
+            }
         }
         #endregion
 
@@ -127,7 +136,7 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             Policy.Handler.CloseProgressUI();
-            Policy.Handler.Output(Resources.ChangesFound, GetUpdateOutput());
+            ShowUpdateOutput();
             return 0;
         }
         #endregion

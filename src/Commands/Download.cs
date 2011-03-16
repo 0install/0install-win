@@ -106,7 +106,11 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.CloseProgressUI();
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            else Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            else
+            {
+                // Show a "download complete" message (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            }
             return 0;
         }
         #endregion

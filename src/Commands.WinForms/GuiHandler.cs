@@ -15,11 +15,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using Common.Tasks;
+using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands.WinForms
@@ -31,7 +33,7 @@ namespace ZeroInstall.Commands.WinForms
     /// This class is heavily multi-threaded. The UI is prepared in the background with a low priority to allow simultaneous continuation of computation.
     /// Any calls relying on the UI being reading will block automatically.
     /// </remarks>
-    public class GuiHandler : IHandler
+    public class GuiHandler : MarshalByRefObject, IHandler
     {
         #region Variables
         private ProgressForm _form;
@@ -52,18 +54,26 @@ namespace ZeroInstall.Commands.WinForms
         public void RunTask(ITask task, object tag)
         {
             _guiAvailable.WaitOne();
-            
-            _form.TrackTask(task, tag);
+
+            // Handle events coming from a non-UI thread, don't block caller
+            _form.Invoke((SimpleEventHandler)(() => _form.TrackTask(task, tag)));
+
             task.RunSync();
         }
 
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
+            if (Batch)
+            {
+                ShowBalloonMessage("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
+                return false;
+            }
+
             _guiAvailable.WaitOne();
 
             // Handle events coming from a non-UI thread, block caller until user has answered
-            bool result = false; 
+            bool result = false;
             _form.Invoke((SimpleEventHandler)(() => result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
             return result;
         }
@@ -83,12 +93,14 @@ namespace ZeroInstall.Commands.WinForms
         {
             _form = new ProgressForm();
             if (ActionTitle != null) _form.Text = ActionTitle;
-            _form.CreateControl();
+            _form.Initialize();
 
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
 
-            _form.Show();
+            if (Batch) _form.ShowTrayIcon(ActionTitle);
+            else _form.Show();
+
             _guiAvailable.Set();
             Application.Run();
         }
@@ -99,6 +111,7 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiAvailable.WaitOne();
 
+            _form.HideTrayIcon();
             Application.Exit();
             _form = null;
             _guiAvailable.Reset();
@@ -108,7 +121,14 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc />
         public void Output(string title, string information)
         {
-            OutputBox.Show(null, title, information);
+            if (Batch) ShowBalloonMessage(title, information, ToolTipIcon.Info);
+            else OutputBox.Show(null, title, information);
+        }
+
+        private void ShowBalloonMessage(string title, string information, ToolTipIcon type)
+        {
+            var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
+            icon.ShowBalloonTip(10000, title, information, type);
         }
     }
 }

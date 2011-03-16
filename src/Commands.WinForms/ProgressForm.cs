@@ -18,7 +18,6 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Common;
 using Common.Tasks;
 
 namespace ZeroInstall.Commands.WinForms
@@ -38,7 +37,13 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
         
-        #region Handler
+        public void Initialize()
+        {
+            CreateHandle();
+            CreateControl();
+        }
+
+        #region Task tracking
         /// <summary>
         /// Sets up tracking for a <see cref="ITask"/>. Returns immediately.
         /// </summary>
@@ -46,16 +51,13 @@ namespace ZeroInstall.Commands.WinForms
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
         public void TrackTask(ITask task, object tag)
         {
-            // ToDo: Use tag
+            labelOperation.Text = task.Name + @"...";
+            progressBar.Task = task;
+            labelProgress.Task = task;
+            buttonCancel.Enabled = true;
 
-            // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
-            {
-                labelOperation.Text = task.Name + @"...";
-                progressBar.Task = task;
-                labelProgress.Task = task;
-                buttonCancel.Enabled = true;
-            });
+            if (notifyIcon.Visible)
+                notifyIcon.ShowBalloonTip(5000, "Zero Install", task.Name, ToolTipIcon.None);
         }
         #endregion
 
@@ -69,7 +71,7 @@ namespace ZeroInstall.Commands.WinForms
             }
 
             // Hide UI immediately so user doesn't notice anything freezing
-            Visible = false;
+            Hide();
 
             // Cancel any tasks that may still be running
             if (progressBar.Task != null) progressBar.Task.Cancel();
@@ -78,6 +80,34 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region Tray icon
+        public void ShowTrayIcon(string text)
+        {
+            notifyIcon.Text = Text;
+            notifyIcon.Visible = true;
+            notifyIcon.ShowBalloonTip(5000, "Zero Install", text, ToolTipIcon.None);
+        }
+
+        public void HideTrayIcon()
+        {
+            notifyIcon.Visible = false;
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            HideTrayIcon();
+        }
+
+        private void buttonHide_Click(object sender, EventArgs e)
+        {
+            if (progressBar.Task != null) ShowTrayIcon(progressBar.Task.Name);
+            else ShowTrayIcon(Text);
+            Visible = false;
         }
         #endregion
     }

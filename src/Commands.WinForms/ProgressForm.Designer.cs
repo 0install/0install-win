@@ -28,11 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelProgress = new Common.Controls.TrackingLabel();
+            this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.buttonHide = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // progressBar
@@ -61,7 +64,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(222, 87);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 3;
+            this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -75,11 +78,29 @@
             this.labelProgress.TabIndex = 2;
             this.labelProgress.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
+            // notifyIcon
+            // 
+            this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
+            this.notifyIcon.Text = "Zero Install";
+            this.notifyIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseClick);
+            // 
+            // buttonHide
+            // 
+            this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonHide.Location = new System.Drawing.Point(141, 87);
+            this.buttonHide.Name = "buttonHide";
+            this.buttonHide.Size = new System.Drawing.Size(75, 23);
+            this.buttonHide.TabIndex = 3;
+            this.buttonHide.Text = "&Hide";
+            this.buttonHide.UseVisualStyleBackColor = true;
+            this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 122);
+            this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.labelProgress);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelOperation);
@@ -102,6 +123,8 @@
         private System.Windows.Forms.Label labelOperation;
         private System.Windows.Forms.Button buttonCancel;
         private Common.Controls.TrackingLabel labelProgress;
+        private System.Windows.Forms.Button buttonHide;
+        private System.Windows.Forms.NotifyIcon notifyIcon;
 
     }
 }
