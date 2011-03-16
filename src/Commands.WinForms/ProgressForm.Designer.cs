@@ -75,7 +75,7 @@
             this.labelProgress.TabIndex = 2;
             this.labelProgress.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // MainForm
+            // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -88,9 +88,9 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(2048, 160);
             this.MinimumSize = new System.Drawing.Size(200, 160);
-            this.Name = "MainForm";
+            this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "Launching application";
+            this.Text = "Zero Install";
             this.Closing += new System.ComponentModel.CancelEventHandler(this.MainForm_Closing);
             this.ResumeLayout(false);
             this.PerformLayout();

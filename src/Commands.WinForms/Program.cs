@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands.WinForms
 
             ErrorReportForm.RunAppMonitored(delegate
             {
-                IHandler handler = new GuiHandler();
+                var handler = new GuiHandler();
                 CommandBase command;
                 try
                 {
@@ -60,6 +60,8 @@ namespace ZeroInstall.Commands.WinForms
                     var selection = command as Selection;
                     if (selection != null)
                     {
+                        handler.ActionTitle = selection.ActionTitle;
+
                         // Ask user to specifiy interface ID if it is missing
                         if (string.IsNullOrEmpty(selection.Requirements.InterfaceID))
                         {

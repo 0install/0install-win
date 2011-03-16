@@ -40,6 +40,11 @@ namespace ZeroInstall.Commands.WinForms
         private readonly EventWaitHandle _guiAvailable = new EventWaitHandle(false, EventResetMode.ManualReset);
         #endregion
 
+        /// <summary>
+        /// A short title describing what the command being executed does.
+        /// </summary>
+        public virtual string ActionTitle { get; set; }
+
         /// <inheritdoc />
         public bool Batch { get; set; }
 
@@ -77,6 +82,7 @@ namespace ZeroInstall.Commands.WinForms
         private void GuiThread()
         {
             _form = new ProgressForm();
+            if (ActionTitle != null) _form.Text = ActionTitle;
             _form.CreateControl();
 
             // Restore normal priority as soon as the GUI becomes visible
