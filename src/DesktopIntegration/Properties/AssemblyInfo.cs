@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install Desktop Integration Library")]
-[assembly: AssemblyDescription("Provides methods for integrating applications with desktop environments.")]
+[assembly: AssemblyDescription("Provides methods for integrating applications with desktop environments (creating menu entries, monitoring system changes, etc.).")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]

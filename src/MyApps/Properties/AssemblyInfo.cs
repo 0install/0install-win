@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 // Assembly info
 [assembly: AssemblyTitle("Zero Install MyApps Library")]
-[assembly: AssemblyDescription("Methods for managing a user's list of favorite applications.")]
+[assembly: AssemblyDescription("Maintains the user's list of \"installed applications\" and provides cloud-storage functionality.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("0install.de")]
 [assembly: AssemblyProduct("Zero Install")]
