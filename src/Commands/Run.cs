@@ -82,8 +82,8 @@ namespace ZeroInstall.Commands
         /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
         private int LaunchImplementation()
         {
-            // Close any windows that may still be open
-            Policy.Handler.CloseAsync();
+            // Close any UI that may still be open
+            Policy.Handler.CloseProgressUI();
 
             var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
             var startInfo = executor.GetStartInfo(AdditionalArgs);
@@ -104,8 +104,9 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             #endregion
 
+            Policy.Handler.ShowProgressUI();
+            
             Solve();
-
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
@@ -115,6 +116,7 @@ namespace ZeroInstall.Commands
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
+            Policy.Handler.CloseProgressUI();
             return LaunchImplementation();
         }
         #endregion

@@ -113,6 +113,8 @@ namespace ZeroInstall.Commands
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
             #endregion
 
+            Policy.Handler.ShowProgressUI();
+
             // Run solver with refresh forced off to get the old values
             var noRefreshPolicy = Policy.ClonePolicy();
             noRefreshPolicy.FeedManager.Refresh = false;
@@ -124,6 +126,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
+            Policy.Handler.CloseProgressUI();
             Policy.Handler.Output(Resources.ChangesFound, GetUpdateOutput());
             return 0;
         }

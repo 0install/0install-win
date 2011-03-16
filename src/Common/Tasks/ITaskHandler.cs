@@ -32,11 +32,6 @@ namespace Common.Tasks
     public interface ITaskHandler
     {
         /// <summary>
-        /// Do not show progress reports, questions or messages (except for non-intrusive background messages like tray icons) unless a critical error occurs.
-        /// </summary>
-        bool Batch { get; set; }
-
-        /// <summary>
         /// Runs (and potentially tracks) an <see cref="ITask"/>. Returns once the task has been completed.
         /// </summary>
         /// <param name="task">The task to be run. (<see cref="ITask.RunSync"/> or equivalent is called on it.)</param>

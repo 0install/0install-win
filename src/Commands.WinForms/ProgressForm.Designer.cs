@@ -1,6 +1,6 @@
 ﻿namespace ZeroInstall.Commands.WinForms
 {
-    partial class MainForm
+    partial class ProgressForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();

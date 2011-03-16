@@ -16,14 +16,12 @@
  */
 
 using System;
-using System.Collections.Generic;
 using Common.Collections;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
-using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -93,6 +91,8 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
+            Policy.Handler.ShowProgressUI();
+            
             Solve();
 
             // If any of the feeds are getting old rerun solver in refresh mode
@@ -104,6 +104,7 @@ namespace ZeroInstall.Commands
 
             DownloadUncachedImplementations();
 
+            Policy.Handler.CloseProgressUI();
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             return 0;

@@ -133,7 +133,7 @@ namespace ZeroInstall.Commands
 
         #region Parse
         /// <summary>
-        /// Parses command-line arguments.
+        /// Parses command-line arguments and stores the result in the command.
         /// </summary>
         /// <param name="args">The command-line arguments to be parsed.</param>
         /// <exception cref="UserCancelException">Thrown if the user asked to see help information, version information, etc..</exception>

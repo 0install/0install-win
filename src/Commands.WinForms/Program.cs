@@ -51,7 +51,7 @@ namespace ZeroInstall.Commands.WinForms
 
             ErrorReportForm.RunAppMonitored(delegate
             {
-                var handler = new MainForm();
+                IHandler handler = new GuiHandler();
                 CommandBase command;
                 try
                 {
@@ -66,9 +66,6 @@ namespace ZeroInstall.Commands.WinForms
                             selection.Requirements.InterfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
                             if (string.IsNullOrEmpty(selection.Requirements.InterfaceID)) return;
                         }
-
-                        // Start warming up the GUI - selection commands are often long-running
-                        handler.ShowAsync();
                     }
                 }
                 #region Error handling
@@ -106,38 +103,31 @@ namespace ZeroInstall.Commands.WinForms
                 catch (OptionException ex)
                 {
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (WebException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (NotSupportedException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (IOException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (DigestMismatchException ex)
                 {
                     // ToDo: Display generated manifest
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (FetcherException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
@@ -147,33 +137,28 @@ namespace ZeroInstall.Commands.WinForms
                 catch (SolverException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (ImplementationNotFoundException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (CommandException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (Win32Exception ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 catch (BadImageFormatException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                    handler.CloseAsync();
                 }
                 #endregion
                 finally
                 {
-                    // Close any windows that may still be open
-                    handler.CloseAsync();
+                    // Close any UI that may still be open
+                    handler.CloseProgressUI();
                 }
             });
         }

@@ -19,20 +19,15 @@ using System;
 using Common;
 using Common.Cli;
 using Common.Tasks;
+using ZeroInstall.Injector;
 
-namespace ZeroInstall.Injector
+namespace ZeroInstall.Commands
 {
     /// <summary>
     /// Uses the stderr stream to inform the user about the progress of tasks and ask the user questions.
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
-        /// <inheritdoc />
-        public void Output(string title, string information)
-        {
-            Console.WriteLine(information);
-        }
-
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -56,9 +51,21 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public void CloseAsync()
+        public void ShowProgressUI()
         {
-            // No GUI, so nothing to do
+            // Console UI only, so nothing to do
+        }
+
+        /// <inheritdoc/>
+        public void CloseProgressUI()
+        {
+            // Console UI only, so nothing to do
+        }
+
+        /// <inheritdoc />
+        public void Output(string title, string information)
+        {
+            Console.WriteLine(information);
         }
     }
 }

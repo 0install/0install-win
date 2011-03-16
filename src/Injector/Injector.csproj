@@ -50,7 +50,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CliHandler.cs" />
     <Compile Include="Preferences.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />

@@ -27,7 +27,6 @@ using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using CliHandler = ZeroInstall.Injector.CliHandler;
 
 namespace ZeroInstall.Commands.Cli
 {
@@ -44,7 +43,7 @@ namespace ZeroInstall.Commands.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
 
-            var handler = new CliHandler();
+            IHandler handler = new CliHandler();
             CommandBase command;
             try { command = CommandFactory.CreateAndParse(args, handler); }
             #region Error handling
@@ -150,8 +149,8 @@ namespace ZeroInstall.Commands.Cli
             #endregion
             finally
             {
-                // Close any windows that may still be open
-                handler.CloseAsync();
+                // Close any UI that may still be open
+                handler.CloseProgressUI();
             }
         }
     }

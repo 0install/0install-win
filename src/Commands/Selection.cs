@@ -159,6 +159,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
+            Policy.Handler.ShowProgressUI();
             Solve();
 
             // If any of the feeds are getting old rerun solver in refresh mode
@@ -168,6 +169,7 @@ namespace ZeroInstall.Commands
                 Solve();
             }
 
+            Policy.Handler.CloseProgressUI();
             Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }

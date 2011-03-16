@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddFeed.cs" />
+    <Compile Include="CliHandler.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandFactory.cs" />
     <Compile Include="Config.cs" />

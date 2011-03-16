@@ -28,7 +28,6 @@ using ZeroInstall.Injector.Solver;
 using ZeroInstall.Launcher.Cli.Properties;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
-using CliHandler = ZeroInstall.Injector.CliHandler;
 
 namespace ZeroInstall.Launcher.Cli
 {
@@ -45,7 +44,7 @@ namespace ZeroInstall.Launcher.Cli
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
 
-            var handler = new CliHandler();
+            IHandler handler = new CliHandler();
             var command = new Run(Policy.CreateDefault(handler));
             
             try { command.Parse(args); }
@@ -152,8 +151,8 @@ namespace ZeroInstall.Launcher.Cli
             #endregion
             finally
             {
-                // Close any windows that may still be open
-                handler.CloseAsync();
+                // Close any UI that may still be open
+                handler.CloseProgressUI();
             }
         }
     }

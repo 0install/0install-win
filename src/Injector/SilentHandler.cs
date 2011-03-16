@@ -25,19 +25,25 @@ namespace ZeroInstall.Injector
     public class SilentHandler : SilentTaskHandler, IHandler
     {
         /// <inheritdoc />
-        public virtual void Output(string title, string information)
-        {}
-
-        /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
             return false;
         }
 
         /// <inheritdoc/>
-        public void CloseAsync()
+        public void ShowProgressUI()
         {
-            // No GUI, so nothing to do
+            // No UI, so nothing to do
         }
+
+        /// <inheritdoc/>
+        public void CloseProgressUI()
+        {
+            // No UI, so nothing to do
+        }
+
+        /// <inheritdoc />
+        public virtual void Output(string title, string information)
+        {}
     }
 }
