@@ -42,6 +42,7 @@ namespace ZeroInstall.Commands.WinForms
         private readonly EventWaitHandle _guiAvailable = new EventWaitHandle(false, EventResetMode.ManualReset);
         #endregion
 
+        #region Properties
         /// <summary>
         /// A short title describing what the command being executed does.
         /// </summary>
@@ -49,7 +50,11 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <inheritdoc />
         public bool Batch { get; set; }
+        #endregion
 
+        //--------------------//
+
+        #region Task tracking
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
@@ -60,23 +65,25 @@ namespace ZeroInstall.Commands.WinForms
 
             task.RunSync();
         }
+        #endregion
 
+        #region Key control
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
-            if (Batch)
-            {
-                ShowBalloonMessage("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
-                return false;
-            }
-
             _guiAvailable.WaitOne();
 
             // Handle events coming from a non-UI thread, block caller until user has answered
             bool result = false;
-            _form.Invoke((SimpleEventHandler)(() => result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel")));
+            _form.Invoke((SimpleEventHandler)delegate
+            {
+                // Auto-deny unknown keys and inform via tray icon when in batch mode
+                if (Batch) _form.ShowTrayIcon("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
+                else result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+            });
             return result;
         }
+        #endregion
 
         #region UI control
         /// <inheritdoc/>
@@ -98,7 +105,7 @@ namespace ZeroInstall.Commands.WinForms
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
 
-            if (Batch) _form.ShowTrayIcon(ActionTitle);
+            if (Batch) _form.ShowTrayIcon("Zero Install", ActionTitle, ToolTipIcon.None);
             else _form.Show();
 
             _guiAvailable.Set();
@@ -118,17 +125,24 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
+        #region Messages
         /// <inheritdoc />
         public void Output(string title, string information)
         {
-            if (Batch) ShowBalloonMessage(title, information, ToolTipIcon.Info);
+            if (Batch) ShowBalloonMessage(title, information);
             else OutputBox.Show(null, title, information);
         }
 
-        private void ShowBalloonMessage(string title, string information, ToolTipIcon type)
+        /// <summary>
+        /// Displays a tray icon with balloon message detached from the main GUI (will stick around even after the process ends).
+        /// </summary>
+        /// <param name="title">The title of the balloon message.</param>
+        /// <param name="information">The balloon message text.</param>
+        private static void ShowBalloonMessage(string title, string information)
         {
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
-            icon.ShowBalloonTip(10000, title, information, type);
+            icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
         }
+        #endregion
     }
 }

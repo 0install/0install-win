@@ -94,69 +94,78 @@ namespace ZeroInstall.Commands.WinForms
                 #endregion
 
                 try { command.Execute(); }
-                #region Error hanlding
+                #region Error handling
                 catch (UserCancelException)
-                {}
+                {
+                    handler.CloseProgressUI();
+                }
                 catch (OptionException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
                 }
                 catch (WebException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (NotSupportedException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (IOException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (UnauthorizedAccessException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (DigestMismatchException ex)
                 {
+                    handler.CloseProgressUI();
                     // ToDo: Display generated manifest
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (FetcherException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
-                    return;
                 }
                 catch (SolverException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (ImplementationNotFoundException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (CommandException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (Win32Exception ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (BadImageFormatException ex)
                 {
+                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 #endregion
-                finally
-                {
-                    // Close any UI that may still be open
-                    handler.CloseProgressUI();
-                }
 #if !DEBUG
             });
 #endif

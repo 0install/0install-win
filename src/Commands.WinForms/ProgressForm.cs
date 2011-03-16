@@ -35,13 +35,16 @@ namespace ZeroInstall.Commands.WinForms
         {
             InitializeComponent();
         }
-        #endregion
-        
+
+        /// <summary>
+        /// Initializes the form and all its child controls without displaying it yet.
+        /// </summary>
         public void Initialize()
         {
             CreateHandle();
             CreateControl();
         }
+        #endregion
 
         #region Task tracking
         /// <summary>
@@ -56,12 +59,48 @@ namespace ZeroInstall.Commands.WinForms
             labelProgress.Task = task;
             buttonCancel.Enabled = true;
 
-            if (notifyIcon.Visible)
-                notifyIcon.ShowBalloonTip(5000, "Zero Install", task.Name, ToolTipIcon.None);
+            if (!Visible) ShowTrayIcon(Text, progressBar.Task.Name, ToolTipIcon.None);
         }
         #endregion
 
-        #region Event handling
+        #region Tray icon
+        /// <summary>
+        /// Shows the tray icon with an associated balloon message.
+        /// </summary>
+        /// <param name="title">The title of the balloon message.</param>
+        /// <param name="information">The balloon message text.</param>
+        /// <param name="messageType">The type icon to display next to the balloon message.</param>
+        public void ShowTrayIcon(string title, string information, ToolTipIcon messageType)
+        {
+            notifyIcon.Text = title;
+            notifyIcon.Visible = true;
+            notifyIcon.ShowBalloonTip(7500, title, information, messageType);
+        }
+
+        /// <summary>
+        /// Hides the tray icon.
+        /// </summary>
+        public void HideTrayIcon()
+        {
+            notifyIcon.Visible = false;
+        }
+
+        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            HideTrayIcon();
+        }
+
+        private void buttonHide_Click(object sender, EventArgs e)
+        {
+            if (progressBar.Task != null) ShowTrayIcon(Text, progressBar.Task.Name, ToolTipIcon.None);
+            else ShowTrayIcon("Zero Install", Text, ToolTipIcon.None);
+            Visible = false;
+        }
+        #endregion
+
+        #region Canceling
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
             if (!buttonCancel.Enabled)
@@ -80,34 +119,6 @@ namespace ZeroInstall.Commands.WinForms
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
-        }
-        #endregion
-
-        #region Tray icon
-        public void ShowTrayIcon(string text)
-        {
-            notifyIcon.Text = Text;
-            notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(5000, "Zero Install", text, ToolTipIcon.None);
-        }
-
-        public void HideTrayIcon()
-        {
-            notifyIcon.Visible = false;
-        }
-
-        private void notifyIcon_MouseClick(object sender, MouseEventArgs e)
-        {
-            Visible = true;
-            WindowState = FormWindowState.Normal;
-            HideTrayIcon();
-        }
-
-        private void buttonHide_Click(object sender, EventArgs e)
-        {
-            if (progressBar.Task != null) ShowTrayIcon(progressBar.Task.Name);
-            else ShowTrayIcon(Text);
-            Visible = false;
         }
         #endregion
     }

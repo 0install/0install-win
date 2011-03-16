@@ -46,7 +46,6 @@ namespace ZeroInstall.Launcher.Cli
 
             IHandler handler = new CliHandler();
             var command = new Run(Policy.CreateDefault(handler));
-            
             try { command.Parse(args); }
             #region Error handling
             catch (UserCancelException)
@@ -77,83 +76,92 @@ namespace ZeroInstall.Launcher.Cli
             #endregion
 
             try { return command.Execute(); }
-            #region Error hanlding
+            #region Error handling
             catch (UserCancelException)
             {
+                handler.CloseProgressUI();
                 return 1;
             }
             catch (OptionException ex)
             {
-                Log.Error(ex.Message);
+                handler.CloseProgressUI();
+                Log.Error(ex.Message + "\n" + Resources.TryHelp);
                 return 1;
             }
             catch (WebException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (NotSupportedException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (IOException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (UnauthorizedAccessException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (DigestMismatchException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
-                //if (Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
+                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (FetcherException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (SolverException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (ImplementationNotFoundException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (CommandException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (Win32Exception ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             catch (BadImageFormatException ex)
             {
+                handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 return 1;
             }
             #endregion
-            finally
-            {
-                // Close any UI that may still be open
-                handler.CloseProgressUI();
-            }
         }
     }
 }
