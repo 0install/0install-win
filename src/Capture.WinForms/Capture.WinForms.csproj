@@ -5,11 +5,14 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3A9E9BC7-D028-4AF5-8017-5EC32B668F3A}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{765447E8-9048-4901-BF16-011FC542579D}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ZeroInstall</RootNamespace>
-    <AssemblyName>Test.Tools</AssemblyName>
+    <RootNamespace>ZeroInstall.Capture.WinForms</RootNamespace>
+    <AssemblyName>0capture-win</AssemblyName>
+    <SignAssembly>true</SignAssembly>
+    <DelaySign>false</DelaySign>
+    <AssemblyOriginatorKeyFile>..\sgKey.snk</AssemblyOriginatorKeyFile>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -17,11 +20,15 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>..\..\build\Tools\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>..\..\build\Tools\Debug\0capture-win.xml</DocumentationFile>
+    <DefineConstants>DEBUG;TRACE;CODE_ANALYSIS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>..\CodeAnalysis.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,31 +37,61 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <NoWarn>1591</NoWarn>
     <DebugSymbols>false</DebugSymbols>
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.mocks">
-      <HintPath>..\..\lib\nunit.mocks.dll</HintPath>
-    </Reference>
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\lib\NDesk.Options.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Capture.Cli\Capture.Cli.csproj">
-      <Project>{29E77714-4B38-4719-94A6-601989EAA2A5}</Project>
-      <Name>Capture.Cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Capture.WinForms\Capture.WinForms.csproj">
-      <Project>{765447E8-9048-4901-BF16-011FC542579D}</Project>
-      <Name>Capture.WinForms</Name>
-    </ProjectReference>
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.de.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\app.manifest" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Capture\Capture.csproj">
       <Project>{4F383EAB-5002-4B0F-9089-DB22B485EE09}</Project>
       <Name>Capture</Name>
@@ -63,38 +100,18 @@
       <Project>{81AF4FA5-44F7-4010-8769-B85B8B542FA2}</Project>
       <Name>Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DesktopIntegration\DesktopIntegration.csproj">
+      <Project>{F48937E1-3763-465F-9F12-6CBBBFF61784}</Project>
+      <Name>DesktopIntegration</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Publish.Cli\Publish.Cli.csproj">
-      <Project>{4B66C00D-75B5-4535-985D-466042A09A84}</Project>
-      <Name>Publish.Cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Publish.WinForms\Publish.WinForms.csproj">
-      <Project>{50B1586B-040A-4805-AC05-1C77721EF4BD}</Project>
-      <Name>Publish.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Publish\Publish.csproj">
       <Project>{841CD750-F9D0-4A2D-98C7-7A340C781F41}</Project>
       <Name>Publish</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Store\Store.csproj">
-      <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
-      <Name>Store</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Test.Common\Test.Common.csproj">
-      <Project>{CA9D6092-4365-4385-9700-9570A98EF09D}</Project>
-      <Name>Test.Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Publish\WinForms\ControlHelpersTest.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Capture\Cli\" />
-    <Folder Include="Capture\WinForms\" />
-    <Folder Include="Publish\Cli\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DirectedGraph GraphDirection="LeftToRight" Layout="Sugiyama" xmlns="http://schemas.microsoft.com/vs/2009/dgml">
+  <Nodes>
+    <Node Id="@10" Category="CodeSchema_Project" IsDragSource="True" Label="Capture">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@12" Category="CodeSchema_Project" IsDragSource="True" Label="Publish">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Capture.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@18" Category="CodeSchema_Project" IsDragSource="True" Label="Launcher.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@2" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Backend">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="UnitTests" />
+    </Node>
+    <Node Id="@20" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@22" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.Cli">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@24" Category="CodeSchema_Project" IsDragSource="True" Label="Central">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@26" Category="CodeSchema_Project" IsDragSource="True" Label="Model">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@28" Category="CodeSchema_Project" IsDragSource="True" Label="DesktopIntegration">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@30" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Common">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="UnitTests" />
+    </Node>
+    <Node Id="@32" Category="CodeSchema_Project" IsDragSource="True" Label="Common">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@34" Category="CodeSchema_Project" IsDragSource="True" Label="Injector">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@36" Category="CodeSchema_Project" IsDragSource="True" Label="Commands">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@38" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Tools">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="UnitTests" />
+    </Node>
+    <Node Id="@4" Category="CodeSchema_Project" IsDragSource="True" Label="Test.Frontend">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="UnitTests" />
+    </Node>
+    <Node Id="@40" Category="CodeSchema_Project" IsDragSource="True" Label="Capture.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@42" Category="CodeSchema_Project" IsDragSource="True" Label="Publish.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@44" Category="CodeSchema_Project" IsDragSource="True" Label="Central.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@46" Category="CodeSchema_Project" IsDragSource="True" Label="Commands.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@48" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Management.WinForms">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@50" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@52" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+    <Node Id="@6" Category="CodeSchema_Project" IsDragSource="True" Label="Store.Service">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="ExeFile" />
+    </Node>
+    <Node Id="@8" Category="CodeSchema_Project" IsDragSource="True" Label="Store">
+      <Category Ref="CodeSchema_SourceFile" />
+      <Category Ref="DllFile" />
+    </Node>
+  </Nodes>
+  <Links>
+    <Link Source="@10" Target="@12" Category="References" />
+    <Link Source="@10" Target="@26" Category="References" />
+    <Link Source="@10" Target="@28" Category="References" />
+    <Link Source="@10" Target="@32" Category="References" />
+    <Link Source="@12" Target="@26" Category="References" />
+    <Link Source="@12" Target="@32" Category="References" />
+    <Link Source="@12" Target="@8" Category="References" />
+    <Link Source="@14" Target="@10" Category="References" />
+    <Link Source="@14" Target="@12" Category="References" />
+    <Link Source="@14" Target="@26" Category="References" />
+    <Link Source="@14" Target="@28" Category="References" />
+    <Link Source="@14" Target="@32" Category="References" />
+    <Link Source="@16" Target="@12" Category="References" />
+    <Link Source="@16" Target="@26" Category="References" />
+    <Link Source="@16" Target="@32" Category="References" />
+    <Link Source="@16" Target="@8" Category="References" />
+    <Link Source="@18" Target="@26" Category="References" />
+    <Link Source="@18" Target="@32" Category="References" />
+    <Link Source="@18" Target="@34" Category="References" />
+    <Link Source="@18" Target="@36" Category="References" />
+    <Link Source="@18" Target="@52" Category="References" />
+    <Link Source="@18" Target="@8" Category="References" />
+    <Link Source="@2" Target="@26" Category="References" />
+    <Link Source="@2" Target="@28" Category="References" />
+    <Link Source="@2" Target="@30" Category="References" />
+    <Link Source="@2" Target="@32" Category="References" />
+    <Link Source="@2" Target="@34" Category="References" />
+    <Link Source="@2" Target="@50" Category="References" />
+    <Link Source="@2" Target="@52" Category="References" />
+    <Link Source="@2" Target="@8" Category="References" />
+    <Link Source="@20" Target="@26" Category="References" />
+    <Link Source="@20" Target="@28" Category="References" />
+    <Link Source="@20" Target="@32" Category="References" />
+    <Link Source="@20" Target="@34" Category="References" />
+    <Link Source="@20" Target="@36" Category="References" />
+    <Link Source="@20" Target="@50" Category="References" />
+    <Link Source="@20" Target="@52" Category="References" />
+    <Link Source="@20" Target="@8" Category="References" />
+    <Link Source="@22" Target="@26" Category="References" />
+    <Link Source="@22" Target="@32" Category="References" />
+    <Link Source="@22" Target="@8" Category="References" />
+    <Link Source="@24" Target="@26" Category="References" />
+    <Link Source="@24" Target="@28" Category="References" />
+    <Link Source="@24" Target="@32" Category="References" />
+    <Link Source="@24" Target="@34" Category="References" />
+    <Link Source="@24" Target="@50" Category="References" />
+    <Link Source="@24" Target="@52" Category="References" />
+    <Link Source="@24" Target="@8" Category="References" />
+    <Link Source="@26" Target="@28" Category="References" />
+    <Link Source="@26" Target="@32" Category="References" />
+    <Link Source="@30" Target="@32" Category="References" />
+    <Link Source="@34" Target="@26" Category="References" />
+    <Link Source="@34" Target="@28" Category="References" />
+    <Link Source="@34" Target="@32" Category="References" />
+    <Link Source="@34" Target="@52" Category="References" />
+    <Link Source="@34" Target="@8" Category="References" />
+    <Link Source="@36" Target="@26" Category="References" />
+    <Link Source="@36" Target="@28" Category="References" />
+    <Link Source="@36" Target="@32" Category="References" />
+    <Link Source="@36" Target="@34" Category="References" />
+    <Link Source="@36" Target="@50" Category="References" />
+    <Link Source="@36" Target="@52" Category="References" />
+    <Link Source="@36" Target="@8" Category="References" />
+    <Link Source="@38" Target="@10" Category="References" />
+    <Link Source="@38" Target="@12" Category="References" />
+    <Link Source="@38" Target="@14" Category="References" />
+    <Link Source="@38" Target="@16" Category="References" />
+    <Link Source="@38" Target="@26" Category="References" />
+    <Link Source="@38" Target="@30" Category="References" />
+    <Link Source="@38" Target="@32" Category="References" />
+    <Link Source="@38" Target="@40" Category="References" />
+    <Link Source="@38" Target="@42" Category="References" />
+    <Link Source="@38" Target="@8" Category="References" />
+    <Link Source="@4" Target="@2" Category="References" />
+    <Link Source="@4" Target="@24" Category="References" />
+    <Link Source="@4" Target="@26" Category="References" />
+    <Link Source="@4" Target="@30" Category="References" />
+    <Link Source="@4" Target="@32" Category="References" />
+    <Link Source="@4" Target="@34" Category="References" />
+    <Link Source="@4" Target="@36" Category="References" />
+    <Link Source="@4" Target="@50" Category="References" />
+    <Link Source="@4" Target="@52" Category="References" />
+    <Link Source="@4" Target="@6" Category="References" />
+    <Link Source="@4" Target="@8" Category="References" />
+    <Link Source="@40" Target="@10" Category="References" />
+    <Link Source="@40" Target="@12" Category="References" />
+    <Link Source="@40" Target="@26" Category="References" />
+    <Link Source="@40" Target="@28" Category="References" />
+    <Link Source="@40" Target="@32" Category="References" />
+    <Link Source="@42" Target="@12" Category="References" />
+    <Link Source="@42" Target="@26" Category="References" />
+    <Link Source="@42" Target="@32" Category="References" />
+    <Link Source="@42" Target="@8" Category="References" />
+    <Link Source="@44" Target="@24" Category="References" />
+    <Link Source="@44" Target="@26" Category="References" />
+    <Link Source="@44" Target="@28" Category="References" />
+    <Link Source="@44" Target="@32" Category="References" />
+    <Link Source="@44" Target="@34" Category="References" />
+    <Link Source="@44" Target="@50" Category="References" />
+    <Link Source="@44" Target="@52" Category="References" />
+    <Link Source="@44" Target="@8" Category="References" />
+    <Link Source="@46" Target="@26" Category="References" />
+    <Link Source="@46" Target="@28" Category="References" />
+    <Link Source="@46" Target="@32" Category="References" />
+    <Link Source="@46" Target="@34" Category="References" />
+    <Link Source="@46" Target="@36" Category="References" />
+    <Link Source="@46" Target="@50" Category="References" />
+    <Link Source="@46" Target="@52" Category="References" />
+    <Link Source="@46" Target="@8" Category="References" />
+    <Link Source="@48" Target="@26" Category="References" />
+    <Link Source="@48" Target="@32" Category="References" />
+    <Link Source="@48" Target="@8" Category="References" />
+    <Link Source="@50" Target="@26" Category="References" />
+    <Link Source="@50" Target="@28" Category="References" />
+    <Link Source="@50" Target="@32" Category="References" />
+    <Link Source="@50" Target="@34" Category="References" />
+    <Link Source="@50" Target="@8" Category="References" />
+    <Link Source="@52" Target="@26" Category="References" />
+    <Link Source="@52" Target="@32" Category="References" />
+    <Link Source="@52" Target="@8" Category="References" />
+    <Link Source="@6" Target="@26" Category="References" />
+    <Link Source="@6" Target="@32" Category="References" />
+    <Link Source="@6" Target="@8" Category="References" />
+    <Link Source="@8" Target="@26" Category="References" />
+    <Link Source="@8" Target="@32" Category="References" />
+  </Links>
+  <Categories>
+    <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
+    <Category Id="CodeSchema_Project" Label="Project" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projects" />
+    <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
+    <Category Id="CodeSchema_Statement" Label="Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Statement" />
+    <Category Id="DllFile" />
+    <Category Id="ExeFile" />
+    <Category Id="File" Label="File" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
+    <Category Id="References" Label="References" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Referenced By" OutgoingActionLabel="References" />
+    <Category Id="UnitTests" />
+  </Categories>
+  <Properties>
+    <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
+    <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
+    <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
+    <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Progression.Layout.GraphDirection" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
+    <Property Id="IsDragSource" Label="IsDragSource" Description="IsDragSource" DataType="System.Boolean" />
+    <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
+    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Layout" DataType="System.String" />
+    <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
+    <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
+  </Properties>
+  <QualifiedNames>
+    <Name Id="Assembly" Label="Assembly" ValueType="Uri" />
+  </QualifiedNames>
+  <Styles>
+    <Style TargetType="Node" GroupLabel="exe File" ValueLabel="True">
+      <Condition Expression="HasCategory('ExeFile')" />
+      <Setter Property="Background" Value="#FF008000" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="dll File" ValueLabel="True">
+      <Condition Expression="HasCategory('DllFile')" />
+      <Setter Property="Background" Value="#FF0000A0" />
+    </Style>
+    <Style TargetType="Node" GroupLabel="Unit tests" ValueLabel="Has category">
+      <Condition Expression="HasCategory('UnitTests')" />
+      <Setter Property="Background" Value="#FF008080" />
+    </Style>
+  </Styles>
+  <IdentifierAliases>
+    <Alias n="1" Uri="Assembly=$(VsSolutionUri)/Test.Backend/Test.Backend.csproj" />
+    <Alias n="2" Id="(@1)" />
+    <Alias n="3" Uri="Assembly=$(VsSolutionUri)/Test.Frontend/Test.Frontend.csproj" />
+    <Alias n="4" Id="(@3)" />
+    <Alias n="5" Uri="Assembly=$(VsSolutionUri)/Store.Service/Store.Service.csproj" />
+    <Alias n="6" Id="(@5)" />
+    <Alias n="7" Uri="Assembly=$(VsSolutionUri)/Store/Store.csproj" />
+    <Alias n="8" Id="(@7)" />
+    <Alias n="9" Uri="Assembly=$(VsSolutionUri)/Capture/Capture.csproj" />
+    <Alias n="10" Id="(@9)" />
+    <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Publish/Publish.csproj" />
+    <Alias n="12" Id="(@11)" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Capture.Cli/Capture.Cli.csproj" />
+    <Alias n="14" Id="(@13)" />
+    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Publish.Cli/Publish.Cli.csproj" />
+    <Alias n="16" Id="(@15)" />
+    <Alias n="17" Uri="Assembly=$(VsSolutionUri)/Launcher.Cli/Launcher.Cli.csproj" />
+    <Alias n="18" Id="(@17)" />
+    <Alias n="19" Uri="Assembly=$(VsSolutionUri)/Commands.Cli/Commands.Cli.csproj" />
+    <Alias n="20" Id="(@19)" />
+    <Alias n="21" Uri="Assembly=$(VsSolutionUri)/Store.Management.Cli/Store.Management.Cli.csproj" />
+    <Alias n="22" Id="(@21)" />
+    <Alias n="23" Uri="Assembly=$(VsSolutionUri)/Central/Central.csproj" />
+    <Alias n="24" Id="(@23)" />
+    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/Model/Model.csproj" />
+    <Alias n="26" Id="(@25)" />
+    <Alias n="27" Uri="Assembly=$(VsSolutionUri)/DesktopIntegration/DesktopIntegration.csproj" />
+    <Alias n="28" Id="(@27)" />
+    <Alias n="29" Uri="Assembly=$(VsSolutionUri)/Test.Common/Test.Common.csproj" />
+    <Alias n="30" Id="(@29)" />
+    <Alias n="31" Uri="Assembly=$(VsSolutionUri)/Common/Common.csproj" />
+    <Alias n="32" Id="(@31)" />
+    <Alias n="33" Uri="Assembly=$(VsSolutionUri)/Injector/Injector.csproj" />
+    <Alias n="34" Id="(@33)" />
+    <Alias n="35" Uri="Assembly=$(VsSolutionUri)/Commands/Commands.csproj" />
+    <Alias n="36" Id="(@35)" />
+    <Alias n="37" Uri="Assembly=$(VsSolutionUri)/Test.Tools/Test.Tools.csproj" />
+    <Alias n="38" Id="(@37)" />
+    <Alias n="39" Uri="Assembly=$(VsSolutionUri)/Capture.WinForms/Capture.WinForms.csproj" />
+    <Alias n="40" Id="(@39)" />
+    <Alias n="41" Uri="Assembly=$(VsSolutionUri)/Publish.WinForms/Publish.WinForms.csproj" />
+    <Alias n="42" Id="(@41)" />
+    <Alias n="43" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
+    <Alias n="44" Id="(@43)" />
+    <Alias n="45" Uri="Assembly=$(VsSolutionUri)/Commands.WinForms/Commands.WinForms.csproj" />
+    <Alias n="46" Id="(@45)" />
+    <Alias n="47" Uri="Assembly=$(VsSolutionUri)/Store.Management.WinForms/Store.Management.WinForms.csproj" />
+    <Alias n="48" Id="(@47)" />
+    <Alias n="49" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="50" Id="(@49)" />
+    <Alias n="51" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
+    <Alias n="52" Id="(@51)" />
+  </IdentifierAliases>
+  <Paths>
+    <Path Id="VsSolution" Value="..\.." />
+    <Path Id="VsSolutionUri" Value="../.." />
+  </Paths>
+</DirectedGraph>

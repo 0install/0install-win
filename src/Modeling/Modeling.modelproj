@@ -71,13 +71,16 @@
     <Content Include="ProjectReferences\Command.dgml">
       <SubType>Content</SubType>
     </Content>
+    <Content Include="ProjectReferences\Store.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ProjectReferences\Complete.dgml">
+      <SubType>Content</SubType>
+    </Content>
     <Content Include="ProjectReferences\Overview.dgml">
       <SubType>Content</SubType>
     </Content>
-    <Content Include="ProjectReferences\OverviewSimple.dgml">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="ProjectReferences\Publish.dgml">
+    <Content Include="ProjectReferences\Tools.dgml">
       <SubType>Content</SubType>
     </Content>
     <Content Include="SolutionStructure.dgml">

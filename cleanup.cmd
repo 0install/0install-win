@@ -30,6 +30,7 @@ rd /s /q src\Fetchers\obj > NUL 2>&1
 rd /s /q src\Injector\obj > NUL 2>&1
 rd /s /q src\Model\obj > NUL 2>&1
 rd /s /q src\MyApps\obj > NUL 2>&1
+rd /s /q src\DesktopIntegration\obj > NUL 2>&1
 rd /s /q src\Store\obj > NUL 2>&1
 rd /s /q src\Test.Common\obj > NUL 2>&1
 rd /s /q src\Test.Backend\obj > NUL 2>&1
@@ -38,6 +39,9 @@ rd /s /q src\Test.Tools\obj > NUL 2>&1
 rd /s /q src\Publish\obj > NUL 2>&1
 rd /s /q src\Publish.Cli\obj > NUL 2>&1
 rd /s /q src\Publish.WinForms\obj > NUL 2>&1
+rd /s /q src\Capture\obj > NUL 2>&1
+rd /s /q src\Capture.Cli\obj > NUL 2>&1
+rd /s /q src\Capture.WinForms\obj > NUL 2>&1
 rd /s /q src\Modeling\obj > NUL 2>&1
 
 rem Restore VS2010 solution user options (temporarily unhide for copying)
