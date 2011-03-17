@@ -1,9 +1,3 @@
-Windows API Code Pack for Microsoft .NET Framework 1.0.1
-http://code.msdn.microsoft.com/WindowsAPICodePack
-Custom license: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
-Extracted parts of source, modified
-Compiled as part of Common.dll
-
 NDesk.Options 0.2.1
 http://ndesk.org/Options
 MIT License: http://www.opensource.org/licenses/mit-license.php

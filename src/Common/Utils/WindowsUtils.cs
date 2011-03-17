@@ -1,10 +1,23 @@
 /*
- * Based on Windows API Code Pack for Microsoft .NET Framework 1.0.1
- * Copyright 2009 Microsoft Corporation
- * License: http://code.msdn.microsoft.com/WindowsAPICodePack/Project/License.aspx
+ * Copyright 2006-2011 Bastian Eicher
  *
- * Modified for better project integration
- * Copyright 2010 Bastian Eicher
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
  */
 
 using System;
@@ -61,7 +74,7 @@ namespace Common.Utils
         XButtonDown = 0x020B,
         XButtonUp = 0x020c,
         XButtonDoubleClick = 0x020d,
-        MouseFirst = LeftButtonDown, // Skip mouse move, it happens a lot and there is another message for that
+        MouseFirst = LeftButtonDown,
         MouseLast = XButtonDoubleClick,
 
         // Sizing
@@ -301,7 +314,7 @@ namespace Common.Utils
         /// <summary>
         /// Sets the current process' explicit application user model ID.
         /// </summary>
-        /// <param name="appId">The application ID.</param>
+        /// <param name="appId">The application ID to set.</param>
         /// <remarks>The application ID is used to group related windows in the taskbar.</remarks>
         public static void SetCurrentProcessAppId(string appId)
         {
@@ -314,7 +327,6 @@ namespace Common.Utils
         }
 
         private static readonly object _syncLock = new object();
-
         private static ITaskbarList4 _taskbarList;
         /// <summary>
         /// Singleton COM object for taskbar operations.
@@ -325,7 +337,6 @@ namespace Common.Utils
             {
                 if (_taskbarList == null)
                 {
-                    // Create a new instance of ITaskbarList3
                     lock (_syncLock)
                     {
                         if (_taskbarList == null)
@@ -341,30 +352,26 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Sets the type and state of the progress indicator displayed on a taskbar button 
-        /// of the given window handle 
+        /// Sets the state of the taskbar progress indicator.
         /// </summary>
-        /// <param name="windowHandle">The handle of the window whose associated taskbar button is being used as a progress indicator.
-        /// This window belong to a calling process associated with the button's application and must be already loaded.</param>
-        /// <param name="state">Progress state of the progress button</param>
-        public static void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle)
+        /// <param name="handle">The handle of the window whose taskbar button contains the progress indicator.</param>
+        /// <param name="state">The state of the progress indicator.</param>
+        public static void SetProgressState(TaskbarProgressBarState state, IntPtr handle)
         {
             if (IsWindows7)
-                TaskbarList.SetProgressState(windowHandle, (TBPFLAG)state);
+                TaskbarList.SetProgressState(handle, (TBPFLAG)state);
         }
 
         /// <summary>
-        /// Displays or updates a progress bar hosted in a taskbar button of the given window handle 
-        /// to show the specific percentage completed of the full operation.
+        /// Sets the value of the taskbar progress indicator.
         /// </summary>
-        /// <param name="windowHandle">The handle of the window whose associated taskbar button is being used as a progress indicator.
-        /// This window belong to a calling process associated with the button's application and must be already loaded.</param>
-        /// <param name="currentValue">An application-defined value that indicates the proportion of the operation that has been completed at the time the method is called.</param>
-        /// <param name="maximumValue">An application-defined value that specifies the value <paramref name="currentValue"/> will have when the operation is complete.</param>
-        public static void SetProgressValue(int currentValue, int maximumValue, IntPtr windowHandle)
+        /// <param name="handle">The handle of the window whose taskbar button contains the progress indicator.</param>
+        /// <param name="currentValue">The current value of the progress indicator.</param>
+        /// <param name="maximumValue">The value <paramref name="currentValue"/> will have when the operation is complete.</param>
+        public static void SetProgressValue(int currentValue, int maximumValue, IntPtr handle)
         {
             if (IsWindows7)
-                TaskbarList.SetProgressValue(windowHandle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
+                TaskbarList.SetProgressValue(handle, Convert.ToUInt32(currentValue), Convert.ToUInt32(maximumValue));
         }
         #endregion
     }
