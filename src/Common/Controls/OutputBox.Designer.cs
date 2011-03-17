@@ -86,7 +86,7 @@
             this.MinimumSize = new System.Drawing.Size(350, 140);
             this.Name = "OutputBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "OutputBox";
+            this.Text = "Output box";
             this.ResumeLayout(false);
             this.PerformLayout();
 

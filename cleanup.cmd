@@ -59,7 +59,7 @@ attrib +h "src\ZeroInstall_VCE2010.suo.Backup" > NUL 2>&1
 attrib +h "src\ZeroInstall_VCE2010.suo" > NUL 2>&1
 
 rem Remove MonoDevelop user preferences
-del "src\*.userprefs"
+del "src\*.userprefs" > NUL 2>&1
 
 rem Remove NUnit logs
 del *.VisualState.xml > NUL 2>&1
