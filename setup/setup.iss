@@ -70,6 +70,7 @@ WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
 Compression=lzma/ultra
 SolidCompression=true
 ChangesEnvironment=yes
+ArchitecturesInstallIn64BitMode=x64 ia64
 
 [Languages]
 #ifdef Update
