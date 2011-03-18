@@ -4,7 +4,6 @@ The "build.cmd" script will compile the code using the Visual Studio 2008 or 201
 The "build.sh" script will compile the code using Mono's xbuild on Unix-like systems.
 
 Use "ZeroInstall_VS2008.sln" to open the solution in Visual Studio 2008 (Service Pack 1 recommended).
-Use "ZeroInstall_VS2010.sln" to open the solution in Visual Studio 2010.
-Use "ZeroInstall_VCE2010.sln" to open the solution in Visual C# Express 2010.
-Use "ZeroInstall_MonoDevelop.sln" to open the solution in MonoDevelop 2.4 or newer.
-Use "ZeroInstall_xbuild.sln" to compile with xbuild.
+Use "ZeroInstall_VS2010.sln" to open the solution in Visual Studio 2010 (Service Pack 1 recommended).
+Use "ZeroInstall_VCE2010.sln" to open the solution in Visual C# Express 2010 (Service Pack 1 recommended).
+Use "ZeroInstall_MonoDevelop.sln" to open the solution in MonoDevelop 2.4 or newer or to compile with xbuild.
