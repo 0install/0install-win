@@ -59,13 +59,14 @@
   <ItemGroup>
     <Compile Include="Cli\ArgumentUtilsTest.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
-    <Compile Include="Net\DownloadFileTest.cs" />
-    <Compile Include="Net\MicroServer.cs" />
     <Compile Include="Collections\LanguageCollectionTest.cs" />
     <Compile Include="Collections\XmlDictionaryTest.cs" />
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
+    <Compile Include="Controls\TrackingProgressBarTest.cs" />
     <Compile Include="MockTask.cs" />
+    <Compile Include="Net\DownloadFileTest.cs" />
+    <Compile Include="Net\MicroServer.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />
     <Compile Include="Undo\SetLocalizableStringTest.cs" />

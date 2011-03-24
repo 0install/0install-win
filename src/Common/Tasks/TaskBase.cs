@@ -77,7 +77,7 @@ namespace Common.Tasks
             get { return _bytesReceived; } protected set { UpdateHelper.Do(ref _bytesReceived, value, OnProgressChanged); }
         }
 
-        private long _bytesTotal;
+        private long _bytesTotal = -1;
         /// <inheritdoc />
         public long BytesTotal
         {

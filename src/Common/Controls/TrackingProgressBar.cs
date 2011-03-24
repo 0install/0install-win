@@ -45,37 +45,54 @@ namespace Common.Controls
         /// The <see cref="ITask"/> to track.
         /// </summary>
         /// <remarks>
-        /// Setting this property will hook up event handlers to monitor the task.
-        /// Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.
+        ///   <para>Setting this property will hook up event handlers to monitor the task.</para>
+        ///   <para>Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.</para>
+        ///   <para>The value must not be set from a background thread.</para>
         /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         [DefaultValue(null), Description("The IProgress object to track.")]
         public ITask Task
         {
             set
             {
+                if (InvokeRequired) throw new InvalidOperationException("Must set this from UI thread");
+
                 // Remove all delegates from old _task
-                if (_task != null)
-                {
-                    _task.StateChanged -= StateChanged;
-                    _task.ProgressChanged -= ProgressChanged;
-                }
+                HookOut();
 
                 _task = value;
 
-                if (value != null)
-                {
-                    new Thread(delegate()
-                    {
-                        // Get the initial values as soon as the handle is available
-                        StateChanged(_task);
-                        ProgressChanged(_task);
-
-                        // Only hook up state event, progress tracking will be set up later
-                        _task.StateChanged += StateChanged;
-                    }).Start();
-                }
+                // Only start tracking if the handle is available
+                if (IsHandleCreated) HookIn();
             }
             get { return _task; }
+        }
+
+        /// <summary>
+        /// Starts tracking the progress of <see cref="_task"/>.
+        /// </summary>
+        /// <remarks>This may only be called after <see cref="Control.HandleCreated"/> has been raised.</remarks>
+        private void HookIn()
+        {
+            if (_task == null) return;
+
+            // Get the initial values
+            StateChanged(_task);
+            ProgressChanged(_task);
+                        
+            _task.StateChanged += StateChanged;
+            _task.ProgressChanged += ProgressChanged;
+        }
+
+        /// <summary>
+        /// Stops tracking the progress of <see cref="_task"/>.
+        /// </summary>
+        private void HookOut()
+        {
+            if (_task == null) return;
+
+            _task.StateChanged -= StateChanged;
+            _task.ProgressChanged -= ProgressChanged;
         }
 
         /// <summary>
@@ -103,7 +120,11 @@ namespace Common.Controls
         public TrackingProgressBar()
         {
             // Track when events can be passed to the WinForms code
-            HandleCreated += delegate { _handleReady.Set(); };
+            HandleCreated += delegate
+            {
+                _handleReady.Set();
+                HookIn();
+            };
             HandleDestroyed += delegate { _handleReady.Reset(); };
         }
         #endregion
@@ -130,6 +151,7 @@ namespace Common.Controls
                 {
                     case TaskState.Ready:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Paused, formHandle);
+                        Style = ProgressBarStyle.Continuous;
                         break;
 
                     case TaskState.Header:
@@ -151,13 +173,13 @@ namespace Common.Controls
                     case TaskState.WebError:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Error, formHandle);
                         Style = ProgressBarStyle.Continuous;
-                        Value = 0;
                         break;
 
                     case TaskState.Complete:
                         if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.NoProgress, formHandle);
 
                         // When the status is complete the bar should always be full
+                        Style = ProgressBarStyle.Continuous;
                         Value = 100;
                         break;
                 }
@@ -179,6 +201,9 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             int currentValue = (int)(progress * 100);
 
+            // When the status is complete the bar should always be full
+            if (sender.State == TaskState.Complete) currentValue = 100;
+
             // Handle events coming from a non-UI thread, don't block caller
             _handleReady.WaitOne();
             BeginInvoke(new SimpleEventHandler(delegate
@@ -192,10 +217,8 @@ namespace Common.Controls
 
         //--------------------//
 
-        /// <summary> 
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        #region Dispose
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -206,5 +229,6 @@ namespace Common.Controls
             try { base.Dispose(disposing); }
             finally { _handleReady.Close(); }
         }
+        #endregion
     }
 }

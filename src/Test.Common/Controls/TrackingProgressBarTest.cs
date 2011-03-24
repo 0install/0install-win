@@ -27,13 +27,13 @@ using NUnit.Framework;
 namespace Common.Controls
 {
     /// <summary>
-    /// Contains test methods for <see cref="TrackingLabel"/>.
+    /// Contains test methods for <see cref="TrackingProgressBar"/>.
     /// </summary>
     [TestFixture]
-    public class TrackingLabelTest
+    public class TrackingProgressBarTest
     {
         private MockTask _task;
-        private TrackingLabel _label;
+        private TrackingProgressBar _progressBar;
 
         [SetUp]
         public void SetUp()
@@ -41,7 +41,7 @@ namespace Common.Controls
             _task = new MockTask();
             try
             {
-                _label = new TrackingLabel {Task = _task};
+                _progressBar = new TrackingProgressBar {Task = _task};
             }
             catch (TypeInitializationException ex)
             {
@@ -53,24 +53,30 @@ namespace Common.Controls
         [TearDown]
         public void TearDown()
         {
-            _label.Dispose();
+            _progressBar.Dispose();
         }
 
         [Test]
         public void TestNormal()
         {
-            _label.CreateControl();
+            _progressBar.CreateControl();
             Application.DoEvents();
-            Assert.AreEqual("Ready", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(0, _progressBar.Value);
 
             _task.Start();
+            Application.DoEvents();
+            Assert.AreEqual(ProgressBarStyle.Marquee, _progressBar.Style);
+
             _task.MockStateData();
             Application.DoEvents();
-            Assert.AreEqual("64 Bytes / 128 Bytes", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(50, _progressBar.Value);
 
             _task.MockStateComplete();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(100, _progressBar.Value);
         }
 
         [Test]
@@ -79,13 +85,15 @@ namespace Common.Controls
             _task.Start();
             _task.MockStateData();
 
-            _label.CreateControl();
+            _progressBar.CreateControl();
             Application.DoEvents();
-            Assert.AreEqual("64 Bytes / 128 Bytes", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(50, _progressBar.Value);
 
             _task.MockStateComplete();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(100, _progressBar.Value);
         }
 
         [Test]
@@ -95,9 +103,10 @@ namespace Common.Controls
             _task.MockStateData();
             _task.MockStateComplete();
 
-            _label.CreateControl();
+            _progressBar.CreateControl();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
+            Assert.AreEqual(100, _progressBar.Value);
         }
     }
 }

@@ -50,7 +50,7 @@ namespace Common
         /// </summary>
         public override void Start()
         {
-            State = TaskState.Started;
+            State = TaskState.Header;
             BytesTotal = 128;
         }
 
