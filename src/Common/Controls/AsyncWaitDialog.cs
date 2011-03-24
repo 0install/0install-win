@@ -34,6 +34,9 @@ namespace Common.Controls
     {
         #region Variables
         private readonly Thread _thread;
+
+        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
+        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
         #endregion
 
         #region Constructor
@@ -48,6 +51,9 @@ namespace Common.Controls
 
             Text = title;
             Icon = icon;
+
+            HandleCreated += delegate { _handleReady.Set(); };
+            HandleDestroyed += delegate { _handleReady.Reset(); };
 
             _thread = new Thread(() => Application.Run(this));
         }
@@ -79,7 +85,10 @@ namespace Common.Controls
         /// </summary>
         public void Stop()
         {
-            if (IsHandleCreated) Invoke((SimpleEventHandler)Close);
+            // Window must have finished opening before it can be closed again
+            _handleReady.WaitOne();
+
+            Invoke(new SimpleEventHandler(Close));
             _thread.Join();
         }
         #endregion

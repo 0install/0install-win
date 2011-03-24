@@ -22,6 +22,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Tasks;
 using Common.Utils;
@@ -33,6 +34,11 @@ namespace Common.Controls
     /// </summary>
     public class TrackingProgressBar : ProgressBar
     {
+        #region Variables
+        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
+        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+        #endregion
+
         #region Properties
         private ITask _task;
         /// <summary>
@@ -58,15 +64,15 @@ namespace Common.Controls
 
                 if (value != null)
                 {
-                    // Only hook up state event, progress tracking will be set up later
-                    _task.StateChanged += StateChanged;
-
-                    if (IsHandleCreated)
+                    new Thread(delegate()
                     {
-                        // Reset the display from any previous tasks
+                        // Get the initial values as soon as the handle is available
                         StateChanged(_task);
                         ProgressChanged(_task);
-                    }
+
+                        // Only hook up state event, progress tracking will be set up later
+                        _task.StateChanged += StateChanged;
+                    }).Start();
                 }
             }
             get { return _task; }
@@ -93,6 +99,15 @@ namespace Common.Controls
         public bool UseTaskbar { set; get; }
         #endregion
 
+        #region Constructor
+        public TrackingProgressBar()
+        {
+            // Track when events can be passed to the WinForms code
+            HandleCreated += delegate { _handleReady.Set(); };
+            HandleDestroyed += delegate { _handleReady.Reset(); };
+        }
+        #endregion
+
         //--------------------//
 
         #region Event callbacks
@@ -107,7 +122,8 @@ namespace Common.Controls
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler) delegate
+            _handleReady.WaitOne();
+            BeginInvoke(new SimpleEventHandler(delegate
             {
                 IntPtr formHandle = ParentHandle;
                 switch (state)
@@ -145,7 +161,7 @@ namespace Common.Controls
                         Value = 100;
                         break;
                 }
-            });
+            }));
         }
 
         /// <summary>
@@ -164,12 +180,13 @@ namespace Common.Controls
             int currentValue = (int)(progress * 100);
 
             // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
+            _handleReady.WaitOne();
+            BeginInvoke(new SimpleEventHandler(delegate
             {
                 Value = currentValue;
                 IntPtr formHandle = ParentHandle;
                 if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
-            });
+            }));
         }
         #endregion
 
@@ -186,7 +203,8 @@ namespace Common.Controls
                 // Remove update hooks
                 Task = null;
             }
-            base.Dispose(disposing);
+            try { base.Dispose(disposing); }
+            finally { _handleReady.Close(); }
         }
     }
 }

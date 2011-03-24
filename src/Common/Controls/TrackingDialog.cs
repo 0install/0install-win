@@ -24,6 +24,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -35,6 +36,11 @@ namespace Common.Controls
     /// </summary>
     public sealed partial class TrackingDialog : Form
     {
+        #region Variables
+        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
+        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+        #endregion
+
         #region Constructor
         /// <summary>
         /// Creates a new tracking progress dialog.
@@ -52,6 +58,10 @@ namespace Common.Controls
             buttonCancel.Visible = task.CanCancel;
             Text = task.Name;
             Icon = icon;
+
+            // Track when events can be passed to the WinForms code
+            HandleCreated += delegate { _handleReady.Set(); };
+            HandleDestroyed += delegate { _handleReady.Reset(); };
 
             // Start and stop the task with the dialog
             Shown += delegate { task.Start(); };
@@ -71,8 +81,9 @@ namespace Common.Controls
             {
                 if (task.State >= TaskState.Complete)
                 {
-                    // Handle events coming from a non-UI thread, don't block caller
-                    BeginInvoke((SimpleEventHandler)Close);
+                    // Window must have finished opening before it can be closed again
+                    _handleReady.WaitOne();
+                    BeginInvoke(new SimpleEventHandler(Close));
                 }
             };
         }

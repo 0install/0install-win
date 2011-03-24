@@ -23,6 +23,7 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -35,43 +36,78 @@ namespace Common.Controls
     /// </summary>
     public class TrackingLabel : Label
     {
+        #region Variables
+        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
+        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+        #endregion
+
         #region Properties
         private ITask _task;
         /// <summary>
         /// The <see cref="ITask"/> to track.
         /// </summary>
         /// <remarks>
-        /// Setting this property will hook up event handlers to monitor the task.
-        /// Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.
+        ///   <para>Setting this property will hook up event handlers to monitor the task.</para>
+        ///   <para>Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.</para>
+        ///   <para>The value must not be set from a background thread.</para>
         /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         [DefaultValue(null), Description("The IProgress object to track.")]
         public ITask Task
         {
             set
             {
+                if (InvokeRequired) throw new InvalidOperationException("Must set this from UI thread");
+
                 // Remove all delegates from old _task
-                if (_task != null)
-                {
-                    _task.StateChanged -= StateChanged;
-                    _task.ProgressChanged -= ProgressChanged;
-                }
+                HookOut();
 
                 _task = value;
 
-                if (value != null)
-                {
-                    // Only hook up state event, progress tracking will be set up later
-                    _task.StateChanged += StateChanged;
-
-                    if (IsHandleCreated)
-                    {
-                        // Reset the display from any previous tasks
-                        StateChanged(_task);
-                        ProgressChanged(_task);
-                    }
-                }
+                // Only start tracking if the handle is available
+                if (IsHandleCreated) HookIn();
             }
             get { return _task; }
+        }
+
+        /// <summary>
+        /// Starts tracking the progress of <see cref="_task"/>.
+        /// </summary>
+        /// <remarks>This may only be called after <see cref="Control.HandleCreated"/> has been raised.</remarks>
+        private void HookIn()
+        {
+            if (_task == null) return;
+
+            // Get the initial values
+            StateChanged(_task);
+            ProgressChanged(_task);
+                        
+            _task.StateChanged += StateChanged;
+            _task.ProgressChanged += ProgressChanged;
+        }
+
+        /// <summary>
+        /// Stops tracking the progress of <see cref="_task"/>.
+        /// </summary>
+        private void HookOut()
+        {
+            if (_task == null) return;
+
+            _task.StateChanged -= StateChanged;
+            _task.ProgressChanged -= ProgressChanged;
+        }
+        #endregion
+
+        #region Constructor
+        public TrackingLabel()
+        {
+            // Track when events can be passed to the WinForms code
+            HandleCreated += delegate
+            {
+                _handleReady.Set();
+                HookIn();
+            };
+            HandleDestroyed += delegate { _handleReady.Reset(); };
         }
         #endregion
 
@@ -88,7 +124,8 @@ namespace Common.Controls
             TaskState state = sender.State;
 
             // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
+            _handleReady.WaitOne();
+            BeginInvoke(new SimpleEventHandler(delegate
             {
                 switch (state)
                 {
@@ -103,11 +140,8 @@ namespace Common.Controls
                         break;
 
                     case TaskState.Data:
+                        Text = Resources.StateData;
                         ForeColor = SystemColors.ControlText;
-                        
-                        // Only track progress if the final size is known
-                        if (sender.BytesTotal != -1) _task.ProgressChanged += ProgressChanged;
-                        else Text = Resources.StateData;
                         break;
 
                     case TaskState.Complete:
@@ -125,7 +159,7 @@ namespace Common.Controls
                         Text = Resources.StateIOError;
                         break;
                 }
-            });
+            }));
         }
 
         /// <summary>
@@ -134,11 +168,20 @@ namespace Common.Controls
         /// <param name="sender">Object that called this method.</param>
         private void ProgressChanged(ITask sender)
         {
+            // Only track bytes in data state
+            if (sender.State != TaskState.Data) return;
+
+            // Copy value so it can be safely accessed from another thread
+            long bytesProcessed  = sender.BytesProcessed;
+            long bytesTotal = sender.BytesTotal;
+
             // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke((SimpleEventHandler)delegate
+            _handleReady.WaitOne();
+            BeginInvoke(new SimpleEventHandler(delegate
             {
-                Text = StringUtils.FormatBytes(sender.BytesProcessed) + @" / " + StringUtils.FormatBytes(sender.BytesTotal);
-            });
+                Text = StringUtils.FormatBytes(bytesProcessed);
+                if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(bytesTotal);
+            }));
         }
         #endregion
 
@@ -153,7 +196,8 @@ namespace Common.Controls
                 // Remove update hooks
                 Task = null;
             }
-            base.Dispose(disposing);
+            try { base.Dispose(disposing); }
+            finally { _handleReady.Close(); }
         }
         #endregion
     }
