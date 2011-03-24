@@ -39,10 +39,7 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try
-            {
-                _progressBar = new TrackingProgressBar {Task = _task};
-            }
+            try { _progressBar = new TrackingProgressBar {Task = _task}; }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems
@@ -53,7 +50,7 @@ namespace Common.Controls
         [TearDown]
         public void TearDown()
         {
-            _progressBar.Dispose();
+            if (_progressBar != null) _progressBar.Dispose();
         }
 
         [Test]

@@ -39,10 +39,7 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try
-            {
-                _label = new TrackingLabel {Task = _task};
-            }
+            try { _label = new TrackingLabel {Task = _task}; }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems
@@ -53,7 +50,7 @@ namespace Common.Controls
         [TearDown]
         public void TearDown()
         {
-            _label.Dispose();
+            if (_label != null) _label.Dispose();
         }
 
         [Test]
