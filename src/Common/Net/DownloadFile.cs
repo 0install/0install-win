@@ -113,8 +113,12 @@ namespace Common.Net
                 if (_cancelRequest || State == TaskState.Ready || State >= TaskState.Complete) return;
 
                 _cancelRequest = true;
-                Thread.Join();
+            }
 
+            Thread.Join();
+
+            lock (StateLock)
+            {
                 // Reset the state so the task can be started again
                 State = TaskState.Ready;
                 _cancelRequest = false;
