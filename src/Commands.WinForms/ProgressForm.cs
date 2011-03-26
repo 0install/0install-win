@@ -69,8 +69,6 @@ namespace ZeroInstall.Commands.WinForms
             labelOperation.Text = task.Name + @"...";
             progressBar.Task = task;
             labelProgress.Task = task;
-
-            if (!Visible) ShowTrayIcon(Text, progressBar.Task.Name, ToolTipIcon.None);
         }
         #endregion
 
@@ -78,14 +76,12 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Shows the tray icon with an associated balloon message.
         /// </summary>
-        /// <param name="title">The title of the balloon message.</param>
         /// <param name="information">The balloon message text.</param>
         /// <param name="messageType">The type icon to display next to the balloon message.</param>
-        public void ShowTrayIcon(string title, string information, ToolTipIcon messageType)
+        public void ShowTrayIcon(string information, ToolTipIcon messageType)
         {
-            notifyIcon.Text = title;
             notifyIcon.Visible = true;
-            notifyIcon.ShowBalloonTip(7500, title, information, messageType);
+            notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
         }
 
         /// <summary>
@@ -105,8 +101,7 @@ namespace ZeroInstall.Commands.WinForms
 
         private void buttonHide_Click(object sender, EventArgs e)
         {
-            if (progressBar.Task != null) ShowTrayIcon(Text, progressBar.Task.Name, ToolTipIcon.None);
-            else ShowTrayIcon("Zero Install", Text, ToolTipIcon.None);
+            ShowTrayIcon(Text, ToolTipIcon.None);
             Visible = false;
         }
         #endregion

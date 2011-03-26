@@ -94,7 +94,7 @@ namespace ZeroInstall.Commands.WinForms
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
 
-            if (Batch) _form.ShowTrayIcon("Zero Install", ActionTitle, ToolTipIcon.None);
+            if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
             else _form.Show();
 
             Application.Run();
@@ -129,7 +129,7 @@ namespace ZeroInstall.Commands.WinForms
             _form.Invoke(new SimpleEventHandler(delegate
             {
                 // Auto-deny unknown keys and inform via tray icon when in batch mode
-                if (Batch) _form.ShowTrayIcon("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
+                if (Batch) _form.ShowTrayIcon("Feed signed with unknown keys!", ToolTipIcon.Warning);
                 else result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
             }));
             return result;
