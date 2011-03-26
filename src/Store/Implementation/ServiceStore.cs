@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.Remoting;
-using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;

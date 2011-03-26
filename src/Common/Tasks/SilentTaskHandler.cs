@@ -29,11 +29,6 @@ namespace Common.Tasks
     /// </summary>
     public class SilentTaskHandler : MarshalByRefObject, ITaskHandler
     {
-        /// <summary>
-        /// Always returns <see langword="true"/>.
-        /// </summary>
-        public bool Batch { get { return true; } set {} }
-        
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {

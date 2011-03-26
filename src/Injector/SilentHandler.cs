@@ -15,7 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using Common;
 using Common.Tasks;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Injector
 {
@@ -24,6 +26,23 @@ namespace ZeroInstall.Injector
     /// </summary>
     public class SilentHandler : SilentTaskHandler, IHandler
     {
+        /// <summary>
+        /// Always returns <see langword="true"/>.
+        /// </summary>
+        public bool Batch { get { return true; } set { } }
+
+        /// <inheritdoc/>
+        public void ShowProgressUI(SimpleEventHandler cancelCallback)
+        {
+            // No UI, so nothing to do
+        }
+
+        /// <inheritdoc/>
+        public void CloseProgressUI()
+        {
+            // No UI, so nothing to do
+        }
+
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -31,13 +50,13 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
-        public void ShowProgressUI()
+        public virtual void ShowSelections(Selections selections)
         {
             // No UI, so nothing to do
         }
 
         /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void AuditSelections(SimpleResult<Selections> solveCallback)
         {
             // No UI, so nothing to do
         }
