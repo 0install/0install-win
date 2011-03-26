@@ -16,12 +16,15 @@
  */
 
 using System;
+using System.Collections.Generic;
+using Common;
 using Common.Collections;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -37,6 +40,15 @@ namespace ZeroInstall.Commands
         
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
+
+        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Policy.SearchStore"/>.</summary>
+        protected IEnumerable<Implementation> UncachedImplementations;
+
+        /// <summary>Synchronization handle to prevent race conditions with <see cref="IFetcher"/> canceling.</summary>
+        private readonly object _fetcherCancelLock = new object();
+
+        /// <summary>The <see cref="FetchRequest"/> currently being executed.</summary>
+        private FetchRequest _currentFetchRequest;
         #endregion
 
         #region Properties
@@ -58,27 +70,30 @@ namespace ZeroInstall.Commands
         //--------------------//
 
         #region Helpers
+        /// <inheritdoc/>
+        protected override void Solve()
+        {
+            base.Solve();
+
+            UncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
+        }
+
         /// <summary>
         /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="Policy.SearchStore"/>.
         /// </summary>
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()
         {
-            var uncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
-            if (EnumUtils.IsEmpty(uncachedImplementations)) return;
-
-            // If feeds weren't just refreshed anyway...
-            if (!Policy.FeedManager.Refresh)
+            // Make sure cancelation doesn't fall within a blind spot between check and Fetcher start
+            lock (_fetcherCancelLock)
             {
-                // ... rerun solver in refresh mode...
-                Policy.FeedManager.Refresh = true;
-                Solve();
-
-                // ... and then get an updated download list
-                uncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
+                if (Canceled) throw new UserCancelException();
+                _currentFetchRequest = new FetchRequest(UncachedImplementations, Policy.Handler);
+                Policy.Fetcher.Start(_currentFetchRequest);
             }
 
-            Policy.Fetcher.Run(new FetchRequest(uncachedImplementations, Policy.Handler));
+            Policy.Fetcher.Join(_currentFetchRequest);
+            _currentFetchRequest = null;
         }
         #endregion
 
@@ -91,19 +106,21 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
-            Policy.Handler.ShowProgressUI();
+            Policy.Handler.ShowProgressUI(Cancel);
             
             Solve();
 
-            // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
+            // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode
+            if ((StaleFeeds || !EnumUtils.IsEmpty(UncachedImplementations)) && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
             {
                 Policy.FeedManager.Refresh = true;
                 Solve();
             }
+            SelectionsUI();
 
             DownloadUncachedImplementations();
 
+            if (Canceled) throw new UserCancelException();
             Policy.Handler.CloseProgressUI();
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
@@ -112,6 +129,21 @@ namespace ZeroInstall.Commands
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
             }
             return 0;
+        }
+        #endregion
+
+        #region Cancel
+        /// <summary>
+        /// Cancels the <see cref="Execute"/> session.
+        /// </summary>
+        public override void Cancel()
+        {
+            base.Cancel();
+
+            lock (_fetcherCancelLock)
+            {
+                if (_currentFetchRequest != null) Policy.Fetcher.Cancel(_currentFetchRequest);
+            }
         }
         #endregion
     }

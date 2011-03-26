@@ -20,6 +20,7 @@ using Common;
 using Common.Cli;
 using Common.Tasks;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Commands
 {
@@ -28,6 +29,18 @@ namespace ZeroInstall.Commands
     /// </summary>
     public class CliHandler : CliTaskHandler, IHandler
     {
+        /// <inheritdoc/>
+        public void ShowProgressUI(SimpleEventHandler cancelCallback)
+        {
+            // Console UI only, so nothing to do
+        }
+
+        /// <inheritdoc/>
+        public void CloseProgressUI()
+        {
+            // Console UI only, so nothing to do
+        }
+
         /// <inheritdoc />
         public bool AcceptNewKey(string information)
         {
@@ -51,13 +64,13 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
-        public void ShowProgressUI()
+        public void ShowSelections(Selections selections)
         {
             // Console UI only, so nothing to do
         }
 
         /// <inheritdoc/>
-        public void CloseProgressUI()
+        public void AuditSelections(SimpleResult<Selections> solveCallback)
         {
             // Console UI only, so nothing to do
         }

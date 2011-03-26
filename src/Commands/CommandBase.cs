@@ -26,7 +26,6 @@ using Common;
 using Common.Streams;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -155,14 +154,13 @@ namespace ZeroInstall.Commands
         /// Executes the commands specified by the command-line arguments.
         /// </summary>
         /// <returns>The exit status code to end the process with. 0 means OK, 1 means generic error.</returns>
-        /// <exception cref="UserCancelException">Thrown if a download or IO task was canceled.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
         /// <exception cref="OptionException">Thrown if the number of arguments passed in on the command-line is incorrect.</exception>
         /// <exception cref="WebException">Thrown if a file could not be downloaded from the internet.</exception>
-        /// <exception cref="NotSupportedException">Thrown if a file format is unknown or not supported.</exception>
+        /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to an <see cref="IStore"/> is not permitted.</exception>
         /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
-        /// <exception cref="FetcherException">Thrown if download could not be started.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>

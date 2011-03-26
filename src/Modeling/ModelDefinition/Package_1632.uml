@@ -13,211 +13,6 @@
   <packagedElements>
     <packageHasNamedElement>
       <class
-        Id="a418f186-52e0-4640-8eed-75c35e2d69f8"
-        name="PythonSolver"
-        isAbstract="false"
-        isLeaf="true"
-        isActiveClass="false">
-        <referencesInternal>
-          <reference
-            Id="69535885-c1d9-459d-b9fe-fa32c98f24e6"
-            handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=PythonSolver"
-            tag="ViewCode" />
-        </referencesInternal>
-        <appliedStereotypesInternal>
-          <stereotypeInstance
-            Id="aee21c40-038c-4c5c-82b0-00322a209d96"
-            name="class"
-            profile="CSharpProfile">
-            <propertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="59e23412-1cd5-4bdc-b184-fe318273ff61">
-                <propertyInstance
-                  Id="ce215b03-b20d-4118-bbb7-b87c5fd770e8"
-                  name="ClrAttributes" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="60bd1e99-ca5d-4ab3-82f5-ab9097dee826">
-                <propertyInstance
-                  Id="afeb83aa-dbb0-40ff-a03f-7ad3b7b3bb85"
-                  name="IsPartial"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="bea7ea10-a387-40ec-9ee4-0c9b4f2c411b">
-                <propertyInstance
-                  Id="bafca7d4-3dab-4737-8e06-2588be3492b3"
-                  name="IsStatic"
-                  value="False" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="c7fe51d7-1595-4a77-a2ca-f325bdae8604">
-                <propertyInstance
-                  Id="c7b8e5dd-70cd-4843-8c45-dd26dfff4f73"
-                  name="IsUnsafe"
-                  value="false" />
-              </stereotypeInstanceHasPropertyInstances>
-              <stereotypeInstanceHasPropertyInstances
-                Id="2a60cebe-b2f4-4619-85e7-9be4cfad1185">
-                <propertyInstance
-                  Id="fa060b57-03ef-4226-878a-3aeb2908bc80"
-                  name="PackageVisibility"
-                  value="internal" />
-              </stereotypeInstanceHasPropertyInstances>
-            </propertyInstances>
-          </stereotypeInstance>
-        </appliedStereotypesInternal>
-        <suppliersInternal>
-          <interfaceRealization
-            Id="6dc58c52-2488-40e7-a45a-c6bdc6039797">
-            <interfaceMoniker
-              Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28"
-              LastKnownName="ISolver"
-              LastKnownLocation="Package_1632.uml" />
-          </interfaceRealization>
-        </suppliersInternal>
-        <generalsInternal>
-          <generalization
-            Id="6a4c551e-06b6-4ba3-8b0c-5e83c6d6e95a"
-            isSubstitutable="false">
-            <classMoniker
-              Id="48d56ac8-ef17-4cdc-a0e6-0a78d39836e3"
-              LastKnownName="CliAppControl"
-              LastKnownLocation="Package2_1632.uml" />
-          </generalization>
-        </generalsInternal>
-        <ownedOperationsInternal>
-          <operation
-            Id="357452d0-657a-4eb6-aa32-b1d8a1aac4ba"
-            name="Solve"
-            isLeaf="false"
-            isStatic="false"
-            isAbstract="false"
-            concurrency="Sequential"
-            isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="f2486948-bd2f-4426-b14b-75cbebabac6f"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=PythonSolver Member=(Name=Solve OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Policy)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="b495b281-4f42-48f9-a20b-43868183f4c8"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="bbda3d90-5503-4b93-80ef-6f432a6e423e">
-                    <propertyInstance
-                      Id="0fb2e405-5c93-417f-a9e0-e7d1b8fe9c7c"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cc22b8f5-7c08-42fc-989b-cbacf18eb602">
-                    <propertyInstance
-                      Id="ba273249-b5c7-4a2f-b761-523bc7bfd52a"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1a517f7c-8732-44b9-bbb3-007a0062a5d0">
-                    <propertyInstance
-                      Id="c2fcec02-bd9d-401b-87f1-203515efb415"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="b9010922-73f4-4ba3-9f43-06a35d620e76">
-                    <propertyInstance
-                      Id="a6087d89-8818-44a7-8bf9-bfc8ae0f5ddf"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cb09073e-6ffa-4b66-9a6d-52458625b28b">
-                    <propertyInstance
-                      Id="7241e6b4-78cc-4012-99c2-d7b6ef316f81"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <ownedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="2a273064-6cf1-40ad-ab5d-b2cb9be9ecee"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="3b503424-463f-4897-b3c2-704f182bc98c"
-                      LastKnownName="Selections"
-                      LastKnownLocation="Package_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="066babf5-5318-4e4d-9d99-ba495c7e94ce"
-                  name="interfaceID"
-                  direction="In"
-                  isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="0bcc5263-ea81-4511-b37a-0635cf1a6f90"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=PythonSolver Member=(Name=Solve OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Policy)]) ParameterIdentifier=interfaceID"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="13bffb72-ca5a-4e63-9ea2-704b3dcdd8d8"
-                      LastKnownName="Requirements"
-                      LastKnownLocation="Package_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="ec2faed6-c268-4131-abb8-11cd82e76b73"
-                  name="policy"
-                  direction="In"
-                  isUnique="false">
-                  <referencesInternal>
-                    <reference
-                      Id="6d924ceb-a176-4dbe-bf31-00205907a408"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=PythonSolver Member=(Name=Solve OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Policy)]) ParameterIdentifier=policy"
-                      tag="ViewCode" />
-                  </referencesInternal>
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a"
-                      LastKnownName="Policy"
-                      LastKnownLocation="Package1_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="8f917474-f1b9-4971-ae01-230a5395b9fc"
-                  name="handler"
-                  direction="Out">
-                  <type_NamedElement>
-                    <primitiveTypeMoniker
-                      Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
-                      LastKnownName="Boolean"
-                      LastKnownLocation="Architecture.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-            </ownedParameters>
-          </operation>
-        </ownedOperationsInternal>
-      </class>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <class
         Id="3b503424-463f-4897-b3c2-704f182bc98c"
         name="Selections"
         isAbstract="false"
@@ -1227,79 +1022,17 @@
         </suppliersInternal>
         <ownedOperations>
           <operation
-            Id="70449db9-1cfa-47ee-8261-56092095c188"
+            Id="e5cb83d7-837b-4b2e-bdc4-65689b0fac8e"
             name="Solve"
             isLeaf="false"
             isStatic="false"
-            isAbstract="false"
+            isAbstract="true"
             concurrency="Sequential"
             isQuery="false">
-            <referencesInternal>
-              <reference
-                Id="ee13251d-4f66-44d4-9d06-a1d7790cda75"
-                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=ISolver Member=(Name=Solve OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Policy)])"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="d628dca6-06a8-4b07-bdbc-6c4a78f952dd"
-                name="method"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="d1473183-3dca-407f-a52d-5c35d693ba83">
-                    <propertyInstance
-                      Id="5652c058-350f-4405-a0cc-790cb329e707"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="18846cbd-a3d6-4f34-b9a0-c8cc18109f01">
-                    <propertyInstance
-                      Id="23c45d59-c8a2-4dbd-a6ee-f325d7604f24"
-                      name="IsPartial"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="e8b922df-d281-488b-823c-8eb57fd84c4b">
-                    <propertyInstance
-                      Id="1c662e79-8806-406b-92e9-3384fa3fefe5"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="7d624e06-320b-4100-912e-a83219a1fa04">
-                    <propertyInstance
-                      Id="eb905744-9d15-49c3-8e7f-3167f2a7ba78"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5a111ee1-8352-4246-b93e-ca35ff0ae630">
-                    <propertyInstance
-                      Id="6e69826c-6aff-409e-b5ed-eb7df9fa19d0"
-                      name="params"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="471e68cf-3fa9-4bdc-b7cf-3d7455ddfcc4"
-                  direction="Return"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <classMoniker
-                      Id="3b503424-463f-4897-b3c2-704f182bc98c"
-                      LastKnownName="Selections"
-                      LastKnownLocation="Package_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="efea968e-565a-4145-aedf-1eba8f01f599"
+                  Id="71a2c648-0894-4724-ae06-9feab3a11175"
                   name="requirements"
                   direction="In"
                   isUnique="false">
@@ -1313,7 +1046,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="2425ddbd-bb22-41b8-8fd5-9a035131a420"
+                  Id="a7443bbf-ad09-4369-b919-ecb1dceaab75"
                   name="policy"
                   direction="In"
                   isUnique="false">
@@ -1327,7 +1060,7 @@
               </operationHasOwnedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="44c4924f-1621-4110-a953-f4792874f335"
+                  Id="642dc9e8-59d4-4324-9fba-1d7a161fd645"
                   name="staleFeeds"
                   direction="Out"
                   isUnique="false">
@@ -1336,6 +1069,19 @@
                       Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
                       LastKnownName="Boolean"
                       LastKnownLocation="Architecture.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="8c4404e2-3a26-4006-a2d4-fbbe3258f790"
+                  direction="Return"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <classMoniker
+                      Id="3b503424-463f-4897-b3c2-704f182bc98c"
+                      LastKnownName="Selections"
+                      LastKnownLocation="Package_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>

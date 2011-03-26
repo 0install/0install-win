@@ -18,6 +18,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Common;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -122,7 +123,7 @@ namespace ZeroInstall.Commands
             if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
             #endregion
 
-            Policy.Handler.ShowProgressUI();
+            Policy.Handler.ShowProgressUI(Cancel);
 
             // Run solver with refresh forced off to get the old values
             var noRefreshPolicy = Policy.ClonePolicy();
@@ -132,9 +133,11 @@ namespace ZeroInstall.Commands
             // Rerun solver in refresh mode to get the new values
             Policy.FeedManager.Refresh = true;
             Solve();
+            SelectionsUI();
 
             DownloadUncachedImplementations();
 
+            if (Canceled) throw new UserCancelException();
             Policy.Handler.CloseProgressUI();
             ShowUpdateOutput();
             return 0;

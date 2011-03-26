@@ -39,15 +39,24 @@ namespace ZeroInstall.Commands
         /// </summary>
         private class MockHandler : SilentHandler
         {
+            private readonly Action<Selections> _showSelectionsCallback;
             private readonly Action<string> _outputCallback;
 
             /// <summary>
             /// Creates a new mock handler.
             /// </summary>
+            /// <param name="showSelectionsCallback">Callback to be raised every time <see cref="ShowSelections"/> is called.</param>
             /// <param name="outputCallback">Callback to be raised every time <see cref="Output"/> is called.</param>
-            public MockHandler(Action<string> outputCallback)
+            public MockHandler(Action<Selections> showSelectionsCallback, Action<string> outputCallback)
             {
                 _outputCallback = outputCallback;
+                _showSelectionsCallback = showSelectionsCallback;
+            }
+
+            /// <inheritdoc/>
+            public override void ShowSelections(Selections selections)
+            {
+                _showSelectionsCallback(selections);
             }
 
             /// <inheritdoc/>
@@ -61,8 +70,11 @@ namespace ZeroInstall.Commands
         #region Properties
         private IHandler _handler;
 
+        /// <summary>The content of the last <see cref="MockHandler.ShowSelections"/> call.</summary>
+        private Selections _selections;
+
         /// <summary>The content of the last <see cref="MockHandler.Output"/> call.</summary>
-        private string _result;
+        private string _output;
 
         protected DynamicMock CacheMock { get; private set; }
         protected DynamicMock SolverMock { get; private set; }
@@ -80,8 +92,11 @@ namespace ZeroInstall.Commands
         [SetUp]
         public virtual void SetUp()
         {
-            _result = null;
-            _handler = new MockHandler(message => _result = message);
+            _selections = null;
+            _output = null;
+
+            // Store values passed to callback methods in fields
+            _handler = new MockHandler(selections => _selections = selections, information => _output = information);
 
             CacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
             SolverMock = new DynamicMock("SolverMock", typeof(ISolver));
@@ -107,13 +122,15 @@ namespace ZeroInstall.Commands
         /// Verifies that calling <see cref="CommandBase.Parse"/> and <see cref="CommandBase.Execute"/> causes a specific reuslt.
         /// </summary>
         /// <param name="args">The arguments to pass to <see cref="CommandBase.Parse"/>.</param>
+        /// <param name="selections">The expected value for a <see cref="IHandler.ShowSelections"/> call; <see langword="null"/> if none.</param>
         /// <param name="output">The expected string for a <see cref="IHandler.Output"/> call; <see langword="null"/> if none.</param>
         /// <param name="exitStatus">The expected exit status code returned by <see cref="CommandBase.Execute"/>.</param>
-        protected void AssertParseExecuteResult(IEnumerable<string> args, string output, int exitStatus)
+        protected void AssertParseExecuteResult(IEnumerable<string> args, Selections selections, string output, int exitStatus)
         {
             Command.Parse(args);
             Assert.AreEqual(exitStatus, Command.Execute());
-            Assert.AreEqual(output, _result);
+            Assert.AreEqual(selections, _selections);
+            Assert.AreEqual(output, _output);
         }
 
         [Test(Description = "Ensures an exception is thrown if Execute() is called before Parse().")]

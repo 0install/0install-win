@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
@@ -38,11 +39,17 @@ namespace ZeroInstall.Commands
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "select";
 
+        /// <summary>Indicate that <see cref="Cancel"/> has been called</summary>
+        protected volatile bool Canceled;
+
         /// <summary>Cached <see cref="ISolver"/> results.</summary>
         protected Selections Selections;
 
         /// <summary>Indicates the user provided a pre-created <see cref="Selections"/> XML document instead of using the <see cref="Policy.Solver"/>.</summary>
         protected bool SelectionsDocument;
+
+        /// <summary>Indicates the user wants a UI to audit the selections.</summary>
+        protected bool ShowSelectionsUI;
 
         /// <summary>Indicates the user wants a machine-readable output.</summary>
         protected bool ShowXml;
@@ -87,6 +94,7 @@ namespace ZeroInstall.Commands
             Options.Add("os=", Resources.OptionOS, os => _requirements.Architecture = new Architecture(Architecture.ParseOS(os), _requirements.Architecture.Cpu));
             Options.Add("cpu=", Resources.OptionCpu, cpu => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Architecture.ParseCpu(cpu)));
 
+            Options.Add("g|gui", Resources.OptionGui, unused => ShowSelectionsUI = true);
             Options.Add("xml", Resources.OptionXml, unused => ShowXml = true);
         }
         #endregion
@@ -134,10 +142,24 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
-        protected void Solve()
+        protected virtual void Solve()
         {
-            // Run the solver unless the user provided a selections document
-            if (!SelectionsDocument) Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+            // Don't run the solver if the user provided an external selections document
+            if (SelectionsDocument) return;
+
+            Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+        }
+
+        /// <summary>
+        /// Allows the user to modify <see cref="Policy"/> and <see cref="Selections"/>.
+        /// </summary>
+        protected void SelectionsUI()
+        {
+            Policy.Handler.ShowSelections(Selections);
+
+            // Allow the user to trigger a Solver rerun after modifying preferences
+            if (ShowSelectionsUI && !SelectionsDocument)
+                Policy.Handler.AuditSelections(() => Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds));
         }
 
         /// <summary>
@@ -159,8 +181,9 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
             #endregion
 
-            Policy.Handler.ShowProgressUI();
+            Policy.Handler.ShowProgressUI(Cancel);
             Solve();
+            SelectionsUI();
 
             // If any of the feeds are getting old rerun solver in refresh mode
             if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
@@ -169,9 +192,22 @@ namespace ZeroInstall.Commands
                 Solve();
             }
 
+            if (Canceled) throw new UserCancelException();
             Policy.Handler.CloseProgressUI();
             Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
+        }
+        #endregion
+
+        #region Cancel
+        /// <summary>
+        /// Cancels the <see cref="Execute"/> session.
+        /// </summary>
+        public virtual void Cancel()
+        {
+            Canceled = true;
+
+            // ToDo: Cancel Solver
         }
         #endregion
     }

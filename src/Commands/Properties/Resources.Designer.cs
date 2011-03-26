@@ -333,6 +333,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show the graphical policy editor. This allows you to select which version of a program or library to use..
+        /// </summary>
+        internal static string OptionGui {
+            get {
+                return ResourceManager.GetString("OptionGui", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show the built-in help text..
         /// </summary>
         internal static string OptionHelp {

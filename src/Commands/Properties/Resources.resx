@@ -169,6 +169,9 @@
     <value>Forces the solver to target the CPU {CPU}.
 Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
   </data>
+  <data name="OptionGui" xml:space="preserve">
+    <value>Show the graphical policy editor. This allows you to select which version of a program or library to use.</value>
+  </data>
   <data name="OptionXml" xml:space="preserve">
     <value>Write selected versions to console as machine-readable XML.</value>
   </data>

@@ -82,6 +82,7 @@
     <Compile Include="Tasks\ITaskHandler.cs" />
     <Compile Include="Tasks\SilentTaskHandler.cs" />
     <Compile Include="Tasks\CliTaskHandler.cs" />
+    <Compile Include="Tasks\HookTaskHandler.cs" />
     <Compile Include="Compression\ArchiveUtils.cs" />
     <Compile Include="Compression\LzmaUtils.cs" />
     <Compile Include="Net\DownloadFile.cs" />

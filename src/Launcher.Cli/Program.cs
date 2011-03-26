@@ -21,7 +21,6 @@ using System.IO;
 using System.Net;
 using Common;
 using NDesk.Options;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Commands;
 using ZeroInstall.Injector.Solver;
@@ -117,12 +116,6 @@ namespace ZeroInstall.Launcher.Cli
                 handler.CloseProgressUI();
                 Log.Error(ex.Message);
                 //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
-                return 1;
-            }
-            catch (FetcherException ex)
-            {
-                handler.CloseProgressUI();
-                Log.Error(ex.Message);
                 return 1;
             }
             catch (InvalidInterfaceIDException ex)

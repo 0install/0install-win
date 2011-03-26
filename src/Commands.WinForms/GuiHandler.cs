@@ -23,6 +23,7 @@ using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -38,8 +39,8 @@ namespace ZeroInstall.Commands.WinForms
         #region Variables
         private ProgressForm _form;
 
-        /// <summary>A barrier that blocks threads until the GUI has been initialized.</summary>
-        private readonly EventWaitHandle _guiAvailable = new EventWaitHandle(false, EventResetMode.ManualReset);
+        /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
+        private readonly EventWaitHandle _guiReady = new EventWaitHandle(false, EventResetMode.ManualReset);
         #endregion
 
         #region Properties
@@ -58,37 +59,26 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {
-            _guiAvailable.WaitOne();
+            _guiReady.WaitOne();
 
             // Handle events coming from a non-UI thread, don't block caller
-            _form.Invoke((SimpleEventHandler)(() => _form.TrackTask(task, tag)));
+            _form.Invoke(new SimpleEventHandler(() => _form.TrackTask(task, tag)));
 
             task.RunSync();
         }
         #endregion
 
-        #region Key control
-        /// <inheritdoc />
-        public bool AcceptNewKey(string information)
-        {
-            _guiAvailable.WaitOne();
-
-            // Handle events coming from a non-UI thread, block caller until user has answered
-            bool result = false;
-            _form.Invoke((SimpleEventHandler)delegate
-            {
-                // Auto-deny unknown keys and inform via tray icon when in batch mode
-                if (Batch) _form.ShowTrayIcon("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
-                else result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
-            });
-            return result;
-        }
-        #endregion
-
         #region UI control
         /// <inheritdoc/>
-        public void ShowProgressUI()
+        public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
+            // Can only show GUI once
+            if (_form != null) return;
+
+            _form = new ProgressForm(cancelCallback);
+            _form.HandleCreated += delegate { _guiReady.Set(); };
+            _form.HandleDestroyed += delegate { _form = null; _guiReady.Reset(); };
+
             // Initialize GUI with a low priority
             new Thread(GuiThread) {Priority = ThreadPriority.Lowest}.Start();
         }
@@ -98,9 +88,8 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         private void GuiThread()
         {
-            _form = new ProgressForm();
-            if (ActionTitle != null) _form.Text = ActionTitle;
             _form.Initialize();
+            if (ActionTitle != null) _form.Text = ActionTitle;
 
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
@@ -108,20 +97,73 @@ namespace ZeroInstall.Commands.WinForms
             if (Batch) _form.ShowTrayIcon("Zero Install", ActionTitle, ToolTipIcon.None);
             else _form.Show();
 
-            _guiAvailable.Set();
             Application.Run();
         }
 
         /// <inheritdoc/>
         public void CloseProgressUI()
         {
-            if (_form == null) return;
-            _guiAvailable.WaitOne();
-
-            _form.HideTrayIcon();
             Application.Exit();
-            _form = null;
-            _guiAvailable.Reset();
+        }
+        #endregion
+
+        #region Key control
+        /// <inheritdoc />
+        public bool AcceptNewKey(string information)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(information)) throw new ArgumentNullException("information");
+            #endregion
+
+            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            if (_form == null) return false;
+            _guiReady.WaitOne();
+
+            // Handle events coming from a non-UI thread, block caller until user has answered
+            bool result = false;
+            _form.Invoke(new SimpleEventHandler(delegate
+            {
+                // Auto-deny unknown keys and inform via tray icon when in batch mode
+                if (Batch) _form.ShowTrayIcon("Feed signature", "Feed signed with unknown keys!", ToolTipIcon.Warning);
+                else result = Msg.Ask(_form, information, MsgSeverity.Info, "Accept\nTrust this new key", "Deny\nReject the key and cancel");
+            }));
+            return result;
+        }
+        #endregion
+
+        #region Selections UI
+        /// <inheritdoc/>
+        public void ShowSelections(Selections selections)
+        {
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            #endregion
+
+            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            if (_form == null) return;
+            _guiReady.WaitOne();
+
+            _form.Invoke(new SimpleEventHandler(delegate
+            {
+                // ToDo: Implement
+            }));
+        }
+
+        /// <inheritdoc/>
+        public void AuditSelections(SimpleResult<Selections> solveCallback)
+        {
+            #region Sanity checks
+            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
+            #endregion
+
+            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            if (_form == null) return;
+            _guiReady.WaitOne();
+
+            _form.Invoke(new SimpleEventHandler(delegate
+            {
+                // ToDo: Implement
+            }));
         }
         #endregion
 

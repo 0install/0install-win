@@ -16,6 +16,8 @@
  */
 
 using System;
+using Common;
+using Common.Collections;
 using Common.Utils;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
@@ -104,9 +106,18 @@ namespace ZeroInstall.Commands
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
             #endregion
 
-            Policy.Handler.ShowProgressUI();
+            Policy.Handler.ShowProgressUI(Cancel);
             
             Solve();
+            
+            // If any implementations need to be downloaded rerun solver in refresh mode
+            if (!EnumUtils.IsEmpty(UncachedImplementations) && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+            SelectionsUI();
+
             DownloadUncachedImplementations();
 
             // If any of the feeds are getting old spawn background update process
@@ -116,6 +127,7 @@ namespace ZeroInstall.Commands
                 ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
             }
 
+            if (Canceled) throw new UserCancelException();
             Policy.Handler.CloseProgressUI();
             return LaunchImplementation();
         }

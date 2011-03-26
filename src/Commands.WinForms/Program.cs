@@ -26,7 +26,6 @@ using Common.Controls;
 #endif
 using NDesk.Options;
 using ZeroInstall.Commands.WinForms.Properties;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
@@ -128,11 +127,6 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.CloseProgressUI();
                     // ToDo: Display generated manifest
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
-                }
-                catch (FetcherException ex)
-                {
-                    handler.CloseProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 catch (InvalidInterfaceIDException ex)

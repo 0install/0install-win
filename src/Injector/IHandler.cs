@@ -17,6 +17,8 @@
 
 using Common;
 using Common.Tasks;
+using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
 
 namespace ZeroInstall.Injector
 {
@@ -33,30 +35,53 @@ namespace ZeroInstall.Injector
         bool Batch { get; set; }
 
         /// <summary>
-        /// Asks the whether to trust a new GPG key.
-        /// </summary>
-        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
-        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if it was rejected.</returns>
-        /// <remarks>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
-        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
-        /// </remarks>
-        bool AcceptNewKey(string information);
-
-        /// <summary>
         /// Prepares any UI elements necessary to track the progress of <see cref="ITask"/>s.
         /// </summary>
+        /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
         /// <remarks>Do not call this from a background thread!</remarks>
-        void ShowProgressUI();
+        void ShowProgressUI(SimpleEventHandler cancelCallback);
 
         /// <summary>
         /// Closes any UI element created by <see cref="ShowProgressUI"/>.
         /// </summary>
         /// <remarks>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         ///   <para>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
         void CloseProgressUI();
+
+        /// <summary>
+        /// Asks the whether to trust a new GPG key.
+        /// </summary>
+        /// <param name="information">Comprehensive information about the new key, to help the user make an informed decision.</param>
+        /// <returns><see langword="true"/> if the user accepted the new key; <see langword="false"/> if it was rejected.</returns>
+        /// <remarks>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        /// </remarks>
+        bool AcceptNewKey(string information);
+
+        /// <summary>
+        /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
+        /// Will be ignored by non-GUI intefaces.
+        /// </summary>
+        /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
+        /// <remarks>
+        ///   <para>Only call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        /// </remarks>
+        void ShowSelections(Selections selections);
+
+        /// <summary>
+        /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
+        /// Returns once the user is satisfied with her choice. Will be ignored by non-GUI intefaces.
+        /// </summary>
+        /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
+        /// <remarks>
+        ///   <para>Only call this between <see cref="ShowSelections"/> and <see cref="CloseProgressUI"/>.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        /// </remarks>
+        void AuditSelections(SimpleResult<Selections> solveCallback);
 
         /// <summary>
         /// Displays multi-line text to the user.
@@ -64,8 +89,8 @@ namespace ZeroInstall.Injector
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
         /// <remarks>
-        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         ///   <para>Don't call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>. Use <see cref="AcceptNewKey"/>, <see cref="Log"/> or exceptions instead.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
         void Output(string title, string information);
     }

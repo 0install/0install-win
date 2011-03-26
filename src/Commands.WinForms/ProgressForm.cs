@@ -18,6 +18,7 @@
 using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Common;
 using Common.Tasks;
 
 namespace ZeroInstall.Commands.WinForms
@@ -27,13 +28,23 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public partial class ProgressForm : Form
     {
+        #region Variables
+        /// <summary>To be called when the user wishes to cancel the current process.</summary>
+        private readonly SimpleEventHandler _cancelCallback;
+        #endregion
+
         #region Constructor
         /// <summary>
-        /// Initializes the form.
+        /// Creates a new progress tracking form.
         /// </summary>
-        public ProgressForm()
+        /// <param name="cancelCallback">To be called when the user wishes to cancel the current process.</param>
+        public ProgressForm(SimpleEventHandler cancelCallback)
         {
-            InitializeComponent();
+            #region Sanity checks
+            if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
+            #endregion
+
+            _cancelCallback = cancelCallback;
         }
 
         /// <summary>
@@ -41,6 +52,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         public void Initialize()
         {
+            InitializeComponent();
             CreateHandle();
             CreateControl();
         }
@@ -57,7 +69,6 @@ namespace ZeroInstall.Commands.WinForms
             labelOperation.Text = task.Name + @"...";
             progressBar.Task = task;
             labelProgress.Task = task;
-            buttonCancel.Enabled = true;
 
             if (!Visible) ShowTrayIcon(Text, progressBar.Task.Name, ToolTipIcon.None);
         }
@@ -101,19 +112,15 @@ namespace ZeroInstall.Commands.WinForms
         #endregion
 
         #region Canceling
-        private void MainForm_Closing(object sender, CancelEventArgs e)
+        private void ProgressForm_Closing(object sender, CancelEventArgs e)
         {
-            if (!buttonCancel.Enabled)
-            {
-                e.Cancel = true;
-                return;
-            }
+            // Never allow the user to directly close the window
+            e.Cancel = true;
 
-            // Hide UI immediately so user doesn't notice anything freezing
+            // Hide the window right away and then start cancelling the current process
             Hide();
-
-            // Cancel any tasks that may still be running
-            if (progressBar.Task != null) progressBar.Task.Cancel();
+            HideTrayIcon();
+            _cancelCallback();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)

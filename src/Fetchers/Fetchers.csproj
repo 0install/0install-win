@@ -51,7 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FetcherException.cs" />
+    <Compile Include="ImplementationFetch.cs" />
+    <Compile Include="RetrievalMethodRanker.cs" />
     <Compile Include="FetcherProvider.cs" />
     <Compile Include="FetchRequest.cs" />
     <Compile Include="Fetcher.cs" />

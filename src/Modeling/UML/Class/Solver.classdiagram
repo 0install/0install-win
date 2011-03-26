@@ -79,11 +79,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="86a8d2fa-ee8e-42d7-9573-18f955a751fe" name="Policy" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Policy">
-        <elementDefinition Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="a76dbd59-c8a2-456e-8abc-666e47164a11" name="Selections" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::Selections">
         <elementDefinition Id="3b503424-463f-4897-b3c2-704f182bc98c" />
       </referencedType>
@@ -109,18 +104,8 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="572acff7-41de-4928-86e2-2810336afadd" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
-        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="30c3cd82-1b27-4b34-af2e-dc9b4aec4c67" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
         <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="d5072675-b50a-486b-bd03-bfc470c8f3e8" name="Requirements" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::Requirements">
-        <elementDefinition Id="13bffb72-ca5a-4e63-9ea2-704b3dcdd8d8" />
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -830,80 +815,38 @@
                 </dependency>
               </suppliersInternal>
               <ownedOperations>
-                <operation Id="2a1539e2-e269-41f2-8935-265c9755ebba" name="Solve" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
-                  <referencesInternal>
-                    <reference Id="460327a4-e95e-4aa9-83a2-e663acd055b9" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=ISolver Member=(Name=Solve OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System Type=String),(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Policy)])" tag="ViewCode">
-                      <elementDefinition Id="ee13251d-4f66-44d4-9d06-a1d7790cda75" />
-                    </reference>
-                  </referencesInternal>
-                  <appliedStereotypesInternal>
-                    <stereotypeInstance Id="7a9d2ad7-d4aa-4191-9bd8-5964807ea26c" name="method" profile="CSharpProfile">
-                      <elementDefinition Id="d628dca6-06a8-4b07-bdbc-6c4a78f952dd" />
-                      <propertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="0b03b975-c3eb-43f1-9a3f-d53426e2d5d7">
-                          <propertyInstance Id="38cff04c-c57f-42f1-b3b4-db2b6cc21863" name="ClrAttributes">
-                            <elementDefinition Id="5652c058-350f-4405-a0cc-790cb329e707" />
-                          </propertyInstance>
-                          <elementDefinition Id="d1473183-3dca-407f-a52d-5c35d693ba83" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="ad3b06c9-3da6-421e-b1ce-e7452ae59f1a">
-                          <propertyInstance Id="f0328814-8a34-47bf-874a-9ef83384d73d" name="IsPartial" value="false">
-                            <elementDefinition Id="23c45d59-c8a2-4dbd-a6ee-f325d7604f24" />
-                          </propertyInstance>
-                          <elementDefinition Id="18846cbd-a3d6-4f34-b9a0-c8cc18109f01" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="0d214d74-d1c7-4cfb-b444-e7e0c340a3ed">
-                          <propertyInstance Id="09324e87-3314-4337-84d6-a36cf180e42f" name="IsUnsafe" value="false">
-                            <elementDefinition Id="1c662e79-8806-406b-92e9-3384fa3fefe5" />
-                          </propertyInstance>
-                          <elementDefinition Id="e8b922df-d281-488b-823c-8eb57fd84c4b" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="8e2c251d-a86d-4b3a-8809-88cbf1c12f4f">
-                          <propertyInstance Id="4047ec6e-57e6-42b9-a980-2330139cdaa9" name="PackageVisibility" value="internal">
-                            <elementDefinition Id="eb905744-9d15-49c3-8e7f-3167f2a7ba78" />
-                          </propertyInstance>
-                          <elementDefinition Id="7d624e06-320b-4100-912e-a83219a1fa04" />
-                        </stereotypeInstanceHasPropertyInstances>
-                        <stereotypeInstanceHasPropertyInstances Id="571e04ad-037b-4da3-89f0-287264c072bd">
-                          <propertyInstance Id="be71e6d7-f36a-40fa-9aa6-a5e04d4bfe52" name="params" value="false">
-                            <elementDefinition Id="6e69826c-6aff-409e-b5ed-eb7df9fa19d0" />
-                          </propertyInstance>
-                          <elementDefinition Id="5a111ee1-8352-4246-b93e-ca35ff0ae630" />
-                        </stereotypeInstanceHasPropertyInstances>
-                      </propertyInstances>
-                    </stereotypeInstance>
-                  </appliedStereotypesInternal>
-                  <elementDefinition Id="70449db9-1cfa-47ee-8261-56092095c188" />
+                <operation Id="57c201a8-f65d-4c5a-9acf-87d1db2baea8" name="Solve" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+                  <elementDefinition Id="e5cb83d7-837b-4b2e-bdc4-65689b0fac8e" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="a7c36949-7936-4e2f-bcd9-f4ffe861858b" direction="Return" isUnique="false">
-                        <elementDefinition Id="471e68cf-3fa9-4bdc-b7cf-3d7455ddfcc4" />
+                      <parameter Id="49541214-da3c-4114-911d-fe38ca4f749e" name="requirements" direction="In" isUnique="false">
+                        <elementDefinition Id="71a2c648-0894-4724-ae06-9feab3a11175" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="8bd66104-b33f-48ca-8946-0e23e611a6c4" LastKnownName="Requirements" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="8f13865c-ff7c-42c8-b77c-11b333dcba52" name="policy" direction="In" isUnique="false">
+                        <elementDefinition Id="a7443bbf-ad09-4369-b919-ecb1dceaab75" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="b59bb7e6-7b3d-47ee-af9b-3c67ea5cf58a" LastKnownName="Policy" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="afc32ef5-2712-4e38-9b81-bc28cec3b709" name="staleFeeds" direction="Out" isUnique="false">
+                        <elementDefinition Id="642dc9e8-59d4-4324-9fba-1d7a161fd645" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="1e1cf85b-2861-4ea8-99d4-4df57a188fdb" LastKnownName="Boolean" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="e19ad771-1862-48a7-9aa0-1378b6f2e576" direction="Return" isUnique="false">
+                        <elementDefinition Id="8c4404e2-3a26-4006-a2d4-fbbe3258f790" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="a76dbd59-c8a2-456e-8abc-666e47164a11" LastKnownName="Selections" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="13bb14bc-4a22-40b7-a59d-fcdf5d125e2f" name="requirements" direction="In" isUnique="false">
-                        <elementDefinition Id="efea968e-565a-4145-aedf-1eba8f01f599" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="d5072675-b50a-486b-bd03-bfc470c8f3e8" LastKnownName="Requirements" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="cc25fea1-c1eb-472a-80bc-eb3e277836cb" name="policy" direction="In" isUnique="false">
-                        <elementDefinition Id="2425ddbd-bb22-41b8-8fd5-9a035131a420" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="86a8d2fa-ee8e-42d7-9573-18f955a751fe" LastKnownName="Policy" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="b62e9c62-f56f-46c6-bd3d-243284fbee2f" name="staleFeeds" direction="Out" isUnique="false">
-                        <elementDefinition Id="44c4924f-1621-4110-a953-f4792874f335" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="572acff7-41de-4928-86e2-2810336afadd" LastKnownName="Boolean" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1672,6 +1615,21 @@
     <packageHasNamedElement>
       <referencedType Id="338a0421-cdde-4b9f-88c9-8a074cbcca33" name="Feed" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Feed">
         <elementDefinition Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8bd66104-b33f-48ca-8946-0e23e611a6c4" name="Requirements" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::Requirements">
+        <elementDefinition Id="13bffb72-ca5a-4e63-9ea2-704b3dcdd8d8" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b59bb7e6-7b3d-47ee-af9b-3c67ea5cf58a" name="Policy" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Policy">
+        <elementDefinition Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="1e1cf85b-2861-4ea8-99d4-4df57a188fdb" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
