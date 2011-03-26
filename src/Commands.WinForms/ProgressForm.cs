@@ -111,21 +111,32 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
-        #region Canceling
+        #region Closing
+        // Raised when the user tried to close the window
         private void ProgressForm_Closing(object sender, CancelEventArgs e)
         {
             // Never allow the user to directly close the window
             e.Cancel = true;
 
-            // Hide the window right away and then start cancelling the current process
+            // Start proper cancellation instead
+            Cancel();
+        }
+        #endregion
+
+        #region Cancelling
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            Cancel();
+        }
+
+        /// <summary>
+        /// Hides the window and then runs <see cref="_cancelCallback"/>.
+        /// </summary>
+        private void Cancel()
+        {
             Hide();
             HideTrayIcon();
             _cancelCallback();
-        }
-
-        private void buttonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
         }
         #endregion
     }
