@@ -62,6 +62,37 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+            if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
+            #endregion
+
+            Policy.Handler.ShowProgressUI(Cancel);
+
+            // Run solver with refresh forced off to get the old values
+            var noRefreshPolicy = Policy.ClonePolicy();
+            noRefreshPolicy.FeedManager.Refresh = false;
+            _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+
+            // Rerun solver in refresh mode to get the new values
+            Policy.FeedManager.Refresh = true;
+            Solve();
+            SelectionsUI();
+
+            DownloadUncachedImplementations();
+
+            if (Canceled) throw new UserCancelException();
+            Policy.Handler.CloseProgressUI();
+            ShowUpdateOutput();
+            return 0;
+        }
+        #endregion
+
         #region Helpers
         /// <summary>
         /// Shows a list of changes found by the update process.
@@ -110,37 +141,6 @@ namespace ZeroInstall.Commands
                 // Show a "nothing changed" message (but not in batch mode, since it is too unimportant)
                 if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.ChangesFound, Resources.NoUpdatesFound);
             }
-        }
-        #endregion
-
-        #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
-        {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            if (SelectionsDocument) throw new NotSupportedException(Resources.NoSelectionsDocumentUpdate);
-            #endregion
-
-            Policy.Handler.ShowProgressUI(Cancel);
-
-            // Run solver with refresh forced off to get the old values
-            var noRefreshPolicy = Policy.ClonePolicy();
-            noRefreshPolicy.FeedManager.Refresh = false;
-            _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
-
-            // Rerun solver in refresh mode to get the new values
-            Policy.FeedManager.Refresh = true;
-            Solve();
-            SelectionsUI();
-
-            DownloadUncachedImplementations();
-
-            if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
-            ShowUpdateOutput();
-            return 0;
         }
         #endregion
     }

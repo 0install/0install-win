@@ -18,6 +18,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
@@ -28,7 +29,7 @@ using ZeroInstall.Store.Feeds;
 namespace ZeroInstall.Injector
 {
     /// <summary>
-    /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
+    /// Combines UI access, configuration and resources used to solve dependencies and download implementations.
     /// </summary>
     /// <remarks>This class primarily serves to simplify the initialization process and to reduce the number of arguments that need to be passed into methods.</remarks>
     [SuppressMessage("Microsoft.Naming", "CA1724:TypeNamesShouldNotMatchNamespaces")]
@@ -37,9 +38,9 @@ namespace ZeroInstall.Injector
     {
         #region Properties
         /// <summary>
-        /// User-preferences controlling network behaviour, etc.
+        /// User settings controlling network behaviour, solving, etc.
         /// </summary>
-        public Preferences Preferences { get; private set; }
+        public Config Config { get; private set; }
 
         /// <summary>
         /// Allows configuration of the source used to request <see cref="Feed"/>s.
@@ -87,23 +88,23 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a new policy.
         /// </summary>
-        /// <param name="preferences">User-preferences controlling network behaviour, etc.</param>
+        /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
         /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <seealso cref="CreateDefault"/>
-        public Policy(Preferences preferences, FeedManager feedManager, ISolver solver, IFetcher fetcher, IHandler handler)
+        public Policy(Config config, FeedManager feedManager, ISolver solver, IFetcher fetcher, IHandler handler)
         {
             #region Sanity checks
-            if (preferences == null) throw new ArgumentNullException("preferences");
+            if (config == null) throw new ArgumentNullException("config");
             if (feedManager == null) throw new ArgumentNullException("feedManager");
             if (solver == null) throw new ArgumentNullException("solver");
             if (fetcher == null) throw new ArgumentNullException("fetcher");
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            Preferences = preferences;
+            Config = config;
             FeedManager = feedManager;
             Solver = solver;
             Fetcher = fetcher;
@@ -113,14 +114,14 @@ namespace ZeroInstall.Injector
 
         #region Factory method
         /// <summary>
-        /// Creates a new policy using the default <see cref="Preferences"/>, <see cref="FeedCacheProvider"/>, <see cref="SolverProvider"/> and <see cref="FetcherProvider"/>.
+        /// Creates a new policy using the default <see cref="Config"/>, <see cref="FeedCacheProvider"/>, <see cref="SolverProvider"/> and <see cref="FetcherProvider"/>.
         /// </summary>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            return new Policy(Preferences.LoadDefault(), new FeedManager(FeedCacheProvider.Default), SolverProvider.Default, FetcherProvider.Default, handler);
+            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.Default), SolverProvider.Default, FetcherProvider.Default, handler);
         }
         #endregion
 
@@ -131,17 +132,17 @@ namespace ZeroInstall.Injector
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Preferences"/> and <see cref="FeedManager"/> are cloned, <see cref="Solver"/>, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
+        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Solver"/>, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
         public Policy ClonePolicy()
         {
-            return new Policy(Preferences.ClonePreferences(), FeedManager.CloneFeedManager(), Solver, Fetcher, Handler) {AdditionalStore = AdditionalStore};
+            return new Policy(Config.CloneConfig(), FeedManager.CloneFeedManager(), Solver, Fetcher, Handler) {AdditionalStore = AdditionalStore};
         }
 
         /// <summary>
         /// Creates a semi-deep copy of this <see cref="Policy"/> instance.
         /// </summary>
         /// <returns>The new copy of the <see cref="Policy"/>.</returns>
-        /// <remarks><see cref="Preferences"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
+        /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
         public object Clone()
         {
             return ClonePolicy();
@@ -154,7 +155,7 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return Equals(other.Preferences, Preferences) && Equals(other.FeedManager, FeedManager) && Equals(other.Solver, Solver) && Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore) && Equals(other.Handler, Handler);
+            return Equals(other.Config, Config) && Equals(other.FeedManager, FeedManager) && Equals(other.Solver, Solver) && Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore) && Equals(other.Handler, Handler);
         }
 
         /// <inheritdoc/>
@@ -170,7 +171,7 @@ namespace ZeroInstall.Injector
         {
             unchecked
             {
-                int result = Preferences.GetHashCode();
+                int result = Config.GetHashCode();
                 result = (result * 397) ^ FeedManager.GetHashCode();
                 result = (result * 397) ^ Solver.GetHashCode();
                 result = (result * 397) ^ Fetcher.GetHashCode();

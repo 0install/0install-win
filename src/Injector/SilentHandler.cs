@@ -64,5 +64,12 @@ namespace ZeroInstall.Injector
         /// <inheritdoc />
         public virtual void Output(string title, string information)
         {}
+
+        /// <inheritdoc/>
+        public bool ShowConfig(Config config)
+        {
+            // No UI, so nothing to do
+            return false;
+        }
     }
 }

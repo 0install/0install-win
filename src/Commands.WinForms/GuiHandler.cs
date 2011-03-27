@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading;
 using System.Windows.Forms;
 using Common;
@@ -34,6 +35,7 @@ namespace ZeroInstall.Commands.WinForms
     /// This class is heavily multi-threaded. The UI is prepared in the background with a low priority to allow simultaneous continuation of computation.
     /// Any calls relying on the UI being reading will block automatically.
     /// </remarks>
+    [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "Disposal is handled sufficiently by GC in this case")]
     public class GuiHandler : MarshalByRefObject, IHandler
     {
         #region Variables
@@ -189,6 +191,18 @@ namespace ZeroInstall.Commands.WinForms
         {
             var icon = new NotifyIcon {Visible = true, Icon = Resources.TrayIcon};
             icon.ShowBalloonTip(10000, title, information, ToolTipIcon.Info);
+        }
+        #endregion
+
+        #region Configuration
+        /// <inheritdoc/>
+        public bool ShowConfig(Config config)
+        {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            #endregion
+
+            return (ConfigForm.ShowDialog(config) == DialogResult.OK);
         }
         #endregion
     }

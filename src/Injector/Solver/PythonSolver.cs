@@ -106,7 +106,7 @@ namespace ZeroInstall.Injector.Solver
         private static string GetSolverArguments(Requirements requirements, Policy policy)
         {
             string arguments = "";
-            if (policy.Preferences.NetworkLevel == NetworkLevel.Offline) arguments += "--offline ";
+            if (policy.Config.NetworkUse == NetworkLevel.Offline) arguments += "--offline ";
             if (policy.FeedManager.Refresh) arguments += "--refresh ";
             if (requirements.CommandName != null) arguments += "--command=\"" + requirements.CommandName + "\" ";
             if (requirements.BeforeVersion != null) arguments += "--before=" + requirements.BeforeVersion + " ";

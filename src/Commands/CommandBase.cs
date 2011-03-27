@@ -123,7 +123,7 @@ namespace ZeroInstall.Commands
             });
 
             Options.Add("with-store=", Resources.OptionWithStore, path => Policy.AdditionalStore = new DirectoryStore(path));
-            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Preferences.NetworkLevel = NetworkLevel.Offline);
+            Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
             Options.Add("v|verbose", Resources.OptionVerbose, unused => Verbosity++);
         }
         #endregion

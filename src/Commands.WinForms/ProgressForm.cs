@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
-        public void TrackTask(ITask task, object tag)
+        internal void TrackTask(ITask task, object tag)
         {
             labelOperation.Text = task.Name + @"...";
             progressBar.Task = task;

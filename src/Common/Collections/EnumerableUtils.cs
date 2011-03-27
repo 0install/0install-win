@@ -26,7 +26,7 @@ namespace Common.Collections
     /// <summary>
     /// Provides helper methods for enumerable collections.
     /// </summary>
-    public static class EnumUtils
+    public static class EnumerableUtils
     {
         /// <summary>
         /// Returns the first element of an enumerable collection.

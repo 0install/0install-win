@@ -137,7 +137,7 @@ namespace ZeroInstall.Central.WinForms
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                LaunchFeed(EnumUtils.GetFirst(files));
+                LaunchFeed(EnumerableUtils.GetFirst(files));
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
             {

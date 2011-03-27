@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Implementation
 
             // A contaminated store should be detected
             Directory.CreateDirectory(Path.Combine(_tempDir.Path, "sha1new=abc"));
-            DigestMismatchException problem = EnumUtils.GetFirst(store.Audit(new SilentHandler()));
+            DigestMismatchException problem = EnumerableUtils.GetFirst(store.Audit(new SilentHandler()));
             Assert.AreEqual("sha1new=abc", problem.ExpectedHash);
             Assert.AreEqual("sha1new=da39a3ee5e6b4b0d3255bfef95601890afd80709", problem.ActualHash);
         }

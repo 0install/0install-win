@@ -69,6 +69,41 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+            #endregion
+
+            Policy.Handler.ShowProgressUI(Cancel);
+            
+            Solve();
+
+            // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode
+            if ((StaleFeeds || !EnumerableUtils.IsEmpty(UncachedImplementations)) && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+            SelectionsUI();
+
+            DownloadUncachedImplementations();
+
+            if (Canceled) throw new UserCancelException();
+            Policy.Handler.CloseProgressUI();
+            if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            else
+            {
+                // Show a "download complete" message (but not in batch mode, since it is too unimportant)
+                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
+            }
+            return 0;
+        }
+        #endregion
+
         #region Helpers
         /// <inheritdoc/>
         protected override void Solve()
@@ -94,41 +129,6 @@ namespace ZeroInstall.Commands
 
             Policy.Fetcher.Join(_currentFetchRequest);
             _currentFetchRequest = null;
-        }
-        #endregion
-
-        #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
-        {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            #endregion
-
-            Policy.Handler.ShowProgressUI(Cancel);
-            
-            Solve();
-
-            // If any of the feeds are getting old or any implementations need to be downloaded rerun solver in refresh mode
-            if ((StaleFeeds || !EnumUtils.IsEmpty(UncachedImplementations)) && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
-            {
-                Policy.FeedManager.Refresh = true;
-                Solve();
-            }
-            SelectionsUI();
-
-            DownloadUncachedImplementations();
-
-            if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
-            if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            else
-            {
-                // Show a "download complete" message (but not in batch mode, since it is too unimportant)
-                if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.DownloadComplete, Resources.AllComponentsDownloaded);
-            }
-            return 0;
         }
         #endregion
 

@@ -93,5 +93,16 @@ namespace ZeroInstall.Injector
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
         void Output(string title, string information);
+
+        /// <summary>
+        /// Displays the configuration settings to the user.
+        /// </summary>
+        /// <param name="config">The configuration to show.</param>
+        /// <returns><see langword="true"/> if the user modified any settings; <see langword="false"/> otherwise.</returns>
+        /// <remarks>
+        ///   <para>Don't call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        /// </remarks>
+        bool ShowConfig(Config config);
     }
 }

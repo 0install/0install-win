@@ -138,6 +138,33 @@ namespace ZeroInstall.Commands
         }
         #endregion
 
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
+            #endregion
+
+            Policy.Handler.ShowProgressUI(Cancel);
+            Solve();
+            SelectionsUI();
+
+            // If any of the feeds are getting old rerun solver in refresh mode
+            if (StaleFeeds && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+
+            if (Canceled) throw new UserCancelException();
+            Policy.Handler.CloseProgressUI();
+            Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
+            return 0;
+        }
+        #endregion
+
         #region Helpers
         /// <summary>
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
@@ -159,7 +186,10 @@ namespace ZeroInstall.Commands
 
             // Allow the user to trigger a Solver rerun after modifying preferences
             if (ShowSelectionsUI && !SelectionsDocument)
+            {
                 Policy.Handler.AuditSelections(() => Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds));
+                Policy.Config.Save();
+            }
         }
 
         /// <summary>
@@ -169,33 +199,6 @@ namespace ZeroInstall.Commands
         protected string GetSelectionsOutput()
         {
             return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.SearchStore);
-        }
-        #endregion
-
-        #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
-        {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            if (AdditionalArgs.Count != 0) throw new OptionException(Resources.TooManyArguments + "\n" + AdditionalArgs, "");
-            #endregion
-
-            Policy.Handler.ShowProgressUI(Cancel);
-            Solve();
-            SelectionsUI();
-
-            // If any of the feeds are getting old rerun solver in refresh mode
-            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
-            {
-                Policy.FeedManager.Refresh = true;
-                Solve();
-            }
-
-            if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
-            Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
-            return 0;
         }
         #endregion
 

@@ -80,5 +80,16 @@ namespace ZeroInstall.Commands
         {
             Console.WriteLine(information);
         }
+
+        /// <inheritdoc/>
+        public bool ShowConfig(Config config)
+        {
+            #region Sanity checks
+            if (config == null) throw new ArgumentNullException("config");
+            #endregion
+
+            Console.Write(config.ToString());
+            return false;
+        }
     }
 }

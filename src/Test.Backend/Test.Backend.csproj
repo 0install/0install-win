@@ -91,7 +91,7 @@
     <Compile Include="Fetchers\PackageBuilderManifestExtension.cs" />
     <Compile Include="Fetchers\TestData.cs" />
     <Compile Include="Injector\ExecutorTest.cs" />
-    <Compile Include="Injector\PreferencesTest.cs" />
+    <Compile Include="Injector\ConfigTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
     <Compile Include="Injector\Solver\PythonSolverTest.cs" />
     <Compile Include="Injector\Solver\RequirementsTest.cs" />

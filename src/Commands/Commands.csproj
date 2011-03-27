@@ -56,7 +56,7 @@
     <Compile Include="CliHandler.cs" />
     <Compile Include="CommandBase.cs" />
     <Compile Include="CommandFactory.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="Configure.cs" />
     <Compile Include="DefaultCommand.cs" />
     <Compile Include="Download.cs" />
     <Compile Include="GlobalSuppressions.cs" />

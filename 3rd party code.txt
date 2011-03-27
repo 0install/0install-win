@@ -27,3 +27,9 @@ http://www.itu.dk/research/c5/
 MIT-style open license: lib/C5.license.txt
 Source unmodified
 Pre-compiled managed DLL: lib/C5.dll
+
+INI File Parser v1.5.5
+http://code.google.com/p/ini-parser/
+MIT License: http://www.opensource.org/licenses/mit-license.php
+Source unmodified
+Pre-compiled managed DLL: lib/INIFileParser.dll

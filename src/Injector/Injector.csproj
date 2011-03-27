@@ -43,14 +43,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="C5">
       <HintPath>..\..\lib\C5.dll</HintPath>
     </Reference>
+    <Reference Include="INIFileParser">
+      <HintPath>..\..\lib\INIFileParser.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Preferences.cs" />
+    <Compile Include="Config.cs" />
     <Compile Include="Feeds\Domain.cs" />
     <Compile Include="Feeds\FeedManager.cs" />
     <Compile Include="Feeds\FeedPreferences.cs" />

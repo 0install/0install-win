@@ -77,6 +77,41 @@ namespace ZeroInstall.Commands
 
         //--------------------//
 
+        #region Execute
+        /// <inheritdoc/>
+        public override int Execute()
+        {
+            #region Sanity checks
+            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            #endregion
+
+            Policy.Handler.ShowProgressUI(Cancel);
+            
+            Solve();
+            
+            // If any implementations need to be downloaded rerun solver in refresh mode
+            if (!EnumerableUtils.IsEmpty(UncachedImplementations) && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            {
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+            SelectionsUI();
+
+            DownloadUncachedImplementations();
+
+            // If any of the feeds are getting old spawn background update process
+            if (StaleFeeds && Policy.Config.NetworkUse != NetworkLevel.Offline)
+            {
+                // ToDo: Automatically switch to GTK# on Linux
+                ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
+            }
+
+            if (Canceled) throw new UserCancelException();
+            Policy.Handler.CloseProgressUI();
+            return LaunchImplementation();
+        }
+        #endregion
+
         #region Helpers
         /// <summary>
         /// Closes any remaining GUI windows and launches the selected implementation.
@@ -95,41 +130,6 @@ namespace ZeroInstall.Commands
                 return 0;
             }
             return ProcessUtils.RunSync(startInfo);
-        }
-        #endregion
-
-        #region Execute
-        /// <inheritdoc/>
-        public override int Execute()
-        {
-            #region Sanity checks
-            if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
-            #endregion
-
-            Policy.Handler.ShowProgressUI(Cancel);
-            
-            Solve();
-            
-            // If any implementations need to be downloaded rerun solver in refresh mode
-            if (!EnumUtils.IsEmpty(UncachedImplementations) && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
-            {
-                Policy.FeedManager.Refresh = true;
-                Solve();
-            }
-            SelectionsUI();
-
-            DownloadUncachedImplementations();
-
-            // If any of the feeds are getting old spawn background update process
-            if (StaleFeeds && Policy.Preferences.NetworkLevel != NetworkLevel.Offline)
-            {
-                // ToDo: Automatically switch to GTK# on Linux
-                ProcessUtils.LaunchHelperAssembly("0install-win", "update --batch " + Requirements.ToCommandLineArgs());
-            }
-
-            if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
-            return LaunchImplementation();
         }
         #endregion
     }

@@ -96,7 +96,7 @@ namespace Common.Controls
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 var files = e.Data.GetData(DataFormats.FileDrop) as string[];
-                textInput.Text = EnumUtils.GetFirst(files);
+                textInput.Text = EnumerableUtils.GetFirst(files);
             }
             else if (e.Data.GetDataPresent(DataFormats.Text))
             {

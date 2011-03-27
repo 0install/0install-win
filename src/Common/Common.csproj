@@ -92,7 +92,7 @@
     <Compile Include="Cli\TrackingProgessBar.cs" />
     <Compile Include="Cli\CliAppControl.cs" />
     <Compile Include="Cli\UnhandledErrorsException.cs" />
-    <Compile Include="Collections\EnumUtils.cs" />
+    <Compile Include="Collections\EnumerableUtils.cs" />
     <Compile Include="Collections\CultureComparer.cs" />
     <Compile Include="Collections\INamedCollection.cs" />
     <Compile Include="Collections\LanguageCollection.cs" />
@@ -136,6 +136,7 @@
     <Compile Include="Undo\SetLocalizableString.cs" />
     <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
+    <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
     <Compile Include="Controls\InputBox.cs">
@@ -170,6 +171,12 @@
     </Compile>
     <Compile Include="Controls\AsyncWaitDialog.Designer.cs">
       <DependentUpon>AsyncWaitDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TimeSpanControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\TimeSpanControl.Designer.cs">
+      <DependentUpon>TimeSpanControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\InspectionForm.cs">
       <SubType>Form</SubType>

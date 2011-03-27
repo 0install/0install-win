@@ -38,12 +38,19 @@ namespace Common
         /// </summary>
         public T Value { get { return _getValue(); } set { _setValue(value); } }
 
+        private readonly T _defaultValue;
+        /// <summary>
+        /// The default value of the property.
+        /// </summary>
+        public T DefaultValue { get { return _defaultValue; } }
+
         /// <summary>
         /// Creates a property pointer.
         /// </summary>
         /// <param name="getValue">A delegate that returns the current value.</param>
         /// <param name="setValue">A delegate that sets the valuel.</param>
-        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue)
+        /// <param name="defaultValue">The default value of the property</param>
+        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue, T defaultValue)
         {
             #region Sanity checks
             if (getValue == null) throw new ArgumentNullException("getValue");
@@ -52,6 +59,81 @@ namespace Common
 
             _getValue = getValue;
             _setValue = setValue;
+            _defaultValue = defaultValue;
+        }
+        
+        /// <summary>
+        /// Creates a property pointer.
+        /// </summary>
+        /// <param name="getValue">A delegate that returns the current value.</param>
+        /// <param name="setValue">A delegate that sets the valuel.</param>
+        public PropertyPointer(SimpleResult<T> getValue, Action<T> setValue) : this(getValue, setValue, default(T))
+        {}
+    }
+
+    /// <summary>
+    /// Provides factory methods for <see cref="PropertyPointer{T}"/>.
+    /// </summary>
+    public static class PropertyPointer
+    {
+        /// <summary>
+        /// Wraps a <see cref="bool"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// </summary>
+        public static PropertyPointer<string> GetBoolConverter(PropertyPointer<bool> pointer)
+        {
+            #region Sanity checks
+            if (pointer == null) throw new ArgumentNullException("pointer");
+            #endregion
+
+            return new PropertyPointer<string>(
+                () => pointer.Value.ToString(),
+                value => pointer.Value = bool.Parse(value),
+                pointer.DefaultValue.ToString());
+        }
+
+        /// <summary>
+        /// Wraps an <see cref="int"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// </summary>
+        public static PropertyPointer<string> GetIntegerConverter(PropertyPointer<int> pointer)
+        {
+            #region Sanity checks
+            if (pointer == null) throw new ArgumentNullException("pointer");
+            #endregion
+
+            return new PropertyPointer<string>(
+                () => pointer.Value.ToString(),
+                value => pointer.Value = int.Parse(value),
+                pointer.DefaultValue.ToString());
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="TimeSpan"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// </summary>
+        public static PropertyPointer<string> GetTimespanConverter(PropertyPointer<TimeSpan> pointer)
+        {
+            #region Sanity checks
+            if (pointer == null) throw new ArgumentNullException("pointer");
+            #endregion
+
+            return new PropertyPointer<string>(
+                () => ((int)pointer.Value.TotalSeconds).ToString(),
+                value => pointer.Value = TimeSpan.FromSeconds(int.Parse(value)),
+                ((int)pointer.DefaultValue.TotalSeconds).ToString());
+        }
+
+        /// <summary>
+        /// Wraps an <see cref="Uri"/> pointer in a <see cref="string"/> pointer (using parsing and <see cref="object.ToString"/>.
+        /// </summary>
+        public static PropertyPointer<string> GetUriConverter(PropertyPointer<Uri> pointer)
+        {
+            #region Sanity checks
+            if (pointer == null) throw new ArgumentNullException("pointer");
+            #endregion
+
+            return new PropertyPointer<string>(
+                () => pointer.Value.ToString(),
+                value => pointer.Value = new Uri(value),
+                pointer.DefaultValue == null ? null : pointer.DefaultValue.ToString().ToLowerInvariant());
         }
     }
 }
