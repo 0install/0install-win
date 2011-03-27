@@ -155,8 +155,8 @@ namespace ZeroInstall.Injector
                         case NetworkLevel.Full: return "full";
                         case NetworkLevel.Minimal: return "minimal";
                         case NetworkLevel.Offline: return "off-line";
-                        default: return null; // Will never be reached
                     }
+                    return null; // Will never be reached
                 },
                 delegate(string value)
                 {
