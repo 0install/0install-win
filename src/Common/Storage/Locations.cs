@@ -264,18 +264,21 @@ namespace Common.Storage
             string path;
             if (IsPortable)
             {
+                // Check in portable base directory
                 path = StringUtils.PathCombine(PortableBase, "config", resource);
-                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
             }
             else
             {
+                // Check in user profile
                 path = StringUtils.PathCombine(UserConfigDir, appName, resource);
-                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
 
+                // Check in system directories
                 foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
                 {
                     path = StringUtils.PathCombine(dirPath, appName, resource);
-                    if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                    if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
                 }
             }
         }
@@ -329,18 +332,21 @@ namespace Common.Storage
             string path;
             if (IsPortable)
             {
+                // Check in portable base directory
                 path = StringUtils.PathCombine(PortableBase, "data", resource);
-                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
             }
             else
             {
+                // Check in user profile
                 path = StringUtils.PathCombine(UserDataDir, appName, resource);
-                if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
 
+                // Check in system directories
                 foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
                 {
                     path = StringUtils.PathCombine(dirPath, appName, resource);
-                    if (File.Exists(path) || Directory.Exists(path)) yield return path;
+                    if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
                 }
             }
         }

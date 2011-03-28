@@ -16,12 +16,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
 using Common;
-using Common.Collections;
 using Common.Storage;
 using Common.Values.Design;
 using IniParser;
@@ -53,7 +53,7 @@ namespace ZeroInstall.Injector
     public sealed class Config : IEquatable<Config>, ICloneable
     {
         #region Variables
-        /// <summary>Provides meta-data for loading and saving preference properties.</summary>
+        /// <summary>Provides meta-data for loading and saving settings properties.</summary>
         private readonly C5.HashDictionary<string, PropertyPointer<string>> _metaData;
 
         /// <summary>Singleton used for reading and writing INI files.</summary>
@@ -210,7 +210,7 @@ namespace ZeroInstall.Injector
 
         #region Storage
         /// <summary>
-        /// Loads the prefences from an INI file.
+        /// Loads the settings from a single INI file.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
@@ -218,26 +218,15 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load(string path)
         {
-            // Load the entire INI data from a file
             var iniData = _iniParse.LoadFile(path, true);
             var config = new Config {_iniData = iniData};
 
-            // Try to load properties specified in meta-data from the [global] section
-            if (iniData.Sections.ContainsSection("global"))
-            {
-                var global = iniData["global"];
-                foreach (var property in config._metaData)
-                {
-                    if (global.ContainsKey(property.Key))
-                        property.Value.Value = global[property.Key];
-                }
-            }
-
+            FromIniToConfig(iniData, config);
             return config;
         }
 
         /// <summary>
-        /// Loads the prefences from an INI file in one of the default locations or falls back to the default values.
+        /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
@@ -245,57 +234,80 @@ namespace ZeroInstall.Injector
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load()
         {
-            string path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", Path.Combine("injector", "global"), false));
-            
-            // No config file present, use defaults
-            if (string.IsNullOrEmpty(path)) return new Config();
+            // Locate all applicable config files and order them from least to most important
+            var paths = new List<string>(Locations.GetLoadConfigPaths("0install.net", Path.Combine("injector", "global"), false));
+            paths.Reverse();
 
-            try
+            // Accumulate values from all files
+            var config = new Config();
+            foreach (var path in paths)
             {
-                // Load config file
-                return Load(path);
+                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); }
+                catch (Exception ex)
+                {
+                    // In case of failure log and continue with default value
+                    Log.Warn("Failed to load: " + path + "\n" + ex.Message);
+                    Log.Warn("Reverting to default values");
+                    return new Config();
+                }
             }
-            catch (Exception ex)
-            {
-                // In case of failure log and continue with default value
-                Log.Warn("Failed to load: " + path + "\n" + ex.Message);
-                Log.Warn("Reverting to default values");
-                return new Config();
-            }
+            return config;
         }
 
         /// <summary>
-        /// Saves the prefences to an INI file.
+        /// Saves the settings to an INI file.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
-            // Makre sure a suitable INI data set is available
             if (_iniData == null) _iniData = new IniData();
-            if (!_iniData.Sections.ContainsSection("global")) _iniData.Sections.AddSection("global");
-            var global = _iniData["global"];
-
-            // Store properties specified in meta-data in the [global] section
-            foreach (var property in _metaData)
-            {
-                // Remove the old value and only set the new one if it isn't the default value
-                global.RemoveKey(property.Key);
-                if (!Equals(property.Value.DefaultValue, property.Value.Value))
-                    global.AddKey(property.Key, property.Value.Value);
-            }
-
+            FromConfigToIni(this, _iniData);
             _iniParse.SaveFile(path, _iniData);
         }
 
         /// <summary>
-        /// Saves the prefences to an INI file in the default location in the user profile.
+        /// Saves the settings to an INI file in the default location in the user profile.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save()
         {
             Save(Locations.GetSaveConfigPath("0install.net", Path.Combine("injector", "global"), false));
+        }
+        #endregion
+
+        #region Serialization
+        /// <summary>
+        /// Transfers parsed <see cref="IniData"/> to <see cref="Config"/> properties using <see cref="_metaData"/>.
+        /// </summary>
+        private static void FromIniToConfig(IniData iniData, Config config)
+        {
+            if (!iniData.Sections.ContainsSection("global")) return;
+
+            var global = iniData["global"];
+            foreach (var property in config._metaData)
+            {
+                if (global.ContainsKey(property.Key))
+                    property.Value.Value = global[property.Key];
+            }
+        }
+
+        /// <summary>
+        /// Transfers <see cref="Config"/> properties to <see cref="IniData"/> using <see cref="_metaData"/>.
+        /// </summary>
+        private static void FromConfigToIni(Config config, IniData iniData)
+        {
+            if (!iniData.Sections.ContainsSection("global")) iniData.Sections.AddSection("global");
+            var global = iniData["global"];
+
+            foreach (var property in config._metaData)
+            {
+                // Remove the old value and only set the new one if it isn't the default value
+                global.RemoveKey(property.Key);
+                if (!Equals(property.Value.DefaultValue, property.Value.Value))
+                    global.AddKey(property.Key, property.Value.Value);
+            }
         }
         #endregion
 
