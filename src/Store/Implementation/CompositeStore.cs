@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the deepest store the implementation can be added to (some might be write-protected)
-            UnauthorizedAccessException innerException = null;
+            Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {
                 try
@@ -135,16 +135,21 @@ namespace ZeroInstall.Store.Implementation
                     return;
                 }
                 #region Error handling
+                catch (IOException ex)
+                {
+                    // Remember the first error
+                    if (innerException == null) innerException = ex;
+                }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first authorization error and try the next store
+                    // Remember the first error
                     if (innerException == null) innerException = ex;
                 }
                 #endregion
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
         }
         #endregion
 
@@ -158,7 +163,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the deepest store the implementation can be added to (some might be write-protected)
-            UnauthorizedAccessException innerException = null;
+            Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {
                 try
@@ -168,9 +173,14 @@ namespace ZeroInstall.Store.Implementation
                     return;
                 }
                 #region Error handling
+                catch (IOException ex)
+                {
+                    // Remember the first error
+                    if (innerException == null) innerException = ex;
+                }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first authorization error and try the next store
+                    // Remember the first error
                     if (innerException == null) innerException = ex;
                 }
                 #endregion
@@ -189,7 +199,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Find the deepest store the implementation can be added to (some might be write-protected)
-            UnauthorizedAccessException innerException = null;
+            Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {
                 try
@@ -199,9 +209,14 @@ namespace ZeroInstall.Store.Implementation
                     return;
                 }
                 #region Error handling
+                catch (IOException ex)
+                {
+                    // Remember the first error
+                    if (innerException == null) innerException = ex;
+                }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first authorization error and try the next store
+                    // Remember the first error
                     if (innerException == null) innerException = ex;
                 }
                 #endregion
