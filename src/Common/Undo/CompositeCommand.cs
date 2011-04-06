@@ -47,7 +47,7 @@ namespace Common.Undo
             if (commands == null) throw new ArgumentNullException("commands");
             #endregion
 
-            // Defensive copy to prevent outside modification
+            // Defensive copy
             _commands.AddAll(commands);
         }
         #endregion

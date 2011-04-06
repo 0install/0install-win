@@ -19,7 +19,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
-using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -57,14 +56,6 @@ namespace ZeroInstall.Store.Feeds
             
             DirectoryPath = path;
         }
-
-        /// <summary>
-        /// Creates a new cache using the default path (generally in the user-profile).
-        /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public DiskFeedCache() : this(Locations.GetCachePath("0install.net", "interfaces"))
-        {}
         #endregion
 
         //--------------------//

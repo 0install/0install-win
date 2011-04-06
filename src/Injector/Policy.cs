@@ -18,12 +18,10 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Common;
 using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Feeds;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector
@@ -48,35 +46,14 @@ namespace ZeroInstall.Injector
         public FeedManager FeedManager { get; private set; }
 
         /// <summary>
-        /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
-        /// </summary>
-        public ISolver Solver { get; private set; }
-
-        /// <summary>
         /// Used to download missing <see cref="Model.Implementation"/>s.
         /// </summary>
         public IFetcher Fetcher { get; private set; }
 
         /// <summary>
-        /// A location to search for cached <see cref="Implementation"/>s in addition to <see cref="Fetchers.Fetcher.Store"/>; may be <see langword="null"/>.
+        /// Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user. 
         /// </summary>
-        /// <remarks>This location searched for <see cref="Implementation"/>s but new ones are not added here.</remarks>
-        public IStore AdditionalStore { get; set; }
-
-        /// <summary>
-        /// The locations to search for cached <see cref="Implementation"/>s.
-        /// </summary>
-        public IStore SearchStore
-        {
-            get
-            {
-                return (AdditionalStore == null
-                    // No additional Store => search in same Stores the Fetcher writes to
-                    ? Fetcher.Store
-                    // Additional Stores => search in more Stores than the Fetcher writes to
-                    : new StoreSet(new[] { AdditionalStore, Fetcher.Store }));
-            }
-        }
+        public ISolver Solver { get; private set; }
 
         /// <summary>
         /// A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.
@@ -90,11 +67,11 @@ namespace ZeroInstall.Injector
         /// </summary>
         /// <param name="config">User settings controlling network behaviour, solving, etc.</param>
         /// <param name="feedManager">The source used to request <see cref="Feed"/>s.</param>
-        /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="fetcher">Used to download missing <see cref="Model.Implementation"/>s.</param>
+        /// <param name="solver">Chooses a set of <see cref="Model.Implementation"/>s to satisfy the requirements of a program and its user.</param>
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <seealso cref="CreateDefault"/>
-        public Policy(Config config, FeedManager feedManager, ISolver solver, IFetcher fetcher, IHandler handler)
+        public Policy(Config config, FeedManager feedManager, IFetcher fetcher, ISolver solver, IHandler handler)
         {
             #region Sanity checks
             if (config == null) throw new ArgumentNullException("config");
@@ -106,8 +83,8 @@ namespace ZeroInstall.Injector
 
             Config = config;
             FeedManager = feedManager;
-            Solver = solver;
             Fetcher = fetcher;
+            Solver = solver;
             Handler = handler;
         }
         #endregion
@@ -121,7 +98,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.Default), SolverProvider.Default, FetcherProvider.Default, handler);
+            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
         }
         #endregion
 
@@ -135,7 +112,7 @@ namespace ZeroInstall.Injector
         /// <remarks><see cref="Config"/> and <see cref="FeedManager"/> are cloned, <see cref="Solver"/>, <see cref="Fetcher"/> and <see cref="Handler"/> are not.</remarks>
         public Policy ClonePolicy()
         {
-            return new Policy(Config.CloneConfig(), FeedManager.CloneFeedManager(), Solver, Fetcher, Handler) {AdditionalStore = AdditionalStore};
+            return new Policy(Config.CloneConfig(), FeedManager.CloneFeedManager(), Fetcher, Solver, Handler);
         }
 
         /// <summary>
@@ -155,7 +132,7 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return Equals(other.Config, Config) && Equals(other.FeedManager, FeedManager) && Equals(other.Solver, Solver) && Equals(other.Fetcher, Fetcher) && Equals(other.AdditionalStore, AdditionalStore) && Equals(other.Handler, Handler);
+            return Equals(other.Config, Config) && Equals(other.FeedManager, FeedManager) && Equals(other.Fetcher, Fetcher) && Equals(other.Solver, Solver) && Equals(other.Handler, Handler);
         }
 
         /// <inheritdoc/>
@@ -173,9 +150,8 @@ namespace ZeroInstall.Injector
             {
                 int result = Config.GetHashCode();
                 result = (result * 397) ^ FeedManager.GetHashCode();
-                result = (result * 397) ^ Solver.GetHashCode();
                 result = (result * 397) ^ Fetcher.GetHashCode();
-                result = (result * 397) ^ (AdditionalStore != null ? AdditionalStore.GetHashCode() : 0);
+                result = (result * 397) ^ Solver.GetHashCode();
                 result = (result * 397) ^ Handler.GetHashCode();
                 return result;
             }

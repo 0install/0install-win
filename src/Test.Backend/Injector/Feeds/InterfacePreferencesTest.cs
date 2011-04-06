@@ -46,14 +46,12 @@ namespace ZeroInstall.Injector.Feeds
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            InterfacePreferences preferences1, preferences2;
+            InterfacePreferences preferences1 = CreateTestInterfacePreferences(), preferences2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
-
                 // Write and read file
-                preferences1 = CreateTestInterfacePreferences();
-                preferences1.Save(tempFile.Path);
-                preferences2 = InterfacePreferences.Load(tempFile.Path);
+                XmlStorage.Save(tempFile.Path, preferences1);
+                preferences2 = XmlStorage.Load<InterfacePreferences>(tempFile.Path);
             }
 
             // Ensure data stayed the same

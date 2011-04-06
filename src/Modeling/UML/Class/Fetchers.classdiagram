@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="feef74d8-0526-4eef-8965-18c931a4ded8" name="Fetchers" linkedPackageId="d7718ab7-6467-4c68-abae-1921afb87306" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="feef74d8-0526-4eef-8965-18c931a4ded8" name="Fetchers" linkedPackageId="d7718ab7-6467-4c68-abae-1921afb87306" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="44cd3a16-5181-4ff5-b3ce-73fc416675c8" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -560,9 +560,9 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <Interface Id="a81b2e28-0a34-4770-bb5a-c1f06c769ac4" name="IFetcher" isAbstract="false" isLeaf="false">
+            <Interface Id="a81b2e28-0a34-4770-bb5a-c1f06c769ac4" name="IFetcher" visibility="Private" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="ce33c815-8fa2-4bc3-8edb-e78b450ce6e7" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetcher" tag="ViewCode">
+                <reference Id="ce33c815-8fa2-4bc3-8edb-e78b450ce6e7" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetcher" tag="ViewCode">
                   <elementDefinition Id="e9714bfd-c284-40ff-ae61-9a39d4dacd11" />
                 </reference>
               </referencesInternal>
@@ -796,63 +796,113 @@
             </Interface>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="adacb011-6b6d-4dce-a254-c2dbb5d5b5bc" name="FetcherProvider" isAbstract="false" isLeaf="true" isActiveClass="false">
+            <class Id="274fac4e-06f4-4e27-b868-72b03217d5ba" name="FetcherProvider" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <referencesInternal>
+                <reference Id="36908751-8bf0-46bb-8209-8dffc7b79deb" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetcherProvider" tag="ViewCode">
+                  <elementDefinition Id="dc47fe27-adb8-4038-ba6a-9642f2a6765e" />
+                </reference>
+              </referencesInternal>
               <appliedStereotypesInternal>
-                <stereotypeInstance Id="691dfe13-e3a2-46b6-b174-8e3b11452f5d" name="class" profile="CSharpProfile">
-                  <elementDefinition Id="1db86447-d917-4373-9252-a44b70a25e2b" />
+                <stereotypeInstance Id="07399ba1-2b26-48ee-90c0-9a6fd3d6354b" name="class" profile="CSharpProfile">
+                  <elementDefinition Id="bf3b9bee-d708-4733-848f-076a7e60f9d9" />
                   <propertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="93134e99-f92e-43cf-9bb6-eb9899fed546">
-                      <propertyInstance Id="0dca820d-1926-428e-8c23-737d7230b50a" name="ClrAttributes">
-                        <elementDefinition Id="4b527e95-7a9c-4619-99bb-d365a57bdc52" />
+                    <stereotypeInstanceHasPropertyInstances Id="d6b83894-5a94-4333-b841-7d1e4bef35ed">
+                      <propertyInstance Id="e4e0d335-f0cf-4c44-9eed-1bee03f4f9bb" name="ClrAttributes">
+                        <elementDefinition Id="2ba90f88-b00c-463b-849e-d9d02bd96c96" />
                       </propertyInstance>
-                      <elementDefinition Id="92218ac3-3b48-4927-9502-86f1a4bdda2e" />
+                      <elementDefinition Id="fc4b150f-2789-43cf-8746-e2fba0d6eea6" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="7eb940f9-b485-489a-98f8-25cf2f7b44dd">
-                      <propertyInstance Id="68743454-dd4a-4f09-877e-01c042ac32a2" name="IsPartial" value="false">
-                        <elementDefinition Id="2743c53a-3048-49d1-92ee-b460315ba78a" />
+                    <stereotypeInstanceHasPropertyInstances Id="ff587e2e-a9dc-4698-88d9-5bb0b5444289">
+                      <propertyInstance Id="970dd7d5-40bf-42ca-823f-a70c178a0cb4" name="IsPartial" value="false">
+                        <elementDefinition Id="4a5ee0c5-152c-4028-a8fa-eee0ba3c7e0c" />
                       </propertyInstance>
-                      <elementDefinition Id="127e953c-f2b9-4123-ba4f-b3f84ce4e7f8" />
+                      <elementDefinition Id="c41555d1-525e-417c-a0fa-e0ae4dc6fc47" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="9b601398-acc2-402d-9d5c-0cc3d3b498a5">
-                      <propertyInstance Id="c390b987-add8-4cfa-8694-418506452320" name="IsStatic" value="false">
-                        <elementDefinition Id="546f3837-a8c8-4828-b1b9-20e48115c086" />
+                    <stereotypeInstanceHasPropertyInstances Id="6f0ab2cc-e082-43eb-8f10-b07c740cce86">
+                      <propertyInstance Id="954d67e2-0a86-4946-a042-7aa756f5b3f1" name="IsStatic" value="True">
+                        <elementDefinition Id="5c880cc8-1f05-4609-9a9c-c02d16b2431f" />
                       </propertyInstance>
-                      <elementDefinition Id="5d592884-6b9e-4a95-aceb-dc856ba08952" />
+                      <elementDefinition Id="e9953b69-7f0a-40b0-aa11-a05c0a5566c6" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="4bcb2fbe-f1f4-443b-a865-c043a07f4036">
-                      <propertyInstance Id="f42cdb07-8538-4b6e-a435-b3a05e29093f" name="IsUnsafe" value="false">
-                        <elementDefinition Id="5fd18e87-f1db-4b04-bf9a-3e8ba745c206" />
+                    <stereotypeInstanceHasPropertyInstances Id="06819e99-83f5-4ce3-b2a2-b57eca574287">
+                      <propertyInstance Id="f7866708-22ae-47e2-8699-7f97dfefaf63" name="IsUnsafe" value="false">
+                        <elementDefinition Id="0f3ea537-649b-4c65-a615-170e6e46cd77" />
                       </propertyInstance>
-                      <elementDefinition Id="ae0a02f7-eee9-4769-abd9-69e3a808bc6d" />
+                      <elementDefinition Id="32f6e3b0-72fd-4b6a-ab4c-387bc80346b3" />
                     </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="40e4fb57-120b-4da8-b95f-cf94473580e5">
-                      <propertyInstance Id="030a422d-ee81-48e9-bc83-7a2f224d1a75" name="PackageVisibility" value="internal">
-                        <elementDefinition Id="ad9a0a86-8595-4c8a-b6d1-2ef1130d2e6a" />
+                    <stereotypeInstanceHasPropertyInstances Id="6637c527-7094-47f1-a7d6-fa838c4182be">
+                      <propertyInstance Id="efbe23cd-c60b-4b86-9f37-68aac5bbefec" name="PackageVisibility" value="internal">
+                        <elementDefinition Id="fd739eb9-739d-4e44-bfa2-0174f5934651" />
                       </propertyInstance>
-                      <elementDefinition Id="cf4ec412-68e1-4b9b-bf7e-c685bae1274a" />
+                      <elementDefinition Id="cde2a073-e65b-4350-9ff9-11f0d30de111" />
                     </stereotypeInstanceHasPropertyInstances>
                   </propertyInstances>
                 </stereotypeInstance>
               </appliedStereotypesInternal>
-              <elementDefinition Id="3503ce73-de7c-4b7b-9aac-f1624b5db811" />
-              <targetEnds>
-                <association Id="29ee2b5c-dc34-4476-94de-72780425dcab" isDerived="false" sourceEndRoleName="FetcherProvider" targetEndRoleName="Default" isLeaf="false" isAbstract="false">
+              <elementDefinition Id="475cddb4-d0e3-4fa5-abf9-e6a410651f1d" />
+              <suppliersInternal>
+                <dependency Id="673acf6e-df83-4104-bdbe-a181b330d684">
                   <interfaceMoniker Id="a81b2e28-0a34-4770-bb5a-c1f06c769ac4" LastKnownName="IFetcher" />
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="4c66e86d-ca6d-4025-bd88-f0981f0c0bcb" name="FetcherProvider" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                        <elementDefinition Id="1ecaeede-c927-4c7c-9e62-cd50bb9e3f47" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="8e7fcd7f-8733-4a0d-9ff6-073e979f1dad" name="Default" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <elementDefinition Id="c4abc1c1-2cbe-4fce-a707-8047f1e55bea" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="5c7d7b89-da1a-4b37-9a3f-a698ec944038" />
-                </association>
-              </targetEnds>
+                  <elementDefinition Id="e0b18408-9513-4d89-941e-09883fa06db0" />
+                </dependency>
+              </suppliersInternal>
+              <ownedOperationsInternal>
+                <operation Id="a9d4ca9a-cd3c-492a-96ce-a39666db211c" name="CreateDefault" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="5a8b142e-19d3-4c19-82c3-0363a1351545" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=FetcherProvider Member=CreateDefault" tag="ViewCode">
+                      <elementDefinition Id="f4ce167a-649e-4972-94bb-9e0cfcc74a2b" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="d6d1b7c2-00a9-4f57-a1ac-95e0188a36b5" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="4fa6f7d0-57f7-4fff-aa40-66cbd875fb15" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="2c0e3b2b-afea-4ac2-b006-bed83f635695">
+                          <propertyInstance Id="a9ee0141-1257-4037-a404-46f55f3b663f" name="ClrAttributes">
+                            <elementDefinition Id="75f5915e-a4f7-46b9-a702-0936ef1886a1" />
+                          </propertyInstance>
+                          <elementDefinition Id="e87e8ff3-172a-489e-9263-ecf2d1555e63" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="d9661997-97f6-49cf-84eb-ae7aef654aca">
+                          <propertyInstance Id="a99be197-7e55-4d44-9c17-a4699274bb0c" name="IsPartial" value="false">
+                            <elementDefinition Id="0f6e3295-9fdb-4d70-9b55-0d0aadb9975e" />
+                          </propertyInstance>
+                          <elementDefinition Id="d2734f56-bf2d-468e-bf8f-fd30df234f3a" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="fda27469-9e75-4129-ad81-7f146cd3df3b">
+                          <propertyInstance Id="9aebc306-22df-4f7a-a313-e7731425b2f9" name="IsUnsafe" value="false">
+                            <elementDefinition Id="a0623521-da31-4ca7-9e40-5f0e8ba0e499" />
+                          </propertyInstance>
+                          <elementDefinition Id="d0798653-f096-49ba-b8b2-b9741f11aed4" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="02473696-9f30-4dbe-a2e9-d15c794ff4cb">
+                          <propertyInstance Id="432caca7-4a78-4d6b-a3e2-8ae843ef56e5" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="f1774925-a8d4-4709-8025-0727118123d9" />
+                          </propertyInstance>
+                          <elementDefinition Id="64165ff7-6414-4d8e-9793-2c136556a021" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="1b3a2b0d-c4fe-4310-b7f8-0267982f5f6c">
+                          <propertyInstance Id="7fb61e32-fb49-4e6d-add8-3e15fde8e6f1" name="params" value="false">
+                            <elementDefinition Id="0528ab6d-feb4-40b5-a8ee-352596274fae" />
+                          </propertyInstance>
+                          <elementDefinition Id="f329b56e-9638-4258-b820-08f11c3fb9f9" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="ef3c16aa-c9ba-4ea9-8657-0463e5e46e5e" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="f63a2ab5-c460-4b46-ab02-f7bb5907d60a" direction="Return">
+                        <elementDefinition Id="2e00565f-01c7-4727-871a-ab9cd50e953a" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="e68dcb68-8297-4d7a-9f03-efc884051e12" LastKnownName="IFetcher" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
         </packagedElements>
@@ -870,7 +920,7 @@
           <packageHasNamedElement>
             <Interface Id="940da8ce-386f-476a-bd42-f64a05c46d0b" name="IStore" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="31cb70ec-476d-423b-85d9-8fd508f6074c" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
+                <reference Id="31cb70ec-476d-423b-85d9-8fd508f6074c" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
                   <elementDefinition Id="5fd0dd9e-59e3-4ccb-9ef3-470606009835" />
                 </reference>
               </referencesInternal>
@@ -2582,6 +2632,11 @@
     <packageHasNamedElement>
       <referencedType Id="4dec8a69-f42c-43f2-ae9e-a73e3b6280d0" name="FetchRequest" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Fetchers::FetchRequest">
         <elementDefinition Id="dbe9d5b9-b47d-49f8-a1ba-069762b38164" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e68dcb68-8297-4d7a-9f03-efc884051e12" name="IFetcher" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Fetchers::IFetcher">
+        <elementDefinition Id="b6c4a047-ee68-4275-8444-7bc0f2f0df8d" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

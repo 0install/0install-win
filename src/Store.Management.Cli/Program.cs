@@ -65,6 +65,8 @@ namespace ZeroInstall.Store.Management.Cli
     /// </summary>
     public static class Program
     {
+        private static IStore _store = StoreProvider.CreateDefault();
+
         #region Startup
         /// <summary>
         /// The main entry point for the application.
@@ -263,8 +265,8 @@ namespace ZeroInstall.Store.Management.Cli
             string path = args[2];
             string subDir = (args.Count == 4) ? args[3] : null;
 
-            if (Directory.Exists(path)) StoreProvider.Default.AddDirectory(path, manifestDigest, handler);
-            else if (File.Exists(path)) StoreProvider.Default.AddArchive(new ArchiveFileInfo { Path = path, SubDir = subDir }, manifestDigest, handler);
+            if (Directory.Exists(path)) _store.AddDirectory(path, manifestDigest, handler);
+            else if (File.Exists(path)) _store.AddArchive(new ArchiveFileInfo {Path = path, SubDir = subDir}, manifestDigest, handler);
             else
             {
                 Log.Error(string.Format(Resources.NoSuchFileOrDirectory, path));
@@ -277,7 +279,7 @@ namespace ZeroInstall.Store.Management.Cli
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageCopy));
 
-            IStore store = (args.Count == 3) ? new DirectoryStore(args[2]) : StoreProvider.Default;
+            IStore store = (args.Count == 3) ? new DirectoryStore(args[2]) : _store;
             store.AddDirectory(args[1], new ManifestDigest(Path.GetFileName(args[1])), handler);
         }
 
@@ -285,7 +287,7 @@ namespace ZeroInstall.Store.Management.Cli
         {
             if (args.Count != 2) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageFind));
 
-            Console.WriteLine(StoreProvider.Default.GetPath(new ManifestDigest(args[1])));
+            Console.WriteLine(_store.GetPath(new ManifestDigest(args[1])));
         }
 
         private static void Remove(IList<string> args, ITaskHandler handler)
@@ -294,7 +296,7 @@ namespace ZeroInstall.Store.Management.Cli
 
             for (int i = 1; i < args.Count; i++)
             {
-                StoreProvider.Default.Remove(new ManifestDigest(args[i]), handler);
+                _store.Remove(new ManifestDigest(args[i]), handler);
                 Log.Info("Successfully removed " + args[i]);
             }
         }
@@ -303,13 +305,13 @@ namespace ZeroInstall.Store.Management.Cli
         {
             if (args.Count != 1) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageList));
 
-            foreach (ManifestDigest digest in StoreProvider.Default.ListAll())
+            foreach (ManifestDigest digest in _store.ListAll())
                 Console.WriteLine(digest.BestDigest);
         }
 
         private static void Optimise(IList<string> args, ITaskHandler handler)
         {
-            if (args.Count == 1) StoreProvider.Default.Optimise(handler);
+            if (args.Count == 1) _store.Optimise(handler);
             else
             {
                 for (int i = 1; i < args.Count; i++)
@@ -328,7 +330,7 @@ namespace ZeroInstall.Store.Management.Cli
                 }
                 else
                 { // Verify a directory inside the default store
-                    StoreProvider.Default.Verify(new ManifestDigest(args[i]), handler);
+                    _store.Verify(new ManifestDigest(args[i]), handler);
                 }
                 Console.WriteLine(Resources.StoreEntryOK);
             }
@@ -339,7 +341,7 @@ namespace ZeroInstall.Store.Management.Cli
         private static ErrorLevel Audit(IList<string> args, ITaskHandler handler)
         {
             ErrorLevel result = ErrorLevel.OK;
-            if (args.Count == 1) AuditStore(StoreProvider.Default, handler);
+            if (args.Count == 1) AuditStore(_store, handler);
             else
             {
                 for (int i = 1; i < args.Count; i++)

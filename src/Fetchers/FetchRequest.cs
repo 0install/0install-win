@@ -63,7 +63,7 @@ namespace ZeroInstall.Fetchers
             var tempList = new C5.ArrayList<Implementation>();
             tempList.AddAll(implementations);
 
-            // Make the collections immutable
+            // Make the collection immutable
             _implementations = new C5.GuardedList<Implementation>(tempList);
 
             Handler = handler;

@@ -75,72 +75,6 @@
         </appliedStereotypesInternal>
         <targetEnds>
           <association
-            Id="80c1532b-a47e-4288-a512-c7000319b00b"
-            isDerived="false"
-            sourceEndRoleName="Policy"
-            targetEndRoleName="SearchStore"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
-              LastKnownName="IStore"
-              LastKnownLocation="Package5_1633.uml" />
-            <description>Property SearchStore references type IStore.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="f5518446-370a-4ce3-9396-a712bb61fcec"
-                  name="Policy"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="0b26ef8d-909b-45a0-9947-ba2113624cb6"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="463f3d38-2e82-4e1f-9ccd-035bcfe26fd3"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="40ca8e60-2de7-4b9f-9a73-63726bdfe5a3"
-                  name="SearchStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="a36225da-8e27-4470-816f-5a16eedcc985"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="8766b9f3-54c8-4b10-a423-823ceba2b7ee"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
             Id="c7f66a41-0eaa-4e9f-b5b6-ce5c48a59233"
             isDerived="false"
             sourceEndRoleName="Policy"
@@ -199,72 +133,6 @@
                   <upperValueInternal>
                     <literalString
                       Id="137a368b-73e9-45de-8932-893f85adafe4"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="dcd27561-8687-4af4-b2eb-e26eb96e2236"
-            isDerived="false"
-            sourceEndRoleName="Policy"
-            targetEndRoleName="AdditionalStore"
-            isLeaf="false"
-            isAbstract="false">
-            <interfaceMoniker
-              Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
-              LastKnownName="IStore"
-              LastKnownLocation="Package5_1633.uml" />
-            <description>Property AdditionalStore references type IStore.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="c9d6d631-4bcd-434d-bb94-bead91ecba70"
-                  name="Policy"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="ba10283a-1a58-4450-9a23-1d75532f3f7e"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="29e16765-449f-47a4-a92a-4c57228a52bf"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="e0b39b29-fa5d-4338-9d80-ea804b5b97a2"
-                  name="AdditionalStore"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="b9b296d0-cf9e-4d6f-89ae-6546014279ca"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="cfe99276-e035-4573-b6ba-8afbc7173bc2"
                       name="Upper"
                       value="1" />
                   </upperValueInternal>
@@ -654,6 +522,32 @@
                       Id="b6c4a047-ee68-4275-8444-7bc0f2f0df8d"
                       LastKnownName="IFetcher"
                       LastKnownLocation="Package_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="6e199826-d334-4c7f-a483-be7e03f91cc0"
+                  name="solver"
+                  direction="In">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28"
+                      LastKnownName="ISolver"
+                      LastKnownLocation="Package_1632.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="06bd0284-b181-48b9-baee-e80c4c7b7ed5"
+                  name="handler"
+                  direction="In">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d"
+                      LastKnownName="IHandler"
+                      LastKnownLocation="Package1_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -3287,10 +3181,11 @@
           </property>
           <property
             Id="e1ea04bb-8a17-4884-8328-e01f319799ae"
-            name="NetworkLevel"
+            name="NetworkUse"
             isLeaf="false"
             isStatic="false"
             isReadOnly="false"
+            isUnique="false"
             isDerived="false"
             isDerivedUnion="false"
             aggregation="None"
@@ -3356,6 +3251,160 @@
                 Id="2eaf6860-c3fd-4ebb-b692-5c6be83f8766"
                 LastKnownName="NetworkLevel"
                 LastKnownLocation="Package1_1632.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="b09335f9-5229-4505-9baa-59df9772a355"
+            name="AutoApproveKeys"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+                LastKnownName="Boolean"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="a645d412-c730-44ee-a033-c777c3c9eb2b"
+            name="FeedMirror"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="15bcfbff-7664-46b6-ba5e-a4d94ff90498"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="45b40e06-59d9-45ce-852e-e1381cad920b">
+                    <propertyInstance
+                      Id="159d73be-b09d-47e8-9b47-0e6174154fd2"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1b913e2f-743b-40a4-9dce-e71c5602a00a">
+                    <propertyInstance
+                      Id="0607bfbd-43bb-4aa9-b828-0775823fb219"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="36022903-63c4-4e39-a79b-fd39a864a2ed">
+                    <propertyInstance
+                      Id="8735137c-578d-4a57-8934-fb81397dd9fc"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="862f115c-8d4b-4756-b8bb-4a41bd987479">
+                    <propertyInstance
+                      Id="28c160e9-0d92-4bb6-8604-2df4065adf6a"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="8237ac1d-170d-45ce-9313-3e32594d06c5">
+                    <propertyInstance
+                      Id="f5e7a3f3-a241-4e44-b04b-4d6ce1c1f47d"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ef1016a9-4172-4d4e-a431-7a110b018b05">
+                    <propertyInstance
+                      Id="cf0ca643-2614-4305-9571-43ac27b1ce3f"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
+            </type_NamedElement>
+          </property>
+          <property
+            Id="7ae2bfe5-fa91-4689-a46f-b9f6d28ee7a5"
+            name="KeyInfoServer"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="b588a989-819f-4fa2-87d6-b05821b9aa9e"
+                name="property"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="6bcfc666-94ec-442c-b569-8dd6c75765fe">
+                    <propertyInstance
+                      Id="86e064f6-c5a4-4061-a8f6-3cd9c3e3f4c9"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="a307baeb-b09a-4137-9d39-edfc6fe84992">
+                    <propertyInstance
+                      Id="7543a896-afce-453d-ac69-c7f8904cf510"
+                      name="Get"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="702f4435-316b-4ccb-b560-5a983f524070">
+                    <propertyInstance
+                      Id="70da810f-32d8-45c3-b558-9a7c1c964c4c"
+                      name="HasBody"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="1cb6f2f4-6ff2-4a81-b709-122249c634ff">
+                    <propertyInstance
+                      Id="e8827cbb-b81e-4260-ba4e-d9405ab85727"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="d402025a-e6ea-4e64-b35b-ec2f96928e62">
+                    <propertyInstance
+                      Id="204f01a7-29f9-4e40-95e8-4ddda4e35609"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="114879ae-a053-4bb1-b9ed-f087dd734b24">
+                    <propertyInstance
+                      Id="1d3cc74b-67d7-4bee-80ce-36b02100669e"
+                      name="Set"
+                      value="none" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <type_NamedElement>
+              <primitiveTypeMoniker
+                Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+                LastKnownName="String"
+                LastKnownLocation="Architecture.uml" />
             </type_NamedElement>
           </property>
         </ownedAttributesInternal>

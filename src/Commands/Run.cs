@@ -122,7 +122,7 @@ namespace ZeroInstall.Commands
             // Close any UI that may still be open
             Policy.Handler.CloseProgressUI();
 
-            var executor = new Executor(Selections, Policy.SearchStore) { Main = _main, Wrapper = _wrapper };
+            var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(AdditionalArgs);
             if (_noWait)
             {

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="0029a7d2-fcdf-4c21-8937-73facba379ea" name="Policy" linkedPackageId="4343bdda-39c2-4860-866c-98d66c68bf89" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="0029a7d2-fcdf-4c21-8937-73facba379ea" name="Policy" linkedPackageId="4343bdda-39c2-4860-866c-98d66c68bf89" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="9939743e-5914-489a-b696-f970742a279f" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -123,11 +123,6 @@
         <elementDefinition Id="d3df7bc0-b47b-45cd-b4b9-a6094b967604" />
       </referencedType>
     </packageHasNamedElement>
-    <packageHasNamedElement>
-      <referencedType Id="363bc798-a310-4801-8711-81e5c9d692e3" name="NetworkLevel" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::NetworkLevel">
-        <elementDefinition Id="2eaf6860-c3fd-4ebb-b692-5c6be83f8766" />
-      </referencedType>
-    </packageHasNamedElement>
     <logicalClassDesignerModelHasPackages>
       <package Id="77cad60c-348d-421c-b327-17ab6fcae139" name="ZeroInstall" visibility="Private">
         <referencesInternal>
@@ -147,9 +142,9 @@
               <elementDefinition Id="0efbe23b-beab-4ef8-87dd-efc6e7aeca20" />
               <packagedElements>
                 <packageHasNamedElement>
-                  <Interface Id="d584ca84-3045-4a9c-9e54-8402acc6f703" name="IFetcher" isAbstract="false" isLeaf="false">
+                  <Interface Id="d584ca84-3045-4a9c-9e54-8402acc6f703" name="IFetcher" visibility="Private" isAbstract="false" isLeaf="false">
                     <referencesInternal>
-                      <reference Id="a94a5fb8-8073-4951-a72e-c6d29e47da16" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetcher" tag="ViewCode">
+                      <reference Id="a94a5fb8-8073-4951-a72e-c6d29e47da16" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Fetchers.dll Namespace=ZeroInstall.Fetchers Type=IFetcher" tag="ViewCode">
                         <elementDefinition Id="e9714bfd-c284-40ff-ae61-9a39d4dacd11" />
                       </reference>
                     </referencesInternal>
@@ -545,7 +540,7 @@
                           <referencedTypeMoniker Id="a1e9553c-0ac0-492f-a4fb-07c4d90bcafb" LastKnownName="Boolean" />
                         </type_NamedElement>
                       </property>
-                      <property Id="8f8ff724-d05b-4280-83f6-10a2e936037d" name="NetworkLevel" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <property Id="8f8ff724-d05b-4280-83f6-10a2e936037d" name="NetworkUse" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <referencesInternal>
                           <reference Id="15a68a5e-c834-48d0-b9fc-beaab28a5bf5" handle="viewcode://./CodeSchema_Property?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector Type=Preferences Member=NetworkLevel" tag="ViewCode">
                             <elementDefinition Id="10eaf224-ea7f-406b-8249-310043f23f9c" />
@@ -596,7 +591,111 @@
                         </appliedStereotypesInternal>
                         <elementDefinition Id="e1ea04bb-8a17-4884-8328-e01f319799ae" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="363bc798-a310-4801-8711-81e5c9d692e3" LastKnownName="NetworkLevel" />
+                          <referencedTypeMoniker Id="57aabda5-1349-45f2-9318-44f5b29b1d78" LastKnownName="NetworkLevel" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="3cdd98d2-8859-490c-8334-b1a1418237dd" name="AutoApproveKeys" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <elementDefinition Id="b09335f9-5229-4505-9baa-59df9772a355" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="a1e9553c-0ac0-492f-a4fb-07c4d90bcafb" LastKnownName="Boolean" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="7f089f63-9182-4097-b7e2-43ad8f4afad2" name="FeedMirror" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <appliedStereotypesInternal>
+                          <stereotypeInstance Id="e345e300-e82f-450d-bff1-723d1c2ee1de" name="property" profile="CSharpProfile">
+                            <elementDefinition Id="15bcfbff-7664-46b6-ba5e-a4d94ff90498" />
+                            <propertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="38467a7e-abea-4148-8295-7b67d67bb357">
+                                <propertyInstance Id="5410ac54-ac45-439a-a875-72d97c9edf6e" name="ClrAttributes">
+                                  <elementDefinition Id="159d73be-b09d-47e8-9b47-0e6174154fd2" />
+                                </propertyInstance>
+                                <elementDefinition Id="45b40e06-59d9-45ce-852e-e1381cad920b" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="e7fc95f2-f21a-4c31-80d8-c045fad0a086">
+                                <propertyInstance Id="a058071a-1df1-4769-8147-748b80442058" name="Get" value="none">
+                                  <elementDefinition Id="0607bfbd-43bb-4aa9-b828-0775823fb219" />
+                                </propertyInstance>
+                                <elementDefinition Id="1b913e2f-743b-40a4-9dce-e71c5602a00a" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="1c5ec6f8-5a24-49bf-b7f3-12076b4472e2">
+                                <propertyInstance Id="229a72e8-e070-4e64-9d88-72f495344499" name="HasBody" value="false">
+                                  <elementDefinition Id="8735137c-578d-4a57-8934-fb81397dd9fc" />
+                                </propertyInstance>
+                                <elementDefinition Id="36022903-63c4-4e39-a79b-fd39a864a2ed" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="28927d4a-fe63-4ef9-bc3c-c635f51fe1ee">
+                                <propertyInstance Id="a15e92f9-aacb-46b6-98e2-fce7c15bcb16" name="IsUnsafe" value="false">
+                                  <elementDefinition Id="28c160e9-0d92-4bb6-8604-2df4065adf6a" />
+                                </propertyInstance>
+                                <elementDefinition Id="862f115c-8d4b-4756-b8bb-4a41bd987479" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="9e58f2a2-1bda-414b-b924-3792210d8db8">
+                                <propertyInstance Id="3cec5f56-e30b-42f9-9e25-619e3e738f21" name="PackageVisibility" value="internal">
+                                  <elementDefinition Id="f5e7a3f3-a241-4e44-b04b-4d6ce1c1f47d" />
+                                </propertyInstance>
+                                <elementDefinition Id="8237ac1d-170d-45ce-9313-3e32594d06c5" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="d0c48165-f4ba-47f4-ba01-2d3478dc949d">
+                                <propertyInstance Id="dfa75971-1a11-4a53-8699-a11e2a05313f" name="Set" value="none">
+                                  <elementDefinition Id="cf0ca643-2614-4305-9571-43ac27b1ce3f" />
+                                </propertyInstance>
+                                <elementDefinition Id="ef1016a9-4172-4d4e-a431-7a110b018b05" />
+                              </stereotypeInstanceHasPropertyInstances>
+                            </propertyInstances>
+                          </stereotypeInstance>
+                        </appliedStereotypesInternal>
+                        <elementDefinition Id="a645d412-c730-44ee-a033-c777c3c9eb2b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="21e3be54-080e-428a-8484-9fac1cce8910" LastKnownName="String" />
+                        </type_NamedElement>
+                      </property>
+                      <property Id="15e059ac-bc00-4faf-a27c-35b48eb4f942" name="KeyInfoServer" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                        <appliedStereotypesInternal>
+                          <stereotypeInstance Id="9ecd7eff-15d9-4601-8cb2-800d8335d3c1" name="property" profile="CSharpProfile">
+                            <elementDefinition Id="b588a989-819f-4fa2-87d6-b05821b9aa9e" />
+                            <propertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="0cafcbe3-5c98-4d14-9dd7-1988faecd3e5">
+                                <propertyInstance Id="3e680914-35d7-45b4-aa20-52e7165ac7d6" name="ClrAttributes">
+                                  <elementDefinition Id="86e064f6-c5a4-4061-a8f6-3cd9c3e3f4c9" />
+                                </propertyInstance>
+                                <elementDefinition Id="6bcfc666-94ec-442c-b569-8dd6c75765fe" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="f9706ca2-947b-40ab-b9e3-f048c3d798a4">
+                                <propertyInstance Id="9dcf365c-f1c5-4c5c-844a-12ab012686a7" name="Get" value="none">
+                                  <elementDefinition Id="7543a896-afce-453d-ac69-c7f8904cf510" />
+                                </propertyInstance>
+                                <elementDefinition Id="a307baeb-b09a-4137-9d39-edfc6fe84992" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="d4eccbdb-1cc4-4921-9371-4dd5f34c0c6d">
+                                <propertyInstance Id="b579eab8-5626-4824-8996-32449e15f787" name="HasBody" value="false">
+                                  <elementDefinition Id="70da810f-32d8-45c3-b558-9a7c1c964c4c" />
+                                </propertyInstance>
+                                <elementDefinition Id="702f4435-316b-4ccb-b560-5a983f524070" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="c1a0d9ae-00d8-4395-b370-5755f473bb56">
+                                <propertyInstance Id="603dc69f-1793-4380-8b1f-3aca8bd35758" name="IsUnsafe" value="false">
+                                  <elementDefinition Id="e8827cbb-b81e-4260-ba4e-d9405ab85727" />
+                                </propertyInstance>
+                                <elementDefinition Id="1cb6f2f4-6ff2-4a81-b709-122249c634ff" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="efabab8c-a1da-445a-a3f3-d07a805a88cb">
+                                <propertyInstance Id="37873a3d-4810-459c-88bc-b12c8bd1d791" name="PackageVisibility" value="internal">
+                                  <elementDefinition Id="204f01a7-29f9-4e40-95e8-4ddda4e35609" />
+                                </propertyInstance>
+                                <elementDefinition Id="d402025a-e6ea-4e64-b35b-ec2f96928e62" />
+                              </stereotypeInstanceHasPropertyInstances>
+                              <stereotypeInstanceHasPropertyInstances Id="ccf60f1a-3011-4fdb-b4ce-3c0905bfad4f">
+                                <propertyInstance Id="b9c719dd-e01d-45c2-ac69-65cd1c66a094" name="Set" value="none">
+                                  <elementDefinition Id="1d3cc74b-67d7-4bee-80ce-36b02100669e" />
+                                </propertyInstance>
+                                <elementDefinition Id="114879ae-a053-4bb1-b9ed-f087dd734b24" />
+                              </stereotypeInstanceHasPropertyInstances>
+                            </propertyInstances>
+                          </stereotypeInstance>
+                        </appliedStereotypesInternal>
+                        <elementDefinition Id="7ae2bfe5-fa91-4689-a46f-b9f6d28ee7a5" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="21e3be54-080e-428a-8484-9fac1cce8910" LastKnownName="String" />
                         </type_NamedElement>
                       </property>
                     </ownedAttributesInternal>
@@ -858,43 +957,6 @@
                     </appliedStereotypesInternal>
                     <elementDefinition Id="ba62d9c1-7f02-4943-ad0c-a675346ee50a" />
                     <targetEnds>
-                      <association Id="ddd21237-fc3f-4099-81fc-4bab288f3514" isDerived="false" sourceEndRoleName="Policy" targetEndRoleName="SearchStore" isLeaf="false" isAbstract="false">
-                        <interfaceMoniker Id="2c2a01ba-a476-4834-8ba4-1d80ba978305" LastKnownName="IStore" />
-                        <description>Property SearchStore references type IStore.</description>
-                        <relationshipOwnedElementsInternal>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="9dab6cad-2035-4e5b-bf20-399862ad2aba" name="Policy" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                              <lowerValueInternal>
-                                <literalString Id="af0ee67c-3def-4610-a340-4c70e3f5705b" name="Lower" value="*">
-                                  <elementDefinition Id="0b26ef8d-909b-45a0-9947-ba2113624cb6" />
-                                </literalString>
-                              </lowerValueInternal>
-                              <upperValueInternal>
-                                <literalString Id="e276bfce-0358-488e-9600-597480239bc4" name="Upper" value="*">
-                                  <elementDefinition Id="463f3d38-2e82-4e1f-9ccd-035bcfe26fd3" />
-                                </literalString>
-                              </upperValueInternal>
-                              <elementDefinition Id="f5518446-370a-4ce3-9396-a712bb61fcec" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="b77a77f7-5828-427d-9726-474570490c3d" name="SearchStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                              <lowerValueInternal>
-                                <literalString Id="64257380-1ad1-4354-8b0a-1d93dd1d4e96" name="Lower" value="1">
-                                  <elementDefinition Id="a36225da-8e27-4470-816f-5a16eedcc985" />
-                                </literalString>
-                              </lowerValueInternal>
-                              <upperValueInternal>
-                                <literalString Id="4467675a-3d86-4d8b-930a-533a65859f86" name="Upper" value="1">
-                                  <elementDefinition Id="8766b9f3-54c8-4b10-a423-823ceba2b7ee" />
-                                </literalString>
-                              </upperValueInternal>
-                              <elementDefinition Id="40ca8e60-2de7-4b9f-9a73-63726bdfe5a3" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                        </relationshipOwnedElementsInternal>
-                        <elementDefinition Id="80c1532b-a47e-4288-a512-c7000319b00b" />
-                      </association>
                       <association Id="4267ce57-d969-4b73-8ba1-4de3b3891b17" isDerived="false" sourceEndRoleName="Policy" targetEndRoleName="Fetcher" isLeaf="false" isAbstract="false">
                         <interfaceMoniker Id="d584ca84-3045-4a9c-9e54-8402acc6f703" LastKnownName="IFetcher" />
                         <description>Property Fetcher references type IFetcher.</description>
@@ -931,43 +993,6 @@
                           </associationHasOwnedEnds>
                         </relationshipOwnedElementsInternal>
                         <elementDefinition Id="c7f66a41-0eaa-4e9f-b5b6-ce5c48a59233" />
-                      </association>
-                      <association Id="cce69c25-c341-44c8-b602-f7f6a66ea51e" isDerived="false" sourceEndRoleName="Policy" targetEndRoleName="AdditionalStore" isLeaf="false" isAbstract="false">
-                        <interfaceMoniker Id="2c2a01ba-a476-4834-8ba4-1d80ba978305" LastKnownName="IStore" />
-                        <description>Property AdditionalStore references type IStore.</description>
-                        <relationshipOwnedElementsInternal>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="e32fbf35-08ce-4436-b0bd-ee663a5ee4b9" name="Policy" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
-                              <lowerValueInternal>
-                                <literalString Id="a0b09bce-5777-48b3-bba8-055334811b0d" name="Lower" value="*">
-                                  <elementDefinition Id="ba10283a-1a58-4450-9a23-1d75532f3f7e" />
-                                </literalString>
-                              </lowerValueInternal>
-                              <upperValueInternal>
-                                <literalString Id="099b8294-ed40-4afd-8c2d-ec64c7265851" name="Upper" value="*">
-                                  <elementDefinition Id="29e16765-449f-47a4-a92a-4c57228a52bf" />
-                                </literalString>
-                              </upperValueInternal>
-                              <elementDefinition Id="c9d6d631-4bcd-434d-bb94-bead91ecba70" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                          <associationHasOwnedEnds>
-                            <memberEnd Id="dcc56bdc-5781-4066-b4fb-5b6e622033df" name="AdditionalStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                              <lowerValueInternal>
-                                <literalString Id="cb700e64-8ed7-49a2-95d0-6310c0dbf2d0" name="Lower" value="1">
-                                  <elementDefinition Id="b9b296d0-cf9e-4d6f-89ae-6546014279ca" />
-                                </literalString>
-                              </lowerValueInternal>
-                              <upperValueInternal>
-                                <literalString Id="042a0466-67ac-468b-961d-7717351500fb" name="Upper" value="1">
-                                  <elementDefinition Id="cfe99276-e035-4573-b6ba-8afbc7173bc2" />
-                                </literalString>
-                              </upperValueInternal>
-                              <elementDefinition Id="e0b39b29-fa5d-4338-9d80-ea804b5b97a2" />
-                            </memberEnd>
-                          </associationHasOwnedEnds>
-                        </relationshipOwnedElementsInternal>
-                        <elementDefinition Id="dcd27561-8687-4af4-b2eb-e26eb96e2236" />
                       </association>
                       <association Id="c24d1ccf-fda5-4e1c-b4dd-d2db2d19df9e" isDerived="false" sourceEndRoleName="Policy" targetEndRoleName="FeedManager" isLeaf="false" isAbstract="false">
                         <classMoniker Id="375c3454-96b1-441a-b3a4-caf737d8794e" LastKnownName="FeedManager" />
@@ -1198,6 +1223,22 @@
                               <elementDefinition Id="94dd090f-54df-4bf9-a453-262c4ca58db2" />
                               <type_NamedElement>
                                 <referencedTypeMoniker Id="cb82002f-9b8e-46d2-bab7-570bf9af634e" LastKnownName="IFetcher" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="3a3bc87f-7419-4675-9dbf-eab4136f0350" name="solver" direction="In">
+                              <elementDefinition Id="6e199826-d334-4c7f-a483-be7e03f91cc0" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="53fdfd74-7d5c-425f-aa3b-ac806a186600" LastKnownName="ISolver" />
+                              </type_NamedElement>
+                            </parameter>
+                          </operationHasOwnedParameters>
+                          <operationHasOwnedParameters>
+                            <parameter Id="e379fa32-85c1-46fd-8815-5ab775f95cd7" name="handler" direction="In">
+                              <elementDefinition Id="06bd0284-b181-48b9-baee-e80c4c7b7ed5" />
+                              <type_NamedElement>
+                                <referencedTypeMoniker Id="a4d66557-fca4-44aa-a453-5894748da7c9" LastKnownName="IHandler" />
                               </type_NamedElement>
                             </parameter>
                           </operationHasOwnedParameters>
@@ -2034,7 +2075,7 @@
                       <packageHasNamedElement>
                         <Interface Id="2c2a01ba-a476-4834-8ba4-1d80ba978305" name="IStore" isAbstract="false" isLeaf="false">
                           <referencesInternal>
-                            <reference Id="5b1ee2bc-d8f4-4c1c-b210-9338e4b4ced8" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
+                            <reference Id="5b1ee2bc-d8f4-4c1c-b210-9338e4b4ced8" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
                               <elementDefinition Id="5fd0dd9e-59e3-4ccb-9ef3-470606009835" />
                             </reference>
                           </referencesInternal>
@@ -2698,6 +2739,21 @@
     <packageHasNamedElement>
       <referencedType Id="f942b53e-4fe1-4bb2-b40b-dad1796060ce" name="Config" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Config">
         <elementDefinition Id="840af007-1933-4a55-a020-8e1191964184" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="53fdfd74-7d5c-425f-aa3b-ac806a186600" name="ISolver" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::ISolver">
+        <elementDefinition Id="ee7df2f8-02c8-484d-99f9-7cc78a5e0e28" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="a4d66557-fca4-44aa-a453-5894748da7c9" name="IHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::IHandler">
+        <elementDefinition Id="7df0078e-51a1-47cb-a0b2-2dba92bc646d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="57aabda5-1349-45f2-9318-44f5b29b1d78" name="NetworkLevel" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::NetworkLevel">
+        <elementDefinition Id="2eaf6860-c3fd-4ebb-b692-5c6be83f8766" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

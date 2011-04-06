@@ -727,22 +727,6 @@
                   <elementDefinition Id="998bc09b-a5f0-490a-b88e-2e451d4be678" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="71250995-ffa3-47a0-a218-88fddb9a51a2" name="searchStore" direction="In" isUnique="false">
-                        <elementDefinition Id="c67ca192-2e34-44b9-905d-2f4109d2861c" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="d0dda15d-459e-448e-8756-a60c3feb60f3" LastKnownName="IStore" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
-                      <parameter Id="8ab5b970-c0f0-46b3-b4f3-9c566920b6b8" name="feedCache" direction="In" isUnique="false">
-                        <elementDefinition Id="21c3c7bc-4e63-46e8-996b-8ad8032aec25" />
-                        <type_NamedElement>
-                          <referencedTypeMoniker Id="1947273b-5bff-4af4-951f-94b0fdeefde9" LastKnownName="IFeedCache" />
-                        </type_NamedElement>
-                      </parameter>
-                    </operationHasOwnedParameters>
-                    <operationHasOwnedParameters>
                       <parameter Id="e6f73e0c-6ac2-4460-a477-beb6ffb43da8" direction="Return">
                         <lowerValueInternal>
                           <literalString Id="cca88745-9e9b-4bd0-8cb9-a26fdcc931da" name="Lower" value="*">
@@ -756,7 +740,23 @@
                         </upperValueInternal>
                         <elementDefinition Id="2df4a5e7-bbac-47d1-8d18-7e0db7a08d7d" />
                         <type_NamedElement>
-                          <referencedTypeMoniker Id="338a0421-cdde-4b9f-88c9-8a074cbcca33" LastKnownName="Feed" />
+                          <referencedTypeMoniker Id="6fb9afe9-3f6e-49b8-8424-4394697aa210" LastKnownName="Implementation" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="c2cd9d55-b5c4-427a-a42a-96f43e0a0006" name="searchStore" direction="In" isUnique="false">
+                        <elementDefinition Id="83e470df-01fc-4896-96e4-c2e2c4faa15b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="d0dda15d-459e-448e-8756-a60c3feb60f3" LastKnownName="IStore" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="3d2576a9-c8ae-46a0-b16c-9f9efa74fdec" name="feedCache" direction="In" isUnique="false">
+                        <elementDefinition Id="23dac32d-9ec5-471e-8b3f-dce74a7540e8" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="1947273b-5bff-4af4-951f-94b0fdeefde9" LastKnownName="IFeedCache" />
                         </type_NamedElement>
                       </parameter>
                     </operationHasOwnedParameters>
@@ -1613,11 +1613,6 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="338a0421-cdde-4b9f-88c9-8a074cbcca33" name="Feed" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Feed">
-        <elementDefinition Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0" />
-      </referencedType>
-    </packageHasNamedElement>
-    <packageHasNamedElement>
       <referencedType Id="8bd66104-b33f-48ca-8946-0e23e611a6c4" name="Requirements" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Injector::Solver::Requirements">
         <elementDefinition Id="13bffb72-ca5a-4e63-9ea2-704b3dcdd8d8" />
       </referencedType>
@@ -1630,6 +1625,11 @@
     <packageHasNamedElement>
       <referencedType Id="1e1cf85b-2861-4ea8-99d4-4df57a188fdb" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
         <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6fb9afe9-3f6e-49b8-8424-4394697aa210" name="Implementation" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::Implementation">
+        <elementDefinition Id="53bedb1c-ef5f-4c7e-b2e9-9ea717a4a5a3" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>

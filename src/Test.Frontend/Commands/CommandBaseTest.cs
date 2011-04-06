@@ -104,7 +104,7 @@ namespace ZeroInstall.Commands
             FetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
             FetcherMock.SetReturnValue("get_Store", StoreMock.MockInstance);
 
-            Policy = new Policy(new Config(), new FeedManager((IFeedCache)CacheMock.MockInstance), (ISolver)SolverMock.MockInstance, (IFetcher)FetcherMock.MockInstance, _handler);
+            Policy = new Policy(new Config(), new FeedManager((IFeedCache)CacheMock.MockInstance), (IFetcher)FetcherMock.MockInstance, (ISolver)SolverMock.MockInstance, _handler);
 
             Command = GetCommand();
         }

@@ -85,7 +85,7 @@
     <Compile Include="Implementation\ManifestGenerator.cs" />
     <Compile Include="Implementation\ServiceStore.cs" />
     <Compile Include="Implementation\StoreProvider.cs" />
-    <Compile Include="Implementation\StoreSet.cs" />
+    <Compile Include="Implementation\CompositeStore.cs" />
     <Compile Include="Implementation\IStore.cs" />
     <Compile Include="Implementation\DirectoryStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

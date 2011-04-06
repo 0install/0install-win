@@ -23,7 +23,6 @@ using Common.Cli;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
-using ZeroInstall.Store.Implementation;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -117,8 +116,7 @@ namespace ZeroInstall.Injector.Solver
                 if (requirements.Architecture.OS != OS.All) arguments += "--os=" + requirements.Architecture.OS + " ";
                 if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.Cpu + " ";
             }
-            var additionalStore = policy.AdditionalStore as DirectoryStore;
-            if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
+            //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
 
             return arguments;
         }

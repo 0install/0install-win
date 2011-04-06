@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Text;
 using Common.Utils;
@@ -27,30 +28,32 @@ namespace ZeroInstall.Store.Implementation
     /// <summary>
     /// Some file flags (executable, symlink, etc.) cannot be stored directly as filesystem attributes on some platforms (e.g. Windows). They can be kept track of in external "flag files" instead.
     /// </summary>
+    [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
     public static class FlagUtils
     {
         #region Read
         /// <summary>
         /// Retreives a list of files for which an external flag is set.
         /// </summary>
-        /// <param name="flagName">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="name">The name of the flag type to search for (<code>.xbit</code> or <code>.symlink</code>).</param>
         /// <param name="target">The target directory to start the search from (will go upwards through directory levels one-by-one, thus may deliver "too many" results).</param>
         /// <returns>A list of fully qualified paths of files that are named in an external flag file.</returns>
         /// <exception cref="IOException">Thrown if there was an error reading the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to read the flag file.</exception>
         /// <remarks>The flag file is searched for instead of specifiying it directly to allow handling of special cases like creating manifests of subdirectories of extracted archives.</remarks>
-        public static ICollection<string> GetExternalFlags(string flagName, string target)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
+        public static ICollection<string> GetExternalFlags(string name, string target)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(flagName)) throw new ArgumentNullException("flagName");
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             if (string.IsNullOrEmpty(target)) throw new ArgumentNullException("target");
             #endregion
 
-            string flagDir = FindFlagDir(flagName, target);
+            string flagDir = FindFlagDir(name, target);
             if (flagDir == null) return new string[0];
 
             var externalFlags = new C5.HashSet<string>();
-            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, flagName)))
+            using (StreamReader flagFile = File.OpenText(Path.Combine(flagDir, name)))
             {
                 // Each line in the file signals a flagged file
                 while (!flagFile.EndOfStream)
@@ -99,14 +102,15 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Sets a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="flagFile">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file to set the flag for relative to <paramref name="flagFile"/>.</param>
+        /// <param name="file">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="relativePath">The path of the file to set the flag for relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
-        public static void SetExternalFlag(string flagFile, string relativePath)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        public static void SetExternalFlag(string file, string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(flagFile)) throw new ArgumentNullException("flagFile");
+            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
             #endregion
@@ -115,7 +119,7 @@ namespace ZeroInstall.Store.Implementation
             relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
             // Use default encoding: UTF-8 without BOM
-            using (var xbitWriter = File.AppendText(flagFile))
+            using (var xbitWriter = File.AppendText(file))
             {
                 xbitWriter.NewLine = "\n";
                 xbitWriter.WriteLine(relativePath);
@@ -125,27 +129,28 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Removes a flag for a file in an external flag file.
         /// </summary>
-        /// <param name="flagFile">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
-        /// <param name="relativePath">The path of the file to remove the flag for relative to <paramref name="flagFile"/>.</param>
+        /// <param name="file">The path to the flag file ending in the type of flag to store (<code>.xbit</code> or <code>.symlink</code>).</param>
+        /// <param name="relativePath">The path of the file to remove the flag for relative to <paramref name="file"/>.</param>
         /// <exception cref="IOException">Thrown if there was an error writing the flag file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to write the flag file.</exception>
-        public static void RemoveExternalFlag(string flagFile, string relativePath)
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        public static void RemoveExternalFlag(string file, string relativePath)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(flagFile)) throw new ArgumentNullException("flagFile");
+            if (string.IsNullOrEmpty(file)) throw new ArgumentNullException("file");
             if (string.IsNullOrEmpty(relativePath)) throw new ArgumentNullException("relativePath");
             if (Path.IsPathRooted(relativePath)) throw new ArgumentException(Resources.PathNotRelative, "relativePath");
             #endregion
 
-            if (!File.Exists(flagFile)) return;
+            if (!File.Exists(file)) return;
 
             // Convert path to rooted Unix-style
             relativePath = "/" + relativePath.Replace(Path.DirectorySeparatorChar, '/');
 
             // Read the entire file, remove any matching lines and then rewrite the file
-            string xbitFileContent = File.ReadAllText(flagFile);
+            string xbitFileContent = File.ReadAllText(file);
             xbitFileContent = xbitFileContent.Replace(relativePath + "\n", "");
-            File.WriteAllText(flagFile, xbitFileContent, new UTF8Encoding(false));
+            File.WriteAllText(file, xbitFileContent, new UTF8Encoding(false));
         }
         #endregion
     }

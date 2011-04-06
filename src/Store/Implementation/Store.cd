@@ -43,18 +43,15 @@
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\StoreProvider.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Default" />
-    </ShowAsAssociation>
   </Class>
-  <Class Name="ZeroInstall.Store.Implementation.StoreSet" BaseTypeListCollapsed="true">
-    <Position X="6" Y="3.75" Width="1.75" />
+  <Class Name="ZeroInstall.Store.Implementation.CompositeStore" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="3.75" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>wAAAAAIAAIAAAQAAAEAABAAAAAACAAAAAAAAAQAUAAA=</HashCode>
-      <FileName>Implementation\StoreSet.cs</FileName>
+      <HashCode>wAAAAAIAAIAAAwAAAEAABAAAAAACAAAAAAAAAQAUAAA=</HashCode>
+      <FileName>Implementation\CompositeStore.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Stores" />

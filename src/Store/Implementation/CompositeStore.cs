@@ -17,8 +17,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
-using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -34,23 +34,19 @@ namespace ZeroInstall.Store.Implementation
     ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
-    public class StoreSet : MarshalByRefObject, IStore
+    public class CompositeStore : MarshalByRefObject, IStore
     {
-        #region Properties
+        #region Variables
         // Preserve order, duplicate entries are not allowed
         private readonly C5.IList<IStore> _stores = new C5.HashedLinkedList<IStore>();
-        /// <summary>
-        /// A priority-sorted list of <see cref="IStore"/>s used to provide <see cref="Model.Implementation"/>s.
-        /// </summary>
-        public IEnumerable<IStore> Stores { get { return _stores; } }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new implementation provider with a set of <see cref="IStore"/>s.
+        /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
         /// </summary>
-        /// <param name="stores"></param>
-        public StoreSet(IEnumerable<IStore> stores)
+        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.</param>
+        public CompositeStore(IEnumerable<IStore> stores)
         {
             #region Sanity checks
             if (stores == null) throw new ArgumentNullException("stores");
@@ -59,6 +55,13 @@ namespace ZeroInstall.Store.Implementation
             // Defensive copy
             _stores.AddAll(stores);
         }
+
+        /// <summary>
+        /// Creates a new composite implementation provider with a set of <see cref="IStore"/>s.
+        /// </summary>
+        /// <param name="stores">A priority-sorted list of <see cref="IStore"/>s. Queried last-to-first for adding new <see cref="Model.Implementation"/>s, first-to-last otherwise.</param>
+        public CompositeStore(params IStore[] stores) : this((IEnumerable<IStore>)stores)
+        {}
         #endregion
 
         //--------------------//
@@ -69,7 +72,7 @@ namespace ZeroInstall.Store.Implementation
         {
             // Merge the lists from all contained stores, eliminating duplicates
             var result = new C5.TreeSet<ManifestDigest>();
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 try { result.AddSorted(store.ListAll()); }
                 catch (UnauthorizedAccessException)
@@ -86,7 +89,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public bool Contains(ManifestDigest manifestDigest)
         {
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 // Check if any store contains the implementation
                 if (store.Contains(manifestDigest)) return true;
@@ -101,7 +104,7 @@ namespace ZeroInstall.Store.Implementation
         /// <inheritdoc />
         public string GetPath(ManifestDigest manifestDigest)
         {
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 // Use the first store that contains the implementation
                 if (store.Contains(manifestDigest)) return store.GetPath(manifestDigest);
@@ -121,9 +124,9 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the first store the implementation can be added to (some might be write-protected)
+            // Find the deepest store the implementation can be added to (some might be write-protected)
             UnauthorizedAccessException innerException = null;
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores.Backwards())
             {
                 try
                 {
@@ -154,9 +157,9 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the first store the implementation can be added to (some might be write-protected)
+            // Find the deepest store the implementation can be added to (some might be write-protected)
             UnauthorizedAccessException innerException = null;
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores.Backwards())
             {
                 try
                 {
@@ -185,9 +188,9 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the first store the implementation can be added to (some might be write-protected)
+            // Find the deepest store the implementation can be added to (some might be write-protected)
             UnauthorizedAccessException innerException = null;
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores.Backwards())
             {
                 try
                 {
@@ -218,7 +221,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             bool removed = false;
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 // Remove from every that contains the implementation
                 if (store.Contains(manifestDigest))
@@ -240,7 +243,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to optimize all contained stores
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 try { store.Optimise(handler); }
                 catch (UnauthorizedAccessException)
@@ -260,7 +263,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Verify in all contained stores
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
                 store.Verify(manifestDigest, handler);
         }
         #endregion
@@ -274,7 +277,7 @@ namespace ZeroInstall.Store.Implementation
             #endregion
 
             // Try to audit all contained stores
-            foreach (IStore store in Stores)
+            foreach (IStore store in _stores)
             {
                 var problems = store.Audit(handler);
                 if (problems != null)

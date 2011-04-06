@@ -419,7 +419,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -469,7 +469,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -512,7 +512,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -544,7 +544,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -684,7 +684,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -721,7 +721,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -772,7 +772,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -790,7 +790,7 @@
         <referencesInternal>
           <reference
             Id="5fd0dd9e-59e3-4ccb-9ef3-470606009835"
-            handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore"
+            handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore"
             tag="ViewCode" />
         </referencesInternal>
         <appliedStereotypesInternal>
@@ -842,7 +842,7 @@
             <interfaceMoniker
               Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
               LastKnownName="ITaskHandler"
-              LastKnownLocation="Package5_1629.uml" />
+              LastKnownLocation="Package_0657.uml" />
           </dependency>
         </suppliersInternal>
         <ownedOperations>
@@ -1139,7 +1139,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1256,7 +1256,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1367,7 +1367,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1442,7 +1442,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1598,7 +1598,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1649,7 +1649,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1714,74 +1714,89 @@
             </propertyInstances>
           </stereotypeInstance>
         </appliedStereotypesInternal>
-        <targetEnds>
-          <association
-            Id="3c6dee96-5ff3-4bf6-838f-d62ca01cd34f"
-            isDerived="false"
-            sourceEndRoleName="StoreProvider"
-            targetEndRoleName="Default"
-            isLeaf="false"
-            isAbstract="false">
+        <suppliersInternal>
+          <dependency
+            Id="948548a7-6ce0-4ac9-9741-380cd1951bfa">
             <interfaceMoniker
               Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
               LastKnownName="IStore"
               LastKnownLocation="Package5_1633.uml" />
-            <description>Property Default references type IStore.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="7a55300f-3224-47c7-b9e0-8447cb7a5522"
-                  name="StoreProvider"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="Shared"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="0612f8d2-01bb-4132-8cd0-bbd9add685d7"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="0dd22e97-6cfd-4366-8a75-2529ef04090c"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="6b984d6f-1204-41e6-b65c-ad51d25fe569"
-                  name="Default"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="06e66b43-7d9d-4db4-9956-9370204c2a2d"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="d1f93643-a036-4b80-ae96-fda9c5fe0b72"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-        </targetEnds>
+          </dependency>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="a752ac8f-f579-42eb-bc64-7af117fc09d8"
+            name="CreateDefault"
+            isLeaf="false"
+            isStatic="true"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <referencesInternal>
+              <reference
+                Id="48ccc227-b98d-476f-95b7-7665fa0ccaf3"
+                handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreProvider Member=CreateDefault"
+                tag="ViewCode" />
+            </referencesInternal>
+            <appliedStereotypesInternal>
+              <stereotypeInstance
+                Id="0ed0202b-9ede-4e3b-8d46-106f54799bbe"
+                name="method"
+                profile="CSharpProfile">
+                <propertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="bf593b47-4a58-40dd-a3d7-1f9781c73db8">
+                    <propertyInstance
+                      Id="f4866b2c-0f9f-439b-9f5b-e882a76db6ee"
+                      name="ClrAttributes" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="ad7b0c79-40bf-459b-a72b-55d67a3631a9">
+                    <propertyInstance
+                      Id="70dabc3f-2826-4ba0-85d4-7a54768c4873"
+                      name="IsPartial"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="85e743f4-bfdd-47b5-acaf-fc80ca445ff9">
+                    <propertyInstance
+                      Id="b72d1efc-3ef6-4357-ac88-68500831a4a6"
+                      name="IsUnsafe"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="35ac9fb5-44e5-4cbb-89ed-42c706ba709f">
+                    <propertyInstance
+                      Id="90e76959-b631-4e54-a36c-7f011ba29648"
+                      name="PackageVisibility"
+                      value="internal" />
+                  </stereotypeInstanceHasPropertyInstances>
+                  <stereotypeInstanceHasPropertyInstances
+                    Id="e8fafe2b-290e-40ef-b619-b14cdcb0bb4f">
+                    <propertyInstance
+                      Id="d50b3756-52a3-4b36-8e08-3c3a5a936710"
+                      name="params"
+                      value="false" />
+                  </stereotypeInstanceHasPropertyInstances>
+                </propertyInstances>
+              </stereotypeInstance>
+            </appliedStereotypesInternal>
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="58e9200f-67db-4a68-b464-3d6f023ad4f5"
+                  direction="Return">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
+                      LastKnownName="IStore"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
@@ -3858,7 +3873,7 @@
     <packageHasNamedElement>
       <class
         Id="a64fd721-d8f6-4687-b4b2-fec6b412c3a4"
-        name="StoreSet"
+        name="CompositeStore"
         isAbstract="false"
         isLeaf="false"
         isActiveClass="false">
@@ -3924,8 +3939,8 @@
           <association
             Id="5ff243a4-03e1-430f-aee0-aa0a5a9ed5f8"
             isDerived="false"
-            sourceEndRoleName="StoreSet"
-            targetEndRoleName="Stores"
+            sourceEndRoleName="CompositeStore"
+            targetEndRoleName="_stores"
             isLeaf="false"
             isAbstract="false">
             <interfaceMoniker
@@ -3936,7 +3951,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="c5f29a2a-f4c3-4ca7-8d45-b204d6b89bea"
-                  name="StoreSet"
+                  name="CompositeStore"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -3962,7 +3977,7 @@
               <associationHasOwnedEnds>
                 <memberEnd
                   Id="fcd3cfed-694d-4a34-ac9d-673f8e1bff88"
-                  name="Stores"
+                  name="_stores"
                   isLeaf="false"
                   isStatic="false"
                   isReadOnly="false"
@@ -3990,7 +4005,7 @@
         <ownedOperationsInternal>
           <operation
             Id="9ee93bb0-8e14-4a37-934b-75c8ceeae1ba"
-            name="StoreSet"
+            name="CompositeStore"
             isLeaf="false"
             isStatic="false"
             isAbstract="false"
@@ -4048,24 +4063,18 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="39d3224c-6df0-46fd-9466-ece43ba73665"
+                  Id="de080024-e896-4a9c-82e5-9549a87dca82"
                   name="stores"
                   direction="In">
-                  <referencesInternal>
-                    <reference
-                      Id="d637e701-eb24-4850-ba0b-f245fb28fde9"
-                      handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]))]) ParameterIdentifier=stores"
-                      tag="ViewCode" />
-                  </referencesInternal>
                   <lowerValueInternal>
                     <literalString
-                      Id="fad71211-b2dc-49bc-a715-1ff2370bf966"
+                      Id="98ea295e-d3a6-4c7f-bcfe-12c6176c062a"
                       name="Lower"
                       value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
-                      Id="d996ca86-edba-413b-bbaf-a84bbad12a42"
+                      Id="f17eeed9-4a7d-487e-80ec-c420a57ddb8f"
                       name="Upper"
                       value="*" />
                   </upperValueInternal>
@@ -4195,7 +4204,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4245,7 +4254,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4288,7 +4297,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4320,7 +4329,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4389,7 +4398,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4440,7 +4449,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4780,7 +4789,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4830,7 +4839,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4873,7 +4882,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -4905,7 +4914,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5035,7 +5044,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -5086,7 +5095,7 @@
                     <interfaceMoniker
                       Id="994d7262-293c-457a-8bd8-90d073c4cbe9"
                       LastKnownName="ITaskHandler"
-                      LastKnownLocation="Package5_1629.uml" />
+                      LastKnownLocation="Package_0657.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -8789,7 +8798,7 @@
             <classMoniker
               Id="aac91736-0152-4877-b9d7-1b8711346683"
               LastKnownName="ThreadTaskBase"
-              LastKnownLocation="Package5_1629.uml" />
+              LastKnownLocation="Package_0657.uml" />
           </generalization>
         </generalsInternal>
         <targetEnds>

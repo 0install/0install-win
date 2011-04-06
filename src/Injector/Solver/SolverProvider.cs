@@ -18,16 +18,14 @@
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Creates instances of <see cref="ISolver"/> implementations.
+    /// Creates <see cref="ISolver"/> instances.
     /// </summary>
     public static class SolverProvider
     {
-        #region Singleton properties
         private static readonly ISolver _default = new PythonSolver();
         /// <summary>
         /// Returns the default implementation of <see cref="ISolver"/>.
         /// </summary>
         public static ISolver Default { get { return _default; } }
-        #endregion
     }
 }

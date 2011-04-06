@@ -41,7 +41,7 @@ namespace ZeroInstall.Commands
         /// <summary>Indicates the user wants the implementation locations on the disk.</summary>
         private bool _show;
 
-        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Policy.SearchStore"/>.</summary>
+        /// <summary><see cref="Implementation"/>s referenced in <see cref="Selection.Selections"/> that are not available in the <see cref="Fetcher.Store"/>.</summary>
         protected IEnumerable<Implementation> UncachedImplementations;
 
         /// <summary>Synchronization handle to prevent race conditions with <see cref="IFetcher"/> canceling.</summary>
@@ -110,11 +110,11 @@ namespace ZeroInstall.Commands
         {
             base.Solve();
 
-            UncachedImplementations = Selections.ListUncachedImplementations(Policy.SearchStore, Policy.FeedManager.Cache);
+            UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache);
         }
 
         /// <summary>
-        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="Policy.SearchStore"/>.
+        /// Downloads any <see cref="Model.Implementation"/>s in <see cref="Selection"/> that are missing from <see cref="Fetcher.Store"/>.
         /// </summary>
         /// <remarks>Makes sure <see cref="ISolver"/> ran with up-to-date feeds before downloading any implementations.</remarks>
         protected void DownloadUncachedImplementations()

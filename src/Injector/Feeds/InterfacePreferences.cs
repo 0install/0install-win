@@ -87,17 +87,7 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Loads <see cref="InterfacePreferences"/> from a stream containing an XML file (feed).
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
-        public static InterfacePreferences Load(Stream stream)
-        {
-            return XmlStorage.Load<InterfacePreferences>(stream);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="InterfacePreferences"/> to an XML file (feed).
+        /// Saves this <see cref="InterfacePreferences"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
@@ -105,15 +95,6 @@ namespace ZeroInstall.Injector.Feeds
         public void Save(string path)
         {
             XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="InterfacePreferences"/> to a stream as an XML file (feed).
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            XmlStorage.Save(stream, this);
         }
         #endregion
 

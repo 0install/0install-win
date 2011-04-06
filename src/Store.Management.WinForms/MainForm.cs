@@ -69,7 +69,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 var nodes = new NamedCollection<StoreNode>();
 
                 #region Interface node
-                var cache = FeedCacheProvider.Default;
+                var cache = FeedCacheProvider.CreateDefault();
                 var feeds = new LinkedList<Feed>();
                 foreach (string id in cache.ListAll())
                 {
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 #endregion
 
                 long totalSize = 0;
-                var store = StoreProvider.Default;
+                var store = StoreProvider.CreateDefault();
                 foreach (var digest in store.ListAll())
                 {
                     #region Owned implementation node

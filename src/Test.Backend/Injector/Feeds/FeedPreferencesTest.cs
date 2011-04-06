@@ -45,13 +45,12 @@ namespace ZeroInstall.Injector.Feeds
         [Test(Description = "Ensures that the class is correctly serialized and deserialized.")]
         public void TestSaveLoad()
         {
-            FeedPreferences preferences1, preferences2;
+            FeedPreferences preferences1 = CreateTestFeedPreferences(), preferences2;
             using (var tempFile = new TemporaryFile("0install-unit-tests"))
             {
                 // Write and read file
-                preferences1 = CreateTestFeedPreferences();
-                preferences1.Save(tempFile.Path);
-                preferences2 = FeedPreferences.Load(tempFile.Path);
+                XmlStorage.Save(tempFile.Path, preferences1);
+                preferences2 = XmlStorage.Load<FeedPreferences>(tempFile.Path);
             }
 
             // Ensure data stayed the same

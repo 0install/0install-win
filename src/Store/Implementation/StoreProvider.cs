@@ -16,21 +16,35 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using Common.Storage;
 
 namespace ZeroInstall.Store.Implementation
 {
     /// <summary>
-    /// Provides access to <see cref="IStore"/> implementations.
+    /// Creates <see cref="IStore"/> instances.
     /// </summary>
     public static class StoreProvider
     {
-        private static readonly IStore _default = new StoreSet(new IStore[] {new ServiceStore(), new DirectoryStore()});
         /// <summary>
-        /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
+        /// Creates an <see cref="IStore"/> instance that uses the default cache locations.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IStore Default { get { return _default; } }
+        public static IStore CreateDefault()
+        {
+            return new CompositeStore(GetStores());
+        }
+
+        /// <summary>
+        /// Returns a list of <see cref="IStore"/>s representing all local cache directories and the <see cref="ServiceStore"/>.
+        /// </summary>
+        private static IEnumerable<IStore> GetStores()
+        {
+            foreach (var path in Locations.GetCachePath("0install.net", "implementations"))
+                yield return new DirectoryStore(path);
+            yield return new ServiceStore();
+        }
     }
 }

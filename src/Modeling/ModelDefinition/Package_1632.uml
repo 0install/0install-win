@@ -873,34 +873,6 @@
             <ownedParameters>
               <operationHasOwnedParameters>
                 <parameter
-                  Id="c67ca192-2e34-44b9-905d-2f4109d2861c"
-                  name="searchStore"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
-                      LastKnownName="IStore"
-                      LastKnownLocation="Package5_1633.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
-                  Id="21c3c7bc-4e63-46e8-996b-8ad8032aec25"
-                  name="feedCache"
-                  direction="In"
-                  isUnique="false">
-                  <type_NamedElement>
-                    <interfaceMoniker
-                      Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
-                      LastKnownName="IFeedCache"
-                      LastKnownLocation="Package4_1632.uml" />
-                  </type_NamedElement>
-                </parameter>
-              </operationHasOwnedParameters>
-              <operationHasOwnedParameters>
-                <parameter
                   Id="2df4a5e7-bbac-47d1-8d18-7e0db7a08d7d"
                   direction="Return">
                   <lowerValueInternal>
@@ -917,9 +889,37 @@
                   </upperValueInternal>
                   <type_NamedElement>
                     <classMoniker
-                      Id="6062926c-5859-4c66-adc8-7bbc6c7dc1e0"
-                      LastKnownName="Feed"
+                      Id="53bedb1c-ef5f-4c7e-b2e9-9ea717a4a5a3"
+                      LastKnownName="Implementation"
                       LastKnownLocation="Package1_1629.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="83e470df-01fc-4896-96e4-c2e2c4faa15b"
+                  name="searchStore"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="adf8ce14-f50a-483e-a4c2-083818535ca0"
+                      LastKnownName="IStore"
+                      LastKnownLocation="Package5_1633.uml" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="23dac32d-9ec5-471e-8b3f-dce74a7540e8"
+                  name="feedCache"
+                  direction="In"
+                  isUnique="false">
+                  <type_NamedElement>
+                    <interfaceMoniker
+                      Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141"
+                      LastKnownName="IFeedCache"
+                      LastKnownLocation="Package4_1632.uml" />
                   </type_NamedElement>
                 </parameter>
               </operationHasOwnedParameters>
@@ -1009,7 +1009,7 @@
             Id="e7b0ee88-93c8-47a8-aa9e-eed783b0642e">
             <classMoniker
               Id="840af007-1933-4a55-a020-8e1191964184"
-              LastKnownName="Preferences"
+              LastKnownName="Config"
               LastKnownLocation="Package1_1632.uml" />
           </dependency>
           <dependency

@@ -198,7 +198,7 @@ namespace ZeroInstall.Commands
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
         protected string GetSelectionsOutput()
         {
-            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.SearchStore);
+            return ShowXml ? Selections.WriteToString() : Selections.GetHumanReadable(Policy.Fetcher.Store);
         }
         #endregion
 

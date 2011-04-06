@@ -37,8 +37,20 @@ namespace ZeroInstall.Fetchers
         #endregion
 
         #region Properties
+        private IStore _store;
         /// <inheritdoc/>
-        public IStore Store { get; private set; }
+        public IStore Store
+        {
+            get { return _store; }
+            set
+            {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
+                _store = value;
+            }
+        }
         #endregion
 
         #region Constructor

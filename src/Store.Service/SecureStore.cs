@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -70,14 +69,6 @@ namespace ZeroInstall.Store.Service
                 // Ignore if we cannot verify the time accuracy of read-only stores
             }
         }
-
-        /// <summary>
-        /// Creates a new store using the default path (generally in the user-profile).
-        /// </summary>
-        /// <exception cref="IOException">Thrown if the directory could not be created.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public SecureStore() : this(Locations.GetCachePath("0install.net", "implementations"))
-        {}
         #endregion
 
         //--------------------//

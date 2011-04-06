@@ -102,7 +102,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store per-user data files that does not roam across different machines.
+        /// The directory to store per-user data files that do not roam across different machines.
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.local/share</c>.</remarks>
         public static string UserDataDir
@@ -128,7 +128,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directory to store per-user (non-essential) cache data.
+        /// The directory to store per-user cache data that does not roam across different machines.
         /// </summary>
         /// <remarks>On Windows this is <c>%localappdata%</c>, on Linux it usually is <c>~/.cache</c>.</remarks>
         public static string UserCacheDir
@@ -183,7 +183,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// The directories to store system-wide data files that does not roam across different machines.
+        /// The directories to store system-wide data files that do not roam across different machines.
         /// </summary>
         /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
         /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/usr/local/share:/usr/share</c>.</remarks>
@@ -201,6 +201,33 @@ namespace Common.Storage
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_DATA_DIRS", "/usr/local/share:/usr/share");
+
+                    case PlatformID.MacOSX:
+                        // ToDo: Do whatever you should do on MacOS X
+                        throw new NotImplementedException();
+                }
+            }
+        }
+
+        /// <summary>
+        /// The directories to store system-wide cache data that does not roam across different machines.
+        /// </summary>
+        /// <returns>Directories separated by <see cref="Path.PathSeparator"/> sorted by decreasing importance.</returns>
+        /// <remarks>On Windows this is <c>CommonApplicationData</c>, on Linux it usually is <c>/var/cache</c>.</remarks>
+        public static string SystemCacheDirs
+        {
+            get
+            {
+                switch (Environment.OSVersion.Platform)
+                {
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+                    case PlatformID.Unix:
+                        // Unoffical extension of the XDG specification
+                        return GetEnvironmentVariable("XDG_CACHE_DIRS", "/var/cache");
 
                     case PlatformID.MacOSX:
                         // ToDo: Do whatever you should do on MacOS X
@@ -251,7 +278,7 @@ namespace Common.Storage
         /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
         /// <returns>
         /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
-        /// This list will always reflect the current state in the filesystem and can not be modified!
+        /// This list will always reflect the current state in the filesystem and can not be modified! It may be empty.
         /// </returns>
         /// <remarks>The returned paths are guaranteed to exist.</remarks>
         public static IEnumerable<string> GetLoadConfigPaths(string appName, string resource, bool isDirectory)
@@ -319,7 +346,7 @@ namespace Common.Storage
         /// <param name="isDirectory"><see langword="true"/> if the <paramref name="resource"/> is an entire directory instead of a single file.</param>
         /// <returns>
         /// A list of fully qualified paths to use to load the resource sorted by decreasing importance.
-        /// This list will always reflect the current state in the filesystem and can not be modified!
+        /// This list will always reflect the current state in the filesystem and can not be modified! It may be empty.
         /// </returns>
         /// <remarks>The returned paths are guaranteed to exist.</remarks>
         public static IEnumerable<string> GetLoadDataPaths(string appName, string resource, bool isDirectory)
@@ -352,29 +379,46 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Determines a path for a per-user cache directory that does not roam across different machines.
+        /// Determines a list of paths for cache directories that do not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
         /// <param name="resource">The directory name of the resource to be stored.</param>
-        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <returns>
+        /// A list of fully qualified directory path sorted by decreasing importance.
+        /// This list will always reflect the current state in the filesystem and can not be modified! It is never empty.
+        /// </returns>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist.</remarks>
-        public static string GetCachePath(string appName, string resource)
+        /// <remarks>The returned directories are guaranteed to exist. At least the first directory is usually writable.</remarks>
+        public static IEnumerable<string> GetCachePath(string appName, string resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
             if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
             #endregion
 
-            string path = IsPortable
-                ? StringUtils.PathCombine(PortableBase, "cache", resource)
-                : StringUtils.PathCombine(UserCacheDir, appName, resource);
+            string path;
+            if (IsPortable)
+            {
+                // Create in portable base directory
+                path = StringUtils.PathCombine(PortableBase, "cache", resource);
+                if (Directory.Exists(path)) Directory.CreateDirectory(path);
+                yield return path;
+            }
+            else
+            {
+                // Create in user profile
+                path = StringUtils.PathCombine(UserCacheDir, appName, resource);
+                if (Directory.Exists(path)) Directory.CreateDirectory(path);
+                yield return path;
 
-            // Ensure the directory exists
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-            return path;
+                // Check in system directories
+                foreach (var dirPath in SystemCacheDirs.Split(Path.PathSeparator))
+                {
+                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    if (Directory.Exists(path)) yield return path;
+                }
+            }
         }
         #endregion
     }

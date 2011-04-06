@@ -17,20 +17,24 @@
 
 using System;
 using System.IO;
+using Common.Collections;
+using Common.Storage;
 
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides access to <see cref="IFeedCache"/> implementations.
+    /// Creates <see cref="IFeedCache"/> instances.
     /// </summary>
     public static class FeedCacheProvider
     {
-        private static readonly IFeedCache _default = new MemoryFeedCache(new DiskFeedCache());
         /// <summary>
-        /// Returns an implementation of <see cref="IFeedCache"/> that uses the default cache location.
+        /// Creates an <see cref="IFeedCache"/> instance that uses the default cache location in the user profile.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IFeedCache Default { get { return _default; } }
+        public static IFeedCache CreateDefault()
+        {
+            return new MemoryFeedCache(new DiskFeedCache(EnumerableUtils.GetFirst(Locations.GetCachePath("0install.net", "interfaces"))));
+        }
     }
 }

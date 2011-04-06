@@ -22,16 +22,18 @@ using ZeroInstall.Store.Implementation;
 namespace ZeroInstall.Fetchers
 {
     /// <summary>
-    /// Provides access to <see cref="IFetcher"/> implementations.
+    /// Creates <see cref="IFetcher"/> instances.
     /// </summary>
     public static class FetcherProvider
     {
-        private static readonly IFetcher _default = new Fetcher(StoreProvider.Default);
         /// <summary>
-        /// Returns an implementation of <see cref="IStore"/> that uses the default cache locations.
+        /// Creates an <see cref="IFetcher"/> instance that uses <see cref="StoreProvider.CreateDefault"/>.
         /// </summary>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public static IFetcher Default { get { return _default; } }
+        public static IFetcher CreateDefault()
+        {
+            return new Fetcher(StoreProvider.CreateDefault());
+        }
     }
 }

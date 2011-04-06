@@ -79,16 +79,6 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Loads <see cref="FeedPreferences"/> from a stream containing an XML file (feed).
-        /// </summary>
-        /// <param name="stream">The stream to load from.</param>
-        /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
-        public static FeedPreferences Load(Stream stream)
-        {
-            return XmlStorage.Load<FeedPreferences>(stream);
-        }
-
-        /// <summary>
         /// Saves this <see cref="FeedPreferences"/> to an XML file (feed).
         /// </summary>
         /// <param name="path">The file to save in.</param>
@@ -97,15 +87,6 @@ namespace ZeroInstall.Injector.Feeds
         public void Save(string path)
         {
             XmlStorage.Save(path, this);
-        }
-
-        /// <summary>
-        /// Saves this <see cref="FeedPreferences"/> to a stream as an XML file (feed).
-        /// </summary>
-        /// <param name="stream">The stream to save in.</param>
-        public void Save(Stream stream)
-        {
-            XmlStorage.Save(stream, this);
         }
         #endregion
 

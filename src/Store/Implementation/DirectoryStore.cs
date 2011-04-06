@@ -21,7 +21,6 @@ using System.IO;
 using Common;
 using Common.Tasks;
 using Common.Utils;
-using Common.Storage;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 using ZeroInstall.Store.Implementation.Archive;
@@ -69,14 +68,6 @@ namespace ZeroInstall.Store.Implementation
                 // Ignore if we cannot verify the time accuracy of read-only stores
             }
         }
-
-        /// <summary>
-        /// Creates a new store using the default path (generally in the user-profile).
-        /// </summary>
-        /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
-        public DirectoryStore() : this(Locations.GetCachePath("0install.net", "implementations"))
-        {}
         #endregion
 
         //--------------------//

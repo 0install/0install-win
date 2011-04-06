@@ -1531,95 +1531,9 @@
             </package>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="2653cfdf-dca7-4039-8a77-7af9dab90a00" name="StoreProvider" isAbstract="false" isLeaf="false" isActiveClass="false">
-              <referencesInternal>
-                <reference Id="d8479a18-acd2-4f5c-95f7-888d08e31cbc" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreProvider" tag="ViewCode">
-                  <elementDefinition Id="da1a2f8f-102a-4e49-97f5-ca56d457b659" />
-                </reference>
-              </referencesInternal>
-              <appliedStereotypesInternal>
-                <stereotypeInstance Id="960d2ebe-0ff0-4851-a9f2-069d7b18c041" name="class" profile="CSharpProfile">
-                  <elementDefinition Id="a5a41071-931c-424e-9837-7c831fb161b4" />
-                  <propertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="109e1324-9eba-4a0e-a087-17c0f8c3b8c4">
-                      <propertyInstance Id="88d4c6f4-2f43-4b2d-be01-03bfd87d259b" name="ClrAttributes">
-                        <elementDefinition Id="54c651d1-7469-4594-a724-b434f3b3dc27" />
-                      </propertyInstance>
-                      <elementDefinition Id="5d0aab1a-955d-47bb-9c96-9e46b0813c20" />
-                    </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="9f0680e1-bef3-4b85-a2e6-14e9645df95d">
-                      <propertyInstance Id="a57c1baa-4d55-49bf-ba21-7a368881eb8c" name="IsPartial" value="false">
-                        <elementDefinition Id="36c772fb-e04a-4ea8-b852-8bc7c7b60b23" />
-                      </propertyInstance>
-                      <elementDefinition Id="07ef58f9-6e88-45d9-bd73-79d975a569cb" />
-                    </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="66617a35-0ba9-40aa-b9a9-696b53d67e79">
-                      <propertyInstance Id="9feeab1f-d1c1-4ef5-b9f6-9bf1d4a2471b" name="IsStatic" value="True">
-                        <elementDefinition Id="e570961c-47be-487a-8717-0803764c26cb" />
-                      </propertyInstance>
-                      <elementDefinition Id="69539187-586f-41c6-a215-13fa7a0645e9" />
-                    </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="b8a74f1c-84d8-4ea7-bb14-df169e61b6cf">
-                      <propertyInstance Id="d3c401f7-e773-4440-a5a7-9f2ca599cedf" name="IsUnsafe" value="false">
-                        <elementDefinition Id="6d2dd5ad-fb46-4922-ab76-a6c06b7dae7d" />
-                      </propertyInstance>
-                      <elementDefinition Id="84003442-0370-4014-a4c6-fd2effb26bf8" />
-                    </stereotypeInstanceHasPropertyInstances>
-                    <stereotypeInstanceHasPropertyInstances Id="9af8b853-d015-4834-b0c6-b7fad16e8704">
-                      <propertyInstance Id="fd12daba-4215-469b-b6c0-fa1d6ca0ff05" name="PackageVisibility" value="internal">
-                        <elementDefinition Id="e7386c66-0784-49fd-8644-9d1d7c7305c9" />
-                      </propertyInstance>
-                      <elementDefinition Id="63108287-33ec-4701-8470-6b836b006b1f" />
-                    </stereotypeInstanceHasPropertyInstances>
-                  </propertyInstances>
-                </stereotypeInstance>
-              </appliedStereotypesInternal>
-              <elementDefinition Id="dbe86bec-b882-4ff3-a51c-4d9ed70c627a" />
-              <targetEnds>
-                <association Id="a5f96fd2-b46d-4fcb-9f4e-9542b8d01736" isDerived="false" sourceEndRoleName="StoreProvider" targetEndRoleName="Default" isLeaf="false" isAbstract="false">
-                  <interfaceMoniker Id="ad572e2d-f15f-4ffc-9ab3-021d9a4716bd" LastKnownName="IStore" />
-                  <description>Property Default references type IStore.</description>
-                  <relationshipOwnedElementsInternal>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="23a7c063-1aa7-4038-8696-e9bee3e3868c" name="StoreProvider" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
-                        <lowerValueInternal>
-                          <literalString Id="73ee0583-7bec-43e5-90d7-8c07418ccc2c" name="Lower" value="1">
-                            <elementDefinition Id="0612f8d2-01bb-4132-8cd0-bbd9add685d7" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="e1c26a0c-f39c-4758-9c53-7df7c4c01310" name="Upper" value="1">
-                            <elementDefinition Id="0dd22e97-6cfd-4366-8a75-2529ef04090c" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="7a55300f-3224-47c7-b9e0-8447cb7a5522" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                    <associationHasOwnedEnds>
-                      <memberEnd Id="5787bcdd-78b6-4263-8b2d-d025ead6983e" name="Default" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
-                        <lowerValueInternal>
-                          <literalString Id="a3a2bb87-b307-4006-b1b5-46b08ea822f5" name="Lower" value="1">
-                            <elementDefinition Id="06e66b43-7d9d-4db4-9956-9370204c2a2d" />
-                          </literalString>
-                        </lowerValueInternal>
-                        <upperValueInternal>
-                          <literalString Id="68a8a43f-cc62-45eb-984b-01a6be17403b" name="Upper" value="1">
-                            <elementDefinition Id="d1f93643-a036-4b80-ae96-fda9c5fe0b72" />
-                          </literalString>
-                        </upperValueInternal>
-                        <elementDefinition Id="6b984d6f-1204-41e6-b65c-ad51d25fe569" />
-                      </memberEnd>
-                    </associationHasOwnedEnds>
-                  </relationshipOwnedElementsInternal>
-                  <elementDefinition Id="3c6dee96-5ff3-4bf6-838f-d62ca01cd34f" />
-                </association>
-              </targetEnds>
-            </class>
-          </packageHasNamedElement>
-          <packageHasNamedElement>
             <Interface Id="ad572e2d-f15f-4ffc-9ab3-021d9a4716bd" name="IStore" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="fc63f9f9-238f-452e-aec5-d0ff48433df2" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
+                <reference Id="fc63f9f9-238f-452e-aec5-d0ff48433df2" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore" tag="ViewCode">
                   <elementDefinition Id="5fd0dd9e-59e3-4ccb-9ef3-470606009835" />
                 </reference>
               </referencesInternal>
@@ -3204,7 +3118,7 @@
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
-            <class Id="f92f0630-3488-4825-9631-233bf4f8502d" name="StoreSet" isAbstract="false" isLeaf="false" isActiveClass="false">
+            <class Id="f92f0630-3488-4825-9631-233bf4f8502d" name="CompositeStore" isAbstract="false" isLeaf="false" isActiveClass="false">
               <referencesInternal>
                 <reference Id="b9494e2f-301a-4caf-ab46-4ba3a9b995d4" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet" tag="ViewCode">
                   <elementDefinition Id="1ddf207f-c40e-422d-8f3a-b2398afc0637" />
@@ -3255,11 +3169,11 @@
                 </interfaceRealization>
               </suppliersInternal>
               <targetEnds>
-                <association Id="034d6086-e136-4c08-8152-7e13723e6653" isDerived="false" sourceEndRoleName="StoreSet" targetEndRoleName="Stores" isLeaf="false" isAbstract="false">
+                <association Id="034d6086-e136-4c08-8152-7e13723e6653" isDerived="false" sourceEndRoleName="CompositeStore" targetEndRoleName="_stores" isLeaf="false" isAbstract="false">
                   <interfaceMoniker Id="ad572e2d-f15f-4ffc-9ab3-021d9a4716bd" LastKnownName="IStore" />
                   <relationshipOwnedElementsInternal>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="dc918a75-92d9-43e7-bb59-8054cc7f2d22" name="StoreSet" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
+                      <memberEnd Id="dc918a75-92d9-43e7-bb59-8054cc7f2d22" name="CompositeStore" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Shared" isComposite="false" isNavigableOwned="false">
                         <lowerValueInternal>
                           <literalString Id="9ea881d3-35cb-470e-a988-5d6befca6592" name="Lower" value="*">
                             <elementDefinition Id="bc6e056e-9f4b-4356-be1e-5a9cbc56f823" />
@@ -3274,7 +3188,7 @@
                       </memberEnd>
                     </associationHasOwnedEnds>
                     <associationHasOwnedEnds>
-                      <memberEnd Id="e85cf403-b5d2-430e-81e3-10b73597f7d2" name="Stores" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                      <memberEnd Id="e85cf403-b5d2-430e-81e3-10b73597f7d2" name="_stores" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
                         <lowerValueInternal>
                           <literalString Id="177985fc-cdf5-4ee1-8b54-2bf9fb433171" name="Lower" value="1">
                             <elementDefinition Id="210ca0ca-681e-425c-b037-183923850ff8" />
@@ -3293,7 +3207,7 @@
                 </association>
               </targetEnds>
               <ownedOperationsInternal>
-                <operation Id="2e5c636f-111b-4f02-9de8-ad1b14d9ad74" name="StoreSet" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                <operation Id="2e5c636f-111b-4f02-9de8-ad1b14d9ad74" name="CompositeStore" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
                   <referencesInternal>
                     <reference Id="16161032-6369-47b1-8c31-79a7a3309697" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]))])" tag="ViewCode">
                       <elementDefinition Id="5ae50ba4-17b2-43ea-bf21-9906edba24dd" />
@@ -3339,23 +3253,18 @@
                   <elementDefinition Id="9ee93bb0-8e14-4a37-934b-75c8ceeae1ba" />
                   <ownedParameters>
                     <operationHasOwnedParameters>
-                      <parameter Id="0b4fefc7-ac71-48a4-8872-2364f0d79729" name="stores" direction="In">
-                        <referencesInternal>
-                          <reference Id="09e2032b-3d45-4fd0-98c3-1824160d43a3" handle="viewcode://./CodeSchema_Parameter?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreSet Member=(Name=.ctor OverloadingParameters=[(Assembly=file:///C:/Windows/Microsoft.NET/Framework/v2.0.50727/mscorlib.dll Namespace=System.Collections.Generic Type=(Name=IEnumerable GenericParameterCount=1 GenericArguments=[(Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=IStore)]))]) ParameterIdentifier=stores" tag="ViewCode">
-                            <elementDefinition Id="d637e701-eb24-4850-ba0b-f245fb28fde9" />
-                          </reference>
-                        </referencesInternal>
+                      <parameter Id="cef84b29-5998-42f2-9c5c-17c5c707a1d8" name="stores" direction="In">
                         <lowerValueInternal>
-                          <literalString Id="6542405e-c226-460c-a5a5-0db17be909b7" name="Lower" value="1">
-                            <elementDefinition Id="fad71211-b2dc-49bc-a715-1ff2370bf966" />
+                          <literalString Id="d1a07509-42ba-4293-b2aa-872c4b763575" name="Lower" value="1">
+                            <elementDefinition Id="98ea295e-d3a6-4c7f-bcfe-12c6176c062a" />
                           </literalString>
                         </lowerValueInternal>
                         <upperValueInternal>
-                          <literalString Id="fb8e68e8-b9a2-47cd-b932-374fc29000c4" name="Upper" value="*">
-                            <elementDefinition Id="d996ca86-edba-413b-bbaf-a84bbad12a42" />
+                          <literalString Id="330f83e2-f624-449c-b248-0a2f10824217" name="Upper" value="*">
+                            <elementDefinition Id="f17eeed9-4a7d-487e-80ec-c420a57ddb8f" />
                           </literalString>
                         </upperValueInternal>
-                        <elementDefinition Id="39d3224c-6df0-46fd-9466-ece43ba73665" />
+                        <elementDefinition Id="de080024-e896-4a9c-82e5-9549a87dca82" />
                         <type_NamedElement>
                           <referencedTypeMoniker Id="eb5bfe77-8cc6-4120-9172-62e2716bd5e5" LastKnownName="IStore" />
                         </type_NamedElement>
@@ -8379,6 +8288,116 @@
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
+          <packageHasNamedElement>
+            <class Id="ab197c0b-22d6-4608-8670-531b5a61bc04" name="StoreProvider" isAbstract="false" isLeaf="false" isActiveClass="false">
+              <referencesInternal>
+                <reference Id="0c54bd29-95f1-47f1-9490-fdc448f92de9" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreProvider" tag="ViewCode">
+                  <elementDefinition Id="da1a2f8f-102a-4e49-97f5-ca56d457b659" />
+                </reference>
+              </referencesInternal>
+              <appliedStereotypesInternal>
+                <stereotypeInstance Id="318eb939-ae93-4287-8b33-358100ac5d4c" name="class" profile="CSharpProfile">
+                  <elementDefinition Id="a5a41071-931c-424e-9837-7c831fb161b4" />
+                  <propertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="a1e25ec9-f725-4152-8aeb-156e6e122b1a">
+                      <propertyInstance Id="97d65b5c-8e81-4aeb-a68e-4bf06ed34c4c" name="ClrAttributes">
+                        <elementDefinition Id="54c651d1-7469-4594-a724-b434f3b3dc27" />
+                      </propertyInstance>
+                      <elementDefinition Id="5d0aab1a-955d-47bb-9c96-9e46b0813c20" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="b651cff6-801d-43d7-bd68-554d0aa330d5">
+                      <propertyInstance Id="d7856dec-caf5-40e3-a7b8-fd38cf7bc52a" name="IsPartial" value="false">
+                        <elementDefinition Id="36c772fb-e04a-4ea8-b852-8bc7c7b60b23" />
+                      </propertyInstance>
+                      <elementDefinition Id="07ef58f9-6e88-45d9-bd73-79d975a569cb" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="0fb764e8-ce71-495d-aa5e-29a23e65f09b">
+                      <propertyInstance Id="52375eba-a5ae-40ff-930c-61b19b7e0b86" name="IsStatic" value="True">
+                        <elementDefinition Id="e570961c-47be-487a-8717-0803764c26cb" />
+                      </propertyInstance>
+                      <elementDefinition Id="69539187-586f-41c6-a215-13fa7a0645e9" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="557a372b-c3e2-473c-8707-7f7a5861dddf">
+                      <propertyInstance Id="51d7fe81-7a58-4dd8-bb26-3fd560147a00" name="IsUnsafe" value="false">
+                        <elementDefinition Id="6d2dd5ad-fb46-4922-ab76-a6c06b7dae7d" />
+                      </propertyInstance>
+                      <elementDefinition Id="84003442-0370-4014-a4c6-fd2effb26bf8" />
+                    </stereotypeInstanceHasPropertyInstances>
+                    <stereotypeInstanceHasPropertyInstances Id="def05f31-a61f-41f7-a3d8-23eaf78b9020">
+                      <propertyInstance Id="80ac77df-4210-4f65-a4f6-72a6a218aa8d" name="PackageVisibility" value="internal">
+                        <elementDefinition Id="e7386c66-0784-49fd-8644-9d1d7c7305c9" />
+                      </propertyInstance>
+                      <elementDefinition Id="63108287-33ec-4701-8470-6b836b006b1f" />
+                    </stereotypeInstanceHasPropertyInstances>
+                  </propertyInstances>
+                </stereotypeInstance>
+              </appliedStereotypesInternal>
+              <elementDefinition Id="dbe86bec-b882-4ff3-a51c-4d9ed70c627a" />
+              <suppliersInternal>
+                <dependency Id="49575e6b-66b0-408b-b59c-225ed0b61e11">
+                  <interfaceMoniker Id="ad572e2d-f15f-4ffc-9ab3-021d9a4716bd" LastKnownName="IStore" />
+                  <elementDefinition Id="948548a7-6ce0-4ac9-9741-380cd1951bfa" />
+                </dependency>
+              </suppliersInternal>
+              <ownedOperationsInternal>
+                <operation Id="1fa97d42-5480-4020-ab8e-a41a32b97451" name="CreateDefault" isLeaf="false" isStatic="true" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <referencesInternal>
+                    <reference Id="4a5be1b0-3d49-4f56-842e-2a78c8670b03" handle="viewcode://./CodeSchema_Method?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Store.dll Namespace=ZeroInstall.Store.Implementation Type=StoreProvider Member=CreateDefault" tag="ViewCode">
+                      <elementDefinition Id="48ccc227-b98d-476f-95b7-7665fa0ccaf3" />
+                    </reference>
+                  </referencesInternal>
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="348e93bb-d527-4034-ad12-5e06e8dde570" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="0ed0202b-9ede-4e3b-8d46-106f54799bbe" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="f6f22b7a-3c1a-48a8-a516-9a05f1bd0756">
+                          <propertyInstance Id="ad77e9be-95b3-40e3-ac87-8f82a4ac69d0" name="ClrAttributes">
+                            <elementDefinition Id="f4866b2c-0f9f-439b-9f5b-e882a76db6ee" />
+                          </propertyInstance>
+                          <elementDefinition Id="bf593b47-4a58-40dd-a3d7-1f9781c73db8" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="c5bb9846-a793-44a0-8c21-2ce1c7cd024d">
+                          <propertyInstance Id="dbf9654c-4aff-4e21-aaa4-5fb5e693092c" name="IsPartial" value="false">
+                            <elementDefinition Id="70dabc3f-2826-4ba0-85d4-7a54768c4873" />
+                          </propertyInstance>
+                          <elementDefinition Id="ad7b0c79-40bf-459b-a72b-55d67a3631a9" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="50b4bf36-1bf7-4e93-b5e8-bd0d5e84ffff">
+                          <propertyInstance Id="560a0d19-e701-4b64-b115-79162ec54416" name="IsUnsafe" value="false">
+                            <elementDefinition Id="b72d1efc-3ef6-4357-ac88-68500831a4a6" />
+                          </propertyInstance>
+                          <elementDefinition Id="85e743f4-bfdd-47b5-acaf-fc80ca445ff9" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="ddcf359d-be64-491f-a26f-ab3c15e1348f">
+                          <propertyInstance Id="f6659089-99ec-4266-b28a-465aa3f8590c" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="90e76959-b631-4e54-a36c-7f011ba29648" />
+                          </propertyInstance>
+                          <elementDefinition Id="35ac9fb5-44e5-4cbb-89ed-42c706ba709f" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="3f7cc62b-978a-4343-88a7-e2110ac66b7a">
+                          <propertyInstance Id="0eb5699a-15f4-4418-bf08-b1b259cc9dda" name="params" value="false">
+                            <elementDefinition Id="d50b3756-52a3-4b36-8e08-3c3a5a936710" />
+                          </propertyInstance>
+                          <elementDefinition Id="e8fafe2b-290e-40ef-b619-b14cdcb0bb4f" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="a752ac8f-f579-42eb-bc64-7af117fc09d8" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="dc05cb3b-5006-416c-aeb4-3437e0b9b3f4" direction="Return">
+                        <elementDefinition Id="58e9200f-67db-4a68-b464-3d6f023ad4f5" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="eb5bfe77-8cc6-4120-9172-62e2716bd5e5" LastKnownName="IStore" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
+              </ownedOperationsInternal>
+            </class>
+          </packageHasNamedElement>
         </packagedElements>
       </package>
     </logicalClassDesignerModelHasPackages>
@@ -8483,7 +8502,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ITaskHandler">
+      <referencedType Id="58233fc8-cb4e-409a-a58e-fe1b28f7f01e" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::Tasks::ITaskHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>
@@ -8503,7 +8522,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ITaskHandler">
+      <referencedType Id="5cf71268-b833-40c4-9e0e-a2e74f80d986" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::Tasks::ITaskHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>
@@ -8518,7 +8537,7 @@
       </referencedType>
     </packageHasNamedElement>
     <packageHasNamedElement>
-      <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::ITaskHandler">
+      <referencedType Id="09d04156-1daf-4fd2-8342-f27ca8dea59c" name="ITaskHandler" isAbstract="false" isLeaf="false" cachedFullName="Architecture::Common::Tasks::ITaskHandler">
         <elementDefinition Id="994d7262-293c-457a-8bd8-90d073c4cbe9" />
       </referencedType>
     </packageHasNamedElement>

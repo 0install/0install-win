@@ -32,7 +32,7 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// The location to store the downloaded and unpacked <see cref="Model.Implementation"/>s in.
         /// </summary>
-        IStore Store { get; }
+        IStore Store { get; set; }
 
         /// <summary>
         /// Starts executing a request. <see cref="Join"/> must be called to complete the process!
