@@ -227,11 +227,32 @@ namespace ZeroInstall.Store.Implementation
 
             if (Contains(manifestDigest)) throw new ImplementationAlreadyInStoreException(manifestDigest);
 
-            // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
-            FileUtils.CopyDirectory(path, tempDir, false);
+            try
+            {
+                // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
+                try { FileUtils.CopyDirectory(path, tempDir, false); }
+                #region Error handling
+                catch (IOException ex)
+                {
+                    // Wrap too generic exceptions thrown
+                    if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
 
-            VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
+                    // Pass other exceptions through
+                    throw;
+                }
+                #endregion
+
+                VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
+            }
+            #region Error handling
+            catch (Exception)
+            {
+                // Remove temporary directory before passing exception on
+                if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
+                throw;
+            }
+            #endregion
         }
         #endregion
 
@@ -255,14 +276,24 @@ namespace ZeroInstall.Store.Implementation
                 try
                 {
                     // Defer task to handler
-                    handler.RunTask(extractor, manifestDigest);
+                    try { handler.RunTask(extractor, manifestDigest); }
+                    #region Error handling
+                    catch (IOException ex)
+                    {
+                        // Wrap too generic exceptions thrown
+                        if (ex.Message.StartsWith("Access") && ex.Message.EndsWith("is denied.")) throw new UnauthorizedAccessException(ex.Message, ex);
+
+                        // Pass other exceptions through
+                        throw;
+                    }
+                    #endregion
 
                     VerifyAndAdd(Path.GetFileName(tempDir), manifestDigest, handler);
                 }
                 #region Error handling
                 catch (Exception)
                 {
-                    // Remove extracted directory if validation or something else failed
+                    // Remove temporary directory before passing exception on
                     if (Directory.Exists(tempDir)) Directory.Delete(tempDir, true);
                     throw;
                 }
