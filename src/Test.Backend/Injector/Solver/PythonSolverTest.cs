@@ -22,7 +22,7 @@ namespace ZeroInstall.Injector.Solver
     /// <summary>
     /// Contains test methods for <see cref="PythonSolver"/>.
     /// </summary>
-    [TestFixture(Ignore = true, IgnoreReason = "Won't work in continouse build systems")]
+    [TestFixture(Ignore = true, IgnoreReason = "Won't work in continous build systems")]
     public class PythonSolverTest : SolverTest
     {
         public PythonSolverTest()
