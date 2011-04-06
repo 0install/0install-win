@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Tasks;
 using NUnit.Framework;
 
 namespace Common.Controls
@@ -58,7 +59,7 @@ namespace Common.Controls
         {
             _label.CreateControl();
             Application.DoEvents();
-            Assert.AreEqual("Ready", _label.Text);
+            Assert.AreEqual(TaskState.Ready, _label.CurrentState);
 
             _task.Start();
             _task.MockStateData();
@@ -67,7 +68,7 @@ namespace Common.Controls
 
             _task.MockStateComplete();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(TaskState.Complete, _label.CurrentState);
         }
 
         [Test]
@@ -82,7 +83,7 @@ namespace Common.Controls
 
             _task.MockStateComplete();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(TaskState.Complete, _label.CurrentState);
         }
 
         [Test]
@@ -94,7 +95,7 @@ namespace Common.Controls
 
             _label.CreateControl();
             Application.DoEvents();
-            Assert.AreEqual("Complete", _label.Text);
+            Assert.AreEqual(TaskState.Complete, _label.CurrentState);
         }
     }
 }

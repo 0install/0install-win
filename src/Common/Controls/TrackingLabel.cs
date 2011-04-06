@@ -96,6 +96,11 @@ namespace Common.Controls
             _task.StateChanged -= StateChanged;
             _task.ProgressChanged -= ProgressChanged;
         }
+
+        /// <summary>
+        /// The state currently reported by <see cref="Label.Text"/>.
+        /// </summary>
+        public TaskState CurrentState { get; private set; }
         #endregion
 
         #region Constructor
@@ -127,16 +132,17 @@ namespace Common.Controls
             _handleReady.WaitOne();
             BeginInvoke(new SimpleEventHandler(delegate
             {
+                CurrentState = state;
                 switch (state)
                 {
                     case TaskState.Ready:
-                        ForeColor = SystemColors.ControlText;
                         Text = Resources.StateReady;
+                        ForeColor = SystemColors.ControlText;
                         break;
 
                     case TaskState.Header:
-                        ForeColor = SystemColors.ControlText;
                         Text = Resources.StateHeader;
+                        ForeColor = SystemColors.ControlText;
                         break;
 
                     case TaskState.Data:
@@ -150,13 +156,13 @@ namespace Common.Controls
                         break;
 
                     case TaskState.WebError:
-                        ForeColor = Color.Red;
                         Text = Resources.StateWebError;
+                        ForeColor = Color.Red;
                         break;
 
                     case TaskState.IOError:
-                        ForeColor = Color.Red;
                         Text = Resources.StateIOError;
+                        ForeColor = Color.Red;
                         break;
                 }
             }));
