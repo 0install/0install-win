@@ -32,6 +32,7 @@ namespace ZeroInstall.Store.Feeds
         /// A list of feed URIs (e.g. "http://somedomain.net/interface.xml") in C-sorted order (ordinal comparison, increasing).
         /// Usually these can also be considered interface IDs.
         /// </returns>
+        /// <exception cref="IOException">Thrown if a problem occured while reading from the cache.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         IEnumerable<string> ListAll();
 
@@ -42,6 +43,7 @@ namespace ZeroInstall.Store.Feeds
         /// <returns>The parsed <see cref="Feed"/> object.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the feed file could not be parsed.</exception>
         Feed GetFeed(string feedID);
@@ -53,7 +55,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="path">The local path of the file to be added.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="ReplayAttackException">Thrown if the file to be added is older than a version already located in the cache.</exception>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading or writing the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if the feed file could not be parsed.</exception>
         void Add(string feedID, string path);
@@ -64,7 +66,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
-        /// <exception cref="IOException">Thrown if the feed could not be deleted because it was in use.</exception>
+        /// <exception cref="IOException">Thrown if the feed could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the cache is not permitted.</exception>
         void Remove(string feedID);
     }

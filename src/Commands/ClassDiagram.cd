@@ -11,7 +11,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Update">
-    <Position X="1" Y="11.75" Width="2" />
+    <Position X="1" Y="13.75" Width="2" />
     <Members>
       <Method Name="Update" Hidden="true" />
     </Members>
@@ -23,12 +23,12 @@
   <Class Name="ZeroInstall.Commands.Configure">
     <Position X="13" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAgAAQAAAAAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AgAAAAAAAAAgAAQAAAgAAAQEAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Configure.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Download">
-    <Position X="1.75" Y="8.75" Width="2.75" />
+    <Position X="1.75" Y="9.5" Width="2.75" />
     <Members>
       <Method Name="Download" Hidden="true" />
     </Members>
@@ -75,7 +75,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="ZeroInstall.Commands.Run">
-    <Position X="3.25" Y="11.75" Width="2" />
+    <Position X="3.25" Y="13.75" Width="2" />
     <Members>
       <Method Name="Run" Hidden="true" />
     </Members>
