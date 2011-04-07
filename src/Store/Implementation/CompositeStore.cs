@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Common;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
@@ -187,7 +188,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
         }
 
         /// <inheritdoc />
@@ -223,7 +224,7 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // If we reach this, the implementation couldn't be added to any store
-            throw new UnauthorizedAccessException(Resources.UnableToAddImplementionToStore, innerException);
+            throw new IOException(Resources.UnableToAddImplementionToStore, innerException);
         }
         #endregion
 
@@ -261,10 +262,10 @@ namespace ZeroInstall.Store.Implementation
             foreach (IStore store in _stores)
             {
                 try { store.Optimise(handler); }
-                catch (UnauthorizedAccessException)
-                {
-                    // Ignore authorization errors, since optimisation is not a critical task
-                }
+                #region Sanity checks
+                catch (IOException ex) { Log.Error(ex.Message); }
+                catch (UnauthorizedAccessException ex) { Log.Error(ex.Message); }
+                #endregion
             }
         }
         #endregion

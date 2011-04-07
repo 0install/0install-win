@@ -15,8 +15,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
 using System.Collections.Generic;
+using System.IO;
 using Common.Tasks;
 using NUnit.Framework;
 using NUnit.Mocks;
@@ -148,7 +148,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddDirectorySecond()
         {
-            _mock2.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
+            _mock2.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
             _mock1.Expect("AddDirectory", "path", _digest1, _handler);
             TestStore.AddDirectory("path", _digest1, _handler);
         }
@@ -156,9 +156,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddDirectoryFail()
         {
-            _mock2.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
-            _mock1.ExpectAndThrow("AddDirectory", new UnauthorizedAccessException(), "path", _digest1, _handler);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
+            _mock2.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
+            _mock1.ExpectAndThrow("AddDirectory", new IOException(), "path", _digest1, _handler);
+            Assert.Throws<IOException>(() => TestStore.AddDirectory("path", _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -174,7 +174,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddArchiveSecond()
         {
-            _mock2.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
+            _mock2.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
             _mock1.Expect("AddArchive", _archive1, _digest1, _handler);
             TestStore.AddArchive(_archive1, _digest1, _handler);
         }
@@ -182,9 +182,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddArchiveFail()
         {
-            _mock2.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
-            _mock1.ExpectAndThrow("AddArchive", new UnauthorizedAccessException(), _archive1, _digest1, _handler);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddArchive(_archive1, _digest1, _handler), "Should pass through fatal exceptions");
+            _mock2.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
+            _mock1.ExpectAndThrow("AddArchive", new IOException(), _archive1, _digest1, _handler);
+            Assert.Throws<IOException>(() => TestStore.AddArchive(_archive1, _digest1, _handler), "Should pass through fatal exceptions");
         }
 
         [Test]
@@ -198,7 +198,7 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddMultipleArchivesSecond()
         {
-            _mock2.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
+            _mock2.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
             _mock1.Expect("AddMultipleArchives", _archives, _digest1, _handler);
             TestStore.AddMultipleArchives(_archives, _digest1, _handler);
         }
@@ -206,9 +206,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestAddMultipleArchivesFail()
         {
-            _mock2.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
-            _mock1.ExpectAndThrow("AddMultipleArchives", new UnauthorizedAccessException(), _archives, _digest1, _handler);
-            Assert.Throws<UnauthorizedAccessException>(() => TestStore.AddMultipleArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
+            _mock2.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
+            _mock1.ExpectAndThrow("AddMultipleArchives", new IOException(), _archives, _digest1, _handler);
+            Assert.Throws<IOException>(() => TestStore.AddMultipleArchives(_archives, _digest1, _handler), "Should pass through fatal exceptions");
         }
         #endregion
 
@@ -248,9 +248,9 @@ namespace ZeroInstall.Store.Implementation
         [Test]
         public void TestOptimise()
         {
-            _mock1.ExpectAndThrow("Optimise", new UnauthorizedAccessException(), _handler);
+            _mock1.ExpectAndThrow("Optimise", new IOException(), _handler);
             _mock2.Expect("Optimise", _handler);
-            TestStore.Optimise(_handler);
+            Assert.DoesNotThrow(() => TestStore.Optimise(_handler), "Exceptions should be caught and logged");
         }
         #endregion
 
