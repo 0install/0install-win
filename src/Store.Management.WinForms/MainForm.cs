@@ -68,40 +68,22 @@ namespace ZeroInstall.Store.Management.WinForms
             {
                 var nodes = new NamedCollection<StoreNode>();
 
-                #region Interface node
                 var cache = FeedCacheProvider.CreateDefault();
-                var feeds = new LinkedList<Feed>();
-                foreach (string id in cache.ListAll())
-                {
-                    Feed feed = cache.GetFeed(id);
-                    feed.Simplify();
-                    feeds.AddLast(feed);
+                var feeds = FeedUtils.GetFeeds(cache);
+                foreach (Feed feed in feeds)
                     AddWithIncrement(nodes, new InterfaceNode(cache, feed));
-                }
-                #endregion
 
                 long totalSize = 0;
                 var store = StoreProvider.CreateDefault();
                 foreach (var digest in store.ListAll())
                 {
-                    #region Owned implementation node
-                    ImplementationNode implementationNode = null;
-                    foreach (var feed in feeds)
-                    {
-                        var implementation = feed.GetImplementation(digest);
-                        if (implementation != null)
-                        {
-                            implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation, this);
-                            break;
-                        }
-                    }
-                    #endregion
+                    Feed feed;
+                    var implementation = ImplementationUtils.GetImplementation(digest, feeds, out feed);
 
-                    #region Orphaned implementation node
-                    if (implementationNode == null)
-                        implementationNode = new OrphanedImplementationNode(store, digest, this);
-                    #endregion
-
+                    ImplementationNode implementationNode;
+                    if (feed == null) implementationNode = new OrphanedImplementationNode(store, digest, this);
+                    else implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation, this);
+                    
                     totalSize += implementationNode.Size;
                     AddWithIncrement(nodes, implementationNode);
                 }
@@ -113,7 +95,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 // Update total size
                 textTotalSize.Text = StringUtils.FormatBytes(totalSize);
             }
-                #region Sanity checks
+            #region Error handling
             catch (IOException ex)
             {
                 Msg.Inform(this, ex.Message, MsgSeverity.Error);

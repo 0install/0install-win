@@ -74,9 +74,9 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             // splitContainer
             // 
-            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.splitContainer.Location = new System.Drawing.Point(12, 12);
             this.splitContainer.Name = "splitContainer";
             // 
@@ -90,8 +90,8 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             // tableLayoutPanelSize
             // 
-            this.tableLayoutPanelSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanelSize.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanelSize.ColumnCount = 2;
             this.tableLayoutPanelSize.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanelSize.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
@@ -101,13 +101,13 @@ namespace ZeroInstall.Store.Management.WinForms
             this.tableLayoutPanelSize.Controls.Add(this.textCheckedSize, 1, 1);
             this.tableLayoutPanelSize.Controls.Add(this.labelCheckedSize, 0, 1);
             this.tableLayoutPanelSize.Controls.Add(this.labelTotalSize, 0, 2);
-            this.tableLayoutPanelSize.Location = new System.Drawing.Point(0, 343);
+            this.tableLayoutPanelSize.Location = new System.Drawing.Point(0, 360);
             this.tableLayoutPanelSize.Name = "tableLayoutPanelSize";
             this.tableLayoutPanelSize.RowCount = 3;
             this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
             this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
             this.tableLayoutPanelSize.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
-            this.tableLayoutPanelSize.Size = new System.Drawing.Size(239, 75);
+            this.tableLayoutPanelSize.Size = new System.Drawing.Size(239, 58);
             this.tableLayoutPanelSize.TabIndex = 1;
             // 
             // labelCurrentSize
@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Management.WinForms
             this.labelCurrentSize.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelCurrentSize.Location = new System.Drawing.Point(3, 0);
             this.labelCurrentSize.Name = "labelCurrentSize";
-            this.labelCurrentSize.Size = new System.Drawing.Size(108, 24);
+            this.labelCurrentSize.Size = new System.Drawing.Size(108, 19);
             this.labelCurrentSize.TabIndex = 0;
             this.labelCurrentSize.Text = "Current entry size:";
             this.labelCurrentSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             this.textTotalSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textTotalSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textTotalSize.Location = new System.Drawing.Point(117, 51);
+            this.textTotalSize.Location = new System.Drawing.Point(117, 41);
             this.textTotalSize.Name = "textTotalSize";
             this.textTotalSize.ReadOnly = true;
             this.textTotalSize.Size = new System.Drawing.Size(119, 13);
@@ -147,7 +147,7 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             this.textCheckedSize.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textCheckedSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textCheckedSize.Location = new System.Drawing.Point(117, 27);
+            this.textCheckedSize.Location = new System.Drawing.Point(117, 22);
             this.textCheckedSize.Name = "textCheckedSize";
             this.textCheckedSize.ReadOnly = true;
             this.textCheckedSize.Size = new System.Drawing.Size(119, 13);
@@ -158,9 +158,9 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             this.labelCheckedSize.AutoSize = true;
             this.labelCheckedSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelCheckedSize.Location = new System.Drawing.Point(3, 24);
+            this.labelCheckedSize.Location = new System.Drawing.Point(3, 19);
             this.labelCheckedSize.Name = "labelCheckedSize";
-            this.labelCheckedSize.Size = new System.Drawing.Size(108, 24);
+            this.labelCheckedSize.Size = new System.Drawing.Size(108, 19);
             this.labelCheckedSize.TabIndex = 2;
             this.labelCheckedSize.Text = "Checked entries size:";
             this.labelCheckedSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -169,22 +169,22 @@ namespace ZeroInstall.Store.Management.WinForms
             // 
             this.labelTotalSize.AutoSize = true;
             this.labelTotalSize.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.labelTotalSize.Location = new System.Drawing.Point(3, 48);
+            this.labelTotalSize.Location = new System.Drawing.Point(3, 38);
             this.labelTotalSize.Name = "labelTotalSize";
-            this.labelTotalSize.Size = new System.Drawing.Size(108, 27);
+            this.labelTotalSize.Size = new System.Drawing.Size(108, 20);
             this.labelTotalSize.TabIndex = 4;
             this.labelTotalSize.Text = "Total size:";
             this.labelTotalSize.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // propertyGrid
             // 
-            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyGrid.Location = new System.Drawing.Point(0, 0);
             this.propertyGrid.Name = "propertyGrid";
             this.propertyGrid.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.propertyGrid.Size = new System.Drawing.Size(239, 337);
+            this.propertyGrid.Size = new System.Drawing.Size(239, 354);
             this.propertyGrid.TabIndex = 0;
             this.propertyGrid.ToolbarVisible = false;
             // 
