@@ -117,4 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AuditErrors" xml:space="preserve">
+    <value>Es wurden ein oder mehrere Probleme im Store gefunden.</value>
+  </data>
+  <data name="AuditPass" xml:space="preserve">
+    <value>Es wurden keine Probleme im Store gefuden.</value>
+  </data>
+  <data name="SuccessfullyRemoved" xml:space="preserve">
+    <value>{0} wurde erfolgreich entfernt.</value>
+  </data>
 </root>

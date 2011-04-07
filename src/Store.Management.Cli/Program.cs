@@ -297,7 +297,7 @@ namespace ZeroInstall.Store.Management.Cli
             for (int i = 1; i < args.Count; i++)
             {
                 _store.Remove(new ManifestDigest(args[i]), handler);
-                Log.Info("Successfully removed " + args[i]);
+                Log.Info(string.Format(Resources.SuccessfullyRemoved, args[i]));
             }
         }
 
@@ -379,11 +379,11 @@ namespace ZeroInstall.Store.Management.Cli
             }
             if (hasProblems)
             {
-                Log.Warn("One or more problems were found in the store.");
+                Log.Warn(Resources.AuditErrors);
                 return ErrorLevel.DigestMismatch;
             }
 
-            Log.Info("No problems were found in the store.");
+            Log.Info(Resources.AuditPass);
             return ErrorLevel.OK;
         }
         #endregion
