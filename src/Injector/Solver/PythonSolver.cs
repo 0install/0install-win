@@ -79,8 +79,8 @@ namespace ZeroInstall.Injector.Solver
             // Handle any left-over error messages
             errorParser.Flush();
 
-            // ToDo: Detect when feeds get out-of-date
-            staleFeeds = false;
+            // Detect when feeds get out-of-date
+            staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
 
             // Parse StandardOutput data as XML
             try { return Selections.LoadFromString(result); }
