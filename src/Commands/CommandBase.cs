@@ -51,8 +51,8 @@ namespace ZeroInstall.Commands
         /// <summary>Combines UI access, preferences and resources used to solve dependencies and download implementations.</summary>
         protected readonly Policy Policy;
 
-        /// <summary>The detail level of messages printed to the console. 0 = normal, 1 = verbose, 2 = very verbose</summary>
-        protected int Verbosity;
+        ///// <summary>The detail level of messages printed to the console. 0 = normal, 1 = verbose, 2 = very verbose</summary>
+        //protected int Verbosity;
 
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         protected readonly C5.IList<string> AdditionalArgs = new C5.ArrayList<string>();
@@ -124,7 +124,7 @@ namespace ZeroInstall.Commands
 
             Options.Add("with-store=", Resources.OptionWithStore, path => Policy.Fetcher.Store = new CompositeStore(new DirectoryStore(path), Policy.Fetcher.Store));
             Options.Add("o|offline", Resources.OptionOffline, unused => Policy.Config.NetworkUse = NetworkLevel.Offline);
-            Options.Add("v|verbose", Resources.OptionVerbose, unused => Verbosity++);
+            //Options.Add("v|verbose", Resources.OptionVerbose, unused => Verbosity++);
         }
         #endregion
 
