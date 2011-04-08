@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Web;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Properties;
 
@@ -66,11 +65,11 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
             // Local files are passed through directly
-            return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID)));
+            return File.Exists(feedID) || File.Exists(Path.Combine(DirectoryPath, ModelUtils.Escape(feedID)));
         }
         #endregion
 
@@ -86,9 +85,9 @@ namespace ZeroInstall.Store.Feeds
             for (int i = 0; i < files.Length; i++)
             {
                 // Take the file name itself and use URL encoding to get the original URL
-                string uri = HttpUtility.UrlDecode(Path.GetFileName(files[i]) ?? "");
+                string uri = ModelUtils.Unescape(Path.GetFileName(files[i]) ?? "");
                 Uri temp;
-                if (Feed.TryParseUri(uri, out temp)) result.Add(uri);
+                if (ModelUtils.TryParseUri(uri, out temp)) result.Add(uri);
             }
 
             // Return as a C-sorted list
@@ -103,11 +102,11 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
             // Local files are passed through directly
-            string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID));
+            string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             return Feed.Load(path);
@@ -120,14 +119,14 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
             // Don't cache local files
             if (feedID == path) return;
 
-            string targetPath = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID));
+            string targetPath = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
             // Detect replay attacks
             var oldTime = File.GetLastWriteTimeUtc(targetPath);
@@ -145,10 +144,10 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
-            string path = Path.Combine(DirectoryPath, HttpUtility.UrlEncode(feedID));
+            string path = Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
             File.Delete(path);

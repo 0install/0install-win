@@ -77,7 +77,7 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
             if (!_feedDictionary.ContainsKey(feedID))
@@ -98,7 +98,7 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
@@ -116,7 +116,7 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
-            Feed.ValidateInterfaceID(feedID);
+            ModelUtils.ValidateInterfaceID(feedID);
             #endregion
 
             // Remove from memory cache

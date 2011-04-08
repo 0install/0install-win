@@ -230,9 +230,6 @@ namespace ZeroInstall.Injector
         /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
-        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the config data.</exception>
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Problems loading generic configuration files shouldn't block the application")]
         public static Config Load()
         {

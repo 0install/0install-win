@@ -20,7 +20,10 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
+using Common.Collections;
 using Common.Storage;
+using Common.Utils;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Injector.Feeds
@@ -31,7 +34,7 @@ namespace ZeroInstall.Injector.Feeds
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("interface-preferences", Namespace = Feed.XmlNamespace)]
     [XmlType("interface-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class InterfacePreferences : XmlUnknown
+    public sealed class InterfacePreferences : XmlUnknown, ICloneable
     {
         #region Properties
         /// <summary>
@@ -74,7 +77,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Storage
         /// <summary>
-        /// Loads <see cref="InterfacePreferences"/> from an XML file (feed).
+        /// Loads <see cref="InterfacePreferences"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
@@ -87,13 +90,46 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Saves this <see cref="InterfacePreferences"/> to an XML file.
+        /// Loads <see cref="InterfacePreferences"/> for a specific interface. Automatically falls back to defaults on errors.
+        /// </summary>
+        /// <param name="interfaceID">The interface to load the preferences for.</param>
+        /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
+        public static InterfacePreferences LoadFor(string interfaceID)
+        {
+            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", StringUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false));
+            if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
+
+            try { return XmlStorage.Load<InterfacePreferences>(path); }
+            #region Error handling
+            catch(Exception ex)
+            {
+                Log.Warn("Failed to load preferences for interface '" + interfaceID + "'\n" + ex.Message);
+                Log.Warn("Reverting to default values");
+                return new InterfacePreferences();
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Saves these <see cref="InterfacePreferences"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            XmlStorage.Save(path, this);
+        }
+
+        /// <summary>
+        /// Saves these <see cref="InterfacePreferences"/> for a specific interface.
+        /// </summary>
+        /// <param name="interfaceID">The interface to save the preferences for.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        public void SaveFor(string interfaceID)
+        {
+            var path = Locations.GetSaveConfigPath("0install.net", StringUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false);
             XmlStorage.Save(path, this);
         }
         #endregion

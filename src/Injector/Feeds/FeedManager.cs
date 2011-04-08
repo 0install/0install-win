@@ -59,22 +59,20 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Get feeds
         /// <summary>
-        /// Returns a list of all <see cref="Model.Feed"/>s applicable to a specific interface URI.
+        /// Returns a specific <see cref="Model.Feed"/>.
         /// </summary>
-        /// <param name="interfaceID">The ID used to identify the interface (and primary feed; additional ones may be registered). May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
         /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
-        /// <param name="staleFeeds">Indicates that one or more of the selected <see cref="Model.Feed"/>s should be updated.</param>
-        /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
+        /// <param name="stale">Indicates that the returned <see cref="Model.Feed"/> should be updated.</param>
+        /// <returns>The parsed <see cref="Model.Feed"/> object.</returns>
         /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
         // ToDo: Add exceptions (file not found, GPG key invalid, ...)
-        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Policy policy, out bool staleFeeds)
+        public Model.Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
-            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
-
-            // ToDo: Get other registered feeds as well
 
             if (Refresh)
             {
@@ -82,19 +80,39 @@ namespace ZeroInstall.Injector.Feeds
             }
 
             // Try to load cached feed
-            if (Cache.Contains(interfaceID))
+            if (Cache.Contains(feedID))
             {
                 // ToDo: Detect when feeds get out-of-date
-                staleFeeds = false;
+                stale = false;
 
-                return new[] {Cache.GetFeed(interfaceID)};
+                return Cache.GetFeed(feedID);
             }
 
             if (policy.Config.NetworkUse == NetworkLevel.Offline)
-                throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceID), interfaceID);
+                throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, feedID), feedID);
 
             // ToDo: Download, verify and cache feed
-            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, interfaceID), interfaceID);
+            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, feedID), feedID);
+        }
+
+        /// <summary>
+        /// Returns a list of all <see cref="Model.Feed"/>s applicable to a specific interface ID.
+        /// </summary>
+        /// <param name="interfaceID">The ID used to identify the interface (and primary feed; additional ones may be registered). May be an HTTP(S) URL or an absolute local path.</param>
+        /// <param name="policy">Combines UI access, configuration and resources used to solve dependencies and download implementations.</param>
+        /// <param name="stale">Indicates that one or more of the selected <see cref="Model.Feed"/>s should be updated.</param>
+        /// <returns>The parsed <see cref="Model.Feed"/> objects.</returns>
+        /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
+        // ToDo: Add exceptions (file not found, GPG key invalid, ...)
+        public IEnumerable<Model.Feed> GetFeeds(string interfaceID, Policy policy, out bool stale)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(interfaceID)) throw new ArgumentNullException("interfaceID");
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            // ToDo: Get other registered feeds as well
+            return new[] {GetFeed(interfaceID, policy, out stale)};
         }
         #endregion
         

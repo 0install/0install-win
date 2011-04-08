@@ -41,7 +41,7 @@ namespace ZeroInstall.Injector.Solver
             get { return _interfaceID; }
             set
             {
-                Feed.ValidateInterfaceID(value);
+                ModelUtils.ValidateInterfaceID(value);
                 _interfaceID = value;
             }
         }

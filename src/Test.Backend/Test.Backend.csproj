@@ -107,6 +107,7 @@
     <Compile Include="Model\ImplementationTest.cs" />
     <Compile Include="Model\ImplementationVersionTest.cs" />
     <Compile Include="Model\ManifestDigestTest.cs" />
+    <Compile Include="Model\ModelUtilsTest.cs" />
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />

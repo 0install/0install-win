@@ -1112,7 +1112,7 @@ namespace ZeroInstall.Publish.WinForms
         private void BtnFeedForAddClick(object sender, EventArgs e)
         {
             Uri uri;
-            if (!Feed.TryParseUri(hintTextBoxFeedFor.Text, out uri)) return;
+            if (!ModelUtils.TryParseUri(hintTextBoxFeedFor.Text, out uri)) return;
             var interfaceReference = new InterfaceReference {Target = uri};
             listBoxFeedFor.Items.Add(interfaceReference);
         }

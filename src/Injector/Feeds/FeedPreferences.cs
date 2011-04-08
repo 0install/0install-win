@@ -20,6 +20,8 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
+using Common.Collections;
 using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -32,7 +34,7 @@ namespace ZeroInstall.Injector.Feeds
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [XmlRoot("feed-preferences", Namespace = Feed.XmlNamespace)]
     [XmlType("feed-preferences", Namespace = Feed.XmlNamespace)]
-    public sealed class FeedPreferences : XmlUnknown
+    public sealed class FeedPreferences : XmlUnknown, ICloneable
     {
         #region Properties
         /// <summary>
@@ -66,7 +68,7 @@ namespace ZeroInstall.Injector.Feeds
 
         #region Storage
         /// <summary>
-        /// Loads <see cref="FeedPreferences"/> from an XML file (feed).
+        /// Loads <see cref="FeedPreferences"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
@@ -79,13 +81,46 @@ namespace ZeroInstall.Injector.Feeds
         }
 
         /// <summary>
-        /// Saves this <see cref="FeedPreferences"/> to an XML file (feed).
+        /// Loads <see cref="FeedPreferences"/> for a specific feed. Automatically falls back to defaults on errors.
+        /// </summary>
+        /// <param name="feedID">The feed to load the preferences for.</param>
+        /// <returns>The loaded <see cref="FeedPreferences"/>.</returns>
+        public static FeedPreferences LoadFor(string feedID)
+        {
+            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", StringUtils.PathCombine("injector", "feeds", ModelUtils.PrettyEscape(feedID)), false));
+            if (string.IsNullOrEmpty(path)) return new FeedPreferences();
+
+            try { return XmlStorage.Load<FeedPreferences>(path); }
+            #region Error handling
+            catch (Exception ex)
+            {
+                Log.Warn("Failed to load preferences for feed '" + feedID + "'\n" + ex.Message);
+                Log.Warn("Reverting to default values");
+                return new FeedPreferences();
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// Saves these <see cref="FeedPreferences"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            XmlStorage.Save(path, this);
+        }
+
+        /// <summary>
+        /// Saves these <see cref="FeedPreferences"/> for a specific feed.
+        /// </summary>
+        /// <param name="feedID">The feed to save the preferences for.</param>
+        /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
+        public void SaveFor(string feedID)
+        {
+            var path = Locations.GetSaveConfigPath("0install.net", StringUtils.PathCombine("injector", "feeds", ModelUtils.PrettyEscape(feedID)), false);
             XmlStorage.Save(path, this);
         }
         #endregion

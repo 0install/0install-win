@@ -17,7 +17,6 @@
 
 using System;
 using System.Globalization;
-using System.IO;
 using Common.Storage;
 using NUnit.Framework;
 
@@ -196,69 +195,6 @@ namespace ZeroInstall.Model
 
             Assert.AreEqual(CreateTestImplementation(), feed.GetImplementation(new ManifestDigest("sha256=123")));
             Assert.IsNull(feed.GetImplementation(new ManifestDigest("sha256=456")));
-        }
-
-        /// <summary>
-        /// Ensures <see cref="Feed.IsValidUri(System.Uri)"/> correctly identify invalid feed URIs.
-        /// </summary>
-        [Test]
-        public void TestIsValidUri()
-        {
-            Uri temp;
-
-            // Test invalid URLs
-            var invalidUris = new[]
-            {
-                @"foo://",
-                @"ftp://",
-                @"www://",
-                @"http://.de/",
-                @"http://abc§.de/",
-                @"ggo;\\"
-            };
-            foreach (var uri in invalidUris)
-                Assert.IsFalse(Feed.TryParseUri(uri, out temp), "Should reject " + uri);
-
-            // Test valid URLs
-            var validUrls = new[]
-            {
-                @"http://0install.de/",
-                @"https://0install.de/"
-            };
-            foreach (var uri in validUrls)
-                Assert.IsTrue(Feed.TryParseUri(uri, out temp), "Should accept " + uri);
-        }
-
-        /// <summary>
-        /// Ensures <see cref="Feed.ValidateInterfaceID"/> correctly identify invalid interface IDs.
-        /// </summary>
-        [Test]
-        public void TestValidateInterfaceID()
-        {
-            // Test invalid URLs
-            var invalidIDs = new[]
-            {
-                @"foo://",
-                @"ftp://",
-                @"www://",
-                @"http://.de/",
-                @"http://abc§.de/",
-                @"ggo;\\",
-                @"http://0install.de",
-                @"relative"
-            };
-            foreach (var id in invalidIDs)
-                Assert.Throws<InvalidInterfaceIDException>(() => Feed.ValidateInterfaceID(id), "Should reject " + id);
-
-            // Test valid URLs
-            var validIDs = new[]
-            {
-                @"http://0install.de/",
-                @"https://0install.de/",
-                Path.GetFullPath(@"absolute")
-            };
-            foreach (var id in validIDs)
-                Assert.DoesNotThrow(() => Feed.ValidateInterfaceID(id), "Should accept " + id);
         }
     }
 }

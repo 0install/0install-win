@@ -181,7 +181,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void HintTextBoxInterfaceTextChanged(object sender, EventArgs e)
         {
             Uri uri;
-            hintTextBoxInterface.ForeColor = (Feed.TryParseUri(hintTextBoxInterface.Text, out uri)) ? Color.Green : Color.Red;
+            hintTextBoxInterface.ForeColor = (ModelUtils.TryParseUri(hintTextBoxInterface.Text, out uri)) ? Color.Green : Color.Red;
         }
         #endregion
 
