@@ -110,16 +110,22 @@ Source: ..\build\Bundled\Python\Lib\site-packages\zeroinstall\*; DestDir: {app}\
 
 [Registry]
 ;These entries are required by the NanoGrid auto-update tool
-Root: HKLM; Subkey: Software\Zero Install; Flags: deletekey
 Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey; Permissions: authusers-modify
+Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
-;Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: EditorPosition; ValueData: {app}\0publish-win.exe
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
 Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Revision; ValueData: {#Rev}
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; Flags: uninsdeletekey
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Revision; ValueData: {#Rev}
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}

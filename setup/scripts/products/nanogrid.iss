@@ -15,10 +15,12 @@ const
 
 procedure nanogrid();
 var
-	version: string;
+	version1: string;
+	version2: string;
 begin
-	RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\NanoByte\NanoGrid\Info', 'Major', version);
-	if version <> '1' then begin
+	RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\NanoByte\NanoGrid\Info', 'Major', version1);
+	RegQueryStringValue(HKEY_LOCAL_MACHINE, 'Software\Wow6432Node\NanoByte\NanoGrid\Info', 'Major', version2);
+	if (version1 <> '1') and (version2 <> '1') then begin
 		AddProduct('nanogrid.exe',
 			'/silent /norestart /mergetasks=!autostart',
 			CustomMessage('nanogrid_title'),
