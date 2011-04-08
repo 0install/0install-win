@@ -110,30 +110,20 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            var feedID = StringUtils.Unescape(AdditionalArgs.First);
+            Requirements.InterfaceID = ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs.First));
             AdditionalArgs.RemoveFirst();
 
-            if (feedID.StartsWith("alias:"))
-            {
-                // ToDo: Handle alias lookup
-            }
-            else if (File.Exists(feedID))
+            if (File.Exists(Requirements.InterfaceID))
             {
                 try
                 { // Try to parse as selections document
-                    Selections = Selections.Load(feedID);
+                    Selections = Selections.Load(Requirements.InterfaceID);
                     Requirements.InterfaceID = Selections.InterfaceID;
                     SelectionsDocument = true;
                 }
                 catch (InvalidOperationException)
                 { // If that fails assume it is an interface
-                    Requirements.InterfaceID = Path.GetFullPath(feedID);
-                    SelectionsDocument = false;
                 }
-            }
-            else
-            { // Assume a normal URI
-                Requirements.InterfaceID = feedID;
             }
         }
         #endregion

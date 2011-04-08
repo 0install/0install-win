@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Common.Storage;
 using Common.Utils;
 using NUnit.Framework;
 
@@ -99,6 +100,30 @@ namespace ZeroInstall.Model
         public void TestPrettyUnescape()
         {
             Assert.AreEqual("http://0install.de/feeds/test/test1.xml", ModelUtils.PrettyUnescape("http:##0install.de#feeds#test#test1.xml"));
+        }
+
+        [Test(Description = "Ensures remote URIs are not changed by CanonicalID")]
+        public void TestCanonicalIDRemoteUri()
+        {
+            const string uri = "http://0install.de/feeds/test/test1.xml";
+            Assert.AreEqual(uri, ModelUtils.CanonicalID(uri));
+        }
+
+        [Test(Description = "Ensures existing local files are converted to absolute path by CanonicalID")]
+        public void TestCanonicalIDLocalFile()
+        {
+            using (var tempDir = new TemporaryDirectory("0install-unit-tests"))
+            {
+                // Change the working directory
+                string workingDir = Environment.CurrentDirectory;
+                Environment.CurrentDirectory = tempDir.Path;
+                
+                File.WriteAllText("test.xml", "");
+                Assert.AreEqual(Path.Combine(tempDir.Path, "test.xml"), ModelUtils.CanonicalID("test.xml"));
+
+                // Restore the original working directory
+                Environment.CurrentDirectory = workingDir;
+            }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ZeroInstall.Store.Feeds
     /// Provides access to a cache of <see cref="Feed"/>s that were downloaded via HTTP(S).
     /// </summary>
     /// <remarks>
-    ///   <para>Local feed files may be simply passed through this cache.</para>
+    ///   <para>Local feed files may be simply passed through the cache.</para>
     ///   <para>Once a feed has been added to this cache it is considered trusted (signature is not checked again).</para>
     /// </remarks>
     public interface IFeedCache

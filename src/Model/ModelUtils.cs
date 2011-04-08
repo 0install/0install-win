@@ -116,5 +116,28 @@ namespace ZeroInstall.Model
             return Unescape(escaped.Replace("#", "%2f"));
         }
         #endregion
+
+        #region IDs
+        /// <summary>
+        /// Converts and interface or feed ID it its canonical representation.
+        /// </summary>
+        /// <remarks>aliases are resolved to the IDs they represent, existing local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
+        public static string CanonicalID(string id)
+        {
+            if (id.StartsWith("alias:"))
+            {
+                // ToDo: Handle alias lookup
+                return id;
+            }
+            else if (File.Exists(id))
+            { // Use absolute paths for local files
+                return Path.GetFullPath(id);
+            }
+            else
+            { // Assume a normal URI
+                return id;
+            }
+        }
+        #endregion
     }
 }
