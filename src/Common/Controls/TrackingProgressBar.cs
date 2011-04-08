@@ -204,14 +204,17 @@ namespace Common.Controls
             // When the status is complete the bar should always be full
             if (sender.State == TaskState.Complete) currentValue = 100;
 
-            // Handle events coming from a non-UI thread, don't block caller
-            _handleReady.WaitOne();
-            BeginInvoke(new SimpleEventHandler(delegate
+            if (sender.State == TaskState.Data)
             {
-                Value = currentValue;
-                IntPtr formHandle = ParentHandle;
-                if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
-            }));
+                // Handle events coming from a non-UI thread, don't block caller
+                _handleReady.WaitOne();
+                BeginInvoke(new SimpleEventHandler(delegate
+                {
+                    Value = currentValue;
+                    IntPtr formHandle = ParentHandle;
+                    if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressValue(currentValue, 100, formHandle);
+                }));
+            }
         }
         #endregion
 
