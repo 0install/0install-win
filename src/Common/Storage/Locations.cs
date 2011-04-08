@@ -402,14 +402,14 @@ namespace Common.Storage
             {
                 // Create in portable base directory
                 path = StringUtils.PathCombine(PortableBase, "cache", resource);
-                if (Directory.Exists(path)) Directory.CreateDirectory(path);
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
             }
             else
             {
                 // Create in user profile
                 path = StringUtils.PathCombine(UserCacheDir, appName, resource);
-                if (Directory.Exists(path)) Directory.CreateDirectory(path);
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
 
                 // Check in system directories
