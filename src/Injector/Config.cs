@@ -145,7 +145,6 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Creates a <see cref="string"/> pointer referencing <see cref="NetworkUse"/>. Uses hardcoded string lookup tables.
         /// </summary>
-        /// <returns></returns>
         private PropertyPointer<string> GetNetworkUseConverter()
         {
             return new PropertyPointer<string>(
@@ -166,7 +165,7 @@ namespace ZeroInstall.Injector
                         case "full": NetworkUse = NetworkLevel.Full; return;
                         case "minimal": NetworkUse = NetworkLevel.Minimal; return;
                         case "off-line": NetworkUse = NetworkLevel.Offline; return;
-                        default: throw new ArgumentException("Must be 'full', 'minimal' or 'off-line'", "value");
+                        default: throw new FormatException("Must be 'full', 'minimal' or 'off-line'");
                     }
                 },
                 "full");

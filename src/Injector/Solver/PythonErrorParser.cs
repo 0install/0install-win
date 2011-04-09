@@ -20,7 +20,6 @@ using System.Diagnostics;
 using System.Text;
 using System.Web;
 using Common;
-using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall.Injector.Solver
 {
