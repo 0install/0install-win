@@ -124,6 +124,11 @@ namespace ZeroInstall.Central.WinForms
             Program.LaunchHelperAssembly(this, "0store-win", null);
         }
 
+        private void buttonConfiguration_Click(object sender, EventArgs e)
+        {
+            Program.LaunchHelperAssembly(this, "0install-win", "config");
+        }
+
         private void buttonHelp_Click(object sender, EventArgs e)
         {
             // Use the system's default web browser to open the URL

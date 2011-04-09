@@ -39,6 +39,7 @@
             this.browserNewApps = new System.Windows.Forms.WebBrowser();
             this.buttonLaunchInterface = new System.Windows.Forms.Button();
             this.groupBoxTools = new System.Windows.Forms.GroupBox();
+            this.buttonConfiguration = new System.Windows.Forms.Button();
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
@@ -63,9 +64,9 @@
             // 
             // tabControlApps
             // 
-            this.tabControlApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlApps.Controls.Add(this.tabPageMyApps);
             this.tabControlApps.Controls.Add(this.tabPageNewApps);
             this.tabControlApps.Location = new System.Drawing.Point(14, 90);
@@ -101,7 +102,7 @@
             this.tabPageNewApps.Location = new System.Drawing.Point(4, 29);
             this.tabPageNewApps.Name = "tabPageNewApps";
             this.tabPageNewApps.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageNewApps.Size = new System.Drawing.Size(748, 324);
+            this.tabPageNewApps.Size = new System.Drawing.Size(748, 314);
             this.tabPageNewApps.TabIndex = 1;
             this.tabPageNewApps.Text = "New applications";
             this.tabPageNewApps.UseVisualStyleBackColor = true;
@@ -129,9 +130,9 @@
             // browserNewApps
             // 
             this.browserNewApps.AllowWebBrowserDrop = false;
-            this.browserNewApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.browserNewApps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.browserNewApps.IsWebBrowserContextMenuEnabled = false;
             this.browserNewApps.Location = new System.Drawing.Point(0, 31);
             this.browserNewApps.Name = "browserNewApps";
@@ -155,8 +156,9 @@
             // 
             // groupBoxTools
             // 
-            this.groupBoxTools.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTools.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxTools.Controls.Add(this.buttonConfiguration);
             this.groupBoxTools.Controls.Add(this.buttonCacheManagement);
             this.groupBoxTools.Controls.Add(this.buttonLaunchInterface);
             this.groupBoxTools.Controls.Add(this.buttonHelp);
@@ -169,11 +171,21 @@
             this.groupBoxTools.TabStop = false;
             this.groupBoxTools.Text = "Tools";
             // 
+            // buttonConfiguration
+            // 
+            this.buttonConfiguration.Location = new System.Drawing.Point(341, 29);
+            this.buttonConfiguration.Name = "buttonConfiguration";
+            this.buttonConfiguration.Size = new System.Drawing.Size(140, 35);
+            this.buttonConfiguration.TabIndex = 2;
+            this.buttonConfiguration.Text = "C&onfiguration";
+            this.buttonConfiguration.UseVisualStyleBackColor = true;
+            this.buttonConfiguration.Click += new System.EventHandler(this.buttonConfiguration_Click);
+            // 
             // buttonCacheManagement
             // 
             this.buttonCacheManagement.Location = new System.Drawing.Point(165, 29);
             this.buttonCacheManagement.Name = "buttonCacheManagement";
-            this.buttonCacheManagement.Size = new System.Drawing.Size(167, 35);
+            this.buttonCacheManagement.Size = new System.Drawing.Size(170, 35);
             this.buttonCacheManagement.TabIndex = 1;
             this.buttonCacheManagement.Text = "&Cache management";
             this.buttonCacheManagement.UseVisualStyleBackColor = true;
@@ -182,10 +194,10 @@
             // buttonHelp
             // 
             this.buttonHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHelp.Location = new System.Drawing.Point(597, 29);
+            this.buttonHelp.Location = new System.Drawing.Point(607, 29);
             this.buttonHelp.Name = "buttonHelp";
             this.buttonHelp.Size = new System.Drawing.Size(140, 35);
-            this.buttonHelp.TabIndex = 2;
+            this.buttonHelp.TabIndex = 3;
             this.buttonHelp.Text = "&Help";
             this.buttonHelp.UseVisualStyleBackColor = true;
             this.buttonHelp.Click += new System.EventHandler(this.buttonHelp_Click);
@@ -215,7 +227,7 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.MinimumSize = new System.Drawing.Size(520, 480);
+            this.MinimumSize = new System.Drawing.Size(683, 480);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(10);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -252,6 +264,7 @@
         private System.Windows.Forms.Label labelNotAvailableYet;
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
+        private System.Windows.Forms.Button buttonConfiguration;
 
     }
 }
