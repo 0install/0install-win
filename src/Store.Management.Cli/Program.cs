@@ -188,6 +188,7 @@ namespace ZeroInstall.Store.Management.Cli
             Console.WriteLine("COPY\n\n" + Resources.DetailsCopy + "\n\n\n");
             Console.WriteLine("FIND\n\n" + Resources.DetailsFind + "\n\n\n");
             Console.WriteLine("LIST\n\n" + Resources.DetailsList + "\n\n\n");
+            Console.WriteLine("MANAGE\n\n" + Resources.DetailsManage + "\n\n\n");
             Console.WriteLine("MANIFEST\n\n" + Resources.DetailsManifest + "\n\n\n");
             Console.WriteLine("OPTMISE\n\n" + Resources.DetailsOptimise + "\n\n\n");
             Console.WriteLine("REMOVE\n\n" + Resources.DetailsRemove + "\n\n\n");
@@ -234,6 +235,11 @@ namespace ZeroInstall.Store.Management.Cli
 
                 case "list":
                     List(args);
+                    return ErrorLevel.OK;
+
+                case "manage":
+                    // ToDo: Automatically switch to GTK# on Linux
+                    ProcessUtils.LaunchHelperAssembly("0store-win", null);
                     return ErrorLevel.OK;
 
                 case "manifest":

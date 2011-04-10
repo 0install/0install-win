@@ -139,6 +139,18 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To verify or remove feeds or implementations:
+        ///0store manage
+        ///
+        ///Displays a GUI for managing implemenetations in the store. Associations with cached feeds are displayed..
+        /// </summary>
+        internal static string DetailsManage {
+            get {
+                return ResourceManager.GetString("DetailsManage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To generate the manifest for a directory structure:
         ///0store manifest DIRECTORY [ALGORITHM]
         ///
