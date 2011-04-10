@@ -63,7 +63,7 @@ namespace ZeroInstall.Central.WinForms
             #endregion
 
             try { ProcessUtils.LaunchHelperAssembly(assembly, arguments); }
-            #region Sanity checks
+            #region Error handling
             catch (FileNotFoundException ex)
             {
                 Msg.Inform(owner, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);

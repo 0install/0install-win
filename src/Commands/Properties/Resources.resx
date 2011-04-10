@@ -185,7 +185,7 @@ Supported values: i386, i486, i586, i686, x86_64, ppc, ppc64</value>
     <value>Immediately returns once the chosen program has been launched instead of waiting for it to finish executing.</value>
   </data>
   <data name="OptionOffline" xml:space="preserve">
-    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh). If a required file is missing it will still be downloaded.</value>
+    <value>Run in off-line mode, overriding the default setting. In off-line mode, no interfaces are refreshed even if they are out-of-date, and newer versions of programs won't be downloaded even if the injector already knows about them (e.g. from a previous refresh).</value>
   </data>
   <data name="OptionOS" xml:space="preserve">
     <value>Forces the solver to target the operating system {OS}.

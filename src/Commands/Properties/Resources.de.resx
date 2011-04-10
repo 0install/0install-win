@@ -142,7 +142,7 @@
     <value>Versionsinformationen:</value>
   </data>
 	<data name="FoundFeeds" xml:space="preserve">
-		<value>Gefundene feeds:</value>
+		<value>Gefundene Feeds:</value>
 	</data>
   <data name="SelectedImplementations"  xml:space="preserve">
     <value>Ausgewählte Implementierungen:</value>
