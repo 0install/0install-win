@@ -52,7 +52,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Sizable;
             this.MinimumSize = new System.Drawing.Size(240, 180);
             this.Name = "ConfigForm";
-            this.Text = "Zero Install Configuration";
+            this.Text = "Zero Install configuration";
             this.Controls.SetChildIndex(this.propertyGrid, 0);
             this.Controls.SetChildIndex(this.buttonOK, 0);
             this.Controls.SetChildIndex(this.buttonCancel, 0);
