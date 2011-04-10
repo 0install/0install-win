@@ -71,7 +71,7 @@ namespace ZeroInstall.Store.Management.WinForms
                 var cache = FeedCacheProvider.CreateDefault();
                 var feeds = FeedUtils.GetFeeds(cache);
                 foreach (Feed feed in feeds)
-                    AddWithIncrement(nodes, new InterfaceNode(cache, feed));
+                    AddWithIncrement(nodes, new InterfaceNode(cache, feed, this));
 
                 long totalSize = 0;
                 var store = StoreProvider.CreateDefault();
@@ -82,7 +82,7 @@ namespace ZeroInstall.Store.Management.WinForms
 
                     ImplementationNode implementationNode;
                     if (feed == null) implementationNode = new OrphanedImplementationNode(store, digest, this);
-                    else implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed), implementation, this);
+                    else implementationNode = new OwnedImplementationNode(store, digest, new InterfaceNode(cache, feed, this), implementation, this);
                     
                     totalSize += implementationNode.Size;
                     AddWithIncrement(nodes, implementationNode);

@@ -51,6 +51,12 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         [Description("The version number of the implementation.")]
         public Architecture Architecture { get { return _implementation.Architecture; } }
+
+        /// <summary>
+        /// A unique identifier for the implementation. Used when storing implementation-specific user preferences.
+        /// </summary>
+        [Description("A unique identifier for the implementation. Used when storing implementation-specific user preferences.")]
+        public string ID { get { return _implementation.ID; } }
         #endregion
 
         #region Constructor

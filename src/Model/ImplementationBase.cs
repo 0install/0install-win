@@ -32,10 +32,9 @@ namespace ZeroInstall.Model
     {
         #region Properties
         /// <summary>
-        /// A unique identifier for this implementation.
+        /// A unique identifier for this implementation. Used when storing implementation-specific user preferences.
         /// </summary>
-        /// <remarks>For example, when the user marks a particular version as buggy this identifier is used to keep track of it, and saving and restoring selections uses it.</remarks>
-        [Category("Identity"), Description("A unique identifier for this implementation.")]
+        [Category("Identity"), Description("A unique identifier for this implementation. Used when storing implementation-specific user preferences.")]
         [XmlAttribute("id")]
         public string ID { get; set; }
 

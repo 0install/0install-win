@@ -19,10 +19,11 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Windows.Forms;
 using Common;
 using Common.Tasks;
 using ZeroInstall.Store.Feeds;
-using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Management.WinForms.Properties;
 
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
@@ -63,7 +64,8 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> / interface is located in.</param>
         /// <param name="feed">The <see cref="Model.Feed"/> / interface to be represented by this node.</param>
-        public InterfaceNode(IFeedCache cache, Model.Feed feed)
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        public InterfaceNode(IFeedCache cache, Model.Feed feed, MainForm parent) : base(parent)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
@@ -74,6 +76,8 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             _feed = feed;
         }
         #endregion
+
+        //--------------------//
 
         #region Delete
         /// <summary>
@@ -95,6 +99,38 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// </summary>
         public override void Verify(ITaskHandler handler)
         {}
+        #endregion
+
+        #region Context menu
+        /// <inheritdoc/>
+        public override ContextMenu GetContextMenu()
+        {
+            return new ContextMenu(new[]
+            {
+                new MenuItem(Resources.Remove, delegate
+                {
+                    if (Msg.Ask(Parent, Resources.DeleteEntry, MsgSeverity.Warn, Resources.YesDelete, Resources.NoKeep))
+                    {
+                        try { Delete(Parent); }
+                        #region Error handling
+                        catch (KeyNotFoundException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (IOException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            Msg.Inform(Parent, ex.Message, MsgSeverity.Error);
+                        }
+                        #endregion
+                        Parent.RefreshList();
+                    }
+                })
+            });
+        }
         #endregion
     }
 }

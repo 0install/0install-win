@@ -226,7 +226,7 @@ namespace ZeroInstall.Store.Management.WinForms
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "MainForm";
-            this.Text = "Zero Install: Cache management";
+            this.Text = "Zero Install cache management";
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelSize.ResumeLayout(false);

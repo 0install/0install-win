@@ -20,7 +20,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
@@ -31,8 +33,15 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     /// Models information about elements in a cache for display in a GUI.
     /// </summary>
     [SuppressMessage("Microsoft.Design", "CA1036:OverrideMethodsOnComparableTypes", Justification = "Comparison only used for INamed sorting")]
-    public abstract class StoreNode : INamed
+    public abstract class StoreNode : INamed, IContextMenu
     {
+        #region Variables
+        /// <summary>
+        /// The window containing this node. Used for callbacks.
+        /// </summary>
+        protected readonly MainForm Parent;
+        #endregion
+
         #region Properties
         /// <inheritdoc/>
         [Browsable(false)]
@@ -44,6 +53,23 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <remarks>If this value is not zero it is appended to the <see cref="Name"/>.</remarks>
         public int SuffixCounter;
         #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new store node.
+        /// </summary>
+        /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        protected StoreNode(MainForm parent)
+        {
+            #region Sanity checks
+            if (parent == null) throw new ArgumentNullException("parent");
+            #endregion
+
+            Parent = parent;
+        }
+        #endregion
+
+        //--------------------//
 
         #region Delete
         /// <summary>
@@ -78,6 +104,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
             else otherName = null;
             return string.Compare(Name, otherName, StringComparison.OrdinalIgnoreCase);
         }
+        #endregion
+
+        #region Context menu
+        /// <inheritdoc/>
+        public abstract ContextMenu GetContextMenu();
         #endregion
     }
 }
