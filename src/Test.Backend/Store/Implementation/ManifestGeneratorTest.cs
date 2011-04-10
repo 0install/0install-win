@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Implementation
             }
             finally
             {
-                didTerminate = completedLock.WaitOne(2000);
+                didTerminate = completedLock.WaitOne(2000, false);
             }
             Assert.IsTrue(didTerminate, "ManifestGenerator did not terminate");
         }

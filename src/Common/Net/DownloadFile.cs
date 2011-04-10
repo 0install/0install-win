@@ -144,7 +144,7 @@ namespace Common.Net
 
                     // Start the server request, allowing for cancellation
                     var responseRequest = request.BeginGetResponse(null, null);
-                    while (!responseRequest.AsyncWaitHandle.WaitOne(100))
+                    while (!responseRequest.AsyncWaitHandle.WaitOne(100, false))
                     {
                         if (_cancelRequest) return;
                     }
