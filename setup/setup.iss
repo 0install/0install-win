@@ -159,7 +159,7 @@ begin
 		exit;
 	end;
 
-  // Add all required products to the list
+	// Add all required products to the list
 	msi20('2.0');
 	msi31('3.0');
 	vcredist();	
@@ -169,12 +169,12 @@ begin
 		if minwinversion(5, 1) then begin
 			dotnetfx20sp2();
 		end else begin
-			if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
-				kb835732();
-				dotnetfx20sp1();
-			end else begin
+			//if minwinversion(5, 0) and minwinspversion(5, 0, 4) then begin
+			//	kb835732();
+			//	dotnetfx20sp1();
+			//end else begin
 				dotnetfx20();
-			end;
+			//end;
 		end;
 	end;
 	nanogrid();
