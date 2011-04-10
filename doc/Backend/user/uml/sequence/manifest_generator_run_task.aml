@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="user_uml_sequence_manifest_generator_run_task" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>ManifestGenerator.RunTask</title>
+
+    <mediaLink>
+      <image class="image" xlink:href="uml_sequence_manifest_generator_run_task" mimeType="image/png" />
+      <summary>UML class diagram</summary>
+    </mediaLink>
+  </developerConceptualDocument>
+</topic>

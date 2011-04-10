@@ -4,6 +4,23 @@
   <Topic id="user" visible="True" title="Backend User Guide">
     <Topic id="user_getting_started" visible="True" title="Getting started" />
     <Topic id="user_task_tracking" visible="True" title="Task tracking" />
+    <Topic id="user_uml" visible="True" noFile="true" title="UML diagrams">
+      <Topic id="user_uml_class" visible="True" noFile="true" title="Class diagrams">
+        <Topic id="user_uml_class_feeds" visible="True" title="Feeds" />
+        <Topic id="user_uml_class_fetchers" visible="True" title="Fetchers" />
+        <Topic id="user_uml_class_handler" visible="True" title="Handler" />
+        <Topic id="user_uml_class_model" visible="True" title="Model" />
+        <Topic id="user_uml_class_model_xml" visible="True" title="Model XML format" />
+        <Topic id="user_uml_class_policy" visible="True" title="Policy" />
+        <Topic id="user_uml_class_solver" visible="True" title="Solver" />
+        <Topic id="user_uml_class_store_implementation" visible="True" title="Store.Implementation" />
+        <Topic id="user_uml_class_tasks" visible="True" title="Tasks" />
+      </Topic>
+      <Topic id="user_uml_sequence" visible="True" noFile="true" title="Sequence diagrams">
+        <Topic id="user_uml_sequence_manifest_generator_run_task" visible="True" title="ManifestGenerator.RunTask" />
+        <Topic id="user_uml_sequence_directory_store_add_archive" visible="True" title="DirectoryStore.AddArchive" />
+      </Topic>
+    </Topic>
   </Topic>
   <Topic id="deployment" visible="True" title="Deployment Guide" />
   <Topic id="design" visible="True" title="Internal Design Guide">
