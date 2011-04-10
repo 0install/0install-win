@@ -74,7 +74,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Nodes\StoreNode.cs" />
-    <Compile Include="Nodes\InterfaceNode.cs" />
+    <Compile Include="Nodes\FeedNode.cs" />
     <Compile Include="Nodes\ImplementationNode.cs" />
     <Compile Include="Nodes\OrphanedImplementationNode.cs" />
     <Compile Include="Nodes\OwnedImplementationNode.cs" />

@@ -28,9 +28,9 @@ using ZeroInstall.Store.Management.WinForms.Properties;
 namespace ZeroInstall.Store.Management.WinForms.Nodes
 {
     /// <summary>
-    /// Models information about a <see cref="Model.Feed"/> / interface in the <see cref="IFeedCache"/> for display in a GUI.
+    /// Models information about a <see cref="Model.Feed"/> in the <see cref="IFeedCache"/> for display in a GUI.
     /// </summary>
-    public sealed class InterfaceNode : StoreNode
+    public sealed class FeedNode : StoreNode
     {
         #region Variables
         private readonly IFeedCache _cache;
@@ -46,26 +46,26 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         }
 
         /// <summary>
-        /// The URI indentifying this interface.
+        /// The URI indentifying this feed.
         /// </summary>
-        [Description("The URI indentifying this interface.")]
+        [Description("The URI indentifying this feed.")]
         public Uri Uri { get { return _feed.Uri; } }
 
         /// <summary>
-        /// The name of the application represented by this interface.
+        /// The name of the application represented by this feed.
         /// </summary>
-        [Description("The name of the application represented by this interface.")]
+        [Description("The name of the application represented by this feed.")]
         public string Title { get { return _feed.Name; } }
         #endregion
 
         #region Constructor
         /// <summary>
-        /// Creates a new interface node.
+        /// Creates a new feed node.
         /// </summary>
-        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> / interface is located in.</param>
-        /// <param name="feed">The <see cref="Model.Feed"/> / interface to be represented by this node.</param>
+        /// <param name="cache">The <see cref="IFeedCache"/> the <see cref="Model.Feed"/> is located in.</param>
+        /// <param name="feed">The <see cref="Model.Feed"/> to be represented by this node.</param>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        public InterfaceNode(IFeedCache cache, Model.Feed feed, MainForm parent) : base(parent)
+        public FeedNode(IFeedCache cache, Model.Feed feed, MainForm parent) : base(parent)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
@@ -81,7 +81,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
         #region Delete
         /// <summary>
-        /// Deletes this <see cref="Model.Feed"/> / interface from the <see cref="IFeedCache"/> it is located in.
+        /// Deletes this <see cref="Model.Feed"/> from the <see cref="IFeedCache"/> it is located in.
         /// </summary>
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="KeyNotFoundException">Thrown if no matching feed could be found in the <see cref="IFeedCache"/>.</exception>

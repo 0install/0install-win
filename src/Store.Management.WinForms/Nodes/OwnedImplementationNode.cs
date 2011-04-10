@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
     public sealed class OwnedImplementationNode : ImplementationNode
     {
         #region Variables
-        private readonly InterfaceNode _iface;
+        private readonly FeedNode _iface;
         private readonly Model.Implementation _implementation;
         #endregion
 
@@ -68,7 +68,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="iface">The node of the interface owning the implementation.</param>
         /// <param name="implementation">Information about the implementation from a <see cref="Model.Feed"/> file.</param>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        public OwnedImplementationNode(IStore store, ManifestDigest digest, InterfaceNode iface, Model.Implementation implementation, MainForm parent)
+        public OwnedImplementationNode(IStore store, ManifestDigest digest, FeedNode iface, Model.Implementation implementation, MainForm parent)
             : base(store, digest, parent)
         {
             _iface = iface;
