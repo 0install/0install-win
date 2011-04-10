@@ -207,7 +207,7 @@ To add directories to this list, add them to your 'implementation-dirs' configur
     <value>To verify or remove feeds or implementations:
 0store manage
 
-Displays a GUI for managing implemenetations in the store. Associations with cached feeds are displayed.</value>
+Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed.</value>
   </data>
   <data name="DetailsManifest" xml:space="preserve">
     <value>To generate the manifest for a directory structure:

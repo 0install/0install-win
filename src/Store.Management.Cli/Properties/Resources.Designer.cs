@@ -142,7 +142,7 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         ///   Looks up a localized string similar to To verify or remove feeds or implementations:
         ///0store manage
         ///
-        ///Displays a GUI for managing implemenetations in the store. Associations with cached feeds are displayed..
+        ///Displays a GUI for managing implementations in the store. Associations with cached feeds are displayed..
         /// </summary>
         internal static string DetailsManage {
             get {

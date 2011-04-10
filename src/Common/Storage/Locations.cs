@@ -85,18 +85,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_CONFIG_HOME", Path.Combine(HomeDir, ".config"));
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 }
             }
         }
@@ -111,18 +110,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_DATA_HOME", Path.Combine(HomeDir, ".local/share"));
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 }
             }
         }
@@ -137,18 +135,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_CACHE_HOME", Path.Combine(HomeDir, ".cache"));
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
                 }
             }
         }
@@ -166,18 +163,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_CONFIG_DIRS", "/etc/xdg");
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 }
             }
         }
@@ -193,18 +189,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Use XDG specification
                         return GetEnvironmentVariable("XDG_DATA_DIRS", "/usr/local/share:/usr/share");
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 }
             }
         }
@@ -220,18 +215,17 @@ namespace Common.Storage
             {
                 switch (Environment.OSVersion.Platform)
                 {
-                    default:
-                    case PlatformID.Win32Windows:
-                    case PlatformID.Win32NT:
-                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+                    case PlatformID.MacOSX:
+                        // ToDo: Use MacOS X-specific locations instead of POSIX subsytem
 
                     case PlatformID.Unix:
                         // Unoffical extension of the XDG specification
                         return GetEnvironmentVariable("XDG_CACHE_DIRS", "/var/cache");
 
-                    case PlatformID.MacOSX:
-                        // ToDo: Do whatever you should do on MacOS X
-                        throw new NotImplementedException();
+                    default:
+                    case PlatformID.Win32Windows:
+                    case PlatformID.Win32NT:
+                        return Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 }
             }
         }
