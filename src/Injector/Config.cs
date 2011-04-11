@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing.Design;
 using System.IO;
 using System.Text;
@@ -229,7 +228,6 @@ namespace ZeroInstall.Injector
         /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Problems loading generic configuration files shouldn't block the application")]
         public static Config Load()
         {
             // Locate all applicable config files and order them from least to most important

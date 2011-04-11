@@ -135,9 +135,6 @@
   <data name="WokringDirDuplicate" xml:space="preserve">
     <value>The working directory has already been changed by a previous command.</value>
   </data>
-  <data name="FeedNotInCache" xml:space="preserve">
-    <value>The feed {0} could not be located in the interface cache.</value>
-  </data>
   <data name="NotValidDomain" xml:space="preserve">
     <value>The value is not a valid domain name.</value>
   </data>

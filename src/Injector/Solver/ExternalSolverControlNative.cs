@@ -37,9 +37,6 @@ namespace ZeroInstall.Injector.Solver
             // Launch solver script using Python
             var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments);
 
-            // Add bundled Python scripts to Python search path
-            startInfo.EnvironmentVariables["PYTHONPATH_APPEND"] = Path.Combine(solverDirectory, "library.zip");
-
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
 

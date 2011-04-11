@@ -88,10 +88,10 @@ namespace ZeroInstall.Injector.Feeds
             }
 
             if (policy.Config.NetworkUse == NetworkLevel.Offline)
-                throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, feedID), feedID);
+                throw new FileNotFoundException(string.Format("Offline mode", feedID), feedID);
 
             // ToDo: Download, verify and cache feed
-            throw new FileNotFoundException(string.Format(Resources.FeedNotInCache, feedID), feedID);
+            throw new FileNotFoundException(string.Format("Not cached", feedID), feedID);
         }
         #endregion
         

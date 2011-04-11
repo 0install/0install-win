@@ -168,10 +168,10 @@ Actual value: {1}</value>
     <value>Unable to find a secret key with the specified name.</value>
   </data>
   <data name="IllegalFileType" xml:space="preserve">
-    <value>The file {0} is neither a symbolic link nor a regular file.</value>
+    <value>The file '{0}' is neither a symbolic link nor a regular file.</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
-    <value>The feed {0} could not be located in the interface cache. Looked for file at: {1}</value>
+    <value>'{0}' could not be located in the feed cache. Looked for file at: {1}</value>
   </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
@@ -192,13 +192,13 @@ Actual value: {1}</value>
     <value>The passphrase you entered is incorrect.</value>
   </data>
   <data name="ImplementationAlreadyInStore" xml:space="preserve">
-    <value>The implementation "{0}" is already in the store.</value>
+    <value>The implementation '{0}' is already in the store.</value>
   </data>
   <data name="StoreServiceCommunicationProblem" xml:space="preserve">
     <value>Unable to establish connection with StoreService.</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>The directory "{0}" could not be found.</value>
+    <value>The directory '{0}' could not be found.</value>
   </data>
   <data name="ReplayAttack" xml:space="preserve">
     <value>New feed's modification time is before old version!

@@ -132,13 +132,13 @@ Erwarteter Wert: {0}
 Tatsächlicher Wert: {1}</value>
   </data>
   <data name="DirectoryNotFound" xml:space="preserve">
-    <value>Das Verzeichnis "{0}" konnte nicht gefunden werden.</value>
+    <value>Das Verzeichnis '{0}' konnte nicht gefunden werden.</value>
   </data>
   <data name="ExtractingArchive" xml:space="preserve">
     <value>Entpacke Archiv ({0})</value>
   </data>
   <data name="FeedNotInCache" xml:space="preserve">
-    <value>Der Feed {0} konnte nicht im Interface-Cache gefunden werden. Nach folgender Datei gesucht: {1}</value>
+    <value>'{0}' konnte nicht im Feed Cache gefunden werden. Nach folgender Datei wurde gesucht: {1}</value>
   </data>
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
@@ -147,10 +147,10 @@ Tatsächlicher Wert: {1}</value>
     <value>Generiere Manifest ({0})</value>
   </data>
   <data name="IllegalFileType" xml:space="preserve">
-    <value>Die Datei {0} ist weder ein symbolischer Link noch eine reguläre Datei.</value>
+    <value>Die Datei '{0}' ist weder ein symbolischer Link noch eine reguläre Datei.</value>
   </data>
   <data name="ImplementationAlreadyInStore" xml:space="preserve">
-    <value>Die Implementierung "{0}" ist bereits im Store.</value>
+    <value>Die Implementierung '{0}' ist bereits im Store.</value>
   </data>
   <data name="ImplementationNotFound" xml:space="preserve">
     <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>

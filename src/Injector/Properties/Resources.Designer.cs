@@ -70,15 +70,6 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed {0} could not be located in the interface cache..
-        /// </summary>
-        internal static string FeedNotInCache {
-            get {
-                return ResourceManager.GetString("FeedNotInCache", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No interface was specified..
         /// </summary>
         internal static string MissingInterfaceID {
