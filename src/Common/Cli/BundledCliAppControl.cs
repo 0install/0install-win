@@ -62,9 +62,10 @@ namespace Common.Cli
 
             // Try to use bundled version of the application when running on Windows
             var appDirectory = GetBundledDirectory(AppDirName);
-            if (WindowsUtils.IsWindows && File.Exists(Path.Combine(appDirectory, AppBinary + ".exe")))
+            string exePath = Path.Combine(appDirectory, AppBinary + ".exe");
+            if (WindowsUtils.IsWindows && File.Exists(exePath))
             {
-                startInfo.FileName = Path.Combine(appDirectory, AppBinary);
+                startInfo.FileName = exePath;
                 startInfo.EnvironmentVariables["PATH"] = appDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
             }
 
