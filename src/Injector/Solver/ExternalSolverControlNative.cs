@@ -17,6 +17,7 @@
 
 using System.Diagnostics;
 using System.IO;
+using Common;
 using Common.Cli;
 
 namespace ZeroInstall.Injector.Solver
@@ -32,10 +33,13 @@ namespace ZeroInstall.Injector.Solver
         /// <inheritdoc/>
         protected override ProcessStartInfo GetStartInfo(string arguments)
         {
-            var startInfo = base.GetStartInfo(arguments);
+            string solverDirectory = BundledCliAppControl.GetBundledDirectory("Solver");
+
+            // Launch solver script using Python
+            var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments);
 
             // Add bundled Python scripts to Python search path
-            startInfo.EnvironmentVariables["PYTHONPATH"] = Path.Combine(BundledCliAppControl.GetBundledDirectory("Solver"), "library.zip") + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
+            startInfo.EnvironmentVariables["PYTHONPATH"] = Path.Combine(solverDirectory, "library.zip") + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
 
             return startInfo;
         }

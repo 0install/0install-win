@@ -17,6 +17,7 @@
 
 using System;
 using System.Xml;
+using Common;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -57,10 +58,12 @@ namespace ZeroInstall.Injector.Solver
             #region Error handling
             catch (InvalidOperationException ex)
             {
+                Log.Warn("Solver result:\n" + result);
                 throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
             }
             catch (XmlException ex)
             {
+                Log.Warn("Solver result:\n" + result);
                 throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
             }
             #endregion

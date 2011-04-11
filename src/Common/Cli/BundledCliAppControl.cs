@@ -46,7 +46,7 @@ namespace Common.Cli
             string searchBase = Locations.PortableBase;
 
             return Directory.Exists(Path.Combine(searchBase, name))
-                ? searchBase
+                ? Path.Combine(searchBase, name)
                 : StringUtils.PathCombine(searchBase, "..", "..", "Bundled", name);
         }
 
