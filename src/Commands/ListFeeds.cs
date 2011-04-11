@@ -16,8 +16,12 @@
  */
 
 using System;
+using System.IO;
+using System.Text;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
 
 namespace ZeroInstall.Commands
 {
@@ -25,7 +29,7 @@ namespace ZeroInstall.Commands
     /// List all known feed IDs for a specific interface.
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class ListFeeds : ManageFeeds
+    public sealed class ListFeeds : CommandBase
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
@@ -37,7 +41,7 @@ namespace ZeroInstall.Commands
         protected override string Description { get { return Resources.DescriptionListFeeds; } }
 
         /// <inheritdoc/>
-        protected override string Usage { get { return "URI"; } }
+        protected override string Usage { get { return "[OPTIONS] URI"; } }
         #endregion
 
         #region Constructor
@@ -52,12 +56,22 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+            #endregion
 
-            // ToDo: Implement
+            string interfaceID = AdditionalArgs[0];
+            if (File.Exists(AdditionalArgs[0])) interfaceID = Path.GetFullPath(AdditionalArgs[0]);
 
-            Policy.Handler.Output("Not implemented", "This feature is not implemented yet.");
-            return 1;
+            var preferences = InterfacePreferences.LoadFor(interfaceID);
+            var builder = new StringBuilder();
+            foreach (var feedReference in preferences.Feeds)
+                builder.AppendLine(feedReference.Source);
+
+            Policy.Handler.Output(string.Format(Resources.FeedsRegistered, interfaceID), builder.ToString());
+            return 0;
         }
         #endregion
     }

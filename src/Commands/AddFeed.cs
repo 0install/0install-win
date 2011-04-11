@@ -16,8 +16,12 @@
  */
 
 using System;
+using Common.Utils;
+using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
+using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
 {
@@ -25,16 +29,16 @@ namespace ZeroInstall.Commands
     /// Register an additional source of implementations (versions) of a program. 
     /// </summary>
     [CLSCompliant(false)]
-    public sealed class AddFeed : ManageFeeds
+    public sealed class AddFeed : CommandBase
     {
         #region Variables
         /// <summary>The name of this command as used in command-line arguments in lower-case.</summary>
         public const string Name = "add-feed";
         #endregion
 
-        #region Propertie
+        #region Properties
         /// <inheritdoc/>
-        protected override string Usage { get { return "NEW-FEED"; } }
+        protected override string Usage { get { return "[OPTIONS] NEW-FEED"; } }
 
         /// <inheritdoc/>
         protected override string Description { get { return Resources.DescriptionAddFeed; } }
@@ -52,12 +56,41 @@ namespace ZeroInstall.Commands
         /// <inheritdoc/>
         public override int Execute()
         {
+            #region Sanity checks
             if (!IsParsed) throw new InvalidOperationException(Resources.NotParsed);
+            if (AdditionalArgs.Count == 0) throw new OptionException(Resources.MissingArguments, "");
+            if (AdditionalArgs.Count > 1) throw new OptionException(Resources.TooManyArguments, "");
+            #endregion
 
-            // ToDo: Implement
+            string feedID = ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs[0]));
 
-            Policy.Handler.Output("Not implemented", "This feature is not implemented yet.");
-            return 1;
+            Policy.FeedManager.Refresh = true;
+            bool stale;
+            var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
+
+            if (feed.FeedFor.IsEmpty)
+            {
+                Policy.Handler.Output(Resources.FeedManagement, string.Format("Missing <feed-for> element in '{0}'; it can't be used as a feed for any other interface.", feedID));
+                return 1;
+            }
+
+            bool added = false;
+            var interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
+            foreach (var interfaceID in interfaces)
+            {
+                var preferences = InterfacePreferences.LoadFor(interfaceID);
+                var reference = new FeedReference {Source = feedID};
+                if (!preferences.Feeds.Contains(reference))
+                {
+                    added = true;
+                    preferences.Feeds.Add(reference);
+                }
+                preferences.SaveFor(interfaceID);
+            }
+
+            // Show a confirmation message (but not in batch mode, since it is too unimportant)
+            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.FeedManagement, added ? Resources.FeedRegistered : Resources.FeedAlreadyRegistered);
+            return added ? 0 : 1;
         }
         #endregion
     }

@@ -223,6 +223,60 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed was already registered..
+        /// </summary>
+        internal static string FeedAlreadyRegistered {
+            get {
+                return ResourceManager.GetString("FeedAlreadyRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feed management.
+        /// </summary>
+        internal static string FeedManagement {
+            get {
+                return ResourceManager.GetString("FeedManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The feed was not registered..
+        /// </summary>
+        internal static string FeedNotRegistered {
+            get {
+                return ResourceManager.GetString("FeedNotRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The feed was successfully registered..
+        /// </summary>
+        internal static string FeedRegistered {
+            get {
+                return ResourceManager.GetString("FeedRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Feeds registered for &apos;{0}&apos;:.
+        /// </summary>
+        internal static string FeedsRegistered {
+            get {
+                return ResourceManager.GetString("FeedsRegistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The feed was successfully unregistered..
+        /// </summary>
+        internal static string FeedUnregistered {
+            get {
+                return ResourceManager.GetString("FeedUnregistered", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Found feeds:.
         /// </summary>
         internal static string FoundFeeds {

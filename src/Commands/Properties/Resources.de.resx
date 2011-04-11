@@ -165,4 +165,22 @@
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
+  <data name="FeedManagement">
+    <value xml:space="preserve">Feed Verwaltung</value>
+  </data>
+  <data name="FeedRegistered">
+    <value xml:space="preserve">Der Feed wurde erfolgreich registriert.</value>
+  </data>
+  <data name="FeedAlreadyRegistered">
+    <value xml:space="preserve">Der Feed war bereits registriert.</value>
+  </data>
+  <data name="FeedUnregistered">
+    <value xml:space="preserve">Der Feed wurde erfolgreich deregistriert.</value>
+  </data>
+  <data name="FeedNotRegistered">
+    <value xml:space="preserve">Der Feed war nicht registriert.</value>
+  </data>
+  <data name="FeedsRegistered">
+    <value xml:space="preserve">Feeds registriert für '{0}':</value>
+  </data>
 </root>

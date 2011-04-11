@@ -273,6 +273,24 @@ However, new downloads will not be written to this directory.</value>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
+  <data name="FeedManagement">
+    <value xml:space="preserve">Feed management</value>
+  </data>
+  <data name="FeedRegistered">
+    <value xml:space="preserve">The feed was successfully registered.</value>
+  </data>
+  <data name="FeedAlreadyRegistered">
+    <value xml:space="preserve">The feed was already registered.</value>
+  </data>
+  <data name="FeedUnregistered">
+    <value xml:space="preserve">The feed was successfully unregistered.</value>
+  </data>
+  <data name="FeedNotRegistered">
+    <value xml:space="preserve">The feed was not registered.</value>
+  </data>
+  <data name="FeedsRegistered">
+    <value xml:space="preserve">Feeds registered for '{0}':</value>
+  </data>
   <data name="LicenseInfo">
     <value>
       <![CDATA[This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
