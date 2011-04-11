@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,17 +15,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System.IO;
+
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Creates <see cref="ISolver"/> instances.
+    /// Interacts with the external process used by <see cref="ExternalSolver"/>.
     /// </summary>
-    public static class SolverProvider
+    internal interface IExternalSolverControl
     {
-        private static readonly ISolver _default = new ExternalSolver();
         /// <summary>
-        /// Returns the default implementation of <see cref="ISolver"/>.
+        /// Runs the external solver, processes its output and waits until it has terminated.
         /// </summary>
-        public static ISolver Default { get { return _default; } }
+        /// <param name="arguments">Command-line arguments to launch the solver with.</param>
+        /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
+        /// <returns>The solver's complete output to the stdout-stream.</returns>
+        /// <exception cref="IOException">Thrown if the external solver could not be launched.</exception>
+        string ExecuteSolver(string arguments, IHandler handler);
     }
 }

@@ -8,26 +8,22 @@ The directory "build" contains the results of various compilation processes. It 
 - Tools: Contains the executables for Zero Install Tools such as the Feed Editor plus all required libraries (including the Backend).
 - Publish: Contains generated ZIP archives and Setup EXE files.
 - Documentation: Contains the generated source code documentation.
-- Bundled: Contains a portable Python distribution (Windows only), a portable GnuPG distribution (Windows only) and the Python solver script (all platforms). See below how to get these files.
+- Bundled: Contains a portable GnuPG distribution (Windows only) and an external solver (multiple platforms). See below how to get these files.
 
-To create a portable Python distribution:
-- Install Python 2.6.x for Windows with no additional features selected in the MSI installer.
-- Install compatible versions of pygobject and pywin32.
-- Copy the entire content of C:\Python26 to build\Bundled\Python.
-- Place a GTK+ 2.x installation at %apps%\GTK+ (some libraries need to be extracted from there).
-- Execute cleanup_python.cmd to minimize the Python distribution and copy some libraries to make it portable.
-- You may now uninstall the Python installation located at C:\Python26 if you wish.
+Pre-built content for the Bundled directory can be downloaded from http://0install.de/files/bundled.zip. You can also build it yourself as follows.
 
 To create a portable GnuPG distribution:
-- Extract GnuPG 1.4.x for Windows to build\Bundled\GnuPG.
+- Extract GnuPG 1.4.x for Windows to build/Bundled/GnuPG.
 - Remove the documentation directory.
-- Copy iconv.dll from the GTK+ installation into build\Bundled\GnuPG.
+- Copy iconv.dll (e.g. from a GTK+ installation) into build/Bundled/GnuPG.
 
-To get the Python solver script:
+To build the external solver:
+- Install Python 2.6.x for Windows.
+- Install compatible versions of pygobject, pywin32 and py2exe.
 - Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
 - Open a console and change the current directory to the GIT checkout.
-- On Windows call "install_full.cmd [SVN_CHECKOUT_DIR]\build\Bundled\Python".
-- On Linux call "install_copy.sh [SVN_CHECKOUT_DIR]/build/Bundled/Python".
+- Call "setup.py py2exe".
+- Copy the newly created "dist" directory to build/Bundled/Solver.
 
 
 

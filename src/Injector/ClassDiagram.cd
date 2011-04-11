@@ -83,11 +83,11 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.Injector.Solver.PythonSolver" Collapsed="true" BaseTypeListCollapsed="true">
+  <Class Name="ZeroInstall.Injector.Solver.ExternalSolver" Collapsed="true" BaseTypeListCollapsed="true">
     <Position X="4.75" Y="3.5" Width="1.25" />
     <TypeIdentifier>
       <HashCode>ACAAAAAIAAAAAIAAACABAAQIAAQAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Solver\PythonSolver.cs</FileName>
+      <FileName>Solver\ExternalSolver.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>

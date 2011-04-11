@@ -24,9 +24,9 @@ using Common;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Helper class for <see cref="PythonSolver"/> for parsing <see cref="Process.StandardError"/> data.
+    /// Helper class for <see cref="ExternalSolver"/> for parsing <see cref="Process.StandardError"/> data.
     /// </summary>
-    internal class PythonErrorParser
+    internal class ExternalSolverErrorParser
     {
         #region Enumerations
         private enum ErrorMode
@@ -47,7 +47,7 @@ namespace ZeroInstall.Injector.Solver
         /// Creates a new error parser.
         /// </summary>
         /// <param name="handler">A callback object used if the the user needs to be asked any questions (such as whether to trust a certain GPG key).</param>
-        public PythonErrorParser(IHandler handler)
+        public ExternalSolverErrorParser(IHandler handler)
         {
             _handler = handler;
         }
@@ -57,7 +57,7 @@ namespace ZeroInstall.Injector.Solver
 
         #region Handle line
         /// <summary>
-        /// To be called for every line of error data received from Python.
+        /// To be called for every line of error data received from the external solver.
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>The response to write to stdin; <see langword="null"/> for none.</returns>

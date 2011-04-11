@@ -73,15 +73,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Solver\Requirements.cs" />
     <Compile Include="SilentHandler.cs" />
+    <Compile Include="Solver\Requirements.cs" />
+    <Compile Include="Solver\Selections.cs" />
     <Compile Include="Solver\ImplementationSelection.cs" />
     <Compile Include="Solver\ISolver.cs" />
-    <Compile Include="Solver\PythonErrorParser.cs" />
     <Compile Include="Solver\SolverException.cs" />
     <Compile Include="Solver\SolverProvider.cs" />
-    <Compile Include="Solver\PythonSolver.cs" />
-    <Compile Include="Solver\Selections.cs" />
+    <Compile Include="Solver\ExternalSolver.cs" />
+    <Compile Include="Solver\IExternalSolverControl.cs" />
+    <Compile Include="Solver\ExternalSolverControlNative.cs" />
+    <Compile Include="Solver\ExternalSolverControlBundled.cs" />
+    <Compile Include="Solver\ExternalSolverErrorParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

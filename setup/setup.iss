@@ -23,6 +23,8 @@
 [CustomMessages]
 win2000sp4_title=Windows 2000 Service Pack 4
 winxpsp2_title=Windows XP Service Pack 2
+en.compile_netfx=Precompiling .NET assemblies...
+de.compile_netfx=Vorkompiliere .NET Assemblies...
 
 ;Used by downloader
 appname=Zero Install
@@ -93,19 +95,18 @@ Name: {app}\*.Wpf.*; Type: files
 Name: {app}\*-wpf.*; Type: files
 Name: {app}\Interop.IWshRuntimeLibrary.dll; Type: files
 Name: {app}\*.xml; Type: files
+Name: {app}\Python; Type: filesandordirs
 
 [Files]
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
-Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,Mono.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #ifndef Update
-;Distutils is required to install the Script into the portable Python distribution but is not needed on the end-user machine
-Source: ..\build\Bundled\*; Excludes: Python\Lib\distutils; DestDir: {app}; Flags: ignoreversion recursesubdirs
+Source: ..\build\Bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
 #endif
 #ifdef Update
-;Only update the Zero Install scripts and not the rest of Python
-Source: ..\build\Bundled\Python\Scripts\*; DestDir: {app}\Python\Scripts; Flags: ignoreversion recursesubdirs
-Source: ..\build\Bundled\Python\Lib\site-packages\zeroinstall\*; DestDir: {app}\Python\Lib\site-packages\zeroinstall; Flags: ignoreversion recursesubdirs
+;Only update the Solver script and not the other Bundled stuff
+Source: ..\build\Bundled\Solver\library.zip; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
 #endif
 
 [Registry]
@@ -140,6 +141,13 @@ Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /auto
 
 ;Post-installations tasks
 [Run]
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install-win.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0launch.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install ZeroInstall.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store-win.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install StoreService.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [Code]

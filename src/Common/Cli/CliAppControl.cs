@@ -27,7 +27,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading;
-using Common.Storage;
 using Common.Utils;
 using Common.Properties;
 
@@ -49,41 +48,9 @@ namespace Common.Cli
     {
         #region Properties
         /// <summary>
-        /// The name of the application to be executed. This also determines the name of the directory that is searched for a bundled version on Windows.
-        /// </summary>
-        protected abstract string AppName { get; }
-
-        /// <summary>
         /// The name of the application's binary (without a file ending).
         /// </summary>
         protected abstract string AppBinary { get; }
-
-        /// <summary>
-        /// The directory to search for bundled versions of applications.
-        /// </summary>
-        /// <remarks>
-        /// If a sub-directory named like <see cref="AppName"/> is found in the installation directory this is used.
-        /// Otherwise a parallel directory named "Bundled" is probed.
-        /// </remarks>
-        protected string BundledDirectory
-        {
-            get
-            {
-                // Use the base directory of the launching application since the current directory may be arbitrary
-                string searchBase = Locations.PortableBase;
-
-                if (Directory.Exists(Path.Combine(searchBase, AppName))) return searchBase;
-                return Path.Combine(Path.Combine(Path.Combine(searchBase, ".."), ".."), "Bundled");
-            }
-        }
-
-        /// <summary>
-        /// The directory containing the bundled version of the application. This is generally a sub-directory of <see cref="BundledDirectory"/>.
-        /// </summary>
-        protected string AppDirectory
-        {
-            get { return Path.Combine(BundledDirectory, AppName); }
-        }
         #endregion
 
         //--------------------//
@@ -105,11 +72,11 @@ namespace Common.Cli
             #region Error handling
             catch (Win32Exception ex)
             {
-                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppName), ex);
+                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppBinary), ex);
             }
             catch (BadImageFormatException ex)
             {
-                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppName), ex);
+                throw new IOException(string.Format(Resources.UnableToLaunchBundled, AppBinary), ex);
             }
             #endregion
 
@@ -179,12 +146,9 @@ namespace Common.Cli
         /// </summary>
         protected virtual ProcessStartInfo GetStartInfo(string arguments)
         {
-            // Try to use bundled version of the application when running on Windows
-            bool useBundled = WindowsUtils.IsWindows && File.Exists(Path.Combine(AppDirectory, AppBinary + ".exe"));
-
             var startInfo = new ProcessStartInfo
             {
-                FileName = (useBundled ? Path.Combine(AppDirectory, AppBinary) : AppBinary),
+                FileName = AppBinary,
                 Arguments = arguments,
                 CreateNoWindow = true,
                 UseShellExecute = false,
@@ -193,10 +157,6 @@ namespace Common.Cli
                 RedirectStandardError = true,
                 ErrorDialog = false
             };
-
-            // Add bundled application directory to search path for locating DLLs
-            if (useBundled)
-                startInfo.EnvironmentVariables["PATH"] = AppDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
 
             return startInfo;
         }

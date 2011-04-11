@@ -16,10 +16,7 @@
  */
 
 using System;
-using System.Diagnostics;
-using System.IO;
 using System.Xml;
-using Common.Cli;
 using Common.Utils;
 using ZeroInstall.Injector.Properties;
 using ZeroInstall.Model;
@@ -27,37 +24,11 @@ using ZeroInstall.Model;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Uses the Python script <code>0solve</code> to solve dependencies.
+    /// Uses an external process to solve dependencies.
     /// </summary>
     /// <remarks>This class is immutable.</remarks>
-    public sealed class PythonSolver : CliAppControl, ISolver
+    public sealed class ExternalSolver : ISolver
     {
-        #region Properties
-        /// <inheritdoc/>
-        protected override string AppName { get { return "Python"; } }
-
-        /// <inheritdoc/>
-        protected override string AppBinary { get { return "python"; } }
-
-        private string PackagesDirectory
-        {
-            get { return Path.Combine(Path.Combine(AppDirectory, "Lib"), "site-packages"); }
-        }
-
-        private string SolverScript
-        {
-            get { return Path.Combine(Path.Combine(AppDirectory, "Scripts"), "0solve"); }
-        }
-
-        private string GnuPGDirectory
-        {
-            get { return Path.Combine(BundledDirectory, "GnuPG"); }
-        }
-        #endregion
-
-        //--------------------//
-
-        #region Solve
         /// <inheritdoc />
         public Selections Solve(Requirements requirements, Policy policy, out bool staleFeeds)
         {
@@ -71,13 +42,12 @@ namespace ZeroInstall.Injector.Solver
             string interfaceID = requirements.InterfaceID.Replace("\"", "");
             if (interfaceID.Contains(" ")) interfaceID = "\"" + interfaceID + "\"";
 
-            // Execute the external Python script
-            var errorParser = new PythonErrorParser(policy.Handler);
-            string arguments = "-W ignore::DeprecationWarning \"" + SolverScript + "\" " + GetSolverArguments(requirements, policy) + interfaceID;
-            string result = Execute(arguments, null, errorParser.HandleStdErrorLine);
-
-            // Handle any left-over error messages
-            errorParser.Flush();
+            // Execute the external solver
+            IExternalSolverControl control;
+            if (WindowsUtils.IsWindows) control = new ExternalSolverControlBundled(); // Use bundled Python on Windows
+            else control = new ExternalSolverControlNative(); // Use native Python everywhere else
+            string arguments = GetSolverArguments(requirements, policy) + interfaceID;
+            string result = control.ExecuteSolver(arguments, policy.Handler);
 
             // Detect when feeds get out-of-date
             staleFeeds = result.Contains("<!-- STALE_FEEDS -->");
@@ -87,11 +57,11 @@ namespace ZeroInstall.Injector.Solver
             #region Error handling
             catch (InvalidOperationException ex)
             {
-                throw new SolverException(Resources.PythonSolverOutputErrror + "\n" + ex.Message, ex);
+                throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
             }
             catch (XmlException ex)
             {
-                throw new SolverException(Resources.PythonSolverOutputErrror + "\n" + ex.Message, ex);
+                throw new SolverException(Resources.ExternalSolverOutputErrror + "\n" + ex.Message, ex);
             }
             #endregion
         }
@@ -120,24 +90,5 @@ namespace ZeroInstall.Injector.Solver
 
             return arguments;
         }
-        #endregion
-
-        #region Start info
-        /// <inheritdoc/>
-        protected override ProcessStartInfo GetStartInfo(string arguments)
-        {
-            var startInfo = base.GetStartInfo(arguments);
-
-            // Add bundled Python scripts to Python search path
-            if (Directory.Exists(PackagesDirectory))
-                startInfo.EnvironmentVariables["PYTHONPATH"] = PackagesDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
-
-            // Add bundled GnuPG to search path for Python script to use on Windows
-            if (WindowsUtils.IsWindows && File.Exists(Path.Combine(GnuPGDirectory, "gpg.exe")))
-                startInfo.EnvironmentVariables["PATH"] = GnuPGDirectory + Path.PathSeparator + startInfo.EnvironmentVariables["PATH"];
-
-            return startInfo;
-        }
-        #endregion
     }
 }

@@ -28,14 +28,14 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Provides access to the signature functions of GnuPG.
     /// </summary>
-    public class GnuPG : CliAppControl
+    public class GnuPG : BundledCliAppControl
     {
         #region Properties
         /// <inheritdoc/>
-        protected override string AppName { get { return "GnuPG"; } }
+        protected override string AppBinary { get { return "gpg"; } }
 
         /// <inheritdoc/>
-        protected override string AppBinary { get { return "gpg"; } }
+        protected override string AppDirName { get { return "GnuPG"; } }
         #endregion
 
         //--------------------//

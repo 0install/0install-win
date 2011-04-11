@@ -126,8 +126,8 @@
   <data name="NotInterfaceID" xml:space="preserve">
     <value>Das Interface '{0}' fängt nicht mit 'http:' an und ist auch existiert auch nicht als Datei '{1}'.</value>
   </data>
-  <data name="PythonSolverOutputErrror" xml:space="preserve">
-    <value>Die Ausgabe des Python-Solvers konnte nicht verarbeitet werden.</value>
+  <data name="ExternalSolverOutputErrror" xml:space="preserve">
+    <value>Die Ausgabe des externen Solvers konnte nicht verarbeitet werden.</value>
   </data>
   <data name="SolverProblem" xml:space="preserve">
     <value>Der Solver ist auf ein unerwartetes Problem gestoßen.</value>

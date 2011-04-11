@@ -93,7 +93,7 @@
     <Compile Include="Injector\ExecutorTest.cs" />
     <Compile Include="Injector\ConfigTest.cs" />
     <Compile Include="Injector\Solver\ImplementationSelectionTest.cs" />
-    <Compile Include="Injector\Solver\PythonSolverTest.cs" />
+    <Compile Include="Injector\Solver\ExternalSolverTest.cs" />
     <Compile Include="Injector\Solver\RequirementsTest.cs" />
     <Compile Include="Injector\Solver\SelectionsTest.cs" />
     <Compile Include="Injector\Solver\SolverTest.cs" />

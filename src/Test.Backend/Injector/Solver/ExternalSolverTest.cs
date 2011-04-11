@@ -20,13 +20,13 @@ using NUnit.Framework;
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Contains test methods for <see cref="PythonSolver"/>.
+    /// Contains test methods for <see cref="ExternalSolver"/>.
     /// </summary>
     [TestFixture(Ignore = true, IgnoreReason = "Won't work in continous build systems")]
-    public class PythonSolverTest : SolverTest
+    public class ExternalSolverTest : SolverTest
     {
-        public PythonSolverTest()
-            : base(new PythonSolver())
+        public ExternalSolverTest()
+            : base(new ExternalSolver())
         { }
     }
 }
