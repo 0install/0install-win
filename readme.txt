@@ -23,7 +23,7 @@ To build the external solver:
 - Perform a Git clone of git://repo.or.cz/zeroinstall/solver.git.
 - Open a console and change the current directory to the GIT checkout.
 - Call "setup.py py2exe".
-- Copy the newly created "dist" directory to build/Bundled/Solver.
+- Copy the content of the "dist" directory as well as the "0solve" file to build/Bundled/Solver.
 
 
 

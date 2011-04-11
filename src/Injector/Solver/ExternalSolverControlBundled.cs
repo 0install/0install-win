@@ -38,6 +38,9 @@ namespace ZeroInstall.Injector.Solver
         {
             var startInfo = base.GetStartInfo(arguments);
 
+            // Supress unimportant warnings
+            startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
+
             // Add bundled GnuPG to search path for the external solver to use on Windows
             string gnuPGDirectory = GetBundledDirectory("GnuPG");
             if (WindowsUtils.IsWindows && File.Exists(Path.Combine(gnuPGDirectory, "gpg.exe")))

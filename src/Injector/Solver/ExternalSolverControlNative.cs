@@ -17,7 +17,6 @@
 
 using System.Diagnostics;
 using System.IO;
-using Common;
 using Common.Cli;
 
 namespace ZeroInstall.Injector.Solver
@@ -39,7 +38,10 @@ namespace ZeroInstall.Injector.Solver
             var startInfo = base.GetStartInfo(Path.Combine(solverDirectory, "0solve") + " " + arguments);
 
             // Add bundled Python scripts to Python search path
-            startInfo.EnvironmentVariables["PYTHONPATH"] = Path.Combine(solverDirectory, "library.zip") + Path.PathSeparator + startInfo.EnvironmentVariables["PYTHONPATH"];
+            startInfo.EnvironmentVariables["PYTHONPATH_APPEND"] = Path.Combine(solverDirectory, "library.zip");
+
+            // Supress unimportant warnings
+            startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
 
             return startInfo;
         }
