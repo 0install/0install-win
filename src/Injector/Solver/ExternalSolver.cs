@@ -90,6 +90,8 @@ namespace ZeroInstall.Injector.Solver
                 if (requirements.Architecture.Cpu != Cpu.All) arguments += "--cpu=" + requirements.Architecture.Cpu + " ";
             }
             //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
+            for (int i = 0; i < policy.Verbosity; i++)
+                arguments += "--verbose";
 
             return arguments;
         }

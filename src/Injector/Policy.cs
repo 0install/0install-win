@@ -59,6 +59,12 @@ namespace ZeroInstall.Injector
         /// A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.
         /// </summary>
         public IHandler Handler { get; private set; }
+
+        /// <summary>
+        /// The detail level of messages printed to the console.
+        /// 0 = normal, 1 = verbose, 2 = very verbose
+        /// </summary>
+        public int Verbosity { get; set; }
         #endregion
 
         #region Constructor
