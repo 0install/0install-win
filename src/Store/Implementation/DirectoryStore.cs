@@ -112,7 +112,11 @@ namespace ZeroInstall.Store.Implementation
             }
 
             // Prevent any further changes to the directory
-            try { FileUtils.WriteProtection(target, true); }
+            try { FileUtils.EnableWriteProtection(target); }
+            catch (IOException)
+            {
+                Log.Warn("Unable to enable write protection for " + target);
+            }
             catch (UnauthorizedAccessException)
             {
                 Log.Warn("Unable to enable write protection for " + target);
@@ -352,7 +356,7 @@ namespace ZeroInstall.Store.Implementation
             string path = GetPath(manifestDigest);
 
             // Remove write protection
-            FileUtils.WriteProtection(path, false);
+            FileUtils.DisableWriteProtection(path);
 
             var tempDir = Path.Combine(DirectoryPath, Path.GetRandomFileName());
 

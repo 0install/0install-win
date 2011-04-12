@@ -200,78 +200,137 @@ namespace Common.Utils
         }
         #endregion
 
+        #region Directory walking
+        /// <summary>
+        /// Walks a directory structure recursivley and performs an action for every directory and file encountered.
+        /// </summary>
+        /// <param name="directory">The directory to walk.</param>
+        /// <param name="dirAction">The action to perform for every found directory (including the starting <paramref name="directory"/>); may be <see langword="null"/>.</param>
+        /// <param name="fileAction">The action to perform for every found file; may be <see langword="null"/>.</param>
+        public static void WalkDirectory(DirectoryInfo directory, Action<DirectoryInfo> dirAction, Action<FileInfo> fileAction)
+        {
+            #region Sanity checks
+            if (directory == null) throw new ArgumentNullException("directory");
+            if (!directory.Exists) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
+            #endregion
+
+            if (dirAction != null) dirAction(directory);            
+            foreach (var subDir in directory.GetDirectories())
+                WalkDirectory(subDir, dirAction, fileAction);
+
+            if (fileAction != null)
+                foreach (var file in directory.GetFiles())
+                    fileAction(file);
+        }
+        #endregion
+
         #region Permssions
         /// <summary>Recursivley deny everyone write access to a directory.</summary>
         private static readonly FileSystemAccessRule _denyAllWrite = new FileSystemAccessRule(new SecurityIdentifier("S-1-1-0"), FileSystemRights.Write, InheritanceFlags.ContainerInherit | InheritanceFlags.ObjectInherit, PropagationFlags.None, AccessControlType.Deny);
 
         /// <summary>
-        /// Uses whatever means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
+        /// Uses the best means the current platform provides to prevent further write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
         /// </summary>
         /// <remarks>May do nothing if the platform doesn't provide any known protection mechanisms.</remarks>
         /// <param name="path">The directory to protect.</param>
-        /// <param name="enable"><see langword="true"/> to apply the write protection, <see langword="false"/> to remove it again.</param>
+        /// <exception cref="IOException">Thrown if there was a problem applying the write protection.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to apply the write protection.</exception>
-        public static void WriteProtection(string path, bool enable)
+        public static void EnableWriteProtection(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             if (!Directory.Exists(path)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
             #endregion
 
-            var dirInfo = new DirectoryInfo(path);
+            var directory = new DirectoryInfo(path);
 
+            // Use only best method for platform
             switch (Environment.OSVersion.Platform)
             {
                 case PlatformID.Unix:
                 case PlatformID.MacOSX:
-                    try
-                    {
-                        // Make directory read-only (or undo it)
-                        if (enable) MonoUtils.MakeReadOnly(path);
-                        else MonoUtils.MakeWritable(path);
-
-                        // Recurse into subdirectories
-                        foreach (var directory in dirInfo.GetDirectories())
-                            WriteProtection(directory.FullName, enable);
-
-                        // Make files read-only (or undo it)
-                        foreach (var file in dirInfo.GetFiles())
-                        {
-                            if (enable) MonoUtils.MakeReadOnly(file.FullName);
-                            else MonoUtils.MakeWritable(file.FullName);
-                        }
-                        break;
-                    }
-                    #region Error handling
-                    catch (InvalidOperationException ex)
-                    {
-                        throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
-                    }
-                    catch (IOException ex)
-                    {
-                        throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
-                    }
-                    #endregion
+                    ToggleWriteProtectionUnix(directory, true);
+                    break;
 
                 case PlatformID.Win32Windows:
-                    // Recurse into subdirectories
-                    foreach (var directory in dirInfo.GetDirectories())
-                        WriteProtection(directory.FullName, enable);
-
-                    // Make files read-only (or undo it)
-                    foreach (var file in dirInfo.GetFiles())
-                        file.IsReadOnly = enable;
+                    ToggleWriteProtection32(directory, true);
                     break;
 
                 case PlatformID.Win32NT:
-                    // Set recursive ACL
-                    DirectorySecurity security = dirInfo.GetAccessControl();
-                    if (enable) security.AddAccessRule(_denyAllWrite);
-                    else security.RemoveAccessRule(_denyAllWrite);
-                    dirInfo.SetAccessControl(security);
+                    ToggleWriteProtectionNT(directory, true);
                     break;
             }
         }
+
+        /// <summary>
+        /// Removes whatever means the current platform provides to prevent write access to a directory (read-only attribute, ACLs, Unix octals, etc.).
+        /// </summary>
+        /// <remarks>May do nothing if the platform doesn't provide any known protection mechanisms.</remarks>
+        /// <param name="path">The directory to unprotect.</param>
+        /// <exception cref="IOException">Thrown if there was a problem removing the write protection.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if you have insufficient rights to remove the write protection.</exception>
+        public static void DisableWriteProtection(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            if (!Directory.Exists(path)) throw new DirectoryNotFoundException(Resources.SourceDirNotExist);
+            #endregion
+
+            var directory = new DirectoryInfo(path);
+
+            // Disable all applicable methods
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    ToggleWriteProtectionUnix(directory, false);
+                    break;
+
+                case PlatformID.Win32Windows:
+                    ToggleWriteProtection32(directory, false);
+                    break;
+
+                case PlatformID.Win32NT:
+                    ToggleWriteProtection32(directory, false);
+                    ToggleWriteProtectionNT(directory, false);
+                    break;
+            }
+        }
+
+        #region Helpers
+        private static void ToggleWriteProtectionUnix(DirectoryInfo directory, bool enable)
+        {
+            try
+            {
+                if (enable) WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
+                else WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
+            }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            catch (IOException ex)
+            {
+                throw new IOException(Resources.UnixSubsystemFail, ex);
+            }
+            #endregion
+        }
+
+        private static void ToggleWriteProtection32(DirectoryInfo directory, bool enable)
+        {
+            WalkDirectory(directory, null, file => file.IsReadOnly = enable);
+        }
+
+        private static void ToggleWriteProtectionNT(DirectoryInfo directory, bool enable)
+        {
+            DirectorySecurity security = directory.GetAccessControl();
+            if (enable) security.AddAccessRule(_denyAllWrite);
+            else security.RemoveAccessRule(_denyAllWrite);
+            directory.SetAccessControl(security);
+        }
+        #endregion
+
         #endregion
 
         #region Unix
@@ -295,11 +354,11 @@ namespace Common.Utils
                 #region Error handling
                 catch (InvalidOperationException ex)
                 {
-                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
                 }
                 catch (IOException ex)
                 {
-                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
                 }
                 #endregion
             }
@@ -323,11 +382,11 @@ namespace Common.Utils
                 #region Error handling
                 catch (InvalidOperationException ex)
                 {
-                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
                 }
                 catch (IOException ex)
                 {
-                    throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                    throw new IOException(Resources.UnixSubsystemFail, ex);
                 }
                 #endregion
             }
@@ -356,11 +415,11 @@ namespace Common.Utils
             #region Error handling
             catch (InvalidOperationException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             catch (IOException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             #endregion
         }
@@ -379,11 +438,11 @@ namespace Common.Utils
             #region Error handling
             catch (InvalidOperationException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             catch (IOException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             #endregion
         }
@@ -407,11 +466,11 @@ namespace Common.Utils
             #region Error handling
             catch (InvalidOperationException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             catch (IOException ex)
             {
-                throw new UnauthorizedAccessException(Resources.UnixSubsystemFail, ex);
+                throw new IOException(Resources.UnixSubsystemFail, ex);
             }
             #endregion
         }

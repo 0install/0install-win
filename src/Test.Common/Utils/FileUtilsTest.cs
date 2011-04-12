@@ -25,6 +25,7 @@ using System.IO;
 using System.Security.Cryptography;
 using Common.Storage;
 using NUnit.Framework;
+using NUnit.Mocks;
 
 namespace Common.Utils
 {
@@ -242,6 +243,37 @@ namespace Common.Utils
 
                 FileUtils.SetExecutable(tempFile.Path, false);
                 Assert.IsFalse(FileUtils.IsExecutable(tempFile.Path), "File should no longer be executable");
+            }
+        }
+        #endregion
+
+        #region Directory walking
+        // Interfaces used for mocking delegates
+        private interface IActionSimulator<T> { void Invoke(T obj); }
+
+        [Test]
+        public void TestWalkDirectory()
+        {
+            using (var tempDir = new TemporaryDirectory("unit-tests"))
+            {
+                string subDirPath = Path.Combine(tempDir.Path, "subdir");
+                Directory.CreateDirectory(subDirPath);
+                string filePath = Path.Combine(subDirPath, "file");
+                File.WriteAllText(filePath, "");
+
+                // Set up delegate mocks
+                var dirCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
+                dirCallbackMock.Expect("Invoke", tempDir.Path);
+                dirCallbackMock.Expect("Invoke", subDirPath);
+                var dirCallback = (IActionSimulator<string>)dirCallbackMock.MockInstance;
+                var fileCallbackMock = new DynamicMock(typeof(IActionSimulator<string>));
+                fileCallbackMock.Expect("Invoke", filePath);
+                var fileCallback = (IActionSimulator<string>)fileCallbackMock.MockInstance;
+
+                FileUtils.WalkDirectory(new DirectoryInfo(tempDir.Path), subDir => dirCallback.Invoke(subDir.FullName), file => fileCallback.Invoke(file.FullName));
+
+                dirCallbackMock.Verify();
+                fileCallbackMock.Verify();
             }
         }
         #endregion
