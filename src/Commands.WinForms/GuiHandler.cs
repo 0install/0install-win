@@ -94,10 +94,12 @@ namespace ZeroInstall.Commands.WinForms
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };
 
+            // Show the tray icon or the form
             if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
             else _form.Show();
-            _guiReady.Set();
 
+            // Start the message loop and set the wait handle as soon as it is running
+            Application.Idle += delegate { _guiReady.Set(); };
             Application.Run();
         }
 
