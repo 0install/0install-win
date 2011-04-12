@@ -109,7 +109,7 @@ namespace ZeroInstall.Store.Implementation
         /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="manifestDigest"/> provides no hash methods.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if no implementation matching <paramref name="manifestDigest"/> could be found in the store.</exception>
-        /// <exception cref="IOException">Thrown if the implementation could not be deleted because it was in use.</exception>
+        /// <exception cref="IOException">Thrown if the implementation could not be deleted.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the store is not permitted.</exception>
         void Remove(ManifestDigest manifestDigest, ITaskHandler handler);
 
