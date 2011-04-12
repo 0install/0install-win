@@ -330,7 +330,8 @@ namespace Common.Utils
             #endregion
 
             int index = sourceText.LastIndexOf(str);
-            return index == -1 ? sourceText : sourceText.Substring(index + str.Length);
+            
+            return index == -1 ? "" : sourceText.Substring(index + str.Length);
         }
         #endregion
 
