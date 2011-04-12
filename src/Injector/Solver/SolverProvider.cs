@@ -18,7 +18,7 @@
 namespace ZeroInstall.Injector.Solver
 {
     /// <summary>
-    /// Creates <see cref="ISolver"/> instances.
+    /// Provides <see cref="ISolver"/> instances.
     /// </summary>
     public static class SolverProvider
     {
