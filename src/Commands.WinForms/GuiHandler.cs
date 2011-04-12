@@ -78,8 +78,6 @@ namespace ZeroInstall.Commands.WinForms
             if (_form != null) return;
 
             _form = new ProgressForm(cancelCallback);
-            _form.HandleCreated += delegate { _guiReady.Set(); };
-            _form.HandleDestroyed += delegate { _form = null; _guiReady.Reset(); };
 
             // Initialize GUI with a low priority
             new Thread(GuiThread) {Priority = ThreadPriority.Lowest}.Start();
@@ -98,6 +96,7 @@ namespace ZeroInstall.Commands.WinForms
 
             if (Batch) _form.ShowTrayIcon(ActionTitle, ToolTipIcon.None);
             else _form.Show();
+            _guiReady.Set();
 
             Application.Run();
         }

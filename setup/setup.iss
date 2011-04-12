@@ -23,8 +23,8 @@
 [CustomMessages]
 win2000sp4_title=Windows 2000 Service Pack 4
 winxpsp2_title=Windows XP Service Pack 2
-en.compile_netfx=Pre-compile .NET assemblies for faster application startup
-de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren
+en.compile_netfx=Pre-compiling .NET assemblies for faster application startup...
+de.compile_netfx=.NET Assemblies werden zum schnelleren Anwendugsstart vorkompilieren...
 
 ;Used by downloader
 appname=Zero Install
@@ -131,7 +131,6 @@ Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}
 Name: modifypath; Description: {cm:AddToPath}
-Name: compile_netfx; Description: {cm:compile_netfx}
 [Icons]
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.de/
@@ -142,13 +141,13 @@ Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /auto
 
 ;Post-installations tasks
 [Run]
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install-win.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0launch.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install ZeroInstall.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store-win.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install StoreService.exe /nologo; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}; Tasks: compile_netfx
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
 
 [Code]
