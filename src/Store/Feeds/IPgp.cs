@@ -26,7 +26,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
         /// <returns>The public key in the ASCII Armored format.</returns>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public string GetPublicKey(string name);
+        string GetPublicKey(string name);
 
         /// <summary>
         /// Returns information about a specific secret key.
@@ -34,13 +34,13 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="name">The name of the user or the ID of the private key to get information about; <see langword="null"/> for default key.</param>
         /// <exception cref="KeyNotFoundException">Thrown if the couldn't be found on the system.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public GnuPGSecretKey GetSecretKey(string name);
+        GnuPGSecretKey GetSecretKey(string name);
 
         /// <summary>
         /// Returns a list of information about available secret keys.
         /// </summary>
         /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        public GnuPGSecretKey[] ListSecretKeys();
+        GnuPGSecretKey[] ListSecretKeys();
         #endregion
 
     }
