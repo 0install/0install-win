@@ -61,7 +61,7 @@
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheProvider.cs" />
     <Compile Include="Feeds\GnuPG.cs" />
-    <Compile Include="Feeds\GnuPGSecretKey.cs" />
+    <Compile Include="Feeds\PgpSecretKey.cs" />
     <Compile Include="Feeds\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />

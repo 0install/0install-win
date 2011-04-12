@@ -15,24 +15,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-using System;
-using System.IO;
-using Common.Collections;
-using Common.Storage;
-
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Creates <see cref="IPgp"/> instances.
+    /// Provides <see cref="IPgp"/> instances.
     /// </summary>
     public static class PgpProvider
     {
+        private static readonly IPgp _default = new GnuPG();
         /// <summary>
-        /// Creates an <see cref="IPgp"/> instance.
+        /// Returns the default implementation of <see cref="IPgp"/>.
         /// </summary>
-        public static IPgp CreateDefault()
-        {
-            return new GnuPG();
-        }
+        public static IPgp Default { get { return _default; } }
     }
 }

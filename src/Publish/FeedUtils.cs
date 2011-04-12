@@ -71,14 +71,14 @@ namespace ZeroInstall.Publish
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            var gnuPG = new GnuPG();
+            var pgp = PgpProvider.Default;
 
             // Delete any pre-exisiting signature file
             string signatureFile = path + ".sig";
             if (File.Exists(signatureFile)) File.Delete(signatureFile);
 
             // Create a new signature file, parse it as Base64 and then delete it again
-            gnuPG.DetachSign(path, name, passphrase);
+            pgp.DetachSign(path, name, passphrase);
             string base64Signature = Convert.ToBase64String(File.ReadAllBytes(signatureFile));
             File.Delete(signatureFile);
 
@@ -96,8 +96,8 @@ namespace ZeroInstall.Publish
             string feedDir = Path.GetDirectoryName(Path.GetFullPath(path));
             if (feedDir != null)
             {
-                string publicKeyFile = Path.Combine(feedDir, gnuPG.GetSecretKey(name).KeyID + ".gpg");
-                File.WriteAllText(publicKeyFile, gnuPG.GetPublicKey(name), Encoding.ASCII);
+                string publicKeyFile = Path.Combine(feedDir, pgp.GetSecretKey(name).KeyID + ".gpg");
+                File.WriteAllText(publicKeyFile, pgp.GetPublicKey(name), Encoding.ASCII);
             }
         }
 

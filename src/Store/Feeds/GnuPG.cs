@@ -42,7 +42,6 @@ namespace ZeroInstall.Store.Feeds
 
         #region Keys
         /// <inheritdoc/>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
         public string GetPublicKey(string name)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
@@ -52,8 +51,7 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        public GnuPGSecretKey GetSecretKey(string name)
+        public PgpSecretKey GetSecretKey(string name)
         {
             var secretKeys = ListSecretKeys();
 
@@ -69,31 +67,21 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="FormatException">Thrown if GnuPG's output cannot be properly parsed.</exception>
-        public GnuPGSecretKey[] ListSecretKeys()
+        public PgpSecretKey[] ListSecretKeys()
         {
             string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null, ErrorHandler);
             string[] lines = StringUtils.SplitMultilineText(result);
-            var keys = new List<GnuPGSecretKey>(lines.Length / 2);
+            var keys = new List<PgpSecretKey>(lines.Length / 2);
 
             foreach (var line in lines)
-                if (line.StartsWith("sec")) keys.Add(GnuPGSecretKey.Parse(line));
+                if (line.StartsWith("sec")) keys.Add(PgpSecretKey.Parse(line));
 
             return keys.ToArray();
         }
         #endregion
 
         #region Signature
-        /// <summary>
-        /// Creates a detached signature for a specific file using the user's default key.
-        /// </summary>
-        /// <param name="path">The file to create the signature for.</param>
-        /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
-        /// <param name="passphrase">The passphrase to use to unlock the user's default key.</param>
-        /// <exception cref="FileNotFoundException">Thrown if the file to be signed could not be found.</exception>
-        /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <inheritdoc/>
         public void DetachSign(string path, string name, string passphrase)
         {
             #region Sanity checks
@@ -111,12 +99,8 @@ namespace ZeroInstall.Store.Feeds
         #endregion
 
         #region Verify
-        /// <summary>
-        /// ToDo
-        /// </summary>
-        /// <param name="signature"></param>
-        /// <param name="data"></param>
-        public void Verify(string signature, string data)
+        /// <inheritdoc/>
+        public void Verify(string data, string signature)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(signature)) throw new ArgumentNullException("signature");
