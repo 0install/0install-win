@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Provides access to the signature functions of GnuPG.
     /// </summary>
-    public class GnuPG : BundledCliAppControl
+    public class GnuPG : BundledCliAppControl, IPgp
     {
         #region Properties
         /// <inheritdoc/>
@@ -41,13 +41,8 @@ namespace ZeroInstall.Store.Feeds
         //--------------------//
 
         #region Keys
-        /// <summary>
-        /// Returns a specific public key.
-        /// </summary>
-        /// <param name="name">The name of the user or the ID of the private key to use for signing the file; <see langword="null"/> for default key.</param>
-        /// <returns>The public key in the ASCII Armored format.</returns>
+        /// <inheritdoc/>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         public string GetPublicKey(string name)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
@@ -56,13 +51,8 @@ namespace ZeroInstall.Store.Feeds
             return Execute(arguments, null, ErrorHandler);
         }
 
-        /// <summary>
-        /// Returns information about a specific secret key.
-        /// </summary>
-        /// <param name="name">The name of the user or the ID of the private key to get information about; <see langword="null"/> for default key.</param>
+        /// <inheritdoc/>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
-        /// <exception cref="FormatException">Thrown if GnuPG's output cannot be properly parsed.</exception>
         public GnuPGSecretKey GetSecretKey(string name)
         {
             var secretKeys = ListSecretKeys();
@@ -78,11 +68,8 @@ namespace ZeroInstall.Store.Feeds
             throw new KeyNotFoundException(Resources.UnableToFindSecretKey);
         }
 
-        /// <summary>
-        /// Returns a list of information about available secret keys.
-        /// </summary>
+        /// <inheritdoc/>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
         /// <exception cref="FormatException">Thrown if GnuPG's output cannot be properly parsed.</exception>
         public GnuPGSecretKey[] ListSecretKeys()
         {

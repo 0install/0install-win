@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Commands\FeedCommand.cs" />
     <Compile Include="FeedEditing.cs" />
+    <Compile Include="FeedSignatureManager.cs" />
     <Compile Include="FeedUtils.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

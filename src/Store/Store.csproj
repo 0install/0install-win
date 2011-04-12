@@ -53,7 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Feeds\IPgp.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
+    <Compile Include="Feeds\PgpProvider.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
