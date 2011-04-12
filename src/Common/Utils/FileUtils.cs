@@ -291,8 +291,8 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32NT:
-                    ToggleWriteProtection32(directory, false);
                     ToggleWriteProtectionNT(directory, false);
+                    ToggleWriteProtection32(directory, false);
                     break;
             }
         }
@@ -303,7 +303,7 @@ namespace Common.Utils
             try
             {
                 if (enable) WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
-                else WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
+                else WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeWritable(file.FullName));
             }
             #region Error handling
             catch (InvalidOperationException ex)
