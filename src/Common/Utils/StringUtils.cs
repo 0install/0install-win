@@ -34,17 +34,6 @@ namespace Common.Utils
     /// </summary>
     public static class StringUtils
     {
-        #region File paths
-        /// <summary>
-        /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
-        /// </summary>
-        public static string UnifySlashes(string value)
-        {
-            if (value == null) return null;
-            return value.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
-        }
-        #endregion
-
         #region Comparing
         /// <summary>
         /// Compare strings using case insensitive, invariant culture comparison.
@@ -375,6 +364,15 @@ namespace Common.Utils
         #endregion
 
         #region Files
+        /// <summary>
+        /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
+        /// </summary>
+        public static string UnifySlashes(string value)
+        {
+            if (value == null) return null;
+            return value.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
+        }
+
         /// <summary>
         /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
         /// </summary>
