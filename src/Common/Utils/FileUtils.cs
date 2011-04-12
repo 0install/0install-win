@@ -253,11 +253,11 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32Windows:
-                    ToggleWriteProtection32(directory, true);
+                    ToggleWriteProtectionWin32(directory, true);
                     break;
 
                 case PlatformID.Win32NT:
-                    ToggleWriteProtectionNT(directory, true);
+                    ToggleWriteProtectionWinNT(directory, true);
                     break;
             }
         }
@@ -287,12 +287,14 @@ namespace Common.Utils
                     break;
 
                 case PlatformID.Win32Windows:
-                    ToggleWriteProtection32(directory, false);
+                    ToggleWriteProtectionWin32(directory, false);
                     break;
 
                 case PlatformID.Win32NT:
-                    ToggleWriteProtectionNT(directory, false);
-                    ToggleWriteProtection32(directory, false);
+                    // Recursive ACL may start in any sub direcory
+                    WalkDirectory(directory, subDir => ToggleWriteProtectionWinNT(subDir, false), null);
+
+                    ToggleWriteProtectionWin32(directory, false);
                     break;
             }
         }
@@ -303,7 +305,7 @@ namespace Common.Utils
             try
             {
                 if (enable) WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeReadOnly(file.FullName));
-                else WalkDirectory(directory, subDir => MonoUtils.MakeReadOnly(subDir.FullName), file => MonoUtils.MakeWritable(file.FullName));
+                else WalkDirectory(directory, subDir => MonoUtils.MakeWritable(subDir.FullName), file => MonoUtils.MakeWritable(file.FullName));
             }
             #region Error handling
             catch (InvalidOperationException ex)
@@ -317,12 +319,12 @@ namespace Common.Utils
             #endregion
         }
 
-        private static void ToggleWriteProtection32(DirectoryInfo directory, bool enable)
+        private static void ToggleWriteProtectionWin32(DirectoryInfo directory, bool enable)
         {
             WalkDirectory(directory, null, file => file.IsReadOnly = enable);
         }
 
-        private static void ToggleWriteProtectionNT(DirectoryInfo directory, bool enable)
+        private static void ToggleWriteProtectionWinNT(DirectoryInfo directory, bool enable)
         {
             DirectorySecurity security = directory.GetAccessControl();
             if (enable) security.AddAccessRule(_denyAllWrite);
