@@ -60,7 +60,11 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="store">The <see cref="IStore"/> the implementation is located in.</param>
         /// <param name="digest">The digest identifying the implementation.</param>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
-        protected ImplementationNode(IStore store, ManifestDigest digest, MainForm parent) : base(parent)
+        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
+        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        protected ImplementationNode(IStore store, ManifestDigest digest, MainForm parent)
+            : base(parent)
         {
             #region Sanity checks
             if (store == null) throw new ArgumentNullException("store");
@@ -71,8 +75,7 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
 
             // Determine the total size of an implementation via its manifest file
             string manifestPath = Path.Combine(store.GetPath(digest), ".manifest");
-            if (File.Exists(manifestPath))
-                Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
+            Size = Manifest.Load(manifestPath, ManifestFormat.FromPrefix(digest.BestPrefix)).TotalSize;
         }
         #endregion
 

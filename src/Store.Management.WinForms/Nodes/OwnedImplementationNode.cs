@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.IO;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
 
@@ -68,6 +69,9 @@ namespace ZeroInstall.Store.Management.WinForms.Nodes
         /// <param name="iface">The node of the interface owning the implementation.</param>
         /// <param name="implementation">Information about the implementation from a <see cref="Model.Feed"/> file.</param>
         /// <param name="parent">The window containing this node. Used for callbacks.</param>
+        /// <exception cref="FormatException">Thrown if the manifest file is not valid.</exception>
+        /// <exception cref="IOException">Thrown if the manifest file could not be read.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         public OwnedImplementationNode(IStore store, ManifestDigest digest, FeedNode iface, Model.Implementation implementation, MainForm parent)
             : base(store, digest, parent)
         {

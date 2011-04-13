@@ -77,20 +77,38 @@ namespace ZeroInstall.Store.Management.WinForms
                 var store = StoreProvider.CreateDefault();
                 foreach (var digest in store.ListAll())
                 {
-                    Feed feed;
-                    var implementation = ImplementationUtils.GetImplementation(digest, feeds, out feed);
+                    try
+                    {
+                        Feed feed;
+                        var implementation = ImplementationUtils.GetImplementation(digest, feeds, out feed);
 
-                    ImplementationNode implementationNode;
-                    if (feed == null) implementationNode = new OrphanedImplementationNode(store, digest, this);
-                    else implementationNode = new OwnedImplementationNode(store, digest, new FeedNode(cache, feed, this), implementation, this);
-                    
-                    totalSize += implementationNode.Size;
-                    AddWithIncrement(nodes, implementationNode);
+                        ImplementationNode implementationNode;
+                        if (feed == null) implementationNode = new OrphanedImplementationNode(store, digest, this);
+                        else implementationNode = new OwnedImplementationNode(store, digest, new FeedNode(cache, feed, this), implementation, this);
+
+                        totalSize += implementationNode.Size;
+                        AddWithIncrement(nodes, implementationNode);
+                    }
+                    #region Sanity checks
+                    // ToDo: Display less intrusive messages
+                    catch (FormatException ex)
+                    {
+                        Msg.Inform(this, string.Format("Problem processing the manifest file for '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                    }
+                    catch (IOException ex)
+                    {
+                        Msg.Inform(this, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                    }
+                    catch (UnauthorizedAccessException ex)
+                    {
+                        Msg.Inform(this, string.Format("Problem processing '{0}'.\n" + ex.Message, digest), MsgSeverity.Error);
+                    }
+                    #endregion
                 }
 
                 _treeView.Entries = nodes;
                 _treeView.SelectedEntry = null;
-                buttonRemove.Enabled = false;
+                buttonVerify.Enabled = buttonRemove.Enabled = false;
 
                 // Update total size
                 textTotalSize.Text = StringUtils.FormatBytes(totalSize);
