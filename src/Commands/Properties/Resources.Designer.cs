@@ -223,7 +223,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was already registered..
+        ///   Looks up a localized string similar to The feed was already registered for all appropriate interfaces..
         /// </summary>
         internal static string FeedAlreadyRegistered {
             get {
@@ -241,7 +241,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was not registered..
+        ///   Looks up a localized string similar to The feed was not registered for any interfaces..
         /// </summary>
         internal static string FeedNotRegistered {
             get {
@@ -250,7 +250,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was successfully registered..
+        ///   Looks up a localized string similar to The feed was successfully registered for all appropriate interfaces..
         /// </summary>
         internal static string FeedRegistered {
             get {
@@ -268,7 +268,7 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The feed was successfully unregistered..
+        ///   Looks up a localized string similar to The feed was successfully unregistered for all interfaces..
         /// </summary>
         internal static string FeedUnregistered {
             get {

@@ -75,6 +75,7 @@ namespace ZeroInstall.Commands
             else
             {
                 feedID = ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs[0]));
+
                 Policy.FeedManager.Refresh = true;
                 bool stale;
                 var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);

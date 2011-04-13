@@ -17,7 +17,7 @@
 
 using System;
 using System.IO;
-using ZeroInstall.Injector.Properties;
+using System.Net;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
@@ -65,7 +65,11 @@ namespace ZeroInstall.Injector.Feeds
         /// <param name="stale">Indicates that the returned <see cref="Model.Feed"/> should be updated.</param>
         /// <returns>The parsed <see cref="Model.Feed"/> object.</returns>
         /// <remarks><see cref="Model.Feed"/>s are always served from the <see cref="Cache"/> if possible, unless <see cref="Refresh"/> is set to <see langword="true"/>.</remarks>
-        // ToDo: Add exceptions (file not found, GPG key invalid, ...)
+        /// <exception cref="Model.InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
+        /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
+        /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
+        // ToDo: Add exceptions (fGPG key invalid, ...)
         public Model.Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
@@ -84,14 +88,19 @@ namespace ZeroInstall.Injector.Feeds
                 // ToDo: Detect when feeds get out-of-date
                 stale = false;
 
-                return Cache.GetFeed(feedID);
+                try { return Cache.GetFeed(feedID); }
+                catch(InvalidOperationException ex)
+                {
+                    // ToDo: Try mirror server
+                    throw new IOException(ex.Message, ex);
+                }
             }
 
             if (policy.Config.NetworkUse == NetworkLevel.Offline)
-                throw new FileNotFoundException(string.Format("Offline mode", feedID), feedID);
+                throw new IOException(string.Format("Offline mode", feedID));
 
             // ToDo: Download, verify and cache feed
-            throw new FileNotFoundException(string.Format("Not cached", feedID), feedID);
+            throw new IOException(string.Format("Not cached", feedID));
         }
         #endregion
         
