@@ -108,6 +108,7 @@
       <Abbreviation Text="PG" />
       <Abbreviation Text="RC" />
       <Abbreviation Text="UI" />
+      <Abbreviation Text="NT" />
     </Naming2>
   </CodeStyleSettings>
   <SharedSolutionTemplateManager>
