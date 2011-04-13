@@ -169,7 +169,7 @@ namespace Common.Tasks
         /// </summary>
         private void RunTask()
         {
-            lock(_stateLock) State = TaskState.Header;
+            lock(_stateLock) State = TaskState.Data;
 
             try { _task(); }
             #region Error handling

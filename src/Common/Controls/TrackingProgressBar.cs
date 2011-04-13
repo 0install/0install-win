@@ -160,10 +160,13 @@ namespace Common.Controls
                         break;
 
                     case TaskState.Data:
-                        // Only track progress if the final size is known
-                        if (sender.BytesTotal != -1)
+                        if (sender.BytesTotal == -1)
                         {
-                            _task.ProgressChanged += ProgressChanged;
+                            Style = ProgressBarStyle.Marquee;
+                            if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Indeterminate, formHandle);
+                        }
+                        else
+                        {
                             Style = ProgressBarStyle.Continuous;
                             if (UseTaskbar && formHandle != IntPtr.Zero) WindowsUtils.SetProgressState(TaskbarProgressBarState.Normal, formHandle);
                         }
