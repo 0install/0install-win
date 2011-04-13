@@ -78,7 +78,7 @@ namespace ZeroInstall.Store.Implementation
         {
             const int numberOfParts = 2;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             return new ManifestDirectory(parts[1]);
         }
@@ -93,7 +93,7 @@ namespace ZeroInstall.Store.Implementation
         {
             const int numberOfParts = 3;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             try { return new ManifestDirectory(long.Parse(parts[1]), parts[2]); }
             #region Error handling

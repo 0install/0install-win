@@ -365,7 +365,18 @@ namespace ZeroInstall.Store.Implementation
 
             // Defer deleting to handler
             handler.RunTask(
-                new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest), () => Directory.Delete(tempDir, true)),
+                new SimpleTask(string.Format(Resources.DeletingImplementation, manifestDigest.BestDigest),
+                    delegate
+                    {
+                        try { Directory.Delete(tempDir, true); }
+                        #region Error handling
+                        catch (UnauthorizedAccessException ex)
+                        {
+                            // Wrap exception since only certain exceptions are allowed in tasks
+                            throw new IOException(ex.Message, ex);
+                        }
+                        #endregion
+                    }),
                 manifestDigest);
         }
         #endregion

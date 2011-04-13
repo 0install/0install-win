@@ -76,7 +76,7 @@ namespace ZeroInstall.Store.Implementation
         {
             const int numberOfParts = 4;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             try { return new ManifestSymlink(parts[1], long.Parse(parts[2]), parts[3]); }
             #region Error handling

@@ -52,7 +52,7 @@ namespace ZeroInstall.Store.Implementation
         {
             const int numberOfParts = 5;
             string[] parts = line.Split(new[] { ' ' }, numberOfParts);
-            if (parts.Length != numberOfParts) throw new ArgumentException(Resources.InvalidNumberOfLineParts, "line");
+            if (parts.Length != numberOfParts) throw new FormatException(Resources.InvalidNumberOfLineParts);
 
             try { return new ManifestExecutableFile(parts[1], long.Parse(parts[2]), long.Parse(parts[3]), parts[4]); }
             #region Error handling

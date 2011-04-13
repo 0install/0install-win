@@ -19,6 +19,7 @@ using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Storage;
+using Common.Streams;
 using Common.Tasks;
 using NUnit.Framework;
 using NUnit.Mocks;
@@ -68,6 +69,26 @@ namespace ZeroInstall.Store.Implementation
 
             // Ensure data stayed the same
             Assert.AreEqual(manifest1, manifest2);
+        }
+
+        [Test(Description = "Ensures damaged manifest lines are correctly identified.")]
+        public void TestLoadException()
+        {
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1Old));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha1New));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("test"), ManifestFormat.Sha256));
+
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1Old));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha1New));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("D /test"), ManifestFormat.Sha256));
+
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1Old));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha1New));
+            Assert.DoesNotThrow(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 1200000000 128 test"), ManifestFormat.Sha256));
+
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1Old));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha1New));
+            Assert.Throws<FormatException>(() => Manifest.Load(StreamUtils.CreateFromString("F abc123 128 test"), ManifestFormat.Sha256));
         }
 
         [Test]
