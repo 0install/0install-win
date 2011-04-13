@@ -70,6 +70,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The feed &apos;{0}&apos; is not cached and Zero Install is currently in off-line mode..
+        /// </summary>
+        internal static string FeedNotCachedOffline {
+            get {
+                return ResourceManager.GetString("FeedNotCachedOffline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No interface was specified..
         /// </summary>
         internal static string MissingInterfaceID {

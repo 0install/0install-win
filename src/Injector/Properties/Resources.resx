@@ -123,6 +123,9 @@
   <data name="NotInterfaceID" xml:space="preserve">
     <value>The interface '{0}' doesn't start with 'http:' and doesn't exist as a file '{1}' either.</value>
   </data>
+  <data name="FeedNotCachedOffline" xml:space="preserve">
+    <value>The feed '{0}' is not cached and Zero Install is currently in off-line mode.</value>
+  </data>
   <data name="ExternalSolverOutputErrror" xml:space="preserve">
     <value>The output of the external solver could not be processed.</value>
   </data>
