@@ -64,7 +64,7 @@ namespace ZeroInstall.Commands.WinForms
             _guiReady.WaitOne();
 
             // Handle events coming from a non-UI thread, don't block caller
-            _form.Invoke(new SimpleEventHandler(() => _form.TrackTask(task, tag)));
+            _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task, tag)));
 
             task.RunSync();
         }
@@ -110,7 +110,9 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiReady.WaitOne();
 
+            _guiReady.Reset();
             _form.HideTrayIcon();
+            _form = null;
             Application.Exit();
         }
         #endregion
