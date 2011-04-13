@@ -91,7 +91,7 @@ namespace ZeroInstall.Injector.Solver
             }
             //if (additionalStore != null) arguments += "--store=" + additionalStore.DirectoryPath + " ";
             for (int i = 0; i < policy.Verbosity; i++)
-                arguments += "--verbose";
+                arguments += "--verbose ";
 
             return arguments;
         }
