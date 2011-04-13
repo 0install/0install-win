@@ -54,7 +54,7 @@ namespace Common.Tasks
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
         private readonly Thread _thread;
 
-        private readonly SimpleEventHandler _task;
+        private readonly SimpleEventHandler _w;
         #endregion
 
         #region Properties
@@ -89,16 +89,16 @@ namespace Common.Tasks
         /// Creates a new simple task.
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
-        /// <param name="task">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
-        public SimpleTask(string name, SimpleEventHandler task)
+        /// <param name="work">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
+        public SimpleTask(string name, SimpleEventHandler work)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (task == null) throw new ArgumentNullException("task");
+            if (work == null) throw new ArgumentNullException("task");
             #endregion
 
             Name = name;
-            _task = task;
+            _w = work;
 
             // Prepare the background thread for later execution
             _thread = new Thread(RunTask);
@@ -123,7 +123,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public void RunSync()
         {
-            try { _task(); }
+            try { _w(); }
             #region Error handling
             catch (WebException ex)
             {
@@ -133,7 +133,7 @@ namespace Common.Tasks
             }
             catch (IOException ex)
             {
-                State = TaskState.WebError;
+                State = TaskState.IOError;
                 ErrorMessage = ex.Message;
                 throw;
             }
@@ -171,7 +171,7 @@ namespace Common.Tasks
         {
             lock(_stateLock) State = TaskState.Data;
 
-            try { _task(); }
+            try { _w(); }
             #region Error handling
             catch (WebException ex)
             {
@@ -181,7 +181,7 @@ namespace Common.Tasks
             }
             catch (IOException ex)
             {
-                State = TaskState.WebError;
+                State = TaskState.IOError;
                 ErrorMessage = ex.Message;
                 return;
             }

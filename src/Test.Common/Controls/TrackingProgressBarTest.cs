@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Tasks;
 using NUnit.Framework;
 
 namespace Common.Controls

@@ -22,9 +22,8 @@
 
 using System;
 using System.Threading;
-using Common.Tasks;
 
-namespace Common
+namespace Common.Tasks
 {
     /// <summary>
     /// Pretends to perform a task for testing purposes
