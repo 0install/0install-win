@@ -18,6 +18,7 @@
 using System;
 using System.IO;
 using System.Net;
+using ZeroInstall.Injector.Properties;
 using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Injector.Feeds
@@ -97,10 +98,10 @@ namespace ZeroInstall.Injector.Feeds
             }
 
             if (policy.Config.NetworkUse == NetworkLevel.Offline)
-                throw new IOException(string.Format("Offline mode", feedID));
+                throw new IOException(string.Format(Resources.FeedNotCachedOffline, feedID));
 
             // ToDo: Download, verify and cache feed
-            throw new IOException(string.Format("Not cached", feedID));
+            throw new IOException(string.Format("The feed '{0}' is not cached. Please run '0install select {0}' first.", feedID));
         }
         #endregion
         
