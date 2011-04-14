@@ -16,10 +16,9 @@
  */
 
 using System.IO;
-using Common.Streams;
-using Common.Utils;
 using System;
 using System.Collections.Generic;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish
 {
@@ -43,18 +42,15 @@ namespace ZeroInstall.Publish
         /// </summary>
         /// <param name="feed">to parse out the signature from.</param>
         /// <returns>The base64 signature.</returns>
-        /// <exception cref="BadSignatureBlockException">If there is any defect with the signature.</exception>
+        /// <exception cref="SignatureException">If there is any defect with the signature.</exception>
         private string GetBase64Signature(string feed)
         {           
-            string signatureStartComment = "<!-- Base64 Signature";
+            const string signatureStartComment = "<!-- Base64 Signature";
 
             int signatureBlockStartIndex = feed.LastIndexOf("\n" + signatureStartComment);
 
             if (signatureBlockStartIndex == -1)
-            {
-                // TODO: throw new BadSignatureBlockException("No signature block in XML. Maybe this file isn't signed?");
-                throw new System.Exception();
-            }
+                throw new SignatureException("No signature block in XML. Maybe this file isn't signed?");
 
             signatureBlockStartIndex += 1; // include new-line in data
 
@@ -62,18 +58,11 @@ namespace ZeroInstall.Publish
             string[] signatureBlockLines = signatureBlock.Split('\n');
 
             if (signatureBlockLines[0].Trim() != signatureStartComment)
-            {
-                // TODO: throw new BadSignatureBlockException("Bad signature block: extra data on comment line.");
-                throw new System.Exception();
-            }
-
+                throw new SignatureException("Bad signature block: extra data on comment line.");
             if (signatureBlockLines[signatureBlockLines.Length - 1].Trim() != "-->")
-            {
-                // TODO: throw new BadSignatureBlockException("Bad signature block: last line is not end-of-comment.");
-                throw new System.Exception();
-            }
+                throw new SignatureException("Bad signature block: last line is not end-of-comment.");
 
-            LinkedList<string> signatureLines = new LinkedList<string>(signatureBlockLines);
+            var signatureLines = new LinkedList<string>(signatureBlockLines);
             // remove start comment
             signatureLines.RemoveFirst();
             // remove end comment
