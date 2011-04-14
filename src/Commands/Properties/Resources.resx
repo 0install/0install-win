@@ -273,6 +273,9 @@ However, new downloads will not be written to this directory.</value>
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Can only update with Feed IDs, not with selections documents.</value>
   </data>
+  <data name="UpdateProblem" xml:space="preserve">
+		<value>Unable to check for updates</value>
+	</data>
   <data name="FeedManagement">
     <value xml:space="preserve">Feed management</value>
   </data>

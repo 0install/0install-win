@@ -74,15 +74,26 @@ namespace ZeroInstall.Commands
 
             Policy.Handler.ShowProgressUI(Cancel);
 
-            // Run solver with refresh forced off to get the old values
-            var noRefreshPolicy = Policy.ClonePolicy();
-            noRefreshPolicy.FeedManager.Refresh = false;
-            _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
+            try
+            {
+                // Run solver with refresh forced off to get the old values
+                var noRefreshPolicy = Policy.ClonePolicy();
+                noRefreshPolicy.FeedManager.Refresh = false;
+                _oldSelections = Policy.Solver.Solve(Requirements, noRefreshPolicy, out StaleFeeds);
 
-            // Rerun solver in refresh mode to get the new values
-            Policy.FeedManager.Refresh = true;
-            Solve();
-            SelectionsUI();
+                // Rerun solver in refresh mode to get the new values
+                Policy.FeedManager.Refresh = true;
+                Solve();
+            }
+            #region Error handling
+            catch (SolverException ex)
+            {
+                if (Canceled) throw new UserCancelException();
+                Policy.Handler.CloseProgressUI();
+                Policy.Handler.Output(Resources.UpdateProblem, ex.Message);
+                return 1;
+            }
+            #endregion
 
             DownloadUncachedImplementations();
 

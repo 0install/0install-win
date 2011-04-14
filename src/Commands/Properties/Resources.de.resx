@@ -165,6 +165,9 @@
   <data name="NoSelectionsDocumentUpdate" xml:space="preserve">
     <value>Kann nur mit Feed IDs aktualisieren, nicht mit Selections Dokumenten.</value>
   </data>
+  <data name="UpdateProblem" xml:space="preserve">
+		<value>Konnte nicht nach Updates suchen</value>
+	</data>
   <data name="FeedManagement">
     <value xml:space="preserve">Feed Verwaltung</value>
   </data>

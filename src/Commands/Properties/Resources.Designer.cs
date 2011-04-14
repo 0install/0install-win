@@ -569,6 +569,15 @@ namespace ZeroInstall.Commands.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to check for updates.
+        /// </summary>
+        internal static string UpdateProblem {
+            get {
+                return ResourceManager.GetString("UpdateProblem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Usage:.
         /// </summary>
         internal static string Usage {
