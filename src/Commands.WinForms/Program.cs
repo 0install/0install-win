@@ -21,9 +21,7 @@ using System.IO;
 using System.Net;
 using System.Windows.Forms;
 using Common;
-#if !DEBUG
 using Common.Controls;
-#endif
 using NDesk.Options;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
@@ -48,12 +46,12 @@ namespace ZeroInstall.Commands.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
 
             // Automatically show help for missing args
-            if (args.Length == 0) args = new[] {"--help"};
+            if (args.Length == 0) args = new[] { "--help" };
 
 #if !DEBUG
             ErrorReportForm.RunAppMonitored(delegate
-            {
 #endif
+            {
                 var handler = new GuiHandler();
                 CommandBase command;
                 try
@@ -92,6 +90,28 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 #endregion
 
+                #region Collect log entries for error messages
+                var errorLog = new RtfBuilder();
+                Log.NewEntry += delegate(LogSeverity severity, string message)
+                {
+                    switch (severity)
+                    {
+                        case LogSeverity.Info:
+                            errorLog.AppendPar(message, RtfColor.Blue);
+                            break;
+                        case LogSeverity.Warn:
+                            errorLog.AppendPar(message, RtfColor.Orange);
+                            break;
+                        case LogSeverity.Error:
+                            errorLog.AppendPar(message, RtfColor.Red);
+                            break;
+                        default:
+                            errorLog.AppendPar(message, RtfColor.Black);
+                            break;
+                    }
+                };
+                #endregion
+
                 try { command.Execute(); }
                 #region Error handling
                 catch (UserCancelException)
@@ -106,28 +126,28 @@ namespace ZeroInstall.Commands.WinForms
                 catch (WebException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (NotSupportedException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (IOException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (UnauthorizedAccessException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (DigestMismatchException ex)
                 {
                     handler.CloseProgressUI();
                     // ToDo: Display generated manifest
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
@@ -137,17 +157,17 @@ namespace ZeroInstall.Commands.WinForms
                 catch (SolverException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (ImplementationNotFoundException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (CommandException ex)
                 {
                     handler.CloseProgressUI();
-                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (Win32Exception ex)
                 {
@@ -160,8 +180,9 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
                 }
                 #endregion
+            }
 #if !DEBUG
-            });
+            );
 #endif
         }
     }

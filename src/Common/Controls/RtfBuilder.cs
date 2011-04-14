@@ -20,45 +20,37 @@
  * THE SOFTWARE.
  */
 
-using System;
-using System.Windows.Forms;
+using System.Text;
 
 namespace Common.Controls
 {
+    /// <seealso cref="RtfBuilder.AppendPar"/>
+    public enum RtfColor { Black = 1, Blue = 2, Green = 3, Yellow = 4, Orange = 5, Red = 6 }
+
     /// <summary>
-    /// A simple dialog displaying selectable multi-line text.
+    /// Helps build an RTF-formated string.
     /// </summary>
-    public partial class OutputBox : Form
+    public sealed class RtfBuilder
     {
-        #region Constructor
-        private OutputBox()
-        {
-            InitializeComponent();
-        }
-        #endregion
+        private static readonly StringBuilder _builder = new StringBuilder();
 
-        #region Static access
+        private const string rtfHeader = "{\\rtf1\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;\\red0\\green255\\blue0;\\red255\\gree255\\blue0;\\red255\\gree106\\blue0;\\red255\\gree0\\blue0;}\r\n";
+        private const string rtfFooter = "}";
+
         /// <summary>
-        /// Displays an ouput box with some text.
+        /// Appends a new paragraph.
         /// </summary>
-        /// <param name="title">The text to display above the <paramref name="message"/>.</param>
-        /// <param name="message">The selectable multi-line text to display to the user.</param>
-        /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static void Show(string title, string message)
+        /// <param name="text">The text in the paragraph.</param>
+        /// <param name="color">The color of the text.</param>
+        public void AppendPar(string text, RtfColor color)
         {
-            #region Sanity checks
-            if (string.IsNullOrEmpty(title)) throw new ArgumentNullException("title");
-            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
-            #endregion
-
-            using (var outputBox = new OutputBox
-            {
-                Text = Application.ProductName,
-                labelTitle = { Text = title },
-                textMessage = { Text = message.Replace("\n", Environment.NewLine) }
-            })
-                outputBox.ShowDialog();
+            _builder.AppendLine("\\cf" + ((int)color) + " " + text + "\\par\\par");
         }
-        #endregion
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return rtfHeader + _builder + rtfFooter;
+        }
     }
 }

@@ -182,7 +182,7 @@ namespace ZeroInstall.Commands.WinForms
         public void Output(string title, string information)
         {
             if (Batch) ShowBalloonMessage(title, information);
-            else OutputBox.Show(null, title, information);
+            else OutputBox.Show(title, information);
         }
 
         /// <summary>

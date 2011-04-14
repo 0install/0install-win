@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
+    <Compile Include="Controls\RtfBuilder.cs" />
     <Compile Include="ExceptionInformation.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
@@ -152,6 +153,12 @@
     <Compile Include="Controls\OutputBox.Designer.cs">
       <DependentUpon>OutputBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ErrorBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\ErrorBox.Designer.cs">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\AddRemoveTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -218,6 +225,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\ErrorBox.resx">
+      <DependentUpon>ErrorBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\ErrorReportForm.de.resx">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
       <SubType>Designer</SubType>
