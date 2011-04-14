@@ -95,6 +95,8 @@ namespace ZeroInstall.Commands
             }
             #endregion
 
+            SelectionsUI();
+
             DownloadUncachedImplementations();
 
             if (Canceled) throw new UserCancelException();
