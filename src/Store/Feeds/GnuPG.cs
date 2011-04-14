@@ -28,7 +28,7 @@ namespace ZeroInstall.Store.Feeds
     /// <summary>
     /// Provides access to the signature functions of GnuPG.
     /// </summary>
-    public class GnuPG : BundledCliAppControl, IPgp
+    public class GnuPG : BundledCliAppControl, IOpenPgp
     {
         #region Properties
         /// <inheritdoc/>
@@ -51,7 +51,7 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        public PgpSecretKey GetSecretKey(string name)
+        public OpenPgpSecretKey GetSecretKey(string name)
         {
             var secretKeys = ListSecretKeys();
 
@@ -67,14 +67,14 @@ namespace ZeroInstall.Store.Feeds
         }
 
         /// <inheritdoc/>
-        public PgpSecretKey[] ListSecretKeys()
+        public OpenPgpSecretKey[] ListSecretKeys()
         {
             string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null, ErrorHandler);
             string[] lines = StringUtils.SplitMultilineText(result);
-            var keys = new List<PgpSecretKey>(lines.Length / 2);
+            var keys = new List<OpenPgpSecretKey>(lines.Length / 2);
 
             foreach (var line in lines)
-                if (line.StartsWith("sec")) keys.Add(PgpSecretKey.Parse(line));
+                if (line.StartsWith("sec")) keys.Add(OpenPgpSecretKey.Parse(line));
 
             return keys.ToArray();
         }

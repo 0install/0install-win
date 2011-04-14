@@ -71,7 +71,7 @@ namespace ZeroInstall.Publish
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
-            var pgp = PgpProvider.Default;
+            var pgp = OpenPgpProvider.Default;
 
             // Delete any pre-exisiting signature file
             string signatureFile = path + ".sig";

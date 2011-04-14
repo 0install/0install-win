@@ -53,15 +53,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Feeds\IPgp.cs" />
+    <Compile Include="Feeds\IOpenPgp.cs" />
     <Compile Include="Feeds\MemoryFeedCache.cs" />
-    <Compile Include="Feeds\PgpProvider.cs" />
+    <Compile Include="Feeds\OpenPgpProvider.cs" />
     <Compile Include="Feeds\ReplayAttackException.cs" />
     <Compile Include="Feeds\IFeedCache.cs" />
     <Compile Include="Feeds\DiskFeedCache.cs" />
     <Compile Include="Feeds\FeedCacheProvider.cs" />
     <Compile Include="Feeds\GnuPG.cs" />
-    <Compile Include="Feeds\PgpSecretKey.cs" />
+    <Compile Include="Feeds\OpenPgpSecretKey.cs" />
+    <Compile Include="Feeds\SignatureException.cs" />
     <Compile Include="Feeds\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />

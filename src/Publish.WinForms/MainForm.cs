@@ -357,17 +357,17 @@ namespace ZeroInstall.Publish.WinForms
         /// Returns all GnuPG secret keys of the user. If GnuPG can not be found on the system, a message box informs the user.
         /// </summary>
         /// <returns>The GnuPG secret keys.</returns>
-        private IEnumerable<PgpSecretKey> GetGnuPGSecretKeys()
+        private IEnumerable<OpenPgpSecretKey> GetGnuPGSecretKeys()
         {
             try
             {
-                return PgpProvider.Default.ListSecretKeys();
+                return OpenPgpProvider.Default.ListSecretKeys();
             }
             catch (IOException)
             {
                 Msg.Inform(this, "GnuPG could not be found on your system.\nYou can not sign feeds.",
                            MsgSeverity.Warn);
-                return new PgpSecretKey[0];
+                return new OpenPgpSecretKey[0];
             }
         }
 
@@ -799,7 +799,7 @@ namespace ZeroInstall.Publish.WinForms
             bool wrongPassphrase = false;
 
             if (string.IsNullOrEmpty(toolStripComboBoxGpg.Text)) return;
-            var key = (PgpSecretKey) toolStripComboBoxGpg.SelectedItem;
+            var key = (OpenPgpSecretKey) toolStripComboBoxGpg.SelectedItem;
             do
             {
                 string passphrase = InputBox.Show(this,

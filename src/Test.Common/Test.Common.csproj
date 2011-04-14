@@ -64,9 +64,9 @@
     <Compile Include="Collections\LocalizableStringCollectionTest.cs" />
     <Compile Include="Controls\TrackingLabelTest.cs" />
     <Compile Include="Controls\TrackingProgressBarTest.cs" />
-    <Compile Include="Tasks\MockTask.cs" />
     <Compile Include="Net\DownloadFileTest.cs" />
     <Compile Include="Net\MicroServer.cs" />
+    <Compile Include="Tasks\MockTask.cs" />
     <Compile Include="Tasks\SimpleTaskTest.cs" />
     <Compile Include="Undo\CollectionTest.cs" />
     <Compile Include="Undo\CompositeCommandTest.cs" />

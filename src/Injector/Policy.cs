@@ -104,7 +104,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public static Policy CreateDefault(IHandler handler)
         {
-            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault()), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
+            return new Policy(Config.Load(), new FeedManager(FeedCacheProvider.CreateDefault(), OpenPgpProvider.Default), FetcherProvider.CreateDefault(), SolverProvider.Default, handler);
         }
         #endregion
 

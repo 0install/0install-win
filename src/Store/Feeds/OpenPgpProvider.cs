@@ -18,14 +18,14 @@
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides <see cref="IPgp"/> instances.
+    /// Provides <see cref="IOpenPgp"/> instances.
     /// </summary>
-    public static class PgpProvider
+    public static class OpenPgpProvider
     {
-        private static readonly IPgp _default = new GnuPG();
+        private static readonly IOpenPgp _default = new GnuPG();
         /// <summary>
-        /// Returns the default implementation of <see cref="IPgp"/>.
+        /// Returns the default implementation of <see cref="IOpenPgp"/>.
         /// </summary>
-        public static IPgp Default { get { return _default; } }
+        public static IOpenPgp Default { get { return _default; } }
     }
 }

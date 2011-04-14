@@ -22,10 +22,10 @@ using Common.Cli;
 namespace ZeroInstall.Store.Feeds
 {
     /// <summary>
-    /// Provides access to an encryption/signature system compatible with the PGP standard.
+    /// Provides access to an encryption/signature system compatible with the OpenPGP standard.
     /// </summary>
     /// <remarks>This is an application of the strategy pattern. Implementations of this interface are immutable.</remarks>
-    public interface IPgp
+    public interface IOpenPgp
     {
         /// <summary>
         /// Returns a specific public key.
@@ -43,14 +43,14 @@ namespace ZeroInstall.Store.Feeds
         /// <exception cref="KeyNotFoundException">Thrown if the couldn't be found on the system.</exception>
         /// <exception cref="IOException">Thrown if the PGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the PGP implementation reported a problem.</exception>
-        PgpSecretKey GetSecretKey(string name);
+        OpenPgpSecretKey GetSecretKey(string name);
 
         /// <summary>
         /// Returns a list of information about available secret keys.
         /// </summary>
         /// <exception cref="UnhandledErrorsException">Thrown if the PGP implementation reported a problem.</exception>
         /// <exception cref="IOException">Thrown if the PGP implementation could not be launched.</exception>
-        PgpSecretKey[] ListSecretKeys();
+        OpenPgpSecretKey[] ListSecretKeys();
 
         /// <summary>
         /// Creates a detached signature for a specific file using the user's default key.
@@ -70,6 +70,7 @@ namespace ZeroInstall.Store.Feeds
         /// <param name="signature">The signature for <paramref name="data"/>.</param>
         /// <exception cref="IOException">Thrown if the PGP implementation could not be launched.</exception>
         /// <exception cref="UnhandledErrorsException">Thrown if the PGP implementation reported a problem.</exception>
+        /// <exception cref="SignatureException">Thrown if the signature is invalid.</exception>
         void Verify(string data, string signature);
     }
 }

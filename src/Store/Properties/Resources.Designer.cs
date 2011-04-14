@@ -198,6 +198,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The signature is invalid or damaged..
+        /// </summary>
+        internal static string InvalidSignature {
+            get {
+                return ResourceManager.GetString("InvalidSignature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The requested URL is invalid..
         /// </summary>
         internal static string InvalidUrl {

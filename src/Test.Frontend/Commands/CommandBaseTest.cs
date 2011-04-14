@@ -77,6 +77,7 @@ namespace ZeroInstall.Commands
         private string _output;
 
         protected DynamicMock CacheMock { get; private set; }
+        protected DynamicMock OpenPgpMock { get; private set; }
         protected DynamicMock SolverMock { get; private set; }
         protected DynamicMock StoreMock { get; private set; }
         protected DynamicMock FetcherMock { get; private set; }
@@ -99,12 +100,13 @@ namespace ZeroInstall.Commands
             _handler = new MockHandler(selections => _selections = selections, information => _output = information);
 
             CacheMock = new DynamicMock("MockCache", typeof(IFeedCache));
+            OpenPgpMock = new DynamicMock("MockOpenPgp", typeof(IOpenPgp));
             SolverMock = new DynamicMock("SolverMock", typeof(ISolver));
             StoreMock = new DynamicMock("MockStore", typeof(IStore));
             FetcherMock = new DynamicMock("MockFetcher", typeof(IFetcher));
             FetcherMock.SetReturnValue("get_Store", StoreMock.MockInstance);
 
-            Policy = new Policy(new Config(), new FeedManager((IFeedCache)CacheMock.MockInstance), (IFetcher)FetcherMock.MockInstance, (ISolver)SolverMock.MockInstance, _handler);
+            Policy = new Policy(new Config(), new FeedManager((IFeedCache)CacheMock.MockInstance, (IOpenPgp)OpenPgpMock.MockInstance), (IFetcher)FetcherMock.MockInstance, (ISolver)SolverMock.MockInstance, _handler);
 
             Command = GetCommand();
         }
@@ -113,6 +115,7 @@ namespace ZeroInstall.Commands
         public virtual void TearDown()
         {
             CacheMock.Verify();
+            OpenPgpMock.Verify();
             SolverMock.Verify();
             StoreMock.Verify();
             FetcherMock.Verify();

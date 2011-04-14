@@ -209,4 +209,7 @@ Neue Zeit: {2}</value>
   <data name="WrongPassphrase" xml:space="preserve">
     <value>Die Passphrase die Sie eingegeben haben ist inkorrekt.</value>
   </data>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>Die Signatur ist ungültig oder beschädigt.</value>
+  </data>
 </root>

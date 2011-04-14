@@ -209,4 +209,7 @@ New time: {2}</value>
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Deleting implementation {0}</value>
   </data>
+  <data name="InvalidSignature" xml:space="preserve">
+    <value>The signature is invalid or damaged.</value>
+  </data>
 </root>

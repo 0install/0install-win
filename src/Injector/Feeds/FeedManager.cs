@@ -26,13 +26,18 @@ namespace ZeroInstall.Injector.Feeds
     /// <summary>
     /// Provides access to remote and local <see cref="Model.Feed"/>s. Handles downloading, signature verification and caching.
     /// </summary>
-    public class FeedManager : IEquatable<FeedManager>
+    public class FeedManager : IEquatable<FeedManager>, ICloneable
     {
         #region Properties
         /// <summary>
         /// The cache to retreive <see cref="Model.Feed"/>s from and store downloaded <see cref="Model.Feed"/>s to.
         /// </summary>
         public IFeedCache Cache { get; private set; }
+
+        /// <summary>
+        /// The OpenPGP-compatible encryption/signature system used to validate new <see cref="Model.Feed"/>s signatures.
+        /// </summary>
+        public IOpenPgp OpenPgp { get; private set; }
 
         /// <summary>
         /// Set to <see langword="true"/> to update already cached <see cref="Model.Feed"/>s. 
@@ -45,13 +50,15 @@ namespace ZeroInstall.Injector.Feeds
         /// Creates a new cache based on the given path to a cache directory.
         /// </summary>
         /// <param name="cache">The disk-based cache to store downloaded <see cref="Model.Feed"/>s.</param>
-        public FeedManager(IFeedCache cache)
+        /// <param name="openPgp">The OpenPGP-compatible encryption/signature system used to validate new <see cref="Model.Feed"/>s signatures.</param>
+        public FeedManager(IFeedCache cache, IOpenPgp openPgp)
         {
             #region Sanity checks
             if (cache == null) throw new ArgumentNullException("cache");
             #endregion
 
             Cache = cache;
+            OpenPgp = openPgp;
         }
         #endregion
 
@@ -70,13 +77,14 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>
         /// <exception cref="WebException">Thrown if a problem occured while fetching the feed file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the cache is not permitted.</exception>
-        // ToDo: Add exceptions (fGPG key invalid, ...)
         public Model.Feed GetFeed(string feedID, Policy policy, out bool stale)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(feedID)) throw new ArgumentNullException("feedID");
             if (policy == null) throw new ArgumentNullException("policy");
             #endregion
+
+            var preferences = FeedPreferences.LoadFor(feedID);
 
             if (Refresh)
             {
@@ -86,8 +94,9 @@ namespace ZeroInstall.Injector.Feeds
             // Try to load cached feed
             if (Cache.Contains(feedID))
             {
-                // ToDo: Detect when feeds get out-of-date
-                stale = false;
+                // Detect when feeds get out-of-date
+                TimeSpan feedAge = DateTime.UtcNow - preferences.LastChecked;
+                stale = (feedAge > policy.Config.Freshness);
 
                 try { return Cache.GetFeed(feedID); }
                 catch(InvalidOperationException ex)
@@ -114,7 +123,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The new copy of the <see cref="FeedManager"/>.</returns>
         public FeedManager CloneFeedManager()
         {
-            return new FeedManager(Cache) {Refresh = Refresh};
+            return new FeedManager(Cache, OpenPgp) {Refresh = Refresh};
         }
         
         /// <summary>
