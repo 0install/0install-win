@@ -171,7 +171,7 @@ namespace ZeroInstall.Injector.Solver
 
                 case ErrorMode.Error:
                 case ErrorMode.Critical:
-                    throw new SolverException(message);
+                    throw new SolverException(message.Trim());
             }
         }
         #endregion

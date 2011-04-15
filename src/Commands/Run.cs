@@ -114,14 +114,11 @@ namespace ZeroInstall.Commands
 
         #region Helpers
         /// <summary>
-        /// Closes any remaining GUI windows and launches the selected implementation.
+        /// Launches the selected implementation.
         /// </summary>
         /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
         private int LaunchImplementation()
         {
-            // Close any UI that may still be open
-            Policy.Handler.CloseProgressUI();
-
             var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(AdditionalArgs);
             if (_noWait)

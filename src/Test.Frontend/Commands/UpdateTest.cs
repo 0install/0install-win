@@ -18,7 +18,6 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.Fetchers;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ImplementationSelection = ZeroInstall.Injector.Solver.ImplementationSelection;
