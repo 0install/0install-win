@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ErrorBox));
             this.buttonOK = new System.Windows.Forms.Button();
             this.labelMessage = new System.Windows.Forms.Label();
-            this.textLog = new System.Windows.Forms.RichTextBox();
+            this.textDetails = new System.Windows.Forms.RichTextBox();
+            this.buttonDetails = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonOK
@@ -38,55 +42,78 @@
             this.buttonOK.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.buttonOK.Location = new System.Drawing.Point(284, 226);
+            this.buttonOK.Location = new System.Drawing.Point(394, 226);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(88, 24);
-            this.buttonOK.TabIndex = 2;
+            this.buttonOK.TabIndex = 0;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             // 
             // labelMessage
             // 
-            this.labelMessage.AutoSize = true;
+            this.labelMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelMessage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMessage.Location = new System.Drawing.Point(12, 9);
+            this.labelMessage.Location = new System.Drawing.Point(70, 9);
             this.labelMessage.Name = "labelMessage";
-            this.labelMessage.Size = new System.Drawing.Size(84, 20);
-            this.labelMessage.TabIndex = 0;
+            this.labelMessage.Size = new System.Drawing.Size(412, 48);
+            this.labelMessage.TabIndex = 1;
             this.labelMessage.Text = "(Message)";
             // 
-            // textLog
+            // textDetails
             // 
-            this.textLog.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.textDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textLog.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textLog.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textLog.Location = new System.Drawing.Point(16, 32);
-            this.textLog.Name = "textLog";
-            this.textLog.ReadOnly = true;
-            this.textLog.Size = new System.Drawing.Size(356, 188);
-            this.textLog.TabIndex = 3;
-            this.textLog.Text = "(Log)";
+            this.textDetails.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.textDetails.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textDetails.Location = new System.Drawing.Point(16, 63);
+            this.textDetails.Name = "textDetails";
+            this.textDetails.ReadOnly = true;
+            this.textDetails.Size = new System.Drawing.Size(466, 157);
+            this.textDetails.TabIndex = 2;
+            this.textDetails.Text = "(Details)";
+            // 
+            // buttonDetails
+            // 
+            this.buttonDetails.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonDetails.Location = new System.Drawing.Point(300, 226);
+            this.buttonDetails.Name = "buttonDetails";
+            this.buttonDetails.Size = new System.Drawing.Size(88, 24);
+            this.buttonDetails.TabIndex = 3;
+            this.buttonDetails.Text = "Toggle details";
+            this.buttonDetails.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::Common.Properties.Resources.Error;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 9);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(48, 48);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
             // ErrorBox
             // 
             this.AcceptButton = this.buttonOK;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.CancelButton = this.buttonOK;
-            this.ClientSize = new System.Drawing.Size(384, 262);
+            this.ClientSize = new System.Drawing.Size(494, 262);
             this.ControlBox = false;
-            this.Controls.Add(this.textLog);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.buttonDetails);
+            this.Controls.Add(this.textDetails);
             this.Controls.Add(this.labelMessage);
             this.Controls.Add(this.buttonOK);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(350, 140);
             this.Name = "ErrorBox";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Error box";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -94,6 +121,8 @@
 
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Label labelMessage;
-        private System.Windows.Forms.RichTextBox textLog;
+        private System.Windows.Forms.RichTextBox textDetails;
+        private System.Windows.Forms.Button buttonDetails;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

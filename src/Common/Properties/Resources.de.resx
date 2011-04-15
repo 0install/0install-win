@@ -272,4 +272,10 @@ Die Änderungen löschen</value>
   <data name="StateComplete" xml:space="preserve">
     <value>Abgeschlossen</value>
   </data>
+  <data name="ShowDetails" xml:space="preserve">
+		<value>Details anzeigen</value>
+	</data>
+  <data name="HideDetails" xml:space="preserve">
+		<value>Details verstecken</value>
+	</data>
 </root>

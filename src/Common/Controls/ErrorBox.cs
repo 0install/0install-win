@@ -22,11 +22,12 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Properties;
 
 namespace Common.Controls
 {
     /// <summary>
-    /// A dialog displaying an error message and log data.
+    /// A dialog displaying an error message and details.
     /// </summary>
     public partial class ErrorBox : Form
     {
@@ -34,30 +35,46 @@ namespace Common.Controls
         private ErrorBox()
         {
             InitializeComponent();
+            ToggleDetails();
+
+            Load += delegate { ToggleDetails(); };
+            buttonDetails.Click += delegate { ToggleDetails(); };
         }
         #endregion
 
         #region Static access
         /// <summary>
-        /// Displays an error box with a message and log data.
+        /// Displays an error box with a message and details.
         /// </summary>
         /// <param name="message">The error message to display.</param>
-        /// <param name="logRtf">The log data formatted as RTF.</param>
+        /// <param name="detailsRtf">The details formatted as RTF.</param>
         /// <returns>The text the user entered if he pressed OK; otherwise <see langword="null"/>.</returns>
-        public static void Show(string message, string logRtf)
+        public static void Show(string message, string detailsRtf)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
-            if (string.IsNullOrEmpty(logRtf)) throw new ArgumentNullException("logRtf");
+            if (string.IsNullOrEmpty(detailsRtf)) throw new ArgumentNullException("detailsRtf");
             #endregion
 
             using (var errorBox = new ErrorBox
             {
                 Text = Application.ProductName,
                 labelMessage = { Text = message },
-                textLog = { Rtf = logRtf }
+                textDetails = { Rtf = detailsRtf }
             })
                 errorBox.ShowDialog();
+        }
+        #endregion
+
+        #region Details button
+        /// <summary>
+        /// Shows or hides the details field.
+        /// </summary>
+        private void ToggleDetails()
+        {
+            textDetails.Visible = !textDetails.Visible;
+            Height = textDetails.Top + (textDetails.Visible ? 250 : 75);
+            buttonDetails.Text = textDetails.Visible ? Resources.HideDetails : Resources.ShowDetails;
         }
         #endregion
     }
