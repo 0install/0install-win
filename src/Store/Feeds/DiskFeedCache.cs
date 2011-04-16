@@ -109,7 +109,10 @@ namespace ZeroInstall.Store.Feeds
             string path = File.Exists(feedID) ? feedID : Path.Combine(DirectoryPath, ModelUtils.Escape(feedID));
 
             if (!File.Exists(path)) throw new KeyNotFoundException(string.Format(Resources.FeedNotInCache, feedID, path));
-            return Feed.Load(path);
+            
+            var feed = Feed.Load(path);
+            feed.Simplify();
+            return feed;
         }
         #endregion
 

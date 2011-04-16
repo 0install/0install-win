@@ -37,10 +37,10 @@ namespace ZeroInstall.Store.Feeds
         IEnumerable<string> ListAll();
 
         /// <summary>
-        /// Gets a specific <see cref="Feed"/> from this cache.
+        /// Gets a specific <see cref="Feed"/> from this cache. <see cref="Feed.Simplify"/> is automatically called.
         /// </summary>
         /// <param name="feedID">The ID used to identify the feed. May be an HTTP(S) URL or an absolute local path.</param>
-        /// <returns>The parsed <see cref="Feed"/> object.</returns>
+        /// <returns>The parsed <see cref="Feed"/> object. Do not modify this object! It may be a reference to an in-memory cache entry.</returns>
         /// <exception cref="InvalidInterfaceIDException">Thrown if <paramref name="feedID"/> is an invalid interface ID.</exception>
         /// <exception cref="KeyNotFoundException">Thrown if the requested <paramref name="feedID"/> was not found in the cache.</exception>
         /// <exception cref="IOException">Thrown if a problem occured while reading the feed file.</exception>

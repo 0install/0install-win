@@ -183,15 +183,16 @@ namespace ZeroInstall.Injector.Solver
                 if (!string.IsNullOrEmpty(implementation.LocalPath)) continue;
 
                 // Don't try to download PackageImplementations
-                // ToDo: PackageKit integration
                 if (!string.IsNullOrEmpty(implementation.Package)) continue;
+
+                // Don't try to fetch virutal feeds
+                if (implementation.FromFeed.StartsWith("distribution:")) continue;
 
                 // Check if an implementation with a matching digest is available in the cache
                 if (searchStore.Contains(implementation.ManifestDigest)) continue;
 
                 // If not, get download information for the implementation by checking the original feed
                 Feed feed = feedCache.GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
-                feed.Simplify();
                 notCached.Add(feed.GetImplementation(implementation.ID));
             }
 

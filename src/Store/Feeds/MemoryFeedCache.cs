@@ -102,8 +102,8 @@ namespace ZeroInstall.Store.Feeds
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            // Add to or update in memory cache
-            _feedDictionary[feedID] = Feed.Load(path);
+            // Remove old version from memory cache
+            _feedDictionary.Remove(feedID);
 
             // Add to underlying cache
             _backingCache.Add(feedID, path);
