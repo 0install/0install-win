@@ -16,11 +16,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using Common.Utils;
 using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -66,6 +68,7 @@ namespace ZeroInstall.Commands
 
             Policy.FeedManager.Refresh = true;
             bool stale;
+            Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale); // Run solver to ensure feed is cached
             var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
 
             if (feed.FeedFor.IsEmpty)
@@ -74,7 +77,7 @@ namespace ZeroInstall.Commands
                 return 1;
             }
 
-            bool added = false;
+            ICollection<string> addedTo = new LinkedList<string>();
             var interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
             foreach (var interfaceID in interfaces)
             {
@@ -82,15 +85,20 @@ namespace ZeroInstall.Commands
                 var reference = new FeedReference {Source = feedID};
                 if (!preferences.Feeds.Contains(reference))
                 {
-                    added = true;
                     preferences.Feeds.Add(reference);
+                    addedTo.Add(interfaceID);
                 }
                 preferences.SaveFor(interfaceID);
             }
 
             // Show a confirmation message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.FeedManagement, added ? Resources.FeedRegistered : Resources.FeedAlreadyRegistered);
-            return added ? 0 : 1;
+            if (!Policy.Handler.Batch)
+            {
+                Policy.Handler.Output(Resources.FeedManagement, (addedTo.Count == 0)
+                    ? Resources.FeedAlreadyRegistered
+                    : string.Format(Resources.FeedRegistered, StringUtils.Concatenate(addedTo, "\n")));
+            }
+            return addedTo.Count == 0 ? 0 : 1;
         }
         #endregion
     }

@@ -172,13 +172,15 @@
     <value xml:space="preserve">Feed Verwaltung</value>
   </data>
   <data name="FeedRegistered">
-    <value xml:space="preserve">Der Feed wurde erfolgreich für alle passenden Interfaces registriert.</value>
+    <value xml:space="preserve">Der Feed wurde erfolgreich für die folgenden Interfaces registriert:
+{0}</value>
   </data>
   <data name="FeedAlreadyRegistered">
     <value xml:space="preserve">Der Feed war bereits für alle passenden Interfaces registriert.</value>
   </data>
   <data name="FeedUnregistered">
-    <value xml:space="preserve">Der Feed wurde erfolgreich für alle Interfaces deregistriert.</value>
+    <value xml:space="preserve">Der Feed wurde erfolgreich für die folgenden Interfaces deregistriert:
+{0}</value>
   </data>
   <data name="FeedNotRegistered">
     <value xml:space="preserve">Der Feed war für kein Interface registriert.</value>

@@ -23,6 +23,7 @@ using NDesk.Options;
 using ZeroInstall.Commands.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands
@@ -78,21 +79,28 @@ namespace ZeroInstall.Commands
 
                 Policy.FeedManager.Refresh = true;
                 bool stale;
+                Policy.Solver.Solve(new Requirements {InterfaceID = feedID}, Policy, out stale); // Run solver to ensure feed is cached
                 var feed = Policy.FeedManager.GetFeed(feedID, Policy, out stale);
                 interfaces = feed.FeedFor.Map(reference => reference.Target.ToString());
             }
 
-            bool removed = false;
+            ICollection<string> removedFrom = new LinkedList<string>();
             foreach (var interfaceID in interfaces)
             {
                 var preferences = InterfacePreferences.LoadFor(interfaceID);
-                removed |= preferences.Feeds.Remove(new FeedReference {Source = feedID});
+                if (preferences.Feeds.Remove(new FeedReference { Source = feedID }))
+                    removedFrom.Add(interfaceID);
                 preferences.SaveFor(interfaceID);
             }
 
             // Show a confirmation message (but not in batch mode, since it is too unimportant)
-            if (!Policy.Handler.Batch) Policy.Handler.Output(Resources.FeedManagement, removed ? Resources.FeedUnregistered : Resources.FeedNotRegistered);
-            return removed ? 0 : 1;
+            if (!Policy.Handler.Batch)
+            {
+                Policy.Handler.Output(Resources.FeedManagement, (removedFrom.Count == 0)
+                    ? Resources.FeedNotRegistered
+                    : string.Format(Resources.FeedUnregistered, StringUtils.Concatenate(removedFrom, "\n")));
+            }
+            return removedFrom.Count == 0 ? 0 : 1;
         }
         #endregion
     }

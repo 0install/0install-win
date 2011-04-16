@@ -280,13 +280,15 @@ However, new downloads will not be written to this directory.</value>
     <value xml:space="preserve">Feed management</value>
   </data>
   <data name="FeedRegistered">
-    <value xml:space="preserve">The feed was successfully registered for all appropriate interfaces.</value>
+    <value xml:space="preserve">The feed was successfully registered for the following interfaces:
+ {0}</value>
   </data>
   <data name="FeedAlreadyRegistered">
     <value xml:space="preserve">The feed was already registered for all appropriate interfaces.</value>
   </data>
   <data name="FeedUnregistered">
-    <value xml:space="preserve">The feed was successfully unregistered for all interfaces.</value>
+    <value xml:space="preserve">The feed was successfully unregistered for the following interfaces:
+ {0}</value>
   </data>
   <data name="FeedNotRegistered">
     <value xml:space="preserve">The feed was not registered for any interfaces.</value>
