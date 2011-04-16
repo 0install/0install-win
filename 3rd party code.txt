@@ -2,34 +2,34 @@ NDesk.Options 0.2.1
 http://ndesk.org/Options
 MIT License: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
-Self-compiled managed DLL: lib/NDesk.Options.dll
+Self-compiled managed DLL: NDesk.Options.dll
 
 SharpZipLib 0.86.0
 http://www.icsharpcode.net/OpenSource/SharpZipLib/
-GNU GPL with GNU Classpath exception: lib/ICSharpCode.SharpZipLib.license.txt
-Applied patches: lib/ICSharpCode.SharpZipLib.*.patch
-Self-compiled managed DLL: lib/ICSharpCode.SharpZipLib.dll
+GNU GPL with GNU Classpath exception: ICSharpCode.SharpZipLib.license.txt
+Applied patches: ICSharpCode.SharpZipLib.*.patch
+Self-compiled managed DLL: ICSharpCode.SharpZipLib.dll
 
 LZMA SDK 4.65
 http://www.7-zip.org/sdk.html
 Public domain
 Source unmodified
-Self-compiled managed DLL: lib/SevenZip.dll
+Self-compiled managed DLL: SevenZip.dll
 
 TaskDialog
 http://www.codeproject.com/KB/vista/TaskDialogWinForms.aspx
-Public Domain: http://creativecommons.org/licenses/publicdomain/
+Public domain
 Source unmodified
-Self-compiled managed DLL: lib/TaskDialog.dll
+Self-compiled managed DLL: TaskDialog.dll
 
 The C5 Generic Collection Library 1.1.0
 http://www.itu.dk/research/c5/
-MIT-style open license: lib/C5.license.txt
+MIT-style open license: C5.license.txt
 Source unmodified
-Pre-compiled managed DLL: lib/C5.dll
+Pre-compiled managed DLL: C5.dll
 
 INI File Parser v1.5.5
 http://code.google.com/p/ini-parser/
 MIT License: http://www.opensource.org/licenses/mit-license.php
 Source unmodified
-Pre-compiled managed DLL: lib/INIFileParser.dll
+Pre-compiled managed DLL: INIFileParser.dll

@@ -44,7 +44,7 @@ if errorlevel 1 pause
 
 echo Building Bundled archive...
 cd "%~dp0..\build\Bundled"
-zip -r -9 "%TargetDir%\bundled.zip" . > NUL
+zip -9 -r "%TargetDir%\bundled.zip" . > NUL
 if errorlevel 1 pause
 
 rem Bundled content also needs to be copied into the other archive
@@ -54,17 +54,29 @@ copy "%TargetDir%\bundled.zip" "%TargetDir%\0install_tools.zip" > NUL
 
 echo Building Backend archive...
 cd "%~dp0..\build\Backend\Release"
-zip -r -9 "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+zip -9 -r "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install_backend.zip" "%~dp0..\lgpl.txt" > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install_backend.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Frontend archive...
 cd "%~dp0..\build\Frontend\Release"
-zip -r -9 "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+zip -9 -r "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install.zip" "%~dp0..\lgpl.txt" > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Tools archive...
 cd "%~dp0..\build\Tools\Release"
-zip -r -9 "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+zip -9 -r "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install_tools.zip" "%~dp0..\lgpl.txt" > NUL
+if errorlevel 1 pause
+zip -9 -j "%TargetDir%\0install_tools.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 :end
