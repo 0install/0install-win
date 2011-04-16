@@ -79,9 +79,9 @@
       <title>Code sample</title>
       <content>
         <para>
-          Code sample for tracking new downloads on the console:
+          Code sample for tracking tasks on the console:
 <code language="C#">
-public void RunDownloadTask(ITask task, object tag)
+public void RunTask(ITask task, object tag)
 {
     // CLI has no multi-threading issues
     using (new Common.Cli.TrackingProgressBar(task))
@@ -90,9 +90,9 @@ public void RunDownloadTask(ITask task, object tag)
 </code>
         </para>
         <para>
-          Code sample for tracking new downloads with WinForms:
+          Code sample for tracking tasks with WinForms:
 <code language="C#">
-public void RunDownloadTask(ITask task, object tag)
+public void RunTask(ITask task, object tag)
 {
     // Handle events coming from a non-UI thread
     BeginInvoke((SimpleEventHandler)delegate

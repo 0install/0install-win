@@ -26,7 +26,7 @@
   <Topic id="design" visible="True" title="Internal Design Guide">
     <Topic id="design_task_tracking" visible="True" title="Task tracking" />
     <Topic id="design_solver" visible="True" title="Solvers">
-      <Topic id="design_solver_python" visible="True" title="Python integration" />
+      <Topic id="design_solver_external" visible="True" title="Python integration" />
     </Topic>
     <Topic id="design_unit_tests" visible="True" title="Unit tests" />
   </Topic>

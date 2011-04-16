@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<topic id="design_solver_python" revisionNumber="1">
+<topic id="design_solver_external" revisionNumber="1">
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>Python integration</title>
+    <title>External Solver</title>
 
     <introduction>
       <para>
@@ -20,7 +20,7 @@
       <title>Inter-process communication</title>
       <content>
         <para>
-          <link xlink:href="T:ZeroInstall.Launcher.Solver.PythonSolver">PythonSolver</link>
+          <link xlink:href="T:ZeroInstall.Launcher.Solver.ExternalSolver">ExternalSolver</link>
           translates requests into a set of command-line arguments and uses
           them to invoke the <command>0solve</command> script stored in the
           bundled Python installation.

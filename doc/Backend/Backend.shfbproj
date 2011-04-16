@@ -99,7 +99,7 @@
     <None Include="design\index.aml" />
     <None Include="design\task_tracking.aml" />
     <None Include="design\solver.aml" />
-    <None Include="design\solver_python.aml" />
+    <None Include="design\solver_external.aml" />
     <None Include="design\unit_tests.aml" />
   </ItemGroup>
   <ItemGroup>
