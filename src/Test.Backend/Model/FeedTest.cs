@@ -174,6 +174,25 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Ensures that <see cref="Feed.Simplify"/> correctly updates collection hash codes.
+        /// </summary>
+        [Test]
+        public void TestSimplifyHash()
+        {
+            var feed = CreateTestFeed();
+
+            using (var tempFile = new TemporaryFile("0install-unit-tests"))
+            {
+                XmlStorage.Save(tempFile.Path, feed);
+                var feedReload = XmlStorage.Load<Feed>(tempFile.Path);
+
+                feed.Simplify();
+                feedReload.Simplify();
+                Assert.AreEqual(feed.GetHashCode(), feedReload.GetHashCode());
+            }
+        }
+
+        /// <summary>
         /// Ensures that <see cref="Feed.GetImplementation(string)"/> correctly finds contained <see cref="Implementation"/>s.
         /// </summary>
         [Test]

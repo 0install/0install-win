@@ -95,7 +95,9 @@ namespace ZeroInstall.Store.Feeds
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
             }
 
-            // Expect in-memory cache on get
+            // Expect pass-through on first get
+            _feed.Simplify();
+            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
             Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
             Assert.AreEqual(_feed, firstAccess);
             Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
@@ -109,6 +111,7 @@ namespace ZeroInstall.Store.Feeds
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
             }
 
+            _cacheMock.ExpectAndReturn("GetFeed", _feed.CloneFeed(), "http://0install.de/feeds/test/test1.xml");
             Assert.AreNotSame(firstAccess, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"), "Adding again should overwrite cache entry");
         }
 
@@ -123,8 +126,13 @@ namespace ZeroInstall.Store.Feeds
                 _cache.Add("http://0install.de/feeds/test/test1.xml", feedFile.Path);
             }
 
-            // Expect in-memory cache on get
-            Assert.AreEqual(_feed, _cache.GetFeed("http://0install.de/feeds/test/test1.xml"));
+            // Expect pass-through on first get
+            _feed.Simplify();
+            _cacheMock.ExpectAndReturn("GetFeed", _feed, "http://0install.de/feeds/test/test1.xml");
+            Feed firstAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreEqual(_feed, firstAccess);
+            Feed secondAccess = _cache.GetFeed("http://0install.de/feeds/test/test1.xml");
+            Assert.AreSame(firstAccess, secondAccess, "Cache should return identical reference on multiple GetFeed() calls");
 
             // Expect pass-through on remove
             _cacheMock.Expect("Remove", "http://0install.de/feeds/test/test1.xml");

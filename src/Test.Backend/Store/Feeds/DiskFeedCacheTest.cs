@@ -45,9 +45,11 @@ namespace ZeroInstall.Store.Feeds
             _feed1 = FeedTest.CreateTestFeed();
             _feed1.Uri = new Uri("http://0install.de/feeds/test/test1.xml");
             _feed1.Save(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed1.UriString)));
+            _feed1.Simplify();
             _feed2 = FeedTest.CreateTestFeed();
             _feed2.Uri = new Uri("http://0install.de/feeds/test/test2.xml");
             _feed2.Save(Path.Combine(_tempDir.Path, ModelUtils.Escape(_feed2.UriString)));
+            _feed2.Simplify();
             File.WriteAllText(Path.Combine(_tempDir.Path, "http_invalid"), "");
         }
 
@@ -108,6 +110,7 @@ namespace ZeroInstall.Store.Feeds
                 File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(2000, 1, 1));
 
                 _cache.Add(feed.Uri.ToString(), tempFile.Path);
+                feed.Simplify();
                 Assert.AreEqual(feed, _cache.GetFeed(feed.Uri.ToString()));
 
                 File.SetLastWriteTimeUtc(tempFile.Path, new DateTime(1998, 1, 1));

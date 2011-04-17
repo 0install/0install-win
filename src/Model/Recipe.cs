@@ -59,7 +59,16 @@ namespace ZeroInstall.Model
         /// It should not be called if you plan on serializing the <see cref="Feed"/> again since it will may some of its structure.</remarks>
         public override void Simplify()
         {
-            foreach (var step in Steps) step.Simplify();
+            // Simplify recipe steps and rebuild list to update sequenced hash value
+            var newSteps = new RecipeStep[Steps.Count];
+            int i = 0;
+            foreach (var step in Steps)
+            {
+                step.Simplify();
+                newSteps[i++] = step;
+            }
+            Steps.Clear();
+            Steps.AddAll(newSteps);
         }
         #endregion
 

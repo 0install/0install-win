@@ -55,8 +55,16 @@ namespace ZeroInstall.Model
         {
             base.Simplify();
 
-            // Simplify retrieval methods
-            foreach (var retrievalMethods in RetrievalMethods) retrievalMethods.Simplify();
+            // Simplify retrieval methods and rebuild list to update sequenced hash value
+            var newRetreivalMethods = new RetrievalMethod[RetrievalMethods.Count];
+            int i = 0;
+            foreach (var retrievalMethods in RetrievalMethods)
+            {
+                retrievalMethods.Simplify();
+                newRetreivalMethods[i++] = retrievalMethods;
+            }
+            RetrievalMethods.Clear();
+            RetrievalMethods.AddAll(newRetreivalMethods);
         }
         #endregion
 
