@@ -367,6 +367,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">Not used.</param>
         private void ButtonExtractArchiveClick(object sender, EventArgs e)
         {
+            if (!SetArchiveMimeType(openFileDialogLocalArchive.FileName)) return;
+
             var archive = hintTextBoxLocalArchive.Text;
             long startOffset = GetValidStartOffset(hintTextBoxStartOffset.Text);
             if (startOffset < 0) startOffset = 0;

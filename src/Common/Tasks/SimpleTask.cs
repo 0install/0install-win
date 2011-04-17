@@ -94,7 +94,7 @@ namespace Common.Tasks
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            if (work == null) throw new ArgumentNullException("task");
+            if (work == null) throw new ArgumentNullException("work");
             #endregion
 
             Name = name;

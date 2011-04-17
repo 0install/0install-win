@@ -25,17 +25,14 @@ using System.Text;
 namespace Common.Controls
 {
     /// <seealso cref="RtfBuilder.AppendPar"/>
-    public enum RtfColor { Black = 1, Blue = 2, Green = 3, Yellow = 4, Orange = 5, Red = 6 }
+    public enum RtfColor { Black = 0, Blue = 1, Green = 2, Yellow = 3, Orange = 4, Red = 5 }
 
     /// <summary>
     /// Helps build an RTF-formated string.
     /// </summary>
     public sealed class RtfBuilder
     {
-        private static readonly StringBuilder _builder = new StringBuilder();
-
-        private const string rtfHeader = "{\\rtf1\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;\\red0\\green255\\blue0;\\red255\\gree255\\blue0;\\red255\\gree106\\blue0;\\red255\\gree0\\blue0;}\r\n";
-        private const string rtfFooter = "}";
+        private readonly StringBuilder _builder = new StringBuilder();
 
         /// <summary>
         /// Appends a new paragraph.
@@ -44,12 +41,14 @@ namespace Common.Controls
         /// <param name="color">The color of the text.</param>
         public void AppendPar(string text, RtfColor color)
         {
-            _builder.AppendLine("\\cf" + ((int)color) + " " + text + "\\par\\par");
+            _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text + "\\par\\par");
         }
 
         /// <inheritdoc/>
         public override string ToString()
         {
+            const string rtfHeader = "{\\rtf1\r\n{\\colortbl ;\\red0\\green0\\blue0;\\red0\\green0\\blue255;\\red0\\green255\\blue0;\\red255\\gree255\\blue0;\\red255\\gree106\\blue0;\\red255\\gree0\\blue0;}\r\n";
+            const string rtfFooter = "}";
             return rtfHeader + _builder + rtfFooter;
         }
     }

@@ -110,10 +110,10 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _guiReady.Reset();
             _form.HideTrayIcon();
             _form = null;
             Application.Exit();
+            _guiReady.Reset();
         }
         #endregion
 
