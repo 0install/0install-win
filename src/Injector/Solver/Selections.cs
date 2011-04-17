@@ -186,7 +186,7 @@ namespace ZeroInstall.Injector.Solver
                 if (!string.IsNullOrEmpty(implementation.Package)) continue;
 
                 // Don't try to fetch virutal feeds
-                if (implementation.FromFeed.StartsWith("distribution:")) continue;
+                if (!string.IsNullOrEmpty(implementation.FromFeed) && implementation.FromFeed.StartsWith("distribution:")) continue;
 
                 // Check if an implementation with a matching digest is available in the cache
                 if (searchStore.Contains(implementation.ManifestDigest)) continue;
