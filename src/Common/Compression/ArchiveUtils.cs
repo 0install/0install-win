@@ -28,6 +28,7 @@ namespace Common.Compression
             if (fileName.EndsWith(".deb")) return "application/x-deb";
             if (fileName.EndsWith(".rpm")) return "application/x-rpm";
             if (fileName.EndsWith(".dmg")) return "application/x-apple-diskimage";
+            if (fileName.EndsWith(".gem")) return "application/x-ruby-gem";
             return null;
         }
     }
