@@ -45,6 +45,9 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             _cancelCallback = cancelCallback;
+
+            // Start tracking when the window comes up the first time from tray icon mode
+            Shown += delegate { SetupTaskTracking(); };
         }
 
         /// <summary>
@@ -58,17 +61,32 @@ namespace ZeroInstall.Commands.WinForms
         }
         #endregion
 
+        //--------------------//
+
         #region Task tracking
+        private ITask _currentTask;
+
         /// <summary>
-        /// Sets up tracking for a <see cref="ITask"/>. Returns immediately.
+        /// Registers an <see cref="ITask"/> for tracking.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
         internal void TrackTask(ITask task, object tag)
         {
-            labelOperation.Text = task.Name + @"...";
-            progressBar.Task = task;
-            labelProgress.Task = task;
+            _currentTask = task;
+            SetupTaskTracking();
+        }
+
+        /// <summary>
+        /// Helper method for setting up task tracking for <see cref="_currentTask"/>.
+        /// </summary>
+        private void SetupTaskTracking()
+        {
+            if (_currentTask == null) return;
+
+            labelOperation.Text = _currentTask.Name + @"...";
+            if (progressBar.IsHandleCreated) progressBar.Task = _currentTask;
+            if (progressLabel.IsHandleCreated) progressLabel.Task = _currentTask;
         }
         #endregion
 
@@ -131,6 +149,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             Hide();
             HideTrayIcon();
+
+            // Stop tracking tasks
+            if (progressBar.IsHandleCreated) progressBar.Task = null;
+            if (progressLabel.IsHandleCreated) progressLabel.Task = null;
+
             _cancelCallback();
         }
         #endregion

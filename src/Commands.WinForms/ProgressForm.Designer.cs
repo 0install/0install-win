@@ -33,7 +33,7 @@
             this.progressBar = new Common.Controls.TrackingProgressBar();
             this.labelOperation = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.labelProgress = new Common.Controls.TrackingLabel();
+            this.progressLabel = new Common.Controls.TrackingLabel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -68,14 +68,14 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // labelProgress
+            // progressLabel
             // 
-            this.labelProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelProgress.Location = new System.Drawing.Point(12, 64);
-            this.labelProgress.Name = "labelProgress";
-            this.labelProgress.Size = new System.Drawing.Size(285, 20);
-            this.labelProgress.TabIndex = 2;
-            this.labelProgress.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.progressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressLabel.Location = new System.Drawing.Point(12, 64);
+            this.progressLabel.Name = "progressLabel";
+            this.progressLabel.Size = new System.Drawing.Size(285, 20);
+            this.progressLabel.TabIndex = 2;
+            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // notifyIcon
             // 
@@ -100,7 +100,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(309, 122);
             this.Controls.Add(this.buttonHide);
-            this.Controls.Add(this.labelProgress);
+            this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.labelOperation);
             this.Controls.Add(this.progressBar);
@@ -121,7 +121,7 @@
         #endregion
         private System.Windows.Forms.Label labelOperation;
         private System.Windows.Forms.Button buttonCancel;
-        private Common.Controls.TrackingLabel labelProgress;
+        private Common.Controls.TrackingLabel progressLabel;
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
 

@@ -23,7 +23,6 @@
 using System;
 using System.ComponentModel;
 using System.Drawing;
-using System.Threading;
 using System.Windows.Forms;
 using Common.Properties;
 using Common.Tasks;
@@ -36,11 +35,6 @@ namespace Common.Controls
     /// </summary>
     public class TrackingLabel : Label
     {
-        #region Variables
-        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
-        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
-        #endregion
-
         #region Properties
         private ITask _task;
         /// <summary>
@@ -50,6 +44,7 @@ namespace Common.Controls
         ///   <para>Setting this property will hook up event handlers to monitor the task.</para>
         ///   <para>Remember to set it back to <see langword="null"/> or to call <see cref="IDisposable.Dispose"/> when done, to remove the event handlers again.</para>
         ///   <para>The value must not be set from a background thread.</para>
+        ///   <para>The value must not be set before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
         /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
         [DefaultValue(null), Description("The IProgress object to track.")]
@@ -57,15 +52,17 @@ namespace Common.Controls
         {
             set
             {
-                if (InvokeRequired) throw new InvalidOperationException("Must set this from UI thread");
+                #region Sanity checks
+                if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+                if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
+                #endregion
 
                 // Remove all delegates from old _task
                 HookOut();
 
                 _task = value;
 
-                // Only start tracking if the handle is available
-                if (IsHandleCreated) HookIn();
+                HookIn();
             }
             get { return _task; }
         }
@@ -73,7 +70,6 @@ namespace Common.Controls
         /// <summary>
         /// Starts tracking the progress of <see cref="_task"/>.
         /// </summary>
-        /// <remarks>This may only be called after <see cref="Control.HandleCreated"/> has been raised.</remarks>
         private void HookIn()
         {
             if (_task == null) return;
@@ -103,19 +99,6 @@ namespace Common.Controls
         public TaskState CurrentState { get; private set; }
         #endregion
 
-        #region Constructor
-        public TrackingLabel()
-        {
-            // Track when events can be passed to the WinForms code
-            HandleCreated += delegate
-            {
-                _handleReady.Set();
-                HookIn();
-            };
-            HandleDestroyed += delegate { _handleReady.Reset(); };
-        }
-        #endregion
-
         //--------------------//
 
         #region Event callbacks
@@ -128,9 +111,8 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
-            // Handle events coming from a non-UI thread, don't block caller
-            _handleReady.WaitOne();
-            BeginInvoke(new SimpleEventHandler(delegate
+            // Handle events coming from a non-UI thread, block caller
+            Invoke(new SimpleEventHandler(delegate
             {
                 CurrentState = state;
                 switch (state)
@@ -182,7 +164,6 @@ namespace Common.Controls
             long bytesTotal = sender.BytesTotal;
 
             // Handle events coming from a non-UI thread, don't block caller
-            _handleReady.WaitOne();
             BeginInvoke(new SimpleEventHandler(delegate
             {
                 Text = StringUtils.FormatBytes(bytesProcessed);
@@ -200,10 +181,10 @@ namespace Common.Controls
             if (disposing)
             {
                 // Remove update hooks
-                Task = null;
+                _task = null;
+                HookOut();
             }
-            try { base.Dispose(disposing); }
-            finally { _handleReady.Close(); }
+            base.Dispose(disposing);
         }
         #endregion
     }

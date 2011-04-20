@@ -17,8 +17,7 @@
             {
                 components.Dispose();
             }
-            try { base.Dispose(disposing); }
-            finally { _handleReady.Close(); }
+            base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
