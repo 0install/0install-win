@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.Windows.Forms;
 using Common;
 using Common.Tasks;
+using Common.Utils;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -47,7 +48,11 @@ namespace ZeroInstall.Commands.WinForms
             _cancelCallback = cancelCallback;
 
             // Start tracking when the window comes up the first time from tray icon mode
-            Shown += delegate { SetupTaskTracking(); };
+            Shown += delegate
+            {
+                SetupTaskTracking();
+                WindowsUtils.SetForegroundWindow(this);
+            };
         }
 
         /// <summary>

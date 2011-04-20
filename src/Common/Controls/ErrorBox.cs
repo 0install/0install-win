@@ -23,6 +23,7 @@
 using System;
 using System.Windows.Forms;
 using Common.Properties;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -62,7 +63,10 @@ namespace Common.Controls
                 labelMessage = { Text = message },
                 textDetails = { Rtf = detailsRtf }
             })
+            {
+                errorBox.Shown += delegate { WindowsUtils.SetForegroundWindow(errorBox); };
                 errorBox.ShowDialog();
+            }
         }
         #endregion
 

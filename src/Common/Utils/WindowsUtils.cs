@@ -140,6 +140,11 @@ namespace Common.Utils
             internal static extern bool QueryPerformanceCounter(out long lpCounter);
             #endregion
 
+            #region Foreground window
+            [DllImport("user32.dll")]
+            internal static extern bool SetForegroundWindow(IntPtr hWnd);
+            #endregion
+
             #region Window messages
             [DllImport("user32", CharSet = CharSet.Auto)]
             [return: MarshalAs(UnmanagedType.Bool)]
@@ -244,6 +249,16 @@ namespace Common.Utils
 
                 return Environment.TickCount / 1000f;
             }
+        }
+        #endregion
+
+        #region Foreground window
+        /// <summary>
+        /// Forces a window to the foreground or flashes the taskbar if another process has the focus.
+        /// </summary>
+        public static void SetForegroundWindow(Form form)
+        {
+            SafeNativeMethods.SetForegroundWindow(form.Handle);
         }
         #endregion
 

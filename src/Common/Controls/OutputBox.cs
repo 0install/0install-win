@@ -22,6 +22,7 @@
 
 using System;
 using System.Windows.Forms;
+using Common.Utils;
 
 namespace Common.Controls
 {
@@ -57,7 +58,10 @@ namespace Common.Controls
                 labelTitle = { Text = title },
                 textMessage = { Text = message.Replace("\n", Environment.NewLine) }
             })
+            {
+                outputBox.Shown += delegate { WindowsUtils.SetForegroundWindow(outputBox); };
                 outputBox.ShowDialog();
+            }
         }
         #endregion
     }
