@@ -1,7 +1,7 @@
 ;Version numbers
 #define Maj 0
 #define Min 54
-#define Rev 1
+#define Rev 2
 
 #ifndef Update
 ;Automatic dependency download and installation
