@@ -144,11 +144,11 @@ namespace ZeroInstall.Injector
             foreach (Command command in commands)
             {
                 var commandString = new C5.LinkedList<string>();
+
+                // The command's path (relative to the interface)
                 if (!string.IsNullOrEmpty(command.Path))
-                { // The command's path (relative to the interface) and its arguments are combined
                     commandString.Add(GetPath(_selections.GetImplementation(currentRunnerInterface), command));
-                    if (!command.Arguments.IsEmpty) commandString.AddAll(command.Arguments);
-                }
+                commandString.AddAll(command.Arguments);
 
                 var runner = command.Runner;
                 if (runner != null)

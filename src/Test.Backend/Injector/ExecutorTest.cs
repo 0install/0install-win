@@ -220,5 +220,46 @@ namespace ZeroInstall.Injector
 
             CheckEnvironment(startInfo);
         }
+
+        /// <summary>
+        /// Ensures <see cref="Executor.GetStartInfo"/> preserves the arguments of <see cref="Command"/>s with no path of their own (using a <see cref="Runner"/>).
+        /// </summary>
+        [Test]
+        public void TestPathlessCommand()
+        {
+            var appCommand = new Command
+            {
+                Name = Command.NameRun,
+                Runner = new Runner
+                {
+                    Interface = "http://0install.de/feeds/test/test2.xml",
+                    Arguments = { "app_arg" }
+                }
+            };
+            var runnerCommand = new Command
+            {
+                Path = "runner",
+                Arguments = { "runner_arg" }
+            };
+            var selections = new Selections
+            {
+                InterfaceID = "http://0install.de/feeds/test/test1.xml",
+                Implementations =
+                {
+                    new ImplementationSelection { InterfaceID = "http://0install.de/feeds/test/test1.xml", ID = "id1", ManifestDigest = new ManifestDigest("sha256=123") },
+                    new ImplementationSelection { InterfaceID = "http://0install.de/feeds/test/test2.xml", ID = "id2", ManifestDigest = new ManifestDigest("sha256=abc") }
+                },
+                Commands = { appCommand, runnerCommand }
+            };
+
+            _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest);
+
+            var executor = new Executor(selections, TestStore);
+            var startInfo = executor.GetStartInfo(new string[0]);
+            Assert.AreEqual(
+                Path.Combine(Test2Path, StringUtils.UnifySlashes(runnerCommand.Path)),
+                startInfo.FileName);
+            Assert.AreEqual("runner_arg app_arg", startInfo.Arguments);
+        }
     }
 }
