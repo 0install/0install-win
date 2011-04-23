@@ -83,9 +83,10 @@ namespace ZeroInstall.Injector
         /// <returns>The <see cref="ProcessStartInfo"/> that can be used to start the new <see cref="Process"/>.</returns>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="Model.Implementation"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>
-        public ProcessStartInfo GetStartInfo(IEnumerable<string> arguments)
+        public ProcessStartInfo GetStartInfo(params string[] arguments)
         {
             #region Sanity checks
+            if (arguments == null) throw new ArgumentNullException("arguments");
             if (_selections.Commands.IsEmpty) throw new CommandException(Resources.NoCommands);
             #endregion
 

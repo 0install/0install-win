@@ -120,7 +120,7 @@ namespace ZeroInstall.Commands
         private int LaunchImplementation()
         {
             var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
-            var startInfo = executor.GetStartInfo(AdditionalArgs);
+            var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
             if (_noWait)
             {
                 ProcessUtils.RunAsync(startInfo);

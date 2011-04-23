@@ -72,7 +72,7 @@ namespace ZeroInstall.Injector
             selections.Commands[1].WorkingDir = new WorkingDir();
             _storeMock.SetReturnValue("GetPath", "test path");
             var executor = new Executor(selections, TestStore);
-            Assert.Throws<CommandException>(() => executor.GetStartInfo(new string[0]), "Multiple WorkingDir changes should be rejected");
+            Assert.Throws<CommandException>(() => executor.GetStartInfo(), "Multiple WorkingDir changes should be rejected");
         }
 
         private void PrepareStoreMock(Selections selections)
@@ -110,7 +110,7 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore);
-            var startInfo = executor.GetStartInfo(new[] {"--custom"});
+            var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
@@ -134,7 +134,7 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Wrapper = "wrapper --wrapper"};
-            var startInfo = executor.GetStartInfo(new[] {"--custom"});
+            var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual("wrapper", startInfo.FileName);
             Assert.AreEqual(
                 "--wrapper \"" + Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)) + "\" " + selections.Commands[1].Arguments[0] + " \"" + selections.Commands[0].Runner.Arguments[0] + "\" \"" + Path.Combine(Test1Path, StringUtils.UnifySlashes(selections.Commands[0].Path)) + "\" " + selections.Commands[0].Arguments[0] + " --custom",
@@ -155,7 +155,7 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Main = "main"};
-            var startInfo = executor.GetStartInfo(new[] {"--custom"});
+            var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
@@ -179,7 +179,7 @@ namespace ZeroInstall.Injector
             PrepareStoreMock(selections);
 
             var executor = new Executor(selections, TestStore) {Main = "/main"};
-            var startInfo = executor.GetStartInfo(new[] {"--custom"});
+            var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName,
@@ -210,7 +210,7 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Working dir for first/inner command
 
             var executor = new Executor(selections, TestStore);
-            var startInfo = executor.GetStartInfo(new[] {"--custom"});
+            var startInfo = executor.GetStartInfo("--custom");
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(selections.Commands[1].Path)),
                 startInfo.FileName);
@@ -255,7 +255,7 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest);
 
             var executor = new Executor(selections, TestStore);
-            var startInfo = executor.GetStartInfo(new string[0]);
+            var startInfo = executor.GetStartInfo();
             Assert.AreEqual(
                 Path.Combine(Test2Path, StringUtils.UnifySlashes(runnerCommand.Path)),
                 startInfo.FileName);
