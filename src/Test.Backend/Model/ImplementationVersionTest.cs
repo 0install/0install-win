@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
 using NUnit.Framework;
 
 namespace ZeroInstall.Model
@@ -26,7 +27,7 @@ namespace ZeroInstall.Model
     public class ImplementationVersionTest
     {
         /// <summary>
-        /// Ensures the <see cref="ImplementationVersion.TryCreate"/> correctly handles valid inputs and rejects invalid ones.
+        /// Ensures the <see cref="ImplementationVersion.TryCreate"/> correctly handles valid strings and rejects invalid ones.
         /// </summary>
         [Test]
         public void TestTryCreate()
@@ -48,12 +49,23 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
+        /// Ensures the <see cref="Version"/> constructor correctly converts .NET versions.
+        /// </summary>
+        [Test]
+        public void TestVersionConstructor()
+        {
+            Assert.AreEqual(new ImplementationVersion("1.2"), new ImplementationVersion(new Version(1, 2)));
+            Assert.AreEqual(new ImplementationVersion("1.2.3"), new ImplementationVersion(new Version(1, 2, 3)));
+            Assert.AreEqual(new ImplementationVersion("1.2.3.4"), new ImplementationVersion(new Version(1, 2, 3, 4)));
+        }
+
+        /// <summary>
         /// Ensures <see cref="ImplementationVersion"/> objects are sorted correctly.
         /// </summary>
         [Test]
         public void TestSort()
         {
-            var sortedVersions = new[] { "0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3" };
+            var sortedVersions = new[] {"0.1", "1", "1.0", "1.1", "1.2-pre", "1.2-pre1", "1.2-rc1", "1.2", "1.2-0", "1.2-post", "1.2-post1-pre", "1.2-post1", "1.2.1-pre", "1.2.1.4", "1.2.2", "1.2.10", "3"};
             for (int i = 1; i < sortedVersions.Length; i++)
             {
                 var v1 = new ImplementationVersion(sortedVersions[i - 1]);

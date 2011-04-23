@@ -31,7 +31,7 @@ namespace ZeroInstall.Model
 
         #region Constructor
         /// <summary>
-        /// Creates a new version from a a string.
+        /// Creates a new implementation version from a a string.
         /// </summary>
         /// <param name="value">The string containing the version information.</param>
         /// <exception cref="ArgumentException">Thrown if <paramref name="value"/> is not a valid version string.</exception>
@@ -51,6 +51,16 @@ namespace ZeroInstall.Model
             _additionalParts = new VersionPart[parts.Length - 1];
             for (int i = 1; i < parts.Length; i++)
                 _additionalParts[i - 1] = new VersionPart(parts[i]);
+        }
+
+        /// <summary>
+        /// Creates a new implementation version from a .NET <see cref="Version"/>.
+        /// </summary>
+        /// <param name="version">The .NET <see cref="Version"/> to convert.</param>
+        public ImplementationVersion(Version version)
+        {
+            _firstPart = new DottedList(version.ToString());
+            _additionalParts = new VersionPart[0];
         }
         #endregion
 
