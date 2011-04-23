@@ -40,7 +40,7 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try { _label = new TrackingLabel {Task = _task}; }
+            try { _label = new TrackingLabel(); }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems
@@ -58,6 +58,7 @@ namespace Common.Controls
         public void TestNormal()
         {
             _label.CreateControl();
+            _label.Task = _task;
             Application.DoEvents();
             Assert.AreEqual(TaskState.Ready, _label.CurrentState);
 
@@ -78,6 +79,7 @@ namespace Common.Controls
             _task.MockStateData();
 
             _label.CreateControl();
+            _label.Task = _task;
             Application.DoEvents();
             Assert.AreEqual("64 Bytes / 128 Bytes", _label.Text);
 
@@ -94,6 +96,7 @@ namespace Common.Controls
             _task.MockStateComplete();
 
             _label.CreateControl();
+            _label.Task = _task;
             Application.DoEvents();
             Assert.AreEqual(TaskState.Complete, _label.CurrentState);
         }

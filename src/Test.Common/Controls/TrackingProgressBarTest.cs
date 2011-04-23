@@ -40,7 +40,7 @@ namespace Common.Controls
         public void SetUp()
         {
             _task = new MockTask();
-            try { _progressBar = new TrackingProgressBar {Task = _task}; }
+            try { _progressBar = new TrackingProgressBar(); }
             catch (TypeInitializationException ex)
             {
                 // Don't fail on Server systems
@@ -58,6 +58,7 @@ namespace Common.Controls
         public void TestNormal()
         {
             _progressBar.CreateControl();
+            _progressBar.Task = _task;
             Application.DoEvents();
             Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
             Assert.AreEqual(0, _progressBar.Value);
@@ -84,6 +85,7 @@ namespace Common.Controls
             _task.MockStateData();
 
             _progressBar.CreateControl();
+            _progressBar.Task = _task;
             Application.DoEvents();
             Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
             Assert.AreEqual(50, _progressBar.Value);
@@ -102,6 +104,7 @@ namespace Common.Controls
             _task.MockStateComplete();
 
             _progressBar.CreateControl();
+            _progressBar.Task = _task;
             Application.DoEvents();
             Assert.AreEqual(ProgressBarStyle.Continuous, _progressBar.Style);
             Assert.AreEqual(100, _progressBar.Value);
