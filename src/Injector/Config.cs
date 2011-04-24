@@ -122,6 +122,14 @@ namespace ZeroInstall.Injector
         /// </summary>
         [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
         public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
+
+        private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
+        private string _selfUpdateID = DefaultSelfUpdateID;
+        /// <summary>
+        /// The ID used by the solver to search for updates for Zero Install itself.
+        /// </summary>
+        [DefaultValue(DefaultSelfUpdateID), DisplayName("Self-update ID"), Description("The ID used by the solver to search for updates for Zero Install itself.")]
+        public string SelfUpdateID { get { return _selfUpdateID; } set { _selfUpdateID = value; } }
         #endregion
 
         #region Constructor
@@ -137,7 +145,8 @@ namespace ZeroInstall.Injector
                 {"network_use", GetNetworkUseConverter()},
                 //{"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
                 //{"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
-                {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))}
+                {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
+                {"sef_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)}
             };
         }
 
@@ -204,6 +213,17 @@ namespace ZeroInstall.Injector
             #endregion
 
             _metaData[key].Value = value;
+        }
+
+        /// <summary>
+        /// Resets an option identified by a key to its default value.
+        /// </summary>
+        /// <param name="key">The key of the option to reset.</param>
+        /// <exception cref="C5.NoSuchItemException">Thrown if <paramref name="key"/> is invalid.</exception>
+        public void ResetOption(string key)
+        {
+            var property = _metaData[key];
+            property.Value = property.DefaultValue;
         }
         #endregion
 

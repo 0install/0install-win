@@ -27,9 +27,10 @@ namespace ZeroInstall.Commands.WinForms
     /// </summary>
     public partial class ConfigForm : OKCancelDialog
     {
-        private ConfigForm()
+        private ConfigForm(Config config)
         {
             InitializeComponent();
+            propertyGrid.SelectedObject = config;
         }
 
         /// <summary>
@@ -42,8 +43,15 @@ namespace ZeroInstall.Commands.WinForms
             if (config == null) throw new ArgumentNullException("config");
             #endregion
 
-            using (var form = new ConfigForm {propertyGrid = {SelectedObject = config}})
+            using (var form = new ConfigForm(config))
                 return form.ShowDialog();
+        }
+
+        private void resetValueMenuItem_Click(object sender, EventArgs e)
+        {
+            var item = propertyGrid.SelectedGridItem;
+            if (item.PropertyDescriptor != null && item.PropertyDescriptor.CanResetValue(item.Parent.Value))
+                propertyGrid.ResetSelectedProperty();
         }
     }
 }
