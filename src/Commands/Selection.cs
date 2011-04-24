@@ -159,7 +159,7 @@ namespace ZeroInstall.Commands
         /// <summary>
         /// Runs <see cref="ISolver.Solve"/> (unless <see cref="SelectionsDocument"/> is <see langword="true"/>) and stores the result in <see cref="Selections"/>.
         /// </summary>
-        /// <exception cref="UserCancelException">Thrown if the user clicked the "Cancel" button.</exception>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the process.</exception>
         /// <exception cref="IOException">Thrown if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
         protected virtual void Solve()
