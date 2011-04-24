@@ -336,7 +336,7 @@ namespace ZeroInstall.Injector
         /// <returns>The new copy of the <see cref="Config"/>.</returns>
         public Config CloneConfig()
         {
-            return new Config {HelpWithTesting = HelpWithTesting, Freshness = Freshness, NetworkUse = NetworkUse, FeedMirror = FeedMirror, KeyInfoServer = KeyInfoServer, AutoApproveKeys = AutoApproveKeys};
+            return new Config {HelpWithTesting = HelpWithTesting, Freshness = Freshness, NetworkUse = NetworkUse, FeedMirror = FeedMirror, KeyInfoServer = KeyInfoServer, AutoApproveKeys = AutoApproveKeys, SelfUpdateID = SelfUpdateID};
         }
 
         /// <summary>
@@ -368,7 +368,7 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return other.HelpWithTesting == HelpWithTesting && other.Freshness == Freshness && other.NetworkUse == NetworkUse && other.FeedMirror == FeedMirror && other.KeyInfoServer == KeyInfoServer && other.AutoApproveKeys == AutoApproveKeys;
+            return other.HelpWithTesting == HelpWithTesting && other.Freshness == Freshness && other.NetworkUse == NetworkUse && other.FeedMirror == FeedMirror && other.KeyInfoServer == KeyInfoServer && other.AutoApproveKeys == AutoApproveKeys && other.SelfUpdateID == SelfUpdateID;
         }
 
         /// <inheritdoc/>
@@ -391,6 +391,7 @@ namespace ZeroInstall.Injector
                 result = (result * 397) ^ (FeedMirror != null ? FeedMirror.GetHashCode() : 0);
                 result = (result * 397) ^ (KeyInfoServer != null ? KeyInfoServer.GetHashCode() : 0);
                 result = (result * 397) ^ AutoApproveKeys.GetHashCode();
+                result = (result * 397) ^ SelfUpdateID.GetHashCode();
                 return result;
             }
         }
