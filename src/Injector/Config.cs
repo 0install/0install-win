@@ -104,7 +104,6 @@ namespace ZeroInstall.Injector
         /// The base URL of a mirror site for keys and feeds.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultFeedMirror), DisplayName("Feed mirror"), Description("The base URL of a mirror site for keys and feeds.")]
-        [Browsable(false)] // This option is not supported yet
         public Uri FeedMirror { get { return _feedMirror; } set { _feedMirror = value; } }
 
         private const string DefaultKeyInfoServer = "https://keylookup.appspot.com";
@@ -113,7 +112,6 @@ namespace ZeroInstall.Injector
         /// The base URL of a key information server.
         /// </summary>
         [DefaultValue(typeof(Uri), DefaultKeyInfoServer), DisplayName("Key info server"), Description("The base URL of a key information server.")]
-        [Browsable(false)] // This option is not supported yet
         public Uri KeyInfoServer { get { return _keyInfoServer; } set { _keyInfoServer = value; } }
 
         private bool _autoApproveKeys = true;
@@ -122,6 +120,14 @@ namespace ZeroInstall.Injector
         /// </summary>
         [DefaultValue(true), DisplayName("Auto approve keys"), Description("Automatically approve keys known by the key info server and seen the first time a feed is fetched.")]
         public bool AutoApproveKeys { get { return _autoApproveKeys; } set { _autoApproveKeys = value; } }
+
+        private const string DefaultAppStoreHome = "http://0install.de/appstore/?client=central&lang=[LANG]";
+        private string _appStoreHome = DefaultAppStoreHome;
+        /// <summary>
+        /// The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.
+        /// </summary>
+        [DefaultValue(DefaultAppStoreHome), DisplayName("AppStore home"), Description("The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.")]
+        public string AppStoreHome { get { return _appStoreHome; } set { _appStoreHome = value; } }
 
         private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
         private string _selfUpdateID = DefaultSelfUpdateID;
@@ -143,9 +149,10 @@ namespace ZeroInstall.Injector
                 {"help_with_testing", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => HelpWithTesting, value => HelpWithTesting = value, false))},
                 {"freshness", PropertyPointer.GetTimespanConverter(new PropertyPointer<TimeSpan>(() => Freshness, value => Freshness = value, _defaultFreshness))},
                 {"network_use", GetNetworkUseConverter()},
-                //{"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
-                //{"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
+                {"feed_mirror", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => FeedMirror, value => FeedMirror = value, new Uri(DefaultFeedMirror)))},
+                {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
+                {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
                 {"sef_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)}
             };
         }
@@ -336,7 +343,10 @@ namespace ZeroInstall.Injector
         /// <returns>The new copy of the <see cref="Config"/>.</returns>
         public Config CloneConfig()
         {
-            return new Config {HelpWithTesting = HelpWithTesting, Freshness = Freshness, NetworkUse = NetworkUse, FeedMirror = FeedMirror, KeyInfoServer = KeyInfoServer, AutoApproveKeys = AutoApproveKeys, SelfUpdateID = SelfUpdateID};
+            var newConfig = new Config();
+            foreach (var property in _metaData)
+                newConfig.SetOption(property.Key, GetOption(property.Key));
+            return newConfig;
         }
 
         /// <summary>
@@ -368,7 +378,9 @@ namespace ZeroInstall.Injector
         {
             if (other == null) return false;
 
-            return other.HelpWithTesting == HelpWithTesting && other.Freshness == Freshness && other.NetworkUse == NetworkUse && other.FeedMirror == FeedMirror && other.KeyInfoServer == KeyInfoServer && other.AutoApproveKeys == AutoApproveKeys && other.SelfUpdateID == SelfUpdateID;
+            foreach (var property in _metaData)
+                if (property.Value.Value != other.GetOption(property.Key)) return false;
+            return true;
         }
 
         /// <inheritdoc/>
@@ -384,14 +396,14 @@ namespace ZeroInstall.Injector
         {
             unchecked
             {
-                int result = NetworkUse.GetHashCode();
-                result = (result * 397) ^ HelpWithTesting.GetHashCode();
-                result = (result * 397) ^ Freshness.GetHashCode();
-                result = (result * 397) ^ NetworkUse.GetHashCode();
-                result = (result * 397) ^ (FeedMirror != null ? FeedMirror.GetHashCode() : 0);
-                result = (result * 397) ^ (KeyInfoServer != null ? KeyInfoServer.GetHashCode() : 0);
-                result = (result * 397) ^ AutoApproveKeys.GetHashCode();
-                result = (result * 397) ^ SelfUpdateID.GetHashCode();
+                int result = 397;
+                foreach (var property in _metaData)
+                {
+                    if (property.Value.Value != null)
+                    { // Use a commutative folding function (multiplication) since the order in a hash map is non-deterministic
+                        result *= property.Value.Value.GetHashCode();
+                    }
+                }
                 return result;
             }
         }
