@@ -43,6 +43,7 @@
             this.buttonCacheManagement = new System.Windows.Forms.Button();
             this.buttonHelp = new System.Windows.Forms.Button();
             this.labelVersion = new System.Windows.Forms.Label();
+            this.selfUpdateWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.tabControlApps.SuspendLayout();
             this.tabPageMyApps.SuspendLayout();
@@ -210,7 +211,12 @@
             this.labelVersion.Name = "labelVersion";
             this.labelVersion.Size = new System.Drawing.Size(56, 20);
             this.labelVersion.TabIndex = 2;
-            this.labelVersion.Text = "vX.Y.Z";
+            this.labelVersion.Text = "(Version)";
+            // 
+            // selfUpdateWorker
+            // 
+            this.selfUpdateWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.selfUpdateWorker_DoWork);
+            this.selfUpdateWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.selfUpdateWorker_RunWorkerCompleted);
             // 
             // MainForm
             // 
@@ -265,6 +271,7 @@
         private System.Windows.Forms.Button buttonCacheManagement;
         private System.Windows.Forms.Label labelVersion;
         private System.Windows.Forms.Button buttonConfiguration;
+        private System.ComponentModel.BackgroundWorker selfUpdateWorker;
 
     }
 }

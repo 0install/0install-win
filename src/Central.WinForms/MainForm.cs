@@ -16,18 +16,31 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
+using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
 {
     partial class MainForm : Form
     {
+        #region Variables
+        private readonly Policy _selfUpdatePolicy = Policy.CreateDefault(new SilentHandler());
+        
+        /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
+        private ImplementationVersion _selfUpdateVersion;
+        #endregion
+
         #region Constructor
         public MainForm()
         {
@@ -43,13 +56,86 @@ namespace ZeroInstall.Central.WinForms
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
 
-            browserNewApps.Navigate(Resources.AppstoreUri);
+            browserNewApps.Navigate(Config.Load().AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
             labelVersion.Text = "v" + Application.ProductVersion;
+
+            selfUpdateWorker.RunWorkerAsync();
         }
         #endregion
 
         //--------------------//
+
+        #region Self-update
+        private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            try { _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_selfUpdatePolicy); }
+            #region Error handling
+            catch(UserCancelException) {}
+            catch (IOException ex)
+            {
+                Log.Error(ex.Message);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+            }
+            catch (SolverException ex)
+            {
+                Log.Error(ex.Message);
+            }
+            #endregion
+        }
+
+        private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (_selfUpdateVersion == null) return;
+            if (Msg.Ask(this, string.Format(Resources.SelfUpdateAvailable, _selfUpdateVersion), MsgSeverity.Info, "Yes\nInstall update", "No\nIgnore update for now"))
+            {
+                try
+                {
+                    UpdateUtils.RunSelfUpdate(_selfUpdatePolicy);
+                    Application.Exit();
+                }
+                #region Error handling
+                catch (FileNotFoundException ex)
+                {
+                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, "0install-win"), MsgSeverity.Error);
+                }
+                catch (Win32Exception ex)
+                {
+                    Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, "0install-win"), MsgSeverity.Error);
+                }
+                #endregion
+            }
+        }
+        #endregion
+
+        #region Helpers
+        /// <summary>
+        /// Attempts to launch a .NET helper assembly in the application's base directory. Displays friendly error messages if something goes wrong.
+        /// </summary>
+        /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
+        /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        private void LaunchHelperAssembly(string assembly, string arguments)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
+            #endregion
+
+            try { ProcessUtils.LaunchHelperAssembly(assembly, arguments); }
+            #region Error handling
+            catch (FileNotFoundException ex)
+            {
+                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
+            }
+            catch (Win32Exception ex)
+            {
+                Msg.Inform(this, string.Format(Resources.FailedToRun + "\n" + ex.Message, assembly), MsgSeverity.Error);
+            }
+            #endregion
+        }
+        #endregion
 
         #region Launch feed
         /// <summary>
@@ -59,7 +145,7 @@ namespace ZeroInstall.Central.WinForms
         private void LaunchFeed(string feedUri)
         {
             if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
-            Program.LaunchHelperAssembly(this, "0install-win", "run --no-wait " + feedUri);
+            LaunchHelperAssembly("0install-win", "run --no-wait " + feedUri);
             Close();
         }
         #endregion
@@ -103,7 +189,7 @@ namespace ZeroInstall.Central.WinForms
             }
         }
 
-        private void browserNewApps_NewWindow(object sender, System.ComponentModel.CancelEventArgs e)
+        private void browserNewApps_NewWindow(object sender, CancelEventArgs e)
         {
             // Prevent any popups
             e.Cancel = true;
@@ -116,17 +202,17 @@ namespace ZeroInstall.Central.WinForms
             string interfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            Program.LaunchHelperAssembly(this, "0install-win", "run " + StringUtils.Escape(interfaceID));
+            LaunchHelperAssembly("0install-win", "run " + StringUtils.Escape(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperAssembly(this, "0store-win", null);
+            LaunchHelperAssembly("0store-win", null);
         }
 
         private void buttonConfiguration_Click(object sender, EventArgs e)
         {
-            Program.LaunchHelperAssembly(this, "0install-win", "config");
+            LaunchHelperAssembly("0install-win", "config");
         }
 
         private void buttonHelp_Click(object sender, EventArgs e)

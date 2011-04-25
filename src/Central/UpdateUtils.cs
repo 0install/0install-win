@@ -15,6 +15,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+using System;
+using System.ComponentModel;
+using System.IO;
+using Common;
+using Common.Storage;
+using Common.Utils;
+using ZeroInstall.Injector;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
+
 namespace ZeroInstall.Central
 {
     /// <summary>
@@ -22,5 +32,52 @@ namespace ZeroInstall.Central
     /// </summary>
     public static class UpdateUtils
     {
+        /// <summary>
+        /// Checks for updates to Zero Install itself.
+        /// </summary>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <returns>The version number of the newest available update; <see langword="null"/> if no update is available.</returns>
+        /// <exception cref="UserCancelException">Thrown if the user cancelled the operation.</exception>
+        /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
+        /// <exception cref="SolverException">Thrown if the dependencies could not be solved.</exception>
+        public static ImplementationVersion CheckSelfUpdate(Policy policy)
+        {
+            #region Sanity checks
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            if (policy.Config.NetworkUse == NetworkLevel.Offline) return null;
+
+            policy.FeedManager.Refresh = true;
+            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
+
+            // Run solver
+            var currentVersion = new ImplementationVersion(ApplicationInfo.Version);
+            bool staleFeeds;
+            var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
+
+            // Report version of current update if it is newer than the already installed version
+            return (selections.Implementations[0].Version > currentVersion) ? currentVersion : null;
+        }
+
+        /// <summary>
+        /// Downloads and installs updates to Zero Install itself.
+        /// </summary>
+        /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
+        /// <remarks>Application should exit itself after calling this.</remarks>
+        /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
+        /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
+        public static void RunSelfUpdate(Policy policy)
+        {
+            #region Sanity checks
+            if (policy == null) throw new ArgumentNullException("policy");
+            #endregion
+
+            var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
+
+            // ToDo: Perform download in-process
+            ProcessUtils.LaunchHelperAssembly("0install-win", "run --no-wait " + requirements.ToCommandLineArgs() + " \"" + Locations.PortableBase + "\"");
+        }
     }
 }
