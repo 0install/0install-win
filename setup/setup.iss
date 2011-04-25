@@ -15,7 +15,6 @@
 #include "scripts\products\dotnetfx20.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-#include "scripts\products\nanogrid.iss"
 #endif
 
 #include "scripts\modpath.iss"
@@ -38,12 +37,7 @@ de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) lös
 
 [Setup]
 OutputDir=..\build\Publish
-#ifndef Update
-OutputBaseFilename=0install
-#endif
-#ifdef Update
-OutputBaseFilename=0install_upd
-#endif
+OutputBaseFilename=zero-instal
 
 ;General settings
 ShowLanguageDialog=auto
@@ -101,32 +95,12 @@ Name: {app}\Python; Type: filesandordirs
 Source: ..\lgpl.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\3rd party code.txt; DestDir: {app}; Flags: ignoreversion
 Source: ..\build\Frontend\Release\*; Excludes: *.log,*.pdb,*.mdb,*.vshost.exe,Test.*,nunit.*,*.xml; DestDir: {app}; Flags: ignoreversion recursesubdirs
-#ifndef Update
 Source: ..\build\Bundled\*; DestDir: {app}; Flags: ignoreversion recursesubdirs
-#endif
-#ifdef Update
-;Only update the Solver script and not the other Bundled stuff
-Source: ..\build\Bundled\Solver\library.zip; DestDir: {app}\Solver; Flags: ignoreversion recursesubdirs
-#endif
 
 [Registry]
-;These entries are required by the NanoGrid auto-update tool
-Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
-Root: HKLM; Subkey: Software\NanoByte\Zero Install\Info; ValueType: string; ValueName: Revision; ValueData: {#Rev}
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install; Flags: uninsdeletekeyifempty
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; Flags: uninsdeletekey
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Path; ValueData: {app}
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Position; ValueData: {app}\ZeroInstall.exe
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Uninstall; ValueData: {uninstallexe}
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Major; ValueData: {#Maj}
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Minor; ValueData: {#Min}
-Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install\Info; ValueType: string; ValueName: Revision; ValueData: {#Rev}
+;These entries were used by the NanoGrid auto-update tool
+Root: HKLM; Subkey: Software\NanoByte\Zero Install; Flags: deletekey
+Root: HKLM; Subkey: Software\Wow6432Node\NanoByte\Zero Install; Flags: deletekey
 
 [Tasks]
 Name: desktopicon; Description: {cm:CreateDesktopIcon}
@@ -134,10 +108,9 @@ Name: modifypath; Description: {cm:AddToPath}
 [Icons]
 Name: {group}\{cm:UninstallProgram,Zero Install}; Filename: {uninstallexe}
 Name: {group}\Website; Filename: http://0install.de/
-Name: {group}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe
-;Name: {group}\Feed Editor; Filename: nanogrid:/launch/ZeroInstall:/editor /autoClose /anonLogin; IconFilename: {app}\0publish-win.exe
+Name: {group}\Zero Install; Filename: {app}\ZeroInstall.exe
 Name: {group}\{cm:CacheManagement}; Filename: {app}\0store-win.exe; IconFilename: {app}\0store-win.exe
-Name: {commondesktop}\Zero Install; Filename: nanogrid:/launch/ZeroInstall /autoClose /anonLogin; IconFilename: {app}\ZeroInstall.exe; Tasks: desktopicon
+Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desktopicon
 
 ;Post-installations tasks
 [Run]
@@ -149,6 +122,14 @@ Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {app}\ZeroInstall.exe; Description: {cm:LaunchProgram,Zero Install}; Flags: nowait postinstall runasoriginaluser skipifsilent
+
+[UninstallDelete]
+;Remove files added by post-installation updates
+Name: {app}\de; Type: filesandordirs
+Name: {app}\Solver; Type: filesandordirs
+Name: {app}\GnuPG; Type: filesandordirs
+Name: {app}\ZeroInstall.*; Type: files
+Name: {app}; Type: dirifempty
 
 [Code]
 #ifndef Update
@@ -185,7 +166,6 @@ begin
 			//end;
 		end;
 	end;
-	nanogrid();
 
 	Result := true;
 end;

@@ -4,8 +4,7 @@ cd /d "%~dp0"
 
 rem Project settings
 set TargetDir=%~dp0..\build\Publish
-set SetupEXE=0install.exe
-set SetupUpdateEXE=0install_upd.exe
+set SetupEXE=zero-install.exe
 
 rem Handle WOW
 if %PROCESSOR_ARCHITECTURE%==x86 set ProgramFiles_temp=%ProgramFiles%
@@ -36,10 +35,6 @@ if "%2"=="+run" "%TargetDir%\%SetupEXE%" /silent
 if "%3"=="+run" "%TargetDir%\%SetupEXE%" /silent
 if "%4"=="+run" "%TargetDir%\%SetupEXE%" /silent
 
-echo Building Inno Setup Update...
-iscc /Q update.iss
-if errorlevel 1 pause
-
 
 
 echo Building Bundled archive...
@@ -48,35 +43,35 @@ zip -9 -r "%TargetDir%\bundled.zip" . > NUL
 if errorlevel 1 pause
 
 rem Bundled content also needs to be copied into the other archive
-copy "%TargetDir%\bundled.zip" "%TargetDir%\0install_backend.zip" > NUL
-copy "%TargetDir%\bundled.zip" "%TargetDir%\0install.zip" > NUL
-copy "%TargetDir%\bundled.zip" "%TargetDir%\0install_tools.zip" > NUL
+copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install-backend.zip" > NUL
+copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install.zip" > NUL
+copy "%TargetDir%\bundled.zip" "%TargetDir%\zero-install-tools.zip" > NUL
 
 echo Building Backend archive...
 cd "%~dp0..\build\Backend\Release"
-zip -9 -r "%TargetDir%\0install_backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
+zip -9 -r "%TargetDir%\zero-install-backend.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install_backend.zip" "%~dp0..\lgpl.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install-backend.zip" "%~dp0..\lgpl.txt" > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install_backend.zip" "%~dp0..\3rd party code.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install-backend.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Frontend archive...
 cd "%~dp0..\build\Frontend\Release"
-zip -9 -r "%TargetDir%\0install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+zip -9 -r "%TargetDir%\zero-install.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install.zip" "%~dp0..\lgpl.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\lgpl.txt" > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install.zip" "%~dp0..\3rd party code.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 echo Building Tools archive...
 cd "%~dp0..\build\Tools\Release"
-zip -9 -r "%TargetDir%\0install_tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+zip -9 -r "%TargetDir%\zero-install-tools.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install_tools.zip" "%~dp0..\lgpl.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install-tools.zip" "%~dp0..\lgpl.txt" > NUL
 if errorlevel 1 pause
-zip -9 -j "%TargetDir%\0install_tools.zip" "%~dp0..\3rd party code.txt" > NUL
+zip -9 -j "%TargetDir%\zero-install-tools.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
 :end
