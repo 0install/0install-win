@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="UnableToGenerateReportFile" xml:space="preserve">
+		<value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
+	</data>
+  <data name="UnableToUploadReportFile" xml:space="preserve">
+		<value>Konnte die Fehlerberichtdatei nicht hochladen. Bitte senden Sie '{0}' per E-Mail.</value>
+	</data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
   </data>
@@ -230,9 +236,6 @@ Die Änderungen löschen</value>
   <data name="AppAlreadyRunning" xml:space="preserve">
     <value>Diese Anwendung läuft bereits!</value>
   </data>
-  <data name="MissingNanoGrid" xml:space="preserve">
-    <value>NanoGrid muss installiert sein damit dieses Spiel korrekt funktioniert.</value>
-  </data>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>Die mitgelieferte {0}-Installation konnte nicht gestartet werden. Bitte installieren Sie die Anwendung neu.</value>
   </data>
@@ -273,9 +276,9 @@ Die Änderungen löschen</value>
     <value>Abgeschlossen</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
-		<value>Details anzeigen</value>
-	</data>
+    <value>Details anzeigen</value>
+  </data>
   <data name="HideDetails" xml:space="preserve">
-		<value>Details verstecken</value>
-	</data>
+    <value>Details verstecken</value>
+  </data>
 </root>

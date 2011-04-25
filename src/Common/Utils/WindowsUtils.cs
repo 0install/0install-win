@@ -256,8 +256,13 @@ namespace Common.Utils
         /// <summary>
         /// Forces a window to the foreground or flashes the taskbar if another process has the focus.
         /// </summary>
+        [SuppressMessage("Microsoft.Design", "CA1011:ConsiderPassingBaseTypesAsParameters", Justification = "This method operates only on windows and not on individual controls.")]
         public static void SetForegroundWindow(Form form)
         {
+            #region Sanity checks
+            if (form == null) throw new ArgumentNullException("form");
+            #endregion
+
             SafeNativeMethods.SetForegroundWindow(form.Handle);
         }
         #endregion

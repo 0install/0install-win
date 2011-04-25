@@ -131,6 +131,12 @@
   <data name="Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="UnableToGenerateReportFile" xml:space="preserve">
+		<value>Unable to generate error report file. Please send the technical data via e-mail.</value>
+	</data>
+  <data name="UnableToUploadReportFile" xml:space="preserve">
+		<value>Unable to upload error report file. Please send '{0}' via e-mail.</value>
+	</data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>The content archives were already loaded</value>
   </data>
@@ -244,9 +250,6 @@ Delete the changes</value>
   <data name="AppAlreadyRunning" xml:space="preserve">
     <value>This application is already running!</value>
   </data>
-  <data name="MissingNanoGrid" xml:space="preserve">
-    <value>NanoGrid must be installed for this game to work properly.</value>
-  </data>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>
   </data>
@@ -287,9 +290,9 @@ Delete the changes</value>
     <value>Complete</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
-		<value>Show details</value>
-	</data>
+    <value>Show details</value>
+  </data>
   <data name="HideDetails" xml:space="preserve">
-		<value>Hide details</value>
-	</data>
+    <value>Hide details</value>
+  </data>
 </root>

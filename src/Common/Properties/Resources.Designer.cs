@@ -327,15 +327,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NanoGrid must be installed for this game to work properly..
-        /// </summary>
-        internal static string MissingNanoGrid {
-            get {
-                return ResourceManager.GetString("MissingNanoGrid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The stream must support seeking..
         /// </summary>
         internal static string MissingStreamSeekSupport {
@@ -489,6 +480,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to generate error report file. Please send the technical data via e-mail..
+        /// </summary>
+        internal static string UnableToGenerateReportFile {
+            get {
+                return ResourceManager.GetString("UnableToGenerateReportFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The bundled {0} installation could not be launched. Please reinstall the application..
         /// </summary>
         internal static string UnableToLaunchBundled {
@@ -503,6 +503,15 @@ namespace Common.Properties {
         internal static string UnableToLocateAssembly {
             get {
                 return ResourceManager.GetString("UnableToLocateAssembly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to upload error report file. Please send &apos;{0}&apos; via e-mail..
+        /// </summary>
+        internal static string UnableToUploadReportFile {
+            get {
+                return ResourceManager.GetString("UnableToUploadReportFile", resourceCulture);
             }
         }
         
