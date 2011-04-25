@@ -35,7 +35,11 @@ namespace ZeroInstall.Capture.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()));
+#if DEBUG
+            Application.Run(new MainForm());
+#else
+            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
+#endif
         }
     }
 }

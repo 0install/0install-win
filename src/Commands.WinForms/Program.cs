@@ -182,7 +182,7 @@ namespace ZeroInstall.Commands.WinForms
                 #endregion
             }
 #if !DEBUG
-            );
+            , new Uri("http://0install.de/error-report/"));
 #endif
         }
     }

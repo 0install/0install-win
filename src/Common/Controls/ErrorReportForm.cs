@@ -24,9 +24,10 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Windows.Forms;
-using Common.Utils;
+using Common.Properties;
 using Common.Storage;
 using ICSharpCode.SharpZipLib.Zip;
 
@@ -39,7 +40,7 @@ namespace Common.Controls
     public sealed partial class ErrorReportForm : Form
     {
         #region Variables
-        private readonly Action<string> _callback;
+        private readonly Uri _uploadUri;
         private readonly ExceptionInformation _exceptionInformation;
         #endregion
 
@@ -48,12 +49,12 @@ namespace Common.Controls
         /// Prepares reporting an error.
         /// </summary>
         /// <param name="ex">The exception object describing the error.</param>
-        /// <param name="callback">A delegate that is called when the user decides to report the error with the path of the file with the report information.</param>
-        private ErrorReportForm(Exception ex, Action<string> callback)
+        /// <param name="uploadUri">The URI to upload error reports to.</param>
+        private ErrorReportForm(Exception ex, Uri uploadUri)
         {
             #region Sanity checks
             if (ex == null) throw new ArgumentNullException("ex");
-            if (callback == null) throw new ArgumentNullException("callback");
+            if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
 
             InitializeComponent();
@@ -71,7 +72,7 @@ namespace Common.Controls
             if (ex.InnerException != null)
                 detailsBox.Text += "\r\n\r\n" + ex.InnerException;
 
-            _callback = callback;
+            _uploadUri = uploadUri;
         }
         #endregion
 
@@ -80,6 +81,7 @@ namespace Common.Controls
         /// Runs a delegate, catching and reporting any unhandled exceptions that occur inside.
         /// </summary>
         /// <param name="run">The delegate to run.</param>
+        /// <param name="uploadUri">The URI to upload error reports to.</param>
         /// <returns><see langword="true"/> if <paramref name="run"/> was executed successfully; <see langword="false"/> if an exception was caught.</returns>
         /// <remarks>
         ///   <para>
@@ -92,18 +94,12 @@ namespace Common.Controls
         ///   </para>
         /// </remarks>
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes", Justification = "If the actual exception is unknown the generic top-level Exception is the most appropriate")]
-        public static bool RunAppMonitored(SimpleEventHandler run)
+        public static bool RunAppMonitored(SimpleEventHandler run, Uri uploadUri)
         {
             #region Sanity checks
             if (run == null) throw new ArgumentNullException("run");
+            if (uploadUri == null) throw new ArgumentNullException("uploadUri");
             #endregion
-
-            // Just run the code without any monitoring if there is no NanoGrid installation to report potential errors
-            if (!NanoGrid.IsAvailable)
-            {
-                run();
-                return true;
-            }
 
             // Catch exceptions in WinForms threads
             Exception delayedException = null;
@@ -120,7 +116,7 @@ namespace Common.Controls
             // Catch exceptions in background threads
             UnhandledExceptionEventHandler backgroundHandler = delegate(object sender, UnhandledExceptionEventArgs e)
             {
-                Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"));
+                Report((e.ExceptionObject as Exception) ?? new Exception("Unknown error"), uploadUri);
 
                 // Normally a background exception would only kill a single thread, but we want the whole application to end to be on the safe side
                 Process.GetCurrentProcess().Kill();
@@ -139,7 +135,7 @@ namespace Common.Controls
             // Report exceptions from WinForms threads
             if (delayedException != null)
             {
-                Report(delayedException);
+                Report(delayedException, uploadUri);
                 return false;
             }
 
@@ -150,19 +146,41 @@ namespace Common.Controls
         /// Runs a new message loop to display the error reporting form.
         /// </summary>
         /// <param name="ex">The exception to report.</param>
-        /// <remarks>The report is uploaded via <see cref="NanoGrid"/>.</remarks>
-        private static void Report(Exception ex)
+        /// <param name="uploadUri">The URI to upload error reports to.</param>
+        private static void Report(Exception ex, Uri uploadUri)
         {
-            Application.Run(new ErrorReportForm(ex, NanoGrid.Upload));
+            Application.Run(new ErrorReportForm(ex, uploadUri));
         }
         #endregion
 
         //--------------------//
 
         #region Buttons
+        [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "A final exception handler may never throw exceptions itself")]
         private void buttonReport_Click(object sender, EventArgs e)
         {
-            _callback(GenerateReportFile());
+            Cursor = Cursors.WaitCursor;
+
+            string reportFile;
+            try { reportFile = GenerateReportFile(); }
+            #region Sanity checks
+            catch (Exception ex)
+            {
+                Cursor = Cursors.Default;
+                Msg.Inform(this, Resources.UnableToGenerateReportFile + "\n" + ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
+            try { new WebClient().UploadFile(_uploadUri, reportFile); }
+            #region Sanity checks
+            catch (Exception ex)
+            {
+                Cursor = Cursors.Default;
+                Msg.Inform(this, string.Format(Resources.UnableToUploadReportFile, reportFile) + "\n" + ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
 
             Close();
         }
