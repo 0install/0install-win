@@ -66,7 +66,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationInfo.cs" />
-    <Compile Include="Controls\RtfBuilder.cs" />
     <Compile Include="ExceptionInformation.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
@@ -110,7 +109,6 @@
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
     <Compile Include="Utils\AppMutex.cs" />
-    <Compile Include="Utils\NanoGrid.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
     <Compile Include="Utils\StringUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
@@ -141,6 +139,7 @@
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
+    <Compile Include="Controls\RtfBuilder.cs" />
     <Compile Include="Controls\InputBox.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -34,11 +34,6 @@ namespace Common.Controls
     /// </summary>
     public class TrackingProgressBar : ProgressBar
     {
-        #region Variables
-        /// <summary>A barrier that blocks threads until the window handle is ready.</summary>
-        private readonly EventWaitHandle _handleReady = new EventWaitHandle(false, EventResetMode.ManualReset);
-        #endregion
-
         #region Properties
         private ITask _task;
         /// <summary>
@@ -116,14 +111,6 @@ namespace Common.Controls
         /// <remarks>Use only once per window. Only works on Windows 7 or newer.</remarks>
         [Description("Show the progress in the Windows taskbar."), DefaultValue(false)]
         public bool UseTaskbar { set; get; }
-        #endregion
-
-        #region Constructor
-        public TrackingProgressBar()
-        {
-            // Singal when the WinForms code is ready to start handling events
-            HandleCreated += delegate { _handleReady.Set(); };
-        }
         #endregion
 
         //--------------------//
