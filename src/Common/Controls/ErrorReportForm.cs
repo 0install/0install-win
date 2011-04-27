@@ -159,29 +159,41 @@ namespace Common.Controls
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "A final exception handler may never throw exceptions itself")]
         private void buttonReport_Click(object sender, EventArgs e)
         {
-            Cursor = Cursors.WaitCursor;
-
-            string reportFile;
-            try { reportFile = GenerateReportFile(); }
-            #region Sanity checks
-            catch (Exception ex)
+            using (var waitDialog = new AsyncWaitDialog(Text, Icon))
             {
-                Cursor = Cursors.Default;
-                Msg.Inform(this, Resources.UnableToGenerateReportFile + "\n" + ex.Message, MsgSeverity.Error);
-                return;
-            }
-            #endregion
+                Cursor = Cursors.WaitCursor;
+                buttonReport.Enabled = buttonCancel.Enabled = false;
+                waitDialog.Start();
 
-            try { new WebClient().UploadFile(_uploadUri, reportFile); }
-            #region Sanity checks
-            catch (Exception ex)
-            {
-                Cursor = Cursors.Default;
-                Msg.Inform(this, string.Format(Resources.UnableToUploadReportFile, reportFile) + "\n" + ex.Message, MsgSeverity.Error);
-                return;
-            }
-            #endregion
+                string reportFile;
+                try { reportFile = GenerateReportFile(); }
+                #region Sanity checks
+                catch (Exception ex)
+                {
+                    Cursor = Cursors.Default;
+                    waitDialog.Stop();
+                    Msg.Inform(this, Resources.UnableToGenerateErrorReportFile + "\n" + ex.Message, MsgSeverity.Error);
+                    buttonReport.Enabled = buttonCancel.Enabled = true;
+                    return;
+                }
+                #endregion
 
+                try { new WebClient().UploadFile(_uploadUri, reportFile); }
+                #region Sanity checks
+                catch (Exception ex)
+                {
+                    Cursor = Cursors.Default;
+                    waitDialog.Stop();
+                    Msg.Inform(this, string.Format(Resources.UnableToUploadErrorReportFile, reportFile) + "\n" + ex.Message, MsgSeverity.Error);
+                    buttonReport.Enabled = buttonCancel.Enabled = true;
+                    return;
+                }
+                #endregion
+
+                waitDialog.Stop();
+            }
+
+            Msg.Inform(this, Resources.ErrorReportSent, MsgSeverity.Info);
             Close();
         }
 

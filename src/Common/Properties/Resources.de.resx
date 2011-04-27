@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="UnableToGenerateReportFile" xml:space="preserve">
+  <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
 		<value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
 	</data>
-  <data name="UnableToUploadReportFile" xml:space="preserve">
+  <data name="UnableToUploadErrorReportFile" xml:space="preserve">
 		<value>Konnte die Fehlerberichtdatei nicht hochladen. Bitte senden Sie '{0}' per E-Mail.</value>
+	</data>
+  <data name="RErroreportSent" xml:space="preserve">
+		<value>Der Fehlerbericht wurde erfolgreich versendet.</value>
 	</data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
@@ -256,6 +259,9 @@ Die Änderungen löschen</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Lade {0} runter</value>
+  </data>
+  <data name="Uploading" xml:space="preserve">
+    <value>Lade {0} hoch</value>
   </data>
   <data name="StateData" xml:space="preserve">
     <value>Verarbeite Daten</value>

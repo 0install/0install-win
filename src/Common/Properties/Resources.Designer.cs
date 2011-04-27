@@ -192,6 +192,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The error report was sent successfully..
+        /// </summary>
+        internal static string ErrorReportSent {
+            get {
+                return ResourceManager.GetString("ErrorReportSent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} could not be launched..
         /// </summary>
         internal static string FailedToLaunch {
@@ -482,9 +491,9 @@ namespace Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to generate error report file. Please send the technical data via e-mail..
         /// </summary>
-        internal static string UnableToGenerateReportFile {
+        internal static string UnableToGenerateErrorReportFile {
             get {
-                return ResourceManager.GetString("UnableToGenerateReportFile", resourceCulture);
+                return ResourceManager.GetString("UnableToGenerateErrorReportFile", resourceCulture);
             }
         }
         
@@ -509,9 +518,9 @@ namespace Common.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Unable to upload error report file. Please send &apos;{0}&apos; via e-mail..
         /// </summary>
-        internal static string UnableToUploadReportFile {
+        internal static string UnableToUploadErrorReportFile {
             get {
-                return ResourceManager.GetString("UnableToUploadReportFile", resourceCulture);
+                return ResourceManager.GetString("UnableToUploadErrorReportFile", resourceCulture);
             }
         }
         
@@ -539,6 +548,15 @@ namespace Common.Properties {
         internal static string UnixSubsystemFail {
             get {
                 return ResourceManager.GetString("UnixSubsystemFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading {0}.
+        /// </summary>
+        internal static string Uploading {
+            get {
+                return ResourceManager.GetString("Uploading", resourceCulture);
             }
         }
         
