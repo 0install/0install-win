@@ -54,7 +54,7 @@ namespace Common.Tasks
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
         private readonly Thread _thread;
 
-        private readonly SimpleEventHandler _w;
+        private readonly SimpleEventHandler _work;
         #endregion
 
         #region Properties
@@ -98,7 +98,7 @@ namespace Common.Tasks
             #endregion
 
             Name = name;
-            _w = work;
+            _work = work;
 
             // Prepare the background thread for later execution
             _thread = new Thread(RunTask);
@@ -123,7 +123,7 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public void RunSync()
         {
-            try { _w(); }
+            try { _work(); }
             #region Error handling
             catch (WebException ex)
             {
@@ -171,7 +171,7 @@ namespace Common.Tasks
         {
             lock(_stateLock) State = TaskState.Data;
 
-            try { _w(); }
+            try { _work(); }
             #region Error handling
             catch (WebException ex)
             {

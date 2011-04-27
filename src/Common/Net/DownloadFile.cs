@@ -260,7 +260,7 @@ namespace Common.Net
         private void WriteStreamToTarget(Stream webStream, Stream fileStream)
         {
             int length;
-            var buffer = new byte[1024];
+            var buffer = new byte[8192];
 
             // Write the response data to the file, allowing for cancellation
             while ((length = webStream.Read(buffer, 0, buffer.Length)) > 0)
