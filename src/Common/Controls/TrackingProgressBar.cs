@@ -126,8 +126,8 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
-            // Handle events coming from a non-UI thread, don't block caller
-            BeginInvoke(new SimpleEventHandler(delegate
+            // Handle events coming from a non-UI thread, block caller
+            Invoke(new SimpleEventHandler(delegate
             {
                 IntPtr formHandle = ParentHandle;
                 switch (state)
@@ -192,8 +192,8 @@ namespace Common.Controls
 
             if (sender.State == TaskState.Data)
             {
-                // Handle events coming from a non-UI thread, don't block caller
-                BeginInvoke(new SimpleEventHandler(delegate
+                // Handle events coming from a non-UI thread, block caller
+                Invoke(new SimpleEventHandler(delegate
                 {
                     Value = currentValue;
                     IntPtr formHandle = ParentHandle;
