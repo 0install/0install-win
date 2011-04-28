@@ -74,4 +74,9 @@ if errorlevel 1 pause
 zip -9 -j "%TargetDir%\zero-install-tools.zip" "%~dp0..\3rd party code.txt" > NUL
 if errorlevel 1 pause
 
+echo Building Updater archive...
+cd "%~dp0..\build\Updater\Release"
+zip -9 -r "%TargetDir%\zero-install-updater.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+if errorlevel 1 pause
+
 :end

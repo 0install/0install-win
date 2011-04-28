@@ -23,6 +23,8 @@
     <Node Id="(Namespace=ZeroInstall.Store.Management.Cli)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.Cli" />
     <Node Id="(Namespace=ZeroInstall.Store.Management.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Management.WinForms" />
     <Node Id="(Namespace=ZeroInstall.Store.Service)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Store.Service" />
+    <Node Id="(Namespace=ZeroInstall.Updater)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Updater" />
+    <Node Id="(Namespace=ZeroInstall.Updater.WinForms)" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Updater.WinForms" />
     <Node Id="@1" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Capture" />
     <Node Id="@2" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Commands" />
     <Node Id="@3" Category="CodeSchema_Namespace" IsDragSource="True" Label="ZeroInstall.Injector" />
@@ -33,6 +35,7 @@
   </Nodes>
   <Links>
     <Link Source="(Namespace=ZeroInstall.Central)" Target="(Namespace=ZeroInstall.Central.WinForms)" Category="Contains" />
+    <Link Source="(Namespace=ZeroInstall.Updater)" Target="(Namespace=ZeroInstall.Updater.WinForms)" Category="Contains" />
     <Link Source="@1" Target="(Namespace=ZeroInstall.Capture.Cli)" Category="Contains" />
     <Link Source="@1" Target="(Namespace=ZeroInstall.Capture.WinForms)" Category="Contains" />
     <Link Source="@2" Target="(Namespace=ZeroInstall.Commands.Cli)" Category="Contains" />

@@ -3,7 +3,7 @@
 cd `dirname $0`
 
 # Clear binaries (leave Documentation and Portable intact)
-rm -rf build/Backend build/Frontend build/Tools build/Publish
+rm -rf build/Backend build/Frontend build/Tools build/Updater build/Publish
 
 # Clear object caches
 rm -f src/*.cache

@@ -5,6 +5,7 @@ rem Clear binaries (leave Documentation and Bundled intact)
 rd /s /q build\Backend > NUL 2>&1
 rd /s /q build\Frontend > NUL 2>&1
 rd /s /q build\Tools > NUL 2>&1
+rd /s /q build\Updater > NUL 2>&1
 rd /s /q build\Publish > NUL 2>&1
 
 rem Clear ReSharper's cache
@@ -42,6 +43,8 @@ rd /s /q src\Publish.WinForms\obj > NUL 2>&1
 rd /s /q src\Capture\obj > NUL 2>&1
 rd /s /q src\Capture.Cli\obj > NUL 2>&1
 rd /s /q src\Capture.WinForms\obj > NUL 2>&1
+rd /s /q src\Updater\obj > NUL 2>&1
+rd /s /q src\Updater.WinForms\obj > NUL 2>&1
 rd /s /q src\Modeling\obj > NUL 2>&1
 
 rem Restore VS2010 solution user options (temporarily unhide for copying)
