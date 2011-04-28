@@ -106,10 +106,10 @@ namespace ZeroInstall.Store.Implementation.Archive
             {
                 case "application/zip": extractor = new ZipExtractor(stream, target); break;
                 case "application/x-tar": extractor = new TarExtractor(stream, target); break;
-                case "application/x-ruby-gem": // Same file format as x-compressed-tar
                 case "application/x-compressed-tar": extractor = new TarGzExtractor(stream, target); break;
                 case "application/x-bzip-compressed-tar": extractor = new TarBz2Extractor(stream, target); break;
                 case "application/x-lzma-compressed-tar": extractor = new TarLzmaExtractor(stream, target); break;
+                case "application/x-ruby-gem": extractor = new RubyGemExtractor(stream, target); break;
                 default: throw new NotSupportedException(Resources.UnknownMimeType);
             }
 

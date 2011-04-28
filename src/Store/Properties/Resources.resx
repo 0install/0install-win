@@ -179,6 +179,9 @@ Actual value: {1}</value>
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>The archive contains invalid paths (potentially a security risk).</value>
   </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Unable to find data.tar.gz inside Ruby Gem file.</value>
+  </data>
   <data name="UnknownMimeType" xml:space="preserve">
     <value>The specified MIME type is unknown.</value>
   </data>

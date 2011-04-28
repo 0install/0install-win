@@ -52,6 +52,11 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             return GetTestDataResourceStreamByName("testArchive.tar.lzma");
         }
+
+        public static Stream GetTestGemArchiveStream()
+        {
+            return GetTestDataResourceStreamByName("testArchive.gem");
+        }
         
         public static Stream GetTestRegularStream()
         {

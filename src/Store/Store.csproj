@@ -66,6 +66,7 @@
     <Compile Include="Feeds\WrongPassphraseException.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Implementation\Archive\Extractor.cs" />
+    <Compile Include="Implementation\Archive\RubyGemExtractor.cs" />
     <Compile Include="Implementation\Archive\TarBz2Extractor.cs" />
     <Compile Include="Implementation\Archive\TarExtractor.cs" />
     <Compile Include="Implementation\Archive\TarGzExtractor.cs" />

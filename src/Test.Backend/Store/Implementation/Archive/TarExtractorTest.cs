@@ -71,6 +71,13 @@ namespace ZeroInstall.Store.Implementation.Archive
             using (var archive = TestData.GetTestTarLzmaArchiveStream())
                 TestExtract("application/x-lzma-compressed-tar", archive);
         }
+
+        [Test]
+        public void TestRubyGem()
+        {
+            using (var archive = TestData.GetTestGemArchiveStream())
+                TestExtract("application/x-ruby-gem", archive);
+        }
         
         private void TestExtract(string mimeType, Stream archive)
         {

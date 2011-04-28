@@ -123,6 +123,9 @@
   <data name="ArchiveInvalidPath" xml:space="preserve">
     <value>Das Archiv enthält ungültige Pfade (möglicherweise ein Sicherheitsrisiko).</value>
   </data>
+  <data name="RubyGemInvalid" xml:space="preserve">
+    <value>Konnte data.tar.gz in der Ruby Gem Datei nicht finden.</value>
+  </data>
   <data name="DeletingImplementation" xml:space="preserve">
     <value>Lösche Implementierung {0}</value>
   </data>

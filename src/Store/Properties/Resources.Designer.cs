@@ -282,6 +282,15 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Unable to find data.tar.gz inside Ruby Gem file..
+        /// </summary>
+        internal static string RubyGemInvalid {
+            get {
+                return ResourceManager.GetString("RubyGemInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Signature file already exists..
         /// </summary>
         internal static string SignatureAldreadyExists {

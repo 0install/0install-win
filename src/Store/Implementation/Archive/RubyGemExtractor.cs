@@ -16,41 +16,52 @@
  */
 
 using System.IO;
-using ICSharpCode.SharpZipLib.BZip2;
+using Common.Streams;
+using ICSharpCode.SharpZipLib.Tar;
 using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation.Archive
 {
     /// <summary>
-    /// Provides methods for extracting a BZip2-compressed TAR archive (optionally as a background task).
+    /// Provides methods for extracting a Ruby Gem archive (optionally as a background task).
     /// </summary>
-    public class TarBz2Extractor : TarExtractor
+    public class RubyGemExtractor : TarGzExtractor
     {
         #region Constructor
         /// <summary>
-        /// Prepares to extract a TAR archive contained in a BZip2-compressed stream.
+        /// Prepares to extract a Ruby Gem archive.
         /// </summary>
         /// <param name="stream">The stream containing the archive data to be extracted. Will be disposed.</param>
         /// <param name="target">The path to the directory to extract into.</param>
         /// <exception cref="IOException">Thrown if the archive is damaged.</exception>
-        public TarBz2Extractor(Stream stream, string target)
-            : base(GetDecompressionStream(stream), target)
+        public RubyGemExtractor(Stream stream, string target)
+            : base(GetPartialStream(stream), target)
         {}
 
         /// <summary>
-        /// Adds a BZip2-extraction layer around a stream.
+        /// Adds a layer around a stream that isolates the <code>data.tar.gz</code> file from a TAR stream.
         /// </summary>
-        /// <param name="stream">The stream containing the BZip2-compressed data.</param>
-        /// <returns>A stream representing the uncompressed data.</returns>
+        /// <param name="stream">The TAR stream.</param>
+        /// <returns>A stream representing the <code>data.tar.gz</code> data.</returns>
         /// <exception cref="IOException">Thrown if the compressed stream contains invalid data.</exception>
-        private static Stream GetDecompressionStream(Stream stream)
+        private static Stream GetPartialStream(Stream stream)
         {
-            try { return new BZip2InputStream(stream) {IsStreamOwner = false}; }
-            catch (BZip2Exception ex)
+            try
             {
-                // Make sure only standard exception types are thrown to the outside
+                var tar = new TarInputStream(stream) {IsStreamOwner=false};
+                while (true)
+                {
+                    var entry = tar.GetNextEntry();
+                    if (entry == null) throw new IOException(Resources.RubyGemInvalid);
+                    if (entry.Name == "data.tar.gz") return tar;
+                }
+            }
+            #region Error handling
+            catch (TarException ex)
+            {
                 throw new IOException(Resources.ArchiveInvalid, ex);
             }
+            #endregion
         }
         #endregion
     }
