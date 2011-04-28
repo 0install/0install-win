@@ -18,6 +18,7 @@
 using System.Diagnostics;
 using System.IO;
 using Common.Cli;
+using Common.Storage;
 using Common.Utils;
 
 namespace ZeroInstall.Injector.Solver
@@ -40,6 +41,9 @@ namespace ZeroInstall.Injector.Solver
 
             // Supress unimportant warnings
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
+
+            // Pass-through portable mode
+            if (Locations.IsPortable) startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
 
             // Add bundled GnuPG to search path for the external solver to use on Windows
             string gnuPGDirectory = GetBundledDirectory("GnuPG");
