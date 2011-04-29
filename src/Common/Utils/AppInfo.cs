@@ -23,12 +23,12 @@
 using System;
 using System.Reflection;
 
-namespace Common
+namespace Common.Utils
 {
     /// <summary>
     /// Provides information about the main application that is using this library (the entry assembly).
     /// </summary>
-    public static class ApplicationInfo
+    public static class AppInfo
     {
         /// <summary>
         /// The name of the entry assembly.
@@ -45,7 +45,7 @@ namespace Common
         /// </summary>
         public static string Copyright { get; private set; }
 
-        static ApplicationInfo()
+        static AppInfo()
         {
             var assembly = Assembly.GetEntryAssembly();
             if (assembly == null) return;

@@ -27,6 +27,7 @@ using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
+using Microsoft.Win32.SafeHandles;
 
 namespace Common.Utils
 {
@@ -115,7 +116,7 @@ namespace Common.Utils
         Paused = 0x8
     }
     #endregion
-
+    
     /// <summary>
     /// Easily access non-Framework Windows DLLs.
     /// </summary>
@@ -138,6 +139,14 @@ namespace Common.Utils
             [DllImport("kernel32")]
             [return : MarshalAs(UnmanagedType.Bool)]
             internal static extern bool QueryPerformanceCounter(out long lpCounter);
+            #endregion
+
+            #region Mutex
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            internal static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
+
+            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
             #endregion
 
             #region Foreground window
@@ -249,6 +258,43 @@ namespace Common.Utils
 
                 return Environment.TickCount / 1000f;
             }
+        }
+        #endregion
+
+        #region Mutex
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool CreateMutex(string name)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
+
+            if (OpenMutex(name)) return true;
+            else
+            {
+                SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
+                int error = Marshal.GetLastWin32Error();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        public static bool OpenMutex(string name)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
+
+            var handle = SafeNativeMethods.OpenMutex(0, false, name);
+            return (handle != IntPtr.Zero);
         }
         #endregion
 

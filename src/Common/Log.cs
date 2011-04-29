@@ -103,7 +103,7 @@ namespace Common
                 case PlatformID.Win32Windows:
                 case PlatformID.Win32NT:
                 default:
-                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(ApplicationInfo.Name) + " Log.txt");
+                    filePath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(AppInfo.Name) + " Log.txt");
                     break;
             }
 
@@ -129,7 +129,7 @@ namespace Common
 
             // Add session identification block to the file
             _fileWriter.WriteLine("");
-            _fileWriter.WriteLine("/// " + ApplicationInfo.Name + " v" + ApplicationInfo.Version);
+            _fileWriter.WriteLine("/// " + AppInfo.Name + " v" + AppInfo.Version);
             _fileWriter.WriteLine("/// Log session started at: " + DateTime.Now.ToString(CultureInfo.InvariantCulture));
             _fileWriter.WriteLine("");
         }

@@ -53,7 +53,7 @@ namespace ZeroInstall.Central
             var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
 
             // Run solver
-            var currentVersion = new ImplementationVersion(ApplicationInfo.Version);
+            var currentVersion = new ImplementationVersion(AppInfo.Version);
             bool staleFeeds;
             var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
 
@@ -77,7 +77,7 @@ namespace ZeroInstall.Central
             var requirements = new Requirements {InterfaceID = policy.Config.SelfUpdateID, CommandName = "update"};
 
             // ToDo: Perform download in-process
-            ProcessUtils.LaunchHelperAssembly("0install-win", "run --no-wait " + requirements.ToCommandLineArgs() + " \"" + Locations.PortableBase + "\"");
+            ProcessUtils.LaunchHelperAssembly("0install-win", "run --no-wait " + requirements.ToCommandLineArgs() + " \"" + Locations.InstallationBase + "\"");
         }
     }
 }

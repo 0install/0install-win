@@ -42,12 +42,10 @@ namespace Common.Cli
         /// </remarks>
         public static string GetBundledDirectory(string name)
         {
-            // Use the base directory of the launching application since the current directory may be arbitrary
-            string searchBase = Locations.PortableBase;
-
-            return Directory.Exists(Path.Combine(searchBase, name))
-                ? Path.Combine(searchBase, name)
-                : StringUtils.PathCombine(searchBase, "..", "..", "Bundled", name);
+            // Use the installation directory of the launching application since the current directory may be arbitrary
+            return Directory.Exists(Path.Combine(Locations.InstallationBase, name))
+                ? Path.Combine(Locations.InstallationBase, name)
+                : StringUtils.PathCombine(Locations.InstallationBase, "..", "..", "Bundled", name);
         }
 
         /// <summary>

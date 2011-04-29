@@ -52,9 +52,14 @@ namespace Common.Storage
 
         #region Variables
         /// <summary>
-        /// The directory the application binaries are located in. Used for storing files if <see cref="IsPortable"/> is <see langword="true"/>.
+        /// The directory the application binaries are located in.
         /// </summary>
-        public static readonly string PortableBase = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string InstallationBase = AppDomain.CurrentDomain.BaseDirectory;
+
+        /// <summary>
+        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Usuall the same as <see cref="InstallationBase"/>
+        /// </summary>
+        public static readonly string PortableBase = InstallationBase;
 
         /// <summary>
         /// Indicates whether the application is currently operating in portable mode.
