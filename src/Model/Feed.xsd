@@ -72,6 +72,7 @@
   <xs:complexType name="command">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="arg" type="xs:string" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
       <xs:element minOccurs="0" maxOccurs="1" name="working-dir" type="tns:working-dir" />
       <xs:element minOccurs="0" maxOccurs="unbounded" name="requires" type="tns:dependency" />
       <xs:element minOccurs="0" maxOccurs="1" name="runner" type="tns:runner" />

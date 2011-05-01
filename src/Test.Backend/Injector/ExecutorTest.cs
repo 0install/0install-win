@@ -82,6 +82,7 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Self-binding for first implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Binding for dependency from first to second implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Self-binding for second implementation
+            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Self-binding for first command
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Binding for command dependency from second to first implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Self-binding for second/outer/runner command
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Working dir for first/inner command
@@ -94,6 +95,7 @@ namespace ZeroInstall.Injector
             Assert.AreEqual(Test2Path + Path.PathSeparator + "default", startInfo.EnvironmentVariables["TEST2_PATH_SELF"], "Should prepend implementation path");
             Assert.AreEqual("test2", startInfo.EnvironmentVariables["TEST2_VALUE"], "Should directly set value");
             Assert.AreEqual("default" + Path.PathSeparator + Path.Combine(Test2Path, "sub"), startInfo.EnvironmentVariables["TEST2_PATH_SUB_DEP"], "Should append implementation sub-path");
+            Assert.AreEqual(Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND"], "Should set implementation path");
             Assert.AreEqual(Test1Path, startInfo.EnvironmentVariables["TEST1_PATH_COMMAND_DEP"], "Should set implementation path");
             Assert.AreEqual(Test2Path, startInfo.EnvironmentVariables["TEST2_PATH_RUNNER_SELF"], "Should set implementation path");
             Assert.AreEqual(Path.Combine(Test1Path, "bin"), startInfo.WorkingDirectory, "Should set implementation path");
@@ -205,6 +207,7 @@ namespace ZeroInstall.Injector
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Self-binding for first implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Binding for dependency from first to second implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Self-binding for second implementation
+            _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Self-binding for first command
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Binding for command dependency from second to first implementation
             _storeMock.ExpectAndReturn("GetPath", Test2Path, selections.Implementations[1].ManifestDigest); // Self-binding for second/outer/runner command
             _storeMock.ExpectAndReturn("GetPath", Test1Path, selections.Implementations[0].ManifestDigest); // Working dir for first/inner command

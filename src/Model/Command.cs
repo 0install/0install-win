@@ -29,7 +29,7 @@ namespace ZeroInstall.Model
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
     [Serializable]
     [XmlType("command", Namespace = Feed.XmlNamespace)]
-    public sealed class Command : XmlUnknown, IArgsContainer, IDependencyContainer, ICloneable, IEquatable<Command>
+    public sealed class Command : XmlUnknown, IArgsContainer, IBindingContainer, IDependencyContainer, ICloneable, IEquatable<Command>
     {
         #region Constants
         /// <summary>
@@ -72,6 +72,16 @@ namespace ZeroInstall.Model
         [XmlElement("arg")]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<string> Arguments { get { return _arguments; } }
+        
+        // Preserve order
+        private readonly C5.ArrayList<Binding> _bindings = new C5.ArrayList<Binding>();
+        /// <summary>
+        /// A list of <see cref="Binding"/>s for <see cref="Implementation"/>s to locate <see cref="Dependency"/>s.
+        /// </summary>
+        [Description("A list of bindings for implementations to locate dependencies.")]
+        [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
 
         /// <summary>
         /// Switches the working directory of the process on startup to a location within the <see cref="Model.Implementation"/>.
@@ -120,6 +130,7 @@ namespace ZeroInstall.Model
         {
             var newCommand = new Command {Name = Name, Path = Path};
             foreach (var argument in Arguments) newCommand.Arguments.Add(argument);
+            foreach (var binding in Bindings) newCommand.Bindings.Add(binding.CloneBinding());
             if (WorkingDir != null) newCommand.WorkingDir = WorkingDir.CloneWorkingDir();
             foreach (var dependency in Dependencies) newCommand.Dependencies.Add(dependency.CloneDependency());
             if (Runner != null) newCommand.Runner = Runner.CloneRunner();
@@ -146,6 +157,7 @@ namespace ZeroInstall.Model
             if (Name != other.Name) return false;
             if (Path != other.Path) return false;
             if (!Arguments.SequencedEquals(other.Arguments)) return false;
+            if (!Bindings.SequencedEquals(other.Bindings)) return false;
             if (!Equals(WorkingDir, other.WorkingDir)) return false;
             if (!Dependencies.SequencedEquals(other.Dependencies)) return false;
             if (!Equals(Runner, other.Runner)) return false;
@@ -167,6 +179,9 @@ namespace ZeroInstall.Model
             {
                 int result = (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (Path ?? "").GetHashCode();
+                result = (result * 397) ^ Arguments.GetSequencedHashCode();
+                result = (result * 397) ^ Bindings.GetSequencedHashCode();
+                if (WorkingDir != null) result = (result * 397) ^ WorkingDir.GetHashCode();
                 result = (result * 397) ^ Dependencies.GetSequencedHashCode();
                 if (Runner != null) result = (result * 397) ^ Runner.GetHashCode();
                 return result;

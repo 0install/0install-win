@@ -37,12 +37,13 @@ namespace ZeroInstall.Model
                 Path = "dir 1/executable1", Arguments = {"--executable1"},
                 Dependencies = { new Dependency
                 {
-                    Interface = "http://0install.de/feeds/test/test1.xml", Bindings = { new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"} }
+                    Interface = "http://0install.de/feeds/test/test1.xml", Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND_DEP"}}
                 }},
                 Runner = new Runner
                 {
-                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = { new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"} }
+                    Interface = "http://0install.de/feeds/test/test2.xml", Arguments = {"runner argument"}, Bindings = {new EnvironmentBinding {Name = "TEST2_PATH_RUNNER_SELF"}}
                 },
+                Bindings = {new EnvironmentBinding {Name = "TEST1_PATH_COMMAND" }},
                 WorkingDir = new WorkingDir {Source = "bin"}
             };
         }
@@ -73,6 +74,23 @@ namespace ZeroInstall.Model
             Assert.AreEqual(command1, command2, "Cloned objects should be equal.");
             Assert.AreEqual(command1.GetHashCode(), command2.GetHashCode(), "Cloned objects' hashes should be equal.");
             Assert.IsFalse(ReferenceEquals(command1, command2), "Cloning should not return the same reference.");
+        }
+
+        /// <summary>
+        /// Ensures that the class can be correctly compared.
+        /// </summary>
+        [Test]
+        public void TestEquals()
+        {
+            var command1 = CreateTestCommand1();
+            var command2 = command1.CloneCommand();
+            command2.Bindings.Add(new EnvironmentBinding());
+
+            // Ensure data stayed the same
+            Assert.AreEqual(command1, command1, "Equals() should be reflexive.");
+            Assert.AreEqual(command1.GetHashCode(), command1.GetHashCode(), "GetHashCode() should be reflexive.");
+            Assert.AreNotEqual(command1, command2);
+            Assert.AreNotEqual(command1.GetHashCode(), command2.GetHashCode());
         }
     }
 }

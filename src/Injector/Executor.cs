@@ -205,6 +205,9 @@ namespace ZeroInstall.Injector
 
             foreach (var command in _selections.Commands)
             {
+                // Apply bindings commands use to find themselves
+                ApplyBindings(startInfo, _selections.GetImplementation(currentRunnerInterface), command);
+
                 // Apply bindings commands use to find their dependencies
                 foreach (var dependency in command.Dependencies)
                     ApplyBindings(startInfo, _selections.GetImplementation(dependency.Interface), dependency);

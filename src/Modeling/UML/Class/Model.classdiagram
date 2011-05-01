@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="f6a40e41-9e7c-4bdf-88c5-254d92ef979c" name="Model" linkedPackageId="15d3b864-5faa-44a3-9ac3-2dfa67ddd544" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="f6a40e41-9e7c-4bdf-88c5-254d92ef979c" name="Model" linkedPackageId="15d3b864-5faa-44a3-9ac3-2dfa67ddd544" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
   <appliedStereotypesInternal>
     <stereotypeInstance Id="03758138-ec3d-4331-868f-39ae566aea3a" name="namespace" profile="CSharpProfile">
       <elementDefinition Id="0159e13c-2a5f-401e-b6f1-78dcffedcfa5" />
@@ -242,7 +242,7 @@
           <packageHasNamedElement>
             <class Id="c9c3f5ea-464f-4b72-8995-2b066fdf7ca8" name="Feed" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="e117a8d6-564b-48be-bd9d-b6fd342f2fa5" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed" tag="ViewCode">
+                <reference Id="e117a8d6-564b-48be-bd9d-b6fd342f2fa5" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Feed" tag="ViewCode">
                   <elementDefinition Id="78e51a78-4031-446c-983a-2ca795d0f645" />
                 </reference>
               </referencesInternal>
@@ -2525,7 +2525,7 @@
           <packageHasNamedElement>
             <Interface Id="afde554a-2623-45e3-bc73-e9ec294514a3" name="IBindingContainer" isAbstract="false" isLeaf="false">
               <referencesInternal>
-                <reference Id="b3b466b7-b69a-48ed-a13e-1515bcfd265b" handle="viewcode://./CodeSchema_Interface?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=IBindingContainer" tag="ViewCode">
+                <reference Id="b3b466b7-b69a-48ed-a13e-1515bcfd265b" handle="viewcode://./CodeSchema_Interface?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=IBindingContainer" tag="ViewCode">
                   <elementDefinition Id="9dc493cd-2415-4a55-851c-3df95909f213" />
                 </reference>
               </referencesInternal>
@@ -2983,7 +2983,7 @@
           <packageHasNamedElement>
             <class Id="5150efed-e2e2-4fa2-b134-305ccfbc385c" name="Architecture" isAbstract="false" isLeaf="false" isActiveClass="false">
               <referencesInternal>
-                <reference Id="e6db896f-8784-4c20-b2b4-d9f1f6edd4f3" handle="viewcode://./CodeSchema_Struct?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture" tag="ViewCode">
+                <reference Id="e6db896f-8784-4c20-b2b4-d9f1f6edd4f3" handle="viewcode://./CodeSchema_Struct?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Architecture" tag="ViewCode">
                   <elementDefinition Id="f891fae2-beb0-4093-bd82-83ec8546d272" />
                 </reference>
               </referencesInternal>
@@ -3319,7 +3319,7 @@
           <packageHasNamedElement>
             <class Id="f6e1fae2-b4bf-43ca-9d0d-a5a9965627b3" name="EnvironmentBinding" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="1fcd0d71-e70b-4af2-af56-2e531fe2c3ae" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=EnvironmentBinding" tag="ViewCode">
+                <reference Id="1fcd0d71-e70b-4af2-af56-2e531fe2c3ae" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=EnvironmentBinding" tag="ViewCode">
                   <elementDefinition Id="893f1630-0b71-469a-b14e-292bc8de6ea2" />
                 </reference>
               </referencesInternal>
@@ -3893,7 +3893,7 @@
           <packageHasNamedElement>
             <class Id="0116ccd6-5872-470b-bd28-78f33892106a" name="ImplementationBase" isAbstract="true" isLeaf="false" isActiveClass="false">
               <referencesInternal>
-                <reference Id="f7f4a78b-892c-49c2-8a79-aad4757798a7" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationBase" tag="ViewCode">
+                <reference Id="f7f4a78b-892c-49c2-8a79-aad4757798a7" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=ImplementationBase" tag="ViewCode">
                   <elementDefinition Id="42b0aa58-d764-4e42-84d7-46e5d04c552a" />
                 </reference>
               </referencesInternal>
@@ -5442,7 +5442,7 @@
           <packageHasNamedElement>
             <class Id="2e743edb-d87e-4cc3-bc7b-39882318e9e1" name="Command" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="88cbda15-4f92-4187-9411-72994793d696" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Command" tag="ViewCode">
+                <reference Id="88cbda15-4f92-4187-9411-72994793d696" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Command" tag="ViewCode">
                   <elementDefinition Id="4008756a-e93e-4e92-817b-ad5f9e3e3142" />
                 </reference>
               </referencesInternal>
@@ -5492,6 +5492,10 @@
                 <interfaceRealization Id="f438f875-91e1-4755-81d8-124f2b6c9f06">
                   <interfaceMoniker Id="133d4377-fd8c-4e6f-9821-d4bb923e6af1" LastKnownName="IArgsContainer" />
                   <elementDefinition Id="4d03905a-f1fd-4100-a4e3-354505980ad9" />
+                </interfaceRealization>
+                <interfaceRealization Id="60ddf55d-051d-4b90-a135-4372c26f11fb">
+                  <interfaceMoniker Id="afde554a-2623-45e3-bc73-e9ec294514a3" LastKnownName="IBindingContainer" />
+                  <elementDefinition Id="d42b7a2b-2daa-4a55-8d77-d1907e963f6a" />
                 </interfaceRealization>
               </suppliersInternal>
               <targetEnds>
@@ -5775,7 +5779,7 @@
           <packageHasNamedElement>
             <class Id="e50d09e8-fea3-4af4-9404-cc43b83d3b85" name="WorkingDir" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="3ae85f86-bf47-4802-9cfa-3defcb22bd14" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=WorkingDir" tag="ViewCode">
+                <reference Id="3ae85f86-bf47-4802-9cfa-3defcb22bd14" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=WorkingDir" tag="ViewCode">
                   <elementDefinition Id="b5ca12d6-25f0-494d-a2cd-94de26df0e1a" />
                 </reference>
               </referencesInternal>
@@ -6240,7 +6244,7 @@
           <packageHasNamedElement>
             <class Id="5849f4f9-331b-4f01-9650-507b7a2af378" name="Selections" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="0e42d1b2-5728-4b33-ab53-0d3c5763c733" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=Selections" tag="ViewCode">
+                <reference Id="0e42d1b2-5728-4b33-ab53-0d3c5763c733" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=Selections" tag="ViewCode">
                   <elementDefinition Id="71bf235f-6fc6-4797-b6f4-873564af695e" />
                 </reference>
               </referencesInternal>
@@ -6822,13 +6826,89 @@
                     </operationHasOwnedParameters>
                   </ownedParameters>
                 </operation>
+                <operation Id="6480f752-d32e-4465-81db-8ebef9748785" name="ListUncachedImplementations" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+                  <appliedStereotypesInternal>
+                    <stereotypeInstance Id="2b59d283-6b38-495c-aceb-d18d1692c488" name="method" profile="CSharpProfile">
+                      <elementDefinition Id="1676facc-bb0d-4147-ac98-fce99e9bce87" />
+                      <propertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="ec48affe-dab5-48c9-bda0-f4d2be68864f">
+                          <propertyInstance Id="5f22ecc6-9f7f-4ece-81af-cb359f60d347" name="ClrAttributes">
+                            <elementDefinition Id="0662af80-3969-4040-80ca-3cb3e6945f47" />
+                          </propertyInstance>
+                          <elementDefinition Id="4e1a20a6-d31f-4503-ab25-7a5f345bd0ee" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="333b092f-a5e8-42d5-bc30-bdc0fe4adc5c">
+                          <propertyInstance Id="79811019-e82f-424a-a8e1-a09950ac3086" name="IsPartial" value="false">
+                            <elementDefinition Id="dd9100f4-4f34-46dc-9398-4cc957392e3e" />
+                          </propertyInstance>
+                          <elementDefinition Id="74febe75-b363-4277-9acb-af07a64378b3" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="9af2fef9-b32b-46b9-8c55-e25d5905cded">
+                          <propertyInstance Id="a871d563-6fc3-4bdb-8757-3e5e30217dfc" name="IsUnsafe" value="false">
+                            <elementDefinition Id="8331f0d3-c963-40eb-8500-95883d320268" />
+                          </propertyInstance>
+                          <elementDefinition Id="1462eef3-dd33-4896-a662-43f30d933b5e" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="cc24e910-4ac5-49c6-a5c2-28c4693e9627">
+                          <propertyInstance Id="64c6338d-271c-41c9-b2ed-ea5327b1dd46" name="PackageVisibility" value="internal">
+                            <elementDefinition Id="04eea5f7-7fe8-470a-a6fd-75db1f97bb98" />
+                          </propertyInstance>
+                          <elementDefinition Id="00329d5f-3a37-4246-8118-f53a6c1f440b" />
+                        </stereotypeInstanceHasPropertyInstances>
+                        <stereotypeInstanceHasPropertyInstances Id="cbdd6f03-76d0-49d6-91b8-16adabcffa54">
+                          <propertyInstance Id="7b266c5d-e5cd-4eea-90dd-6f9800583f55" name="params" value="false">
+                            <elementDefinition Id="8ea069b2-5fd7-468a-9f72-896f77007354" />
+                          </propertyInstance>
+                          <elementDefinition Id="0685f0e5-f83d-4517-be47-596f50e49bd7" />
+                        </stereotypeInstanceHasPropertyInstances>
+                      </propertyInstances>
+                    </stereotypeInstance>
+                  </appliedStereotypesInternal>
+                  <elementDefinition Id="998bc09b-a5f0-490a-b88e-2e451d4be678" />
+                  <ownedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="07653d8b-d097-4c6f-8f6b-f7cb963135ae" direction="Return">
+                        <lowerValueInternal>
+                          <literalString Id="1911b221-a55c-4cdd-8b38-bafd75e68f29" name="Lower" value="*">
+                            <elementDefinition Id="e3355d4e-05f9-496b-8b17-fc67e713dfed" />
+                          </literalString>
+                        </lowerValueInternal>
+                        <upperValueInternal>
+                          <literalString Id="e97ba53d-c5e7-47f6-89a4-1f5989bdd64f" name="Upper" value="*">
+                            <elementDefinition Id="97a4fb7e-6b08-43e0-9b6c-ff8a07decd10" />
+                          </literalString>
+                        </upperValueInternal>
+                        <elementDefinition Id="2df4a5e7-bbac-47d1-8d18-7e0db7a08d7d" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="4b0cccd9-e0cf-49ca-b592-a0bde3997c0e" LastKnownName="Implementation" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="0a2a9711-e687-4898-ae51-06d6c48908ad" name="searchStore" direction="In" isUnique="false">
+                        <elementDefinition Id="83e470df-01fc-4896-96e4-c2e2c4faa15b" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="6a97abe4-3b5b-49c0-aefe-6b77e2ea7ed8" LastKnownName="IStore" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                    <operationHasOwnedParameters>
+                      <parameter Id="a4af08d7-a295-4672-8787-d603a43cdefe" name="feedCache" direction="In" isUnique="false">
+                        <elementDefinition Id="23dac32d-9ec5-471e-8b3f-dce74a7540e8" />
+                        <type_NamedElement>
+                          <referencedTypeMoniker Id="09621d0f-ec15-45cf-98e6-e044cc7d0f11" LastKnownName="IFeedCache" />
+                        </type_NamedElement>
+                      </parameter>
+                    </operationHasOwnedParameters>
+                  </ownedParameters>
+                </operation>
               </ownedOperationsInternal>
             </class>
           </packageHasNamedElement>
           <packageHasNamedElement>
             <class Id="d9ff62c8-a539-4f2e-962a-aa8e3a5dbeda" name="ImplementationSelection" isAbstract="false" isLeaf="true" isActiveClass="false">
               <referencesInternal>
-                <reference Id="2f59a21c-467b-4399-b675-80ba08eb9692" handle="viewcode://./CodeSchema_Class?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=ImplementationSelection" tag="ViewCode">
+                <reference Id="2f59a21c-467b-4399-b675-80ba08eb9692" handle="viewcode://./CodeSchema_Class?Assembly=file:///G:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Injector.dll Namespace=ZeroInstall.Injector.Solver Type=ImplementationSelection" tag="ViewCode">
                   <elementDefinition Id="81c07fc2-0b4d-46e5-abe4-d9e9d48783b2" />
                 </reference>
               </referencesInternal>
@@ -7272,6 +7352,16 @@
     <packageHasNamedElement>
       <referencedType Id="6dbefa41-9a68-4f77-902f-b5ec218955c1" name="ImplementationVersion" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Model::ImplementationVersion">
         <elementDefinition Id="74330332-e30f-4be1-86c4-cf7ca8de8cc8" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6a97abe4-3b5b-49c0-aefe-6b77e2ea7ed8" name="IStore" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Implementation::IStore">
+        <elementDefinition Id="adf8ce14-f50a-483e-a4c2-083818535ca0" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="09621d0f-ec15-45cf-98e6-e044cc7d0f11" name="IFeedCache" isAbstract="false" isLeaf="false" cachedFullName="Architecture::ZeroInstall::Store::Feeds::IFeedCache">
+        <elementDefinition Id="7a5a79d0-a7d2-48ce-bf1b-54f405b19141" />
       </referencedType>
     </packageHasNamedElement>
   </packagedElements>
