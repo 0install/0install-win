@@ -1,9 +1,6 @@
 ;Version numbers
-#define Maj 0
-#define Min 54
-#define Rev 2
+#define Version "0.54.2"
 
-#ifndef Update
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
 #include "scripts\winversion.iss"
@@ -15,7 +12,6 @@
 #include "scripts\products\dotnetfx20.iss"
 #include "scripts\products\dotnetfx20sp1.iss"
 #include "scripts\products\dotnetfx20sp2.iss"
-#endif
 
 #include "scripts\modpath.iss"
 
@@ -37,36 +33,36 @@ de.DeleteCache=Möchten Sie den Zero Install Cache (installierte Anwendungen) lös
 
 [Setup]
 OutputDir=..\build\Publish
-OutputBaseFilename=zero-instal
+OutputBaseFilename=zero-install
 
 ;General settings
 ShowLanguageDialog=auto
 MinVersion=0,5.0
 DefaultDirName={pf}\Zero Install
 AppName=Zero Install
-AppVerName=Zero Install for Windows v{#Maj}.{#Min}.{#Rev}
-AppCopyright=Copyright 2010 0install.de
-AppID=Zero Install
-DefaultGroupName=Zero Install
+AppVersion={#Version}
+AppVerName=Zero Install for Windows v{#Version}
+AppCopyright=Copyright 2010-2011 0install.de
 AppPublisher=0install.de
-AppVersion={#Maj}.{#Min}.{#Rev}
+AppPublisherURL=http://0install.de/
+AppID=Zero Install
+VersionInfoDescription=Zero Install Setup
+VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
+VersionInfoVersion={#Version}
+VersionInfoCompany=0install.de
+DefaultGroupName=Zero Install
 DisableProgramGroupPage=true
+ArchitecturesInstallIn64BitMode=x64 ia64
 PrivilegesRequired=admin
 ChangesAssociations=true
+ChangesEnvironment=yes
 UninstallDisplayIcon={app}\ZeroInstall.exe
 UninstallDisplayName=Zero Install
-VersionInfoVersion={#Maj}.{#Min}.{#Rev}
-VersionInfoCompany=0install.net
-VersionInfoDescription=Zero Install
-VersionInfoTextVersion=Zero Install {#Maj}.{#Min}.{#Rev}
-AppPublisherURL=http://0install.net/
 SetupIconFile=Setup.ico
 WizardImageFile=compiler:WizModernImage-IS.bmp
 WizardSmallImageFile=compiler:WizModernSmallImage-IS.bmp
 Compression=lzma/ultra
 SolidCompression=true
-ChangesEnvironment=yes
-ArchitecturesInstallIn64BitMode=x64 ia64
 
 [Languages]
 #ifdef Update
