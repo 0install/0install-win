@@ -17,7 +17,11 @@
 
 using System;
 using System.Windows.Forms;
+#if !DEBUG
 using Common.Controls;
+using Common.Storage;
+using Common.Utils;
+#endif
 
 namespace ZeroInstall.Store.Management.WinForms
 {
@@ -32,6 +36,14 @@ namespace ZeroInstall.Store.Management.WinForms
         [STAThread]
         static void Main(string[] args)
         {
+#if !DEBUG
+            // Prevent launch during update and allow instance detection
+            string mutexName = AppMutex.GenerateName(Locations.InstallationBase);
+            if (AppMutex.Probe(mutexName + "-update")) return;
+            AppMutex.Create(mutexName);
+            AppMutex.Create("Zero Install");
+#endif
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

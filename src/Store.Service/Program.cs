@@ -16,6 +16,10 @@
  */
 
 using System.ServiceProcess;
+#if !DEBUG
+using Common.Storage;
+using Common.Utils;
+#endif
 
 namespace ZeroInstall.Store.Service
 {
@@ -29,6 +33,14 @@ namespace ZeroInstall.Store.Service
         /// </summary>
         static void Main(string[] args)
         {
+#if !DEBUG
+            // Prevent launch during update and allow instance detection
+            string mutexName = AppMutex.GenerateName(Locations.InstallationBase);
+            if (AppMutex.Probe(mutexName + "-update")) return;
+            AppMutex.Create(mutexName);
+            AppMutex.Create("Zero Install");
+#endif
+
             var servicesToRun = new ServiceBase[] { new Service() };
             ServiceBase.Run(servicesToRun);
         }

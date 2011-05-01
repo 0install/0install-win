@@ -26,6 +26,10 @@ using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation;
+#if !DEBUG
+using Common.Storage;
+using Common.Utils;
+#endif
 
 namespace ZeroInstall.Commands.Cli
 {
@@ -39,6 +43,14 @@ namespace ZeroInstall.Commands.Cli
         /// </summary>
         static int Main(string[] args)
         {
+#if !DEBUG
+            // Prevent launch during update and allow instance detection
+            string mutexName = AppMutex.GenerateName(Locations.InstallationBase);
+            if (AppMutex.Probe(mutexName + "-update")) return 99;
+            AppMutex.Create(mutexName);
+            AppMutex.Create("Zero Install");
+#endif
+
             // Automatically show help for missing args
             if (args.Length == 0) args = new[] { "--help" };
 

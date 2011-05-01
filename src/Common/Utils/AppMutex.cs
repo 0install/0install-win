@@ -21,64 +21,99 @@
  */
 
 using System;
-
-#if !DEBUG
-using System.Threading;
-using System.Windows.Forms;
-using Common.Properties;
-#endif
+using System.ComponentModel;
+using System.Security.Cryptography;
+using System.Text;
+using Common.Storage;
 
 namespace Common.Utils
 {
     /// <summary>
-    /// Prevents an application from running multiple instances.
+    /// Allows control over the number of instances of an application running.
     /// </summary>
     public static class AppMutex
     {
-#if !DEBUG
-        private static Mutex _mutex;
-#endif
-
         /// <summary>
-        /// Tries to acquire a mutex for a specific application name.
+        /// Creates or opens a mutex (local and global) to signal that an application is running.
         /// </summary>
-        /// <param name="appName">The name of the application (used as a Mutex identifier).</param>
-        /// <returns><see langword="true"/> if the Mutex was acquired successfully, <see langword="false"/> if another instance is already running.</returns>
-        /// <remarks>Before <see langword="false"/> is returned this method already has displayed a MessageBox.</remarks>
-        /// <exception cref="InvalidOperationException">Thrown if this method is called more than once without a <see cref="Release"/> in between.</exception>
-        public static bool Acquire(string appName)
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if a new one was created.</returns>
+        /// <remarks>The mutex will automatically be released once the process terminates. You can check the return value to prevent multiple instances from running.</remarks>
+        public static bool Create(string name)
         {
-#if !DEBUG
-            if (_mutex != null) throw new InvalidOperationException("Mutex already acquired");
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
 
-            // Create a new mutex or acquire a handle to a previous one
-            _mutex = new Mutex(false, appName);
+            if (!WindowsUtils.IsWindows) return false;
 
-            // Try to lock the mutex
-            if (!_mutex.WaitOne(0, false))
-            { // Previous instance detected
-
-                // Note: Don't use Msg.Inform() because it would mess up the existing log file
-                MessageBox.Show(Resources.AppAlreadyRunning, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                return false;
-            }
-#endif
-
-            return true;
+            // Always create the mutex both in the local session and globally and report if any instance already existed
+            bool result = false;
+            try { result |= WindowsUtils.CreateMutex(name); }
+            catch(Win32Exception ex) { Log.Warn(ex.Message); }
+            try { result |= WindowsUtils.CreateMutex("Global\\" + name); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            return result;
         }
 
         /// <summary>
-        /// Releases the Mutex acquired by <see cref="Acquire"/>.
+        /// Tries to open an existing mutex (local and global) signaling that an application is running.
         /// </summary>
-        public static void Release()
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if none existed.</returns>
+        /// <remarks>Opening a mutex creates an additional handle to it, keeping it alive until the process terminates.</remarks>
+        public static bool Open(string name)
         {
-#if !DEBUG
-            try { _mutex.ReleaseMutex(); }
-            catch (ApplicationException) {}
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
 
-            _mutex = null;
-#endif
+            if (!WindowsUtils.IsWindows) return false;
+
+            // Always create the mutex both in the local session and globally and report if any instance already existed
+            bool result = false;
+            try { result |= WindowsUtils.OpenMutex(name); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try { result |= WindowsUtils.OpenMutex("Global\\" + name); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            return result;
+        }
+
+        /// <summary>
+        /// Checks whether a specific mutex exists (local or global) without openining a lasting handle.
+        /// </summary>
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was found; <see langword="false"/> if none existed.</returns>
+        public static bool Probe(string name)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
+
+            if (!WindowsUtils.IsWindows) return false;
+
+            // Always check for the mutex both in the local session and globally and report if any instance already existed
+            bool result = false;
+            try { result |= WindowsUtils.ProbeMutex(name); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            try { result |= WindowsUtils.ProbeMutex("Global\\" + name); }
+            catch (Win32Exception ex) { Log.Warn(ex.Message); }
+            return result;
+        }
+
+        /// <summary>
+        /// Generates a mutex name using the prefix "mutex-" and a SHA-256 hash of a path.
+        /// </summary>
+        /// <param name="path">The path to use for generating the mutex; usually <see cref="Locations.InstallationBase"/>.</param>
+        /// <remarks>Use this to differentiate between instances of an application installed in different locations.</remarks>
+        public static string GenerateName(string path)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
+            var locationHash = SHA256.Create().ComputeHash(Encoding.ASCII.GetBytes(path));
+            return "mutex-" + BitConverter.ToString(locationHash).Replace("-", "").ToLowerInvariant();
         }
     }
 }

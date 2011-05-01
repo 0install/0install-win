@@ -52,9 +52,9 @@ namespace Common.Storage
 
         #region Variables
         /// <summary>
-        /// The directory the application binaries are located in.
+        /// The directory the application binaries are located in without a trailing directory separator charachter.
         /// </summary>
-        public static readonly string InstallationBase = AppDomain.CurrentDomain.BaseDirectory;
+        public static readonly string InstallationBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
 
         /// <summary>
         /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Usuall the same as <see cref="InstallationBase"/>

@@ -46,6 +46,7 @@ AppCopyright=Copyright 2010-2011 0install.de
 AppPublisher=0install.de
 AppPublisherURL=http://0install.de/
 AppID=Zero Install
+AppMutex=Zero Install
 VersionInfoDescription=Zero Install Setup
 VersionInfoTextVersion=Zero Install for Windows v{#Version} Setup
 VersionInfoVersion={#Version}

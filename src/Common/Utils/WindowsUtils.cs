@@ -21,13 +21,13 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Windows.Forms;
-using Microsoft.Win32.SafeHandles;
 
 namespace Common.Utils
 {
@@ -147,6 +147,9 @@ namespace Common.Utils
 
             [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
             internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
+
+            [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
+            internal static extern int CloseHandle(IntPtr hObject);
             #endregion
 
             #region Foreground window
@@ -262,39 +265,83 @@ namespace Common.Utils
         #endregion
 
         #region Mutex
+        private const int ErrorSuccess = 0, ErrorFileNotFound = 2, ErrorAccessDenied = 5, ErrorAlreadyExists = 183;
+        private const UInt32 Synchronize = 0x00100000;
+
         /// <summary>
-        /// 
+        /// Creates or opens a mutex.
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if a new one was created.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        /// <remarks>The mutex will automatically be released once the process terminates.</remarks>
         public static bool CreateMutex(string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            if (OpenMutex(name)) return true;
-            else
+            SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
+
+            int error = Marshal.GetLastWin32Error();
+            switch (error)
             {
-                SafeNativeMethods.CreateMutex(IntPtr.Zero, false, name);
-                int error = Marshal.GetLastWin32Error();
-                return false;
+                case ErrorSuccess: return false;
+                case ErrorAlreadyExists: return true;
+                case ErrorAccessDenied: return OpenMutex(name);
+                default: throw new Win32Exception(error);
             }
         }
 
         /// <summary>
-        /// 
+        /// Tries to open an existing mutex.
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was opened; <see langword="false"/> if none existed.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        /// <remarks>Opening a mutex creates an additional handle to it, keeping it alive until the process terminates.</remarks>
         public static bool OpenMutex(string name)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
             #endregion
 
-            var handle = SafeNativeMethods.OpenMutex(0, false, name);
-            return (handle != IntPtr.Zero);
+            SafeNativeMethods.OpenMutex(Synchronize, false, name);
+
+            int error = Marshal.GetLastWin32Error();
+            switch (error)
+            {
+                case ErrorSuccess: return true;
+                case ErrorFileNotFound: return false;
+                default: throw new Win32Exception(error);
+            }
+        }
+
+        /// <summary>
+        /// Checks whether a specific mutex exists without openining a lasting handle.
+        /// </summary>
+        /// <param name="name">The name to be used as a mutex identifier.</param>
+        /// <returns><see langword="true"/> if an existing mutex was found; <see langword="false"/> if none existed.</returns>
+        /// <exception cref="Win32Exception">Thrown if the native subsystem reported a problem.</exception>
+        public static bool ProbeMutex(string name)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            #endregion
+
+            var handle = SafeNativeMethods.OpenMutex(Synchronize, false, name);
+
+            bool result;
+            int error = Marshal.GetLastWin32Error();
+            switch (error)
+            {
+                case ErrorSuccess: result = true; break;
+                case ErrorFileNotFound: result = false; break;
+                default: throw new Win32Exception(error);
+            }
+
+            SafeNativeMethods.CloseHandle(handle);
+            return result;
         }
         #endregion
 
