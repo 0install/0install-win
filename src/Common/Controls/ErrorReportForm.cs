@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -159,47 +160,36 @@ namespace Common.Controls
         [SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "A final exception handler may never throw exceptions itself")]
         private void buttonReport_Click(object sender, EventArgs e)
         {
-            using (var waitDialog = new AsyncWaitDialog(Text, Icon))
-            {
-                Cursor = Cursors.WaitCursor;
-                buttonReport.Enabled = buttonCancel.Enabled = false;
-                waitDialog.Start();
-
-                string reportFile;
-                try { reportFile = GenerateReportFile(); }
-                #region Sanity checks
-                catch (Exception ex)
-                {
-                    Cursor = Cursors.Default;
-                    waitDialog.Stop();
-                    Msg.Inform(this, Resources.UnableToGenerateErrorReportFile + "\n" + ex.Message, MsgSeverity.Error);
-                    buttonReport.Enabled = buttonCancel.Enabled = true;
-                    return;
-                }
-                #endregion
-
-                try { new WebClient().UploadFile(_uploadUri, reportFile); }
-                #region Sanity checks
-                catch (Exception ex)
-                {
-                    Cursor = Cursors.Default;
-                    waitDialog.Stop();
-                    Msg.Inform(this, string.Format(Resources.UnableToUploadErrorReportFile, reportFile) + "\n" + ex.Message, MsgSeverity.Error);
-                    buttonReport.Enabled = buttonCancel.Enabled = true;
-                    return;
-                }
-                #endregion
-
-                waitDialog.Stop();
-            }
-
-            Msg.Inform(this, Resources.ErrorReportSent, MsgSeverity.Info);
-            Close();
+            Cursor = Cursors.WaitCursor;
+            commentBox.Enabled = detailsBox.Enabled = buttonReport.Enabled = buttonCancel.Enabled = false;
+            reportWorker.RunWorkerAsync();
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region Background worker
+        private void reportWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            new WebClient().UploadFile(_uploadUri, GenerateReportFile());
+        }
+
+        private void reportWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Cursor = Cursors.Default;
+            if (e.Error == null)
+            {
+                Msg.Inform(this, Resources.ErrorReportSent, MsgSeverity.Info);
+                Close();
+            }
+            else
+            {
+                Msg.Inform(this, Resources.UnableToGenerateErrorReportFile + "\n" + e.Error.Message, MsgSeverity.Error);
+                commentBox.Enabled = detailsBox.Enabled = buttonReport.Enabled = buttonCancel.Enabled = true;
+            }
         }
         #endregion
 
@@ -217,7 +207,7 @@ namespace Common.Controls
             using (var zipStream = new ZipOutputStream(reportStream))
             {
                 zipStream.SetLevel(9);
-                
+
                 // Store the exception information as XML
                 zipStream.PutNextEntry(new ZipEntry("Exception.xml"));
                 XmlStorage.Save(zipStream, _exceptionInformation);

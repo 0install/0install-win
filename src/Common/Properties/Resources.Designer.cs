@@ -61,15 +61,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This application is already running!.
-        /// </summary>
-        internal static string AppAlreadyRunning {
-            get {
-                return ResourceManager.GetString("AppAlreadyRunning", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The archive file is invalid or damaged..
         /// </summary>
         internal static string ArchiveInvalid {
@@ -249,15 +240,6 @@ namespace Common.Properties {
             get {
                 object obj = ResourceManager.GetObject("Info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The priority is invalid..
-        /// </summary>
-        internal static string InvalidPriority {
-            get {
-                return ResourceManager.GetString("InvalidPriority", resourceCulture);
             }
         }
         
@@ -516,15 +498,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Unable to upload error report file. Please send &apos;{0}&apos; via e-mail..
-        /// </summary>
-        internal static string UnableToUploadErrorReportFile {
-            get {
-                return ResourceManager.GetString("UnableToUploadErrorReportFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This undo command cannot be performed until the actual command has been performed..
         /// </summary>
         internal static string UndoNotAvailable {
@@ -573,15 +546,6 @@ namespace Common.Properties {
             get {
                 object obj = ResourceManager.GetObject("Warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to X and Y must be powers of 2.
-        /// </summary>
-        internal static string XandYpow2 {
-            get {
-                return ResourceManager.GetString("XandYpow2", resourceCulture);
             }
         }
         

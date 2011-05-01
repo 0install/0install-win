@@ -118,13 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
-		<value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
-	</data>
-  <data name="UnableToUploadErrorReportFile" xml:space="preserve">
-		<value>Konnte die Fehlerberichtdatei nicht hochladen. Bitte senden Sie '{0}' per E-Mail.</value>
+    <value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
 	</data>
   <data name="ErrorReportSent" xml:space="preserve">
-		<value>Der Fehlerbericht wurde erfolgreich versendet.</value>
+    <value>Der Fehlerbericht wurde erfolgreich versendet.</value>
 	</data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
@@ -149,9 +146,6 @@
   </data>
   <data name="MinLargerMax" xml:space="preserve">
     <value>Der Min Wert darf nicht größer als der Max Wert sein.</value>
-  </data>
-  <data name="XandYpow2" xml:space="preserve">
-    <value>X und Y müssen Potenzen von 2 sein</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -218,9 +212,6 @@ Die Änderungen löschen</value>
   <data name="FileNotExpectedSize" xml:space="preserve">
     <value>Die Datei die von {0} runtergeladen werden sollte, hat nicht die erwartete Größe. Sollten {1} Bytes sein, waren aber {2} Bytes.</value>
   </data>
-  <data name="InvalidPriority" xml:space="preserve">
-    <value>Die angegebene Priorität ist ungültig.</value>
-  </data>
   <data name="StateMustBeReady" xml:space="preserve">
     <value>Der Zustand muss "Ready" sein.</value>
   </data>
@@ -235,9 +226,6 @@ Die Änderungen löschen</value>
   </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>Die Archivdatei ist ungültig oder beschädigt.</value>
-  </data>
-  <data name="AppAlreadyRunning" xml:space="preserve">
-    <value>Diese Anwendung läuft bereits!</value>
   </data>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>Die mitgelieferte {0}-Installation konnte nicht gestartet werden. Bitte installieren Sie die Anwendung neu.</value>

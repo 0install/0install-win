@@ -124,7 +124,6 @@
   <data name="Warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Warning.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="Info" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Info.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -132,14 +131,11 @@
     <value>..\Resources\Error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
-		<value>Unable to generate error report file. Please send the technical data via e-mail.</value>
-	</data>
-  <data name="UnableToUploadErrorReportFile" xml:space="preserve">
-		<value>Unable to upload error report file. Please send '{0}' via e-mail.</value>
-	</data>
+    <value>Unable to generate error report file. Please send the technical data via e-mail.</value>
+  </data>
   <data name="ErrorReportSent" xml:space="preserve">
-		<value>The error report was sent successfully.</value>
-	</data>
+    <value>The error report was sent successfully.</value>
+  </data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>The content archives were already loaded</value>
   </data>
@@ -163,9 +159,6 @@
   </data>
   <data name="MinLargerMax" xml:space="preserve">
     <value>The Min value may not be larger than the Max value.</value>
-  </data>
-  <data name="XandYpow2" xml:space="preserve">
-    <value>X and Y must be powers of 2</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
@@ -232,9 +225,6 @@ Delete the changes</value>
   <data name="FileNotExpectedSize" xml:space="preserve">
     <value>The file that was supposed to be downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
   </data>
-  <data name="InvalidPriority" xml:space="preserve">
-    <value>The priority is invalid.</value>
-  </data>
   <data name="StateMustBeReady" xml:space="preserve">
     <value>The state must be "Ready".</value>
   </data>
@@ -249,9 +239,6 @@ Delete the changes</value>
   </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
-  </data>
-  <data name="AppAlreadyRunning" xml:space="preserve">
-    <value>This application is already running!</value>
   </data>
   <data name="UnableToLaunchBundled" xml:space="preserve">
     <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>

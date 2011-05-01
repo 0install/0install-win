@@ -37,97 +37,73 @@ namespace Common.Controls
             this.buttonReport = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.commentBox = new Common.Controls.HintTextBox();
+            this.reportWorker = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // infoLabel
             // 
-            this.infoLabel.AccessibleDescription = null;
-            this.infoLabel.AccessibleName = null;
             resources.ApplyResources(this.infoLabel, "infoLabel");
             this.infoLabel.BackColor = System.Drawing.Color.Transparent;
             this.infoLabel.Name = "infoLabel";
             // 
             // pictureBox
             // 
-            this.pictureBox.AccessibleDescription = null;
-            this.pictureBox.AccessibleName = null;
             resources.ApplyResources(this.pictureBox, "pictureBox");
             this.pictureBox.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox.BackgroundImage = null;
-            this.pictureBox.Font = null;
             this.pictureBox.Image = global::Common.Properties.Resources.Warning;
-            this.pictureBox.ImageLocation = null;
             this.pictureBox.Name = "pictureBox";
             this.pictureBox.TabStop = false;
             // 
             // detailsLabel
             // 
-            this.detailsLabel.AccessibleDescription = null;
-            this.detailsLabel.AccessibleName = null;
             resources.ApplyResources(this.detailsLabel, "detailsLabel");
             this.detailsLabel.Name = "detailsLabel";
             // 
             // detailsBox
             // 
-            this.detailsBox.AccessibleDescription = null;
-            this.detailsBox.AccessibleName = null;
             resources.ApplyResources(this.detailsBox, "detailsBox");
             this.detailsBox.BackColor = System.Drawing.SystemColors.Control;
-            this.detailsBox.BackgroundImage = null;
-            this.detailsBox.Font = null;
             this.detailsBox.Name = "detailsBox";
             this.detailsBox.ReadOnly = true;
             this.detailsBox.TabStop = false;
             // 
             // commentLabel
             // 
-            this.commentLabel.AccessibleDescription = null;
-            this.commentLabel.AccessibleName = null;
             resources.ApplyResources(this.commentLabel, "commentLabel");
             this.commentLabel.Name = "commentLabel";
             // 
             // buttonReport
             // 
-            this.buttonReport.AccessibleDescription = null;
-            this.buttonReport.AccessibleName = null;
             resources.ApplyResources(this.buttonReport, "buttonReport");
-            this.buttonReport.BackgroundImage = null;
-            this.buttonReport.Font = null;
             this.buttonReport.Name = "buttonReport";
             this.buttonReport.UseVisualStyleBackColor = true;
             this.buttonReport.Click += new System.EventHandler(this.buttonReport_Click);
             // 
             // buttonCancel
             // 
-            this.buttonCancel.AccessibleDescription = null;
-            this.buttonCancel.AccessibleName = null;
             resources.ApplyResources(this.buttonCancel, "buttonCancel");
-            this.buttonCancel.BackgroundImage = null;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Font = null;
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // commentBox
             // 
-            this.commentBox.AccessibleDescription = null;
-            this.commentBox.AccessibleName = null;
             resources.ApplyResources(this.commentBox, "commentBox");
             this.commentBox.BackColor = System.Drawing.SystemColors.Window;
-            this.commentBox.BackgroundImage = null;
-            this.commentBox.Font = null;
             this.commentBox.Name = "commentBox";
             this.commentBox.TabStop = false;
             // 
+            // reportWorker
+            // 
+            this.reportWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.reportWorker_DoWork);
+            this.reportWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.reportWorker_RunWorkerCompleted);
+            // 
             // ErrorReportForm
             // 
-            this.AccessibleDescription = null;
-            this.AccessibleName = null;
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = null;
             this.Controls.Add(this.commentBox);
             this.Controls.Add(this.commentLabel);
             this.Controls.Add(this.buttonCancel);
@@ -137,9 +113,7 @@ namespace Common.Controls
             this.Controls.Add(this.infoLabel);
             this.Controls.Add(this.pictureBox);
             this.DoubleBuffered = true;
-            this.Font = null;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = null;
             this.MaximizeBox = false;
             this.Name = "ErrorReportForm";
             this.TopMost = true;
@@ -159,6 +133,7 @@ namespace Common.Controls
         private HintTextBox commentBox;
         private System.Windows.Forms.Button buttonReport;
         private System.Windows.Forms.Button buttonCancel;
+        private System.ComponentModel.BackgroundWorker reportWorker;
 
 
     }
