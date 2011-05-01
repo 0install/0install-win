@@ -142,13 +142,13 @@ namespace Common.Utils
             #endregion
 
             #region Mutex
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern IntPtr CreateMutex(IntPtr lpMutexAttributes, bool bInitialOwner, string lpName);
 
-            [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+            [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern IntPtr OpenMutex(UInt32 desiredAccess, bool inheritHandle, string name);
 
-            [DllImport("kernel32", CharSet = CharSet.Auto, SetLastError = true)]
+            [DllImport("kernel32", CharSet = CharSet.Unicode, SetLastError = true)]
             internal static extern int CloseHandle(IntPtr hObject);
             #endregion
 

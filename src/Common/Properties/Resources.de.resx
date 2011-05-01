@@ -123,7 +123,7 @@
   <data name="UnableToUploadErrorReportFile" xml:space="preserve">
 		<value>Konnte die Fehlerberichtdatei nicht hochladen. Bitte senden Sie '{0}' per E-Mail.</value>
 	</data>
-  <data name="RErroreportSent" xml:space="preserve">
+  <data name="ErrorReportSent" xml:space="preserve">
 		<value>Der Fehlerbericht wurde erfolgreich versendet.</value>
 	</data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">

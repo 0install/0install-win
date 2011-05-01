@@ -136,6 +136,7 @@
     <Compile Include="Undo\CompositeCommand.cs" />
     <Compile Include="Values\Design\ValueTypeConverter.cs" />
     <Compile Include="Values\Design\TimeSpanEditor.cs" />
+    <Compile Include="Controls\ExceptionInformation.cs" />
     <Compile Include="Controls\IContextMenu.cs" />
     <Compile Include="Controls\IHighlightColor.cs" />
     <Compile Include="Controls\RtfBuilder.cs" />
@@ -202,7 +203,6 @@
     <Compile Include="Controls\ErrorReportForm.Designer.cs">
       <DependentUpon>ErrorReportForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controls\ExceptionInformation.cs" />
     <Compile Include="Controls\OKCancelDialog.cs">
       <SubType>Form</SubType>
     </Compile>
