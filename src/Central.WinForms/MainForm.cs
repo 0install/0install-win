@@ -32,6 +32,9 @@ using ZeroInstall.Model;
 
 namespace ZeroInstall.Central.WinForms
 {
+    /// <summary>
+    /// The main GUI for Zero Install.
+    /// </summary>
     partial class MainForm : Form
     {
         #region Variables
@@ -60,7 +63,8 @@ namespace ZeroInstall.Central.WinForms
 
             labelVersion.Text = "v" + Application.ProductVersion;
 
-            selfUpdateWorker.RunWorkerAsync();
+            if (_selfUpdatePolicy.Config.SelfUpdateEnabled)
+                selfUpdateWorker.RunWorkerAsync();
         }
         #endregion
 

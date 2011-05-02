@@ -129,6 +129,13 @@ namespace ZeroInstall.Injector
         [DefaultValue(DefaultAppStoreHome), DisplayName("AppStore home"), Description("The homepage for the AppStore. [LANG] is a placeholder for a two character ISO language code.")]
         public string AppStoreHome { get { return _appStoreHome; } set { _appStoreHome = value; } }
 
+        private bool _selfUpdateEnabled = true;
+        /// <summary>
+        /// Controls whether Zero Install searches for updates for itself.
+        /// </summary>
+        [DefaultValue(true), DisplayName("Self-update enabled"), Description("Controls whether Zero Install searches for updates for itself.")]
+        public bool SelfUpdateEnabled { get { return _selfUpdateEnabled; } set { _selfUpdateEnabled = value; } }
+
         private const string DefaultSelfUpdateID = "http://0install.de/feeds/ZeroInstall.xml";
         private string _selfUpdateID = DefaultSelfUpdateID;
         /// <summary>
@@ -153,7 +160,8 @@ namespace ZeroInstall.Injector
                 {"key_info_server", PropertyPointer.GetUriConverter(new PropertyPointer<Uri>(() => KeyInfoServer, value => KeyInfoServer = value, new Uri(DefaultKeyInfoServer)))},
                 {"auto_approve_keys", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => AutoApproveKeys, value => AutoApproveKeys = value, true))},
                 {"appstore_home", new PropertyPointer<string>(() => AppStoreHome, value => AppStoreHome = value, DefaultAppStoreHome)},
-                {"sef_update_id", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)}
+                {"sef_update_enabled", new PropertyPointer<string>(() => SelfUpdateID, value => SelfUpdateID = value, DefaultSelfUpdateID)},
+                {"sef_update_id", PropertyPointer.GetBoolConverter(new PropertyPointer<bool>(() => SelfUpdateEnabled, value => SelfUpdateEnabled = value, true))}
             };
         }
 
