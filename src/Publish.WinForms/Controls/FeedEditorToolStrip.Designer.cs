@@ -104,6 +104,7 @@
             // 
             this.comboBoxGnuPG.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.comboBoxGnuPG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGnuPG.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.comboBoxGnuPG.Name = "comboBoxGnuPG";
             this.comboBoxGnuPG.Size = new System.Drawing.Size(121, 23);
             // 
@@ -116,8 +117,8 @@
             this.buttonSaveAs,
             this.buttonUndo,
             this.buttonRedo,
-            this.labelGnuPG,
-            this.comboBoxGnuPG});
+            this.comboBoxGnuPG,
+            this.labelGnuPG});
             this.ResumeLayout(false);
 
         }
