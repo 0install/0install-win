@@ -117,30 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="SaveButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SaveButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonNew.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGfSURBVDhPjZJNSwJRFIaHoJW0ahv0A1q1qE3UvqhNi/5A
+        9SOEoB9Qm4qCtCLMQAuENAiFrKggk5DwA+1LxC/Mb9PUce683dHmOjFlXjicy537Puee9wzHfS9CFmuE
+        zAah5wAvByLMhAmZ4+XvHTMJaqy8lgqxCZzSHGjtm2fl8aN/ISSkeWCCfSo64VpiCimExmBx+mC2e2C0
+        uXBgc62ogPwqvbxJY00SScvUeomOhkk+A3aOLzE6taCGkADXIPF+Eeut/vHWC1zQXBsGogPfUFrDaIfj
+        1teEGKx3q+wlRJh2sxakirQ68wTLDLBhOGuK5WgDyhNXTLBLAS89bROxzQANgUCCyKAfXoiZoSXy3LcF
+        CwXEBoGslk5Az8SiKKJS5ZHKVpqAkcl5/DqdPcs1Eyk3dV5ArlhFJFnsDNCZnSqAQESUKnUk0mU8RXKd
+        AVuHDhWgWmsgnf9EOF6A9zndGSD1p1yScYWPGqKpEoLhLNz+ZPcApXEv0TweQ++48cS6ByiN879m4PIm
+        cH4f6Q4gz/uv/OcY5RlLF/4L6T/4AiMoOB0TyUBYAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="OpenButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\OpenButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="buttonSaveAs.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIISURBVDhPpZP7S1NxGMbPPxKaXVUkMEq8IpKUCoY/hGgI
+        ymqkDYYXcCjDZOANURSjCNGFQUTsl4GXVMxKk62YU4fXQpaIlygHQxBRH8/zwvyaIAYe+HLgnPN8nue9
+        HA3nvDTq63oW/jm13XOwvPTB3DYFY5MH+bXfcN8ygfTSMSSXfESicQDxBqdYHwH29g9w2tnZ3UcguIvN
+        rR3417exuBJE5N1n/wfwLgXEOc38Bc6xNRHb+/y4nm49G0Bnit2zf9H6bkliE/jKuYxrd6oVgDWfjB+K
+        TWeKMyrGEVfowITvD9re/9ABVQrAhh0HHK+ZselMMaN/mvwtDb+aVqkA7HYIwIj3ysfluPTorJnP6Ezx
+        oHsD1s5ZXEktUwCOioB5f1CEPR9+wTG6iuiserTo8dkwng7HT/R+XUPF8xlcTjErAOdMcW6NW8STiwG8
+        7vej8oUPN/PsEv3t8Ao0TZP3T1u8uJRkUgAuSYHtO97oLxmXd5t9Ho8aPTK+GzntqNfrLm2fFoihwYOI
+        xGIF4KjoGBLzY1OrF9k6OOFxnwDC4wxIMX1G0pMhgVyMNyoA13PAtS7OrJk1PrC69LUdQWxuF6IybHrX
+        LRI7JrtZdoDAo1XmbjMyD+tjSXxGcXRmnYg5ttD9QuxDhN0uUgDOmbvNTpPOJaGAo2K36cyaGZvOFIfd
+        KlSA8/zRh9ABIDUG+1JpAAAAAElFTkSuQmCC
+</value>
   </data>
-  <data name="NewButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\NewButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="AutoDetect" xml:space="preserve">
-    <value>(auto detect)</value>
-  </data>
-  <data name="ImageFormatNotSupported" xml:space="preserve">
-    <value>The image format is not supported by ZeroInstall.</value>
-  </data>
-  <data name="Downloading_image_for_preview" xml:space="preserve">
-    <value>Downloading image for preview...</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="RedoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\RedoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="UndoButton" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\UndoButton.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
+  <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
 </root>

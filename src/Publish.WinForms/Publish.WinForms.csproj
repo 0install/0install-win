@@ -76,6 +76,12 @@
     <Compile Include="Controls\ArgumentsControl.Designer.cs">
       <DependentUpon>ArgumentsControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FeedEditorToolStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FeedEditorToolStrip.Designer.cs">
+      <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -184,6 +190,9 @@
     <EmbeddedResource Include="Controls\ArgumentsControl.resx">
       <DependentUpon>ArgumentsControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FeedEditorToolStrip.resx">
+      <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconManagementControl.de.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -253,6 +262,8 @@
   <ItemGroup>
     <CodeAnalysisDictionary Include="CodeAnalysisDictionary.xml" />
     <Content Include="Icon.ico" />
+    <None Include="Resources\RedoButton.png" />
+    <None Include="Resources\UndoButton.png" />
     <None Include="Resources\NewButton.png" />
     <None Include="Resources\OpenButton.png" />
     <None Include="Resources\SaveButton.png" />
