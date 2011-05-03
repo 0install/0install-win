@@ -18,6 +18,7 @@
 using System;
 using System.Windows.Forms;
 using Common.Controls;
+using Common.Storage;
 using ZeroInstall.Injector;
 
 namespace ZeroInstall.Commands.WinForms
@@ -44,7 +45,10 @@ namespace ZeroInstall.Commands.WinForms
             #endregion
 
             using (var form = new ConfigForm(config))
+            {
+                if (Locations.IsPortable) form.Text += " - Portable mode";
                 return form.ShowDialog();
+            }
         }
 
         private void resetValueMenuItem_Click(object sender, EventArgs e)

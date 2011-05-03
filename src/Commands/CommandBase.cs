@@ -23,6 +23,7 @@ using System.IO;
 using System.Net;
 using System.Reflection;
 using Common;
+using Common.Storage;
 using Common.Streams;
 using Common.Utils;
 using NDesk.Options;
@@ -116,7 +117,7 @@ namespace ZeroInstall.Commands
             });
             Options.Add("V|version", Resources.OptionVersion, unused =>
             {
-                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + "\n" + AppInfo.Copyright + "\n" + Resources.LicenseInfo);
+                Policy.Handler.Output(Resources.VersionInformation, AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - Portable mode\n" : "\n") + AppInfo.Copyright + "\n" + Resources.LicenseInfo);
                 throw new UserCancelException(); // Don't handle any of the other arguments
             });
 

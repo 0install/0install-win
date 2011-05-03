@@ -210,6 +210,16 @@ namespace ZeroInstall.Store.Management.Cli.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+        ///You may redistribute copies of this program under the terms of the GNU Lesser General Public License..
+        /// </summary>
+        internal static string LicenseInfo {
+            get {
+                return ResourceManager.GetString("LicenseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This store does not support auditing..
         /// </summary>
         internal static string NoAuditSupport {

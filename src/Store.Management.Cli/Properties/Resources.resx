@@ -252,4 +252,8 @@ This calculates the manifest of the directory and checks that its digest matches
   <data name="SuccessfullyRemoved" xml:space="preserve">
     <value>Successfully removed {0}.</value>
   </data>
+  <data name="LicenseInfo" xml:space="preserve">
+    <value>This program comes with ABSOLUTELY NO WARRANTY, to the extent permitted by law.
+You may redistribute copies of this program under the terms of the GNU Lesser General Public License.</value>
+  </data>
 </root>

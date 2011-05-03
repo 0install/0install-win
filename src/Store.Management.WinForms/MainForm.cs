@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using ZeroInstall.Model;
@@ -51,6 +52,13 @@ namespace ZeroInstall.Store.Management.WinForms
             _treeView.SelectedEntryChanged += OnSelectedEntryChanged;
             _treeView.CheckedEntriesChanged += OnCheckedEntriesChanged;
             splitContainer.Panel1.Controls.Add(_treeView);
+        }
+        #endregion
+
+        #region Load
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (Locations.IsPortable) Text += " - Portable mode";
 
             RefreshList();
         }

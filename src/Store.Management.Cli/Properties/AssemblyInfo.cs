@@ -14,8 +14,8 @@ using System.Security.Permissions;
 [assembly: NeutralResourcesLanguage("en")]
 
 // Version information
-[assembly: AssemblyVersion("0.54.2")]
-[assembly: AssemblyFileVersion("0.54.2")]
+[assembly: AssemblyVersion("0.54.3")]
+[assembly: AssemblyFileVersion("0.54.3")]
 
 // Security settings
 [assembly: FileIOPermission(SecurityAction.RequestMinimum, Unrestricted = true)]

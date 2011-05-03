@@ -21,6 +21,7 @@ using System.IO;
 using System.Reflection;
 using Common;
 using Common.Collections;
+using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
 using NDesk.Options;
@@ -162,7 +163,7 @@ namespace ZeroInstall.Store.Management.Cli
             var options = new OptionSet
             {
                 // Mode selection
-                {"V|version", Resources.OptionVersion, unused => Console.WriteLine(@"Zero Install Store management CLI v{0}", Assembly.GetEntryAssembly().GetName().Version)},
+                {"V|version", Resources.OptionVersion, unused => Console.WriteLine(AppInfo.Name + " " + AppInfo.Version + (Locations.IsPortable ? " - Portable mode\n" : "\n") + AppInfo.Copyright + "\n" + Resources.LicenseInfo)},
 
                 // Documentation
                 {"man", Resources.OptionMan, unused => PrintManual()}

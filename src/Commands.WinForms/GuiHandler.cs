@@ -21,6 +21,7 @@ using System.Threading;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
+using Common.Storage;
 using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
@@ -90,6 +91,7 @@ namespace ZeroInstall.Commands.WinForms
         {
             _form.Initialize();
             if (ActionTitle != null) _form.Text = ActionTitle;
+            if (Locations.IsPortable) _form.Text += " - Portable mode";
 
             // Restore normal priority as soon as the GUI becomes visible
             _form.Shown += delegate { Thread.CurrentThread.Priority = ThreadPriority.Normal; };

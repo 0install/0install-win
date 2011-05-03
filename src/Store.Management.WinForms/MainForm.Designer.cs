@@ -227,6 +227,7 @@ namespace ZeroInstall.Store.Management.WinForms
             this.MinimumSize = new System.Drawing.Size(350, 250);
             this.Name = "MainForm";
             this.Text = "Zero Install cache management";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.tableLayoutPanelSize.ResumeLayout(false);
