@@ -235,7 +235,7 @@ namespace ZeroInstall.Store.Implementation
             try
             {
                 // Copy the source directory inside the cache so it can be validated safely (no manipulation of directory while validating)
-                try { FileUtils.CopyDirectory(path, tempDir, false); }
+                try { FileUtils.CopyDirectory(path, tempDir, true, false); }
                 #region Error handling
                 catch (IOException ex)
                 {

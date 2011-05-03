@@ -116,28 +116,47 @@ namespace Common.Utils
         [Test]
         public void TestCopyDirectory()
         {
-            string temp1 = FileUtils.GetTempDirectory("unit-tests");
-            string subdir1 = Path.Combine(temp1, "subdir");
-            Directory.CreateDirectory(subdir1);
-            File.WriteAllText(Path.Combine(subdir1, "file"), "A");
-            File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
-            Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
-
+            string temp1 = CreateCopyTestTempDir();
             string temp2 = FileUtils.GetTempDirectory("unit-tests");
             Directory.Delete(temp2);
-            string subdir2 = Path.Combine(temp2, "subdir");
-            
+
             try
             {
-                Assert.Throws<ArgumentException>(() => FileUtils.CopyDirectory(temp1, temp1, false));
-                Assert.Throws<DirectoryNotFoundException>(() => FileUtils.CopyDirectory(temp2, temp1, false));
+                Assert.Throws<ArgumentException>(() => FileUtils.CopyDirectory(temp1, temp1, true, false));
+                Assert.Throws<DirectoryNotFoundException>(() => FileUtils.CopyDirectory(temp2, temp1, true, false));
 
-                FileUtils.CopyDirectory(temp1, temp2, false);
-                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(subdir2, "file"));
-                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2), "Last-write time for copied directory is invalid");
-                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")), "Last-write time for copied file is invalid");
+                FileUtils.CopyDirectory(temp1, temp2, true, false);
+                FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
 
-                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, false));
+                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, true, false));
+            }
+            finally
+            {
+                Directory.Delete(temp1, true);
+                Directory.Delete(temp2, true);
+            }
+        }
+
+        /// <summary>
+        /// Ensures <see cref="FileUtils.CopyDirectory"/> correctly copies a directories from one location to another without setting directory timestamps.
+        /// </summary>
+        [Test]
+        public void TestCopyDirectoryNoDirTimestamp()
+        {
+            string temp1 = CreateCopyTestTempDir();
+            string temp2 = FileUtils.GetTempDirectory("unit-tests");
+            Directory.Delete(temp2);
+
+            try
+            {
+                FileUtils.CopyDirectory(temp1, temp2, false, false);
+                FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                Assert.AreNotEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
+
+                Assert.Throws<IOException>(() => FileUtils.CopyDirectory(temp1, temp2, true, false));
             }
             finally
             {
@@ -152,12 +171,7 @@ namespace Common.Utils
         [Test]
         public void TestCopyDirectoryOverwrite()
         {
-            string temp1 = FileUtils.GetTempDirectory("unit-tests");
-            string subdir1 = Path.Combine(temp1, "subdir");
-            Directory.CreateDirectory(subdir1);
-            File.WriteAllText(Path.Combine(subdir1, "file"), @"A");
-            File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
-            Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
+            string temp1 = CreateCopyTestTempDir();
 
             string temp2 = FileUtils.GetTempDirectory("unit-tests");
             string subdir2 = Path.Combine(temp2, "subdir");
@@ -168,16 +182,27 @@ namespace Common.Utils
 
             try
             {
-                FileUtils.CopyDirectory(temp1, temp2, true);
-                FileAssert.AreEqual(Path.Combine(subdir1, "file"), Path.Combine(subdir2, "file"));
-                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(subdir2), "Last-write time for copied directory is invalid");
-                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(subdir2, "file")), "Last-write time for copied file is invalid");
+                FileUtils.CopyDirectory(temp1, temp2, true, true);
+                FileAssert.AreEqual(Path.Combine(Path.Combine(temp1, "subdir"), "file"), Path.Combine(Path.Combine(temp2, "subdir"), "file"));
+                Assert.AreEqual(new DateTime(2000, 1, 1), Directory.GetLastWriteTimeUtc(Path.Combine(temp2, "subdir")), "Last-write time for copied directory is invalid");
+                Assert.AreEqual(new DateTime(2000, 1, 1), File.GetLastWriteTimeUtc(Path.Combine(Path.Combine(temp2, "subdir"), "file")), "Last-write time for copied file is invalid");
             }
             finally
             {
                 Directory.Delete(temp1, true);
                 Directory.Delete(temp2, true);
             }
+        }
+
+        private static string CreateCopyTestTempDir()
+        {
+            string tempPath = FileUtils.GetTempDirectory("unit-tests");
+            string subdir1 = Path.Combine(tempPath, "subdir");
+            Directory.CreateDirectory(subdir1);
+            File.WriteAllText(Path.Combine(subdir1, "file"), "A");
+            File.SetLastWriteTimeUtc(Path.Combine(subdir1, "file"), new DateTime(2000, 1, 1));
+            Directory.SetLastWriteTimeUtc(subdir1, new DateTime(2000, 1, 1));
+            return tempPath;
         }
         #endregion
 
