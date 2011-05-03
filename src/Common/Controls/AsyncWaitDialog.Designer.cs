@@ -56,7 +56,6 @@
             this.Name = "AsyncWaitDialog";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Loading...";
-            this.TopMost = true;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AsyncWaitDialog_FormClosing);
             this.Shown += new System.EventHandler(this.AsyncWaitDialog_Shown);
             this.ResumeLayout(false);
