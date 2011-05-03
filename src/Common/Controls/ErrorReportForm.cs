@@ -150,7 +150,9 @@ namespace Common.Controls
         /// <param name="uploadUri">The URI to upload error reports to.</param>
         public static void Report(Exception ex, Uri uploadUri)
         {
-            Application.Run(new ErrorReportForm(ex, uploadUri));
+            var form = new ErrorReportForm(ex, uploadUri);
+            if (Application.MessageLoop) form.ShowDialog();
+            else Application.Run(form);
         }
         #endregion
 
