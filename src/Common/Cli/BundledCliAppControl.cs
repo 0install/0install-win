@@ -43,9 +43,9 @@ namespace Common.Cli
         public static string GetBundledDirectory(string name)
         {
             // Use the installation directory of the launching application since the current directory may be arbitrary
-            return Directory.Exists(Path.Combine(Locations.InstallationBase, name))
-                ? Path.Combine(Locations.InstallationBase, name)
-                : StringUtils.PathCombine(Locations.InstallationBase, "..", "..", "Bundled", name);
+            return Directory.Exists(Path.Combine(Locations.InstallBase, name))
+                ? Path.Combine(Locations.InstallBase, name)
+                : StringUtils.PathCombine(Locations.InstallBase, "..", "..", "Bundled", name);
         }
 
         /// <summary>

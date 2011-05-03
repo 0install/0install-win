@@ -54,21 +54,21 @@ namespace Common.Storage
         /// <summary>
         /// The directory the application binaries are located in without a trailing directory separator charachter.
         /// </summary>
-        public static readonly string InstallationBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
+        public static readonly string InstallBase = AppDomain.CurrentDomain.BaseDirectory.TrimEnd(Path.DirectorySeparatorChar);
 
         /// <summary>
-        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Usuall the same as <see cref="InstallationBase"/>
+        /// The directory used for storing files if <see cref="IsPortable"/> is <see langword="true"/>. Usuall the same as <see cref="InstallBase"/>
         /// </summary>
-        public static readonly string PortableBase = InstallationBase;
+        public static readonly string PortableBase = InstallBase;
 
         /// <summary>
         /// Indicates whether the application is currently operating in portable mode.
         /// </summary>
         /// <remarks>
-        ///   <para>Portable mode is activated by placing a file named ".portable" int the application's base directory.</para>
+        ///   <para>Portable mode is activated by placing a file named "_portable" int the application's base directory.</para>
         ///   <para>When portable mode is active files are stored and loaded from the application's base directory instead of the user profile and sysem directories.</para>
         /// </remarks>
-        public static readonly bool IsPortable = File.Exists(Path.Combine(PortableBase, ".portable"));
+        public static readonly bool IsPortable = File.Exists(Path.Combine(PortableBase, "_portable"));
         #endregion
 
         #region Properties

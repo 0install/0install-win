@@ -104,7 +104,7 @@ namespace Common.Utils
         /// <summary>
         /// Generates a mutex name using the prefix "mutex-" and a SHA-256 hash of a path.
         /// </summary>
-        /// <param name="path">The path to use for generating the mutex; usually <see cref="Locations.InstallationBase"/>.</param>
+        /// <param name="path">The path to use for generating the mutex; usually <see cref="Locations.InstallBase"/>.</param>
         /// <remarks>Use this to differentiate between instances of an application installed in different locations.</remarks>
         public static string GenerateName(string path)
         {
