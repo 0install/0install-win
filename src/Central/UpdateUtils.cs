@@ -58,7 +58,8 @@ namespace ZeroInstall.Central
             var selections = policy.Solver.Solve(requirements, policy, out staleFeeds);
 
             // Report version of current update if it is newer than the already installed version
-            return (selections.Implementations[0].Version > currentVersion) ? currentVersion : null;
+            var newVersion = selections.Implementations[0].Version;
+            return (newVersion > currentVersion) ? newVersion : null;
         }
 
         /// <summary>
