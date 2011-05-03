@@ -32,6 +32,7 @@ namespace ZeroInstall.Central
     /// </summary>
     public static class UpdateUtils
     {
+        #region Self-update
         /// <summary>
         /// Checks for updates to Zero Install itself.
         /// </summary>
@@ -80,5 +81,6 @@ namespace ZeroInstall.Central
             // ToDo: Perform download in-process
             ProcessUtils.LaunchHelperAssembly("0install-win", "run --no-wait " + requirements.ToCommandLineArgs() + " \"" + Locations.InstallationBase + "\"");
         }
+        #endregion
     }
 }
