@@ -27,6 +27,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Principal;
 using System.Windows.Forms;
 
 namespace Common.Utils
@@ -235,6 +236,15 @@ namespace Common.Utils
                 return retVal;
             }
         }
+
+        /// <summary>
+        /// Indicates whether the current user is an administrator. Always returns <see langword="flase"/> on non-Windows systems.
+        /// </summary>
+        public static bool IsAdministrator
+        {
+            get { return IsWindows && new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator); }
+        }
+
         #endregion
 
         #region Performance counter
