@@ -138,8 +138,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         public FeedEditorToolStrip()
         {
             InitializeComponent();
-            ConnectEvents();
             SetDefaultValues();
+            ConnectEvents();
         }
 
         /// <summary>
@@ -169,7 +169,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         //--------------------//
 
         #region Control events
-
         /// <summary>
         /// Sets the property <see cref="SelectedSecretKey"/> and raises the event <see cref="SecretKeyChanged"/>.
         /// </summary>
@@ -177,14 +176,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <param name="e">not used.</param>
         private void SelectedSecretKeyChanged(object sender, EventArgs e)
         {
-            if (SecretKeyChanged == null) return;
-
-            var selectedKey = comboBoxGnuPG.SelectedItem ?? default(OpenPgpSecretKey);
-
-            _selectedSecretKey = (OpenPgpSecretKey) selectedKey;
-            SecretKeyChanged((OpenPgpSecretKey) selectedKey);
+            _selectedSecretKey = (OpenPgpSecretKey) (comboBoxGnuPG.SelectedItem ?? default(OpenPgpSecretKey));
+            if(SecretKeyChanged != null) SecretKeyChanged(_selectedSecretKey);
         }
-
         #endregion
     }
 }
