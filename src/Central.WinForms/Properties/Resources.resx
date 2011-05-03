@@ -130,4 +130,12 @@
   <data name="SelfUpdateAvailable" xml:space="preserve">
     <value>An update to Zero Install v{0} is available. Install now? (recommended)</value>
   </data>
+  <data name="SelfUpdateYes" xml:space="preserve">
+    <value>Yes
+Install update</value>
+  </data>
+  <data name="SelfUpdateNo" xml:space="preserve">
+    <value>No
+Ignore update for now</value>
+  </data>
 </root>

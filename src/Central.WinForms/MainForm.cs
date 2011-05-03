@@ -105,7 +105,7 @@ namespace ZeroInstall.Central.WinForms
         private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             if (_selfUpdateVersion == null) return;
-            if (Msg.Ask(this, string.Format(Resources.SelfUpdateAvailable, _selfUpdateVersion), MsgSeverity.Info, "Yes\nInstall update", "No\nIgnore update for now"))
+            if (Msg.Ask(this, string.Format(Resources.SelfUpdateAvailable, _selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo))
             {
                 try
                 {

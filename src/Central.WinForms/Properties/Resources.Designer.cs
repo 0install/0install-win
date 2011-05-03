@@ -91,5 +91,25 @@ namespace ZeroInstall.Central.WinForms.Properties {
                 return ResourceManager.GetString("SelfUpdateAvailable", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No
+        ///Ignore update for now.
+        /// </summary>
+        internal static string SelfUpdateNo {
+            get {
+                return ResourceManager.GetString("SelfUpdateNo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes
+        ///Install update.
+        /// </summary>
+        internal static string SelfUpdateYes {
+            get {
+                return ResourceManager.GetString("SelfUpdateYes", resourceCulture);
+            }
+        }
     }
 }
