@@ -75,6 +75,10 @@ SolidCompression=true
 #endif
 
 [InstallDelete]
+;Remove NanoGrid shortcuts
+Name: {commondesktop}\Zero Install.url; Type: files
+Name: {commonprograms}\Zero Install\Zero Install.url; Type: files
+
 ;Remove obsolete files from previous versions
 Name: {app}\ZeroInstall.Launcher.*; Type: files
 Name: {app}\ZeroInstall.DownloadBroker.*; Type: files
