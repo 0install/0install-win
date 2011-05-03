@@ -73,7 +73,7 @@ namespace ZeroInstall.Central.WinForms
             browserNewApps.Navigate(Config.Load().AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
             // Don't check for updates when launched as a Zero Install implementation
-            string topDir = Path.GetFileName(Locations.InstallationBase) ?? Locations.InstallationBase;
+            string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
             if (_selfUpdatePolicy.Config.SelfUpdateEnabled && !(topDir.StartsWith("sha") && topDir.Contains("=")))
                 selfUpdateWorker.RunWorkerAsync();
         }
