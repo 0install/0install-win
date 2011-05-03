@@ -76,7 +76,7 @@ if errorlevel 1 pause
 
 echo Building Updater archive...
 cd "%~dp0..\build\Updater\Release"
-zip -9 -r "%TargetDir%\zero-install-updater.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* *.xml > NUL
+zip -9 -r "%TargetDir%\zero-install-updater.zip" . --exclude *.log *.pdb *.mdb *.vshost.exe Test.* nunit.* Mono.* SevenZip.* C5.* *.xml > NUL
 if errorlevel 1 pause
 
 :end
