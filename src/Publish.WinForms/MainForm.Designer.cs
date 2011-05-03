@@ -37,16 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Interface");
-            this.toolStrip = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonNew = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonSave = new System.Windows.Forms.ToolStripButton();
-            this.toolStripComboBoxGpg = new System.Windows.Forms.ToolStripComboBox();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripButtonSaveAs = new System.Windows.Forms.ToolStripButton();
-            this.buttonUndo = new System.Windows.Forms.ToolStripButton();
-            this.buttonRedo = new System.Windows.Forms.ToolStripButton();
+            System.Windows.Forms.TreeNode treeNode140 = new System.Windows.Forms.TreeNode("Interface");
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
@@ -95,7 +86,7 @@ namespace ZeroInstall.Publish.WinForms
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
-            this.toolStrip.SuspendLayout();
+            this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
@@ -106,105 +97,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds.SuspendLayout();
             this.groupBoxSelectedFeed.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // toolStrip
-            // 
-            this.toolStrip.BackColor = System.Drawing.SystemColors.Control;
-            this.toolStrip.GripMargin = new System.Windows.Forms.Padding(0);
-            this.toolStrip.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonNew,
-            this.toolStripButtonOpen,
-            this.toolStripButtonSave,
-            this.toolStripComboBoxGpg,
-            this.toolStripLabel1,
-            this.toolStripButtonSaveAs,
-            this.buttonUndo,
-            this.buttonRedo});
-            this.toolStrip.Location = new System.Drawing.Point(7, 6);
-            this.toolStrip.Margin = new System.Windows.Forms.Padding(2);
-            this.toolStrip.Name = "toolStrip";
-            this.toolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.toolStrip.Size = new System.Drawing.Size(570, 25);
-            this.toolStrip.TabIndex = 0;
-            // 
-            // toolStripButtonNew
-            // 
-            this.toolStripButtonNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonNew.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.NewButton;
-            this.toolStripButtonNew.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonNew.Name = "toolStripButtonNew";
-            this.toolStripButtonNew.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonNew.Text = "New";
-            this.toolStripButtonNew.Click += new System.EventHandler(this.ToolStripButtonNew_Click);
-            // 
-            // toolStripButtonOpen
-            // 
-            this.toolStripButtonOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonOpen.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.OpenButton;
-            this.toolStripButtonOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonOpen.Name = "toolStripButtonOpen";
-            this.toolStripButtonOpen.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonOpen.Text = "Open";
-            this.toolStripButtonOpen.Click += new System.EventHandler(this.ToolStripButtonOpen_Click);
-            // 
-            // toolStripButtonSave
-            // 
-            this.toolStripButtonSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButtonSave.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveButton;
-            this.toolStripButtonSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSave.Name = "toolStripButtonSave";
-            this.toolStripButtonSave.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButtonSave.Text = "Save";
-            this.toolStripButtonSave.Click += new System.EventHandler(this.ToolStripButtonSave_Click);
-            // 
-            // toolStripComboBoxGpg
-            // 
-            this.toolStripComboBoxGpg.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripComboBoxGpg.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBoxGpg.DropDownWidth = 150;
-            this.toolStripComboBoxGpg.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.toolStripComboBoxGpg.Name = "toolStripComboBoxGpg";
-            this.toolStripComboBoxGpg.Size = new System.Drawing.Size(150, 25);
-            // 
-            // toolStripLabel1
-            // 
-            this.toolStripLabel1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(68, 22);
-            this.toolStripLabel1.Text = "GnuPG key:";
-            // 
-            // toolStripButtonSaveAs
-            // 
-            this.toolStripButtonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.toolStripButtonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonSaveAs.Name = "toolStripButtonSaveAs";
-            this.toolStripButtonSaveAs.Size = new System.Drawing.Size(58, 22);
-            this.toolStripButtonSaveAs.Text = "Save as...";
-            this.toolStripButtonSaveAs.Click += new System.EventHandler(this.toolStripButtonSaveAs_Click);
-            // 
-            // buttonUndo
-            // 
-            this.buttonUndo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonUndo.Enabled = false;
-            this.buttonUndo.Image = ((System.Drawing.Image)(resources.GetObject("buttonUndo.Image")));
-            this.buttonUndo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonUndo.Name = "buttonUndo";
-            this.buttonUndo.Size = new System.Drawing.Size(39, 22);
-            this.buttonUndo.Text = "undo";
-            this.buttonUndo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
-            // 
-            // buttonRedo
-            // 
-            this.buttonRedo.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonRedo.Enabled = false;
-            this.buttonRedo.Image = ((System.Drawing.Image)(resources.GetObject("buttonRedo.Image")));
-            this.buttonRedo.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonRedo.Name = "buttonRedo";
-            this.buttonRedo.Size = new System.Drawing.Size(35, 22);
-            this.buttonRedo.Text = "redo";
-            this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
             // 
             // tabControlMain
             // 
@@ -488,11 +380,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode2.Name = "interface";
-            treeNode2.Tag = "";
-            treeNode2.Text = "Interface";
+            treeNode140.Name = "interface";
+            treeNode140.Tag = "";
+            treeNode140.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2});
+            treeNode140});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 446);
@@ -763,14 +655,22 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
+            // feedEditorToolStrip
+            // 
+            this.feedEditorToolStrip.Location = new System.Drawing.Point(7, 6);
+            this.feedEditorToolStrip.Name = "feedEditorToolStrip";
+            this.feedEditorToolStrip.Size = new System.Drawing.Size(570, 25);
+            this.feedEditorToolStrip.TabIndex = 2;
+            this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(584, 552);
+            this.Controls.Add(this.feedEditorToolStrip);
             this.Controls.Add(this.tabControlMain);
-            this.Controls.Add(this.toolStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(592, 568);
             this.Name = "MainForm";
@@ -778,8 +678,6 @@ namespace ZeroInstall.Publish.WinForms
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Zero Install Feed Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
-            this.toolStrip.ResumeLayout(false);
-            this.toolStrip.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageGeneral.ResumeLayout(false);
             this.tabPageGeneral.PerformLayout();
@@ -799,12 +697,8 @@ namespace ZeroInstall.Publish.WinForms
 
         #endregion
 
-        private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.ToolStripButton toolStripButtonOpen;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSave;
-        private System.Windows.Forms.ToolStripButton toolStripButtonNew;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageGeneral;
         private System.Windows.Forms.TabPage tabPageFeed;
@@ -846,16 +740,12 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.TreeView treeViewFeedStructure;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelSummary;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxGpg;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private FeedReferenceControl feedReferenceControl;
         private LocalizableTextControl summariesControl;
         private LocalizableTextControl descriptionControl;
-        private System.Windows.Forms.ToolStripButton buttonUndo;
-        private System.Windows.Forms.ToolStripButton buttonRedo;
-        private System.Windows.Forms.ToolStripButton toolStripButtonSaveAs;
         private System.Windows.Forms.Button btnAddCommand;
         private IconManagementControl iconManagementControl;
+        private FeedEditorToolStrip feedEditorToolStrip;
     }
 }
 

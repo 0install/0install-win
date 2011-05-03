@@ -46,7 +46,8 @@ namespace ZeroInstall.Publish.WinForms
         #region Constants
         private const string FeedFileFilter = "Zero Install Feed (*.xml)|*.xml|All Files|*.*";
         private readonly string[] _supportedInjectorVersions = new[] { "", "0.31", "0.32", "0.33", "0.34",
-            "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43", "0.44", "0.45"};
+            "0.35", "0.36", "0.37", "0.38", "0.39", "0.40", "0.41", "0.41.1", "0.42", "0.42.1", "0.43",
+            "0.44", "0.45", "0.46", "0.47", "0.48", "0.49", "0.50", "0.51", "0.52", "0.53", "0.54", "1.0"};
         #endregion
 
         #region Variables
@@ -79,7 +80,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Initialization
-
         /// <summary>
         /// Creats a new <see cref="MainForm"/> object.
         /// </summary>
@@ -102,6 +102,7 @@ namespace ZeroInstall.Publish.WinForms
             InitializeFeedStructureButtons();
             InitializeComboBoxMinInjectorVersion();
             InitializeComboBoxGpg();
+            ConnectToolStripEvents();
         }
 
         /// <summary>
@@ -345,12 +346,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeComboBoxGpg()
         {
-            toolStripComboBoxGpg.Items.Add(string.Empty);
-
-            foreach (var secretKey in GetGnuPGSecretKeys())
-            {
-                toolStripComboBoxGpg.Items.Add(secretKey);
-            }
+            feedEditorToolStrip.SecretKeyValues = GetGnuPGSecretKeys();
         }
 
         /// <summary>
@@ -393,16 +389,25 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeEditingHooks()
         {
             _feedEditing.Update += OnUpdate;
-            _feedEditing.UndoEnabled += value => buttonUndo.Enabled = value;
-            _feedEditing.RedoEnabled += value => buttonRedo.Enabled = value;
+            _feedEditing.UndoEnabled += value => feedEditorToolStrip.UndoEnabled = value;
+            _feedEditing.RedoEnabled += value => feedEditorToolStrip.RedoEnabled = value;
 
-            buttonUndo.Enabled = buttonRedo.Enabled = false;
+            feedEditorToolStrip.UndoEnabled = feedEditorToolStrip.RedoEnabled = false;
+        }
+
+        private void ConnectToolStripEvents()
+        {
+            feedEditorToolStrip.New += CreateNewFeed;
+            feedEditorToolStrip.Open += OpenFeed;
+            feedEditorToolStrip.Save += SaveFeed;
+            feedEditorToolStrip.SaveAs += SaveFeedAs;
+            feedEditorToolStrip.Undo += Undo;
+            feedEditorToolStrip.Redo += Redo;
         }
 
         #endregion
 
         #region Undo/Redo
-
         private void OnUpdate()
         {
             FillForm();
@@ -607,13 +612,10 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Toolbar
-
         /// <summary>
         /// Sets all controls on the <see cref="MainForm"/> to default values.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ToolStripButtonNew_Click(object sender, EventArgs e)
+        private void CreateNewFeed()
         {
             ValidateChildren();
 
@@ -630,9 +632,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Shows a dialog to open a new <see cref="ZeroInstall.Model"/> for editing.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ToolStripButtonOpen_Click(object sender, EventArgs e)
+        private void OpenFeed()
         {
             ValidateChildren();
 
@@ -673,40 +673,39 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Shows a dialog to save the edited <see cref="ZeroInstall.Model"/>.
         /// </summary>
-        /// <param name="sender">Not used.</param>
-        /// <param name="e">Not used.</param>
-        private void ToolStripButtonSave_Click(object sender, EventArgs e)
+        private void SaveFeed()
         {
             ValidateChildren();
 
             Save();
         }
 
-        private void toolStripButtonSaveAs_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Saves the feed to a specific place.
+        /// </summary>
+        private void SaveFeedAs()
         {
             ValidateChildren();
 
             SaveAs();
         }
 
-        private void buttonUndo_Click(object sender, EventArgs e)
+        private void Undo()
         {
             ValidateChildren();
 
             _feedEditing.Undo();
         }
 
-        private void buttonRedo_Click(object sender, EventArgs e)
+        private void Redo()
         {
             ValidateChildren();
 
             _feedEditing.Redo();
         }
-
         #endregion
 
         #region Save and open
-
         /// <summary>
         /// Saves feed to a specific path as xml.
         /// </summary>
@@ -798,8 +797,8 @@ namespace ZeroInstall.Publish.WinForms
         {
             bool wrongPassphrase = false;
 
-            if (string.IsNullOrEmpty(toolStripComboBoxGpg.Text)) return;
-            var key = (OpenPgpSecretKey) toolStripComboBoxGpg.SelectedItem;
+            if (string.IsNullOrEmpty(feedEditorToolStrip.SelectedSecretKey.UserID)) return;
+            var key = feedEditorToolStrip.SelectedSecretKey;
             do
             {
                 string passphrase = InputBox.Show(this,
@@ -820,7 +819,6 @@ namespace ZeroInstall.Publish.WinForms
                 }
             } while (wrongPassphrase);
         }
-
         #endregion
 
         #region Fill form controls
