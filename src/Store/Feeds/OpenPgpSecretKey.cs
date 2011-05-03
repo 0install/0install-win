@@ -42,13 +42,6 @@ namespace ZeroInstall.Store.Feeds
     /// </summary>
     public struct OpenPgpSecretKey
     {
-        #region Properties
-        /// <summary>
-        /// An empty Secret key to compare with.
-        /// </summary>
-        public static readonly OpenPgpSecretKey EmptyKey;
-        #endregion
-
         #region Variables
         /// <summary>
         /// Length of key in bits.
@@ -126,7 +119,7 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public override string ToString()
         {
-            return UserID;
+            return UserID ?? "";
         }
         #endregion
     }

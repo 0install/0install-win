@@ -31,67 +31,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     /// </summary>
     public partial class FeedEditorToolStrip : ToolStrip
     {
-        #region Properties
-
-        /// <summary>
-        /// The selected <see cref="OpenPgpSecretKey"/> by the user.
-        /// </summary>
-        public OpenPgpSecretKey SelectedSecretKey
-        {
-            get { return _selectedSecretKey; }
-            set
-            {
-                if (!comboBoxGnuPG.Items.Contains(value)) comboBoxGnuPG.Items.Add(value);
-                comboBoxGnuPG.SelectedItem = value;
-            }
-        }
-
-        /// <summary>
-        /// The <see cref="OpenPgpSecretKey"/>s the user can select from.
-        /// </summary>
-        public IEnumerable<OpenPgpSecretKey> SecretKeyValues
-        {
-            set
-            {
-                comboBoxGnuPG.BeginUpdate();
-                
-                comboBoxGnuPG.Items.Clear();
-                comboBoxGnuPG.Items.Add(OpenPgpSecretKey.EmptyKey);
-                foreach (var openPgpSecretKey in value)
-                {
-                    comboBoxGnuPG.Items.Add(openPgpSecretKey);
-                }
-
-                comboBoxGnuPG.EndUpdate();
-            }
-        }
-
-        /// <summary>
-        /// Enables or disables the undo <see cref="Button"/>.
-        /// </summary>
-        public bool UndoEnabled
-        {
-            set
-            {
-                buttonUndo.Enabled = value;
-            }
-        }
-
-        /// <summary>
-        /// Enables or disables the redo <see cref="Button"/>.
-        /// </summary>
-        public bool RedoEnabled
-        {
-            set
-            {
-                buttonRedo.Enabled = value;
-            }
-        }
-
-        #endregion
-
         #region Events
-
         /// <summary>
         /// Raised when a new <see cref="Feed"/> shall be created.
         /// </summary>
@@ -126,35 +66,81 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// Raised when the user selected an other <see cref="OpenPgpSecretKey"/>.
         /// </summary>
         public event Action<OpenPgpSecretKey> SecretKeyChanged;
-
         #endregion
 
-        #region Attributes
-
+        #region Variables
         /// <summary>
         /// The selected <see cref="OpenPgpSecretKey"/> by the user.
         /// </summary>
-        private OpenPgpSecretKey _selectedSecretKey = OpenPgpSecretKey.EmptyKey;
-
+        private OpenPgpSecretKey _selectedSecretKey = default(OpenPgpSecretKey);
         #endregion
 
-        #region Constructors
+        #region Properties
+        /// <summary>
+        /// The selected <see cref="OpenPgpSecretKey"/> by the user.
+        /// </summary>
+        public OpenPgpSecretKey SelectedSecretKey
+        {
+            get { return _selectedSecretKey; }
+            set
+            {
+                if (!comboBoxGnuPG.Items.Contains(value)) comboBoxGnuPG.Items.Add(value);
+                comboBoxGnuPG.SelectedItem = value;
+            }
+        }
 
+        /// <summary>
+        /// The <see cref="OpenPgpSecretKey"/>s the user can select from.
+        /// </summary>
+        public IEnumerable<OpenPgpSecretKey> SecretKeyValues
+        {
+            set
+            {
+                #region Sanity checks
+                if (value == null) throw new ArgumentNullException("value");
+                #endregion
+
+                comboBoxGnuPG.BeginUpdate();
+                
+                comboBoxGnuPG.Items.Clear();
+                comboBoxGnuPG.Items.Add(default(OpenPgpSecretKey));
+                foreach (var openPgpSecretKey in value)
+                    comboBoxGnuPG.Items.Add(openPgpSecretKey);
+
+                comboBoxGnuPG.EndUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Enables or disables the undo <see cref="Button"/>.
+        /// </summary>
+        public bool UndoEnabled
+        {
+            set
+            {
+                buttonUndo.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Enables or disables the redo <see cref="Button"/>.
+        /// </summary>
+        public bool RedoEnabled
+        {
+            set
+            {
+                buttonRedo.Enabled = value;
+            }
+        }
+        #endregion
+
+        #region Constructor
         public FeedEditorToolStrip()
         {
             InitializeComponent();
-            SetDefaultValues();
             ConnectEvents();
+            SetDefaultValues();
         }
-
-        public FeedEditorToolStrip(IContainer container) : this()
-        {
-            container.Add(this);
-        }
-
-        #endregion
-
-        #region Initialization
 
         /// <summary>
         /// Sets the default values.
@@ -170,16 +156,17 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// </summary>
         private void ConnectEvents()
         {
-            buttonNew.Click += (sender, eventArgs) => { if (New != null) New(); };
-            buttonOpen.Click += (sender, eventArgs) => { if (Open != null) Open(); };
-            buttonSave.Click += (sender, eventArgs) => { if (Save != null) Save(); };
-            buttonSaveAs.Click += (sender, eventArgs) => { if (SaveAs != null) SaveAs(); };
-            buttonUndo.Click += (sender, eventArgs) => { if (Undo != null) Undo(); };
-            buttonRedo.Click += (sender, eventArgs) => { if (Redo != null) Redo(); };
+            buttonNew.Click += delegate { if (New != null) New(); };
+            buttonOpen.Click += delegate { if (Open != null) Open(); };
+            buttonSave.Click += delegate { if (Save != null) Save(); };
+            buttonSaveAs.Click += delegate { if (SaveAs != null) SaveAs(); };
+            buttonUndo.Click += delegate { if (Undo != null) Undo(); };
+            buttonRedo.Click += delegate { if (Redo != null) Redo(); };
             comboBoxGnuPG.SelectedIndexChanged += SelectedSecretKeyChanged;
         }
-
         #endregion
+
+        //--------------------//
 
         #region Control events
 
@@ -192,7 +179,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             if (SecretKeyChanged == null) return;
 
-            var selectedKey = comboBoxGnuPG.SelectedItem ?? OpenPgpSecretKey.EmptyKey;
+            var selectedKey = comboBoxGnuPG.SelectedItem ?? default(OpenPgpSecretKey);
 
             _selectedSecretKey = (OpenPgpSecretKey) selectedKey;
             SecretKeyChanged((OpenPgpSecretKey) selectedKey);

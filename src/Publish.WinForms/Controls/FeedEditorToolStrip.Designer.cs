@@ -37,6 +37,7 @@
             this.buttonRedo = new System.Windows.Forms.ToolStripButton();
             this.labelGnuPG = new System.Windows.Forms.ToolStripLabel();
             this.comboBoxGnuPG = new System.Windows.Forms.ToolStripComboBox();
+            this.separator = new System.Windows.Forms.ToolStripSeparator();
             this.SuspendLayout();
             // 
             // buttonNew
@@ -68,12 +69,12 @@
             // 
             // buttonSaveAs
             // 
-            this.buttonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.buttonSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("buttonSaveAs.Image")));
+            this.buttonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonSaveAs.Image = global::ZeroInstall.Publish.WinForms.Properties.Resources.SaveAsButton;
             this.buttonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(48, 19);
-            this.buttonSaveAs.Text = "SaveAs";
+            this.buttonSaveAs.Size = new System.Drawing.Size(23, 20);
+            this.buttonSaveAs.Text = "Save as...";
             // 
             // buttonUndo
             // 
@@ -109,6 +110,11 @@
             this.comboBoxGnuPG.Name = "comboBoxGnuPG";
             this.comboBoxGnuPG.Size = new System.Drawing.Size(121, 23);
             // 
+            // separator
+            // 
+            this.separator.Name = "separator";
+            this.separator.Size = new System.Drawing.Size(6, 6);
+            // 
             // FeedEditorToolStrip
             // 
             this.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -116,6 +122,7 @@
             this.buttonOpen,
             this.buttonSave,
             this.buttonSaveAs,
+            this.separator,
             this.buttonUndo,
             this.buttonRedo,
             this.comboBoxGnuPG,
@@ -134,5 +141,6 @@
         private System.Windows.Forms.ToolStripButton buttonRedo;
         private System.Windows.Forms.ToolStripLabel labelGnuPG;
         private System.Windows.Forms.ToolStripComboBox comboBoxGnuPG;
+        private System.Windows.Forms.ToolStripSeparator separator;
     }
 }
