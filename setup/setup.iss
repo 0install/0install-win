@@ -1,5 +1,5 @@
 ;Version numbers
-#define Version "0.54.2"
+#define Version "0.54.3"
 
 ;Automatic dependency download and installation
 #include "scripts\fileversion.iss"
@@ -19,7 +19,7 @@
 win2000sp4_title=Windows 2000 Service Pack 4
 winxpsp2_title=Windows XP Service Pack 2
 en.compile_netfx=Pre-compiling .NET assemblies for faster application startup...
-de.compile_netfx=.NET Assemblies werden zum schnelleren Anwendugsstart vorkompilieren...
+de.compile_netfx=.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...
 
 ;Used by downloader
 appname=Zero Install
@@ -111,10 +111,10 @@ Name: {commondesktop}\Zero Install; Filename: {app}\ZeroInstall.exe; Tasks: desk
 
 ;Post-installations tasks
 [Run]
+Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0install-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0launch.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
-Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install ZeroInstall.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install 0store-win.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
 Filename: {win}\Microsoft.NET\Framework\v2.0.50727\ngen.exe; Parameters: install StoreService.exe /queue; WorkingDir: {app}; Flags: runhidden; StatusMsg: {cm:compile_netfx}
