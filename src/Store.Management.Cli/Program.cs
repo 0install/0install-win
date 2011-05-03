@@ -29,9 +29,6 @@ using ZeroInstall.Model;
 using ZeroInstall.Store.Implementation.Archive;
 using ZeroInstall.Store.Management.Cli.Properties;
 using ZeroInstall.Store.Implementation;
-#if !DEBUG
-using Common.Storage;
-#endif
 
 namespace ZeroInstall.Store.Management.Cli
 {
