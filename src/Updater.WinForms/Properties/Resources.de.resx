@@ -117,4 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Kopiere Dateien...</value>
+  </data>
+  <data name="DeleteFiles" xml:space="preserve">
+    <value>Lösche nicht mehr benötigte Dateien...</value>
+  </data>
+  <data name="MutexWait" xml:space="preserve">
+    <value>Warte auf das Beenden aller Zero Install Instanzen...</value>
+  </data>
+  <data name="RerunElevated" xml:space="preserve">
+    <value>Führe als Administrator aus...</value>
+  </data>
+  <data name="RunNgen" xml:space="preserve">
+    <value>.NET Assemblies zum schnelleren Anwendugsstart vorkompilieren...</value>
+  </data>
+  <data name="UpdateRegistry" xml:space="preserve">
+    <value>Aktualisiere Registrierung...</value>
+  </data>
+  <data name="WrongNoArguments" xml:space="preserve">
+    <value>Falsche Anzahl an Argumenten.</value>
+  </data>
 </root>

@@ -16,8 +16,10 @@
  */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
-using Common.Utils;
+using Common;
+using ZeroInstall.Updater.WinForms.Properties;
 #if !DEBUG
 using Common.Controls;
 #endif
@@ -25,7 +27,7 @@ using Common.Controls;
 namespace ZeroInstall.Updater.WinForms
 {
     /// <summary>
-    /// Launches the main WinForms GUI for Zero Install.
+    /// Launches the update GUI for Zero Install.
     /// </summary>
     public static class Program
     {
@@ -38,10 +40,39 @@ namespace ZeroInstall.Updater.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            bool rerun;
+            switch (args.Length)
+            {
+                case 2:
+                    rerun = false;
+                    break;
+                case 3:
+                    rerun = (args[2] == "--rerun");
+                    break;
+                default:
+                    Msg.Inform(null, Resources.WrongNoArguments, MsgSeverity.Error);
+                    return;
+            }
+
+            UpdateProcess updateProcess;
+            try { updateProcess = new UpdateProcess(args[0], args[1]); }
+            #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (NotSupportedException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            #endregion
+
 #if DEBUG
-            // ToDo
+            Application.Run(new MainForm(updateProcess, rerun));
 #else
-            ErrorReportForm.RunAppMonitored(() => {/*ToDo*/}, new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm(updateProcess, rerun)), new Uri("http://0install.de/error-report/"));
 #endif
         }
     }

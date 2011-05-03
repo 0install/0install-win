@@ -59,5 +59,68 @@ namespace ZeroInstall.Updater.WinForms.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copying files....
+        /// </summary>
+        internal static string CopyFiles {
+            get {
+                return ResourceManager.GetString("CopyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleting obsolete files....
+        /// </summary>
+        internal static string DeleteFiles {
+            get {
+                return ResourceManager.GetString("DeleteFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waiting for all Zero Install instances to end....
+        /// </summary>
+        internal static string MutexWait {
+            get {
+                return ResourceManager.GetString("MutexWait", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Running as administrator....
+        /// </summary>
+        internal static string RerunElevated {
+            get {
+                return ResourceManager.GetString("RerunElevated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pre-compiling .NET assemblies for faster application startup....
+        /// </summary>
+        internal static string RunNgen {
+            get {
+                return ResourceManager.GetString("RunNgen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updating registry....
+        /// </summary>
+        internal static string UpdateRegistry {
+            get {
+                return ResourceManager.GetString("UpdateRegistry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong number of arguments..
+        /// </summary>
+        internal static string WrongNoArguments {
+            get {
+                return ResourceManager.GetString("WrongNoArguments", resourceCulture);
+            }
+        }
     }
 }
