@@ -205,13 +205,14 @@
             // 
             // labelVersion
             // 
-            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.labelVersion.AutoSize = true;
-            this.labelVersion.Location = new System.Drawing.Point(714, 533);
+            this.labelVersion.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelVersion.Location = new System.Drawing.Point(14, 533);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(56, 20);
+            this.labelVersion.Size = new System.Drawing.Size(756, 20);
             this.labelVersion.TabIndex = 2;
             this.labelVersion.Text = "(Version)";
+            this.labelVersion.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // selfUpdateWorker
             // 
@@ -251,7 +252,6 @@
             this.toolStripNewApps.PerformLayout();
             this.groupBoxTools.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

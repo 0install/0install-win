@@ -24,6 +24,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Collections;
 using Common.Controls;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Central.WinForms.Properties;
 using ZeroInstall.Injector;
@@ -38,15 +39,22 @@ namespace ZeroInstall.Central.WinForms
     partial class MainForm : Form
     {
         #region Variables
-        private readonly Policy _selfUpdatePolicy = Policy.CreateDefault(new SilentHandler());
+        private readonly Policy _selfUpdatePolicy;
         
         /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
         private ImplementationVersion _selfUpdateVersion;
         #endregion
 
         #region Constructor
+        /// <summary>
+        /// Initializes the main GUI.
+        /// </summary>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public MainForm()
         {
+            _selfUpdatePolicy = Policy.CreateDefault(new SilentHandler());
+            
             InitializeComponent();
 
             browserNewApps.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserNewApps.CanGoBack; };
@@ -56,14 +64,17 @@ namespace ZeroInstall.Central.WinForms
         #region Startup
         private void MainForm_Load(object sender, EventArgs e)
         {
+            if (Locations.IsPortable) Text += " - Portable mode";
+            labelVersion.Text = "v" + Application.ProductVersion;
+
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
 
             browserNewApps.Navigate(Config.Load().AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
-            labelVersion.Text = "v" + Application.ProductVersion;
-
-            if (_selfUpdatePolicy.Config.SelfUpdateEnabled)
+            // Don't check for updates when launched as a Zero Install implementation
+            string topDir = Path.GetFileName(Locations.InstallationBase) ?? Locations.InstallationBase;
+            if (_selfUpdatePolicy.Config.SelfUpdateEnabled && !(topDir.StartsWith("sha") && topDir.Contains("=")))
                 selfUpdateWorker.RunWorkerAsync();
         }
         #endregion
@@ -78,15 +89,15 @@ namespace ZeroInstall.Central.WinForms
             catch(UserCancelException) {}
             catch (IOException ex)
             {
-                Log.Error(ex.Message);
+                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
             }
             catch (UnauthorizedAccessException ex)
             {
-                Log.Error(ex.Message);
+                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
             }
             catch (SolverException ex)
             {
-                Log.Error(ex.Message);
+                Log.Warn("Unable to perform self-update check:\n" + ex.Message);
             }
             #endregion
         }

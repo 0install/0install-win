@@ -41,7 +41,7 @@ namespace Common.Controls
         /// <param name="color">The color of the text.</param>
         public void AppendPar(string text, RtfColor color)
         {
-            _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text + "\\par\\par");
+            _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text.Replace(@"\", @"\\") + "\\par\\par");
         }
 
         /// <inheritdoc/>

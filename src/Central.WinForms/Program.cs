@@ -16,7 +16,10 @@
  */
 
 using System;
+using System.IO;
 using System.Windows.Forms;
+using Common;
+
 #if !DEBUG
 using Common.Controls;
 using Common.Storage;
@@ -47,10 +50,23 @@ namespace ZeroInstall.Central.WinForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            MainForm form;
+            try { form = new MainForm(); }
+            catch (IOException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                return;
+            }
+
 #if DEBUG
-            Application.Run(new MainForm());
+            Application.Run(form);
 #else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunAppMonitored(() => Application.Run(form), new Uri("http://0install.de/error-report/"));
 #endif
         }
     }
