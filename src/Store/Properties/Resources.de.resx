@@ -159,7 +159,8 @@ Tatsächlicher Wert: {1}</value>
     <value>Die folgende Implementierung konnte nicht gefunden werden: {0}</value>
   </data>
   <data name="InsufficientFSTimeAccuracy" xml:space="preserve">
-    <value>Das zugrunde liegende Dateisystem speichert  mit unzureichender Genauigkeit.</value>
+    <value>Das zugrundeliegende Dateisystem speichert Daten und Uhrzeiten mit unzureichender Genauigkeit.
+Falls Sie ein FAT-formatiertes Laufwerk verwenden, konvertieren Sie es bitte zu NTFS.</value>
   </data>
   <data name="InvalidLinesInManifest" xml:space="preserve">
     <value>Die Manifest-Datei enthält ungültige Zeilen.</value>

@@ -171,7 +171,8 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy..
+        ///   Looks up a localized string similar to The underlying file system does not store file change times with sufficient accuracy.
+        ///If you are using a FAT-formatted drive please convert it to NTFS..
         /// </summary>
         internal static string InsufficientFSTimeAccuracy {
             get {
