@@ -148,7 +148,7 @@ namespace Common.Controls
         /// </summary>
         /// <param name="ex">The exception to report.</param>
         /// <param name="uploadUri">The URI to upload error reports to.</param>
-        private static void Report(Exception ex, Uri uploadUri)
+        public static void Report(Exception ex, Uri uploadUri)
         {
             Application.Run(new ErrorReportForm(ex, uploadUri));
         }
