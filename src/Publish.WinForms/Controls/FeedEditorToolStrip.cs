@@ -21,6 +21,7 @@ using System.Windows.Forms;
 using Common;
 using ZeroInstall.Model;
 using ZeroInstall.Store.Feeds;
+using System.Collections.Generic;
 
 namespace ZeroInstall.Publish.WinForms.Controls
 {
