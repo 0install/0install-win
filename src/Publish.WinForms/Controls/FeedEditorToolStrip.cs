@@ -48,17 +48,42 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The <see cref="OpenPgpSecretKey"/>s the user can select from.
         /// </summary>
-        public OpenPgpSecretKey[] SecretKeyValues
+        public IEnumerable<OpenPgpSecretKey> SecretKeyValues
         {
             set
             {
+                comboBoxGnuPG.BeginUpdate();
+                
                 comboBoxGnuPG.Items.Clear();
-
                 comboBoxGnuPG.Items.Add(OpenPgpSecretKey.EmptyKey);
                 foreach (var openPgpSecretKey in value)
                 {
                     comboBoxGnuPG.Items.Add(openPgpSecretKey);
                 }
+
+                comboBoxGnuPG.EndUpdate();
+            }
+        }
+
+        /// <summary>
+        /// Enables or disables the undo <see cref="Button"/>.
+        /// </summary>
+        public bool UndoEnabled
+        {
+            set
+            {
+                buttonUndo.Enabled = value;
+            }
+        }
+
+        /// <summary>
+        /// Enables or disables the redo <see cref="Button"/>.
+        /// </summary>
+        public bool RedoEnabled
+        {
+            set
+            {
+                buttonRedo.Enabled = value;
             }
         }
 

@@ -68,11 +68,11 @@
             // 
             // buttonSaveAs
             // 
-            this.buttonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonSaveAs.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.buttonSaveAs.Image = ((System.Drawing.Image)(resources.GetObject("buttonSaveAs.Image")));
             this.buttonSaveAs.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.buttonSaveAs.Name = "buttonSaveAs";
-            this.buttonSaveAs.Size = new System.Drawing.Size(23, 20);
+            this.buttonSaveAs.Size = new System.Drawing.Size(48, 19);
             this.buttonSaveAs.Text = "SaveAs";
             // 
             // buttonUndo
@@ -104,6 +104,7 @@
             // 
             this.comboBoxGnuPG.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.comboBoxGnuPG.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxGnuPG.DropDownWidth = 150;
             this.comboBoxGnuPG.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
             this.comboBoxGnuPG.Name = "comboBoxGnuPG";
             this.comboBoxGnuPG.Size = new System.Drawing.Size(121, 23);
