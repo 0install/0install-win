@@ -38,7 +38,7 @@ namespace ZeroInstall.Store.Management.WinForms
         {
 #if !DEBUG
             // Prevent launch during update and allow instance detection
-            string mutexName = AppMutex.GenerateName(Locations.InstallationBase);
+            string mutexName = AppMutex.GenerateName(Locations.InstallBase);
             if (AppMutex.Probe(mutexName + "-update")) return;
             AppMutex.Create(mutexName);
             AppMutex.Create("Zero Install");

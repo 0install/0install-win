@@ -46,7 +46,7 @@ namespace ZeroInstall.Launcher.Cli
         {
 #if !DEBUG
             // Prevent launch during update and allow instance detection
-            string mutexName = AppMutex.GenerateName(Locations.InstallationBase);
+            string mutexName = AppMutex.GenerateName(Locations.InstallBase);
             if (AppMutex.Probe(mutexName + "-update")) return 99;
             AppMutex.Create(mutexName);
             AppMutex.Create("Zero Install");
