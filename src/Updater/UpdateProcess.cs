@@ -59,7 +59,7 @@ namespace ZeroInstall.Updater
             Source = Path.GetFullPath(source);
             Target = Path.GetFullPath(target);
 
-            if (Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
+            if (!Directory.Exists(Source)) throw new DirectoryNotFoundException(Resources.SourceMissing);
         }
         #endregion
 
