@@ -43,7 +43,11 @@ namespace ZeroInstall.Injector.Solver
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
 
             // Pass-through portable mode
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
+            if (Locations.IsPortable)
+            {
+                startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
+                startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", "gnupg", true);
+            }
 
             // Add bundled GnuPG to search path for the external solver to use on Windows
             string gnuPGDirectory = GetBundledDirectory("GnuPG");

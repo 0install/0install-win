@@ -17,9 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using Common.Cli;
+using Common.Storage;
 using Common.Utils;
 using ZeroInstall.Store.Properties;
 
@@ -40,14 +42,39 @@ namespace ZeroInstall.Store.Feeds
 
         //--------------------//
 
+        #region Execute
+        /// <summary>
+        /// Runs GnuPG, processes its output and waits until it has terminated.
+        /// </summary>
+        /// <param name="arguments">Command-line arguments to launch the application with.</param>
+        /// <param name="defaultInput">Data to write to the application's stdin-stream right after startup; <see langword="null"/> for none.</param>
+        /// <returns>The application's complete output to the stdout-stream.</returns>
+        /// <exception cref="IOException">Thrown if GnuPG could not be launched.</exception>
+        private string Execute(string arguments, string defaultInput)
+        {
+            return Execute(arguments, defaultInput, ErrorHandler);
+        }
+
+        /// <inheritdoc/>
+        protected override ProcessStartInfo GetStartInfo(string arguments)
+        {
+            var startInfo = base.GetStartInfo(arguments);
+            
+            // Pass-through portable mode
+            if (Locations.IsPortable) startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", "gnupg", true);
+
+            return startInfo;
+        }
+        #endregion
+
         #region Keys
         /// <inheritdoc/>
         public string GetPublicKey(string name)
         {
             string arguments = "--batch --no-secmem-warning --armor --export";
-            if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
+            if (!string.IsNullOrEmpty(name)) arguments += " --local-user " + StringUtils.Escape(name);
 
-            return Execute(arguments, null, ErrorHandler);
+            return Execute(arguments, null);
         }
 
         /// <inheritdoc/>
@@ -69,7 +96,7 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc/>
         public OpenPgpSecretKey[] ListSecretKeys()
         {
-            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null, ErrorHandler);
+            string result = Execute("--batch --no-secmem-warning --list-secret-keys --with-colons", null);
             string[] lines = StringUtils.SplitMultilineText(result);
             var keys = new List<OpenPgpSecretKey>(lines.Length / 2);
 
@@ -94,7 +121,7 @@ namespace ZeroInstall.Store.Feeds
             if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
-            Execute(arguments, passphrase, ErrorHandler);
+            Execute(arguments, passphrase);
         }
         #endregion
 
@@ -112,7 +139,7 @@ namespace ZeroInstall.Store.Feeds
             //using (var signatureFile = new TemporaryFile("0install-sig"))
             //{
             //    string arguments = "--batch --no-secmem-warning --status-fd 1 --verify \"" + signatureFile.Path + "\" -";
-            //    result = Execute(arguments, data, ErrorHandler);
+            //    result = Execute(arguments, data);
             //}
         }
         #endregion

@@ -19,6 +19,7 @@ using System.Diagnostics;
 using System.IO;
 using Common.Cli;
 using Common.Storage;
+using Common.Utils;
 
 namespace ZeroInstall.Injector.Solver
 {
@@ -42,7 +43,11 @@ namespace ZeroInstall.Injector.Solver
             startInfo.EnvironmentVariables["PYTHONWARNINGS"] = "ignore::DeprecationWarning";
 
             // Pass-through portable mode
-            if (Locations.IsPortable) startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
+            if (Locations.IsPortable)
+            {
+                startInfo.EnvironmentVariables["ZEROINSTALL_PORTABLE_BASE"] = Locations.PortableBase;
+                startInfo.EnvironmentVariables["GNUPGHOME"] = Locations.GetSaveConfigPath("GnuPG", "gnupg", true);
+            }
 
             return startInfo;
         }
