@@ -586,7 +586,10 @@ namespace ZeroInstall.Publish.WinForms
             
             iconManagementControl.IconUrls.ItemsRemoved += (sender, eventArgs) => _feedEditing.ExecuteCommand(new RemoveFromCollection<Icon>(getCollection(), eventArgs.Item));
 
-            Populate += () => iconManagementControl.IconUrls = getCollection();
+            Populate += delegate
+                            {
+                                iconManagementControl.IconUrls = getCollection();
+                            };
         }
         #endregion
 
@@ -598,6 +601,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             ValidateChildren();
             _feedEditing = feedManager1.New();
+            
             OnUpdate();
             InitializeEditingHooks();
         }
@@ -609,8 +613,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             ValidateChildren();
             _feedEditing = feedManager1.Open();
-            InitializeEditingHooks();
+
             OnUpdate();
+            InitializeEditingHooks();
         }
 
         /// <summary>
