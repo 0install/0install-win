@@ -68,7 +68,7 @@ namespace Common.Cli
         protected string Execute(string arguments, string defaultInput, CliErrorHandler errorHandler)
         {
             Process process;
-            try { process = ProcessUtils.RunAsync(GetStartInfo(arguments)); }
+            try { process = Process.Start(GetStartInfo(arguments)); }
             #region Error handling
             catch (Win32Exception ex)
             {

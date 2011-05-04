@@ -16,6 +16,8 @@
  */
 
 using System;
+using System.Diagnostics;
+using System.Threading;
 using Common;
 using Common.Collections;
 using Common.Utils;
@@ -107,7 +109,6 @@ namespace ZeroInstall.Commands
             }
 
             if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
             return LaunchImplementation();
         }
         #endregion
@@ -119,14 +120,24 @@ namespace ZeroInstall.Commands
         /// <returns>The exit code of the process or 0 if waiting is disabled.</returns>
         private int LaunchImplementation()
         {
+            // Prevent the user from pressing any buttons once the child process is being launched
+            Policy.Handler.DisableProgressUI();
+
+            // Spawn the child process
             var executor = new Executor(Selections, Policy.Fetcher.Store) {Main = _main, Wrapper = _wrapper};
             var startInfo = executor.GetStartInfo(AdditionalArgs.ToArray());
-            if (_noWait)
+            var process = Process.Start(startInfo);
+
+            // Wait for a moment before closing the GUI so that focus is retained until it can be passed on to the child process
+            Thread.Sleep(1000);
+            Policy.Handler.CloseProgressUI();
+
+            if (_noWait) return 0;
+            else
             {
-                ProcessUtils.RunAsync(startInfo);
-                return 0;
+                process.WaitForExit();
+                return process.ExitCode;
             }
-            return ProcessUtils.RunSync(startInfo);
         }
         #endregion
     }

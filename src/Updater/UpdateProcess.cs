@@ -116,10 +116,10 @@ namespace ZeroInstall.Updater
         {
             foreach (string assembly in _ngenAssemblies)
             {
-                var processInfo = new ProcessStartInfo(
+                var startInfo = new ProcessStartInfo(
                     Path.Combine(Environment.GetEnvironmentVariable("windir") ?? @"C:\Windows", @"Microsoft.NET\Framework\v2.0.50727\ngen.exe"),
                     "install " + Path.Combine(Target, assembly) + "/queue") {WindowStyle = ProcessWindowStyle.Hidden};
-                ProcessUtils.RunSync(processInfo);
+                Process.Start(startInfo).WaitForExit();
             }
         }
         #endregion

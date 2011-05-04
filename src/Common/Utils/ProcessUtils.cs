@@ -35,43 +35,6 @@ namespace Common.Utils
     /// </summary>
     public static class ProcessUtils
     {
-        #region Run
-        /// <summary>
-        /// Runs the specified program and waits for it to exit.
-        /// </summary>
-        /// <param name="startInfo">Details about the program to be launched.</param>
-        /// <returns>The exit code of the process.</returns>
-        /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
-        public static int RunSync(ProcessStartInfo startInfo)
-        {
-            #region Sanity checks
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            #endregion
-
-            var process = Process.Start(startInfo);
-            process.WaitForExit();
-            return process.ExitCode;
-        }
-
-        /// <summary>
-        /// Starts the specified program and immediately returns.
-        /// </summary>
-        /// <param name="startInfo">Details about the program to be launched.</param>
-        /// <returns>A handle to the newly launched process.</returns>
-        /// <exception cref="Win32Exception">Thrown if the specified executable could not be launched.</exception>
-        /// <exception cref="BadImageFormatException">Thrown if the specified executable could is damaged.</exception>
-        public static Process RunAsync(ProcessStartInfo startInfo)
-        {
-            #region Sanity checks
-            if (startInfo == null) throw new ArgumentNullException("startInfo");
-            #endregion
-
-            return Process.Start(startInfo);
-        }
-        #endregion
-
-        #region Helper applications
         /// <summary>
         /// Attempts to launch a .NET helper assembly in the application's base directory.
         /// </summary>
@@ -89,10 +52,9 @@ namespace Common.Utils
             if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono
-            RunAsync(WindowsUtils.IsWindows
+            Process.Start(WindowsUtils.IsWindows
                 ? new ProcessStartInfo(appPath, arguments)
                 : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
         }
-        #endregion
     }
 }

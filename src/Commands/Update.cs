@@ -89,7 +89,6 @@ namespace ZeroInstall.Commands
             catch (SolverException ex)
             {
                 if (Canceled) throw new UserCancelException();
-                Policy.Handler.CloseProgressUI();
                 Policy.Handler.Output(Resources.UpdateProblem, ex.Message);
                 return 1;
             }
@@ -100,7 +99,6 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
             ShowUpdateOutput();
             return 0;
         }

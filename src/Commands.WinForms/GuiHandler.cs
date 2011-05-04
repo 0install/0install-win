@@ -106,13 +106,23 @@ namespace ZeroInstall.Commands.WinForms
         }
 
         /// <inheritdoc/>
+        public void DisableProgressUI()
+        {
+            // If GUI doesn't even exist cancel, otherwise wait until it's ready
+            if (_form == null) return;
+            _guiReady.WaitOne();
+
+            _form.Invoke((SimpleEventHandler)(() => { _form.Enabled = false; }));
+        }
+
+        /// <inheritdoc/>
         public void CloseProgressUI()
         {
             // If GUI doesn't even exist cancel, otherwise wait until it's ready
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _form.HideTrayIcon();
+            _form.Invoke((SimpleEventHandler)_form.HideTrayIcon);
             _form = null;
             Application.Exit();
             _guiReady.Reset();
@@ -183,8 +193,10 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc />
         public void Output(string title, string information)
         {
+            DisableProgressUI();
             if (Batch) ShowBalloonMessage(title, information);
             else OutputBox.Show(title, information);
+            CloseProgressUI();
         }
 
         /// <summary>

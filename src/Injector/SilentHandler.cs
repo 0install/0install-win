@@ -38,6 +38,12 @@ namespace ZeroInstall.Injector
         }
 
         /// <inheritdoc/>
+        public void DisableProgressUI()
+        {
+            // No UI, so nothing to do
+        }
+
+        /// <inheritdoc/>
         public void CloseProgressUI()
         {
             // No UI, so nothing to do

@@ -36,6 +36,12 @@ namespace ZeroInstall.Commands
         }
 
         /// <inheritdoc/>
+        public void DisableProgressUI()
+        {
+            // Console UI only, so nothing to do
+        }
+
+        /// <inheritdoc/>
         public void CloseProgressUI()
         {
             // Console UI only, so nothing to do

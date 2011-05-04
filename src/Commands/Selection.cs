@@ -149,7 +149,6 @@ namespace ZeroInstall.Commands
             }
 
             if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
             Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             return 0;
         }

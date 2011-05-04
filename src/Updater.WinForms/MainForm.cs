@@ -132,7 +132,7 @@ namespace ZeroInstall.Updater.WinForms
             try
             {
                 var startInfo = new ProcessStartInfo(Application.ExecutablePath, StringUtils.ConcatenateEscape(new[] {_updateProcess.Source, _updateProcess.Target, "--rerun"})) {Verb = "runas"};
-                ProcessUtils.RunSync(startInfo);
+                Process.Start(startInfo).WaitForExit();
             }
             catch (Win32Exception)
             {}
@@ -149,7 +149,7 @@ namespace ZeroInstall.Updater.WinForms
                 ErrorDialog = true,
                 ErrorDialogParentHandle = Handle
             };
-            ProcessUtils.RunAsync(startInfo);
+            Process.Start(startInfo).WaitForExit();
         }
         #endregion
     }

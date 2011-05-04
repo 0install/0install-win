@@ -132,64 +132,75 @@ namespace ZeroInstall.Commands.WinForms
                 }
                 catch (OptionException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message + "\n" + Resources.TryHelp, MsgSeverity.Error);
+                    handler.CloseProgressUI();
                 }
                 catch (WebException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (NotSupportedException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (IOException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (DigestMismatchException ex)
                 {
+                    handler.DisableProgressUI();
+                    ErrorBox.Show(ex.Message, errorLog + "\n\nManifest:" + ex.ActualManifest);
                     handler.CloseProgressUI();
-                    // ToDo: Display generated manifest
-                    ErrorBox.Show(ex.Message, errorLog.ToString());
                 }
                 catch (InvalidInterfaceIDException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    handler.CloseProgressUI();
                 }
                 catch (SolverException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.DisableProgressUI();
                 }
                 catch (ImplementationNotFoundException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (CommandException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
+                    handler.CloseProgressUI();
                 }
                 catch (Win32Exception ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseProgressUI();
                 }
                 catch (BadImageFormatException ex)
                 {
-                    handler.CloseProgressUI();
+                    handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    handler.CloseProgressUI();
                 }
                 #endregion
             }

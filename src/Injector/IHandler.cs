@@ -42,6 +42,15 @@ namespace ZeroInstall.Injector
         void ShowProgressUI(SimpleEventHandler cancelCallback);
 
         /// <summary>
+        /// Disables any UI element created by <see cref="ShowProgressUI"/> but still leaves it visible.
+        /// </summary>
+        /// <remarks>
+        ///   <para>Calling this method multiple times or without calling <see cref="ShowProgressUI"/> first is safe and has no effect.</para>
+        ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
+        /// </remarks>
+        void DisableProgressUI();
+
+        /// <summary>
         /// Closes any UI element created by <see cref="ShowProgressUI"/>.
         /// </summary>
         /// <remarks>
@@ -89,7 +98,7 @@ namespace ZeroInstall.Injector
         /// <param name="title">A title for the information. Will only be displayed in GUIs, not on the console. Must not contain critical information!</param>
         /// <param name="information">The information to display.</param>
         /// <remarks>
-        ///   <para>Don't call this between <see cref="ShowProgressUI"/> and <see cref="CloseProgressUI"/>. Use <see cref="AcceptNewKey"/>, <see cref="Log"/> or exceptions instead.</para>
+        ///   <para>This may trigger <see cref="DisableProgressUI"/> and <see cref="CloseProgressUI"/> as a side effect. Use <see cref="AcceptNewKey"/>, <see cref="Log"/> or exceptions to avoid this.</para>
         ///   <para>This may be called from a background thread. Thread-synchronization for UI elements is automatically handled.</para>
         /// </remarks>
         void Output(string title, string information);

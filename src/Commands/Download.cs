@@ -93,7 +93,6 @@ namespace ZeroInstall.Commands
             DownloadUncachedImplementations();
 
             if (Canceled) throw new UserCancelException();
-            Policy.Handler.CloseProgressUI();
             if (_show) Policy.Handler.Output(Resources.SelectedImplementations, GetSelectionsOutput());
             else
             {
