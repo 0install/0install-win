@@ -16,7 +16,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Model;
