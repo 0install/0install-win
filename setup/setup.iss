@@ -130,6 +130,7 @@ Name: {app}\de; Type: filesandordirs
 Name: {app}\Solver; Type: filesandordirs
 Name: {app}\GnuPG; Type: filesandordirs
 Name: {app}\ZeroInstall.*; Type: files
+Name: {app}\.manifest; Type: files
 Name: {app}; Type: dirifempty
 
 [Code]
