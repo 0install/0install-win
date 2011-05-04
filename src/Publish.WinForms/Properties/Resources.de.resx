@@ -138,6 +138,7 @@ Ungespeicherte Änderungen verwerfen</value>
 Änderungen speichern</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
-    <value>Achtung, ungespeicherte Änderungen gehen verloren.\nMöchten Sie die Änderungen speichern?</value>
+    <value>Achtung, ungespeicherte Änderungen gehen verloren.
+Möchten Sie die Änderungen speichern?</value>
   </data>
 </root>

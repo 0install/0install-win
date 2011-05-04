@@ -157,6 +157,7 @@ Discard unsaved changes</value>
 Save changes</value>
   </data>
   <data name="SaveQuestion" xml:space="preserve">
-    <value>Attention, unsaved changes will be deleted.\n Do you like to save the changes?</value>
+    <value>Attention, unsaved changes will be deleted.
+Do you like to save the changes?</value>
   </data>
 </root>

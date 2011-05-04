@@ -51,7 +51,7 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Variables
-        private FeedEditing _feedEditing = new FeedEditing();
+        private FeedEditing _feedEditing;
         #endregion
 
         #region Properties
@@ -96,33 +96,12 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeComponentsExtended()
         {
-            InitializeSaveFileDialog();
-            InitializeLoadFileDialog();
+            _feedEditing = feedManager1.New();
             InitializeTreeViewFeedStructure();
             InitializeFeedStructureButtons();
             InitializeComboBoxMinInjectorVersion();
             InitializeComboBoxGpg();
             ConnectToolStripEvents();
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="saveFileDialog"/> with a file filter for .xml files.
-        /// </summary>
-        private void InitializeSaveFileDialog()
-        {
-            if (_feedEditing.Path != null) saveFileDialog.InitialDirectory = _feedEditing.Path;
-            saveFileDialog.DefaultExt = ".xml";
-            saveFileDialog.Filter = FeedFileFilter;
-        }
-
-        /// <summary>
-        /// Initializes the <see cref="openFileDialog"/> with a file filter for .xml files.
-        /// </summary>
-        private void InitializeLoadFileDialog()
-        {
-            if (_feedEditing.Path != null) openFileDialog.InitialDirectory = _feedEditing.Path;
-            openFileDialog.DefaultExt = ".xml";
-            openFileDialog.Filter = FeedFileFilter;
         }
 
         /// <summary>
@@ -618,13 +597,7 @@ namespace ZeroInstall.Publish.WinForms
         private void CreateNewFeed()
         {
             ValidateChildren();
-
-            if (_feedEditing.Changed)
-            {
-                if (!AskSave()) return;
-            }
-
-            _feedEditing = new FeedEditing();
+            _feedEditing = feedManager1.New();
             OnUpdate();
             InitializeEditingHooks();
         }
@@ -635,39 +608,9 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFeed()
         {
             ValidateChildren();
-
-            if (_feedEditing.Changed)
-            {
-                if (!AskSave()) return;
-            }
-
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                try
-                {
-                    _feedEditing = FeedEditing.Load(openFileDialog.FileName);
-                }
-                    #region Error handling
-
-                catch (InvalidOperationException)
-                {
-                    Msg.Inform(this, "The feed you tried to open is not valid.", MsgSeverity.Error);
-                }
-                catch (UnauthorizedAccessException exception)
-                {
-                    Msg.Inform(this, exception.Message, MsgSeverity.Error);
-                }
-                catch (IOException exception)
-                {
-                    Msg.Inform(this, exception.Message, MsgSeverity.Error);
-                }
-
-                #endregion
-
-                InitializeEditingHooks();
-
-                OnUpdate();
-            }
+            _feedEditing = feedManager1.Open();
+            InitializeEditingHooks();
+            OnUpdate();
         }
 
         /// <summary>
@@ -676,8 +619,10 @@ namespace ZeroInstall.Publish.WinForms
         private void SaveFeed()
         {
             ValidateChildren();
+            SaveAdvancedTab();
 
-            Save();
+            if (feedManager1.Save())
+                SignFeed(_feedEditing.Path);
         }
 
         /// <summary>
@@ -686,8 +631,10 @@ namespace ZeroInstall.Publish.WinForms
         private void SaveFeedAs()
         {
             ValidateChildren();
+            SaveAdvancedTab();
 
-            SaveAs();
+            if (feedManager1.SaveAs())
+                SignFeed(_feedEditing.Path);
         }
 
         private void Undo()
@@ -706,17 +653,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Save and open
-        /// <summary>
-        /// Saves feed to a specific path as xml.
-        /// </summary>
-        /// <param name="toPath">Path to save.</param>
-        private void SaveFeed(string toPath)
-        {
-            SaveAdvancedTab();
-
-            _feedEditing.Save(toPath);
-            SignFeed(toPath);
-        }
 
         /// <summary>
         /// Saves the values from <see cref="tabPageAdvanced"/>.
@@ -732,61 +668,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (_feedEditing.Changed)
-            {
-                if (!AskSave()) e.Cancel = true;
-            }
-        }
-
-        /// <summary>
-        /// Asks the user whether he wants to save the feed.
-        /// </summary>
-        /// <returns><see langword="true"/> if all went well (either Yes or No), <see langword="false"/> if the user chose to cancel.</returns>
-        private bool AskSave()
-        {
-            switch (
-                Msg.Choose(this, "Do you want to save the changes you made?", MsgSeverity.Info, true,
-                           "&Save\nSave the file and then close", "&Don't save\nIgnore the unsaved changes"))
-            {
-                case DialogResult.Yes:
-                    return Save();
-
-                case DialogResult.No:
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        /// <summary>
-        /// Saves the feed at at a new location.
-        /// </summary>
-        /// <returns>The result of the "Save as" common dialog box used.</returns>
-        /// <returns><see langword="true"/> if all went well, <see langword="false"/> if the user chose to cancel.</returns>
-        private bool SaveAs()
-        {
-            saveFileDialog.FileName = _feedEditing.Path;
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                SaveFeed(saveFileDialog.FileName);
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Saves the feed at its original location.
-        /// </summary>
-        /// <returns><see langword="true"/> if all went well, <see langword="false"/> if the user chose to cancel.</returns>
-        private bool Save()
-        {
-            if (string.IsNullOrEmpty(_feedEditing.Path)) return SaveAs();
-            else
-            {
-                SaveFeed(_feedEditing.Path);
-                return true;
-            }
+            feedManager1.SaveChanges();
         }
 
         /// <summary>

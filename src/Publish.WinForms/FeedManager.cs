@@ -37,7 +37,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// The parent <see cref="IWin32Window"/> of this component.
         /// </summary>
-        private IWin32Window parent;
+        //private Form parent;
         #endregion
 
         #region Constructor
@@ -45,13 +45,13 @@ namespace ZeroInstall.Publish.WinForms
         /// Creates a new <see cref="FeedManager"/> instance.
         /// </summary>
         /// <param name="parent">The parent <see cref="IWin32Window"/>. Must not be <see langword="null"/>.</param>
-        public FeedManager(IWin32Window parent)
+        public FeedManager(IContainer parent)
         {
             #region Sanity checks
             if (parent == null) throw new ArgumentNullException("parent");
             #endregion
 
-            this.parent = parent;
+            parent.Add(this);
             InitializeComponent();
         }
         #endregion
@@ -65,7 +65,11 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else the old one.</returns>
         public FeedEditing New()
         {
-            return SaveChanges(delegate { _feedEditing = new FeedEditing(); });
+            if (_feedEditing.Changed) return SaveChanges(delegate { _feedEditing = new FeedEditing(); });
+            else {
+                _feedEditing = new FeedEditing();
+                return _feedEditing;
+            }
         }
 
         /// <summary>
@@ -74,7 +78,12 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>The current <see cref="FeedEditing"/>. The opened one if the user allowed it, else the old one.</returns>
         public FeedEditing Open()
         {
-            return SaveChanges(OpenFeed);
+            if (_feedEditing.Changed) return SaveChanges(OpenFeed);
+            else
+            {
+                OpenFeed();
+                return _feedEditing;
+            }
         }
 
         /// <summary>
@@ -96,7 +105,7 @@ namespace ZeroInstall.Publish.WinForms
             if (AfterSave == null) throw new ArgumentNullException("AfterSave");
             #endregion
 
-            if (_feedEditing.Changed && (AskSave() == DialogResult.OK) && Save()) AfterSave();
+            if (AskSave() == DialogResult.No || Save()) AfterSave();
 
             return _feedEditing;
         }
@@ -107,7 +116,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns></returns>
         private DialogResult AskSave()
         {
-            return Msg.Choose(parent, Resources.SaveQuestion, MsgSeverity.Info, true,
+            return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
                            Resources.SaveChanges, Resources.DiscardChanges);
         }
 
@@ -117,7 +126,7 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFeed()
         {
             openFileDialog.FileName = _feedEditing.Path;
-            if (openFileDialog.ShowDialog(parent) != DialogResult.OK) return;
+            if (openFileDialog.ShowDialog(null) != DialogResult.OK) return;
 
             try
             {
@@ -126,15 +135,15 @@ namespace ZeroInstall.Publish.WinForms
             #region Error handling
             catch (InvalidOperationException)
             {
-                Msg.Inform(parent, Resources.FeedNotValid, MsgSeverity.Error);
+                Msg.Inform(null, Resources.FeedNotValid, MsgSeverity.Error);
             }
             catch (UnauthorizedAccessException exception)
             {
-                Msg.Inform(parent, exception.Message, MsgSeverity.Error);
+                Msg.Inform(null, exception.Message, MsgSeverity.Error);
             }
             catch (IOException exception)
             {
-                Msg.Inform(parent, exception.Message, MsgSeverity.Error);
+                Msg.Inform(null, exception.Message, MsgSeverity.Error);
             }
             #endregion
         }
@@ -157,7 +166,7 @@ namespace ZeroInstall.Publish.WinForms
         public bool SaveAs()
         {
             saveFileDialog.FileName = _feedEditing.Path;
-            if (saveFileDialog.ShowDialog(parent) != DialogResult.OK) return false;
+            if (saveFileDialog.ShowDialog(null) != DialogResult.OK) return false;
 
             return SaveAs(saveFileDialog.FileName);
         }
@@ -176,13 +185,13 @@ namespace ZeroInstall.Publish.WinForms
             #region Error handling
             catch (IOException exception)
             {
-                Msg.Inform(parent, exception.Message, MsgSeverity.Error);
+                Msg.Inform(null, exception.Message, MsgSeverity.Error);
                 return false;
             }
             catch (UnauthorizedAccessException exception)
             {
 
-                Msg.Inform(parent, exception.Message, MsgSeverity.Error);
+                Msg.Inform(null, exception.Message, MsgSeverity.Error);
                 return false;
             }
             #endregion

@@ -152,7 +152,8 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Attention, unsaved changes will be deleted.\n Do you like to save the changes? ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Attention, unsaved changes will be deleted.
+        ///Do you like to save the changes? ähnelt.
         /// </summary>
         internal static string SaveQuestion {
             get {
