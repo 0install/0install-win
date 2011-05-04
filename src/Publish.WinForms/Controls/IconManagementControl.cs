@@ -31,29 +31,21 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class IconManagementControl : UserControl
     {
         #region Properties
-
         public ArrayList<Icon> IconUrls
         {
             get
             {
-                return _iconUrls;
+                return _icons;
             }
             set
             {
                 ClearControls();
-                _iconUrls = value;
-                InitializeIconUrls();
-                foreach (var iconUrl in _iconUrls)
-                {
-                    listBoxIconsUrls.Items.Add(iconUrl);
-                }
+                _icons.AddAll(value);
             }
         }
-
         #endregion
         
         #region Constants
-
         private readonly HashSet<ImageFormat> _supportedImageFormats = new HashSet<ImageFormat> { ImageFormat.Png, ImageFormat.Icon };
 
         private readonly HashDictionary<ImageFormat, String> _mimeTypeTranslator =
@@ -61,13 +53,10 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Attributes
-
-        private ArrayList<Icon> _iconUrls = new ArrayList<Icon>();
-
+        private readonly ArrayList<Icon> _icons = new ArrayList<Icon>();
         #endregion
 
         #region Initialization
-
         public IconManagementControl()
         {
             InitializeComponent();
@@ -91,34 +80,30 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Adds wrapping delegates for adding, removing and clearing to <see cref="_iconUrls"/> that wrap the <see cref="listBoxIconsUrls"/> methods.
+        /// Adds wrapping delegates for adding, removing and clearing to <see cref="_icons"/> that wrap the <see cref="listBoxIconsUrls"/> methods.
         /// </summary>
         private void InitializeIconUrls()
         {
-            _iconUrls.ItemsAdded += (sender, eventArgs) => listBoxIconsUrls.Items.Add(eventArgs.Item);
-            _iconUrls.ItemsRemoved += (sender, eventArgs) => listBoxIconsUrls.Items.Remove(eventArgs.Item);
-            _iconUrls.CollectionCleared += (sender, eventArgs) => listBoxIconsUrls.Items.Clear();
+            _icons.ItemsAdded += (sender, eventArgs) => listBoxIconsUrls.Items.Add(eventArgs.Item);
+            _icons.ItemsRemoved += (sender, eventArgs) => listBoxIconsUrls.Items.Remove(eventArgs.Item);
+            _icons.CollectionCleared += (sender, eventArgs) => listBoxIconsUrls.Items.Clear();
         }
-
         #endregion
 
         #region Control Management
-
         /// <summary>
         /// Sets the embedded controls to their initial state.
         /// </summary>
         private void ClearControls()
         {
-            _iconUrls.Clear();
+            _icons.Clear();
             uriTextBoxIconUrl.Text = string.Empty;
             pictureBoxPreview.Image = null;
             comboBoxIconType.SelectedIndex = 0;
         }
-
         #endregion
 
         #region Icon Preview
-
         /// <summary>
         /// Tries to download the image with the url from <see cref="uriTextBoxIconUrl"/> and shows it in <see cref="pictureBoxPreview"/>.
         /// Sets the right <see cref="ImageFormat"/> from the downloaded image in <see cref="comboBoxIconType"/>.
@@ -178,11 +163,9 @@ namespace ZeroInstall.Publish.WinForms.Controls
             lableIconUrlError.Text = textForLabel;
             lableIconUrlError.ForeColor = colorForLabel;
         }
-
         #endregion
 
         #region Icon list controls
-
         /// <summary>
         /// Adds the url from <see cref="uriTextBoxIconUrl"/> and the chosen mime type in <see cref="comboBoxIconType"/>
         /// to <see cref="listBoxIconsUrls"/> if the url is a valid url.
@@ -201,7 +184,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (mimeType != null) icon.MimeType = _mimeTypeTranslator[mimeType];
 
             // if nothing is selected add to the end of the list, else insert behind the selected item.
-            _iconUrls.Add(icon);
+            _icons.Add(icon);
         }
 
         /// <summary>
@@ -213,7 +196,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             if (listBoxIconsUrls.SelectedItem == null) return;
             var icon = (Icon) listBoxIconsUrls.SelectedItem;
-            _iconUrls.Remove(icon);
+            _icons.Remove(icon);
         }
 
         /// <summary>
@@ -225,7 +208,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             if (listBoxIconsUrls.SelectedIndex < 0) return;
 
-            var icon = _iconUrls[listBoxIconsUrls.SelectedIndex];
+            var icon = _icons[listBoxIconsUrls.SelectedIndex];
             uriTextBoxIconUrl.Text = icon.LocationString;
 
             foreach (var supportedImageFormat in _supportedImageFormats)
@@ -235,7 +218,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 break;
             }
         }
-
         #endregion
     }
 }

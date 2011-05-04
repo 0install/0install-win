@@ -580,7 +580,7 @@ namespace ZeroInstall.Publish.WinForms
             };
         }
 
-        private void SetupCommandHooks(IconManagementControl iconManagementControl, SimpleResult<C5.ArrayList<Icon>> getCollection)
+        private void SetupCommandHooks(IconManagementControl iconManager, SimpleResult<C5.ArrayList<Icon>> getCollection)
         {
             iconManagementControl.IconUrls.ItemInserted +=(sender, eventArgs) => _feedEditing.ExecuteCommand(new AddToCollection<Icon>(getCollection(), eventArgs.Item));
             
@@ -588,7 +588,7 @@ namespace ZeroInstall.Publish.WinForms
 
             Populate += delegate
                             {
-                                iconManagementControl.IconUrls = getCollection();
+                                iconManager.IconUrls = getCollection();
                             };
         }
         #endregion
@@ -600,8 +600,9 @@ namespace ZeroInstall.Publish.WinForms
         private void CreateNewFeed()
         {
             ValidateChildren();
-            _feedEditing = feedManager1.New();
             
+            _feedEditing = feedManager1.New();
+
             OnUpdate();
             InitializeEditingHooks();
         }
@@ -612,10 +613,11 @@ namespace ZeroInstall.Publish.WinForms
         private void OpenFeed()
         {
             ValidateChildren();
-            _feedEditing = feedManager1.Open();
 
-            OnUpdate();
+            _feedEditing = feedManager1.Open();
+            
             InitializeEditingHooks();
+            OnUpdate();
         }
 
         /// <summary>
