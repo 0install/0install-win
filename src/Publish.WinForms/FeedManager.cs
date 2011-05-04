@@ -20,6 +20,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Windows.Forms;
 using Common;
+using ZeroInstall.Model;
 using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms
@@ -30,17 +31,16 @@ namespace ZeroInstall.Publish.WinForms
     public partial class FeedManager : Component
     {
         #region Variables
+
         /// <summary>
         /// The current <see cref="FeedEditing" /> to edit.
         /// </summary>
         private FeedEditing _feedEditing = new FeedEditing();
-        /// <summary>
-        /// The parent <see cref="IWin32Window"/> of this component.
-        /// </summary>
-        //private Form parent;
+
         #endregion
 
         #region Constructor
+
         /// <summary>
         /// Creates a new <see cref="FeedManager"/> instance.
         /// </summary>
@@ -48,28 +48,28 @@ namespace ZeroInstall.Publish.WinForms
         public FeedManager(IContainer parent)
         {
             #region Sanity checks
+
             if (parent == null) throw new ArgumentNullException("parent");
+
             #endregion
 
             parent.Add(this);
             InitializeComponent();
         }
+
         #endregion
 
         //--------------------//
 
         #region New/Open/SaveChanges
+
         /// <summary>
         /// Creates a new <see cref="FeedEditing"/> after asking the user for saving changes on <see cref="_feedEditing"/>..
         /// </summary>
         /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else the old one.</returns>
         public FeedEditing New()
         {
-            if (_feedEditing.Changed) return SaveChanges(delegate { _feedEditing = new FeedEditing(); });
-            else {
-                _feedEditing = new FeedEditing();
-                return _feedEditing;
-            }
+            return SaveChanges(delegate { _feedEditing = new FeedEditing(); });
         }
 
         /// <summary>
@@ -78,46 +78,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>The current <see cref="FeedEditing"/>. The opened one if the user allowed it, else the old one.</returns>
         public FeedEditing Open()
         {
-            if (_feedEditing.Changed) return SaveChanges(OpenFeed);
-            else
-            {
-                OpenFeed();
-                return _feedEditing;
-            }
-        }
-
-        /// <summary>
-        /// Asks the user for saving changes on <see cref="_feedEditing"/>.
-        /// </summary>
-        public void SaveChanges()
-        {
-            SaveChanges(delegate { });
-        }
-
-        /// <summary>
-        /// Asks the user for saving changes and resets the feed.
-        /// </summary>
-        /// <param name="AfterSave">Procedure that will be performed after resetting <see cref="_feedEditing"/>.</param>
-        /// <returns>The current <see cref="_feedEditing"/></returns>
-        private FeedEditing SaveChanges(SimpleEventHandler AfterSave)
-        {
-            #region Sanity checks
-            if (AfterSave == null) throw new ArgumentNullException("AfterSave");
-            #endregion
-
-            if (AskSave() == DialogResult.No || Save()) AfterSave();
-
-            return _feedEditing;
-        }
-
-        /// <summary>
-        /// Asks the user to save the edited <see cref="Feed"/>.
-        /// </summary>
-        /// <returns></returns>
-        private DialogResult AskSave()
-        {
-            return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
-                           Resources.SaveChanges, Resources.DiscardChanges);
+            return SaveChanges(OpenFeed);
         }
 
         /// <summary>
@@ -125,7 +86,6 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void OpenFeed()
         {
-            openFileDialog.FileName = _feedEditing.Path;
             if (openFileDialog.ShowDialog(null) != DialogResult.OK) return;
 
             try
@@ -146,10 +106,62 @@ namespace ZeroInstall.Publish.WinForms
                 Msg.Inform(null, exception.Message, MsgSeverity.Error);
             }
             #endregion
+
+            openFileDialog.FileName = _feedEditing.Path;
+        }
+
+        /// <summary>
+        /// Asks the user for saving changes on <see cref="_feedEditing"/>.
+        /// </summary>
+        public void SaveChanges()
+        {
+            SaveChanges(delegate { });
+        }
+
+        /// <summary>
+        /// Asks the user for saving changes and resets the feed.
+        /// </summary>
+        /// <param name="afterSave">Procedure that will be performed after saving the <see cref="Feed"/>.</param>
+        /// <returns>The current <see cref="_feedEditing"/></returns>
+        private FeedEditing SaveChanges(SimpleEventHandler afterSave)
+        {
+            #region Sanity checks
+            if (afterSave == null) throw new ArgumentNullException("afterSave");
+            #endregion
+
+            if (!_feedEditing.Changed)
+            {
+                afterSave();
+                return _feedEditing;
+            }
+
+            switch (AskSavingChanges())
+            {
+                case DialogResult.No:
+                    afterSave();
+                    break;
+                case DialogResult.Yes:
+                    if (Save())
+                        afterSave();
+                    break;
+            }
+
+            return _feedEditing;
+        }
+
+        /// <summary>
+        /// Asks the user to save the changes on the edited <see cref="Feed"/>.
+        /// </summary>
+        /// <returns>The <see cref="DialogResult"/> of <see cref="Msg.Choose"/>.</returns>
+        private static DialogResult AskSavingChanges()
+        {
+            return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
+                              Resources.SaveChanges, Resources.DiscardChanges);
         }
         #endregion
 
         #region Save
+
         /// <summary>
         /// Saves the <see cref="Feed"/> under the current path or asks for path if necessary.
         /// </summary>
@@ -165,10 +177,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the saving was successful, else <see langword="false"/>.</returns>
         public bool SaveAs()
         {
-            saveFileDialog.FileName = _feedEditing.Path;
-            if (saveFileDialog.ShowDialog(null) != DialogResult.OK) return false;
-
-            return SaveAs(saveFileDialog.FileName);
+            return (saveFileDialog.ShowDialog(null) == DialogResult.OK && SaveAs(saveFileDialog.FileName));
         }
 
         /// <summary>
@@ -188,14 +197,14 @@ namespace ZeroInstall.Publish.WinForms
                 Msg.Inform(null, exception.Message, MsgSeverity.Error);
                 return false;
             }
-            catch (UnauthorizedAccessException exception)
+            catch (UnauthorizedAccessException)
             {
-
-                Msg.Inform(null, exception.Message, MsgSeverity.Error);
-                return false;
+                saveFileDialog.InitialDirectory = Environment.GetEnvironmentVariable("USERPROFILE");
+                return SaveAs();
             }
             #endregion
 
+            saveFileDialog.FileName = _feedEditing.Path;
             return true;
         }
         #endregion
