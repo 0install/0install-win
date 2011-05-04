@@ -94,6 +94,12 @@
     <Compile Include="Controls\LocalizableTextControl.Designer.cs">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FeedManager.Designer.cs">
+      <DependentUpon>FeedManager.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedStructure\CommandForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -201,6 +207,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\LocalizableTextControl.resx">
       <DependentUpon>LocalizableTextControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedManager.resx">
+      <DependentUpon>FeedManager.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ArchiveForm.resx">
       <DependentUpon>ArchiveForm.cs</DependentUpon>

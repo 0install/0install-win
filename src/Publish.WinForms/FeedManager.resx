@@ -117,27 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AutoDetect" xml:space="preserve">
-    <value>(automatisch)</value>
-  </data>
-  <data name="DiscardChanges" xml:space="preserve">
-    <value>&amp;Verwerfen
-Ungespeicherte Änderungen verwerfen</value>
-  </data>
-  <data name="Downloading_image_for_preview" xml:space="preserve">
-    <value>Das Bild wird zur Vorschau heruntergeladen...</value>
-  </data>
-  <data name="FeedNotValid" xml:space="preserve">
-    <value>Der Feed hat nicht das richtige Format</value>
-  </data>
-  <data name="ImageFormatNotSupported" xml:space="preserve">
-    <value>Das Bildformat wird von ZeroInstall nicht unterstützt.</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>&amp;Speichern
-Änderungen speichern</value>
-  </data>
-  <data name="SaveQuestion" xml:space="preserve">
-    <value>Achtung, ungespeicherte Änderungen gehen verloren.\nMöchten Sie die Änderungen speichern?</value>
-  </data>
+  <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>16, 19</value>
+  </metadata>
+  <metadata name="openFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>146, 17</value>
+  </metadata>
+  <metadata name="$this.TrayLargeIcon" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>False</value>
+  </metadata>
 </root>

@@ -70,11 +70,30 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &amp;Discared
+        ///Discard unsaved changes ähnelt.
+        /// </summary>
+        internal static string DiscardChanges {
+            get {
+                return ResourceManager.GetString("DiscardChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Downloading image for preview... ähnelt.
         /// </summary>
         internal static string Downloading_image_for_preview {
             get {
                 return ResourceManager.GetString("Downloading_image_for_preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die The feed has not the right format. ähnelt.
+        /// </summary>
+        internal static string FeedNotValid {
+            get {
+                return ResourceManager.GetString("FeedNotValid", resourceCulture);
             }
         }
         
@@ -119,6 +138,25 @@ namespace ZeroInstall.Publish.WinForms.Properties {
             get {
                 object obj = ResourceManager.GetObject("SaveButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die &amp;Save
+        ///Save changes ähnelt.
+        /// </summary>
+        internal static string SaveChanges {
+            get {
+                return ResourceManager.GetString("SaveChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Attention, unsaved changes will be deleted.\n Do you like to save the changes? ähnelt.
+        /// </summary>
+        internal static string SaveQuestion {
+            get {
+                return ResourceManager.GetString("SaveQuestion", resourceCulture);
             }
         }
         
