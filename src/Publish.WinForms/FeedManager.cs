@@ -1,17 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/*
+ * Copyright 2011 Simon E. Silva Lauinger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
-using Common;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
+using Common;
 using ZeroInstall.Publish.WinForms.Properties;
 
 namespace ZeroInstall.Publish.WinForms
 {
     /// <summary>
-    /// 
+    /// This class manages with dialogs the saving and the opening of a feed.
     /// </summary>
     public partial class FeedManager : Component
     {
