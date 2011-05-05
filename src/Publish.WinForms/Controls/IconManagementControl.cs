@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Net;
@@ -31,6 +32,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
     public partial class IconManagementControl : UserControl
     {
         #region Properties
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ArrayList<Icon> IconUrls
         {
             get

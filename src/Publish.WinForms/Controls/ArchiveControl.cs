@@ -52,12 +52,14 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Path to the extracted archive. <see langword="null"/> when archive isn't extracted yet.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public string ExtractedArchivePath { get; private set; }
 
         /// <summary>
         /// The <see cref="Archive" /> to be displayed and edited by this form.
         /// When setted, the form controls will be filled with its values.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Archive Archive
         {
             get { return _archive; }
@@ -73,6 +75,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// The <see cref="ManifestDigest"/> of the <see cref="Archive"/> edited by this form.
         /// <see langworde="null"/> when Archive isn't extracted.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public ManifestDigest ManifestDigest { get; private set; }
 
         #endregion

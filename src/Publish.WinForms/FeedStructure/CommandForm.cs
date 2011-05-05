@@ -60,7 +60,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         {
             textBoxName.Text = string.Empty;
             textBoxPath.Text = string.Empty;
-            argumentsControl1.Arguments.Clear();
+            argumentsControl.Arguments.Clear();
             checkBoxWorkingDir.Checked = false;
             hintTextBoxSource.Enabled = false;
             hintTextBoxSource.Text = string.Empty;
@@ -75,7 +75,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
             textBoxName.Text = _command.Name;
             textBoxPath.Text = _command.Path;
-            argumentsControl1.Arguments.AddAll(_command.Arguments);
+            argumentsControl.Arguments.AddAll(_command.Arguments);
             if (_command.WorkingDir != null)
             {
                 checkBoxWorkingDir.Checked = true;
@@ -107,7 +107,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             _command.Name = textBoxName.Text;
             _command.Path = string.IsNullOrEmpty(textBoxPath.Text) ? null : textBoxPath.Text;
             _command.Arguments.Clear();
-            _command.Arguments.AddAll(argumentsControl1.Arguments);
+            _command.Arguments.AddAll(argumentsControl.Arguments);
             _command.WorkingDir = checkBoxWorkingDir.Checked ? new WorkingDir { Source = hintTextBoxSource.Text } : null;
         }
         #endregion

@@ -30,6 +30,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
         private LocalizableStringCollection _values = new LocalizableStringCollection();
 
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public LocalizableStringCollection Values
         {
             set { _values = value; UpdateControl(); }

@@ -249,9 +249,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             // targetBaseControl
             // 
+            this.targetBaseControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.targetBaseControl.Location = new System.Drawing.Point(15, 129);
             this.targetBaseControl.Name = "targetBaseControl";
-            this.targetBaseControl.Size = new System.Drawing.Size(502, 128);
+            this.targetBaseControl.Size = new System.Drawing.Size(589, 128);
             this.targetBaseControl.TabIndex = 14;
             // 
             // checkBoxEnableSettingDate

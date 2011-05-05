@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using Common;
 using ZeroInstall.Model;
@@ -78,6 +79,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The selected <see cref="OpenPgpSecretKey"/> by the user.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public OpenPgpSecretKey SelectedSecretKey
         {
             get { return _selectedSecretKey; }
@@ -91,6 +93,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// The <see cref="OpenPgpSecretKey"/>s the user can select from.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public IEnumerable<OpenPgpSecretKey> SecretKeyValues
         {
             set
@@ -113,6 +116,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Enables or disables the undo <see cref="Button"/>.
         /// </summary>
+        [DefaultValue(false)]
         public bool UndoEnabled
         {
             set
@@ -124,6 +128,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Enables or disables the redo <see cref="Button"/>.
         /// </summary>
+        [DefaultValue(false)]
         public bool RedoEnabled
         {
             set

@@ -268,6 +268,8 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
             // 
             // targetBaseControl
             // 
+            this.targetBaseControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.targetBaseControl.Location = new System.Drawing.Point(16, 168);
             this.targetBaseControl.Name = "targetBaseControl";
             this.targetBaseControl.Size = new System.Drawing.Size(502, 128);

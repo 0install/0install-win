@@ -32,7 +32,7 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelPath = new System.Windows.Forms.Label();
             this.textBoxPath = new System.Windows.Forms.TextBox();
-            this.argumentsControl1 = new ZeroInstall.Publish.WinForms.Controls.ArgumentsControl();
+            this.argumentsControl = new ZeroInstall.Publish.WinForms.Controls.ArgumentsControl();
             this.groupBoxArguments = new System.Windows.Forms.GroupBox();
             this.groupBoxWorkingDir = new System.Windows.Forms.GroupBox();
             this.checkBoxWorkingDir = new System.Windows.Forms.CheckBox();
@@ -53,8 +53,8 @@
             // 
             // textBoxName
             // 
-            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxName.Location = new System.Drawing.Point(15, 25);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(382, 20);
@@ -80,29 +80,29 @@
             // 
             // textBoxPath
             // 
-            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxPath.Location = new System.Drawing.Point(15, 64);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(382, 20);
             this.textBoxPath.TabIndex = 1005;
             // 
-            // argumentsControl1
+            // argumentsControl
             // 
-            this.argumentsControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.argumentsControl1.Location = new System.Drawing.Point(6, 19);
-            this.argumentsControl1.Name = "argumentsControl1";
-            this.argumentsControl1.Size = new System.Drawing.Size(370, 133);
-            this.argumentsControl1.TabIndex = 1006;
+            this.argumentsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.argumentsControl.Location = new System.Drawing.Point(6, 19);
+            this.argumentsControl.Name = "argumentsControl";
+            this.argumentsControl.Size = new System.Drawing.Size(370, 133);
+            this.argumentsControl.TabIndex = 1006;
             // 
             // groupBoxArguments
             // 
-            this.groupBoxArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxArguments.Controls.Add(this.argumentsControl1);
+            this.groupBoxArguments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxArguments.Controls.Add(this.argumentsControl);
             this.groupBoxArguments.Location = new System.Drawing.Point(15, 90);
             this.groupBoxArguments.Name = "groupBoxArguments";
             this.groupBoxArguments.Size = new System.Drawing.Size(382, 154);
@@ -112,8 +112,8 @@
             // 
             // groupBoxWorkingDir
             // 
-            this.groupBoxWorkingDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBoxWorkingDir.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxWorkingDir.Controls.Add(this.checkBoxWorkingDir);
             this.groupBoxWorkingDir.Controls.Add(this.labelSource);
             this.groupBoxWorkingDir.Controls.Add(this.hintTextBoxSource);
@@ -186,7 +186,7 @@
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelPath;
         private System.Windows.Forms.TextBox textBoxPath;
-        private Controls.ArgumentsControl argumentsControl1;
+        private Controls.ArgumentsControl argumentsControl;
         private System.Windows.Forms.GroupBox groupBoxArguments;
         private System.Windows.Forms.GroupBox groupBoxWorkingDir;
         private System.Windows.Forms.Label labelSource;

@@ -16,6 +16,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -32,6 +33,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         /// <summary>
         /// Returns the entered Arguments. Changing this List means changing the list box with the arguments.
         /// </summary>
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public C5.ArrayList<String> Arguments
         {
             get
