@@ -106,6 +106,12 @@
     <Compile Include="FeedStructure\CommandForm.Designer.cs">
       <DependentUpon>CommandForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FeedStructure\RunnerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FeedStructure\RunnerForm.Designer.cs">
+      <DependentUpon>RunnerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FeedStructure\IDigestProvider.cs" />
     <Compile Include="ManifestUtils.cs" />
     <Compile Include="FeedStructure\ArchiveForm.cs">
@@ -231,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\ImplementationForm.resx">
       <DependentUpon>ImplementationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FeedStructure\RunnerForm.resx">
+      <DependentUpon>RunnerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FeedStructure\WorkingDirForm.resx">
       <DependentUpon>WorkingDirForm.cs</DependentUpon>

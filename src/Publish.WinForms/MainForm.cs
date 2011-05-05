@@ -95,7 +95,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void InitializeComponentsExtended()
         {
-            _feedEditing = feedManager1.New();
+            _feedEditing = feedManager.New();
             InitializeTreeViewFeedStructure();
             InitializeFeedStructureButtons();
             InitializeComboBoxMinInjectorVersion();
@@ -126,10 +126,10 @@ namespace ZeroInstall.Publish.WinForms
             SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(btnAddDependency, dependency => new DependencyForm {Dependency = dependency}, container => container.Dependencies);
 
             SetupFeedStructureHooks<Element, Command, Command>(btnAddCommand, command => new CommandForm {Command = command}, element => element.Commands);
-            //SetupFeedStructureHooks<Command, Runner, Runner>(btnAddRunner, runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            SetupFeedStructureHooks<Command, Runner, Runner>(btnAddRunner, runner => new RunnerForm {Runner = runner}, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(buttonAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(buttonAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(btnAddArchive, archive => new ArchiveForm {Archive = archive}, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(btnAddRecipe, recipe => new RecipeForm {Recipe = recipe}, implementation => implementation.RetrievalMethods);
         }
 
         /// <summary>
@@ -250,9 +250,12 @@ namespace ZeroInstall.Publish.WinForms
             #region Edit dialog
             treeViewFeedStructure.DoubleClick += delegate
             {
-                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                // Type must match exactly
+                if (SelectedFeedStructureElement.GetType() != typeof(TSpecialEntry)) return;
+
+                var entry = (TSpecialEntry)SelectedFeedStructureElement;
                 var parent = SelectedFeedStructureElementParent as TContainer;
-                if (entry != null && parent != null)
+                if (parent != null)
                 {
                     // Clone entry for undoable modification
                     var clonedEntry = (TSpecialEntry)entry.Clone();
@@ -381,7 +384,7 @@ namespace ZeroInstall.Publish.WinForms
             feedEditorToolStrip.SaveAs += SaveFeedAs;
             feedEditorToolStrip.Undo += Undo;
             feedEditorToolStrip.Redo += Redo;
-            feedEditorToolStrip.SecretKeyChanged += newSigningKey => feedManager1.SigningKey = newSigningKey;
+            feedEditorToolStrip.SecretKeyChanged += newSigningKey => feedManager.SigningKey = newSigningKey;
         }
 
         #endregion
@@ -601,7 +604,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             ValidateChildren();
             
-            _feedEditing = feedManager1.New();
+            _feedEditing = feedManager.New();
 
             OnUpdate();
             InitializeEditingHooks();
@@ -614,7 +617,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             ValidateChildren();
 
-            _feedEditing = feedManager1.Open();
+            _feedEditing = feedManager.Open();
             
             InitializeEditingHooks();
             OnUpdate();
@@ -628,7 +631,7 @@ namespace ZeroInstall.Publish.WinForms
             ValidateChildren();
             SaveAdvancedTab();
 
-            feedManager1.Save();
+            feedManager.Save();
         }
 
         /// <summary>
@@ -639,7 +642,7 @@ namespace ZeroInstall.Publish.WinForms
             ValidateChildren();
             SaveAdvancedTab();
 
-            feedManager1.SaveAs();
+            feedManager.SaveAs();
         }
 
         private void Undo()
@@ -673,7 +676,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            feedManager1.SaveChanges();
+            feedManager.SaveChanges();
         }
         #endregion
 
@@ -782,12 +785,25 @@ namespace ZeroInstall.Publish.WinForms
         /// <param name="data">The <see cref="ZeroInstall.Model"/> to represent.</param>
         private static TreeNode BuildTreeNodes(object data)
         {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
             var node = new TreeNode(data.ToString()) {Tag = data};
+
             node.Nodes.AddRange(BuildTreeNodesHelper<IElementContainer, Element>(data, container => container.Elements));
             node.Nodes.AddRange(BuildTreeNodesHelper<IBindingContainer, Binding>(data, container => container.Bindings));
             node.Nodes.AddRange(BuildTreeNodesHelper<IDependencyContainer, Dependency>(data, container => container.Dependencies));
             node.Nodes.AddRange(BuildTreeNodesHelper<Element, Command>(data, container => container.Commands));
             node.Nodes.AddRange(BuildTreeNodesHelper<Implementation, RetrievalMethod>(data, container => container.RetrievalMethods));
+
+            var command = data as Command;
+            if (command != null)
+            {
+                if (command.WorkingDir != null) node.Nodes.Add(BuildTreeNodes(command.WorkingDir));
+                if (command.Runner != null) node.Nodes.Add(BuildTreeNodes(command.Runner));
+            }
+
             return node;
         }
 

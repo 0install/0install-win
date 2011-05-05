@@ -38,7 +38,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Interface");
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
@@ -58,8 +58,8 @@ namespace ZeroInstall.Publish.WinForms
             this.labelProgramName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
-            this.buttonAddRecipe = new System.Windows.Forms.Button();
-            this.buttonAddArchive = new System.Windows.Forms.Button();
+            this.btnAddRecipe = new System.Windows.Forms.Button();
+            this.btnAddArchive = new System.Windows.Forms.Button();
             this.btnAddOverlayBinding = new System.Windows.Forms.Button();
             this.treeViewFeedStructure = new System.Windows.Forms.TreeView();
             this.btnRemoveFeedStructureObject = new System.Windows.Forms.Button();
@@ -86,6 +86,12 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
             this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
+            this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
+            this.btnAddRunner = new System.Windows.Forms.Button();
+            this.buttonAddArchive = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.buttonAddRecipe = new System.Windows.Forms.Button();
+            this.btnRunner = new System.Windows.Forms.Button();
             this.feedManager1 = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
@@ -321,8 +327,9 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBoxFeedStructure.Controls.Add(this.buttonAddRecipe);
-            this.groupBoxFeedStructure.Controls.Add(this.buttonAddArchive);
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddRunner);
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddRecipe);
+            this.groupBoxFeedStructure.Controls.Add(this.btnAddArchive);
             this.groupBoxFeedStructure.Controls.Add(this.btnAddOverlayBinding);
             this.groupBoxFeedStructure.Controls.Add(this.treeViewFeedStructure);
             this.groupBoxFeedStructure.Controls.Add(this.btnRemoveFeedStructureObject);
@@ -339,27 +346,27 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
             // 
-            // buttonAddRecipe
+            // btnAddRecipe
             // 
-            this.buttonAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddRecipe.Enabled = false;
-            this.buttonAddRecipe.Location = new System.Drawing.Point(401, 251);
-            this.buttonAddRecipe.Name = "buttonAddRecipe";
-            this.buttonAddRecipe.Size = new System.Drawing.Size(132, 23);
-            this.buttonAddRecipe.TabIndex = 4;
-            this.buttonAddRecipe.Text = "Recipe";
-            this.buttonAddRecipe.UseVisualStyleBackColor = true;
+            this.btnAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRecipe.Enabled = false;
+            this.btnAddRecipe.Location = new System.Drawing.Point(401, 251);
+            this.btnAddRecipe.Name = "btnAddRecipe";
+            this.btnAddRecipe.Size = new System.Drawing.Size(132, 23);
+            this.btnAddRecipe.TabIndex = 9;
+            this.btnAddRecipe.Text = "Recipe";
+            this.btnAddRecipe.UseVisualStyleBackColor = true;
             // 
-            // buttonAddArchive
+            // btnAddArchive
             // 
-            this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAddArchive.Enabled = false;
-            this.buttonAddArchive.Location = new System.Drawing.Point(401, 222);
-            this.buttonAddArchive.Name = "buttonAddArchive";
-            this.buttonAddArchive.Size = new System.Drawing.Size(132, 23);
-            this.buttonAddArchive.TabIndex = 3;
-            this.buttonAddArchive.Text = "Archive";
-            this.buttonAddArchive.UseVisualStyleBackColor = true;
+            this.btnAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddArchive.Enabled = false;
+            this.btnAddArchive.Location = new System.Drawing.Point(401, 222);
+            this.btnAddArchive.Name = "btnAddArchive";
+            this.btnAddArchive.Size = new System.Drawing.Size(132, 23);
+            this.btnAddArchive.TabIndex = 8;
+            this.btnAddArchive.Text = "Archive";
+            this.btnAddArchive.UseVisualStyleBackColor = true;
             // 
             // btnAddOverlayBinding
             // 
@@ -368,7 +375,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddOverlayBinding.Location = new System.Drawing.Point(401, 135);
             this.btnAddOverlayBinding.Name = "btnAddOverlayBinding";
             this.btnAddOverlayBinding.Size = new System.Drawing.Size(132, 23);
-            this.btnAddOverlayBinding.TabIndex = 8;
+            this.btnAddOverlayBinding.TabIndex = 5;
             this.btnAddOverlayBinding.Text = "Overlay binding";
             this.btnAddOverlayBinding.UseVisualStyleBackColor = true;
             // 
@@ -380,11 +387,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode12.Name = "interface";
-            treeNode12.Tag = "";
-            treeNode12.Text = "Interface";
+            treeNode24.Name = "interface";
+            treeNode24.Tag = "";
+            treeNode24.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode12});
+            treeNode24});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 446);
@@ -398,7 +405,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnRemoveFeedStructureObject.Location = new System.Drawing.Point(401, 442);
             this.btnRemoveFeedStructureObject.Name = "btnRemoveFeedStructureObject";
             this.btnRemoveFeedStructureObject.Size = new System.Drawing.Size(132, 23);
-            this.btnRemoveFeedStructureObject.TabIndex = 10;
+            this.btnRemoveFeedStructureObject.TabIndex = 11;
             this.btnRemoveFeedStructureObject.Text = "Remove item";
             this.btnRemoveFeedStructureObject.UseVisualStyleBackColor = true;
             // 
@@ -409,7 +416,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddEnvironmentBinding.Location = new System.Drawing.Point(401, 106);
             this.btnAddEnvironmentBinding.Name = "btnAddEnvironmentBinding";
             this.btnAddEnvironmentBinding.Size = new System.Drawing.Size(132, 23);
-            this.btnAddEnvironmentBinding.TabIndex = 7;
+            this.btnAddEnvironmentBinding.TabIndex = 4;
             this.btnAddEnvironmentBinding.Text = "Environment binding";
             this.btnAddEnvironmentBinding.UseVisualStyleBackColor = true;
             // 
@@ -431,7 +438,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddCommand.Location = new System.Drawing.Point(401, 77);
             this.btnAddCommand.Name = "btnAddCommand";
             this.btnAddCommand.Size = new System.Drawing.Size(132, 23);
-            this.btnAddCommand.TabIndex = 6;
+            this.btnAddCommand.TabIndex = 3;
             this.btnAddCommand.Text = "Command";
             this.btnAddCommand.UseVisualStyleBackColor = true;
             // 
@@ -442,7 +449,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddDependency.Location = new System.Drawing.Point(401, 48);
             this.btnAddDependency.Name = "btnAddDependency";
             this.btnAddDependency.Size = new System.Drawing.Size(132, 23);
-            this.btnAddDependency.TabIndex = 6;
+            this.btnAddDependency.TabIndex = 2;
             this.btnAddDependency.Text = "Dependency";
             this.btnAddDependency.UseVisualStyleBackColor = true;
             // 
@@ -453,7 +460,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddPackageImplementation.Location = new System.Drawing.Point(401, 164);
             this.btnAddPackageImplementation.Name = "btnAddPackageImplementation";
             this.btnAddPackageImplementation.Size = new System.Drawing.Size(132, 23);
-            this.btnAddPackageImplementation.TabIndex = 5;
+            this.btnAddPackageImplementation.TabIndex = 6;
             this.btnAddPackageImplementation.Text = "Package implementation";
             this.btnAddPackageImplementation.UseVisualStyleBackColor = true;
             // 
@@ -464,7 +471,7 @@ namespace ZeroInstall.Publish.WinForms
             this.btnAddImplementation.Location = new System.Drawing.Point(401, 193);
             this.btnAddImplementation.Name = "btnAddImplementation";
             this.btnAddImplementation.Size = new System.Drawing.Size(132, 23);
-            this.btnAddImplementation.TabIndex = 2;
+            this.btnAddImplementation.TabIndex = 7;
             this.btnAddImplementation.Text = "Implementation";
             this.btnAddImplementation.UseVisualStyleBackColor = true;
             // 
@@ -663,6 +670,61 @@ namespace ZeroInstall.Publish.WinForms
             this.feedEditorToolStrip.TabIndex = 2;
             this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
             // 
+            // btnAddRunner
+            // 
+            this.btnAddRunner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRunner.Enabled = false;
+            this.btnAddRunner.Location = new System.Drawing.Point(401, 280);
+            this.btnAddRunner.Name = "btnAddRunner";
+            this.btnAddRunner.Size = new System.Drawing.Size(132, 23);
+            this.btnAddRunner.TabIndex = 10;
+            this.btnAddRunner.Text = "Runner";
+            this.btnAddRunner.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddArchive
+            // 
+            this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddArchive.Enabled = false;
+            this.buttonAddArchive.Location = new System.Drawing.Point(401, 222);
+            this.buttonAddArchive.Name = "buttonAddArchive";
+            this.buttonAddArchive.Size = new System.Drawing.Size(132, 23);
+            this.buttonAddArchive.TabIndex = 3;
+            this.buttonAddArchive.Text = "Archive";
+            this.buttonAddArchive.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Enabled = false;
+            this.button1.Location = new System.Drawing.Point(401, 280);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(132, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "Recipe";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // buttonAddRecipe
+            // 
+            this.buttonAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonAddRecipe.Enabled = false;
+            this.buttonAddRecipe.Location = new System.Drawing.Point(401, 251);
+            this.buttonAddRecipe.Name = "buttonAddRecipe";
+            this.buttonAddRecipe.Size = new System.Drawing.Size(132, 23);
+            this.buttonAddRecipe.TabIndex = 4;
+            this.buttonAddRecipe.Text = "Recipe";
+            this.buttonAddRecipe.UseVisualStyleBackColor = true;
+            // 
+            // btnRunner
+            // 
+            this.btnRunner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRunner.Enabled = false;
+            this.btnRunner.Location = new System.Drawing.Point(401, 280);
+            this.btnRunner.Name = "btnRunner";
+            this.btnRunner.Size = new System.Drawing.Size(132, 23);
+            this.btnRunner.TabIndex = 4;
+            this.btnRunner.Text = "Recipe";
+            this.btnRunner.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -733,8 +795,8 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.GroupBox groupBoxFeedStructure;
         private System.Windows.Forms.Button btnAddOverlayBinding;
         private System.Windows.Forms.Button buttonUpdateExternalFeed;
-        private System.Windows.Forms.Button buttonAddArchive;
-        private System.Windows.Forms.Button buttonAddRecipe;
+        private System.Windows.Forms.Button btnAddArchive;
+        private System.Windows.Forms.Button btnAddRecipe;
         private System.Windows.Forms.TreeView treeViewFeedStructure;
         private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.Label labelSummary;
@@ -744,6 +806,12 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button btnAddCommand;
         private IconManagementControl iconManagementControl;
         private FeedEditorToolStrip feedEditorToolStrip;
+        private FeedManager feedManager;
+        private System.Windows.Forms.Button btnAddRunner;
+        private System.Windows.Forms.Button buttonAddArchive;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonAddRecipe;
+        private System.Windows.Forms.Button btnRunner;
         private FeedManager feedManager1;
     }
 }
