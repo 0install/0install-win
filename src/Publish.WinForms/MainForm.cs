@@ -220,7 +220,7 @@ namespace ZeroInstall.Publish.WinForms
         /// <typeparam name="TSpecialEntry">The specific entry type to hook up for handling</typeparam>
         /// <param name="addButton">The button used to add new <typeparamref name="TSpecialEntry"/>s to <typeparamref name="TContainer"/>s.</param>
         /// <param name="getEditDialog">A delegate describing how to get a dialog to edit a <typeparamref name="TSpecialEntry"/>.</param>
-        /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s in a <typeparamref name="TContainer"/>.</param>
+        /// <param name="getList">A delegate describing how to get a collection of <typeparamref name="TAbstractEntry"/>s from a <typeparamref name="TContainer"/>.</param>
         private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(Button addButton, MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
@@ -697,9 +697,8 @@ namespace ZeroInstall.Publish.WinForms
         private void FillFeedTab()
         {
             treeViewFeedStructure.BeginUpdate();
-            treeViewFeedStructure.Nodes[0].Nodes.Clear();
-            treeViewFeedStructure.Nodes[0].Tag = _feedEditing.Feed;
-            BuildElementsTreeNodes(_feedEditing.Feed.Elements, treeViewFeedStructure.Nodes[0]);
+            treeViewFeedStructure.Nodes.Clear();
+            treeViewFeedStructure.Nodes.Add(BuildTreeNodes(_feedEditing.Feed));
             treeViewFeedStructure.EndUpdate();
 
             treeViewFeedStructure.ExpandAll();
@@ -778,119 +777,40 @@ namespace ZeroInstall.Publish.WinForms
             if (selectedNode != null && selectedNode != treeViewFeedStructure.Nodes[0]) selectedNode.Toggle();
         }
         
-        private static void BuildElementsTreeNodes(IEnumerable<Element> elements, TreeNode parentNode)
+        /// <summary>
+        /// Generates a <see cref="TreeNode"/> with child elements representing an object from <see cref="ZeroInstall.Model"/>.
+        /// </summary>
+        /// <param name="data">The <see cref="ZeroInstall.Model"/> to represent.</param>
+        private static TreeNode BuildTreeNodes(object data)
         {
-            #region Sanity checks
-
-            if (elements == null) throw new ArgumentNullException("elements");
-
-            #endregion
-            
-            foreach (var element in elements)
-            {
-                var group = element as Group;
-                if (group != null)
-                {
-                    var groupNode = new TreeNode(group.ToString()) {Tag = group};
-                    parentNode.Nodes.Add(groupNode);
-                    BuildElementsTreeNodes(group.Elements, groupNode);
-                    BuildCommandsTreeNodes(group.Commands, groupNode);
-                    BuildDependencyTreeNodes(group.Dependencies, groupNode);
-                    BuildBindingTreeNodes(group.Bindings, groupNode);
-                }
-                else
-                {
-                    var implementation = element as Implementation;
-                    if (implementation != null)
-                    {
-                        var implementationNode = new TreeNode(implementation.ToString()) {Tag = implementation};
-                        parentNode.Nodes.Add(implementationNode);
-                        BuildCommandsTreeNodes(implementation.Commands, implementationNode);
-                        BuildRetrievalMethodsTreeNodes(implementation.RetrievalMethods, implementationNode);
-                        BuildDependencyTreeNodes(implementation.Dependencies, implementationNode);
-                        BuildBindingTreeNodes(implementation.Bindings, implementationNode);
-                    }
-                    else
-                    {
-                        var packageImplementation = element as PackageImplementation;
-                        if (packageImplementation != null)
-                        {
-                            var packageImplementationNode = new TreeNode(packageImplementation.ToString())
-                                                                {Tag = packageImplementation};
-                            parentNode.Nodes.Add(packageImplementationNode);
-                            BuildCommandsTreeNodes(packageImplementation.Commands, packageImplementationNode);
-                            BuildDependencyTreeNodes(packageImplementation.Dependencies, packageImplementationNode);
-                            BuildBindingTreeNodes(packageImplementation.Bindings, packageImplementationNode);
-                        }
-                    }
-                }
-            }
+            var node = new TreeNode(data.ToString()) {Tag = data};
+            node.Nodes.AddRange(BuildTreeNodesHelper<IElementContainer, Element>(data, container => container.Elements));
+            node.Nodes.AddRange(BuildTreeNodesHelper<IBindingContainer, Binding>(data, container => container.Bindings));
+            node.Nodes.AddRange(BuildTreeNodesHelper<IDependencyContainer, Dependency>(data, container => container.Dependencies));
+            node.Nodes.AddRange(BuildTreeNodesHelper<Element, Command>(data, container => container.Commands));
+            node.Nodes.AddRange(BuildTreeNodesHelper<Implementation, RetrievalMethod>(data, container => container.RetrievalMethods));
+            return node;
         }
 
-        private static void BuildCommandsTreeNodes(IEnumerable<Command> commands, TreeNode parentNode)
+        /// <summary>
+        /// Helper method for <see cref="BuildTreeNodes"/> that takes objects of unkown type, checking whether they are containers for specific <see cref="ZeroInstall.Model"/> objects.
+        /// </summary>
+        /// <typeparam name="TContainer">A type that contains <typeparamref name="TEntry"/> child elements.</typeparam>
+        /// <typeparam name="TEntry">The type of elements contained within <typeparamref name="TContainer"/>s.</typeparam>
+        /// <param name="data">An object potentially of the type <typeparamref name="TContainer"/>.</param>
+        /// <param name="getChildren">A delegate describing how to get a collection of <typeparamref name="TEntry"/>s from a <typeparamref name="TContainer"/>.</param>
+        /// <returns>An array of <see cref="TreeNode"/>s representing the <typeparamref name="TEntry"/>s in <paramref name="data"/> if any.</returns>
+        private static TreeNode[] BuildTreeNodesHelper<TContainer, TEntry>(object data, MapAction<TContainer, IEnumerable<TEntry>> getChildren)
+            where TContainer : class
+            where TEntry : class
         {
-            #region Sanity checks
+            var elementContainer = data as TContainer;
+            if (elementContainer == null) return new TreeNode[0];
 
-            if (commands == null) throw new ArgumentNullException("commands");
-
-            #endregion
-
-            foreach (var command in commands)
-            {
-                var commandNode = new TreeNode(command.ToString()) {Tag = command};
-                parentNode.Nodes.Add(commandNode);
-                BuildDependencyTreeNodes(command.Dependencies, commandNode);
-            }
-        }
-
-        private static void BuildBindingTreeNodes(IEnumerable<Binding> bindings, TreeNode parentNode)
-        {
-            #region Sanity checks
-
-            if (bindings == null) throw new ArgumentNullException("bindings");
-
-            #endregion
-
-            foreach (var binding in bindings)
-            {
-                var bindingNode = new TreeNode(binding.ToString()) {Tag = binding};
-                parentNode.Nodes.Add(bindingNode);
-            }
-        }
-
-        private static void BuildDependencyTreeNodes(IEnumerable<Dependency> dependencies, TreeNode parentNode)
-        {
-            #region Sanity checks
-
-            if (dependencies == null) throw new ArgumentNullException("dependencies");
-
-            #endregion
-
-            foreach (var dependency in dependencies)
-            {
-                string constraints = String.Empty;
-                foreach (var constraint in dependency.Constraints) constraints += constraint.ToString();
-
-                var dependencyNode = new TreeNode(string.Format("{0} {1}", dependency, constraints)) {Tag = dependency};
-                parentNode.Nodes.Add(dependencyNode);
-                BuildBindingTreeNodes(dependency.Bindings, dependencyNode);
-            }
-        }
-
-        private static void BuildRetrievalMethodsTreeNodes(IEnumerable<RetrievalMethod> retrievalMethods,
-                                                           TreeNode parentNode)
-        {
-            #region Sanity checks
-
-            if (retrievalMethods == null) throw new ArgumentNullException("retrievalMethods");
-
-            #endregion
-
-            foreach (var retrievalMethod in retrievalMethods)
-            {
-                var retrievalMethodNode = new TreeNode(retrievalMethod.ToString()) {Tag = retrievalMethod};
-                parentNode.Nodes.Add(retrievalMethodNode);
-            }
+            var nodes = new C5.LinkedList<TreeNode>();
+            foreach (var element in getChildren(elementContainer))
+                nodes.Add(BuildTreeNodes(element));
+            return nodes.ToArray();
         }
 
         #endregion
