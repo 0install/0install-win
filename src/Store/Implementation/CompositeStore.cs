@@ -31,7 +31,7 @@ namespace ZeroInstall.Store.Implementation
     /// Combines multiple <see cref="IStore"/>s as a composite.
     /// </summary>
     /// <remarks>
-    ///   <para>When adding new <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
+    ///   <para>When adding new <see cref="Model.Implementation"/>s the last child <see cref="IStore"/> that doesn't throw an <see cref="UnauthorizedAccessException"/> is used.</para>
     ///   <para>When when retrieving existing <see cref="Model.Implementation"/>s the first child <see cref="IStore"/> that returns <see langword="true"/> for <see cref="IStore.Contains"/> is used.</para>
     /// </remarks>
     [SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable", Justification = "C5 collections don't need to be disposed.")]
@@ -125,7 +125,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the deepest store the implementation can be added to (some might be write-protected)
+            // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {
@@ -163,7 +163,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the deepest store the implementation can be added to (some might be write-protected)
+            // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {
@@ -199,7 +199,7 @@ namespace ZeroInstall.Store.Implementation
             if (handler == null) throw new ArgumentNullException("handler");
             #endregion
 
-            // Find the deepest store the implementation can be added to (some might be write-protected)
+            // Find the last store the implementation can be added to (some might be write-protected)
             Exception innerException = null;
             foreach (IStore store in _stores.Backwards())
             {

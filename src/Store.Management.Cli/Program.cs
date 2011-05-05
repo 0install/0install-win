@@ -18,7 +18,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using Common;
 using Common.Collections;
 using Common.Storage;
@@ -66,7 +65,7 @@ namespace ZeroInstall.Store.Management.Cli
     /// </summary>
     public static class Program
     {
-        private static readonly IStore _store = StoreProvider.CreateDefault();
+        private static IStore _store;
 
         #region Startup
         /// <summary>
@@ -97,7 +96,11 @@ namespace ZeroInstall.Store.Management.Cli
 
             if (restArgs.Count == 0) return (int)ErrorLevel.OK;
 
-            try { return (int)ExecuteArgs(restArgs, new CliTaskHandler()); }
+            try
+            {
+                _store = StoreProvider.CreateDefault();
+                return (int)ExecuteArgs(restArgs, new CliTaskHandler());
+            }
             #region Error handling
             catch (UserCancelException)
             {
@@ -410,7 +413,7 @@ namespace ZeroInstall.Store.Management.Cli
         /// </summary>
         /// <param name="args">The command-line arguments that were not parsed as options.</param>
         /// <param name="handler">A callback object used when the the user needs to be informed about progress.</param>
-        /// <exception cref="IOException">Thrown if the directory could not be processed.</exception>
+        /// <exception cref="IOException">Thrown if a directory could not be processed.</exception>
         private static void GenerateManifest(IList<string> args, ITaskHandler handler)
         {
             if (args.Count < 2 || args.Count > 3) throw new ArgumentException(string.Format(Resources.WrongNoArguments, Resources.UsageManifest));

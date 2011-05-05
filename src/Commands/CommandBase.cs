@@ -50,14 +50,17 @@ namespace ZeroInstall.Commands
         /// <summary>The command-line argument parser used to evaluate user input.</summary>
         protected readonly OptionSet Options = new OptionSet();
 
-        /// <summary>Combines UI access, preferences and resources used to solve dependencies and download implementations.</summary>
-        protected readonly Policy Policy;
-
         /// <summary>Feeds to add, terms to search for, etc.</summary>
         protected readonly C5.IList<string> AdditionalArgs = new C5.ArrayList<string>();
         #endregion
 
         #region Properties
+        private readonly Policy _policy;
+        /// <summary>
+        /// Combines UI access, preferences and resources used to solve dependencies and download implementations.
+        /// </summary>
+        public Policy Policy { get { return _policy; } }
+
         /// <summary>
         /// A short description of what this command does.
         /// </summary>
@@ -108,7 +111,7 @@ namespace ZeroInstall.Commands
         /// <param name="policy">Combines UI access, preferences and resources used to solve dependencies and download implementations.</param>
         protected CommandBase(Policy policy)
         {
-            Policy = policy;
+            _policy = policy;
 
             Options.Add("?|h|help", Resources.OptionHelp, unused =>
             {
@@ -159,8 +162,8 @@ namespace ZeroInstall.Commands
         /// <exception cref="NotSupportedException">Thrown if a file format, protocal, etc. is unknown or not supported.</exception>
         /// <exception cref="IOException">Thrown if a downloaded file could not be written to the disk or extracted or if an external application or file required by the solver could not be accessed.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if an operation failed due to insufficient rights.</exception>
-        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown if no interface ID was specified while one was needed.</exception>
+        /// <exception cref="DigestMismatchException">Thrown if an <see cref="Model.Implementation"/>'s <see cref="Archive"/>s don't match the associated <see cref="ManifestDigest"/>.</exception>
         /// <exception cref="SolverException">Thrown if the <see cref="ISolver"/> was unable to solve all dependencies.</exception>
         /// <exception cref="ImplementationNotFoundException">Thrown if one of the <see cref="ImplementationBase"/>s is not cached yet.</exception>
         /// <exception cref="CommandException">Thrown if there was a problem locating the implementation executable.</exception>

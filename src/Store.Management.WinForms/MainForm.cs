@@ -82,7 +82,23 @@ namespace ZeroInstall.Store.Management.WinForms
                     AddWithIncrement(nodes, new FeedNode(cache, feed, this));
 
                 long totalSize = 0;
-                var store = StoreProvider.CreateDefault();
+                IStore store;
+                try { store = StoreProvider.CreateDefault(); }
+                #region Error handling
+                catch (IOException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                    return;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                    Close();
+                    return;
+                }
+                #endregion
+
                 foreach (var digest in store.ListAll())
                 {
                     try
@@ -97,7 +113,7 @@ namespace ZeroInstall.Store.Management.WinForms
                         totalSize += implementationNode.Size;
                         AddWithIncrement(nodes, implementationNode);
                     }
-                    #region Sanity checks
+                    #region Error handling
                     // ToDo: Display less intrusive messages
                     catch (FormatException ex)
                     {

@@ -153,4 +153,7 @@
   <data name="NoSelectedVersion" xml:space="preserve">
     <value>Keine ausgewählte Version</value>
   </data>
+  <data name="ProblemLoadingConfig" xml:space="preserve">
+    <value>Es gab ein Problem beim Laden der Konfigurationswerte von '{0}'.</value>
+  </data>
 </root>

@@ -25,6 +25,7 @@ using Common;
 using Common.Storage;
 using Common.Values.Design;
 using IniParser;
+using ZeroInstall.Injector.Properties;
 
 namespace ZeroInstall.Injector
 {
@@ -249,7 +250,7 @@ namespace ZeroInstall.Injector
         /// <returns>The loaded <see cref="Config"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
-        /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the config data.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load(string path)
         {
             var iniData = _iniParse.LoadFile(path, true);
@@ -263,6 +264,9 @@ namespace ZeroInstall.Injector
         /// Aggregates the settings from all applicable INI files listed by <see cref="Locations.GetLoadConfigPaths"/>.
         /// </summary>
         /// <returns>The loaded <see cref="Config"/>.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a problem occurs while deserializing the config data.</exception>
         public static Config Load()
         {
             // Locate all applicable config files and order them from least to most important
@@ -273,14 +277,19 @@ namespace ZeroInstall.Injector
             var config = new Config();
             foreach (var path in paths)
             {
-                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); }
-                catch (Exception ex)
+                try { FromIniToConfig(_iniParse.LoadFile(path, true), config); ; }
+                #region Error handling
+                catch (ParsingException ex)
                 {
-                    // In case of failure log and continue with default value
-                    Log.Warn("Failed to load: " + path + "\n" + ex.Message);
-                    Log.Warn("Reverting to default values");
-                    return new Config();
+                    // Wrap exception to add context information
+                    throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, path) + "\n" + ex.Message, ex);
                 }
+                catch (FormatException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new InvalidDataException(string.Format(Resources.ProblemLoadingConfig, path) + "\n" + ex.Message, ex);
+                }
+                #endregion
             }
             return config;
         }

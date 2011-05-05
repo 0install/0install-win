@@ -45,7 +45,6 @@ namespace ZeroInstall.Store.Implementation
         /// Creates a new store based on the given path to a cache directory.
         /// </summary>
         /// <param name="path">A fully qualified directory path. The directory will be created if it doesn't exist yet.</param>
-        /// <exception cref="ArgumentException">Thrown if the <paramref name="path"/> is invalid.</exception>
         /// <exception cref="IOException">Thrown if the directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating the directory <paramref name="path"/> is not permitted.</exception>
         public DirectoryStore(string path)
@@ -53,8 +52,25 @@ namespace ZeroInstall.Store.Implementation
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
-            
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            try
+            {
+                path = Path.GetFullPath(path);
+                if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            catch (NotSupportedException ex)
+            {
+                // Wrap exception since only certain exception types are allowed
+                throw new IOException(ex.Message, ex);
+            }
+            #endregion
+
             DirectoryPath = path;
 
             // Ensure the store is backed by a filesystem that can store file-changed times accurate to the second (otherwise ManifestDigets will break)
@@ -65,7 +81,7 @@ namespace ZeroInstall.Store.Implementation
             }
             catch (UnauthorizedAccessException)
             {
-                // Ignore if we cannot verify the time accuracy of read-only stores
+                // Ignore if we cannot verify the timestamp accuracy of read-only stores
             }
         }
         #endregion
@@ -372,7 +388,7 @@ namespace ZeroInstall.Store.Implementation
                         #region Error handling
                         catch (UnauthorizedAccessException ex)
                         {
-                            // Wrap exception since only certain exceptions are allowed in tasks
+                            // Wrap exception since only certain exception types are allowed in tasks
                             throw new IOException(ex.Message, ex);
                         }
                         #endregion

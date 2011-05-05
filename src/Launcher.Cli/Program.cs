@@ -56,8 +56,12 @@ namespace ZeroInstall.Launcher.Cli
             if (args.Length == 0) args = new[] { "--help" };
 
             IHandler handler = new CliHandler();
-            var command = new Run(Policy.CreateDefault(handler));
-            try { command.Parse(args); }
+            CommandBase command;
+            try
+            {
+                command = new Run(Policy.CreateDefault(handler));
+                command.Parse(args);
+            }
             #region Error handling
             catch (UserCancelException)
             {
@@ -75,6 +79,11 @@ namespace ZeroInstall.Launcher.Cli
                 return 1;
             }
             catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return 1;
+            }
+            catch (InvalidDataException ex)
             {
                 Log.Error(ex.Message);
                 return 1;

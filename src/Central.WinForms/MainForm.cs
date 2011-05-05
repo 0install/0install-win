@@ -39,7 +39,7 @@ namespace ZeroInstall.Central.WinForms
     partial class MainForm : Form
     {
         #region Variables
-        private readonly Policy _selfUpdatePolicy;
+        private Policy _policy;
         
         /// <summary>The version number of the newest available update; <see langword="null"/> if no update is available.</summary>
         private ImplementationVersion _selfUpdateVersion;
@@ -53,8 +53,6 @@ namespace ZeroInstall.Central.WinForms
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         public MainForm()
         {
-            _selfUpdatePolicy = Policy.CreateDefault(new SilentHandler());
-            
             InitializeComponent();
 
             browserNewApps.CanGoBackChanged += delegate { toolStripButtonBack.Enabled = browserNewApps.CanGoBack; };
@@ -69,12 +67,37 @@ namespace ZeroInstall.Central.WinForms
 
             // ToDo: Check if the user has any MyApps entries, before showing the "new apps" page
             tabControlApps.SelectedTab = tabPageNewApps;
+        }
+        
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            try { _policy = Policy.CreateDefault(new SilentHandler()); }
+            #region Error handling
+            catch (IOException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+                return;
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+                return;
+            }
+            catch (InvalidDataException ex)
+            {
+                Msg.Inform(this, ex.Message, MsgSeverity.Error);
+                Close();
+                return;
+            }
+            #endregion
 
-            browserNewApps.Navigate(Config.Load().AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
+            browserNewApps.Navigate(_policy.Config.AppStoreHome.Replace("[LANG]", CultureInfo.CurrentUICulture.TwoLetterISOLanguageName));
 
             // Don't check for updates when launched as a Zero Install implementation
             string topDir = Path.GetFileName(Locations.InstallBase) ?? Locations.InstallBase;
-            if (_selfUpdatePolicy.Config.SelfUpdateEnabled && !(topDir.StartsWith("sha") && topDir.Contains("=")))
+            if (_policy.Config.SelfUpdateEnabled && !(topDir.StartsWith("sha") && topDir.Contains("=")))
                 selfUpdateWorker.RunWorkerAsync();
         }
         #endregion
@@ -84,7 +107,7 @@ namespace ZeroInstall.Central.WinForms
         #region Self-update
         private void selfUpdateWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            try { _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_selfUpdatePolicy); }
+            try { _selfUpdateVersion = UpdateUtils.CheckSelfUpdate(_policy); }
             #region Error handling
             catch(UserCancelException) {}
             catch (IOException ex)
@@ -109,7 +132,7 @@ namespace ZeroInstall.Central.WinForms
             {
                 try
                 {
-                    UpdateUtils.RunSelfUpdate(_selfUpdatePolicy);
+                    UpdateUtils.RunSelfUpdate(_policy);
                     Application.Exit();
                 }
                 #region Error handling

@@ -72,7 +72,7 @@ namespace ZeroInstall.Injector
 
         /// <summary>
         /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
-        /// Will be ignored by non-GUI intefaces.
+        /// Returns immediately. Will be ignored by non-GUI intefaces.
         /// </summary>
         /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
         /// <remarks>

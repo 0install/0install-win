@@ -78,6 +78,12 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
+            catch (InvalidDataException ex)
+            {
+                handler.CloseProgressUI();
+                Log.Error(ex.Message);
+                return 1;
+            }
             catch (InvalidInterfaceIDException ex)
             {
                 Log.Error(ex.Message);
@@ -122,17 +128,17 @@ namespace ZeroInstall.Commands.Cli
                 Log.Error(ex.Message);
                 return 1;
             }
-            catch (DigestMismatchException ex)
-            {
-                handler.CloseProgressUI();
-                Log.Error(ex.Message);
-                //if (command.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
-                return 1;
-            }
             catch (InvalidInterfaceIDException ex)
             {
                 handler.CloseProgressUI();
                 Log.Error(ex.Message);
+                return 1;
+            }
+            catch (DigestMismatchException ex)
+            {
+                handler.CloseProgressUI();
+                Log.Error(ex.Message);
+                if (command.Policy.Verbosity >= 1) Log.Info("Generated manifest:\n" + ex.ActualManifest);
                 return 1;
             }
             catch (SolverException ex)

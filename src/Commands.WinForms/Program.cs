@@ -95,6 +95,11 @@ namespace ZeroInstall.Commands.WinForms
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
                     return;
                 }
+                catch (InvalidDataException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    return;
+                }
                 catch (InvalidInterfaceIDException ex)
                 {
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
@@ -160,16 +165,16 @@ namespace ZeroInstall.Commands.WinForms
                     ErrorBox.Show(ex.Message, errorLog.ToString());
                     handler.CloseProgressUI();
                 }
-                catch (DigestMismatchException ex)
-                {
-                    handler.DisableProgressUI();
-                    ErrorBox.Show(ex.Message, errorLog + "\n\nManifest:" + ex.ActualManifest);
-                    handler.CloseProgressUI();
-                }
                 catch (InvalidInterfaceIDException ex)
                 {
                     handler.DisableProgressUI();
                     Msg.Inform(null, ex.Message, MsgSeverity.Warn);
+                    handler.CloseProgressUI();
+                }
+                catch (DigestMismatchException ex)
+                {
+                    handler.DisableProgressUI();
+                    ErrorBox.Show(ex.Message, errorLog + "\n\nManifest:" + ex.ActualManifest);
                     handler.CloseProgressUI();
                 }
                 catch (SolverException ex)

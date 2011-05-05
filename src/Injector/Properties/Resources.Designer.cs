@@ -142,6 +142,15 @@ namespace ZeroInstall.Injector.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading configuration values from &apos;{0}&apos;..
+        /// </summary>
+        internal static string ProblemLoadingConfig {
+            get {
+                return ResourceManager.GetString("ProblemLoadingConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The solver encountered an unexpected problem..
         /// </summary>
         internal static string SolverProblem {

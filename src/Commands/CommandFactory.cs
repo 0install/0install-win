@@ -45,6 +45,9 @@ namespace ZeroInstall.Commands
         /// <param name="handler">A callback object used when the the user needs to be asked questions or is to be about download and IO tasks.</param>
         /// <returns>The requested <see cref="CommandBase"/> or <see cref="DefaultCommand"/> if <paramref name="commandName"/> was <see langword="null"/>.</returns>
         /// <exception cref="OptionException">Thrown if <paramref name="commandName"/> is an unknown command.</exception>
+        /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         private static CommandBase GetCommand(string commandName, IHandler handler)
         {
             var policy = Policy.CreateDefault(handler);
@@ -77,6 +80,7 @@ namespace ZeroInstall.Commands
         /// <exception cref="OptionException">Thrown if <paramref name="args"/> contains unknown options or specified an unknown command.</exception>
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="InvalidDataException">Thrown if a configuration file is damaged.</exception>
         /// <exception cref="InvalidInterfaceIDException">Thrown when trying to set an invalid interface ID.</exception>
         public static CommandBase CreateAndParse(IEnumerable<string> args, IHandler handler)
         {
