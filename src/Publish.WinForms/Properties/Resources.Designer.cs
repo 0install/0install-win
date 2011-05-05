@@ -124,41 +124,6 @@ namespace ZeroInstall.Publish.WinForms.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap NewButton {
-            get {
-                object obj = ResourceManager.GetObject("NewButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap OpenButton {
-            get {
-                object obj = ResourceManager.GetObject("OpenButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap RedoButton {
-            get {
-                object obj = ResourceManager.GetObject("RedoButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap SaveAsButton {
-            get {
-                object obj = ResourceManager.GetObject("SaveAsButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap SaveButton {
-            get {
-                object obj = ResourceManager.GetObject("SaveButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         /// <summary>
         ///   Looks up a localized string similar to &amp;Save
         ///Save changes.
@@ -176,13 +141,6 @@ namespace ZeroInstall.Publish.WinForms.Properties {
         internal static string SaveQuestion {
             get {
                 return ResourceManager.GetString("SaveQuestion", resourceCulture);
-            }
-        }
-        
-        internal static System.Drawing.Bitmap UndoButton {
-            get {
-                object obj = ResourceManager.GetObject("UndoButton", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
