@@ -109,6 +109,8 @@ namespace ZeroInstall.Store.Feeds
         /// <inheritdoc />
         public bool IsPassphraseCorrect(string name, string passphrase)
         {
+            if (string.IsNullOrEmpty(passphrase)) return false;
+
             string tempFilePath = FileUtils.GetTempFile("gpg");
 
             try
