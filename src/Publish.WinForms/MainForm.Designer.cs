@@ -38,7 +38,7 @@ namespace ZeroInstall.Publish.WinForms
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Interface");
+            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("Interface");
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
             this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
@@ -58,6 +58,7 @@ namespace ZeroInstall.Publish.WinForms
             this.labelProgramName = new System.Windows.Forms.Label();
             this.tabPageFeed = new System.Windows.Forms.TabPage();
             this.groupBoxFeedStructure = new System.Windows.Forms.GroupBox();
+            this.btnAddRunner = new System.Windows.Forms.Button();
             this.btnAddRecipe = new System.Windows.Forms.Button();
             this.btnAddArchive = new System.Windows.Forms.Button();
             this.btnAddOverlayBinding = new System.Windows.Forms.Button();
@@ -87,12 +88,9 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
             this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
             this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
-            this.btnAddRunner = new System.Windows.Forms.Button();
             this.buttonAddArchive = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.btnRunner = new System.Windows.Forms.Button();
-            this.feedManager1 = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
@@ -346,6 +344,17 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxFeedStructure.TabStop = false;
             this.groupBoxFeedStructure.Text = "Feed Structure";
             // 
+            // btnAddRunner
+            // 
+            this.btnAddRunner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddRunner.Enabled = false;
+            this.btnAddRunner.Location = new System.Drawing.Point(401, 280);
+            this.btnAddRunner.Name = "btnAddRunner";
+            this.btnAddRunner.Size = new System.Drawing.Size(132, 23);
+            this.btnAddRunner.TabIndex = 10;
+            this.btnAddRunner.Text = "Runner";
+            this.btnAddRunner.UseVisualStyleBackColor = true;
+            // 
             // btnAddRecipe
             // 
             this.btnAddRecipe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -387,11 +396,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode24.Name = "interface";
-            treeNode24.Tag = "";
-            treeNode24.Text = "Interface";
+            treeNode88.Name = "interface";
+            treeNode88.Tag = "";
+            treeNode88.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode24});
+            treeNode88});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 446);
@@ -670,17 +679,6 @@ namespace ZeroInstall.Publish.WinForms
             this.feedEditorToolStrip.TabIndex = 2;
             this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
             // 
-            // btnAddRunner
-            // 
-            this.btnAddRunner.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAddRunner.Enabled = false;
-            this.btnAddRunner.Location = new System.Drawing.Point(401, 280);
-            this.btnAddRunner.Name = "btnAddRunner";
-            this.btnAddRunner.Size = new System.Drawing.Size(132, 23);
-            this.btnAddRunner.TabIndex = 10;
-            this.btnAddRunner.Text = "Runner";
-            this.btnAddRunner.UseVisualStyleBackColor = true;
-            // 
             // buttonAddArchive
             // 
             this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -691,17 +689,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddArchive.TabIndex = 3;
             this.buttonAddArchive.Text = "Archive";
             this.buttonAddArchive.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(401, 280);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(132, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Recipe";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // buttonAddRecipe
             // 
@@ -809,10 +796,8 @@ namespace ZeroInstall.Publish.WinForms
         private FeedManager feedManager;
         private System.Windows.Forms.Button btnAddRunner;
         private System.Windows.Forms.Button buttonAddArchive;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button buttonAddRecipe;
         private System.Windows.Forms.Button btnRunner;
-        private FeedManager feedManager1;
     }
 }
 

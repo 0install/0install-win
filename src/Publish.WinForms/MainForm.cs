@@ -603,8 +603,10 @@ namespace ZeroInstall.Publish.WinForms
         private void CreateNewFeed()
         {
             ValidateChildren();
-            
-            _feedEditing = feedManager.New();
+
+            var newFeedEditing = feedManager.New();
+            if (newFeedEditing == null) return;
+            _feedEditing = newFeedEditing;
 
             OnUpdate();
             InitializeEditingHooks();
@@ -617,7 +619,9 @@ namespace ZeroInstall.Publish.WinForms
         {
             ValidateChildren();
 
-            _feedEditing = feedManager.Open();
+            var openedFeedEditing = feedManager.Open();
+            if (openedFeedEditing == null) return;
+            _feedEditing = openedFeedEditing;
             
             InitializeEditingHooks();
             OnUpdate();
@@ -661,7 +665,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Save and open
-
         /// <summary>
         /// Saves the values from <see cref="tabPageAdvanced"/>.
         /// </summary>
@@ -676,7 +679,7 @@ namespace ZeroInstall.Publish.WinForms
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            feedManager.SaveChanges();
+            if (!feedManager.SaveChanges()) e.Cancel = true;
         }
         #endregion
 

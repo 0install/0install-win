@@ -18,12 +18,10 @@
 using System;
 using System.ComponentModel;
 using System.IO;
-using System.Security;
 using System.Windows.Forms;
 using Common;
 using Common.Controls;
 using ZeroInstall.Model;
-//using ZeroInstall.Publish.WinForms.FeedMa.Properties;
 using ZeroInstall.Publish.WinForms.Properties;
 using ZeroInstall.Store.Feeds;
 
@@ -89,19 +87,19 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Creates a new <see cref="FeedEditing"/> after asking the user for saving changes on <see cref="_feedEditing"/>..
         /// </summary>
-        /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else the old one.</returns>
+        /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else <see langword="null"/>.</returns>
         public FeedEditing New()
         {
-            return SaveChanges(delegate { _feedEditing = new FeedEditing(); });
+            return SaveChanges(delegate { _feedEditing = new FeedEditing(); }) ? _feedEditing : null;
         }
 
         /// <summary>
         /// Opens a <see cref="FeedEditing"/> after asking the user for saving changes on <see cref="_feedEditing"/>..
         /// </summary>
-        /// <returns>The current <see cref="FeedEditing"/>. The opened one if the user allowed it, else the old one.</returns>
+        /// <returns>The current <see cref="FeedEditing"/>. The opened one if the user allowed it, else <see langword="null"/>.</returns>
         public FeedEditing Open()
         {
-            return SaveChanges(OpenFeed);
+            return SaveChanges(OpenFeed) ? _feedEditing : null;
         }
 
         /// <summary>
@@ -139,9 +137,9 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Asks the user for saving changes on <see cref="_feedEditing"/>.
         /// </summary>
-        public void SaveChanges()
+        public bool SaveChanges()
         {
-            SaveChanges(delegate { });
+            return SaveChanges(delegate { });
         }
 
         /// <summary>
@@ -149,7 +147,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="afterSave">Procedure that will be performed after saving the <see cref="Feed"/>.</param>
         /// <returns>The current <see cref="_feedEditing"/></returns>
-        private FeedEditing SaveChanges(SimpleEventHandler afterSave)
+        private bool SaveChanges(SimpleEventHandler afterSave)
         {
             #region Sanity checks
             if (afterSave == null) throw new ArgumentNullException("afterSave");
@@ -158,21 +156,24 @@ namespace ZeroInstall.Publish.WinForms
             if (!_feedEditing.Changed)
             {
                 afterSave();
-                return _feedEditing;
+                return true;
             }
 
             switch (AskSavingChanges())
             {
                 case DialogResult.No:
                     afterSave();
-                    break;
+                    return true;
                 case DialogResult.Yes:
                     if (Save())
+                    {
                         afterSave();
-                    break;
+                        return true;
+                    }
+                    return false;
             }
 
-            return _feedEditing;
+            return false;
         }
 
         /// <summary>
