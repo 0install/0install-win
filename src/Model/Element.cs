@@ -274,6 +274,7 @@ namespace ZeroInstall.Model
             to.Version = from.Version;
             to.VersionModifier = from.VersionModifier;
             to.Released = from.Released;
+            to.Stability = from.Stability;
             to.License = from.License;
             to.Main = from.Main;
             to.SelfTest = from.SelfTest;
