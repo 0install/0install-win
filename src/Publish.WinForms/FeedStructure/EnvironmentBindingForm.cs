@@ -85,7 +85,11 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
         private void UpdateControl()
         {
             ClearControl();
-            if (!String.IsNullOrEmpty(_environmentBinding.Name)) comboBoxName.Text = _environmentBinding.Name;
+            if (!String.IsNullOrEmpty(_environmentBinding.Name))
+            {
+                comboBoxName.Items.Add(_environmentBinding.Name);
+                comboBoxName.SelectedItem = _environmentBinding.Name;
+            }
             if (!String.IsNullOrEmpty(_environmentBinding.Insert)) hintTextBoxInsert.Text = _environmentBinding.Insert;
             comboBoxMode.SelectedItem = _environmentBinding.Mode;
             if (!String.IsNullOrEmpty(_environmentBinding.Default)) hintTextBoxDefault.Text = _environmentBinding.Default;
