@@ -18,10 +18,14 @@
 using System;
 using System.ComponentModel;
 using System.IO;
+using System.Security;
 using System.Windows.Forms;
 using Common;
+using Common.Controls;
 using ZeroInstall.Model;
+//using ZeroInstall.Publish.WinForms.FeedMa.Properties;
 using ZeroInstall.Publish.WinForms.Properties;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish.WinForms
 {
@@ -30,13 +34,33 @@ namespace ZeroInstall.Publish.WinForms
     /// </summary>
     public partial class FeedManager : Component
     {
-        #region Variables
+        #region Properties
+        /// <summary>
+        /// The <see cref="OpenPgpSecretKey"/> with the key will be signed. The <see cref="Feed"/> will not be signed if it's the default key.
+        /// </summary>
+        public OpenPgpSecretKey SigningKey
+        {
+            get { return _signingKey; }
+            set
+            {
+                if (_signingKey.Equals(value)) return;
+                _signingKey = value;
+                _signingKeyPassphrase = null;
+            }
+        }
+        #endregion
 
+        #region Variables
         /// <summary>
         /// The current <see cref="FeedEditing" /> to edit.
         /// </summary>
         private FeedEditing _feedEditing = new FeedEditing();
+        /// <summary>
+        /// The <see cref="OpenPgpSecretKey"/> with the key will be signed. The <see cref="Feed"/> will not be signed if it's the default key.
+        /// </summary>
+        private OpenPgpSecretKey _signingKey;
 
+        private string _signingKeyPassphrase;
         #endregion
 
         #region Constructor
@@ -61,8 +85,7 @@ namespace ZeroInstall.Publish.WinForms
 
         //--------------------//
 
-        #region New/Open/SaveChanges
-
+        #region New/Open
         /// <summary>
         /// Creates a new <see cref="FeedEditing"/> after asking the user for saving changes on <see cref="_feedEditing"/>..
         /// </summary>
@@ -86,6 +109,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         private void OpenFeed()
         {
+            //TODO: determine the signature key
             if (openFileDialog.ShowDialog(null) != DialogResult.OK) return;
 
             try
@@ -109,7 +133,9 @@ namespace ZeroInstall.Publish.WinForms
 
             openFileDialog.FileName = _feedEditing.Path;
         }
+        #endregion
 
+        #region Save
         /// <summary>
         /// Asks the user for saving changes on <see cref="_feedEditing"/>.
         /// </summary>
@@ -158,9 +184,6 @@ namespace ZeroInstall.Publish.WinForms
             return Msg.Choose(null, Resources.SaveQuestion, MsgSeverity.Info, true,
                               Resources.SaveChanges, Resources.DiscardChanges);
         }
-        #endregion
-
-        #region Save
 
         /// <summary>
         /// Saves the <see cref="Feed"/> under the current path or asks for path if necessary.
@@ -168,7 +191,9 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the saving was successful, else <see langword="false"/>.</returns>
         public bool Save()
         {
-            return string.IsNullOrEmpty(_feedEditing.Path) ? SaveAs() : SaveAs(_feedEditing.Path);
+            if (string.IsNullOrEmpty(_feedEditing.Path)) return SaveAs();
+
+            return NeedsPassphrase() ? AskForPassphrase() && SaveAs(_feedEditing.Path) : SaveAs(_feedEditing.Path);
         }
 
         /// <summary>
@@ -177,11 +202,13 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns><see langword="true"/>, if the saving was successful, else <see langword="false"/>.</returns>
         public bool SaveAs()
         {
-            return (saveFileDialog.ShowDialog(null) == DialogResult.OK && SaveAs(saveFileDialog.FileName));
+            if (NeedsPassphrase()) return saveFileDialog.ShowDialog(null) == DialogResult.OK && AskForPassphrase() &&
+                       SaveAs(saveFileDialog.FileName);
+            return saveFileDialog.ShowDialog(null) == DialogResult.OK && SaveAs(saveFileDialog.FileName);
         }
 
         /// <summary>
-        /// Saves the <see cref="Feed"/>.
+        /// Saves the <see cref="Feed"/> with a signature.
         /// </summary>
         /// <param name="path">Where to save the <see cref="Feed"/>.</param>
         /// <returns><see langword="true"/>, if the saving was successful, else <see langword="false"/>.</returns>
@@ -190,6 +217,7 @@ namespace ZeroInstall.Publish.WinForms
             try
             {
                 _feedEditing.Save(path);
+                if (!string.IsNullOrEmpty(_signingKeyPassphrase)) FeedUtils.SignFeed(_feedEditing.Path, _signingKey.KeyID, _signingKeyPassphrase);
             }
             #region Error handling
             catch (IOException exception)
@@ -206,6 +234,42 @@ namespace ZeroInstall.Publish.WinForms
 
             saveFileDialog.FileName = _feedEditing.Path;
             return true;
+        }
+        #endregion
+
+        #region Passphrase
+        /// <summary>
+        /// Checks whether the stored passphrase is actual.
+        /// </summary>
+        /// <returns><see langword="true"/>, if the passphrase is needed, else <see langword="false"/>.</returns>
+        private bool NeedsPassphrase()
+        {
+            return string.IsNullOrEmpty(_signingKeyPassphrase) && !default(OpenPgpSecretKey).Equals(_signingKey);
+        }
+        /// <summary>
+        /// Asks the user for the passphrase of his secret key.
+        /// </summary>
+        /// <returns><see langword="true"/>, if the user entered the correct passphrase, <see langword="false"/> if the user aborted.</returns>
+        private bool AskForPassphrase()
+        {
+            bool wrongPassphrase = false;
+            while(true)
+            {
+                string passphraseMessage = String.Format(wrongPassphrase
+                    ? Resources.WrongPassphrase
+                    : Resources.AskForPassphrase, _signingKey.UserID);
+                string passphrase = InputBox.Show(null, Resources.AskForPassphraseTitle, passphraseMessage, String.Empty, true);
+
+                if (passphrase == null) return false;
+
+                if ((passphrase != string.Empty) && OpenPgpProvider.Default.IsPassphraseCorrect(_signingKey.UserID, passphrase))
+                {
+                    _signingKeyPassphrase = passphrase;
+                    return true;
+                }
+
+                wrongPassphrase = true;
+            }
         }
         #endregion
     }

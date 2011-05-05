@@ -382,6 +382,7 @@ namespace ZeroInstall.Publish.WinForms
             feedEditorToolStrip.SaveAs += SaveFeedAs;
             feedEditorToolStrip.Undo += Undo;
             feedEditorToolStrip.Redo += Redo;
+            feedEditorToolStrip.SecretKeyChanged += newSigningKey => feedManager1.SigningKey = newSigningKey;
         }
 
         #endregion
@@ -628,8 +629,7 @@ namespace ZeroInstall.Publish.WinForms
             ValidateChildren();
             SaveAdvancedTab();
 
-            if (feedManager1.Save())
-                SignFeed(_feedEditing.Path);
+            feedManager1.Save();
         }
 
         /// <summary>
@@ -640,8 +640,7 @@ namespace ZeroInstall.Publish.WinForms
             ValidateChildren();
             SaveAdvancedTab();
 
-            if (feedManager1.SaveAs())
-                SignFeed(_feedEditing.Path);
+            feedManager1.SaveAs();
         }
 
         private void Undo()
@@ -676,37 +675,6 @@ namespace ZeroInstall.Publish.WinForms
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             feedManager1.SaveChanges();
-        }
-
-        /// <summary>
-        /// Asks the user for his/her GnuPG passphrase and adds the Base64 signature of the given file to the end of it.
-        /// </summary>
-        /// <param name="path">The feed file to sign.</param>
-        private void SignFeed(string path)
-        {
-            bool wrongPassphrase = false;
-
-            if (string.IsNullOrEmpty(feedEditorToolStrip.SelectedSecretKey.UserID)) return;
-            var key = feedEditorToolStrip.SelectedSecretKey;
-            do
-            {
-                string passphrase = InputBox.Show(this,
-                    (wrongPassphrase
-                         ? "Wrong passphrase entered.\nPlease retry entering the GnuPG passphrase for "
-                         : "Please enter the GnuPG passphrase for ") + key.UserID,
-                    "Enter GnuPG passphrase", String.Empty, true);
-
-                if (passphrase == null) return;
-
-                try
-                {
-                    FeedUtils.SignFeed(path, key.KeyID, passphrase);
-                }
-                catch (WrongPassphraseException)
-                {
-                    wrongPassphrase = true;
-                }
-            } while (wrongPassphrase);
         }
         #endregion
 

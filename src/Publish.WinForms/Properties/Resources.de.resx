@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>Bitte geben Sie die GnuPG Passphrase für {0} ein.</value>
+  </data>
+  <data name="AskForPassphraseTitle" xml:space="preserve">
+    <value>GnuPG Passphrase eingeben</value>
+  </data>
   <data name="AutoDetect" xml:space="preserve">
     <value>(automatisch)</value>
   </data>
@@ -140,5 +146,9 @@ Ungespeicherte Änderungen verwerfen</value>
   <data name="SaveQuestion" xml:space="preserve">
     <value>Achtung, ungespeicherte Änderungen gehen verloren.
 Möchten Sie die Änderungen speichern?</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Passphrase falsch.
+Bitte geben Sie die GnuPG Passphrase für {0} erneut ein.</value>
   </data>
 </root>

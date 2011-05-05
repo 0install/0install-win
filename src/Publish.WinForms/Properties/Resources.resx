@@ -160,4 +160,14 @@ Save changes</value>
     <value>Attention, unsaved changes will be deleted.
 Do you like to save the changes?</value>
   </data>
+  <data name="AskForPassphrase" xml:space="preserve">
+    <value>Please enter the GnuPG passphrase for {0}</value>
+  </data>
+  <data name="AskForPassphraseTitle" xml:space="preserve">
+    <value>Enter GnuPG passphrase</value>
+  </data>
+  <data name="WrongPassphrase" xml:space="preserve">
+    <value>Wrong passphrase entered.
+Please retry entering the GnuPG passphrase for {0}</value>
+  </data>
 </root>
