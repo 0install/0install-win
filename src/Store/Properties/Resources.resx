@@ -216,4 +216,15 @@ New time: {2}</value>
   <data name="InvalidSignature" xml:space="preserve">
     <value>The signature is invalid or damaged.</value>
   </data>
+  <data name="ProblemAccessingStore" xml:space="preserve">
+    <value>There was a problem accessing the implementation store '{0}'.</value>
+  </data>
+  <data name="ProblemAccessingStoreEx" xml:space="preserve">
+    <value>There was a problem accessing the implementation store '{0}'.
+Specified in the configuration file '{1}'.</value>
+  </data>
+  <data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>The path '{0}' is not an absolute path. Relative paths are only allowed in portable mode.
+Specified in the configuration file '{1}'.</value>
+  </data>
 </root>

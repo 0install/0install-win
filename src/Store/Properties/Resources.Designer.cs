@@ -244,6 +244,16 @@ namespace ZeroInstall.Store.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The path &apos;{0}&apos; is not an absolute path. Relative paths are only allowed in portable mode.
+        ///Specified in the configuration file &apos;{1}&apos;..
+        /// </summary>
+        internal static string NonRootedPathInConfig {
+            get {
+                return ResourceManager.GetString("NonRootedPathInConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The number value is too large..
         /// </summary>
         internal static string NumberTooLarge {
@@ -258,6 +268,25 @@ namespace ZeroInstall.Store.Properties {
         internal static string PathNotRelative {
             get {
                 return ResourceManager.GetString("PathNotRelative", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem accessing the implementation store &apos;{0}&apos;..
+        /// </summary>
+        internal static string ProblemAccessingStore {
+            get {
+                return ResourceManager.GetString("ProblemAccessingStore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was a problem accessing the implementation store &apos;{0}&apos;.
+        ///Specified in the configuration file &apos;{1}&apos;..
+        /// </summary>
+        internal static string ProblemAccessingStoreEx {
+            get {
+                return ResourceManager.GetString("ProblemAccessingStoreEx", resourceCulture);
             }
         }
         

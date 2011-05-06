@@ -29,8 +29,8 @@ namespace ZeroInstall.Fetchers
         /// <summary>
         /// Creates an <see cref="IFetcher"/> instance that uses <see cref="StoreProvider.CreateDefault"/>.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
+        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IFetcher CreateDefault()
         {
             return new Fetcher(StoreProvider.CreateDefault());

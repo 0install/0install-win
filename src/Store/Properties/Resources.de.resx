@@ -216,4 +216,15 @@ Neue Zeit: {2}</value>
   <data name="InvalidSignature" xml:space="preserve">
     <value>Die Signatur ist ungültig oder beschädigt.</value>
   </data>
+  <data name="ProblemAccessingStore" xml:space="preserve">
+    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.</value>
+  </data>
+	<data name="ProblemAccessingStoreEx" xml:space="preserve">
+    <value>Es gab ein Problem beim Zugriff auf den Implementierungs-Store '{0}'.
+Festgelegt in der Konfigurationsdatei '{1}'.</value>
+  </data>
+	<data name="NonRootedPathInConfig" xml:space="preserve">
+    <value>Der Pfad '{0}' ist nicht absolut. Relative Pfade sind nur im Portable Modus erlaubt.
+Festgelegt in der Konfigurationsdatei '{1}'.</value>
+  </data>
 </root>

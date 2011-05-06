@@ -17,8 +17,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Text;
 using Common.Storage;
+using ZeroInstall.Store.Properties;
 
 namespace ZeroInstall.Store.Implementation
 {
@@ -30,8 +33,8 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Creates an <see cref="IStore"/> instance that uses the default cache locations.
         /// </summary>
-        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
-        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file or one of the stores was not permitted.</exception>
         public static IStore CreateDefault()
         {
             return new CompositeStore(GetStores());
@@ -40,11 +43,72 @@ namespace ZeroInstall.Store.Implementation
         /// <summary>
         /// Returns a list of <see cref="IStore"/>s representing all local cache directories and the <see cref="ServiceStore"/>.
         /// </summary>
+        /// <exception cref="IOException">Thrown if a directory could not be created or if the underlying filesystem of the user profile can not store file-changed times accurate to the second.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory was not permitted.</exception>
         private static IEnumerable<IStore> GetStores()
         {
-            foreach (var path in Locations.GetCachePath("0install.net", "implementations"))
-                yield return new DirectoryStore(path);
-            yield return new ServiceStore();
+            string[] customPaths = GetCustomImplementationDirs();
+            IEnumerable<string> paths = (customPaths.Length != 0 ? customPaths : Locations.GetCachePath("0install.net", "implementations"));
+
+            var stores = new C5.LinkedList<IStore>();
+            foreach (var path in paths)
+            {
+                try { stores.Add(new DirectoryStore(path)); }
+                #region Error handling
+                catch (IOException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(string.Format(Resources.ProblemAccessingStore, path) + "\n" + ex.Message, ex);
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new UnauthorizedAccessException(string.Format(Resources.ProblemAccessingStore, path) + "\n" + ex.Message, ex);
+                }
+                #endregion
+            }
+            stores.Add(new ServiceStore());
+
+            return stores;
+        }
+
+        /// <summary>
+        /// Returns a list of custom paths for implementation directories / stores as defined by configuration files.
+        /// </summary>
+        /// <exception cref="IOException">Thrown if there was a problem accessing a configuration file or one of the stores.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if access to a configuration file was not permitted.</exception>
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Reads data from a config file with no caching")]
+        private static string[] GetCustomImplementationDirs()
+        {
+            var paths = new C5.LinkedList<string>();
+            foreach (string configFile in Locations.GetLoadConfigPaths("0install.net", Path.Combine("injector", "implementation-dirs"), false))
+            {
+                // Read file lines using UTF-8 with BOM
+                foreach (string line in File.ReadAllLines(configFile, Encoding.UTF8))
+                {
+                    if (line.StartsWith("#") || string.IsNullOrEmpty(line)) continue;
+                    string path = Environment.ExpandEnvironmentVariables(line);
+
+                    try
+                    {
+                        if (!Path.IsPathRooted(path))
+                        {
+                            if (Locations.IsPortable) path = Path.Combine(Locations.PortableBase, path);
+                            else throw new IOException(string.Format(Resources.NonRootedPathInConfig, path, configFile));
+                        }
+                    }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new IOException(string.Format(Resources.ProblemAccessingStoreEx, path, configFile) + "\n" + ex.Message, ex);
+                    }
+                    #endregion
+
+                    paths.Add(path);
+                }
+            }
+            return paths.ToArray();
         }
     }
 }
