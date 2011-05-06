@@ -429,6 +429,43 @@ namespace Common.Storage
         }
 
         /// <summary>
+        /// Determines a path for a cache directory that does not roam across different machines.
+        /// </summary>
+        /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
+        /// <param name="resource">The directory name of the resource to be stored.</param>
+        /// <returns>A fully qualified path to use to store the resource.</returns>
+        /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
+        /// <remarks>Any directories that are a part of the <paramref name="resource"/> are guaranteed to exist.</remarks>
+        public static string GetUserCachePath(string appName, string resource)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
+            if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
+            #endregion
+
+            string path;
+            try
+            {
+                path = IsPortable
+                    ? FileUtils.PathCombine(PortableBase, "cache", resource)
+                    : FileUtils.PathCombine(UserCacheDir, appName, resource);
+            }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception to add context information
+                throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
+            }
+            #endregion
+
+            // Ensure the directory exists
+            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+
+            return path;
+        }
+
+        /// <summary>
         /// Determines a list of paths for cache directories that do not roam across different machines.
         /// </summary>
         /// <param name="appName">The name of application. Used as part of the path, unless <see cref="IsPortable"/> is <see langword="true"/>.</param>
@@ -440,7 +477,7 @@ namespace Common.Storage
         /// <exception cref="IOException">Thrown if a problem occurred while creating a directory.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if creating a directory is not permitted.</exception>
         /// <remarks>The returned directories are guaranteed to exist. At least the first directory is usually writable.</remarks>
-        public static IEnumerable<string> GetCachePath(string appName, string resource)
+        public static IEnumerable<string> GetCachePaths(string appName, string resource)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(appName)) throw new ArgumentNullException("appName");
