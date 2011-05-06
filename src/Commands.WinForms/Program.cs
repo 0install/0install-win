@@ -181,7 +181,7 @@ namespace ZeroInstall.Commands.WinForms
                 {
                     handler.DisableProgressUI();
                     ErrorBox.Show(ex.Message, errorLog.ToString());
-                    handler.DisableProgressUI();
+                    handler.CloseProgressUI();
                 }
                 catch (ImplementationNotFoundException ex)
                 {
