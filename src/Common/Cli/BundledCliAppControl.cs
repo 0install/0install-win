@@ -45,7 +45,7 @@ namespace Common.Cli
             // Use the installation directory of the launching application since the current directory may be arbitrary
             return Directory.Exists(Path.Combine(Locations.InstallBase, name))
                 ? Path.Combine(Locations.InstallBase, name)
-                : StringUtils.PathCombine(Locations.InstallBase, "..", "..", "Bundled", name);
+                : FileUtils.PathCombine(Locations.InstallBase, "..", "..", "Bundled", name);
         }
 
         /// <summary>

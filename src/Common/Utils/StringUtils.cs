@@ -364,30 +364,7 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Files
-        /// <summary>
-        /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
-        /// </summary>
-        public static string UnifySlashes(string value)
-        {
-            if (value == null) return null;
-            return value.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
-        }
-
-        /// <summary>
-        /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
-        /// </summary>
-        /// <returns><see langword="null"/> if <paramref name="parts"/> was <see langword="null"/> or empty.</returns>
-        public static string PathCombine(params string[] parts)
-        {
-            if (parts == null || parts.Length == 0) return null;
-
-            string temp = parts[0];
-            for (int i = 1; i < parts.Length; i++)
-                temp = Path.Combine(temp, parts[i]);
-            return temp;
-        }
-
+        #region File size
         /// <summary>
         /// Formats a byte number in human-readable form (KB, MB, GB).
         /// </summary>

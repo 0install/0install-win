@@ -138,7 +138,7 @@ namespace ZeroInstall.Publish.WinForms.FeedStructure
 
                     string extractedArchiveDir = archiveControl.ExtractedArchivePath;
                     string subfolder = archiveControl.Archive.Extract;
-                    var completeSourceDir = Path.Combine(extractedArchiveDir, StringUtils.UnifySlashes(subfolder ?? ""));
+                    var completeSourceDir = Path.Combine(extractedArchiveDir, FileUtils.UnifySlashes(subfolder ?? ""));
                     FileUtils.CopyDirectory(completeSourceDir, tempDir.Path, true, true);
                     _recipe.Steps.Add(archiveControl.Archive);
                 }

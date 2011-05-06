@@ -35,6 +35,32 @@ namespace Common.Utils
     /// </summary>
     public static class FileUtils
     {
+        #region Paths
+        /// <summary>
+        /// Replaces all slashes (forward and backward) with <see cref="Path.DirectorySeparatorChar"/>.
+        /// </summary>
+        public static string UnifySlashes(string value)
+        {
+            if (value == null) return null;
+            return value.Replace('\\', Path.DirectorySeparatorChar).Replace('/', Path.DirectorySeparatorChar);
+        }
+
+        /// <summary>
+        /// Works like <see cref="Path.Combine"/> but supports an arbitrary number of arguments.
+        /// </summary>
+        /// <returns><see langword="null"/> if <paramref name="parts"/> was <see langword="null"/> or empty.</returns>
+        /// <exception cref="ArgumentException">Thrown if any of the <paramref name="parts"/> contains charachters <see cref="Path.GetInvalidPathChars"/>.</exception>
+        public static string PathCombine(params string[] parts)
+        {
+            if (parts == null || parts.Length == 0) return null;
+
+            string temp = parts[0];
+            for (int i = 1; i < parts.Length; i++)
+                temp = Path.Combine(temp, parts[i]);
+            return temp;
+        }
+        #endregion
+
         #region Hash
         /// <summary>
         /// Computes the hash value of the content of a file.

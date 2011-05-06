@@ -172,6 +172,9 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="InvalidConfigDir" xml:space="preserve">
+    <value>The configuration directory '{0}' is probably invalid.</value>
+  </data>
   <data name="ItemAlreadyInPool" xml:space="preserve">
     <value>The item is already in a pool. It can not be added to more than one pool.</value>
   </data>

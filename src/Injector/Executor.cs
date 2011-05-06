@@ -113,7 +113,7 @@ namespace ZeroInstall.Injector
             // Replace first command with custom main if specified
             if (!string.IsNullOrEmpty(Main))
             {
-                string mainPath = StringUtils.UnifySlashes(Main);
+                string mainPath = FileUtils.UnifySlashes(Main);
                 mainPath = (mainPath[0] == Path.DirectorySeparatorChar)
                     // Relative to implementation root
                     ? mainPath.TrimStart(Path.DirectorySeparatorChar)
@@ -268,7 +268,7 @@ namespace ZeroInstall.Injector
 
             string newValue = string.IsNullOrEmpty(binding.Value)
                 // A path inside the implementation
-                ? Path.Combine(implementationDirectory, StringUtils.UnifySlashes(binding.Insert ?? ""))
+                ? Path.Combine(implementationDirectory, FileUtils.UnifySlashes(binding.Insert ?? ""))
                 // A static value
                 : binding.Value;
             
@@ -313,7 +313,7 @@ namespace ZeroInstall.Injector
         /// <remarks>This method can only be called successfully once per <see cref="GetStartInfo"/>.</remarks>
         private void ApplyWorkingDir(ProcessStartInfo startInfo, ImplementationSelection implementation, WorkingDir workingDir)
         {
-            string source = StringUtils.UnifySlashes(workingDir.Source) ?? "";
+            string source = FileUtils.UnifySlashes(workingDir.Source) ?? "";
             if (Path.IsPathRooted(source) || source.Contains(".." + Path.DirectorySeparatorChar)) throw new CommandException(Resources.WorkingDirInvalidPath);
 
             // Only allow working directory to be changed once
@@ -341,7 +341,7 @@ namespace ZeroInstall.Injector
         /// <exception cref="CommandException">Thrown if <paramref name="command"/>'s path is empty, not relative or tries to point outside the implementation directory.</exception>
         private string GetPath(ImplementationSelection implementation, Command command)
         {
-            string path = StringUtils.UnifySlashes(command.Path);
+            string path = FileUtils.UnifySlashes(command.Path);
 
             // Fully qualified paths are used by package/native implementatinos
             if (Path.IsPathRooted(path)) return path;

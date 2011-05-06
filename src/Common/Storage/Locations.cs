@@ -23,6 +23,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Common.Properties;
 using Common.Utils;
 
 namespace Common.Storage
@@ -258,9 +259,20 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
             #endregion
 
-            string path = IsPortable
-                ? StringUtils.PathCombine(PortableBase, "config", resource)
-                : StringUtils.PathCombine(UserConfigDir, appName, resource);
+            string path;
+            try
+            {
+                path = IsPortable
+                    ? FileUtils.PathCombine(PortableBase, "config", resource)
+                    : FileUtils.PathCombine(UserConfigDir, appName, resource);
+            }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception to add context information
+                throw new IOException(string.Format(Resources.InvalidConfigDir, UserConfigDir) + "\n" + ex.Message, ex);
+            }
+            #endregion
 
             // Ensure the directory part of the path exists
             string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
@@ -291,19 +303,33 @@ namespace Common.Storage
             if (IsPortable)
             {
                 // Check in portable base directory
-                path = StringUtils.PathCombine(PortableBase, "config", resource);
+                path = FileUtils.PathCombine(PortableBase, "config", resource);
                 if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
             }
             else
             {
                 // Check in user profile
-                path = StringUtils.PathCombine(UserConfigDir, appName, resource);
+                try { path = FileUtils.PathCombine(UserConfigDir, appName, resource); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserConfigDir) + "\n" + ex.Message, ex);
+                }
+                #endregion
                 if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemConfigDirs.Split(Path.PathSeparator))
                 {
-                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
+                    }
+                    #endregion
                     if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
                 }
             }
@@ -326,9 +352,20 @@ namespace Common.Storage
             if (string.IsNullOrEmpty(resource)) throw new ArgumentNullException("resource");
             #endregion
 
-            string path = IsPortable
-                ? StringUtils.PathCombine(PortableBase, "data", resource)
-                : StringUtils.PathCombine(UserDataDir, appName, resource);
+            string path;
+            try
+            {
+                path = IsPortable
+                    ? FileUtils.PathCombine(PortableBase, "data", resource)
+                    : FileUtils.PathCombine(UserDataDir, appName, resource);
+            }
+            #region Error handling
+            catch (ArgumentException ex)
+            {
+                // Wrap exception to add context information
+                throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
+            }
+            #endregion
 
             // Ensure the directory part of the path exists
             string dirPath = isDirectory ? path : (Path.GetDirectoryName(path) ?? path);
@@ -359,19 +396,33 @@ namespace Common.Storage
             if (IsPortable)
             {
                 // Check in portable base directory
-                path = StringUtils.PathCombine(PortableBase, "data", resource);
+                path = FileUtils.PathCombine(PortableBase, "data", resource);
                 if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
             }
             else
             {
                 // Check in user profile
-                path = StringUtils.PathCombine(UserDataDir, appName, resource);
+                try { path = FileUtils.PathCombine(UserDataDir, appName, resource); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserDataDir) + "\n" + ex.Message, ex);
+                }
+                #endregion
                 if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemDataDirs.Split(Path.PathSeparator))
                 {
-                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
+                    }
+                    #endregion
                     if ((!isDirectory && File.Exists(path)) || (isDirectory && Directory.Exists(path))) yield return path;
                 }
             }
@@ -400,21 +451,35 @@ namespace Common.Storage
             if (IsPortable)
             {
                 // Create in portable base directory
-                path = StringUtils.PathCombine(PortableBase, "cache", resource);
+                path = FileUtils.PathCombine(PortableBase, "cache", resource);
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
             }
             else
             {
                 // Create in user profile
-                path = StringUtils.PathCombine(UserCacheDir, appName, resource);
+                try { path = FileUtils.PathCombine(UserCacheDir, appName, resource); }
+                #region Error handling
+                catch (ArgumentException ex)
+                {
+                    // Wrap exception to add context information
+                    throw new IOException(string.Format(Resources.InvalidConfigDir, UserCacheDir) + "\n" + ex.Message, ex);
+                }
+                #endregion
                 if (!Directory.Exists(path)) Directory.CreateDirectory(path);
                 yield return path;
 
                 // Check in system directories
                 foreach (var dirPath in SystemCacheDirs.Split(Path.PathSeparator))
                 {
-                    path = StringUtils.PathCombine(dirPath, appName, resource);
+                    try { path = FileUtils.PathCombine(dirPath, appName, resource); }
+                    #region Error handling
+                    catch (ArgumentException ex)
+                    {
+                        // Wrap exception to add context information
+                        throw new IOException(string.Format(Resources.InvalidConfigDir, dirPath) + "\n" + ex.Message, ex);
+                    }
+                    #endregion
                     if (Directory.Exists(path)) yield return path;
                 }
             }

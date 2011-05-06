@@ -62,7 +62,7 @@ namespace ZeroInstall.Store.Implementation
                     if (currentLine != null && currentLine.StartsWith("/"))
                     {
                         // Trim away the first slash and then replace Unix-style slashes
-                        string relativePath = StringUtils.UnifySlashes(currentLine.Substring(1));
+                        string relativePath = FileUtils.UnifySlashes(currentLine.Substring(1));
                         externalFlags.Add(Path.Combine(flagDir, relativePath));
                     }
                 }

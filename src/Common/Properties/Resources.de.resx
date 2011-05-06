@@ -119,10 +119,10 @@
   </resheader>
   <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
     <value>Konnte Fehlerberichtdatei nicht erstellen. Bitte senden Sie die technischen Details per E-Mail.</value>
-	</data>
+  </data>
   <data name="ErrorReportSent" xml:space="preserve">
     <value>Der Fehlerbericht wurde erfolgreich versendet.</value>
-	</data>
+  </data>
   <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
     <value>Die Content Archive wurden bereits geladen.</value>
   </data>
@@ -158,6 +158,9 @@
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ja</value>
+  </data>
+  <data name="InvalidConfigDir" xml:space="preserve">
+    <value>Das Konfigurationsverzeichnis '{0}' ist vermutlich ungültig.</value>
   </data>
   <data name="ItemAlreadyInPool" xml:space="preserve">
     <value>Dieses Element befindet sich bereits in einem Pool. Es kann maxmimal einem Pool hinzugefügt werden.</value>

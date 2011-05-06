@@ -170,7 +170,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         /// <returns>The trimmed path or <see langword="null"/> if the <paramref name="entryName"/> doesn't lie within the <see cref="SubDir"/>.</returns>
         protected string GetSubEntryName(string entryName)
         {
-            entryName = StringUtils.UnifySlashes(entryName);
+            entryName = FileUtils.UnifySlashes(entryName);
 
             // Remove leading slashes
             entryName = entryName.TrimStart(Path.DirectorySeparatorChar);

@@ -244,6 +244,15 @@ namespace Common.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The configuration directory &apos;{0}&apos; is probably invalid..
+        /// </summary>
+        internal static string InvalidConfigDir {
+            get {
+                return ResourceManager.GetString("InvalidConfigDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The item is already in a pool. It can not be added to more than one pool..
         /// </summary>
         internal static string ItemAlreadyInPool {

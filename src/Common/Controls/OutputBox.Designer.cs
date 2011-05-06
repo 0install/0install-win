@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputBox));
             this.buttonOK = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.textMessage = new System.Windows.Forms.TextBox();
@@ -95,7 +94,6 @@
             this.Controls.Add(this.textMessage);
             this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.buttonOK);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(350, 140);

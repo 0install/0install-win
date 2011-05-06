@@ -20,6 +20,7 @@
  * THE SOFTWARE.
  */
 
+using System;
 using System.Text;
 
 namespace Common.Controls
@@ -41,6 +42,10 @@ namespace Common.Controls
         /// <param name="color">The color of the text.</param>
         public void AppendPar(string text, RtfColor color)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
+            #endregion
+
             _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text.Replace(@"\", @"\\") + "\\par\\par");
         }
 

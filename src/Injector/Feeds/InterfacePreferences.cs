@@ -96,7 +96,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <returns>The loaded <see cref="InterfacePreferences"/>.</returns>
         public static InterfacePreferences LoadFor(string interfaceID)
         {
-            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", StringUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false));
+            var path = EnumerableUtils.GetFirst(Locations.GetLoadConfigPaths("0install.net", FileUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false));
             if (string.IsNullOrEmpty(path)) return new InterfacePreferences();
 
             try { return XmlStorage.Load<InterfacePreferences>(path); }
@@ -129,7 +129,7 @@ namespace ZeroInstall.Injector.Feeds
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void SaveFor(string interfaceID)
         {
-            var path = Locations.GetSaveConfigPath("0install.net", StringUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false);
+            var path = Locations.GetSaveConfigPath("0install.net", FileUtils.PathCombine("injector", "interfaces", ModelUtils.PrettyEscape(interfaceID)), false);
             XmlStorage.Save(path, this);
         }
         #endregion
