@@ -178,10 +178,9 @@ namespace ZeroInstall.Commands
 
             // Allow the user to trigger a Solver rerun after modifying preferences
             if (ShowSelectionsUI && !SelectionsDocument)
-            {
                 Policy.Handler.AuditSelections(() => Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds));
-                Policy.Config.Save();
-            }
+
+            if (Canceled) throw new UserCancelException();
         }
 
         /// <summary>
