@@ -46,7 +46,8 @@ namespace Common.Controls
             if (string.IsNullOrEmpty(text)) throw new ArgumentNullException("text");
             #endregion
 
-            _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text.Replace(@"\", @"\\") + "\\par\\par");
+            text = text.Replace(@"\", @"\\").Replace(Environment.NewLine, "\\par");
+            _builder.AppendLine("\\cf" + ((int)color + 1) + " " + text + "\\par\\par");
         }
 
         /// <inheritdoc/>

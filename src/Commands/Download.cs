@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Common;
 using Common.Collections;
 using NDesk.Options;
@@ -109,7 +110,11 @@ namespace ZeroInstall.Commands
         {
             base.Solve();
 
-            UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache);
+            try { UncachedImplementations = Selections.ListUncachedImplementations(Policy.Fetcher.Store, Policy.FeedManager.Cache); }
+            catch(InvalidOperationException ex)
+            {
+                throw new SolverException(ex.Message, ex);
+            }
         }
 
         /// <summary>

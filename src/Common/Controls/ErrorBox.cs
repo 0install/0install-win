@@ -57,6 +57,8 @@ namespace Common.Controls
             if (string.IsNullOrEmpty(detailsRtf)) throw new ArgumentNullException("detailsRtf");
             #endregion
 
+            Log.Error(message);
+
             using (var errorBox = new ErrorBox
             {
                 Text = Application.ProductName,

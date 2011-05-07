@@ -142,6 +142,15 @@ namespace ZeroInstall.Model.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was a problem loading &apos;{0}&apos;..
+        /// </summary>
+        internal static string ProblemLoading {
+            get {
+                return ResourceManager.GetString("ProblemLoading", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The modifier is unknown..
         /// </summary>
         internal static string UnknownModifier {

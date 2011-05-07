@@ -20,8 +20,10 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Xml.Serialization;
+using Common;
 using Common.Collections;
 using Common.Storage;
+using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
 {
@@ -267,7 +269,21 @@ namespace ZeroInstall.Model
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Feed Load(string path)
         {
-            return XmlStorage.Load<Feed>(path);
+            try { return XmlStorage.Load<Feed>(path); }
+            #region Error handling
+            catch (InvalidOperationException ex)
+            {
+                // Write additional diagnostic information to log
+                if (ex.Source == "System.Xml")
+                {
+                    string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
+                    if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
+                    Log.Error(message);
+                }
+
+                throw;
+            }
+            #endregion
         }
 
         /// <summary>
