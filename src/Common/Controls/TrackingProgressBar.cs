@@ -22,7 +22,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Threading;
 using System.Windows.Forms;
 using Common.Tasks;
 using Common.Utils;
@@ -57,11 +56,11 @@ namespace Common.Controls
                 #endregion
 
                 // Remove all delegates from old _task
-                HookOut();
+                if (_task != null) HookOut();
 
                 _task = value;
 
-                HookIn();
+                if (_task != null) HookIn();
             }
             get { return _task; }
         }
@@ -71,8 +70,6 @@ namespace Common.Controls
         /// </summary>
         private void HookIn()
         {
-            if (_task == null) return;
-
             // Get the initial values
             StateChanged(_task);
             ProgressChanged(_task);
@@ -86,8 +83,6 @@ namespace Common.Controls
         /// </summary>
         private void HookOut()
         {
-            if (_task == null) return;
-
             _task.StateChanged -= StateChanged;
             _task.ProgressChanged -= ProgressChanged;
         }
@@ -126,8 +121,8 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
-            // Handle events coming from a non-UI thread, block caller
-            Invoke(new SimpleEventHandler(delegate
+            // Handle events coming from a non-UI thread, don't block caller
+            BeginInvoke(new SimpleEventHandler(delegate
             {
                 IntPtr formHandle = ParentHandle;
                 switch (state)
@@ -192,8 +187,8 @@ namespace Common.Controls
 
             if (sender.State == TaskState.Data)
             {
-                // Handle events coming from a non-UI thread, block caller
-                Invoke(new SimpleEventHandler(delegate
+                // Handle events coming from a non-UI thread, don't block caller
+                BeginInvoke(new SimpleEventHandler(delegate
                 {
                     Value = currentValue;
                     IntPtr formHandle = ParentHandle;
@@ -211,9 +206,7 @@ namespace Common.Controls
         {
             if (disposing)
             {
-                // Remove update hooks
-                _task = null;
-                HookOut();
+                if (_task != null) HookOut();
             }
             base.Dispose(disposing);
         }

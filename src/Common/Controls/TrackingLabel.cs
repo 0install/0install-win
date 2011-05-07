@@ -58,11 +58,11 @@ namespace Common.Controls
                 #endregion
 
                 // Remove all delegates from old _task
-                HookOut();
+                if (_task != null) HookOut();
 
                 _task = value;
 
-                HookIn();
+                if (_task != null) HookIn();
             }
             get { return _task; }
         }
@@ -72,8 +72,6 @@ namespace Common.Controls
         /// </summary>
         private void HookIn()
         {
-            if (_task == null) return;
-
             // Get the initial values
             StateChanged(_task);
             ProgressChanged(_task);
@@ -87,8 +85,6 @@ namespace Common.Controls
         /// </summary>
         private void HookOut()
         {
-            if (_task == null) return;
-
             _task.StateChanged -= StateChanged;
             _task.ProgressChanged -= ProgressChanged;
         }
@@ -111,7 +107,7 @@ namespace Common.Controls
             // Copy value so it can be safely accessed from another thread
             TaskState state = sender.State;
 
-            // Handle events coming from a non-UI thread, block caller
+            // Handle events coming from a non-UI thread, don't block caller
             Invoke(new SimpleEventHandler(delegate
             {
                 CurrentState = state;
@@ -163,8 +159,8 @@ namespace Common.Controls
             long bytesProcessed  = sender.BytesProcessed;
             long bytesTotal = sender.BytesTotal;
 
-            // Handle events coming from a non-UI thread, block caller
-            Invoke(new SimpleEventHandler(delegate
+            // Handle events coming from a non-UI thread, don't block caller
+            BeginInvoke(new SimpleEventHandler(delegate
             {
                 Text = StringUtils.FormatBytes(bytesProcessed);
                 if (bytesTotal != -1) Text += @" / " + StringUtils.FormatBytes(bytesTotal);
@@ -180,9 +176,7 @@ namespace Common.Controls
         {
             if (disposing)
             {
-                // Remove update hooks
-                _task = null;
-                HookOut();
+                if (_task != null) HookOut();
             }
             base.Dispose(disposing);
         }
