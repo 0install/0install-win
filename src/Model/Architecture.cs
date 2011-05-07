@@ -17,6 +17,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Xml.Serialization;
 using ZeroInstall.Model.Design;
 using ZeroInstall.Model.Properties;
@@ -41,8 +42,14 @@ namespace ZeroInstall.Model
         /// <summary>Supports only MacOS X.</summary>
         [XmlEnum("MacOSX")] MacOsX,
 
+        /// <summary>MacOSX, without the proprietary bits.</summary>
+        [XmlEnum("Darwin")] Darwin,
+
         /// <summary>Supports only Windows NT 5.0+ (Windows 2000, XP, 2003, Vista, 2008, 7, 2008 R2, ...).</summary>
         [XmlEnum("Windows")] Windows,
+
+        /// <summary>A Unix-compatibility layer for Windows.</summary>
+        [XmlEnum("Cygwin")] Cygwin,
 
         /// <summary>The supported operating system has not been set yet.</summary>
         [XmlEnum("unknown")] Unknown = 99,
@@ -101,10 +108,34 @@ namespace ZeroInstall.Model
         public OS OS { get; set; }
 
         /// <summary>
+        /// The canonical string representation of <see cref="OS"/>.
+        /// </summary>
+        [Browsable(false)]
+        public string OSString { get { return EnumToString(OS); } }
+
+        /// <summary>
         /// Determines which CPU-architectures are supported.
         /// </summary>
         [Description("Determines which CPU-architectures are supported.")]
         public Cpu Cpu { get; set; }
+
+        /// <summary>
+        /// The canonical string representation of <see cref="Cpu"/>.
+        /// </summary>
+        [Browsable(false)]
+        public string CpuString { get { return EnumToString(Cpu); } }
+
+        private static string EnumToString(Enum value)
+        {
+            Type type = value.GetType();
+            FieldInfo fieldInfo = type.GetField(value.ToString());
+
+            // Get the XmlEnum attributes
+            var attribs = (XmlEnumAttribute[])fieldInfo.GetCustomAttributes(typeof(XmlEnumAttribute), false);
+
+            // Return the first if there was a match
+            return (attribs.Length > 0 ? attribs[0].Name : "");
+        }
         #endregion
 
         #region Parsers
@@ -126,7 +157,9 @@ namespace ZeroInstall.Model
                 case "Linux": os = OS.Linux; break;
                 case "Solaris": os = OS.Solaris; break;
                 case "MacOSX": os = OS.MacOsX; break;
+                case "Darwin": os = OS.Darwin; break;
                 case "Windows": os = OS.Windows; break;
+                case "Cygwin": os = OS.Cygwin; break;
                 default: os = OS.Unknown; break;
             }
             return os;
@@ -239,47 +272,7 @@ namespace ZeroInstall.Model
         /// </summary>
         public override string ToString()
         {
-            return OSToString() + "-" + CpuToString();
-        }
-
-        /// <summary>
-        /// Returns a string representation of <see cref="Cpu"/>.
-        /// </summary>
-        public string CpuToString()
-        {
-            string cpu;
-            switch (Cpu)
-            {
-                case Cpu.All: cpu = "*"; break;
-                case Cpu.I386: cpu = "i386"; break;
-                case Cpu.I486: cpu = "i486"; break;
-                case Cpu.I586: cpu = "i586"; break;
-                case Cpu.I686: cpu = "i686"; break;
-                case Cpu.X64: cpu = "x86_64"; break;
-                case Cpu.Ppc: cpu = "ppc"; break;
-                case Cpu.Ppc64: cpu = "ppc64"; break;
-                case Cpu.Source: cpu = "src"; break;
-                default: cpu = "unknown"; break;
-            }
-            return cpu;
-        }
-
-        /// <summary>
-        /// Returns a string representation of <see cref="OS"/>.
-        /// </summary>
-        public string OSToString()
-        {
-            string os;
-            switch (OS)
-            {
-                case OS.All: os = "*"; break;
-                case OS.Linux: os = "Linux"; break;
-                case OS.Solaris: os = "Solaris"; break;
-                case OS.MacOsX: os = "MacOSX"; break;
-                case OS.Windows: os = "Windows"; break;
-                default: os = "unknown"; break;
-            }
-            return os;
+            return OSString + "-" + CpuString;
         }
         #endregion
 

@@ -115,8 +115,8 @@ namespace ZeroInstall.Injector.Solver
         {
             var builder = new StringBuilder();
             if (!string.IsNullOrEmpty(CommandName)) builder.Append("--command=" + StringUtils.Escape(CommandName) + " ");
-            if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSToString() + " ");
-            if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuToString() + " ");
+            if (Architecture.OS != OS.All) builder.Append("--os=" + Architecture.OSString + " ");
+            if (Architecture.Cpu != Cpu.All) builder.Append("--cpu=" + Architecture.CpuString + " ");
             // ToDo: Add Languages support
             if (NotBeforeVersion != null) builder.Append("--not-before=" + NotBeforeVersion + " ");
             if (BeforeVersion != null) builder.Append("--before=" + BeforeVersion + " ");

@@ -59,6 +59,10 @@ namespace ZeroInstall.Model
         /// <param name="version">The .NET <see cref="Version"/> to convert.</param>
         public ImplementationVersion(Version version)
         {
+            #region Sanity checks
+            if (version == null) throw new ArgumentNullException("version");
+            #endregion
+
             _firstPart = new DottedList(version.ToString());
             _additionalParts = new VersionPart[0];
         }

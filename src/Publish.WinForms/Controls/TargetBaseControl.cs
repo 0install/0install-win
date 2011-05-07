@@ -52,7 +52,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         {
             InitializeComponent();
             InitializeComboBoxLanguage();
-            InitializeOs();
+            InitializeOS();
             InitializeCpu();
         }
 
@@ -68,16 +68,16 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
 
         /// <summary>
-        /// Load the possible <see cref="OS" />s in "comboBoxOS".
+        /// Lista all the possible <see cref="OS"/>s in <see cref="comboBoxOS"/>.
         /// </summary>
-        private void InitializeOs()
+        private void InitializeOS()
         {
             foreach (var os in Enum.GetValues(typeof(OS)))
                 comboBoxOS.Items.Add(os);
             comboBoxOS.SelectedIndex = (int)OS.All;
         }
         /// <summary>
-        /// Load the possible <see cref="Cpu" />s in "comboBoxLanguage".
+        /// List all possible <see cref="Cpu"/>s in <see cref="comboBoxLanguage"/>.
         /// </summary>
         private void InitializeCpu()
         {

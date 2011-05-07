@@ -124,6 +124,10 @@ namespace ZeroInstall.Model
         /// <remarks>aliases are resolved to the IDs they represent, existing local paths are converted to absolute paths. Everything else stays unchanged.</remarks>
         public static string CanonicalID(string id)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException("id");
+            #endregion
+
             if (id.StartsWith("alias:"))
             {
                 // ToDo: Handle alias lookup
