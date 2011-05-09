@@ -101,6 +101,7 @@ namespace ZeroInstall.Publish.WinForms
             InitializeComboBoxMinInjectorVersion();
             InitializeComboBoxGpg();
             ConnectToolStripEvents();
+            ConnectKeyCombinationShortcuts();
         }
 
         /// <summary>
@@ -376,6 +377,9 @@ namespace ZeroInstall.Publish.WinForms
             feedEditorToolStrip.UndoEnabled = feedEditorToolStrip.RedoEnabled = false;
         }
 
+        /// <summary>
+        /// Connects "create", "save", "saveAs", "open", "undo" and "redo" with the <see cref="feedEditorToolStrip"/> events.
+        /// </summary>
         private void ConnectToolStripEvents()
         {
             feedEditorToolStrip.New += CreateNewFeed;
@@ -387,6 +391,19 @@ namespace ZeroInstall.Publish.WinForms
             feedEditorToolStrip.SecretKeyChanged += newSigningKey => feedManager.SigningKey = newSigningKey;
         }
 
+        /// <summary>
+        /// Connects "create", "save", "saveAs", "open", "undo" and "redo" with the <see cref="keyCombinationShortcut"/> events.
+        /// </summary>
+        private void ConnectKeyCombinationShortcuts()
+        {
+            KeyDown += keyCombinationShortcut.KeyDown;
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.N, CreateNewFeed);
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.O, OpenFeed);
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.S, SaveFeed);
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.Shift | Keys.S, SaveFeedAs);
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.Z, Undo);
+            keyCombinationShortcut.LinkShortcut(Keys.Control | Keys.Y, Redo);
+        }
         #endregion
 
         #region Undo/Redo
@@ -755,7 +772,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Tabs
-
         #region Feed Tab
 
         #region treeviewFeedStructure methods
@@ -836,7 +852,6 @@ namespace ZeroInstall.Publish.WinForms
         #endregion
 
         #region Advanced Tab
-
         #region External Feeds Group
 
         /// <summary>
@@ -933,9 +948,7 @@ namespace ZeroInstall.Publish.WinForms
         }
 
         #endregion
-
         #endregion
-
         #endregion
     }
 }

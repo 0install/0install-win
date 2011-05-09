@@ -37,12 +37,10 @@ namespace ZeroInstall.Publish.WinForms
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Interface");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.TreeNode treeNode88 = new System.Windows.Forms.TreeNode("Interface");
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageGeneral = new System.Windows.Forms.TabPage();
-            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
-            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelSummary = new System.Windows.Forms.Label();
             this.checkBoxNeedsTerminal = new System.Windows.Forms.CheckBox();
@@ -52,7 +50,6 @@ namespace ZeroInstall.Publish.WinForms
             this.textHomepage = new Common.Controls.UriTextBox();
             this.labelHomepage = new System.Windows.Forms.Label();
             this.groupBoxIcon = new System.Windows.Forms.GroupBox();
-            this.iconManagementControl = new ZeroInstall.Publish.WinForms.Controls.IconManagementControl();
             this.labelCategories = new System.Windows.Forms.Label();
             this.textName = new Common.Controls.HintTextBox();
             this.labelProgramName = new System.Windows.Forms.Label();
@@ -82,15 +79,19 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxExternalFeeds = new System.Windows.Forms.GroupBox();
             this.buttonUpdateExternalFeed = new System.Windows.Forms.Button();
             this.groupBoxSelectedFeed = new System.Windows.Forms.GroupBox();
-            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
             this.listBoxExternalFeeds = new System.Windows.Forms.ListBox();
             this.buttonRemoveFeedFor = new System.Windows.Forms.Button();
             this.buttonAddExternalFeeds = new System.Windows.Forms.Button();
-            this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
-            this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
             this.buttonAddArchive = new System.Windows.Forms.Button();
             this.buttonAddRecipe = new System.Windows.Forms.Button();
             this.btnRunner = new System.Windows.Forms.Button();
+            this.feedEditorToolStrip = new ZeroInstall.Publish.WinForms.Controls.FeedEditorToolStrip();
+            this.descriptionControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.summariesControl = new ZeroInstall.Publish.WinForms.Controls.LocalizableTextControl();
+            this.iconManagementControl = new ZeroInstall.Publish.WinForms.Controls.IconManagementControl();
+            this.feedReferenceControl = new ZeroInstall.Publish.WinForms.Controls.FeedReferenceControl();
+            this.feedManager = new ZeroInstall.Publish.WinForms.FeedManager(this.components);
+            this.keyCombinationShortcut = new Common.Controls.KeyCombinationShortcut(this.components);
             this.tabControlMain.SuspendLayout();
             this.tabPageGeneral.SuspendLayout();
             this.groupBoxIcon.SuspendLayout();
@@ -139,27 +140,6 @@ namespace ZeroInstall.Publish.WinForms
             this.tabPageGeneral.TabIndex = 0;
             this.tabPageGeneral.Text = "General";
             this.tabPageGeneral.UseVisualStyleBackColor = true;
-            // 
-            // descriptionControl
-            // 
-            this.descriptionControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
-            this.descriptionControl.Multiline = true;
-            this.descriptionControl.Name = "descriptionControl";
-            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
-            this.descriptionControl.TabIndex = 9;
-            // 
-            // summariesControl
-            // 
-            this.summariesControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.summariesControl.Location = new System.Drawing.Point(9, 98);
-            this.summariesControl.Multiline = false;
-            this.summariesControl.Name = "summariesControl";
-            this.summariesControl.Size = new System.Drawing.Size(536, 23);
-            this.summariesControl.TabIndex = 7;
             // 
             // labelDescription
             // 
@@ -270,13 +250,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxIcon.TabIndex = 10;
             this.groupBoxIcon.TabStop = false;
             this.groupBoxIcon.Text = "Icon";
-            // 
-            // iconManagementControl
-            // 
-            this.iconManagementControl.Location = new System.Drawing.Point(7, 20);
-            this.iconManagementControl.Name = "iconManagementControl";
-            this.iconManagementControl.Size = new System.Drawing.Size(521, 143);
-            this.iconManagementControl.TabIndex = 0;
             // 
             // labelCategories
             // 
@@ -396,11 +369,11 @@ namespace ZeroInstall.Publish.WinForms
             this.treeViewFeedStructure.HideSelection = false;
             this.treeViewFeedStructure.Location = new System.Drawing.Point(6, 19);
             this.treeViewFeedStructure.Name = "treeViewFeedStructure";
-            treeNode88.Name = "interface";
-            treeNode88.Tag = "";
-            treeNode88.Text = "Interface";
+            treeNode2.Name = "interface";
+            treeNode2.Tag = "";
+            treeNode2.Text = "Interface";
             this.treeViewFeedStructure.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode88});
+            treeNode2});
             this.treeViewFeedStructure.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.treeViewFeedStructure.ShowRootLines = false;
             this.treeViewFeedStructure.Size = new System.Drawing.Size(389, 446);
@@ -628,15 +601,6 @@ namespace ZeroInstall.Publish.WinForms
             this.groupBoxSelectedFeed.TabStop = false;
             this.groupBoxSelectedFeed.Text = "Edit external feed";
             // 
-            // feedReferenceControl
-            // 
-            this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
-            this.feedReferenceControl.Name = "feedReferenceControl";
-            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
-            this.feedReferenceControl.TabIndex = 0;
-            // 
             // listBoxExternalFeeds
             // 
             this.listBoxExternalFeeds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -671,14 +635,6 @@ namespace ZeroInstall.Publish.WinForms
             this.buttonAddExternalFeeds.UseVisualStyleBackColor = true;
             this.buttonAddExternalFeeds.Click += new System.EventHandler(this.BtnExtFeedsAddClick);
             // 
-            // feedEditorToolStrip
-            // 
-            this.feedEditorToolStrip.Location = new System.Drawing.Point(7, 6);
-            this.feedEditorToolStrip.Name = "feedEditorToolStrip";
-            this.feedEditorToolStrip.Size = new System.Drawing.Size(570, 25);
-            this.feedEditorToolStrip.TabIndex = 2;
-            this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
-            // 
             // buttonAddArchive
             // 
             this.buttonAddArchive.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -712,6 +668,51 @@ namespace ZeroInstall.Publish.WinForms
             this.btnRunner.Text = "Recipe";
             this.btnRunner.UseVisualStyleBackColor = true;
             // 
+            // feedEditorToolStrip
+            // 
+            this.feedEditorToolStrip.Location = new System.Drawing.Point(7, 6);
+            this.feedEditorToolStrip.Name = "feedEditorToolStrip";
+            this.feedEditorToolStrip.Size = new System.Drawing.Size(570, 25);
+            this.feedEditorToolStrip.TabIndex = 2;
+            this.feedEditorToolStrip.Text = "feedEditorToolStrip1";
+            // 
+            // descriptionControl
+            // 
+            this.descriptionControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.descriptionControl.Location = new System.Drawing.Point(9, 140);
+            this.descriptionControl.Multiline = true;
+            this.descriptionControl.Name = "descriptionControl";
+            this.descriptionControl.Size = new System.Drawing.Size(536, 79);
+            this.descriptionControl.TabIndex = 9;
+            // 
+            // summariesControl
+            // 
+            this.summariesControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.summariesControl.Location = new System.Drawing.Point(9, 98);
+            this.summariesControl.Multiline = false;
+            this.summariesControl.Name = "summariesControl";
+            this.summariesControl.Size = new System.Drawing.Size(536, 23);
+            this.summariesControl.TabIndex = 7;
+            // 
+            // iconManagementControl
+            // 
+            this.iconManagementControl.Location = new System.Drawing.Point(7, 20);
+            this.iconManagementControl.Name = "iconManagementControl";
+            this.iconManagementControl.Size = new System.Drawing.Size(521, 143);
+            this.iconManagementControl.TabIndex = 0;
+            // 
+            // feedReferenceControl
+            // 
+            this.feedReferenceControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.feedReferenceControl.Location = new System.Drawing.Point(6, 19);
+            this.feedReferenceControl.Name = "feedReferenceControl";
+            this.feedReferenceControl.Size = new System.Drawing.Size(518, 168);
+            this.feedReferenceControl.TabIndex = 0;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -721,6 +722,7 @@ namespace ZeroInstall.Publish.WinForms
             this.Controls.Add(this.feedEditorToolStrip);
             this.Controls.Add(this.tabControlMain);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(592, 568);
             this.Name = "MainForm";
             this.Padding = new System.Windows.Forms.Padding(7, 6, 7, 6);
@@ -798,6 +800,7 @@ namespace ZeroInstall.Publish.WinForms
         private System.Windows.Forms.Button buttonAddArchive;
         private System.Windows.Forms.Button buttonAddRecipe;
         private System.Windows.Forms.Button btnRunner;
+        private KeyCombinationShortcut keyCombinationShortcut;
     }
 }
 
