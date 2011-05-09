@@ -90,7 +90,8 @@ namespace ZeroInstall.Publish.WinForms
         /// <returns>The current <see cref="FeedEditing"/>. A new one if the user allowed it, else <see langword="null"/>.</returns>
         public FeedEditing New()
         {
-            return SaveChanges(delegate { _feedEditing = new FeedEditing(); }) ? _feedEditing : null;
+            return SaveChanges(delegate { _feedEditing = new FeedEditing();
+                                            return true; }) ? _feedEditing : null;
         }
 
         /// <summary>
@@ -105,10 +106,10 @@ namespace ZeroInstall.Publish.WinForms
         /// <summary>
         /// Shows an <see cref="openFileDialog"/> and opens the chosen <see cref="Feed"/>.
         /// </summary>
-        private void OpenFeed()
+        private bool OpenFeed()
         {
             //TODO: determine the signature key
-            if (openFileDialog.ShowDialog(null) != DialogResult.OK) return;
+            if (openFileDialog.ShowDialog(null) != DialogResult.OK) return false;
 
             try
             {
@@ -130,6 +131,7 @@ namespace ZeroInstall.Publish.WinForms
             #endregion
 
             openFileDialog.FileName = _feedEditing.Path;
+            return true;
         }
         #endregion
 
@@ -139,7 +141,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         public bool SaveChanges()
         {
-            return SaveChanges(delegate { });
+            return SaveChanges(() => true);
         }
 
         /// <summary>
@@ -147,7 +149,7 @@ namespace ZeroInstall.Publish.WinForms
         /// </summary>
         /// <param name="afterSave">Procedure that will be performed after saving the <see cref="Feed"/>.</param>
         /// <returns>The current <see cref="_feedEditing"/></returns>
-        private bool SaveChanges(SimpleEventHandler afterSave)
+        private bool SaveChanges(SimpleResult<bool> afterSave)
         {
             #region Sanity checks
             if (afterSave == null) throw new ArgumentNullException("afterSave");
@@ -155,8 +157,7 @@ namespace ZeroInstall.Publish.WinForms
 
             if (!_feedEditing.Changed)
             {
-                afterSave();
-                return true;
+                return afterSave();
             }
 
             switch (AskSavingChanges())
