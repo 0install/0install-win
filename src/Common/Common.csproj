@@ -65,6 +65,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\KeyCombinationShortcut.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\KeyCombinationShortcut.Designer.cs">
+      <DependentUpon>KeyCombinationShortcut.cs</DependentUpon>
+    </Compile>
     <Compile Include="Log.cs" />
     <Compile Include="PropertyPointer.cs" />
     <Compile Include="TimedLogEvent.cs" />
