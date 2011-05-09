@@ -19,9 +19,8 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 using C5;
-using Common;
 
-namespace ZeroInstall.Publish.WinForms
+namespace Common.Controls
 {
     /// <summary>
     /// This class handles key combination shortcuts. After you linked some <see cref="Keys"/> with a method,
