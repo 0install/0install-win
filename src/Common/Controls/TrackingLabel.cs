@@ -46,8 +46,8 @@ namespace Common.Controls
         ///   <para>The value must not be set from a background thread.</para>
         ///   <para>The value must not be set before <see cref="Control.Handle"/> has been created.</para>
         /// </remarks>
-        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
-        [DefaultValue(null), Description("The IProgress object to track.")]
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread or before the <see cref="Control.Handle"/> is created.</exception>
+        [DefaultValue(null), Description("The ITask object to track.")]
         public ITask Task
         {
             set

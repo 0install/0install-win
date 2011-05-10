@@ -167,6 +167,8 @@ namespace ZeroInstall.Commands
             if (SelectionsDocument) return;
 
             Selections = Policy.Solver.Solve(Requirements, Policy, out StaleFeeds);
+
+            if (Canceled) throw new UserCancelException();
         }
 
         /// <summary>
