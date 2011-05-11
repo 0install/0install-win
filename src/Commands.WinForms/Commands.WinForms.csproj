@@ -79,6 +79,18 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="SelectionsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SelectionsControl.Designer.cs">
+      <DependentUpon>SelectionsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TrackingControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TrackingControl.Designer.cs">
+      <DependentUpon>TrackingControl.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
@@ -94,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SelectionsControl.resx">
+      <DependentUpon>SelectionsControl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

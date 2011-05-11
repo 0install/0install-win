@@ -17,11 +17,14 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading;
 using System.Windows.Forms;
 using Common;
-using Common.Storage;
 using Common.Tasks;
 using Common.Utils;
+using ZeroInstall.Injector.Feeds;
+using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -48,12 +51,7 @@ namespace ZeroInstall.Commands.WinForms
 
             _cancelCallback = cancelCallback;
 
-            // Start tracking when the window comes up the first time from tray icon mode
-            Shown += delegate
-            {
-                SetupTaskTracking();
-                WindowsUtils.SetForegroundWindow(this);
-            };
+            Shown += delegate { WindowsUtils.SetForegroundWindow(this); };
         }
 
         /// <summary>
@@ -69,30 +67,71 @@ namespace ZeroInstall.Commands.WinForms
 
         //--------------------//
 
-        #region Task tracking
-        private ITask _currentTask;
+        #region Selections UI
+        /// <summary>
+        /// Shows the user the <see cref="Selections"/> made by the <see cref="ISolver"/>.
+        /// Returns immediately.
+        /// </summary>
+        /// <param name="selections">The <see cref="Selections"/> as provided by the <see cref="ISolver"/>.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public void ShowSelections(Selections selections)
+        {
+            #region Sanity checks
+            if (selections == null) throw new ArgumentNullException("selections");
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
 
+            labelSolving.Visible = false;
+            selectionsControl.Visible = true;
+
+            // Defer execution while in tray-icon mode
+            if (selectionsControl.IsHandleCreated) selectionsControl.SetSelections(selections);
+            else Shown += delegate { selectionsControl.SetSelections(selections); };
+        }
+
+        /// <summary>
+        /// Allows the user to modify the <see cref="InterfacePreferences"/> and rerun the <see cref="ISolver"/> if desired.
+        /// Returns immediatley.
+        /// </summary>
+        /// <param name="solveCallback">Called after <see cref="InterfacePreferences"/> have been changed and the <see cref="ISolver"/> needs to be rerun.</param>
+        /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public void BeginAuditSelections(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
+        {
+            #region Sanity checks
+            if (solveCallback == null) throw new ArgumentNullException("solveCallback");
+            if (waitHandle == null) throw new ArgumentNullException("waitHandle");
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
+
+            Visible = true;
+            WindowState = FormWindowState.Normal;
+            HideTrayIcon();
+
+            selectionsControl.BeginAudit(solveCallback, waitHandle); 
+        }
+        #endregion
+
+        #region Task tracking
         /// <summary>
         /// Registers an <see cref="ITask"/> for tracking.
         /// </summary>
         /// <param name="task">The task to be tracked. May or may not alreay be running.</param>
-        /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
-        internal void TrackTask(ITask task, object tag)
+        /// <param name="tag">A digest used to associate the <paramref name="task"/> with a specific process.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
+        public void TrackTask(ITask task, ManifestDigest tag)
         {
-            _currentTask = task;
-            SetupTaskTracking();
-        }
+            #region Sanity checks
+            if (task == null) throw new ArgumentNullException("task");
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
 
-        /// <summary>
-        /// Helper method for setting up task tracking for <see cref="_currentTask"/>.
-        /// </summary>
-        private void SetupTaskTracking()
-        {
-            if (_currentTask == null) return;
-
-            labelOperation.Text = _currentTask.Name + @"...";
-            if (progressBar.IsHandleCreated) progressBar.Task = _currentTask;
-            if (progressLabel.IsHandleCreated) progressLabel.Task = _currentTask;
+            // Defer execution while in tray-icon mode
+            if (selectionsControl.IsHandleCreated) selectionsControl.TrackTask(task, tag);
+            else Shown += delegate { selectionsControl.TrackTask(task, tag); };
         }
         #endregion
 
@@ -102,8 +141,14 @@ namespace ZeroInstall.Commands.WinForms
         /// </summary>
         /// <param name="information">The balloon message text.</param>
         /// <param name="messageType">The type icon to display next to the balloon message.</param>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
         public void ShowTrayIcon(string information, ToolTipIcon messageType)
         {
+            #region Sanity checks
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
+
             notifyIcon.Visible = true;
             notifyIcon.ShowBalloonTip(7500, "Zero Install", information, messageType);
         }
@@ -111,8 +156,14 @@ namespace ZeroInstall.Commands.WinForms
         /// <summary>
         /// Hides the tray icon.
         /// </summary>
+        /// <exception cref="InvalidOperationException">Thrown if the value is set from a thread other than the UI thread.</exception>
+        /// <remarks>This method must not be called from a background thread.</remarks>
         public void HideTrayIcon()
         {
+            #region Sanity checks
+            if (InvokeRequired) throw new InvalidOperationException("Method called from a non UI thread.");
+            #endregion
+
             notifyIcon.Visible = false;
         }
 
@@ -157,8 +208,7 @@ namespace ZeroInstall.Commands.WinForms
             HideTrayIcon();
 
             // Stop tracking tasks
-            if (progressBar.IsHandleCreated) progressBar.Task = null;
-            if (progressLabel.IsHandleCreated) progressLabel.Task = null;
+            if (IsHandleCreated) selectionsControl.StopTracking();
 
             _cancelCallback();
         }

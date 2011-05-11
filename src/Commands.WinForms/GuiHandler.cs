@@ -26,6 +26,7 @@ using Common.Tasks;
 using ZeroInstall.Commands.WinForms.Properties;
 using ZeroInstall.Injector;
 using ZeroInstall.Injector.Solver;
+using ZeroInstall.Model;
 
 namespace ZeroInstall.Commands.WinForms
 {
@@ -44,6 +45,9 @@ namespace ZeroInstall.Commands.WinForms
 
         /// <summary>A barrier that blocks threads until the <see cref="_form"/>'s handle is ready.</summary>
         private readonly EventWaitHandle _guiReady = new EventWaitHandle(false, EventResetMode.ManualReset);
+
+        /// <summary>A wait handle used by <see cref="AuditSelections"/> to be signaled once the user is satisfied with the <see cref="Selections"/>.</summary>
+        private readonly EventWaitHandle _auditWaitHandle = new AutoResetEvent(false);
         #endregion
 
         #region Properties
@@ -64,8 +68,11 @@ namespace ZeroInstall.Commands.WinForms
         {
             _guiReady.WaitOne();
 
-            // Handle events coming from a non-UI thread, don't block caller
-            _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task, tag)));
+            if (tag is ManifestDigest)
+            {
+                // Handle events coming from a non-UI thread, don't block caller
+                _form.BeginInvoke(new SimpleEventHandler(() => _form.TrackTask(task, (ManifestDigest)tag)));
+            }
 
             task.RunSync();
         }
@@ -75,10 +82,15 @@ namespace ZeroInstall.Commands.WinForms
         /// <inheritdoc/>
         public void ShowProgressUI(SimpleEventHandler cancelCallback)
         {
+            #region Sanity checks
+            if (cancelCallback == null) throw new ArgumentNullException("cancelCallback");
+            #endregion
+
             // Can only show GUI once
             if (_form != null) return;
 
-            _form = new ProgressForm(cancelCallback);
+            // For cancellation execute the original cancel delegate and also stop any running selections auditing
+            _form = new ProgressForm(delegate { cancelCallback(); _auditWaitHandle.Set(); });
 
             // Initialize GUI with a low priority
             new Thread(GuiThread) {Priority = ThreadPriority.Lowest}.Start();
@@ -165,10 +177,7 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _form.Invoke(new SimpleEventHandler(delegate
-            {
-                // ToDo: Implement
-            }));
+            _form.Invoke(new SimpleEventHandler(() => _form.ShowSelections(selections)));
         }
 
         /// <inheritdoc/>
@@ -182,10 +191,9 @@ namespace ZeroInstall.Commands.WinForms
             if (_form == null) return;
             _guiReady.WaitOne();
 
-            _form.Invoke(new SimpleEventHandler(delegate
-            {
-                // ToDo: Implement
-            }));
+            // Show selection auditing screen and then asynchronously wait until its done
+            _form.Invoke(new SimpleEventHandler(() => _form.BeginAuditSelections(solveCallback, _auditWaitHandle)));
+            _auditWaitHandle.WaitOne();
         }
         #endregion
 

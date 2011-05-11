@@ -30,52 +30,23 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
-            this.progressBar = new Common.Controls.TrackingProgressBar();
-            this.labelOperation = new System.Windows.Forms.Label();
             this.buttonCancel = new System.Windows.Forms.Button();
-            this.progressLabel = new Common.Controls.TrackingLabel();
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
+            this.labelSolving = new System.Windows.Forms.Label();
+            this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.SuspendLayout();
-            // 
-            // progressBar
-            // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar.Location = new System.Drawing.Point(12, 38);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(285, 23);
-            this.progressBar.TabIndex = 1;
-            this.progressBar.UseTaskbar = true;
-            // 
-            // labelOperation
-            // 
-            this.labelOperation.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.labelOperation.AutoSize = true;
-            this.labelOperation.Location = new System.Drawing.Point(12, 14);
-            this.labelOperation.Name = "labelOperation";
-            this.labelOperation.Size = new System.Drawing.Size(51, 13);
-            this.labelOperation.TabIndex = 0;
-            this.labelOperation.Text = "Solving...";
             // 
             // buttonCancel
             // 
             this.buttonCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonCancel.Location = new System.Drawing.Point(222, 87);
+            this.buttonCancel.Location = new System.Drawing.Point(477, 147);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
-            // 
-            // progressLabel
-            // 
-            this.progressLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressLabel.Location = new System.Drawing.Point(12, 64);
-            this.progressLabel.Name = "progressLabel";
-            this.progressLabel.Size = new System.Drawing.Size(285, 20);
-            this.progressLabel.TabIndex = 2;
-            this.progressLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // notifyIcon
             // 
@@ -86,28 +57,47 @@
             // buttonHide
             // 
             this.buttonHide.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonHide.Location = new System.Drawing.Point(141, 87);
+            this.buttonHide.Location = new System.Drawing.Point(396, 147);
             this.buttonHide.Name = "buttonHide";
             this.buttonHide.Size = new System.Drawing.Size(75, 23);
-            this.buttonHide.TabIndex = 3;
+            this.buttonHide.TabIndex = 2;
             this.buttonHide.Text = "&Hide";
             this.buttonHide.UseVisualStyleBackColor = true;
             this.buttonHide.Click += new System.EventHandler(this.buttonHide_Click);
+            // 
+            // labelSolving
+            // 
+            this.labelSolving.AutoSize = true;
+            this.labelSolving.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSolving.Location = new System.Drawing.Point(12, 12);
+            this.labelSolving.Name = "labelSolving";
+            this.labelSolving.Size = new System.Drawing.Size(101, 25);
+            this.labelSolving.TabIndex = 0;
+            this.labelSolving.Text = "Solving...";
+            // 
+            // selectionsControl
+            // 
+            this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectionsControl.Location = new System.Drawing.Point(12, 12);
+            this.selectionsControl.Name = "selectionsControl";
+            this.selectionsControl.Size = new System.Drawing.Size(540, 158);
+            this.selectionsControl.TabIndex = 1;
+            this.selectionsControl.Visible = false;
             // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(309, 122);
+            this.ClientSize = new System.Drawing.Size(564, 182);
+            this.Controls.Add(this.labelSolving);
             this.Controls.Add(this.buttonHide);
-            this.Controls.Add(this.progressLabel);
             this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.labelOperation);
-            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.selectionsControl);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(2048, 160);
-            this.MinimumSize = new System.Drawing.Size(200, 160);
+            this.MinimumSize = new System.Drawing.Size(375, 150);
             this.Name = "ProgressForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Text = "Zero Install";
@@ -116,14 +106,13 @@
             this.PerformLayout();
 
         }
-
-        private Common.Controls.TrackingProgressBar progressBar;
         #endregion
-        private System.Windows.Forms.Label labelOperation;
+
         private System.Windows.Forms.Button buttonCancel;
-        private Common.Controls.TrackingLabel progressLabel;
         private System.Windows.Forms.Button buttonHide;
         private System.Windows.Forms.NotifyIcon notifyIcon;
+        private SelectionsControl selectionsControl;
+        private System.Windows.Forms.Label labelSolving;
 
     }
 }
