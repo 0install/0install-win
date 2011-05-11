@@ -177,9 +177,12 @@ namespace ZeroInstall.Publish.WinForms
             #region Edit dialog
             treeViewFeedStructure.DoubleClick += delegate
             {
-                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                // Type must match exactly
+                if (SelectedFeedStructureElement.GetType() != typeof(TSpecialEntry)) return;
+
+                var entry = (TSpecialEntry)SelectedFeedStructureElement;
                 var parent = SelectedFeedStructureElementParent as TContainer;
-                if (entry != null && parent != null)
+                if (parent != null)
                 {
                     // Clone entry for undoable modification
                     var clonedEntry = (TSpecialEntry)entry.Clone();
@@ -189,7 +192,6 @@ namespace ZeroInstall.Publish.WinForms
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {
                             _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), clonedEntry));
-
                             FillFeedTab();
                         }
                     }
@@ -200,9 +202,11 @@ namespace ZeroInstall.Publish.WinForms
             #region Remove button
             btnRemoveFeedStructureObject.Click += delegate
             {
-                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                // Type must match exactly
+                if (SelectedFeedStructureElement.GetType() != typeof(TSpecialEntry)) return;
+
                 var parent = SelectedFeedStructureElementParent as TContainer;
-                if (entry != null && parent != null)
+                if (parent != null)
                 {
                     // Remove by setting value to null
                     _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), null));
@@ -307,9 +311,12 @@ namespace ZeroInstall.Publish.WinForms
             #region Remove button
             btnRemoveFeedStructureObject.Click += delegate
             {
-                var entry = SelectedFeedStructureElement as TSpecialEntry;
+                // Type must match exactly
+                if (SelectedFeedStructureElement.GetType() != typeof(TSpecialEntry)) return;
+
+                var entry = (TSpecialEntry)SelectedFeedStructureElement;
                 var parent = SelectedFeedStructureElementParent as TContainer;
-                if (entry != null && parent != null)
+                if (parent != null)
                 {
                     _feedEditing.ExecuteCommand(new RemoveFromCollection<TAbstractEntry>(getList(parent), entry));
                     FillFeedTab();
