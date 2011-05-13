@@ -96,8 +96,9 @@ namespace ZeroInstall.Injector
             commandLine.AddAll(arguments);
 
             // Prepare the new process to launch the implementation
-            ProcessStartInfo startInfo = GetStartInfoHelper(commandLine);
+            var startInfo = new ProcessStartInfo {ErrorDialog = false, UseShellExecute = false};
             ApplyBindings(startInfo);
+            ApplyCommandLine(startInfo, commandLine);
             return startInfo;
         }
         #endregion
@@ -169,24 +170,11 @@ namespace ZeroInstall.Injector
         }
         #endregion
 
-        #region Get StartInfo helper
-        /// <summary>
-        /// Creates a <see cref="ProcessStartInfo"/> from a command-line.
-        /// </summary>
-        private static ProcessStartInfo GetStartInfoHelper(C5.IList<string> commandLine)
-        {
-            return new ProcessStartInfo(
-                commandLine.First, // Executable
-                StringUtils.ConcatenateEscape(commandLine.View(1, commandLine.Count - 1))) // Arguments
-            { ErrorDialog = false, UseShellExecute = false };
-        }
-        #endregion
-
         #region Bindings
         /// <summary>
         /// Applies <see cref="Binding"/>s allowing the launched program to locate <see cref="ImplementationSelection"/>s.
         /// </summary>
-        /// <param name="startInfo">The program environment to apply the  <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if an <see cref="Model.Implementation"/> is not cached yet.</exception>
         private void ApplyBindings(ProcessStartInfo startInfo)
         {
@@ -223,15 +211,12 @@ namespace ZeroInstall.Injector
                 var runner = command.Runner;
                 if (runner != null) currentRunnerInterface = runner.Interface;
             }
-
-            // Expand any environment variables in the arguments since the OS might not do so itself
-            startInfo.Arguments = StringUtils.ExpandUnixVariables(startInfo.Arguments, startInfo.EnvironmentVariables);
         }
 
         /// <summary>
         /// Applies all <see cref="Binding"/>s listed in a specific <see cref="IBindingContainer"/>.
         /// </summary>
-        /// <param name="startInfo">The program environment to apply the <see cref="Binding"/>s to.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/>s to.</param>
         /// <param name="implementation">The implementation to be made available via the <see cref="Binding"/>s.</param>
         /// <param name="bindingContainer">The list of <see cref="Binding"/>s to be performed.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
@@ -259,7 +244,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Applies an <see cref="EnvironmentBinding"/> to the <see cref="ProcessStartInfo"/>.
         /// </summary>
-        /// <param name="startInfo">The program environment to apply the <see cref="Binding"/> to.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="Binding"/> to.</param>
         /// <param name="implementationDirectory">The implementation to be made available via the <see cref="EnvironmentBinding"/>.</param>
         /// <param name="binding">The binding to apply.</param>
         private static void ApplyEnvironmentBinding(ProcessStartInfo startInfo, string implementationDirectory, EnvironmentBinding binding)
@@ -305,7 +290,7 @@ namespace ZeroInstall.Injector
         /// <summary>
         /// Applies a <see cref="WorkingDir"/> change to the <see cref="ProcessStartInfo"/>.
         /// </summary>
-        /// <param name="startInfo">The program environment to apply the <see cref="WorkingDir"/> change to.</param>
+        /// <param name="startInfo">The process launch environment to apply the <see cref="WorkingDir"/> change to.</param>
         /// <param name="implementation">The implementation to be made available via the <see cref="WorkingDir"/> change.</param>
         /// <param name="workingDir">The <see cref="WorkingDir"/> to apply.</param>
         /// <exception cref="ImplementationNotFoundException">Thrown if the <paramref name="implementation"/> is not cached yet.</exception>
@@ -320,6 +305,25 @@ namespace ZeroInstall.Injector
             if (!string.IsNullOrEmpty(startInfo.WorkingDirectory)) throw new CommandException(Resources.WokringDirDuplicate);
 
             startInfo.WorkingDirectory = Path.Combine(GetImplementationPath(implementation), source);
+        }
+        #endregion
+        
+        #region Apply command line
+        /// <summary>
+        /// Applies a command-line to a process launch environment, expanding Unix-style environment variables.
+        /// </summary>
+        /// <param name="startInfo">The process launch environment to apply the command-line to.</param>
+        /// <param name="commandLine">The command-line elements to apply.</param>
+        private static void ApplyCommandLine(ProcessStartInfo startInfo, C5.IList<string> commandLine)
+        {
+            startInfo.FileName = commandLine.First;
+            commandLine.RemoveFirst();
+
+            var commandLineArray = commandLine.ToArray();
+            for (int i = 0; i < commandLineArray.Length; i++)
+                commandLineArray[i] = StringUtils.ExpandUnixVariables(commandLineArray[i], startInfo.EnvironmentVariables);
+
+            startInfo.Arguments = StringUtils.ConcatenateEscape(commandLineArray);
         }
         #endregion
 

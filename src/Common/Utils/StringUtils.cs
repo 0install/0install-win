@@ -26,6 +26,7 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Common.Utils
 {
@@ -202,7 +203,7 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Combines multiple strings into one using <see cref="Escape"/>.
+        /// Combines multiple strings into one using <see cref="EscapeWhitespace"/>.
         /// </summary>
         /// <param name="parts">The strings to be combines.</param>
         public static string ConcatenateEscape(IEnumerable<string> parts)
@@ -219,7 +220,7 @@ namespace Common.Utils
                 if (first) first = false;
                 else output.Append(' ');
 
-                output.Append(Escape(part));
+                output.Append(EscapeWhitespace(part));
             }
 
             return output.ToString();
@@ -335,11 +336,12 @@ namespace Common.Utils
         }
         #endregion
 
-        #region Escaping
+        #region Whitespace escaping
         /// <summary>
         /// Escapes a string, making sure it is encapsulated within <code>"</code> if it contains whitespace characters.
         /// </summary>
-        public static string Escape(string value)
+        /// <remarks>This is how command-line arguments are escaped.</remarks>
+        public static string EscapeWhitespace(string value)
         {
             if (value == null) return null;
 
@@ -349,9 +351,10 @@ namespace Common.Utils
         }
 
         /// <summary>
-        /// Unescapes a string, reverses the effect of <see cref="Escape"/>.
+        /// Unescapes a string, reverses the effect of <see cref="EscapeWhitespace"/>.
         /// </summary>
-        public static string Unescape(string value)
+        /// <remarks>This is how command-line arguments are unescaped.</remarks>
+        public static string UnescapeWhitespace(string value)
         {
             if (value == null) return null;
 
@@ -393,32 +396,13 @@ namespace Common.Utils
             if (variables == null) throw new ArgumentNullException("variables");
             #endregion
 
-            var expandedArguments = new StringBuilder();
-            StringBuilder currentVarName = null;
-            for (int i = 0; i < value.Length; i++)
-            {
-                if (value[i] == '$')
-                {
-                    if (currentVarName != null) expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables));
-                    currentVarName = new StringBuilder();
-                }
-                else
-                {
-                    if (currentVarName == null) expandedArguments.Append(value[i]);
-                    else
-                    {
-                        if (value[i] == ' ' || value[i] == '\t' || value[i] == '/')
-                        {
-                            expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables) + value[i]);
-                            currentVarName = null;
-                        }
-                        else currentVarName.Append(value[i]);
-                    }
-                }
-            }
-            if (currentVarName != null) expandedArguments.Append(ExpandVariable(currentVarName.ToString(), variables));
+            // Substitute ${VAR} for the value of VAR
+            value = new Regex(@"\${(.+)}").Replace(value, match => ExpandVariable(match.Groups[1].Value, variables));
 
-            return expandedArguments.ToString();
+            // Substitute $VAR for the value of VAR
+            value = new Regex(@"\$([^\$\s\\/]+)").Replace(value, match => ExpandVariable(match.Groups[1].Value, variables));
+
+            return value;
         }
 
         /// <summary>
@@ -426,10 +410,7 @@ namespace Common.Utils
         /// </summary>
         private static string ExpandVariable(string name, StringDictionary variables)
         {
-            if (!variables.ContainsKey(name)) return "$" + name;
-            string expanded = variables[name];
-            if (expanded.Contains(" ")) expanded = "\"" + expanded + "\"";
-            return expanded;
+            return variables.ContainsKey(name) ? variables[name] : "";
         }
         #endregion
     }

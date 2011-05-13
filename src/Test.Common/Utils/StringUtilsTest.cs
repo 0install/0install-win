@@ -112,19 +112,19 @@ namespace Common.Utils
         }
 
         [Test]
-        public void TestEscape()
+        public void TestEscapeWhitespace()
         {
-            Assert.AreEqual("test", StringUtils.Escape("test"), "Simple strings shouldn't be modified");
-            Assert.AreEqual("\"test1 test2\"", StringUtils.Escape("test1 test2"), "Strings with whitespaces should be encapsulated");
-            Assert.AreEqual("test1\\\"test2", StringUtils.Escape("test1\"test2"), "Quotation marks should be escaped");
+            Assert.AreEqual("test", StringUtils.EscapeWhitespace("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("\"test1 test2\"", StringUtils.EscapeWhitespace("test1 test2"), "Strings with whitespaces should be encapsulated");
+            Assert.AreEqual("test1\\\"test2", StringUtils.EscapeWhitespace("test1\"test2"), "Quotation marks should be escaped");
         }
 
         [Test]
-        public void TestUnescape()
+        public void TestUnescapeWhitespace()
         {
-            Assert.AreEqual("test", StringUtils.Unescape("test"), "Simple strings shouldn't be modified");
-            Assert.AreEqual("test1 test2", StringUtils.Unescape("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
-            Assert.AreEqual("test1\"test2", StringUtils.Unescape("test1\\\"test2"), "Quotation marks should be unescaped");
+            Assert.AreEqual("test", StringUtils.UnescapeWhitespace("test"), "Simple strings shouldn't be modified");
+            Assert.AreEqual("test1 test2", StringUtils.UnescapeWhitespace("\"test1 test2\""), "Strings with whitespaces should be unencapsulated");
+            Assert.AreEqual("test1\"test2", StringUtils.UnescapeWhitespace("test1\\\"test2"), "Quotation marks should be unescaped");
         }
 
         [Test]
@@ -133,10 +133,11 @@ namespace Common.Utils
             var variables = new StringDictionary
             {
                 {"key1", "value1"},
-                {"key2", "value2"}
+                {"key2", "value2"},
+                {"long key", "long value"}
             };
 
-            Assert.AreEqual("value1value2/value1 value2", StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2", variables));
+            Assert.AreEqual("value1value2/value1 value2 long value ", StringUtils.ExpandUnixVariables("$KEY1$KEY2/$KEY1 $KEY2 ${LONG KEY} $NOKEY", variables));
 
             Assert.AreEqual("", StringUtils.ExpandUnixVariables("", variables));
         }

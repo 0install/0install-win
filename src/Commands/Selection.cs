@@ -87,7 +87,7 @@ namespace ZeroInstall.Commands
             Options.Add("batch", Resources.OptionBatch, unused => Policy.Handler.Batch = true);
             Options.Add("r|refresh", Resources.OptionRefresh, unused => Policy.FeedManager.Refresh = true);
 
-            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.Unescape(command));
+            Options.Add("command=", Resources.OptionCommand, command => _requirements.CommandName = StringUtils.UnescapeWhitespace(command));
             Options.Add("before=", Resources.OptionBefore, version => _requirements.BeforeVersion = new ImplementationVersion(version));
             Options.Add("not-before=", Resources.OptionNotBefore, version => _requirements.NotBeforeVersion = new ImplementationVersion(version));
             Options.Add("s|source", Resources.OptionSource, unused => _requirements.Architecture = new Architecture(_requirements.Architecture.OS, Cpu.Source));
@@ -110,7 +110,7 @@ namespace ZeroInstall.Commands
             if (AdditionalArgs.Count == 0) throw new InvalidInterfaceIDException(Resources.NoInterfaceSpecified);
 
             // The first argument is the interface ID
-            Requirements.InterfaceID = ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs.First));
+            Requirements.InterfaceID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs.First));
             AdditionalArgs.RemoveFirst();
 
             if (File.Exists(Requirements.InterfaceID))

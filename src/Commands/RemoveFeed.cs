@@ -69,13 +69,13 @@ namespace ZeroInstall.Commands
             IEnumerable<string> interfaces;
             if (AdditionalArgs.Count == 2)
             {
-                interfaces = new[] {ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs[0]))};
+                interfaces = new[] {ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]))};
                 feedID = AdditionalArgs[1];
                 if (File.Exists(feedID)) feedID = Path.GetFullPath(feedID);
             }
             else
             {
-                feedID = ModelUtils.CanonicalID(StringUtils.Unescape(AdditionalArgs[0]));
+                feedID = ModelUtils.CanonicalID(StringUtils.UnescapeWhitespace(AdditionalArgs[0]));
 
                 Policy.FeedManager.Refresh = true;
                 bool stale;

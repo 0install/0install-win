@@ -40,9 +40,10 @@ namespace Common.Utils
         /// </summary>
         /// <param name="assembly">The name of the assembly to launch (without the file ending).</param>
         /// <param name="arguments">The command-line arguments to pass to the assembly.</param>
+        /// <returns>The newly created process.</returns>
         /// <exception cref="FileNotFoundException">Thrown if the assembly could not be located.</exception>
         /// <exception cref="Win32Exception">Thrown if there was a problem launching the assembly.</exception>
-        public static void LaunchHelperAssembly(string assembly, string arguments)
+        public static Process LaunchHelperAssembly(string assembly, string arguments)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(assembly)) throw new ArgumentNullException("assembly");
@@ -52,7 +53,7 @@ namespace Common.Utils
             if (!File.Exists(appPath)) throw new FileNotFoundException(string.Format(CultureInfo.CurrentCulture, Resources.UnableToLocateAssembly, assembly), appPath);
 
             // Only Windows can directly launch .NET executables, other platforms must run through Mono
-            Process.Start(WindowsUtils.IsWindows
+            return Process.Start(WindowsUtils.IsWindows
                 ? new ProcessStartInfo(appPath, arguments)
                 : new ProcessStartInfo("mono", "\"" + appPath + "\" " + arguments));
         }
