@@ -127,7 +127,7 @@ namespace ZeroInstall.Central.WinForms
 
         private void selfUpdateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            if (_selfUpdateVersion == null) return;
+            if (_selfUpdateVersion == null || !Visible) return;
             if (Msg.Ask(this, string.Format(Resources.SelfUpdateAvailable, _selfUpdateVersion), MsgSeverity.Info, Resources.SelfUpdateYes, Resources.SelfUpdateNo))
             {
                 try
@@ -184,7 +184,7 @@ namespace ZeroInstall.Central.WinForms
         {
             if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
             LaunchHelperAssembly("0install-win", "run --no-wait " + feedUri);
-            Close();
+            Application.Exit();
         }
         #endregion
 
@@ -240,7 +240,7 @@ namespace ZeroInstall.Central.WinForms
             string interfaceID = InputBox.Show(null, "Zero Install", "Please enter the URI of a Zero Install interface here:");
             if (string.IsNullOrEmpty(interfaceID)) return;
 
-            LaunchHelperAssembly("0install-win", "run " + StringUtils.Escape(interfaceID));
+            LaunchHelperAssembly("0install-win", "run " + StringUtils.EscapeWhitespace(interfaceID));
         }
 
         private void buttonCacheManagement_Click(object sender, EventArgs e)
@@ -281,5 +281,14 @@ namespace ZeroInstall.Central.WinForms
                 : DragDropEffects.None;
         }
         #endregion
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Visible = false;
+            while (selfUpdateWorker.IsBusy)
+            {
+                Application.DoEvents();
+            }
+        }
     }
 }
