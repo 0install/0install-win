@@ -79,24 +79,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The argument may not be less than zero..
-        /// </summary>
-        internal static string ArgMustNotBeNegative {
-            get {
-                return ResourceManager.GetString("ArgMustNotBeNegative", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to You need to pass at least two values..
-        /// </summary>
-        internal static string AtLeast2Values {
-            get {
-                return ResourceManager.GetString("AtLeast2Values", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string Cancel {
@@ -118,42 +100,6 @@ namespace Common.Properties {
             get {
                 object obj = ResourceManager.GetObject("ClearButton", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The collection is empty..
-        /// </summary>
-        internal static string CollectionIsEmpty {
-            get {
-                return ResourceManager.GetString("CollectionIsEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The content archives were already loaded.
-        /// </summary>
-        internal static string ContentArchivesAlreadyLoaded {
-            get {
-                return ResourceManager.GetString("ContentArchivesAlreadyLoaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Continue.
-        /// </summary>
-        internal static string Continue {
-            get {
-                return ResourceManager.GetString("Continue", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        internal static string Delete {
-            get {
-                return ResourceManager.GetString("Delete", resourceCulture);
             }
         }
         
@@ -188,15 +134,6 @@ namespace Common.Properties {
         internal static string ErrorReportSent {
             get {
                 return ResourceManager.GetString("ErrorReportSent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {0} could not be launched..
-        /// </summary>
-        internal static string FailedToLaunch {
-            get {
-                return ResourceManager.GetString("FailedToLaunch", resourceCulture);
             }
         }
         
@@ -253,15 +190,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The item is already in a pool. It can not be added to more than one pool..
-        /// </summary>
-        internal static string ItemAlreadyInPool {
-            get {
-                return ResourceManager.GetString("ItemAlreadyInPool", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The key was already present in the dictionary..
         /// </summary>
         internal static string KeyAlreadyPresent {
@@ -280,49 +208,11 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Warning! All your changes to this file will be lost. Do you wish to continue?.
-        /// </summary>
-        internal static string LoseChangesAsk {
-            get {
-                return ResourceManager.GetString("LoseChangesAsk", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No
-        ///Keep the changes.
-        /// </summary>
-        internal static string LoseChangesNo {
-            get {
-                return ResourceManager.GetString("LoseChangesNo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes
-        ///Delete the changes.
-        /// </summary>
-        internal static string LoseChangesYes {
-            get {
-                return ResourceManager.GetString("LoseChangesYes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The maximum amount of elements in the collection has been exceeded..
         /// </summary>
         internal static string MaxElementsExceeded {
             get {
                 return ResourceManager.GetString("MaxElementsExceeded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The Min value may not be larger than the Max value..
-        /// </summary>
-        internal static string MinLargerMax {
-            get {
-                return ResourceManager.GetString("MinLargerMax", resourceCulture);
             }
         }
         
@@ -359,15 +249,6 @@ namespace Common.Properties {
         internal static string RedoNotAvailable {
             get {
                 return ResourceManager.GetString("RedoNotAvailable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Revert.
-        /// </summary>
-        internal static string Revert {
-            get {
-                return ResourceManager.GetString("Revert", resourceCulture);
             }
         }
         
@@ -471,15 +352,6 @@ namespace Common.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file could not be deleted..
-        /// </summary>
-        internal static string UnableToDelete {
-            get {
-                return ResourceManager.GetString("UnableToDelete", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to generate error report file. Please send the technical data via e-mail..
         /// </summary>
         internal static string UnableToGenerateErrorReportFile {
@@ -530,15 +402,6 @@ namespace Common.Properties {
         internal static string UnixSubsystemFail {
             get {
                 return ResourceManager.GetString("UnixSubsystemFail", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Uploading {0}.
-        /// </summary>
-        internal static string Uploading {
-            get {
-                return ResourceManager.GetString("Uploading", resourceCulture);
             }
         }
         

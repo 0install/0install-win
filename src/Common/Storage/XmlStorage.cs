@@ -38,8 +38,9 @@ using ICSharpCode.SharpZipLib.Zip;
 namespace Common.Storage
 {
     /// <summary>
-    /// Allows an easy storage of objects in compressed and encrypted XML files
+    /// Provides easy serialization to XML files (optionally wrapped in ZIP archives).
     /// </summary>
+    /// <remarks>This calls only serializes public properties.</remarks>
     public static class XmlStorage
     {
         #region Serializer generation
@@ -131,7 +132,7 @@ namespace Common.Storage
 
         #region Load plain
         /// <summary>
-        /// Loads a object from an XML file.
+        /// Loads an object from an XML file.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="stream">The XML file to be loaded.</param>
@@ -149,7 +150,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML file.
+        /// Loads an object from an XML file.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="path">The XML file to be loaded.</param>
@@ -170,7 +171,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML string.
+        /// Loads an object from an XML string.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="data">The XML string to be parsed.</param>
@@ -308,7 +309,7 @@ namespace Common.Storage
 
         #region Load ZIP
         /// <summary>
-        /// Loads a object from an XML file embedded in a ZIP archive.
+        /// Loads an object from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="stream">The ZIP archive to be loaded.</param>
@@ -364,7 +365,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an XML file embedded in a ZIP archive.
+        /// Loads an object from an XML file embedded in a ZIP archive.
         /// </summary>
         /// <typeparam name="T">The type of object the XML stream shall be converted into.</typeparam>
         /// <param name="path">The ZIP archive to be loaded.</param>

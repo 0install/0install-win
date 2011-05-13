@@ -43,6 +43,10 @@ namespace Common.Controls
 
         public KeyCombinationShortcut(IContainer container)
         {
+            #region Sanity checks
+            if (container == null) throw new ArgumentNullException("container");
+            #endregion
+
             container.Add(this);
 
             InitializeComponent();
@@ -59,6 +63,10 @@ namespace Common.Controls
         /// <param name="e">not used.</param>
         public void KeyDown(object sender, KeyEventArgs e)
         {
+            #region Sanity checks
+            if (e == null) throw new ArgumentNullException("e");
+            #endregion
+
             if(_shortcuts.Contains(e.KeyData)) _shortcuts[e.KeyData]();
         }
         #endregion

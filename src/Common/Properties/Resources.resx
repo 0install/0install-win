@@ -130,165 +130,118 @@
   <data name="Error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Error.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
-    <value>Unable to generate error report file. Please send the technical data via e-mail.</value>
-  </data>
-  <data name="ErrorReportSent" xml:space="preserve">
-    <value>The error report was sent successfully.</value>
-  </data>
-  <data name="ContentArchivesAlreadyLoaded" xml:space="preserve">
-    <value>The content archives were already loaded</value>
-  </data>
-  <data name="UserCancel" xml:space="preserve">
-    <value>The user has chosen to cancel the operation.</value>
-  </data>
-  <data name="UnhandledCliErrors" xml:space="preserve">
-    <value>One or more errors from an external command-line application were not handled.</value>
-  </data>
-  <data name="NoXmlDataInFile" xml:space="preserve">
-    <value>There was no XML data found in the file.</value>
-  </data>
-  <data name="ArgMustNotBeNegative" xml:space="preserve">
-    <value>The argument may not be less than zero.</value>
-  </data>
-  <data name="KeyNotFound" xml:space="preserve">
-    <value>The key was not found in the collection.</value>
-  </data>
-  <data name="KeyAlreadyPresent" xml:space="preserve">
-    <value>The key was already present in the dictionary.</value>
-  </data>
-  <data name="MinLargerMax" xml:space="preserve">
-    <value>The Min value may not be larger than the Max value.</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Continue</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>No</value>
-  </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
-  </data>
-  <data name="InvalidConfigDir" xml:space="preserve">
-    <value>The configuration directory '{0}' is probably invalid.</value>
-  </data>
-  <data name="ItemAlreadyInPool" xml:space="preserve">
-    <value>The item is already in a pool. It can not be added to more than one pool.</value>
-  </data>
-  <data name="MaxElementsExceeded" xml:space="preserve">
-    <value>The maximum amount of elements in the collection has been exceeded.</value>
-  </data>
-  <data name="RedoNotAvailable" xml:space="preserve">
-    <value>This command cannot be performed again until the undo command has been performed.</value>
-  </data>
-  <data name="UndoNotAvailable" xml:space="preserve">
-    <value>This undo command cannot be performed until the actual command has been performed.</value>
-  </data>
-  <data name="AtLeast2Values" xml:space="preserve">
-    <value>You need to pass at least two values.</value>
-  </data>
-  <data name="TargetsOldValuesLength" xml:space="preserve">
-    <value>Length of targets must be equal to Length of oldValues</value>
-  </data>
-  <data name="CannotAddCollectionToSelf" xml:space="preserve">
-    <value>The collection cannot be added to itself.</value>
-  </data>
-  <data name="CollectionIsEmpty" xml:space="preserve">
-    <value>The collection is empty.</value>
-  </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>The file "{0}" could not be found.</value>
-  </data>
-  <data name="Delete" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="LoseChangesAsk" xml:space="preserve">
-    <value>Warning! All your changes to this file will be lost. Do you wish to continue?</value>
-  </data>
-  <data name="LoseChangesNo" xml:space="preserve">
-    <value>No
-Keep the changes</value>
-  </data>
-  <data name="LoseChangesYes" xml:space="preserve">
-    <value>Yes
-Delete the changes</value>
-  </data>
-  <data name="Revert" xml:space="preserve">
-    <value>Revert</value>
-  </data>
-  <data name="UnableToDelete" xml:space="preserve">
-    <value>The file could not be deleted.</value>
-  </data>
-  <data name="HttpAndFtpOnly" xml:space="preserve">
-    <value>Only HTTP and FTP are supported download protocols.</value>
-  </data>
-  <data name="FileNotExpectedSize" xml:space="preserve">
-    <value>The file that was supposed to be downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
-  </data>
-  <data name="StateMustBeReady" xml:space="preserve">
-    <value>The state must be "Ready".</value>
-  </data>
-  <data name="SourceDirNotExist" xml:space="preserve">
-    <value>The source directory does not exist.</value>
-  </data>
-  <data name="DestinationDirExist" xml:space="preserve">
-    <value>The destination directory already exists.</value>
-  </data>
-  <data name="SourceDestinationEqual" xml:space="preserve">
-    <value>Source and destination are equal.</value>
-  </data>
   <data name="ArchiveInvalid" xml:space="preserve">
     <value>The archive file is invalid or damaged.</value>
-  </data>
-  <data name="UnableToLaunchBundled" xml:space="preserve">
-    <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>
   </data>
   <data name="ArgMustBeGreaterThanZero" xml:space="preserve">
     <value>The argument must be greater than zero.</value>
   </data>
-  <data name="MissingStreamSeekSupport" xml:space="preserve">
-    <value>The stream must support seeking.</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="UnableToLocateAssembly" xml:space="preserve">
-    <value>The assembly named "{0}" could not be located.</value>
+  <data name="CannotAddCollectionToSelf" xml:space="preserve">
+    <value>The collection cannot be added to itself.</value>
   </data>
-  <data name="FailedToLaunch" xml:space="preserve">
-    <value>{0} could not be launched.</value>
-  </data>
-  <data name="UnixSubsystemFail" xml:space="preserve">
-    <value>The Unix subsystem failed to process the request. You may have insufficient rights.</value>
+  <data name="DestinationDirExist" xml:space="preserve">
+    <value>The destination directory already exists.</value>
   </data>
   <data name="Downloading" xml:space="preserve">
     <value>Downloading {0}</value>
   </data>
-  <data name="Uploading" xml:space="preserve">
-    <value>Uploading {0}</value>
+  <data name="ErrorReportSent" xml:space="preserve">
+    <value>The error report was sent successfully.</value>
   </data>
-  <data name="StateReady" xml:space="preserve">
-    <value>Ready</value>
+  <data name="FileNotExpectedSize" xml:space="preserve">
+    <value>The file that was supposed to be downloaded from {0} doesn't have the expected size. Was supposed to be {1} bytes but was actually {2} bytes.</value>
   </data>
-  <data name="StateHeader" xml:space="preserve">
-    <value>Getting headers</value>
+  <data name="FileNotFound" xml:space="preserve">
+    <value>The file "{0}" could not be found.</value>
   </data>
-  <data name="StateData" xml:space="preserve">
-    <value>Processing data</value>
+  <data name="HideDetails" xml:space="preserve">
+    <value>Hide details</value>
   </data>
-  <data name="StateWebError" xml:space="preserve">
-    <value>Web error</value>
+  <data name="HttpAndFtpOnly" xml:space="preserve">
+    <value>Only HTTP and FTP are supported download protocols.</value>
   </data>
-  <data name="StateIOError" xml:space="preserve">
-    <value>IO error</value>
+  <data name="InvalidConfigDir" xml:space="preserve">
+    <value>The configuration directory '{0}' is probably invalid.</value>
   </data>
-  <data name="StateComplete" xml:space="preserve">
-    <value>Complete</value>
+  <data name="KeyAlreadyPresent" xml:space="preserve">
+    <value>The key was already present in the dictionary.</value>
+  </data>
+  <data name="KeyNotFound" xml:space="preserve">
+    <value>The key was not found in the collection.</value>
+  </data>
+  <data name="MaxElementsExceeded" xml:space="preserve">
+    <value>The maximum amount of elements in the collection has been exceeded.</value>
+  </data>
+  <data name="MissingStreamSeekSupport" xml:space="preserve">
+    <value>The stream must support seeking.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NoXmlDataInFile" xml:space="preserve">
+    <value>There was no XML data found in the file.</value>
+  </data>
+  <data name="RedoNotAvailable" xml:space="preserve">
+    <value>This command cannot be performed again until the undo command has been performed.</value>
   </data>
   <data name="ShowDetails" xml:space="preserve">
     <value>Show details</value>
   </data>
-  <data name="HideDetails" xml:space="preserve">
-    <value>Hide details</value>
+  <data name="SourceDestinationEqual" xml:space="preserve">
+    <value>Source and destination are equal.</value>
+  </data>
+  <data name="SourceDirNotExist" xml:space="preserve">
+    <value>The source directory does not exist.</value>
+  </data>
+  <data name="StateComplete" xml:space="preserve">
+    <value>Complete</value>
+  </data>
+  <data name="StateData" xml:space="preserve">
+    <value>Processing data</value>
+  </data>
+  <data name="StateHeader" xml:space="preserve">
+    <value>Getting headers</value>
+  </data>
+  <data name="StateIOError" xml:space="preserve">
+    <value>IO error</value>
+  </data>
+  <data name="StateMustBeReady" xml:space="preserve">
+    <value>The state must be "Ready".</value>
+  </data>
+  <data name="StateReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="StateWebError" xml:space="preserve">
+    <value>Web error</value>
+  </data>
+  <data name="TargetsOldValuesLength" xml:space="preserve">
+    <value>Length of targets must be equal to Length of oldValues</value>
+  </data>
+  <data name="UnableToGenerateErrorReportFile" xml:space="preserve">
+    <value>Unable to generate error report file. Please send the technical data via e-mail.</value>
+  </data>
+  <data name="UnableToLaunchBundled" xml:space="preserve">
+    <value>The bundled {0} installation could not be launched. Please reinstall the application.</value>
+  </data>
+  <data name="UnableToLocateAssembly" xml:space="preserve">
+    <value>The assembly named "{0}" could not be located.</value>
+  </data>
+  <data name="UndoNotAvailable" xml:space="preserve">
+    <value>This undo command cannot be performed until the actual command has been performed.</value>
+  </data>
+  <data name="UnhandledCliErrors" xml:space="preserve">
+    <value>One or more errors from an external command-line application were not handled.</value>
+  </data>
+  <data name="UnixSubsystemFail" xml:space="preserve">
+    <value>The Unix subsystem failed to process the request. You may have insufficient rights.</value>
+  </data>
+  <data name="UserCancel" xml:space="preserve">
+    <value>The user has chosen to cancel the operation.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
   </data>
 </root>

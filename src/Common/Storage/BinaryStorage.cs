@@ -31,11 +31,12 @@ using ICSharpCode.SharpZipLib.Zip;
 namespace Common.Storage
 {
     /// <summary>
-    /// Allows an easy storage of objects in compressed and encrypted Binary files
+    /// Provides easy serialization to binary files (optionally wrapped in ZIP archives).
     /// </summary>
+    /// <remarks>This class serializes private fields.</remarks>
     public static class BinaryStorage
     {
-        private static readonly BinaryFormatter Serializer = new BinaryFormatter();
+        private static readonly BinaryFormatter _serializer = new BinaryFormatter();
 
         //--------------------//
 
@@ -54,7 +55,7 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            return (T)Serializer.Deserialize(stream);
+            return (T)_serializer.Deserialize(stream);
         }
 
         /// <summary>
@@ -77,7 +78,7 @@ namespace Common.Storage
         }
 
         /// <summary>
-        /// Loads a object from an binary string
+        /// Loads an object from an binary string
         /// </summary>
         /// <typeparam name="T">The type of object the binary stream shall be converted into.</typeparam>
         /// <param name="data">The binary string to be parsed</param>
@@ -108,7 +109,7 @@ namespace Common.Storage
             if (stream == null) throw new ArgumentNullException("stream");
             #endregion
 
-            Serializer.Serialize(stream, data);
+            _serializer.Serialize(stream, data);
         }
 
         /// <summary>
