@@ -138,13 +138,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 #endregion
             }
@@ -176,13 +176,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 #endregion
             }
@@ -212,13 +212,13 @@ namespace ZeroInstall.Store.Implementation
                 #region Error handling
                 catch (IOException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                    // Remember the first error
-                    if (innerException == null) innerException = ex;
+                    // Remember the last error
+                    innerException = ex;
                 }
                 #endregion
             }
