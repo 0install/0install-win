@@ -22,6 +22,7 @@
 
 using System;
 using System.IO;
+using System.Net;
 
 namespace Common.Tasks
 {
@@ -38,6 +39,7 @@ namespace Common.Tasks
         /// <param name="tag">An object used to associate the <paramref name="task"/> with a specific process; may be <see langword="null"/>.</param>
         /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
         /// <exception cref="IOException">Thrown if the task ended with <see cref="TaskState.IOError"/>.</exception>
+        /// <exception cref="WebException">Thrown if the task ended with <see cref="TaskState.WebError"/>.</exception>
         /// <exception cref="InvalidOperationException">Thrown if <see cref="ITask.State"/> is not <see cref="TaskState.Ready"/>.</exception>
         /// <remarks>
         /// This may be called multiple times concurrently but the concurrent calls must not depend on each other! The specific implementation of this method may chose whether to actually run the tasks concurrently or in sequence.

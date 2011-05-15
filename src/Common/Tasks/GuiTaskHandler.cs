@@ -21,14 +21,14 @@
  */
 
 using System;
-using Common.Cli;
+using Common.Controls;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Uses the stderr stream to inform the user about the progress of tasks.
+    /// Uses <see cref="TrackingDialog"/> to inform the user about the progress of tasks.
     /// </summary>
-    public class CliTaskHandler : MarshalByRefObject, ITaskHandler
+    public class GuiTaskHandler : MarshalByRefObject, ITaskHandler
     {
         /// <inheritdoc />
         public bool Batch { get; set; }
@@ -49,12 +49,7 @@ namespace Common.Tasks
                 return;
             }
 
-            lock (_taskLock) // Prevent multiple concurrent tasks
-            {
-                Log.Info(task.Name + "...");
-                using (new TrackingProgressBar(task))
-                    task.RunSync();
-            }
+            TrackingDialog.Run(null, task, null);
         }
     }
 }

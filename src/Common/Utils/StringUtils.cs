@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Globalization;
-using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -397,20 +396,12 @@ namespace Common.Utils
             #endregion
 
             // Substitute ${VAR} for the value of VAR
-            value = new Regex(@"\${(.+)}").Replace(value, match => ExpandVariable(match.Groups[1].Value, variables));
+            value = new Regex(@"\${(.+)}").Replace(value, match => variables[match.Groups[1].Value]);
 
             // Substitute $VAR for the value of VAR
-            value = new Regex(@"\$([^\$\s\\/]+)").Replace(value, match => ExpandVariable(match.Groups[1].Value, variables));
+            value = new Regex(@"\$([^\$\s\\/]+)").Replace(value, match => variables[match.Groups[1].Value]);
 
             return value;
-        }
-
-        /// <summary>
-        /// Helper method for <see cref="ExpandUnixVariables"/>.
-        /// </summary>
-        private static string ExpandVariable(string name, StringDictionary variables)
-        {
-            return variables.ContainsKey(name) ? variables[name] : "";
         }
         #endregion
     }
