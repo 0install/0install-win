@@ -182,9 +182,7 @@ namespace ZeroInstall.Central.WinForms
         /// <param name="feedUri">The URI of the feed to be launched.</param>
         private void LaunchFeed(string feedUri)
         {
-            if (feedUri.Contains(" ")) feedUri = "\"" + feedUri + "\"";
-            LaunchHelperAssembly("0install-win", "run --no-wait " + feedUri);
-            Application.Exit();
+            LaunchHelperAssembly("0install-win", "run --gui --no-wait " + StringUtils.EscapeWhitespace(feedUri));
         }
         #endregion
 
@@ -214,8 +212,8 @@ namespace ZeroInstall.Central.WinForms
                     string feedUri = e.Url.AbsoluteUri.Replace(UrlPostfixFeed, "");
 
                     // ToDo: Display more details about the feed
-                    if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Info, "Yes\nLaunch the application", "No\nGo back to the list"))
-                        LaunchFeed(feedUri);
+                    //if (Msg.Ask(this, "Do you want to launch this application?\n" + feedUri, MsgSeverity.Info, "Yes\nLaunch the application", "No\nGo back to the list"))
+                    LaunchFeed(feedUri);
                     break;
 
                 case UrlPostfixBrowser:
