@@ -17,12 +17,19 @@
 
 using System;
 using System.IO;
+using System.Net;
 using System.Text;
+using Common;
 using Common.Cli;
+using Common.Compression;
+using Common.Net;
 using Common.Storage;
+using Common.Tasks;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Properties;
 using ZeroInstall.Store.Feeds;
+using ZeroInstall.Store.Implementation;
+using ZeroInstall.Store.Implementation.Archive;
 
 namespace ZeroInstall.Publish
 {
@@ -130,6 +137,58 @@ namespace ZeroInstall.Publish
 
             // ToDo: Implement
             //var gnuPG = new GnuPG();
+        }
+        #endregion
+
+        #region Implementation
+        /// <summary>
+        /// Creates a new <see cref="Implementation"/> by downloading an archive from a specific URL, extracting it and generating its <see cref="ManifestDigest"/>.
+        /// </summary>
+        /// <param name="source">The URL used to locate the archive.</param>
+        /// <param name="extract">The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.</param>
+        /// <param name="cache">Adds the downloaded archive to <see cref="StoreProvider.CreateDefault"/> when set to <see langword="true"/>.</param>
+        /// <param name="handler">A callback object used when the the user is to be informed about progress.</param>
+        /// <returns>A newly created <see cref="Implementation"/> containing one <see cref="Archive"/>.</returns>
+        /// <exception cref="UserCancelException">Thrown if the user canceled the task.</exception>
+        /// <exception cref="IOException">Thrown if there was a problem extracting the archive.</exception>
+        /// <exception cref="WebException">Thrown if there was a problem downloading the archive.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown if write access to temporary files was not permitted.</exception>
+        /// <exception cref="NotSupportedException">Thrown if the archive's MIME type could not be determined.</exception>
+        /// <remarks>The archive's MIME type is guessed based on its file extension in <paramref name="source"/>.</remarks>
+        public static Implementation BuildImplementation(string source, string extract, bool cache, ITaskHandler handler)
+        {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(source)) throw new ArgumentNullException("source");
+            if (handler == null) throw new ArgumentNullException("handler");
+            #endregion
+
+            string mimeType = ArchiveUtils.GuessMimeType(source);
+            var location = new Uri(source);
+
+            using (var tempFile = new TemporaryFile("0install"))
+            {
+                handler.RunTask(new DownloadFile(location, tempFile.Path), null);
+
+                using (var tempDir = new TemporaryDirectory("0install"))
+                {
+                    using (var extractor = Extractor.CreateExtractor(mimeType, tempFile.Path, 0, tempDir.Path))
+                    {
+                        extractor.SubDir = extract;
+                        handler.RunTask(extractor, null);
+                    }
+
+                    var digest = Manifest.CreateDigest(tempDir.Path, handler);
+                    if (cache)
+                    {
+                        var store = StoreProvider.CreateDefault();
+                        try { store.AddDirectory(tempDir.Path, digest, handler); }
+                        catch(ImplementationAlreadyInStoreException) {}
+                    }
+
+                    var archive = new Archive {Location = location, MimeType = mimeType, Size = new FileInfo(tempFile.Path).Length, Extract = extract};
+                    return new Implementation {ID = "sha1new=" + digest.Sha1New, ManifestDigest = digest, RetrievalMethods = {archive}};
+                }
+            }
         }
         #endregion
     }
