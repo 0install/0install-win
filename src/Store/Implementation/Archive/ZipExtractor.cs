@@ -49,7 +49,7 @@ namespace ZeroInstall.Store.Implementation.Archive
 
             try
             {
-                _zip = new ZipFile(stream) { IsStreamOwner = false };
+                _zip = new ZipFile(stream) {IsStreamOwner = false};
             }
             catch (ZipException ex)
             {

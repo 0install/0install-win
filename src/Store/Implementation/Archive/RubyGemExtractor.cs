@@ -16,7 +16,6 @@
  */
 
 using System.IO;
-using Common.Streams;
 using ICSharpCode.SharpZipLib.Tar;
 using ZeroInstall.Store.Properties;
 
@@ -48,7 +47,7 @@ namespace ZeroInstall.Store.Implementation.Archive
         {
             try
             {
-                var tar = new TarInputStream(stream) {IsStreamOwner=false};
+                var tar = new TarInputStream(stream);
                 while (true)
                 {
                     var entry = tar.GetNextEntry();

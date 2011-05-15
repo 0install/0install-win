@@ -51,6 +51,7 @@ namespace Common.Compression
             if (baseStream == null) throw new ArgumentNullException("baseStream");
             #endregion
 
+            // ToDo: Handle disposing of original stream
             var bufferStream = new CircularBufferStream(bufferSize);
 
             var decoder = new Decoder();
