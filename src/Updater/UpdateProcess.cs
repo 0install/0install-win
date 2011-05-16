@@ -130,7 +130,11 @@ namespace ZeroInstall.Updater
         /// </summary>
         public void UpdateRegistry()
         {
-            // ToDo: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1\DisplayVersion
+            string newVersion = Environment.GetEnvironmentVariable("ZEROINSTALL_VERSION");
+            if (string.IsNullOrEmpty(newVersion)) return;
+
+            var innoSetupKey = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Zero Install_is1");
+            if (innoSetupKey != null) innoSetupKey.SetValue("DisplayVerion", newVersion);
         }
         #endregion
     }
