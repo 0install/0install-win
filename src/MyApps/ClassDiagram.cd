@@ -25,24 +25,25 @@
       <Compartment Name="Fields" Collapsed="true" />
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
-    <AssociationLine Name="Integrations" Type="ZeroInstall.DesktopIntegration.Integration">
-      <MemberNameLabel ManuallyPlaced="true">
-        <Position X="-0.992" Y="0.183" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAEgAjAAAQABAAAAIAAAAAAAAAAABA=</HashCode>
+      <HashCode>AEAAAAAAEAgAAABEgAjAAAQABAAAAIAAAAAAAAAAABA=</HashCode>
       <FileName>AppEntry.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
-      <Property Name="Integrations" />
+      <Property Name="Capabilities" />
+      <Property Name="AccessPoints" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" Collapsed="true" />
   </Class>
-  <Class Name="ZeroInstall.DesktopIntegration.Integration" Collapsed="true">
-    <Position X="0.5" Y="4.25" Width="1.5" />
+  <Class Name="ZeroInstall.DesktopIntegration.Capability" Collapsed="true">
+    <Position X="3.25" Y="2" Width="1.5" />
     <TypeIdentifier />
-    <Lollipop Position="0.2" Collapsed="true" />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ZeroInstall.DesktopIntegration.AccessPoint" Collapsed="true">
+    <Position X="3.25" Y="3" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

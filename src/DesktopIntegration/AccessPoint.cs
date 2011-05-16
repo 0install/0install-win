@@ -20,34 +20,34 @@ using System.Xml.Serialization;
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
-    /// Integrations describe how an application is made available to user in the operating system's environment.
+    /// Access points build upon <see cref="Capability"/>s and represent more invasive changes to the desktop environment's UI.
     /// </summary>
     [XmlType("integration", Namespace = XmlNamespace)]
-    public abstract class Integration : ICloneable
+    public abstract class AccessPoint : ICloneable
     {
         #region Constants
         /// <summary>
-        /// The XML namespace used for storing application list data.
+        /// The XML namespace used for storing desktop integration data.
         /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/my-apps/app-list";
+        public const string XmlNamespace = "http://0install.de/schema/injector/desktop-integration";
         #endregion
-        
+
         //--------------------//
 
         #region Clone
         /// <summary>
-        /// Creates a deep copy of this <see cref="Integration"/> instance.
+        /// Creates a deep copy of this <see cref="AccessPoint"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="Integration"/>.</returns>
-        public abstract Integration CloneIntegration();
+        /// <returns>The new copy of the <see cref="AccessPoint"/>.</returns>
+        public abstract AccessPoint CloneAccessPoint();
 
         /// <summary>
-        /// Creates a deep copy of this <see cref="Integration"/> instance.
+        /// Creates a deep copy of this <see cref="AccessPoint"/> instance.
         /// </summary>
-        /// <returns>The new copy of the <see cref="Integration"/>.</returns>
+        /// <returns>The new copy of the <see cref="AccessPoint"/>.</returns>
         public object Clone()
         {
-            return CloneIntegration();
+            return CloneAccessPoint();
         }
         #endregion
     }

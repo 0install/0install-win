@@ -18,7 +18,6 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
-using ZeroInstall.DesktopIntegration;
 
 namespace ZeroInstall.MyApps
 {
@@ -36,19 +35,10 @@ namespace ZeroInstall.MyApps
         {
             return new AppList
             {
-                Entries = {
-                    new AppEntry { Interface = new Uri("http://0install.de/feeds/FileZilla.xml"), Name = "FileZilla", Integrations =
-                    {
-                        new MenuEntry { Name = "FileZilla", Category = "Network" },
-                        new DesktopShortcut { Name = "FileZilla" },
-                        new Bootstrapper { Name = "filezilla" }
-                    } },
-                    new AppEntry { Interface = new Uri("http://0install.de/feeds/VLC.xml"), Name = "VLC media player", Integrations =
-                    {
-                        new MenuEntry { Name = "VLC media player", Category = "AudioVideo" },
-                        new DesktopShortcut { Name = "VLC media player" },
-                        new Bootstrapper { Name = "vlc" }
-                    } }
+                Entries =
+                {
+                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test App 1", AutoUpdate = true},
+                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test2.xml"), Name = "Test App 2", AutoUpdate = false}
                 }
             };
         }

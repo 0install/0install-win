@@ -32,20 +32,13 @@ namespace ZeroInstall.MyApps
     {
         #region Properties
         /// <summary>
-        /// The (possibly user-chosen) name of the application.
-        /// </summary>
-        [Description("The (possibly user-chosen) name of the application.")]
-        [XmlAttribute("name")]
-        public string Name { get; set; }
-
-        /// <summary>
         /// The URI used to identify the interface and locate the feed.
         /// </summary>
         [Description("The URI used to identify the interface and locate the feed.")]
         [XmlIgnore]
         public Uri Interface
         { get; set; }
-
+        
         /// <summary>Used for XML serialization.</summary>
         /// <seealso cref="Uri"/>
         [SuppressMessage("Microsoft.Design", "CA1056:UriPropertiesShouldNotBeStrings", Justification = "Used for XML serialization")]
@@ -56,15 +49,39 @@ namespace ZeroInstall.MyApps
             set { Interface = new Uri(value); }
         }
 
-        // Preserve order
-        private readonly C5.ArrayList<Integration> _integrations = new C5.ArrayList<Integration>();
         /// <summary>
-        /// A list of <see cref="Integration"/> handlers specifing how this application should be integrated into the system environment.
+        /// A user-definied alternative name for the appliaction, overriding the name specified in the feed.
         /// </summary>
-        [Description("A list of Integration handlers specifing how this application should be integrated into the system environment.")]
-        [XmlElement(typeof(MenuEntry)), XmlElement(typeof(DesktopShortcut)), XmlElement(typeof(Bootstrapper))]
+        [Description("A user-definied alternative name for the appliaction, overriding the name specified in the feed.")]
+        [XmlAttribute("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Set to <see langword="true"/> to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to <see langword="false"/>.
+        /// </summary>
+        [Description("Set to true to automatically download the newest available version of the application as a regular background task. Update checks will still be performed when the application is launched when set to false.")]
+        [XmlAttribute("auto-update"), DefaultValue(false)]
+        public bool AutoUpdate { get; set; }
+
+        // Preserve order
+        private readonly C5.ArrayList<Capability> _capabilities = new C5.ArrayList<Capability>();
+        /// <summary>
+        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// </summary>
+        [Description("A list of capabilities to be registered in the desktop environment.")]
+        //[XmlElement(typeof(...))]
         // Note: Can not use ICollection<T> interface with XML Serialization
-        public C5.ArrayList<Integration> Integrations { get { return _integrations; } }
+        public C5.ArrayList<Capability> Capabilities { get { return _capabilities; } }
+
+        // Preserve order
+        private readonly C5.ArrayList<AccessPoint> _accessPoints = new C5.ArrayList<AccessPoint>();
+        /// <summary>
+        /// A list of <see cref="AccessPoint"/>s to be created in the desktop environment.
+        /// </summary>
+        [Description("A list of access Points to be created in the desktop environment.")]
+        //[XmlElement(typeof(...))]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<AccessPoint> AccessPoints { get { return _accessPoints; } }
         #endregion
 
         //--------------------//
@@ -87,7 +104,7 @@ namespace ZeroInstall.MyApps
         public AppEntry CloneEntry()
         {
             var appList = new AppEntry {Name = Name, Interface = Interface};
-            foreach (var integration in Integrations) appList.Integrations.Add(integration.CloneIntegration());
+            foreach (var integration in Capabilities) appList.Capabilities.Add(integration.CloneCapability());
 
             return appList;
         }
@@ -110,7 +127,7 @@ namespace ZeroInstall.MyApps
 
             if (Name != other.Name) return false;
             if (Interface != other.Interface) return false;
-            if (!Integrations.SequencedEquals(other.Integrations)) return false;
+            if (!Capabilities.SequencedEquals(other.Capabilities)) return false;
             return true;
         }
 
@@ -129,7 +146,7 @@ namespace ZeroInstall.MyApps
             {
                 int result = (Name ?? "").GetHashCode();
                 result = (result * 397) ^ (InterfaceString ?? "").GetHashCode();
-                result = (result * 397) ^ Integrations.GetSequencedHashCode();
+                result = (result * 397) ^ Capabilities.GetSequencedHashCode();
                 return result;
             }
         }
