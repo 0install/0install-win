@@ -142,7 +142,7 @@ namespace ZeroInstall.Publish
 
         #region Implementation
         /// <summary>
-        /// Creates a new <see cref="Implementation"/> by downloading an archive from a specific URL, extracting it and generating its <see cref="ManifestDigest"/>.
+        /// Creates a new <see cref="Implementation"/> by downloading an archive from a specific URL, extracting it and calculating its <see cref="ManifestDigest"/>.
         /// </summary>
         /// <param name="source">The URL used to locate the archive.</param>
         /// <param name="extract">The name of the subdirectory in the archive to extract; <see langword="null"/> or <see cref="string.Empty"/> for entire archive.</param>
