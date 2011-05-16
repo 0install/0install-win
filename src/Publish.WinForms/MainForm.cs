@@ -701,7 +701,7 @@ namespace ZeroInstall.Publish.WinForms
             foreach (InterfaceReference feedFor in listBoxFeedFor.Items) _feedEditing.Feed.FeedFor.Add(feedFor);
         }
 
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainFormFormClosing(object sender, FormClosingEventArgs e)
         {
             if (!feedManager.SaveChanges()) e.Cancel = true;
         }
