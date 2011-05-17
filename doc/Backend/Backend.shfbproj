@@ -33,7 +33,7 @@
       <DocumentationSource sourceFile="..\..\src\Common\Common.csproj" />
       <DocumentationSource sourceFile="..\..\src\Model\Model.csproj" />
       <DocumentationSource sourceFile="..\..\src\Store\Store.csproj" />
-            <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
+      <DocumentationSource sourceFile="..\..\src\DesktopIntegration\DesktopIntegration.csproj" />
       <DocumentationSource sourceFile="..\..\src\Injector\Injector.csproj" />
       <DocumentationSource sourceFile="..\..\src\Fetchers\Fetchers.csproj" />
     </DocumentationSources>
