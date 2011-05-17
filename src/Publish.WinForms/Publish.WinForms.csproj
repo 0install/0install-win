@@ -211,6 +211,9 @@
     <EmbeddedResource Include="Controls\FeedEditorToolStrip.resx">
       <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Controls\FeedStructureTreeView.resx">
+      <DependentUpon>FeedStructureTreeView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Controls\IconManagementControl.de.resx">
       <DependentUpon>IconManagementControl.cs</DependentUpon>
     </EmbeddedResource>
