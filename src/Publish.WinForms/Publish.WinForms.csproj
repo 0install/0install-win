@@ -82,6 +82,12 @@
     <Compile Include="Controls\FeedEditorToolStrip.Designer.cs">
       <DependentUpon>FeedEditorToolStrip.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FeedStructureTreeView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FeedStructureTreeView.Designer.cs">
+      <DependentUpon>FeedStructureTreeView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\IconManagementControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
