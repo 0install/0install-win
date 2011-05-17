@@ -105,10 +105,6 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyApps\MyApps.csproj">
-      <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
-      <Name>MyApps</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>

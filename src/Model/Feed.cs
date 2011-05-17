@@ -23,6 +23,7 @@ using System.Xml.Serialization;
 using Common;
 using Common.Collections;
 using Common.Storage;
+using ZeroInstall.Model.Capabilities;
 using ZeroInstall.Model.Properties;
 
 namespace ZeroInstall.Model
@@ -184,6 +185,16 @@ namespace ZeroInstall.Model
         [XmlElement(typeof(Implementation)), XmlElement(typeof(PackageImplementation)), XmlElement(typeof(Group))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Element> Elements { get { return _elements; } }
+
+        // Preserve order
+        private readonly C5.ArrayList<CapabilityList> _capabilityLists = new C5.ArrayList<CapabilityList>();
+        /// <summary>
+        /// A list of <see cref="Capability"/>s to be registered in the desktop environment.
+        /// </summary>
+        [Description("A list of capabilities to be registered in the desktop environment.")]
+        [XmlElement("capabilities", Namespace = Capability.XmlNamespace)]
+        // Note: Can not use ICollection<T> interface with XML Serialization
+        public C5.ArrayList<CapabilityList> CapabilityLists { get { return _capabilityLists; } }
         #endregion
 
         //--------------------//
@@ -334,6 +345,7 @@ namespace ZeroInstall.Model
             foreach (var category in Categories) feed.Categories.Add(category);
             foreach (var icon in Icons) feed.Icons.Add(icon);
             foreach (var element in Elements) feed.Elements.Add(element.CloneElement());
+            foreach (var capabilityList in CapabilityLists) feed.CapabilityLists.Add(capabilityList.CloneCapabilityList());
 
             return feed;
         }
@@ -375,6 +387,7 @@ namespace ZeroInstall.Model
             if (!Categories.SequencedEquals(other.Categories)) return false;
             if (!Icons.SequencedEquals(other.Icons)) return false;
             if (!Elements.SequencedEquals(other.Elements)) return false;
+            if (!CapabilityLists.SequencedEquals(other.CapabilityLists)) return false;
             return true;
         }
 
@@ -394,14 +407,15 @@ namespace ZeroInstall.Model
                 int result = (MinInjectorVersion ?? new ImplementationVersion("0.1")).GetHashCode();
                 result = (result * 397) ^ (UriString ?? "").GetHashCode();
                 result = (result * 397) ^ (Name ?? "").GetHashCode();
-                result = (result * 397) ^ Summaries.GetUnsequencedHashCode();
-                result = (result * 397) ^ Descriptions.GetUnsequencedHashCode();
+                result = (result * 397) ^ Summaries.GetSequencedHashCode();
+                result = (result * 397) ^ Descriptions.GetSequencedHashCode();
                 result = (result * 397) ^ (HomepageString ?? "").GetHashCode();
                 result = (result * 397) ^ NeedsTerminal.GetHashCode();
                 result = (result * 397) ^ Feeds.GetSequencedHashCode();
                 result = (result * 397) ^ Categories.GetSequencedHashCode();
                 result = (result * 397) ^ Icons.GetSequencedHashCode();
                 result = (result * 397) ^ Elements.GetSequencedHashCode();
+                result = (result * 397) ^ CapabilityLists.GetSequencedHashCode();
                 return result;
             }
         }

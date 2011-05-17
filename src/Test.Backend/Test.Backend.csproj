@@ -71,10 +71,6 @@
       <Project>{E9329C91-2656-418C-9D4A-7A4378DCD852}</Project>
       <Name>Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyApps\MyApps.csproj">
-      <Project>{E1A5A7F5-8E58-43D2-AE5A-BC7307FC382A}</Project>
-      <Name>MyApps</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Store\Store.csproj">
       <Project>{BD330A44-DABF-43E9-83B4-0750F8F1DB9D}</Project>
       <Name>Store</Name>
@@ -98,6 +94,7 @@
     <Compile Include="Injector\Solver\SolverTest.cs" />
     <Compile Include="Model\ArchitectureTest.cs" />
     <Compile Include="Model\ArchiveTest.cs" />
+    <Compile Include="Model\Capabilities\CapabilityListTest.cs" />
     <Compile Include="Model\CatalogTest.cs" />
     <Compile Include="Model\CommandTest.cs" />
     <Compile Include="Model\EnvironmentBindingTest.cs" />
@@ -110,7 +107,7 @@
     <Compile Include="Model\OverlayBindingTest.cs" />
     <Compile Include="Model\PackageImplementationTest.cs" />
     <Compile Include="Model\RunnerTest.cs" />
-    <Compile Include="MyApps\AppListTest.cs" />
+    <Compile Include="DesktopIntegration\AppListTest.cs" />
     <Compile Include="Store\Feeds\MemoryFeedCacheTest.cs" />
     <Compile Include="Store\Feeds\DiskFeedCacheTest.cs" />
     <Compile Include="Injector\Feeds\FeedPreferencesTest.cs" />
@@ -139,9 +136,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Fetchers\testArchive.zip" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DesktopIntegration\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

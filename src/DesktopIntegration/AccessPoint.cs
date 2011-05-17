@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -16,20 +16,33 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using ZeroInstall.Model;
+using ZeroInstall.Model.Capabilities;
+
 namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Access points build upon <see cref="Capability"/>s and represent more invasive changes to the desktop environment's UI.
     /// </summary>
-    [XmlType("integration", Namespace = XmlNamespace)]
-    public abstract class AccessPoint : ICloneable
+    [XmlType("access-point", Namespace = XmlNamespace)]
+    public abstract class AccessPoint : XmlUnknown, ICloneable
     {
         #region Constants
         /// <summary>
         /// The XML namespace used for storing desktop integration data.
         /// </summary>
         public const string XmlNamespace = "http://0install.de/schema/injector/desktop-integration";
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The name of the command in the <see cref="Feed"/> to use when launching via this access point.
+        /// </summary>
+        [Description("The name of the command in the feed to use when launching via this access point.")]
+        [XmlAttribute("command")]
+        public string Command { get; set; }
         #endregion
 
         //--------------------//

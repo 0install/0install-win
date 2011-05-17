@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -18,8 +18,9 @@
 using System;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Model.Capabilities;
 
-namespace ZeroInstall.MyApps
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Contains test methods for <see cref="AppList"/>.
@@ -37,8 +38,8 @@ namespace ZeroInstall.MyApps
             {
                 Entries =
                 {
-                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test App 1", AutoUpdate = true},
-                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test2.xml"), Name = "Test App 2", AutoUpdate = false}
+                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test1.xml"), Name = "Test App 1", AutoUpdate = true, CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}, AccessPoints = {new MenuEntry()}},
+                    new AppEntry {Interface = new Uri("http://0install.de/feeds/test/test2.xml"), Name = "Test App 2", AutoUpdate = false, CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}, AccessPoints = {new DesktopShortcut {Command = "desktop"}}},
                 }
             };
         }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2011 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -22,7 +22,7 @@ using System.IO;
 using System.Xml.Serialization;
 using Common.Storage;
 
-namespace ZeroInstall.MyApps
+namespace ZeroInstall.DesktopIntegration
 {
     /// <summary>
     /// Stores a list of applications the user prefers to use.
@@ -36,7 +36,7 @@ namespace ZeroInstall.MyApps
         /// <summary>
         /// The XML namespace used for storing application list data.
         /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/my-apps/app-list";
+        public const string XmlNamespace = "http://0install.de/schema/desktop-integration/app-list";
         #endregion
 
         #region Properties
@@ -46,7 +46,7 @@ namespace ZeroInstall.MyApps
         /// A list of <see cref="AppEntry"/>s.
         /// </summary>
         [Description("A list of application entries.")]
-        [XmlElement("entry")]
+        [XmlElement("app")]
         // Note: Can not use ICollection<T> interface with XML Serialization
         public C5.ArrayList<AppEntry> Entries { get { return _entries; } }
         #endregion

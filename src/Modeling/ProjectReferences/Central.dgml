@@ -9,11 +9,7 @@
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="ExeFile" />
     </Node>
-    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="MyApps">
-      <Category Ref="CodeSchema_SourceFile" />
-      <Category Ref="DllFile" />
-    </Node>
-    <Node Id="@16" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
+    <Node Id="@14" Category="CodeSchema_Project" IsDragSource="True" Label="Fetchers">
       <Category Ref="CodeSchema_SourceFile" />
       <Category Ref="DllFile" />
     </Node>
@@ -35,52 +31,46 @@
     </Node>
   </Nodes>
   <Links>
-    <Link Source="@10" Target="@16" Category="References" />
+    <Link Source="@10" Target="@14" Category="References" />
     <Link Source="@10" Target="@2" Category="References" />
     <Link Source="@10" Target="@6" Category="References" />
     <Link Source="@10" Target="@8" Category="References" />
     <Link Source="@12" Target="@10" Category="References" />
     <Link Source="@12" Target="@14" Category="References" />
-    <Link Source="@12" Target="@16" Category="References" />
     <Link Source="@12" Target="@2" Category="References" />
     <Link Source="@12" Target="@4" Category="References" />
     <Link Source="@12" Target="@6" Category="References" />
     <Link Source="@12" Target="@8" Category="References" />
-    <Link Source="@14" Target="@10" Category="References" />
     <Link Source="@14" Target="@2" Category="References" />
     <Link Source="@14" Target="@6" Category="References" />
-    <Link Source="@14" Target="@8" Category="References" />
-    <Link Source="@16" Target="@2" Category="References" />
-    <Link Source="@16" Target="@6" Category="References" />
     <Link Source="@2" Target="@6" Category="References" />
     <Link Source="@4" Target="@10" Category="References" />
     <Link Source="@4" Target="@14" Category="References" />
-    <Link Source="@4" Target="@16" Category="References" />
     <Link Source="@4" Target="@2" Category="References" />
     <Link Source="@4" Target="@6" Category="References" />
     <Link Source="@4" Target="@8" Category="References" />
-    <Link Source="@6" Target="@8" Category="References" />
+    <Link Source="@8" Target="@6" Category="References" />
   </Links>
   <Categories>
-    <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blocks" />
-    <Category Id="CodeSchema_Project" Label="Project" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projects" />
-    <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
-    <Category Id="CodeSchema_Statement" Label="Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Statement" />
+    <Category Id="CodeSchema_Block" Label="Block" BasedOn="CodeSchema_Statement" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Blöcke" />
+    <Category Id="CodeSchema_Project" Label="Projekt" BasedOn="CodeSchema_Block" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_SourceFile" Icon="CodeSchema_Project" IsProviderRoot="False" NavigationActionLabel="Projekte" />
+    <Category Id="CodeSchema_SourceFile" Label="Source File" BasedOn="File" CanBeDataDriven="True" DefaultAction="Node:Both:CodeSchema_Type" Icon="File" IsProviderRoot="False" NavigationActionLabel="Dateien" />
+    <Category Id="CodeSchema_Statement" Label="Anweisung" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" IsProviderRoot="False" NavigationActionLabel="Anweisung" />
     <Category Id="DllFile" />
     <Category Id="ExeFile" />
-    <Category Id="File" Label="File" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="Files" />
-    <Category Id="References" Label="References" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Referenced By" OutgoingActionLabel="References" />
+    <Category Id="File" Label="Datei" CanBeDataDriven="True" DefaultAction="Microsoft.Contains" Icon="File" IsProviderRoot="False" NavigationActionLabel="Dateien" />
+    <Category Id="References" Label="Verweise" CanBeDataDriven="True" CanLinkedNodesBeDataDriven="True" IncomingActionLabel="Verweis durch" OutgoingActionLabel="Verweise" />
   </Categories>
   <Properties>
     <Property Id="CanBeDataDriven" Label="CanBeDataDriven" Description="CanBeDataDriven" DataType="System.Boolean" />
     <Property Id="CanLinkedNodesBeDataDriven" Label="CanLinkedNodesBeDataDriven" Description="CanLinkedNodesBeDataDriven" DataType="System.Boolean" />
     <Property Id="DefaultAction" Label="DefaultAction" Description="DefaultAction" DataType="System.String" />
     <Property Id="GraphDirection" DataType="Microsoft.VisualStudio.Progression.Layout.GraphDirection" />
-    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
+    <Property Id="Icon" Label="Symbol" Description="Symbol" DataType="System.String" />
     <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
     <Property Id="IsDragSource" Label="IsDragSource" Description="IsDragSource" DataType="System.Boolean" />
     <Property Id="IsProviderRoot" Label="IsProviderRoot" Description="IsProviderRoot" DataType="System.Boolean" />
-    <Property Id="Label" Label="Label" Description="Displayable label of an Annotatable object" DataType="System.String" />
+    <Property Id="Label" Label="Label" Description="Anzeigbare Bezeichnung eines Annotatable-Objekts" DataType="System.String" />
     <Property Id="Layout" DataType="System.String" />
     <Property Id="NavigationActionLabel" Label="NavigationActionLabel" Description="NavigationActionLabel" DataType="System.String" />
     <Property Id="OutgoingActionLabel" Label="OutgoingActionLabel" Description="OutgoingActionLabel" DataType="System.String" />
@@ -111,10 +101,8 @@
     <Alias n="10" Id="(@9)" />
     <Alias n="11" Uri="Assembly=$(VsSolutionUri)/Central.WinForms/Central.WinForms.csproj" />
     <Alias n="12" Id="(@11)" />
-    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/MyApps/MyApps.csproj" />
+    <Alias n="13" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
     <Alias n="14" Id="(@13)" />
-    <Alias n="15" Uri="Assembly=$(VsSolutionUri)/Fetchers/Fetchers.csproj" />
-    <Alias n="16" Id="(@15)" />
   </IdentifierAliases>
   <Paths>
     <Path Id="VsSolution" Value="..\.." />

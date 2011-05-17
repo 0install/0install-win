@@ -19,6 +19,7 @@ using System;
 using System.Globalization;
 using Common.Storage;
 using NUnit.Framework;
+using ZeroInstall.Model.Capabilities;
 
 namespace ZeroInstall.Model
 {
@@ -45,7 +46,8 @@ namespace ZeroInstall.Model
                 Summaries = {"Default summary", {"German summary", new CultureInfo("de-DE")}},
                 Descriptions = {"Default descriptions", {"German descriptions", new CultureInfo("de-DE")}},
                 Icons = {new Icon(new Uri("http://0install.de/images/test/icon.png"), "image/png")},
-                Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()}
+                Elements = {CreateTestImplementation(), CreateTestPackageImplementation(), CreateTestGroup()},
+                CapabilityLists = {CapabilityListTest.CreateTestCapabilityList()}
             };
         }
 

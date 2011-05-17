@@ -81,18 +81,14 @@ namespace ZeroInstall.Updater
         #endregion
 
         #region Delete files
-        private static readonly string[] _obsoleteFiles = new string[] {};
+        private static readonly string[] _obsoleteFiles = new[] {"ZeroInstall.MyApps.dll", Path.Combine("de", "ZeroInstall.MyApps.resources.dll")};
 
         /// <summary>
         /// Deletes obsolete files from <see cref="Target"/>.
         /// </summary>
         public void DeleteFiles()
         {
-            foreach(string filePattern in _obsoleteFiles)
-            {
-                foreach (string file in Directory.GetFiles(Target, filePattern))
-                    File.Delete(file);
-            }
+            foreach(string file in _obsoleteFiles) File.Delete(file);
         }
         #endregion
 

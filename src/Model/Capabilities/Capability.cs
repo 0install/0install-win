@@ -16,20 +16,31 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Xml.Serialization;
-namespace ZeroInstall.DesktopIntegration
+
+namespace ZeroInstall.Model.Capabilities
 {
     /// <summary>
     /// A capability tells the desktop environment what an application can do and in which fashion this can be represented to the user. It does not change the behaviour of existing UI elements.
     /// </summary>
-    [XmlType("integration", Namespace = XmlNamespace)]
-    public abstract class Capability : ICloneable
+    [XmlType("capability", Namespace = XmlNamespace)]
+    public abstract class Capability : XmlUnknown, ICloneable
     {
         #region Constants
         /// <summary>
-        /// The XML namespace used for storing desktop integration data.
+        /// The XML namespace used for storing application capabilities.
         /// </summary>
-        public const string XmlNamespace = "http://0install.de/schema/injector/desktop-integration";
+        public const string XmlNamespace = "http://0install.de/schema/injector/capabilities";
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// The name of the command in the <see cref="Feed"/> to use when launching via this capability.
+        /// </summary>
+        [Description("The name of the command in the feed to use when launching via this capability.")]
+        [XmlAttribute("command")]
+        public string Command { get; set; }
         #endregion
         
         //--------------------//
