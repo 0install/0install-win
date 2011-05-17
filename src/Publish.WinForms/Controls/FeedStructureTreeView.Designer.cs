@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // FeedStructureTreeView
+            // 
+            this.ResumeLayout(false);
         }
 
         #endregion

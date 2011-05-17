@@ -5,6 +5,7 @@ using System.Windows.Forms;
 using Common;
 using Common.Undo;
 using ZeroInstall.Model;
+using ZeroInstall.Publish.WinForms.FeedStructure;
 using Binding = ZeroInstall.Model.Binding;
 
 namespace ZeroInstall.Publish.WinForms.Controls
@@ -16,6 +17,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Properties
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public FeedEditing FeedEditing
         {
             get
@@ -25,20 +27,20 @@ namespace ZeroInstall.Publish.WinForms.Controls
             set
             {
                 _feedEditing = value;
-                if (_feedEditing == null) Initialize();
-                else  StartBuildingTreeNodes();
+                StartBuildingTreeNodes();
             }
         }
         #endregion
 
-        #region Contrucutor
-        public FeedStructureTreeView()
+        #region Contructor
+        public FeedStructureTreeView(FeedEditing toUse)
         {
             InitializeComponent();
             Initialize();
+            FeedEditing = toUse;
         }
 
-        public FeedStructureTreeView(IContainer container) : this()
+        public FeedStructureTreeView(IContainer container, FeedEditing toUse) : this(toUse)
         {
             container.Add(this);
         }
@@ -47,7 +49,25 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #region Initialization
         private void Initialize()
         {
-            Nodes.Add("Interface");
+            SetupDoubleClickHooks();
+        }
+
+        private void SetupDoubleClickHooks()
+        {
+            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(implementation => new ImplementationForm { Implementation = implementation }, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm { PackageImplementation = implementation }, container => container.Elements);
+            SetupFeedStructureHooks<IElementContainer, Element, Group>(group => new GroupForm { Group = group }, container => container.Elements);
+
+            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm { EnvironmentBinding = binding }, container => container.Bindings);
+            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
+
+            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm { Dependency = dependency }, container => container.Dependencies);
+
+            SetupFeedStructureHooks<Element, Command, Command>(command => new CommandForm { Command = command }, element => element.Commands);
+            SetupFeedStructureHooks<Command, Runner, Runner>(runner => new RunnerForm { Runner = runner }, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm { Archive = archive }, implementation => implementation.RetrievalMethods);
+            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm { Recipe = recipe }, implementation => implementation.RetrievalMethods);
         }
         #endregion
 
@@ -148,7 +168,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
         #endregion
 
         #region Context menu generation
-
         private ToolStripItem SetupContextMenuStripHooks<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
@@ -196,8 +215,106 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
         #endregion
 
-        #region Select & Click events
+        #region Click events
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+            where TContainer : class
+            where TAbstractEntry : class, ICloneable
+            where TSpecialEntry : class, TAbstractEntry, new()
+        {
+            #region Sanity checks
+            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
+            if (getPointer == null) throw new ArgumentNullException("getPointer");
+            #endregion
 
+            #region Edit dialog
+            NodeMouseDoubleClick += (sender, nodeArgs) =>
+            {
+                // Type must match exactly
+                if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
+
+                var entry = (TSpecialEntry)nodeArgs.Node.Tag;
+                var parent = nodeArgs.Node.Parent.Tag as TContainer;
+                if (parent != null)
+                {
+                    // Clone entry for undoable modification
+                    var clonedEntry = (TSpecialEntry)entry.Clone();
+
+                    using (var dialog = getEditDialog(clonedEntry))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), clonedEntry));
+                        }
+                    }
+                }
+            };
+            #endregion
+        }
+
+        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
+            where TContainer : class
+            where TAbstractEntry : class, ICloneable
+            where TSpecialEntry : class, TAbstractEntry, new()
+        {
+            #region Sanity checks
+            if (getEditDialog == null) throw new ArgumentNullException("getEditDialog");
+            if (getList == null) throw new ArgumentNullException("getList");
+            #endregion
+
+            #region Edit dialog
+            NodeMouseDoubleClick += (sender, nodeArgs) =>
+            {
+                // Type must match exactly
+                if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
+
+                var entry = (TSpecialEntry)nodeArgs.Node.Tag;
+                var parent = nodeArgs.Node.Parent.Tag as TContainer;
+                if (parent != null)
+                {
+                    // Clone entry for undoable modification
+                    var clonedEntry = (TSpecialEntry)entry.Clone();
+
+                    using (var dialog = getEditDialog(clonedEntry))
+                    {
+                        if (dialog.ShowDialog() == DialogResult.OK)
+                        {
+                            // Prepare a list of 1 to 3 commands to be executed as a single transaction
+                            var commandList = new List<IUndoCommand>(3)
+                            {
+                                // Replace original entry with cloned and modified one
+                                new SetInList<TAbstractEntry>(getList(parent), entry, clonedEntry)
+                            };
+
+                            #region Update manifest digest
+                            var digestProvider = dialog as IDigestProvider;
+                            var implementation = parent as ImplementationBase;
+                            if (digestProvider != null && implementation != null)
+                            {
+                                // ToDo: Warn when changing an existing digest
+
+                                // Set the ManifestDigest entry
+                                commandList.Add(new SetValueCommand<ManifestDigest>(
+                                    new PropertyPointer<ManifestDigest>(() => implementation.ManifestDigest, newValue => implementation.ManifestDigest = newValue),
+                                    digestProvider.ManifestDigest));
+
+                                // Set the implementation ID unless its already something custom
+                                if (string.IsNullOrEmpty(implementation.ID) || implementation.ID.StartsWith("sha1=new"))
+                                {
+                                    commandList.Add(new SetValueCommand<string>(
+                                        new PropertyPointer<string>(() => implementation.ID, newValue => implementation.ID = newValue),
+                                        "sha1new=" + digestProvider.ManifestDigest.Sha1New));
+                                }
+                            }
+                            #endregion
+
+                            // Execute the transaction
+                            _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+                        }
+                    }
+                }
+            };
+            #endregion
+        }
         #endregion
 
         #region Drag & Drop
