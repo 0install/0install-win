@@ -25,7 +25,7 @@ using System.IO;
 namespace Common.Streams
 {
     /// <summary>
-    /// This wrapper stream passes all operations through to an underlying <see cref="Stream"/> without modifying them. An additional delegate is executed when <see cref="Stream.Dispose"/> is called.
+    /// This wrapper stream passes all operations through to an underlying <see cref="Stream"/> without modifying them. An additional delegate is executed when <see cref="Stream.Dispose()"/> is called.
     /// </summary>
     public class DisposeWarpperStream : Stream
     {

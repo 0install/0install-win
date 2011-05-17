@@ -185,7 +185,7 @@ namespace ZeroInstall.Injector.Feeds
             unchecked
             {
                 int result = LastChecked.GetHashCode();
-                result = (result * 397) ^ Implementations.GetUnsequencedHashCode();
+                result = (result * 397) ^ Implementations.GetSequencedHashCode();
                 return result;
             }
         }
