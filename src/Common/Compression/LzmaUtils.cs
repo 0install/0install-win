@@ -51,7 +51,6 @@ namespace Common.Compression
             if (baseStream == null) throw new ArgumentNullException("baseStream");
             #endregion
 
-            // ToDo: Handle disposing of original stream
             var bufferStream = new CircularBufferStream(bufferSize);
 
             var decoder = new Decoder();
@@ -89,10 +88,13 @@ namespace Common.Compression
             var thread = new Thread(delegate()
             {
                 try { decoder.Code(baseStream, bufferStream, baseStream.Length, uncompressedLength, null); }
+                #region Error handnling
+                catch (ThreadAbortException)
+                {}
+                // If the buffer stream is closed to early the user probably just canceled the extraction process
                 catch (ObjectDisposedException)
-                {
-                    // If the buffer stream is closed to early the user probably just canceled the extraction process
-                }
+                { }
+                #endregion
                 finally
                 {
                     bufferStream.DoneWriting();
@@ -101,7 +103,12 @@ namespace Common.Compression
             });
             thread.Start();
 
-            return bufferStream;
+            return new DisposeWarpperStream(bufferStream, () =>
+            {
+                // Stop producer thread when the buffer stream is closed
+                thread.Abort();
+                thread.Join();
+            });
         }
     }
 }

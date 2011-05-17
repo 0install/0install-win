@@ -105,6 +105,7 @@
     <Compile Include="Streams\StreamUtils.cs" />
     <Compile Include="Streams\OffsetStream.cs" />
     <Compile Include="Streams\CircularBufferStream.cs" />
+    <Compile Include="Streams\DisposeWrapperStream.cs" />
     <Compile Include="Utils\AppInfo.cs" />
     <Compile Include="Utils\AppMutex.cs" />
     <Compile Include="Utils\ProcessUtils.cs" />
