@@ -32,6 +32,7 @@
             // 
             // FeedStructureTreeView
             // 
+            this.ShowRootLines = false;
             this.ResumeLayout(false);
         }
 

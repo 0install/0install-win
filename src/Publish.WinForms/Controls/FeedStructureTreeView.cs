@@ -1,4 +1,21 @@
-﻿using System;
+﻿/*
+ * Copyright 2011 Simon E. Silva Lauinger
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Forms;
@@ -27,51 +44,60 @@ namespace ZeroInstall.Publish.WinForms.Controls
             set
             {
                 _feedEditing = value;
+                if (_feedEditing == null) return;
                 StartBuildingTreeNodes();
             }
         }
         #endregion
 
         #region Contructor
-        public FeedStructureTreeView(FeedEditing toUse)
-        {
-            InitializeComponent();
-            Initialize();
-            FeedEditing = toUse;
-        }
-
-        public FeedStructureTreeView(IContainer container, FeedEditing toUse) : this(toUse)
+        public FeedStructureTreeView(IContainer container)
         {
             container.Add(this);
+
+            InitializeComponent();
+            Initialize();
         }
         #endregion
 
         #region Initialization
         private void Initialize()
         {
-            SetupDoubleClickHooks();
+            SetupNodeDoubleClickHooks();
+            WireControlEvents();
         }
 
-        private void SetupDoubleClickHooks()
+        private void SetupNodeDoubleClickHooks()
         {
-            SetupFeedStructureHooks<IElementContainer, Element, Implementation>(implementation => new ImplementationForm { Implementation = implementation }, container => container.Elements);
-            SetupFeedStructureHooks<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm { PackageImplementation = implementation }, container => container.Elements);
-            SetupFeedStructureHooks<IElementContainer, Element, Group>(group => new GroupForm { Group = group }, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Implementation>(implementation => new ImplementationForm { Implementation = implementation }, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, PackageImplementation>(implementation => new PackageImplementationForm { PackageImplementation = implementation }, container => container.Elements);
+            SetNodeDoubleClickHook<IElementContainer, Element, Group>(group => new GroupForm { Group = group }, container => container.Elements);
 
-            SetupFeedStructureHooks<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm { EnvironmentBinding = binding }, container => container.Bindings);
-            SetupFeedStructureHooks<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, EnvironmentBinding>(binding => new EnvironmentBindingForm { EnvironmentBinding = binding }, container => container.Bindings);
+            SetNodeDoubleClickHook<IBindingContainer, Binding, OverlayBinding>(binding => new OverlayBindingForm { OverlayBinding = binding }, container => container.Bindings);
 
-            SetupFeedStructureHooks<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm { Dependency = dependency }, container => container.Dependencies);
+            SetNodeDoubleClickHook<IDependencyContainer, Dependency, Dependency>(dependency => new DependencyForm { Dependency = dependency }, container => container.Dependencies);
 
-            SetupFeedStructureHooks<Element, Command, Command>(command => new CommandForm { Command = command }, element => element.Commands);
-            SetupFeedStructureHooks<Command, Runner, Runner>(runner => new RunnerForm { Runner = runner }, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            SetNodeDoubleClickHook<Element, Command, Command>(command => new CommandForm { Command = command }, element => element.Commands);
+            SetNodeDoubleClickHook<Command, Runner, Runner>(runner => new RunnerForm { Runner = runner }, command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
 
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm { Archive = archive }, implementation => implementation.RetrievalMethods);
-            SetupFeedStructureHooks<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm { Recipe = recipe }, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Archive>(archive => new ArchiveForm { Archive = archive }, implementation => implementation.RetrievalMethods);
+            SetNodeDoubleClickHook<Implementation, RetrievalMethod, Recipe>(recipe => new RecipeForm { Recipe = recipe }, implementation => implementation.RetrievalMethods);
+        }
+
+        private void WireControlEvents()
+        {
+            NodeMouseClick += (sender, eventArgs) =>
+                                  {
+                                      if (eventArgs.Button != MouseButtons.Right) return;
+                                      var selectedNode = eventArgs.Node;
+                                      if (selectedNode.ContextMenuStrip == null)
+                                          selectedNode.ContextMenuStrip = BuildContextMenuFor(selectedNode.Tag);
+                                  };
         }
         #endregion
 
-        #region Insert tree nodes
+        #region Tree node building
         private void StartBuildingTreeNodes()
         {
             BeginUpdate();
@@ -93,7 +119,6 @@ namespace ZeroInstall.Publish.WinForms.Controls
             #endregion
 
             var node = new TreeNode(data.ToString()) { Tag = data };
-            node.ContextMenuStrip = AddContextMenuStrip(node.Tag);
 
             node.Nodes.AddRange(BuildTreeNodesHelper<IElementContainer, Element>(data, container => container.Elements));
             node.Nodes.AddRange(BuildTreeNodesHelper<IBindingContainer, Binding>(data, container => container.Bindings));
@@ -131,44 +156,47 @@ namespace ZeroInstall.Publish.WinForms.Controls
                 nodes.Add(BuildTreeNodes(element));
             return nodes.ToArray();
         }
-
-        private ContextMenuStrip AddContextMenuStrip(object data)
-        {
-            #region Sanity checks
-            if(data == null) throw new ArgumentNullException("data");
-            #endregion
-
-            var contextMenuStrip = new ContextMenuStrip();
-            var menuItem = SetupContextMenuStripHooks<IElementContainer, Element, Group>(data, "Group", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<IElementContainer, Element, Implementation>(data, "Implementation", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<IElementContainer, Element, PackageImplementation>(data, "PackageImplementation", container => container.Elements);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<IBindingContainer, Binding, EnvironmentBinding>(data, "EnvironmentBinding", container => container.Bindings);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<IBindingContainer, Binding, OverlayBinding>(data, "OverlayBinding", container => container.Bindings);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            menuItem = SetupContextMenuStripHooks<IDependencyContainer, Dependency, Dependency>(data, "Dependency", container => container.Dependencies);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            menuItem = SetupContextMenuStripHooks<Element, Command, Command>(data, "Command", element => element.Commands);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<Command, Runner, Runner>(data, "Runner", command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            menuItem = SetupContextMenuStripHooks<Implementation, RetrievalMethod, Archive>(data, "Archive", implementation => implementation.RetrievalMethods);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-            menuItem = SetupContextMenuStripHooks<Implementation, RetrievalMethod, Recipe>(data, "Recipe", implementation => implementation.RetrievalMethods);
-            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
-
-            return contextMenuStrip;
-        }
         #endregion
 
         #region Context menu generation
-        private ToolStripItem SetupContextMenuStripHooks<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+        private ContextMenuStrip BuildContextMenuFor(object data)
+        {
+            #region Sanity checks
+            if (data == null) throw new ArgumentNullException("data");
+            #endregion
+
+            var contextMenuStrip = new ContextMenuStrip();
+
+            var menuItem = BuildContextMenuEntryFor<IElementContainer, Element, Group>(data, "Group", container => container.Elements);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<IElementContainer, Element, Implementation>(data, "Implementation", container => container.Elements);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<IElementContainer, Element, PackageImplementation>(data, "PackageImplementation", container => container.Elements);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<IBindingContainer, Binding, EnvironmentBinding>(data, "EnvironmentBinding", container => container.Bindings);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<IBindingContainer, Binding, OverlayBinding>(data, "OverlayBinding", container => container.Bindings);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+
+            menuItem = BuildContextMenuEntryFor<IDependencyContainer, Dependency, Dependency>(data, "Dependency", container => container.Dependencies);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+
+            menuItem = BuildContextMenuEntryFor<Element, Command, Command>(data, "Command", element => element.Commands);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<Command, Runner, Runner>(data, "Runner", command => new PropertyPointer<Runner>(() => command.Runner, newValue => command.Runner = newValue));
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+
+            menuItem = BuildContextMenuEntryFor<Implementation, RetrievalMethod, Archive>(data, "Archive", implementation => implementation.RetrievalMethods);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+            menuItem = BuildContextMenuEntryFor<Implementation, RetrievalMethod, Recipe>(data, "Recipe", implementation => implementation.RetrievalMethods);
+            if (menuItem != null) contextMenuStrip.Items.Add(menuItem);
+
+            contextMenuStrip.Items.Add(new ToolStripSeparator());
+
+            return contextMenuStrip;
+        }
+
+        private ToolStripItem BuildContextMenuEntryFor<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -181,7 +209,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
             if (!(data is TContainer)) return null;
             var container = (TContainer) data;
-
+            
             var toolStripItem = new ToolStripMenuItem(text, null, delegate
                 {
                     _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(container), new TSpecialEntry()));
@@ -191,7 +219,7 @@ namespace ZeroInstall.Publish.WinForms.Controls
             return toolStripItem;
         }
 
-        private ToolStripItem SetupContextMenuStripHooks<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private ToolStripItem BuildContextMenuEntryFor<TContainer, TAbstractEntry, TSpecialEntry>(object data, String text, MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -215,8 +243,8 @@ namespace ZeroInstall.Publish.WinForms.Controls
         }
         #endregion
 
-        #region Click events
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
+        #region Node double click hooks
+        private void SetNodeDoubleClickHook<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, PropertyPointer<TAbstractEntry>> getPointer)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -226,12 +254,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (getPointer == null) throw new ArgumentNullException("getPointer");
             #endregion
 
-            #region Edit dialog
             NodeMouseDoubleClick += (sender, nodeArgs) =>
             {
                 // Type must match exactly
                 if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
 
+                nodeArgs.Node.Toggle();
                 var entry = (TSpecialEntry)nodeArgs.Node.Tag;
                 var parent = nodeArgs.Node.Parent.Tag as TContainer;
                 if (parent != null)
@@ -244,14 +272,15 @@ namespace ZeroInstall.Publish.WinForms.Controls
                         if (dialog.ShowDialog() == DialogResult.OK)
                         {
                             _feedEditing.ExecuteCommand(new SetValueCommand<TAbstractEntry>(getPointer(parent), clonedEntry));
+
+                            StartBuildingTreeNodes();
                         }
                     }
                 }
             };
-            #endregion
         }
 
-        private void SetupFeedStructureHooks<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
+        private void SetNodeDoubleClickHook<TContainer, TAbstractEntry, TSpecialEntry>(MapAction<TSpecialEntry, Form> getEditDialog, MapAction<TContainer, IList<TAbstractEntry>> getList)
             where TContainer : class
             where TAbstractEntry : class, ICloneable
             where TSpecialEntry : class, TAbstractEntry, new()
@@ -261,12 +290,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
             if (getList == null) throw new ArgumentNullException("getList");
             #endregion
 
-            #region Edit dialog
             NodeMouseDoubleClick += (sender, nodeArgs) =>
             {
                 // Type must match exactly
                 if (nodeArgs.Node.Tag.GetType() != typeof(TSpecialEntry)) return;
 
+                nodeArgs.Node.Toggle();
                 var entry = (TSpecialEntry)nodeArgs.Node.Tag;
                 var parent = nodeArgs.Node.Parent.Tag as TContainer;
                 if (parent != null)
@@ -309,11 +338,12 @@ namespace ZeroInstall.Publish.WinForms.Controls
 
                             // Execute the transaction
                             _feedEditing.ExecuteCommand(new CompositeCommand(commandList));
+
+                            StartBuildingTreeNodes();
                         }
                     }
                 }
             };
-            #endregion
         }
         #endregion
 
