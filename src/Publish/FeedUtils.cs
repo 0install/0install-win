@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2010 Bastian Eicher
+ * Copyright 2010-2011 Bastian Eicher
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser Public License as published by
@@ -68,7 +68,7 @@ namespace ZeroInstall.Publish
         /// <exception cref="FileNotFoundException">Thrown if the feed file to be signed could not be found.</exception>
         /// <exception cref="IOException">Thrown if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the PGP implementation reported a problem.</exception>
         /// <remarks>The feed file is not parsed before signing. Invalid XML files would be signed as well. Old feed signatures are not removed.</remarks>
         public static void SignFeed(string path, string name, string passphrase)
         {

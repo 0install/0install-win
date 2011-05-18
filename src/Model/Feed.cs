@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace)]
     [XmlType("interface", Namespace = XmlNamespace)]
-    public sealed class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
+    public class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
@@ -280,6 +280,10 @@ namespace ZeroInstall.Model
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
         public static Feed Load(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             try { return XmlStorage.Load<Feed>(path); }
             #region Error handling
             catch (InvalidOperationException ex)
@@ -304,6 +308,10 @@ namespace ZeroInstall.Model
         /// <returns>The loaded <see cref="Feed"/>.</returns>
         public static Feed Load(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             return XmlStorage.Load<Feed>(stream);
         }
 
@@ -315,6 +323,10 @@ namespace ZeroInstall.Model
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
         public void Save(string path)
         {
+            #region Sanity checks
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
+            #endregion
+
             XmlStorage.Save(path, this);
         }
 
@@ -324,6 +336,10 @@ namespace ZeroInstall.Model
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)
         {
+            #region Sanity checks
+            if (stream == null) throw new ArgumentNullException("stream");
+            #endregion
+
             XmlStorage.Save(stream, this);
         }
         #endregion

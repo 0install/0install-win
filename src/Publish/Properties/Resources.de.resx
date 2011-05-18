@@ -120,4 +120,7 @@
   <data name="FileToSignNotFound" xml:space="preserve">
     <value>Die Datei die signiert werden soll kann nicht gefunden werden.</value>
   </data>
+  <data name="ProblemLoading" xml:space="preserve">
+    <value>Es gab ein Problem beim Laden von '{0}'.</value>
+  </data>
 </root>
