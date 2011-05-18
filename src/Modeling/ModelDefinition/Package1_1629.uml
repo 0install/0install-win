@@ -4528,20 +4528,20 @@
                   isReadOnly="false"
                   isDerived="false"
                   isDerivedUnion="false"
-                  aggregation="None"
+                  aggregation="Composite"
                   isComposite="false"
                   isNavigableOwned="false">
                   <lowerValueInternal>
                     <literalString
                       Id="cdc65de5-d361-46a9-aea8-a1038bd006b3"
                       name="Lower"
-                      value="*" />
+                      value="1" />
                   </lowerValueInternal>
                   <upperValueInternal>
                     <literalString
                       Id="9745f156-04da-4e7e-a0c9-988f54e6fa99"
                       name="Upper"
-                      value="*" />
+                      value="1" />
                   </upperValueInternal>
                 </memberEnd>
               </associationHasOwnedEnds>
@@ -4555,7 +4555,7 @@
                   isDerived="false"
                   isDerivedUnion="false"
                   aggregation="None"
-                  isComposite="false">
+                  isComposite="true">
                   <lowerValueInternal>
                     <literalString
                       Id="03a7857c-a103-4f7f-989b-5b5b2d00eaba"
@@ -4842,79 +4842,6 @@
               <undefinedTypeMoniker
                 Id="1a83575b-d0b7-4cb3-b780-2734244d99a8"
                 LastKnownName="DateTime"
-                LastKnownLocation="Package1_1629.uml" />
-            </type_NamedElement>
-          </property>
-          <property
-            Id="4aaf0518-cfdf-4e1d-a6e3-4920dbf60fe9"
-            name="Stability"
-            isLeaf="false"
-            isStatic="false"
-            isReadOnly="false"
-            isDerived="false"
-            isDerivedUnion="false"
-            aggregation="None"
-            isComposite="false">
-            <referencesInternal>
-              <reference
-                Id="911cd2de-9e22-4a1b-a4d4-b05110809456"
-                handle="viewcode://./CodeSchema_Property?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Element Member=Stability"
-                tag="ViewCode" />
-            </referencesInternal>
-            <appliedStereotypesInternal>
-              <stereotypeInstance
-                Id="8675f9dd-3173-4153-b04a-07cf5b523246"
-                name="property"
-                profile="CSharpProfile">
-                <propertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="1f57888a-184e-44ac-ba35-4e913937d18c">
-                    <propertyInstance
-                      Id="f3dbbc51-a108-49ec-ae44-84c583ee07b8"
-                      name="ClrAttributes" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="2663e2eb-615f-42f7-839c-28e244f95892">
-                    <propertyInstance
-                      Id="dff6943d-65cb-4fd0-8272-55bfee57c968"
-                      name="Get"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="5d55f080-e6eb-40ce-8759-beae62cb9724">
-                    <propertyInstance
-                      Id="ebf4dea2-90d2-4da7-b5fb-7fbc57698603"
-                      name="HasBody"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="a5d56ed0-46a1-4fc7-b605-d0b620d6ee14">
-                    <propertyInstance
-                      Id="2f2c1267-c6a3-4292-89b5-8049317d6f7a"
-                      name="IsUnsafe"
-                      value="false" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="f780d7cf-5078-4c80-a53c-bb27a5f7ccfd">
-                    <propertyInstance
-                      Id="6cb4c0de-c69e-4527-a126-74d39ec80029"
-                      name="PackageVisibility"
-                      value="internal" />
-                  </stereotypeInstanceHasPropertyInstances>
-                  <stereotypeInstanceHasPropertyInstances
-                    Id="cb500397-f8ce-4270-b59e-99bf2f02402f">
-                    <propertyInstance
-                      Id="c14d15e9-9fdd-478c-8368-eaf4213e2cf2"
-                      name="Set"
-                      value="public" />
-                  </stereotypeInstanceHasPropertyInstances>
-                </propertyInstances>
-              </stereotypeInstance>
-            </appliedStereotypesInternal>
-            <type_NamedElement>
-              <enumerationMoniker
-                Id="4533311a-aa8b-4665-b389-190658f8e348"
-                LastKnownName="Stability"
                 LastKnownLocation="Package1_1629.uml" />
             </type_NamedElement>
           </property>
@@ -5453,6 +5380,16 @@
               <reference
                 Id="305f4950-3f22-431f-95df-74f5ec271053"
                 handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Stability Member=Insecure"
+                tag="ViewCode" />
+            </referencesInternal>
+          </enumerationLiteral>
+          <enumerationLiteral
+            Id="ddb77ab7-336e-4b44-abef-1a238b83b520"
+            name="Preferred">
+            <referencesInternal>
+              <reference
+                Id="072c746d-9485-4b87-a41c-d9ac12ca9954"
+                handle="viewcode://./CodeSchema_Field?Assembly=file:///F:/Documents/Code/0install/netfx/build/Backend/Debug/ZeroInstall.Model.dll Namespace=ZeroInstall.Model Type=Stability Member=Preferred"
                 tag="ViewCode" />
             </referencesInternal>
           </enumerationLiteral>
@@ -11771,72 +11708,6 @@
                   <upperValueInternal>
                     <literalString
                       Id="6a901457-5cdf-4174-a42f-d77e2cb341de"
-                      name="Upper"
-                      value="1" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-            </relationshipOwnedElementsInternal>
-          </association>
-          <association
-            Id="f30ee2f8-6c89-411f-8de2-bba1f6b8d22c"
-            isDerived="false"
-            sourceEndRoleName="PackageImplementation"
-            targetEndRoleName="Stability"
-            isLeaf="false"
-            isAbstract="false">
-            <enumerationMoniker
-              Id="4533311a-aa8b-4665-b389-190658f8e348"
-              LastKnownName="Stability"
-              LastKnownLocation="Package1_1629.uml" />
-            <description>Property Stability references type Stability.</description>
-            <relationshipOwnedElementsInternal>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="70b0fa7a-4335-4bea-9fbb-c220b89e2158"
-                  name="PackageImplementation"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false"
-                  isNavigableOwned="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="bda34db4-a8e2-41a9-934b-87678739fda0"
-                      name="Lower"
-                      value="*" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="e7e3196f-3172-4e39-b116-c62f7b39f2b6"
-                      name="Upper"
-                      value="*" />
-                  </upperValueInternal>
-                </memberEnd>
-              </associationHasOwnedEnds>
-              <associationHasOwnedEnds>
-                <memberEnd
-                  Id="804f479c-22e5-4fec-8d3a-56c23653a478"
-                  name="Stability"
-                  isLeaf="false"
-                  isStatic="false"
-                  isReadOnly="false"
-                  isDerived="false"
-                  isDerivedUnion="false"
-                  aggregation="None"
-                  isComposite="false">
-                  <lowerValueInternal>
-                    <literalString
-                      Id="d035498d-6df0-4493-b386-e0a33a158954"
-                      name="Lower"
-                      value="1" />
-                  </lowerValueInternal>
-                  <upperValueInternal>
-                    <literalString
-                      Id="4f67cf0d-903f-4d7f-b453-fab36e45e239"
                       name="Upper"
                       value="1" />
                   </upperValueInternal>

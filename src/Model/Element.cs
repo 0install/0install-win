@@ -33,6 +33,10 @@ namespace ZeroInstall.Model
         [XmlIgnore]
         Unset,
 
+        /// <summary>Set by user as a personal preference</summary>
+        [XmlEnum("preferred")]
+        Preferred,
+
         /// <summary>No serious problems</summary>
         [XmlEnum("stable")]
         Stable,
