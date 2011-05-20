@@ -22,44 +22,47 @@
 
 using System.IO;
 using System.Net;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace Common.Tasks
 {
     /// <summary>
-    /// Contains test methods for <see cref="SimpleTask"/>.
+    /// Contains test methods for <see cref="ForEachTask{T}"/>.
     /// </summary>
     [TestFixture]
-    public class SimpleTaskTest
+    public class ForEachTaskTest
     {
         [Test(Description = "Ensures the work delegate gets called synchronously.")]
         public void TestCallbackSync()
         {
-            bool called = false;
+            var target = new[] { "element1", "element2", "element2" };
+            var calledFor = new List<string>();
 
-            var task = new SimpleTask("Test task", () => called = true);
+            var task = new ForEachTask<string>("Test task", target, calledFor.Add);
             task.RunSync();
 
-            Assert.IsTrue(called);
+            CollectionAssert.AreEqual(target, calledFor);
         }
 
         [Test(Description = "Ensures the work delegate gets called asynchronously.")]
         public void TestCallbackAsync()
         {
-            bool called = false;
+            var target = new[] { "element1", "element2", "element2" };
+            var calledFor = new List<string>();
 
-            var task = new SimpleTask("Test task", () => called = true);
+            var task = new ForEachTask<string>("Test task", target, calledFor.Add);
             task.Start();
             task.Join();
 
-            Assert.IsTrue(called);
+            CollectionAssert.AreEqual(target, calledFor);
         }
 
         [Test(Description = "Ensures exceptions from the work delegate get correctly passed through.")]
         public void TestExceptionPassing()
         {
-            Assert.Throws<IOException>(() => new SimpleTask("Test task", delegate { throw new IOException("Test exception"); }).RunSync());
-            Assert.Throws<WebException>(() => new SimpleTask("Test task", delegate { throw new WebException("Test exception"); }).RunSync());
+            Assert.Throws<IOException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new IOException("Test exception"); }).RunSync());
+            Assert.Throws<WebException>(() => new ForEachTask<string>("Test task", new[] {""}, delegate { throw new WebException("Test exception"); }).RunSync());
         }
     }
 }

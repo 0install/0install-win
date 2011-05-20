@@ -21,6 +21,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading;
@@ -28,9 +29,9 @@ using System.Threading;
 namespace Common.Tasks
 {
     /// <summary>
-    /// A delegate-driven task that cannot be canceled. Only completion is reported, no intermediate progress.
+    /// A task that performs an operation once for each element of a collection.
     /// </summary>
-    public sealed class SimpleTask : MarshalByRefObject, ITask
+    public sealed class ForEachTask<T> : MarshalByRefObject, ITask
     {
         #region Events
         /// <inheritdoc />
@@ -48,14 +49,20 @@ namespace Common.Tasks
         #endregion
 
         #region Variables
+        /// <summary>Flag that indicates the current process should be canceled.</summary>
+        private volatile bool _cancelRequest;
+
         /// <summary>Synchronization handle to prevent race conditions with thread startup/shutdown or <see cref="State"/> switching.</summary>
         private readonly object _stateLock = new object();
 
         /// <summary>The background thread used for executing the task. Sub-classes must initalize this member.</summary>
         private readonly Thread _thread;
 
-        /// <summary>The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</summary>
-        private readonly SimpleEventHandler _work;
+        /// <summary>A list of objects to execute work for. Cancellation is possible between two elements.</summary>
+        private readonly IEnumerable<T> _target;
+
+        /// <summary>The code to be executed once per element in <see cref="_target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</summary>
+        private readonly Action<T> _work;
         #endregion
 
         #region Properties
@@ -63,7 +70,7 @@ namespace Common.Tasks
         public string Name { get; private set; }
 
         /// <inheritdoc />
-        public bool CanCancel { get { return false; } }
+        public bool CanCancel { get { return true; } }
 
         private TaskState _state;
         /// <inheritdoc />
@@ -87,19 +94,22 @@ namespace Common.Tasks
 
         #region Constructor
         /// <summary>
-        /// Creates a new simple task.
+        /// Creates a new for-each task.
         /// </summary>
         /// <param name="name">A name describing the task in human-readable form.</param>
-        /// <param name="work">The code to be executed by the task. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
-        public SimpleTask(string name, SimpleEventHandler work)
+        /// <param name="target">A list of objects to execute work for. Cancellation is possible between two elements.</param>
+        /// <param name="work">The code to be executed once per element in <paramref name="target"/>. May throw <see cref="WebException"/>, <see cref="IOException"/> or <see cref="UserCancelException"/>.</param>
+        public ForEachTask(string name, IEnumerable<T> target, Action<T> work)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+            if (target == null) throw new ArgumentNullException("target");
             if (work == null) throw new ArgumentNullException("work");
             #endregion
 
             Name = name;
             _work = work;
+            _target = target;
 
             // Prepare the background thread for later execution
             _thread = new Thread(RunTask);
@@ -124,7 +134,14 @@ namespace Common.Tasks
         /// <inheritdoc/>
         public void RunSync()
         {
-            try { _work(); }
+            try
+            {
+                foreach (var element in _target)
+                {
+                    if (_cancelRequest) return;
+                    _work(element);
+                }
+            }
             #region Error handling
             catch (WebException ex)
             {
@@ -160,7 +177,12 @@ namespace Common.Tasks
         /// <inheritdoc />
         public void Cancel()
         {
-            throw new NotSupportedException("Task can not be canceled.");
+            _cancelRequest = true;
+            _thread.Join();
+
+            // Reset the state so the task can be started again
+            State = TaskState.Ready;
+            _cancelRequest = false;
         }
         #endregion
 
@@ -172,7 +194,14 @@ namespace Common.Tasks
         {
             lock(_stateLock) State = TaskState.Data;
 
-            try { _work(); }
+            try
+            {
+                foreach (var element in _target)
+                {
+                    if (_cancelRequest) return;
+                    _work(element);
+                }
+            }
             #region Error handling
             catch (WebException ex)
             {

@@ -49,6 +49,7 @@ namespace Common.Controls
 
             InitializeComponent();
             buttonCancel.Text = Resources.Cancel;
+            buttonCancel.Enabled = task.CanCancel;
 
             Icon = icon;
             Text = task.Name;
