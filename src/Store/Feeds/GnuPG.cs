@@ -132,7 +132,6 @@ namespace ZeroInstall.Store.Feeds
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
-            if (string.IsNullOrEmpty(passphrase)) throw new ArgumentNullException("passphrase");
             if (!File.Exists(path)) throw new FileNotFoundException(Resources.FileToSignNotFound, path);
             #endregion
 
@@ -140,6 +139,7 @@ namespace ZeroInstall.Store.Feeds
             if (!string.IsNullOrEmpty(name)) arguments += " --local-user \"" + name.Replace("\"", "\\\"") + "\"";
             arguments += " --detach-sign \"" + path.Replace("\"", "\\\")" + "\"");
 
+            if (string.IsNullOrEmpty(passphrase)) passphrase = "\n";
             Execute(arguments, passphrase);
         }
         #endregion
@@ -169,7 +169,8 @@ namespace ZeroInstall.Store.Feeds
         /// </summary>
         /// <param name="line">The error line written to stderr.</param>
         /// <returns>Always <see langword="null"/>.</returns>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private static string ErrorHandler(string line)
         {
             if (new Regex("gpg: skipped \"[\\w\\W]*\": bad passphrase").IsMatch(line)) throw new WrongPassphraseException();

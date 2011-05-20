@@ -26,6 +26,7 @@ using NDesk.Options;
 using ZeroInstall.Model;
 using ZeroInstall.Publish.Cli.Arguments;
 using ZeroInstall.Publish.Cli.Properties;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish.Cli
 {
@@ -110,6 +111,11 @@ namespace ZeroInstall.Publish.Cli
                 return (int)ErrorLevel.IOError;
             }
             catch (UnauthorizedAccessException ex)
+            {
+                Log.Error(ex.Message);
+                return (int)ErrorLevel.IOError;
+            }
+            catch (WrongPassphraseException ex)
             {
                 Log.Error(ex.Message);
                 return (int)ErrorLevel.IOError;
@@ -204,7 +210,8 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if a feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to a feed file or the catalog file is not permitted.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         private static int Execute(OperationMode mode, ParseResults results)
         {
             switch (mode)
@@ -253,7 +260,8 @@ namespace ZeroInstall.Publish.Cli
         /// <exception cref="FileNotFoundException">Thrown if the feed file could not be found.</exception>
         /// <exception cref="IOException">Thrown if a file could not be read or written or if the GnuPG could not be launched or the feed file could not be read or written.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read or write access to the feed file is not permitted.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if GnuPG reported a problem.</exception>
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
         public static void ModifyFeeds(ParseResults results)
         {
             foreach (var file in results.Feeds)

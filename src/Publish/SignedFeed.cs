@@ -17,76 +17,99 @@
 
 using System;
 using System.IO;
-using Common;
 using Common.Cli;
-using Common.Storage;
 using ZeroInstall.Model;
-using ZeroInstall.Publish.Properties;
+using ZeroInstall.Store.Feeds;
 
 namespace ZeroInstall.Publish
 {
     /// <summary>
-    /// Represents a Zero Install protected by a PGP signautre.
+    /// A wrapper around a <see cref="Feed"/> adding a digital signature.
     /// </summary>
-    public class SignedFeed : Feed
+    [Serializable]
+    public class SignedFeed
     {
-        #region Variables
-        public string SignatureID { get; set; }
+        #region Properties
+        /// <summary>
+        /// The wrapped <see cref="Feed"/>.
+        /// </summary>
+        public Feed Feed { get; private set; }
+
+        /// <summary>
+        /// The private key used to sign the <see cref="Feed"/>.
+        /// </summary>
+        public OpenPgpSecretKey SecretKey { get; set; }
+        #endregion
+
+        #region Constructor
+        /// <summary>
+        /// Creates a new signed feed.
+        /// </summary>
+        /// <param name="feed">The wrapped <see cref="Feed"/>.</param>
+        /// <param name="secretKey">The private key used to sign the <see cref="Feed"/>.</param>
+        public SignedFeed(Feed feed, OpenPgpSecretKey secretKey)
+        {
+            #region Sanity checks
+            if (feed == null) throw new ArgumentNullException("feed");
+            #endregion
+
+            Feed = feed;
+            SecretKey = secretKey;
+        }
         #endregion
 
         //--------------------//
 
         #region Storage
         /// <summary>
-        /// Loads a <see cref="SignedFeed"/> from an XML file (feed) and identifies the signature (if any).
+        /// Loads a <see cref="Feed"/> from an XML file and identifies the signature (if any).
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="SignedFeed"/>.</returns>
         /// <exception cref="IOException">Thrown if a problem occurs while reading the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if read access to the file is not permitted.</exception>
         /// <exception cref="InvalidOperationException">Thrown if a problem occurs while deserializing the XML data.</exception>
-        public new static SignedFeed Load(string path)
+        public static SignedFeed Load(string path)
         {
             #region Sanity checks
             if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            try { return XmlStorage.Load<SignedFeed>(path); }
-            #region Error handling
-            catch (InvalidOperationException ex)
-            {
-                // Write additional diagnostic information to log
-                if (ex.Source == "System.Xml")
-                {
-                    string message = string.Format(Resources.ProblemLoading, path) + "\n" + ex.Message;
-                    if (ex.InnerException != null) message += "\n" + ex.InnerException.Message;
-                    Log.Error(message);
-                }
-
-                throw;
-            }
-            #endregion
-
             // ToDo: Identify signature
+            return new SignedFeed(Feed.Load(path), default(OpenPgpSecretKey));
         }
 
         /// <summary>
-        /// Saves this <see cref="SignedFeed"/> to an XML file (feed) and signs it with <see cref="SignatureID"/>.
+        /// Saves <see cref="Feed"/> to an XML file and signs it with <see cref="SecretKey"/>.
         /// </summary>
         /// <param name="path">The file to save in.</param>
-        /// <param name="getPassphrase">A callback method used to ask the user for the password for <see cref="Signature"/>.</param>
+        /// <param name="passphrase">The passphrase to use to unlock the key.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
         /// <exception cref="UnauthorizedAccessException">Thrown if write access to the file is not permitted.</exception>
-        /// <exception cref="UnhandledErrorsException">Thrown if the PGP implementation reported a problem.</exception>
-        public void Save(string path, SimpleResult<string> getPassphrase)
+        /// <exception cref="WrongPassphraseException">Thrown if passphrase was incorrect.</exception>
+        /// <exception cref="UnhandledErrorsException">Thrown if the OpenPGP implementation reported a problem.</exception>
+        public void Save(string path, string passphrase)
         {
             #region Sanity checks
-            if (getPassphrase == null) throw new ArgumentNullException("getPassphrase");
+            if (string.IsNullOrEmpty(path)) throw new ArgumentNullException("path");
             #endregion
 
-            XmlStorage.Save(path, this);
-            FeedUtils.AddStylesheet(path);
-            if (!string.IsNullOrEmpty(SignatureID)) FeedUtils.SignFeed(path, SignatureID, getPassphrase());
+            try
+            {
+                // Make overwriting existing files transactional
+                Feed.Save(path + ".new");
+                FeedUtils.AddStylesheet(path + ".new");
+                FeedUtils.SignFeed(path + ".new", SecretKey, passphrase);
+
+                File.Delete(path);
+                File.Move(path + ".new", path);
+            }
+            catch (Exception)
+            {
+                // Clean up failed transactions
+                if (File.Exists(path + ".new")) File.Delete(path + ".new");
+                throw;
+            }
         }
         #endregion
     }

@@ -219,7 +219,7 @@ namespace ZeroInstall.Publish.WinForms
             try
             {
                 _feedEditing.Save(path);
-                if (!string.IsNullOrEmpty(_signingKeyPassphrase)) FeedUtils.SignFeed(_feedEditing.Path, _signingKey.KeyID, _signingKeyPassphrase);
+                if (!string.IsNullOrEmpty(_signingKeyPassphrase)) FeedUtils.SignFeed(_feedEditing.Path, _signingKey, _signingKeyPassphrase);
             }
             #region Error handling
             catch (IOException exception)
