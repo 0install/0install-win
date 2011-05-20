@@ -36,7 +36,7 @@ namespace ZeroInstall.Model
     [Serializable]
     [XmlRoot("interface", Namespace = XmlNamespace)]
     [XmlType("interface", Namespace = XmlNamespace)]
-    public class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
+    public sealed class Feed : XmlUnknown, IElementContainer, ISimplifyable, ICloneable, IEquatable<Feed>
     {
         #region Constants
         /// <summary>
@@ -271,7 +271,7 @@ namespace ZeroInstall.Model
         
         #region Storage
         /// <summary>
-        /// Loads a <see cref="Feed"/> from an XML file (feed).
+        /// Loads a <see cref="Feed"/> from an XML file.
         /// </summary>
         /// <param name="path">The file to load from.</param>
         /// <returns>The loaded <see cref="Feed"/>.</returns>
@@ -302,7 +302,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Loads a <see cref="Feed"/> from a stream containing an XML file (feed).
+        /// Loads a <see cref="Feed"/> from a stream containing an XML file.
         /// </summary>
         /// <param name="stream">The stream to load from.</param>
         /// <returns>The loaded <see cref="Feed"/>.</returns>
@@ -316,7 +316,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Saves this <see cref="Feed"/> to an XML file (feed).
+        /// Saves this <see cref="Feed"/> to an XML file.
         /// </summary>
         /// <param name="path">The file to save in.</param>
         /// <exception cref="IOException">Thrown if a problem occurs while writing the file.</exception>
@@ -331,7 +331,7 @@ namespace ZeroInstall.Model
         }
 
         /// <summary>
-        /// Saves this <see cref="Feed"/> to a stream as an XML file (feed).
+        /// Saves this <see cref="Feed"/> to a stream as an XML file.
         /// </summary>
         /// <param name="stream">The stream to save in.</param>
         public void Save(Stream stream)

@@ -137,6 +137,7 @@
   </xs:simpleType>
   <xs:simpleType name="stability">
     <xs:restriction base="xs:string">
+      <xs:enumeration value="preferred" />
       <xs:enumeration value="stable" />
       <xs:enumeration value="testing" />
       <xs:enumeration value="developer" />
