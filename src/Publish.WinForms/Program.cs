@@ -16,7 +16,12 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
+using Common;
+using Common.Cli;
+
 #if !DEBUG
 using Common.Controls;
 #endif
@@ -38,10 +43,37 @@ namespace ZeroInstall.Publish.WinForms
             Application.SetCompatibleTextRenderingDefault(false);
 
 #if DEBUG
-            Application.Run(new MainForm());
+            Run(args);
 #else
-            ErrorReportForm.RunAppMonitored(() => Application.Run(new MainForm()), new Uri("http://0install.de/error-report/"));
+            ErrorReportForm.RunAppMonitored(() => Run(args), new Uri("http://0install.de/error-report/"));
 #endif
+        }
+
+        private static void Run(string[] args)
+        {
+            if (args.Length == 0) Application.Run(new MainForm());
+            else
+            {
+                ICollection<FileInfo> files;
+                try { files = ArgumentUtils.GetFiles(args, "*.xml"); }
+                #region Error handling
+                catch (FileNotFoundException ex)
+                {
+                    Msg.Inform(null, ex.Message, MsgSeverity.Error);
+                    return;
+                }
+                #endregion
+
+                //if (files.Count == 1)
+                //{
+                //    // ToDo: Open file for editing
+                //}
+                //else
+                {
+                    MassSignDialog.Show(files);
+                }
+
+            }
         }
     }
 }
