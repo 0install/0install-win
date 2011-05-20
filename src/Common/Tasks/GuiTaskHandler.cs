@@ -33,9 +33,6 @@ namespace Common.Tasks
         /// <inheritdoc />
         public bool Batch { get; set; }
 
-        /// <summary>Synchronization object used to prevent multiple concurrent <see cref="ITask"/>s.</summary>
-        private readonly object _taskLock = new object();
-
         /// <inheritdoc />
         public void RunTask(ITask task, object tag)
         {

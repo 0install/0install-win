@@ -153,17 +153,6 @@ namespace ZeroInstall.Model
         public string DocDir { get; set; }
 
         // Preserve order
-        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
-        /// <summary>
-        /// A list of commands that can be used to launch this implementation.
-        /// </summary>
-        /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
-        [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
-        [XmlElement("command")]
-        // Note: Can not use ICollection<T> interface because of XML Serialization
-        public C5.ArrayList<Command> Commands { get { return _commands; } }
-
-        // Preserve order
         private readonly C5.ArrayList<Dependency> _dependencies = new C5.ArrayList<Dependency>();
         /// <summary>
         /// A list of interfaces this implementation depends upon.
@@ -182,6 +171,17 @@ namespace ZeroInstall.Model
         [XmlElement(typeof(EnvironmentBinding)), XmlElement(typeof(OverlayBinding))]
         // Note: Can not use ICollection<T> interface because of XML Serialization
         public C5.ArrayList<Binding> Bindings { get { return _bindings; } }
+
+        // Preserve order
+        private readonly C5.ArrayList<Command> _commands = new C5.ArrayList<Command>();
+        /// <summary>
+        /// A list of commands that can be used to launch this implementation.
+        /// </summary>
+        /// <remarks>This will eventually replace <see cref="Main"/> and <see cref="SelfTest"/>.</remarks>
+        [Category("Execution"), Description("A list of commands that can be used to launch this implementation.")]
+        [XmlElement("command")]
+        // Note: Can not use ICollection<T> interface because of XML Serialization
+        public C5.ArrayList<Command> Commands { get { return _commands; } }
         #endregion
 
         //--------------------//

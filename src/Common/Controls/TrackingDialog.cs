@@ -37,7 +37,7 @@ namespace Common.Controls
     {
         #region Constructor
         /// <summary>
-        /// Creates a new tracking progress dialog.
+        /// Creates a new progress-tracking dialog.
         /// </summary>
         /// <param name="task">The trackable task to execute and display.</param>
         /// <param name="icon">The icon for the dialog to display in the task bar; may be <see langword="null"/>.</param>
