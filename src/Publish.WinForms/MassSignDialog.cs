@@ -60,7 +60,7 @@ namespace ZeroInstall.Publish.WinForms
 
         #region Static access
         /// <summary>
-        /// Displays the dialog and allows the user to sign a set of <see cref="Feed"/>s.
+        /// Displays a dialog allowing the user to sign a set of <see cref="Feed"/>s.
         /// </summary>
         /// <param name="files">The <see cref="Feed"/> files to be signed.</param>
         public static void Show(IEnumerable<FileInfo> files)

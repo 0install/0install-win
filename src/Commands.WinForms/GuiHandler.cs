@@ -93,7 +93,9 @@ namespace ZeroInstall.Commands.WinForms
             _form = new ProgressForm(delegate { cancelCallback(); _auditWaitHandle.Set(); });
 
             // Initialize GUI with a low priority
-            new Thread(GuiThread) {Priority = ThreadPriority.Lowest}.Start();
+            var thread = new Thread(GuiThread) {Priority = ThreadPriority.Lowest};
+            thread.SetApartmentState(ApartmentState.STA); // Make COM work
+            thread.Start();
         }
 
         /// <summary>
