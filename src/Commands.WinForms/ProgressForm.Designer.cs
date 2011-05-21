@@ -34,6 +34,7 @@
             this.notifyIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.buttonHide = new System.Windows.Forms.Button();
             this.labelSolving = new System.Windows.Forms.Label();
+            this.progressBarSolving = new System.Windows.Forms.ProgressBar();
             this.selectionsControl = new ZeroInstall.Commands.WinForms.SelectionsControl();
             this.SuspendLayout();
             // 
@@ -75,6 +76,16 @@
             this.labelSolving.TabIndex = 0;
             this.labelSolving.Text = "Solving...";
             // 
+            // progressBarSolving
+            // 
+            this.progressBarSolving.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.progressBarSolving.Location = new System.Drawing.Point(17, 49);
+            this.progressBarSolving.Name = "progressBarSolving";
+            this.progressBarSolving.Size = new System.Drawing.Size(535, 23);
+            this.progressBarSolving.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBarSolving.TabIndex = 4;
+            // 
             // selectionsControl
             // 
             this.selectionsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -91,6 +102,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(564, 182);
+            this.Controls.Add(this.progressBarSolving);
             this.Controls.Add(this.labelSolving);
             this.Controls.Add(this.buttonHide);
             this.Controls.Add(this.buttonCancel);
@@ -113,6 +125,7 @@
         private System.Windows.Forms.NotifyIcon notifyIcon;
         private SelectionsControl selectionsControl;
         private System.Windows.Forms.Label labelSolving;
+        private System.Windows.Forms.ProgressBar progressBarSolving;
 
     }
 }
