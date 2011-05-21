@@ -66,6 +66,12 @@
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
     <Compile Include="GuiHandler.cs" />
+    <Compile Include="InterfaceDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="InterfaceDialog.Designer.cs">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="InterfaceDialog.resx">
+      <DependentUpon>InterfaceDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>

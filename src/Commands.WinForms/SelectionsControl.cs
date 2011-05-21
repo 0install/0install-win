@@ -17,6 +17,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
@@ -35,10 +36,17 @@ namespace ZeroInstall.Commands.WinForms
     public partial class SelectionsControl : UserControl
     {
         #region Variables
+        /// <summary>The current selections state as set by <see cref="SetSelections"/> or updated during <see cref="BeginAudit"/>.</summary>
         private Selections _selections;
-        private SimpleResult<Selections> _solveCallback;
+
+        /// <summary>>A wait handle to be signaled once the user is done with <see cref="BeginAudit"/>.</summary>
         private EventWaitHandle _waitHandle;
+
+        /// <summary>A list of all <see cref="TrackingControl"/>s used by <see cref="TrackTask"/>. Adressable by associated <see cref="Implementation"/> via <see cref="ManifestDigest"/>.</summary>
         private readonly Dictionary<ManifestDigest, TrackingControl> _trackingControls = new Dictionary<ManifestDigest, TrackingControl>();
+
+        /// <summary>A list of all controls visible only while the user is busy with <see cref="BeginAudit"/>.</summary>
+        private readonly LinkedList<Control> _auditLinks = new LinkedList<Control>();
         #endregion
 
         #region Constructor
@@ -83,6 +91,7 @@ namespace ZeroInstall.Commands.WinForms
 
                 // Get feed for each selected implementation
                 var implementation = _selections.Implementations[i];
+                if (implementation.FromFeed != null && implementation.FromFeed.StartsWith(ImplementationSelection.DistributionFeedPrefix)) continue;
                 Feed feed = FeedCacheProvider.CreateDefault().GetFeed(implementation.FromFeed ?? implementation.InterfaceID);
 
                 // Display application name and implementation version
@@ -109,12 +118,49 @@ namespace ZeroInstall.Commands.WinForms
             if (!IsHandleCreated) throw new InvalidOperationException("Method called before control handle was created.");
             #endregion
 
-            _solveCallback = solveCallback;
             _waitHandle = waitHandle;
 
-            buttonReSolve.Visible = true;
+            for (int i = 0; i < _selections.Implementations.Count; i++)
+            {
+                string interfaceID = _selections.Implementations[i].InterfaceID;
+
+                // Setup link label for modifying interface preferences
+                var linkLabel = new LinkLabel { Text = "Change", Dock = DockStyle.Fill, TextAlign = ContentAlignment.MiddleLeft };
+                linkLabel.LinkClicked += delegate
+                {
+                    if (InterfaceDialog.Show(this, interfaceID)) ReSolve(solveCallback, waitHandle);
+                };
+                _auditLinks.AddLast(linkLabel);
+                tableLayout.Controls.Add(linkLabel, 2, i);
+            }
+
             buttonContinue.Visible = true;
             buttonContinue.Focus();
+        }
+
+        /// <summary>
+        /// Reruns the solver to reflect changes made to <see cref="InterfacePreferences"/> and <see cref="FeedPreferences"/>.
+        /// </summary>
+        /// <param name="solveCallback">Called to invoke the solver.</param>
+        /// <param name="waitHandle">A wait handle to be signaled once the user is satisfied with the <see cref="Selections"/>.</param>
+        private void ReSolve(SimpleResult<Selections> solveCallback, EventWaitHandle waitHandle)
+        {
+            // Prevent user interaction while solving
+            Enabled = false;
+
+            var solveWorker = new BackgroundWorker();
+            solveWorker.DoWork += delegate { _selections = solveCallback(); };
+            solveWorker.RunWorkerCompleted += delegate
+            {
+                // Update the UI
+                SetSelections(_selections);
+                _auditLinks.Clear();
+                BeginAudit(solveCallback, waitHandle);
+
+                // Restore user interaction
+                Enabled = true;
+            };
+            solveWorker.RunWorkerAsync();
         }
         #endregion
 
@@ -171,26 +217,13 @@ namespace ZeroInstall.Commands.WinForms
         #region Buttons
         private void buttonContinue_Click(object sender, EventArgs e)
         {
-            buttonReSolve.Visible = false;
+            // Remove all auditing-related controls
+            foreach (var control in _auditLinks)
+                tableLayout.Controls.Remove(control);
             buttonContinue.Visible = false;
+
+            // Signal the waiting thread auditing is complete
             if (_waitHandle != null) _waitHandle.Set();
-        }
-
-        private void buttonReSolve_Click(object sender, EventArgs e)
-        {
-            Enabled = false;
-            solveWorker.RunWorkerAsync();
-        }
-
-        private void solveWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
-        {
-            _selections = _solveCallback();
-        }
-
-        private void solveWorker_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
-        {
-            SetSelections(_selections);
-            Enabled = true;
         }
         #endregion
     }

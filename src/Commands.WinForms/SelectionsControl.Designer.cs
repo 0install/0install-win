@@ -32,8 +32,6 @@
             this.labelName = new System.Windows.Forms.Label();
             this.labelVersion = new System.Windows.Forms.Label();
             this.labelTask = new System.Windows.Forms.Label();
-            this.buttonReSolve = new System.Windows.Forms.Button();
-            this.solveWorker = new System.ComponentModel.BackgroundWorker();
             this.buttonContinue = new System.Windows.Forms.Button();
             this.scrollPanel = new System.Windows.Forms.Panel();
             this.tableLayout.SuspendLayout();
@@ -86,30 +84,13 @@
             this.labelTask.TabIndex = 2;
             this.labelTask.Text = "Task";
             // 
-            // buttonReSolve
-            // 
-            this.buttonReSolve.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonReSolve.Location = new System.Drawing.Point(0, 32);
-            this.buttonReSolve.Name = "buttonReSolve";
-            this.buttonReSolve.Size = new System.Drawing.Size(75, 23);
-            this.buttonReSolve.TabIndex = 1;
-            this.buttonReSolve.Text = "Re-solve";
-            this.buttonReSolve.UseVisualStyleBackColor = true;
-            this.buttonReSolve.Visible = false;
-            this.buttonReSolve.Click += new System.EventHandler(this.buttonReSolve_Click);
-            // 
-            // solveWorker
-            // 
-            this.solveWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.solveWorker_DoWork);
-            this.solveWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.solveWorker_RunWorkerCompleted);
-            // 
             // buttonContinue
             // 
             this.buttonContinue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonContinue.Location = new System.Drawing.Point(81, 32);
+            this.buttonContinue.Location = new System.Drawing.Point(3, 32);
             this.buttonContinue.Name = "buttonContinue";
             this.buttonContinue.Size = new System.Drawing.Size(75, 23);
-            this.buttonContinue.TabIndex = 2;
+            this.buttonContinue.TabIndex = 1;
             this.buttonContinue.Text = "Continue";
             this.buttonContinue.UseVisualStyleBackColor = true;
             this.buttonContinue.Visible = false;
@@ -132,7 +113,6 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonContinue);
-            this.Controls.Add(this.buttonReSolve);
             this.Controls.Add(this.scrollPanel);
             this.Name = "SelectionsControl";
             this.Size = new System.Drawing.Size(350, 55);
@@ -147,8 +127,6 @@
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tableLayout;
-        private System.Windows.Forms.Button buttonReSolve;
-        private System.ComponentModel.BackgroundWorker solveWorker;
         private System.Windows.Forms.Button buttonContinue;
         private System.Windows.Forms.Label labelName;
         private System.Windows.Forms.Label labelVersion;
