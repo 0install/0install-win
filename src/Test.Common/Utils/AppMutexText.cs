@@ -31,11 +31,13 @@ namespace Common.Utils
     public class AppMutexTest
     {
         /// <summary>
-        /// Ensures the methods <see cref="AppMutex.Probe"/>, <see cref="AppMutex.Create"/> and <see cref="AppMutex.Close"/> work correctly together.
+        /// Ensures the methods <see cref="AppMutex.Probe"/>, <see cref="AppMutex.Create(string,out AppMutex)"/> and <see cref="AppMutex.Close"/> work correctly together.
         /// </summary>
         [Test]
         public void TestProbeCreateClose()
         {
+            if (!WindowsUtils.IsWindows) throw new InconclusiveException("AppMutexes are only available on the Windows platform.");
+
             Assert.IsFalse(AppMutex.Probe("unit-test-123"));
             AppMutex mutex;
             AppMutex.Create("unit-test-123", out mutex);
